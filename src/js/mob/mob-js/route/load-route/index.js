@@ -44,8 +44,6 @@ export const loadRoute = async ({
     const contentElement = getContentElement();
     if (!contentElement || !(contentElement instanceof HTMLElement)) return;
 
-    // if (!skipTransition) contentElement.style.visibility = 'hidden';
-
     /**
      * Set before Route leave.
      */

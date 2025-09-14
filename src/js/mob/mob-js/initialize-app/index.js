@@ -3,7 +3,7 @@ import { frameDelayAfterParse } from '../constant';
 import { setComponentList } from '../component/component-list';
 import { setIndex, setPageNotFound, setRouteList } from '../route/route-list';
 import { initParseWatcher, parseComponents } from '../parse';
-import { router } from '../route';
+import { parseUrlHash, router } from '../route';
 // import { debugRoute } from '../route/test';
 import { setContentElement, setContentId } from '../route/dom-ref/content';
 import { setRoot } from '../route/dom-ref/root';
@@ -87,6 +87,12 @@ export const inizializeApp = async ({
     rootEl.insertAdjacentHTML('afterbegin', wrapperDOM);
 
     setContentElement();
+
+    /**
+     * Update routeName/templateName/params without load route. So wrapper had frash route data, route is load after
+     * wrapper
+     */
+    parseUrlHash({ shouldLoadRoute: false });
 
     /**
      * Load wrapper with currentRoute && currentTemplate updated.

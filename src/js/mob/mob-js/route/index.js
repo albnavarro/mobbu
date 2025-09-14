@@ -1,4 +1,8 @@
 import { MobCore } from '../../mob-core';
+import {
+    MAIN_STORE_ACTIVE_PARAMS,
+    MAIN_STORE_ACTIVE_ROUTE,
+} from '../main-store/constant';
 import { mainStore } from '../main-store/main-store';
 import { HISTORY_BACK, HISTORY_NEXT } from './constant';
 import {
@@ -85,8 +89,14 @@ const convertObjectParamsToString = (params) => {
 
 /**
  * Get hash from url and load new route.
+ *
+ * If shouldLoadRoute is false, update only mainStore currentRoute etc...
+ *
+ * @param {object} [params]
+ * @param {boolean} [params.shouldLoadRoute]
+ * @returns {Promise<void>}
  */
-const hashHandler = async () => {
+export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     const historyObejct = { time: MobCore.getTime(), scrollY: window.scrollY };
     const originalHash = globalThis.location.hash.slice(1);
 
@@ -178,22 +188,37 @@ const hashHandler = async () => {
         setHistoryBack(getLastHistoryNext());
     }
 
-    /**
-     * Load.
-     */
-    await loadRoute({
-        route: getRouteModule({ url: hash }),
-        templateName: getTemplateName({
-            url: hash && hash.length > 0 ? hash : getIndex(),
-        }),
-        restoreScroll: getRestoreScrollVale({ url: hash }),
-        params,
-        scrollY: currentHistory
-            ? (getLastHistory(historyDirection)?.scrollY ?? 0)
-            : 0,
-        skipTransition:
-            (currentHistory ?? currentSkipTransition) ? true : false,
+    const targetRoute = getRouteModule({ url: hash });
+    const targetTemplate = getTemplateName({
+        url: hash && hash.length > 0 ? hash : getIndex(),
     });
+
+    /**
+     * Load route.
+     */
+    if (shouldLoadRoute)
+        await loadRoute({
+            route: targetRoute,
+            templateName: targetTemplate,
+            restoreScroll: getRestoreScrollVale({ url: hash }),
+            params,
+            scrollY: currentHistory
+                ? (getLastHistory(historyDirection)?.scrollY ?? 0)
+                : 0,
+            skipTransition:
+                (currentHistory ?? currentSkipTransition) ? true : false,
+        });
+
+    /**
+     * Update only current route/template/params
+     */
+    if (!shouldLoadRoute) {
+        mainStore.set(MAIN_STORE_ACTIVE_ROUTE, {
+            route: targetRoute,
+            templateName: targetTemplate,
+        });
+        mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params);
+    }
 
     /**
      * Reset current skip transition value.
@@ -205,7 +230,7 @@ const hashHandler = async () => {
  * Initialize router.
  */
 export const router = () => {
-    hashHandler();
+    parseUrlHash();
 
     globalThis.addEventListener('popstate', (event) => {
         currentHistory = event?.state?.nextId;
@@ -256,7 +281,7 @@ export const router = () => {
     });
 
     globalThis.addEventListener('hashchange', () => {
-        hashHandler();
+        parseUrlHash();
     });
 };
 

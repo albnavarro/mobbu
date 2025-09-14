@@ -9533,7 +9533,7 @@
       return `${previous}${currentJoin}${key}=${value}`;
     }, "");
   };
-  var hashHandler = async () => {
+  var parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     const historyObejct = { time: modules_exports.getTime(), scrollY: window.scrollY };
     const originalHash = globalThis.location.hash.slice(1);
     const { routeIsLoading } = mainStore.get();
@@ -9574,20 +9574,30 @@
     if (currentHistory && historyDirection === HISTORY_NEXT) {
       setHistoryBack(getLastHistoryNext());
     }
-    await loadRoute({
-      route: getRouteModule({ url: hash }),
-      templateName: getTemplateName({
-        url: hash && hash.length > 0 ? hash : getIndex()
-      }),
-      restoreScroll: getRestoreScrollVale({ url: hash }),
-      params,
-      scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY ?? 0 : 0,
-      skipTransition: currentHistory ?? currentSkipTransition ? true : false
+    const targetRoute = getRouteModule({ url: hash });
+    const targetTemplate = getTemplateName({
+      url: hash && hash.length > 0 ? hash : getIndex()
     });
+    if (shouldLoadRoute)
+      await loadRoute({
+        route: targetRoute,
+        templateName: targetTemplate,
+        restoreScroll: getRestoreScrollVale({ url: hash }),
+        params,
+        scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY ?? 0 : 0,
+        skipTransition: currentHistory ?? currentSkipTransition ? true : false
+      });
+    if (!shouldLoadRoute) {
+      mainStore.set(MAIN_STORE_ACTIVE_ROUTE, {
+        route: targetRoute,
+        templateName: targetTemplate
+      });
+      mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params);
+    }
     currentSkipTransition = void 0;
   };
   var router = () => {
-    hashHandler();
+    parseUrlHash();
     globalThis.addEventListener("popstate", (event) => {
       currentHistory = event?.state?.nextId;
       if (currentHistory && !previousHistory && historyBackSize() > 0) {
@@ -9610,7 +9620,7 @@
       resetNext();
     });
     globalThis.addEventListener("hashchange", () => {
-      hashHandler();
+      parseUrlHash();
     });
   };
   var loadUrl = ({ url, params, skipTransition }) => {
@@ -9668,6 +9678,7 @@
     setPageNotFound({ routeName: pageNotFound3 });
     rootEl.insertAdjacentHTML("afterbegin", wrapperDOM);
     setContentElement();
+    parseUrlHash({ shouldLoadRoute: false });
     await parseComponents({ element: rootEl, persistent: true });
     modules_exports.useFrameIndex(() => {
       modules_exports.useNextTick(() => {
@@ -38015,7 +38026,6 @@
   // src/js/component/lib/utils/get-first-animation-delay.js
   var getFrameDelay = () => {
     const { templateName } = modules_exports2.getActiveRoute();
-    console.log("name", templateName);
     return docsTemplate.has(templateName) ? 0 : 40;
   };
 
