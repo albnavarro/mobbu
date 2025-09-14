@@ -43,7 +43,9 @@
             "@utils/*": ["./src/js/utils/*"],
 
             // add data
-            "@data/*": ["./src/js/data/*"]
+            "@data/*": ["./src/js/data/*"],
+
+            "@pages/*": ["./src/js/pages/*"]
         }
     },
     "ts-node": { "esm": true },
