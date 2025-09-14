@@ -14,6 +14,7 @@ import {
 import { setRestoreScroll } from '../route/scroll';
 import { setRedirectFunction } from '../route/redirect';
 import { setDefaultComponent } from '../component/create-component';
+import { MobJs } from '@mobJs';
 
 /**
  * Inizializa default route.
@@ -89,6 +90,18 @@ export const inizializeApp = async ({
     setContentElement();
 
     /**
+     * Start router. Load current route
+     */
+    router();
+
+    /**
+     * Await next tick to get update currentRoute && currentTemplate
+     */
+    await MobJs.tick();
+
+    /**
+     * Load wrapper with currentRoute && currentTemplate updated.
+     *
      * Render common layout component. Initialize js on common layout component. All component here is persistent, so
      * persistent is set to true.
      */
@@ -103,15 +116,6 @@ export const inizializeApp = async ({
             afterInit();
         });
     }, frameDelayAfterParse);
-
-    /**
-     * Set DOM content element
-     */
-
-    /**
-     * Start router.
-     */
-    router();
 };
 
 // debugRoute();
