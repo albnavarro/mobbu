@@ -49,6 +49,7 @@ export interface Navigation {
 export interface NavigationContainer {
     state: {
         isOpen: boolean;
+        isMounted: boolean;
     };
     methods: {
         scrollTop: () => void;

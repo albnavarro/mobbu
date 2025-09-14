@@ -17,7 +17,6 @@
         transform 0.55s,
         background 0.55s;
     background: $white;
-    border-top: 1px $black solid;
     border-right: 1px $black solid;
     display: none;
 
@@ -63,18 +62,42 @@
         width: calc(var(--header-height) / 2);
         top: 0;
         height: calc(100vh - var(--footer-height) - var(--header-height));
-        border-right: 1px $black solid;
         background: transparent;
         transition: background 0.35s;
 
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 1px;
+            height: 100%;
+            background: $black;
+            transform-origin: top right;
+            transform: scaleY(0);
+            transition: transform 1s 0.5s;
+        }
+
+        &.is-visible {
+            &::after {
+                transform: scaleY(100%);
+            }
+        }
+
         @include when-inside('[data-template="template-doc-default"]') {
-            border-right: 0;
             background: rgba($black, 0.05);
+
+            &::after {
+                display: none;
+            }
         }
 
         @include when-inside('[data-template="template-mobJs-component"]') {
-            border-right: 0;
             background: rgba($black, 0.05);
+
+            &::after {
+                display: none;
+            }
         }
 
         @include when-inside('.active') {
@@ -122,7 +145,7 @@
 
     &__percent {
         position: absolute;
-        left: calc(100% + 1px);
+        left: 100%;
         top: 0;
         width: calc(100vw - var(--nav-width));
         background: $black;

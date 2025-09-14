@@ -110,6 +110,8 @@ export const NavigationContainerFn = ({
         addMethod('scrollTop', scrollNativationToTop);
         addMethod('refresh', refreshScroller);
 
+        proxi.isMounted = true;
+
         return () => {};
     });
 
@@ -120,7 +122,12 @@ export const NavigationContainerFn = ({
                 toggleClass: { active: () => proxi.isOpen },
             })}
         >
-            <div class="l-navcontainer__side">
+            <div
+                class="l-navcontainer__side"
+                ${bindEffect({
+                    toggleClass: { 'is-visible': () => proxi.isMounted },
+                })}
+            >
                 <div class="l-navcontainer__percent"></div>
                 <button
                     class="l-navcontainer__totop"

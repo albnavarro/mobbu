@@ -5,6 +5,7 @@
 import { html, MobJs } from '@mobJs';
 import { getCommonData } from '@data/index';
 import { navigationStore } from '@stores/navigation';
+import { MobCore } from '@mobCore';
 
 /**
  * @param {object} params
@@ -37,9 +38,30 @@ const getItems = ({ delegateEvents, staticProps }) => {
 };
 
 /** @type {MobComponent} */
-export const FooterNavFn = ({ delegateEvents, staticProps }) => {
+export const FooterNavFn = ({
+    delegateEvents,
+    staticProps,
+    getProxi,
+    onMount,
+    bindEffect,
+}) => {
+    const proxi = getProxi();
+
+    onMount(() => {
+        MobCore.useFrameIndex(() => {
+            proxi.isMounted = true;
+        }, 10);
+    });
+
     return html`
-        <ul class="footer-nav">
+        <ul
+            class="footer-nav"
+            ${bindEffect({
+                toggleClass: {
+                    'is-visible': () => proxi.isMounted,
+                },
+            })}
+        >
             ${getItems({ delegateEvents, staticProps })}
         </ul>
     `;

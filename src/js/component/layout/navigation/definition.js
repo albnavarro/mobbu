@@ -152,6 +152,10 @@ export const NavigationContainer = MobJs.createComponent(
                 value: false,
                 type: Boolean,
             }),
+            isMounted: () => ({
+                value: false,
+                type: Boolean,
+            }),
         },
     })
 );

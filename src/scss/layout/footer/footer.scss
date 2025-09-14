@@ -17,9 +17,26 @@
     left: 0;
     width: 100%;
     text-align: center;
-    border-top: 1px $black solid;
     transition: background 0.35s;
     display: none;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: $black;
+        transform-origin: top left;
+        transform: scaleX(0);
+    }
+
+    &.is-visible {
+        &::after {
+            transform: scaleX(100%);
+        }
+    }
 
     @include mq(desktop) {
         display: block;
@@ -27,18 +44,34 @@
 
     @include when-inside('[data-template="home"]') {
         background: transparent;
+
+        &::after {
+            transition: transform 1s 0.2s;
+        }
     }
 
     @include when-inside('[data-template="about"]') {
         background: rgba($black, 0.6);
+
+        &::after {
+            transition: transform 1s 0.2s;
+        }
     }
 
     @include when-inside('[data-template="template-animation"]') {
         background: transparent;
+
+        &::after {
+            transition: transform 1s 0.2s;
+        }
     }
 
     @include when-inside('[data-template="template-listing"]') {
         background: transparent;
+
+        &::after {
+            transition: transform 1s 0.2s;
+        }
     }
 
     &__container {
@@ -53,5 +86,11 @@
         right: rem(20);
         bottom: calc(var(--footer-height) * 0.5);
         transform: translateY(50%);
+        opacity: 0;
+        transition: opacity 1s 0.2s;
+
+        @include when-inside('.is-visible') {
+            opacity: 1;
+        }
     }
 }

@@ -11,7 +11,6 @@
     text-transform: none;
     background-color: transparent;
     border: 0;
-    border-right: 1px $black solid;
     margin: 0;
     height: var(--header-height);
     width: var(--header-height);
@@ -21,6 +20,48 @@
     --height: 2px;
     --total-height: 10px;
     --offset: -8px;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1px;
+        height: 100%;
+        background: $black;
+        transform-origin: top right;
+        transform: scaleY(0);
+    }
+
+    @include when-inside('[data-template="home"]') {
+        &::after {
+            transition: transform 1s 0.5s;
+        }
+    }
+
+    @include when-inside('[data-template="about"]') {
+        &::after {
+            transition: transform 1s 0.5s;
+        }
+    }
+
+    @include when-inside('[data-template="template-listing"]') {
+        &::after {
+            transition: transform 1s 0.5s;
+        }
+    }
+
+    @include when-inside('[data-template="template-animation"]') {
+        &::after {
+            transition: transform 1s 0.5s;
+        }
+    }
+
+    &.is-visible {
+        &::after {
+            transform: scaleY(100%);
+        }
+    }
 
     &-inner {
         display: block;
@@ -82,10 +123,16 @@
         }
     }
 
-    &-box {
+    &__box {
         width: var(--width);
         height: var(--total-height);
         display: inline-block;
         position: relative;
+        opacity: 0;
+        transition: opacity 1s 0.5s;
+
+        &.is-visible {
+            opacity: 1;
+        }
     }
 }

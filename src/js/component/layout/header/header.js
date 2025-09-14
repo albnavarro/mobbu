@@ -9,6 +9,7 @@ import {
     mobNavigationName,
 } from '../../instance-name';
 import { navigationStore } from '@stores/navigation';
+import { MobCore } from '@mobCore';
 
 function titleHandler() {
     MobJs.loadUrl({ url: '#home' });
@@ -40,13 +41,20 @@ export const HeaderFn = ({
             return outerHeight(element);
         });
 
-        setTimeout(() => {
+        MobCore.useFrameIndex(() => {
             proxi.isMounted = true;
-        }, 500);
+        }, 10);
     });
 
     return html`
-        <header class="l-header">
+        <header
+            class="l-header"
+            ${bindEffect({
+                toggleClass: {
+                    'is-visible': () => proxi.isMounted,
+                },
+            })}
+        >
             <div class="l-header__container">
                 <div class="l-header__grid">
                     <div class="l-header__toggle">
@@ -65,7 +73,7 @@ export const HeaderFn = ({
                             <h3
                                 ${bindEffect({
                                     toggleClass: {
-                                        visible: () => proxi.isMounted,
+                                        'is-visible': () => proxi.isMounted,
                                     },
                                 })}
                             >
@@ -74,7 +82,7 @@ export const HeaderFn = ({
                             <h5
                                 ${bindEffect({
                                     toggleClass: {
-                                        visible: () => proxi.isMounted,
+                                        'is-visible': () => proxi.isMounted,
                                     },
                                 })}
                             >
@@ -82,7 +90,14 @@ export const HeaderFn = ({
                             </h5>
                         </div>
                     </button>
-                    <div class="l-header__utils">
+                    <div
+                        class="l-header__utils"
+                        ${bindEffect({
+                            toggleClass: {
+                                'is-visible': () => proxi.isMounted,
+                            },
+                        })}
+                    >
                         <mob-header-nav></mob-header-nav>
                     </div>
                 </div>

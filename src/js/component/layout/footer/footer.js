@@ -1,16 +1,32 @@
 import { consoleLogDebug } from '@commonComponent/debug/console-log';
 import { html, MobJs } from '@mobJs';
 import { debugOverlayName } from '../../instance-name';
+import { MobCore } from '@mobCore';
 
 /**
  * @import {MobComponent, UseMethodByName} from '@mobJsType'
  * @import {DebugOverlay} from '../../common/debug/debug-overlay/type'
  */
 
-/** @type {MobComponent} */
-export const FooterFn = ({ delegateEvents }) => {
+/** @type {MobComponent<import('./type').Footer>} */
+export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
+    const proxi = getProxi();
+
+    onMount(() => {
+        MobCore.useFrameIndex(() => {
+            proxi.isMounted = true;
+        }, 10);
+    });
+
     return html`
-        <footer class="l-footer">
+        <footer
+            class="l-footer"
+            ${bindEffect({
+                toggleClass: {
+                    'is-visible': () => proxi.isMounted,
+                },
+            })}
+        >
             <div class="l-footer__container">
                 <footer-nav></footer-nav>
                 <div class="l-footer__debug">

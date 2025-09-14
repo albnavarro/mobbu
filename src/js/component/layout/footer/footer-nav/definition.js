@@ -35,4 +35,10 @@ export const FooterNav = MobJs.createComponent({
     tag: 'footer-nav',
     component: FooterNavFn,
     child: [FooterNavButton],
+    state: {
+        isMounted: () => ({
+            value: false,
+            type: Boolean,
+        }),
+    },
 });

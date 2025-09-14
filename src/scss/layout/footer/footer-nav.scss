@@ -5,6 +5,12 @@
     margin: 0;
     display: block;
     padding: 0;
+    opacity: 0;
+    transition: opacity 1s 0.55s;
+
+    &.is-visible {
+        opacity: 1;
+    }
 
     @include mq(xlarge) {
         place-self: center center;

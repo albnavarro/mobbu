@@ -9,3 +9,9 @@ interface State extends NavigationStore {
 export interface FooterNavButton {
     state: State;
 }
+
+export interface FooterNav {
+    state: {
+        isMounted: boolean;
+    };
+}
