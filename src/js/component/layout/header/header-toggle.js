@@ -2,6 +2,7 @@
  * @import {MobComponent} from '@mobJsType';
  */
 
+import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
 import { UnFreezeMobPageScroll } from '@mobMotionPlugin';
@@ -19,7 +20,7 @@ export const HeaderToggleFn = ({
     onMount(() => {
         MobCore.useFrameIndex(() => {
             proxi.isMounted = true;
-        }, 10);
+        }, getFrameDelay());
     });
 
     return html`

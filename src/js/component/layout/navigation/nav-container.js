@@ -7,6 +7,7 @@ import {
     mobNavigationName,
 } from '../../instance-name';
 import { navigationStore } from '@stores/navigation';
+import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 
 /**
  * @import {SetState, UseMethodByName} from '@mobJsType'
@@ -110,7 +111,9 @@ export const NavigationContainerFn = ({
         addMethod('scrollTop', scrollNativationToTop);
         addMethod('refresh', refreshScroller);
 
-        proxi.isMounted = true;
+        MobCore.useFrameIndex(() => {
+            proxi.isMounted = true;
+        }, getFrameDelay());
 
         return () => {};
     });

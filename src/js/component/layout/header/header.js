@@ -10,6 +10,7 @@ import {
 } from '../../instance-name';
 import { navigationStore } from '@stores/navigation';
 import { MobCore } from '@mobCore';
+import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 
 function titleHandler() {
     MobJs.loadUrl({ url: '#home' });
@@ -43,7 +44,7 @@ export const HeaderFn = ({
 
         MobCore.useFrameIndex(() => {
             proxi.isMounted = true;
-        }, 10);
+        }, getFrameDelay());
     });
 
     return html`

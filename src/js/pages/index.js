@@ -30,6 +30,11 @@ export const PAGE_TEMPLATE_LINKS = 'template-listing';
 export const PAGE_TEMPLATE_ANIMATION = 'template-animation';
 export const PAGE_TEMPLATE_TEST = 'template-test';
 
+export const docsTemplate = new Set([
+    PAGE_TEMPLATE_COMPONENT_MOBJS,
+    PAGE_TEMPLATE_DOCS_DEFAULT,
+]);
+
 const mobJsComponentBreadCrumbs = [
     {
         url: './#mobJs-overview',

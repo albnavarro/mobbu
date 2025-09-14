@@ -2,6 +2,7 @@ import { consoleLogDebug } from '@commonComponent/debug/console-log';
 import { html, MobJs } from '@mobJs';
 import { debugOverlayName } from '../../instance-name';
 import { MobCore } from '@mobCore';
+import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 
 /**
  * @import {MobComponent, UseMethodByName} from '@mobJsType'
@@ -15,7 +16,7 @@ export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
     onMount(() => {
         MobCore.useFrameIndex(() => {
             proxi.isMounted = true;
-        }, 10);
+        }, getFrameDelay());
     });
 
     return html`

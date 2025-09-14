@@ -4,10 +4,7 @@
  */
 
 import { html, MobJs } from '@mobJs';
-import {
-    PAGE_TEMPLATE_COMPONENT_MOBJS,
-    PAGE_TEMPLATE_DOCS_DEFAULT,
-} from 'src/js/pages';
+import { docsTemplate } from '@pages/index';
 
 /**
  * @param {object} params
@@ -38,11 +35,6 @@ const getList = ({ proxi, bindEffect }) => {
         })
         .join('');
 };
-
-const docsTemplate = new Set([
-    PAGE_TEMPLATE_COMPONENT_MOBJS,
-    PAGE_TEMPLATE_DOCS_DEFAULT,
-]);
 
 /** @type {MobComponent<RightSidebar>} */
 export const RightSidebarFn = ({
