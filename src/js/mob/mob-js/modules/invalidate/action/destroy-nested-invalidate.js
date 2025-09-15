@@ -15,10 +15,15 @@ import { invalidateFunctionMap } from '../invalidate-function-map';
  * @param {HTMLElement} params.invalidateParent
  * @returns {void}
  */
-
 export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
+    /**
+     * PlaceholderMap
+     *
+     * - Find module to destroy from modulePlaceholderMap
+     * - Module must contained in moduleParent element
+     */
     const invalidatechildToDelete = getRepeatOrInvalidateInsideElement({
-        element: invalidateParent,
+        moduleParentElement: invalidateParent,
         skipInitialized: false,
         onlyInitialized: true,
         componentId: id,
@@ -26,7 +31,10 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
     });
 
     /**
-     * Prefer cycle componentMap instead create a copy for performance. Better for memory.
+     * FunctionMap
+     *
+     * - Find function for unsubscribe nested modules
+     * - Use id found in invalidatechildToDelete
      */
     for (const value of invalidateFunctionMap.values()) {
         value.forEach(({ invalidateId, unsubscribe }) => {
@@ -35,31 +43,18 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
             });
 
             if (condition) {
+                /**
+                 * Invalidate has multiple observe item.
+                 */
                 unsubscribe.forEach((fn) => {
                     fn();
                 });
 
+                /**
+                 * Remove modules from placeholder && function map
+                 */
                 removeInvalidateByInvalidateId({ id, invalidateId });
             }
         });
     }
-
-    // const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()]
-    //     .flat()
-    //     .filter((item) => {
-    //         return invalidatechildToDelete.some((current) => {
-    //             return current.id === item.invalidateId;
-    //         });
-    //     });
-    //
-    // invalidateChildToDeleteParsed.forEach((item) => {
-    //     item.unsubscribe.forEach((fn) => {
-    //         fn();
-    //     });
-    //
-    //     removeInvalidateByInvalidateId({
-    //         id,
-    //         invalidateId: item.invalidateId,
-    //     });
-    // });
 };

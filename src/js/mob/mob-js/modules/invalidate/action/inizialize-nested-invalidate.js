@@ -7,20 +7,27 @@ import {
 import { invalidateFunctionMap } from '../invalidate-function-map';
 
 /**
- * Initialize watch function of nested invalidate. Start initialize from older one, so child invalidate is render after
- * parent invalidate
+ * Initialize watch function of nested invalidate.
+ *
+ * Start initialize from older one, so child invalidate is render after parent invalidate
  *
  * @param {object} params
- * @param {HTMLElement | undefined} params.invalidateParent
- * @param {string} params.id - ComponentId
+ * @param {HTMLElement | undefined} params.invalidateParent - Module parent HTMLElement
+ * @param {string} params.id - Component id witch contain moduleParent is defined.
  * @returns {void}
  */
 
 export const inizializeNestedInvalidate = ({ invalidateParent, id }) => {
     if (!invalidateParent) return;
 
+    /**
+     * PlaceholderMap
+     *
+     * - Find module to initialize from modulePlaceholderMap
+     * - Module must contained in moduleParent element
+     */
     const newInvalidateChild = getRepeatOrInvalidateInsideElement({
-        element: invalidateParent,
+        moduleParentElement: invalidateParent,
         skipInitialized: true,
         onlyInitialized: false,
         componentId: id,
@@ -28,27 +35,18 @@ export const inizializeNestedInvalidate = ({ invalidateParent, id }) => {
     });
 
     /**
-     * Prefer cycle on map instead create a copy for performance. Better for memory.
+     * FunctionMap
+     *
+     * - Find function for initialize nested modules
+     * - Use id found in newInvalidateChild
      */
     for (const value of invalidateFunctionMap.values()) {
-        value.forEach(({ invalidateId, fn }) => {
+        value.forEach(({ invalidateId, fn: initilizeFunction }) => {
             const condition = newInvalidateChild.some((current) => {
                 return current.id === invalidateId;
             });
 
-            if (condition) fn();
+            if (condition) initilizeFunction();
         });
     }
-
-    // const invalidateChildToInizialize = [...invalidateFunctionMap.values()]
-    //     .flat()
-    //     .filter(({ invalidateId }) => {
-    //         return newInvalidateChild.some((current) => {
-    //             return current.id === invalidateId;
-    //         });
-    //     });
-    //
-    // invalidateChildToInizialize.forEach(({ fn }) => {
-    //     fn();
-    // });
 };

@@ -10,16 +10,20 @@ export const MODULE_INVALIDATE = 'invalidate';
 /**
  * Get all repeat or invalidate inside HTMLElement
  *
+ * - Filter modules contained in target component ( componentId )
+ * - Filter initialized or notInitialized modules
+ * - Filter moduled where parentElement is contained in moduleParentElement
+ *
  * @param {object} params
- * @param {HTMLElement} params.element
- * @param {boolean} [params.skipInitialized]
- * @param {boolean} [params.onlyInitialized]
- * @param {string} [params.componentId]
- * @param {string} params.module
+ * @param {HTMLElement} params.moduleParentElement - Main module container
+ * @param {boolean} [params.skipInitialized] - Used if we want to initialize module
+ * @param {boolean} [params.onlyInitialized] - Used if we want to destroy module
+ * @param {string} [params.componentId] - The component where main module is defined
+ * @param {string} params.module - Module type repeat or invalidate
  * @returns {{ id: string; parent: HTMLElement | undefined }[]}
  */
 export const getRepeatOrInvalidateInsideElement = ({
-    element,
+    moduleParentElement,
     skipInitialized = false,
     onlyInitialized = false,
     componentId,
@@ -32,24 +36,21 @@ export const getRepeatOrInvalidateInsideElement = ({
 
     const result = [];
 
-    /**
-     * Prefer cycle on map instead create a copy for performance. Better for memory.
-     */
     for (const item of entries) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const [_id, { element: currentElement, initialized, scopeId }] = item;
+        const [_id, { element: currentModuleParent, initialized, scopeId }] =
+            item;
 
         /**
          * Skip 1
          *
-         * When destroy nested repat compare the the scope id is the same or a parent id Check only repeate descendants
-         * by scopeId
+         * Check if current scopeId is contained in componentId ( directly or nested )
          */
         if (
             componentId &&
             !compareIdOrParentIdRecursive({
-                id: scopeId ?? '',
-                compareValue: componentId,
+                moduleScopeId: scopeId ?? '',
+                targetComponentId: componentId,
             })
         )
             continue;
@@ -57,19 +58,23 @@ export const getRepeatOrInvalidateInsideElement = ({
         /**
          * Skip 2
          *
-         * Only not initialized. Use on create nested modules
+         * Only not initialized. Use to create nested modules
          */
         if (skipInitialized && initialized) continue;
 
         /**
-         * Only initialized. Use on destroy nested modules
+         * Only initialized. Use to destroy nested modules
          */
         if (onlyInitialized && !initialized) continue;
 
+        /**
+         * Last condition, current module container is child main module container ( non only child of component where
+         * module is defined ).
+         */
         const condition =
-            currentElement &&
-            element?.contains(currentElement) &&
-            element !== currentElement;
+            currentModuleParent &&
+            moduleParentElement?.contains(currentModuleParent) &&
+            moduleParentElement !== currentModuleParent;
 
         if (condition) result.push(item);
     }
@@ -78,46 +83,4 @@ export const getRepeatOrInvalidateInsideElement = ({
         id,
         parent: parent?.element,
     }));
-
-    // return entries
-    //     .filter(
-    //         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    //         ([_id, { element: currentElement, initialized, scopeId }]) => {
-    //             /**
-    //              * When destroy nested repat compare the the scope id is the same or a parent id Check only repeate
-    //              * descendants by scopeId
-    //              */
-    //             if (
-    //                 componentId &&
-    //                 !compareIdOrParentIdRecursive({
-    //                     id: scopeId ?? '',
-    //                     compareValue: componentId,
-    //                 })
-    //             )
-    //                 return;
-    //
-    //             /**
-    //              * Only not initialized. Use on create nested modules
-    //              */
-    //             if (skipInitialized && initialized) return false;
-    //
-    //             /**
-    //              * Only initialized. Use on destroy nested modules
-    //              */
-    //             if (onlyInitialized && !initialized) return false;
-    //
-    //             /**
-    //              * Last DOM check
-    //              */
-    //             return (
-    //                 currentElement &&
-    //                 element?.contains(currentElement) &&
-    //                 element !== currentElement
-    //             );
-    //         }
-    //     )
-    //     .map(([id, parent]) => ({
-    //         id,
-    //         parent: parent?.element,
-    //     }));
 };

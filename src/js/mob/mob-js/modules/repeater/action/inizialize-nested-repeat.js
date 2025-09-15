@@ -5,19 +5,26 @@ import {
 } from '../../common-repeat-invalidate';
 
 /**
- * Initialize watch function of nested repeat. Start initialize from older one, so child repeat is render after parent
- * repeat
+ * Initialize watch function of nested repeat.
+ *
+ * Start initialize from older one, so child repeat is render after parent repeat
  *
  * @param {object} params
- * @param {HTMLElement | undefined} params.repeatParent
- * @param {string} params.id - ComponentId
+ * @param {HTMLElement | undefined} params.repeatParent - Module parent HTMLElement
+ * @param {string} params.id - Component id witch contain moduleParent is defined.
  * @returns {void}
  */
 export const inizializeNestedRepeat = ({ repeatParent, id }) => {
     if (!repeatParent) return;
 
+    /**
+     * PlaceholderMap
+     *
+     * - Find module to initialize from modulePlaceholderMap
+     * - Module must contained in moduleParent element
+     */
     const newRepeatChild = getRepeatOrInvalidateInsideElement({
-        element: repeatParent,
+        moduleParentElement: repeatParent,
         skipInitialized: true,
         onlyInitialized: false,
         componentId: id,
@@ -25,27 +32,18 @@ export const inizializeNestedRepeat = ({ repeatParent, id }) => {
     });
 
     /**
-     * Prefer cycle on map instead create a copy for performance. Better for memory.
+     * FunctionMap
+     *
+     * - Find function for initialize nested modules
+     * - Use id found in newRepeatChild
      */
     for (const value of repeatFunctionMap.values()) {
-        value.forEach(({ repeatId, fn }) => {
+        value.forEach(({ repeatId, fn: initilizeFunction }) => {
             const condition = newRepeatChild.some((current) => {
                 return current.id === repeatId;
             });
 
-            if (condition) fn();
+            if (condition) initilizeFunction();
         });
     }
-
-    // const repeatChildToInizialize = [...repeatFunctionMap.values()]
-    //     .flat()
-    //     .filter(({ repeatId }) => {
-    //         return newRepeatChild.some((current) => {
-    //             return current.id === repeatId;
-    //         });
-    //     });
-    //
-    // repeatChildToInizialize.forEach(({ fn }) => {
-    //     fn();
-    // });
 };

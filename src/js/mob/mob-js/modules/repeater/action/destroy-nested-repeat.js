@@ -15,13 +15,15 @@ import { removeRepeatByRepeatId } from './remove-repeat-by-repeat-id';
  * @param {HTMLElement} params.repeatParent
  * @returns {void}
  */
-
 export const destroyNestedRepeat = ({ id, repeatParent }) => {
     /**
-     * Filter repater with scopeId equal or descendants of componentId Avoid unnecessary element.contains() check.
+     * PlaceholderMap
+     *
+     * - Find module to destroy from modulePlaceholderMap
+     * - Module must contained in moduleParent element
      */
     const repeatChildToDelete = getRepeatOrInvalidateInsideElement({
-        element: repeatParent,
+        moduleParentElement: repeatParent,
         skipInitialized: false,
         onlyInitialized: true,
         componentId: id,
@@ -29,7 +31,10 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
     });
 
     /**
-     * Prefer cycle componentMap instead create a copy for performance. Better for memory.
+     * FunctionMap
+     *
+     * - Find function for unsubscribe nested modules
+     * - Use id found in repeatChildToDelete
      */
     for (const value of repeatFunctionMap.values()) {
         value.forEach(({ repeatId, unsubscribe }) => {
@@ -39,25 +44,12 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
 
             if (condition) {
                 unsubscribe();
+
+                /**
+                 * Remove modules from placeholder && function map
+                 */
                 removeRepeatByRepeatId({ id, repeatId });
             }
         });
     }
-
-    // const repeatChildToDeleteParsed = [...repeatFunctionMap.values()]
-    //     .flat()
-    //     .filter((item) => {
-    //         return repeatChildToDelete.some((current) => {
-    //             return current.id === item.repeatId;
-    //         });
-    //     });
-    //
-    // repeatChildToDeleteParsed.forEach((item) => {
-    //     item.unsubscribe();
-    //
-    //     removeRepeatByRepeatId({
-    //         id,
-    //         repeatId: item.repeatId,
-    //     });
-    // });
 };

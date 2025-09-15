@@ -115,17 +115,42 @@ export const getParentIdFromWeakElementMap = ({ element }) => {
 };
 
 /**
+ * Check if moduleScopeId ( repeater/invalidare scopeId ) is contained ( directly or parental ) by targetComponentId,
+ * check recusivly parent repeater/invalidate id until we found a valid occurrence.
+ *
  * @param {object} params
- * @param {string} params.id
- * @param {string} params.compareValue
+ * @param {string} params.moduleScopeId - Module scope id, the component where repeat/invalidate is defined.
+ * @param {string} params.targetComponentId - The target component removed or added that should contain
+ *   invalidate/repeater.
  * @returns {boolean}
  */
-export const compareIdOrParentIdRecursive = ({ id, compareValue }) => {
-    if (id === compareValue) return true;
+export const compareIdOrParentIdRecursive = ({
+    moduleScopeId,
+    targetComponentId,
+}) => {
+    /**
+     * Repeat/invalidate moduleScopeId or it's parent id is the same of targetComponentId. moduleScopeId is child of
+     * targetComponentId
+     */
+    if (moduleScopeId === targetComponentId) return true;
 
-    const item = componentMap.get(id);
+    /**
+     * Get parent component in witch repeat/invalidate is defined.
+     */
+    const item = componentMap.get(moduleScopeId);
+
+    /**
+     * No more parent, moduleScopeId is not contained in targetComponentId
+     */
     if (!item) return false;
 
     const parentId = item?.parentId ?? '';
-    return compareIdOrParentIdRecursive({ id: parentId, compareValue });
+
+    /**
+     * If moduleScopeId is defined in component get parent moduleScopeId until/if the the two id is equal.
+     */
+    return compareIdOrParentIdRecursive({
+        moduleScopeId: parentId,
+        targetComponentId,
+    });
 };
