@@ -1,7 +1,3 @@
-## TODO refactor repeat/invalidate MAP.
-- src/js/mob/mob-js/modules/repeater/type.d.ts
-- src/js/mob/mob-js/modules/invalidate/type.d.ts
-
 ###  Smooth scrolling modules:
 -  Rendere il clamp su spinX/Y opzionale.
 

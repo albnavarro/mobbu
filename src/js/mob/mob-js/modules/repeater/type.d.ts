@@ -98,10 +98,15 @@ export type RepeatIdHostMap = Map<string, HTMLElement>;
 /**
  * With this map we can get repeater id and function associated by scope component id.
  *
- * - TODO:
- * - Fn && unsubscribe should be store in RepeatIdPlaceHolderMap.
- * - Rename in RepeatIdMap
- * - Puó essere che questa mappa non serve piú ma si puó tenere per sicurezza, potrebbe diventare utile.
+ * - ParseComponentsWhile():
+ * - Fn && unsubscribe is defined here because when component is parsed:
+ * - Get all fn ( initialize function ) defined in the component scope
+ * - Then fire all repeater initialize function
+ * - This is why we use an array of item.
+ *
+ * Extra:
+ *
+ * - This map should be used to get all repeater by scope id
  */
 export type RepeatFunctionMap = Map<
     /**
@@ -128,10 +133,6 @@ export type RepeatFunctionMap = Map<
 
 /**
  * With this map we can get all repeater info by repeater id.
- *
- * - TODO:
- * - Fn && unsubscribe should be store here.
- * - Rename in RepeatDataMap
  */
 export type RepeatIdPlaceHolderMap = Map<
     /**
