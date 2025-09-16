@@ -182,6 +182,10 @@ export type RepeatIdPlaceHolderMap = Map<
             value: any;
             element: HTMLElement;
         }[];
+
+        /**
+         * First render with item prerenderd with dataset added by library.
+         */
         initialRenderWithoutSync: Element[];
     }
 >;
