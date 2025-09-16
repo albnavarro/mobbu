@@ -30,16 +30,16 @@ const addDebugToComponent = ({ element, container }) => {
 /**
  * Add new children by key.
  *
- * @param {object} obj
- * @param {string} obj.state
- * @param {Record<string, any>[]} obj.current
- * @param {Record<string, any>[]} obj.previous
- * @param {HTMLElement} obj.repeaterParentElement
- * @param {string} obj.key
- * @param {string} obj.id
- * @param {import('../type').RepeaterRender} obj.render
- * @param {string} obj.repeatId
- * @param {boolean} obj.useSync
+ * @param {object} params
+ * @param {string} params.state - Observed state.
+ * @param {Record<string, any>[]} params.current - Current state array
+ * @param {Record<string, any>[]} params.previous - Current state array
+ * @param {HTMLElement} params.repeaterParentElement - The div that contain repeater.
+ * @param {string} params.key - Define id repeater use a key
+ * @param {string} params.id - Component id where repeater is contained.
+ * @param {import('../type').RepeaterRender} params.render - The render function that return repeater item.
+ * @param {string} params.repeatId - Id of repeater
+ * @param {boolean} params.useSync - If true dataset is add manually by user.
  * @returns {any[]}
  */
 export const addWithKey = ({

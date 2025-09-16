@@ -12,20 +12,20 @@ import { listKeyExist } from '../utils';
 /**
  * Update repater list.
  *
- * @param {object} obj
- * @param {string} obj.state
- * @param {boolean} obj.persistent
- * @param {HTMLElement} obj.repeaterParentElement
- * @param {any[]} obj.current
- * @param {any[]} obj.previous
- * @param {string} obj.key
- * @param {string} obj.id
- * @param {string} obj.fallBackParentId
- * @param {string} obj.repeatId
- * @param {import('../type').RepeaterRender} obj.render
- * @param {boolean} obj.useSync
- * @param {string[]} obj.currentChildren
- * @returns {Promise<any[]>}
+ * @param {object} params
+ * @param {string} params.state - Observed state.
+ * @param {boolean} params.persistent - The component inside repeat will not destroyed on page navigation
+ * @param {HTMLElement} params.repeaterParentElement - The div that contain repeater.
+ * @param {Record<string, any>[]} params.current - Current state array
+ * @param {Record<string, any>[]} params.previous - Current state array
+ * @param {string} params.key - Define id repeater use a key
+ * @param {string} params.id - Component id where repeater is contained.
+ * @param {string} params.fallBackParentId - FallBackParentId is used with autoDetectParentId strategy disabled only
+ * @param {string} params.repeatId - Id of repeater
+ * @param {import('../type').RepeaterRender} params.render - The render function that return repeater item.
+ * @param {boolean} params.useSync - If true dataset is add manually by user.
+ * @param {string[]} params.currentChildren - Previous childre id inside repeater.
+ * @returns {Promise<any[]>} - The array parsed ( if key is used has unique element )
  */
 export const updateRepeater = async ({
     state = '',
@@ -70,6 +70,8 @@ export const updateRepeater = async ({
     /**
      * Parse inner component. Use pub/sub to avoid circular dependencies. Parse current HTMLDom to create inner
      * component. Scan and await the end of possible noew component creation.
+     *
+     * - FallBackParentId is used with autoDetectParentId strategy disabled only
      */
     mainStore.set(
         MAIN_STORE_ASYNC_PARSER,

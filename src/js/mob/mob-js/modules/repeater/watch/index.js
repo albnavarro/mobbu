@@ -53,6 +53,13 @@ export const watchRepeat = ({
      * first element that contains repaterParent start from last map element.
      */
     const parentByElement = getRepeatParent({ id: repeatId });
+
+    /**
+     * FallBackParentId is used with autoDetectParentId strategy disabled only
+     *
+     * - In this case we provide id of the component that contain repeater
+     * - So first level component has right id, for the neseted level is not necessary
+     */
     const fallBackParentId = parentByElement
         ? (getParentIdFromWeakElementMap({ element: parentByElement }) ?? '')
         : '';

@@ -16,7 +16,7 @@ import { getDefaultComponent } from '../../../component/create-component';
 import { setRepeaterPlaceholderCurrentData } from '../action/set-repeat-placeholder-map-current-data';
 
 /**
- * @param {HTMLElement} container
+ * @param {HTMLElement} container - Repeater parent element.
  */
 const removeMissedDebugComment = (container) => {
     const lastElementChild = container.lastElementChild;
@@ -37,17 +37,16 @@ const removeMissedDebugComment = (container) => {
 /**
  * Add new children. This method a component with a unique list of the same component
  *
- * @param {object} obj
- * @param {string} obj.state
- * @param {any[]} obj.current
- * @param {any[]} obj.previous
- * @param {HTMLElement} obj.repeaterParentElement
- * @param {import('../type').RepeaterRender} obj.render
- * @param {string} [obj.key]
- * @param {string} obj.id
- * @param {string} obj.repeatId
- * @param {boolean} obj.useSync
- * @param {string[]} obj.currentChildren
+ * @param {object} params
+ * @param {string} params.state - Observed state.
+ * @param {Record<string, any>[]} params.current - Current state array
+ * @param {Record<string, any>[]} params.previous - Current state array
+ * @param {HTMLElement} params.repeaterParentElement - The div that contain repeater.
+ * @param {import('../type').RepeaterRender} params.render - The render function that return repeater item.
+ * @param {string} params.id - Component id where repeater is contained.
+ * @param {string} params.repeatId - Id of repeater
+ * @param {boolean} params.useSync - If true dataset is add manually by user.
+ * @param {string[]} params.currentChildren - Previous childre id inside repeater.
  * @returns {any[]}
  */
 export const addWithoutKey = ({

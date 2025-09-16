@@ -293,6 +293,13 @@ export const getParamsForComponentFunction = ({
             const repeatId = MobCore.getUnivoqueId();
             const hasKey = key !== '';
 
+            /**
+             * Initialize placeholder map with
+             *
+             * - Key: repeatId.
+             * - ScopeId.
+             * - Other value is default value.
+             */
             initializeRepeaterPlaceholderMap({
                 repeatId,
                 scopeId: id,
@@ -327,8 +334,9 @@ export const getParamsForComponentFunction = ({
                 : '';
 
             /**
-             * If no sync as used by user, save the DOM created with attributes added to inner component than add the
-             * DOM when repeat web-component is added to DOM
+             * If no sync as used by user, save the DOM created with attributes added to inner component .
+             *
+             * - Than add the DOM when repeat web-component is added to DOM
              */
             const initialDOMRender = useSync
                 ? []
@@ -346,11 +354,19 @@ export const getParamsForComponentFunction = ({
              */
             let isInizialized = false;
 
+            /**
+             * If no sync is used, getRenderWithSync() render component with attribute added.
+             *
+             * - When repeater is added to DOM `<mobjs-repeat>` children rendered is added to repeater parent element.
+             */
             setRepeaterPlaceholderDOMRender({
                 repeatId,
                 initialDOMRender,
             });
 
+            /**
+             * Initialize module.
+             */
             setRepeatFunction({
                 id,
                 repeatId,
@@ -378,10 +394,17 @@ export const getParamsForComponentFunction = ({
 
                     isInizialized = true;
 
+                    /**
+                     * Now repeater is active. When create destroy repeater check this value to speed up the process for
+                     * initialize nested repeater.
+                     */
                     setRepeaterPlaceholderMapInitialized({
                         repeatId,
                     });
 
+                    /**
+                     * If repeater has no component, so generic DOM node get children inside node and save.
+                     */
                     if (!repeaterhasComponentChildren({ repeatId })) {
                         setRepeaterNativeDOMChildren({
                             repeatId,

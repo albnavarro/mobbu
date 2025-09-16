@@ -22,10 +22,21 @@ export interface GetParamsForComponent extends ComponentStoreReturn {
 }
 
 interface RepeatInternal {
+    /**
+     * Observed state.
+     */
     observe: string | (() => any);
+
+    /**
+     * If true remove previous item.
+     */
     clean?: boolean;
     beforeUpdate?: () => Promise<void> | void;
     afterUpdate?: () => void;
+
+    /**
+     * Define id repeater use a key
+     */
     key?: string;
     render: (arg0: {
         sync: () => string;
