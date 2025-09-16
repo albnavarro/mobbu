@@ -49,8 +49,11 @@ export const watchRepeat = ({
     const mainComponent = getElementById({ id });
 
     /**
-     * When repater is created nested Main component is not parsed. So addSelfIdToParentComponent doesn't work. Get
-     * first element that contains repaterParent start from last map element.
+     * Nested issue: When repeat is created nested Main component is not parsed.
+     *
+     * - SetRepeatFunction() save initialize function.
+     * - We have to wait repat that initialize function will be fired.
+     * - Here we are sure that module is initialized.
      */
     const parentByElement = getRepeatParent({ id: repeatId });
 

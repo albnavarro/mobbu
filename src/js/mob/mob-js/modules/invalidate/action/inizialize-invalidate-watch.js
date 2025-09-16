@@ -50,8 +50,10 @@ export const inizializeInvalidateWatch = async ({
     let watchIsRunning = false;
 
     /**
-     * When invalidateId is created nested Main component is not parsed. So addSelfIdToParentComponent doesn't work. Get
-     * first element that contains invalidateParent start from last map element.
+     * FallBackParentId is used with autoDetectParentId strategy disabled only
+     *
+     * - In this case we provide id of the component that contain repeater
+     * - So first level component has right id, for the neseted level is not necessary
      */
     const fallBackParentId = getParentIdFromWeakElementMap({
         element: getInvalidateParent({ id: invalidateId }),

@@ -93,7 +93,27 @@ export interface CurrentRepeaterState {
     index: number;
 }
 
-export type RepeatIdHostMap = Map<string, HTMLElement>;
+/**
+ * Store repeater webComponent host Element.
+ *
+ * - When parent element is get from getRepeatParent()
+ * - The host ( web-component ) will be removed from DOM
+ *
+ * Look at nested repeat issue for more detail:
+ *
+ * - Src/js/mob/mob-js/modules/repeater/watch/index.js:
+ * - Const parentByElement = getRepeatParent({ id: repeatId });
+ */
+export type RepeatIdHostMap = Map<
+    /**
+     * Repeat ID
+     */
+    string,
+    /**
+     * Repeater web Element Host.
+     */
+    HTMLElement
+>;
 
 /**
  * With this map we can get repeater id and function associated by scope component id.
@@ -101,7 +121,7 @@ export type RepeatIdHostMap = Map<string, HTMLElement>;
  * - ParseComponentsWhile():
  * - Fn && unsubscribe is defined here because when component is parsed:
  * - Get all fn ( initialize function ) defined in the component scope
- * - Then fire all repeater initialize function
+ * - Then fire all repeater initialize function at the end of parse.
  * - This is why we use an array of item.
  *
  * Extra:

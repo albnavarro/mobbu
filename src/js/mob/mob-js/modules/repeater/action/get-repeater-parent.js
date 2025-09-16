@@ -4,10 +4,11 @@ import { repeatIdHostMap } from '../repeat-id-host-map';
 import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
 
 /**
- * Get repeat parent by repeat id.
+ * - Get repeat parent by repeat id.
+ * - Delete reepater webComponent
  *
  * @param {object} params
- * @param {string} params.id
+ * @param {string} params.id - Repeat Id
  * @returns {HTMLElement | undefined}
  */
 export const getRepeatParent = ({ id }) => {

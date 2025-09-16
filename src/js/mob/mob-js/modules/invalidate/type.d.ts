@@ -1,4 +1,24 @@
-export type InvalidateIdHostMap = Map<string, HTMLElement>;
+/**
+ * Store invalidate webComponent host Element.
+ *
+ * - When parent element is get from getRepeatParent()
+ * - The host ( web-component ) will be removed from DOM
+ *
+ * Look at nested repeat issue for more detail:
+ *
+ * - Src/js/mob/mob-js/modules/invalidate/action/inizialize-invalidate-watch.js
+ * - Const fallBackParentId = ....
+ */
+export type InvalidateIdHostMap = Map<
+    /**
+     * Invalidate ID
+     */
+    string,
+    /**
+     * Invalidate web Element Host.
+     */
+    HTMLElement
+>;
 
 /**
  * With this map we can get invalidate id and function associated by scope component id.
