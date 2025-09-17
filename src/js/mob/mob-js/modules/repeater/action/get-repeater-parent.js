@@ -1,7 +1,7 @@
 // @ts-check
 
 import { repeatIdHostMap } from '../repeat-id-host-map';
-import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
+import { repeatInstancesMap } from '../repeat-id-intances-map';
 
 /**
  * - Get repeat parent by repeat id.
@@ -12,7 +12,7 @@ import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
  * @returns {HTMLElement | undefined}
  */
 export const getRepeatParent = ({ id }) => {
-    if (!repeatIdPlaceHolderMap.has(id)) {
+    if (!repeatInstancesMap.has(id)) {
         return;
     }
 
@@ -27,6 +27,6 @@ export const getRepeatParent = ({ id }) => {
         repeatIdHostMap.delete(id);
     }
 
-    const parent = repeatIdPlaceHolderMap.get(id);
+    const parent = repeatInstancesMap.get(id);
     return parent?.element;
 };

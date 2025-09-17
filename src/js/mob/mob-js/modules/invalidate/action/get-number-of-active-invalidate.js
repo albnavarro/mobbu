@@ -1,10 +1,9 @@
 // @ts-check
 
-import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
+import { invalidateInstancesMap } from '../invalidate-id-instances-map';
 
 /**
  * @returns {number}
  */
 
-export const getNumberOfActiveInvalidate = () =>
-    invalidateIdPlaceHolderMap.size;
+export const getNumberOfActiveInvalidate = () => invalidateInstancesMap.size;

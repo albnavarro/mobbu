@@ -42,7 +42,6 @@ export const inizializeRepeatWatch = ({
     });
 
     addRepeatUnsubcribe({
-        id,
         repeatId,
         unsubscribe,
     });

@@ -1,6 +1,6 @@
 import { MobDetectBindKey } from '../../../../mob-core';
 import { clamp } from '../../../utils';
-import { getRepeaterPlaceholderCurrentData } from '../action/get-repeat-placeholder-map-current-data';
+import { getRepeaterInstancesCurrentData } from '../action/get-repeat-instances-map-current-data';
 
 const REPEAT_PROXI_INDEX = 'index';
 
@@ -28,7 +28,7 @@ export const getRepeatProxi = ({
     /**
      * Initial value.
      */
-    const inistalState = getRepeaterPlaceholderCurrentData({ repeatId });
+    const inistalState = getRepeaterInstancesCurrentData({ repeatId });
 
     const startValue = hasKey
         ? inistalState?.find(
@@ -52,7 +52,7 @@ export const getRepeatProxi = ({
                 /**
                  * Use last updated state Proxi target should be not last value.
                  */
-                const state = getRepeaterPlaceholderCurrentData({ repeatId });
+                const state = getRepeaterInstancesCurrentData({ repeatId });
 
                 const maxValue = Math.max(state?.length - 1, 0);
 

@@ -1,11 +1,11 @@
 // @ts-check
 
-import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
+import { repeatInstancesMap } from '../repeat-id-intances-map';
 
 /**
  * @returns {number}
  */
 
 export const getNumberOfActiveRepeater = () => {
-    return repeatIdPlaceHolderMap.size;
+    return repeatInstancesMap.size;
 };

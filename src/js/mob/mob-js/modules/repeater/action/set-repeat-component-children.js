@@ -1,4 +1,4 @@
-import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
+import { repeatInstancesMap } from '../repeat-id-intances-map';
 
 /**
  * @param {object} params
@@ -7,12 +7,12 @@ import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
  * @returns {void}
  */
 export const setRepeaterComponentChildren = ({ componentId, repeatId }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
+    const item = repeatInstancesMap.get(repeatId);
     if (!item) return;
 
     const { componentChildren } = item;
 
-    repeatIdPlaceHolderMap.set(repeatId, {
+    repeatInstancesMap.set(repeatId, {
         ...item,
         componentChildren: [...componentChildren, componentId],
     });
@@ -25,12 +25,12 @@ export const setRepeaterComponentChildren = ({ componentId, repeatId }) => {
  * @returns {void}
  */
 export const removeRepeaterComponentChildren = ({ componentId, repeatId }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
+    const item = repeatInstancesMap.get(repeatId);
     if (!item) return;
 
     const { componentChildren } = item;
 
-    repeatIdPlaceHolderMap.set(repeatId, {
+    repeatInstancesMap.set(repeatId, {
         ...item,
         componentChildren: componentChildren.filter((id) => id !== componentId),
     });
@@ -42,7 +42,7 @@ export const removeRepeaterComponentChildren = ({ componentId, repeatId }) => {
  * @returns {string[]}
  */
 export const getRepeaterComponentChildren = ({ repeatId }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
+    const item = repeatInstancesMap.get(repeatId);
     if (!item) return [];
 
     const { componentChildren } = item;
@@ -55,7 +55,7 @@ export const getRepeaterComponentChildren = ({ repeatId }) => {
  * @returns {boolean}
  */
 export const repeaterhasComponentChildren = ({ repeatId }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
+    const item = repeatInstancesMap.get(repeatId);
     if (!item) return false;
 
     const { componentChildren } = item;

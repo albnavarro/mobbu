@@ -1,7 +1,7 @@
 // @ts-check
 
 import { invalidateIdHostMap } from '../invalidate-id-host-map';
-import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
+import { invalidateInstancesMap } from '../invalidate-id-instances-map';
 
 /**
  * Get invalidate parent by invalidate id.
@@ -12,7 +12,7 @@ import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
  */
 
 export const getInvalidateParent = ({ id }) => {
-    if (!invalidateIdPlaceHolderMap.has(id)) {
+    if (!invalidateInstancesMap.has(id)) {
         return;
     }
 
@@ -27,6 +27,6 @@ export const getInvalidateParent = ({ id }) => {
         invalidateIdHostMap.delete(id);
     }
 
-    const parent = invalidateIdPlaceHolderMap.get(id);
+    const parent = invalidateInstancesMap.get(id);
     return parent?.element;
 };

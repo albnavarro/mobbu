@@ -1,7 +1,7 @@
 // @ts-check
 
-import { repeatFunctionMap } from '../repeat-function-map';
-import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
+import { repeatIdsMap } from '../repeat-ids-map';
+import { repeatInstancesMap } from '../repeat-id-intances-map';
 
 /**
  * Remove repeat by id filtered by repeatId Remove only current repeater, each component use many repater.
@@ -13,16 +13,16 @@ import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
  */
 
 export const removeRepeatByRepeatId = ({ id, repeatId }) => {
-    if (!repeatFunctionMap.has(id)) return;
+    if (!repeatIdsMap.has(id)) return;
 
-    const value = repeatFunctionMap.get(id);
+    const value = repeatIdsMap.get(id);
     if (!value) return;
 
     const valueParsed = value.filter((item) => item.repeatId !== repeatId);
 
-    if (repeatIdPlaceHolderMap.has(repeatId)) {
-        repeatIdPlaceHolderMap.delete(repeatId);
+    if (repeatInstancesMap.has(repeatId)) {
+        repeatInstancesMap.delete(repeatId);
     }
 
-    repeatFunctionMap.set(id, valueParsed);
+    repeatIdsMap.set(id, valueParsed);
 };

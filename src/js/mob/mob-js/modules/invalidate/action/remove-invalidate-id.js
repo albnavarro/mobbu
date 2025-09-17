@@ -1,7 +1,7 @@
 // @ts-check
 
-import { invalidateFunctionMap } from '../invalidate-function-map';
-import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
+import { invalidateIdsMap } from '../invalidate-ids-map';
+import { invalidateInstancesMap } from '../invalidate-id-instances-map';
 
 /**
  * Clean the two utils map on component destroy. Remove by componentId.
@@ -12,8 +12,8 @@ import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
  */
 
 export const removeInvalidateId = ({ id }) => {
-    if (invalidateFunctionMap.has(id)) {
-        const value = invalidateFunctionMap.get(id);
+    if (invalidateIdsMap.has(id)) {
+        const value = invalidateIdsMap.get(id);
 
         if (!value) return;
 
@@ -21,14 +21,14 @@ export const removeInvalidateId = ({ id }) => {
          * Remove reference to parent Id taken from invalidate web component.
          */
         value.forEach(({ invalidateId }) => {
-            if (invalidateIdPlaceHolderMap.has(invalidateId)) {
-                invalidateIdPlaceHolderMap.delete(invalidateId);
+            if (invalidateInstancesMap.has(invalidateId)) {
+                invalidateInstancesMap.delete(invalidateId);
             }
         });
 
         /**
          * Delete all
          */
-        invalidateFunctionMap.delete(id);
+        invalidateIdsMap.delete(id);
     }
 };

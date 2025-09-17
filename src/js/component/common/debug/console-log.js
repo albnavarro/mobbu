@@ -9,11 +9,11 @@ import {
     getBindTextParentSize,
     getBindTextPlaceholderSize,
 } from '../../../mob/mob-js/modules/bind-text';
-import { repeatIdPlaceHolderMap } from '../../../mob/mob-js/modules/repeater/repeat-id-placeholder-map';
-import { repeatFunctionMap } from '../../../mob/mob-js/modules/repeater/repeat-function-map';
-import { invalidateIdPlaceHolderMap } from '../../../mob/mob-js/modules/invalidate/invalidate-id-placeholder-map';
+import { repeatInstancesMap } from '../../../mob/mob-js/modules/repeater/repeat-id-intances-map';
+import { repeatIdsMap } from '../../../mob/mob-js/modules/repeater/repeat-ids-map';
+import { invalidateInstancesMap } from '../../../mob/mob-js/modules/invalidate/invalidate-id-instances-map';
 import { invalidateIdHostMap } from '../../../mob/mob-js/modules/invalidate/invalidate-id-host-map';
-import { invalidateFunctionMap } from '../../../mob/mob-js/modules/invalidate/invalidate-function-map';
+import { invalidateIdsMap } from '../../../mob/mob-js/modules/invalidate/invalidate-ids-map';
 import { bindPropsMap } from '../../../mob/mob-js/modules/bind-props/bind-props-map';
 import { MobJs } from '@mobJs';
 import { instanceMap } from 'src/js/mob/mob-js/component/instance-map';
@@ -30,11 +30,11 @@ export const consoleLogDebug = () => {
     console.log('dynamicPropsMap', bindPropsMap);
     console.log('eventDelegationMap', MobJs.eventDelegationMap);
     console.log('tempDelegateEventMap', MobJs.tempDelegateEventMap);
-    console.log('invalidateIdPlaceHolderMap', invalidateIdPlaceHolderMap);
+    console.log('invalidateIdPlaceHolderMap', invalidateInstancesMap);
     console.log('invalidateIdHostMap', invalidateIdHostMap.size);
-    console.log('invalidateFunctionMap', invalidateFunctionMap);
-    console.log('repeatIdPlaceHolderMap', repeatIdPlaceHolderMap);
-    console.log('repeatFunctionMap', repeatFunctionMap);
+    console.log('invalidateFunctionMap', invalidateIdsMap);
+    console.log('repeatIdPlaceHolderMap', repeatInstancesMap);
+    console.log('repeatFunctionMap', repeatIdsMap);
     console.log('userChildPlaceholderSize', getUserChildPlaceholderSize());
     console.log('slotPlaceholderSize', getSlotPlaceholderSize());
     console.log('bindTextMapSize', getBindTextParentSize());

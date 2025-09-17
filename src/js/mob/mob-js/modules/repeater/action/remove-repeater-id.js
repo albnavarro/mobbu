@@ -1,7 +1,7 @@
 // @ts-check
 
-import { repeatFunctionMap } from '../repeat-function-map';
-import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
+import { repeatIdsMap } from '../repeat-ids-map';
+import { repeatInstancesMap } from '../repeat-id-intances-map';
 
 /**
  * Clean the two utils map on component destroy. Remove by componentId.
@@ -12,22 +12,22 @@ import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
  */
 
 export const removeRepeaterId = ({ id }) => {
-    if (repeatFunctionMap.has(id)) {
-        const value = repeatFunctionMap.get(id);
+    if (repeatIdsMap.has(id)) {
+        const value = repeatIdsMap.get(id);
         if (!value) return;
 
         /**
          * Remove reference to parent Id taken from repeat web component.
          */
         value.forEach(({ repeatId }) => {
-            if (repeatIdPlaceHolderMap.has(repeatId)) {
-                repeatIdPlaceHolderMap.delete(repeatId);
+            if (repeatInstancesMap.has(repeatId)) {
+                repeatInstancesMap.delete(repeatId);
             }
         });
 
         /**
          * Delete all
          */
-        repeatFunctionMap.delete(id);
+        repeatIdsMap.delete(id);
     }
 };

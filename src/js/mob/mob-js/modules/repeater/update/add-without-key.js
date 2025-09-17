@@ -13,7 +13,7 @@ import {
 } from './utils';
 import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { getDefaultComponent } from '../../../component/create-component';
-import { setRepeaterPlaceholderCurrentData } from '../action/set-repeat-placeholder-map-current-data';
+import { setRepeaterInstancesCurrentData } from '../action/set-repeat-instances-map-current-data';
 
 /**
  * @param {HTMLElement} container - Repeater parent element.
@@ -63,7 +63,7 @@ export const addWithoutKey = ({
     /**
      * Update current data value in repeatPlaceholderMap before create proxi.
      */
-    setRepeaterPlaceholderCurrentData({
+    setRepeaterInstancesCurrentData({
         repeatId,
         currentData: current,
     });

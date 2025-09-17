@@ -1,7 +1,7 @@
 // @ts-check
 
 import { invalidateIdHostMap } from '../invalidate-id-host-map';
-import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
+import { invalidateInstancesMap } from '../invalidate-id-instances-map';
 
 /**
  * Store parent invalidate block from repeat webComponent.
@@ -12,11 +12,11 @@ import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
  */
 
 export const setParentInvalidate = ({ invalidateId, host }) => {
-    const item = invalidateIdPlaceHolderMap.get(invalidateId);
+    const item = invalidateInstancesMap.get(invalidateId);
     if (!item) return;
 
     const parent = /** @type {HTMLElement} */ (host.parentNode);
-    invalidateIdPlaceHolderMap.set(invalidateId, {
+    invalidateInstancesMap.set(invalidateId, {
         ...item,
         element: parent,
     });

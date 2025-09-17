@@ -1,8 +1,8 @@
 // @ts-check
 
 import { compareIdOrParentIdRecursive } from '../component/action/parent';
-import { invalidateIdPlaceHolderMap } from './invalidate/invalidate-id-placeholder-map';
-import { repeatIdPlaceHolderMap } from './repeater/repeat-id-placeholder-map';
+import { invalidateInstancesMap } from './invalidate/invalidate-id-instances-map';
+import { repeatInstancesMap } from './repeater/repeat-id-intances-map';
 
 export const MODULE_REPEATER = 'repeater';
 export const MODULE_INVALIDATE = 'invalidate';
@@ -20,7 +20,7 @@ export const MODULE_INVALIDATE = 'invalidate';
  * @param {boolean} [params.onlyInitialized] - Used if we want to destroy module
  * @param {string} [params.componentId] - The component where main module is defined
  * @param {string} params.module - Module type repeat or invalidate
- * @returns {{ id: string; parent: HTMLElement | undefined }[]}
+ * @returns {string[]}
  */
 export const getRepeatOrInvalidateInsideElement = ({
     moduleParentElement,
@@ -31,14 +31,13 @@ export const getRepeatOrInvalidateInsideElement = ({
 }) => {
     const entries =
         module === MODULE_REPEATER
-            ? repeatIdPlaceHolderMap.entries()
-            : invalidateIdPlaceHolderMap.entries();
+            ? repeatInstancesMap.entries()
+            : invalidateInstancesMap.entries();
 
     const result = [];
 
     for (const item of entries) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const [_id, { element: currentModuleParent, initialized, scopeId }] =
+        const [id, { element: currentModuleParent, initialized, scopeId }] =
             item;
 
         /**
@@ -76,11 +75,8 @@ export const getRepeatOrInvalidateInsideElement = ({
             moduleParentElement?.contains(currentModuleParent) &&
             moduleParentElement !== currentModuleParent;
 
-        if (condition) result.push(item);
+        if (condition) result.push(id);
     }
 
-    return result.map(([id, parent]) => ({
-        id,
-        parent: parent?.element,
-    }));
+    return result;
 };

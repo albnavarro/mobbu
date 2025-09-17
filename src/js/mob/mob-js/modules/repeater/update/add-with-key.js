@@ -15,7 +15,7 @@ import { updateRepeaterWithtKey, updateRepeaterWithtKeyUseSync } from './utils';
 import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { getComponentNameByElement } from '../../../component/action/component';
 import { getDefaultComponent } from '../../../component/create-component';
-import { setRepeaterPlaceholderCurrentData } from '../action/set-repeat-placeholder-map-current-data';
+import { setRepeaterInstancesCurrentData } from '../action/set-repeat-instances-map-current-data';
 
 /**
  * @param {object} params
@@ -61,7 +61,7 @@ export const addWithKey = ({
     /**
      * Update current data value in repeatPlaceholderMap before create proxi.
      */
-    setRepeaterPlaceholderCurrentData({
+    setRepeaterInstancesCurrentData({
         repeatId,
         currentData: currentUnique,
     });

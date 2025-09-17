@@ -43,15 +43,15 @@ import { createBindTextWatcher, renderBindText } from '../../modules/bind-text';
 import { setDelegateBindEvent } from '../../modules/delegate-events';
 import { inizializeInvalidateWatch } from '../../modules/invalidate/action/inizialize-invalidate-watch';
 import { parseObserveInvalidate } from '../../modules/invalidate/action/parse-bindprop-invalidate';
-import { setInvalidateFunction } from '../../modules/invalidate/action/set-invalidate-function';
-import { setInvalidatePlaceholderMapInitialized } from '../../modules/invalidate/action/set-invalidate-placeholder-map-initialized';
-import { setInvalidatePlaceholderMapScopedId } from '../../modules/invalidate/action/set-invalidate-placeholder-map-scoped-id';
+import { setInvalidateInitializeFunction } from '../../modules/invalidate/action/set-invalidate-function';
+import { setInvalidateInstancesMapInitialized } from '../../modules/invalidate/action/set-invalidate-instances-map-initialized';
+import { initializeInvalidateInstacesMap } from '../../modules/invalidate/action/set-invalidate-instances-map-scoped-id';
 import { addOnMoutCallback } from '../../modules/on-mount';
 import { inizializeRepeatWatch } from '../../modules/repeater/action/inizialize-repeat-watch';
 import { setRepeaterNativeDOMChildren } from '../../modules/repeater/action/set-repeat-native-dom-children';
 import { setRepeatFunction } from '../../modules/repeater/action/set-repeat-function';
-import { setRepeaterPlaceholderMapInitialized } from '../../modules/repeater/action/set-repeater-placeholder-map-initialized';
-import { setRepeaterPlaceholderDOMRender } from '../../modules/repeater/action/set-repeater-placeholder-map-initial-render';
+import { setRepeaterInstancesMapInitialized } from '../../modules/repeater/action/set-repeater-instances-map-initialized';
+import { setRepeaterInstancesDOMRender } from '../../modules/repeater/action/set-repeater-instances-map-initial-render';
 import {
     getRenderWithoutSync,
     getRenderWithSync,
@@ -60,8 +60,10 @@ import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { setStaticProps } from '../../modules/static-props';
 import { detectProp } from '../../utils';
 import { repeaterhasComponentChildren } from '../../modules/repeater/action/set-repeat-component-children';
-import { initializeRepeaterPlaceholderMap } from '../../modules/repeater/action/initialize-repeater-placeholder-map';
-import { setRepeaterPlaceholderCurrentData } from '../../modules/repeater/action/set-repeat-placeholder-map-current-data';
+import { initializeRepeaterInstancesMap } from '../../modules/repeater/action/initialize-repeater-instances-map';
+import { setRepeaterInstancesCurrentData } from '../../modules/repeater/action/set-repeat-instances-map-current-data';
+import { initializeRepeaterIdsMap } from '../../modules/repeater/action/initialize-repeater-ids-map';
+import { initializeInvalidateIdsMap } from '../../modules/invalidate/action/initialize-invalidate-ids-map';
 
 /**
  * Create component Reuturn all prosps/method for user function.
@@ -243,10 +245,10 @@ export const getParamsForComponentFunction = ({
              */
             let isInizialized = false;
 
-            setInvalidatePlaceholderMapScopedId({ invalidateId, scopeId: id });
+            initializeInvalidateIdsMap({ invalidateId, scopeId: id });
+            initializeInvalidateInstacesMap({ invalidateId, scopeId: id });
 
-            setInvalidateFunction({
-                id,
+            setInvalidateInitializeFunction({
                 invalidateId,
                 fn: () => {
                     if (isInizialized) return;
@@ -267,7 +269,7 @@ export const getParamsForComponentFunction = ({
 
                     isInizialized = true;
 
-                    setInvalidatePlaceholderMapInitialized({
+                    setInvalidateInstancesMapInitialized({
                         invalidateId,
                     });
                 },
@@ -294,13 +296,18 @@ export const getParamsForComponentFunction = ({
             const hasKey = key !== '';
 
             /**
+             * Initialize repeater function map
+             */
+            initializeRepeaterIdsMap({ repeatId, scopeId: id });
+
+            /**
              * Initialize placeholder map with
              *
              * - Key: repeatId.
              * - ScopeId.
              * - Other value is default value.
              */
-            initializeRepeaterPlaceholderMap({
+            initializeRepeaterInstancesMap({
                 repeatId,
                 scopeId: id,
             });
@@ -314,7 +321,7 @@ export const getParamsForComponentFunction = ({
             /**
              * Add first dataset related to sitem, with key is filtered by univique key.
              */
-            setRepeaterPlaceholderCurrentData({
+            setRepeaterInstancesCurrentData({
                 repeatId,
                 currentData: currentUnique,
             });
@@ -359,7 +366,7 @@ export const getParamsForComponentFunction = ({
              *
              * - When repeater is added to DOM `<mobjs-repeat>` children rendered is added to repeater parent element.
              */
-            setRepeaterPlaceholderDOMRender({
+            setRepeaterInstancesDOMRender({
                 repeatId,
                 initialDOMRender,
             });
@@ -368,7 +375,6 @@ export const getParamsForComponentFunction = ({
              * Initialize module.
              */
             setRepeatFunction({
-                id,
                 repeatId,
                 fn: () => {
                     if (isInizialized) return;
@@ -398,7 +404,7 @@ export const getParamsForComponentFunction = ({
                      * Now repeater is active. When create destroy repeater check this value to speed up the process for
                      * initialize nested repeater.
                      */
-                    setRepeaterPlaceholderMapInitialized({
+                    setRepeaterInstancesMapInitialized({
                         repeatId,
                     });
 

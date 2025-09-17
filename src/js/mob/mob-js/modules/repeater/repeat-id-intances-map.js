@@ -5,7 +5,7 @@
  * - ScopeId is the component id that contains repeat when is initialized ( for nested repeater performance check on
  *   destroy )
  *
- * @type {import('./type').RepeatIdPlaceHolderMap}
+ * @type {import('./type').RepeatInstancesMap}
  */
 
-export const repeatIdPlaceHolderMap = new Map();
+export const repeatInstancesMap = new Map();

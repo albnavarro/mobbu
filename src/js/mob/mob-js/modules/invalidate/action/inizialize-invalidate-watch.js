@@ -163,7 +163,6 @@ export const inizializeInvalidateWatch = async ({
     });
 
     addInvalidateUnsubcribe({
-        id,
         invalidateId,
         unsubscribe: unsubScribeArray,
     });

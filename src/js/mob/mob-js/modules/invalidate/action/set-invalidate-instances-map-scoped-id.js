@@ -1,6 +1,6 @@
 // @ts-check
 
-import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
+import { invalidateInstancesMap } from '../invalidate-id-instances-map';
 
 /**
  * Is the first call to populate placeholderMap. Initialize all the props.
@@ -14,13 +14,12 @@ import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
  * @returns {void}
  */
 
-export const setInvalidatePlaceholderMapScopedId = ({
-    invalidateId,
-    scopeId,
-}) => {
-    invalidateIdPlaceHolderMap.set(invalidateId, {
+export const initializeInvalidateInstacesMap = ({ invalidateId, scopeId }) => {
+    invalidateInstancesMap.set(invalidateId, {
         element: undefined,
         initialized: false,
         scopeId,
+        fn: () => {},
+        unsubscribe: [() => {}],
     });
 };

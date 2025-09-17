@@ -116,19 +116,9 @@ export type RepeatIdHostMap = Map<
 >;
 
 /**
- * With this map we can get repeater id and function associated by scope component id.
- *
- * - ParseComponentsWhile():
- * - Fn && unsubscribe is defined here because when component is parsed:
- * - Get all fn ( initialize function ) defined in the component scope
- * - Then fire all repeater initialize function at the end of parse.
- * - This is why we use an array of item.
- *
- * Extra:
- *
  * - This map should be used to get all repeater by scope id
  */
-export type RepeatFunctionMap = Map<
+export type RepeatIdsMap = Map<
     /**
      * The component id where repeater is defined ( ScopeId placeholderMap ).
      */
@@ -138,23 +128,13 @@ export type RepeatFunctionMap = Map<
          * The repeat ID
          */
         repeatId: string;
-
-        /**
-         * Initialize function
-         */
-        fn: () => void;
-
-        /**
-         * Unsubscribe from observed state function.
-         */
-        unsubscribe: () => void;
     }[]
 >;
 
 /**
  * With this map we can get all repeater info by repeater id.
  */
-export type RepeatIdPlaceHolderMap = Map<
+export type RepeatInstancesMap = Map<
     /**
      * The repeat ID
      */
@@ -208,5 +188,15 @@ export type RepeatIdPlaceHolderMap = Map<
          * First render with item prerenderd with dataset added by library.
          */
         initialRenderWithoutSync: Element[];
+
+        /**
+         * Initialize function
+         */
+        fn: () => void;
+
+        /**
+         * Unsubscribe from observed state function.
+         */
+        unsubscribe: () => void;
     }
 >;

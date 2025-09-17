@@ -1,5 +1,5 @@
 import { getStateById } from '../../../component/action/state/get-state-by-id';
-import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
+import { repeatInstancesMap } from '../repeat-id-intances-map';
 
 /**
  * @param {object} params
@@ -9,7 +9,7 @@ import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
  * @returns {void}
  */
 export const setRepeaterNativeDOMChildren = ({ repeatId, id, observe }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
+    const item = repeatInstancesMap.get(repeatId);
     if (!item) return;
 
     const { element } = item;
@@ -22,7 +22,7 @@ export const setRepeaterNativeDOMChildren = ({ repeatId, id, observe }) => {
     const state = getStateById(id);
     const stateByProp = state[observe];
 
-    repeatIdPlaceHolderMap.set(repeatId, {
+    repeatInstancesMap.set(repeatId, {
         ...item,
         key: observe,
         nativeDOMChildren: children.map((child, index) => {
@@ -37,7 +37,7 @@ export const setRepeaterNativeDOMChildren = ({ repeatId, id, observe }) => {
  * @returns {{ index: number; value: any; element: HTMLElement }[]}
  */
 export const getRepeaterNativeDOMChildren = ({ repeatId }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
+    const item = repeatInstancesMap.get(repeatId);
     if (!item) return [];
 
     const { nativeDOMChildren } = item;

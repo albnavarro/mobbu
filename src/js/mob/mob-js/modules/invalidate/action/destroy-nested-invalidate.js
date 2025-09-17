@@ -5,7 +5,7 @@ import {
     MODULE_INVALIDATE,
 } from '../../common-repeat-invalidate';
 import { removeInvalidateByInvalidateId } from './remove-invalidate-by-invalidate-id';
-import { invalidateFunctionMap } from '../invalidate-function-map';
+import { invalidateInstancesMap } from '../invalidate-id-instances-map';
 
 /**
  * Destroy nester invalidate.
@@ -22,7 +22,7 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
      * - Find module to destroy from modulePlaceholderMap
      * - Module must contained in moduleParent element
      */
-    const invalidatechildToDelete = getRepeatOrInvalidateInsideElement({
+    const invalidatIdToDelete = getRepeatOrInvalidateInsideElement({
         moduleParentElement: invalidateParent,
         skipInitialized: false,
         onlyInitialized: true,
@@ -36,25 +36,24 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
      * - Find function for unsubscribe nested modules
      * - Use id found in invalidatechildToDelete
      */
-    for (const value of invalidateFunctionMap.values()) {
-        value.forEach(({ invalidateId, unsubscribe }) => {
-            const condition = invalidatechildToDelete.some((current) => {
-                return current.id === invalidateId;
+    for (const [
+        invalidateId,
+        { unsubscribe },
+    ] of invalidateInstancesMap.entries()) {
+        const condition = invalidatIdToDelete.includes(invalidateId);
+
+        if (condition) {
+            /**
+             * Invalidate has multiple observe item.
+             */
+            unsubscribe.forEach((fn) => {
+                fn();
             });
 
-            if (condition) {
-                /**
-                 * Invalidate has multiple observe item.
-                 */
-                unsubscribe.forEach((fn) => {
-                    fn();
-                });
-
-                /**
-                 * Remove modules from placeholder && function map
-                 */
-                removeInvalidateByInvalidateId({ id, invalidateId });
-            }
-        });
+            /**
+             * Remove modules from placeholder && function map
+             */
+            removeInvalidateByInvalidateId({ id, invalidateId });
+        }
     }
 };

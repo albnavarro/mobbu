@@ -1,7 +1,7 @@
 // @ts-check
 
-import { invalidateFunctionMap } from '../invalidate-function-map';
-import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
+import { invalidateIdsMap } from '../invalidate-ids-map';
+import { invalidateInstancesMap } from '../invalidate-id-instances-map';
 
 /**
  * Remove invalidate by id filtered by invalidateId Remove only current invalidate, each component use many invalidate.
@@ -13,18 +13,18 @@ import { invalidateIdPlaceHolderMap } from '../invalidate-id-placeholder-map';
  */
 
 export const removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
-    if (!invalidateFunctionMap.has(id)) return;
+    if (!invalidateIdsMap.has(id)) return;
 
-    const value = invalidateFunctionMap.get(id);
+    const value = invalidateIdsMap.get(id);
     if (!value) return;
 
     const valueParsed = value.filter(
         (item) => item.invalidateId !== invalidateId
     );
 
-    if (invalidateIdPlaceHolderMap.has(invalidateId)) {
-        invalidateIdPlaceHolderMap.delete(invalidateId);
+    if (invalidateInstancesMap.has(invalidateId)) {
+        invalidateInstancesMap.delete(invalidateId);
     }
 
-    invalidateFunctionMap.set(id, valueParsed);
+    invalidateIdsMap.set(id, valueParsed);
 };

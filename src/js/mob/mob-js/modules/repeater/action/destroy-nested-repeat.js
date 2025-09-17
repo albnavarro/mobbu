@@ -1,11 +1,11 @@
 // @ts-check
 
-import { repeatFunctionMap } from '../repeat-function-map';
 import {
     getRepeatOrInvalidateInsideElement,
     MODULE_REPEATER,
 } from '../../common-repeat-invalidate';
 import { removeRepeatByRepeatId } from './remove-repeat-by-repeat-id';
+import { repeatInstancesMap } from '../repeat-id-intances-map';
 
 /**
  * Destroy nester repeat.
@@ -22,7 +22,7 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
      * - Find module to destroy from modulePlaceholderMap
      * - Module must contained in moduleParent element
      */
-    const repeatChildToDelete = getRepeatOrInvalidateInsideElement({
+    const repeatidToDelete = getRepeatOrInvalidateInsideElement({
         moduleParentElement: repeatParent,
         skipInitialized: false,
         onlyInitialized: true,
@@ -36,20 +36,16 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
      * - Find function for unsubscribe nested modules
      * - Use id found in repeatChildToDelete
      */
-    for (const value of repeatFunctionMap.values()) {
-        value.forEach(({ repeatId, unsubscribe }) => {
-            const condition = repeatChildToDelete.some((current) => {
-                return current.id === repeatId;
-            });
+    for (const [repeatId, { unsubscribe }] of repeatInstancesMap.entries()) {
+        const condition = repeatidToDelete.includes(repeatId);
 
-            if (condition) {
-                unsubscribe();
+        if (condition) {
+            unsubscribe();
 
-                /**
-                 * Remove modules from placeholder && function map
-                 */
-                removeRepeatByRepeatId({ id, repeatId });
-            }
-        });
+            /**
+             * Remove modules from placeholder && function map
+             */
+            removeRepeatByRepeatId({ id, repeatId });
+        }
     }
 };

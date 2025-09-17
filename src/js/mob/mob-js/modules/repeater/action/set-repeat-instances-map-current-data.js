@@ -1,6 +1,6 @@
 // @ts-check
 
-import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
+import { repeatInstancesMap } from '../repeat-id-intances-map';
 
 /**
  * Is the first call to populate placeholderMap. Initialize all the props.
@@ -14,14 +14,11 @@ import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
  * @returns {void}
  */
 
-export const setRepeaterPlaceholderCurrentData = ({
-    repeatId,
-    currentData,
-}) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
+export const setRepeaterInstancesCurrentData = ({ repeatId, currentData }) => {
+    const item = repeatInstancesMap.get(repeatId);
     if (!item) return;
 
-    repeatIdPlaceHolderMap.set(repeatId, {
+    repeatInstancesMap.set(repeatId, {
         ...item,
         currentData,
     });

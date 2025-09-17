@@ -1,6 +1,7 @@
 // @ts-check
 
-import { invalidateFunctionMap } from '../invalidate-function-map';
+import { invalidateIdsMap } from '../invalidate-ids-map';
+import { invalidateInstancesMap } from '../invalidate-id-instances-map';
 
 /**
  * Get invalidate starter function to launch at the end of parseDOM
@@ -11,5 +12,14 @@ import { invalidateFunctionMap } from '../invalidate-function-map';
  */
 
 export const getInvalidateFunctions = ({ id }) => {
-    return invalidateFunctionMap.get(id) ?? [];
+    const invalidateIds = invalidateIdsMap.get(id) ?? [];
+
+    return invalidateIds
+        .map(({ invalidateId }) => {
+            const item = invalidateInstancesMap.get(invalidateId);
+            if (!item) return;
+
+            return { invalidateId, fn: item.fn };
+        })
+        .filter((item) => item !== undefined);
 };

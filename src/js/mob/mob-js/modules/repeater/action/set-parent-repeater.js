@@ -1,7 +1,7 @@
 // @ts-check
 
 import { repeatIdHostMap } from '../repeat-id-host-map';
-import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
+import { repeatInstancesMap } from '../repeat-id-intances-map';
 
 /**
  * Store parent repeat block from repeat webComponent.
@@ -12,7 +12,7 @@ import { repeatIdPlaceHolderMap } from '../repeat-id-placeholder-map';
  */
 
 export const setParentRepeater = ({ repeatId, host }) => {
-    const item = repeatIdPlaceHolderMap.get(repeatId);
+    const item = repeatInstancesMap.get(repeatId);
     if (!item) return;
 
     const parent = /** @type {HTMLElement} */ (host.parentNode);
@@ -24,7 +24,7 @@ export const setParentRepeater = ({ repeatId, host }) => {
         parent.append(element);
     });
 
-    repeatIdPlaceHolderMap.set(repeatId, {
+    repeatInstancesMap.set(repeatId, {
         ...item,
         element: parent,
         initialRenderWithoutSync: [],

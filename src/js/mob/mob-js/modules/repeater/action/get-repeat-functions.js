@@ -1,6 +1,7 @@
 // @ts-check
 
-import { repeatFunctionMap } from '../repeat-function-map';
+import { repeatIdsMap } from '../repeat-ids-map';
+import { repeatInstancesMap } from '../repeat-id-intances-map';
 
 /**
  * Get repeat starter function to launch at the end of parseDOM
@@ -11,5 +12,14 @@ import { repeatFunctionMap } from '../repeat-function-map';
  */
 
 export const getRepeatFunctions = ({ id }) => {
-    return repeatFunctionMap.get(id) ?? [];
+    const repeatIds = repeatIdsMap.get(id) ?? [];
+
+    return repeatIds
+        .map(({ repeatId }) => {
+            const item = repeatInstancesMap.get(repeatId);
+            if (!item) return;
+
+            return { repeatId, fn: item.fn };
+        })
+        .filter((item) => item !== undefined);
 };
