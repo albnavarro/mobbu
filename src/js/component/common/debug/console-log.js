@@ -17,6 +17,7 @@ import { invalidateIdsMap } from '../../../mob/mob-js/modules/invalidate/invalid
 import { bindPropsMap } from '../../../mob/mob-js/modules/bind-props/bind-props-map';
 import { MobJs } from '@mobJs';
 import { instanceMap } from 'src/js/mob/mob-js/component/instance-map';
+import { repeatIdHostMap } from 'src/js/mob/mob-js/modules/repeater/repeat-id-host-map';
 
 export const consoleLogDebug = () => {
     MobJs.mainStore.debugStore();
@@ -30,11 +31,12 @@ export const consoleLogDebug = () => {
     console.log('dynamicPropsMap', bindPropsMap);
     console.log('eventDelegationMap', MobJs.eventDelegationMap);
     console.log('tempDelegateEventMap', MobJs.tempDelegateEventMap);
-    console.log('invalidateIdPlaceHolderMap', invalidateInstancesMap);
     console.log('invalidateIdHostMap', invalidateIdHostMap.size);
-    console.log('invalidateFunctionMap', invalidateIdsMap);
-    console.log('repeatIdPlaceHolderMap', repeatInstancesMap);
-    console.log('repeatFunctionMap', repeatIdsMap);
+    console.log('invalidateIdsMap', invalidateIdsMap);
+    console.log('invalidateInstancesMap', invalidateInstancesMap);
+    console.log('repeatIdHostMap', repeatIdHostMap);
+    console.log('repeatIdsMap', repeatIdsMap);
+    console.log('repeatInstancesMap', repeatInstancesMap);
     console.log('userChildPlaceholderSize', getUserChildPlaceholderSize());
     console.log('slotPlaceholderSize', getSlotPlaceholderSize());
     console.log('bindTextMapSize', getBindTextParentSize());

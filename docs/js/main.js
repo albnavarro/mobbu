@@ -37131,11 +37131,12 @@
     console.log("dynamicPropsMap", bindPropsMap);
     console.log("eventDelegationMap", modules_exports2.eventDelegationMap);
     console.log("tempDelegateEventMap", modules_exports2.tempDelegateEventMap);
-    console.log("invalidateIdPlaceHolderMap", invalidateInstancesMap);
     console.log("invalidateIdHostMap", invalidateIdHostMap.size);
-    console.log("invalidateFunctionMap", invalidateIdsMap);
-    console.log("repeatIdPlaceHolderMap", repeatInstancesMap);
-    console.log("repeatFunctionMap", repeatIdsMap);
+    console.log("invalidateIdsMap", invalidateIdsMap);
+    console.log("invalidateInstancesMap", invalidateInstancesMap);
+    console.log("repeatIdHostMap", repeatIdHostMap);
+    console.log("repeatIdsMap", repeatIdsMap);
+    console.log("repeatInstancesMap", repeatInstancesMap);
     console.log("userChildPlaceholderSize", getUserChildPlaceholderSize());
     console.log("slotPlaceholderSize", getSlotPlaceholderSize());
     console.log("bindTextMapSize", getBindTextParentSize());
