@@ -1,5 +1,3 @@
-// @ts-check
-
 import {
     getRepeatOrInvalidateInsideElement,
     MODULE_REPEATER,
@@ -30,6 +28,12 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
     });
 
     repeatToDelete.forEach(({ unsubscribe, moduleId }) => {
+        /**
+         * Repeat does not use an array to store unsubscribe function.
+         *
+         * - But invalidate doas it.
+         * - For consistency in common function unsubscribe is wrapped in a array.
+         */
         unsubscribe.forEach((fn) => {
             fn();
         });

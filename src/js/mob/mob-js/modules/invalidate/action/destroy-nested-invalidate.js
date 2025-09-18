@@ -1,5 +1,3 @@
-// @ts-check
-
 import {
     getRepeatOrInvalidateInsideElement,
     MODULE_INVALIDATE,
@@ -30,6 +28,9 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
     });
 
     invalidatToDelete.forEach(({ unsubscribe, moduleId }) => {
+        /**
+         * Invalidate has miltiple observe state so here we have multiple invalidate function.
+         */
         unsubscribe.forEach((fn) => {
             fn();
         });
