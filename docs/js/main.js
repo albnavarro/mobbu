@@ -7379,7 +7379,16 @@
     const entries = module === MODULE_REPEATER ? repeatInstancesMap.entries() : invalidateInstancesMap.entries();
     const result = [];
     for (const item of entries) {
-      const [id, { element: currentModuleParent, initialized: initialized7, scopeId }] = item;
+      const [
+        moduleId,
+        {
+          element: currentModuleParent,
+          initialized: initialized7,
+          scopeId,
+          fn,
+          unsubscribe: unsubscribe3
+        }
+      ] = item;
       if (componentId && !compareIdOrParentIdRecursive({
         moduleScopeId: scopeId ?? "",
         targetComponentId: componentId
@@ -7388,7 +7397,18 @@
       if (skipInitialized && initialized7) continue;
       if (onlyInitialized && !initialized7) continue;
       const condition = currentModuleParent && moduleParentElement?.contains(currentModuleParent) && moduleParentElement !== currentModuleParent;
-      if (condition) result.push(id);
+      if (condition)
+        result.push({
+          moduleId,
+          fn,
+          unsubscribe: module === MODULE_REPEATER ? [
+            /** @type{() => {}} */
+            unsubscribe3
+          ] : (
+            /** @type{( () => {} )[]} */
+            unsubscribe3
+          )
+        });
     }
     return result;
   };
@@ -7407,39 +7427,34 @@
 
   // src/js/mob/mob-js/modules/repeater/action/destroy-nested-repeat.js
   var destroyNestedRepeat = ({ id, repeatParent }) => {
-    const repeatidToDelete = getRepeatOrInvalidateInsideElement({
+    const repeatToDelete = getRepeatOrInvalidateInsideElement({
       moduleParentElement: repeatParent,
       skipInitialized: false,
       onlyInitialized: true,
       componentId: id,
       module: MODULE_REPEATER
     });
-    for (const [repeatId, { unsubscribe: unsubscribe3 }] of repeatInstancesMap.entries()) {
-      const condition = repeatidToDelete.includes(repeatId);
-      if (condition) {
-        unsubscribe3();
-        removeRepeatByRepeatId({ id, repeatId });
-      }
-    }
+    repeatToDelete.forEach(({ unsubscribe: unsubscribe3, moduleId }) => {
+      unsubscribe3.forEach((fn) => {
+        fn();
+      });
+      removeRepeatByRepeatId({ id, repeatId: moduleId });
+    });
   };
 
   // src/js/mob/mob-js/modules/repeater/action/inizialize-nested-repeat.js
   var inizializeNestedRepeat = ({ repeatParent, id }) => {
     if (!repeatParent) return;
-    const repeaterIdToInitialize = getRepeatOrInvalidateInsideElement({
+    const repeaterToInitialize = getRepeatOrInvalidateInsideElement({
       moduleParentElement: repeatParent,
       skipInitialized: true,
       onlyInitialized: false,
       componentId: id,
       module: MODULE_REPEATER
     });
-    for (const [
-      repeatId,
-      { fn: initilizeFunction }
-    ] of repeatInstancesMap.entries()) {
-      const condition = repeaterIdToInitialize.includes(repeatId);
-      if (condition) initilizeFunction();
-    }
+    repeaterToInitialize.forEach(({ fn: initilizeFunction }) => {
+      initilizeFunction();
+    });
   };
 
   // src/js/mob/mob-js/modules/invalidate/action/add-invalidate-unsubcribe.js
@@ -7465,25 +7480,19 @@
 
   // src/js/mob/mob-js/modules/invalidate/action/destroy-nested-invalidate.js
   var destroyNestedInvalidate = ({ id, invalidateParent }) => {
-    const invalidatIdToDelete = getRepeatOrInvalidateInsideElement({
+    const invalidatToDelete = getRepeatOrInvalidateInsideElement({
       moduleParentElement: invalidateParent,
       skipInitialized: false,
       onlyInitialized: true,
       componentId: id,
       module: MODULE_INVALIDATE
     });
-    for (const [
-      invalidateId,
-      { unsubscribe: unsubscribe3 }
-    ] of invalidateInstancesMap.entries()) {
-      const condition = invalidatIdToDelete.includes(invalidateId);
-      if (condition) {
-        unsubscribe3.forEach((fn) => {
-          fn();
-        });
-        removeInvalidateByInvalidateId({ id, invalidateId });
-      }
-    }
+    invalidatToDelete.forEach(({ unsubscribe: unsubscribe3, moduleId }) => {
+      unsubscribe3.forEach((fn) => {
+        fn();
+      });
+      removeInvalidateByInvalidateId({ id, invalidateId: moduleId });
+    });
   };
 
   // src/js/mob/mob-js/modules/invalidate/action/get-invalidate-parent.js
@@ -7504,20 +7513,16 @@
   // src/js/mob/mob-js/modules/invalidate/action/inizialize-nested-invalidate.js
   var inizializeNestedInvalidate = ({ invalidateParent, id }) => {
     if (!invalidateParent) return;
-    const invalidateIdToInitialize = getRepeatOrInvalidateInsideElement({
+    const invalidateToInitialize = getRepeatOrInvalidateInsideElement({
       moduleParentElement: invalidateParent,
       skipInitialized: true,
       onlyInitialized: false,
       componentId: id,
       module: MODULE_INVALIDATE
     });
-    for (const [
-      invalidateId,
-      { fn: initilizeFunction }
-    ] of invalidateInstancesMap.entries()) {
-      const condition = invalidateIdToInitialize.includes(invalidateId);
-      if (condition) initilizeFunction();
-    }
+    invalidateToInitialize.forEach(({ fn: initilizeFunction }) => {
+      initilizeFunction();
+    });
   };
 
   // src/js/mob/mob-js/modules/invalidate/action/inizialize-invalidate-watch.js

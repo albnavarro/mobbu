@@ -20,7 +20,7 @@ export const MODULE_INVALIDATE = 'invalidate';
  * @param {boolean} [params.onlyInitialized] - Used if we want to destroy module
  * @param {string} [params.componentId] - The component where main module is defined
  * @param {string} params.module - Module type repeat or invalidate
- * @returns {string[]}
+ * @returns {{ moduleId: string; fn: () => void; unsubscribe: (() => void)[] }[] | []}
  */
 export const getRepeatOrInvalidateInsideElement = ({
     moduleParentElement,
@@ -37,8 +37,16 @@ export const getRepeatOrInvalidateInsideElement = ({
     const result = [];
 
     for (const item of entries) {
-        const [id, { element: currentModuleParent, initialized, scopeId }] =
-            item;
+        const [
+            moduleId,
+            {
+                element: currentModuleParent,
+                initialized,
+                scopeId,
+                fn,
+                unsubscribe,
+            },
+        ] = item;
 
         /**
          * Skip 1
@@ -75,7 +83,15 @@ export const getRepeatOrInvalidateInsideElement = ({
             moduleParentElement?.contains(currentModuleParent) &&
             moduleParentElement !== currentModuleParent;
 
-        if (condition) result.push(id);
+        if (condition)
+            result.push({
+                moduleId,
+                fn,
+                unsubscribe:
+                    module === MODULE_REPEATER
+                        ? [/** @type{() => {}} */ (unsubscribe)]
+                        : /** @type{( () => {} )[]} */ (unsubscribe),
+            });
     }
 
     return result;

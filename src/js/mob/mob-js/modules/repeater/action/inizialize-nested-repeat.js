@@ -2,7 +2,6 @@ import {
     getRepeatOrInvalidateInsideElement,
     MODULE_REPEATER,
 } from '../../common-repeat-invalidate';
-import { repeatInstancesMap } from '../repeat-id-intances-map';
 
 /**
  * Initialize watch function of nested repeat.
@@ -23,7 +22,7 @@ export const inizializeNestedRepeat = ({ repeatParent, id }) => {
      * - Find module to initialize from modulePlaceholderMap
      * - Module must contained in moduleParent element
      */
-    const repeaterIdToInitialize = getRepeatOrInvalidateInsideElement({
+    const repeaterToInitialize = getRepeatOrInvalidateInsideElement({
         moduleParentElement: repeatParent,
         skipInitialized: true,
         onlyInitialized: false,
@@ -31,18 +30,7 @@ export const inizializeNestedRepeat = ({ repeatParent, id }) => {
         module: MODULE_REPEATER,
     });
 
-    /**
-     * FunctionMap
-     *
-     * - Find function for initialize nested modules
-     * - Use id found in newRepeatChild
-     */
-    for (const [
-        repeatId,
-        { fn: initilizeFunction },
-    ] of repeatInstancesMap.entries()) {
-        const condition = repeaterIdToInitialize.includes(repeatId);
-
-        if (condition) initilizeFunction();
-    }
+    repeaterToInitialize.forEach(({ fn: initilizeFunction }) => {
+        initilizeFunction();
+    });
 };

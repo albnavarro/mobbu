@@ -5,7 +5,6 @@ import {
     MODULE_INVALIDATE,
 } from '../../common-repeat-invalidate';
 import { removeInvalidateByInvalidateId } from './remove-invalidate-by-invalidate-id';
-import { invalidateInstancesMap } from '../invalidate-id-instances-map';
 
 /**
  * Destroy nester invalidate.
@@ -22,7 +21,7 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
      * - Find module to destroy from modulePlaceholderMap
      * - Module must contained in moduleParent element
      */
-    const invalidatIdToDelete = getRepeatOrInvalidateInsideElement({
+    const invalidatToDelete = getRepeatOrInvalidateInsideElement({
         moduleParentElement: invalidateParent,
         skipInitialized: false,
         onlyInitialized: true,
@@ -30,30 +29,11 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
         module: MODULE_INVALIDATE,
     });
 
-    /**
-     * FunctionMap
-     *
-     * - Find function for unsubscribe nested modules
-     * - Use id found in invalidatechildToDelete
-     */
-    for (const [
-        invalidateId,
-        { unsubscribe },
-    ] of invalidateInstancesMap.entries()) {
-        const condition = invalidatIdToDelete.includes(invalidateId);
+    invalidatToDelete.forEach(({ unsubscribe, moduleId }) => {
+        unsubscribe.forEach((fn) => {
+            fn();
+        });
 
-        if (condition) {
-            /**
-             * Invalidate has multiple observe item.
-             */
-            unsubscribe.forEach((fn) => {
-                fn();
-            });
-
-            /**
-             * Remove modules from placeholder && function map
-             */
-            removeInvalidateByInvalidateId({ id, invalidateId });
-        }
-    }
+        removeInvalidateByInvalidateId({ id, invalidateId: moduleId });
+    });
 };

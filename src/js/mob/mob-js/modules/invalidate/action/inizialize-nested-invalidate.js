@@ -4,7 +4,6 @@ import {
     getRepeatOrInvalidateInsideElement,
     MODULE_INVALIDATE,
 } from '../../common-repeat-invalidate';
-import { invalidateInstancesMap } from '../invalidate-id-instances-map';
 
 /**
  * Initialize watch function of nested invalidate.
@@ -26,7 +25,7 @@ export const inizializeNestedInvalidate = ({ invalidateParent, id }) => {
      * - Find module to initialize from modulePlaceholderMap
      * - Module must contained in moduleParent element
      */
-    const invalidateIdToInitialize = getRepeatOrInvalidateInsideElement({
+    const invalidateToInitialize = getRepeatOrInvalidateInsideElement({
         moduleParentElement: invalidateParent,
         skipInitialized: true,
         onlyInitialized: false,
@@ -34,18 +33,7 @@ export const inizializeNestedInvalidate = ({ invalidateParent, id }) => {
         module: MODULE_INVALIDATE,
     });
 
-    /**
-     * FunctionMap
-     *
-     * - Find function for initialize nested modules
-     * - Use id found in newInvalidateChild
-     */
-    for (const [
-        invalidateId,
-        { fn: initilizeFunction },
-    ] of invalidateInstancesMap.entries()) {
-        const condition = invalidateIdToInitialize.includes(invalidateId);
-
-        if (condition) initilizeFunction();
-    }
+    invalidateToInitialize.forEach(({ fn: initilizeFunction }) => {
+        initilizeFunction();
+    });
 };
