@@ -62,12 +62,21 @@ export const invalidateTick = async ({
         });
     }
 
+    /**
+     * After first cycle use previousResolve.
+     */
     if (queueIsResolved() && previousResolve) {
         previousResolve();
         return;
     }
 
     return new Promise((resolve) => {
+        /**
+         * First loop resolve here if there is no queque.
+         *
+         * - This check should be true only in first loop.
+         * - The other loop is resolved inside previous conditional
+         */
         if (queueIsResolved()) {
             resolve();
             return;
