@@ -3,6 +3,8 @@
 import { MobCore } from '../../../mob-core';
 import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
+import { invalidateTick } from '../../queque/tick-invalidate';
+import { repeaterTick } from '../../queque/tick-repeater';
 
 /** @type {Map<string, import('./type').BindText[]>} */
 export const bindTextMap = new Map();
@@ -249,7 +251,13 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
 
         if (!finalStateTowatch) return;
 
-        return watchById(id, finalStateTowatch, () => {
+        return watchById(id, finalStateTowatch, async () => {
+            /**
+             * Fire after repeater && invalidate Repater proxi must be update after repat update,
+             */
+            await repeaterTick();
+            await invalidateTick();
+
             /**
              * Wait for all all props is settled.
              */

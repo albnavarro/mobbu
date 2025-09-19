@@ -1,6 +1,8 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { watchById } from '../../component/action/watch';
 import { ATTR_BIND_EFFECT } from '../../constant';
+import { invalidateTick } from '../../queque/tick-invalidate';
+import { repeaterTick } from '../../queque/tick-repeater';
 import { detectProp } from '../../utils';
 
 /** @type {import('./type').BindEffectMap} */
@@ -208,7 +210,13 @@ const watchBindEffect = ({ data, element }) => {
                     });
                 }
 
-                return watchById(id, state, () => {
+                return watchById(id, state, async () => {
+                    /**
+                     * Fire after repeater && invalidate Repater proxi must be update after repat update,
+                     */
+                    await repeaterTick();
+                    await invalidateTick();
+
                     /**
                      * Check if element is garbage collected.
                      */

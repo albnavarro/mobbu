@@ -1,5 +1,7 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { watchById } from '../../component/action/watch';
+import { invalidateTick } from '../../queque/tick-invalidate';
+import { repeaterTick } from '../../queque/tick-repeater';
 import { detectProp } from '../../utils';
 
 /** @type {Map<string, import('./type').BindObject[]>} */
@@ -205,7 +207,13 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
     let ref;
 
     const unsubScribeFunction = keys.map((state) => {
-        return watchById(id, state, () => {
+        return watchById(id, state, async () => {
+            /**
+             * Fire after repeater && invalidate Repater proxi must be update after repat update,
+             */
+            await repeaterTick();
+            await invalidateTick();
+
             /**
              * Wait for all all props is settled.
              */
