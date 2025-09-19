@@ -2,6 +2,7 @@
 #### Write:
 - Repeater
 - Invalidate
+- Bind props
 
 #### Read:
 - Delegate event ( on handler event )
