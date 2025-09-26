@@ -97,8 +97,17 @@ const convertObjectParamsToString = (params) => {
  * @returns {Promise<void>}
  */
 export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
-    const historyObejct = { time: MobCore.getTime(), scrollY: window.scrollY };
     const originalHash = globalThis.location.hash.slice(1);
+
+    const scrollY = currentHistory
+        ? (getLastHistory(historyDirection)?.scrollY ?? 0)
+        : 0;
+
+    const historyObejct = {
+        time: MobCore.getTime(),
+        scrollY: window.scrollY,
+        hash: originalHash,
+    };
 
     /**
      * Prevent multiple routes start at same time.
@@ -174,17 +183,25 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
 
     // modalita standard
     // salvo il vaslore dello scroll corrente
-    if (!currentHistory) {
+    if (!currentHistory && shouldLoadRoute) {
         setHistoryBack(historyObejct);
     }
 
     // salvo il vaslore dello scroll corrente
-    if (currentHistory && historyDirection === HISTORY_BACK) {
+    if (
+        currentHistory &&
+        historyDirection === HISTORY_BACK &&
+        shouldLoadRoute
+    ) {
         setHistoryNext(historyObejct);
     }
 
     // salvo il vaslore corrente di next in back
-    if (currentHistory && historyDirection === HISTORY_NEXT) {
+    if (
+        currentHistory &&
+        historyDirection === HISTORY_NEXT &&
+        shouldLoadRoute
+    ) {
         setHistoryBack(getLastHistoryNext());
     }
 
@@ -202,9 +219,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
             templateName: targetTemplate,
             restoreScroll: getRestoreScrollVale({ url: hash }),
             params,
-            scrollY: currentHistory
-                ? (getLastHistory(historyDirection)?.scrollY ?? 0)
-                : 0,
+            scrollY,
             skipTransition:
                 (currentHistory ?? currentSkipTransition) ? true : false,
         });
@@ -234,6 +249,7 @@ export const router = () => {
 
     globalThis.addEventListener('popstate', (event) => {
         currentHistory = event?.state?.nextId;
+        console.log(currentHistory?.hash, currentHistory);
 
         /**
          * First back
@@ -241,6 +257,7 @@ export const router = () => {
         if (currentHistory && !previousHistory && historyBackSize() > 0) {
             previousHistory = currentHistory;
             historyDirection = HISTORY_BACK;
+            console.log('POP FROM FIRST BACK');
             return;
         }
 
@@ -255,6 +272,7 @@ export const router = () => {
         ) {
             previousHistory = currentHistory;
             historyDirection = HISTORY_BACK;
+            console.log('POP FROM BACK');
             return;
         }
 
@@ -268,6 +286,7 @@ export const router = () => {
         ) {
             previousHistory = currentHistory;
             historyDirection = HISTORY_NEXT;
+            console.log('POP FROM NEXT');
             return;
         }
 
