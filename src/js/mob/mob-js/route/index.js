@@ -235,10 +235,21 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
 export const router = () => {
     parseUrlHash();
 
+    /**
+     * Prevent browser to force scroll position.
+     */
+    globalThis.history.scrollRestoration = 'manual';
+
+    /**
+     * Intecept pop state ( browser history )
+     */
     globalThis.addEventListener('popstate', (event) => {
         currentHistory = event?.state?.nextId;
     });
 
+    /**
+     * Every time hash ( route ) change.
+     */
     globalThis.addEventListener('hashchange', () => {
         parseUrlHash();
     });

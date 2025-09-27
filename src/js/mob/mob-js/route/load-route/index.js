@@ -18,6 +18,8 @@ import { removeCancellableComponent } from '../../component/action/remove-and-de
 const scrolMap = new Map();
 
 /**
+ * Create a identifier string for route with name and params
+ *
  * @param {object} params
  * @param {string} params.route
  * @param {{ [key: string]: any }} params.params
@@ -79,31 +81,15 @@ export const loadRoute = async ({
     });
 
     /**
-     * With browser navigation set Scroll to last stored value
+     * Store current scrollPotion and store in from route.
      */
-    if (isBrowserNavigation)
-        window.scrollTo(0, scrolMap.get(fromRouteUID) ?? 0);
+    const newScrollY = window.scrollY;
+    scrolMap.set(fromRouteUID, newScrollY);
 
     /**
-     * With direct navigation store new scroll value.
-     */
-    if (!isBrowserNavigation) {
-        const newScrollY = window.scrollY;
-        scrolMap.set(fromRouteUID, newScrollY);
-        console.log('newScrollY:', newScrollY);
-    }
-
-    /**
-     * Get rpevious route scroll position.
+     * Get previous route scroll position.
      */
     const scrollY = scrolMap.get(toRouteUID);
-
-    console.log('-----');
-    console.log([...scrolMap]);
-    console.log('from:', fromRoute.route);
-    console.log('to:', route);
-    console.log('navigationIsFromHistory:', isBrowserNavigation);
-    console.log('-----');
 
     /**
      * Set before Change props

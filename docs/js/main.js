@@ -9406,20 +9406,9 @@
       route: fromRoute.route,
       params: activeParamsFromRoute
     });
-    if (isBrowserNavigation)
-      window.scrollTo(0, scrolMap.get(fromRouteUID) ?? 0);
-    if (!isBrowserNavigation) {
-      const newScrollY = window.scrollY;
-      scrolMap.set(fromRouteUID, newScrollY);
-      console.log("newScrollY:", newScrollY);
-    }
+    const newScrollY = window.scrollY;
+    scrolMap.set(fromRouteUID, newScrollY);
     const scrollY2 = scrolMap.get(toRouteUID);
-    console.log("-----");
-    console.log([...scrolMap]);
-    console.log("from:", fromRoute.route);
-    console.log("to:", route);
-    console.log("navigationIsFromHistory:", isBrowserNavigation);
-    console.log("-----");
     mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, {
       currentRoute: fromRoute.route,
       currentTemplate: fromRoute.templateName,
@@ -9623,6 +9612,7 @@
   };
   var router = () => {
     parseUrlHash();
+    globalThis.history.scrollRestoration = "manual";
     globalThis.addEventListener("popstate", (event) => {
       currentHistory = event?.state?.nextId;
     });
