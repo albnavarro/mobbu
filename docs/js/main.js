@@ -9343,6 +9343,7 @@
   // src/js/mob/mob-js/route/constant.js
   var HISTORY_BACK = "BACK";
   var HISTORY_NEXT = "NEXT";
+  var HISTORY_NONE = "NONE";
 
   // src/js/mob/mob-js/component/action/remove-and-destroy/remove-orphan-temp-ids.js
   var removeOrphanTempIds = () => {
@@ -9586,13 +9587,13 @@
       lastTime2 = currentTime;
       currentTime = setItem?.time ?? 0;
       const direction2 = (() => {
+        if (!currentHistory || currentTime === lastTime2)
+          return HISTORY_NONE;
         if (currentTime > 0 && lastTime2 === 0) return HISTORY_BACK;
         if (currentTime > lastTime2) return HISTORY_NEXT;
         if (currentTime < lastTime2) return HISTORY_BACK;
-        if (currentTime === lastTime2) return "";
         return "";
       })();
-      console.log(direction2);
       await loadRoute({
         route: targetRoute,
         templateName: targetTemplate,
