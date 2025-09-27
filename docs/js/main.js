@@ -9408,14 +9408,16 @@
     });
     if (isBrowserNavigation)
       window.scrollTo(0, scrolMap.get(fromRouteUID) ?? 0);
-    const newScrollY = window.scrollY;
-    if (!isBrowserNavigation) scrolMap.set(fromRouteUID, newScrollY);
+    if (!isBrowserNavigation) {
+      const newScrollY = window.scrollY;
+      scrolMap.set(fromRouteUID, newScrollY);
+      console.log("newScrollY:", newScrollY);
+    }
     const scrollY2 = scrolMap.get(toRouteUID);
     console.log("-----");
     console.log([...scrolMap]);
     console.log("from:", fromRoute.route);
     console.log("to:", route);
-    console.log("newScrollY:", newScrollY);
     console.log("navigationIsFromHistory:", isBrowserNavigation);
     console.log("-----");
     mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, {
