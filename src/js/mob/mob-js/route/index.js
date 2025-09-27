@@ -75,7 +75,6 @@ const scrollYValues = new Map();
 
 let currentTime = 0;
 let lastTime = 0;
-let direction = '';
 
 /**
  * Get hash from url and load new route.
@@ -187,13 +186,15 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
         lastTime = currentTime;
         currentTime = setItem?.time ?? 0;
 
-        direction = (() => {
+        const direction = (() => {
             if (currentTime > 0 && lastTime === 0) return HISTORY_BACK;
             if (currentTime > lastTime) return HISTORY_NEXT;
             if (currentTime < lastTime) return HISTORY_BACK;
             if (currentTime === lastTime) return '';
             return '';
         })();
+
+        console.log(direction);
 
         /**
          * If does not come from currentHistory restore scroll is always false
@@ -203,7 +204,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
         await loadRoute({
             route: targetRoute,
             templateName: targetTemplate,
-            restoreScroll:
+            navigationIsFromHistory:
                 getRestoreScrollVale({ url: hash }) && !!currentHistory,
             params,
             skipTransition:
