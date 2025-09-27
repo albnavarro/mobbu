@@ -204,7 +204,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
         await loadRoute({
             route: targetRoute,
             templateName: targetTemplate,
-            navigationIsFromHistory:
+            isBrowserNavigation:
                 getRestoreScrollVale({ url: hash }) && !!currentHistory,
             params,
             skipTransition:

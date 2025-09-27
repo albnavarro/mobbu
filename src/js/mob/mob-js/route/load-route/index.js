@@ -35,14 +35,14 @@ const createRouteString = ({ route, params }) => {
  * @param {object} param
  * @param {string} param.route
  * @param {string} param.templateName
- * @param {boolean} param.navigationIsFromHistory
+ * @param {boolean} param.isBrowserNavigation
  * @param {{ [key: string]: any }} param.params
  * @param {boolean | undefined} param.skipTransition
  */
 export const loadRoute = async ({
     route = '',
     templateName = '',
-    navigationIsFromHistory = false,
+    isBrowserNavigation = false,
     params = {},
     skipTransition,
 }) => {
@@ -81,12 +81,12 @@ export const loadRoute = async ({
     /**
      * Get and set pevious scrollY value getted from previous route.
      */
-    if (navigationIsFromHistory)
+    if (isBrowserNavigation)
         window.scrollTo(0, scrolMap.get(fromRouteUID) ?? 0);
 
     const newScrollY = window.scrollY;
 
-    if (!navigationIsFromHistory) scrolMap.set(fromRouteUID, newScrollY);
+    if (!isBrowserNavigation) scrolMap.set(fromRouteUID, newScrollY);
 
     /**
      * Get rpevious route scroll position.
@@ -98,7 +98,7 @@ export const loadRoute = async ({
     console.log('from:', fromRoute.route);
     console.log('to:', route);
     console.log('newScrollY:', newScrollY);
-    console.log('navigationIsFromHistory:', navigationIsFromHistory);
+    console.log('navigationIsFromHistory:', isBrowserNavigation);
     console.log('-----');
 
     /**
@@ -198,7 +198,7 @@ export const loadRoute = async ({
     /**
      * Scroll to 0 or if use history from history scrollY value
      */
-    if (getRestoreScroll() && navigationIsFromHistory) {
+    if (getRestoreScroll() && isBrowserNavigation) {
         scrollTo(0, scrollY);
     } else {
         scrollTo(0, 0);

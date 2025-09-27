@@ -9389,7 +9389,7 @@
   var loadRoute = async ({
     route = "",
     templateName = "",
-    navigationIsFromHistory = false,
+    isBrowserNavigation = false,
     params = {},
     skipTransition
   }) => {
@@ -9406,17 +9406,17 @@
       route: fromRoute.route,
       params: activeParamsFromRoute
     });
-    if (navigationIsFromHistory)
+    if (isBrowserNavigation)
       window.scrollTo(0, scrolMap.get(fromRouteUID) ?? 0);
     const newScrollY = window.scrollY;
-    if (!navigationIsFromHistory) scrolMap.set(fromRouteUID, newScrollY);
+    if (!isBrowserNavigation) scrolMap.set(fromRouteUID, newScrollY);
     const scrollY2 = scrolMap.get(toRouteUID);
     console.log("-----");
     console.log([...scrolMap]);
     console.log("from:", fromRoute.route);
     console.log("to:", route);
     console.log("newScrollY:", newScrollY);
-    console.log("navigationIsFromHistory:", navigationIsFromHistory);
+    console.log("navigationIsFromHistory:", isBrowserNavigation);
     console.log("-----");
     mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, {
       currentRoute: fromRoute.route,
@@ -9462,7 +9462,7 @@
         previousRoute: fromRoute.route,
         previousTemplate: fromRoute.templateName
       });
-    if (getRestoreScroll() && navigationIsFromHistory) {
+    if (getRestoreScroll() && isBrowserNavigation) {
       scrollTo(0, scrollY2);
     } else {
       scrollTo(0, 0);
@@ -9605,7 +9605,7 @@
       await loadRoute({
         route: targetRoute,
         templateName: targetTemplate,
-        navigationIsFromHistory: getRestoreScrollVale({ url: hash }) && !!currentHistory,
+        isBrowserNavigation: getRestoreScrollVale({ url: hash }) && !!currentHistory,
         params,
         skipTransition: currentHistory ?? currentSkipTransition ? true : false
       });
