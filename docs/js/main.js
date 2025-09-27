@@ -9344,50 +9344,6 @@
   var HISTORY_BACK = "BACK";
   var HISTORY_NEXT = "NEXT";
 
-  // src/js/mob/mob-js/route/history/index.js
-  var historyBack = [];
-  var historyNext = [];
-  var deleteLastHistoryBack = () => {
-    const arrayLenght = historyBack.length;
-    if (arrayLenght >= 1) historyBack.length = historyBack.length - 1;
-  };
-  var deleteLastHistoryNext = () => {
-    const arrayLenght = historyNext.length;
-    if (arrayLenght >= 1) historyNext.length = historyNext.length - 1;
-  };
-  var setHistoryBack = (value) => {
-    historyBack.push(value);
-  };
-  var setHistoryNext = (value) => {
-    historyNext.push(value);
-  };
-  var resetNext = () => {
-    historyNext = [];
-  };
-  var historyBackSize = () => {
-    return historyBack.length;
-  };
-  var getLastHistoryBack = () => {
-    const value = historyBack.at(-1);
-    deleteLastHistoryBack();
-    return value;
-  };
-  var getPenultimateHistoryNext = () => {
-    const value = historyNext.at(-2);
-    deleteLastHistoryNext();
-    return value;
-  };
-  var getLastHistoryNext = () => {
-    const value = historyNext.at(-1);
-    return value;
-  };
-  var getLastHistory = (direction2) => {
-    if (direction2 === HISTORY_BACK) {
-      return getLastHistoryBack();
-    }
-    return getPenultimateHistoryNext();
-  };
-
   // src/js/mob/mob-js/component/action/remove-and-destroy/remove-orphan-temp-ids.js
   var removeOrphanTempIds = () => {
     removeOrphansPropsFromParent();
@@ -9533,8 +9489,6 @@
   var previousParamsToPush = "";
   var currentStringParams;
   var currentSkipTransition;
-  var historyDirection = "back";
-  var previousHistory;
   var currentHistory;
   var sanitizeParams = (value) => {
     return value.replace("?", "").replace("/", "");
@@ -9556,13 +9510,18 @@
       return `${previous}${currentJoin}${key}=${value}`;
     }, "");
   };
+  var scrollYValues = /* @__PURE__ */ new Map();
+  var currentTime = 0;
+  var lastTime2 = 0;
+  var direction2 = "";
   var parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     const originalHash = globalThis.location.hash.slice(1);
-    const scrollY2 = currentHistory ? getLastHistory(historyDirection)?.scrollY ?? 0 : 0;
+    const id = modules_exports.getUnivoqueId();
+    const time2 = modules_exports.getTime();
     const historyObejct = {
-      time: modules_exports.getTime(),
-      scrollY: window.scrollY,
-      hash: originalHash
+      hash: originalHash,
+      time: time2,
+      id
     };
     const { routeIsLoading } = mainStore.get();
     if (routeIsLoading) {
@@ -9584,37 +9543,56 @@
     const hash = sanitizeHash(parts?.[0] ?? "");
     const params = getParams(currentStringParams ?? search);
     const paramsToPush = currentStringParams || Object.keys(search).length > 0 ? `?${currentStringParams ?? search}` : "";
-    if (!currentHistory)
+    if (!currentHistory && shouldLoadRoute) {
       history.replaceState(
-        { nextId: historyObejct },
+        { nextId: { ...historyObejct } },
         "",
         `#${hash}${paramsToPush}`
       );
+      scrollYValues.set(id, {
+        hash: originalHash,
+        scrollY: window.scrollY,
+        time: time2
+      });
+    }
+    if (shouldLoadRoute) {
+      console.log([...scrollYValues]);
+    }
     currentStringParams = void 0;
     previousHash = hash;
     previousParamsToPush = paramsToPush;
-    if (!currentHistory && shouldLoadRoute) {
-      setHistoryBack(historyObejct);
-    }
-    if (currentHistory && historyDirection === HISTORY_BACK && shouldLoadRoute) {
-      setHistoryNext(historyObejct);
-    }
-    if (currentHistory && historyDirection === HISTORY_NEXT && shouldLoadRoute) {
-      setHistoryBack(getLastHistoryNext());
-    }
     const targetRoute = getRouteModule({ url: hash });
     const targetTemplate = getTemplateName({
       url: hash && hash.length > 0 ? hash : getIndex()
     });
-    if (shouldLoadRoute)
+    if (shouldLoadRoute) {
+      console.log("currentHistoryId", currentHistory);
+      const setItem = scrollYValues.get(currentHistory?.id);
+      const scrollValuesToArray = [...scrollYValues];
+      const currentIndex = scrollValuesToArray.findIndex(([id2]) => {
+        return id2 === currentHistory?.id;
+      });
+      lastTime2 = currentTime;
+      currentTime = setItem?.time ?? 0;
+      direction2 = (() => {
+        if (currentTime > 0 && lastTime2 === 0) return HISTORY_BACK;
+        if (currentTime > lastTime2) return HISTORY_NEXT;
+        if (currentTime < lastTime2) return HISTORY_BACK;
+        if (currentTime === lastTime2) return "";
+        return "";
+      })();
+      console.log(direction2);
+      const item = currentIndex === -1 && scrollValuesToArray.length > currentIndex ? ["", { scrollY: 0 }] : scrollValuesToArray[currentIndex + 1];
+      const values = item?.[1] ?? { scrollY: 0 };
       await loadRoute({
         route: targetRoute,
         templateName: targetTemplate,
         restoreScroll: getRestoreScrollVale({ url: hash }),
         params,
-        scrollY: scrollY2,
+        scrollY: values?.scrollY ?? 0,
         skipTransition: currentHistory ?? currentSkipTransition ? true : false
       });
+    }
     if (!shouldLoadRoute) {
       mainStore.set(MAIN_STORE_ACTIVE_ROUTE, {
         route: targetRoute,
@@ -9628,28 +9606,6 @@
     parseUrlHash();
     globalThis.addEventListener("popstate", (event) => {
       currentHistory = event?.state?.nextId;
-      console.log(currentHistory?.hash, currentHistory);
-      if (currentHistory && !previousHistory && historyBackSize() > 0) {
-        previousHistory = currentHistory;
-        historyDirection = HISTORY_BACK;
-        console.log("POP FROM FIRST BACK");
-        return;
-      }
-      if (currentHistory && previousHistory && previousHistory?.time > currentHistory?.time && historyBackSize() > 0) {
-        previousHistory = currentHistory;
-        historyDirection = HISTORY_BACK;
-        console.log("POP FROM BACK");
-        return;
-      }
-      if (currentHistory && previousHistory && previousHistory?.time < currentHistory?.time) {
-        previousHistory = currentHistory;
-        historyDirection = HISTORY_NEXT;
-        console.log("POP FROM NEXT");
-        return;
-      }
-      previousHistory = void 0;
-      historyDirection = "";
-      resetNext();
     });
     globalThis.addEventListener("hashchange", () => {
       parseUrlHash();
@@ -11291,10 +11247,10 @@
     if (!valIsValid) staggerRowColGenericWarining(val2);
     return valIsValid;
   };
-  var validateStaggerDirection = (direction2) => {
-    if (!direction2) return;
+  var validateStaggerDirection = (direction3) => {
+    if (!direction3) return;
     const directionList = [DIRECTION_RADIAL, DIRECTION_ROW, DIRECTION_COL];
-    const directionisValid = directionList.includes(direction2);
+    const directionisValid = directionList.includes(direction3);
     if (!directionisValid) staggerGridDirectionWarning();
     return directionisValid;
   };
@@ -11482,15 +11438,15 @@
     const realEl = isNode3 ? element : document.querySelector(element);
     return realEl;
   };
-  var directionIsValid = (direction2, component) => {
-    if (!direction2) return MobScrollerConstant.DIRECTION_VERTICAL;
+  var directionIsValid = (direction3, component) => {
+    if (!direction3) return MobScrollerConstant.DIRECTION_VERTICAL;
     const choice = [
       MobScrollerConstant.DIRECTION_VERTICAL,
       MobScrollerConstant.DIRECTION_HORIZONTAL
     ];
-    const isValid = choice.includes(direction2);
-    if (!isValid && direction2) scrollerDirectionWarining(direction2, component);
-    return isValid ? direction2 : MobScrollerConstant.DIRECTION_VERTICAL;
+    const isValid = choice.includes(direction3);
+    if (!isValid && direction3) scrollerDirectionWarining(direction3, component);
+    return isValid ? direction3 : MobScrollerConstant.DIRECTION_VERTICAL;
   };
   var scrollerDynamicValueIsValid = (obj, label) => {
     const positionChoice = [
@@ -14205,13 +14161,13 @@
       partial = 0,
       isLastDraw = false,
       useFrame: useFrame2 = false,
-      direction: direction2 = directionConstant.NONE
+      direction: direction3 = directionConstant.NONE
     }) {
       if (useFrame2) {
         this.#onDraw({
           partial,
           isLastDraw,
-          direction: direction2
+          direction: direction3
         });
         return;
       }
@@ -14219,7 +14175,7 @@
         () => this.#onDraw({
           partial,
           isLastDraw,
-          direction: direction2
+          direction: direction3
         })
       );
     }
@@ -14232,17 +14188,17 @@
     #onDraw({
       partial = 0,
       isLastDraw = false,
-      direction: direction2 = directionConstant.NONE
+      direction: direction3 = directionConstant.NONE
     }) {
       if (this.#firstRun) {
         this.#lastPartial = partial;
         this.#actionAtFirstRender(partial);
       }
-      if (!this.#firstRun && this.#lastPartial && (!direction2 || direction2 === directionConstant.NONE)) {
+      if (!this.#firstRun && this.#lastPartial && (!direction3 || direction3 === directionConstant.NONE)) {
         this.#direction = partial >= this.#lastPartial ? directionConstant.FORWARD : directionConstant.BACKWARD;
       }
-      if (!this.#firstRun && (direction2 === directionConstant.BACKWARD || direction2 === directionConstant.FORWARD)) {
-        this.#direction = direction2;
+      if (!this.#firstRun && (direction3 === directionConstant.BACKWARD || direction3 === directionConstant.FORWARD)) {
+        this.#direction = direction3;
       }
       this.#values = [...this.#values].map((item) => {
         return {
@@ -14298,8 +14254,8 @@
         };
         const mustFire = mustFireForward.shouldFire || mustFireBackward.shouldFire;
         if (!mustFire) return;
-        const direction2 = mustFireForward.shouldFire ? mustFireForward.direction : mustFireBackward.direction;
-        fn({ direction: direction2, value: time2, isForced: true });
+        const direction3 = mustFireForward.shouldFire ? mustFireForward.direction : mustFireBackward.direction;
+        fn({ direction: direction3, value: time2, isForced: true });
       });
       this.#forceAddFnAtFirstRun = false;
     }
@@ -16912,9 +16868,9 @@
                 res({ resolve: true });
                 return;
               }
-              const direction2 = this.getDirection();
+              const direction3 = this.getDirection();
               callback2({
-                direction: direction2,
+                direction: direction3,
                 loop: this.#loopCounter
               });
               res({ resolve: true });
@@ -16931,9 +16887,9 @@
                 res({ resolve: true });
                 return;
               }
-              const direction2 = this.getDirection();
+              const direction3 = this.getDirection();
               callback2({
-                direction: direction2,
+                direction: direction3,
                 loop: this.#loopCounter,
                 resolve: () => {
                   if (sessionId === this.#sessionId) {
@@ -17145,10 +17101,10 @@
      */
     #onRepeat() {
       if (this.#loopCounter > 0) {
-        const direction2 = this.getDirection();
+        const direction3 = this.getDirection();
         this.#callbackLoop.forEach(
           ({ cb }) => cb({
-            direction: direction2,
+            direction: direction3,
             loop: this.#loopCounter
           })
         );
@@ -18223,7 +18179,7 @@
         this.#goToNextFrame();
         return;
       }
-      const direction2 = this.getDirection();
+      const direction3 = this.getDirection();
       modules_exports.useNextFrame(() => {
         if (!this.#fpsIsInLoading && !this.#completed && this.#loopIteration > this.#minLoopIteration) {
           this.#completed = true;
@@ -18231,7 +18187,7 @@
           this.#loopIteration = 0;
           this.#callbackLoop.forEach(
             ({ cb }) => cb({
-              direction: direction2,
+              direction: direction3,
               loop: this.#loopCounter
             })
           );
@@ -18861,14 +18817,14 @@
   };
   var getStartStyle = ({
     startPoint,
-    direction: direction2,
+    direction: direction3,
     invertSide,
     top,
     bottom,
     left,
     right
   }) => {
-    if (direction2 === MobScrollerConstant.DIRECTION_VERTICAL) {
+    if (direction3 === MobScrollerConstant.DIRECTION_VERTICAL) {
       return invertSide ? {
         right: 0,
         width: "100vw",
@@ -18904,14 +18860,14 @@
   var getEndStyle = ({
     startPoint,
     endPoint,
-    direction: direction2,
+    direction: direction3,
     invertSide,
     top,
     bottom,
     left,
     right
   }) => {
-    if (direction2 === MobScrollerConstant.DIRECTION_VERTICAL) {
+    if (direction3 === MobScrollerConstant.DIRECTION_VERTICAL) {
       return invertSide ? {
         right: 0,
         width: "100vw",
@@ -18950,7 +18906,7 @@
     startPoint,
     endPoint,
     screen,
-    direction: direction2,
+    direction: direction3,
     invertSide,
     label
   }) => {
@@ -18962,7 +18918,7 @@
     const { top, right, bottom, left } = getPosition({ screen });
     const startStyle = getStartStyle({
       startPoint,
-      direction: direction2,
+      direction: direction3,
       invertSide,
       top,
       bottom,
@@ -18972,7 +18928,7 @@
     const endStyle = getEndStyle({
       startPoint,
       endPoint,
-      direction: direction2,
+      direction: direction3,
       invertSide,
       top,
       bottom,
@@ -18998,11 +18954,11 @@
   };
 
   // src/js/mob/mob-motion/animation/scroller/mob-scroller-pin-utils.js
-  var getMarkerWrapperStyle = ({ marker, direction: direction2, invertSide }) => {
+  var getMarkerWrapperStyle = ({ marker, direction: direction3, invertSide }) => {
     if (!marker) return {};
     const borderColor = handleSetUp.get("scrollTrigger")?.markerColor?.item || "#14df3b";
     const borderStyle = `3px ${borderColor} solid`;
-    if (direction2 === MobScrollerConstant.DIRECTION_VERTICAL) {
+    if (direction3 === MobScrollerConstant.DIRECTION_VERTICAL) {
       return invertSide ? { borderBottom: borderStyle } : { borderTop: borderStyle };
     } else {
       return invertSide ? { borderRight: borderStyle } : { borderLeft: borderStyle };
@@ -19831,7 +19787,7 @@
   }) => {
     return offset2 + height > wScrollTop - gap && offset2 < wScrollTop + (wHeight + gap);
   };
-  var getStartEndValue = (values, direction2) => {
+  var getStartEndValue = (values, direction3) => {
     const numberInString = values.find((item) => {
       return [...item].some((c) => !Number.isNaN(Number.parseFloat(c)));
     });
@@ -19840,11 +19796,11 @@
       scrollerWarningNoUnitMiusure();
       return returnWhenFail();
     }
-    if (numberInString && unitMisure === MobScrollerConstant.VH && direction2 === MobScrollerConstant.DIRECTION_HORIZONTAL) {
+    if (numberInString && unitMisure === MobScrollerConstant.VH && direction3 === MobScrollerConstant.DIRECTION_HORIZONTAL) {
       scrollerWarningVhIsNotAllowed();
       return returnWhenFail();
     }
-    if (numberInString && unitMisure === MobScrollerConstant.VW && direction2 === MobScrollerConstant.DIRECTION_VERTICAL) {
+    if (numberInString && unitMisure === MobScrollerConstant.VW && direction3 === MobScrollerConstant.DIRECTION_VERTICAL) {
       scrollerWarningVwIsNotAllowed();
       return returnWhenFail();
     }
@@ -19877,12 +19833,12 @@
       position: getPosition2 ?? MobScrollerConstant.POSITION_BOTTOM
     };
   };
-  var getStartPoint = (screenUnit, data, direction2) => {
+  var getStartPoint = (screenUnit, data, direction3) => {
     const str = String(data);
     const values = str.split(" ");
     const { numberVal, unitMisure, additionalVal, position: position2 } = getStartEndValue(
       values,
-      direction2
+      direction3
     );
     const firstChar = String(numberVal).charAt(0);
     const isNegative = firstChar === "-" ? -1 : 1;
@@ -19901,12 +19857,12 @@
       position: getScrollerPositionFromContanst(position2)
     };
   };
-  var getEndPoint = (screenUnit, data, startPoint, scrollerHeight, invertSide, direction2) => {
+  var getEndPoint = (screenUnit, data, startPoint, scrollerHeight, invertSide, direction3) => {
     const str = String(data);
     const values = str.split(" ");
     const { numberVal, unitMisure, additionalVal, position: position2 } = getStartEndValue(
       values,
-      direction2
+      direction3
     );
     const firstChar = String(numberVal).charAt(0);
     const isNegative = firstChar === "-" ? -1 : 1;
@@ -20776,8 +20732,8 @@
     /**
      * @param {string} direction
      */
-    setDirection(direction2) {
-      this.#direction = directionIsValid(direction2, "Parallax/Scrolltrigger");
+    setDirection(direction3) {
+      this.#direction = directionIsValid(direction3, "Parallax/Scrolltrigger");
     }
     /**
      * @param {import('../../utils/type.js').MqValues} breakpoint
@@ -23527,8 +23483,8 @@
         return;
       if (Math.abs(pixelX) > 40) {
         this.#swipeisActive = true;
-        const direction2 = pixelX > 0 ? -1 : 1;
-        const directionParsed = this.#revertSwipeDirection ? direction2 : direction2 * -1;
+        const direction3 = pixelX > 0 ? -1 : 1;
+        const directionParsed = this.#revertSwipeDirection ? direction3 : direction3 * -1;
         this.#onSwipeCallback({
           direction: directionParsed,
           move: (value) => this.move(value).catch(() => {
@@ -25755,10 +25711,10 @@
             `;
     }).join("");
   }
-  var setActiveLabelOnScroll = ({ proxi, direction: direction2, winHeight }) => {
+  var setActiveLabelOnScroll = ({ proxi, direction: direction3, winHeight }) => {
     modules_exports.useFrame(() => {
       modules_exports.useNextTick(() => {
-        if (direction2 === "DOWN") {
+        if (direction3 === "DOWN") {
           const activeItem = proxi.anchorItems.findLast(
             ({ top, isNote }) => {
               return !isNote && top < window.scrollY + winHeight - 200;
@@ -25766,7 +25722,7 @@
           );
           proxi.activeLabel = activeItem ? activeItem.label : "";
         }
-        if (direction2 === "UP") {
+        if (direction3 === "UP") {
           const activeItem = proxi.anchorItems.findLast(
             ({ top, isNote }) => !isNote && top < window.scrollY + 200
           );
@@ -25786,7 +25742,7 @@
     getProxi
   }) => {
     const proxi = getProxi();
-    let direction2 = "DOWN";
+    let direction3 = "DOWN";
     let winHeight = window.innerHeight;
     addMethod("addItem", ({ id, label, element, isSection, isNote }) => {
       updateState("anchorItemsToBeComputed", (val2) => {
@@ -25811,7 +25767,7 @@
         }
       );
       const unsubscribeThrottle = modules_exports.useScrollThrottle(
-        ({ direction: currentDirection }) => direction2 = currentDirection
+        ({ direction: currentDirection }) => direction3 = currentDirection
       );
       let resizeObserver = new ResizeObserver(
         modules_exports.debounce(() => {
@@ -25829,13 +25785,13 @@
       const unsubscribeMouseWheel = proxi.updateAnchorOnWheel ? modules_exports.useMouseWheel(
         modules_exports.debounce(() => {
           if (disableObservereffect) return;
-          setActiveLabelOnScroll({ proxi, direction: direction2, winHeight });
+          setActiveLabelOnScroll({ proxi, direction: direction3, winHeight });
         }, 600)
       ) : () => {
       };
       const unsubScribeScrollEnd = modules_exports.useScrollEnd(() => {
         if (disableObservereffect) return;
-        setActiveLabelOnScroll({ proxi, direction: direction2, winHeight });
+        setActiveLabelOnScroll({ proxi, direction: direction3, winHeight });
       });
       return () => {
         unsubscribeMouseWheel();
@@ -26144,23 +26100,23 @@
       { start: 6, end: 10 }
     ).add(() => {
       setActiveItem(1);
-    }, 0).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "forward") return;
+    }, 0).add(({ direction: direction3, isForced }) => {
+      if (isForced || direction3 === "forward") return;
       setActiveItem(1);
-    }, 2.5).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "backward") return;
+    }, 2.5).add(({ direction: direction3, isForced }) => {
+      if (isForced || direction3 === "backward") return;
       setActiveItem(2);
-    }, 1).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "forward") return;
+    }, 1).add(({ direction: direction3, isForced }) => {
+      if (isForced || direction3 === "forward") return;
       setActiveItem(2);
-    }, 6).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "backward") return;
+    }, 6).add(({ direction: direction3, isForced }) => {
+      if (isForced || direction3 === "backward") return;
       setActiveItem(3);
-    }, 4.5).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "forward") return;
+    }, 4.5).add(({ direction: direction3, isForced }) => {
+      if (isForced || direction3 === "forward") return;
       setActiveItem(3);
-    }, 9).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "backward") return;
+    }, 9).add(({ direction: direction3, isForced }) => {
+      if (isForced || direction3 === "backward") return;
       setActiveItem(4);
     }, 8);
     sequencerData.forEach((item) => {
@@ -26498,8 +26454,8 @@
         onMove(value);
         onScrollEnd();
       },
-      onSwipe: ({ direction: direction2 }) => {
-        onSwipe(direction2);
+      onSwipe: ({ direction: direction3 }) => {
+        onSwipe(direction3);
       }
     });
     aboutScroller.init();
@@ -26802,11 +26758,11 @@
           svgShiftAmount = startpercent - value;
           moveSvg(svgShiftAmount);
         },
-        onSwipe: (direction2) => {
-          if (direction2 === -1) {
+        onSwipe: (direction3) => {
+          if (direction3 === -1) {
             proxi.activenavItem -= 1;
           }
-          if (direction2 === 1) {
+          if (direction3 === 1) {
             proxi.activenavItem += 1;
           }
           _goTo(goToPercentage[proxi.activenavItem]);
@@ -28134,8 +28090,8 @@
       yoyo: true,
       autoSet: false
     }).label({ name: "label1" }).goTo(gridTween, { scale: 1.5, rotate: 90 }, { duration: 1e3 }).goTo(gridTween, { scale: 0.5 }, { duration: 500 }).goTo(gridTween, { rotate: 180, scale: 1.2 }, { duration: 500 }).goTo(gridTween, { scale: 1.3 }, { duration: 500 }).goTo(gridTween, { scale: 1 }, { duration: 1200 });
-    gridTimeline.onLoopEnd(({ direction: direction2, loop: loop2 }) => {
-      console.log(`loop end: ${direction2}, ${loop2}`);
+    gridTimeline.onLoopEnd(({ direction: direction3, loop: loop2 }) => {
+      console.log(`loop end: ${direction3}, ${loop2}`);
     });
     gridTimeline.play();
     const loop = () => {
@@ -29386,9 +29342,9 @@
   };
 
   // src/js/component/pages/canvas/n2/animation/animation.js
-  var logAddMethods = ({ value, direction: direction2, isForced }) => {
+  var logAddMethods = ({ value, direction: direction3, isForced }) => {
     if (isForced) return;
-    console.log(`current: ${value}, direction: ${direction2}`);
+    console.log(`current: ${value}, direction: ${direction3}`);
   };
   var caterpillarN2Animation = ({
     canvas,
@@ -29442,12 +29398,12 @@
     ).goTo(
       { rotate: () => -userRotation },
       { start: 0, end: 5, ease: "easeInOutBack" }
-    ).goTo({ rotate: 0 }, { start: 5, end: duration2, ease: "easeInOutBack" }).label("mylabel", 2).add(({ isForced, direction: direction2 }) => {
-      logAddMethods({ isForced, direction: direction2, value: 1 });
-    }, 1).add(({ isForced, direction: direction2 }) => {
-      logAddMethods({ isForced, direction: direction2, value: 5 });
-    }, 5).add(({ isForced, direction: direction2 }) => {
-      logAddMethods({ isForced, direction: direction2, value: 9 });
+    ).goTo({ rotate: 0 }, { start: 5, end: duration2, ease: "easeInOutBack" }).label("mylabel", 2).add(({ isForced, direction: direction3 }) => {
+      logAddMethods({ isForced, direction: direction3, value: 1 });
+    }, 1).add(({ isForced, direction: direction3 }) => {
+      logAddMethods({ isForced, direction: direction3, value: 5 });
+    }, 5).add(({ isForced, direction: direction3 }) => {
+      logAddMethods({ isForced, direction: direction3, value: 9 });
     }, 9);
     squareData.forEach((item) => {
       infiniteTween.subscribeCache(item, ({ x, rotate }) => {
@@ -29465,8 +29421,8 @@
       yoyo: false,
       duration: 4e3
     }).add(infiniteTween);
-    syncTimeline.onLoopEnd(({ loop: loop2, direction: direction2 }) => {
-      console.log(`loop end: ${loop2} , ${direction2}`);
+    syncTimeline.onLoopEnd(({ loop: loop2, direction: direction3 }) => {
+      console.log(`loop end: ${loop2} , ${direction3}`);
     });
     const draw = () => {
       if (!ctx) return;

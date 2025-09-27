@@ -5,14 +5,6 @@ import {
 } from '../main-store/constant';
 import { mainStore } from '../main-store/main-store';
 import { HISTORY_BACK, HISTORY_NEXT } from './constant';
-import {
-    historyBackSize,
-    getLastHistory,
-    getLastHistoryNext,
-    resetNext,
-    setHistoryBack,
-    setHistoryNext,
-} from './history';
 import { loadRoute } from './load-route';
 import { tryRedirect } from './redirect';
 import { getIndex } from './route-list';
@@ -29,14 +21,6 @@ let currentStringParams;
 
 /** @type {boolean | undefined} */
 let currentSkipTransition;
-
-/** @type {string} */
-let historyDirection = 'back';
-
-/**
- * @type {import('./type').HistoryType | undefined}
- */
-let previousHistory;
 
 /**
  * @type {import('./type').HistoryType | undefined}
@@ -87,6 +71,12 @@ const convertObjectParamsToString = (params) => {
     );
 };
 
+const scrollYValues = new Map();
+
+let currentTime = 0;
+let lastTime = 0;
+let direction = '';
+
 /**
  * Get hash from url and load new route.
  *
@@ -98,15 +88,13 @@ const convertObjectParamsToString = (params) => {
  */
 export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     const originalHash = globalThis.location.hash.slice(1);
-
-    const scrollY = currentHistory
-        ? (getLastHistory(historyDirection)?.scrollY ?? 0)
-        : 0;
+    const id = MobCore.getUnivoqueId();
+    const time = MobCore.getTime();
 
     const historyObejct = {
-        time: MobCore.getTime(),
-        scrollY: window.scrollY,
         hash: originalHash,
+        time,
+        id,
     };
 
     /**
@@ -156,15 +144,29 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
             ? `?${currentStringParams ?? search}`
             : '';
 
-    /**
-     * Set unique id to route. Useful in poState to check if come from backButton
-     */
-    if (!currentHistory)
+    if (!currentHistory && shouldLoadRoute) {
         history.replaceState(
-            { nextId: historyObejct },
+            { nextId: { ...historyObejct } },
             '',
             `#${hash}${paramsToPush}`
         );
+
+        scrollYValues.set(id, {
+            hash: originalHash,
+            scrollY: window.scrollY,
+            time,
+        });
+    }
+
+    if (shouldLoadRoute) {
+        console.log([...scrollYValues]);
+        // const item = scrollYValues.get(currentHistory?.id);
+        //
+        // scrollYValues.set(id, {
+        //     ...item,
+        //     scrollY: window.scrollY,
+        // });
+    }
 
     /**
      * Reset last search value ( id come form loadUrl function ).
@@ -181,30 +183,6 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      */
     previousParamsToPush = paramsToPush;
 
-    // modalita standard
-    // salvo il vaslore dello scroll corrente
-    if (!currentHistory && shouldLoadRoute) {
-        setHistoryBack(historyObejct);
-    }
-
-    // salvo il vaslore dello scroll corrente
-    if (
-        currentHistory &&
-        historyDirection === HISTORY_BACK &&
-        shouldLoadRoute
-    ) {
-        setHistoryNext(historyObejct);
-    }
-
-    // salvo il vaslore corrente di next in back
-    if (
-        currentHistory &&
-        historyDirection === HISTORY_NEXT &&
-        shouldLoadRoute
-    ) {
-        setHistoryBack(getLastHistoryNext());
-    }
-
     const targetRoute = getRouteModule({ url: hash });
     const targetTemplate = getTemplateName({
         url: hash && hash.length > 0 ? hash : getIndex(),
@@ -213,16 +191,46 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     /**
      * Load route.
      */
-    if (shouldLoadRoute)
+    if (shouldLoadRoute) {
+        console.log('currentHistoryId', currentHistory);
+
+        const setItem = scrollYValues.get(currentHistory?.id);
+
+        const scrollValuesToArray = [...scrollYValues];
+        const currentIndex = scrollValuesToArray.findIndex(([id]) => {
+            return id === currentHistory?.id;
+        });
+
+        lastTime = currentTime;
+        currentTime = setItem?.time ?? 0;
+
+        direction = (() => {
+            if (currentTime > 0 && lastTime === 0) return HISTORY_BACK;
+            if (currentTime > lastTime) return HISTORY_NEXT;
+            if (currentTime < lastTime) return HISTORY_BACK;
+            if (currentTime === lastTime) return '';
+            return '';
+        })();
+
+        console.log(direction);
+
+        const item =
+            currentIndex === -1 && scrollValuesToArray.length > currentIndex
+                ? ['', { scrollY: 0 }]
+                : scrollValuesToArray[currentIndex + 1];
+
+        const values = item?.[1] ?? { scrollY: 0 };
+
         await loadRoute({
             route: targetRoute,
             templateName: targetTemplate,
             restoreScroll: getRestoreScrollVale({ url: hash }),
             params,
-            scrollY,
+            scrollY: values?.scrollY ?? 0,
             skipTransition:
                 (currentHistory ?? currentSkipTransition) ? true : false,
         });
+    }
 
     /**
      * Update only current route/template/params
@@ -249,54 +257,6 @@ export const router = () => {
 
     globalThis.addEventListener('popstate', (event) => {
         currentHistory = event?.state?.nextId;
-        console.log(currentHistory?.hash, currentHistory);
-
-        /**
-         * First back
-         */
-        if (currentHistory && !previousHistory && historyBackSize() > 0) {
-            previousHistory = currentHistory;
-            historyDirection = HISTORY_BACK;
-            console.log('POP FROM FIRST BACK');
-            return;
-        }
-
-        /**
-         * Next
-         */
-        if (
-            currentHistory &&
-            previousHistory &&
-            previousHistory?.time > currentHistory?.time &&
-            historyBackSize() > 0
-        ) {
-            previousHistory = currentHistory;
-            historyDirection = HISTORY_BACK;
-            console.log('POP FROM BACK');
-            return;
-        }
-
-        /**
-         * Prev
-         */
-        if (
-            currentHistory &&
-            previousHistory &&
-            previousHistory?.time < currentHistory?.time
-        ) {
-            previousHistory = currentHistory;
-            historyDirection = HISTORY_NEXT;
-            console.log('POP FROM NEXT');
-            return;
-        }
-
-        previousHistory = undefined;
-        historyDirection = '';
-
-        /**
-         * Normal mode reset next
-         */
-        resetNext();
     });
 
     globalThis.addEventListener('hashchange', () => {
