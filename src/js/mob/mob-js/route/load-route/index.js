@@ -79,11 +79,14 @@ export const loadRoute = async ({
     });
 
     /**
-     * Get and set pevious scrollY value getted from previous route.
+     * With browser navigation set Scroll to last stored value
      */
     if (isBrowserNavigation)
         window.scrollTo(0, scrolMap.get(fromRouteUID) ?? 0);
 
+    /**
+     * With direct navigation store new scroll value.
+     */
     if (!isBrowserNavigation) {
         const newScrollY = window.scrollY;
         scrolMap.set(fromRouteUID, newScrollY);
@@ -196,12 +199,15 @@ export const loadRoute = async ({
             previousTemplate: fromRoute.templateName,
         });
 
-    /**
-     * Scroll to 0 or if use history from history scrollY value
-     */
     if (getRestoreScroll() && isBrowserNavigation) {
+        /**
+         * With browser navigation restore stored scroll position.
+         */
         scrollTo(0, scrollY);
     } else {
+        /**
+         * In direct navigaione scroll is always 0 ( news page )
+         */
         scrollTo(0, 0);
     }
 
