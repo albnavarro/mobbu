@@ -9408,6 +9408,7 @@
     });
     const scrollY2 = scrolMap.get(toRouteUID);
     scrolMap.set(fromRouteUID, window.scrollY);
+    console.log([...scrolMap]);
     mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, {
       currentRoute: fromRoute.route,
       currentTemplate: fromRoute.templateName,
@@ -9452,7 +9453,11 @@
         previousRoute: fromRoute.route,
         previousTemplate: fromRoute.templateName
       });
-    if (getRestoreScroll() && restoreScroll2) scrollTo(0, scrollY2);
+    if (getRestoreScroll() && restoreScroll2) {
+      scrollTo(0, scrollY2);
+    } else {
+      scrollTo(0, 0);
+    }
     document.body.dataset["route"] = route;
     document.body.dataset["template"] = templateName;
     const pageTransition3 = getPageTransition();
@@ -9588,7 +9593,6 @@
         if (currentTime === lastTime2) return "";
         return "";
       })();
-      console.log(direction2);
       await loadRoute({
         route: targetRoute,
         templateName: targetTemplate,

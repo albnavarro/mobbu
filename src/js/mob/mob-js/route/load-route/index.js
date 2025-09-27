@@ -63,7 +63,7 @@ export const loadRoute = async ({
         mainStore.get();
 
     /**
-     * Create unique UID to get previous scrollY.
+     * Next route: Create unique UID to get previous scrollY.
      */
     const toRouteUID = createRouteString({
         route: route,
@@ -71,7 +71,7 @@ export const loadRoute = async ({
     });
 
     /**
-     * Create unique UID to store scrollY value before loeave route.
+     * Previous route: Create unique UID to store scrollY value before loeave route.
      */
     const fromRouteUID = createRouteString({
         route: fromRoute.route,
@@ -79,10 +79,11 @@ export const loadRoute = async ({
     });
 
     /**
-     * Get and set pevious scrollY value.
+     * Get and set pevious scrollY value getted from previous route.
      */
     const scrollY = scrolMap.get(toRouteUID);
     scrolMap.set(fromRouteUID, window.scrollY);
+    console.log([...scrolMap]);
 
     /**
      * Set before Change props
@@ -181,7 +182,11 @@ export const loadRoute = async ({
     /**
      * Scroll to 0 or if use history from history scrollY value
      */
-    if (getRestoreScroll() && restoreScroll) scrollTo(0, scrollY);
+    if (getRestoreScroll() && restoreScroll) {
+        scrollTo(0, scrollY);
+    } else {
+        scrollTo(0, 0);
+    }
 
     /**
      * Set active route to body data-route

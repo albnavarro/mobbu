@@ -195,8 +195,6 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
             return '';
         })();
 
-        console.log(direction);
-
         /**
          * If does not come from currentHistory restore scroll is always false
          *
