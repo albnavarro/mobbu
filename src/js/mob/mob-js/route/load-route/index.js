@@ -85,7 +85,8 @@ export const loadRoute = async ({
         window.scrollTo(0, scrolMap.get(fromRouteUID) ?? 0);
 
     const newScrollY = window.scrollY;
-    scrolMap.set(fromRouteUID, newScrollY);
+
+    if (!navigationIsFromHistory) scrolMap.set(fromRouteUID, newScrollY);
 
     /**
      * Get rpevious route scroll position.

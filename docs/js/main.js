@@ -9409,7 +9409,7 @@
     if (navigationIsFromHistory)
       window.scrollTo(0, scrolMap.get(fromRouteUID) ?? 0);
     const newScrollY = window.scrollY;
-    scrolMap.set(fromRouteUID, newScrollY);
+    if (!navigationIsFromHistory) scrolMap.set(fromRouteUID, newScrollY);
     const scrollY2 = scrolMap.get(toRouteUID);
     console.log("-----");
     console.log([...scrolMap]);
