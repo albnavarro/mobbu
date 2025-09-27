@@ -9380,19 +9380,34 @@
   };
 
   // src/js/mob/mob-js/route/load-route/index.js
+  var scrolMap = /* @__PURE__ */ new Map();
+  var createRouteString = ({ route, params }) => {
+    return Object.entries(params).reduce((previous, [key, value]) => {
+      return `${previous}-${key}-${value}`;
+    }, route);
+  };
   var loadRoute = async ({
     route = "",
     templateName = "",
     restoreScroll: restoreScroll2 = true,
     params = {},
-    scrollY: scrollY2,
     skipTransition
   }) => {
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, true);
     await tick();
     const contentElement = getContentElement();
     if (!contentElement || !(contentElement instanceof HTMLElement)) return;
-    const { activeRoute: fromRoute } = mainStore.get();
+    const { activeRoute: fromRoute, activeParams: activeParamsFromRoute } = mainStore.get();
+    const toRouteUID = createRouteString({
+      route,
+      params
+    });
+    const fromRouteUID = createRouteString({
+      route: fromRoute.route,
+      params: activeParamsFromRoute
+    });
+    const scrollY2 = scrolMap.get(toRouteUID);
+    scrolMap.set(fromRouteUID, window.scrollY);
     mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, {
       currentRoute: fromRoute.route,
       currentTemplate: fromRoute.templateName,
@@ -9555,9 +9570,6 @@
         time: time2
       });
     }
-    if (shouldLoadRoute) {
-      console.log([...scrollYValues]);
-    }
     currentStringParams = void 0;
     previousHash = hash;
     previousParamsToPush = paramsToPush;
@@ -9566,12 +9578,7 @@
       url: hash && hash.length > 0 ? hash : getIndex()
     });
     if (shouldLoadRoute) {
-      console.log("currentHistoryId", currentHistory);
       const setItem = scrollYValues.get(currentHistory?.id);
-      const scrollValuesToArray = [...scrollYValues];
-      const currentIndex = scrollValuesToArray.findIndex(([id2]) => {
-        return id2 === currentHistory?.id;
-      });
       lastTime2 = currentTime;
       currentTime = setItem?.time ?? 0;
       direction2 = (() => {
@@ -9582,14 +9589,11 @@
         return "";
       })();
       console.log(direction2);
-      const item = currentIndex === -1 && scrollValuesToArray.length > currentIndex ? ["", { scrollY: 0 }] : scrollValuesToArray[currentIndex + 1];
-      const values = item?.[1] ?? { scrollY: 0 };
       await loadRoute({
         route: targetRoute,
         templateName: targetTemplate,
-        restoreScroll: getRestoreScrollVale({ url: hash }),
+        restoreScroll: getRestoreScrollVale({ url: hash }) && !!currentHistory,
         params,
-        scrollY: values?.scrollY ?? 0,
         skipTransition: currentHistory ?? currentSkipTransition ? true : false
       });
     }

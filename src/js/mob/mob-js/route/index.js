@@ -158,16 +158,6 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
         });
     }
 
-    if (shouldLoadRoute) {
-        console.log([...scrollYValues]);
-        // const item = scrollYValues.get(currentHistory?.id);
-        //
-        // scrollYValues.set(id, {
-        //     ...item,
-        //     scrollY: window.scrollY,
-        // });
-    }
-
     /**
      * Reset last search value ( id come form loadUrl function ).
      */
@@ -192,14 +182,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      * Load route.
      */
     if (shouldLoadRoute) {
-        console.log('currentHistoryId', currentHistory);
-
         const setItem = scrollYValues.get(currentHistory?.id);
-
-        const scrollValuesToArray = [...scrollYValues];
-        const currentIndex = scrollValuesToArray.findIndex(([id]) => {
-            return id === currentHistory?.id;
-        });
 
         lastTime = currentTime;
         currentTime = setItem?.time ?? 0;
@@ -214,19 +197,17 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
 
         console.log(direction);
 
-        const item =
-            currentIndex === -1 && scrollValuesToArray.length > currentIndex
-                ? ['', { scrollY: 0 }]
-                : scrollValuesToArray[currentIndex + 1];
-
-        const values = item?.[1] ?? { scrollY: 0 };
-
+        /**
+         * If does not come from currentHistory restore scroll is always false
+         *
+         * - It means direct navigate
+         */
         await loadRoute({
             route: targetRoute,
             templateName: targetTemplate,
-            restoreScroll: getRestoreScrollVale({ url: hash }),
+            restoreScroll:
+                getRestoreScrollVale({ url: hash }) && !!currentHistory,
             params,
-            scrollY: values?.scrollY ?? 0,
             skipTransition:
                 (currentHistory ?? currentSkipTransition) ? true : false,
         });

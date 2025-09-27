@@ -15,6 +15,20 @@ import { getRestoreScroll } from '../scroll';
 import { tick } from '../../queque/tick';
 import { removeCancellableComponent } from '../../component/action/remove-and-destroy/cancellable-component/destroy-all-non-persisitent-component';
 
+const scrolMap = new Map();
+
+/**
+ * @param {object} params
+ * @param {string} params.route
+ * @param {{ [key: string]: any }} params.params
+ * @returns {string}
+ */
+const createRouteString = ({ route, params }) => {
+    return Object.entries(params).reduce((previous, [key, value]) => {
+        return `${previous}-${key}-${value}`;
+    }, route);
+};
+
 /**
  * Load new route.
  *
@@ -24,14 +38,12 @@ import { removeCancellableComponent } from '../../component/action/remove-and-de
  * @param {boolean} param.restoreScroll
  * @param {{ [key: string]: any }} param.params
  * @param {boolean | undefined} param.skipTransition
- * @param {number} param.scrollY
  */
 export const loadRoute = async ({
     route = '',
     templateName = '',
     restoreScroll = true,
     params = {},
-    scrollY,
     skipTransition,
 }) => {
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, true);
@@ -45,9 +57,32 @@ export const loadRoute = async ({
     if (!contentElement || !(contentElement instanceof HTMLElement)) return;
 
     /**
-     * Set before Route leave.
+     * Previous route params.
      */
-    const { activeRoute: fromRoute } = mainStore.get();
+    const { activeRoute: fromRoute, activeParams: activeParamsFromRoute } =
+        mainStore.get();
+
+    /**
+     * Create unique UID to get previous scrollY.
+     */
+    const toRouteUID = createRouteString({
+        route: route,
+        params: params,
+    });
+
+    /**
+     * Create unique UID to store scrollY value before loeave route.
+     */
+    const fromRouteUID = createRouteString({
+        route: fromRoute.route,
+        params: activeParamsFromRoute,
+    });
+
+    /**
+     * Get and set pevious scrollY value.
+     */
+    const scrollY = scrolMap.get(toRouteUID);
+    scrolMap.set(fromRouteUID, window.scrollY);
 
     /**
      * Set before Change props
