@@ -15,6 +15,9 @@ import { getRestoreScroll } from '../scroll';
 import { tick } from '../../queque/tick';
 import { removeCancellableComponent } from '../../component/action/remove-and-destroy/cancellable-component/destroy-all-non-persisitent-component';
 
+/**
+ * @type {Map<string, number>}
+ */
 const scrolMap = new Map();
 
 /**
@@ -89,7 +92,7 @@ export const loadRoute = async ({
     /**
      * Get previous route scroll position.
      */
-    const scrollY = scrolMap.get(toRouteUID);
+    const scrollY = scrolMap.get(toRouteUID) ?? 0;
 
     /**
      * Set before Change props
