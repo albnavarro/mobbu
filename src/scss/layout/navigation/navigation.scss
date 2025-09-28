@@ -21,6 +21,10 @@
         color: $black;
         transition: background 0.35s;
 
+        &.hide {
+            display: none;
+        }
+
         @include when-inside('[data-template="home"]') {
             background: rgba($black, 0.1);
         }

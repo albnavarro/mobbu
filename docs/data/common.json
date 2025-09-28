@@ -12,8 +12,8 @@
         "nav": [
             {
                 "label": "Home",
-                "url": "#",
-                "section": ""
+                "url": "home",
+                "section": "home"
             },
             {
                 "label": "About",
@@ -305,8 +305,21 @@
     },
     "navigation": [
         {
+            "label": "Home",
+            "section": true,
+            "hide": true,
+            "sectioName": "home"
+        },
+        {
+            "label": "Home page",
+            "url": "home",
+            "scrollToSection": "home",
+            "children": null
+        },
+        {
             "label": "About",
             "section": true,
+            "hide": true,
             "sectioName": "about"
         },
         {

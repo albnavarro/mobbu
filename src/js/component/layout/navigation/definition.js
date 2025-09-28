@@ -81,7 +81,7 @@ export const NavigationLabel = MobJs.createComponent(
     ({
         tag: 'mob-navigation-label',
         component: NavigationLabelFn,
-        exportState: ['label', 'sectioName'],
+        exportState: ['label', 'sectioName', 'hide'],
         bindStore: navigationStore,
         state: {
             label: () => ({
@@ -91,6 +91,10 @@ export const NavigationLabel = MobJs.createComponent(
             sectioName: () => ({
                 value: '',
                 type: String,
+            }),
+            hide: () => ({
+                value: false,
+                type: Boolean,
             }),
         },
     })

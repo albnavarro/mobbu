@@ -27,6 +27,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                 sectioName,
                 scrollToSection,
                 forceChildren,
+                hide,
             } = item;
 
             if (section) {
@@ -36,6 +37,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                             /** @type {NavigationLabel['state']} */ ({
                                 label,
                                 sectioName,
+                                hide: !!hide,
                             })
                         )}
                     ></mob-navigation-label>

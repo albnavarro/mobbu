@@ -13,7 +13,7 @@ import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 
 function titleHandler() {
-    MobJs.loadUrl({ url: '#home' });
+    MobJs.loadUrl({ url: 'home' });
     navigationStore.set('navigationIsOpen', false);
 
     /** @type {UseMethodByName<import('../navigation/type').Navigation>} */
@@ -24,6 +24,7 @@ function titleHandler() {
     const navContainerMethods = MobJs.useMethodByName(
         mobNavigationContainerName
     );
+
     navContainerMethods?.scrollTop();
 }
 

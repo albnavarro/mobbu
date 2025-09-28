@@ -34,6 +34,7 @@ export interface CommonData {
         scrollToSection?: string;
         children: NavigationChildren[];
         forceChildren?: string[];
+        hide?: boolean;
     }[];
     suggestion: {
         word: string;

@@ -19,6 +19,7 @@ export interface NavigationButton {
 interface NavigationLabelState extends Readonly<NavigationStore> {
     label: string;
     sectioName: string;
+    hide?: boolean;
 }
 
 export interface NavigationLabel {

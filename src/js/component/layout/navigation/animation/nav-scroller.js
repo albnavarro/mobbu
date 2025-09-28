@@ -94,7 +94,6 @@ export const initNavigationScoller = ({ root }) => {
                 /**
                  * Reset active section to scroll.
                  */
-                navigationStore.set('activeNavigationSection', 'no-section');
                 percentEl.style.transform = `translateZ(0) scaleX(0)`;
             }, setDelay);
         },

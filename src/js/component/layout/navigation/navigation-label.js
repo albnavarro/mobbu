@@ -12,6 +12,7 @@ export const NavigationLabelFn = ({ bindEffect, getProxi }) => {
                 toggleClass: {
                     active: () =>
                         proxi.sectioName === proxi.activeNavigationSection,
+                    hide: () => !!proxi.hide,
                 },
             })}
         >
