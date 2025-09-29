@@ -14,6 +14,8 @@ export const scrollerN0 = ({ params }) => {
             Math.max(0, Math.min(Number(version), scrollerParams.length - 1))
         ];
 
+    if (!props) return '';
+
     /** Quicknav */
     updateQuickNavState({
         active: true,

@@ -4,7 +4,6 @@ import {
     MAIN_STORE_ACTIVE_ROUTE,
 } from '../main-store/constant';
 import { mainStore } from '../main-store/main-store';
-import { HISTORY_BACK, HISTORY_NEXT, HISTORY_NONE } from './constant';
 import { loadRoute } from './load-route';
 import { tryRedirect } from './redirect';
 import { getIndex } from './route-list';
@@ -24,15 +23,6 @@ let currentSkipTransition;
 
 /** @type {import('./type').HistoryType | undefined} */
 let currentHistory;
-
-/** @type {Map<string, { hash: string; time: number }>} */
-const timeMap = new Map();
-
-/** @type {Number} */
-let currentTime = 0;
-
-/** @type {Number} */
-let lastTime = 0;
 
 /**
  * @param {string} value
@@ -146,17 +136,15 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
             ? `?${currentStringParams ?? search}`
             : '';
 
+    /**
+     * If links come from loadUrl function need to add manually params.
+     */
     if (!currentHistory && shouldLoadRoute) {
         history.replaceState(
             { nextId: { ...historyObejct } },
             '',
             `#${hash}${paramsToPush}`
         );
-
-        timeMap.set(id, {
-            hash: originalHash,
-            time,
-        });
     }
 
     /**
@@ -183,27 +171,6 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      * Load route.
      */
     if (shouldLoadRoute) {
-        const setItem = currentHistory && timeMap.get(currentHistory?.id);
-
-        lastTime = currentTime;
-        currentTime = setItem?.time ?? 0;
-
-        /**
-         * The following code get scrollDirection. Is not used at moment so add eslint disable comment
-         *
-         * - TODO: tracciare la direzione a prescindere dallo scope corrente.
-         */
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const direction = (() => {
-            if (!currentHistory || currentTime === lastTime)
-                return HISTORY_NONE;
-            if (currentTime > 0 && lastTime === 0) return HISTORY_BACK;
-            if (currentTime > lastTime) return HISTORY_NEXT;
-            if (currentTime < lastTime) return HISTORY_BACK;
-            return '';
-        })();
-
         /**
          * If does not come from currentHistory restore scroll is always false
          *
