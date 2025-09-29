@@ -24,6 +24,8 @@ let currentSkipTransition;
 /** @type {import('./type').HistoryType | undefined} */
 let currentHistory;
 
+let shouldWaitNextHash = false;
+
 /**
  * @param {string} value
  * @returns {string}
@@ -140,6 +142,14 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      * If links come from loadUrl function need to add manually params.
      */
     if (!currentHistory && shouldLoadRoute) {
+        /**
+         * When update history with params avoid to load route twice.
+         *
+         * - ReplaceStatefile another route load.
+         * - Wait one loop then reset shouldWaitNextHash value.
+         */
+        shouldWaitNextHash = true;
+
         history.replaceState(
             { nextId: { ...historyObejct } },
             '',
@@ -202,6 +212,13 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      * Reset current skip transition value.
      */
     currentSkipTransition = undefined;
+
+    MobCore.useNextLoop(() => {
+        /**
+         * Now is possible load next route without load twice same route.
+         */
+        shouldWaitNextHash = false;
+    });
 };
 
 /**
@@ -226,6 +243,11 @@ export const router = () => {
      * Every time hash ( route ) change.
      */
     globalThis.addEventListener('hashchange', () => {
+        /**
+         * Same route loaded in same event loop, skip.
+         */
+        if (shouldWaitNextHash) return;
+
         parseUrlHash();
     });
 };
