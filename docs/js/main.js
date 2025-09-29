@@ -9582,7 +9582,7 @@
       url: hash && hash.length > 0 ? hash : getIndex()
     });
     if (shouldLoadRoute) {
-      const setItem = timeMap.get(currentHistory?.id);
+      const setItem = currentHistory && timeMap.get(currentHistory?.id);
       lastTime2 = currentTime;
       currentTime = setItem?.time ?? 0;
       const direction2 = (() => {

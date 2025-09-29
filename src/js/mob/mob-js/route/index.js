@@ -183,7 +183,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      * Load route.
      */
     if (shouldLoadRoute) {
-        const setItem = timeMap.get(currentHistory?.id);
+        const setItem = currentHistory && timeMap.get(currentHistory?.id);
 
         lastTime = currentTime;
         currentTime = setItem?.time ?? 0;
