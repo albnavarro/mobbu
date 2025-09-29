@@ -22,10 +22,17 @@ let currentStringParams;
 /** @type {boolean | undefined} */
 let currentSkipTransition;
 
-/**
- * @type {import('./type').HistoryType | undefined}
- */
+/** @type {import('./type').HistoryType | undefined} */
 let currentHistory;
+
+/** @type {Map<string, { hash: string; time: number }>} */
+const timeMap = new Map();
+
+/** @type {Number} */
+let currentTime = 0;
+
+/** @type {Number} */
+let lastTime = 0;
 
 /**
  * @param {string} value
@@ -71,11 +78,6 @@ const convertObjectParamsToString = (params) => {
     );
 };
 
-const scrollYValues = new Map();
-
-let currentTime = 0;
-let lastTime = 0;
-
 /**
  * Get hash from url and load new route.
  *
@@ -87,6 +89,7 @@ let lastTime = 0;
  */
 export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     const originalHash = globalThis.location.hash.slice(1);
+
     const id = MobCore.getUnivoqueId();
     const time = MobCore.getTime();
 
@@ -150,9 +153,8 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
             `#${hash}${paramsToPush}`
         );
 
-        scrollYValues.set(id, {
+        timeMap.set(id, {
             hash: originalHash,
-            scrollY: window.scrollY,
             time,
         });
     }
@@ -181,7 +183,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      * Load route.
      */
     if (shouldLoadRoute) {
-        const setItem = scrollYValues.get(currentHistory?.id);
+        const setItem = timeMap.get(currentHistory?.id);
 
         lastTime = currentTime;
         currentTime = setItem?.time ?? 0;
