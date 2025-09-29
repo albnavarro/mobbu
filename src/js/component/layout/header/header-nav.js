@@ -72,47 +72,10 @@ function additems({ delegateEvents }) {
         .join('');
 }
 
-/**
- * @param {object} params
- * @param {DelegateEvents} params.delegateEvents
- * @returns {string}
- */
-const addHistoryNavigation = ({ delegateEvents }) => {
-    return html`
-        <div class="l-header__sidenav__item">
-            <ul class="l-header__history">
-                <li class="l-header__history__item">
-                    <button
-                        type="button"
-                        class="l-header__history__button is-back"
-                        ${delegateEvents({
-                            click: () => {
-                                history.go(-1);
-                            },
-                        })}
-                    ></button>
-                </li>
-                <li class="l-header__history__item">
-                    <button
-                        type="button"
-                        class="l-header__history__button is-next"
-                        ${delegateEvents({
-                            click: () => {
-                                history.go(1);
-                            },
-                        })}
-                    ></button>
-                </li>
-            </ul>
-        </div>
-    `;
-};
-
 /** @type {MobComponent} */
 export const HeadernavFn = ({ delegateEvents }) => {
     return html`
         <ul class="l-header__sidenav">
-            ${addHistoryNavigation({ delegateEvents })}
             <li class="l-header__sidenav__item">
                 <search-cta></search-cta>
             </li>

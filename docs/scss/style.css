@@ -1031,42 +1031,6 @@ ul li::marker {
   width: var(--sidebar-item-size);
   height: var(--sidebar-item-size);
 }
-.l-header__history {
-  list-style-type: none;
-  margin-right: 0.8rem;
-  display: none;
-}
-.l-header__history__item {
-  display: inline-block;
-}
-.l-header__history__button {
-  background: transparent;
-  border: 0;
-  width: 1.0666666667rem;
-  height: var(--sidebar-item-size);
-  position: relative;
-  transition: opacity 0.55s;
-}
-.l-header__history__button:hover {
-  opacity: 0.2;
-}
-.l-header__history__button::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: calc(var(--sidebar-item-size) * 0.5);
-  height: calc(var(--sidebar-item-size) * 0.5);
-  border-top: 2px #2e3440 solid;
-  border-right: 2px #2e3440 solid;
-  transform-origin: center center;
-}
-.l-header__history .is-next::after {
-  transform: translateY(-50%) rotate(45deg);
-}
-.l-header__history .is-back::after {
-  transform: translateY(-50%) rotate(-135deg);
-}
 [data-component=navigation] {
   width: 100%;
   height: calc(100vh - var(--header-height) - var(--footer-height) - 2.6666666667rem);

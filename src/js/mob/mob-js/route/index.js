@@ -191,9 +191,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
         /**
          * The following code get scrollDirection. Is not used at moment so add eslint disable comment
          *
-         * - TODO: lo scopo e tracciare la direzione solo nella navigazione attuale; back non deve avere effetto se si
-         *   clicca al primo atterraggio sulla pagina
-         * - Cosi come ora non distingue tra la reale navigazione 'scoped'
+         * - TODO: tracciare la direzione a prescindere dallo scope corrente.
          */
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
