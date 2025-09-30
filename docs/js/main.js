@@ -9504,12 +9504,11 @@
   var firstAppLoad = true;
   var currentCleanHash = "";
   var previousCleanHash = "";
-  var currentParamsToPush = "";
-  var previousParamsToPush = "";
+  var currentParams = "";
+  var previousParams = "";
   var currentStringParams;
   var currentSkipTransition;
   var currentHistory;
-  var shouldWaitNextHash = false;
   var sanitizeParams = (value) => {
     return value.replace("?", "").replace("/", "");
   };
@@ -9518,9 +9517,9 @@
   };
   var getParams = (value) => {
     return value.split("&").reduce((previous, current) => {
-      const currentParams = current.split("=");
-      const key = sanitizeParams(currentParams?.[0] ?? "");
-      const value2 = currentParams?.[1];
+      const currentParams2 = current.split("=");
+      const key = sanitizeParams(currentParams2?.[0] ?? "");
+      const value2 = currentParams2?.[1];
       return key && key.length > 0 ? { ...previous, [key]: value2 } : previous;
     }, {});
   };
@@ -9533,10 +9532,8 @@
   var parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     const fullHashWithParmas = globalThis.location.hash.slice(1);
     const id = modules_exports.getUnivoqueId();
-    const time2 = modules_exports.getTime();
     const historyObejct = {
       hash: fullHashWithParmas,
-      time: time2,
       id
     };
     const { route: currentRoute, isRedirect } = tryRedirect({
@@ -9550,23 +9547,16 @@
     previousCleanHash = currentCleanHash;
     currentCleanHash = sanitizeHash(parts?.[0] ?? "");
     const params = getParams(currentStringParams ?? search);
-    previousParamsToPush = currentParamsToPush;
-    currentParamsToPush = currentStringParams || Object.keys(search).length > 0 ? `?${currentStringParams ?? search}` : "";
-    if (!currentHistory && shouldLoadRoute) {
-      shouldWaitNextHash = true;
-      history.replaceState(
-        { nextId: { ...historyObejct } },
-        "",
-        `#${currentCleanHash}${currentParamsToPush}`
-      );
-    }
+    previousParams = currentParams;
+    currentParams = currentStringParams || Object.keys(search).length > 0 ? `?${currentStringParams ?? search}` : "";
     currentStringParams = void 0;
     const targetRoute = getRouteModule({ url: currentCleanHash });
     const targetTemplate = getTemplateName({
       url: currentCleanHash && currentCleanHash.length > 0 ? currentCleanHash : getIndex()
     });
-    const isSamePreviousRoute = currentCleanHash === previousCleanHash && currentParamsToPush === previousParamsToPush && !firstAppLoad;
+    const isSamePreviousRoute = currentCleanHash === previousCleanHash && currentParams === previousParams && !firstAppLoad;
     if (shouldLoadRoute && !isSamePreviousRoute) {
+      console.log("load");
       await loadRoute({
         route: targetRoute,
         templateName: targetTemplate,
@@ -9584,7 +9574,6 @@
     }
     currentSkipTransition = void 0;
     modules_exports.useNextLoop(() => {
-      shouldWaitNextHash = false;
       firstAppLoad = false;
     });
   };
@@ -9595,7 +9584,6 @@
       currentHistory = event?.state?.nextId;
     });
     globalThis.addEventListener("hashchange", () => {
-      if (shouldWaitNextHash) return;
       parseUrlHash();
     });
   };
@@ -9607,8 +9595,8 @@
     const objectParams = convertObjectParamsToString(params);
     const stringParams = sanitizeParams(parts?.[1] ?? "");
     const urlsParams = objectParams ?? stringParams;
-    if (urlsParams.length > 0) currentStringParams = urlsParams;
-    globalThis.location.hash = hash;
+    currentStringParams = urlsParams.length > 0 ? urlsParams : "";
+    globalThis.location.hash = currentStringParams && currentStringParams.length > 0 ? `${hash}?${currentStringParams}` : hash;
     if (hash === previousCleanHash || previousCleanHash === "") {
       globalThis.dispatchEvent(new HashChangeEvent("hashchange"));
     }

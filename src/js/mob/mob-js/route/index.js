@@ -19,10 +19,10 @@ let currentCleanHash = '';
 let previousCleanHash = '';
 
 /** @type {string} */
-let currentParamsToPush = '';
+let currentParams = '';
 
 /** @type {string} */
-let previousParamsToPush = '';
+let previousParams = '';
 
 /** @type {string | undefined} */
 let currentStringParams;
@@ -32,8 +32,6 @@ let currentSkipTransition;
 
 /** @type {import('./type').HistoryType | undefined} */
 let currentHistory;
-
-let shouldWaitNextHash = false;
 
 /**
  * @param {string} value
@@ -92,11 +90,9 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     const fullHashWithParmas = globalThis.location.hash.slice(1);
 
     const id = MobCore.getUnivoqueId();
-    const time = MobCore.getTime();
 
     const historyObejct = {
         hash: fullHashWithParmas,
-        time,
         id,
     };
 
@@ -132,30 +128,11 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     /**
      * Update browser history.
      */
-    previousParamsToPush = currentParamsToPush;
-    currentParamsToPush =
+    previousParams = currentParams;
+    currentParams =
         currentStringParams || Object.keys(search).length > 0
             ? `?${currentStringParams ?? search}`
             : '';
-
-    /**
-     * If links come from loadUrl function need to add manually params.
-     */
-    if (!currentHistory && shouldLoadRoute) {
-        /**
-         * When update history with params avoid to load route twice.
-         *
-         * - ReplaceStatefile another route load.
-         * - Wait one loop then reset shouldWaitNextHash value.
-         */
-        shouldWaitNextHash = true;
-
-        history.replaceState(
-            { nextId: { ...historyObejct } },
-            '',
-            `#${currentCleanHash}${currentParamsToPush}`
-        );
-    }
 
     /**
      * Reset last search value ( id come form loadUrl function ).
@@ -178,13 +155,15 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      */
     const isSamePreviousRoute =
         currentCleanHash === previousCleanHash &&
-        currentParamsToPush === previousParamsToPush &&
+        currentParams === previousParams &&
         !firstAppLoad;
 
     /**
      * Load route.
      */
     if (shouldLoadRoute && !isSamePreviousRoute) {
+        console.log('load');
+
         /**
          * If does not come from currentHistory restore scroll is always false
          *
@@ -222,10 +201,6 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     currentSkipTransition = undefined;
 
     MobCore.useNextLoop(() => {
-        /**
-         * Now is possible load next route without load twice same route.
-         */
-        shouldWaitNextHash = false;
         firstAppLoad = false;
     });
 };
@@ -252,29 +227,25 @@ export const router = () => {
      * Every time hash ( route ) change.
      */
     globalThis.addEventListener('hashchange', () => {
-        /**
-         * Same route loaded in same event loop, skip.
-         */
-        if (shouldWaitNextHash) return;
-
         parseUrlHash();
     });
 };
 
 /**
- * Set hash in current browser url.
+ * Javascript links
+ *
+ * - Set hash && params in current browser url.
  *
  * @param {object} params
  * @param {string} [params.url]
  * @param {Record<string, any>} [params.params]
  * @param {boolean} [params.skipTransition]
- * @returns Void
+ * @returns {void}
  */
 export const loadUrl = ({ url, params, skipTransition }) => {
     if (!url) return;
 
     currentSkipTransition = skipTransition;
-
     const parts = url.split('?');
 
     /**
@@ -289,15 +260,20 @@ export const loadUrl = ({ url, params, skipTransition }) => {
     const stringParams = sanitizeParams(parts?.[1] ?? '');
 
     /**
-     * Extract current params, to use later ( in getHash function ).
+     * Extract current params, to use later
+     *
+     * - CurrentStringParamsis is 'global' and is used in parseUrlHash() to get params id loadUrl is used.
      */
     const urlsParams = objectParams ?? stringParams;
-    if (urlsParams.length > 0) currentStringParams = urlsParams;
+    currentStringParams = urlsParams.length > 0 ? urlsParams : '';
 
     /**
-     * Update hash without params.
+     * Update hash
      */
-    globalThis.location.hash = hash;
+    globalThis.location.hash =
+        currentStringParams && currentStringParams.length > 0
+            ? `${hash}?${currentStringParams}`
+            : hash;
 
     /**
      * If we want reload same route from same hash, maybe params is different.
