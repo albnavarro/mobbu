@@ -162,8 +162,6 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      * Load route.
      */
     if (shouldLoadRoute && !isSamePreviousRoute) {
-        console.log('load');
-
         /**
          * If does not come from currentHistory restore scroll is always false
          *
