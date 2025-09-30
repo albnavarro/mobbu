@@ -9,8 +9,17 @@ import { tryRedirect } from './redirect';
 import { getIndex } from './route-list';
 import { getRestoreScrollVale, getRouteModule, getTemplateName } from './utils';
 
+/** @type {boolean} */
+let firstAppLoad = true;
+
 /** @type {string} */
-let previousHash = '';
+let currentCleanHash = '';
+
+/** @type {string} */
+let previousCleanHash = '';
+
+/** @type {string} */
+let currentParamsToPush = '';
 
 /** @type {string} */
 let previousParamsToPush = '';
@@ -80,38 +89,22 @@ const convertObjectParamsToString = (params) => {
  * @returns {Promise<void>}
  */
 export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
-    const originalHash = globalThis.location.hash.slice(1);
+    const fullHashWithParmas = globalThis.location.hash.slice(1);
 
     const id = MobCore.getUnivoqueId();
     const time = MobCore.getTime();
 
     const historyObejct = {
-        hash: originalHash,
+        hash: fullHashWithParmas,
         time,
         id,
     };
 
     /**
-     * Prevent multiple routes start at same time.
-     */
-    const { routeIsLoading } = mainStore.get();
-    if (routeIsLoading) {
-        /**
-         * Restore previous hash/params.
-         */
-        history.replaceState(
-            { nextId: historyObejct },
-            '',
-            `#${previousHash}${previousParamsToPush}`
-        );
-        return;
-    }
-
-    /**
      * Get route after redirect.
      */
     const { route: currentRoute, isRedirect } = tryRedirect({
-        route: originalHash,
+        route: fullHashWithParmas,
     });
 
     /**
@@ -127,13 +120,20 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     /**
      * Get final hash/params value.
      */
-    const hash = sanitizeHash(parts?.[0] ?? '');
+    previousCleanHash = currentCleanHash;
+    currentCleanHash = sanitizeHash(parts?.[0] ?? '');
+
+    /**
+     * - CurrentStringParams is settled by loadUtl javascript function.
+     * - Search is settles by href
+     */
     const params = getParams(currentStringParams ?? search);
 
     /**
      * Update browser history.
      */
-    const paramsToPush =
+    previousParamsToPush = currentParamsToPush;
+    currentParamsToPush =
         currentStringParams || Object.keys(search).length > 0
             ? `?${currentStringParams ?? search}`
             : '';
@@ -153,7 +153,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
         history.replaceState(
             { nextId: { ...historyObejct } },
             '',
-            `#${hash}${paramsToPush}`
+            `#${currentCleanHash}${currentParamsToPush}`
         );
     }
 
@@ -162,25 +162,29 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      */
     currentStringParams = undefined;
 
-    /**
-     * Store previous hash.
-     */
-    previousHash = hash;
-
-    /**
-     * Store previous paramsToPush.
-     */
-    previousParamsToPush = paramsToPush;
-
-    const targetRoute = getRouteModule({ url: hash });
+    const targetRoute = getRouteModule({ url: currentCleanHash });
     const targetTemplate = getTemplateName({
-        url: hash && hash.length > 0 ? hash : getIndex(),
+        url:
+            currentCleanHash && currentCleanHash.length > 0
+                ? currentCleanHash
+                : getIndex(),
     });
+
+    /**
+     * Avoid to load same route twice. TODO make optional with a global props.
+     *
+     * - First time this function launched twice for update current route on filrst load before wrapper is loaded.
+     * - So firstAppLoad is used.
+     */
+    const isSamePreviousRoute =
+        currentCleanHash === previousCleanHash &&
+        currentParamsToPush === previousParamsToPush &&
+        !firstAppLoad;
 
     /**
      * Load route.
      */
-    if (shouldLoadRoute) {
+    if (shouldLoadRoute && !isSamePreviousRoute) {
         /**
          * If does not come from currentHistory restore scroll is always false
          *
@@ -190,7 +194,8 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
             route: targetRoute,
             templateName: targetTemplate,
             isBrowserNavigation:
-                getRestoreScrollVale({ url: hash }) && !!currentHistory,
+                getRestoreScrollVale({ url: currentCleanHash }) &&
+                !!currentHistory,
             params,
             skipTransition:
                 (currentHistory ?? currentSkipTransition) ? true : false,
@@ -199,6 +204,8 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
 
     /**
      * Update only current route/template/params
+     *
+     * - Used first time to update store before wrapper is loaded.
      */
     if (!shouldLoadRoute) {
         mainStore.set(MAIN_STORE_ACTIVE_ROUTE, {
@@ -218,6 +225,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
          * Now is possible load next route without load twice same route.
          */
         shouldWaitNextHash = false;
+        firstAppLoad = false;
     });
 };
 
@@ -293,7 +301,7 @@ export const loadUrl = ({ url, params, skipTransition }) => {
     /**
      * If we want reload same route from same hash, maybe params is different.
      */
-    if (hash === previousHash || previousHash === '') {
+    if (hash === previousCleanHash || previousCleanHash === '') {
         globalThis.dispatchEvent(new HashChangeEvent('hashchange'));
     }
 };

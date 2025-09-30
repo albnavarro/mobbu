@@ -134,9 +134,7 @@ store[prop] = valueTransformed;
 # MobJs
 
 ## Routing:
-- Memorizzare in `mainStore` ( cosi sa essere reattivo ) la `history`.
-- Riabilitare la navigazione delle `history` ( ad ora é in diaply none )
-- Lo store sopra ci aiuterá a spegnere i pulsanti di navigazione.
+- Rendere opzionale il blocco sul caricamento della stessa rotta.
 
 ## PageTrasition:
 - possibilitá di disabilitare le trasizioni di pagina per rotta ( nella definizione della rotta ).
