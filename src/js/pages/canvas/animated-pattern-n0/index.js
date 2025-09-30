@@ -17,6 +17,8 @@ export const animatedPatternN0 = ({ params }) => {
             )
         ];
 
+    if (!props) return '';
+
     /** Quicknav */
     updateQuickNavState({
         active: true,
