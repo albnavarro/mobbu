@@ -206,6 +206,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      * Update only current route/template/params
      *
      * - Used first time to update store before wrapper is loaded.
+     * - Specifically beforeRouteChange props of mainStore.
      */
     if (!shouldLoadRoute) {
         mainStore.set(MAIN_STORE_ACTIVE_ROUTE, {
