@@ -2,6 +2,7 @@ import { MobCore } from '../../mob-core';
 import {
     MAIN_STORE_ACTIVE_PARAMS,
     MAIN_STORE_ACTIVE_ROUTE,
+    MAIN_STORE_ROUTE_IS_LOADING,
 } from '../main-store/constant';
 import { mainStore } from '../main-store/main-store';
 import { loadRoute } from './load-route';
@@ -212,6 +213,13 @@ export const router = () => {
     parseUrlHash();
 
     /**
+     * Prevent click on <a> tag when route is loading. LoadUrl && DelegateEvent && BindEvent do the same
+     */
+    MobCore.useMouseClick(({ preventDefault }) => {
+        if (mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)) preventDefault();
+    });
+
+    /**
      * Prevent browser to force scroll position.
      */
     globalThis.history.scrollRestoration = 'manual';
@@ -243,7 +251,7 @@ export const router = () => {
  * @returns {void}
  */
 export const loadUrl = ({ url, params, skipTransition }) => {
-    if (!url) return;
+    if (!url || mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)) return;
 
     currentSkipTransition = skipTransition;
     const parts = url.split('?');

@@ -15,6 +15,8 @@ import {
     getFireEvent,
     preventFireEvent,
 } from '../common-event';
+import { mainStore } from '../../modules';
+import { MAIN_STORE_ROUTE_IS_LOADING } from '../../main-store/constant';
 
 /**
  * @type {Map<string, { [key: string]: () => void }[]>}
@@ -98,10 +100,14 @@ async function handleAction(eventKey, event) {
     if (!target) return;
 
     /**
-     * Fire one event at time on end of app tick. Set shouldFireEvent to true immediatyle after tick to restore event if
-     * callback fail.
+     * Fire one event at time on end of app tick.
+     *
+     * - Set shouldFireEvent to true immediatyle after tick to restore event if callback fail.
+     * - If route is loading skip action
      */
-    if (!getFireEvent()) return;
+    if (!getFireEvent() || mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING))
+        return;
+
     preventFireEvent();
     await tick();
     allowFireEvent();
