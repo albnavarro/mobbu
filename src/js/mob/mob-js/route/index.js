@@ -89,12 +89,14 @@ const convertObjectParamsToString = (params) => {
 export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     const fullHashWithParmas = globalThis.location.hash.slice(1);
 
-    const id = MobCore.getUnivoqueId();
-
     const historyObejct = {
         hash: fullHashWithParmas,
-        id,
     };
+
+    /**
+     * Set history, to restore scroll value.
+     */
+    if (!currentHistory) history.replaceState({ nextId: historyObejct }, '');
 
     /**
      * Get route after redirect.
