@@ -29,7 +29,7 @@ let currentParams = '';
 let previousParams = '';
 
 /** @type {string | undefined} */
-let currentStringParams;
+let currentParamsFromLoadUrl;
 
 /** @type {boolean | undefined} */
 let currentSkipTransition;
@@ -145,21 +145,23 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      * - CurrentStringParams is settled by loadUtl javascript function.
      * - Search is settles by href
      */
-    const params = getParams(currentStringParams ?? search);
+    const params = getParams(currentParamsFromLoadUrl ?? search);
 
     /**
      * Update browser history.
      */
     previousParams = currentParams;
     currentParams =
-        currentStringParams || Object.keys(search).length > 0
-            ? `?${currentStringParams ?? search}`
+        currentParamsFromLoadUrl || Object.keys(search).length > 0
+            ? `?${currentParamsFromLoadUrl ?? search}`
             : '';
 
     /**
      * Reset last search value ( id come form loadUrl function ).
+     *
+     * - So, next navigation search is comparlable.
      */
-    currentStringParams = undefined;
+    currentParamsFromLoadUrl = undefined;
 
     const targetRoute = getRouteModule({ url: currentCleanHash });
     const targetTemplate = getTemplateName({
@@ -290,14 +292,14 @@ export const loadUrl = ({ url, params, skipTransition }) => {
      * - CurrentStringParamsis is 'global' and is used in parseUrlHash() to get params id loadUrl is used.
      */
     const urlsParams = objectParams ?? stringParams;
-    currentStringParams = urlsParams.length > 0 ? urlsParams : '';
+    currentParamsFromLoadUrl = urlsParams.length > 0 ? urlsParams : '';
 
     /**
      * Update hash
      */
     globalThis.location.hash =
-        currentStringParams && currentStringParams.length > 0
-            ? `${hash}?${currentStringParams}`
+        currentParamsFromLoadUrl && currentParamsFromLoadUrl.length > 0
+            ? `${hash}?${currentParamsFromLoadUrl}`
             : hash;
 
     /**

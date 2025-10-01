@@ -9507,7 +9507,7 @@
   var previousCleanHash = "";
   var currentParams = "";
   var previousParams = "";
-  var currentStringParams;
+  var currentParamsFromLoadUrl;
   var currentSkipTransition;
   var currentHistory;
   var sanitizeParams = (value) => {
@@ -9555,10 +9555,10 @@
     const search = sanitizeParams(parts?.[1] ?? "");
     previousCleanHash = currentCleanHash;
     currentCleanHash = sanitizeHash(parts?.[0] ?? "");
-    const params = getParams(currentStringParams ?? search);
+    const params = getParams(currentParamsFromLoadUrl ?? search);
     previousParams = currentParams;
-    currentParams = currentStringParams || Object.keys(search).length > 0 ? `?${currentStringParams ?? search}` : "";
-    currentStringParams = void 0;
+    currentParams = currentParamsFromLoadUrl || Object.keys(search).length > 0 ? `?${currentParamsFromLoadUrl ?? search}` : "";
+    currentParamsFromLoadUrl = void 0;
     const targetRoute = getRouteModule({ url: currentCleanHash });
     const targetTemplate = getTemplateName({
       url: currentCleanHash && currentCleanHash.length > 0 ? currentCleanHash : getIndex()
@@ -9604,8 +9604,8 @@
     const objectParams = convertObjectParamsToString(params);
     const stringParams = sanitizeParams(parts?.[1] ?? "");
     const urlsParams = objectParams ?? stringParams;
-    currentStringParams = urlsParams.length > 0 ? urlsParams : "";
-    globalThis.location.hash = currentStringParams && currentStringParams.length > 0 ? `${hash}?${currentStringParams}` : hash;
+    currentParamsFromLoadUrl = urlsParams.length > 0 ? urlsParams : "";
+    globalThis.location.hash = currentParamsFromLoadUrl && currentParamsFromLoadUrl.length > 0 ? `${hash}?${currentParamsFromLoadUrl}` : hash;
     if (hash === previousCleanHash || previousCleanHash === "") {
       globalThis.dispatchEvent(new HashChangeEvent("hashchange"));
     }
