@@ -94,6 +94,9 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
 
     /**
      * Prevent multiple routes start at same time.
+     *
+     * - TODO: when fire a link while loading the result is two identical route on history also the route doas not change.
+     * - All <a> should disable while rout ei sloading to prevent double history.
      */
     const { routeIsLoading } = mainStore.get();
     if (routeIsLoading) {
