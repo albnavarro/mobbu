@@ -5,6 +5,7 @@ import {
     MAIN_STORE_ROUTE_IS_LOADING,
 } from '../main-store/constant';
 import { mainStore } from '../main-store/main-store';
+import { awaitNextLoop } from '../queque/utils';
 import { loadRoute } from './load-route';
 import { tryRedirect } from './redirect';
 import { getIndex } from './route-list';
@@ -27,6 +28,9 @@ let currentParamsFromLoadUrl;
 
 /** @type {boolean | undefined} */
 let currentSkipTransition;
+
+/** @type {import('./type').HistoryType | undefined} */
+let currentHistory;
 
 /**
  * @param {string} value
@@ -79,13 +83,9 @@ const convertObjectParamsToString = (params) => {
  *
  * @param {object} [params]
  * @param {boolean} [params.shouldLoadRoute]
- * @param {import('./type').HistoryType | undefined} [params.currentHistory]
  * @returns {Promise<void>}
  */
-export const parseUrlHash = async ({
-    shouldLoadRoute = true,
-    currentHistory,
-} = {}) => {
+export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     const fullHashWithParmas = globalThis.location.hash;
 
     const historyObejct = {
@@ -168,7 +168,7 @@ export const parseUrlHash = async ({
     /**
      * Avoid to load same route twice. TODO make optional with a global props.
      *
-     * - Todo, if params is used route is reloaded, params may change.
+     * - If params is used route is reloaded, params may change.
      * - First time this function launched twice for update current route on filrst load before wrapper is loaded.
      * - So firstAppLoad is used.
      */
@@ -239,10 +239,21 @@ export const router = () => {
     globalThis.history.scrollRestoration = 'manual';
 
     /**
-     * Should change route.
+     * Intecept pop state ( browser history )
      */
     globalThis.addEventListener('popstate', (event) => {
-        parseUrlHash({ currentHistory: event?.state?.nextId });
+        currentHistory = event?.state?.nextId;
+    });
+
+    /**
+     * Every time hash ( route ) change.
+     */
+    globalThis.addEventListener('hashchange', async () => {
+        /**
+         * Maybe unnecessary. parseUrlHash() must fired after currentHistory is updated
+         */
+        await awaitNextLoop();
+        parseUrlHash();
     });
 };
 
