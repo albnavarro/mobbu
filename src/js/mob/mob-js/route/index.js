@@ -172,7 +172,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     /**
      * Avoid to load same route twice. TODO make optional with a global props.
      *
-     * - If params is used route is reloaded, params may change.
+     * - If params is used route is always reloaded, params may change.
      * - First time this function launched twice for update current route on filrst load before wrapper is loaded.
      * - So firstAppLoad is used.
      */
@@ -296,6 +296,16 @@ export const loadUrl = ({ url, params, skipTransition }) => {
      */
     const urlsParams = objectParams ?? stringParams;
     currentParamsFromLoadUrl = urlsParams.length > 0 ? urlsParams : '';
+
+    /**
+     * Reset current history when come from direct link.
+     *
+     * - Help when click same route that come from history and has params.
+     * - In this case scroll is restored if currentHistory is settled.
+     * - So when loadUrl is settled we are scre that current url is not from history.
+     * - Force currentHistory to undefined.
+     */
+    currentHistory = undefined;
 
     /**
      * Update hash
