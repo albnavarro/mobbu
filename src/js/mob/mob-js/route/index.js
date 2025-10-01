@@ -28,9 +28,6 @@ let currentParamsFromLoadUrl;
 /** @type {boolean | undefined} */
 let currentSkipTransition;
 
-/** @type {import('./type').HistoryType | undefined} */
-let currentHistory;
-
 /**
  * @param {string} value
  * @returns {string}
@@ -82,9 +79,13 @@ const convertObjectParamsToString = (params) => {
  *
  * @param {object} [params]
  * @param {boolean} [params.shouldLoadRoute]
+ * @param {import('./type').HistoryType | undefined} [params.currentHistory]
  * @returns {Promise<void>}
  */
-export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
+export const parseUrlHash = async ({
+    shouldLoadRoute = true,
+    currentHistory,
+} = {}) => {
     const fullHashWithParmas = globalThis.location.hash;
 
     const historyObejct = {
@@ -238,17 +239,10 @@ export const router = () => {
     globalThis.history.scrollRestoration = 'manual';
 
     /**
-     * Intecept pop state ( browser history )
+     * Should change route.
      */
     globalThis.addEventListener('popstate', (event) => {
-        currentHistory = event?.state?.nextId;
-    });
-
-    /**
-     * Every time hash ( route ) change.
-     */
-    globalThis.addEventListener('hashchange', () => {
-        parseUrlHash();
+        parseUrlHash({ currentHistory: event?.state?.nextId });
     });
 };
 

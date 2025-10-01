@@ -9507,7 +9507,6 @@
   var previousCleanHash = "";
   var currentParamsFromLoadUrl;
   var currentSkipTransition;
-  var currentHistory;
   var sanitizeParams = (value) => {
     return value.replace("?", "").replace("/", "");
   };
@@ -9528,7 +9527,10 @@
       return `${previous}${currentJoin}${key}=${value}`;
     }, "");
   };
-  var parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
+  var parseUrlHash = async ({
+    shouldLoadRoute = true,
+    currentHistory
+  } = {}) => {
     const fullHashWithParmas = globalThis.location.hash;
     const historyObejct = {
       hash: fullHashWithParmas
@@ -9587,10 +9589,7 @@
     parseUrlHash();
     globalThis.history.scrollRestoration = "manual";
     globalThis.addEventListener("popstate", (event) => {
-      currentHistory = event?.state?.nextId;
-    });
-    globalThis.addEventListener("hashchange", () => {
-      parseUrlHash();
+      parseUrlHash({ currentHistory: event?.state?.nextId });
     });
   };
   var loadUrl = ({ url, params, skipTransition }) => {
