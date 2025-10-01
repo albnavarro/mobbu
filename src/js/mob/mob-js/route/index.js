@@ -302,9 +302,9 @@ export const loadUrl = ({ url, params, skipTransition }) => {
             : hash;
 
     /**
-     * If we want reload same route from same hash, maybe params is different.
+     * Trigger hashchange. This step is need to reload route with params.
+     *
+     * - If not previous hash is always different from current.
      */
-    if (hash === previousCleanHash || previousCleanHash === '') {
-        globalThis.dispatchEvent(new HashChangeEvent('hashchange'));
-    }
+    globalThis.dispatchEvent(new HashChangeEvent('hashchange'));
 };
