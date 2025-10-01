@@ -111,7 +111,8 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     /**
      * Set history, to restore scroll value.
      */
-    if (!currentHistory) history.replaceState({ nextId: historyObejct }, '');
+    if (!currentHistory)
+        history.replaceState({ nextId: historyObejct }, '', fullHashWithParmas);
 
     /**
      * Get route after redirect.
