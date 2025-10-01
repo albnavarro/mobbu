@@ -3,8 +3,6 @@
 import { MobCore } from '../../../mob-core';
 import { checkType } from '../../../mob-core/store/store-type';
 import { getRepeaterStateById } from '../../component/action/repeater';
-import { MAIN_STORE_ROUTE_IS_LOADING } from '../../main-store/constant';
-import { mainStore } from '../../modules';
 import { tick } from '../../queque/tick';
 import {
     allowFireEvent,
@@ -64,11 +62,7 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
              * - Set shouldFireEvent to true immediatyle after tick to restore event if callback fail.
              * - If route is loading skip action
              */
-            if (
-                !getFireEvent() ||
-                mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)
-            )
-                return;
+            if (!getFireEvent()) return;
 
             preventFireEvent();
             await tick();

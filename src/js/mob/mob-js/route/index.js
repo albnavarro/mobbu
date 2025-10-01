@@ -10,6 +10,9 @@ import { tryRedirect } from './redirect';
 import { getIndex } from './route-list';
 import { getRestoreScrollVale, getRouteModule, getTemplateName } from './utils';
 
+/** @type {string} */
+let previousFullHashLoaded = '';
+
 /** @type {boolean} */
 let firstAppLoad = true;
 
@@ -95,6 +98,22 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     };
 
     /**
+     * Prevent multiple routes start at same time.
+     */
+    const { routeIsLoading } = mainStore.get();
+    if (routeIsLoading) {
+        /**
+         * Restore previous hash/params.
+         */
+        history.replaceState(
+            { nextId: historyObejct },
+            '',
+            previousFullHashLoaded
+        );
+        return;
+    }
+
+    /**
      * Set history, to restore scroll value.
      */
     if (!currentHistory) history.replaceState({ nextId: historyObejct }, '');
@@ -166,6 +185,11 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      */
     if (shouldLoadRoute && !isSamePreviousRoute) {
         /**
+         * Used to ti restore last route when try to load a route while is loading previous route.
+         */
+        previousFullHashLoaded = `#${currentCleanHash}${currentParams}`;
+
+        /**
          * If does not come from currentHistory restore scroll is always false
          *
          * - It means direct navigate
@@ -211,13 +235,6 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
  */
 export const router = () => {
     parseUrlHash();
-
-    /**
-     * Prevent click on <a> tag when route is loading. LoadUrl && DelegateEvent && BindEvent do the same
-     */
-    MobCore.useMouseClick(({ preventDefault }) => {
-        if (mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)) preventDefault();
-    });
 
     /**
      * Prevent browser to force scroll position.
