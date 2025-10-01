@@ -9505,8 +9505,6 @@
   var firstAppLoad = true;
   var currentCleanHash = "";
   var previousCleanHash = "";
-  var currentParams = "";
-  var previousParams = "";
   var currentParamsFromLoadUrl;
   var currentSkipTransition;
   var currentHistory;
@@ -9518,9 +9516,9 @@
   };
   var getParams = (value) => {
     return value.split("&").reduce((previous, current) => {
-      const currentParams2 = current.split("=");
-      const key = sanitizeParams(currentParams2?.[0] ?? "");
-      const value2 = currentParams2?.[1];
+      const currentParams = current.split("=");
+      const key = sanitizeParams(currentParams?.[0] ?? "");
+      const value2 = currentParams?.[1];
       return key && key.length > 0 ? { ...previous, [key]: value2 } : previous;
     }, {});
   };
@@ -9531,7 +9529,7 @@
     }, "");
   };
   var parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
-    const fullHashWithParmas = globalThis.location.hash.slice(1);
+    const fullHashWithParmas = globalThis.location.hash;
     const historyObejct = {
       hash: fullHashWithParmas
     };
@@ -9556,14 +9554,13 @@
     previousCleanHash = currentCleanHash;
     currentCleanHash = sanitizeHash(parts?.[0] ?? "");
     const params = getParams(currentParamsFromLoadUrl ?? search);
-    previousParams = currentParams;
-    currentParams = currentParamsFromLoadUrl || Object.keys(search).length > 0 ? `?${currentParamsFromLoadUrl ?? search}` : "";
+    const currentParams = currentParamsFromLoadUrl || Object.keys(search).length > 0 ? `?${currentParamsFromLoadUrl ?? search}` : "";
     currentParamsFromLoadUrl = void 0;
     const targetRoute = getRouteModule({ url: currentCleanHash });
     const targetTemplate = getTemplateName({
       url: currentCleanHash && currentCleanHash.length > 0 ? currentCleanHash : getIndex()
     });
-    const isSamePreviousRoute = currentCleanHash === previousCleanHash && currentParams === previousParams && !firstAppLoad;
+    const isSamePreviousRoute = currentCleanHash === previousCleanHash && currentParams.length === 0 && !firstAppLoad;
     if (shouldLoadRoute && !isSamePreviousRoute) {
       previousFullHashLoaded = `#${currentCleanHash}${currentParams}`;
       await loadRoute({

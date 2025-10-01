@@ -22,12 +22,6 @@ let currentCleanHash = '';
 /** @type {string} */
 let previousCleanHash = '';
 
-/** @type {string} */
-let currentParams = '';
-
-/** @type {string} */
-let previousParams = '';
-
 /** @type {string | undefined} */
 let currentParamsFromLoadUrl;
 
@@ -91,7 +85,7 @@ const convertObjectParamsToString = (params) => {
  * @returns {Promise<void>}
  */
 export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
-    const fullHashWithParmas = globalThis.location.hash.slice(1);
+    const fullHashWithParmas = globalThis.location.hash;
 
     const historyObejct = {
         hash: fullHashWithParmas,
@@ -150,8 +144,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     /**
      * Update browser history.
      */
-    previousParams = currentParams;
-    currentParams =
+    const currentParams =
         currentParamsFromLoadUrl || Object.keys(search).length > 0
             ? `?${currentParamsFromLoadUrl ?? search}`
             : '';
@@ -174,12 +167,13 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     /**
      * Avoid to load same route twice. TODO make optional with a global props.
      *
+     * - Todo, if params is used route is reloaded, params may change.
      * - First time this function launched twice for update current route on filrst load before wrapper is loaded.
      * - So firstAppLoad is used.
      */
     const isSamePreviousRoute =
         currentCleanHash === previousCleanHash &&
-        currentParams === previousParams &&
+        currentParams.length === 0 &&
         !firstAppLoad;
 
     /**
