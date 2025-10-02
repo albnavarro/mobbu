@@ -238,6 +238,11 @@ export const router = () => {
      * Prevent click on app while route is loading.
      *
      * - Has effect on <a href=""> tag
+     * - Has effect only if usePassive = false;
+     *
+     * ```js
+     * MobMotionCore.setDefault({ usePassive: false });
+     * ```
      */
     MobCore.useMouseClick(({ preventDefault }) => {
         if (mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)) preventDefault();
