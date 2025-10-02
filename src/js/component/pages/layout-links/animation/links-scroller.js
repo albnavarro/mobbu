@@ -11,6 +11,7 @@ export const linksScroller = ({
         scroller: scrollerElement,
         direction: 'horizontal',
         drag: true,
+        useHorizontalScroll: true,
         easeType: 'lerp',
         breakpoint: 'small',
         afterInit: ({ shouldScroll }) => {
