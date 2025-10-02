@@ -9586,6 +9586,9 @@
   };
   var router = () => {
     parseUrlHash();
+    modules_exports.useMouseClick(({ preventDefault }) => {
+      if (mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)) preventDefault();
+    });
     globalThis.history.scrollRestoration = "manual";
     globalThis.addEventListener("popstate", (event) => {
       currentHistory = event?.state?.nextId;

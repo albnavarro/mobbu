@@ -238,6 +238,13 @@ export const router = () => {
     parseUrlHash();
 
     /**
+     * Prevent click on app while route is loading.
+     */
+    MobCore.useMouseClick(({ preventDefault }) => {
+        if (mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)) preventDefault();
+    });
+
+    /**
      * Prevent browser to force scroll position.
      */
     globalThis.history.scrollRestoration = 'manual';
