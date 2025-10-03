@@ -23,11 +23,14 @@ export const RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {
             element.style.transform = `scale(${scale})`;
         });
 
-        const unsubscribeBeforeRouteChange = MobJs.beforeRouteChange(() => {
-            tweenOut.goTo({ opacity: 1, scale: 1 });
+        const unsubscribeBeforeRouteChange = MobJs.beforeRouteChange(
+            async () => {
+                proxi.isDisable = false;
 
-            proxi.isDisable = false;
-        });
+                await tweenOut.set({ opacity: 1 });
+                tweenOut.goTo({ scale: 1 });
+            }
+        );
 
         const unsubScribeAfterRouteChange = MobJs.afterRouteChange(async () => {
             await tweenOut.goTo({ opacity: 0, scale: 0.9 }).catch(() => {});
