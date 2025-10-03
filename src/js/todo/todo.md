@@ -1,17 +1,20 @@
-###  Smooth scrolling modules:
--  Rendere il clamp su spinX/Y opzionale.
+# Prioritá;
+- App: `canvas` leak in memory.
+- MobJs: `createComponent` refactor.
+
+
+# App
+
+### Canvas
+- Sembra che i canvas ( in particolare lo scroll ) possono rimanere incastrati in memoria.
+
 
 ### Docs: AsyncTimeline
 - Breve riassunto con lista puntata delle feature.
 
-### MobCore
-- Parallax/Scroltriiger
-- Puo usare il metodo `freezeCache` on `scrollEnd` ? ( scrollerTween/sequencer ).
 
-<hr/>
-<hr/>
 
-## Store/MobJs:
+# Store/MobJs:
 ### Map & Set
 - Scenario 1: Clonando il Map/Set avró il `precendente` é il `successivo` diversi.
 
@@ -133,13 +136,81 @@ store[prop] = valueTransformed;
 
 # MobJs
 
-## Routing:
+### Create component:
+ - Prendere due picconi con una fava.
+ - Potrebbe tornare un oggetto con:
+ - L' idea é di rendere accessibile goTo definition nel tag
+ - In questo modo non bisogna nenache registrare il componente.
+ - Sarebbe anche meglio aggiungere un if per caricare il componente una volta sola.
+ - Non bisogna nenache passargli i figli.
+ - Quando il component viene richiamato verrá inserito nella lista dei componenti.
+
+ ```js
+    export const createComponent = ({
+        tag = '',
+        component = () => '',
+        state = {},
+        bindStore,
+        exportState = [],
+        scoped,
+        connectedCallback = () => {},
+        disconnectedCallback = () => {},
+        adoptedCallback = () => {},
+        attributeToObserve = [],
+        attributeChangedCallback = () => {},
+        style = '',
+        child = [],
+    }) => {
+        /**
+         * Se tag non é presente in availableComponent Fare un funzione che fá il check if .....
+         */
+
+        useComponent([
+            {
+                [tag]: {
+                    componentFunction: component,
+                    componentParams: {
+                        exportState,
+                        scoped,
+                        state,
+                        bindStore,
+                        connectedCallback,
+                        disconnectedCallback,
+                        adoptedCallback,
+                        attributeToObserve,
+                        attributeChangedCallback,
+                        style,
+                        child,
+                    },
+                },
+            },
+        ]);
+
+        return tag;
+    };
+
+
+    export const BenchMarkRepeatNoKey = MobJs.createComponent(
+        /** @type {CreateComponentParams<import('../type').BenchMark>} */
+        ({
+            tag: 'benchmark-repeat-no-key',
+            component: BenchMarkRepeatNoKyFn,
+            ...benchMarkDefinitionPartial(),
+        })
+    );
+
+    <${BenchMarkRepeatNoKey}><${BenchMarkRepeatNoKey}>
+ ```
+
+
+
+### Routing:
 - Rendere opzionale il blocco sul caricamento della stessa rotta.
 
-## PageTrasition:
+### PageTrasition:
 - possibilitá di disabilitare le trasizioni di pagina per rotta ( nella definizione della rotta ).
 
-## BindProps
+### BindProps
 ##### Nota: puó essere un falso problema, per le massime performance i methodi possono avere un accesso diretto al componente senza intermediazione, nel caso specificarlo.
 - `MobStore`: add `object` simile a fnValidate dove segnare l' ultima azione `set` / `get`
 - `set` lo segnará `setProp/setObj`.
@@ -148,23 +219,23 @@ store[prop] = valueTransformed;
 - In questo modo si fará un set sul `children` solo per gli effettivi stati modificati.
 
 
-## src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
+### src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
 - Parent id ternario innestato, semplificare.
 - Idealmante con `weakElementMap` si puó usare solo una strategia.
 
-## src/js/mob/mob-js/doc/ ?
+### src/js/mob/mob-js/doc/ ?
 - Aggiungere:
     - Parent id logic.
     - Repeat `element` vs `innerWrapper` vs `repeatIdPlaceHolderMap` ( use external map children propierties, es: `getRepeaterChild()` ).
 
-## ParserHTML
+### ParserHTML
 #### Sanitize
 - Aggiungere una `callBack` per fare un parsing dell' `html` prima di appenderlo al `DOM` con librerie esterne.
 
 #### Render return object.
 - Funizione utility che converte un `oggetto` in `html`.
 
-## BindStore
+### BindStore
 - Capie se é possibile usare gli stati di bindStore come, per rendere il tutto piú chiaro:
 - **Problema:** se non si usa il proxi il discorso non funziona piú `otherStore.proxi` in formato stringa non puó funzionare.
 
@@ -175,7 +246,7 @@ proxi.state
 // a:
 proxi.otherStore.state
 ```
-## Web component:
+### Web component:
 
 #### attributeChangedCallback
 - In riferimento agli `stati esportabili`, `attributeChangedCallback` puo intereccettare se l'atributo é uno stato e automaticamante eseguire un `this.#params.setState(state, <val>)`.
@@ -185,7 +256,7 @@ proxi.otherStore.state
 
 - Bisognerá fare un lavoro sui tipi, arriveranno tutte `string` ma prima del set venno convertite nel giusto tipo, per fare questo lavoro bisogna accedere all' oggetto `type` delle store.
 
-## BindProps:
+### BindProps:
 
 - Valutare await `applyBindProps` in `parse-function.js`
 
@@ -215,11 +286,11 @@ for (const item of functionToFireAtTheEnd.reverse()) {
 }
 ```
 
-## Page transition.
+### Page transition.
 
 - Possibilitá di sovrascrivere le due funzioni per rotta.
 
-## Props ( export props ), da valutare ??
+### Props ( export props ), da valutare ??
 
 - Prevedere che gli stati esportati all' interno del componente siano usati `readOnly`
 - In generale basta agire in `src/js/mob/mob-js/component/index.js` e aggungere `checkIfStateIsExportable(...)`, `setStateById()` agisce direttmante sull' istanza store perció questo controllo non ha effetto su `bindProps()`
@@ -237,17 +308,17 @@ getProxi({ excludeSet: exportableState })
 
 
 
-## Repeat
+### Repeat
 
 #### Use object
 
 - Possibilità di usare un oggetto nel repeat secondo lo schema `Object.values()`.
 
-## Quickset
+### Quickset
 
 - Aggiungere `Quickset`.
 
-## Debug
+### Debug
 
 - Add `debug` ( params in componentFunction ) in DOCS.
 
@@ -255,6 +326,10 @@ getProxi({ excludeSet: exportableState })
 
 
 # Mobmotion
+
+### MobCore
+- Parallax/Scroltriiger
+- Puo usare il metodo `freezeCache` on `scrollEnd` ? ( scrollerTween/sequencer ).
 
 ### Velocity.
 - Inserire nei timeTween/lerp/Spring in concetto di velocity.
