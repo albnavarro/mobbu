@@ -20,8 +20,8 @@ let moveSvgFromNav = () => {};
 /** @type{Record<number, number>} */
 const goToPercentage = {
     1: 0,
-    2: 100 / 3 + 3,
-    3: (100 / 3) * 2 + 6,
+    2: 36.5,
+    3: 63.5,
     4: 100,
 };
 
@@ -191,26 +191,6 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
 };
 
 /**
- * @param {object} params
- * @param {SetRef<import('./type').About>} params.setRef
- * @returns {string}
- */
-const getShapeTrail = ({ setRef }) => {
-    const items = [...Array.from({ length: 1 }).keys()];
-
-    return html`${items
-        .map(() => {
-            return html`
-                <div
-                    class="l-about__shape l-about__shape--back"
-                    ${setRef('pathElement')}
-                ></div>
-            `;
-        })
-        .join('')}`;
-};
-
-/**
  * @returns {string}
  */
 const getBio = () => {
@@ -326,23 +306,7 @@ export const AboutComponentFn = ({
                 svgShiftAmount = startpercent - value;
                 moveSvg(svgShiftAmount);
             },
-            onSwipe: (direction) => {
-                if (direction === -1) {
-                    proxi.activenavItem -= 1;
-                }
-
-                if (direction === 1) {
-                    proxi.activenavItem += 1;
-                }
-
-                _goTo(goToPercentage[proxi.activenavItem]);
-            },
-            /**
-             * Snap to active item. Debuounce update with 500,s value Scroll to the nearest section based on scroll
-             * direction
-             */
             onScrollEnd: MobCore.useDebounce(() => {
-                _goTo(goToPercentage[proxi.activenavItem]);
                 isMoving = false;
                 svgShiftAmount = 0;
                 moveSvg(svgShiftAmount);
@@ -375,7 +339,6 @@ export const AboutComponentFn = ({
                 ${proxi.aboutSvg}
             </div>
         </span>
-        ${getShapeTrail({ setRef })}
         <div
             class="l-about__about-svg l-about__about-svg--back"
             ${setRef('svg')}

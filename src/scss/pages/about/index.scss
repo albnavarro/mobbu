@@ -5,8 +5,8 @@
     height: calc(100vh - var(--header-height) - var(--footer-height));
     position: relative;
 
-    --section-width: calc(80vw - (var(--header-height) / 2));
-    --section-width-last: calc(100vw - (var(--header-height) / 2));
+    --section-width: calc(100vw);
+    --section-width-small: calc(60vw);
 
     * {
         /* stylelint-disable-next-line  property-no-vendor-prefix */
@@ -44,7 +44,9 @@
 
     &__scroller {
         height: calc(100vh - var(--header-height) - var(--footer-height));
-        width: calc((var(--section-width) * var(--number-of-section)));
+        width: calc(
+            ((var(--section-width) * 2) + (var(--section-width-small) * 2))
+        );
         cursor: grabbing;
         position: relative;
         z-index: 3;
@@ -142,25 +144,31 @@
     }
 
     &__section {
-        flex: 0 0 var(--section-width);
+        flex: 0 0 var(--section-width-small);
         height: 100%;
         position: relative;
         display: grid;
         grid-template-rows: repeat(2, 1fr);
         text-align: center;
-        padding-left: 20vw;
 
-        .title-biggest {
-            display: inline-block;
-            margin: auto;
-            position: relative;
+        &::after {
+            content: '';
+            top: rem(120);
+            left: rem(120);
+            right: rem(120);
+            bottom: rem(120);
+            position: absolute;
         }
 
+        &--first,
         &--last {
-            flex: 0 0 var(--section-width-last);
-            justify-content: center;
-            padding-left: 0;
-            padding-right: 40vw;
+            flex: 0 0 var(--section-width);
+        }
+
+        .title-biggest {
+            display: block;
+            margin: auto;
+            position: relative;
         }
 
         &__top {

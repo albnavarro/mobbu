@@ -19,9 +19,8 @@ export const aboutAnimation = ({
     inspirationItem,
     section4_title,
     setActiveItem,
-    onScrollEnd,
     onMove,
-    onSwipe,
+    onScrollEnd,
 }) => {
     /**
      * Garbage collector utils for path svg Prevent path loop inside to not collected
@@ -88,10 +87,10 @@ export const aboutAnimation = ({
         scroller: scrollerElement,
         direction: 'horizontal',
         drag: true,
-        easeType: 'spring',
+        easeType: 'lerp',
         breakpoint: 'small',
         useHorizontalScroll: false,
-        useSwipe: true,
+        useSwipe: false,
         revertSwipeDirection: false,
         children: [
             pathScroller,
@@ -104,9 +103,6 @@ export const aboutAnimation = ({
         onUpdate: ({ value }) => {
             onMove(value);
             onScrollEnd();
-        },
-        onSwipe: ({ direction }) => {
-            onSwipe(direction);
         },
     });
 

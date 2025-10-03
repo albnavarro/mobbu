@@ -3,16 +3,16 @@ import { MobScroll, MobTween } from '@mobMotion';
 /** @type {import('../type').AboutSection1} */
 export const aboutSection1 = ({ title_1, title_2 }) => {
     const title1tween = MobTween.createScrollerTween({
-        from: { y: 0 },
-        to: { y: 30 },
+        from: { x: 0 },
+        to: { x: 30 },
     });
 
-    title1tween.subscribe(({ y }) => {
-        title_1.style.transform = `translate3d(0,0,0) translate(${0}px, ${y}px)`;
+    title1tween.subscribe(({ x }) => {
+        title_1.style.transform = `translate3d(0,0,0) translate(${x}px, 0px)`;
     });
 
-    title1tween.onStop(({ y }) => {
-        title_1.style.transform = `translate(${0}px, ${y}px)`;
+    title1tween.onStop(({ x }) => {
+        title_1.style.transform = `translate(${x}px, 0px)`;
     });
 
     const title1parallax = MobScroll.createParallax({
@@ -24,16 +24,16 @@ export const aboutSection1 = ({ title_1, title_2 }) => {
     });
 
     const title2tween = MobTween.createScrollerTween({
-        from: { y: 0 },
-        to: { y: -30 },
+        from: { x: 0 },
+        to: { x: -30 },
     });
 
-    title2tween.subscribe(({ y }) => {
-        title_2.style.transform = `translate3d(0,0,0) translateY(${y}px)`;
+    title2tween.subscribe(({ x }) => {
+        title_2.style.transform = `translate3d(0,0,0) translateX(${x}px)`;
     });
 
-    title2tween.onStop(({ y }) => {
-        title_2.style.transform = `translateY(${y}px)`;
+    title2tween.onStop(({ x }) => {
+        title_2.style.transform = `translateX(${x}px)`;
     });
 
     const title2parallax = MobScroll.createParallax({
