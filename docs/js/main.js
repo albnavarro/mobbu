@@ -26640,6 +26640,7 @@
   var getSquare = () => {
     return renderHtml`
         <div class="l-about__square">
+            <div class="l-about__square__legend"><h4>Scroll or Drag</h4></div>
             <span class="l-about__square__angle top-left"></span>
             <span class="l-about__square__angle top-right"></span>
             <span class="l-about__square__angle bottom-left"></span>

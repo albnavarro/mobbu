@@ -1336,6 +1336,11 @@ ul li::marker {
     inset: 8rem 22.6666666667rem;
   }
 }
+.l-about__square__legend {
+  position: absolute;
+  left: 0;
+  top: -2.6666666667rem;
+}
 .l-about__square__angle {
   position: absolute;
   width: 4rem;
@@ -1498,10 +1503,6 @@ ul li::marker {
 .l-about__section__top {
   grid-row: 1/span 1;
   align-self: end;
-  padding-top: 6.6666666667rem;
-}
-.l-about__section__bottom {
-  padding-bottom: 6.6666666667rem;
 }
 .l-about__section__copy {
   max-width: 40rem;

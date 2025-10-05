@@ -33,6 +33,12 @@
             inset: rem(120) rem(340);
         }
 
+        &__legend {
+            position: absolute;
+            left: 0;
+            top: -#{rem(40)};
+        }
+
         &__angle {
             position: absolute;
             width: rem(60);
@@ -219,11 +225,6 @@
         &__top {
             grid-row: 1 / span 1;
             align-self: end;
-            padding-top: rem(100);
-        }
-
-        &__bottom {
-            padding-bottom: rem(100);
         }
 
         &__copy {
