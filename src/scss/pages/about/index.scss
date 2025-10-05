@@ -103,7 +103,8 @@
 
     &__screen {
         position: absolute;
-        overflow: hidden;
+
+        // overflow: hidden;
         left: 50%;
         top: 50%;
         width: var(--sreen-size);

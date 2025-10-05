@@ -20407,7 +20407,7 @@
     constructor(data) {
       this.#windowInnerWidth = window.innerWidth;
       this.#windowInnerHeight = window.innerHeight;
-      this.#gap = 150;
+      this.#gap = 800;
       this.#numericRange = 0;
       this.#unsubscribeResize = () => {
       };

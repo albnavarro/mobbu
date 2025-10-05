@@ -1390,7 +1390,6 @@ ul li::marker {
 }
 .l-about__screen {
   position: absolute;
-  overflow: hidden;
   left: 50%;
   top: 50%;
   width: var(--sreen-size);
