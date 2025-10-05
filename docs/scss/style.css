@@ -1359,7 +1359,7 @@ ul li::marker {
 }
 .l-about__bio {
   position: absolute;
-  bottom: 1.3333333333rem;
+  top: 0.6666666667rem;
   left: 0;
   right: 0;
   z-index: 10;
@@ -1500,6 +1500,11 @@ ul li::marker {
   margin: auto;
   margin-top: 1.3333333333rem;
 }
+@media (min-width: 100em) {
+  .l-about__section__copy {
+    max-width: 53.3333333333rem;
+  }
+}
 .l-about__background {
   position: absolute;
   bottom: 0;
@@ -1564,7 +1569,7 @@ ul li::marker {
 }
 .l-about__nav {
   position: absolute;
-  bottom: 5rem;
+  bottom: 0.6666666667rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 11;

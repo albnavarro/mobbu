@@ -62,7 +62,7 @@
 
     &__bio {
         position: absolute;
-        bottom: rem(20);
+        top: rem(10);
         left: 0;
         right: 0;
         z-index: 10;
@@ -222,6 +222,10 @@
             max-width: rem(600);
             margin: auto;
             margin-top: rem(20);
+
+            @include mq(xlarge) {
+                max-width: rem(800);
+            }
         }
     }
 
@@ -303,7 +307,7 @@
 
     &__nav {
         position: absolute;
-        bottom: rem(75);
+        bottom: rem(10);
         left: 50%;
         transform: translateX(-50%);
         z-index: 11;
