@@ -26745,7 +26745,7 @@
         style="--number-of-section:${numberOfSection}"
     >
         <div>${getBio()}</div>
-        <div>${getSquare()}</div>
+        <div class="l-about__sqaure-container">${getSquare()}</div>
         <span class="l-about__background">
             <div
                 class="l-about__about-svg l-about__about-svg--bottom"

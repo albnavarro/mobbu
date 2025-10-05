@@ -17,18 +17,21 @@
     &__square {
         position: absolute;
         inset: rem(120) rem(160) rem(160);
-        border: 1px rgba($black, 0.2) solid;
         z-index: 11;
         pointer-events: none;
 
+        @include mq(large) {
+            border: 1px rgba($black, 0.2) solid;
+        }
+
         @include mq(xlarge) {
-            inset: rem(120) rem(340) rem(160);
+            inset: rem(120) rem(340);
         }
 
         &__angle {
             position: absolute;
-            width: rem(100);
-            height: rem(100);
+            width: rem(60);
+            height: rem(60);
 
             &.top-left {
                 top: 0;
