@@ -1322,7 +1322,7 @@ ul li::marker {
 }
 .l-about__square {
   position: absolute;
-  inset: 8rem 10.6666666667rem 10.6666666667rem;
+  inset: 8rem 10.6666666667rem 8rem;
   z-index: 11;
   pointer-events: none;
 }
