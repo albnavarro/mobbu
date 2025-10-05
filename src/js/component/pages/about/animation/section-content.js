@@ -5,26 +5,33 @@ import { MobScroll, MobTween } from '@mobMotion';
 export const sectionContentAnimation = ({ title, copy }) => {
     let sectionContentSequencer = MobTween.createSequencer({
         data: {
-            x: 100,
+            xTitle: 100,
+            xCopy: 100,
         },
     });
 
     sectionContentSequencer
-        .goTo({ x: 0 }, { start: 0, end: 5 })
-        .goTo({ x: -100 }, { start: 5, end: 10 });
+        .goTo({ xCopy: 0, xTitle: 0 }, { start: 0, end: 5 })
+        .goTo({ xCopy: -100, xTitle: -100 }, { start: 5, end: 10 });
 
-    sectionContentSequencer.subscribe(({ x }) => {
-        if (!copy.deref()) return;
+    sectionContentSequencer.subscribe(({ xCopy, xTitle }) => {
+        if (!copy.deref() || !title.deref()) return;
 
         // @ts-ignore
-        copy.deref().style.transform = `translate3d(0,0,0) translateX(${x}%)`;
+        copy.deref().style.transform = `translate3d(0,0,0) translateX(${xCopy}%)`;
+
+        // @ts-ignore
+        title.deref().style.transform = `translate3d(0,0,0) translateX(${xTitle}%)`;
     });
 
-    sectionContentSequencer.onStop(({ x }) => {
-        if (!copy.deref()) return;
+    sectionContentSequencer.onStop(({ xCopy, xTitle }) => {
+        if (!copy.deref() || !title.deref()) return;
 
         // @ts-ignore
-        copy.deref().style.transform = `translateX(${x}%)`;
+        copy.deref().style.transform = `translateX(${xCopy}%)`;
+
+        // @ts-ignore
+        title.deref().style.transform = `translateX(${xTitle}%)`;
     });
 
     let sectionContentScroller = MobScroll.createScrollTrigger({
