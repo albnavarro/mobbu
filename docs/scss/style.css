@@ -1316,6 +1316,47 @@ ul li::marker {
   -webkit-user-select: none;
   user-select: none;
 }
+.l-about__square {
+  position: absolute;
+  inset: 8rem 10.6666666667rem 10.6666666667rem;
+  border: 1px rgba(46, 52, 64, 0.2) solid;
+  z-index: 11;
+  pointer-events: none;
+}
+@media (min-width: 100em) {
+  .l-about__square {
+    inset: 8rem 22.6666666667rem 10.6666666667rem;
+  }
+}
+.l-about__square__angle {
+  position: absolute;
+  width: 6.6666666667rem;
+  height: 6.6666666667rem;
+}
+.l-about__square__angle.top-left {
+  top: 0;
+  left: 0;
+  border-top: 2px #2e3440 solid;
+  border-left: 2px #2e3440 solid;
+}
+.l-about__square__angle.top-right {
+  top: 0;
+  right: 0;
+  border-top: 2px #2e3440 solid;
+  border-right: 2px #2e3440 solid;
+}
+.l-about__square__angle.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px #2e3440 solid;
+  border-left: 2px #2e3440 solid;
+}
+.l-about__square__angle.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px #2e3440 solid;
+  border-right: 2px #2e3440 solid;
+}
 .l-about__bio {
   position: absolute;
   bottom: 1.3333333333rem;

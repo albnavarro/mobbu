@@ -207,6 +207,20 @@ const getBio = () => {
     `;
 };
 
+/**
+ * @returns {string}
+ */
+const getSquare = () => {
+    return html`
+        <div class="l-about__square">
+            <span class="l-about__square__angle top-left"></span>
+            <span class="l-about__square__angle top-right"></span>
+            <span class="l-about__square__angle bottom-left"></span>
+            <span class="l-about__square__angle bottom-right"></span>
+        </div>
+    `;
+};
+
 /** @type {MobComponent<import('./type').About>} */
 export const AboutComponentFn = ({
     onMount,
@@ -331,7 +345,8 @@ export const AboutComponentFn = ({
         ${setRef('screenElement')}
         style="--number-of-section:${numberOfSection}"
     >
-        ${getBio()}
+        <div>${getBio()}</div>
+        <div>${getSquare()}</div>
         <span class="l-about__background">
             <div
                 class="l-about__about-svg l-about__about-svg--bottom"

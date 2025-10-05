@@ -26637,6 +26637,16 @@
         </ul>
     `;
   };
+  var getSquare = () => {
+    return renderHtml`
+        <div class="l-about__square">
+            <span class="l-about__square__angle top-left"></span>
+            <span class="l-about__square__angle top-right"></span>
+            <span class="l-about__square__angle bottom-left"></span>
+            <span class="l-about__square__angle bottom-right"></span>
+        </div>
+    `;
+  };
   var AboutComponentFn = ({
     onMount,
     setRef,
@@ -26734,7 +26744,8 @@
         ${setRef("screenElement")}
         style="--number-of-section:${numberOfSection}"
     >
-        ${getBio()}
+        <div>${getBio()}</div>
+        <div>${getSquare()}</div>
         <span class="l-about__background">
             <div
                 class="l-about__about-svg l-about__about-svg--bottom"
