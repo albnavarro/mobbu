@@ -5,11 +5,11 @@
     },
     "block_2": {
         "title": "Why",
-        "copy": "This site was born from the need to have an environment free from any dependencies where I can experiment with code and graphics"
+        "copy": "This site was born from the need to have an environment <span class='quote'>free</span> from any <span class='quote'>dependencies</span> where I can experiment with <span class='quote'>code</span> and <span class='quote'>graphics</span>"
     },
     "block_3": {
         "title": "what",
-        "copy": "The project is composed of 3 libraries to manage reactive components and animations, these libraries are designed for personal use but it remains an open-source project. At a graphic level the focus is directed to resume the study of lettering."
+        "copy": "The project is composed of <span class='quote'>3 libraries</span> to manage <span class='quote'>components</span> and <span class='quote'>animations</span>, these libraries are designed for personal use but it remains an open-source project. At a <span class='quote'>graphic</span> level the focus is directed to resume the study of <span class='quote'>lettering</span>."
     },
     "block_4": {
         "title": "inspiration",

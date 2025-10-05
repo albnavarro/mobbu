@@ -160,7 +160,7 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
     return html`
         <ul class="l-about__nav">
             ${proxi.navItem
-                .map(({ index }) => {
+                .map(({ index, label }) => {
                     return html`
                         <li class="l-about__nav__item">
                             <button
@@ -171,16 +171,14 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
                                         moveSvgFromNav();
                                     },
                                 })}
+                                ${bindEffect({
+                                    toggleClass: {
+                                        active: () =>
+                                            proxi.activenavItem === index,
+                                    },
+                                })}
                             >
-                                <span
-                                    class="l-about__nav__dot"
-                                    ${bindEffect({
-                                        toggleClass: {
-                                            active: () =>
-                                                proxi.activenavItem === index,
-                                        },
-                                    })}
-                                ></span>
+                                [ ${label} ]
                             </button>
                         </li>
                     `;
@@ -376,42 +374,6 @@ export const AboutComponentFn = ({
                 ${proxi.aboutSvg}
             </div>
         </div>
-        <button
-            type="button"
-            class="l-about__arrow l-about__arrow--prev"
-            ${bindEffect({
-                toggleClass: {
-                    active: () => proxi.activenavItem > 1,
-                },
-            })}
-            ${delegateEvents({
-                click: () => {
-                    proxi.activenavItem -= 1;
-                    _goTo(goToPercentage[proxi.activenavItem]);
-                    moveSvgFromNav();
-                },
-            })}
-        >
-            <span></span>
-        </button>
-        <button
-            type="button"
-            class="l-about__arrow l-about__arrow--next"
-            ${bindEffect({
-                toggleClass: {
-                    active: () => proxi.activenavItem < 4,
-                },
-            })}
-            ${delegateEvents({
-                click: () => {
-                    proxi.activenavItem += 1;
-                    _goTo(goToPercentage[proxi.activenavItem]);
-                    moveSvgFromNav();
-                },
-            })}
-        >
-            <span></span>
-        </button>
         <div class="l-about__scroller" ${setRef('scrollerElement')}>
             <div class="l-about__wrap" ${setRef('wrapElement')}>
                 ${block01({ setRef, getState })}

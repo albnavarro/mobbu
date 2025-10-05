@@ -48,7 +48,12 @@ export const AboutComponent = MobJs.createComponent(
                 type: String,
             }),
             navItem: () => ({
-                value: [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }],
+                value: [
+                    { index: 1, label: 'about' },
+                    { index: 2, label: 'why' },
+                    { index: 3, label: 'what' },
+                    { index: 4, label: 'inspiration' },
+                ],
                 type: Array,
             }),
             activenavItem: () => ({
