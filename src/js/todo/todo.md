@@ -327,6 +327,9 @@ getProxi({ excludeSet: exportableState })
 
 # Mobmotion
 
+## MobScroller
+- Il valore `gap` ( detectViewPortInterception() ), deve essere regolabile dall' esterno.
+
 ### MobCore
 - Parallax/Scroltriiger
 - Puo usare il metodo `freezeCache` on `scrollEnd` ? ( scrollerTween/sequencer ).
