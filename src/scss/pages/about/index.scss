@@ -25,12 +25,9 @@
         z-index: 11;
         pointer-events: none;
 
-        @include mq(large) {
-            border: 1px rgba($black, 0.2) solid;
-        }
-
         @include mq(xlarge) {
             inset: rem(120) rem(340);
+            border: 1px rgba($black, 0.2) solid;
         }
 
         &__legend {

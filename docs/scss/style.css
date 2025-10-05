@@ -1326,14 +1326,10 @@ ul li::marker {
   z-index: 11;
   pointer-events: none;
 }
-@media (min-width: 75em) {
-  .l-about__square {
-    border: 1px rgba(46, 52, 64, 0.2) solid;
-  }
-}
 @media (min-width: 100em) {
   .l-about__square {
     inset: 8rem 22.6666666667rem;
+    border: 1px rgba(46, 52, 64, 0.2) solid;
   }
 }
 .l-about__square__legend {
