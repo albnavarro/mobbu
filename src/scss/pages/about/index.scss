@@ -73,7 +73,7 @@
 
     &__bio {
         position: absolute;
-        top: rem(24);
+        bottom: rem(30);
         left: 0;
         right: 0;
         z-index: 10;
@@ -260,7 +260,7 @@
 
     &__nav {
         position: absolute;
-        bottom: rem(30);
+        top: rem(24);
         left: 50%;
         transform: translateX(-50%);
         z-index: 11;
