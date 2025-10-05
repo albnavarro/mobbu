@@ -76,7 +76,7 @@ const block02 = ({ setRef, getState }) => {
             </div>
             <div class="l-about__section__bottom has-overflow">
                 <div class="l-about__section__right">
-                    <p class="l-about__section__copy paragraph-big">${copy}</p>
+                    <p class="l-about__section__copy">${copy}</p>
                 </div>
             </div>
         </section>
@@ -103,7 +103,7 @@ const block03 = ({ setRef, getState }) => {
             </div>
             <div class="l-about__section__bottom has-overflow">
                 <div class="l-about__section__right">
-                    <p class="l-about__section__copy paragraph-big">${copy}</p>
+                    <p class="l-about__section__copy">${copy}</p>
                 </div>
             </div>
         </section>
@@ -129,7 +129,7 @@ const block04 = ({ setRef, getState }) => {
                 <ul class="l-about__list">
                     ${items
                         .map((item) => {
-                            return html` <li>${item}</li> `;
+                            return html` <li>[ ${item} ]</li> `;
                         })
                         .join('')}
                 </ul>

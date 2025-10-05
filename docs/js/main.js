@@ -301,7 +301,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,F=w),k===void 0&&(
             </div>
             <div class="l-about__section__bottom has-overflow">
                 <div class="l-about__section__right">
-                    <p class="l-about__section__copy paragraph-big">${o}</p>
+                    <p class="l-about__section__copy">${o}</p>
                 </div>
             </div>
         </section>
@@ -317,7 +317,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,F=w),k===void 0&&(
             </div>
             <div class="l-about__section__bottom has-overflow">
                 <div class="l-about__section__right">
-                    <p class="l-about__section__copy paragraph-big">${o}</p>
+                    <p class="l-about__section__copy">${o}</p>
                 </div>
             </div>
         </section>
@@ -330,7 +330,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,F=w),k===void 0&&(
             </div>
             <div class="l-about__section__bottom">
                 <ul class="l-about__list">
-                    ${o.map(n=>g` <li>${n}</li> `).join("")}
+                    ${o.map(n=>g` <li>[ ${n} ]</li> `).join("")}
                 </ul>
             </div>
         </section>

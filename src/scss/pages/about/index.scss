@@ -28,9 +28,28 @@
         top: rem(120);
         transform: translateX(-50%);
         height: calc(
-            100vh - var(--footer-height) - var(--header-height) - #{rem(120)} -
-                #{rem(120)}
+            /* stylelint-disable-next-line  scss/operator-no-newline-after */
+                100vh - var(--footer-height) - var(--header-height) -
+                #{rem(120)} - #{rem(120)}
         );
+
+        &::before {
+            content: '{';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: calc(#{rem(50)} * -1);
+            font-size: rem(30);
+        }
+
+        &::after {
+            content: '}';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: calc(#{rem(50)} * -1);
+            font-size: rem(30);
+        }
 
         &__legend {
             position: absolute;
@@ -103,8 +122,7 @@
 
     &__screen {
         position: absolute;
-
-        // overflow: hidden;
+        overflow: hidden;
         left: 50%;
         top: 50%;
         width: var(--sreen-size);
@@ -146,7 +164,6 @@
 
     &__list {
         list-style-type: none;
-        max-width: rem(500);
         padding-left: 0;
         margin-top: rem(20);
         margin-inline: auto;
@@ -154,11 +171,8 @@
 
         li {
             display: inline-block;
-            background: $black;
-            border-radius: rem(20);
-            padding: rem(5) rem(10);
             margin: rem(5);
-            color: $white;
+            font-size: rem(14);
         }
     }
 

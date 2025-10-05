@@ -13,13 +13,6 @@
     },
     "block_4": {
         "title": "inspiration",
-        "items": [
-            "skateboarding",
-            "writing & hip-hop culture",
-            "neovim",
-            "inkscape",
-            "open source project",
-            "all music"
-        ]
+        "items": ["Skateboarding", "Writing", "Neovim", "Inkscape", "Music"]
     }
 }
