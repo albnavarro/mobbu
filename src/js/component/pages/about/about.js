@@ -43,7 +43,6 @@ const block01 = ({ setRef, getState }) => {
     return html`
         <section
             class="l-about__section l-about__section l-about__section--first "
-            ${setRef('sectionContainers')}
         >
             <div class="l-about__section__top has-overflow">
                 <h1 class="title-big" ${setRef('title_1')}>${titleTop}</h1>
@@ -66,7 +65,7 @@ const block02 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_2;
 
     return html`
-        <section class="l-about__section" ${setRef('sectionContainers')}>
+        <section class="l-about__section">
             <div class="l-about__section__top has-overflow">
                 <div class="l-about__section__left"></div>
                 <div class="l-about__section__right">
@@ -93,7 +92,7 @@ const block03 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_3;
 
     return html`
-        <section class="l-about__section" ${setRef('sectionContainers')}>
+        <section class="l-about__section">
             <div class="l-about__section__top has-overflow">
                 <div class="l-about__section__left"></div>
                 <div class="l-about__section__right">
@@ -120,10 +119,7 @@ const block04 = ({ setRef, getState }) => {
     const { title, items } = getState().block_4;
 
     return html`
-        <section
-            class="l-about__section l-about__section--last"
-            ${setRef('sectionContainers')}
-        >
+        <section class="l-about__section l-about__section--last">
             <div class="l-about__section__top">
                 <h1 class="title-biggest" ${setRef('section4_title')}>
                     ${title}
@@ -133,9 +129,7 @@ const block04 = ({ setRef, getState }) => {
                 <ul class="l-about__list">
                     ${items
                         .map((item) => {
-                            return /* HTML */ `
-                                <li ${setRef('inspirationItem')}>${item}</li>
-                            `;
+                            return html` <li>${item}</li> `;
                         })
                         .join('')}
                 </ul>
@@ -243,7 +237,7 @@ export const AboutComponentFn = ({
             pathElement,
         } = getRef();
 
-        const { inspirationItem, svg, sectionContainers } = getRefs();
+        const { svg } = getRefs();
 
         let startpercent = 0;
         let isMoving = false;
@@ -296,9 +290,7 @@ export const AboutComponentFn = ({
             title_2,
             section2_title,
             section3_title,
-            inspirationItem,
             section4_title,
-            sectionContainers,
             setActiveItem: (value) => {
                 proxi.activenavItem = value;
             },

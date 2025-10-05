@@ -1,6 +1,5 @@
 import {
     MobAsyncTimeline,
-    MobMasterSequencer,
     MobScroller,
     MobScrollerTween,
     MobSequencer,
@@ -40,10 +39,8 @@ export interface About {
         title_2: HTMLElement;
         section2_title: HTMLElement;
         section3_title: HTMLElement;
-        inspirationItem: HTMLElement;
         section4_title: HTMLElement;
         svg: HTMLElement;
-        sectionContainers: HTMLElement;
     };
 }
 
@@ -56,9 +53,7 @@ export type AboutScroller = (arg0: {
     title_2: HTMLElement;
     section2_title: HTMLElement;
     section3_title: HTMLElement;
-    inspirationItem: HTMLElement[];
     section4_title: HTMLElement;
-    sectionContainers: HTMLElement[];
     setActiveItem: (value: number) => void;
     onMove: (value: number) => void;
     onScrollEnd: () => void;
@@ -71,6 +66,7 @@ export type CreatePathAnimation = (ar0: {
     weakScrollerElement: WaekRef<HTMLElement>;
     weakPathElement: WaekRef<HTMLSpanElement>;
     wrapElement: HTMLElement;
+    weakScreenElement: WeakRef<HTMLElement>;
     setActiveItem: (value: number) => void;
 }) => {
     pathScroller: MobScroller;
@@ -93,17 +89,6 @@ export type AboutSection1 = (arg0: {
 
 export type AboutSection2 = (arg0: { title: WeakRef<HTMLElement> }) => {
     sectionContentScroller: MobScroller;
-    destroy: () => void;
-};
-
-export type InspirationAnimation = (ar0: {
-    weakInspirationitem: WaekRef<HTMLElement>[];
-    weakSectio4Title: WeakRef<HTMLElement>;
-    weakContainer: WeakRef<HTMLElement>;
-}) => {
-    inspirationScroller: MobScroller;
-    masterSequencer: MobMasterSequencer;
-    titleSequencer: MobSequencer;
     destroy: () => void;
 };
 

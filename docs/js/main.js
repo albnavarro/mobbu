@@ -25931,87 +25931,13 @@
     </doc-container>`;
   };
 
-  // src/js/component/pages/about/animation/inspiration.js
-  var inspirationAnimation = ({
-    weakInspirationitem,
-    weakSectio4Title,
-    weakContainer
-  }) => {
-    let masterSequencer = tween_exports.createMasterSequencer();
-    let titleSequencer = tween_exports.createSequencer({
-      data: {
-        xTitle: 400
-      }
-    });
-    titleSequencer.goTo({ xTitle: 0 }, { start: 0, end: 10 });
-    titleSequencer.subscribe(({ xTitle }) => {
-      if (!weakSectio4Title.deref()) return;
-      weakSectio4Title.deref().style.transform = `translate3D(0,0,0) translateX(${xTitle}px)`;
-    });
-    titleSequencer.onStop(({ xTitle }) => {
-      if (!weakSectio4Title.deref()) return;
-      weakSectio4Title.deref().style.transform = ` translateX(${xTitle}px )`;
-    });
-    masterSequencer.add(titleSequencer);
-    const staggers = tween_exports.createStaggers({
-      items: weakInspirationitem,
-      stagger: {
-        type: "end",
-        each: 5,
-        from: "start"
-      }
-    });
-    staggers.forEach(({ item, start, end, index }) => {
-      const sequencer = tween_exports.createSequencer({
-        data: { x: 100 + index * 20 }
-      }).goTo({ x: 0, opacity: 1 }, { start, end });
-      sequencer.subscribe(({ x }) => {
-        if (!item.deref()) return;
-        item.deref().style.transform = `translate3D(0,0,0) translateX(${x}px)`;
-      });
-      sequencer.onStop(({ x }) => {
-        if (!item.deref()) return;
-        item.deref().style.transform = `translateX(${x}px)`;
-      });
-      masterSequencer.add(sequencer);
-    });
-    let inspirationScroller = scroller_exports.createScrollTrigger({
-      item: weakContainer.deref(),
-      propierties: "tween",
-      tween: masterSequencer,
-      dynamicStart: {
-        position: "right",
-        value: () => 0
-      },
-      dynamicEnd: {
-        position: "left",
-        value: () => {
-          return 0;
-        }
-      },
-      ease: false
-    });
-    return {
-      inspirationScroller,
-      titleSequencer,
-      masterSequencer,
-      destroy: () => {
-        inspirationScroller.destroy();
-        inspirationScroller = null;
-        titleSequencer.destroy();
-        titleSequencer = null;
-        masterSequencer.destroy();
-        masterSequencer = null;
-      }
-    };
-  };
-
   // src/js/component/pages/about/animation/path-animation.js
   var createPathAnimation = ({
     weakPathElement,
     weakScrollerElement,
     wrapElement,
-    setActiveItem
+    setActiveItem,
+    weakScreenElement
   }) => {
     const sequencerData = {
       ax: 53,
@@ -26046,12 +25972,7 @@
       gy: 1
     };
     let pathSequencer = tween_exports.createSequencer({
-      data: { ...sequencerData },
-      stagger: {
-        each: 40,
-        waitComplete: false,
-        from: "end"
-      }
+      data: { ...sequencerData }
     });
     pathSequencer.goTo(
       {
@@ -26091,16 +26012,16 @@
     }, 0).add(({ direction: direction2, isForced }) => {
       if (isForced || direction2 === "backward") return;
       setActiveItem(2);
-    }, 0.5).add(({ direction: direction2, isForced }) => {
+    }, 1.5).add(({ direction: direction2, isForced }) => {
       if (isForced || direction2 === "backward") return;
       setActiveItem(3);
-    }, 6).add(({ direction: direction2, isForced }) => {
+    }, 5.5).add(({ direction: direction2, isForced }) => {
       if (isForced || direction2 === "backward") return;
       setActiveItem(4);
     }, 9.5).add(({ direction: direction2, isForced }) => {
       if (isForced || direction2 === "forward") return;
       setActiveItem(1);
-    }, 0.5).add(({ direction: direction2, isForced }) => {
+    }, 1.5).add(({ direction: direction2, isForced }) => {
       if (isForced || direction2 === "forward") return;
       setActiveItem(2);
     }, 5).add(({ direction: direction2, isForced }) => {
@@ -26210,18 +26131,22 @@
     let pathScroller = scroller_exports.createScrollTrigger({
       item: wrapElement,
       dynamicStart: {
-        position: "left",
-        value: () => window.innerWidth
+        position: "right",
+        value: () => {
+          return outerWidth(
+            weakScreenElement?.deref() ?? document.createElement("div")
+          );
+        }
       },
       dynamicEnd: {
         position: "right",
         value: () => {
-          return -outerWidth(
+          return outerWidth(
             weakScrollerElement?.deref() ?? document.createElement("div")
-          ) + window.innerWidth;
+          ) ?? 0;
         }
       },
-      reverse: true,
+      reverse: false,
       propierties: "tween",
       ease: false,
       tween: pathSequencer
@@ -26331,24 +26256,17 @@
     title_2,
     section2_title,
     section3_title,
-    inspirationItem,
     section4_title,
     setActiveItem,
     onMove,
-    onScrollEnd,
-    sectionContainers
+    onScrollEnd
   }) => {
     const weakScrollerElement = new WeakRef(scrollerElement);
     const weakSectio2Title = new WeakRef(section2_title);
     const weakSectio3Title = new WeakRef(section3_title);
     const weakSectio4Title = new WeakRef(section4_title);
     const weakPathElement = new WeakRef(pathElement);
-    const weakInspirationitem = inspirationItem.map((element) => {
-      return new WeakRef(element);
-    });
-    const weakSectionContainers = sectionContainers.map((element) => {
-      return new WeakRef(element);
-    });
+    const weakScreenElement = new WeakRef(screenElement);
     const {
       pathScroller,
       pathSequencer,
@@ -26360,27 +26278,27 @@
       weakPathElement,
       weakScrollerElement,
       wrapElement,
-      setActiveItem
+      setActiveItem,
+      weakScreenElement
     });
     const { title1parallax, title2parallax, title1tween, title2tween } = aboutSection1({ title_1, title_2 });
-    const { sectionContentScroller: sectionContentScroller_1 } = sectionContentAnimation({
+    const {
+      sectionContentScroller: sectionContentScroller_1,
+      destroy: destroyContentAnimation1
+    } = sectionContentAnimation({
       title: weakSectio2Title
     });
     const {
       sectionContentScroller: sectionContentScroller_2,
-      destroy: destroyContentAnimation
+      destroy: destroyContentAnimation2
     } = sectionContentAnimation({
       title: weakSectio3Title
     });
     const {
-      inspirationScroller,
-      masterSequencer,
-      titleSequencer,
-      destroy: destroyInspirationAnimation
-    } = inspirationAnimation({
-      weakInspirationitem,
-      weakSectio4Title,
-      weakContainer: weakSectionContainers[3]
+      sectionContentScroller: sectionContentScroller_3,
+      destroy: destroyContentAnimation3
+    } = sectionContentAnimation({
+      title: weakSectio4Title
     });
     let aboutScroller = new MobSmoothScroller({
       screen: screenElement,
@@ -26398,7 +26316,7 @@
         title2parallax,
         sectionContentScroller_1,
         sectionContentScroller_2,
-        inspirationScroller
+        sectionContentScroller_3
       ],
       onUpdate: ({ value }) => {
         onMove(value);
@@ -26427,13 +26345,11 @@
         title2tween.destroy();
         sectionContentScroller_1.destroy();
         sectionContentScroller_2.destroy();
-        inspirationScroller.destroy();
-        masterSequencer.destroy();
-        titleSequencer.destroy();
         stopLoop();
         destroypathAnimation();
-        destroyContentAnimation();
-        destroyInspirationAnimation();
+        destroyContentAnimation1();
+        destroyContentAnimation2();
+        destroyContentAnimation3();
       }
     };
   };
@@ -26488,7 +26404,6 @@
     return renderHtml`
         <section
             class="l-about__section l-about__section l-about__section--first "
-            ${setRef("sectionContainers")}
         >
             <div class="l-about__section__top has-overflow">
                 <h1 class="title-big" ${setRef("title_1")}>${titleTop}</h1>
@@ -26504,7 +26419,7 @@
   var block02 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_2;
     return renderHtml`
-        <section class="l-about__section" ${setRef("sectionContainers")}>
+        <section class="l-about__section">
             <div class="l-about__section__top has-overflow">
                 <div class="l-about__section__left"></div>
                 <div class="l-about__section__right">
@@ -26524,7 +26439,7 @@
   var block03 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_3;
     return renderHtml`
-        <section class="l-about__section" ${setRef("sectionContainers")}>
+        <section class="l-about__section">
             <div class="l-about__section__top has-overflow">
                 <div class="l-about__section__left"></div>
                 <div class="l-about__section__right">
@@ -26544,10 +26459,7 @@
   var block04 = ({ setRef, getState }) => {
     const { title, items } = getState().block_4;
     return renderHtml`
-        <section
-            class="l-about__section l-about__section--last"
-            ${setRef("sectionContainers")}
-        >
+        <section class="l-about__section l-about__section--last">
             <div class="l-about__section__top">
                 <h1 class="title-biggest" ${setRef("section4_title")}>
                     ${title}
@@ -26556,12 +26468,7 @@
             <div class="l-about__section__bottom">
                 <ul class="l-about__list">
                     ${items.map((item) => {
-      return (
-        /* HTML */
-        `
-                                <li ${setRef("inspirationItem")}>${item}</li>
-                            `
-      );
+      return renderHtml` <li>${item}</li> `;
     }).join("")}
                 </ul>
             </div>
@@ -26643,7 +26550,7 @@
         section4_title,
         pathElement
       } = getRef();
-      const { inspirationItem, svg, sectionContainers } = getRefs();
+      const { svg } = getRefs();
       let startpercent = 0;
       let isMoving = false;
       let svgShiftAmount = 0;
@@ -26679,9 +26586,7 @@
         title_2,
         section2_title,
         section3_title,
-        inspirationItem,
         section4_title,
-        sectionContainers,
         setActiveItem: (value) => {
           proxi.activenavItem = value;
         },

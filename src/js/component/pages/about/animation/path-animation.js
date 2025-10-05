@@ -11,6 +11,7 @@ export const createPathAnimation = ({
     weakScrollerElement,
     wrapElement,
     setActiveItem,
+    weakScreenElement,
 }) => {
     /**
      * Data
@@ -54,11 +55,6 @@ export const createPathAnimation = ({
      */
     let pathSequencer = MobTween.createSequencer({
         data: { ...sequencerData },
-        stagger: {
-            each: 40,
-            waitComplete: false,
-            from: 'end',
-        },
     });
 
     /**
@@ -114,11 +110,11 @@ export const createPathAnimation = ({
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'backward') return;
             setActiveItem(2);
-        }, 0.5)
+        }, 1.5)
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'backward') return;
             setActiveItem(3);
-        }, 6)
+        }, 5.5)
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'backward') return;
             setActiveItem(4);
@@ -127,7 +123,7 @@ export const createPathAnimation = ({
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'forward') return;
             setActiveItem(1);
-        }, 0.5)
+        }, 1.5)
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'forward') return;
             setActiveItem(2);
@@ -268,21 +264,25 @@ export const createPathAnimation = ({
     let pathScroller = MobScroll.createScrollTrigger({
         item: wrapElement,
         dynamicStart: {
-            position: 'left',
-            value: () => window.innerWidth,
+            position: 'right',
+            value: () => {
+                return outerWidth(
+                    weakScreenElement?.deref() ?? document.createElement('div')
+                );
+            },
         },
         dynamicEnd: {
             position: 'right',
             value: () => {
                 return (
-                    -outerWidth(
+                    outerWidth(
                         weakScrollerElement?.deref() ??
                             document.createElement('div')
-                    ) + window.innerWidth
+                    ) ?? 0
                 );
             },
         },
-        reverse: true,
+        reverse: false,
         propierties: 'tween',
         ease: false,
         tween: pathSequencer,
