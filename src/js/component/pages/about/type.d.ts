@@ -29,6 +29,7 @@ export interface About {
         aboutSvg: string;
         navItem: { index: number }[];
         activenavItem: number;
+        isMounted: boolean;
     };
     ref: {
         screenElement: HTMLElement;

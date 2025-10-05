@@ -1309,12 +1309,16 @@ ul li::marker {
   overflow: hidden;
   height: calc(100vh - var(--header-height) - var(--footer-height));
   position: relative;
+  pointer-events: none;
   --section-width: calc(100vw);
   --section-width-small: calc(60vw);
 }
 .l-about * {
   -webkit-user-select: none;
   user-select: none;
+}
+.l-about.active {
+  pointer-events: all;
 }
 .l-about__square {
   position: absolute;

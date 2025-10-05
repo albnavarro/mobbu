@@ -58,7 +58,12 @@ export const AboutComponent = MobJs.createComponent(
                     return MobMotionCore.clamp(value, 1, 4);
                 },
             }),
+            isMounted: () => ({
+                value: false,
+                type: Boolean,
+            }),
         },
+
         child: [],
     })
 );

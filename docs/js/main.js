@@ -26732,6 +26732,7 @@
         }, 500)
       });
       _goTo = goTo;
+      proxi.isMounted = true;
       return () => {
         _goTo = () => {
         };
@@ -26743,6 +26744,11 @@
         class="l-about"
         ${setRef("screenElement")}
         style="--number-of-section:${numberOfSection}"
+        ${bindEffect({
+      toggleClass: {
+        active: () => proxi.isMounted
+      }
+    })}
     >
         <div>${getBio()}</div>
         <div class="l-about__sqaure-container">${getSquare()}</div>
@@ -26866,6 +26872,10 @@
           transform: (value) => {
             return core_exports.clamp(value, 1, 4);
           }
+        }),
+        isMounted: () => ({
+          value: false,
+          type: Boolean
         })
       },
       child: []

@@ -4,6 +4,7 @@
     overflow: hidden;
     height: calc(100vh - var(--header-height) - var(--footer-height));
     position: relative;
+    pointer-events: none;
 
     --section-width: calc(100vw);
     --section-width-small: calc(60vw);
@@ -12,6 +13,10 @@
         /* stylelint-disable-next-line  property-no-vendor-prefix */
         -webkit-user-select: none; /* Safari */
         user-select: none;
+    }
+
+    &.active {
+        pointer-events: all;
     }
 
     &__square {

@@ -332,6 +332,7 @@ export const AboutComponentFn = ({
          * Transfer goTo reference to _goTo that is visible by DOM element.
          */
         _goTo = goTo;
+        proxi.isMounted = true;
 
         return () => {
             _goTo = () => {};
@@ -344,6 +345,11 @@ export const AboutComponentFn = ({
         class="l-about"
         ${setRef('screenElement')}
         style="--number-of-section:${numberOfSection}"
+        ${bindEffect({
+            toggleClass: {
+                active: () => proxi.isMounted,
+            },
+        })}
     >
         <div>${getBio()}</div>
         <div class="l-about__sqaure-container">${getSquare()}</div>
