@@ -11459,7 +11459,7 @@
     return isValid ? instance : {};
   };
   var scrollerAlignIsValid = (value) => {
-    if (!value) return MobScrollerConstant.ALIGN_CENTER;
+    if (!value && value !== 0) return MobScrollerConstant.ALIGN_CENTER;
     const choice = [
       MobScrollerConstant.ALIGN_START,
       MobScrollerConstant.ALIGN_TOP,
