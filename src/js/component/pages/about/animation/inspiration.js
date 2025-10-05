@@ -4,6 +4,7 @@ import { MobScroll, MobTween } from '@mobMotion';
 export const inspirationAnimation = ({
     weakInspirationitem,
     weakSectio4Title,
+    weakContainer,
 }) => {
     let masterSequencer = MobTween.createMasterSequencer();
 
@@ -23,11 +24,11 @@ export const inspirationAnimation = ({
         weakSectio4Title.deref().style.transform = `translate3D(0,0,0) translateX(${xTitle}px)`;
     });
 
-    titleSequencer.onStop(({ yTitle, xTitle }) => {
+    titleSequencer.onStop(({ xTitle }) => {
         if (!weakSectio4Title.deref()) return;
 
         // @ts-ignore
-        weakSectio4Title.deref().style.transform = ` translate(${xTitle}px, ${yTitle}%)`;
+        weakSectio4Title.deref().style.transform = ` translateX(${xTitle}px )`;
     });
 
     masterSequencer.add(titleSequencer);
@@ -63,7 +64,7 @@ export const inspirationAnimation = ({
     });
 
     let inspirationScroller = MobScroll.createScrollTrigger({
-        item: weakInspirationitem[0].deref(),
+        item: weakContainer.deref(),
         propierties: 'tween',
         tween: masterSequencer,
         dynamicStart: {
@@ -72,7 +73,9 @@ export const inspirationAnimation = ({
         },
         dynamicEnd: {
             position: 'left',
-            value: () => window.innerWidth / 2,
+            value: () => {
+                return 0;
+            },
         },
         ease: false,
     });

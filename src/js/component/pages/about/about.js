@@ -20,8 +20,8 @@ let moveSvgFromNav = () => {};
 /** @type{Record<number, number>} */
 const goToPercentage = {
     1: 0,
-    2: 36.5,
-    3: 63.5,
+    2: 100 / 3,
+    3: (100 / 3) * 2,
     4: 100,
 };
 
@@ -43,6 +43,7 @@ const block01 = ({ setRef, getState }) => {
     return html`
         <section
             class="l-about__section l-about__section l-about__section--first "
+            ${setRef('sectionContainers')}
         >
             <div class="l-about__section__top has-overflow">
                 <h1 class="title-big" ${setRef('title_1')}>${titleTop}</h1>
@@ -65,7 +66,7 @@ const block02 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_2;
 
     return html`
-        <section class="l-about__section">
+        <section class="l-about__section" ${setRef('sectionContainers')}>
             <div class="l-about__section__top has-overflow">
                 <div class="l-about__section__left"></div>
                 <div class="l-about__section__right">
@@ -76,12 +77,7 @@ const block02 = ({ setRef, getState }) => {
             </div>
             <div class="l-about__section__bottom has-overflow">
                 <div class="l-about__section__right">
-                    <p
-                        class="l-about__section__copy paragraph-big"
-                        ${setRef('section2_copy')}
-                    >
-                        ${copy}
-                    </p>
+                    <p class="l-about__section__copy paragraph-big">${copy}</p>
                 </div>
             </div>
         </section>
@@ -97,7 +93,7 @@ const block03 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_3;
 
     return html`
-        <section class="l-about__section">
+        <section class="l-about__section" ${setRef('sectionContainers')}>
             <div class="l-about__section__top has-overflow">
                 <div class="l-about__section__left"></div>
                 <div class="l-about__section__right">
@@ -108,12 +104,7 @@ const block03 = ({ setRef, getState }) => {
             </div>
             <div class="l-about__section__bottom has-overflow">
                 <div class="l-about__section__right">
-                    <p
-                        class="l-about__section__copy paragraph-big"
-                        ${setRef('section3_copy')}
-                    >
-                        ${copy}
-                    </p>
+                    <p class="l-about__section__copy paragraph-big">${copy}</p>
                 </div>
             </div>
         </section>
@@ -129,7 +120,10 @@ const block04 = ({ setRef, getState }) => {
     const { title, items } = getState().block_4;
 
     return html`
-        <section class="l-about__section l-about__section--last">
+        <section
+            class="l-about__section l-about__section--last"
+            ${setRef('sectionContainers')}
+        >
             <div class="l-about__section__top">
                 <h1 class="title-biggest" ${setRef('section4_title')}>
                     ${title}
@@ -244,14 +238,12 @@ export const AboutComponentFn = ({
             title_1,
             title_2,
             section2_title,
-            section2_copy,
             section3_title,
-            section3_copy,
             section4_title,
             pathElement,
         } = getRef();
 
-        const { inspirationItem, svg } = getRefs();
+        const { inspirationItem, svg, sectionContainers } = getRefs();
 
         let startpercent = 0;
         let isMoving = false;
@@ -303,11 +295,10 @@ export const AboutComponentFn = ({
             title_1,
             title_2,
             section2_title,
-            section2_copy,
             section3_title,
-            section3_copy,
             inspirationItem,
             section4_title,
+            sectionContainers,
             setActiveItem: (value) => {
                 proxi.activenavItem = value;
             },
@@ -342,7 +333,6 @@ export const AboutComponentFn = ({
 
     return html`<div
         class="l-about"
-        ${setRef('screenElement')}
         style="--number-of-section:${numberOfSection}"
         ${bindEffect({
             toggleClass: {
@@ -374,12 +364,14 @@ export const AboutComponentFn = ({
                 ${proxi.aboutSvg}
             </div>
         </div>
-        <div class="l-about__scroller" ${setRef('scrollerElement')}>
-            <div class="l-about__wrap" ${setRef('wrapElement')}>
-                ${block01({ setRef, getState })}
-                ${block02({ setRef, getState })}
-                ${block03({ setRef, getState })}
-                ${block04({ setRef, getState })}
+        <div class="l-about__screen" ${setRef('screenElement')}>
+            <div class="l-about__scroller" ${setRef('scrollerElement')}>
+                <div class="l-about__wrap" ${setRef('wrapElement')}>
+                    ${block01({ setRef, getState })}
+                    ${block02({ setRef, getState })}
+                    ${block03({ setRef, getState })}
+                    ${block04({ setRef, getState })}
+                </div>
             </div>
         </div>
         ${navigation({ bindEffect, delegateEvents, proxi })}

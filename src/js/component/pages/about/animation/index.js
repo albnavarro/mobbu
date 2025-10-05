@@ -13,26 +13,26 @@ export const aboutAnimation = ({
     title_1,
     title_2,
     section2_title,
-    section2_copy,
     section3_title,
-    section3_copy,
     inspirationItem,
     section4_title,
     setActiveItem,
     onMove,
     onScrollEnd,
+    sectionContainers,
 }) => {
     /**
      * Garbage collector utils for path svg Prevent path loop inside to not collected
      */
     const weakScrollerElement = new WeakRef(scrollerElement);
     const weakSectio2Title = new WeakRef(section2_title);
-    const weakSectio2Copy = new WeakRef(section2_copy);
     const weakSectio3Title = new WeakRef(section3_title);
-    const weakSectio3Copy = new WeakRef(section3_copy);
     const weakSectio4Title = new WeakRef(section4_title);
     const weakPathElement = new WeakRef(pathElement);
     const weakInspirationitem = inspirationItem.map((element) => {
+        return new WeakRef(element);
+    });
+    const weakSectionContainers = sectionContainers.map((element) => {
         return new WeakRef(element);
     });
 
@@ -53,21 +53,16 @@ export const aboutAnimation = ({
     const { title1parallax, title2parallax, title1tween, title2tween } =
         aboutSection1({ title_1, title_2 });
 
-    const {
-        sectionContentScroller: sectionContentScroller_1,
-        sectionContentSequencer: section2TitleSequencer_1,
-    } = sectionContentAnimation({
-        title: weakSectio2Title,
-        copy: weakSectio2Copy,
-    });
+    const { sectionContentScroller: sectionContentScroller_1 } =
+        sectionContentAnimation({
+            title: weakSectio2Title,
+        });
 
     const {
         sectionContentScroller: sectionContentScroller_2,
-        sectionContentSequencer: section2TitleSequencer_2,
         destroy: destroyContentAnimation,
     } = sectionContentAnimation({
         title: weakSectio3Title,
-        copy: weakSectio3Copy,
     });
 
     const {
@@ -78,6 +73,7 @@ export const aboutAnimation = ({
     } = inspirationAnimation({
         weakInspirationitem,
         weakSectio4Title,
+        weakContainer: weakSectionContainers[3],
     });
 
     let aboutScroller = new MobSmoothScroller({
@@ -130,9 +126,7 @@ export const aboutAnimation = ({
             title1tween.destroy();
             title2tween.destroy();
             sectionContentScroller_1.destroy();
-            section2TitleSequencer_1.destroy();
             sectionContentScroller_2.destroy();
-            section2TitleSequencer_2.destroy();
             inspirationScroller.destroy();
             masterSequencer.destroy();
             titleSequencer.destroy();

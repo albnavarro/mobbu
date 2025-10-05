@@ -39,12 +39,11 @@ export interface About {
         title_1: HTMLElement;
         title_2: HTMLElement;
         section2_title: HTMLElement;
-        section2_copy: HTMLElement;
         section3_title: HTMLElement;
-        section3_copy: HTMLElement;
         inspirationItem: HTMLElement;
         section4_title: HTMLElement;
         svg: HTMLElement;
+        sectionContainers: HTMLElement;
     };
 }
 
@@ -56,11 +55,10 @@ export type AboutScroller = (arg0: {
     title_1: HTMLElement;
     title_2: HTMLElement;
     section2_title: HTMLElement;
-    section2_copy: HTMLElement;
     section3_title: HTMLElement;
-    section3_copy: HTMLElement;
     inspirationItem: HTMLElement[];
     section4_title: HTMLElement;
+    sectionContainers: HTMLElement[];
     setActiveItem: (value: number) => void;
     onMove: (value: number) => void;
     onScrollEnd: () => void;
@@ -93,18 +91,15 @@ export type AboutSection1 = (arg0: {
     title2tween: MobScrollerTween;
 };
 
-export type AboutSection2 = (arg0: {
-    title: WeakRef<HTMLElement>;
-    copy: WeakRef<HTMLElement>;
-}) => {
+export type AboutSection2 = (arg0: { title: WeakRef<HTMLElement> }) => {
     sectionContentScroller: MobScroller;
-    sectionContentSequencer: MobSequencer;
     destroy: () => void;
 };
 
 export type InspirationAnimation = (ar0: {
     weakInspirationitem: WaekRef<HTMLElement>[];
     weakSectio4Title: WeakRef<HTMLElement>;
+    weakContainer: WeakRef<HTMLElement>;
 }) => {
     inspirationScroller: MobScroller;
     masterSequencer: MobMasterSequencer;

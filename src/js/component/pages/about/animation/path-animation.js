@@ -110,30 +110,32 @@ export const createPathAnimation = ({
         .add(() => {
             setActiveItem(1);
         }, 0)
-        .add(({ direction, isForced }) => {
-            if (isForced || direction === 'forward') return;
-            setActiveItem(1);
-        }, 2.5)
+        // forward
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'backward') return;
             setActiveItem(2);
-        }, 1)
+        }, 0.5)
         .add(({ direction, isForced }) => {
-            if (isForced || direction === 'forward') return;
-            setActiveItem(2);
+            if (isForced || direction === 'backward') return;
+            setActiveItem(3);
         }, 6)
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'backward') return;
-            setActiveItem(3);
-        }, 4.5)
+            setActiveItem(4);
+        }, 9.5)
+        // backward
+        .add(({ direction, isForced }) => {
+            if (isForced || direction === 'forward') return;
+            setActiveItem(1);
+        }, 0.5)
+        .add(({ direction, isForced }) => {
+            if (isForced || direction === 'forward') return;
+            setActiveItem(2);
+        }, 5)
         .add(({ direction, isForced }) => {
             if (isForced || direction === 'forward') return;
             setActiveItem(3);
-        }, 9)
-        .add(({ direction, isForced }) => {
-            if (isForced || direction === 'backward') return;
-            setActiveItem(4);
-        }, 8);
+        }, 9);
 
     pathSequencer.subscribe(
         ({ ax, ay, bx, by, cx, cy, dx, dy, ex, ey, fx, fy, gx, gy }) => {

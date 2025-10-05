@@ -6,8 +6,7 @@
     position: relative;
     pointer-events: none;
 
-    --section-width: calc(100vw);
-    --section-width-small: calc(60vw);
+    --sreen-size: 60vw;
 
     * {
         /* stylelint-disable-next-line  property-no-vendor-prefix */
@@ -21,14 +20,17 @@
 
     &__square {
         position: absolute;
-        inset: rem(120) rem(160);
+        width: var(--sreen-size);
         z-index: 11;
         pointer-events: none;
-
-        @include mq(xlarge) {
-            inset: rem(120) rem(340);
-            border: 1px rgba($black, 0.2) solid;
-        }
+        border: 1px rgba($black, 0.2) solid;
+        left: 50%;
+        top: rem(120);
+        transform: translateX(-50%);
+        height: calc(
+            100vh - var(--footer-height) - var(--header-height) - #{rem(120)} -
+                #{rem(120)}
+        );
 
         &__legend {
             position: absolute;
@@ -99,11 +101,19 @@
         }
     }
 
+    &__screen {
+        position: absolute;
+        overflow: hidden;
+        left: 50%;
+        top: 50%;
+        width: var(--sreen-size);
+        transform: translate(-50%, -50%);
+        z-index: 11;
+    }
+
     &__scroller {
         height: calc(100vh - var(--header-height) - var(--footer-height));
-        width: calc(
-            ((var(--section-width) * 2) + (var(--section-width-small) * 2))
-        );
+        width: calc(var(--sreen-size) * 4);
         cursor: grabbing;
         position: relative;
         z-index: 3;
@@ -152,22 +162,17 @@
     }
 
     &__section {
-        flex: 0 0 var(--section-width-small);
+        flex: 0 0 var(--sreen-size);
         height: 100%;
         position: relative;
         display: grid;
         grid-template-rows: repeat(2, 1fr);
         text-align: center;
 
-        &--first,
-        &--last {
-            flex: 0 0 var(--section-width);
-        }
-
         .title-biggest {
-            display: block;
             margin: auto;
             position: relative;
+            display: inline-block;
         }
 
         &__top {
