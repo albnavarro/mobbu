@@ -31,9 +31,7 @@ export const aboutAnimation = ({
     const weakSectio3Title = new WeakRef(section3_title);
     const weakSectio3Copy = new WeakRef(section3_copy);
     const weakSectio4Title = new WeakRef(section4_title);
-    const weakPathElement = pathElement.map((element) => {
-        return new WeakRef(element);
-    });
+    const weakPathElement = new WeakRef(pathElement);
     const weakInspirationitem = inspirationItem.map((element) => {
         return new WeakRef(element);
     });

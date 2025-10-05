@@ -50,7 +50,7 @@ export interface About {
 export type AboutScroller = (arg0: {
     screenElement: HTMLElement;
     scrollerElement: HTMLElement;
-    pathElement: HTMLSpanElement[];
+    pathElement: HTMLSpanElement;
     wrapElement: HTMLElement;
     title_1: HTMLElement;
     title_2: HTMLElement;
@@ -70,7 +70,7 @@ export type AboutScroller = (arg0: {
 
 export type CreatePathAnimation = (ar0: {
     weakScrollerElement: WaekRef<HTMLElement>;
-    weakPathElement: WaekRef<HTMLSpanElement>[];
+    weakPathElement: WaekRef<HTMLSpanElement>;
     wrapElement: HTMLElement;
     setActiveItem: (value: number) => void;
 }) => {

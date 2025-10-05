@@ -15,24 +15,22 @@ export const createPathAnimation = ({
     /**
      * Data
      */
-    const sequencerData = weakPathElement.map(() => {
-        return {
-            ax: 53,
-            ay: 70,
-            bx: 64,
-            by: 80,
-            cx: 89,
-            cy: 87,
-            dx: 100,
-            dy: 100,
-            ex: 0,
-            ey: 100,
-            fx: 10,
-            fy: 77,
-            gx: 17,
-            gy: 84,
-        };
-    });
+    const sequencerData = {
+        ax: 53,
+        ay: 70,
+        bx: 64,
+        by: 80,
+        cx: 89,
+        cy: 87,
+        dx: 100,
+        dy: 100,
+        ex: 0,
+        ey: 100,
+        fx: 10,
+        fy: 77,
+        gx: 17,
+        gy: 84,
+    };
 
     const timelineData = {
         ax: -1,
@@ -55,7 +53,7 @@ export const createPathAnimation = ({
      * Sequencer Scroll shape mutation
      */
     let pathSequencer = MobTween.createSequencer({
-        data: { ...sequencerData[0] },
+        data: { ...sequencerData },
         stagger: {
             each: 40,
             waitComplete: false,
@@ -137,26 +135,24 @@ export const createPathAnimation = ({
             setActiveItem(4);
         }, 8);
 
-    sequencerData.forEach((item) => {
-        pathSequencer.subscribe(
-            ({ ax, ay, bx, by, cx, cy, dx, dy, ex, ey, fx, fy, gx, gy }) => {
-                item.ax = ax;
-                item.ay = ay;
-                item.bx = bx;
-                item.by = by;
-                item.cx = cx;
-                item.cy = cy;
-                item.dx = dx;
-                item.dy = dy;
-                item.ex = ex;
-                item.ey = ey;
-                item.fx = fx;
-                item.fy = fy;
-                item.gx = gx;
-                item.gy = gy;
-            }
-        );
-    });
+    pathSequencer.subscribe(
+        ({ ax, ay, bx, by, cx, cy, dx, dy, ex, ey, fx, fy, gx, gy }) => {
+            sequencerData.ax = ax;
+            sequencerData.ay = ay;
+            sequencerData.bx = bx;
+            sequencerData.by = by;
+            sequencerData.cx = cx;
+            sequencerData.cy = cy;
+            sequencerData.dx = dx;
+            sequencerData.dy = dy;
+            sequencerData.ex = ex;
+            sequencerData.ey = ey;
+            sequencerData.fx = fx;
+            sequencerData.fy = fy;
+            sequencerData.gx = gx;
+            sequencerData.gy = gy;
+        }
+    );
 
     /**
      * Tween Perpetual movement
@@ -221,47 +217,43 @@ export const createPathAnimation = ({
     const loop = () => {
         if (!shouldLoop) return;
 
-        sequencerData.forEach((item, index) => {
-            const a = {
-                x: item.ax + timelineData.ax,
-                y: item.ay + timelineData.ay,
-            };
+        const a = {
+            x: sequencerData.ax + timelineData.ax,
+            y: sequencerData.ay + timelineData.ay,
+        };
 
-            const b = {
-                x: item.bx + timelineData.bx,
-                y: item.by + timelineData.by,
-            };
+        const b = {
+            x: sequencerData.bx + timelineData.bx,
+            y: sequencerData.by + timelineData.by,
+        };
 
-            const c = {
-                x: item.cx + timelineData.cx,
-                y: item.cy + timelineData.cy,
-            };
+        const c = {
+            x: sequencerData.cx + timelineData.cx,
+            y: sequencerData.cy + timelineData.cy,
+        };
 
-            const d = {
-                x: item.dx + timelineData.dx,
-                y: item.dy + timelineData.dy,
-            };
+        const d = {
+            x: sequencerData.dx + timelineData.dx,
+            y: sequencerData.dy + timelineData.dy,
+        };
 
-            const e = {
-                x: item.ex + timelineData.ex,
-                y: item.ey + timelineData.ey,
-            };
+        const e = {
+            x: sequencerData.ex + timelineData.ex,
+            y: sequencerData.ey + timelineData.ey,
+        };
 
-            const f = {
-                x: item.fx + timelineData.fx,
-                y: item.fy + timelineData.fy,
-            };
+        const f = {
+            x: sequencerData.fx + timelineData.fx,
+            y: sequencerData.fy + timelineData.fy,
+        };
 
-            const g = {
-                x: item.gx + timelineData.gx,
-                y: item.gy + timelineData.gy,
-            };
+        const g = {
+            x: sequencerData.gx + timelineData.gx,
+            y: sequencerData.gy + timelineData.gy,
+        };
 
-            if (!weakPathElement[index].deref()) return;
-
-            weakPathElement[index].deref().style.clipPath =
-                `polygon(${a.x}% ${a.y}%, ${b.x}% ${b.y}%, ${c.x}% ${c.y}%, ${d.x}% ${d.y}%,${e.x}% ${e.y}%,${f.x}% ${f.y}%,${g.x}% ${g.y}%)`;
-        });
+        if (!weakPathElement.deref()) return;
+        weakPathElement.deref().style.clipPath = `polygon(${a.x}% ${a.y}%, ${b.x}% ${b.y}%, ${c.x}% ${c.y}%, ${d.x}% ${d.y}%,${e.x}% ${e.y}%,${f.x}% ${f.y}%,${g.x}% ${g.y}%)`;
 
         MobCore.useNextFrame(() => loop());
     };

@@ -235,9 +235,10 @@ export const AboutComponentFn = ({
             section3_title,
             section3_copy,
             section4_title,
+            pathElement,
         } = getRef();
 
-        const { inspirationItem, pathElement, svg } = getRefs();
+        const { inspirationItem, svg } = getRefs();
 
         let startpercent = 0;
         let isMoving = false;
