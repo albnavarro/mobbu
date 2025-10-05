@@ -1322,7 +1322,7 @@ ul li::marker {
 }
 .l-about__square {
   position: absolute;
-  inset: 8rem 10.6666666667rem 8rem;
+  inset: 8rem 10.6666666667rem;
   z-index: 11;
   pointer-events: none;
 }
@@ -1368,7 +1368,7 @@ ul li::marker {
 }
 .l-about__bio {
   position: absolute;
-  top: 0.6666666667rem;
+  top: 1.6rem;
   left: 0;
   right: 0;
   z-index: 10;
@@ -1424,9 +1424,9 @@ ul li::marker {
 .l-about__arrow {
   position: absolute;
   display: block;
-  width: 6.6666666667rem;
-  height: 6.6666666667rem;
-  top: 50%;
+  width: 4rem;
+  height: 4rem;
+  bottom: 2.2666666667rem;
   z-index: 11;
   background: transparent;
   opacity: 0.1;
@@ -1440,18 +1440,16 @@ ul li::marker {
   pointer-events: all;
 }
 .l-about__arrow--prev {
-  transform: translateY(-50%);
-  left: 6.6666666667rem;
+  left: calc(50% - 6.6666666667rem);
 }
 .l-about__arrow--prev span {
-  transform: translate(-50%, -50%) rotate(-135deg);
+  transform: rotate(-135deg);
 }
 .l-about__arrow--next {
-  transform: translateY(-50%);
-  right: 6.6666666667rem;
+  left: calc(50% + 5.3333333333rem);
 }
 .l-about__arrow--next span {
-  transform: translate(-50%, -50%) rotate(45deg);
+  transform: rotate(45deg);
 }
 .l-about__arrow span {
   position: absolute;
@@ -1574,7 +1572,7 @@ ul li::marker {
 }
 .l-about__nav {
   position: absolute;
-  bottom: 0.6666666667rem;
+  bottom: 1.3333333333rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 11;

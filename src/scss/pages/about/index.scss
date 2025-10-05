@@ -21,7 +21,7 @@
 
     &__square {
         position: absolute;
-        inset: rem(120) rem(160) rem(120);
+        inset: rem(120) rem(160);
         z-index: 11;
         pointer-events: none;
 
@@ -73,7 +73,7 @@
 
     &__bio {
         position: absolute;
-        top: rem(10);
+        top: rem(24);
         left: 0;
         right: 0;
         z-index: 10;
@@ -136,9 +136,9 @@
     &__arrow {
         position: absolute;
         display: block;
-        width: rem(100);
-        height: rem(100);
-        top: 50%;
+        width: rem(60);
+        height: rem(60);
+        bottom: rem(34);
         z-index: 11;
         background: transparent;
         opacity: 0.1;
@@ -153,20 +153,18 @@
         }
 
         &--prev {
-            transform: translateY(-50%);
-            left: rem(100);
+            left: calc(50% - rem(100));
 
             span {
-                transform: translate(-50%, -50%) rotate(-135deg);
+                transform: rotate(-135deg);
             }
         }
 
         &--next {
-            transform: translateY(-50%);
-            right: rem(100);
+            left: calc(50% + rem(80));
 
             span {
-                transform: translate(-50%, -50%) rotate(45deg);
+                transform: rotate(45deg);
             }
         }
 
@@ -313,7 +311,7 @@
 
     &__nav {
         position: absolute;
-        bottom: rem(10);
+        bottom: rem(20);
         left: 50%;
         transform: translateX(-50%);
         z-index: 11;
