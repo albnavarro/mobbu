@@ -74,7 +74,7 @@ export const aboutAnimation = ({
         drag: true,
         easeType: 'lerp',
         breakpoint: 'small',
-        useHorizontalScroll: false,
+        useHorizontalScroll: true,
         useSwipe: false,
         revertSwipeDirection: false,
         children: [
