@@ -1,8 +1,9 @@
+import { AnimationDescription } from '@commonComponent/animation-description/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { AsyncTimeline } from '@pagesComponent/async-timeline/definition';
 
-MobJs.useComponent([AsyncTimeline]);
+MobJs.useComponent([AsyncTimeline, AnimationDescription]);
 
 /** @type {import('@mobJsType').Page} */
 export const asyncTimeline = () => {
@@ -15,6 +16,9 @@ export const asyncTimeline = () => {
         color: 'black',
     });
 
+    const description =
+        '<strong>Canvas</strong>: TimeTween Spring & AsyncTimeline';
+
     return html`<div class="l-padding">
         <async-timeline
             ${MobJs.staticProps(
@@ -23,6 +27,14 @@ export const asyncTimeline = () => {
                     disableOffcanvas: false,
                 })
             )}
-        ></async-timeline
+        ></async-timeline>
+        <animation-description
+            ${MobJs.staticProps(
+                /** @type {import('@commonComponent/animation-description/type').AnimationDescription['state']} */
+                ({
+                    content: description,
+                })
+            )}
+        ></animation-description>
     </div>`;
 };

@@ -1,6 +1,8 @@
 export const scrollerParams = [
     {
         animation: {},
+        description:
+            '<strong>Canvas</strong>: ScrollTrigger & createStagger v0',
         nav: {
             prevRoute: '#animatedPatternN1',
             nextRoute: '#scrollerN0?version=1&activeId=1',
@@ -8,7 +10,8 @@ export const scrollerParams = [
         },
     },
     {
-        title: 'Scroller N.0 v1',
+        description:
+            '<strong>Canvas</strong>: ScrollTrigger & createStagger v1',
         animation: {
             stagger: {
                 type: 'end',
@@ -25,6 +28,8 @@ export const scrollerParams = [
         },
     },
     {
+        description:
+            '<strong>Canvas</strong>: ScrollTrigger & createStagger v2',
         animation: {
             stagger: {
                 type: 'equal',
@@ -41,7 +46,8 @@ export const scrollerParams = [
         },
     },
     {
-        title: 'Scroller N.0 v3',
+        description:
+            '<strong>Canvas</strong>: ScrollTrigger & createStagger v3',
         animation: {
             stagger: {
                 type: 'equal',
@@ -58,7 +64,8 @@ export const scrollerParams = [
         },
     },
     {
-        title: 'Scroller N.0 v4',
+        description:
+            '<strong>Canvas</strong>: ScrollTrigger & createStagger v4',
         animation: {
             stagger: {
                 type: 'equal',

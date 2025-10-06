@@ -2,8 +2,9 @@ import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { ScrollerN0 } from '@pagesComponent/scroller/n0/definition';
 import { scrollerParams } from './scroller-params';
+import { AnimationDescription } from '@commonComponent/animation-description/definition';
 
-MobJs.useComponent([ScrollerN0]);
+MobJs.useComponent([ScrollerN0, AnimationDescription]);
 
 /** @type {import('@mobJsType').Page} */
 export const scrollerN0 = ({ params }) => {
@@ -34,5 +35,13 @@ export const scrollerN0 = ({ params }) => {
                 })
             )}
         ></scroller-n0>
+        <animation-description
+            ${MobJs.staticProps(
+                /** @type {import('@commonComponent/animation-description/type').AnimationDescription['state']} */
+                ({
+                    content: props.description,
+                })
+            )}
+        ></animation-description>
     </div>`;
 };

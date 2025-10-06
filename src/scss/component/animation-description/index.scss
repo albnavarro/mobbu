@@ -1,0 +1,13 @@
+@use '../../abstract' as *;
+
+.animation-description {
+    position: fixed;
+    top: calc(var(--header-height) * 1.5);
+    left: var(--header-height);
+    z-index: 11;
+    display: none;
+
+    &.visible {
+        display: block;
+    }
+}

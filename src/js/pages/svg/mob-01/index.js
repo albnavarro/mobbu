@@ -5,8 +5,9 @@ import { html, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_schema } from './data';
+import { AnimationDescription } from '@commonComponent/animation-description/definition';
 
-MobJs.useComponent([Move3D, AnyComponent]);
+MobJs.useComponent([Move3D, AnyComponent, AnimationDescription]);
 
 export const lettering01 = async () => {
     const { data: letteringMob } = await loadTextContent({
@@ -69,6 +70,8 @@ export const lettering01 = async () => {
         color: 'black',
     });
 
+    const description = '<strong>Svg</strong>: Mob lettering';
+
     return html`<div class="l-mob-01">
         <move-3d
             ${MobJs.staticProps(
@@ -104,5 +107,13 @@ export const lettering01 = async () => {
                 })
             )}
         ></move-3d>
+        <animation-description
+            ${MobJs.staticProps(
+                /** @type {import('@commonComponent/animation-description/type').AnimationDescription['state']} */
+                ({
+                    content: description,
+                })
+            )}
+        ></animation-description>
     </div>`;
 };

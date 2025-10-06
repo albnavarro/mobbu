@@ -1,6 +1,8 @@
 export const animatedPatternN0Params = [
     {
         animation: {},
+        description:
+            '<strong>Canvas</strong>: AsyncTimeline - Animated pattern v0',
         nav: {
             prevRoute: '#async-timeline',
             nextRoute: '#animatedPatternN0?version=1&activeId=1',
@@ -8,7 +10,8 @@ export const animatedPatternN0Params = [
         },
     },
     {
-        title: 'Animated pattern N.0 v1',
+        description:
+            '<strong>Canvas</strong>: AsyncTimeline - Animated pattern v1',
         animation: {
             fill: [
                 0, 13, 20, 45, 65, 71, 72, 73, 74, 75, 76, 77, 83, 92, 96, 113,
@@ -33,6 +36,8 @@ export const animatedPatternN0Params = [
         },
     },
     {
+        description:
+            '<strong>Canvas</strong>: AsyncTimeline - Animated pattern v2',
         animation: {
             fill: [
                 0, 13, 20, 45, 65, 71, 72, 73, 74, 75, 76, 77, 83, 92, 96, 113,
@@ -55,7 +60,8 @@ export const animatedPatternN0Params = [
         },
     },
     {
-        title: 'Animated pattern N.0 v3',
+        description:
+            '<strong>Canvas</strong>: AsyncTimeline - Animated pattern v3',
         animation: {
             fill: [],
             gutter: 1,

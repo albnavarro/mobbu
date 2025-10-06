@@ -2,8 +2,9 @@ import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { AnimatedPatternN0 } from '@pagesComponent/animated-pattern/n0/definition';
 import { animatedPatternN0Params } from './animated-pattern-n0-params';
+import { AnimationDescription } from '@commonComponent/animation-description/definition';
 
-MobJs.useComponent([AnimatedPatternN0]);
+MobJs.useComponent([AnimatedPatternN0, AnimationDescription]);
 
 /** @type {import('@mobJsType').Page} */
 export const animatedPatternN0 = ({ params }) => {
@@ -37,5 +38,13 @@ export const animatedPatternN0 = ({ params }) => {
                 })
             )}
         ></animatedpattern-n0>
+        <animation-description
+            ${MobJs.staticProps(
+                /** @type {import('@commonComponent/animation-description/type').AnimationDescription['state']} */
+                ({
+                    content: props.description,
+                })
+            )}
+        ></animation-description>
     </div>`;
 };
