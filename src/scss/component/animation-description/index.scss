@@ -5,9 +5,14 @@
     top: calc(var(--header-height) * 1.5);
     left: var(--header-height);
     z-index: 11;
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.35s,
+        visibility 0.35s;
 
     &.visible {
-        display: block;
+        opacity: 1;
+        visibility: visible;
     }
 }

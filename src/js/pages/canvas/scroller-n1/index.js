@@ -1,9 +1,9 @@
-import { AnimationDescription } from '@commonComponent/animation-description/definition';
+import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { ScrollerN1 } from '@pagesComponent/scroller/n1/definition';
 
-MobJs.useComponent([ScrollerN1, AnimationDescription]);
+MobJs.useComponent([ScrollerN1]);
 
 export const scrollerN1 = () => {
     /** Quicknav */
@@ -17,15 +17,9 @@ export const scrollerN1 = () => {
 
     const description = '<strong>Canvas</strong>: ScrollTrigger';
 
+    updateAnimationDescription(description);
+
     return html`<div class="l-padding">
         <scroller-n1></scroller-n1>
-        <animation-description
-            ${MobJs.staticProps(
-                /** @type {import('@commonComponent/animation-description/type').AnimationDescription['state']} */
-                ({
-                    content: description,
-                })
-            )}
-        ></animation-description>
     </div>`;
 };

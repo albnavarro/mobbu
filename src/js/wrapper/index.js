@@ -9,6 +9,7 @@ import { Header } from '@layoutComponent/header/definition';
 import { NavigationContainer } from '@layoutComponent/navigation/definition';
 import { html, MobJs } from '@mobJs';
 import {
+    animationDescription,
     debugOverlayName,
     headerName,
     mobNavigationContainerName,
@@ -19,6 +20,7 @@ import {
 } from '../component/instance-name';
 import { SearchOverlay } from '@commonComponent/search/search-overlay/definition';
 import { RightSidebar } from '@commonComponent/right-sidebar/definition';
+import { AnimationDescription } from '@commonComponent/animation-description/definition';
 
 MobJs.useComponent([
     Header,
@@ -32,6 +34,7 @@ MobJs.useComponent([
     TestScssGrid,
     SearchOverlay,
     RightSidebar,
+    AnimationDescription,
 ]);
 
 export const wrapper = async () => {
@@ -58,5 +61,8 @@ export const wrapper = async () => {
         <links-mobjs></links-mobjs>
         <right-sidebar name="${rightSidebarName}"></right-sidebar>
         <search-overlay name="${searchOverlay}"></search-overlay>
+        <animation-description
+            name="${animationDescription}"
+        ></animation-description>
     `;
 };

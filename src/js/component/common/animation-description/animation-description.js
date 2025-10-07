@@ -5,20 +5,55 @@ import { html, MobJs } from '@mobJs';
  */
 
 /** @type {MobComponent<import('./type').AnimationDescription>} */
-export const AnimationDescriptionFn = ({ getProxi, bindEffect, onMount }) => {
+export const AnimationDescriptionFn = ({
+    getProxi,
+    bindEffect,
+    bindText,
+    watch,
+}) => {
     const proxi = getProxi();
 
-    onMount(() => {
-        /**
-         * Component is in fixed position. Avoid visual jump
-         */
-        const unsubscribeRouteChange = MobJs.beforeRouteChange(() => {
-            proxi.visible = false;
-        });
+    /**
+     * Remove content after css animation.
+     *
+     * - Use sideEffect for synchronize css animation && content text.
+     * - Avoid to see [ ] clear when content is clear.
+     */
+    watch(
+        () => proxi.rawContent,
+        (value) => {
+            const hasValue = value.length > 0;
 
-        return () => {
-            unsubscribeRouteChange();
-        };
+            /**
+             * Animation out
+             *
+             * - First animation then remove content.
+             */
+            if (!hasValue) {
+                proxi.visible = false;
+
+                setTimeout(() => {
+                    proxi.content = '';
+                }, 350);
+
+                return;
+            }
+
+            /**
+             * Animation in
+             *
+             * - Animation && content is same time
+             */
+            setTimeout(() => {
+                proxi.content = `[ ${value} ]`;
+                if (hasValue) proxi.visible = true;
+            }, 350);
+        },
+        { immediate: true }
+    );
+
+    MobJs.beforeRouteChange(() => {
+        proxi.rawContent = '';
     });
 
     return html`<p
@@ -29,6 +64,6 @@ export const AnimationDescriptionFn = ({ getProxi, bindEffect, onMount }) => {
             },
         })}
     >
-        [ ${proxi.content} ]
+        ${bindText`${'content'}`}
     </p>`;
 };

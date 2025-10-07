@@ -10,8 +10,12 @@ export const AnimationDescription = MobJs.createComponent(
     ({
         tag: 'animation-description',
         component: AnimationDescriptionFn,
-        exportState: ['content'],
+        exportState: ['rawContent'],
         state: {
+            rawContent: () => ({
+                value: '',
+                type: String,
+            }),
             content: () => ({
                 value: '',
                 type: String,
