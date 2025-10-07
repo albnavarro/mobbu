@@ -4,7 +4,7 @@
     position: fixed;
     top: calc(var(--header-height) * 1.5);
     left: var(--header-height);
-    z-index: 11;
+    z-index: 8;
     opacity: 0;
     visibility: hidden;
     transition:

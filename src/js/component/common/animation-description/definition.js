@@ -1,5 +1,6 @@
 import { MobJs } from '@mobJs';
 import { AnimationDescriptionFn } from './animation-description';
+import { navigationStore } from '@stores/navigation';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
@@ -11,6 +12,7 @@ export const AnimationDescription = MobJs.createComponent(
         tag: 'animation-description',
         component: AnimationDescriptionFn,
         exportState: ['rawContent'],
+        bindStore: navigationStore,
         state: {
             rawContent: () => ({
                 value: '',

@@ -60,7 +60,7 @@ export const AnimationDescriptionFn = ({
         class="animation-description"
         ${bindEffect({
             toggleClass: {
-                visible: () => proxi.visible,
+                visible: () => proxi.visible && !proxi.navigationIsOpen,
             },
         })}
     >
