@@ -1,12 +1,13 @@
 # Prioritá;
-- App: `canvas` leak in memory.
-- MobJs: `createComponent` refactor.
+- Repeat: `fn` to `subscribe/initialize`.
+- App: `canvas` leak in memory ( is real ? ).
+- MobJs: `createComponent` refactor  ( da valutare ).
 
 
 # App
 
 ### Canvas
-- Sembra che i canvas ( in particolare lo scroll ) possono rimanere incastrati in memoria.
+- Sembra che i canvas ( in particolare lo scroll ) possono rimanere incastrati in memoria, ( puó essere un false problema ).
 
 
 ### Docs: AsyncTimeline
@@ -135,6 +136,9 @@ store[prop] = valueTransformed;
 
 
 # MobJs
+
+### Repeat/Invalidate.
+- Invalidate/Repeat instanceMap: rinominare `fn` in `subscribe/initialize`.
 
 ### Create component:
  - Prendere due picconi con una fava.
