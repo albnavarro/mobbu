@@ -45,7 +45,7 @@ export const AnimationDescriptionFn = ({
              * - Animation && content is same time
              */
             setTimeout(() => {
-                proxi.content = `[ ${value} ]`;
+                proxi.content = `${value}`;
                 if (hasValue) proxi.visible = true;
             }, 350);
         },

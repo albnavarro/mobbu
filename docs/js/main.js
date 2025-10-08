@@ -2175,7 +2175,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,F=w),k===void 0&&(
         <ul class="right-sidebar__list">
             ${t({observe:()=>s.data,render:()=>RR({proxi:s,bindEffect:n})})}
         </ul>
-    </div>`};var R_=m.createComponent({tag:"right-sidebar",component:I_,exportState:["data"],bindStore:[m.mainStore],state:{data:()=>({value:[],type:Array}),isVisible:()=>({value:!1,type:Boolean})}});var M_=({getProxi:e,bindEffect:t,bindText:r,watch:o})=>{let n=e();return o(()=>n.rawContent,s=>{let i=s.length>0;if(!i){n.visible=!1,setTimeout(()=>{n.content=""},350);return}setTimeout(()=>{n.content=`[ ${s} ]`,i&&(n.visible=!0)},350)},{immediate:!0}),m.beforeRouteChange(()=>{n.rawContent=""}),g`<p
+    </div>`};var R_=m.createComponent({tag:"right-sidebar",component:I_,exportState:["data"],bindStore:[m.mainStore],state:{data:()=>({value:[],type:Array}),isVisible:()=>({value:!1,type:Boolean})}});var M_=({getProxi:e,bindEffect:t,bindText:r,watch:o})=>{let n=e();return o(()=>n.rawContent,s=>{let i=s.length>0;if(!i){n.visible=!1,setTimeout(()=>{n.content=""},350);return}setTimeout(()=>{n.content=`${s}`,i&&(n.visible=!0)},350)},{immediate:!0}),m.beforeRouteChange(()=>{n.rawContent=""}),g`<p
         class="animation-description"
         ${t({toggleClass:{visible:()=>n.visible&&!n.navigationIsOpen}})}
     >
