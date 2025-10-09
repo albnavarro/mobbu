@@ -1,5 +1,5 @@
 # Prioritá;
-- Repeat: `fn` to `subscribe/initialize`.
+- Repeat: `fn` to `initialize`.
 - App: `canvas` leak in memory ( is real ? ).
 - MobJs: `createComponent` refactor  ( da valutare ).
 
@@ -138,7 +138,7 @@ store[prop] = valueTransformed;
 # MobJs
 
 ### Repeat/Invalidate.
-- Invalidate/Repeat instanceMap: rinominare `fn` in `subscribe/initialize`.
+- Invalidate/Repeat instanceMap: rinominare `fn` in `initialize`.
 
 ### Create component:
  - Prendere due picconi con una fava.
