@@ -5,7 +5,7 @@
 import { html, MobJs } from '@mobJs';
 
 // @ts-ignore
-import githubIcon from '../../../../svg/icon-github.svg';
+import githubIcon from '../../../../svg/icons/icon-github.svg';
 import { getCommonData } from '@data/index';
 import { navigationStore } from '@stores/navigation';
 

@@ -5,7 +5,7 @@
 
 import { html, MobJs } from '@mobJs';
 // @ts-ignore
-import arrow from '../../../../svg/scroll_arrow.svg';
+import arrow from '../../../../svg/icons/scroll_arrow.svg';
 
 /** @type {MobComponent<QuickNav>} */
 export const QuickNavFn = ({ getProxi, bindEffect }) => {

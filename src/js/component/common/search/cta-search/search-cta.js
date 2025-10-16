@@ -1,7 +1,7 @@
 import { useMethodByName } from 'src/js/mob/mob-js/modules';
 
 // @ts-ignore
-import searchSvg from '../../../../../svg/search.svg';
+import searchSvg from '../../../../../svg/icons/search.svg';
 
 /**
  * @import {MobComponent, UseMethodByName} from '@mobJsType';

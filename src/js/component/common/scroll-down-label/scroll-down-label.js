@@ -4,7 +4,7 @@
  */
 
 // @ts-ignore
-import arrow from '../../../../svg/scroll_arrow.svg';
+import arrow from '../../../../svg/icons/scroll_arrow.svg';
 import { html } from '@mobJs';
 
 /** @type {MobComponent<ScrollDownLabel>} */
