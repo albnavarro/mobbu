@@ -293,16 +293,18 @@ export const parseComponentsWhile = async ({
             fireInvalidateFunction:
                 invalidateFunctions.length > 0
                     ? () => {
-                          invalidateFunctions.forEach(({ fn }) => {
-                              fn?.();
-                          });
+                          invalidateFunctions.forEach(
+                              ({ initializeModule }) => {
+                                  initializeModule?.();
+                              }
+                          );
                       }
                     : () => {},
             fireRepeatFunction:
                 repeatFunctions.length > 0
                     ? () => {
-                          repeatFunctions.forEach(({ fn }) => {
-                              fn?.();
+                          repeatFunctions.forEach(({ initializeModule }) => {
+                              initializeModule?.();
                           });
                       }
                     : () => {},

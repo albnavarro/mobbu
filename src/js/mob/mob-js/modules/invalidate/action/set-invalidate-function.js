@@ -7,17 +7,20 @@ import { invalidateInstancesMap } from '../invalidate-id-instances-map';
  *
  * @param {object} params
  * @param {string} params.invalidateId - Invalidate id
- * @param {() => void} params.fn
+ * @param {() => void} params.initializeModule
  * @returns {void}
  */
 
-export const setInvalidateInitializeFunction = ({ invalidateId, fn }) => {
+export const setInvalidateInitializeFunction = ({
+    invalidateId,
+    initializeModule,
+}) => {
     const item = invalidateInstancesMap.get(invalidateId);
     if (!item) return;
 
     invalidateInstancesMap.set(invalidateId, {
         ...item,
-        fn,
+        initializeModule,
         unsubscribe: [() => {}],
     });
 };

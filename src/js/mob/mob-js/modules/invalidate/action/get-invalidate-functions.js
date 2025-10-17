@@ -8,7 +8,7 @@ import { invalidateInstancesMap } from '../invalidate-id-instances-map';
  *
  * @param {object} params
  * @param {string} params.id
- * @returns {{ invalidateId: string; fn: () => void }[]}
+ * @returns {{ invalidateId: string; initializeModule: () => void }[]}
  */
 
 export const getInvalidateFunctions = ({ id }) => {
@@ -19,7 +19,7 @@ export const getInvalidateFunctions = ({ id }) => {
             const item = invalidateInstancesMap.get(invalidateId);
             if (!item) return;
 
-            return { invalidateId, fn: item.fn };
+            return { invalidateId, initializeModule: item.initializeModule };
         })
         .filter((item) => item !== undefined);
 };

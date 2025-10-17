@@ -30,7 +30,7 @@ export const inizializeNestedRepeat = ({ repeatParent, id }) => {
         module: MODULE_REPEATER,
     });
 
-    repeaterToInitialize.forEach(({ fn: initilizeFunction }) => {
-        initilizeFunction();
+    repeaterToInitialize.forEach(({ initializeModule }) => {
+        initializeModule();
     });
 };

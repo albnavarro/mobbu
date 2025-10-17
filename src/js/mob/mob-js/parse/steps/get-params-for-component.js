@@ -250,7 +250,7 @@ export const getParamsForComponentFunction = ({
 
             setInvalidateInitializeFunction({
                 invalidateId,
-                fn: () => {
+                initializeModule: () => {
                     if (isInizialized) return;
 
                     /**
@@ -376,7 +376,7 @@ export const getParamsForComponentFunction = ({
              */
             setRepeatFunction({
                 repeatId,
-                fn: () => {
+                initializeModule: () => {
                     if (isInizialized) return;
 
                     /**

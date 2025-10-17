@@ -24,7 +24,7 @@ export const initializeRepeaterInstancesMap = ({ repeatId, scopeId }) => {
         componentChildren: [],
         currentData: [],
         initialRenderWithoutSync: [],
-        fn: () => {},
+        initializeModule: () => {},
         unsubscribe: () => {},
     });
 };

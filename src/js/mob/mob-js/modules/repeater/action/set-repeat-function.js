@@ -5,17 +5,17 @@ import { repeatInstancesMap } from '../repeat-id-intances-map';
  *
  * @param {object} params
  * @param {string} params.repeatId - Repeat id
- * @param {() => void} params.fn
+ * @param {() => void} params.initializeModule
  * @returns {void}
  */
 
-export const setRepeatFunction = ({ repeatId, fn }) => {
+export const setRepeatFunction = ({ repeatId, initializeModule }) => {
     const item = repeatInstancesMap.get(repeatId);
     if (!item) return;
 
     repeatInstancesMap.set(repeatId, {
         ...item,
-        fn,
+        initializeModule,
         unsubscribe: () => {},
     });
 };

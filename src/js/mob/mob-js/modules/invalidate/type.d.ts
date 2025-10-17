@@ -63,7 +63,7 @@ export type InvalidateInstancesMap = Map<
         /**
          * Initialize function
          */
-        fn: () => void;
+        initializeModule: () => void;
 
         /**
          * Unsubscribe from observed state function.

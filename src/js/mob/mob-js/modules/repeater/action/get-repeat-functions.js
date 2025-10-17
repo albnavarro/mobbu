@@ -8,7 +8,7 @@ import { repeatInstancesMap } from '../repeat-id-intances-map';
  *
  * @param {object} params
  * @param {string} params.id
- * @returns {{ repeatId: string; fn: () => void }[]}
+ * @returns {{ repeatId: string; initializeModule: () => void }[]}
  */
 
 export const getRepeatFunctions = ({ id }) => {
@@ -19,7 +19,7 @@ export const getRepeatFunctions = ({ id }) => {
             const item = repeatInstancesMap.get(repeatId);
             if (!item) return;
 
-            return { repeatId, fn: item.fn };
+            return { repeatId, initializeModule: item.initializeModule };
         })
         .filter((item) => item !== undefined);
 };

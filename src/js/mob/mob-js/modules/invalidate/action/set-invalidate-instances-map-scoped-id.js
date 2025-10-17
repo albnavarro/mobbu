@@ -19,7 +19,7 @@ export const initializeInvalidateInstacesMap = ({ invalidateId, scopeId }) => {
         element: undefined,
         initialized: false,
         scopeId,
-        fn: () => {},
+        initializeModule: () => {},
         unsubscribe: [() => {}],
     });
 };

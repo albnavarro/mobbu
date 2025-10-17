@@ -192,7 +192,7 @@ export type RepeatInstancesMap = Map<
         /**
          * Initialize function
          */
-        fn: () => void;
+        initializeModule: () => void;
 
         /**
          * Unsubscribe from observed state function.
