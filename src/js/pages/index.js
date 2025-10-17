@@ -13,7 +13,7 @@ import { scrollerN0 } from './canvas/scroller';
 import { scrollerN1 } from './canvas/scroller-n1';
 import { dynamic_list } from './dynamic-list';
 import { home } from './home';
-import { matrioska_page } from './matrioska';
+import { matrioska_invalidate_page, matrioska_repeat_page } from './matrioska';
 import { horizontalScroller } from './plugin/horizontal-scroller';
 import { move3DRoute } from './plugin/move-3d';
 import { move3DrouteProps } from './plugin/move-3d/props';
@@ -240,13 +240,24 @@ export const routes = [
         },
     },
     {
-        name: 'matrioska',
-        layout: matrioska_page,
+        name: 'matrioska-repeat',
+        layout: matrioska_repeat_page,
         templateName: PAGE_TEMPLATE_TEST,
         props: {
             source: './data/mob-js/matrioska.json',
             breadCrumbs: mobJsOverviewBreadCrumbs,
-            title: '( test ) matrioska',
+            title: '( test ) matrioska repeat',
+            section: 'mobJs',
+        },
+    },
+    {
+        name: 'matrioska-invalidate',
+        layout: matrioska_invalidate_page,
+        templateName: PAGE_TEMPLATE_TEST,
+        props: {
+            source: './data/mob-js/matrioska.json',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
+            title: '( test ) matrioska invalidate',
             section: 'mobJs',
         },
     },

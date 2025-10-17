@@ -308,9 +308,7 @@ export const MatrioskaInvalidateFn = ({
             })}
         </div>
         <h4 class="matrioska__head__title">
-            Nested repater like matrioska in same component.
-            <span> First/Second level repeater without key. </span>
-            <span> Third level repeater with key, shuffle order. </span>
+            Nested invalidate like matrioska in same component.
         </h4>
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">

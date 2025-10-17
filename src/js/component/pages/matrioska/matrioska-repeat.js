@@ -284,7 +284,7 @@ const getThirdLevel = ({
 };
 
 /** @type {MobComponent<Matrioska>} */
-export const MatrioskaFn = ({
+export const MatrioskaRepeatFn = ({
     delegateEvents,
     updateState,
     repeat,

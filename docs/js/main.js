@@ -29368,8 +29368,8 @@
   };
 
   // src/js/component/pages/canvas/n2/caterpillar-n2.js
-  function getControls({ buttons: buttons5 }) {
-    return Object.entries(buttons5).map(([className, value]) => {
+  function getControls({ buttons: buttons6 }) {
+    return Object.entries(buttons6).map(([className, value]) => {
       const { label } = value;
       return renderHtml` <li class="c-canvas__controls__item">
                 <button
@@ -31324,7 +31324,7 @@
     `;
   };
 
-  // src/js/component/pages/matrioska/matrioska.js
+  // src/js/component/pages/matrioska/matrioska-repeat.js
   var buttons3 = [
     {
       state: "level1",
@@ -31556,7 +31556,7 @@
         </div>
     `;
   };
-  var MatrioskaFn = ({
+  var MatrioskaRepeatFn = ({
     delegateEvents,
     updateState,
     repeat,
@@ -31704,6 +31704,311 @@
     }
   );
 
+  // src/js/component/pages/matrioska/matrioska-invalidate.js
+  var buttons4 = [
+    {
+      state: "level1",
+      maxItem: 5,
+      ref: "level1_counter",
+      label_plus: "level1 +",
+      label_minus: "level1 -"
+    },
+    {
+      state: "level2",
+      maxItem: 5,
+      ref: "level2_counter",
+      label_plus: "level2 +",
+      label_minus: "level2 -"
+    },
+    {
+      state: "level3",
+      maxItem: 6,
+      ref: "level3_counter",
+      label_plus: "level3 +",
+      label_minus: "level3 -"
+    }
+  ];
+  function getRandomInt3(max2) {
+    return Math.floor(Math.random() * max2);
+  }
+  var getButtons3 = ({ delegateEvents, updateState, invalidate, getState }) => {
+    return renderHtml`
+        ${buttons4.map((button) => {
+      return renderHtml` <div class="matrioska__head__item">
+                    <dynamic-list-button
+                        class="matrioska__button"
+                        ${delegateEvents({
+        click: () => {
+          updateState(
+            /** @type {'level1' | 'level2' | 'level3'} */
+            button.state,
+            (val2) => {
+              return val2.slice(0, -1);
+            }
+          );
+        }
+      })}
+                        >${button.label_minus}</dynamic-list-button
+                    >
+                    <dynamic-list-button
+                        class="matrioska__button"
+                        ${delegateEvents({
+        click: () => {
+          updateState(
+            /** @type {'level1' | 'level2' | 'level3'} */
+            button.state,
+            (val2) => {
+              return [
+                ...val2,
+                {
+                  key: getRandomInt3(1e3),
+                  value: modules_exports.getUnivoqueId()
+                }
+              ];
+            }
+          );
+        }
+      })}
+                        >${button.label_plus}</dynamic-list-button
+                    >
+                    <div class="matrioska__head__counter">
+                        ${invalidate({
+        observe: (
+          /** @type {'level1' | 'level2' | 'level3'} */
+          button.state
+        ),
+        render: () => {
+          const data = getState()?.[button.state];
+          return renderHtml`
+                                    Number of items: ${data.length} ( max
+                                    ${button.maxItem} )
+                                `;
+        }
+      })}
+                    </div>
+                </div>`;
+    }).join("")}
+        <div class="matrioska__head__cta-counter">
+            <dynamic-list-button
+                class="matrioska__button"
+                ${delegateEvents({
+      click: () => {
+        updateState("counter", (val2) => val2 + 1);
+      }
+    })}
+                >Increment counter</dynamic-list-button
+            >
+        </div>
+    `;
+  };
+  var getSecondLevel2 = ({
+    staticProps: staticProps2,
+    bindProps,
+    delegateEvents,
+    invalidate,
+    getState
+  }) => {
+    return renderHtml`
+        <div class="matrioska__level matrioska__level--2">
+            ${invalidate({
+      observe: "level2",
+      render: () => {
+        const { level2 } = getState();
+        return level2.map((item) => {
+          return renderHtml`
+                                <div
+                                    class="matrioska__item-wrap matrioska__item-wrap--2"
+                                >
+                                    <matrioska-item
+                                        class="matrioska-item--2"
+                                        ${staticProps2(
+            /** @type {MatrioskaItem['state']} */
+            {
+              level: "level 2"
+            }
+          )}
+                                        ${bindProps({
+            observe: ["counter"],
+            props: ({ counter }) => {
+              return {
+                key: `${item.key}`,
+                value: `${item.value}`,
+                counter
+              };
+            }
+          })}
+                                    >
+                                        ${getThirdLevel2({
+            staticProps: staticProps2,
+            delegateEvents,
+            getState,
+            invalidate,
+            bindProps
+          })}
+                                    </matrioska-item>
+                                </div>
+                            `;
+        }).join("");
+      }
+    })}
+        </div>
+    `;
+  };
+  var getThirdLevel2 = ({
+    staticProps: staticProps2,
+    delegateEvents,
+    invalidate,
+    getState,
+    bindProps
+  }) => {
+    return renderHtml` <div class="matrioska__level matrioska__level--3">
+        ${invalidate({
+      observe: "level3",
+      render: () => {
+        const { level3 } = getState();
+        return level3.map((item) => {
+          const name = modules_exports.getUnivoqueId();
+          const name2 = modules_exports.getUnivoqueId();
+          return renderHtml`
+                            <div
+                                class="matrioska__item-wrap matrioska__item-wrap--3"
+                            >
+                                <matrioska-item
+                                    class="matrioska-item--3"
+                                    name="${name}"
+                                    ${staticProps2(
+            /** @type {MatrioskaItem['state']} */
+            {
+              level: "level 3",
+              value: item.value,
+              key: `${item.key}`
+            }
+          )}
+                                    ${bindProps({
+            observe: ["counter"],
+            props: ({ counter }) => {
+              return {
+                counter
+              };
+            }
+          })}
+                                    ${delegateEvents({
+            click: () => {
+              const updateActiveState = modules_exports2.updateStateByName(name);
+              updateActiveState(
+                "active",
+                (val2) => !val2
+              );
+            }
+          })}
+                                >
+                                </matrioska-item>
+                                <matrioska-item
+                                    class="matrioska-item--3"
+                                    name="${name2}"
+                                    ${staticProps2(
+            /** @type {MatrioskaItem['state']} */
+            {
+              level: "level 3",
+              value: item.value,
+              key: `${item.key}`
+            }
+          )}
+                                    ${bindProps({
+            observe: ["counter"],
+            props: ({ counter }) => {
+              return {
+                counter
+              };
+            }
+          })}
+                                    ${delegateEvents({
+            click: () => {
+              const updateActiveState = modules_exports2.updateStateByName(name2);
+              updateActiveState(
+                "active",
+                (val2) => !val2
+              );
+            }
+          })}
+                                >
+                                </matrioska-item>
+                            </div>
+                        `;
+        }).join("");
+      }
+    })}
+    </div>`;
+  };
+  var MatrioskaInvalidateFn = ({
+    delegateEvents,
+    updateState,
+    staticProps: staticProps2,
+    bindProps,
+    invalidate,
+    getState
+  }) => {
+    return renderHtml`<div class="matrioska">
+        <div class="matrioska__head">
+            ${getButtons3({
+      delegateEvents,
+      updateState,
+      invalidate,
+      getState
+    })}
+        </div>
+        <h4 class="matrioska__head__title">
+            Nested invalidate like matrioska in same component.
+        </h4>
+        <div class="matrioska__body">
+            <div class="matrioska__level matrioska__level--1">
+                ${invalidate({
+      observe: "level1",
+      render: () => {
+        const { level1 } = getState();
+        return level1.map((item) => {
+          return renderHtml`
+                                    <div
+                                        class="matrioska__item-wrap matrioska__item-wrap--1"
+                                    >
+                                        <matrioska-item
+                                            class="matrioska-item--1"
+                                            ${staticProps2(
+            /** @type {MatrioskaItem['state']} */
+            {
+              level: "level 1"
+            }
+          )}
+                                            ${bindProps({
+            observe: ["counter"],
+            /** @returns {ReturnBindProps<MatrioskaItem>} */
+            props: ({ counter }) => {
+              return {
+                key: `${item.key}`,
+                value: `${item.value}`,
+                counter
+              };
+            }
+          })}
+                                        >
+                                            ${getSecondLevel2({
+            staticProps: staticProps2,
+            bindProps,
+            delegateEvents,
+            invalidate,
+            getState
+          })}
+                                        </matrioska-item>
+                                    </div>
+                                `;
+        }).join("");
+      }
+    })}
+            </div>
+        </div>
+    </div>`;
+  };
+
   // src/js/component/pages/matrioska/definition.js
   var shuffle2 = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -31712,53 +32017,67 @@
     }
     return array;
   };
-  var Matrioska = modules_exports2.createComponent(
+  var commonParams = {
+    exportState: [],
+    state: {
+      level1: () => ({
+        value: [{ key: 1, value: modules_exports.getUnivoqueId() }],
+        type: Array,
+        validate: (val2) => val2.length <= 10,
+        strict: true
+      }),
+      level2: () => ({
+        value: [
+          { key: 1, value: modules_exports.getUnivoqueId() },
+          { key: 2, value: modules_exports.getUnivoqueId() }
+        ],
+        type: Array,
+        validate: (val2) => val2.length <= 10,
+        strict: true
+      }),
+      level3: () => ({
+        value: [
+          { key: 1, value: modules_exports.getUnivoqueId() },
+          { key: 2, value: modules_exports.getUnivoqueId() }
+        ],
+        type: Array,
+        transform: (val2, oldVal) => {
+          return val2 > oldVal ? shuffle2(val2) : val2;
+        },
+        validate: (val2) => val2.length <= 6,
+        strict: true
+      }),
+      counter: () => ({
+        value: 0,
+        type: Number
+      })
+    },
+    child: [DynamicListButton, MatrioskaItem]
+  };
+  var MatrioskaRepeat = modules_exports2.createComponent(
     /** @type {CreateComponentParams<import('./type').Matrioska>} */
     {
-      tag: "page-matrioska",
-      component: MatrioskaFn,
-      exportState: [],
-      state: {
-        level1: () => ({
-          value: [{ key: 1, value: modules_exports.getUnivoqueId() }],
-          type: Array,
-          validate: (val2) => val2.length <= 10,
-          strict: true
-        }),
-        level2: () => ({
-          value: [
-            { key: 1, value: modules_exports.getUnivoqueId() },
-            { key: 2, value: modules_exports.getUnivoqueId() }
-          ],
-          type: Array,
-          validate: (val2) => val2.length <= 10,
-          strict: true
-        }),
-        level3: () => ({
-          value: [
-            { key: 1, value: modules_exports.getUnivoqueId() },
-            { key: 2, value: modules_exports.getUnivoqueId() }
-          ],
-          type: Array,
-          transform: (val2, oldVal) => {
-            return val2 > oldVal ? shuffle2(val2) : val2;
-          },
-          validate: (val2) => val2.length <= 6,
-          strict: true
-        }),
-        counter: () => ({
-          value: 0,
-          type: Number
-        })
-      },
-      child: [DynamicListButton, MatrioskaItem]
+      tag: "page-matrioska-repeat",
+      component: MatrioskaRepeatFn,
+      ...commonParams
+    }
+  );
+  var MatrioskaInvalidate = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').Matrioska>} */
+    {
+      tag: "page-matrioska-invalidate",
+      component: MatrioskaInvalidateFn,
+      ...commonParams
     }
   );
 
   // src/js/pages/matrioska/index.js
-  modules_exports2.useComponent([Matrioska]);
-  var matrioska_page = () => {
-    return renderHtml` <page-matrioska> </page-matrioska> `;
+  modules_exports2.useComponent([MatrioskaRepeat, MatrioskaInvalidate]);
+  var matrioska_repeat_page = () => {
+    return renderHtml` <page-matrioska-repeat> </page-matrioska-repeat> `;
+  };
+  var matrioska_invalidate_page = () => {
+    return renderHtml` <page-matrioska-invalidate> </page-matrioska-invalidate> `;
   };
 
   // src/js/component/pages/horizontal-scroller/animation/animation.js
@@ -34477,8 +34796,8 @@
   };
 
   // src/js/component/pages/async-timeline/async-timeline.js
-  function getControls3({ buttons: buttons5 }) {
-    return Object.entries(buttons5).map(([className, value]) => {
+  function getControls3({ buttons: buttons6 }) {
+    return Object.entries(buttons6).map(([className, value]) => {
       const { label } = value;
       return renderHtml` <li class="c-canvas__controls__item">
                 <button
@@ -34554,7 +34873,7 @@
   };
 
   // src/js/component/pages/async-timeline/definition.js
-  var buttons4 = {
+  var buttons5 = {
     "js-async-timeline-play": {
       label: "play",
       method: "play"
@@ -34601,7 +34920,7 @@
           type: Boolean
         }),
         buttons: () => ({
-          value: buttons4,
+          value: buttons5,
           type: "Any"
         })
       }
@@ -35169,13 +35488,24 @@
       }
     },
     {
-      name: "matrioska",
-      layout: matrioska_page,
+      name: "matrioska-repeat",
+      layout: matrioska_repeat_page,
       templateName: PAGE_TEMPLATE_TEST,
       props: {
         source: "./data/mob-js/matrioska.json",
         breadCrumbs: mobJsOverviewBreadCrumbs,
-        title: "( test ) matrioska",
+        title: "( test ) matrioska repeat",
+        section: "mobJs"
+      }
+    },
+    {
+      name: "matrioska-invalidate",
+      layout: matrioska_invalidate_page,
+      templateName: PAGE_TEMPLATE_TEST,
+      props: {
+        source: "./data/mob-js/matrioska.json",
+        breadCrumbs: mobJsOverviewBreadCrumbs,
+        title: "( test ) matrioska invalidate",
         section: "mobJs"
       }
     },

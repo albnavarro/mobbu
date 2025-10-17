@@ -622,9 +622,14 @@
                     "url": "dynamic-list"
                 },
                 {
-                    "label": "Matrioska",
+                    "label": "Matrioska repeat",
                     "scrollToSection": "mobJs",
-                    "url": "matrioska"
+                    "url": "matrioska-repeat"
+                },
+                {
+                    "label": "Matrioska invalidate",
+                    "scrollToSection": "mobJs",
+                    "url": "matrioska-invalidate"
                 }
             ]
         },

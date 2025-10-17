@@ -1,8 +1,15 @@
 import { html, MobJs } from '@mobJs';
-import { Matrioska } from '@pagesComponent/matrioska/definition';
+import {
+    MatrioskaInvalidate,
+    MatrioskaRepeat,
+} from '@pagesComponent/matrioska/definition';
 
-MobJs.useComponent([Matrioska]);
+MobJs.useComponent([MatrioskaRepeat, MatrioskaInvalidate]);
 
-export const matrioska_page = () => {
-    return html` <page-matrioska> </page-matrioska> `;
+export const matrioska_repeat_page = () => {
+    return html` <page-matrioska-repeat> </page-matrioska-repeat> `;
+};
+
+export const matrioska_invalidate_page = () => {
+    return html` <page-matrioska-invalidate> </page-matrioska-invalidate> `;
 };
