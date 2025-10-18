@@ -16,9 +16,11 @@
 
 # Store/MobJs:
 ### BindStore
+#### Option 1:
+- Il problema del confillito tra key persiste solo tra gli store esterni.
 - Introdurre gli `alias`, per evitare confilitti tra chiavi.
-- Usare un Map del tipo `aliasMap.add(alias, prop)`;
-- La mappa puó essere salvata a parte é puó essere univoca per tutti gli store.
+- Usare un Map/Object del tipo `aliasMap.add(alias, prop)`;
+- La mappa/object puó essere salvata a parte é puó essere univoca per tutti gli store.
 - Ogni qual volta si cerca `prop` negli store esterni al posto di prop si userá il valore `corrispondente`, che rappresentará la `chiave originale`.
 - Se non ci sono chiavi si userá il valore `prop` originale cosi come ora.
 
@@ -36,6 +38,43 @@ alias: {
     navOpen: 'navigationisopen',
 },
 ```
+
+- esempio di memorizzazione nella mappa/object.
+```
+{
+    alias: 'navigationisopen',
+}
+```
+
+#### Option 2:
+- Abbiamo alla mappa/object l'id dello store.
+- In questo modo se avessi due `navigationisopen` potrei accedere all' id dell'istanza dello store corretta.
+
+```js
+component: FooterNavButtonFn,
+exportState: ['label', 'section'],
+bindStore: [
+    {
+        store: navigationStore,
+        alias: {
+            alias: 'navigationisopen',
+        },
+    },
+],
+```
+
+- esempio di memorizzazione nella mappa/object.
+```
+{
+    _4fjj45: {
+        alias: 'navigationisopen',
+    }
+}
+```
+
+
+#### Option 1/2:
+- Creare una funzione specifica che data la prop ( alias ) invocata ritorna prop originale e nel caso id dell'istanza.
 
 ### Map & Set
 - Scenario 1: Clonando il Map/Set avró il `precendente` é il `successivo` diversi.
