@@ -4,6 +4,14 @@ import { useNextLoop } from '../utils/next-tick';
 const waitMap = new Map();
 
 /**
+ * Fire callback on state update ( setState, emit ). Used to fire callback in watch function.
+ *
+ * - Wait: ( fire next event loop )
+ * - Why : before next loop prop maybe change
+ * - Save Prop ( key ) invoked in current loop inside `waitMap` ( track instance id for each key ).
+ * - Inside next loop get each invoked prop for all instance and get the updated value ( maybe changed ).
+ * - Then fire normally.
+ *
  * @param {import('./type').MobStoreCallbackQueue} param
  * @returns {void}
  */
