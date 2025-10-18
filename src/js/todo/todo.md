@@ -15,6 +15,28 @@
 
 
 # Store/MobJs:
+### BindStore
+- Introdurre gli `alias`, per evitare confilitti tra chiavi.
+- Usare un Map del tipo `aliasMap.add(alias, prop)`;
+- La mappa puó essere salvata a parte é puó essere univoca per tutti gli store.
+- Ogni qual volta si cerca `prop` negli store esterni al posto di prop si userá il valore `corrispondente`, che rappresentará la `chiave originale`.
+- Se non ci sono chiavi si userá il valore `prop` originale cosi come ora.
+
+```js
+storeTest.alias({
+    navOpen: 'navigationisopen',
+})
+```
+
+```js
+component: FooterNavButtonFn,
+exportState: ['label', 'section'],
+bindStore: navigationStore,
+alias: {
+    navOpen: 'navigationisopen',
+},
+```
+
 ### Map & Set
 - Scenario 1: Clonando il Map/Set avró il `precendente` é il `successivo` diversi.
 
@@ -235,17 +257,6 @@ store[prop] = valueTransformed;
 #### Render return object.
 - Funizione utility che converte un `oggetto` in `html`.
 
-### BindStore
-- Capie se é possibile usare gli stati di bindStore come, per rendere il tutto piú chiaro:
-- **Problema:** se non si usa il proxi il discorso non funziona piú `otherStore.proxi` in formato stringa non puó funzionare.
-
-```js
-// da:
-proxi.state
-
-// a:
-proxi.otherStore.state
-```
 ### Web component:
 
 #### attributeChangedCallback
