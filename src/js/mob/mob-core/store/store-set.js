@@ -385,6 +385,8 @@ const setObj = ({
 };
 
 /**
+ * Here we decided if is normal prop or object prop.
+ *
  * @param {import('./type').storeSetAction} params
  * @returns {import('./type').StoreMapValue | undefined}
  */
@@ -478,6 +480,8 @@ export const storeSetEntryPoint = ({
 };
 
 /**
+ * Set value without type/validattion/etc.. check.
+ *
  * @param {import('./type').MobStoreQuickSetEntryPoint} param
  * @returns {void}
  */
@@ -510,7 +514,7 @@ export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
 };
 
 /**
- * ## COMPUTED
+ * Merge all state from current instance and bind store.
  */
 
 /**
@@ -530,6 +534,8 @@ const mergeStoreFromBindInstance = ({ store, bindInstance }) => {
 };
 
 /**
+ * Main function to fire computed. Check for all computed in instance.
+ *
  * @param {string} instanceId
  */
 const fireComputed = (instanceId) => {
@@ -602,6 +608,14 @@ const fireComputed = (instanceId) => {
 };
 
 /**
+ * When a prop is updated ( set o emit ). add prop to computed waiting list.
+ *
+ * - At the end of current event loop fire computed.
+ * - ComputedPropsQueque save all props for computed check.
+ * - At this time we doesn't now if prop is a dependencies.
+ * - ComputedRunning is reset in fireComputed function.
+ * - The same function is used both for current instance and binded instance.
+ *
  * @param {Object} param
  * @param {string} param.instanceId
  * @param {string} param.prop
@@ -634,6 +648,8 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
 };
 
 /**
+ * Save callback in map store. Check for circular dependencies.
+ *
  * @param {import('./type').MobStoreComputedAction} params
  * @returns {void}
  */
