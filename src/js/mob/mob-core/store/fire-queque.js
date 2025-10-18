@@ -8,9 +8,11 @@ const waitMap = new Map();
  *
  * - Wait: ( fire next event loop )
  * - Why : before next loop prop maybe change
+ * - WaitMap is global all instance add prop to this map.
  * - Save Prop ( key ) invoked in current loop inside `waitMap` ( track instance id for each key ).
  * - Inside next loop get each invoked prop for all instance and get the updated value ( maybe changed ).
  * - Then fire normally.
+ * - Prop is deleted from waitMap after first use, so when multiple runCallbackQueqe is inked only one callback is fired.
  *
  * @param {import('./type').MobStoreCallbackQueue} param
  * @returns {void}
