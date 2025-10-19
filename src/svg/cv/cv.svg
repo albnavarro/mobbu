@@ -23,15 +23,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.3249068"
-     inkscape:cx="270.58506"
-     inkscape:cy="802.32056"
+     inkscape:zoom="1.3289991"
+     inkscape:cx="396.91524"
+     inkscape:cy="273.89033"
      inkscape:window-width="1920"
      inkscape:window-height="1027"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer6"
+     inkscape:current-layer="layer2"
      showguides="false"
      inkscape:guide-bbox="true">
     <sodipodi:guide
@@ -110,8 +110,8 @@
     <rect
        x="50.353718"
        y="19.961554"
-       width="461.87561"
-       height="103.73032"
+       width="770.67773"
+       height="99.957268"
        id="rect5305-7" />
     <rect
        x="50.353718"
@@ -449,10 +449,12 @@
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-7.1454743,-2.0884193)"
        id="text5303"
-       style="font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5305-7)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect5305-7)"><tspan
          x="50.353516"
          y="55.351562"
-         id="tspan729072">Alberto Navarro</tspan></text>
+         id="tspan789504">Alberto Navarro <tspan
+   style="font-size:21.3333px"
+   id="tspan789502">/ sviluppatore front-end</tspan></tspan></text>
     <g
        id="g53097"
        transform="translate(-0.23144531,0.14941407)">
@@ -463,7 +465,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3)"><tspan
            x="72.048828"
            y="86.341797"
-           id="tspan729074">Vicolo corridoni 23/5, Gorgonzola ( MI ) </tspan></text>
+           id="tspan789506">Vicolo corridoni 23/5, Gorgonzola ( MI ) </tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,-12.539491,0.35445815)"
@@ -471,9 +473,9 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-6)"><tspan
            x="72.048828"
            y="86.341797"
-           id="tspan729078"><tspan
+           id="tspan789510"><tspan
              style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-             id="tspan729076">Address:</tspan></tspan></text>
+             id="tspan789508">Address:</tspan></tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,-5.6895949,5.7306124)"
@@ -481,7 +483,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9);display:inline"><tspan
            x="72.048828"
            y="86.341797"
-           id="tspan729080">3339958563</tspan></text>
+           id="tspan789512">3339958563</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,-12.614945,5.6006551)"
@@ -489,9 +491,9 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-6-1);display:inline"><tspan
            x="72.048828"
            y="86.341797"
-           id="tspan729084"><tspan
+           id="tspan789516"><tspan
              style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-             id="tspan729082">Tel:</tspan></tspan></text>
+             id="tspan789514">Tel:</tspan></tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,-3.3872148,10.831746)"
@@ -499,7 +501,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3);display:inline"><tspan
            x="72.048828"
            y="86.341797"
-           id="tspan729086">alberto.navaro@gmail.com</tspan></text>
+           id="tspan789518">alberto.navaro@gmail.com</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,-12.987981,11.08662)"
@@ -507,9 +509,9 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-6-1-9);display:inline"><tspan
            x="72.048828"
            y="86.341797"
-           id="tspan729090"><tspan
+           id="tspan789522"><tspan
              style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-             id="tspan729088">Mail:</tspan></tspan></text>
+             id="tspan789520">Mail:</tspan></tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,-12.915801,16.481889)"
@@ -517,9 +519,9 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-6-1-9-5);display:inline"><tspan
            x="72.048828"
            y="86.341797"
-           id="tspan729094"><tspan
+           id="tspan789526"><tspan
              style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-             id="tspan729092">Date of birth:</tspan></tspan></text>
+             id="tspan789524">Date of birth:</tspan></tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,6.9104861,21.948465)"
@@ -527,7 +529,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6);display:inline"><tspan
            x="72.048828"
            y="86.341797"
-           id="tspan729096">https://www.linkedin.com/in/alberto-navarro74/</tspan></text>
+           id="tspan789528">https://www.linkedin.com/in/alberto-navarro74/</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,12.556831,16.502472)"
@@ -535,7 +537,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-3);display:inline"><tspan
            x="72.048828"
            y="86.341797"
-           id="tspan729098">30/10/74</tspan></text>
+           id="tspan789530">30/10/74</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,-13.046624,22.031513)"
@@ -543,9 +545,9 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-6-1-9-2);display:inline"><tspan
            x="72.048828"
            y="86.341797"
-           id="tspan729102"><tspan
+           id="tspan789534"><tspan
              style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-             id="tspan729100">Linkedind:</tspan></tspan></text>
+             id="tspan789532">Linkedind:</tspan></tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,20.160207,27.353696)"
@@ -553,7 +555,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8);display:inline"><tspan
            x="72.048828"
            y="86.341797"
-           id="tspan729104">https://albnavarro.github.io/mobbu/</tspan></text>
+           id="tspan789536">https://albnavarro.github.io/mobbu/</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,-12.875225,27.406431)"
@@ -561,9 +563,9 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-6-1-9-2-7);display:inline"><tspan
            x="72.048828"
            y="86.341797"
-           id="tspan729108"><tspan
+           id="tspan789540"><tspan
              style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-             id="tspan729106">Personal website:</tspan></tspan></text>
+             id="tspan789538">Personal website:</tspan></tspan></text>
     </g>
   </g>
   <g
@@ -578,7 +580,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect291324)"><tspan
          x="44.849609"
          y="311.5195"
-         id="tspan729110">About</tspan></text>
+         id="tspan789542">About</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-12.995464,51.701784)"
@@ -586,17 +588,17 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect291326);display:inline"><tspan
          x="72.048828"
          y="87.241797"
-         id="tspan729112">Lavoro nel mondo dello sviluppo web da diversi anni, prima come grafico/web-designer in seguito come sviluppatore front-</tspan><tspan
+         id="tspan789544">Lavoro nel mondo dello sviluppo web da diversi anni, prima come grafico/web-designer in seguito come sviluppatore front-</tspan><tspan
          x="72.048828"
          y="104.0418"
-         id="tspan729114">end puro. A livello personale lavoro principalmente con javascript vanilla mentre a livello professionale ho lavorato/lavoro </tspan><tspan
+         id="tspan789546">end puro. A livello personale lavoro principalmente con javascript vanilla mentre a livello professionale ho lavorato/lavoro </tspan><tspan
          x="72.048828"
          y="120.8418"
-         id="tspan729116">con alcune tra le maggiori librerie/framework quali Svelte, Vue e relativi meta-framework.
+         id="tspan789548">con alcune tra le maggiori librerie/framework quali Svelte, Vue e relativi meta-framework.
 </tspan><tspan
          x="72.048828"
          y="137.64181"
-         id="tspan729118">Mi occupo inoltre della realizzazione di template custom per cms es. wordpress.</tspan></text>
+         id="tspan789550">Mi occupo inoltre della realizzazione di template custom per cms es. wordpress.</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -610,7 +612,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect216389)"><tspan
          x="44.849609"
          y="311.5195"
-         id="tspan729120">Studies</tspan></text>
+         id="tspan789552">Studies</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-12.961094,87.270778)"
@@ -618,7 +620,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729122">Diploma in informatica coseguito presso l'istituto I.T.S.O.S di cernusco sul naviglio.</tspan></text>
+         id="tspan789554">Diploma in informatica coseguito presso l'istituto I.T.S.O.S di cernusco sul naviglio.</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -633,7 +635,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect216389-0-4)"><tspan
          x="44.849609"
          y="311.5195"
-         id="tspan729124">Main work experiences</tspan></text>
+         id="tspan789556">Main work experiences</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-13.105635,139.17752)"
@@ -641,9 +643,9 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-3-4);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729128"><tspan
+         id="tspan789560"><tspan
            style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-           id="tspan729126">PLAYGROUND | digital agency</tspan></tspan></text>
+           id="tspan789558">PLAYGROUND | digital agency</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-13.150279,143.75775)"
@@ -651,7 +653,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-7);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729130">Sviluppatore front-end, Giu 2018 - Attuale </tspan></text>
+         id="tspan789562">Sviluppatore front-end, Giu 2018 - Attuale </tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-13.164544,151.93755)"
@@ -659,9 +661,9 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-3-4-9);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729134"><tspan
+         id="tspan789566"><tspan
            style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-           id="tspan729132">Wellnet S.r.l.</tspan></tspan></text>
+           id="tspan789564">Wellnet S.r.l.</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-13.167252,156.61188)"
@@ -669,7 +671,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-7-6);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729136">Sviluppatore front-end, Ago 2017 - Giu 2018</tspan></text>
+         id="tspan789568">Sviluppatore front-end, Ago 2017 - Giu 2018</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-13.127418,164.83914)"
@@ -677,9 +679,9 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-3-4-9-7);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729140"><tspan
+         id="tspan789572"><tspan
            style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-           id="tspan729138">I-glue</tspan></tspan></text>
+           id="tspan789570">I-glue</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-13.090238,169.58643)"
@@ -687,7 +689,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-7-6-8);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729142">Web designer, Maggio 2015 - Lug 2017</tspan></text>
+         id="tspan789574">Web designer, Maggio 2015 - Lug 2017</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -702,7 +704,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect216389-3)"><tspan
          x="44.849609"
          y="311.5195"
-         id="tspan729144">Skills</tspan></text>
+         id="tspan789576">Skills</tspan></text>
     <rect
        style="fill:#f8f6f6;fill-opacity:1;stroke:none;stroke-width:0.258739;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect363708"
@@ -717,7 +719,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-0);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729146">Javascript/typescript</tspan></text>
+         id="tspan789578">Javascript/typescript</tspan></text>
     <rect
        style="fill:#f8f6f6;fill-opacity:1;stroke:none;stroke-width:0.14819;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect363708-5"
@@ -732,7 +734,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-0-8);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729148">scss</tspan></text>
+         id="tspan789580">scss</tspan></text>
     <rect
        style="fill:#f8f6f6;fill-opacity:1;stroke:none;stroke-width:0.159832;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect363708-5-6-5"
@@ -747,7 +749,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-0-8-9-8);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729150">VueJs</tspan></text>
+         id="tspan789582">VueJs</tspan></text>
     <rect
        style="fill:#f8f6f6;fill-opacity:1;stroke:none;stroke-width:0.182673;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect363708-5-6-5-1"
@@ -762,7 +764,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-0-8-9-8-1);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729152">SvelteJS</tspan></text>
+         id="tspan789584">SvelteJS</tspan></text>
     <rect
        style="fill:#f8f6f6;fill-opacity:1;stroke:none;stroke-width:0.207182;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect363708-5-6-5-1-8"
@@ -777,7 +779,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-0-8-9-8-1-9);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729154">vim/neovim</tspan></text>
+         id="tspan789586">vim/neovim</tspan></text>
     <rect
        style="fill:#f8f6f6;fill-opacity:1;stroke:none;stroke-width:0.136902;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect363708-5-6-5-1-8-1"
@@ -792,7 +794,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-0-8-9-8-1-9-8);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729156">git</tspan></text>
+         id="tspan789588">git</tspan></text>
     <rect
        style="display:inline;fill:#f8f6f6;fill-opacity:1;stroke:none;stroke-width:0.197746;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect363708-5-6-5-1-8-1-3"
@@ -807,7 +809,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-0-8-9-8-1-9-8-4);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729158">wordpress</tspan></text>
+         id="tspan789590">wordpress</tspan></text>
     <rect
        style="display:inline;fill:#f8f6f6;fill-opacity:1;stroke:none;stroke-width:0.153499;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect363708-5-6-5-1-8-1-3-0"
@@ -822,7 +824,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-0-8-9-8-1-9-8-4-3);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729160">linux</tspan></text>
+         id="tspan789592">linux</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -836,7 +838,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect216389-4)"><tspan
          x="44.849609"
          y="311.5195"
-         id="tspan729162">Side Project</tspan></text>
+         id="tspan789594">Side Project</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-13.024094,194.84216)"
@@ -844,23 +846,23 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-1);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729164">Il mio side project consiste principalmente in tre librerie javascript pensate per un uso personale:
+         id="tspan789596">Il mio side project consiste principalmente in tre librerie javascript pensate per un uso personale:
 </tspan><tspan
          x="72.048828"
          y="101.3418"
-         id="tspan729166">
+         id="tspan789598">
 </tspan><tspan
          x="72.048828"
          y="115.14453"
-         id="tspan729168">
+         id="tspan789600">
 </tspan><tspan
          x="72.048828"
          y="130.14453"
-         id="tspan729170">
+         id="tspan789602">
 </tspan><tspan
          x="72.048828"
          y="145.14453"
-         id="tspan729172">
+         id="tspan789604">
 </tspan></text>
     <text
        xml:space="preserve"
@@ -869,10 +871,10 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-1-6);display:inline"><tspan
          x="72.048828"
          y="87.241797"
-         id="tspan729174">Lo scopo di questo progetto é capire come funzionano le cose sotto il cofano e avere un ambiente dove sperimentare </tspan><tspan
+         id="tspan789606">Lo scopo di questo progetto é capire come funzionano le cose sotto il cofano e avere un ambiente dove sperimentare </tspan><tspan
          x="72.048828"
          y="104.0418"
-         id="tspan729176">grafica e altro senza ricorrere a dipendenze esterne</tspan></text>
+         id="tspan789608">grafica e altro senza ricorrere a dipendenze esterne</tspan></text>
     <text
        xml:space="preserve"
        transform="scale(0.26458333)"
@@ -885,9 +887,9 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-3-4-9-7-9);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729180"><tspan
+         id="tspan789612"><tspan
            style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-           id="tspan729178">MobCore</tspan></tspan></text>
+           id="tspan789610">MobCore</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-13.099586,207.70666)"
@@ -895,7 +897,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-7-6-8-7);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729182">Utilita generiche per gestire gli eventi del browser e uno store ( base poi della libreria di componenti )</tspan></text>
+         id="tspan789614">Utilita generiche per gestire gli eventi del browser e uno store ( base poi della libreria di componenti )</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-13.007424,214.61733)"
@@ -903,9 +905,9 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-3-4-9-7-9-8);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729186"><tspan
+         id="tspan789618"><tspan
            style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-           id="tspan729184">MobJs</tspan></tspan></text>
+           id="tspan789616">MobJs</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-12.970244,219.36462)"
@@ -913,7 +915,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-7-6-8-7-8);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729188">LIbreria di componenti javascript reattivi, pensata per lo sviluppo di SPA ( single page application ).</tspan></text>
+         id="tspan789620">LIbreria di componenti javascript reattivi, pensata per lo sviluppo di SPA ( single page application ).</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-13.014914,226.84703)"
@@ -921,9 +923,9 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-3-4-9-7-9-8-9);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729192"><tspan
+         id="tspan789624"><tspan
            style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-           id="tspan729190">MobMotion</tspan></tspan></text>
+           id="tspan789622">MobMotion</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-13.162378,231.73458)"
@@ -931,7 +933,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-7-6-8-7-8-8);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729194">Libreria javascript per gestire animazioni complesse.</tspan></text>
+         id="tspan789626">Libreria javascript per gestire animazioni complesse.</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-12.859307,253.9353)"
@@ -939,9 +941,9 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-3-4-9-7-9-8-9-8);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729198"><tspan
+         id="tspan789630"><tspan
            style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-           id="tspan729196">URL: </tspan></tspan></text>
+           id="tspan789628">URL: </tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-3.1660806,253.9397)"
@@ -949,7 +951,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-7-6-8-7-8-8-4);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729200">https://albnavarro.github.io/mobbu/</tspan></text>
+         id="tspan789632">https://albnavarro.github.io/mobbu/</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-13.189913,259.4709)"
@@ -957,9 +959,9 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-3-4-9-7-9-8-9-8-9);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729204"><tspan
+         id="tspan789636"><tspan
            style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
-           id="tspan729202">repo:</tspan></tspan></text>
+           id="tspan789634">repo:</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-3.4966868,259.4753)"
@@ -967,6 +969,6 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect56250-3-9-3-6-8-4-7-6-8-7-8-8-4-7);display:inline"><tspan
          x="72.048828"
          y="86.341797"
-         id="tspan729206">https://github.com/albnavarro/mobbu</tspan></text>
+         id="tspan789638">https://github.com/albnavarro/mobbu</tspan></text>
   </g>
 </svg>
