@@ -2,6 +2,14 @@ import { getStateFromMainMap, updateMainMap } from './store-map';
 import { checkType } from './store-type';
 
 /**
+ * Send instance id to binded store.
+ *
+ * - Used in computed operation:
+ * - When: Use when a state is updated/emitted.
+ * - Why: prop is used by another store with bindStore():
+ * - Action: Self id is added to target store.
+ * - Because: ComputedPropsQueque set() of targets store should be updated.
+ *
  * @param {object} params
  * @param {string} params.selfId
  * @param {string} params.bindId
@@ -21,6 +29,8 @@ const addSelfIdToBindInstanceBy = ({ selfId, bindId }) => {
 };
 
 /**
+ * Remove self id from binded store.
+ *
  * @param {object} params
  * @param {string} params.selfId
  * @param {string} params.bindId
@@ -40,6 +50,8 @@ export const removeSelfIdToBindInstanceBy = ({ selfId, bindId }) => {
 };
 
 /**
+ * Module entry point.
+ *
  * @param {object} params
  * @param {import('./type').BindStoreValueType} params.value
  * @param {string} params.instanceId
