@@ -1,4 +1,3 @@
-import { Loader } from '@commonComponent/loader/definition';
 import { Snippet } from '@commonComponent/snippet/definition';
 import { SpacerAnchor } from '@commonComponent/spacer-anchor/definition';
 import { AnchorButton } from '@commonComponent/typography/anchor-button/definition';
@@ -34,10 +33,6 @@ export const HtmlContent = MobJs.createComponent(
                 value: [],
                 type: Array,
             }),
-            contentIsLoaded: () => ({
-                value: false,
-                type: Boolean,
-            }),
             awaitLoadSnippet: () => ({
                 value: false,
                 type: Boolean,
@@ -55,7 +50,6 @@ export const HtmlContent = MobJs.createComponent(
             List,
             Paragraph,
             Title,
-            Loader,
             Snippet,
             SpacerAnchor,
             AnchorButton,

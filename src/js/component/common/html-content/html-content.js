@@ -1,10 +1,8 @@
 /**
- * @import {BindProps, MobComponentAsync, StaticProps} from '@mobJsType';
+ * @import {MobComponentAsync, StaticProps} from '@mobJsType';
  * @import {HtmlContent} from './type';
- * @import {Loader} from '../loader/type';
  */
 
-import { getTrinangle } from '@componentLibs/utils/get-triangle';
 import { html } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 
@@ -44,51 +42,17 @@ const getData = async ({ source, data }) => {
 };
 
 /**
- * @param {object} param
- * @param {any} param.data
- * @param {BindProps<HtmlContent, Loader>} param.bindProps
- */
-const getLoader = ({ data, bindProps }) => {
-    if (data && data.length > 0) return '';
-
-    return html`
-        <mob-loader
-            ${bindProps({
-                observe: ['contentIsLoaded'],
-                props: ({ contentIsLoaded }) => {
-                    return { shouldRemove: contentIsLoaded };
-                },
-            })}
-        ></mob-loader>
-    `;
-};
-
-/**
  * @type {MobComponentAsync<HtmlContent>}
  */
-export const HtmlContentFn = async ({
-    getState,
-    setState,
-    staticProps,
-    bindProps,
-    onMount,
-}) => {
+export const HtmlContentFn = async ({ getState, staticProps }) => {
     const { source, data } = getState();
     const currentData = await getData({ source, data });
 
-    const { awaitLoadSnippet, useTriangle, usePadding } = getState();
+    const { awaitLoadSnippet, usePadding } = getState();
     const usePaddingClass = usePadding ? 'use-padding' : '';
-
-    onMount(async () => {
-        setState('contentIsLoaded', true);
-
-        return () => {};
-    });
 
     return html`
         <section class="html-content ${usePaddingClass}">
-            <div>${getTrinangle('html-content__triangle', useTriangle)}</div>
-            ${getLoader({ data, bindProps })}
             ${getComponents({
                 data: currentData,
                 staticProps,
