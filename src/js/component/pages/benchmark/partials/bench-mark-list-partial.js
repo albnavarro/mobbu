@@ -41,11 +41,11 @@ export const createBenchMarkArray = (numberOfItem) => {
  * @param {boolean} [params.useShuffle]
  */
 const setData = async ({ setState, value, useShuffle = false }) => {
-    MobCore.useFrame(async () => {
-        // await loading class is applied before saturate thread.
-        setState('isLoading', true);
-        await MobJs.tick();
+    // await loading class is applied before saturate thread.
+    setState('isLoading', true);
+    await MobJs.tick();
 
+    MobCore.useFrame(async () => {
         MobCore.useNextTick(async () => {
             const startTime = performance.now();
             setState(
