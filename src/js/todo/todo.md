@@ -1,17 +1,13 @@
 # Prioritá;
-- App: `canvas` leak in memory ( is real ? ).
 - MobJs: `createComponent` refactor  ( da valutare ).
 
 
 # App
-
-### Canvas
-- Sembra che i canvas ( in particolare lo scroll ) possono rimanere incastrati in memoria, ( puó essere un false problema ).
-
+###  Dev Dependencies.
+- "@types/eslint__js": "^9.14.0" -> should be removed.
 
 ### Docs: AsyncTimeline
 - Breve riassunto con lista puntata delle feature.
-
 
 
 # Store/MobJs:
@@ -197,6 +193,23 @@ store[prop] = valueTransformed;
 
 # MobJs
 
+### Props in read-only.
+
+- Prevedere che gli stati esportati diventino `readOnly` all' interno dello scope-componente.
+- Propietá opzionale, aggiugnere alla definizione del componente una propietá booleana `propsStrict`.
+- In generale basta fare un check all'interno di `src/js/mob/mob-js/component/index.js` su:
+    - `setState`
+    - `updateState `
+    - `computed`.
+     ```js
+    const exportableState = getExportableState({ componentName });
+    ```
+- I proxi vengono usati solo all' interno dello scope del componente perció si possono bloccare a monte a livello di store:
+    - Aggiungere allo store un metodo `myStore.setProxiPropReadOnly(['myprops', 'myprop2'])` che popolará un `new Set()` che possiamo chiamre `proxiPropReadOnly`.
+    - Nell'operazione di `set` il `proxi` ritornerá false se fará almeno un `match`.
+- `bindProps()`  accede direttamante all' istanza dello store perció continuerá a funzionare.
+- l'unico punto critico potrebbe essere il proxi, ma se non mi sfugge qualcosa il ragionamento funziona e riusulta essere del tutto ininfluente.
+
 ### Create component:
  - Prendere due picconi con una fava.
  - Potrebbe tornare un oggetto con:
@@ -340,21 +353,7 @@ for (const item of functionToFireAtTheEnd.reverse()) {
 
 - Possibilitá di sovrascrivere le due funzioni per rotta.
 
-### Props ( export props ), da valutare ??
 
-- Prevedere che gli stati esportati all' interno del componente siano usati `readOnly`
-- In generale basta agire in `src/js/mob/mob-js/component/index.js` e aggungere `checkIfStateIsExportable(...)`, `setStateById()` agisce direttmante sull' istanza store perció questo controllo non ha effetto su `bindProps()`
-- Tenere conto del proxi: getProxi puó avere una propietá `{excludeSet = []}` che puó essere valorizzata da `src/js/mob/mob-js/component/index.js`,
-- Raccogliere tutti gli stati esportabili e passargli a `excludeSet`
-
-```js
-
-// stati esportabili
-const exportableState = getExportableState({ componentName });
-
-...
-getProxi({ excludeSet: exportableState })
-```
 
 
 
