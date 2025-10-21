@@ -2170,11 +2170,15 @@ ul li::marker {
   --mobbu2025-width: calc((var(--mobbu2025-height) * 690) / 112);
 }
 .mobbu2025__scroller {
-  position: absolute;
+  position: relative;
   top: var(--header-height);
-  left: 0;
   height: var(--mobbu2025-height);
+  width: 100%;
   overflow: hidden;
+}
+.mobbu2025__wrapper {
+  position: absolute;
+  height: var(--mobbu2025-height);
   aspect-ratio: 690/117;
 }
 .mobbu2025__layer {

@@ -35192,19 +35192,27 @@
   };
 
   // src/js/component/pages/svg/mobbu2025/mob2025.js
-  var Mobbu2025fn = ({ getState, onMount }) => {
+  var Mobbu2025fn = ({ getState, onMount, setRef, getRef }) => {
     const { layer01, layer02, layer03, layer04 } = getState();
     onMount(() => {
+      const { wrapper: wrapper2, scroller, layer01: layer012, layer02: layer022, layer03: layer032 } = getRef();
+      console.log(wrapper2, scroller, layer012, layer022, layer032);
       return () => {
       };
     });
     return renderHtml`<div class="mobbu2025">
-        <div class="mobbu2025__scroller">
-            <div class="mobbu2025__wrapper">
+        <div class="mobbu2025__scroller" ${setRef("scroller")}>
+            <div class="mobbu2025__wrapper" ${setRef("wrapper")}>
                 <div class="mobbu2025__layer">${layer04}</div>
-                <div class="mobbu2025__layer">${layer03}</div>
-                <div class="mobbu2025__layer">${layer02}</div>
-                <div class="mobbu2025__layer">${layer01}</div>
+                <div class="mobbu2025__layer" ${setRef("layer03")}>
+                    ${layer03}
+                </div>
+                <div class="mobbu2025__layer" ${setRef("layer02")}>
+                    ${layer02}
+                </div>
+                <div class="mobbu2025__layer" ${setRef("layer01")}>
+                    ${layer01}
+                </div>
             </div>
         </div>
     </div>`;
