@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 // https://github.com/sverweij/dependency-cruiser
 // npx depcruise src
 
