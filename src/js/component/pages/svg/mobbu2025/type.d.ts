@@ -8,7 +8,7 @@ export interface Mobbu2025 {
     ref: {
         screen: HTMLDivElement;
         scroller: HTMLDivElement;
-        layer03: HTMLDivElement;
+        layer04: HTMLDivElement;
         layer02: HTMLDivElement;
         layer01: HTMLDivElement;
     };
@@ -17,7 +17,7 @@ export interface Mobbu2025 {
 export type Mobbu2025Scroller = ({
     screenElement: HTMLDivElement,
     scrollerElement: HTMLDivElement,
-    layer03: HTMLDivElement,
+    layer04: HTMLDivElement,
     layer02: HTMLDivElement,
     layer01: HTMLDivElement,
 }) => {

@@ -35,6 +35,7 @@
         left: 0;
 
         svg {
+            pointer-events: none;
             height: var(--mobbu2025-height);
             width: var(--mobbu2025-width);
         }

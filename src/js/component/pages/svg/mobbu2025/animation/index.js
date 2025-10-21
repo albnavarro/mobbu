@@ -7,7 +7,7 @@ export const mobbu2025Scroller = ({
     scrollerElement,
     layer01,
     layer02,
-    layer03,
+    layer04,
 }) => {
     let parallax1 = MobScroll.createParallax({
         item: layer01,
@@ -25,8 +25,8 @@ export const mobbu2025Scroller = ({
         ease: false,
     });
 
-    let parallax3 = MobScroll.createParallax({
-        item: layer03,
+    let parallax4 = MobScroll.createParallax({
+        item: layer04,
         align: 'center',
         range: 7,
         propierties: 'x',
@@ -41,17 +41,18 @@ export const mobbu2025Scroller = ({
         useHorizontalScroll: true,
         easeType: 'lerp',
         breakpoint: 'small',
-        children: [parallax1, parallax2, parallax3],
+        children: [parallax1, parallax2, parallax4],
     });
 
     scroller.init();
+    scroller.move(55);
 
     return {
         destroy: () => {
             scroller.destroy();
             parallax1.destroy();
             parallax2.destroy();
-            parallax3.destroy();
+            parallax4.destroy();
             // @ts-ignore
             scroller = null;
             // @ts-ignore
@@ -59,7 +60,7 @@ export const mobbu2025Scroller = ({
             // @ts-ignore
             parallax2 = null;
             // @ts-ignore
-            parallax3 = null;
+            parallax4 = null;
         },
     };
 };

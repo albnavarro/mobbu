@@ -35197,7 +35197,7 @@
     scrollerElement,
     layer01,
     layer02,
-    layer03
+    layer04
   }) => {
     let parallax1 = scroller_exports.createParallax({
       item: layer01,
@@ -35213,8 +35213,8 @@
       propierties: "x",
       ease: false
     });
-    let parallax3 = scroller_exports.createParallax({
-      item: layer03,
+    let parallax4 = scroller_exports.createParallax({
+      item: layer04,
       align: "center",
       range: 7,
       propierties: "x",
@@ -35228,19 +35228,20 @@
       useHorizontalScroll: true,
       easeType: "lerp",
       breakpoint: "small",
-      children: [parallax1, parallax2, parallax3]
+      children: [parallax1, parallax2, parallax4]
     });
     scroller.init();
+    scroller.move(55);
     return {
       destroy: () => {
         scroller.destroy();
         parallax1.destroy();
         parallax2.destroy();
-        parallax3.destroy();
+        parallax4.destroy();
         scroller = null;
         parallax1 = null;
         parallax2 = null;
-        parallax3 = null;
+        parallax4 = null;
       }
     };
   };
@@ -35249,13 +35250,13 @@
   var Mobbu2025fn = ({ getState, onMount, setRef, getRef }) => {
     const { layer01, layer02, layer03, layer04 } = getState();
     onMount(() => {
-      const { screen, scroller, layer01: layer012, layer02: layer022, layer03: layer032 } = getRef();
+      const { screen, scroller, layer01: layer012, layer02: layer022, layer04: layer042 } = getRef();
       const { destroy: destroy3 } = mobbu2025Scroller({
         screenElement: screen,
         scrollerElement: scroller,
         layer01: layer012,
         layer02: layer022,
-        layer03: layer032
+        layer04: layer042
       });
       return () => {
         destroy3();
@@ -35264,10 +35265,10 @@
     return renderHtml`<div class="mobbu2025">
         <div class="mobbu2025__screen" ${setRef("screen")}>
             <div class="mobbu2025__scroller" ${setRef("scroller")}>
-                <div class="mobbu2025__layer">${layer04}</div>
-                <div class="mobbu2025__layer" ${setRef("layer03")}>
-                    ${layer03}
+                <div class="mobbu2025__layer" ${setRef("layer04")}>
+                    ${layer04}
                 </div>
+                <div class="mobbu2025__layer">${layer03}</div>
                 <div class="mobbu2025__layer" ${setRef("layer02")}>
                     ${layer02}
                 </div>
