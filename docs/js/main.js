@@ -35191,18 +35191,79 @@
     </div>`;
   };
 
+  // src/js/component/pages/svg/mobbu2025/animation/index.js
+  var mobbu2025Scroller = ({
+    screenElement,
+    scrollerElement,
+    layer01,
+    layer02,
+    layer03
+  }) => {
+    let parallax1 = scroller_exports.createParallax({
+      item: layer01,
+      align: "center",
+      range: 3,
+      propierties: "x",
+      ease: false
+    });
+    let parallax2 = scroller_exports.createParallax({
+      item: layer02,
+      align: "center",
+      range: 5,
+      propierties: "x",
+      ease: false
+    });
+    let parallax3 = scroller_exports.createParallax({
+      item: layer03,
+      align: "center",
+      range: 7,
+      propierties: "x",
+      ease: false
+    });
+    let scroller = new MobSmoothScroller({
+      screen: screenElement,
+      scroller: scrollerElement,
+      direction: "horizontal",
+      drag: true,
+      useHorizontalScroll: true,
+      easeType: "lerp",
+      breakpoint: "small",
+      children: [parallax1, parallax2, parallax3]
+    });
+    scroller.init();
+    return {
+      destroy: () => {
+        scroller.destroy();
+        parallax1.destroy();
+        parallax2.destroy();
+        parallax3.destroy();
+        scroller = null;
+        parallax1 = null;
+        parallax2 = null;
+        parallax3 = null;
+      }
+    };
+  };
+
   // src/js/component/pages/svg/mobbu2025/mob2025.js
   var Mobbu2025fn = ({ getState, onMount, setRef, getRef }) => {
     const { layer01, layer02, layer03, layer04 } = getState();
     onMount(() => {
-      const { wrapper: wrapper2, scroller, layer01: layer012, layer02: layer022, layer03: layer032 } = getRef();
-      console.log(wrapper2, scroller, layer012, layer022, layer032);
+      const { screen, scroller, layer01: layer012, layer02: layer022, layer03: layer032 } = getRef();
+      const { destroy: destroy3 } = mobbu2025Scroller({
+        screenElement: screen,
+        scrollerElement: scroller,
+        layer01: layer012,
+        layer02: layer022,
+        layer03: layer032
+      });
       return () => {
+        destroy3();
       };
     });
     return renderHtml`<div class="mobbu2025">
-        <div class="mobbu2025__scroller" ${setRef("scroller")}>
-            <div class="mobbu2025__wrapper" ${setRef("wrapper")}>
+        <div class="mobbu2025__screen" ${setRef("screen")}>
+            <div class="mobbu2025__scroller" ${setRef("scroller")}>
                 <div class="mobbu2025__layer">${layer04}</div>
                 <div class="mobbu2025__layer" ${setRef("layer03")}>
                     ${layer03}

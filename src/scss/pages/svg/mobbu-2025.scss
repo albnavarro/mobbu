@@ -12,15 +12,16 @@
     );
     --mobbu2025-width: calc((var(--mobbu2025-height) * 690) / 112);
 
-    &__scroller {
+    &__screen {
         position: relative;
         top: var(--header-height);
         height: var(--mobbu2025-height);
         width: 100%;
         overflow: hidden;
+        cursor: grabbing;
     }
 
-    &__wrapper {
+    &__scroller {
         position: absolute;
         height: var(--mobbu2025-height);
         aspect-ratio: 690/117;

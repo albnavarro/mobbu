@@ -5,17 +5,26 @@
  */
 
 import { html } from '@mobJs';
+import { mobbu2025Scroller } from './animation';
 
 /** @type {MobComponent<import('./type').Mobbu2025>} */
 export const Mobbu2025fn = ({ getState, onMount, setRef, getRef }) => {
     const { layer01, layer02, layer03, layer04 } = getState();
 
     onMount(() => {
-        const { wrapper, scroller, layer01, layer02, layer03 } = getRef();
+        const { screen, scroller, layer01, layer02, layer03 } = getRef();
 
-        console.log(wrapper, scroller, layer01, layer02, layer03);
+        const { destroy } = mobbu2025Scroller({
+            screenElement: screen,
+            scrollerElement: scroller,
+            layer01,
+            layer02,
+            layer03,
+        });
 
-        return () => {};
+        return () => {
+            destroy();
+        };
     });
 
     // 690 x 117
@@ -24,8 +33,8 @@ export const Mobbu2025fn = ({ getState, onMount, setRef, getRef }) => {
      * Desktop
      */
     return html`<div class="mobbu2025">
-        <div class="mobbu2025__scroller" ${setRef('scroller')}>
-            <div class="mobbu2025__wrapper" ${setRef('wrapper')}>
+        <div class="mobbu2025__screen" ${setRef('screen')}>
+            <div class="mobbu2025__scroller" ${setRef('scroller')}>
                 <div class="mobbu2025__layer">${layer04}</div>
                 <div class="mobbu2025__layer" ${setRef('layer03')}>
                     ${layer03}
