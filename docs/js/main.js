@@ -35199,10 +35199,14 @@
       };
     });
     return renderHtml`<div class="mobbu2025">
-        <div class="mobbu2025__layer">${layer01}</div>
-        <div class="mobbu2025__layer">${layer02}</div>
-        <div class="mobbu2025__layer">${layer03}</div>
-        <div class="mobbu2025__layer">${layer04}</div>
+        <div class="mobbu2025__scroller">
+            <div class="mobbu2025__wrapper">
+                <div class="mobbu2025__layer">${layer04}</div>
+                <div class="mobbu2025__layer">${layer03}</div>
+                <div class="mobbu2025__layer">${layer02}</div>
+                <div class="mobbu2025__layer">${layer01}</div>
+            </div>
+        </div>
     </div>`;
   };
 

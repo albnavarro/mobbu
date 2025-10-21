@@ -2160,6 +2160,34 @@ ul li::marker {
   width: 68.625vw;
   height: 29.125vw;
 }
+.mobbu2025 {
+  height: calc(100vh - var(--footer-height));
+  margin-left: calc(var(--header-height) * 0.5);
+  width: calc(100vw - var(--header-height) * 0.5);
+  position: relative;
+  overflow: hidden;
+  --mobbu2025-height: calc( 100vh - var(--header-height) - var(--footer-height) );
+  --mobbu2025-width: calc((var(--mobbu2025-height) * 690) / 112);
+}
+.mobbu2025__scroller {
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  height: var(--mobbu2025-height);
+  overflow: hidden;
+  aspect-ratio: 690/117;
+}
+.mobbu2025__layer {
+  position: absolute;
+  aspect-ratio: 690/117;
+  height: var(--mobbu2025-height);
+  top: 0;
+  left: 0;
+}
+.mobbu2025__layer svg {
+  height: var(--mobbu2025-height);
+  width: var(--mobbu2025-width);
+}
 .c-dynamic-list {
   border: 0;
   padding-bottom: var(--footer-height);
