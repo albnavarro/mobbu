@@ -65,7 +65,7 @@ export const lettering01 = async () => {
     updateQuickNavState({
         active: true,
         prevRoute: '#rdp-01',
-        nextRoute: '',
+        nextRoute: '#mob-02',
         backRoute: '#svg-overview',
         color: 'black',
     });

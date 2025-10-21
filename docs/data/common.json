@@ -352,6 +352,12 @@
             "children": null
         },
         {
+            "label": "mob 02",
+            "url": "mob-02",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
             "label": "Canvas 2d animations:",
             "section": true,
             "sectioName": "canvas"

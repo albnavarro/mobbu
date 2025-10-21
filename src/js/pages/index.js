@@ -21,6 +21,7 @@ import { lettering01 } from './svg/mob-01';
 import { onlyDesktop } from './onlyDesktop';
 import { asyncTimeline } from './canvas/async-timeline';
 import { rdp } from './svg/rdp';
+import { mob_02 } from './svg/mob-02';
 
 export const PAGE_TEMPLATE_HOME = 'home';
 export const PAGE_TEMPLATE_ABOUT = 'about';
@@ -1115,6 +1116,12 @@ export const routes = [
     {
         name: 'mob-01',
         layout: lettering01,
+        templateName: PAGE_TEMPLATE_ANIMATION,
+        props: {},
+    },
+    {
+        name: 'mob-02',
+        layout: mob_02,
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },

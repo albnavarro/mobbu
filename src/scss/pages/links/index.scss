@@ -144,6 +144,8 @@
         list-style-type: none;
         display: grid;
         grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: auto;
+        justify-content: start;
         margin: 0;
         padding-left: 0;
         min-width: calc(100vw - var(--footer-height) / 2);
