@@ -2162,8 +2162,8 @@ ul li::marker {
 }
 .mobbu2025 {
   height: calc(100vh - var(--footer-height));
-  margin-left: calc(var(--header-height) * 0.5);
-  width: calc(100vw - var(--header-height) * 0.5);
+  margin-left: calc(var(--header-height) * 0.5 - 1px);
+  width: calc(100vw - var(--header-height) * 0.5 + 1px);
   position: relative;
   overflow: hidden;
   --mobbu2025-height: calc( 100vh - var(--header-height) - var(--footer-height) );
