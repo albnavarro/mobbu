@@ -5,9 +5,10 @@
     "scripts": {
         "development": "node development.config.js",
         "developmentExperimental": "node dev-experiemental.config.js",
-        "serve": "npm run developmentExperimental",
+        "buildProject": "node build.config.js",
         "dev": "npm run development",
-        "build": "node build.config.js"
+        "serve": "npm run developmentExperimental",
+        "build": "npm run buildProject"
     },
     "devDependencies": {
         "@eslint/js": "^9.38.0",
