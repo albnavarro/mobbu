@@ -35,7 +35,7 @@ export const mob_02 = async () => {
     });
 
     const description =
-        '<strong>Svg</strong>: Mobbu2025 lettering /  <strong>[ drag or scroll ]</strong>';
+        '<strong>Svg</strong>: Mobbu2025 parallax /  <strong>[ drag or scroll ]</strong>';
 
     updateAnimationDescription(description);
 

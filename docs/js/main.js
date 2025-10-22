@@ -35332,7 +35332,7 @@
       backRoute: "#svg-overview",
       color: "black"
     });
-    const description = "<strong>Svg</strong>: Mobbu2025 lettering /  <strong>[ drag or scroll ]</strong>";
+    const description = "<strong>Svg</strong>: Mobbu2025 parallax /  <strong>[ drag or scroll ]</strong>";
     updateAnimationDescription(description);
     return renderHtml`<div class="l-mob-02">
         <mobbu-2025
