@@ -5,14 +5,8 @@
 import { html, MobJs } from '@mobJs';
 
 // @ts-ignore
-import githubIcon from '../../../../svg/icons/icon-github.svg';
-import { getCommonData } from '@data/index';
+import { getCommonData, getIcons } from '@data/index';
 import { navigationStore } from '@stores/navigation';
-
-/** @type{Record<string, any>} */
-const icon = {
-    github: githubIcon,
-};
 
 /**
  * @param {object} params
@@ -36,6 +30,11 @@ function additems({ delegateEvents }) {
     /** @type {import('./type').HeaderLinks} */
     const header = getCommonData().header;
     const { links } = header;
+
+    /** @type{Record<string, any>} */
+    const icon = {
+        github: getIcons()['gitHubIcon'],
+    };
 
     return links
         .map((link) => {

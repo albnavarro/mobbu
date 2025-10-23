@@ -56,7 +56,20 @@ export const loadTextContent = async ({ source }) => {
             data: '',
         };
     }
-    const data = await response.text();
+
+    let data = {};
+
+    try {
+        data = await response.text();
+    } catch (error) {
+        console.warn(error);
+
+        return {
+            success: false,
+            data,
+        };
+    }
+
     return {
         success: true,
         data,
@@ -78,7 +91,18 @@ export const loadJsonContent = async ({ source }) => {
         };
     }
 
-    const data = await response.json();
+    let data = {};
+
+    try {
+        data = await response.json();
+    } catch (error) {
+        console.warn(error);
+
+        return {
+            success: false,
+            data,
+        };
+    }
 
     return {
         success: true,

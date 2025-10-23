@@ -1,8 +1,5 @@
 import { useMethodByName } from 'src/js/mob/mob-js/modules';
 
-// @ts-ignore
-import searchSvg from '../../../../../svg/icons/search.svg';
-
 /**
  * @import {MobComponent, UseMethodByName} from '@mobJsType';
  */
@@ -12,6 +9,7 @@ import {
     searchOverlay,
     searchOverlayHeader,
 } from 'src/js/component/instance-name';
+import { getIcons } from '@data/index';
 
 const onClick = () => {
     /**
@@ -29,6 +27,8 @@ const onClick = () => {
 
 /** @type {MobComponent} */
 export const SearchCtaFn = ({ delegateEvents }) => {
+    const searchSvg = getIcons()['searchIcons'];
+
     return html`<button
         type="button"
         class="search-cta"

@@ -4,12 +4,14 @@
  */
 
 // @ts-ignore
-import arrow from '../../../../svg/icons/scroll_arrow.svg';
+import { getIcons } from '@data/index';
 import { html } from '@mobJs';
 
 /** @type {MobComponent<ScrollDownLabel>} */
 export const ScrollDownLabelFn = ({ getProxi, bindEffect }) => {
     const proxi = getProxi();
+
+    const arrow = getIcons()['scrollIcon'];
 
     return html`
         <div

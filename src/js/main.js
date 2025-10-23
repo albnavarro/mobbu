@@ -3,7 +3,7 @@ import { MobJs } from '@mobJs';
 import { MobMotionCore, MobTween } from '@mobMotion';
 import { usePageScroll } from '@utils/page-scroll';
 import { setBrowserClass } from '@utils/utils';
-import { loadData } from './data';
+import { loadData, loadIcons } from './data';
 import { beforePageTransition, pageTransition } from './page-transition';
 import { routes } from './pages';
 import { getScrollbarWith } from './utils/scrollbar-with';
@@ -60,6 +60,7 @@ if (jsMainLoader && jsMainLoaderBackground) {
  */
 const initApp = async () => {
     await loadData();
+    await loadIcons();
 
     MobJs.inizializeApp({
         rootId: '#root',
