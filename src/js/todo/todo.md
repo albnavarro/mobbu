@@ -1,11 +1,12 @@
 # Prioritá;
-- MobJs: `createComponent` refactor  ( da valutare ).
+- Alias bindStore option 2.
+- Props: Read only.
+- Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
+- Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`.
+- Component app: `dragger` con `pinch zoom`.
 
 
 # App
-###  Dev Dependencies.
-- "@types/eslint__js": "^9.14.0" -> should be removed.
-
 ### Docs: AsyncTimeline
 - Breve riassunto con lista puntata delle feature.
 
@@ -22,7 +23,7 @@
 
 ```js
 storeTest.alias({
-    navOpen: 'navigationisopen',
+    navOpen: 'navigationIsOpen',
 })
 ```
 
@@ -38,13 +39,13 @@ alias: {
 - esempio di memorizzazione nella mappa/object.
 ```
 {
-    alias: 'navigationisopen',
+    alias: 'navigationIsOpen',
 }
 ```
 
 #### Option 2:
 - Abbiamo alla mappa/object l'id dello store.
-- In questo modo se avessi due `navigationisopen` potrei accedere all' id dell'istanza dello store corretta.
+- In questo modo se avessi due `navigationIsOpen` potrei accedere all' id dell'istanza dello store corretta.
 
 ```js
 component: FooterNavButtonFn,
@@ -53,7 +54,7 @@ bindStore: [
     {
         store: navigationStore,
         alias: {
-            alias: 'navigationisopen',
+            alias: 'navigationIsOpen',
         },
     },
 ],
@@ -63,7 +64,7 @@ bindStore: [
 ```
 {
     _4fjj45: {
-        alias: 'navigationisopen',
+        alias: 'navigationIsOpen',
     }
 }
 ```
