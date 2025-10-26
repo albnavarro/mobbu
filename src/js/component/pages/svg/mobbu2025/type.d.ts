@@ -14,12 +14,12 @@ export interface Mobbu2025 {
     };
 }
 
-export type Mobbu2025Scroller = ({
-    screenElement: HTMLDivElement,
-    scrollerElement: HTMLDivElement,
-    layer04: HTMLDivElement,
-    layer02: HTMLDivElement,
-    layer01: HTMLDivElement,
+export type Mobbu2025Scroller = (arg0: {
+    screenElement: HTMLDivElement;
+    scrollerElement: HTMLDivElement;
+    layer04: HTMLDivElement;
+    layer02: HTMLDivElement;
+    layer01: HTMLDivElement;
 }) => {
     destroy: () => void;
 };
