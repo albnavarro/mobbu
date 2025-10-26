@@ -1,3 +1,4 @@
+import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
 import { MobTimeline, MobTween } from '@mobMotion';
 import {
@@ -63,6 +64,13 @@ export const pageTransition = async ({
 }) => {
     if (oldRoute === newRoute) return;
 
+    const root = MobJs.getRoot();
+
+    /**
+     * Disable user action doring page transition
+     */
+    root.style.pointerEvents = 'none';
+
     /** @type {HTMLElement} */ (newNode).style.opacity = '0';
 
     const oldNodeTween = MobTween.createTimeTween({
@@ -97,4 +105,11 @@ export const pageTransition = async ({
 
     /** @type {HTMLElement} */ (newNode).style.removeProperty('opacity');
     /** @type {HTMLElement} */ (newNode).classList.add('current-route');
+
+    /**
+     * Enable user action after page transition
+     */
+    MobCore.useFrameIndex(() => {
+        root.style.pointerEvents = '';
+    }, 10);
 };
