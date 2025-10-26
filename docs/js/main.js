@@ -1406,17 +1406,26 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,L=I),k===void 0&&(
         <move-3d
             ${m.staticProps({shape:ax({letter_d:t,letter_r:r,letter_p:o,letter_r_shadow:n,letter_d_shadow:s,letter_p_shadow:i,letter_r_pieces:a,letter_d_pieces:c,letter_p_pieces:l,letter_r_fill:p,letter_d_fill:d,letter_p_fill:g}),xDepth:100,yDepth:30,factor:20,xLimit:20,yLimit:20,drag:!0,perspective:1e3})}
         ></move-3d>
-    </div>`};var lx=({screenElement:e,scrollerElement:t,layer01:r,layer02:o,layer04:n})=>{let s=Fe.createParallax({item:r,align:"center",range:3,propierties:"x",ease:!1}),i=Fe.createParallax({item:o,align:"center",range:5,propierties:"x",ease:!1}),a=Fe.createParallax({item:n,align:"center",range:7,propierties:"x",ease:!1}),c=new ht({screen:e,scroller:t,direction:"horizontal",drag:!0,useHorizontalScroll:!0,easeType:"lerp",breakpoint:"small",children:[s,i,a]});return c.init(),c.move(55),{destroy:()=>{c.destroy(),s.destroy(),i.destroy(),a.destroy(),c=null,s=null,i=null,a=null}}};var ux=({getState:e,onMount:t,setRef:r,getRef:o})=>{let{layer01:n,layer02:s,layer03:i,layer04:a}=e();return t(()=>{let{screen:c,scroller:l,layer01:p,layer02:d,layer04:g}=o(),{destroy:h}=lx({screenElement:c,scrollerElement:l,layer01:p,layer02:d,layer04:g});return()=>{h()}}),f`<div class="mobbu2025">
+    </div>`};var lx=({screenElement:e,scrollerElement:t,layer01:r,layer02:o,layer04:n})=>{let s=Fe.createParallax({item:r,align:"center",range:3,propierties:"x",ease:!1}),i=Fe.createParallax({item:o,align:"center",range:5,propierties:"x",ease:!1}),a=Fe.createParallax({item:n,align:"center",range:7,propierties:"x",ease:!1}),c=new ht({screen:e,scroller:t,direction:"horizontal",drag:!0,useHorizontalScroll:!0,easeType:"lerp",breakpoint:"small",children:[s,i,a]});return c.init(),c.set(55),{destroy:()=>{c.destroy(),s.destroy(),i.destroy(),a.destroy(),c=null,s=null,i=null,a=null}}};var ux=({getState:e,onMount:t,setRef:r,getRef:o})=>{let{layer01:n,layer02:s,layer03:i,layer04:a}=e();return t(()=>{let{screen:c,scroller:l,layer01:p,layer02:d,layer04:g}=o(),{destroy:h}=lx({screenElement:c,scrollerElement:l,layer01:p,layer02:d,layer04:g});return()=>{h()}}),f`<div class="mobbu2025">
         <div class="mobbu2025__screen" ${r("screen")}>
             <div class="mobbu2025__scroller" ${r("scroller")}>
-                <div class="mobbu2025__layer" ${r("layer04")}>
+                <div
+                    class="mobbu2025__layer no-pointer-event"
+                    ${r("layer04")}
+                >
                     ${a}
                 </div>
                 <div class="mobbu2025__layer">${i}</div>
-                <div class="mobbu2025__layer" ${r("layer02")}>
+                <div
+                    class="mobbu2025__layer no-pointer-event"
+                    ${r("layer02")}
+                >
                     ${s}
                 </div>
-                <div class="mobbu2025__layer" ${r("layer01")}>
+                <div
+                    class="mobbu2025__layer no-pointer-event"
+                    ${r("layer01")}
+                >
                     ${n}
                 </div>
             </div>

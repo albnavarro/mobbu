@@ -47,6 +47,10 @@
     margin: 0;
 }
 
+.no-pointer-event {
+    pointer-events: none;
+}
+
 .quote {
     position: relative;
     margin-inline: rem(2);

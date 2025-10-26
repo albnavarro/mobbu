@@ -35,14 +35,23 @@ export const Mobbu2025fn = ({ getState, onMount, setRef, getRef }) => {
     return html`<div class="mobbu2025">
         <div class="mobbu2025__screen" ${setRef('screen')}>
             <div class="mobbu2025__scroller" ${setRef('scroller')}>
-                <div class="mobbu2025__layer" ${setRef('layer04')}>
+                <div
+                    class="mobbu2025__layer no-pointer-event"
+                    ${setRef('layer04')}
+                >
                     ${layer04}
                 </div>
                 <div class="mobbu2025__layer">${layer03}</div>
-                <div class="mobbu2025__layer" ${setRef('layer02')}>
+                <div
+                    class="mobbu2025__layer no-pointer-event"
+                    ${setRef('layer02')}
+                >
                     ${layer02}
                 </div>
-                <div class="mobbu2025__layer" ${setRef('layer01')}>
+                <div
+                    class="mobbu2025__layer no-pointer-event"
+                    ${setRef('layer01')}
+                >
                     ${layer01}
                 </div>
             </div>

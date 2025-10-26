@@ -29,6 +29,7 @@
 
     &__layer {
         position: absolute;
+        user-select: none;
         aspect-ratio: 690/117;
         height: var(--mobbu2025-height);
         top: 0;

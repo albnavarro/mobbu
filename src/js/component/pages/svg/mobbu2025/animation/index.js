@@ -45,7 +45,7 @@ export const mobbu2025Scroller = ({
     });
 
     scroller.init();
-    scroller.move(55);
+    scroller.set(55);
 
     return {
         destroy: () => {
