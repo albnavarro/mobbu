@@ -68,6 +68,15 @@
                 "boxed": true,
                 "note": true
             },
+            "content": "It is necessary for the keys (states) of the added stores to be <span class='quote'>unique</span> to avoid <span class='quote'>conflicts</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
             "content": "Multiple stores can be added using an array.<br/>There is a special store ( MobJs.mainStore ) that handles all mobJs events as in the following example:"
         },
         {
