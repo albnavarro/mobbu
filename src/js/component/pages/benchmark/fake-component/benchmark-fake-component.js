@@ -18,6 +18,7 @@ export const BenchMarkFakeComponentFn = ({
     const proxiState = getProxi();
 
     onMount(() => {
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {};
     });
 

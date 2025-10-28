@@ -94,6 +94,7 @@ export const NavigationSubmenuFn = ({
             { immediate: true }
         );
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {};
     });
 

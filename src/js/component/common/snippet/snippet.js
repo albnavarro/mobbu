@@ -90,6 +90,7 @@ export const SnippetFn = ({
             loadSnippet({ ref: codeEl, source: proxi.source });
         }
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {};
     });
 

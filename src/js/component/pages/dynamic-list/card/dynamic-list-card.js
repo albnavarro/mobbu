@@ -83,6 +83,7 @@ export const DynamicListCardFn = ({
             proxi.isMounted = true;
         })();
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {};
     });
 

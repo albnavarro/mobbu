@@ -26,6 +26,7 @@ export const DebugFilterHeadFn = ({
          */
         refreshList();
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
             // Chorme leak memory with input, maintain reference.
             getRef()?.input.remove();

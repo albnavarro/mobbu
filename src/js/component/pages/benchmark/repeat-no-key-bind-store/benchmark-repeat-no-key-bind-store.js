@@ -25,6 +25,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
     const proxi = getProxi();
 
     onMount(() => {
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
             getRef()?.input.remove();
             externalBenchmarkStore.set('data', []);

@@ -27,6 +27,7 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
     const proxi = getProxi();
 
     onMount(() => {
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
             // Chorme leak memory with input, maintain reference.
             getRef()?.input.remove();

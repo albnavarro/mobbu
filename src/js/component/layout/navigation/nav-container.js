@@ -115,6 +115,7 @@ export const NavigationContainerFn = ({
             proxi.isMounted = true;
         }, getFrameDelay());
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {};
     });
 

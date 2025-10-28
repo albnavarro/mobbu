@@ -185,6 +185,7 @@ export const DebugFilterListFn = ({
             }));
         })();
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
             destroy?.();
             destroy = () => {};
