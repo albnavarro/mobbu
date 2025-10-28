@@ -1,13 +1,14 @@
+import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
 import { AnyComponent } from '@commonComponent/any-component/definition';
+import { MouseTrail } from '@commonComponent/mouse-trail/definition';
 import { Move3D } from '@commonComponent/move-3d/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_schema } from './data';
-import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
 
-MobJs.useComponent([Move3D, AnyComponent]);
+MobJs.useComponent([Move3D, AnyComponent, MouseTrail]);
 
 export const lettering01 = async () => {
     const { data: letteringMob } = await loadTextContent({
@@ -75,6 +76,7 @@ export const lettering01 = async () => {
     updateAnimationDescription(description);
 
     return html`<div class="l-mob-01">
+        <mouse-trail></mouse-trail>
         <move-3d
             ${MobJs.staticProps(
                 /** @type {import('@commonComponent/move-3d/type').Move3D['state']} */ ({

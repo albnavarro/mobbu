@@ -13,6 +13,7 @@ const iconsToLoad = [
     { name: 'gitHubIcon', source: 'icon-github.svg' },
     { name: 'scrollIcon', source: 'scroll_arrow.svg' },
     { name: 'searchIcons', source: 'search.svg' },
+    { name: 'starOutline', source: 'star-outline.svg' },
 ];
 
 export const getCommonData = () => commonData;

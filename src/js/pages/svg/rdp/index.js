@@ -6,8 +6,9 @@ import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_scehema } from './data';
 import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
+import { MouseTrail } from '@commonComponent/mouse-trail/definition';
 
-MobJs.useComponent([Move3D, AnyComponent]);
+MobJs.useComponent([Move3D, AnyComponent, MouseTrail]);
 
 export const rdp = async () => {
     const { data: lettering01 } = await loadTextContent({
@@ -61,6 +62,7 @@ export const rdp = async () => {
     updateAnimationDescription(description);
 
     return html`<div class="l-rdp-01">
+        <mouse-trail></mouse-trail>
         <move-3d
             ${MobJs.staticProps(
                 /** @type {import('@commonComponent/move-3d/type').Move3D['state']} */ ({
