@@ -15,7 +15,7 @@ export const MouseTrailFn = ({ onMount, getRefs, setRef }) => {
         .map(() => {
             return `<span class='mouse-trail__item' ${setRef('star')}>${starOutline}</span>`;
         })
-        .join(',');
+        .join('');
 
     onMount(() => {
         const { star } = getRefs();
