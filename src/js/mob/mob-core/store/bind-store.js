@@ -110,12 +110,15 @@ export const bindStoreEntryPoint = ({ value, instanceId }) => {
     const { bindInstance } = state;
     if (!bindInstance) return;
 
-    /** @type {string[]} */
     const ids = checkType(Array, value)
-        ? // @ts-ignore
-          value.map((/** @type {getId: () => string} */ store) => store.getId())
-        : // @ts-ignore
-          [value.getId()];
+        ? /** @type {import('./type').MobStoreReturnType<any>[]} */ (value).map(
+              (store) => store.getId()
+          )
+        : [
+              /** @type {import('./type').MobStoreReturnType<any>} */ (
+                  value
+              ).getId(),
+          ];
 
     const bindInstanceUpdated = [...bindInstance, ...ids];
 
