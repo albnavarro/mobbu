@@ -1357,7 +1357,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,L=w),k===void 0&&(
         <move-3d
             ${m.staticProps({shape:tx({u0:t,u1:r,o,o_b:n,m1:s,m2:a,m3:c,m4:p,b1:f,b1_b:h,b3:y,b4:v,b5:T,sign:_,m1_b:i,m3_b:l,m4_b:d,b1_stone:x,m1_stone:A}),xDepth:100,yDepth:30,factor:20,xLimit:20,yLimit:20,drag:!0,perspective:1e3})}
         ></move-3d>
-    </div>`};var ox=()=>Ie.mq("min","desktop"),nx=({onMount:e,getProxi:t,bindEffect:r,watch:o})=>{let n=t();return n.active=ox(),e(()=>{let s=u.useResize(()=>{n.active=ox()});return o(()=>n.active,i=>{i&&m.loadUrl({url:"#"})}),()=>{s()}}),g`
+    </div>`};var ox=()=>Ie.mq("min","desktop"),nx=({onMount:e,getProxi:t,bindEffect:r,watch:o})=>{let n=t();return n.active=ox(),e(()=>{let s=u.useResize(()=>{n.active=ox()});return o(()=>n.active,i=>{i&&m.loadUrl({url:"#home"})}),()=>{s()}}),g`
         <a
             href="#home"
             class="l-only-desktop__link"
@@ -1365,7 +1365,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,L=w),k===void 0&&(
         >
             home page
         </a>
-    `};var sx=m.createComponent({tag:"only-desktop-cta",component:nx,state:{active:()=>({value:!1,type:Boolean})}});m.useComponent([sx]);var ix=async()=>{let{data:e}=await Be({source:"./asset/svg/lettering-mob-only-desktop.svg?v=0.1"});return g`
+    `};var sx=m.createComponent({tag:"only-desktop-cta",component:nx,state:{active:()=>({value:!1,type:Boolean,skipEqual:!1})}});m.useComponent([sx]);var ix=async()=>{let{data:e}=await Be({source:"./asset/svg/lettering-mob-only-desktop.svg?v=0.1"});return g`
         <div class="l-only-desktop">
             <div class="l-only-desktop__content">
                 <h2 class="l-only-desktop__title">ops...<br /></h2>

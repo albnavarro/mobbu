@@ -14,6 +14,7 @@ export const OnlyDesktopCta = MobJs.createComponent(
             active: () => ({
                 value: false,
                 type: Boolean,
+                skipEqual: false,
             }),
         },
     })
