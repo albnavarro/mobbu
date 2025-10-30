@@ -1368,10 +1368,17 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,L=w),k===void 0&&(
     `};var sx=m.createComponent({tag:"only-desktop-cta",component:nx,state:{active:()=>({value:!1,type:Boolean})}});m.useComponent([sx]);var ix=async()=>{let{data:e}=await Be({source:"./asset/svg/lettering-mob-only-desktop.svg?v=0.1"});return g`
         <div class="l-only-desktop">
             <div class="l-only-desktop__content">
-                <h4 class="l-only-desktop__title">
-                    This site is a desktop<br />
-                    only project
-                </h4>
+                <h2 class="l-only-desktop__title">ops...<br /></h2>
+                <p>
+                    This site is designed<br />
+                    for a desktop experience,<br />
+                    the minimum resolution is 1024px.<br /><br />
+                    <strong>
+                        Please resize your browser<br />
+                        or use a different device.
+                    </strong>
+                </p>
+                <h3 class="l-only-desktop__title">My apologies ...</h3>
                 <div>
                     <only-desktop-cta></only-desktop-cta>
                 </div>

@@ -13,10 +13,17 @@ export const onlyDesktop = async () => {
     return html`
         <div class="l-only-desktop">
             <div class="l-only-desktop__content">
-                <h4 class="l-only-desktop__title">
-                    This site is a desktop<br />
-                    only project
-                </h4>
+                <h2 class="l-only-desktop__title">ops...<br /></h2>
+                <p>
+                    This site is designed<br />
+                    for a desktop experience,<br />
+                    the minimum resolution is 1024px.<br /><br />
+                    <strong>
+                        Please resize your browser<br />
+                        or use a different device.
+                    </strong>
+                </p>
+                <h3 class="l-only-desktop__title">My apologies ...</h3>
                 <div>
                     <only-desktop-cta></only-desktop-cta>
                 </div>

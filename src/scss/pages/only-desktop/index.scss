@@ -22,11 +22,29 @@ $svg-max-height: calc(((1400 * 571) / 1098) * 1px);
         display: block;
     }
 
-    &__title {
+    h2,
+    h3 {
         margin-bottom: rem(40);
         width: 100%;
         display: block;
-        font-size: rem(30);
+        font-size: rem(40);
+        font-family: 'Fira Sans', sans-serif;
+    }
+
+    h2 {
+        font-size: rem(40);
+    }
+
+    h3 {
+        font-size: rem(24);
+    }
+
+    p {
+        margin-bottom: rem(40);
+        font-size: rem(18);
+        width: 100%;
+        display: block;
+        font-family: 'Fira Sans', sans-serif;
     }
 
     &__link {
