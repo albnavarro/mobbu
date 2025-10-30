@@ -3,7 +3,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { html } from '@mobJs';
+import { html, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 
 const shouldActivateCta = () => {
@@ -11,7 +11,7 @@ const shouldActivateCta = () => {
 };
 
 /** @type {MobComponent<import('./type').OnlyDesktop>} */
-export const OnlyDesktopFnCta = ({ onMount, getProxi, bindEffect }) => {
+export const OnlyDesktopFnCta = ({ onMount, getProxi, bindEffect, watch }) => {
     const proxi = getProxi();
     proxi.active = shouldActivateCta();
 
@@ -19,6 +19,20 @@ export const OnlyDesktopFnCta = ({ onMount, getProxi, bindEffect }) => {
         const unsubscribeResize = MobCore.useResize(() => {
             proxi.active = shouldActivateCta();
         });
+
+        /**
+         * Redirect to home page on resize over 1024px.
+         *
+         * - Fallback is cta ( this component itself )
+         */
+        watch(
+            () => proxi.active,
+            (value) => {
+                if (!value) return;
+
+                MobJs.loadUrl({ url: '#' });
+            }
+        );
 
         return () => {
             unsubscribeResize();

@@ -1357,11 +1357,11 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,L=w),k===void 0&&(
         <move-3d
             ${m.staticProps({shape:tx({u0:t,u1:r,o,o_b:n,m1:s,m2:a,m3:c,m4:p,b1:f,b1_b:h,b3:y,b4:v,b5:T,sign:_,m1_b:i,m3_b:l,m4_b:d,b1_stone:x,m1_stone:A}),xDepth:100,yDepth:30,factor:20,xLimit:20,yLimit:20,drag:!0,perspective:1e3})}
         ></move-3d>
-    </div>`};var ox=()=>Ie.mq("min","desktop"),nx=({onMount:e,getProxi:t,bindEffect:r})=>{let o=t();return o.active=ox(),e(()=>{let n=u.useResize(()=>{o.active=ox()});return()=>{n()}}),g`
+    </div>`};var ox=()=>Ie.mq("min","desktop"),nx=({onMount:e,getProxi:t,bindEffect:r,watch:o})=>{let n=t();return n.active=ox(),e(()=>{let s=u.useResize(()=>{n.active=ox()});return o(()=>n.active,i=>{i&&m.loadUrl({url:"#"})}),()=>{s()}}),g`
         <a
             href="#home"
             class="l-only-desktop__link"
-            ${r({toggleClass:{active:()=>o.active}})}
+            ${r({toggleClass:{active:()=>n.active}})}
         >
             home page
         </a>
