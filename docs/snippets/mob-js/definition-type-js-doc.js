@@ -3,11 +3,16 @@
  */
 
 export const MyComponent = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').MyComponentType>} */
+    /** @type {CreateComponentParams<import('./type').MyComponent>} */
     ({
         tag: 'my-component',
         component: MyComponentFn,
-        exportState: ['color', 'active'],
+        props: {
+            active: () => ({
+                value: false,
+                type: Boolean,
+            }),
+        },
         state: {
             color: () => ({
                 value: 'white',
@@ -15,10 +20,6 @@ export const MyComponent = MobJs.createComponent(
                 validate: (value) => {
                     return ['white', 'black'].includes(value);
                 },
-            }),
-            active: () => ({
-                value: false,
-                type: Boolean,
             }),
         },
     })

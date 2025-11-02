@@ -25,13 +25,14 @@ export const MyComponent = MobJs.createComponent(
         /**
          * Optional
          */
-        exportState: ['label'],
         bindStore: MobJs.mainStore,
-        state: {
+        props: {
             label: () => ({
                 value: '',
                 type: String,
             }),
+        },
+        state: {
             myArray: () => ({
                 value: [],
                 type: Array,

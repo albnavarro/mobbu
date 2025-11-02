@@ -194,7 +194,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/definition.js",
-                "numLines": 62
+                "numLines": 63
             }
         },
         {
@@ -296,14 +296,14 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "exportState:"
+            "content": "Props:"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "An array of component states exposed for external access ( <strong>Props</strong> ).<br/>Props cannot be modified inside the component. "
+            "content": "Component props, all functionalities are inherited from the <a href='#mobCore-store'>mobCore store</a> module."
         },
         {
             "component": "mob-spacer",
@@ -323,18 +323,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Component State System:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "tag": "h3",
-                "dots": false,
-                "items": [
-                    "All component states derive from the <a href='#mobCore-store'>mobCore store</a>",
-                    "Inherits full store functionality (reactivity, etc.)"
-                ]
-            }
+            "content": "Component state, all functionalities are inherited from the <a href='#mobCore-store'>mobCore store</a> module."
         },
         {
             "component": "mob-spacer",
@@ -535,7 +524,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Component Typing System: <ul> <li>Associate an interface to define types for: <ul> <li>methods</li> <li>states</li> <li>refs</li> </ul> </li><br/> <li>Automatic function configuration <ul><li>getRef: Returns HTMLElement</li> <li>getRefs: Returns HTMLElement[]</li></ul> </ul>"
+            "content": "Component Typing System: <ul> <li>Associate an interface to define types for: <ul> <li>props</li> <li>state</li>  <li>methods</li> <li>refs</li> </ul> </li><br/> <li>Automatic function configuration <ul><li>getRef: Returns HTMLElement</li> <li>getRefs: Returns HTMLElement[]</li></ul> </ul>"
         },
         {
             "component": "mob-paragraph",
@@ -556,7 +545,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/component-type-decalration.ts",
-                "numLines": 13
+                "numLines": 15
             }
         },
         {
@@ -583,7 +572,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/definition-type-js-doc.js",
-                "numLines": 25
+                "numLines": 26
             }
         },
         {
@@ -603,7 +592,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/definition-type-ts.ts",
-                "numLines": 18
+                "numLines": 19
             }
         },
         {
