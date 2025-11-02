@@ -12,7 +12,6 @@ export const QuickNavFn = ({ getProxi, bindEffect, addMethod }) => {
     const arrow = getIcons()['scrollIcon'];
 
     addMethod('update', (prop, value) => {
-        // @ts-ignore
         proxi[prop] = value;
     });
 
