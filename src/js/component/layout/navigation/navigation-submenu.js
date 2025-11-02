@@ -119,6 +119,9 @@ export const NavigationSubmenuFn = ({
                         fireRoute: false,
                         activeId: activeId ?? -1,
                         callback: () => {
+                            /**
+                             * Trigger close current accordion if is open
+                             */
                             proxi.callback({ forceClose: proxi.isOpen });
                         },
                     })
