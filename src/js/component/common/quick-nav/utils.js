@@ -23,3 +23,16 @@ export const updateQuickNavState = ({
     setQuickNavState('backRoute', backRoute);
     setQuickNavState('color', color);
 };
+
+/**
+ * Reset.
+ */
+MobJs.beforeRouteChange(() => {
+    /** @type {SetStateByName<import('./type').QuickNav>} */
+    const setQuickNavState = MobJs.setStateByName(quickNavName);
+    setQuickNavState('active', false);
+    setQuickNavState('nextRoute', '');
+    setQuickNavState('prevRoute', '');
+    setQuickNavState('backRoute', '');
+    setQuickNavState('color', 'black');
+});

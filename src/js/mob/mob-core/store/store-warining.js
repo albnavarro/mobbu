@@ -223,3 +223,15 @@ export const storePropInProxiWarning = (prop, style) => {
         style
     );
 };
+
+/**
+ * @param {string} prop
+ * @param {string} style
+ * @returns {void}
+ */
+export const storeProxiReadOnlyWarning = (prop, style) => {
+    console.warn(
+        `%c MobStore error: the property ${prop} should readOnly with proxi, maybe is a mobJs props.`,
+        style
+    );
+};

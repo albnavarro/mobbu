@@ -3,9 +3,10 @@ import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
 import { setRepeaterComponentChildren } from '../modules/repeater/action/set-repeat-component-children';
 import { getFreezePropStatus } from './action/freeze';
 import { addNonPersisitentComponent } from './action/remove-and-destroy/cancellable-component/add-persisitent-component';
+import { getExportableState } from './action/state/check-if-state-is-exportable';
 import { componentMap } from './component-map';
 import { addIdToInstanceMap } from './instance-map';
-import { addPropsToState } from './utils';
+import { addPropsToState, propStrignWarining } from './utils';
 
 /**
  * Add component to store.
@@ -60,6 +61,14 @@ export const addComponentToStore = ({
         addIdToInstanceMap({ instanceName, id });
     }
 
+    const exportableState = getExportableState({ componentName });
+    const exportableStateSet = new Set(exportableState);
+
+    /**
+     * Proxi is readOnly if state is a props.
+     */
+    store.setProxiReadOnlyProp(exportableState);
+
     componentMap.set(id, {
         element,
         componentName,
@@ -85,7 +94,19 @@ export const addComponentToStore = ({
         getState: () => store.get(),
         setState: (prop = '', value = {}, { emit = true } = {}) => {
             const isFreezed = getFreezePropStatus({ id, prop });
-            if (isFreezed) return;
+
+            /**
+             * Prop is readonly, skip in scope component.
+             */
+            const isProp = exportableStateSet.has(prop);
+            if (isProp)
+                propStrignWarining({
+                    prop,
+                    componentName,
+                    action: 'updateState',
+                });
+
+            if (isFreezed || isProp) return;
 
             store.set(prop, value, { emit: emit ?? true });
         },
@@ -95,7 +116,19 @@ export const addComponentToStore = ({
             { emit = true, clone = false } = {}
         ) => {
             const isFreezed = getFreezePropStatus({ id, prop });
-            if (isFreezed) return;
+
+            /**
+             * Prop is readonly, skip in scope component.
+             */
+            const isProp = exportableStateSet.has(prop);
+            if (isProp)
+                propStrignWarining({
+                    prop,
+                    componentName,
+                    action: 'updateState',
+                });
+
+            if (isFreezed || isProp) return;
 
             store.update(prop, updateFunction, {
                 emit: emit ?? true,
@@ -109,7 +142,22 @@ export const addComponentToStore = ({
             prop = '',
             fn = () => {},
             /** @type {string[]} */ keys = []
-        ) => store.computed(prop, fn, keys),
+        ) => {
+            /**
+             * Prop is readonly, skip in scope component.
+             */
+            const isProp = exportableStateSet.has(prop);
+            if (isProp) {
+                propStrignWarining({
+                    prop,
+                    componentName,
+                    action: 'computed',
+                });
+                return;
+            }
+
+            return store.computed(prop, fn, keys);
+        },
         watch: (
             prop = '',
             cb = () => {},

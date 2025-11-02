@@ -132,23 +132,6 @@ store[prop] = valueTransformed;
 
 # MobJs
 
-### Props in read-only.
-
-- Prevedere che gli stati esportati diventino `readOnly` all' interno dello scope-componente.
-- Propietá opzionale, aggiugnere alla definizione del componente una propietá booleana `propsStrict`.
-- In generale basta fare un check all'interno di `src/js/mob/mob-js/component/index.js` su:
-    - `setState`
-    - `updateState `
-    - `computed`.
-     ```js
-    const exportableState = getExportableState({ componentName });
-    ```
-- I proxi vengono usati solo all' interno dello scope del componente perció si possono bloccare a monte a livello di store:
-    - Aggiungere allo store un metodo `myStore.setProxiPropReadOnly(['myprops', 'myprop2'])` che popolará un `new Set()` che possiamo chiamre `proxiPropReadOnly`.
-    - Nell'operazione di `set` il `proxi` ritornerá false se fará almeno un `match`.
-- `bindProps()`  accede direttamante all' istanza dello store perció continuerá a funzionare.
-- l'unico punto critico potrebbe essere il proxi, ma se non mi sfugge qualcosa il ragionamento funziona e riusulta essere del tutto ininfluente.
-
 ### Create component:
  - Prendere due picconi con una fava.
  - Potrebbe tornare un oggetto con:

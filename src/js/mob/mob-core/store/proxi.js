@@ -1,8 +1,10 @@
 import { STORE_SET } from './constant';
 import { setCurrentDependencies } from './current-key';
+import { getLogStyle } from './log-style';
 import { storeMap, updateMainMap } from './store-map';
 import { storeSetEntryPoint } from './store-set';
 import { checkIfPropIsComputed } from './store-utils';
+import { storeProxiReadOnlyWarning } from './store-warining';
 
 /**
  * Proxi state/states with the original reference of store object.
@@ -12,10 +14,15 @@ import { checkIfPropIsComputed } from './store-utils';
  * @returns {Record<string, any>}
  */
 export const getProxiEntryPoint = ({ instanceId }) => {
+    const logStyle = getLogStyle();
     const state = storeMap.get(instanceId);
     if (!state) return {};
 
-    const { bindInstance, proxiObject: previousProxiObject } = state;
+    const {
+        bindInstance,
+        proxiObject: previousProxiObject,
+        proxiReadOnlyProp,
+    } = state;
 
     /**
      * Return previous proxi if exist.
@@ -33,7 +40,13 @@ export const getProxiEntryPoint = ({ instanceId }) => {
         set(target, /** @type {string} */ prop, value) {
             if (prop in target) {
                 const isComputed = checkIfPropIsComputed({ instanceId, prop });
-                if (isComputed) return false;
+                const isReadOnly = proxiReadOnlyProp.has(prop);
+
+                if (isReadOnly) {
+                    storeProxiReadOnlyWarning(prop, logStyle);
+                }
+
+                if (isComputed || isReadOnly) return false;
 
                 storeSetEntryPoint({
                     instanceId,

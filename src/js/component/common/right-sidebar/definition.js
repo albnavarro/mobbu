@@ -10,7 +10,6 @@ export const RightSidebar = MobJs.createComponent(
     ({
         tag: 'right-sidebar',
         component: RightSidebarFn,
-        exportState: ['data'],
         bindStore: [MobJs.mainStore],
         state: {
             data: () => ({

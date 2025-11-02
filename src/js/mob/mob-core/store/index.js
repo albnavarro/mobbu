@@ -23,6 +23,7 @@ import { destroyStoreEntryPoint } from './destroy';
 import { checkIfPropIsComputed } from './store-utils';
 import { useNextLoop } from '../utils/next-tick';
 import { extractkeyFromProp, extractKeysFromArray } from './current-key';
+import { setProxiPropReadOnlyEntryPoint } from './proxi-read-only';
 
 /**
  * @param {import('./type').MobStoreParams} data
@@ -167,6 +168,9 @@ export const mobStore = (data = {}) => {
             const propParsed = extractkeyFromProp(prop);
 
             return storeEmitAsyncEntryPoint({ instanceId, prop: propParsed });
+        },
+        setProxiReadOnlyProp: (values) => {
+            setProxiPropReadOnlyEntryPoint({ instanceId, values });
         },
         getValidation: () => {
             return storeGetValidationEntryPoint({ instanceId });

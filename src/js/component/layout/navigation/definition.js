@@ -133,7 +133,6 @@ export const Navigation = MobJs.createComponent(
     ({
         tag: 'mob-navigation',
         component: NavigationFn,
-        exportState: ['currentAccordionId'],
         state: {
             currentAccordionId: () => ({
                 value: -1,

@@ -14,14 +14,7 @@ export const HorizontalScroller = MobJs.createComponent(
     ({
         tag: 'horizontal-scroller',
         component: HorizontalScrollerFn,
-        exportState: [
-            'nextRoute',
-            'prevRoute',
-            'backRoute',
-            'currentId',
-            'currentIdFromScroll',
-            'animatePin',
-        ],
+        exportState: ['nextRoute', 'prevRoute', 'backRoute', 'animatePin'],
         state: {
             currentId: () => ({
                 value: 0,

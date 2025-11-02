@@ -4,23 +4,12 @@
  */
 
 import { getIcons } from '@data/index';
-import { html, MobJs } from '@mobJs';
+import { html } from '@mobJs';
 
 /** @type {MobComponent<QuickNav>} */
 export const QuickNavFn = ({ getProxi, bindEffect }) => {
     const proxi = getProxi();
     const arrow = getIcons()['scrollIcon'];
-
-    /**
-     * Reset.
-     */
-    MobJs.beforeRouteChange(() => {
-        proxi.active = false;
-        proxi.nextRoute = '';
-        proxi.prevRoute = '';
-        proxi.backRoute = '';
-        proxi.color = 'black';
-    });
 
     return html`<div
         class="c-quick-nav-container"

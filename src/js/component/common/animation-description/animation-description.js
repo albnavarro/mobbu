@@ -1,4 +1,4 @@
-import { html, MobJs } from '@mobJs';
+import { html } from '@mobJs';
 
 /**
  * @import {MobComponent} from '@mobJsType';
@@ -51,10 +51,6 @@ export const AnimationDescriptionFn = ({
         },
         { immediate: true }
     );
-
-    MobJs.beforeRouteChange(() => {
-        proxi.rawContent = '';
-    });
 
     return html`<p
         class="animation-description"
