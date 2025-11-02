@@ -1,10 +1,9 @@
 import { Move3DItem } from './move-3d-item/type';
 
 export interface Move3D {
-    state: {
+    props: {
         drag: boolean;
         centerToViewoport: boolean;
-        useScroll: boolean;
         perspective: number;
         xDepth: number;
         yDepth: number;
@@ -20,12 +19,15 @@ export interface Move3D {
             deltaY: number;
         }) => void;
     };
+    state: {
+        useScroll: boolean;
+    };
     ref: {
         container: HTMLElement;
     };
 }
 
 export interface Move3DChildren {
-    props: Partial<Move3DItem['state']>;
+    props: Partial<Move3DItem['props']> & Partial<Move3DItem['state']>;
     children?: Move3DChildren[];
 }

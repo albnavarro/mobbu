@@ -1,5 +1,5 @@
 export interface AnyComponent {
-    state: {
+    props: {
         content: string;
     };
 }

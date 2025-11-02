@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import {MobComponent, ReturnBindProps, StaticProps, DelegateEvents} from '@mobJsType';
+ * @import {MobComponent, ReturnBindProps, StaticProps, DelegateEvents,  ProxiState} from '@mobJsType';
  * @import {DynamicListCardInner} from './innerCard/type';
  * @import {DynamicListCard} from './type';
  * @import {DynamicCounter} from '../counter/type';
@@ -20,7 +20,7 @@ function createArray(numberOfItem) {
  * @param {object} params
  * @param {StaticProps<DynamicListCardInner>} params.staticProps
  * @param {DelegateEvents} params.delegateEvents
- * @param {DynamicListCard['state']} params.proxi
+ * @param {ProxiState<DynamicListCard>} params.proxi
  */
 const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
     return html`
@@ -30,7 +30,7 @@ const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
                     <div class="validate-test-wrapper">
                         <dynamic-list-card-inner
                             ${staticProps(
-                                /** @type {DynamicListCardInner['state']} */ ({
+                                /** @type {DynamicListCardInner['props']} */ ({
                                     key: `${item}`,
                                 })
                             )}
@@ -128,7 +128,7 @@ export const DynamicListCardFn = ({
                     <dynamic-list-counter
                         slot="empty-slot"
                         ${staticProps(
-                            /** @type {DynamicCounter['state']} */ ({
+                            /** @type {DynamicCounter['props']} */ ({
                                 parentListId: proxi.parentListId,
                             })
                         )}

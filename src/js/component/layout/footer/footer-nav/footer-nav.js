@@ -26,7 +26,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
                         },
                     })}
                     ${staticProps(
-                        /** @type {import('./type').FooterNavButton['state']} */ ({
+                        /** @type {import('./type').FooterNavButton['props']} */ ({
                             label,
                             section,
                         })

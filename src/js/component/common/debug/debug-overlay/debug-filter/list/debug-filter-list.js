@@ -42,7 +42,7 @@ const getFakeReplacement = (/** @type {number} */ index) => `~${index}`;
 /**
  * @param {object} params
  * @param {string} params.testString
- * @returns {Omit<DebugFilterListItem['state'], 'currentId'>[]} Params
+ * @returns {Omit<DebugFilterListItem['props'], 'currentId'>[]} Params
  */
 const getDataFiltered = ({ testString }) => {
     /**
@@ -235,7 +235,7 @@ export const DebugFilterListFn = ({
                             return html`
                                 <debug-filter-list-item
                                     ${staticProps(
-                                        /** @type {DebugFilterListItem['state']} */ ({
+                                        /** @type {DebugFilterListItem['props']} */ ({
                                             id: current.value.id,
                                             name: current.value.name,
                                         })

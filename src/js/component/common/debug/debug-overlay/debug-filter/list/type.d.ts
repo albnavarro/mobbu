@@ -3,7 +3,7 @@ import { DebugFilterListItem } from './item/type';
 
 export interface DebugFilterList {
     state: {
-        data: Omit<DebugFilterListItem['state'], 'currentId'>[];
+        data: Omit<DebugFilterListItem['props'], 'currentId'>[];
         isLoading: boolean;
         noResult: boolean;
     };

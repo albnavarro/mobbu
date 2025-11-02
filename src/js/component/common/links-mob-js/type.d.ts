@@ -1,5 +1,5 @@
 export interface LinksMobJsButton {
-    state: {
+    props: {
         label: string;
         url: string;
         active: boolean;

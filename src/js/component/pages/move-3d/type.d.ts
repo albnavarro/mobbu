@@ -1,8 +1,10 @@
 import { Move3DChildren } from '../type';
 
 export interface Move3DPage {
-    state: {
+    props: {
         data: Move3DChildren[];
+    };
+    state: {
         xDepth: number;
         yDepth: number;
         xLimit: number;

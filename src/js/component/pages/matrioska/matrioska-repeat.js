@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import {MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat,  UpdateStateByName, Invalidate, GetState, ReturnBindProps} from '@mobJsType'
+ * @import {MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat, Invalidate, GetState, ReturnBindProps, UseMethodByName} from '@mobJsType'
  * @import {Matrioska} from './type'
  * @import {MatrioskaItem} from './item/type'
  */
@@ -153,7 +153,7 @@ const getSecondLevel = ({
                             <matrioska-item
                                 class="matrioska-item--2"
                                 ${staticProps(
-                                    /** @type {MatrioskaItem['state']} */ ({
+                                    /** @type {MatrioskaItem['props']} */ ({
                                         level: 'level 2',
                                     })
                                 )}
@@ -217,7 +217,7 @@ const getThirdLevel = ({
                                 class="matrioska-item--3"
                                 name="${name}"
                                 ${staticProps(
-                                    /** @type {MatrioskaItem['state']} */ ({
+                                    /** @type {MatrioskaItem['props']} */ ({
                                         level: 'level 3',
                                     })
                                 )}
@@ -232,14 +232,10 @@ const getThirdLevel = ({
                                 )}
                                 ${delegateEvents({
                                     click: () => {
-                                        /** @type {UpdateStateByName<MatrioskaItem>} */
-                                        const updateActiveState =
-                                            MobJs.updateStateByName(name);
-
-                                        updateActiveState(
-                                            'active',
-                                            (val) => !val
-                                        );
+                                        /** @type {UseMethodByName<MatrioskaItem>} */
+                                        const methods =
+                                            MobJs.useMethodByName(name);
+                                        methods.toggleActive();
                                     },
                                 })}
                             >
@@ -248,7 +244,7 @@ const getThirdLevel = ({
                                 class="matrioska-item--3"
                                 name="${name2}"
                                 ${staticProps(
-                                    /** @type {MatrioskaItem['state']} */ ({
+                                    /** @type {MatrioskaItem['props']} */ ({
                                         level: 'level 3',
                                     })
                                 )}
@@ -264,13 +260,10 @@ const getThirdLevel = ({
                                 })}
                                 ${delegateEvents({
                                     click: () => {
-                                        /** @type {UpdateStateByName<MatrioskaItem>} */
-                                        const updateActiveState =
-                                            MobJs.updateStateByName(name2);
-                                        updateActiveState(
-                                            'active',
-                                            (val) => !val
-                                        );
+                                        /** @type {UseMethodByName<MatrioskaItem>} */
+                                        const methods =
+                                            MobJs.useMethodByName(name2);
+                                        methods.toggleActive();
                                     },
                                 })}
                             >
@@ -322,7 +315,7 @@ export const MatrioskaRepeatFn = ({
                                 <matrioska-item
                                     class="matrioska-item--1"
                                     ${staticProps(
-                                        /** @type {MatrioskaItem['state']} */ ({
+                                        /** @type {MatrioskaItem['props']} */ ({
                                             level: 'level 1',
                                         })
                                     )}

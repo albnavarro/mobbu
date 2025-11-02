@@ -1,5 +1,5 @@
 export interface HorizontalScrollerButton {
-    state: {
+    props: {
         id: number;
     };
     ref: {

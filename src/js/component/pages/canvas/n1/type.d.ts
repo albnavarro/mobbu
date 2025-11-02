@@ -1,6 +1,5 @@
 export interface CaterpillarN1 {
-    state: {
-        isMounted: boolean;
+    props: {
         numItems: number;
         width: number;
         height: number;
@@ -11,6 +10,9 @@ export interface CaterpillarN1 {
         centerEach: number;
         rotationDuration: number;
         disableOffcanvas: boolean;
+    };
+    state: {
+        isMounted: boolean;
     };
     ref: {
         canvas: HTMLCanvasElement;

@@ -4,6 +4,7 @@ import { BindStoreValueType, MobStoreParams } from '../mob-core/store/type';
 import { ComponentFunction, MainStore } from './main-store/type';
 import {
     ExtractState,
+    ExtractProps,
     PartialBindEffect,
     PartialBindEvents,
     PartialBindProps,
@@ -174,7 +175,7 @@ export interface ComponentParsed<T> {
     }) => void;
     attributeToObserve?: string[];
     style?: string;
-    props?: Partial<MobStoreParams<ExtractState<T>>>;
+    props?: Partial<MobStoreParams<ExtractProps<T>>>;
     state?: Partial<MobStoreParams<ExtractState<T>>>;
     bindStore?: BindStoreValueType;
     child?: CreateComponentReturnType[];

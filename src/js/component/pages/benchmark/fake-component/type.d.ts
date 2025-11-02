@@ -1,8 +1,10 @@
 export interface BenchMarkFakeComponent {
-    state: {
+    props: {
         counter: number;
         label: string;
         index: number;
+    };
+    state: {
         isSelected: boolean;
     };
 }

@@ -8,7 +8,7 @@ import { loadJsonContent } from '@utils/utils';
 
 /**
  * @param {object} params
- * @param {HtmlContent['state']['data']} params.data
+ * @param {HtmlContent['props']['data']} params.data
  * @param {StaticProps<any>} params.staticProps
  * @param {boolean} params.awaitLoadSnippet
  * @returns {string}

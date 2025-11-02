@@ -1,5 +1,5 @@
 export interface Mobbu2025 {
-    state: {
+    props: {
         layer01: string;
         layer02: string;
         layer03: string;

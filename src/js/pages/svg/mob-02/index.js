@@ -42,7 +42,7 @@ export const mob_02 = async () => {
     return html`<div class="l-mob-02">
         <mobbu-2025
             ${staticProps(
-                /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['state']} */
+                /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['props']} */
                 ({
                     layer01,
                     layer02,

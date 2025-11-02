@@ -1,10 +1,15 @@
 export interface MatrioskaItem {
-    state: {
+    props: {
         level: string;
         key: string;
         value: string;
         index: number;
-        active: boolean;
         counter: number;
+    };
+    state: {
+        active: boolean;
+    };
+    methods: {
+        toggleActive: () => void;
     };
 }

@@ -1,5 +1,5 @@
 export interface HorizontalScrollerSection {
-    state: {
+    props: {
         id: number;
         pinClass: string;
     };

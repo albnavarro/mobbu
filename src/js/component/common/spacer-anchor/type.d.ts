@@ -1,5 +1,5 @@
 export interface SpacerAnchor {
-    state: {
+    props: {
         style: 'x-small' | 'small' | 'medium' | 'big';
         line: boolean;
         id: string;

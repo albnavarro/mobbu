@@ -31,13 +31,15 @@ export const MatrioskaItem = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
             counter: () => ({
                 value: -1,
                 type: Number,
+            }),
+        },
+        state: {
+            active: () => ({
+                value: false,
+                type: Boolean,
             }),
         },
         style: /* CSS */ `:host { display: block; } `,

@@ -4,7 +4,7 @@ export interface SuggestionItem {
 }
 
 export interface SearchOverlaySuggestion {
-    state: {
+    props: {
         list: SuggestionItem[];
     };
     ref: {

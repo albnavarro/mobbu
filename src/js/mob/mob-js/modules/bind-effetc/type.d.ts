@@ -1,12 +1,12 @@
 import { OnlyStringKey } from '../../../mob-core/store/type';
-import { ExtractState } from '../../ts-utils/mob-component-props';
+import { ExtractPropsAndState } from '../../ts-utils/mob-component-props';
 
 export interface BindEffectObject<T> {
     observe?:
-        | OnlyStringKey<ExtractState<T>>[]
-        | OnlyStringKey<ExtractState<T>>
-        | (() => ExtractState<T>[keyof ExtractState<T>])
-        | (() => ExtractState<T>[keyof ExtractState<T>])[];
+        | OnlyStringKey<ExtractPropsAndState<T>>[]
+        | OnlyStringKey<ExtractPropsAndState<T>>
+        | (() => ExtractPropsAndState<T>[keyof ExtractPropsAndState<T>])
+        | (() => ExtractPropsAndState<T>[keyof ExtractPropsAndState<T>])[];
     toggleClass?: Record<string, () => boolean>;
     toggleStyle?: Record<string, () => string>;
     toggleAttribute?: Record<string, () => string | null | undefined>;

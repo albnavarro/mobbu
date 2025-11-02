@@ -1,5 +1,5 @@
 export interface List {
-    state: {
+    props: {
         style: 'small' | 'medium' | 'big';
         dots: boolean;
         links: boolean;

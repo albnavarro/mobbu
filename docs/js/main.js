@@ -24299,7 +24299,7 @@
     return renderHtml` <div class="l-links">
         <layout-links
             ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/layout-links/type').LayoutLinks['state']} */
+      /** @type {import('@pagesComponent/layout-links/type').LayoutLinks['props']} */
       {
         title: data.title,
         items: data.items
@@ -25914,7 +25914,7 @@
             <html-content
                 slot="docs"
                 ${modules_exports2.staticProps(
-      /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['state']>} */
+      /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
       {
         data: data.data,
         useMaxWidth: true
@@ -25946,7 +25946,7 @@
             <html-content
                 slot="docs"
                 ${modules_exports2.staticProps(
-      /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['state']>} */
+      /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
       {
         data: data.data,
         useMaxWidth: true
@@ -26770,7 +26770,7 @@
     });
     return renderHtml`<about-component
         ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/about/type').About['state']} */
+      /** @type {import('@pagesComponent/about/type').About['props']} */
       {
         block_1: data.block_1,
         block_2: data.block_2,
@@ -27062,7 +27062,7 @@
           return renderHtml`
                                     <benchmark-fake-component
                                         ${staticProps2(
-            /** @type {import('../fake-component/type').BenchMarkFakeComponent['state']} */
+            /** @type {import('../fake-component/type').BenchMarkFakeComponent['props']} */
             {
               label,
               index
@@ -27690,20 +27690,20 @@
     backRoute = "",
     color = "black"
   }) => {
-    const setQuickNavState = modules_exports2.setStateByName(quickNavName);
-    setQuickNavState("active", active2);
-    setQuickNavState("nextRoute", nextRoute);
-    setQuickNavState("prevRoute", prevRoute);
-    setQuickNavState("backRoute", backRoute);
-    setQuickNavState("color", color);
+    const methods = modules_exports2.useMethodByName(quickNavName);
+    methods.update("active", active2);
+    methods.update("nextRoute", nextRoute);
+    methods.update("prevRoute", prevRoute);
+    methods.update("backRoute", backRoute);
+    methods.update("color", color);
   };
   modules_exports2.beforeRouteChange(() => {
-    const setQuickNavState = modules_exports2.setStateByName(quickNavName);
-    setQuickNavState("active", false);
-    setQuickNavState("nextRoute", "");
-    setQuickNavState("prevRoute", "");
-    setQuickNavState("backRoute", "");
-    setQuickNavState("color", "black");
+    const methods = modules_exports2.useMethodByName(quickNavName);
+    methods.update("active", false);
+    methods.update("nextRoute", "");
+    methods.update("prevRoute", "");
+    methods.update("backRoute", "");
+    methods.update("color", "black");
   });
 
   // src/js/utils/canvas-utils.js
@@ -28233,12 +28233,11 @@
 
   // src/js/component/common/animation-description/utils.js
   var updateAnimationDescription = (content) => {
-    const updateState = modules_exports2.updateStateByName(animationDescription);
-    updateState("rawContent", () => content);
+    const methods = modules_exports2.useMethodByName(animationDescription);
+    methods?.updateRawContent?.(content);
   };
   modules_exports2.beforeRouteChange(() => {
-    const updateState = modules_exports2.updateStateByName(animationDescription);
-    updateState("rawContent", () => "");
+    updateAnimationDescription("");
   });
 
   // src/js/pages/canvas/animated-pattern-n0/index.js
@@ -29550,12 +29549,12 @@
 
   // src/js/component/common/scroll-down-label/utils.js
   var activateScrollDownArrow = () => {
-    const setScrollDownState = modules_exports2.setStateByName(scrollDownLabelName);
-    setScrollDownState("active", true);
+    const methods = modules_exports2.useMethodByName(scrollDownLabelName);
+    methods.update(true);
   };
   var deactivateScrollDownArrow = () => {
-    const setScrollDownState = modules_exports2.setStateByName(scrollDownLabelName);
-    setScrollDownState("active", false);
+    const methods = modules_exports2.useMethodByName(scrollDownLabelName);
+    methods.update(false);
   };
 
   // src/js/component/pages/scroller/n0/animation/animation.js
@@ -30542,7 +30541,7 @@
                 <dynamic-list-button
                     class="c-dynamic-list__top__button"
                     ${staticProps2(
-        /** @type {DynamicListButton['state']} */
+        /** @type {DynamicListButton['props']} */
         {
           label: buttonLabel
         }
@@ -30570,7 +30569,7 @@
       return renderHtml`
                 <dynamic-list-repeater
                     ${staticProps2(
-        /** @type {DynamicListRepeater['state']} */
+        /** @type {DynamicListRepeater['props']} */
         {
           listId: index,
           key,
@@ -30612,7 +30611,7 @@
                     <dynamic-list-button
                         class="c-dynamic-list__top__button"
                         ${staticProps2(
-      /** @type {DynamicListButton['state']} */
+      /** @type {DynamicListButton['props']} */
       {
         label: "+ counter ( max: 10 )"
       }
@@ -30628,7 +30627,7 @@
                     <dynamic-list-button
                         class="c-dynamic-list__top__button"
                         ${staticProps2(
-      /** @type {DynamicListButton['state']} */
+      /** @type {DynamicListButton['props']} */
       {
         label: "- counter: ( min 0 )"
       }
@@ -30742,7 +30741,7 @@
                     <div class="validate-test-wrapper">
                         <dynamic-list-card-inner
                             ${staticProps2(
-        /** @type {DynamicListCardInner['state']} */
+        /** @type {DynamicListCardInner['props']} */
         {
           key: `${item}`
         }
@@ -30831,7 +30830,7 @@
                     <dynamic-list-counter
                         slot="empty-slot"
                         ${staticProps2(
-      /** @type {DynamicCounter['state']} */
+      /** @type {DynamicCounter['props']} */
       {
         parentListId: proxi.parentListId
       }
@@ -31012,7 +31011,7 @@
         <div class="c-dynamic-list-repeater__item">
             <dynamic-list-card
                 ${staticProps2(
-      /** @type {DynamicListCard['state']} */
+      /** @type {DynamicListCard['props']} */
       {
         parentListId: proxi.listId
       }
@@ -31274,7 +31273,7 @@
     return renderHtml`
         <home-component
             ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/homepage/type').HomeComponent['state']} */
+      /** @type {import('@pagesComponent/homepage/type').HomeComponent['props']} */
       {
         svg
       }
@@ -31401,7 +31400,7 @@
                             <matrioska-item
                                 class="matrioska-item--2"
                                 ${staticProps2(
-          /** @type {MatrioskaItem['state']} */
+          /** @type {MatrioskaItem['props']} */
           {
             level: "level 2"
           }
@@ -31453,7 +31452,7 @@
                                 class="matrioska-item--3"
                                 name="${name}"
                                 ${staticProps2(
-          /** @type {MatrioskaItem['state']} */
+          /** @type {MatrioskaItem['props']} */
           {
             level: "level 3"
           }
@@ -31469,11 +31468,8 @@
         )}
                                 ${delegateEvents({
           click: () => {
-            const updateActiveState = modules_exports2.updateStateByName(name);
-            updateActiveState(
-              "active",
-              (val2) => !val2
-            );
+            const methods = modules_exports2.useMethodByName(name);
+            methods.toggleActive();
           }
         })}
                             >
@@ -31482,7 +31478,7 @@
                                 class="matrioska-item--3"
                                 name="${name2}"
                                 ${staticProps2(
-          /** @type {MatrioskaItem['state']} */
+          /** @type {MatrioskaItem['props']} */
           {
             level: "level 3"
           }
@@ -31499,11 +31495,8 @@
         })}
                                 ${delegateEvents({
           click: () => {
-            const updateActiveState = modules_exports2.updateStateByName(name2);
-            updateActiveState(
-              "active",
-              (val2) => !val2
-            );
+            const methods = modules_exports2.useMethodByName(name2);
+            methods.toggleActive();
           }
         })}
                             >
@@ -31552,7 +31545,7 @@
                                 <matrioska-item
                                     class="matrioska-item--1"
                                     ${staticProps2(
-          /** @type {MatrioskaItem['state']} */
+          /** @type {MatrioskaItem['props']} */
           {
             level: "level 1"
           }
@@ -31585,8 +31578,17 @@
   };
 
   // src/js/component/pages/matrioska/item/matrioska-item.js
-  var MatrioskaItemFn = ({ getProxi, bindText, id, bindEffect }) => {
+  var MatrioskaItemFn = ({
+    getProxi,
+    bindText,
+    id,
+    bindEffect,
+    addMethod
+  }) => {
     const proxi = getProxi();
+    addMethod("toggleActive", () => {
+      proxi.active = !proxi.active;
+    });
     return renderHtml`<matrioska-item
         class="matrioska-item"
         ${bindEffect({
@@ -31642,13 +31644,15 @@
           value: "",
           type: String
         }),
-        active: () => ({
-          value: false,
-          type: Boolean
-        }),
         counter: () => ({
           value: -1,
           type: Number
+        })
+      },
+      state: {
+        active: () => ({
+          value: false,
+          type: Boolean
         })
       },
       style: (
@@ -31779,7 +31783,7 @@
                                     <matrioska-item
                                         class="matrioska-item--2"
                                         ${staticProps2(
-            /** @type {MatrioskaItem['state']} */
+            /** @type {MatrioskaItem['props']} */
             {
               level: "level 2"
             }
@@ -31834,7 +31838,7 @@
                                     class="matrioska-item--3"
                                     name="${name}"
                                     ${staticProps2(
-            /** @type {MatrioskaItem['state']} */
+            /** @type {MatrioskaItem['props']} */
             {
               level: "level 3",
               value: item.value,
@@ -31851,11 +31855,8 @@
           })}
                                     ${delegateEvents({
             click: () => {
-              const updateActiveState = modules_exports2.updateStateByName(name);
-              updateActiveState(
-                "active",
-                (val2) => !val2
-              );
+              const methods = modules_exports2.useMethodByName(name);
+              methods.toggleActive();
             }
           })}
                                 >
@@ -31864,7 +31865,7 @@
                                     class="matrioska-item--3"
                                     name="${name2}"
                                     ${staticProps2(
-            /** @type {MatrioskaItem['state']} */
+            /** @type {MatrioskaItem['props']} */
             {
               level: "level 3",
               value: item.value,
@@ -31881,11 +31882,8 @@
           })}
                                     ${delegateEvents({
             click: () => {
-              const updateActiveState = modules_exports2.updateStateByName(name2);
-              updateActiveState(
-                "active",
-                (val2) => !val2
-              );
+              const methods = modules_exports2.useMethodByName(name2);
+              methods.toggleActive();
             }
           })}
                                 >
@@ -31931,7 +31929,7 @@
                                         <matrioska-item
                                             class="matrioska-item--1"
                                             ${staticProps2(
-            /** @type {MatrioskaItem['state']} */
+            /** @type {MatrioskaItem['props']} */
             {
               level: "level 1"
             }
@@ -32174,7 +32172,7 @@
       return renderHtml`
                 <horizontal-scroller-section
                     ${staticProps2(
-        /** @type {import('./section/type').HorizontalScrollerSection['state']} */
+        /** @type {import('./section/type').HorizontalScrollerSection['props']} */
         {
           id: i,
           pinClass
@@ -32189,7 +32187,7 @@
       return renderHtml`
                 <horizontal-scroller-button
                     ${staticProps2(
-        /** @type {HorizontalScrollerButton['state']} */
+        /** @type {HorizontalScrollerButton['props']} */
         {
           id: i
         }
@@ -32403,7 +32401,7 @@
     return renderHtml`<div>
         <horizontal-scroller
             ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/horizontal-scroller/type').HorizontalScroller['state']} */
+      /** @type {import('@pagesComponent/horizontal-scroller/type').HorizontalScroller['props']} */
       {
         animatePin: false
       }
@@ -33363,7 +33361,7 @@
     });
     return renderHtml`<move-3d-page
         ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/move-3d/type').Move3DPage['state']} */
+      /** @type {import('@pagesComponent/move-3d/type').Move3DPage['props']} */
       { data }
     )}
     ></move-3d-page> `;
@@ -33878,8 +33876,7 @@
   // src/js/component/common/mouse-trail/definition.js
   var MouseTrail = modules_exports2.createComponent({
     tag: "mouse-trail",
-    component: MouseTrailFn,
-    state: {}
+    component: MouseTrailFn
   });
 
   // src/js/utils/parse-svg.js
@@ -34351,7 +34348,7 @@
         <mouse-trail></mouse-trail>
         <move-3d
             ${modules_exports2.staticProps(
-      /** @type {import('@commonComponent/move-3d/type').Move3D['state']} */
+      /** @type {import('@commonComponent/move-3d/type').Move3D['props']} */
       {
         shape: rdp_01_schema({
           u0,
@@ -34974,7 +34971,7 @@
     return renderHtml`<div class="l-padding">
         <async-timeline
             ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/async-timeline/type').AsyncTimeline['state']} */
+      /** @type {import('@pagesComponent/async-timeline/type').AsyncTimeline['props']} */
       {
         disableOffcanvas: false
       }
@@ -35285,7 +35282,7 @@
         <mouse-trail></mouse-trail>
         <move-3d
             ${modules_exports2.staticProps(
-      /** @type {import('@commonComponent/move-3d/type').Move3D['state']} */
+      /** @type {import('@commonComponent/move-3d/type').Move3D['props']} */
       {
         shape: rdp_01_scehema({
           letter_d,
@@ -35468,7 +35465,7 @@
     return renderHtml`<div class="l-mob-02">
         <mobbu-2025
             ${staticProps(
-      /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['state']} */
+      /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['props']} */
       {
         layer01,
         layer02,
@@ -37158,7 +37155,7 @@
         return renderHtml`
                                 <debug-filter-list-item
                                     ${staticProps2(
-          /** @type {DebugFilterListItem['state']} */
+          /** @type {DebugFilterListItem['props']} */
           {
             id: current.value.id,
             name: current.value.name
@@ -37663,7 +37660,7 @@
     return data.map(({ id, componentName, instanceName, children }) => {
       return renderHtml`<debug-tree-item
                 ${staticProps2(
-        /** @type {import('./item/type').DebugTreeItem['state']} */
+        /** @type {import('./item/type').DebugTreeItem['props']} */
         {
           id,
           componentName,
@@ -37996,7 +37993,7 @@
       return isLabel ? renderHtml`<p class="c-params-mobjs__label">${label}</p>` : renderHtml`<li>
                       <links-mobjs-button
                           ${staticProps2(
-        /** @type {LinksMobJsButton['state']} */
+        /** @type {LinksMobJsButton['props']} */
         {
           label,
           url
@@ -38178,9 +38175,12 @@
   );
 
   // src/js/component/common/quick-nav/next-page.js
-  var QuickNavFn = ({ getProxi, bindEffect }) => {
+  var QuickNavFn = ({ getProxi, bindEffect, addMethod }) => {
     const proxi = getProxi();
     const arrow = getIcons()["scrollIcon"];
+    addMethod("update", (prop, value) => {
+      proxi[prop] = value;
+    });
     return renderHtml`<div
         class="c-quick-nav-container"
         ${bindEffect([
@@ -38243,7 +38243,7 @@
     {
       tag: "quick-nav",
       component: QuickNavFn,
-      props: {
+      state: {
         color: () => ({
           value: "black",
           type: String,
@@ -38335,9 +38335,12 @@
   );
 
   // src/js/component/common/scroll-down-label/scroll-down-label.js
-  var ScrollDownLabelFn = ({ getProxi, bindEffect }) => {
+  var ScrollDownLabelFn = ({ getProxi, bindEffect, addMethod }) => {
     const proxi = getProxi();
     const arrow = getIcons()["scrollIcon"];
+    addMethod("update", (value) => {
+      proxi.active = value;
+    });
     return renderHtml`
         <div
             class="c-scroller-down-label"
@@ -38357,7 +38360,7 @@
     {
       tag: "scroll-down-label",
       component: ScrollDownLabelFn,
-      props: {
+      state: {
         active: () => ({
           value: false,
           type: Boolean
@@ -38477,7 +38480,7 @@
         }
       })}
                     ${staticProps2(
-        /** @type {import('./type').FooterNavButton['state']} */
+        /** @type {import('./type').FooterNavButton['props']} */
         {
           label,
           section
@@ -38813,8 +38816,7 @@
   // src/js/component/common/search/cta-search/definition.js
   var Search = modules_exports2.createComponent({
     tag: "search-cta",
-    component: SearchCtaFn,
-    state: {}
+    component: SearchCtaFn
   });
 
   // src/js/component/layout/header/definition.js
@@ -39049,7 +39051,7 @@
         return renderHtml`
                     <mob-navigation-label
                         ${staticProps2(
-          /** @type {NavigationLabel['state']} */
+          /** @type {NavigationLabel['props']} */
           {
             label,
             sectioName,
@@ -39091,7 +39093,7 @@
                       <li class="l-navigation__item">
                           <mob-navigation-button
                               ${staticProps2(
-        /** @type {NavigationButton['state']} */
+        /** @type {NavigationButton['props']} */
         {
           label,
           url,
@@ -39217,7 +39219,7 @@
                 <li class="l-navigation__submenu__item">
                     <mob-navigation-button
                         ${staticProps2(
-        /** @type {NavigationButton['state']} */
+        /** @type {NavigationButton['props']} */
         {
           label,
           url,
@@ -39275,7 +39277,7 @@
         <li class="l-navigation__item has-child">
             <mob-navigation-button
                 ${staticProps2(
-      /** @type {NavigationButton['state']} */
+      /** @type {NavigationButton['props']} */
       {
         label,
         url,
@@ -39524,7 +39526,7 @@
             <div class="search-overlay__list">
                 <search-overlay-list
                     ${staticProps2(
-      /** @type {import('./list/type').SearchOverlayList['state']} */
+      /** @type {import('./list/type').SearchOverlayList['props']} */
       {
         updatePrentSearchKey: (value) => {
           proxi.currentSearch = value;
@@ -40233,9 +40235,13 @@
     getProxi,
     bindEffect,
     bindText,
-    watch
+    watch,
+    addMethod
   }) => {
     const proxi = getProxi();
+    addMethod("updateRawContent", (content) => {
+      proxi.rawContent = content;
+    });
     watch(
       () => proxi.rawContent,
       (value) => {
@@ -40273,13 +40279,11 @@
       tag: "animation-description",
       component: AnimationDescriptionFn,
       bindStore: navigationStore,
-      props: {
+      state: {
         rawContent: () => ({
           value: "",
           type: String
-        })
-      },
-      state: {
+        }),
         content: () => ({
           value: "",
           type: String

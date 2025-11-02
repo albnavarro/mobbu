@@ -10,8 +10,13 @@ export const AnimationDescriptionFn = ({
     bindEffect,
     bindText,
     watch,
+    addMethod,
 }) => {
     const proxi = getProxi();
+
+    addMethod('updateRawContent', (content) => {
+        proxi.rawContent = content;
+    });
 
     /**
      * Remove content after css animation.

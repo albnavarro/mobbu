@@ -1,5 +1,5 @@
 /**
- * @import {MobComponent, ReturnBindProps, StaticProps, UseMethodByName} from '@mobJsType';
+ * @import {MobComponent, ProxiState, ReturnBindProps, StaticProps, UseMethodByName} from '@mobJsType';
  * @import {Navigation, NavigationButton, NavigationContainer, NavigationSubmenu} from './type';
  */
 
@@ -12,7 +12,7 @@ import {
 
 /**
  * @param {object} params
- * @param {NavigationSubmenu['state']} params.proxi
+ * @param {ProxiState<NavigationSubmenu>} params.proxi
  * @param {StaticProps<NavigationButton>} params.staticProps
  * @returns {string}
  */
@@ -25,7 +25,7 @@ function getSubmenu({ proxi, staticProps }) {
                 <li class="l-navigation__submenu__item">
                     <mob-navigation-button
                         ${staticProps(
-                            /** @type {NavigationButton['state']} */ ({
+                            /** @type {NavigationButton['props']} */ ({
                                 label,
                                 url,
                                 subMenuClass: 'l-navigation__link--submenu',
@@ -112,7 +112,7 @@ export const NavigationSubmenuFn = ({
         <li class="l-navigation__item has-child">
             <mob-navigation-button
                 ${staticProps(
-                    /** @type {NavigationButton['state']} */ ({
+                    /** @type {NavigationButton['props']} */ ({
                         label,
                         url,
                         arrowClass: 'l-navigation__link--arrow',

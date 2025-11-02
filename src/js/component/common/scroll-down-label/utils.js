@@ -2,19 +2,19 @@ import { MobJs } from '@mobJs';
 import { scrollDownLabelName } from '../../instance-name';
 
 /**
- * @import {SetStateByName} from '@mobJsType';
+ * @import {UseMethodByName} from '@mobJsType';
  */
 
 /** @type{() => void} */
 export const activateScrollDownArrow = () => {
-    /** @type {SetStateByName<import('./type').ScrollDownLabel>} */
-    const setScrollDownState = MobJs.setStateByName(scrollDownLabelName);
-    setScrollDownState('active', true);
+    /** @type {UseMethodByName<import('./type').ScrollDownLabel>} */
+    const methods = MobJs.useMethodByName(scrollDownLabelName);
+    methods.update(true);
 };
 
 /** @type{() => void} */
 export const deactivateScrollDownArrow = () => {
-    /** @type {SetStateByName<import('./type').ScrollDownLabel>} */
-    const setScrollDownState = MobJs.setStateByName(scrollDownLabelName);
-    setScrollDownState('active', false);
+    /** @type {UseMethodByName<import('./type').ScrollDownLabel>} */
+    const methods = MobJs.useMethodByName(scrollDownLabelName);
+    methods.update(false);
 };

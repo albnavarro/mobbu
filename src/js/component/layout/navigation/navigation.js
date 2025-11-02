@@ -34,7 +34,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                 return html`
                     <mob-navigation-label
                         ${staticProps(
-                            /** @type {NavigationLabel['state']} */ ({
+                            /** @type {NavigationLabel['props']} */ ({
                                 label,
                                 sectioName,
                                 hide: !!hide,
@@ -78,7 +78,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                       <li class="l-navigation__item">
                           <mob-navigation-button
                               ${staticProps(
-                                  /** @type {NavigationButton['state']} */ ({
+                                  /** @type {NavigationButton['props']} */ ({
                                       label,
                                       url,
                                       scrollToSection:

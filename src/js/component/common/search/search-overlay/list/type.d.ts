@@ -16,10 +16,12 @@ interface SearchOverlayListState extends Readonly<MobJsStore> {
     list: SearchListItem[];
     loading: boolean;
     noResult: boolean;
-    updatePrentSearchKey: (value: string) => void;
 }
 
 export interface SearchOverlayList {
+    props: {
+        updatePrentSearchKey: (value: string) => void;
+    };
     state: SearchOverlayListState;
     methods: {
         update: (data: string) => Promise<void>;

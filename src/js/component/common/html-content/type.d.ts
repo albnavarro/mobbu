@@ -1,5 +1,5 @@
 export interface HtmlContent {
-    state: {
+    props: {
         source: string;
         data: { component: string; props: any; content: string }[];
         awaitLoadSnippet: boolean;

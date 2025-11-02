@@ -1,5 +1,8 @@
 export interface DebugHead {
-    state: {
+    props: {
         active: boolean;
+    };
+    state: {
+        shouldUpdate: boolean;
     };
 }

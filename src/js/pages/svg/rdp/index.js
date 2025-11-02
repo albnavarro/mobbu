@@ -65,7 +65,7 @@ export const rdp = async () => {
         <mouse-trail></mouse-trail>
         <move-3d
             ${MobJs.staticProps(
-                /** @type {import('@commonComponent/move-3d/type').Move3D['state']} */ ({
+                /** @type {import('@commonComponent/move-3d/type').Move3D['props']} */ ({
                     shape: rdp_01_scehema({
                         letter_d,
                         letter_r,

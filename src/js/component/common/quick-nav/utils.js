@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { quickNavName } from '../../instance-name';
 
 /**
- * @import {SetStateByName} from '@mobJsType';
+ * @import {UseMethodByName} from '@mobJsType';
  */
 
 /**
@@ -15,24 +15,24 @@ export const updateQuickNavState = ({
     backRoute = '',
     color = 'black',
 }) => {
-    /** @type {SetStateByName<import('./type').QuickNav>} */
-    const setQuickNavState = MobJs.setStateByName(quickNavName);
-    setQuickNavState('active', active);
-    setQuickNavState('nextRoute', nextRoute);
-    setQuickNavState('prevRoute', prevRoute);
-    setQuickNavState('backRoute', backRoute);
-    setQuickNavState('color', color);
+    /** @type {UseMethodByName<import('./type').QuickNav>} */
+    const methods = MobJs.useMethodByName(quickNavName);
+    methods.update('active', active);
+    methods.update('nextRoute', nextRoute);
+    methods.update('prevRoute', prevRoute);
+    methods.update('backRoute', backRoute);
+    methods.update('color', color);
 };
 
 /**
  * Reset.
  */
 MobJs.beforeRouteChange(() => {
-    /** @type {SetStateByName<import('./type').QuickNav>} */
-    const setQuickNavState = MobJs.setStateByName(quickNavName);
-    setQuickNavState('active', false);
-    setQuickNavState('nextRoute', '');
-    setQuickNavState('prevRoute', '');
-    setQuickNavState('backRoute', '');
-    setQuickNavState('color', 'black');
+    /** @type {UseMethodByName<import('./type').QuickNav>} */
+    const methods = MobJs.useMethodByName(quickNavName);
+    methods.update('active', false);
+    methods.update('nextRoute', '');
+    methods.update('prevRoute', '');
+    methods.update('backRoute', '');
+    methods.update('color', 'black');
 });

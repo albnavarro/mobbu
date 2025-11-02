@@ -1,8 +1,10 @@
 export interface HorizontalScroller {
+    props: {
+        animatePin: boolean;
+    };
     state: {
         currentId: number;
         currentIdFromScroll: number;
-        animatePin: boolean;
     };
     ref: {
         js_root: HTMLElement;

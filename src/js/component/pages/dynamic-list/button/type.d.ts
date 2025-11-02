@@ -1,5 +1,5 @@
 export interface DynamicListButton {
-    state: {
+    props: {
         label: string;
         active: boolean;
     };

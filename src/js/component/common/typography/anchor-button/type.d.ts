@@ -1,5 +1,5 @@
 export interface AnchorBUtton {
-    state: {
+    props: {
         anchor: string;
         content: string;
     };

@@ -1,5 +1,5 @@
 export interface DynamicListSlottedLabel {
-    state: {
+    props: {
         label: string;
     };
 }

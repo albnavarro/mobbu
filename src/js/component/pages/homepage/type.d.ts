@@ -1,6 +1,8 @@
 export interface HomeComponent {
-    state: {
+    props: {
         svg: string;
+    };
+    state: {
         isMounted: boolean;
     };
 }

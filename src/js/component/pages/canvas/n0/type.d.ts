@@ -1,6 +1,5 @@
 export interface CaterpillarN0 {
-    state: {
-        isMounted: boolean;
+    props: {
         nextRoute: string;
         prevRoute: string;
         amountOfPath: number;
@@ -15,6 +14,9 @@ export interface CaterpillarN0 {
         perpetualRatio: number;
         mouseMoveRatio: number;
         disableOffcanvas: boolean;
+    };
+    state: {
+        isMounted: boolean;
     };
     ref: {
         canvas: HTMLCanvasElement;

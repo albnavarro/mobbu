@@ -1,5 +1,5 @@
 export interface Paragraph {
-    state: {
+    props: {
         style: 'small' | 'medium' | 'big';
         boxed: boolean;
         note: boolean;

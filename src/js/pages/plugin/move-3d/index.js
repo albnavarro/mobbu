@@ -20,7 +20,7 @@ export const move3DRoute = async ({ props }) => {
 
     return html`<move-3d-page
         ${MobJs.staticProps(
-            /** @type {import('@pagesComponent/move-3d/type').Move3DPage['state']} */
+            /** @type {import('@pagesComponent/move-3d/type').Move3DPage['props']} */
             ({ data })
         )}
     ></move-3d-page> `;

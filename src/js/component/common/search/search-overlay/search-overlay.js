@@ -107,7 +107,7 @@ export const SearchOverlayFn = ({
             <div class="search-overlay__list">
                 <search-overlay-list
                     ${staticProps(
-                        /** @type {import('./list/type').SearchOverlayList['state']} */
+                        /** @type {import('./list/type').SearchOverlayList['props']} */
                         ({
                             updatePrentSearchKey: (value) => {
                                 proxi.currentSearch = value;

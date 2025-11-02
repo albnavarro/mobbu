@@ -16,7 +16,7 @@ export const layoutAbout = async () => {
 
     return html`<about-component
         ${MobJs.staticProps(
-            /** @type {import('@pagesComponent/about/type').About['state']} */
+            /** @type {import('@pagesComponent/about/type').About['props']} */
             ({
                 block_1: data.block_1,
                 block_2: data.block_2,

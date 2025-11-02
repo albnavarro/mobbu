@@ -1,5 +1,5 @@
 export interface DynamicListCardInner {
-    state: {
+    props: {
         key: string;
     };
 }

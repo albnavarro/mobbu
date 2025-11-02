@@ -64,7 +64,7 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
                 <dynamic-list-button
                     class="c-dynamic-list__top__button"
                     ${staticProps(
-                        /** @type {DynamicListButton['state']} */ ({
+                        /** @type {DynamicListButton['props']} */ ({
                             label: buttonLabel,
                         })
                     )}
@@ -102,7 +102,7 @@ function getRepeaters({ bindProps, staticProps, proxi }) {
             return html`
                 <dynamic-list-repeater
                     ${staticProps(
-                        /** @type {DynamicListRepeater['state']} */ ({
+                        /** @type {DynamicListRepeater['props']} */ ({
                             listId: index,
                             key,
                             clean,
@@ -147,7 +147,7 @@ export const DynamicListFn = ({
                     <dynamic-list-button
                         class="c-dynamic-list__top__button"
                         ${staticProps(
-                            /** @type {DynamicListButton['state']} */ ({
+                            /** @type {DynamicListButton['props']} */ ({
                                 label: '+ counter ( max: 10 )',
                             })
                         )}
@@ -162,7 +162,7 @@ export const DynamicListFn = ({
                     <dynamic-list-button
                         class="c-dynamic-list__top__button"
                         ${staticProps(
-                            /** @type {DynamicListButton['state']} */ ({
+                            /** @type {DynamicListButton['props']} */ ({
                                 label: '- counter: ( min 0 )',
                             })
                         )}

@@ -1,5 +1,5 @@
 export interface StarSvg {
-    state: {
+    props: {
         fill: string;
     };
 }

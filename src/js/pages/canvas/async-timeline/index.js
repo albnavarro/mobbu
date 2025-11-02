@@ -24,7 +24,7 @@ export const asyncTimeline = () => {
     return html`<div class="l-padding">
         <async-timeline
             ${MobJs.staticProps(
-                /** @type {import('@pagesComponent/async-timeline/type').AsyncTimeline['state']} */
+                /** @type {import('@pagesComponent/async-timeline/type').AsyncTimeline['props']} */
                 ({
                     disableOffcanvas: false,
                 })

@@ -1,5 +1,5 @@
 export interface ScrollToButton {
-    state: {
+    props: {
         label: string;
         active: boolean;
         isSection: boolean;

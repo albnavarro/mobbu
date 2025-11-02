@@ -8,8 +8,18 @@ import { html } from '@mobJs';
  */
 
 /** @type {MobComponent<MatrioskaItem>} */
-export const MatrioskaItemFn = ({ getProxi, bindText, id, bindEffect }) => {
+export const MatrioskaItemFn = ({
+    getProxi,
+    bindText,
+    id,
+    bindEffect,
+    addMethod,
+}) => {
     const proxi = getProxi();
+
+    addMethod('toggleActive', () => {
+        proxi.active = !proxi.active;
+    });
 
     return html`<matrioska-item
         class="matrioska-item"

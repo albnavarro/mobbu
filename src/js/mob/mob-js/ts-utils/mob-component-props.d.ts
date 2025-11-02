@@ -5,6 +5,8 @@ import { DelegateEventObject } from '../modules/delegate-events/type';
 import { ArrayElement, NotValue, OnlyStringKey } from './utils';
 
 export type ExtractState<T> = T['state'];
+export type ExtractProps<T> = T['props'];
+export type ExtractPropsAndState<T> = T['state'] & T['props'];
 export type ExtractMethods<T> = T['methods'];
 export type ExtractRef<T> = T['ref'];
 
@@ -13,19 +15,19 @@ export type ExtractRef<T> = T['ref'];
  */
 interface BindPropsObject<T, R> {
     observe?:
-        | OnlyStringKey<ExtractState<T>>[]
-        | (() => ExtractState<T>[keyof ExtractState<T>])[];
+        | OnlyStringKey<ExtractPropsAndState<T>>[]
+        | (() => ExtractPropsAndState<T>[keyof ExtractPropsAndState<T>])[];
     props: (
-        arg0: ExtractState<T>,
+        arg0: ExtractPropsAndState<T>,
         value: Record<string, any>,
         index: number
-    ) => Partial<ExtractState<R>>;
+    ) => Partial<ExtractPropsAndState<R>>;
 }
 
 /**
  * BindProps auto mode.
  */
-type BindPropsFunction<R> = () => Partial<ExtractState<R>>;
+type BindPropsFunction<R> = () => Partial<ExtractProps<R>>;
 
 /**
  * BindProps.
@@ -58,7 +60,7 @@ export type PartialBindEffect<T> = (
 /**
  * GetState
  */
-export type PartialGetState<T> = () => ExtractState<T>;
+export type PartialGetState<T> = () => ExtractPropsAndState<T>;
 
 /**
  * SetState
@@ -105,12 +107,12 @@ interface PartialUpdateState<T> {
 /**
  * Get proxi function
  */
-export type PartialGetProxi<T> = () => ExtractState<T>;
+export type PartialGetProxi<T> = () => ExtractPropsAndState<T>;
 
 /**
  * Get proxi state
  */
-export type PartialGetProxiState<T> = ExtractState<T>;
+export type PartialGetProxiState<T> = ExtractPropsAndState<T>;
 
 /**
  * SetStateByName
@@ -160,18 +162,18 @@ interface PartialEmitAsync<T> {
 export interface PartialCompunted<T> {
     <K extends keyof ExtractState<T>>(
         prop: K,
-        callback: (arg0: ExtractState<T>) => ExtractState<T>[K],
+        callback: (arg0: ExtractPropsAndState<T>) => ExtractState<T>[K],
         keys?: (
-            | NotValue<keyof ExtractState<T>, K>
-            | (() => T[keyof ExtractState<T>])
+            | NotValue<keyof ExtractPropsAndState<T>, K>
+            | (() => T[keyof ExtractPropsAndState<T>])
         )[]
     ): void;
     <K extends T[keyof ExtractState<T>]>(
         prop: () => K,
-        callback: (arg0: ExtractState<T>) => NoInfer<K>,
+        callback: (arg0: ExtractPropsAndState<T>) => NoInfer<K>,
         keys?: (
-            | NotValue<keyof ExtractState<T>, K>
-            | (() => T[keyof ExtractState<T>])
+            | NotValue<keyof ExtractPropsAndState<T>, K>
+            | (() => T[keyof ExtractPropsAndState<T>])
         )[]
     ): void;
 }
@@ -180,11 +182,11 @@ export interface PartialCompunted<T> {
  * Watch
  */
 export interface PartialWatch<T> {
-    <K extends keyof ExtractState<T>>(
+    <K extends keyof ExtractPropsAndState<T>>(
         prop: K,
         callback: (
-            current: ExtractState<T>[K],
-            previous: ExtractState<T>[K],
+            current: ExtractPropsAndState<T>[K],
+            previous: ExtractPropsAndState<T>[K],
             validate: boolean
         ) => void,
         options?: {
@@ -192,7 +194,7 @@ export interface PartialWatch<T> {
             immediate?: boolean;
         }
     ): () => void;
-    <K extends T[keyof ExtractState<T>]>(
+    <K extends T[keyof ExtractPropsAndState<T>]>(
         prop: () => K,
         callback: (
             current: K,
@@ -222,16 +224,20 @@ export type PartialGetChildren = (componentName: string) => string[];
  * FreezeProp
  */
 interface PartialFreezeProp<T> {
-    <K extends keyof ExtractState<T>>(prop: K): void;
-    <K extends ExtractState<T>[keyof ExtractState<T>]>(prop: () => K): void;
+    <K extends keyof ExtractPropsAndState<T>>(prop: K): void;
+    <K extends ExtractPropsAndState<T>[keyof ExtractPropsAndState<T>]>(
+        prop: () => K
+    ): void;
 }
 
 /**
  * UnFreezeProp
  */
 interface PartialUnFreezeProp<T> {
-    <K extends keyof ExtractState<T>>(prop: K): void;
-    <K extends ExtractState<T>[keyof ExtractState<T>]>(prop: () => K): void;
+    <K extends keyof ExtractPropsAndState<T>>(prop: K): void;
+    <K extends ExtractPropsAndState<T>[keyof ExtractPropsAndState<T>]>(
+        prop: () => K
+    ): void;
 }
 
 /**
@@ -244,7 +250,7 @@ export type PartialGetParentId = () => string | undefined;
  */
 export interface PartialCurrent<T, K> {
     index: number;
-    value: ArrayElement<ExtractState<T>[K]>;
+    value: ArrayElement<ExtractPropsAndState<T>[K]>;
 }
 
 export interface PartialCurrentProxi<K> {
@@ -278,7 +284,7 @@ export type PartialOnMount = (
  * Repeat
  */
 export interface PartialRepeat<T> {
-    <K extends keyof ExtractState<T> & string>(arg0: {
+    <K extends keyof ExtractPropsAndState<T> & string>(arg0: {
         /**
          * Clean previous item.
          */
@@ -348,11 +354,11 @@ export interface PartialRepeat<T> {
         render: (arg0: {
             sync: () => string;
             initialIndex: number;
-            initialValue: ArrayElement<ExtractState<T>[K]>;
+            initialValue: ArrayElement<ExtractPropsAndState<T>[K]>;
             current: PartialCurrent<T, K>;
         }) => string;
     }): string;
-    <K extends ExtractState<T>[keyof ExtractState<T>]>(arg0: {
+    <K extends ExtractPropsAndState<T>[keyof ExtractPropsAndState<T>]>(arg0: {
         /**
          * Clean previous item.
          */
@@ -444,16 +450,16 @@ export type PartialRenderComponent = (arg0: {
 interface PartialInvalidateComponent<T> {
     (arg0: {
         observe?:
-            | OnlyStringKey<ExtractState<T>>[]
-            | OnlyStringKey<ExtractState<T>>;
+            | OnlyStringKey<ExtractPropsAndState<T>>[]
+            | OnlyStringKey<ExtractPropsAndState<T>>;
         beforeUpdate?(): Promise<void>;
         afterUpdate?(): void;
         render: () => string;
     }): string;
     (arg0: {
         observe?:
-            | (() => ExtractState<T>[keyof ExtractState<T>])[]
-            | (() => ExtractState<T>[keyof ExtractState<T>]);
+            | (() => ExtractPropsAndState<T>[keyof ExtractPropsAndState<T>])[]
+            | (() => ExtractPropsAndState<T>[keyof ExtractPropsAndState<T>]);
         beforeUpdate?(): Promise<void>;
         afterUpdate?(): void;
         render: () => string;
@@ -463,7 +469,7 @@ interface PartialInvalidateComponent<T> {
 /**
  * StaticProps
  */
-export type PartialStaticProps<R> = (arg0: Partial<ExtractState<R>>) => string;
+export type PartialStaticProps<R> = (arg0: Partial<ExtractProps<R>>) => string;
 
 /**
  * Methods
@@ -491,4 +497,4 @@ export type PartialSetRef<T> = (arg0: OnlyStringKey<ExtractRef<T>>) => string;
 export type PartialGetRef<T> = () => ExtractRef<T>;
 export type PartialGetRefs<T> = () => RefToArray<ExtractRef<T>>;
 export type PartialBindText = (TemplateStringsArray, ...any) => string;
-export type PartialReturnBindProps<T> = Partial<ExtractState<T>>;
+export type PartialReturnBindProps<T> = Partial<ExtractProps<T>>;

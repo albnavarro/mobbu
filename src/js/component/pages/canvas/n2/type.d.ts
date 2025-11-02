@@ -7,8 +7,7 @@ export type CaterpillarN2Button = Record<
 >;
 
 export interface CaterpillarN2 {
-    state: {
-        isMounted: boolean;
+    props: {
         numItems: number;
         width: number;
         height: number;
@@ -21,6 +20,9 @@ export interface CaterpillarN2 {
         rotationDefault: number;
         friction: number;
         disableOffcanvas: boolean;
+    };
+    state: {
+        isMounted: boolean;
         buttons: CaterpillarN2Button;
     };
     ref: {

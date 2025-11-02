@@ -24,7 +24,7 @@ export const canvas_overview = async () => {
         <html-content
             slot="docs"
             ${MobJs.staticProps(
-                /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['state']>} */
+                /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
                 ({
                     data: data.data,
                     useMaxWidth: true,

@@ -7,9 +7,14 @@ import { getIcons } from '@data/index';
 import { html } from '@mobJs';
 
 /** @type {MobComponent<QuickNav>} */
-export const QuickNavFn = ({ getProxi, bindEffect }) => {
+export const QuickNavFn = ({ getProxi, bindEffect, addMethod }) => {
     const proxi = getProxi();
     const arrow = getIcons()['scrollIcon'];
+
+    addMethod('update', (prop, value) => {
+        // @ts-ignore
+        proxi[prop] = value;
+    });
 
     return html`<div
         class="c-quick-nav-container"

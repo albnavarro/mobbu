@@ -6,6 +6,9 @@ export interface QuickNav {
         nextRoute: string;
         backRoute: string;
     };
+    methods: {
+        update: (prop: string, value: any) => void;
+    };
 }
 
 export type UpdateQuickNavState = (arg0: {

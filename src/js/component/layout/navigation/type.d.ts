@@ -1,7 +1,7 @@
 import { NavigationStore } from '@stores/navigation/type';
 
 export interface NavigationButton {
-    state: {
+    props: {
         label: string;
         url: string;
         activeId: number;
@@ -11,23 +11,24 @@ export interface NavigationButton {
         fireRoute: boolean;
         callback: () => void;
         isOpen: boolean;
-        isCurrent: boolean;
         forceChildren: string[];
+    };
+    state: {
+        isCurrent: boolean;
     };
 }
 
-interface NavigationLabelState extends Readonly<NavigationStore> {
-    label: string;
-    sectioName: string;
-    hide?: boolean;
-}
-
 export interface NavigationLabel {
-    state: NavigationLabelState;
+    props: {
+        label: string;
+        sectioName: string;
+        hide?: boolean;
+    };
+    state: Readonly<NavigationStore>;
 }
 
 export interface NavigationSubmenu {
-    state: {
+    props: {
         callback: (arg0: { forceClose: boolean }) => void;
         headerButton: Partial<{ label: string; url: string; activeId: number }>;
         children: any[];

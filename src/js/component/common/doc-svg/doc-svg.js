@@ -3,7 +3,7 @@ import { loadTextContent } from '@utils/utils';
 
 /**
  * @param {Object} params
- * @param {import('./type').DocSvg['state']} params.proxi
+ * @param {import('@mobJsType').ProxiState<import('./type').DocSvg>} params.proxi
  */
 const loadSvg = async ({ proxi }) => {
     const { success, data } = await loadTextContent({ source: proxi.url });

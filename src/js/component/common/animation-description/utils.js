@@ -5,13 +5,11 @@ import { animationDescription } from '../../instance-name';
  * @param {string} content
  */
 export const updateAnimationDescription = (content) => {
-    /** @type {import('@mobJsType').UpdateState<import('./type').AnimationDescription>} */
-    const updateState = MobJs.updateStateByName(animationDescription);
-    updateState('rawContent', () => content);
+    /** @type {import('@mobJsType').UseMethodByName<import('./type').AnimationDescription>} */
+    const methods = MobJs.useMethodByName(animationDescription);
+    methods?.updateRawContent?.(content);
 };
 
 MobJs.beforeRouteChange(() => {
-    /** @type {import('@mobJsType').UpdateState<import('./type').AnimationDescription>} */
-    const updateState = MobJs.updateStateByName(animationDescription);
-    updateState('rawContent', () => '');
+    updateAnimationDescription('');
 });

@@ -1,5 +1,5 @@
 export interface DynamicCounter {
-    state: {
+    props: {
         parentListId: number;
         counter: number;
     };

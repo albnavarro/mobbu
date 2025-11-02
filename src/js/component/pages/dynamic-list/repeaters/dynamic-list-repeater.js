@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import {Current, MobComponent, ReturnBindProps, StaticProps, BindProps, DelegateEvents} from '@mobJsType';
+ * @import {Current, MobComponent, ReturnBindProps, StaticProps, BindProps, DelegateEvents, ProxiState} from '@mobJsType';
  * @import {DynamicListCard} from '../card/type';
  * @import {DynamicListRepeater} from './type';
  * @import {DynamicListSlottedLabel} from '../slotted-label/type';
@@ -15,7 +15,7 @@ import { html } from '@mobJs';
  * @param {BindProps<DynamicListRepeater>} param.bindProps
  * @param {DelegateEvents} param.delegateEvents
  * @param {Current<DynamicListRepeater, 'data'>} param.current
- * @param {DynamicListRepeater['state']} param.proxi
+ * @param {ProxiState<DynamicListRepeater>} param.proxi
  */
 function getRepeaterCard({
     staticProps,
@@ -28,7 +28,7 @@ function getRepeaterCard({
         <div class="c-dynamic-list-repeater__item">
             <dynamic-list-card
                 ${staticProps(
-                    /** @type {DynamicListCard['state']} */ ({
+                    /** @type {DynamicListCard['props']} */ ({
                         parentListId: proxi.listId,
                     })
                 )}

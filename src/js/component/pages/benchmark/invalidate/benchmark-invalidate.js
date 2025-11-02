@@ -70,7 +70,7 @@ export const BenchMarkInvalidateFn = ({
                                 return html`
                                     <benchmark-fake-component
                                         ${staticProps(
-                                            /** @type {import('../fake-component/type').BenchMarkFakeComponent['state']} */ ({
+                                            /** @type {import('../fake-component/type').BenchMarkFakeComponent['props']} */ ({
                                                 label,
                                                 index,
                                             })

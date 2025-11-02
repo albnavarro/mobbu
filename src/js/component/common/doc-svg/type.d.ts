@@ -1,7 +1,9 @@
 export interface DocSvg {
-    state: {
+    props: {
         url: string;
-        source: string;
         className?: string;
+    };
+    state: {
+        source: string;
     };
 }

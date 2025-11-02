@@ -8,7 +8,7 @@ import {
 } from '@mobMotionType';
 
 export interface About {
-    state: {
+    props: {
         block_1: {
             titleTop: string;
             titleBottom: string;
@@ -26,6 +26,8 @@ export interface About {
             items: string[];
         };
         aboutSvg: string;
+    };
+    state: {
         navItem: { index: number; label: string }[];
         activenavItem: number;
         isMounted: boolean;

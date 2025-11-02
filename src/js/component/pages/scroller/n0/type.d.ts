@@ -1,8 +1,7 @@
 import { StaggerObject } from 'src/js/mob/mobMotion/animation/utils/stagger/type';
 
 export interface ScrollerN0 {
-    state: {
-        isMounted: boolean;
+    props: {
         numberOfRow: number;
         numberOfColumn: number;
         cellWidth: number;
@@ -12,6 +11,9 @@ export interface ScrollerN0 {
         stagger: StaggerObject;
         reorder: boolean;
         disableOffcanvas: boolean;
+    };
+    state: {
+        isMounted: boolean;
     };
     ref: {
         canvas: HTMLCanvasElement;

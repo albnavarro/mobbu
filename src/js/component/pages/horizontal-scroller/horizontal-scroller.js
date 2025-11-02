@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import {MobComponent, SetState, BindProps, StaticProps, DelegateEvents} from '@mobJsType';
+ * @import {MobComponent, SetState,  StaticProps, DelegateEvents} from '@mobJsType';
  * @import {HorizontalScroller} from './type';
  * @import {HorizontalScrollerButton} from './button/type';
  */
@@ -27,7 +27,7 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
             return html`
                 <horizontal-scroller-section
                     ${staticProps(
-                        /** @type {import('./section/type').HorizontalScrollerSection['state']} */ ({
+                        /** @type {import('./section/type').HorizontalScrollerSection['props']} */ ({
                             id: i,
                             pinClass,
                         })
@@ -51,7 +51,7 @@ const getNav = ({ numOfCol, setState, staticProps, delegateEvents }) => {
             return html`
                 <horizontal-scroller-button
                     ${staticProps(
-                        /** @type {HorizontalScrollerButton['state']} */ ({
+                        /** @type {HorizontalScrollerButton['props']} */ ({
                             id: i,
                         })
                     )}

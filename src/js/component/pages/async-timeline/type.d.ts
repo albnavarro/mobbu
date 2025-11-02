@@ -14,9 +14,11 @@ export type CaterpillarN2Button = Record<
     }
 >;
 export interface AsyncTimeline {
+    props: {
+        disableOffcanvas: boolean;
+    };
     state: {
         isMounted: boolean;
-        disableOffcanvas: boolean;
         buttons: AsyncTimelineControls;
     };
     ref: {

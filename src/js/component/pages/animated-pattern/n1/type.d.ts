@@ -1,6 +1,5 @@
 export interface AnimatedPatternN1 {
-    state: {
-        isMounted: boolean;
+    props: {
         numberOfRow: number;
         numberOfColumn: number;
         cellWidth: number;
@@ -8,6 +7,9 @@ export interface AnimatedPatternN1 {
         gutter: number;
         fill: number[];
         disableOffcanvas: boolean;
+    };
+    state: {
+        isMounted: boolean;
     };
     ref: {
         canvas: HTMLCanvasElement;

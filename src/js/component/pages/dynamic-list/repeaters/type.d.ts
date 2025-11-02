@@ -1,5 +1,5 @@
 export interface DynamicListRepeater {
-    state: {
+    props: {
         data: { key: string; label: string }[];
         key: string;
         clean: boolean;

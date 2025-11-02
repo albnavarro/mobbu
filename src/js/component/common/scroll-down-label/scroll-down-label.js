@@ -8,10 +8,13 @@ import { getIcons } from '@data/index';
 import { html } from '@mobJs';
 
 /** @type {MobComponent<ScrollDownLabel>} */
-export const ScrollDownLabelFn = ({ getProxi, bindEffect }) => {
+export const ScrollDownLabelFn = ({ getProxi, bindEffect, addMethod }) => {
     const proxi = getProxi();
-
     const arrow = getIcons()['scrollIcon'];
+
+    addMethod('update', (value) => {
+        proxi.active = value;
+    });
 
     return html`
         <div

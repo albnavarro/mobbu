@@ -12,9 +12,8 @@ type AnchorPoint =
 type Rotate = 'x' | 'y' | 'xy' | '';
 
 export interface Move3DItem {
-    state: {
+    props: {
         root?: boolean;
-        id: any;
         depth: number;
         rotate: Rotate;
         range: number;
@@ -32,6 +31,9 @@ export interface Move3DItem {
             className?: string;
             props?: any;
         };
+    };
+    state: {
+        id: any;
     };
     methods: {
         move: (arg0: { delta: number; factor: number }) => void;

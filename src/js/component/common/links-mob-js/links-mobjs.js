@@ -33,7 +33,7 @@ const getItems = ({ staticProps, bindProps, proxi }) => {
                 : html`<li>
                       <links-mobjs-button
                           ${staticProps(
-                              /** @type {LinksMobJsButton['state']} */ ({
+                              /** @type {LinksMobJsButton['props']} */ ({
                                   label,
                                   url,
                               })
