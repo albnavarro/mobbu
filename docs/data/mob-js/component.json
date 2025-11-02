@@ -303,7 +303,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "An array of component states exposed for external access (e.g., parent-to-child communication)."
+            "content": "An array of component states exposed for external access ( <strong>Props</strong> ).<br/>Props cannot be modified inside the component. "
         },
         {
             "component": "mob-spacer",
