@@ -13,19 +13,7 @@ export const ScrollerN0 = MobJs.createComponent(
     ({
         tag: 'scroller-n0',
         component: ScrollerN0Fn,
-        exportState: [
-            'numberOfRow',
-            'numberOfColumn',
-            'cellWidth',
-            'cellHeight',
-            'gutter',
-            'fill',
-            'stagger',
-            'reorder',
-            'disableOffcanvas',
-        ],
-        state: {
-            isMounted: false,
+        props: {
             numberOfRow: () => ({
                 value: 10,
                 type: Number,
@@ -69,6 +57,9 @@ export const ScrollerN0 = MobJs.createComponent(
                 value: detectFirefox() || detectSafari() ? true : false,
                 type: Boolean,
             }),
+        },
+        state: {
+            isMounted: false,
         },
     })
 );

@@ -10,8 +10,7 @@ export const QuickNav = MobJs.createComponent(
     ({
         tag: 'quick-nav',
         component: QuickNavFn,
-        exportState: ['color', 'active', 'prevRoute', 'nextRoute', 'backRoute'],
-        state: {
+        props: {
             color: () => ({
                 value: 'black',
                 type: String,

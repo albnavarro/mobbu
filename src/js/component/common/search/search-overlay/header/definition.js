@@ -11,7 +11,6 @@ export const SearchOverlayHeader = MobJs.createComponent(
     ({
         tag: 'search-overlay-header',
         component: SearchOverlayHeaderFn,
-        exportState: [],
         state: {
             suggestionListActive: () => ({
                 value: false,

@@ -10,8 +10,7 @@ export const AnyComponent = MobJs.createComponent(
     ({
         tag: 'any-component',
         component: AnyComponentFn,
-        exportState: ['content'],
-        state: {
+        props: {
             content: () => ({
                 value: '',
                 type: String,

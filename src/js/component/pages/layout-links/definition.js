@@ -12,8 +12,7 @@ export const LayoutLinks = MobJs.createComponent(
     ({
         tag: 'layout-links',
         component: LayoutLinksFn,
-        exportState: ['title', 'items'],
-        state: {
+        props: {
             title: () => ({
                 value: '',
                 type: String,
@@ -22,6 +21,8 @@ export const LayoutLinks = MobJs.createComponent(
                 value: [],
                 type: Array,
             }),
+        },
+        state: {
             isMounted: () => ({
                 value: false,
                 type: Boolean,
@@ -31,6 +32,5 @@ export const LayoutLinks = MobJs.createComponent(
                 type: Boolean,
             }),
         },
-        child: [],
     })
 );

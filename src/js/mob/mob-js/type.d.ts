@@ -41,7 +41,8 @@ import {
     PartialWatch,
     PartialWatchParent,
 } from './ts-utils/mob-component-props';
-import { OnlyStringKey } from './ts-utils/utils';
+
+// import { OnlyStringKey } from './ts-utils/utils';
 
 export type MobJsStore = MainStore;
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
@@ -146,8 +147,6 @@ export interface ComponentPropsType<T, R> {
  */
 
 export interface ComponentParsed<T> {
-    exportState?: OnlyStringKey<ExtractState<T>>[];
-
     /**
      * Fire onMount callback immediately, normally onMount is fired at the end of current parse. This means that if
      * `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no
@@ -175,6 +174,7 @@ export interface ComponentParsed<T> {
     }) => void;
     attributeToObserve?: string[];
     style?: string;
+    props?: Partial<MobStoreParams<ExtractState<T>>>;
     state?: Partial<MobStoreParams<ExtractState<T>>>;
     bindStore?: BindStoreValueType;
     child?: CreateComponentReturnType[];

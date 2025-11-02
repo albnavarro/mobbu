@@ -58,22 +58,7 @@ export const CaterpillarN2 = MobJs.createComponent(
     ({
         tag: 'caterpillar-n2',
         component: CaterpillarN2Fn,
-        exportState: [
-            'numItems',
-            'width',
-            'height',
-            'radius',
-            'fill',
-            'opacity',
-            'xAmplitude',
-            'yAmplitude',
-            'duration',
-            'rotationDefault',
-            'friction',
-            'disableOffcanvas',
-        ],
-        state: {
-            isMounted: false,
+        props: {
             numItems: 20,
             width: window.innerHeight / 13,
             height: window.innerHeight / 13,
@@ -89,6 +74,9 @@ export const CaterpillarN2 = MobJs.createComponent(
                 value: detectFirefox() || detectSafari() ? true : false,
                 type: Boolean,
             }),
+        },
+        state: {
+            isMounted: false,
             buttons: () => ({
                 value: buttons,
                 type: 'Any',

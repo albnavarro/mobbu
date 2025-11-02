@@ -12,7 +12,6 @@ export const SearchOverlay = MobJs.createComponent(
     ({
         tag: 'search-overlay',
         component: SearchOverlayFn,
-        exportState: [],
         state: {
             active: () => ({
                 value: false,

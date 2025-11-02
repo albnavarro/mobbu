@@ -13,17 +13,7 @@ export const AnimatedPatternN1 = MobJs.createComponent(
     ({
         tag: 'animatedpattern-n1',
         component: AnimatedPatternN1Fn,
-        exportState: [
-            'numberOfRow',
-            'numberOfColumn',
-            'cellWidth',
-            'cellHeight',
-            'gutter',
-            'fill',
-            'disableOffcanvas',
-        ],
-        state: {
-            isMounted: false,
+        props: {
             numberOfRow: 7,
             numberOfColumn: 15,
             cellWidth: window.innerHeight / 13,
@@ -37,6 +27,9 @@ export const AnimatedPatternN1 = MobJs.createComponent(
                 value: detectFirefox() || detectSafari() ? true : false,
                 type: Boolean,
             }),
+        },
+        state: {
+            isMounted: false,
         },
     })
 );

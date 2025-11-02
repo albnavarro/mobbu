@@ -11,8 +11,7 @@ export const LinksMobJsButton = MobJs.createComponent(
     ({
         tag: 'links-mobjs-button',
         component: LinksMobJsButtonFn,
-        exportState: ['label', 'url', 'active'],
-        state: {
+        props: {
             label: () => ({
                 value: '',
                 type: String,

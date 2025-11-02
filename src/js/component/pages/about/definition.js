@@ -13,8 +13,7 @@ export const AboutComponent = MobJs.createComponent(
     ({
         tag: 'about-component',
         component: AboutComponentFn,
-        exportState: ['block_1', 'block_2', 'block_3', 'block_4', 'aboutSvg'],
-        state: {
+        props: {
             block_1: () => ({
                 value: {
                     titleTop: '',
@@ -47,6 +46,8 @@ export const AboutComponent = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
+        },
+        state: {
             navItem: () => ({
                 value: [
                     { index: 1, label: 'about' },
@@ -68,7 +69,5 @@ export const AboutComponent = MobJs.createComponent(
                 type: Boolean,
             }),
         },
-
-        child: [],
     })
 );

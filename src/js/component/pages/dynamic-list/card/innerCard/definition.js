@@ -12,8 +12,7 @@ export const DynamicListCardInner = MobJs.createComponent(
     ({
         tag: 'dynamic-list-card-inner',
         component: DynamicListCardInnerFn,
-        exportState: ['key'],
-        state: {
+        props: {
             key: () => ({
                 value: '',
                 type: String,

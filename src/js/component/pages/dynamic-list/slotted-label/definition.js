@@ -12,8 +12,7 @@ export const DynamicListSlottedLabel = MobJs.createComponent(
     ({
         tag: 'dynamic-slotted-label',
         component: DynamicListSlottedLabelFn,
-        exportState: ['label'],
-        state: {
+        props: {
             label: () => ({
                 value: '',
                 type: String,

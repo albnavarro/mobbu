@@ -12,9 +12,8 @@ export const FooterNavButton = MobJs.createComponent(
     ({
         tag: 'footer-nav-button',
         component: FooterNavButtonFn,
-        exportState: ['label', 'section'],
         bindStore: navigationStore,
-        state: {
+        props: {
             label: () => ({
                 value: '',
                 type: String,
@@ -23,6 +22,8 @@ export const FooterNavButton = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
+        },
+        state: {
             active: () => ({
                 value: false,
                 type: Boolean,

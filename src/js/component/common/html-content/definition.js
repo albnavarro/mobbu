@@ -17,14 +17,7 @@ export const HtmlContent = MobJs.createComponent(
     ({
         tag: 'html-content',
         component: HtmlContentFn,
-        exportState: [
-            'usePadding',
-            'useTriangle',
-            'source',
-            'data',
-            'awaitLoadSnippet',
-        ],
-        state: {
+        props: {
             source: () => ({
                 value: '',
                 type: String,

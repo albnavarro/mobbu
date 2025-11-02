@@ -14,16 +14,7 @@ export const DynamicListRepeater = MobJs.createComponent(
     ({
         tag: 'dynamic-list-repeater',
         component: DynamicListRepeaterFn,
-        exportState: [
-            'label',
-            'clean',
-            'data',
-            'listId',
-            'key',
-            'listId',
-            'counter',
-        ],
-        state: {
+        props: {
             data: () => ({
                 value: [],
                 type: Array,

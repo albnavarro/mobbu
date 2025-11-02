@@ -10,23 +10,7 @@ export const Move3DItem = MobJs.createComponent(
     ({
         tag: 'move-3d-item',
         component: Move3DItemfn,
-        exportState: [
-            'root',
-            'depth',
-            'rotate',
-            'width',
-            'height',
-            'offsetX',
-            'offsetY',
-            'range',
-            'animate',
-            'anchorPoint',
-            'classList',
-            'component',
-            'initialRotate',
-            'initialDepth',
-        ],
-        state: {
+        props: {
             root: () => ({
                 value: true,
                 type: Boolean,
@@ -37,10 +21,6 @@ export const Move3DItem = MobJs.createComponent(
             }),
             rotate: () => ({
                 value: 'x',
-                type: String,
-            }),
-            id: () => ({
-                value: '',
                 type: String,
             }),
             width: () => ({
@@ -97,6 +77,12 @@ export const Move3DItem = MobJs.createComponent(
                     type: 'any',
                 }),
             },
+        },
+        state: {
+            id: () => ({
+                value: '',
+                type: String,
+            }),
         },
     })
 );

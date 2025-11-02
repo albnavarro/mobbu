@@ -12,8 +12,7 @@ export const MatrioskaItem = MobJs.createComponent(
     ({
         tag: 'matrioska-item',
         component: MatrioskaItemFn,
-        exportState: ['level', 'key', 'value', 'active', 'counter', 'index'],
-        state: {
+        props: {
             level: () => ({
                 value: '',
                 type: String,
@@ -41,7 +40,6 @@ export const MatrioskaItem = MobJs.createComponent(
                 type: Number,
             }),
         },
-        child: [],
         style: /* CSS */ `:host { display: block; } `,
         // connectedCallback: ({ context, params }) => {
         //     console.log(context, params);

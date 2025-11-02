@@ -13,18 +13,7 @@ export const ScrollerN1 = MobJs.createComponent(
     ({
         tag: 'scroller-n1',
         component: ScrollerN1Fn,
-        exportState: [
-            'amountOfPath',
-            'width',
-            'height',
-            'radius',
-            'opacity',
-            'intialRotation',
-            'endRotation',
-            'disableOffcanvas',
-        ],
-        state: {
-            isMounted: false,
+        props: {
             amountOfPath: 17,
             width: 15,
             height: 40,
@@ -36,6 +25,9 @@ export const ScrollerN1 = MobJs.createComponent(
                 value: detectFirefox() || detectSafari() ? true : false,
                 type: Boolean,
             }),
+        },
+        state: {
+            isMounted: false,
         },
     })
 );

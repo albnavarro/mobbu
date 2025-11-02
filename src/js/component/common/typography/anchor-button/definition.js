@@ -10,8 +10,7 @@ export const AnchorButton = MobJs.createComponent(
     ({
         tag: 'anchor-button',
         component: AnchorButtonFn,
-        exportState: ['anchor', 'content'],
-        state: {
+        props: {
             anchor: () => ({
                 value: '',
                 type: String,

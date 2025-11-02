@@ -10,21 +10,22 @@ export const Snippet = MobJs.createComponent(
     ({
         tag: 'mob-snippet',
         component: SnippetFn,
-        exportState: ['source', 'numLines', 'awaitLoad'],
-        state: {
+        props: {
             source: () => ({
                 value: '',
                 type: String,
-            }),
-            contentIsLoaded: () => ({
-                value: false,
-                type: Boolean,
             }),
             numLines: () => ({
                 value: 1,
                 type: Number,
             }),
             awaitLoad: () => ({
+                value: false,
+                type: Boolean,
+            }),
+        },
+        state: {
+            contentIsLoaded: () => ({
                 value: false,
                 type: Boolean,
             }),

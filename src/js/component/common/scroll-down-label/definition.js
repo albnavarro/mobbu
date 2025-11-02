@@ -10,8 +10,7 @@ export const ScrollDownLabel = MobJs.createComponent(
     ({
         tag: 'scroll-down-label',
         component: ScrollDownLabelFn,
-        exportState: ['active'],
-        state: {
+        props: {
             active: () => ({
                 value: false,
                 type: Boolean,

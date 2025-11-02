@@ -12,17 +12,17 @@ export const HomeComponent = MobJs.createComponent(
     ({
         tag: 'home-component',
         component: HomeComponentFn,
-        exportState: ['svg'],
-        state: {
+        props: {
             svg: () => ({
                 value: '',
                 type: String,
             }),
+        },
+        state: {
             isMounted: () => ({
                 value: false,
                 type: Boolean,
             }),
         },
-        child: [],
     })
 );

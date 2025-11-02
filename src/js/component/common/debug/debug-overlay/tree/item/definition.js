@@ -11,9 +11,8 @@ export const DebugTreeItem = MobJs.createComponent(
     ({
         tag: 'debug-tree-item',
         component: DebugTreeItemFn,
-        exportState: ['id', 'componentName', 'instanceName', 'children'],
         bindStore: debugActiveComponentStore,
-        state: {
+        props: {
             id: () => ({
                 value: '',
                 type: String,
@@ -30,6 +29,8 @@ export const DebugTreeItem = MobJs.createComponent(
                 value: [],
                 type: Array,
             }),
+        },
+        state: {
             isOpen: () => ({
                 value: false,
                 type: Boolean,

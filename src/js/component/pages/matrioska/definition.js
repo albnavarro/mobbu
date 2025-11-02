@@ -25,7 +25,6 @@ const shuffle = (array) => {
 
 /** @type {Partial<CreateComponentParams<import('./type').Matrioska>>} */
 const commonParams = {
-    exportState: [],
     state: {
         level1: () => ({
             value: [{ key: 1, value: MobCore.getUnivoqueId() }],

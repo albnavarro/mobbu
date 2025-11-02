@@ -12,8 +12,7 @@ export const HorizontalScrollerSection = MobJs.createComponent(
     ({
         tag: 'horizontal-scroller-section',
         component: HorizontalScrollerSectionFn,
-        exportState: ['id', 'pinClass'],
-        state: {
+        props: {
             id: () => ({
                 value: -1,
                 type: Number,

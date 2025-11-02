@@ -11,31 +11,13 @@ export const Move3D = MobJs.createComponent(
     ({
         tag: 'move-3d',
         component: Move3Dfn,
-        exportState: [
-            'drag',
-            'centerToViewoport',
-            'xDepth',
-            'yDepth',
-            'xLimit',
-            'yLimit',
-            'factor',
-            'shape',
-            'debug',
-            'perspective',
-            'afterInit',
-            'onUpdate',
-        ],
-        state: {
+        props: {
             drag: () => ({
                 value: false,
                 type: Boolean,
             }),
             centerToViewoport: () => ({
                 value: false,
-                type: Boolean,
-            }),
-            useScroll: () => ({
-                value: true,
                 type: Boolean,
             }),
             perspective: () => ({
@@ -89,6 +71,12 @@ export const Move3D = MobJs.createComponent(
             onUpdate: () => ({
                 value: () => {},
                 type: Function,
+            }),
+        },
+        state: {
+            useScroll: () => ({
+                value: true,
+                type: Boolean,
             }),
         },
         child: [Move3DItem],

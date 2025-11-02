@@ -32,9 +32,9 @@ export const getDebugMode = () => {
 export const createComponent = ({
     tag = '',
     component = () => '',
+    props = {},
     state = {},
     bindStore,
-    exportState = [],
     scoped,
     connectedCallback = () => {},
     disconnectedCallback = () => {},
@@ -53,9 +53,9 @@ export const createComponent = ({
         [tag]: {
             componentFunction: component,
             componentParams: {
-                exportState,
+                exportState: Object.keys(props),
                 scoped,
-                state,
+                state: { ...props, ...state },
                 bindStore,
                 connectedCallback,
                 disconnectedCallback,

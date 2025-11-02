@@ -10,8 +10,7 @@ export const SearchOverlaySuggestion = MobJs.createComponent(
     ({
         tag: 'search-overlay-suggestion',
         component: SearchOverlaySuggestionFn,
-        exportState: ['list'],
-        state: {
+        props: {
             list: () => ({
                 value: [],
                 type: Array,

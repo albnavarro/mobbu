@@ -10,8 +10,7 @@ export const StarSvg = MobJs.createComponent(
     ({
         tag: 'svg-star',
         component: StarSvgFn,
-        exportState: ['fill'],
-        state: {
+        props: {
             fill: () => ({
                 value: '#000000',
                 type: String,

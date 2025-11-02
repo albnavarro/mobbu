@@ -12,8 +12,7 @@ export const DynamicCounter = MobJs.createComponent(
     ({
         tag: 'dynamic-list-counter',
         component: DynamicListCounterFn,
-        exportState: ['counter', 'parentListId'],
-        state: {
+        props: {
             parentListId: () => ({
                 value: -1,
                 type: Number,

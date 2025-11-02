@@ -48,13 +48,14 @@ export const AsyncTimeline = MobJs.createComponent(
     ({
         tag: 'async-timeline',
         component: AsyncTimelineFn,
-        exportState: ['disableOffcanvas'],
-        state: {
-            isMounted: false,
+        props: {
             disableOffcanvas: () => ({
                 value: detectFirefox() || detectSafari() ? true : false,
                 type: Boolean,
             }),
+        },
+        state: {
+            isMounted: false,
             buttons: () => ({
                 value: buttons,
                 type: 'Any',

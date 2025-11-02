@@ -15,32 +15,12 @@ export const NavigationButton = MobJs.createComponent(
     ({
         tag: 'mob-navigation-button',
         component: NavigationButtonFn,
-        exportState: [
-            'label',
-            'url',
-            'arrowClass',
-            'subMenuClass',
-            'fireRoute',
-            'callback',
-            'isOpen',
-            'scrollToSection',
-            'activeId',
-            'forceChildren',
-        ],
-        state: {
+        props: {
             label: () => ({
                 value: '',
                 type: String,
             }),
             url: () => ({
-                value: '',
-                type: String,
-            }),
-            activeId: () => ({
-                value: -1,
-                type: Number,
-            }),
-            scrollToSection: () => ({
                 value: '',
                 type: String,
             }),
@@ -64,13 +44,23 @@ export const NavigationButton = MobJs.createComponent(
                 value: false,
                 type: Boolean,
             }),
-            isCurrent: () => ({
-                value: false,
-                type: Boolean,
+            scrollToSection: () => ({
+                value: '',
+                type: String,
+            }),
+            activeId: () => ({
+                value: -1,
+                type: Number,
             }),
             forceChildren: () => ({
                 value: [],
                 type: Array,
+            }),
+        },
+        state: {
+            isCurrent: () => ({
+                value: false,
+                type: Boolean,
             }),
         },
     })
@@ -81,9 +71,8 @@ export const NavigationLabel = MobJs.createComponent(
     ({
         tag: 'mob-navigation-label',
         component: NavigationLabelFn,
-        exportState: ['label', 'sectioName', 'hide'],
         bindStore: navigationStore,
-        state: {
+        props: {
             label: () => ({
                 value: '',
                 type: String,
@@ -105,8 +94,7 @@ export const NavigationSubmenu = MobJs.createComponent(
     ({
         tag: 'mob-navigation-submenu',
         component: NavigationSubmenuFn,
-        exportState: ['children', 'headerButton', 'isOpen', 'callback'],
-        state: {
+        props: {
             callback: () => ({
                 value: () => {},
                 type: Function,

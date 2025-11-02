@@ -12,8 +12,7 @@ export const DynamicListButton = MobJs.createComponent(
     ({
         tag: 'dynamic-list-button',
         component: DynamicListButtonFn,
-        exportState: ['active', 'label'],
-        state: {
+        props: {
             label: () => ({
                 value: '',
                 type: String,

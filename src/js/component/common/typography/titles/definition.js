@@ -11,16 +11,8 @@ export const Title = MobJs.createComponent(
     ({
         tag: 'mob-title',
         component: TitleFn,
-        exportState: [
-            'useSticky',
-            'index',
-            'isSection',
-            'tag',
-            'color',
-            'isBold',
-        ],
         bindStore: navigationStore,
-        state: {
+        props: {
             tag: () => ({
                 value: 'h1',
                 type: String,

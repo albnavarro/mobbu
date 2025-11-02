@@ -10,8 +10,7 @@ export const Paragraph = MobJs.createComponent(
     ({
         tag: 'mob-paragraph',
         component: ParagraphFn,
-        exportState: ['style', 'color', 'boxed', 'note'],
-        state: {
+        props: {
             style: () => ({
                 value: 'medium',
                 type: String,

@@ -13,12 +13,13 @@ export const Move3DPage = MobJs.createComponent(
     ({
         tag: 'move-3d-page',
         component: Move3DPagefn,
-        exportState: ['data', 'prevRoute', 'nextRoute'],
-        state: {
+        props: {
             data: () => ({
                 value: [],
                 type: Array,
             }),
+        },
+        state: {
             xDepth: () => ({
                 value: 20,
                 type: Number,

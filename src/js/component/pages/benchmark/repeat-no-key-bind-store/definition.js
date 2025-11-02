@@ -15,7 +15,6 @@ export const BenchMarkRepeatNoKeyBindStore = MobJs.createComponent(
         tag: 'benchmark-repeat-no-key-bind-store',
         component: BenchMarkRepeatNoKyBindStoreFn,
         bindStore: externalBenchmarkStore,
-        state: {},
         child: [BenchMarkFakeComponent],
     })
 );

@@ -17,8 +17,7 @@ export const DynamicListCard = MobJs.createComponent(
     ({
         tag: 'dynamic-list-card',
         component: DynamicListCardFn,
-        exportState: ['isFull', 'label', 'index', 'counter', 'parentListId'],
-        state: {
+        props: {
             parentListId: () => ({
                 value: -1,
                 type: Number,
@@ -39,6 +38,8 @@ export const DynamicListCard = MobJs.createComponent(
                 value: 1,
                 type: Number,
             }),
+        },
+        state: {
             innerData: () => ({
                 value: innerData[0],
                 type: Array,

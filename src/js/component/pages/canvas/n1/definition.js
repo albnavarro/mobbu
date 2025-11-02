@@ -13,20 +13,7 @@ export const CaterpillarN1 = MobJs.createComponent(
     ({
         tag: 'caterpillar-n1',
         component: CaterpillarN1Fn,
-        exportState: [
-            'numItems',
-            'width',
-            'height',
-            'fill',
-            'opacity',
-            'radius',
-            'rotationEach',
-            'centerEach',
-            'rotationDuration',
-            'disableOffcanvas',
-        ],
-        state: {
-            isMounted: false,
+        props: {
             numItems: 20,
             width: window.innerHeight / 30,
             height: window.innerHeight / 30,
@@ -40,6 +27,9 @@ export const CaterpillarN1 = MobJs.createComponent(
                 value: detectFirefox() || detectSafari() ? true : false,
                 type: Boolean,
             }),
+        },
+        state: {
+            isMounted: false,
         },
     })
 );
