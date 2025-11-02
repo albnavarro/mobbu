@@ -1,5 +1,5 @@
 # Prioritá;
-- Props: Read only.
+- MobJs: `detectProp`.
 - Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
 - Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`.
 - Component app: `dragger` con `pinch zoom`.
@@ -131,6 +131,12 @@ store[prop] = valueTransformed;
 
 
 # MobJs
+### detectProp:
+- Esportare `extractkeyFromProp()` da mobCore e usarla al posto di `detectProp()` nella forma:
+
+```js
+MobCore.extractkeyFromProp();
+```
 
 ### Create component:
  - Prendere due picconi con una fava.

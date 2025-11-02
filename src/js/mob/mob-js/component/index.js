@@ -1,6 +1,7 @@
 import { MobCore } from '../../mob-core';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
 import { setRepeaterComponentChildren } from '../modules/repeater/action/set-repeat-component-children';
+import { detectProp } from '../utils';
 import { getFreezePropStatus } from './action/freeze';
 import { addNonPersisitentComponent } from './action/remove-and-destroy/cancellable-component/add-persisitent-component';
 import { getExportableState } from './action/state/check-if-state-is-exportable';
@@ -98,17 +99,18 @@ export const addComponentToStore = ({
             /**
              * Prop is readonly, skip in scope component.
              */
-            const isProp = exportableStateSet.has(prop);
+            const propToString = detectProp(prop);
+            const isProp = exportableStateSet.has(propToString);
             if (isProp)
                 propStrignWarining({
-                    prop,
+                    prop: propToString,
                     componentName,
                     action: 'updateState',
                 });
 
             if (isFreezed || isProp) return;
 
-            store.set(prop, value, { emit: emit ?? true });
+            store.set(propToString, value, { emit: emit ?? true });
         },
         updateState: (
             prop = '',
@@ -120,17 +122,18 @@ export const addComponentToStore = ({
             /**
              * Prop is readonly, skip in scope component.
              */
-            const isProp = exportableStateSet.has(prop);
+            const propToString = detectProp(prop);
+            const isProp = exportableStateSet.has(propToString);
             if (isProp)
                 propStrignWarining({
-                    prop,
+                    prop: propToString,
                     componentName,
                     action: 'updateState',
                 });
 
             if (isFreezed || isProp) return;
 
-            store.update(prop, updateFunction, {
+            store.update(propToString, updateFunction, {
                 emit: emit ?? true,
                 clone: clone ?? false,
             });
@@ -146,17 +149,18 @@ export const addComponentToStore = ({
             /**
              * Prop is readonly, skip in scope component.
              */
-            const isProp = exportableStateSet.has(prop);
+            const propToString = detectProp(prop);
+            const isProp = exportableStateSet.has(propToString);
             if (isProp) {
                 propStrignWarining({
-                    prop,
+                    prop: propToString,
                     componentName,
                     action: 'computed',
                 });
                 return;
             }
 
-            return store.computed(prop, fn, keys);
+            return store.computed(propToString, fn, keys);
         },
         watch: (
             prop = '',

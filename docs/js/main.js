@@ -9139,28 +9139,30 @@
       getState: () => store2.get(),
       setState: (prop = "", value = {}, { emit = true } = {}) => {
         const isFreezed2 = getFreezePropStatus({ id, prop });
-        const isProp = exportableStateSet.has(prop);
+        const propToString = detectProp(prop);
+        const isProp = exportableStateSet.has(propToString);
         if (isProp)
           propStrignWarining({
-            prop,
+            prop: propToString,
             componentName,
             action: "updateState"
           });
         if (isFreezed2 || isProp) return;
-        store2.set(prop, value, { emit: emit ?? true });
+        store2.set(propToString, value, { emit: emit ?? true });
       },
       updateState: (prop = "", updateFunction = () => {
       }, { emit = true, clone = false } = {}) => {
         const isFreezed2 = getFreezePropStatus({ id, prop });
-        const isProp = exportableStateSet.has(prop);
+        const propToString = detectProp(prop);
+        const isProp = exportableStateSet.has(propToString);
         if (isProp)
           propStrignWarining({
-            prop,
+            prop: propToString,
             componentName,
             action: "updateState"
           });
         if (isFreezed2 || isProp) return;
-        store2.update(prop, updateFunction, {
+        store2.update(propToString, updateFunction, {
           emit: emit ?? true,
           clone: clone ?? false
         });
@@ -9170,16 +9172,17 @@
       emitAsync: async (prop = "") => await store2.emitAsync(prop),
       computed: (prop = "", fn = () => {
       }, keys = []) => {
-        const isProp = exportableStateSet.has(prop);
+        const propToString = detectProp(prop);
+        const isProp = exportableStateSet.has(propToString);
         if (isProp) {
           propStrignWarining({
-            prop,
+            prop: propToString,
             componentName,
             action: "computed"
           });
           return;
         }
-        return store2.computed(prop, fn, keys);
+        return store2.computed(propToString, fn, keys);
       },
       watch: (prop = "", cb = () => {
       }, { wait = false, immediate = false } = {}) => store2.watch(prop, cb, {
