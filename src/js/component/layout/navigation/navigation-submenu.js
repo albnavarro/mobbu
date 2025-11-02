@@ -26,12 +26,22 @@ function getSubmenu({ proxi, staticProps }) {
                     <mob-navigation-button
                         ${staticProps(
                             /** @type {NavigationButton['state']} */ ({
-                                callback: proxi.callback,
                                 label,
                                 url,
                                 subMenuClass: 'l-navigation__link--submenu',
                                 scrollToSection,
                                 activeId: activeId ?? -1,
+                                callback: () => {
+                                    /**
+                                     * When navigate inside submenu submenu should not toggle
+                                     *
+                                     * - Callback is fired if current route match with active id.
+                                     * - Callback is used for open submenu on route load.
+                                     */
+                                    proxi.callback({
+                                        forceClose: false,
+                                    });
+                                },
                             })
                         )}
                     ></mob-navigation-button>
@@ -109,8 +119,7 @@ export const NavigationSubmenuFn = ({
                         fireRoute: false,
                         activeId: activeId ?? -1,
                         callback: () => {
-                            proxi.isOpen = !proxi.isOpen;
-                            if (proxi.isOpen) proxi.callback();
+                            proxi.callback({ forceClose: proxi.isOpen });
                         },
                     })
                 )}

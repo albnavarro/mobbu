@@ -28,7 +28,7 @@ export interface NavigationLabel {
 
 export interface NavigationSubmenu {
     state: {
-        callback: () => void;
+        callback: (arg0: { forceClose: boolean }) => void;
         headerButton: Partial<{ label: string; url: string; activeId: number }>;
         children: any[];
         isOpen: boolean;

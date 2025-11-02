@@ -39197,10 +39197,17 @@
         {
           headerButton: {
             label,
-            url
+            url,
+            id: index
           },
           children,
-          callback: () => proxi.currentAccordionId = index
+          callback: ({ forceClose = false }) => {
+            if (forceClose) {
+              proxi.currentAccordionId = -1;
+              return;
+            }
+            proxi.currentAccordionId = index;
+          }
         }
       )}
                           ${bindProps(
@@ -39343,12 +39350,16 @@
                         ${staticProps2(
         /** @type {NavigationButton['state']} */
         {
-          callback: proxi.callback,
           label,
           url,
           subMenuClass: "l-navigation__link--submenu",
           scrollToSection,
-          activeId: activeId ?? -1
+          activeId: activeId ?? -1,
+          callback: () => {
+            proxi.callback({
+              forceClose: false
+            });
+          }
         }
       )}
                     ></mob-navigation-button>
@@ -39403,8 +39414,7 @@
         fireRoute: false,
         activeId: activeId ?? -1,
         callback: () => {
-          proxi.isOpen = !proxi.isOpen;
-          if (proxi.isOpen) proxi.callback();
+          proxi.callback({ forceClose: proxi.isOpen });
         }
       }
     )}

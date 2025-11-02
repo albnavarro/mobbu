@@ -52,10 +52,17 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                                   headerButton: {
                                       label,
                                       url,
+                                      id: index,
                                   },
                                   children,
-                                  callback: () =>
-                                      (proxi.currentAccordionId = index),
+                                  callback: ({ forceClose = false }) => {
+                                      if (forceClose) {
+                                          proxi.currentAccordionId = -1;
+                                          return;
+                                      }
+
+                                      proxi.currentAccordionId = index;
+                                  },
                               }
                           )}
                           ${bindProps(
