@@ -15,10 +15,7 @@ import {
     invalidateQuequeIsEmpty,
     invalidateTick,
 } from '../../queque/tick-invalidate';
-// import { getElementById } from '../../component/action/element';
-// import { removeAndDestroyById } from '../../component/action/remove-and-destroy/remove-and-destroy-by-id';
 import { bindComponentTobindId, bindPropsMap } from './bind-props-map';
-import { detectProp } from '../../utils';
 
 /**
  * Store props and return a unique identifier
@@ -41,7 +38,7 @@ export const setBindProps = (data) => {
               return /** @type{( string|( () => void ) )[]} */ (
                   data.observe
               ).map((item) => {
-                  return detectProp(item);
+                  return MobDetectBindKey.extractkeyFromProp(item);
               });
           })()
         : (() => {

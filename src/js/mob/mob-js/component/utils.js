@@ -63,6 +63,6 @@ export const addPropsToState = ({ props, store }) => {
  */
 export const propStrignWarining = ({ prop, componentName, action }) => {
     console.warn(
-        `prop: ${prop}, component: ${componentName}, action: ${action}: A property can only be modified from outside the component."`
+        `Props: ${prop}, component: ${componentName}, action: ${action}: Props can only be modified from outside the component."`
     );
 };

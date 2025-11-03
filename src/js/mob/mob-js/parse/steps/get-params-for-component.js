@@ -1,4 +1,4 @@
-import { MobCore } from '../../../mob-core';
+import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { getChildrenIdByName } from '../../component/action/children';
 import { componentIsPersistent } from '../../component/action/component';
 import {
@@ -58,7 +58,6 @@ import {
 } from '../../modules/repeater/update/utils';
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { setStaticProps } from '../../modules/static-props';
-import { detectProp } from '../../utils';
 import { repeaterhasComponentChildren } from '../../modules/repeater/action/set-repeat-component-children';
 import { initializeRepeaterInstancesMap } from '../../modules/repeater/action/initialize-repeater-instances-map';
 import { setRepeaterInstancesCurrentData } from '../../modules/repeater/action/set-repeat-instances-map-current-data';
@@ -153,11 +152,11 @@ export const getParamsForComponentFunction = ({
          * Ts issue, prop coem as string\number\symbol, convert in string.
          */
         freezeProp: (/** @type{string | (() => any)} */ prop) => {
-            const bindParsed = detectProp(prop);
+            const bindParsed = MobDetectBindKey.extractkeyFromProp(prop);
             return freezePropById({ id, prop: bindParsed.toString() });
         },
         unFreezeProp: (/** @type{string | (() => any)} */ prop) => {
-            const bindParsed = detectProp(prop);
+            const bindParsed = MobDetectBindKey.extractkeyFromProp(prop);
             return unFreezePropById({ id, prop: bindParsed.toString() });
         },
         unBind: () => unBind({ id }),
@@ -291,7 +290,7 @@ export const getParamsForComponentFunction = ({
             /**
              * Check if observe prop is a string or a proxi object
              */
-            const observeParsed = detectProp(observe);
+            const observeParsed = MobDetectBindKey.extractkeyFromProp(observe);
             const repeatId = MobCore.getUnivoqueId();
             const hasKey = key !== '';
 

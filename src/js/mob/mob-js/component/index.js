@@ -1,7 +1,6 @@
-import { MobCore } from '../../mob-core';
+import { MobCore, MobDetectBindKey } from '../../mob-core';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
 import { setRepeaterComponentChildren } from '../modules/repeater/action/set-repeat-component-children';
-import { detectProp } from '../utils';
 import { getFreezePropStatus } from './action/freeze';
 import { addNonPersisitentComponent } from './action/remove-and-destroy/cancellable-component/add-persisitent-component';
 import { getExportableState } from './action/state/check-if-state-is-exportable';
@@ -99,7 +98,7 @@ export const addComponentToStore = ({
             /**
              * Prop is readonly, skip in scope component.
              */
-            const propToString = detectProp(prop);
+            const propToString = MobDetectBindKey.extractkeyFromProp(prop);
             const isProp = exportableStateSet.has(propToString);
             if (isProp)
                 propStrignWarining({
@@ -110,7 +109,10 @@ export const addComponentToStore = ({
 
             if (isFreezed || isProp) return;
 
-            store.set(propToString, value, { emit: emit ?? true });
+            store.set(propToString, value, {
+                emit: emit ?? true,
+                usePropAsString: true,
+            });
         },
         updateState: (
             prop = '',
@@ -122,7 +124,7 @@ export const addComponentToStore = ({
             /**
              * Prop is readonly, skip in scope component.
              */
-            const propToString = detectProp(prop);
+            const propToString = MobDetectBindKey.extractkeyFromProp(prop);
             const isProp = exportableStateSet.has(propToString);
             if (isProp)
                 propStrignWarining({
@@ -136,6 +138,7 @@ export const addComponentToStore = ({
             store.update(propToString, updateFunction, {
                 emit: emit ?? true,
                 clone: clone ?? false,
+                usePropAsString: true,
             });
         },
         getProxi: () => store.getProxi(),
@@ -149,7 +152,7 @@ export const addComponentToStore = ({
             /**
              * Prop is readonly, skip in scope component.
              */
-            const propToString = detectProp(prop);
+            const propToString = MobDetectBindKey.extractkeyFromProp(prop);
             const isProp = exportableStateSet.has(propToString);
             if (isProp) {
                 propStrignWarining({
@@ -160,7 +163,9 @@ export const addComponentToStore = ({
                 return;
             }
 
-            return store.computed(propToString, fn, keys);
+            return store.computed(propToString, fn, keys, {
+                usePropAsString: true,
+            });
         },
         watch: (
             prop = '',

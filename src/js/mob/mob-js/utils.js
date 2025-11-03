@@ -1,4 +1,3 @@
-import { MobCore, MobDetectBindKey } from '../mob-core';
 import { ATTR_PROPS } from './constant';
 import { setStaticProps } from './modules/static-props';
 
@@ -31,17 +30,4 @@ export const staticProps = (props = {}) => {
  */
 export const clamp = (num, lower, upper) => {
     return Math.min(Math.max(num, lower), upper);
-};
-
-/**
- * @param {string | (() => any)} prop
- * @returns {string}
- */
-export const detectProp = (prop) => {
-    const isString = MobCore.checkType(String, prop);
-    if (isString) return /** @type {string} */ (prop);
-
-    MobDetectBindKey.initializeCurrentDependencies();
-    /** @type {() => any} */ (prop)();
-    return MobDetectBindKey.getFirstCurrentDependencies();
 };

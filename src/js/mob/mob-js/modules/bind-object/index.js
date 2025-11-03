@@ -1,6 +1,5 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { watchById } from '../../component/action/watch';
-import { detectProp } from '../../utils';
 
 /** @type {Map<string, import('./type').BindObject[]>} */
 export const bindObjectMap = new Map();
@@ -40,7 +39,7 @@ export const getBindObjectKeys = (values) => {
              */
             return 'observe' in item
                 ? (() => {
-                      return detectProp(
+                      return MobDetectBindKey.extractkeyFromProp(
                           /** @type{string|(() => any)} */ (item.observe)
                       );
                   })()

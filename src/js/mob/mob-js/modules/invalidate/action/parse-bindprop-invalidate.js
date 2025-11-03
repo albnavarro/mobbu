@@ -1,5 +1,4 @@
-import { MobCore } from '../../../../mob-core';
-import { detectProp } from '../../../utils';
+import { MobCore, MobDetectBindKey } from '../../../../mob-core';
 
 /**
  * @param {string | string[] | (() => any)[] | (() => any) | undefined} observeProp
@@ -12,6 +11,6 @@ export const parseObserveInvalidate = (observeProp) => {
 
     // @ts-expect-error bindArray is forced to be an array.
     return observeArray.map((item) => {
-        return detectProp(item);
+        return MobDetectBindKey.extractkeyFromProp(item);
     });
 };

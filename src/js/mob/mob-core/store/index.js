@@ -68,9 +68,17 @@ export const mobStore = (data = {}) => {
         set: (
             /** @type{string|(() => any)} */ prop,
             /** @type {any} */ value,
-            { emit = true } = {}
+            { emit = true, usePropAsString = false } = {}
         ) => {
-            const propParsed = extractkeyFromProp(prop);
+            /**
+             * MobJs for check prop use the same function.
+             *
+             * - Prop in this case is always a string
+             */
+            const propParsed = usePropAsString
+                ? /** @type {string} */ (prop)
+                : extractkeyFromProp(prop);
+
             const isComputed = checkIfPropIsComputed({
                 instanceId,
                 prop: propParsed,
@@ -90,9 +98,17 @@ export const mobStore = (data = {}) => {
         update: (
             /** @type{string|(() => any)} */ prop,
             /** @type {any} */ value,
-            { emit = true, clone = false } = {}
+            { emit = true, clone = false, usePropAsString = false } = {}
         ) => {
-            const propParsed = extractkeyFromProp(prop);
+            /**
+             * MobJs for check prop use the same function.
+             *
+             * - Prop in this case is always a string
+             */
+            const propParsed = usePropAsString
+                ? /** @type {string} */ (prop)
+                : extractkeyFromProp(prop);
+
             const isComputed = checkIfPropIsComputed({
                 instanceId,
                 prop: propParsed,
@@ -143,9 +159,18 @@ export const mobStore = (data = {}) => {
         computed: (
             /** @type{string|(() => any)} */ prop,
             /** @type{(arg0: Record<string, any>) => any} */ callback,
-            /** @type{( string|(() => any))[]} */ keys = []
+            /** @type{( string|(() => any))[]} */ keys = [],
+            { usePropAsString = false } = {}
         ) => {
-            const propParsed = extractkeyFromProp(prop);
+            /**
+             * MobJs for check prop use the same function.
+             *
+             * - Prop in this case is always a string
+             */
+            const propParsed = usePropAsString
+                ? /** @type {string} */ (prop)
+                : extractkeyFromProp(prop);
+
             const keysParsed = extractKeysFromArray(keys);
 
             storeComputedEntryPoint({

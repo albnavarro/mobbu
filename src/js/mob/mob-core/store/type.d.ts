@@ -88,6 +88,7 @@ interface MobStoreSet<T> {
         value: T[K],
         options?: {
             emit?: boolean;
+            usePropAsString?: boolean;
         }
     ): void;
     <K extends T[keyof T]>(
@@ -95,6 +96,7 @@ interface MobStoreSet<T> {
         value: NoInfer<K>,
         options?: {
             emit?: boolean;
+            usePropAsString?: boolean;
         }
     ): void;
 }
@@ -106,6 +108,7 @@ interface MobStoreUpdate<T> {
         options?: {
             emit?: boolean;
             clone?: boolean;
+            usePropAsString?: boolean;
         }
     ): void;
     <K extends T[keyof T]>(
@@ -114,6 +117,7 @@ interface MobStoreUpdate<T> {
         options?: {
             emit?: boolean;
             clone?: boolean;
+            usePropAsString?: boolean;
         }
     ): void;
 }
@@ -148,12 +152,18 @@ interface MobStoreComputed<T> {
     <K extends keyof T>(
         prop: K,
         callback: (arg0: T) => T[K],
-        keys?: (Extract<keyof T, string> | (() => T[keyof T]))[]
+        keys?: (Extract<keyof T, string> | (() => T[keyof T]))[],
+        options?: {
+            usePropAsString?: boolean;
+        }
     ): void;
     <K extends T[keyof T]>(
         prop: () => K,
         callback: (arg0: T) => NoInfer<K>,
-        keys?: (Extract<keyof T, string> | (() => T[keyof T]))[]
+        keys?: (Extract<keyof T, string> | (() => T[keyof T]))[],
+        options?: {
+            usePropAsString?: boolean;
+        }
     ): void;
 }
 
