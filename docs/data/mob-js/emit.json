@@ -20,7 +20,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Component State System: <ul> <li>The component's state comes from a <a href='#mobCore-store'>MobCore store</a> instance.</li> <li>Inherits full store capabilities ( reactivity, methods, etc. )</li><li>The component's state must be declared within the <a href='#mobJs-component'>component's definition</a> function.</li> </ul>"
+            "content": "Emit allows triggering an update of the callbacks linked to a <span class='quote'>state</span> or <span class='quote'>prop</span> without having to modify its value. This mechanism is inherited from the <a href='#mobCore-store'>MobCore store</a>."
         },
         {
             "component": "mob-spacer",

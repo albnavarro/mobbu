@@ -20,7 +20,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Component State System: <ul> <li>The component's state comes from a <a href='#mobCore-store'>MobCore store</a> instance.</li> <li>Inherits full store capabilities ( reactivity, methods, etc. )</li><li>The component's state must be declared within the <a href='#mobJs-component'>component's definition</a> function.</li> </ul>"
+            "content": "Through the proxy, it is possible to obtain the value of <span class='quote'>props</span> and <span class='quote'>states</span>. It is possible to modify states, while props can only be modified by a parent component."
         },
         {
             "component": "mob-paragraph",

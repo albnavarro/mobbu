@@ -75,7 +75,7 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<span class='quote'>observe</span> ( optional ): a state or array of states.",
+                    "<span class='quote'>observe</span> ( optional ): a <span class='quote'>state/props</span> or array of <span class='quote'>state/props</span>.",
                     "<span class='quote'>toggleClass</span>: An object where the key is the class to apply and the value is a function that will return a boolean value.",
                     "<span class='quote'>toggleStyle</span>: an object where the key is the style to be changed and the value is a function that will return a string.",
                     "<span class='quote'>toggleAttribute</span>: an object where the key is the attribute to be changed and the value is a function that will return a string.<br/> If the value is equal to null the attribute will be deleted"

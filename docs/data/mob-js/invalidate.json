@@ -55,7 +55,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "An array containing the states to monitor for triggering a re-render. The states can be defined using strings or as functions that return the proxy."
+            "content": "An array containing the <span class='quote'>state</span> or <span class='quote'>props</span> to monitor for triggering a re-render. The states can be defined using strings or as functions that return the proxy."
         },
         {
             "component": "mob-spacer",

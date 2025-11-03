@@ -20,7 +20,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<p>The freezeProp() function acts like a pause button for state changes - temporarily blocking all modifications attempted. When ready to resume, simply call <a href='./#mobJs-unFreezeProp'>unFreezeProp()</a> to lift the restriction.</p>"
+            "content": "<p>The freezeProp() function acts like a pause button for <span class='quote'>state</span> or <span class='quote'>props</span> changes - temporarily blocking all modifications attempted. When ready to resume, simply call <a href='./#mobJs-unFreezeProp'>unFreezeProp()</a> to lift the restriction.</p>"
         },
         {
             "component": "mob-spacer",

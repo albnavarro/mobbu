@@ -20,21 +20,13 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Component State System: <ul> <li>The component's state comes from a <a href='#mobCore-store'>MobCore store</a> instance.</li> <li>Inherits full store capabilities ( reactivity, methods, etc. )</li><li>The component's state must be declared within the <a href='#mobJs-component'>component's definition</a> function.</li> </ul>"
+            "content": "Watch allows you to handle <span class='quote'>side effects</span> when a <span class='quote'>state</span> value or <span class='quote'>prop</span> changes. This mechanism is inherited from the <a href='#mobCore-store'>MobCore store</a>."
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
             }
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium",
-                "boxed": true
-            },
-            "content": "Automatic cleanup:<ul><li>On component destruction</li> <li>Manual via returned unwatch function</li></ul>"
         },
         {
             "component": "mob-spacer",

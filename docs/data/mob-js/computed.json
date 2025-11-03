@@ -20,22 +20,13 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Component State System: <ul> <li>The component's state comes from a <a href='#mobCore-store'>MobCore store</a> instance.</li> <li>Inherits full store capabilities ( reactivity, methods, etc. )</li><li>The component's state must be declared within the <a href='#mobJs-component'>component's definition</a> function.</li> </ul>"
+            "content": "Computed allows updating a <span class='quote'>state</span> value when one of the associated <span class='quote'>dependencies</span> used in the corresponding callback changes. This mechanism is inherited from the <a href='#mobCore-store'>MobCore store</a>. Once a state value is associated with a computed, it can no longer be mutated."
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
             }
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium",
-                "boxed": true,
-                "note": true
-            },
-            "content": "<ul><li>Processed in the JavaScript event loop</li> <li>Single execution per update cycle</li></ul>"
         },
         {
             "component": "mob-spacer",

@@ -41,7 +41,7 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<span class='quote'>observe</span>: Observed status ( optional ).",
+                    "<span class='quote'>observe</span>: Observed <span class='quote'>state</span> or <span class='quote'>props</span> ( optional ).",
                     "<span class='quote'>value</span>: A function that will return the updated value."
                 ]
             }

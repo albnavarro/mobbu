@@ -20,7 +20,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "bindText vs bindObject: <ul> <li>bindText: <ul> <li>Updates node content on state changes</li> <li>Direct state reference via string key</li> </ul> </li> <li>bindObject: <ul> <li>Updates node content on state changes</li> <li>Updates using proxi</li> </ul> </li> </ul>"
+            "content": "bindText vs bindObject: <ul> <li>bindText: <ul> <li>Updates node content on state or props changes</li> <li>Direct state reference via string key</li> </ul> </li> <li>bindObject: <ul> <li>Updates node content on state changes</li> <li>Updates using proxi</li> </ul> </li> </ul>"
         },
         {
             "component": "mob-spacer",
