@@ -4,6 +4,43 @@
 - Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`.
 - Component app: `dragger` con `pinch zoom`.
 
+# ParseRecursive in memory:
+
+```js
+
+/** Current component to parse */
+let componentToParse = result?.componentToParse;
+
+const parent = componentToParse?.parentNode;
+const fragment = document.createDocumentFragment();
+fragment.append(componentToParse);
+
+/**
+ * Loop
+ */
+while (componentToParse) {
+```
+
+```js
+    if (parseLimitReached) {
+        console.warn(
+            `dom parse reached max parse limit: ${getCurrentIterationCounter()}`
+        );
+
+        break;
+    }
+}
+
+if (fragment?.firstChild) parent?.append?.(fragment.firstChild);
+```
+
+Le parti di DOM dentro gli slot-named non vengono risolte, il problema sembra correlato a:
+```js
+getFirstUserChildPlaceHolder()
+
+element?.contains(item) => semnba fallire.
+```
+
 
 # App
 ### Docs: AsyncTimeline
