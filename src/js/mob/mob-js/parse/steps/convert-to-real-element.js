@@ -32,6 +32,7 @@ const getNewElement = ({ element, content }) => {
 
     if (element.parentNode) {
         // element.insertAdjacentHTML('afterend', content);
+        // const node = element.nextElementSibling;
 
         // const node = document
         //     .createRange()
