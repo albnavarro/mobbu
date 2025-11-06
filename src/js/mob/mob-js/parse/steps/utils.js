@@ -88,7 +88,7 @@ export const getElementOrTextFromNode = (node) => {
      */
     if (childNodes.length > 1) {
         return {
-            item: [...childNodes].toReversed().map((node) => {
+            item: [...childNodes].map((node) => {
                 if (node.nodeType === Node.TEXT_NODE)
                     return {
                         node: node?.textContent ?? '',
@@ -134,9 +134,18 @@ export const insertElementOrText = ({
 
     if (type === ELEMENT_TYPE_NOT_VALID) return;
 
+    /**
+     * - Case 1: unNamed slot switch
+     * - Case 2: default
+     * - In default case use 'afterbegin' toReversed isNeeded
+     *
+     *   TODO: uniformare nel caso lo slot unNamed posso contenere piu di un nodo
+     *
+     *   - In questo caso i valori possono essere invertiti
+     */
     if (type === ELEMENT_TYPE_MIX_NODE_TEXT) {
         // @ts-ignore
-        item.forEach(({ node, type }) => {
+        item.toReversed().forEach(({ node, type }) => {
             if (type === ELEMENT_TYPE_NODE) {
                 parent.insertAdjacentElement(
                     position,

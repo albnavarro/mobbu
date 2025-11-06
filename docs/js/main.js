@@ -6510,7 +6510,7 @@
     }
     if (childNodes.length > 1) {
       return {
-        item: [...childNodes].toReversed().map((node2) => {
+        item: [...childNodes].map((node2) => {
           if (node2.nodeType === Node.TEXT_NODE)
             return {
               node: node2?.textContent ?? "",
@@ -6539,7 +6539,7 @@
     const { item, type } = itemObject;
     if (type === ELEMENT_TYPE_NOT_VALID) return;
     if (type === ELEMENT_TYPE_MIX_NODE_TEXT) {
-      item.forEach(({ node, type: type2 }) => {
+      item.toReversed().forEach(({ node, type: type2 }) => {
         if (type2 === ELEMENT_TYPE_NODE) {
           parent.insertAdjacentElement(
             position2,
