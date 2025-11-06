@@ -14,6 +14,7 @@ import { getAllUserComponentUseNamedSlot } from '../../modules/user-component';
 import {
     getAllSlot,
     getSlotByName,
+    getSlotPlaceholderSize,
     getUnamedPlaceholderSlot,
 } from '../../modules/slot';
 import { getElementOrTextFromNode, insertElementOrText } from './utils';
@@ -95,6 +96,18 @@ const removeOrphanSlot = ({ element }) => {
  * @returns {void}
  */
 const addToNamedSlot = ({ element }) => {
+    /**
+     * Skip if use Slot Set database instead do query. Id database is empty return; there two strategy:
+     *
+     * - UseSlotQuery
+     * - UseComponentHasNamedSlotQuery
+     *
+     * SlotPlaceholder is filled if useSlotQuery is false.
+     *
+     * - UseComponentHasNamedSlotQuery is specific strategy for named slot.
+     */
+    if (!useSlotQuery && getSlotPlaceholderSize() === 0) return;
+
     /**
      * First: find all node with slot=<slot-name> defined.
      *
