@@ -88,13 +88,18 @@ const removeOrphanSlot = ({ element }) => {
 };
 
 /**
- * Move element to related slot if defined. And delete original slot placehodler
+ * Move child element of new component to related slot with name.
  *
  * @param {object} obj
  * @param {HTMLElement} obj.element
  * @returns {void}
  */
 const addToNamedSlot = ({ element }) => {
+    /**
+     * First: find all node with slot=<slot-name> defined.
+     *
+     * - By default use query from root node
+     */
     const componentWithSlot = useComponentHasNamedSlotQuery
         ? queryComponentUseSlot(element)
         : getAllUserComponentUseNamedSlot({ element });
@@ -102,7 +107,7 @@ const addToNamedSlot = ({ element }) => {
     if (componentWithSlot.length === 0) return;
 
     [...componentWithSlot].forEach((component) => {
-        // @ts-ignore
+        // @ts-ignore - Get slot name
         const slotName = component?.getSlotPosition();
 
         /**
@@ -113,31 +118,60 @@ const addToNamedSlot = ({ element }) => {
             : getSlotByName({ name: slotName, element });
 
         /**
-         * If no slot return;
+         * Add component/element before slot and remove slot
          */
-        if (!slot) return { slot: null, elementMoved: null };
-
-        /**
-         * Add component/element before slot.
-         */
-        slot.parentNode?.insertBefore(component, slot);
-        slot?.removeCustomComponent();
-        slot?.remove();
+        if (slot) {
+            slot.parentNode?.insertBefore(component, slot);
+            slot?.removeCustomComponent();
+            slot?.remove();
+        }
     });
 };
 
 /**
  * @param {object} obj
- * @param {import('../../web-component/type').UserComponent | HTMLElement} obj.element
- * @param {string} obj.content
+ * @param {import('../../web-component/type').UserComponent | HTMLElement} obj.element - Current user component.
+ * @param {string} obj.content - The return DOM from component function.
  * @returns {HTMLElement | import('../../web-component/type').UserComponent | undefined}
  */
 const executeConversion = ({ element, content }) => {
     /**
-     * Add real content from render function
+     * - Get inner DOM of component to parse.
+     * - Detect if is text / node or mix of text and node.
+     * - Mix: inside element there is a DOM node but is possible find various #textNode with `/n` or `/n `
+     * - Element: there is only one child and is a NODE
+     * - Text: is only text-node
+     *
+     * Is used to choice for `insertElementOrText`, `insertAdjacentHTML` or `insertAdjacentElement`
+     *
+     * - Element inside should be used with slot
+     *
+     * TODO: Mix should skip false node like `/n` or spaces with only `/n`
+     *
+     * Es:
+     *
+     *     <doc-container>
+     *         #shadow-root
+     *         <div>
+     *             <my-component></my-component>
+     *         </div>
+     *     </doc-container>;
+     *
+     * Return object like:
+     *
+     * ```js
+     * {
+     *     item: Element | string | undefined;
+     *     type: node|mix|text|not-valid;
+     * }
+     * ```
      */
-    // const prevContent2 = element.innerHTML;
     const prevContent = getElementOrTextFromNode(element);
+
+    /**
+     * - Append render component as sibling of placeholder component.
+     * - Element is removed last
+     */
     const newElement = getNewElement({ element, content });
 
     /**
@@ -157,21 +191,15 @@ const executeConversion = ({ element, content }) => {
         const bindRefName = element?.getBindRefName();
 
         /**
-         * If unNamedSlot is used. Replace un-named slot with previous content.
+         * Detect Unnamed slot
          */
         const unNamedSlot = useSlotQuery
             ? queryUnNamedSlot(newElement)
             : getUnamedPlaceholderSlot({ element: newElement });
 
-        // if (unNamedSlot && prevContent.length > 0) {
-        //     unNamedSlot.insertAdjacentHTML('afterend', prevContent);
-        //     unNamedSlot.remove();
-        // }
-        //
-        // if (!unNamedSlot && prevContent.length > 0) {
-        //     newElement.insertAdjacentHTML('afterbegin', prevContent);
-        // }
-
+        /**
+         * Replace unnamed slot with userPlaceholder orinal content.
+         */
         if (unNamedSlot) {
             insertElementOrText({
                 parent: unNamedSlot,
@@ -182,6 +210,9 @@ const executeConversion = ({ element, content }) => {
             unNamedSlot.remove();
         }
 
+        /**
+         * Add original userPlaceholder content as first-child of new component.
+         */
         if (!unNamedSlot) {
             insertElementOrText({
                 parent: newElement,
@@ -224,8 +255,8 @@ const executeConversion = ({ element, content }) => {
  * Add content to component
  *
  * @param {object} obj
- * @param {HTMLElement | import('../../web-component/type').UserComponent} obj.element
- * @param {string} obj.content
+ * @param {HTMLElement | import('../../web-component/type').UserComponent} obj.element - Current user component.
+ * @param {string} obj.content - The return DOM from component function.
  * @returns {{ newElement: HTMLElement | import('../../web-component/type').UserComponent | undefined }
  *     | { newElement: HTMLElement | undefined }}
  */
