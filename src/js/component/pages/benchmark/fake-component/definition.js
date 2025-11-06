@@ -13,24 +13,12 @@ export const BenchMarkFakeComponent = MobJs.createComponent(
         tag: 'benchmark-fake-component',
         component: BenchMarkFakeComponentFn,
         props: {
-            counter: () => ({
-                value: 0,
-                type: Number,
-            }),
-            label: () => ({
-                value: '',
-                type: String,
-            }),
-            index: () => ({
-                value: 0,
-                type: Number,
-            }),
+            counter: 0,
+            label: '',
+            index: 0,
         },
         state: {
-            isSelected: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            isSelected: false,
         },
     })
 );
