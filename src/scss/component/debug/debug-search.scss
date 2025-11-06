@@ -12,18 +12,22 @@
         width: rem(150);
         background: transparent;
         border: 1px $white solid;
-        min-height: calc(var(--gap-size) / 2);
+        height: calc(var(--gap-size) / 2);
+        margin-right: rem(5);
+        vertical-align: middle;
     }
 
     &__button {
         background: transparent;
         border: 1px $white solid;
         padding-inline: calc(var(--gap-size) / 2);
+        height: calc(var(--gap-size) / 2);
         padding-top: 0;
         padding-bottom: 0;
         margin: 0;
         display: inline-block;
         line-height: 1.7;
+        vertical-align: middle;
         transition:
             background 0.35s,
             color 0.35s;

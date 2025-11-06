@@ -13,7 +13,32 @@ import {
     ELEMENT_TYPE_TEXT,
 } from './constant';
 
-export const renderHtml = String.raw;
+// export const renderHtml = String.raw;
+
+/**
+ * Sanitize html string, remove spaces between tag if there is no text and only /n with or without spaces
+ *
+ * @example
+ *     const element = html`
+ *         <div>
+ *             <span>${value}</span>
+ *         </div>
+ *     `;
+ *
+ * @param {TemplateStringsArray} strings
+ * @param {...any} values
+ * @returns {string}
+ */
+export const renderHtml = (strings, ...values) => {
+    return strings
+        .reduce(
+            (acc, str, i) =>
+                acc + str + (values[i] === undefined ? '' : values[i]),
+            ''
+        )
+        .replaceAll(/>\s+</g, '><')
+        .trim();
+};
 
 /**
  * Detect if child of element is element / text / mix text and element

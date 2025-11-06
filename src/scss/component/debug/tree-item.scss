@@ -59,6 +59,10 @@
         }
     }
 
+    &__instance {
+        margin-right: rem(5);
+    }
+
     &__selected {
         width: rem(10);
         height: rem(10);
