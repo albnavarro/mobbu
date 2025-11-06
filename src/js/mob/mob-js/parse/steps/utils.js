@@ -44,51 +44,68 @@ export const renderHtml = (strings, ...values) => {
  * Detect if child of element is element / text / mix text and element
  *
  * @param {Element} node
- * @returns {{ item: Element | string | undefined; type: string }}
+ * @returns {import('./type').NodeOrText}
  */
 export const getElementOrTextFromNode = (node) => {
     const childNodes = node.childNodes;
+    const firstChildNode = node.firstChild;
 
     /**
-     * No content
+     * No valid node.
      */
-    if (childNodes.length === 0) {
+    if (childNodes.length === 0 || !firstChildNode) {
         return {
             item: undefined,
             type: ELEMENT_TYPE_NOT_VALID,
         };
     }
 
-    const children = node.children;
-
     /**
-     * Is a unique node.
+     * First child is a Element node
      */
-    if (children.length === 1 && childNodes.length === 1) {
+    if (
+        childNodes.length === 1 &&
+        firstChildNode.nodeType === Node.ELEMENT_NODE
+    ) {
         return {
-            item: node.children?.[0],
+            item: firstChildNode,
             type: ELEMENT_TYPE_NODE,
         };
     }
 
     /**
-     * Can be everything.
+     * First child is a Text node
      */
-    if (childNodes.length > 1)
+    if (childNodes.length === 1 && firstChildNode.nodeType === Node.TEXT_NODE) {
         return {
-            item: node.innerHTML,
-            type: ELEMENT_TYPE_MIX_NODE_TEXT,
-        };
-
-    /**
-     * Is a textNode
-     */
-    const textContent = node.textContent;
-    if (textContent && textContent.length > 0)
-        return {
-            item: textContent,
+            item: firstChildNode?.textContent ?? '',
             type: ELEMENT_TYPE_TEXT,
         };
+    }
+
+    /**
+     * Multiple node mix Text && Element node.
+     */
+    if (childNodes.length > 1) {
+        return {
+            item: [...childNodes].toReversed().map((node) => {
+                if (node.nodeType === Node.TEXT_NODE)
+                    return {
+                        node: node?.textContent ?? '',
+                        type: ELEMENT_TYPE_TEXT,
+                    };
+
+                if (node.nodeType === Node.ELEMENT_NODE)
+                    return { node, type: ELEMENT_TYPE_NODE };
+
+                return {
+                    item: undefined,
+                    type: ELEMENT_TYPE_NOT_VALID,
+                };
+            }),
+            type: ELEMENT_TYPE_MIX_NODE_TEXT,
+        };
+    }
 
     /**
      * Fallback
@@ -104,7 +121,7 @@ export const getElementOrTextFromNode = (node) => {
  *
  * @param {object} params
  * @param {Element} params.parent
- * @param {{ item: Element | string | undefined; type: string }} params.itemObject
+ * @param {import('./type').NodeOrText} params.itemObject
  * @param {InsertPosition} params.position
  * @returns {void}
  */
@@ -118,7 +135,23 @@ export const insertElementOrText = ({
     if (type === ELEMENT_TYPE_NOT_VALID) return;
 
     if (type === ELEMENT_TYPE_MIX_NODE_TEXT) {
-        parent.insertAdjacentHTML(position, /** @type {string} */ (item));
+        // @ts-ignore
+        item.forEach(({ node, type }) => {
+            if (type === ELEMENT_TYPE_NODE) {
+                parent.insertAdjacentElement(
+                    position,
+                    /** @type {HTMLElement} */ (node)
+                );
+            }
+
+            if (type === ELEMENT_TYPE_TEXT) {
+                parent.insertAdjacentText(
+                    position,
+                    /** @type {string} */ (node)
+                );
+            }
+        });
+
         return;
     }
 

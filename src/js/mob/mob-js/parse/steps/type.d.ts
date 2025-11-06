@@ -49,3 +49,14 @@ interface RepeatInternal {
     }) => string;
     useSync?: boolean;
 }
+
+export interface NodeOrText {
+    item: ChildNode | string | NodeOrTextMix | undefined;
+    type: string;
+}
+
+export type NodeOrTextMix = (
+    | { node: string; type: string }
+    | { node: ChildNode; type: string }
+    | { node: undefined; type: string }
+)[];
