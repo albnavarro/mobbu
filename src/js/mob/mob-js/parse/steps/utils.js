@@ -9,7 +9,7 @@ import { setComponentRepeaterState } from '../../modules/repeater/repeater-value
 import {
     ELEMENT_TYPE_MIX_NODE_TEXT,
     ELEMENT_TYPE_NODE,
-    ELEMENT_TYPE_NOT_VALID,
+    EMPTY_NODE,
     ELEMENT_TYPE_TEXT,
 } from './constant';
 
@@ -56,7 +56,7 @@ export const getElementOrTextFromNode = (node) => {
     if (childNodes.length === 0 || !firstChildNode) {
         return {
             item: undefined,
-            type: ELEMENT_TYPE_NOT_VALID,
+            type: EMPTY_NODE,
         };
     }
 
@@ -100,7 +100,7 @@ export const getElementOrTextFromNode = (node) => {
 
                 return {
                     item: undefined,
-                    type: ELEMENT_TYPE_NOT_VALID,
+                    type: EMPTY_NODE,
                 };
             }),
             type: ELEMENT_TYPE_MIX_NODE_TEXT,
@@ -112,7 +112,7 @@ export const getElementOrTextFromNode = (node) => {
      */
     return {
         item: undefined,
-        type: ELEMENT_TYPE_NOT_VALID,
+        type: EMPTY_NODE,
     };
 };
 
@@ -132,7 +132,7 @@ export const insertElementOrText = ({
 }) => {
     const { item, type } = innerContentByNodeType;
 
-    if (type === ELEMENT_TYPE_NOT_VALID) return;
+    if (type === EMPTY_NODE) return;
 
     /**
      * - Case 1: unNamed slot switch

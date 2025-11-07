@@ -6478,7 +6478,7 @@
   var ELEMENT_TYPE_NODE = "node";
   var ELEMENT_TYPE_TEXT = "text";
   var ELEMENT_TYPE_MIX_NODE_TEXT = "mix";
-  var ELEMENT_TYPE_NOT_VALID = "not-valid";
+  var EMPTY_NODE = "empty-node";
 
   // src/js/mob/mob-js/parse/steps/utils.js
   var renderHtml = (strings, ...values) => {
@@ -6493,7 +6493,7 @@
     if (childNodes.length === 0 || !firstChildNode) {
       return {
         item: void 0,
-        type: ELEMENT_TYPE_NOT_VALID
+        type: EMPTY_NODE
       };
     }
     if (childNodes.length === 1 && firstChildNode.nodeType === Node.ELEMENT_NODE) {
@@ -6520,7 +6520,7 @@
             return { node: node2, type: ELEMENT_TYPE_NODE };
           return {
             item: void 0,
-            type: ELEMENT_TYPE_NOT_VALID
+            type: EMPTY_NODE
           };
         }),
         type: ELEMENT_TYPE_MIX_NODE_TEXT
@@ -6528,7 +6528,7 @@
     }
     return {
       item: void 0,
-      type: ELEMENT_TYPE_NOT_VALID
+      type: EMPTY_NODE
     };
   };
   var insertElementOrText = ({
@@ -6537,7 +6537,7 @@
     position: position2 = "afterend"
   }) => {
     const { item, type } = innerContentByNodeType;
-    if (type === ELEMENT_TYPE_NOT_VALID) return;
+    if (type === EMPTY_NODE) return;
     if (type === ELEMENT_TYPE_MIX_NODE_TEXT) {
       item.toReversed().forEach(({ node, type: type2 }) => {
         if (type2 === ELEMENT_TYPE_NODE) {

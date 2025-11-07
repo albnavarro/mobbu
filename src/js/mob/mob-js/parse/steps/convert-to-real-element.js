@@ -154,6 +154,7 @@ const executeConversion = ({ element, content }) => {
      * - Mix: Multiple node, should be ELEMENT_NODE or TEXT_NODE
      * - Element: there is only one child and is a ELEMENT_NODE
      * - Text: there is only one child and is a TEXT_NODE
+     * - If component not have content inside is a EMPTY_NODE
      *
      * Is used to choice for `insertElementOrText` or `insertAdjacentElement`
      *
