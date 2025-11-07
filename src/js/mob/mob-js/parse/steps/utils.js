@@ -121,16 +121,16 @@ export const getElementOrTextFromNode = (node) => {
  *
  * @param {object} params
  * @param {Element} params.parent
- * @param {import('./type').NodeOrText} params.itemObject
+ * @param {import('./type').NodeOrText} params.innerContentByNodeType
  * @param {InsertPosition} params.position
  * @returns {void}
  */
 export const insertElementOrText = ({
     parent,
-    itemObject,
+    innerContentByNodeType,
     position = 'afterend',
 }) => {
-    const { item, type } = itemObject;
+    const { item, type } = innerContentByNodeType;
 
     if (type === ELEMENT_TYPE_NOT_VALID) return;
 
@@ -138,8 +138,6 @@ export const insertElementOrText = ({
      * - Case 1: unNamed slot switch
      * - Case 2: default
      * - In default case use 'afterbegin' toReversed isNeeded
-     *
-     *   TODO: uniformare nel caso lo slot unNamed posso contenere piu di un nodo
      *
      *   - In questo caso i valori possono essere invertiti
      */

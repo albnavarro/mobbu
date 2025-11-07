@@ -141,6 +141,10 @@
             border: 1px $white solid;
             font-size: rem(12);
 
+            &:nth-of-type(1) {
+                margin-right: rem(5);
+            }
+
             &.active {
                 background: $white;
                 color: $black;

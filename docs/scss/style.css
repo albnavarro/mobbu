@@ -2989,6 +2989,9 @@ ul li::marker {
   border: 1px #fff solid;
   font-size: 0.8rem;
 }
+.c-debug-overlay__list__toggle:nth-of-type(1) {
+  margin-right: 0.3333333333rem;
+}
 .c-debug-overlay__list__toggle.active {
   background: #fff;
   color: #2e3440;
@@ -4892,6 +4895,7 @@ ul li::marker {
   border: 1px #fff solid;
   min-height: 2.4rem;
   padding-left: 0.6666666667rem;
+  margin-right: 0.3333333333rem;
 }
 .search-overlay-header__button {
   background: transparent;
@@ -4903,6 +4907,7 @@ ul li::marker {
   display: inline-block;
   min-height: 2.4rem;
   line-height: 1.7;
+  margin-right: 0.3333333333rem;
   transition: background 0.35s, color 0.35s;
 }
 .search-overlay-header__button:hover,

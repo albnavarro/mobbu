@@ -150,16 +150,12 @@ const addToNamedSlot = ({ element }) => {
 const executeConversion = ({ element, content }) => {
     /**
      * - Get inner DOM of component to parse.
-     * - Detect if is text / node or mix of text and node.
-     * - Mix: inside element there is a DOM node but is possible find various #textNode with `/n` or `/n `
-     * - Element: there is only one child and is a NODE
-     * - Text: is only text-node
+     * - Detect if is TEXT / NODE or mix of TEXT and NODE.
+     * - Mix: Multiple node, should be ELEMENT_NODE or TEXT_NODE
+     * - Element: there is only one child and is a ELEMENT_NODE
+     * - Text: there is only one child and is a TEXT_NODE
      *
-     * Is used to choice for `insertElementOrText`, `insertAdjacentHTML` or `insertAdjacentElement`
-     *
-     * - Element inside should be used with slot
-     *
-     * TODO: Mix should skip false node like `/n` or spaces with only `/n`
+     * Is used to choice for `insertElementOrText` or `insertAdjacentElement`
      *
      * Es:
      *
@@ -179,7 +175,7 @@ const executeConversion = ({ element, content }) => {
      * }
      * ```
      */
-    const prevContent = getElementOrTextFromNode(element);
+    const innerContentByNodeType = getElementOrTextFromNode(element);
 
     /**
      * - Append render component as sibling of placeholder component.
@@ -216,7 +212,7 @@ const executeConversion = ({ element, content }) => {
         if (unNamedSlot) {
             insertElementOrText({
                 parent: unNamedSlot,
-                itemObject: prevContent,
+                innerContentByNodeType,
                 position: 'afterend',
             });
 
@@ -229,7 +225,7 @@ const executeConversion = ({ element, content }) => {
         if (!unNamedSlot) {
             insertElementOrText({
                 parent: newElement,
-                itemObject: prevContent,
+                innerContentByNodeType,
                 position: 'afterbegin',
             });
         }

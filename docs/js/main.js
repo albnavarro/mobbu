@@ -6533,10 +6533,10 @@
   };
   var insertElementOrText = ({
     parent,
-    itemObject,
+    innerContentByNodeType,
     position: position2 = "afterend"
   }) => {
-    const { item, type } = itemObject;
+    const { item, type } = innerContentByNodeType;
     if (type === ELEMENT_TYPE_NOT_VALID) return;
     if (type === ELEMENT_TYPE_MIX_NODE_TEXT) {
       item.toReversed().forEach(({ node, type: type2 }) => {
@@ -6673,7 +6673,7 @@
     });
   };
   var executeConversion = ({ element, content }) => {
-    const prevContent = getElementOrTextFromNode(element);
+    const innerContentByNodeType = getElementOrTextFromNode(element);
     const newElement = getNewElement({ element, content });
     if (newElement) {
       const id = element.getId();
@@ -6684,7 +6684,7 @@
       if (unNamedSlot) {
         insertElementOrText({
           parent: unNamedSlot,
-          itemObject: prevContent,
+          innerContentByNodeType,
           position: "afterend"
         });
         unNamedSlot.remove();
@@ -6692,7 +6692,7 @@
       if (!unNamedSlot) {
         insertElementOrText({
           parent: newElement,
-          itemObject: prevContent,
+          innerContentByNodeType,
           position: "afterbegin"
         });
       }

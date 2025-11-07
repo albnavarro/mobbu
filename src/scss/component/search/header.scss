@@ -7,6 +7,7 @@
         border: 1px $white solid;
         min-height: rem(36);
         padding-left: rem(10);
+        margin-right: rem(5);
     }
 
     &__button {
@@ -19,6 +20,7 @@
         display: inline-block;
         min-height: rem(36);
         line-height: 1.7;
+        margin-right: rem(5);
         transition:
             background 0.35s,
             color 0.35s;
