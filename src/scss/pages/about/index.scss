@@ -97,7 +97,7 @@
         bottom: rem(30);
         left: 0;
         right: 0;
-        z-index: 10;
+        z-index: 12;
         list-style-type: none;
         margin: 0;
         padding: calc(var(--gap-size) / 2);
@@ -113,6 +113,7 @@
         a {
             text-decoration: underline;
             transition: opacity 0.35s;
+            pointer-events: all;
 
             &:hover {
                 opacity: 0.5;

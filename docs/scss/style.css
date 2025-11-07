@@ -1390,7 +1390,7 @@ ul li::marker {
   bottom: 2rem;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 12;
   list-style-type: none;
   margin: 0;
   padding: calc(var(--gap-size) / 2);
@@ -1405,6 +1405,7 @@ ul li::marker {
 .l-about__bio a {
   text-decoration: underline;
   transition: opacity 0.35s;
+  pointer-events: all;
 }
 .l-about__bio a:hover {
   opacity: 0.5;
