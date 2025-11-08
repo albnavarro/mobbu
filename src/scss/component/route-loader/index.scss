@@ -56,10 +56,21 @@
 
 .c-loader-background {
     position: fixed;
-    top: -400px;
-    left: -400px;
-    width: 200%;
-    height: 200%;
-    background: $black;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $white;
     z-index: 15;
+
+    &__message {
+        position: absolute;
+        top: calc(50% - rem(100));
+        font-size: rem(22);
+        line-height: 1.4;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: $black;
+        display: inline-block;
+    }
 }

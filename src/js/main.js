@@ -37,7 +37,7 @@ let jsMainLoaderBackground = document.body.querySelector(
  * Creare tween for loader/background
  */
 let loaderTween = MobTween.createTimeTween({
-    data: { opacity: 1, scale: 1 },
+    data: { opacity: 1 },
     duration: 1000,
 });
 
@@ -46,11 +46,9 @@ let loaderTween = MobTween.createTimeTween({
  */
 if (jsMainLoader && jsMainLoaderBackground) {
     [jsMainLoader, jsMainLoaderBackground].forEach((item) => {
-        loaderTween?.subscribe(({ opacity, scale }) => {
+        loaderTween?.subscribe(({ opacity }) => {
             // @ts-ignore
             item.style.opacity = opacity;
-            // @ts-ignore
-            item.style.transform = `scale(${scale})`;
         });
     });
 }
@@ -61,6 +59,7 @@ if (jsMainLoader && jsMainLoaderBackground) {
 const initApp = async () => {
     await loadData();
     await loadIcons();
+    await MobCore.useFps({ duration: 60, force: true });
 
     MobJs.inizializeApp({
         rootId: '#root',
@@ -72,7 +71,7 @@ const initApp = async () => {
         beforePageTransition,
         pageTransition,
         afterInit: async () => {
-            await loaderTween.goTo({ opacity: 0, scale: 0.9 });
+            await loaderTween.goTo({ opacity: 0 });
             loaderTween.destroy();
 
             // @ts-ignore
