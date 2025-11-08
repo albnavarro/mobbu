@@ -17,7 +17,8 @@ export const onlyDesktop = async () => {
                 <p>
                     This site is designed<br />
                     for a desktop experience,<br />
-                    the minimum resolution is 1024px.<br /><br />
+                    the minimum resolution is
+                    <strong>1024px</strong>.<br /><br />
                     <strong>
                         Please resize your browser<br />
                         or use a different device.

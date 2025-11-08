@@ -1,4 +1,5 @@
-# Prioritá;
+# Prioritá
+- StyleLint order.
 - Render optimization, case A.
 - Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
 - Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`.

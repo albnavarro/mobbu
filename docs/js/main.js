@@ -1372,7 +1372,8 @@ https://github.com/highlightjs/highlight.js/issues/2277`),V=S,D=I),k===void 0&&(
                 <p>
                     This site is designed<br />
                     for a desktop experience,<br />
-                    the minimum resolution is 1024px.<br /><br />
+                    the minimum resolution is
+                    <strong>1024px</strong>.<br /><br />
                     <strong>
                         Please resize your browser<br />
                         or use a different device.
