@@ -77,6 +77,33 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Before start:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span class='quote'>FPS</span> value is calculated as soon as mobCore is invoked for the first time. The default process takes the first <span class='quote'>30 frames</span>. If a stagger is invoked before the <span class='quote'>FPS</span> has been calculated, it will request a recalculation. If a tween is used before the <span class='quote'>FPS</span> is calculated, it risks performing some renderings with an outdated <span class='quote'>FPS</span> value. It is recommended to force the calculation of this value before starting the app."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-core/use-fps.js",
+                "numLines": 3
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "x-small",
