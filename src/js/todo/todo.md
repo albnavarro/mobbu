@@ -1,10 +1,30 @@
 # Prioritá;
-- MobJs: `detectProp`.
+- Render optimization, case A.
 - Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
 - Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`.
 - Component app: `dragger` con `pinch zoom`.
 
-# ParseRecursive in memory:
+# Render optimization:
+### A) better insertAdjacentHTML();
+Le operazioni per aggiungere le stringhe al DOM come:
+```js
+contentElement.insertAdjacentHTML('afterbegin', content);
+```
+possono essere ottimizzate:
+- Usare:
+    ```js
+    const fragment = range.createContextualFragment(rawRender);
+    ````
+- Ricordarsi di prevenire in questa operazione il detect dei `placoholder`.
+- Reference: `src/js/mob/mob-js/modules/repeater/update/utils.js`
+    ```js
+    setSkipAddUserComponent(true);
+    ```
+- Avvalersi delle utils `getElementOrTextFromNode()` e `insertElementOrText()`
+
+
+
+### B) ParseRecursive in memory:
 
 ```js
 
@@ -168,12 +188,6 @@ store[prop] = valueTransformed;
 
 
 # MobJs
-### detectProp:
-- Esportare `extractkeyFromProp()` da mobCore e usarla al posto di `detectProp()` nella forma:
-
-```js
-MobCore.extractkeyFromProp();
-```
 
 ### Create component:
  - Prendere due picconi con una fava.
