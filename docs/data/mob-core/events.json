@@ -189,6 +189,50 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
+                "id": "useFps",
+                "label": "useFps"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "useFps"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It runs a cycle of <span class='quote'>30 frames ( default )</span> to determine the value of <span class='quote'>frames per second</span> supported by the monitor."
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "<span class='quote'>force</span>: Force the recalculation of FPS even if they have already been calculated.",
+                    "<span class='quote'>deration</span>: Number of cycles used to determine the FPS value; by default, it is 30."
+                ]
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-core/use-fps.js",
+                "numLines": 3
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
                 "id": "useLoad",
                 "label": "useLoad"
             }

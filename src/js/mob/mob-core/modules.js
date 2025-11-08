@@ -259,16 +259,11 @@ function useFrameIndex(callback = () => {}, frame = 0) {
 }
 
 /**
- * Runs a request animation frame loop to detect the frame rate of the monitor. After the method will be resolved the
- * first time, subsequent calls will be resolved immediately returning the previously calculated value. The method is
- * launched the first time automatically at the first loading.
- *
- * @param {import('./events/raf-utils/type.js').LoadFpsCall} callback - Callback function
+ * @param {{ force?: boolean; duration?: number }} options
  * @returns {Promise<{ averageFPS: number }>}
  */
-async function useFps(callback = () => {}) {
-    const obj = await loadFps();
-    callback(obj);
+async function useFps({ force = false, duration = 30 } = {}) {
+    const obj = await loadFps({ force, duration });
     return obj;
 }
 

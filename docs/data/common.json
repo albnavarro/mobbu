@@ -796,6 +796,7 @@
         { "word": "get" },
         { "word": "getProps" },
         { "word": "destroy" },
+        { "word": "useFps" },
         { "word": "useFrame" },
         { "word": "useNextTick" },
         { "word": "useNextFrame" },

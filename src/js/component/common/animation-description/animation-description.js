@@ -1,3 +1,4 @@
+import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
 
 /**
@@ -15,7 +16,10 @@ export const AnimationDescriptionFn = ({
     const proxi = getProxi();
 
     addMethod('updateRawContent', (content) => {
-        proxi.rawContent = content;
+        proxi.rawContent =
+            content.length === 0
+                ? ''
+                : `${content} | <strong>fps: ${MobCore.getInstantFps()}</strong>`;
     });
 
     /**
