@@ -53,7 +53,6 @@ export const LinksMobJsFn = ({
     setRef,
     getRef,
     onMount,
-    setState,
     bindProps,
     invalidate,
     bindEffect,
@@ -81,22 +80,22 @@ export const LinksMobJsFn = ({
         navigationStore.watch('navigationIsOpen', (value) => {
             const { templateName } = MobJs.getActiveRoute();
             if (!(templateName in templateData)) return;
-            setState('shift', value);
+            proxi.shift = value;
         });
 
         const unsubscribeRoute = MobJs.afterRouteChange(
             async ({ currentTemplate, currentRoute }) => {
                 const currentData = templateData?.[currentTemplate] ?? [];
-                setState('data', currentData);
+                proxi.data = currentData;
 
                 /**
                  * Await list was created, then create scroller
                  */
                 await MobJs.tick();
-                setState('activeSection', currentRoute);
+                proxi.activeSection = currentRoute;
 
                 if (currentData.length > 0) {
-                    setState('hide', false);
+                    proxi.hide = false;
 
                     /**
                      * Update scroller
@@ -126,7 +125,7 @@ export const LinksMobJsFn = ({
                 }
 
                 if (currentData.length === 0) {
-                    setState('hide', true);
+                    proxi.hide = true;
                     destroy?.();
                     isActive = false;
                 }

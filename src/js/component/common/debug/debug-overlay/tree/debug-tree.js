@@ -38,7 +38,6 @@ const initScroller = async ({ getRef }) => {
 /** @type {MobComponent<import('./type').DebugTree>} */
 export const DebugTreeFn = ({
     onMount,
-    setState,
     invalidate,
     staticProps,
     setRef,
@@ -72,16 +71,18 @@ export const DebugTreeFn = ({
         });
 
         (async () => {
-            setState('isLoading', true);
+            proxi.isLoading = true;
             await MobJs.tick();
 
             destroy?.();
-            setState('data', MobJs.getTree());
+            proxi.data = MobJs.getTree();
+
             // @ts-ignore
             ({ destroy, move, refresh, updateScroller } = await initScroller({
                 getRef,
             }));
-            setState('isLoading', false);
+
+            proxi.isLoading = false;
         })();
 
         // eslint-disable-next-line unicorn/consistent-function-scoping
