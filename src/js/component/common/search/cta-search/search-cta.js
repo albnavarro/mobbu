@@ -1,28 +1,15 @@
-import { useMethodByName } from 'src/js/mob/mob-js/modules';
-
 /**
- * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ * @import {MobComponent} from '@mobJsType';
  */
 
 import { html } from '@mobJs';
-import {
-    searchOverlay,
-    searchOverlayHeader,
-} from 'src/js/component/instance-name';
 import { getIcons } from '@data/index';
+import { toggleSearchOverlay } from '../search-overlay/utils';
+import { searchOverlaySetInputFocus } from '../search-overlay/header/utils';
 
 const onClick = () => {
-    /**
-     * @type {UseMethodByName<import('../search-overlay/type').SearchOverlay>}
-     */
-    const overlayMethods = useMethodByName(searchOverlay);
-    overlayMethods?.toggle();
-
-    /**
-     * @type {UseMethodByName<import('../search-overlay/header/type').SearchOverlayHeader>}
-     */
-    const headerMethods = useMethodByName(searchOverlayHeader);
-    headerMethods?.setInputFocus();
+    toggleSearchOverlay();
+    searchOverlaySetInputFocus();
 };
 
 /** @type {MobComponent} */

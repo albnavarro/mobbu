@@ -1,16 +1,13 @@
 import { html, MobJs } from '@mobJs';
-import { debugFilterListName } from 'src/js/component/instance-name';
+import { refreshFilterList } from '../list/utils';
 
 /**
- * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ * @import {MobComponent} from '@mobJsType';
  */
 
 const refreshList = async (testString = '') => {
     await MobJs.tick();
-
-    /** @type {UseMethodByName<import('../list/type').DebugFilterList>} */
-    const methods = MobJs.useMethodByName(debugFilterListName);
-    methods?.refreshList?.({ testString });
+    refreshFilterList(testString);
 };
 
 /** @type {MobComponent<import('./type').DebugFilterHead>} */

@@ -1,13 +1,14 @@
 //@ts-check
 
 /**
- * @import {MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, GetState, Invalidate, ReturnBindProps, UseMethodByName} from '@mobJsType'
+ * @import {MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, GetState, Invalidate, ReturnBindProps} from '@mobJsType'
  * @import {Matrioska} from './type'
  * @import {MatrioskaItem} from './item/type'
  */
 
 import { MobCore } from '@mobCore';
-import { html, MobJs } from '@mobJs';
+import { html } from '@mobJs';
+import { toggleMatrioskaItemActive } from './item/utils';
 
 const buttons = [
     {
@@ -236,10 +237,7 @@ const getThirdLevel = ({
                                     })}
                                     ${delegateEvents({
                                         click: () => {
-                                            /** @type {UseMethodByName<MatrioskaItem>} */
-                                            const methods =
-                                                MobJs.useMethodByName(name);
-                                            methods.toggleActive();
+                                            toggleMatrioskaItemActive(name);
                                         },
                                     })}
                                 >
@@ -264,10 +262,7 @@ const getThirdLevel = ({
                                     })}
                                     ${delegateEvents({
                                         click: () => {
-                                            /** @type {UseMethodByName<MatrioskaItem>} */
-                                            const methods =
-                                                MobJs.useMethodByName(name2);
-                                            methods.toggleActive();
+                                            toggleMatrioskaItemActive(name2);
                                         },
                                     })}
                                 >

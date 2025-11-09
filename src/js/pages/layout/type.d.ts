@@ -1,12 +1,11 @@
+import { RightSideBarList } from '@commonComponent/right-sidebar/type';
+
 export interface LayoutSidebarAnchor {
     props: {
         source: string;
         title: string;
         breadCrumbs: LayoutSidebarAnchorBreadCrumbs[];
-        rightSidebar?: {
-            label: string;
-            url: string;
-        }[];
+        rightSidebar?: RightSideBarList[];
     };
 }
 

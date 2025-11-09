@@ -1,5 +1,5 @@
 /**
- * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ * @import {MobComponent} from '@mobJsType';
  */
 
 import { html } from '@mobJs';
@@ -7,7 +7,10 @@ import {
     searchOverlayHeader,
     searchOverlayList,
 } from 'src/js/component/instance-name';
-import { useMethodByName } from 'src/js/mob/mob-js/modules';
+import {
+    closeSearchSuggestion,
+    shouldCloseSearchSuggestion,
+} from './header/utils';
 
 /**
  * @param {object} params
@@ -15,8 +18,7 @@ import { useMethodByName } from 'src/js/mob/mob-js/modules';
  */
 const closeOverlay = ({ proxi }) => {
     proxi.active = false;
-    const headerMethods = useMethodByName(searchOverlayHeader);
-    headerMethods?.closeSuggestion();
+    closeSearchSuggestion();
 };
 
 /**
@@ -25,12 +27,7 @@ const closeOverlay = ({ proxi }) => {
  */
 const shouldCloseSuggestion = ({ currentTarget }) => {
     if (!currentTarget) return;
-
-    /**
-     * @type {UseMethodByName<import('./header/type').SearchOverlayHeader>}
-     */
-    const headerMethods = useMethodByName(searchOverlayHeader);
-    headerMethods?.shouldCloseSuggestion(currentTarget);
+    shouldCloseSearchSuggestion(currentTarget);
 };
 
 /** @type {MobComponent<import('./type').SearchOverlay>} */

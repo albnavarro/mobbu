@@ -8,14 +8,14 @@ interface State extends Readonly<MobJsStore> {
     isVisible: boolean;
 }
 
+interface RightSideBarList {
+    label: string;
+    url: string;
+}
+
 export interface RightSidebar {
     state: State;
     methods: {
-        updateList: (
-            arg0: {
-                label: string;
-                url: string;
-            }[]
-        ) => void;
+        updateList: (arg0: RightSideBarList[]) => void;
     };
 }

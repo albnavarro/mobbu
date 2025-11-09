@@ -5,7 +5,7 @@ import { HtmlContent } from '@commonComponent/html-content/definition';
 import { html, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
-import { rightSidebarName } from 'src/js/component/instance-name';
+import { updateRightSidebarList } from '@commonComponent/right-sidebar/utils';
 
 MobJs.useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);
 
@@ -13,12 +13,7 @@ MobJs.useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);
 export const layoutSidebarLinks = async ({ props }) => {
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
-
-    /**
-     * @type {import('@mobJsType').UseMethodByName<import('@commonComponent/right-sidebar/type').RightSidebar>}
-     */
-    const navContainerMethods = MobJs.useMethodByName(rightSidebarName);
-    navContainerMethods?.updateList(rightSidebar ?? []);
+    updateRightSidebarList(rightSidebar ?? []);
 
     return html`<doc-container>
         <div>

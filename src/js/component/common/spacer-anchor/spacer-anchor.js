@@ -1,11 +1,14 @@
 /**
- * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ * @import {MobComponent} from '@mobJsType';
  * @import {SpacerAnchor} from './type';
  */
 
 import { html, MobJs } from '@mobJs';
 import { isVisibleInViewportSmart } from '@mobCoreUtils';
-import { scrollToName } from '../../instance-name';
+import {
+    addItemToScrollSideBar,
+    setScrollToActiveLabel,
+} from '@commonComponent/scroll-to/utils';
 
 /**
  * @param {object} params
@@ -34,10 +37,7 @@ const addItemToScrollComponent = async ({
 }) => {
     // Wait that all components is mounted.
     await MobJs.tick();
-
-    /** @type {UseMethodByName<import('../scroll-to/type').ScrollTo>} */
-    const methods = MobJs.useMethodByName(scrollToName);
-    methods?.addItem?.({ id, label, element, isSection, isNote });
+    addItemToScrollSideBar({ id, label, element, isSection, isNote });
 
     /**
      * Set initial initial active state.
@@ -45,7 +45,7 @@ const addItemToScrollComponent = async ({
      * On wheel/scroll active state is performed by scroll-to component in more efficient way
      */
     if (isVisibleInViewportSmart(element) && !isSection) {
-        methods?.setActiveLabel?.(label);
+        setScrollToActiveLabel(label);
     }
 };
 

@@ -1,3 +1,11 @@
+export interface ScrollToItemsToAdd {
+    id: string;
+    label: string;
+    element: HTMLElement;
+    isSection?: boolean;
+    isNote?: boolean;
+}
+
 export interface ScrollTo {
     state: {
         activeLabel: string;
@@ -19,13 +27,7 @@ export interface ScrollTo {
         }[];
     };
     methods: {
-        addItem: (arg0: {
-            id: string;
-            label: string;
-            element: HTMLElement;
-            isSection?: boolean;
-            isNote?: boolean;
-        }) => void;
+        addItem: (arg0: ScrollToItemsToAdd) => void;
         setActiveLabel: (arg0: string) => void;
     };
 }

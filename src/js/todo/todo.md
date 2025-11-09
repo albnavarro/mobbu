@@ -1,4 +1,5 @@
 # Prioritá
+- Alias `@instanceName`.
 - StyleLint order.
 - Render optimization, case A.
 - Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.

@@ -1,30 +1,9 @@
 /**
- * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ * @import {MobComponent} from '@mobJsType';
  */
 
 import { html } from '@mobJs';
-import { searchOverlayHeader } from 'src/js/component/instance-name';
-import { useMethodByName } from 'src/js/mob/mob-js/modules';
-
-/**
- * @param {string} word
- * @returns {void}
- */
-const sendWord = (word) => {
-    /**
-     * @type {UseMethodByName<import('../type').SearchOverlayHeader>}
-     */
-    const headerMethods = useMethodByName(searchOverlayHeader);
-    headerMethods?.updateCurrentSearchFromSuggestion(word);
-};
-
-const onEsc = () => {
-    /**
-     * @type {UseMethodByName<import('../type').SearchOverlayHeader>}
-     */
-    const headerMethods = useMethodByName(searchOverlayHeader);
-    headerMethods?.closeSuggestion();
-};
+import { closeSearchSuggestion, updateSearchFromSuggestion } from '../utils';
 
 /**
  * @param {object} params
@@ -34,12 +13,12 @@ const onEsc = () => {
  */
 const onKeyDown = ({ code, word }) => {
     if (code.toLowerCase() === 'enter') {
-        sendWord(word);
+        updateSearchFromSuggestion(word);
         return;
     }
 
     if (code.toLowerCase() === 'escape') {
-        onEsc();
+        closeSearchSuggestion();
         return;
     }
 };
@@ -67,7 +46,9 @@ export const SearchOverlaySuggestionFn = ({
                                     class="search-overlay-suggestion__button"
                                     ${delegateEvents({
                                         click: () => {
-                                            sendWord(current.value.word);
+                                            updateSearchFromSuggestion(
+                                                current.value.word
+                                            );
                                         },
                                         keydown: (
                                             /** @type {KeyboardEvent} */ event

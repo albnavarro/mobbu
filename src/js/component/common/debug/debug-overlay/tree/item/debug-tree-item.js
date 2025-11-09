@@ -1,14 +1,12 @@
 /**
- * @import {MobComponent,  UseMethodByName} from '@mobJsType';
+ * @import {MobComponent} from '@mobJsType';
  */
 
 import { html, MobJs } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
 import { generateTreeComponents } from '../recursive-tree';
-import {
-    debugComponentName,
-    debugTreeName,
-} from 'src/js/component/instance-name';
+import { updateDebugComponentById } from '../../debug-component/utils';
+import { refreshDebugTree } from '../utils';
 
 /**
  * @param {number} value
@@ -84,10 +82,7 @@ export const DebugTreeItemFn = ({
             async (isOpen) => {
                 const action = isOpen ? 'down' : 'up';
                 await MobSlide[action](content);
-
-                /** @type {UseMethodByName<import('../type').DebugTree>} */
-                const methods = MobJs.useMethodByName(debugTreeName);
-                methods?.refresh();
+                refreshDebugTree();
             }
         );
 
@@ -129,10 +124,7 @@ export const DebugTreeItemFn = ({
                 class="c-debug-tree-item__expand"
                 ${delegateEvents({
                     click: () => {
-                        /** @type {UseMethodByName<import('../../debug-component/type').DebugComponent>} */
-                        const methods =
-                            MobJs.useMethodByName(debugComponentName);
-                        methods?.updateId(proxi.id);
+                        updateDebugComponentById(proxi.id);
                     },
                 })}
             >

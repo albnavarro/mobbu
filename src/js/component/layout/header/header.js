@@ -1,31 +1,22 @@
 /**
- * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ * @import {MobComponent} from '@mobJsType';
  */
 
 import { outerHeight } from '@mobCoreUtils';
 import { html, MobJs } from '@mobJs';
-import {
-    mobNavigationContainerName,
-    mobNavigationName,
-} from '../../instance-name';
 import { navigationStore } from '@stores/navigation';
 import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
+import {
+    closeAllNavAccordion,
+    scrollToTopNav,
+} from '@layoutComponent/navigation/utils';
 
 function titleHandler() {
     MobJs.loadUrl({ url: 'home' });
     navigationStore.set('navigationIsOpen', false);
-
-    /** @type {UseMethodByName<import('../navigation/type').Navigation>} */
-    const mainNavigationMethods = MobJs.useMethodByName(mobNavigationName);
-    mainNavigationMethods?.closeAllAccordion();
-
-    /** @type {UseMethodByName<import('../navigation/type').NavigationContainer>} */
-    const navContainerMethods = MobJs.useMethodByName(
-        mobNavigationContainerName
-    );
-
-    navContainerMethods?.scrollTop();
+    closeAllNavAccordion();
+    scrollToTopNav();
 }
 
 /** @type {MobComponent<import('./type').Header>} */

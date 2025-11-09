@@ -9,7 +9,7 @@ import { routes } from './pages';
 import { getScrollbarWith } from './utils/scrollbar-with';
 import { wrapper } from './wrapper';
 import { initMainLoader } from './main-loader';
-import { routeLoader } from './component/instance-name';
+import { skipRouteLoader } from '@commonComponent/route-loader/utils';
 // import { storeTest } from './test/store-test';
 
 const fpsLoopNumber = 60;
@@ -92,18 +92,7 @@ const initApp = async () => {
 
             getScrollbarWith();
             redirectOnResize();
-
-            /**
-             * Re-enable route loading.
-             *
-             * - First load skip and use main-loader.
-             *
-             * @type {import('@mobJsType').UseMethodByName<
-             *     import('@commonComponent/route-loader/type').RouteLoader
-             * >}
-             */
-            const loaderMethods = MobJs.useMethodByName(routeLoader);
-            loaderMethods.skip(false);
+            skipRouteLoader(false);
         },
         redirect: ({ route }) => {
             return shouldRedirect() ? 'onlyDesktop' : route;

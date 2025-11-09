@@ -1,16 +1,13 @@
 /**
- * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ * @import {MobComponent} from '@mobJsType';
  */
 
 import { html, MobJs } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../../constant';
-import { debugComponentName } from 'src/js/component/instance-name';
-
-const updateId = (id = '') => {
-    /** @type {UseMethodByName<import('../../debug-component/type').DebugComponent>} */
-    const methods = MobJs.useMethodByName(debugComponentName);
-    methods?.updateId(id ?? '');
-};
+import {
+    refreshDebugComponentById,
+    updateDebugComponentById,
+} from '../../debug-component/utils';
 
 /** @type {MobComponent<import('./type').DebugSearch>} */
 export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
@@ -32,7 +29,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                                 event.target
                             ).value;
 
-                            updateId(id);
+                            updateDebugComponentById(id ?? '');
                         }
                     },
                 })}
@@ -46,7 +43,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                         const id = /** @type {HTMLInputElement} */ (id_input)
                             .value;
 
-                        updateId(id);
+                        updateDebugComponentById(id ?? '');
                     },
                 })}
             >
@@ -71,7 +68,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                                     .value;
 
                             const id = MobJs.getIdByInstanceName(instanceName);
-                            updateId(id);
+                            updateDebugComponentById(id ?? '');
                         }
                     },
                 })}
@@ -84,7 +81,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                         const { instance_input } = getRef();
                         const instanceName = instance_input.value;
                         const id = MobJs.getIdByInstanceName(instanceName);
-                        updateId(id);
+                        updateDebugComponentById(id ?? '');
                     },
                 })}
             >
@@ -102,7 +99,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                             const { instance_input, id_input } = getRef();
                             instance_input.value = '';
                             id_input.value = '';
-                            updateId(RESET_FILTER_DEBUG);
+                            updateDebugComponentById(RESET_FILTER_DEBUG);
                         },
                     })}
                 >
@@ -118,10 +115,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                     type="button"
                     ${delegateEvents({
                         click: () => {
-                            /** @type {UseMethodByName<import('../../debug-component/type').DebugComponent>} */
-                            const methods =
-                                MobJs.useMethodByName(debugComponentName);
-                            methods?.refreshId();
+                            refreshDebugComponentById();
                         },
                     })}
                 >

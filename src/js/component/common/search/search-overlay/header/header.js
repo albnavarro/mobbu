@@ -1,23 +1,18 @@
 /**
- * @import {GetRef, MobComponent, ReturnBindProps, UseMethodByName} from '@mobJsType';
+ * @import {GetRef, MobComponent, ReturnBindProps} from '@mobJsType';
  */
 
 import { getCommonData } from '@data/index';
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
-import { searchOverlayList } from 'src/js/component/instance-name';
-import { useMethodByName } from 'src/js/mob/mob-js/modules';
+import { resetOverlayList, updateOverlayList } from '../list/utils';
 
 /**
  * @param {object} params
  * @param {string} params.currentSearch
  */
 const sendSearch = async ({ currentSearch }) => {
-    /**
-     * @type {UseMethodByName<import('../list/type').SearchOverlayList>}
-     */
-    const listMethods = useMethodByName(searchOverlayList);
-    listMethods?.update(currentSearch);
+    updateOverlayList(currentSearch);
 };
 
 /**
@@ -39,11 +34,7 @@ const sendToList = ({ getRef }) => {
  * @param {import('./type').SearchOverlayHeader['state']} params.proxi
  */
 const sendReset = ({ getRef, proxi }) => {
-    /**
-     * @type {UseMethodByName<import('../list/type').SearchOverlayList>}
-     */
-    const listMethods = useMethodByName(searchOverlayList);
-    listMethods?.reset();
+    resetOverlayList();
 
     const { search_input } = getRef();
     search_input.value = '';

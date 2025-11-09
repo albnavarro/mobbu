@@ -1,14 +1,11 @@
 /**
- * @import {MobComponent, ProxiState, ReturnBindProps, StaticProps, UseMethodByName} from '@mobJsType';
- * @import {Navigation, NavigationButton, NavigationContainer, NavigationSubmenu} from './type';
+ * @import {MobComponent, ProxiState, ReturnBindProps, StaticProps} from '@mobJsType';
+ * @import {NavigationButton,  NavigationSubmenu} from './type';
  */
 
-import { html, MobJs } from '@mobJs';
+import { html } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
-import {
-    mobNavigationContainerName,
-    mobNavigationName,
-} from '../../instance-name';
+import { closeAllNavAccordion, refreshNavigationScroller } from './utils';
 
 /**
  * @param {object} params
@@ -80,24 +77,14 @@ export const NavigationSubmenuFn = ({
             async (isOpen) => {
                 const action = isOpen ? 'down' : 'up';
                 await MobSlide[action](content);
-
-                /** @type {UseMethodByName<NavigationContainer>} */
-                const navContainerMethods = MobJs.useMethodByName(
-                    mobNavigationContainerName
-                );
-                navContainerMethods?.refresh();
+                refreshNavigationScroller();
 
                 if (isOpen) return;
 
                 /**
                  * When accordion is closed form element itSelf Need to reset currentAccordionId without fire callback.
                  */
-
-                /** @type {UseMethodByName<Navigation>} */
-                const mainNavigationMethods =
-                    MobJs.useMethodByName(mobNavigationName);
-
-                mainNavigationMethods?.closeAllAccordion({
+                closeAllNavAccordion({
                     fireCallback: false,
                 });
             },

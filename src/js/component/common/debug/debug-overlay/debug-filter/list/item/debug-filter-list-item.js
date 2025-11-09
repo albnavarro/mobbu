@@ -1,9 +1,9 @@
 /**
- * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ * @import {MobComponent} from '@mobJsType';
  */
 
-import { html, MobJs } from '@mobJs';
-import { debugComponentName } from 'src/js/component/instance-name';
+import { updateDebugComponentById } from '@commonComponent/debug/debug-overlay/debug-component/utils';
+import { html } from '@mobJs';
 
 /** @type {MobComponent<import('./type').DebugFilterListItem>} */
 export const DebugFilterListItemFn = ({
@@ -33,11 +33,7 @@ export const DebugFilterListItemFn = ({
                 class="c-debug-filter-list-item__expand"
                 ${delegateEvents({
                     click: () => {
-                        /** @type {UseMethodByName<import('../../../debug-component/type').DebugComponent>} */
-                        const methods =
-                            MobJs.useMethodByName(debugComponentName);
-
-                        methods?.updateId(proxi.id);
+                        updateDebugComponentById(proxi.id);
                     },
                 })}
             >

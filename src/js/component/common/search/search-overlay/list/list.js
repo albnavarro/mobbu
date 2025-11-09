@@ -1,12 +1,11 @@
 /**
- * @import {GetRef, MobComponent, UseMethodByName} from '@mobJsType';
+ * @import {GetRef, MobComponent} from '@mobJsType';
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { html, MobJs } from '@mobJs';
-import { searchOverlay } from 'src/js/component/instance-name';
-import { useMethodByName } from 'src/js/mob/mob-js/modules';
 import { fetchSearchResult } from './fetch-data';
+import { toggleSearchOverlay } from '../utils';
 
 /**
  * @param {object} params
@@ -14,12 +13,7 @@ import { fetchSearchResult } from './fetch-data';
  */
 const loadPage = ({ uri }) => {
     MobJs.loadUrl({ url: uri });
-
-    /**
-     * @type {UseMethodByName<import('../type').SearchOverlay>}
-     */
-    const searchMethods = useMethodByName(searchOverlay);
-    searchMethods?.toggle();
+    toggleSearchOverlay();
 };
 
 /**

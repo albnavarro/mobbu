@@ -1,12 +1,11 @@
 import { consoleLogDebug } from '@commonComponent/debug/console-log';
-import { html, MobJs } from '@mobJs';
-import { debugOverlayName } from '../../instance-name';
+import { html } from '@mobJs';
 import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
+import { toggleDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
 
 /**
- * @import {MobComponent, UseMethodByName} from '@mobJsType'
- * @import {DebugOverlay} from '../../common/debug/debug-overlay/type'
+ * @import {MobComponent} from '@mobJsType'
  */
 
 /** @type {MobComponent<import('./type').Footer>} */
@@ -35,10 +34,7 @@ export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
                         class="c-button-debug"
                         ${delegateEvents({
                             click: () => {
-                                /** @type {UseMethodByName<DebugOverlay>} */
-                                const methods =
-                                    MobJs.useMethodByName(debugOverlayName);
-                                methods?.toggle();
+                                toggleDebugOverlay();
                             },
                         })}
                     >

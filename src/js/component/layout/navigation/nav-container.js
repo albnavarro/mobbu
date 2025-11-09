@@ -1,16 +1,18 @@
 import { MobCore } from '@mobCore';
-import { html, MobJs } from '@mobJs';
+import { html } from '@mobJs';
 import { MobBodyScroll, UnFreezeMobPageScroll } from '@mobMotionPlugin';
 import { initNavigationScoller } from './animation/nav-scroller';
-import {
-    mobNavigationContainerName,
-    mobNavigationName,
-} from '../../instance-name';
+import { mobNavigationName } from '../../instance-name';
 import { navigationStore } from '@stores/navigation';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
+import {
+    closeAllNavAccordion,
+    refreshNavigationScroller,
+    scrollToTopNav,
+} from './utils';
 
 /**
- * @import {SetState, UseMethodByName} from '@mobJsType'
+ * @import {SetState} from '@mobJsType'
  */
 
 /**
@@ -35,9 +37,7 @@ function closeNavigation({ main, setState }) {
  * @returns {void}
  */
 function openNavigation({ main, setState }) {
-    /** @type {UseMethodByName<import('./type').NavigationContainer>} */
-    const methods = MobJs.useMethodByName(mobNavigationContainerName);
-    methods?.refresh();
+    refreshNavigationScroller();
     setState('isOpen', true);
 
     MobCore.useFrame(() => {
@@ -59,15 +59,8 @@ function addMainHandler({ main }) {
 }
 
 const toTopBtnHandler = () => {
-    /** @type {UseMethodByName<import('./type').NavigationContainer>} */
-    const navContainerMethods = MobJs.useMethodByName(
-        mobNavigationContainerName
-    );
-    navContainerMethods?.scrollTop();
-
-    /** @type {UseMethodByName<import('./type').Navigation>} */
-    const mainNavigationMethods = MobJs.useMethodByName(mobNavigationName);
-    mainNavigationMethods?.closeAllAccordion();
+    scrollToTopNav();
+    closeAllNavAccordion();
 
     const { navigationIsOpen } = navigationStore.get();
     if (!navigationIsOpen) MobBodyScroll.to(0);
