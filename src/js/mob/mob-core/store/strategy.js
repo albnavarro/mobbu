@@ -1,1 +1,1 @@
-export const useStoreCopy = false;
+export const useStoreCopy = true;
