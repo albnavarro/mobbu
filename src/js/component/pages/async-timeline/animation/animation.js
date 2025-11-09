@@ -356,10 +356,10 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                 }
 
                 // context.fillStyle = '#eee';
-                context.strokeStyle = `#000`;
+                // context.strokeStyle = `#000`;
                 // context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
                 context.fillStyle = `rgba(238, 238, 238, 0.9)`;
-                context.stroke();
+                // context.stroke();
                 context.fill();
             }
         );
