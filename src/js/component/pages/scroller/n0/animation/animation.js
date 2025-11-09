@@ -214,12 +214,12 @@ export const scrollerN0Animation = ({
                 } else {
                     context.strokeStyle = `#000`;
                     context.fillStyle = `rgb(238, 238, 238)`;
-                    context.stroke();
+                    // context.stroke();
                     context.fill();
 
                     if (!useRadius) {
                         context.strokeStyle = '#ccc';
-                        context.stroke();
+                        // context.stroke();
                     }
                 }
 
