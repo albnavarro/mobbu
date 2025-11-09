@@ -1,6 +1,5 @@
 import { MobJs } from '@mobJs';
 import { TitleFn } from './title';
-import { navigationStore } from '@stores/navigation';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
@@ -11,7 +10,6 @@ export const Title = MobJs.createComponent(
     ({
         tag: 'mob-title',
         component: TitleFn,
-        bindStore: navigationStore,
         props: {
             tag: () => ({
                 value: 'h1',
@@ -21,9 +19,7 @@ export const Title = MobJs.createComponent(
                 value: 'inherit',
                 type: String,
                 validate: (val) => {
-                    return ['inherit', 'white', 'hightlight', 'black'].includes(
-                        val
-                    );
+                    return ['inherit', 'white', 'black'].includes(val);
                 },
             }),
             isSection: () => ({

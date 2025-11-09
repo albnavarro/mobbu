@@ -34,10 +34,11 @@ export const HeaderToggleFn = ({
                         (state) => !state
                     );
 
-                    const isOpen = navigationStore.getProp('navigationIsOpen');
-                    if (!isOpen) {
+                    /**
+                     * Secure check. Mouse loave on SmoothScroll trigger Unfrezze too.
+                     */
+                    if (!proxi.navigationIsOpen) {
                         UnFreezeMobPageScroll();
-                        console.log('unfreeze');
                     }
                 },
             })}

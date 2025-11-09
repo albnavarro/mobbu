@@ -1,13 +1,4 @@
-import { getTrinangle } from '@componentLibs/utils/get-triangle';
 import { html } from '@mobJs';
-
-/**
- * @param {string} tag
- * @returns {string}
- */
-const shouldUseTrinagle = (tag) => {
-    return tag === `h1` ? getTrinangle() : '';
-};
 
 /**
  * @param {string} index
@@ -29,8 +20,6 @@ export const TitleFn = ({ getProxi }) => {
 
     return html`<${proxi.tag} class="${colorClass} ${boldClass} ${isSectionClass}">
             ${getIndex(proxi.index)}
-            <span class="triangle-left">${shouldUseTrinagle(proxi.tag)}</span>
-            <span class="triangle-right">${shouldUseTrinagle(proxi.tag)}</span>
             <span class="title-content">
                 <mobjs-slot></mobjs-slot>
             </span>
