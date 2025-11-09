@@ -15,6 +15,7 @@ import {
     mobNavigationContainerName,
     quickNavName,
     rightSidebarName,
+    routeLoader,
     scrollDownLabelName,
     searchOverlay,
 } from '../component/instance-name';
@@ -56,7 +57,7 @@ export const wrapper = async () => {
         </main>
         <mob-footer> </mob-footer>
         <quick-nav name="${quickNavName}"></quick-nav>
-        <route-loader></route-loader>
+        <route-loader name="${routeLoader}"></route-loader>
         <scroll-down-label name="${scrollDownLabelName}"></scroll-down-label>
         <links-mobjs></links-mobjs>
         <right-sidebar name="${rightSidebarName}"></right-sidebar>

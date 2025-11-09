@@ -8,7 +8,11 @@ import { beforePageTransition, pageTransition } from './page-transition';
 import { routes } from './pages';
 import { getScrollbarWith } from './utils/scrollbar-with';
 import { wrapper } from './wrapper';
+import { initMainLoader } from './main-loader';
+import { routeLoader } from './component/instance-name';
 // import { storeTest } from './test/store-test';
+
+const fpsLoopNumber = 60;
 
 const shouldRedirect = () => {
     return /** @type {boolean} */ (MobMotionCore.mq('max', 'desktop'));
@@ -59,7 +63,8 @@ if (jsMainLoader && jsMainLoaderBackground) {
 const initApp = async () => {
     await loadData();
     await loadIcons();
-    await MobCore.useFps({ duration: 60, force: true });
+    initMainLoader(fpsLoopNumber);
+    await MobCore.useFps({ duration: fpsLoopNumber, force: true });
 
     MobJs.inizializeApp({
         rootId: '#root',
@@ -87,6 +92,18 @@ const initApp = async () => {
 
             getScrollbarWith();
             redirectOnResize();
+
+            /**
+             * Re-enable route loading.
+             *
+             * - First load skip and use main-loader.
+             *
+             * @type {import('@mobJsType').UseMethodByName<
+             *     import('@commonComponent/route-loader/type').RouteLoader
+             * >}
+             */
+            const loaderMethods = MobJs.useMethodByName(routeLoader);
+            loaderMethods.skip(false);
         },
         redirect: ({ route }) => {
             return shouldRedirect() ? 'onlyDesktop' : route;

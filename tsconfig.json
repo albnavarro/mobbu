@@ -45,6 +45,7 @@
             // add data
             "@data/*": ["./src/js/data/*"],
 
+            // pages
             "@pages/*": ["./src/js/pages/*"]
         }
     },
@@ -59,6 +60,7 @@
         "src/js/pages",
         "src/js/wrapper",
         "src/js/pageTransition",
-        "src/js/utils"
+        "src/js/utils",
+        "src/js/main-loader"
     ]
 }

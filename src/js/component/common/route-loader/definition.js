@@ -18,6 +18,10 @@ export const RouteLoader = MobJs.createComponent(
                 value: false,
                 type: Boolean,
             }),
+            skip: () => ({
+                value: true,
+                type: Boolean,
+            }),
         },
     })
 );

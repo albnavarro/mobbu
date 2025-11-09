@@ -7,8 +7,12 @@ import { html, MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
 
 /** @type {MobComponent<RouteLoader>} */
-export const RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {
+export const RouteLoaderFn = ({ onMount, getProxi, bindEffect, addMethod }) => {
     const proxi = getProxi();
+
+    addMethod('skip', () => {
+        proxi.skip = false;
+    });
 
     onMount(({ element }) => {
         proxi.isDisable = true;
@@ -25,6 +29,7 @@ export const RouteLoaderFn = ({ onMount, getProxi, bindEffect }) => {
 
         const unsubscribeBeforeRouteChange = MobJs.beforeRouteChange(
             async () => {
+                if (proxi.skip) return;
                 proxi.isDisable = false;
 
                 await tweenOut.set({ opacity: 1 });

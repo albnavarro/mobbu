@@ -38,7 +38,7 @@
         width: rem(48);
         height: rem(48);
         border-radius: 50%;
-        border-left: 4px solid $color-contrast;
+        border-left: 4px solid $black;
         border-bottom: 4px solid transparent;
         animation: rotation 0.5s linear infinite reverse;
     }
@@ -75,14 +75,38 @@
     }
 
     &__title {
-        top: calc(50% - rem(150));
+        top: calc(50% - rem(100));
         font-family: 'Playfair Display', serif;
         font-weight: 600;
         font-size: rem(28);
     }
 
     &__message {
-        top: calc(50% - rem(100));
+        top: calc(50% - rem(60));
         font-size: rem(22);
+    }
+
+    &__track {
+        height: rem(8);
+        width: rem(200);
+        background: $black;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: $black;
+        border: 1px $black solid;
+    }
+
+    &__track-inner {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: $white;
+        transform: scaleX(0);
+        transform-origin: left;
+        display: block;
     }
 }
