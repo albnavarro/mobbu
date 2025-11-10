@@ -2,7 +2,7 @@ import { html } from '@mobJs';
 import { getThirdLevel } from './third-level';
 
 /**
- * @import {DelegateEvents,  BindProps, StaticProps, Invalidate, ProxiState, ReturnBindProps} from '@mobJsType'
+ * @import {DelegateEvents,  BindProps, StaticProps, Invalidate, ProxiState} from '@mobJsType'
  * @import {Matrioska} from '../type'
  * @import {MatrioskaItem} from '../item/type'
  */
@@ -43,12 +43,9 @@ export const getSecondLevel = ({
                                                 value: `${item.value}`,
                                             })
                                         )}
-                                        ${bindProps(
-                                            /** @returns {ReturnBindProps<MatrioskaItem>} */
-                                            () => ({
-                                                counter: proxi.counter,
-                                            })
-                                        )}
+                                        ${bindProps(() => ({
+                                            counter: proxi.counter,
+                                        }))}
                                     >
                                         ${getThirdLevel({
                                             staticProps,

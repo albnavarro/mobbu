@@ -3,7 +3,7 @@ import { html } from '@mobJs';
 import { toggleMatrioskaItemActive } from '../item/utils';
 
 /**
- * @import {DelegateEvents,  BindProps, StaticProps, Invalidate, ProxiState, ReturnBindProps} from '@mobJsType'
+ * @import {DelegateEvents,  BindProps, StaticProps, Invalidate, ProxiState} from '@mobJsType'
  * @import {Matrioska} from '../type'
  * @import {MatrioskaItem} from '../item/type'
  */
@@ -47,14 +47,11 @@ export const getThirdLevel = ({
                                             key: `${item.key}`,
                                         })
                                     )}
-                                    ${bindProps(
-                                        /** @returns {ReturnBindProps<MatrioskaItem>} */
-                                        () => {
-                                            return {
-                                                counter: proxi.counter,
-                                            };
-                                        }
-                                    )}
+                                    ${bindProps(() => {
+                                        return {
+                                            counter: proxi.counter,
+                                        };
+                                    })}
                                     ${delegateEvents({
                                         click: () => {
                                             toggleMatrioskaItemActive(name);
@@ -73,14 +70,11 @@ export const getThirdLevel = ({
                                             key: `${item.key}`,
                                         })
                                     )}
-                                    ${bindProps(
-                                        /** @returns {ReturnBindProps<MatrioskaItem>} */
-                                        () => {
-                                            return {
-                                                counter: proxi.counter,
-                                            };
-                                        }
-                                    )}
+                                    ${bindProps(() => {
+                                        return {
+                                            counter: proxi.counter,
+                                        };
+                                    })}
                                     ${delegateEvents({
                                         click: () => {
                                             toggleMatrioskaItemActive(name2);

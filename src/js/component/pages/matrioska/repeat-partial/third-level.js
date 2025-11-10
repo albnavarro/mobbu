@@ -46,15 +46,12 @@ export const getThirdLevel = ({
                                         level: 'level 3',
                                     })
                                 )}
-                                ${bindProps(
-                                    /** @returns {ReturnBindProps<MatrioskaItem>} */
-                                    () => ({
-                                        key: `${current.value.key}`,
-                                        value: `${current.value.value}`,
-                                        index: current.index,
-                                        counter: proxi.counter,
-                                    })
-                                )}
+                                ${bindProps(() => ({
+                                    key: `${current.value.key}`,
+                                    value: `${current.value.value}`,
+                                    index: current.index,
+                                    counter: proxi.counter,
+                                }))}
                                 ${delegateEvents({
                                     click: () => {
                                         toggleMatrioskaItemActive(name);
