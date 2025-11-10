@@ -1,280 +1,12 @@
-//@ts-check
+import { html } from '@mobJs';
+import { getButtons } from './buttons-partial';
+import { getSecondLevel } from './invalidate-partial/second-level';
 
 /**
- * @import {MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, GetState, Invalidate, ReturnBindProps} from '@mobJsType'
+ * @import {MobComponent} from '@mobJsType'
  * @import {Matrioska} from './type'
  * @import {MatrioskaItem} from './item/type'
  */
-
-import { MobCore } from '@mobCore';
-import { html } from '@mobJs';
-import { toggleMatrioskaItemActive } from './item/utils';
-
-const buttons = [
-    {
-        state: 'level1',
-        maxItem: 5,
-        ref: 'level1_counter',
-        label_plus: 'level1 +',
-        label_minus: 'level1 -',
-    },
-    {
-        state: 'level2',
-        maxItem: 5,
-        ref: 'level2_counter',
-        label_plus: 'level2 +',
-        label_minus: 'level2 -',
-    },
-    {
-        state: 'level3',
-        maxItem: 6,
-        ref: 'level3_counter',
-        label_plus: 'level3 +',
-        label_minus: 'level3 -',
-    },
-];
-
-/** @param {number} max */
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-}
-
-/**
- * @param {object} params
- * @param {DelegateEvents} params.delegateEvents
- * @param {UpdateState<Matrioska>} params.updateState
- * @param {Invalidate<Matrioska>} params.invalidate
- * @param {GetState<Matrioska>} params.getState
- */
-const getButtons = ({ delegateEvents, updateState, invalidate, getState }) => {
-    return html`
-        ${buttons
-            .map((button) => {
-                return html` <div class="matrioska__head__item">
-                    <dynamic-list-button
-                        class="matrioska__button"
-                        ${delegateEvents({
-                            click: () => {
-                                updateState(
-                                    /** @type {'level1' | 'level2' | 'level3'} */ (
-                                        button.state
-                                    ),
-                                    (val) => {
-                                        return val.slice(0, -1);
-                                    }
-                                );
-                            },
-                        })}
-                        >${button.label_minus}</dynamic-list-button
-                    >
-                    <dynamic-list-button
-                        class="matrioska__button"
-                        ${delegateEvents({
-                            click: () => {
-                                updateState(
-                                    /** @type {'level1' | 'level2' | 'level3'} */ (
-                                        button.state
-                                    ),
-                                    (val) => {
-                                        return [
-                                            ...val,
-                                            {
-                                                key: getRandomInt(1000),
-                                                value: MobCore.getUnivoqueId(),
-                                            },
-                                        ];
-                                    }
-                                );
-                            },
-                        })}
-                        >${button.label_plus}</dynamic-list-button
-                    >
-                    <div class="matrioska__head__counter">
-                        ${invalidate({
-                            observe:
-                                /** @type {'level1' | 'level2' | 'level3'} */ (
-                                    button.state
-                                ),
-                            render: () => {
-                                // @ts-ignore
-                                const data = getState()?.[button.state];
-
-                                return html`
-                                    Number of items: ${data.length} ( max
-                                    ${button.maxItem} )
-                                `;
-                            },
-                        })}
-                    </div>
-                </div>`;
-            })
-            .join('')}
-        <div class="matrioska__head__cta-counter">
-            <dynamic-list-button
-                class="matrioska__button"
-                ${delegateEvents({
-                    click: () => {
-                        updateState('counter', (val) => val + 1);
-                    },
-                })}
-                >Increment counter</dynamic-list-button
-            >
-        </div>
-    `;
-};
-
-/**
- * @param {object} params
- * @param {StaticProps<MatrioskaItem>} params.staticProps
- * @param {BindProps<Matrioska, MatrioskaItem>} params.bindProps
- * @param {DelegateEvents} params.delegateEvents
- * @param {GetState<Matrioska>} params.getState,
- * @param {Invalidate<Matrioska>} params.invalidate
- */
-const getSecondLevel = ({
-    staticProps,
-    bindProps,
-    delegateEvents,
-    invalidate,
-    getState,
-}) => {
-    return html`
-        <div class="matrioska__level matrioska__level--2">
-            ${invalidate({
-                observe: 'level2',
-                render: () => {
-                    const { level2 } = getState();
-
-                    return level2
-                        .map((item) => {
-                            return html`
-                                <div
-                                    class="matrioska__item-wrap matrioska__item-wrap--2"
-                                >
-                                    <matrioska-item
-                                        class="matrioska-item--2"
-                                        ${staticProps(
-                                            /** @type {MatrioskaItem['props']} */ ({
-                                                level: 'level 2',
-                                            })
-                                        )}
-                                        ${bindProps({
-                                            observe: ['counter'],
-                                            props: ({ counter }) => {
-                                                return {
-                                                    key: `${item.key}`,
-                                                    value: `${item.value}`,
-                                                    counter,
-                                                };
-                                            },
-                                        })}
-                                    >
-                                        ${getThirdLevel({
-                                            staticProps,
-                                            delegateEvents,
-                                            getState,
-                                            invalidate,
-                                            bindProps,
-                                        })}
-                                    </matrioska-item>
-                                </div>
-                            `;
-                        })
-                        .join('');
-                },
-            })}
-        </div>
-    `;
-};
-
-/**
- * @param {object} params
- * @param {StaticProps<MatrioskaItem>} params.staticProps
- * @param {DelegateEvents} params.delegateEvents
- * @param {Invalidate<Matrioska>} params.invalidate
- * @param {GetState<Matrioska>} params.getState
- * @param {BindProps<Matrioska, MatrioskaItem>} params.bindProps
- */
-const getThirdLevel = ({
-    staticProps,
-    delegateEvents,
-    invalidate,
-    getState,
-    bindProps,
-}) => {
-    return html` <div class="matrioska__level matrioska__level--3">
-        ${invalidate({
-            observe: 'level3',
-            render: () => {
-                const { level3 } = getState();
-
-                return level3
-                    .map((item) => {
-                        const name = MobCore.getUnivoqueId();
-                        const name2 = MobCore.getUnivoqueId();
-
-                        return html`
-                            <div
-                                class="matrioska__item-wrap matrioska__item-wrap--3"
-                            >
-                                <matrioska-item
-                                    class="matrioska-item--3"
-                                    name="${name}"
-                                    ${staticProps(
-                                        /** @type {MatrioskaItem['props']} */ ({
-                                            level: 'level 3',
-                                            value: item.value,
-                                            key: `${item.key}`,
-                                        })
-                                    )}
-                                    ${bindProps({
-                                        observe: ['counter'],
-                                        props: ({ counter }) => {
-                                            return {
-                                                counter,
-                                            };
-                                        },
-                                    })}
-                                    ${delegateEvents({
-                                        click: () => {
-                                            toggleMatrioskaItemActive(name);
-                                        },
-                                    })}
-                                >
-                                </matrioska-item>
-                                <matrioska-item
-                                    class="matrioska-item--3"
-                                    name="${name2}"
-                                    ${staticProps(
-                                        /** @type {MatrioskaItem['props']} */ ({
-                                            level: 'level 3',
-                                            value: item.value,
-                                            key: `${item.key}`,
-                                        })
-                                    )}
-                                    ${bindProps({
-                                        observe: ['counter'],
-                                        props: ({ counter }) => {
-                                            return {
-                                                counter,
-                                            };
-                                        },
-                                    })}
-                                    ${delegateEvents({
-                                        click: () => {
-                                            toggleMatrioskaItemActive(name2);
-                                        },
-                                    })}
-                                >
-                                </matrioska-item>
-                            </div>
-                        `;
-                    })
-                    .join('');
-            },
-        })}
-    </div>`;
-};
 
 /** @type {MobComponent<Matrioska>} */
 export const MatrioskaInvalidateFn = ({
@@ -283,15 +15,17 @@ export const MatrioskaInvalidateFn = ({
     staticProps,
     bindProps,
     invalidate,
-    getState,
+    getProxi,
 }) => {
+    const proxi = getProxi();
+
     return html`<div class="matrioska">
         <div class="matrioska__head">
             ${getButtons({
                 delegateEvents,
                 updateState,
                 invalidate,
-                getState,
+                proxi,
             })}
         </div>
         <h4 class="matrioska__head__title">
@@ -302,10 +36,8 @@ export const MatrioskaInvalidateFn = ({
                 ${invalidate({
                     observe: 'level1',
                     render: () => {
-                        const { level1 } = getState();
-
-                        return level1
-                            .map((item) => {
+                        return proxi.level1
+                            .map((item, index) => {
                                 return html`
                                     <div
                                         class="matrioska__item-wrap matrioska__item-wrap--1"
@@ -313,28 +45,23 @@ export const MatrioskaInvalidateFn = ({
                                         <matrioska-item
                                             class="matrioska-item--1"
                                             ${staticProps(
-                                                /** @type {MatrioskaItem['props']} */ ({
+                                                /** @type {Partial<MatrioskaItem['props']>} */ ({
                                                     level: 'level 1',
+                                                    key: `${item.key}`,
+                                                    index: index,
+                                                    value: `${item.value}`,
                                                 })
                                             )}
-                                            ${bindProps({
-                                                observe: ['counter'],
-                                                /** @returns {ReturnBindProps<MatrioskaItem>} */
-                                                props: ({ counter }) => {
-                                                    return {
-                                                        key: `${item.key}`,
-                                                        value: `${item.value}`,
-                                                        counter,
-                                                    };
-                                                },
-                                            })}
+                                            ${bindProps(() => ({
+                                                counter: proxi.counter,
+                                            }))}
                                         >
                                             ${getSecondLevel({
                                                 staticProps,
                                                 bindProps,
                                                 delegateEvents,
                                                 invalidate,
-                                                getState,
+                                                proxi,
                                             })}
                                         </matrioska-item>
                                     </div>

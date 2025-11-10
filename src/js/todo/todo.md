@@ -1,11 +1,18 @@
 # Prioritá
-- Alias `@instanceName`.
-- Refuse: usare i `proxi` al posto di `setState()` ove possibile.
-- `StyleLint` order.
-- Render optimization, case A.
-- Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
-- Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`.
-- Component app: `dragger` con `pinch zoom`.
+1.  Render optimization, case A.
+2.  Alias `@instanceName`.
+3.  Refuse: usare i `proxi` al posto di `setState()` ove possibile.
+4.  `StyleLint` order.
+5.  La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
+    ```js
+    {
+        type: 'string',
+        value
+    }
+    ```
+6. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
+7.  Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
+8. Component app: `dragger` con `pinch zoom`.
 
 # Render optimization:
 ### A) better insertAdjacentHTML();
@@ -265,14 +272,6 @@ store[prop] = valueTransformed;
 
 ### PageTrasition:
 - possibilitá di disabilitare le trasizioni di pagina per rotta ( nella definizione della rotta ).
-
-### BindProps
-##### Nota: puó essere un falso problema, per le massime performance i methodi possono avere un accesso diretto al componente senza intermediazione, nel caso specificarlo.
-- `MobStore`: add `object` simile a fnValidate dove segnare l' ultima azione `set` / `get`
-- `set` lo segnará `setProp/setObj`.
-- `get` lo segnara con un nuovo metodo dello store controllato da `bindProps`.
-- `bindProps` potra cosi usare lo stato solo se é stato modificato dall' ultima volta che lo ha chiamato nella funzione `updateBindProp`, dunque corrisponderá a `set`.
-- In questo modo si fará un set sul `children` solo per gli effettivi stati modificati.
 
 
 ### src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
