@@ -9,8 +9,6 @@ import { navigationStore } from '@stores/navigation';
 
 /** @type {MobComponent<NavigationButton>} */
 export const NavigationButtonFn = ({
-    setState,
-    getState,
     delegateEvents,
     getProxi,
     bindEffect,
@@ -27,7 +25,7 @@ export const NavigationButtonFn = ({
         scrollToSection,
         activeId,
         forceChildren,
-    } = getState();
+    } = proxi;
 
     MobJs.afterRouteChange(({ currentRoute }) => {
         MobCore.useFrame(() => {
@@ -52,8 +50,7 @@ export const NavigationButtonFn = ({
              * Match virtual children, with no submenu. Virtual children is defined in forceChildren props
              */
             const forceChildrenMatch = forceChildren.includes(currentRoute);
-
-            setState('isCurrent', isActiveRoute || forceChildrenMatch);
+            proxi.isCurrent = isActiveRoute || forceChildrenMatch;
 
             /**
              * Set current accordion menu open state. On load route, or if route is loaded outside menu.

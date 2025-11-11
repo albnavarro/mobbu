@@ -13,12 +13,9 @@ import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 export const BenchMarkRepeatWithKyFn = ({
     onMount,
     delegateEvents,
-    bindText,
+    bindObject,
     setRef,
     getRef,
-    getState,
-    setState,
-    updateState,
     bindProps,
     repeat,
     bindEffect,
@@ -44,15 +41,13 @@ export const BenchMarkRepeatWithKyFn = ({
             ${benchMarkListPartial({
                 setRef,
                 getRef,
-                setState,
-                updateState,
                 delegateEvents,
-                getState,
                 bindEffect,
+                proxi,
             })}
 
             <div class="benchmark__head__time">
-                ${bindText`components generate in <strong>${'time'}ms</strong>`}
+                ${bindObject`components generate in <strong>${() => proxi.time}ms</strong>`}
             </div>
         </div>
         <div class="benchmark__list">

@@ -4,7 +4,7 @@ import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
 
 /**
- * @import {DelegateEvents, SetRef, GetRef,  SetState, UpdateState, GetState, BindEffect} from '@mobJsType';
+ * @import {DelegateEvents, SetRef, GetRef, BindEffect, ProxiState} from '@mobJsType';
  */
 
 /**
@@ -36,30 +36,28 @@ export const createBenchMarkArray = (numberOfItem) => {
 
 /**
  * @param {object} params
- * @param {SetState<import('../type').BenchMark>} params.setState
+ * @param {ProxiState<import('../type').BenchMark>} params.proxi
  * @param {number} params.value
  * @param {boolean} [params.useShuffle]
  */
-const setData = async ({ setState, value, useShuffle = false }) => {
+const setData = async ({ proxi, value, useShuffle = false }) => {
     // await loading class is applied before saturate thread.
-    setState('isLoading', true);
+    proxi.isLoading = true;
     await MobJs.tick();
 
     MobCore.useFrame(async () => {
         MobCore.useNextTick(async () => {
             const startTime = performance.now();
-            setState(
-                'data',
-                useShuffle
-                    ? shuffle(createBenchMarkArray(value))
-                    : createBenchMarkArray(value)
-            );
+            proxi.data = useShuffle
+                ? shuffle(createBenchMarkArray(value))
+                : createBenchMarkArray(value);
+
             await MobJs.tick();
 
             const endTime = performance.now();
             const difference = endTime - startTime;
-            setState('time', difference);
-            setState('isLoading', false);
+            proxi.time = difference;
+            proxi.isLoading = false;
         });
     });
 };
@@ -69,26 +67,22 @@ const setData = async ({ setState, value, useShuffle = false }) => {
  * @param {DelegateEvents} params.delegateEvents
  * @param {SetRef<import('../type').BenchMark>} params.setRef
  * @param {GetRef<import('../type').BenchMark>} params.getRef
- * @param {UpdateState<import('../type').BenchMark>} params.updateState
- * @param {GetState<import('../type').BenchMark>} params.getState
- * @param {SetState<import('../type').BenchMark>} params.setState
+ * @param {ProxiState<import('../type').BenchMark>} params.proxi
  * @param {BindEffect<import('../type').BenchMark>} params.bindEffect
  */
 export const benchMarkListPartial = ({
     delegateEvents,
     setRef,
     getRef,
-    updateState,
-    getState,
-    setState,
     bindEffect,
+    proxi,
 }) => {
     return html`
         <div
             class="benchmark__loading"
             ${bindEffect({
                 observe: 'isLoading',
-                toggleClass: { active: () => getState().isLoading },
+                toggleClass: { active: () => proxi.isLoading },
             })}
         >
             generate components
@@ -110,7 +104,7 @@ export const benchMarkListPartial = ({
                                     ?.value ?? 0
                             );
 
-                            setData({ setState, value });
+                            setData({ proxi, value });
                         }
                     },
                 })}
@@ -125,7 +119,7 @@ export const benchMarkListPartial = ({
                             /** @type {HTMLInputElement} */ (input)?.value ?? 0
                         );
 
-                        setData({ setState, value });
+                        setData({ proxi, value });
                     },
                 })}
             >
@@ -136,10 +130,9 @@ export const benchMarkListPartial = ({
                 class="benchmark__head__button"
                 ${delegateEvents({
                     click: () => {
-                        const { data } = getState();
                         setData({
-                            setState,
-                            value: data.length,
+                            proxi,
+                            value: proxi.data.length,
                             useShuffle: true,
                         });
                     },
@@ -152,7 +145,7 @@ export const benchMarkListPartial = ({
                 class="benchmark__head__button"
                 ${delegateEvents({
                     click: () => {
-                        updateState('counter', (value) => value + 1);
+                        proxi.counter = proxi.counter + 1;
                     },
                 })}
             >

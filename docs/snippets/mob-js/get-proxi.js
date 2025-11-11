@@ -6,13 +6,10 @@ import { html } from '@mobJs';
 export const MyComponent = ({
     getProxi,
     delegateEvents,
-    bindText,
+    bindObject,
     watch,
     bindProps,
 }) => {
-    /**
-     * Label state initial value.
-     */
     const proxi = getProxi();
 
     /**
@@ -25,9 +22,6 @@ export const MyComponent = ({
         }
     );
 
-    /**
-     * DOM component structure.
-     */
     return html`
         <div>
             <button
@@ -39,7 +33,7 @@ export const MyComponent = ({
             >
                 click me
             </button>
-            <div>${bindText`counter value is ${'counter'}`}</div>
+            <div>${bindObject`counter value is ${() => proxi.counter}`}</div>
             <child-component
                 ${bindProps(
                     /** @returns {ReturnBindProps<MyChildState>} */

@@ -18,14 +18,12 @@ import { scrollerN1Animation } from './animation/animation';
 export const ScrollerN1Fn = ({
     onMount,
     getState,
-    setState,
     setRef,
     getRef,
     bindEffect,
     getProxi,
 }) => {
     const proxi = getProxi();
-
     document.body.style.background = canvasBackground;
 
     onMount(() => {
@@ -36,7 +34,6 @@ export const ScrollerN1Fn = ({
          * Refs
          */
         const { canvas, canvasScroller } = getRef();
-
         const destroyAnimation = scrollerN1Animation({
             canvas,
             canvasScroller,
@@ -44,7 +41,7 @@ export const ScrollerN1Fn = ({
         });
 
         MobCore.useFrame(() => {
-            setState('isMounted', true);
+            proxi.isMounted = true;
         });
 
         return () => {

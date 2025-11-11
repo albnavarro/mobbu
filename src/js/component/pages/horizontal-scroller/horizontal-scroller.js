@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import {MobComponent, SetState,  StaticProps, DelegateEvents} from '@mobJsType';
+ * @import {MobComponent, StaticProps, DelegateEvents, ProxiState} from '@mobJsType';
  * @import {HorizontalScroller} from './type';
  * @import {HorizontalScrollerButton} from './button/type';
  */
@@ -41,11 +41,11 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
 /**
  * @param {object} param
  * @param {number} param.numOfCol
- * @param {SetState<HorizontalScroller>} param.setState
+ * @param {ProxiState<HorizontalScroller>} param.proxi
  * @param {StaticProps} param.staticProps
  * @param {DelegateEvents} param.delegateEvents
  */
-const getNav = ({ numOfCol, setState, staticProps, delegateEvents }) => {
+const getNav = ({ numOfCol, proxi, staticProps, delegateEvents }) => {
     return [...Array.from({ length: numOfCol }).keys()]
         .map((_col, i) => {
             return html`
@@ -56,7 +56,7 @@ const getNav = ({ numOfCol, setState, staticProps, delegateEvents }) => {
                         })
                     )}
                     ${delegateEvents({
-                        click: () => setState('currentId', i),
+                        click: () => (proxi.currentId = i),
                     })}
                 ></horizontal-scroller-button>
             `;
@@ -67,8 +67,6 @@ const getNav = ({ numOfCol, setState, staticProps, delegateEvents }) => {
 /** @type {MobComponent<HorizontalScroller>} */
 export const HorizontalScrollerFn = ({
     onMount,
-    getState,
-    setState,
     watch,
     staticProps,
     delegateEvents,
@@ -76,7 +74,6 @@ export const HorizontalScrollerFn = ({
     getRef,
     getProxi,
 }) => {
-    const { animatePin } = getState();
     const proxi = getProxi();
 
     onMount(({ element }) => {
@@ -93,8 +90,8 @@ export const HorizontalScrollerFn = ({
             titles,
             // @ts-ignore
             nav,
-            ...getState(),
-            setState,
+            animatePin: proxi.animatePin,
+            proxi,
         });
 
         /**
@@ -163,7 +160,7 @@ export const HorizontalScrollerFn = ({
         <ul class="l-h-scroller__nav js-nav" ${setRef('js_nav')}>
             ${getNav({
                 numOfCol: 10,
-                setState,
+                proxi,
                 staticProps,
                 delegateEvents,
             })}
@@ -176,7 +173,7 @@ export const HorizontalScrollerFn = ({
                 <div class="l-h-scroller__row js-row" ${setRef('js_root')}>
                     ${getColumns({
                         numOfCol: 10,
-                        pinIsVisible: !animatePin,
+                        pinIsVisible: !proxi.animatePin,
                         staticProps,
                     })}
                     <section

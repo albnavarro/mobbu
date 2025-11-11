@@ -12,17 +12,17 @@ import {
 } from './utils';
 
 /**
- * @import {SetState} from '@mobJsType'
+ * @import {ProxiState} from '@mobJsType'
  */
 
 /**
  * @param {object} params
  * @param {HTMLElement} params.main
- * @param {SetState<import('./type').NavigationContainer>} params.setState
+ * @param {ProxiState<import('./type').NavigationContainer>} params.proxi
  * @returns {void}
  */
-function closeNavigation({ main, setState }) {
-    setState('isOpen', false);
+function closeNavigation({ main, proxi }) {
+    proxi.isOpen = false;
 
     MobCore.useFrame(() => {
         document.body.style.overflow = '';
@@ -33,12 +33,12 @@ function closeNavigation({ main, setState }) {
 /**
  * @param {object} params
  * @param {HTMLElement} params.main
- * @param {SetState<import('./type').NavigationContainer>} params.setState
+ * @param {ProxiState<import('./type').NavigationContainer>} params.proxi
  * @returns {void}
  */
-function openNavigation({ main, setState }) {
+function openNavigation({ main, proxi }) {
     refreshNavigationScroller();
-    setState('isOpen', true);
+    proxi.isOpen = true;
 
     MobCore.useFrame(() => {
         document.body.style.overflow = 'hidden';
@@ -70,7 +70,6 @@ const toTopBtnHandler = () => {
 export const NavigationContainerFn = ({
     onMount,
     addMethod,
-    setState,
     delegateEvents,
     bindEffect,
     getProxi,
@@ -87,11 +86,11 @@ export const NavigationContainerFn = ({
          */
         navigationStore.watch('navigationIsOpen', (val) => {
             if (val && main) {
-                openNavigation({ main, setState });
+                openNavigation({ main, proxi });
                 return;
             }
 
-            closeNavigation({ main, setState });
+            closeNavigation({ main, proxi });
         });
 
         addMainHandler({ main });

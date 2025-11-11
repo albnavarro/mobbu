@@ -20,8 +20,9 @@ const playAnimation = async ({ playIntro, playSvg }) => {
 };
 
 /** @type {MobComponent<HomeComponent>} */
-export const HomeComponentFn = ({ onMount, getState, setState }) => {
-    const { svg } = getState();
+export const HomeComponentFn = ({ onMount, getProxi }) => {
+    const proxi = getProxi();
+    const { svg } = proxi;
 
     onMount(({ element }) => {
         const svg_group = [...element.querySelectorAll('[ref="svg_group"]')];
@@ -32,7 +33,6 @@ export const HomeComponentFn = ({ onMount, getState, setState }) => {
 
         setTimeout(() => {
             playAnimation({ playIntro, playSvg });
-            setState('isMounted', true);
         }, 500);
 
         return () => {

@@ -9,10 +9,10 @@ let sideWidth = 0;
 /**
  * @param {object} params
  * @param {HTMLElement[]} params.indicators
- * @param {import('@mobJsType').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
+ * @param {import('@mobJsType').ProxiState<import('../type.d.ts').HorizontalScroller>} params.proxi
  * @returns {import('@mobMotionType').MobScroller[]}
  */
-const createPins = ({ indicators, setState }) => {
+const createPins = ({ indicators, proxi }) => {
     return [...indicators].map((button, i) => {
         return MobScroll.createScrollTrigger({
             item: button,
@@ -39,12 +39,11 @@ const createPins = ({ indicators, setState }) => {
                 },
             },
             onEnter: () => {
-                setState('currentId', -1);
-                setState('currentIdFromScroll', i);
+                proxi.currentId = -1;
+                proxi.currentIdFromScroll = i;
             },
             onLeaveBack: () => {
-                // setState('currentId', -1);
-                setState('currentIdFromScroll', i - 1);
+                proxi.currentIdFromScroll = i - 1;
             },
         });
     });
@@ -108,7 +107,7 @@ const hideNav = ({ nav }) => {
  * @param {HTMLElement[]} params.titles
  * @param {HTMLElement} params.nav
  * @param {boolean} params.animatePin
- * @param {import('@mobJsType').SetState<import('../type.d.ts').HorizontalScroller>} params.setState
+ * @param {import('@mobJsType').ProxiState<import('../type.d.ts').HorizontalScroller>} params.proxi
  * @param {HTMLElement} params.rootRef
  */
 export const horizontalScrollerAnimation = ({
@@ -116,10 +115,10 @@ export const horizontalScrollerAnimation = ({
     titles,
     nav,
     animatePin,
-    setState,
+    proxi,
     rootRef,
 }) => {
-    let pins = createPins({ indicators, setState });
+    let pins = createPins({ indicators, proxi });
     let titlesParallax = createParallax({ titles });
 
     const side = document.querySelector('.l-navcontainer__side');

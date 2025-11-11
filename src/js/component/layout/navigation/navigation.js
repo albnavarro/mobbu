@@ -109,7 +109,7 @@ export const NavigationFn = ({
      * Close all accordion.
      */
     addMethod('closeAllAccordion', ({ fireCallback = true } = {}) => {
-        setState('currentAccordionId', -1, { emit: fireCallback });
+        setState(() => proxi.currentAccordionId, -1, { emit: fireCallback });
     });
 
     return html`

@@ -17,8 +17,6 @@ export const BenchMarkInvalidateFn = ({
     staticProps,
     setRef,
     getRef,
-    setState,
-    updateState,
     bindProps,
     bindEffect,
     getProxi,
@@ -47,10 +45,8 @@ export const BenchMarkInvalidateFn = ({
             ${benchMarkListPartial({
                 setRef,
                 getRef,
-                setState,
-                updateState,
+                proxi,
                 delegateEvents,
-                getState,
                 bindEffect,
             })}
 

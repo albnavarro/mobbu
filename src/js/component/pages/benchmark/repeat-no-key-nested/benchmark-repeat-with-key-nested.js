@@ -15,9 +15,6 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
     bindText,
     setRef,
     getRef,
-    getState,
-    setState,
-    updateState,
     bindProps,
     repeat,
     bindObject,
@@ -47,11 +44,9 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
             ${benchMarkListPartial({
                 setRef,
                 getRef,
-                setState,
-                updateState,
                 delegateEvents,
-                getState,
                 bindEffect,
+                proxi,
             })}
 
             <div class="benchmark__head__time">
