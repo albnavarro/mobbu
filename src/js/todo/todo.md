@@ -1,7 +1,6 @@
 # Prioritá
 1.  Render optimization, case A.
 2.  Alias `@instanceName`.
-3.  Refuse: usare i `proxi` al posto di `setState()` ove possibile.
 4.  `StyleLint` order.
 5.  La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
     ```js
