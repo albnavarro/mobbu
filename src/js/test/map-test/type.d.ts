@@ -1,8 +1,19 @@
 export type updateState = <K, O>(arg0: {
     key: K;
     map: Map<K, O>;
+
+    /**
+     * Update state without collateral effect
+     *
+     * - Avoid to call extranl action here.
+     * - Return state updated
+     */
     update: (arg0: { key: K; map: Map<K, O>; state: O }) => O;
-    set: (arg0: { key: K; state: O }) => void;
+
+    /**
+     * Use effect, call external action here after new state updated and stored.
+     */
+    effect?: (arg0: { key: K; state: O }) => void;
 }) => O | undefined;
 
 export type updateStateByProp = <K, O, P extends keyof O>(arg0: {
@@ -10,14 +21,36 @@ export type updateStateByProp = <K, O, P extends keyof O>(arg0: {
     value: O[P];
     map: Map<K, O>;
     exclude?: K[];
+
+    /**
+     * Update state without collateral effect
+     *
+     * - Avoid to call extranl action here.
+     * - Return state updated
+     */
     update: (arg0: { key: K; map: Map<K, O>; state: O }) => O;
-    set: (arg0: { key: K; state: O }) => void;
+
+    /**
+     * Use effect, call external action here after new state updated and stored.
+     */
+    effect?: (arg0: { key: K; state: O }) => void;
 }) => void;
 
 export type updateAll = <K, O>(arg0: {
     map: Map<K, O>;
+
+    /**
+     * Update state without collateral effect
+     *
+     * - Avoid to call extranl action here.
+     * - Return state updated
+     */
     update: (arg0: { key: K; map: Map<K, O>; state: O }) => O;
-    set: (arg0: { key: K; state: O }) => void;
+
+    /**
+     * Use effect, call external action here after new state updated and stored.
+     */
+    effect?: (arg0: { key: K; state: O }) => void;
 }) => void;
 
 export type myMap = Map<number, { value: string; active: boolean }>;

@@ -15,7 +15,7 @@ export const stateTest = () => {
     ]);
 
     document.body.addEventListener('click', () => {
-        const newState = updateStateByKey({
+        updateStateByKey({
             key: 1,
             map: myMap,
             update: ({ state }) => {
@@ -26,11 +26,10 @@ export const stateTest = () => {
                     active: !active,
                 };
             },
-            set: ({ key, state }) => {
-                myMap.set(key, state);
+            effect: ({ state }) => {
+                console.log(state);
             },
         });
-        console.log([...myMap], newState);
 
         updateStateByProp({
             prop: 'value',
@@ -45,11 +44,10 @@ export const stateTest = () => {
                     active: !active,
                 };
             },
-            set: ({ key, state }) => {
-                myMap.set(key, state);
+            effect: ({ state }) => {
+                console.log(state);
             },
         });
-        console.log([...myMap]);
 
         updateAll({
             map: myMap,
@@ -59,10 +57,9 @@ export const stateTest = () => {
                     value: 'test',
                 };
             },
-            set: ({ key, state }) => {
-                myMap.set(key, state);
+            effect: ({ state }) => {
+                console.log(state);
             },
         });
-        console.log([...myMap]);
     });
 };
