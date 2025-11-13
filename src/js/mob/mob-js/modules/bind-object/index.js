@@ -1,5 +1,6 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { watchById } from '../../component/action/watch';
+import { addDOMfromString } from '../../parse/steps/utils';
 
 /** @type {Map<string, import('./type').BindObject[]>} */
 export const bindObjectMap = new Map();
@@ -236,8 +237,13 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
                     if (ref && ref?.deref()) {
                         // @ts-ignore
                         ref.deref().textContent = '';
-                        // @ts-ignore
-                        ref.deref().insertAdjacentHTML('afterbegin', render());
+
+                        addDOMfromString({
+                            // @ts-ignore
+                            parent: ref.deref(),
+                            stringDOM: render(),
+                            position: 'afterbegin',
+                        });
                     }
 
                     watchIsRunning = false;

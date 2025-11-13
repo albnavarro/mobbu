@@ -14,6 +14,7 @@ import {
 import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { getDefaultComponent } from '../../../component/create-component';
 import { setRepeaterInstancesCurrentData } from '../action/set-repeat-instances-map-current-data';
+import { addDOMfromString } from '../../../parse/steps/utils';
 
 /**
  * @param {HTMLElement} container - Repeater parent element.
@@ -106,10 +107,11 @@ export const addWithoutKey = ({
               });
 
         if (useSync) {
-            repeaterParentElement.insertAdjacentHTML(
-                'beforeend',
-                /** @type {string} */ (currentRender)
-            );
+            addDOMfromString({
+                parent: repeaterParentElement,
+                stringDOM: /** @type {string} */ (currentRender),
+                position: 'beforeend',
+            });
         }
 
         if (!useSync) {

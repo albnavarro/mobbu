@@ -3,6 +3,7 @@
 import { MobCore } from '../../../mob-core';
 import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
+import { addDOMfromString } from '../../parse/steps/utils';
 
 /** @type {Map<string, import('./type').BindText[]>} */
 export const bindTextMap = new Map();
@@ -278,8 +279,13 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
                     if (ref && ref?.deref()) {
                         // @ts-ignore
                         ref.deref().textContent = '';
-                        // @ts-ignore
-                        ref.deref().insertAdjacentHTML('afterbegin', render());
+
+                        addDOMfromString({
+                            // @ts-ignore
+                            parent: ref.deref(),
+                            stringDOM: render(),
+                            position: 'afterbegin',
+                        });
                     }
 
                     watchIsRunning = false;

@@ -14,6 +14,7 @@ import {
 import { setRestoreScroll } from '../route/scroll';
 import { setRedirectFunction } from '../route/redirect';
 import { setDefaultComponent } from '../component/create-component';
+import { addDOMfromString } from '../parse/steps/utils';
 
 /**
  * Inizializa default route.
@@ -81,10 +82,11 @@ export const inizializeApp = async ({
      */
     setPageNotFound({ routeName: pageNotFound });
 
-    /**
-     * Add wrapper to root node.
-     */
-    rootEl.insertAdjacentHTML('afterbegin', wrapperDOM);
+    addDOMfromString({
+        parent: rootEl,
+        stringDOM: wrapperDOM,
+        position: 'afterbegin',
+    });
 
     setContentElement();
 
