@@ -6,6 +6,7 @@ import {
     ATTR_REPEATER_PROP_BIND,
 } from '../../constant';
 import { setComponentRepeaterState } from '../../modules/repeater/repeater-value';
+import { setSkipAddUserComponent } from '../../modules/user-component';
 import {
     ELEMENT_TYPE_MIX_NODE_TEXT,
     ELEMENT_TYPE_NODE,
@@ -43,7 +44,7 @@ export const renderHtml = (strings, ...values) => {
 /**
  * Detect if child of element is element / text / mix text and element
  *
- * @param {Element} node
+ * @param {Element | DocumentFragment} node
  * @returns {import('./type').NodeOrText}
  */
 export const getElementOrTextFromNode = (node) => {
@@ -142,8 +143,14 @@ export const insertElementOrText = ({
      *   - In questo caso i valori possono essere invertiti
      */
     if (type === ELEMENT_TYPE_MIX_NODE_TEXT) {
+        const itemParsed =
+            position === 'afterbegin' || position === 'afterend'
+                ? // @ts-ignore
+                  item.toReversed()
+                : item;
+
         // @ts-ignore
-        item.toReversed().forEach(({ node, type }) => {
+        itemParsed.forEach(({ node, type }) => {
             if (type === ELEMENT_TYPE_NODE) {
                 parent.insertAdjacentElement(
                     position,
@@ -260,5 +267,30 @@ export const setRepeatAttributeFromInMemory = ({
         component.setAttribute(ATTR_KEY, `${key}`);
         component.setAttribute(ATTR_REPEATER_PROP_BIND, `${observe}`);
         component.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
+    });
+};
+
+/**
+ * @param {object} params
+ * @param {string} params.stringDOM
+ * @param {HTMLElement} params.parent
+ * @param {InsertPosition} params.position
+ * @returns {void}
+ */
+export const addDOMfromString = ({ stringDOM, parent, position }) => {
+    setSkipAddUserComponent(true);
+
+    const range = document.createRange();
+    const fragment = range.createContextualFragment(stringDOM);
+
+    setSkipAddUserComponent(false);
+    if (!fragment) return;
+
+    const innerContentByNodeType = getElementOrTextFromNode(fragment);
+
+    insertElementOrText({
+        parent,
+        innerContentByNodeType,
+        position,
     });
 };
