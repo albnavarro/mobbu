@@ -247,7 +247,7 @@ export const addWithKey = ({
                  * Wrapper
                  */
                 if (persistentDOMwrapper) {
-                    repeaterParentElement.append(persistentDOMwrapper);
+                    return persistentDOMwrapper;
                 }
 
                 /**

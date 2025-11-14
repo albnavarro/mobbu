@@ -8264,7 +8264,7 @@
         if (!isNewElement) {
           const { debug } = getDefaultComponent();
           if (persistentDOMwrapper) {
-            repeaterParentElement.append(persistentDOMwrapper);
+            return persistentDOMwrapper;
           }
           if (!persistentDOMwrapper && persistentElement?.[0]?.element) {
             repeaterParentElement.append(persistentElement[0].element);
