@@ -17,7 +17,7 @@ import {
     getSlotPlaceholderSize,
     getUnamedPlaceholderSlot,
 } from '../../modules/slot';
-import { getElementOrTextFromNode, insertElementOrText } from './utils';
+import { addMultipleDOMElement } from './utils';
 
 /**
  * Get new element from content ( render ). Prevent accidentally return of element or component deleted runtime. Check
@@ -149,36 +149,6 @@ const addToNamedSlot = ({ element }) => {
  */
 const executeConversion = ({ element, content }) => {
     /**
-     * - Get inner DOM of component to parse.
-     * - Detect if is TEXT / NODE or mix of TEXT and NODE.
-     * - Mix: Multiple node, should be ELEMENT_NODE or TEXT_NODE
-     * - Element: there is only one child and is a ELEMENT_NODE
-     * - Text: there is only one child and is a TEXT_NODE
-     * - If component not have content inside is a EMPTY_NODE
-     *
-     * Is used to choice for `insertElementOrText` or `insertAdjacentElement`
-     *
-     * Es:
-     *
-     *     <doc-container>
-     *         #shadow-root
-     *         <div>
-     *             <my-component></my-component>
-     *         </div>
-     *     </doc-container>;
-     *
-     * Return object like:
-     *
-     * ```js
-     * {
-     *     item: Element | string | undefined;
-     *     type: node|mix|text|not-valid;
-     * }
-     * ```
-     */
-    const innerContentByNodeType = getElementOrTextFromNode(element);
-
-    /**
      * - Append render component as sibling of placeholder component.
      * - Element is removed last
      */
@@ -211,9 +181,9 @@ const executeConversion = ({ element, content }) => {
          * Replace unnamed slot with userPlaceholder orinal content.
          */
         if (unNamedSlot) {
-            insertElementOrText({
+            addMultipleDOMElement({
                 parent: unNamedSlot,
-                innerContentByNodeType,
+                elements: [...element.childNodes],
                 position: 'afterend',
             });
 
@@ -224,9 +194,9 @@ const executeConversion = ({ element, content }) => {
          * Add original userPlaceholder content as first-child of new component.
          */
         if (!unNamedSlot) {
-            insertElementOrText({
+            addMultipleDOMElement({
                 parent: newElement,
-                innerContentByNodeType,
+                elements: [...element.childNodes],
                 position: 'afterbegin',
             });
         }

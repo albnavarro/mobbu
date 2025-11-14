@@ -14,6 +14,7 @@ import {
 import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { getDefaultComponent } from '../../../component/create-component';
 import { setRepeaterInstancesCurrentData } from '../action/set-repeat-instances-map-current-data';
+import { addMultipleDOMElement } from '../../../parse/steps/utils';
 
 /**
  * @param {HTMLElement} container - Repeater parent element.
@@ -113,8 +114,10 @@ export const addWithoutKey = ({
         }
 
         if (!useSync) {
-            /** @type {Element[]} */ (currentRender).forEach((element) => {
-                repeaterParentElement.append(element);
+            addMultipleDOMElement({
+                elements: /** @type {Element[]} */ (currentRender),
+                parent: repeaterParentElement,
+                position: 'beforeend',
             });
         }
     }

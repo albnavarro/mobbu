@@ -16,6 +16,7 @@ import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-ch
 import { getComponentNameByElement } from '../../../component/action/component';
 import { getDefaultComponent } from '../../../component/create-component';
 import { setRepeaterInstancesCurrentData } from '../action/set-repeat-instances-map-current-data';
+import { addMultipleDOMElement } from '../../../parse/steps/utils';
 
 /**
  * @param {object} params
@@ -228,7 +229,7 @@ export const addWithKey = ({
      *
      * Add persistent element or new element to parse.
      */
-    newSequenceByKey.forEach(
+    const elementsToAppend = newSequenceByKey.map(
         ({
             isNewElement,
             keyValue,
@@ -289,19 +290,31 @@ export const addWithKey = ({
                   });
 
             if (useSync) {
-                repeaterParentElement.insertAdjacentHTML(
-                    'beforeend',
-                    /** @type {string} */ (currentRender)
-                );
+                return currentRender;
             }
 
             if (!useSync && currentRender) {
-                repeaterParentElement.append(
-                    /** @type {Element} */ (currentRender)
-                );
+                return currentRender;
             }
         }
     );
+
+    if (useSync) {
+        repeaterParentElement.insertAdjacentHTML(
+            'beforeend',
+            /** @type {string} */ (
+                /** @type {string} */ (elementsToAppend.join(''))
+            )
+        );
+    }
+
+    if (!useSync) {
+        addMultipleDOMElement({
+            elements: /** @type {Element[]} */ (elementsToAppend),
+            parent: repeaterParentElement,
+            position: 'beforeend',
+        });
+    }
 
     return currentUnique;
 };

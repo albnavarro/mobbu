@@ -294,3 +294,26 @@ export const addDOMfromString = ({ stringDOM, parent, position }) => {
         position,
     });
 };
+
+/**
+ * @param {object} params
+ * @param {(Element | ChildNode)[]} params.elements
+ * @param {HTMLElement} params.parent
+ * @param {InsertPosition} params.position
+ * @returns {void}
+ */
+export const addMultipleDOMElement = ({ elements, parent, position }) => {
+    const fragment = new DocumentFragment();
+
+    setSkipAddUserComponent(true);
+    elements.forEach((element) => {
+        if (!element) return;
+        fragment.append(element);
+    });
+    setSkipAddUserComponent(false);
+
+    if (position === 'afterend') parent.after(fragment);
+    if (position === 'beforebegin') parent.before(fragment);
+    if (position === 'afterbegin') parent.prepend(fragment);
+    if (position === 'beforeend') parent.append(fragment);
+};
