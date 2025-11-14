@@ -279,20 +279,14 @@ export const setRepeatAttributeFromInMemory = ({
  */
 export const addDOMfromString = ({ stringDOM, parent, position }) => {
     setSkipAddUserComponent(true);
-
-    const range = document.createRange();
-    const fragment = range.createContextualFragment(stringDOM);
-
+    const fragment = document.createRange().createContextualFragment(stringDOM);
     setSkipAddUserComponent(false);
+
     if (!fragment) return;
-
-    const innerContentByNodeType = getElementOrTextFromNode(fragment);
-
-    insertElementOrText({
-        parent,
-        innerContentByNodeType,
-        position,
-    });
+    if (position === 'afterend') parent.after(fragment);
+    if (position === 'beforebegin') parent.before(fragment);
+    if (position === 'afterbegin') parent.prepend(fragment);
+    if (position === 'beforeend') parent.append(fragment);
 };
 
 /**

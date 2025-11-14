@@ -13,6 +13,7 @@ import {
     mainStore,
     resetMainStoreAsyncParser,
 } from '../../../main-store/main-store';
+import { addDOMfromString } from '../../../parse/steps/utils';
 import { incrementTickQueuque } from '../../../queque/tick';
 import { incrementInvalidateTickQueuque } from '../../../queque/tick-invalidate';
 import { destroyNestedRepeat } from '../../repeater/action/destroy-nested-repeat';
@@ -122,10 +123,11 @@ export const inizializeInvalidateWatch = async ({
                  * Create new component.
                  */
                 invalidateParent.textContent = '';
-                invalidateParent.insertAdjacentHTML(
-                    'afterbegin',
-                    renderFunction()
-                );
+                addDOMfromString({
+                    stringDOM: renderFunction(),
+                    parent: invalidateParent,
+                    position: 'afterbegin',
+                });
 
                 /**
                  * Parse new component.

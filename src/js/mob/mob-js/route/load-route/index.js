@@ -14,6 +14,7 @@ import { parseComponents } from '../../parse';
 import { getRestoreScroll } from '../scroll';
 import { tick } from '../../queque/tick';
 import { removeCancellableComponent } from '../../component/action/remove-and-destroy/cancellable-component/destroy-all-non-persisitent-component';
+import { addDOMfromString } from '../../parse/steps/utils';
 
 /**
  * @type {Map<string, number>}
@@ -169,7 +170,11 @@ export const loadRoute = async ({
     contentElement.replaceChildren();
 
     removeCancellableComponent();
-    contentElement.insertAdjacentHTML('afterbegin', content);
+    addDOMfromString({
+        stringDOM: content,
+        parent: contentElement,
+        position: 'afterbegin',
+    });
 
     /**
      * Wait for all render.

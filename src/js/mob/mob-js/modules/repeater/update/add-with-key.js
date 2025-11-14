@@ -16,7 +16,10 @@ import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-ch
 import { getComponentNameByElement } from '../../../component/action/component';
 import { getDefaultComponent } from '../../../component/create-component';
 import { setRepeaterInstancesCurrentData } from '../action/set-repeat-instances-map-current-data';
-import { addMultipleDOMElement } from '../../../parse/steps/utils';
+import {
+    addDOMfromString,
+    addMultipleDOMElement,
+} from '../../../parse/steps/utils';
 
 /**
  * @param {object} params
@@ -300,12 +303,11 @@ export const addWithKey = ({
     );
 
     if (useSync) {
-        repeaterParentElement.insertAdjacentHTML(
-            'beforeend',
-            /** @type {string} */ (
-                /** @type {string} */ (elementsToAppend.join(''))
-            )
-        );
+        addDOMfromString({
+            stringDOM: /** @type {string} */ (elementsToAppend.join('')),
+            parent: repeaterParentElement,
+            position: 'beforeend',
+        });
     }
 
     if (!useSync) {

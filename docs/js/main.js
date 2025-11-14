@@ -6533,6 +6533,16 @@
       component.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
     });
   };
+  var addDOMfromString = ({ stringDOM, parent, position: position2 }) => {
+    setSkipAddUserComponent(true);
+    const fragment = document.createRange().createContextualFragment(stringDOM);
+    setSkipAddUserComponent(false);
+    if (!fragment) return;
+    if (position2 === "afterend") parent.after(fragment);
+    if (position2 === "beforebegin") parent.before(fragment);
+    if (position2 === "afterbegin") parent.prepend(fragment);
+    if (position2 === "beforeend") parent.append(fragment);
+  };
   var addMultipleDOMElement = ({ elements, parent, position: position2 }) => {
     const fragment = new DocumentFragment();
     setSkipAddUserComponent(true);
@@ -7557,10 +7567,11 @@
             container: invalidateParent
           });
           invalidateParent.textContent = "";
-          invalidateParent.insertAdjacentHTML(
-            "afterbegin",
-            renderFunction()
-          );
+          addDOMfromString({
+            stringDOM: renderFunction(),
+            parent: invalidateParent,
+            position: "afterbegin"
+          });
           mainStore.set(
             MAIN_STORE_ASYNC_PARSER,
             {
@@ -8293,12 +8304,14 @@
       }
     );
     if (useSync) {
-      repeaterParentElement.insertAdjacentHTML(
-        "beforeend",
-        /** @type {string} */
-        /** @type {string} */
-        elementsToAppend.join("")
-      );
+      addDOMfromString({
+        stringDOM: (
+          /** @type {string} */
+          elementsToAppend.join("")
+        ),
+        parent: repeaterParentElement,
+        position: "beforeend"
+      });
     }
     if (!useSync) {
       addMultipleDOMElement({
@@ -8361,11 +8374,14 @@
         repeatId
       });
       if (useSync) {
-        repeaterParentElement.insertAdjacentHTML(
-          "beforeend",
-          /** @type {string} */
-          currentRender
-        );
+        addDOMfromString({
+          stringDOM: (
+            /** @type {string} */
+            currentRender
+          ),
+          parent: repeaterParentElement,
+          position: "beforeend"
+        });
       }
       if (!useSync) {
         addMultipleDOMElement({
@@ -9499,7 +9515,11 @@
     }
     contentElement.replaceChildren();
     removeCancellableComponent();
-    contentElement.insertAdjacentHTML("afterbegin", content);
+    addDOMfromString({
+      stringDOM: content,
+      parent: contentElement,
+      position: "afterbegin"
+    });
     await parseComponents({ element: contentElement });
     if (!skipTransition) contentElement.style.visibility = "";
     if (!skip)
@@ -9710,7 +9730,11 @@
     setRouteList(routes2);
     setIndex({ routeName: index });
     setPageNotFound({ routeName: pageNotFound3 });
-    rootEl.insertAdjacentHTML("afterbegin", wrapperDOM);
+    addDOMfromString({
+      stringDOM: wrapperDOM,
+      parent: rootEl,
+      position: "afterbegin"
+    });
     setContentElement();
     parseUrlHash({ shouldLoadRoute: false });
     await parseComponents({ element: rootEl, persistent: true });
