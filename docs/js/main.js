@@ -8253,7 +8253,7 @@
       };
     });
     repeaterParentElement.replaceChildren();
-    const elementsToAppend = newSequenceByKey.map(
+    newSequenceByKey.forEach(
       ({
         isNewElement,
         keyValue,
@@ -8264,7 +8264,7 @@
         if (!isNewElement) {
           const { debug } = getDefaultComponent();
           if (persistentDOMwrapper) {
-            return persistentDOMwrapper;
+            repeaterParentElement.append(persistentDOMwrapper);
           }
           if (!persistentDOMwrapper && persistentElement?.[0]?.element) {
             repeaterParentElement.append(persistentElement[0].element);
@@ -8296,33 +8296,20 @@
           render: render2
         });
         if (useSync) {
-          return currentRender;
+          repeaterParentElement.insertAdjacentHTML(
+            "beforeend",
+            /** @type {string} */
+            currentRender
+          );
         }
         if (!useSync && currentRender) {
-          return currentRender;
+          repeaterParentElement.append(
+            /** @type {Element} */
+            currentRender
+          );
         }
       }
     );
-    if (useSync) {
-      addDOMfromString({
-        stringDOM: (
-          /** @type {string} */
-          elementsToAppend.join("")
-        ),
-        parent: repeaterParentElement,
-        position: "beforeend"
-      });
-    }
-    if (!useSync) {
-      addMultipleDOMElement({
-        elements: (
-          /** @type {Element[]} */
-          elementsToAppend
-        ),
-        parent: repeaterParentElement,
-        position: "beforeend"
-      });
-    }
     return currentUnique;
   };
 

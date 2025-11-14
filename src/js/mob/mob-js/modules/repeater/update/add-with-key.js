@@ -16,10 +16,6 @@ import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-ch
 import { getComponentNameByElement } from '../../../component/action/component';
 import { getDefaultComponent } from '../../../component/create-component';
 import { setRepeaterInstancesCurrentData } from '../action/set-repeat-instances-map-current-data';
-import {
-    addDOMfromString,
-    addMultipleDOMElement,
-} from '../../../parse/steps/utils';
 
 /**
  * @param {object} params
@@ -230,9 +226,13 @@ export const addWithKey = ({
     /**
      * ## NEW DOM
      *
-     * Add persistent element or new element to parse.
+     * Add persistent element or new element to parse. IMPORTANT!
+     *
+     * - Node must be inserted one by one.
+     * - Persistent element is NODE_ELEMENT.
+     * - New element will be NODE_ELEMENT or STRING depend by sync strategy.
      */
-    const elementsToAppend = newSequenceByKey.map(
+    newSequenceByKey.forEach(
         ({
             isNewElement,
             keyValue,
@@ -244,10 +244,12 @@ export const addWithKey = ({
                 const { debug } = getDefaultComponent();
 
                 /**
-                 * Wrapper
+                 * IMPORTANT !
+                 *
+                 * - Wrapper Append old NODE_ELEMENT
                  */
                 if (persistentDOMwrapper) {
-                    return persistentDOMwrapper;
+                    repeaterParentElement.append(persistentDOMwrapper);
                 }
 
                 /**
@@ -293,30 +295,25 @@ export const addWithKey = ({
                   });
 
             if (useSync) {
-                return currentRender;
+                /**
+                 * APPEND NEW ELEMENT ( string )
+                 */
+                repeaterParentElement.insertAdjacentHTML(
+                    'beforeend',
+                    /** @type {string} */ (currentRender)
+                );
             }
 
             if (!useSync && currentRender) {
-                return currentRender;
+                /**
+                 * APPEND NEW ELEMENT ( NODE_ELEMENT )
+                 */
+                repeaterParentElement.append(
+                    /** @type {Element} */ (currentRender)
+                );
             }
         }
     );
-
-    if (useSync) {
-        addDOMfromString({
-            stringDOM: /** @type {string} */ (elementsToAppend.join('')),
-            parent: repeaterParentElement,
-            position: 'beforeend',
-        });
-    }
-
-    if (!useSync) {
-        addMultipleDOMElement({
-            elements: /** @type {Element[]} */ (elementsToAppend),
-            parent: repeaterParentElement,
-            position: 'beforeend',
-        });
-    }
 
     return currentUnique;
 };
