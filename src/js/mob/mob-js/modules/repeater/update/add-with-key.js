@@ -16,6 +16,10 @@ import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-ch
 import { getComponentNameByElement } from '../../../component/action/component';
 import { getDefaultComponent } from '../../../component/create-component';
 import { setRepeaterInstancesCurrentData } from '../action/set-repeat-instances-map-current-data';
+import {
+    getSkipAddUserComponent,
+    setSkipAddUserComponent,
+} from '../../user-component';
 
 /**
  * @param {object} params
@@ -220,8 +224,10 @@ export const addWithKey = ({
      *
      * Reset parent Element
      */
-    // repeaterParentElement.textContent = '';
     repeaterParentElement.replaceChildren();
+
+    const range = document.createRange();
+    const fragment = new DocumentFragment();
 
     /**
      * ## NEW DOM
@@ -249,14 +255,16 @@ export const addWithKey = ({
                  * - Wrapper Append old NODE_ELEMENT
                  */
                 if (persistentDOMwrapper) {
-                    repeaterParentElement.append(persistentDOMwrapper);
+                    fragment.append(persistentDOMwrapper);
                 }
+
+                const componentWithNoWrapper = persistentElement?.[0]?.element;
 
                 /**
                  * No wrapper If there is no wrapper assuming we have only one component child
                  */
-                if (!persistentDOMwrapper && persistentElement?.[0]?.element) {
-                    repeaterParentElement.append(persistentElement[0].element);
+                if (!persistentDOMwrapper && componentWithNoWrapper) {
+                    fragment.append(componentWithNoWrapper);
 
                     if (debug) {
                         addDebugToComponent({
@@ -294,26 +302,27 @@ export const addWithKey = ({
                       render,
                   });
 
+            const lastSkipUserValue = getSkipAddUserComponent();
+            setSkipAddUserComponent(true);
+
             if (useSync) {
-                /**
-                 * APPEND NEW ELEMENT ( string )
-                 */
-                repeaterParentElement.insertAdjacentHTML(
-                    'beforeend',
+                const domFragment = range.createContextualFragment(
                     /** @type {string} */ (currentRender)
                 );
+
+                fragment.append(domFragment);
             }
 
             if (!useSync && currentRender) {
-                /**
-                 * APPEND NEW ELEMENT ( NODE_ELEMENT )
-                 */
-                repeaterParentElement.append(
-                    /** @type {Element} */ (currentRender)
-                );
+                fragment.append(currentRender);
             }
+
+            setSkipAddUserComponent(lastSkipUserValue);
         }
     );
+
+    repeaterParentElement.append(fragment);
+    range.detach();
 
     return currentUnique;
 };

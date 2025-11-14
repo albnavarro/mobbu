@@ -8253,6 +8253,8 @@
       };
     });
     repeaterParentElement.replaceChildren();
+    const range = document.createRange();
+    const fragment = new DocumentFragment();
     newSequenceByKey.forEach(
       ({
         isNewElement,
@@ -8264,10 +8266,11 @@
         if (!isNewElement) {
           const { debug } = getDefaultComponent();
           if (persistentDOMwrapper) {
-            repeaterParentElement.append(persistentDOMwrapper);
+            fragment.append(persistentDOMwrapper);
           }
-          if (!persistentDOMwrapper && persistentElement?.[0]?.element) {
-            repeaterParentElement.append(persistentElement[0].element);
+          const componentWithNoWrapper = persistentElement?.[0]?.element;
+          if (!persistentDOMwrapper && componentWithNoWrapper) {
+            fragment.append(componentWithNoWrapper);
             if (debug) {
               addDebugToComponent({
                 element: persistentElement[0]?.element,
@@ -8295,21 +8298,23 @@
           keyValue,
           render: render2
         });
+        const lastSkipUserValue = getSkipAddUserComponent();
+        setSkipAddUserComponent(true);
         if (useSync) {
-          repeaterParentElement.insertAdjacentHTML(
-            "beforeend",
+          const domFragment = range.createContextualFragment(
             /** @type {string} */
             currentRender
           );
+          fragment.append(domFragment);
         }
         if (!useSync && currentRender) {
-          repeaterParentElement.append(
-            /** @type {Element} */
-            currentRender
-          );
+          fragment.append(currentRender);
         }
+        setSkipAddUserComponent(lastSkipUserValue);
       }
     );
+    repeaterParentElement.append(fragment);
+    range.detach();
     return currentUnique;
   };
 
