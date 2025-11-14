@@ -322,7 +322,6 @@ export const addWithKey = ({
     );
 
     repeaterParentElement.append(fragment);
-    range.detach();
 
     return currentUnique;
 };

@@ -8314,7 +8314,6 @@
       }
     );
     repeaterParentElement.append(fragment);
-    range.detach();
     return currentUnique;
   };
 
