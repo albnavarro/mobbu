@@ -1,5 +1,5 @@
 # Prioritá
-1.  Render optimization, case A.
+1.  `BindObject/BindText/BindEffect` potrebbero scrollegarsi prima senza aspettare il deref() che diventerebbe un check si sicurezza, come ?
 2.  Alias `@instanceName`.
 4.  `StyleLint` order.
 5.  La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
@@ -12,64 +12,6 @@
 6. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
 7.  Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
 8. Component app: `dragger` con `pinch zoom`.
-
-# Render optimization:
-### A) better insertAdjacentHTML();
-Le operazioni per aggiungere le stringhe al DOM come:
-```js
-contentElement.insertAdjacentHTML('afterbegin', content);
-```
-possono essere ottimizzate:
-- Usare:
-    ```js
-    const fragment = range.createContextualFragment(rawRender);
-    ````
-- Ricordarsi di prevenire in questa operazione il detect dei `placoholder`.
-- Reference: `src/js/mob/mob-js/modules/repeater/update/utils.js`
-    ```js
-    setSkipAddUserComponent(true);
-    ```
-- Avvalersi delle utils `getElementOrTextFromNode()` e `insertElementOrText()`
-
-
-
-### B) ParseRecursive in memory:
-
-```js
-
-/** Current component to parse */
-let componentToParse = result?.componentToParse;
-
-const parent = componentToParse?.parentNode;
-const fragment = document.createDocumentFragment();
-fragment.append(componentToParse);
-
-/**
- * Loop
- */
-while (componentToParse) {
-```
-
-```js
-    if (parseLimitReached) {
-        console.warn(
-            `dom parse reached max parse limit: ${getCurrentIterationCounter()}`
-        );
-
-        break;
-    }
-}
-
-if (fragment?.firstChild) parent?.append?.(fragment.firstChild);
-```
-
-Le parti di DOM dentro gli slot-named non vengono risolte, il problema sembra correlato a:
-```js
-getFirstUserChildPlaceHolder()
-
-element?.contains(item) => semnba fallire.
-```
-
 
 # App
 ### Docs: AsyncTimeline
