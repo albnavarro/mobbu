@@ -23,6 +23,10 @@ export const benchMarkDefinitionPartial = (maxItem = 1001) => ({
             value: false,
             type: Boolean,
         }),
+        currentIndex: () => ({
+            value: -1,
+            type: Number,
+        }),
     },
     child: [BenchMarkFakeComponent],
 });

@@ -587,24 +587,29 @@
             "url": "#",
             "children": [
                 {
-                    "label": "Invalidate",
+                    "label": "Invalidate ( test )",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-benchmark-invalidate"
                 },
                 {
-                    "label": "Repeat without key",
+                    "label": "Repeat without key ( test )",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-benchmark-repeat-no-key"
                 },
                 {
-                    "label": "Repeat with key",
+                    "label": "Repeat with key ( test )",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-benchmark-repeat-key"
                 },
                 {
-                    "label": "Repeat bind external store",
+                    "label": "Repeat bind external store ( test )",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-benchmark-repeat-key-bind-store"
+                },
+                {
+                    "label": "Repeat no component no key ( test )",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-benchmark-repeat-no-component-no-key"
                 },
                 {
                     "label": "Repeat with no key nested ( test )",
@@ -623,17 +628,17 @@
             "url": "#",
             "children": [
                 {
-                    "label": "Miscellaneous",
+                    "label": "Miscellaneous ( test )",
                     "scrollToSection": "mobJs",
                     "url": "dynamic-list"
                 },
                 {
-                    "label": "Matrioska repeat",
+                    "label": "Matrioska repeat ( test )",
                     "scrollToSection": "mobJs",
                     "url": "matrioska-repeat"
                 },
                 {
-                    "label": "Matrioska invalidate",
+                    "label": "Matrioska invalidate ( test )",
                     "scrollToSection": "mobJs",
                     "url": "matrioska-invalidate"
                 }

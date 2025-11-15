@@ -39,6 +39,9 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
             <h3 class="benchmark__head__subtitle">
                 Repeat bind external store ( without key ):
             </h3>
+            <h2 class="benchmark__head__title">
+                Generate components performance
+            </h2>
             <p class="benchmark__head__title">
                 Use extrernal store as state ( bindStore module ).<br />
                 ( max value <strong>1000</strong> ).

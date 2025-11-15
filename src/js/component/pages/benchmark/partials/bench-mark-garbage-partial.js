@@ -1,11 +1,15 @@
 import { html } from '@mobJs';
 
-export const benchMarkGarbagePartial = () => {
+/**
+ * @param {number} maxComponent
+ * @returns {string}
+ */
+export const benchMarkGarbagePartial = (maxComponent = 1000) => {
     return html`
         <p>
             Generates and updates a large list of components with 5 reactive
             elements inside.<br />
-            ( max component <strong>1000</strong> ).
+            ( max component <strong>${maxComponent}</strong> ).
         </p>
     `;
 };

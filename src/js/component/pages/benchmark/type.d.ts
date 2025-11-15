@@ -4,6 +4,7 @@ export interface BenchMark {
         time: number;
         data: { label: string }[];
         isLoading: boolean;
+        currentIndex: number;
     };
     ref: {
         loading: HTMLElement;
