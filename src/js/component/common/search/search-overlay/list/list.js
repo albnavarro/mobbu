@@ -1,20 +1,10 @@
 /**
- * @import {GetRef, MobComponent} from '@mobJsType';
+ * @import {GetRef, MobComponent, ReturnBindProps} from '@mobJsType';
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { html, MobJs } from '@mobJs';
 import { fetchSearchResult } from './fetch-data';
-import { toggleSearchOverlay } from '../utils';
-
-/**
- * @param {object} params
- * @param {string} params.uri
- */
-const loadPage = ({ uri }) => {
-    MobJs.loadUrl({ url: uri });
-    toggleSearchOverlay();
-};
 
 /**
  * @param {object} params
@@ -55,15 +45,14 @@ const initScroller = ({ getRef }) => {
 export const SearchOverlayListFn = ({
     getProxi,
     repeat,
-    bindObject,
     setRef,
     getRef,
     onMount,
     watch,
     addMethod,
-    delegateEvents,
     bindEffect,
     invalidate,
+    bindProps,
 }) => {
     const proxi = getProxi();
 
@@ -167,37 +156,21 @@ export const SearchOverlayListFn = ({
                 observe: () => proxi.list,
                 render: ({ current }) => {
                     return html`
-                        <li
-                            class="search-overlay-list__item"
-                            ${bindEffect({
-                                toggleClass: {
-                                    current: () =>
+                        <search-overlay-list-item
+                            ${bindProps(
+                                /** @returns {ReturnBindProps<import('./list-item/type').SearchOverlayListItem>} */
+                                () => ({
+                                    active:
                                         proxi.activeRoute.route ===
                                         current.value.uri,
-                                },
-                            })}
+                                    uri: current.value.uri,
+                                    breadCrumbs: current.value.breadCrumbs,
+                                    count: current.value.count,
+                                    title: current.value.title,
+                                })
+                            )}
                         >
-                            <button
-                                type="button"
-                                class="search-overlay-list__button"
-                                ${delegateEvents({
-                                    click: () => {
-                                        loadPage({ uri: current.value.uri });
-                                    },
-                                })}
-                            >
-                                <div class="search-overlay-list__section">
-                                    <p>
-                                        ${bindObject`<strong>${() => current.value.breadCrumbs}</strong> (${() => current.value.count})`}
-                                    </p>
-                                </div>
-                                <div class="search-overlay-list__title">
-                                    <h6>
-                                        ${bindObject`${() => current.value.title}`}
-                                    </h6>
-                                </div>
-                            </button>
-                        </li>
+                        </search-overlay-list-item>
                     `;
                 },
             })}

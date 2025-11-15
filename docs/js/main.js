@@ -27793,7 +27793,7 @@
     {
       tag: "benchmark-repeat-no-component-with-key",
       component: BenchMarkRepeatNoComponentWithKeyFn,
-      ...benchMarkDefinitionPartial(101)
+      ...benchMarkDefinitionPartial(1001)
     }
   );
 
@@ -40052,10 +40052,6 @@
   };
 
   // src/js/component/common/search/search-overlay/list/list.js
-  var loadPage = ({ uri }) => {
-    modules_exports2.loadUrl({ url: uri });
-    toggleSearchOverlay();
-  };
   var initScroller4 = ({ getRef }) => {
     const { screen, scroller, scrollbar } = getRef();
     scrollbar.addEventListener("input", () => {
@@ -40084,15 +40080,14 @@
   var SearchOverlayListFn = ({
     getProxi,
     repeat,
-    bindObject,
     setRef,
     getRef,
     onMount,
     watch,
     addMethod,
-    delegateEvents,
     bindEffect,
-    invalidate
+    invalidate,
+    bindProps
   }) => {
     const proxi = getProxi();
     addMethod("update", async (currentSearch) => {
@@ -40178,41 +40173,99 @@
       observe: () => proxi.list,
       render: ({ current }) => {
         return renderHtml`
-                        <li
-                            class="search-overlay-list__item"
-                            ${bindEffect({
-          toggleClass: {
-            current: () => proxi.activeRoute.route === current.value.uri
-          }
-        })}
+                        <search-overlay-list-item
+                            ${bindProps(
+          /** @returns {ReturnBindProps<import('./list-item/type').SearchOverlayListItem>} */
+          () => ({
+            active: proxi.activeRoute.route === current.value.uri,
+            uri: current.value.uri,
+            breadCrumbs: current.value.breadCrumbs,
+            count: current.value.count,
+            title: current.value.title
+          })
+        )}
                         >
-                            <button
-                                type="button"
-                                class="search-overlay-list__button"
-                                ${delegateEvents({
-          click: () => {
-            loadPage({ uri: current.value.uri });
-          }
-        })}
-                            >
-                                <div class="search-overlay-list__section">
-                                    <p>
-                                        ${bindObject`<strong>${() => current.value.breadCrumbs}</strong> (${() => current.value.count})`}
-                                    </p>
-                                </div>
-                                <div class="search-overlay-list__title">
-                                    <h6>
-                                        ${bindObject`${() => current.value.title}`}
-                                    </h6>
-                                </div>
-                            </button>
-                        </li>
+                        </search-overlay-list-item>
                     `;
       }
     })}
         </ul>
     </div>`;
   };
+
+  // src/js/component/common/search/search-overlay/list/list-item/list-item.js
+  var loadPage = ({ uri }) => {
+    modules_exports2.loadUrl({ url: uri });
+    toggleSearchOverlay();
+  };
+  var SearchOverlayListItemFn = ({
+    getProxi,
+    bindEffect,
+    delegateEvents,
+    bindObject
+  }) => {
+    const proxi = getProxi();
+    return renderHtml`
+        <li
+            class="search-overlay-list__item"
+            ${bindEffect({
+      toggleClass: {
+        current: () => proxi.active
+      }
+    })}
+        >
+            <button
+                type="button"
+                class="search-overlay-list__button"
+                ${delegateEvents({
+      click: () => {
+        loadPage({ uri: proxi.uri });
+      }
+    })}
+            >
+                <div class="search-overlay-list__section">
+                    <p>
+                        ${bindObject`<strong>${() => proxi.breadCrumbs}</strong> (${() => proxi.count})`}
+                    </p>
+                </div>
+                <div class="search-overlay-list__title">
+                    <h6>${bindObject`${() => proxi.title}`}</h6>
+                </div>
+            </button>
+        </li>
+    `;
+  };
+
+  // src/js/component/common/search/search-overlay/list/list-item/definition.js
+  var SearchOverlayListItem = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').SearchOverlayListItem>} */
+    {
+      tag: "search-overlay-list-item",
+      component: SearchOverlayListItemFn,
+      props: {
+        uri: () => ({
+          value: "",
+          type: String
+        }),
+        breadCrumbs: () => ({
+          value: "",
+          type: String
+        }),
+        title: () => ({
+          value: "",
+          type: String
+        }),
+        count: () => ({
+          value: 0,
+          type: Number
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
 
   // src/js/component/common/search/search-overlay/list/definition.js
   var SearchOverlayList = modules_exports2.createComponent(
@@ -40241,7 +40294,8 @@
           value: false,
           type: Boolean
         })
-      }
+      },
+      child: [SearchOverlayListItem]
     }
   );
 
