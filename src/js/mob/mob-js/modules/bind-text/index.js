@@ -4,13 +4,23 @@ import { MobCore } from '../../../mob-core';
 import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
 
-/** @type {Map<string, import('./type').BindText[]>} */
+/**
+ * Mappa usata per abbinare id component e id `istanta` del singolo modulo.
+ *
+ * @type {Map<string, import('./type').BindText[]>}
+ */
 export const bindTextMap = new Map();
 
-/** @type {Map<Element, import('./type').BindTextPlaceHolder>} */
+/**
+ * Mappa usata dal webComponent per tracciare il parent element.
+ *
+ * @type {Map<Element, import('./type').BindTextPlaceHolder>}
+ */
 export const bindTextPlaceHolderMap = new Map();
 
 /**
+ * Funzione usata dal webComponent per passare l' host.
+ *
  * @param {object} params
  * @param {Element} params.host
  * @param {string} params.componentId
@@ -99,6 +109,8 @@ export const renderBindText = (id, strings, ...values) => {
 };
 
 /**
+ * Aggiungiamo il placeholder Element che il webComponent a indivuato nella bindTextMap.
+ *
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.bindTextId
@@ -130,6 +142,11 @@ export const addBindTextParent = ({ id, bindTextId, parentElement }) => {
 };
 
 /**
+ * Rimuoviamo la referenza usando bindTextId.
+ *
+ * - Questo avviene quando il watcher non trova piu l'elemento target perche e stato rimosso dal DOM.
+ * - Rimuoviamo solo lo specifico watcher non tutti i watcher legati al componente.
+ *
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.bindTextId
@@ -144,18 +161,27 @@ export const removeBindTextByBindTextId = ({ id, bindTextId }) => {
 };
 
 /**
- * At the end of parse delete web component and add data to real map New map has componentId as key, so easy to destroy,
- * one map for every bindText in component. We need end of parse to get real parent element ( slot/repeater/invalidate
- * issue ).
+ * At the end of parse delete web component and add data to real map
+ *
+ * - Is called from parseComponentsWhile.
+ * - Event there is no component ( es repeater without camponent ) parse function is called by eg: repeater or invalidate.
+ * - New map has componentId as key, so easy to destroy, one map for every bindText in component.
+ * - We need end of parse to get real parent element ( slot/repeater/invalidate issue ).
  *
  * @returns {void}
  */
 export const switchBindTextMap = () => {
     [...bindTextPlaceHolderMap].forEach(
         ([placeholder, { componentId, bindTextId }]) => {
+            /**
+             * Individuiamo il div che sara da aggiornare.
+             */
             const parentElement = placeholder.parentElement;
             if (!parentElement) return;
 
+            /**
+             * Aggiungiamo il placeholder Element che il webComponent a indivuato nella bindTextMap.
+             */
             addBindTextParent({
                 id: componentId,
                 bindTextId,
@@ -164,14 +190,29 @@ export const switchBindTextMap = () => {
 
             // @ts-ignore
             placeholder?.removeCustomComponent?.();
+
+            /**
+             * Elininamiamo il placeholder webComponent.
+             */
             placeholder?.remove();
         }
     );
 
+    /**
+     * Ripuliamo bindTextPlaceHolderMap.
+     *
+     * - La funzione di parse e stata completata
+     */
     bindTextPlaceHolderMap.clear();
 };
 
 /**
+ * Rimuoviamo la referrenza usando componentId.
+ *
+ * - Questo avviene quando il componente viene distrutto.
+ * - In questo caso tutti i watcher vanno rimossi.
+ * - In realta sitiamo solo la mappa i watcher vengono distrutti insieme allo statao.
+ *
  * @param {object} params
  * @param {string} params.id
  * @returns {void}
@@ -181,6 +222,8 @@ export const removeBindTextParentById = ({ id }) => {
 };
 
 /**
+ * Alla prima chiamata dalla funzione di watch resitutiamo il parent Element da usare come target.
+ *
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.bindTextId
@@ -198,6 +241,8 @@ const getParentBindText = ({ id, bindTextId }) => {
 };
 
 /**
+ * Utils.
+ *
  * @returns {number}
  */
 export const getBindTextParentSize = () => {
@@ -209,11 +254,15 @@ export const getBindTextParentSize = () => {
 };
 
 /**
+ * Utils.
+ *
  * @returns {number}
  */
 export const getBindTextPlaceholderSize = () => bindTextPlaceHolderMap.size;
 
 /**
+ * Main function.
+ *
  * @param {string} id
  * @param {string} bindTextId
  * @param {string[]} props

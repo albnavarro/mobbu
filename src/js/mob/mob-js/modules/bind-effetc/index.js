@@ -79,6 +79,9 @@ export const setBindEffect = ({ data, id }) => {
 /**
  * Get data from map at the end of parse.
  *
+ * - Is called from parseComponentsWhile.
+ * - Event there is no component ( es repeater without camponent ) parse function is called by eg: repeater or invalidate.
+ *
  * @param {HTMLElement} element
  * @returns {void}
  */

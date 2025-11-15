@@ -1,13 +1,23 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { watchById } from '../../component/action/watch';
 
-/** @type {Map<string, import('./type').BindObject[]>} */
+/**
+ * Mappa usata per abbinare id component e id `istanta` del singolo modulo.
+ *
+ * @type {Map<string, import('./type').BindObject[]>}
+ */
 export const bindObjectMap = new Map();
 
-/** @type {Map<Element, import('./type').BindObjectPlaceHolder>} */
+/**
+ * Mappa usata dal webComponent per tracciare il parent element.
+ *
+ * @type {Map<Element, import('./type').BindObjectPlaceHolder>}
+ */
 export const bindObjectPlaceHolderMap = new Map();
 
 /**
+ * Funzione usata dal webComponent per passare l' host.
+ *
  * @param {object} params
  * @param {Element} params.host
  * @param {string} params.componentId
@@ -71,6 +81,8 @@ export const renderBindObject = (strings, ...values) => {
 };
 
 /**
+ * Aggiungiamo il placeholder Element che il webComponent a indivuato nella bindObjectMap.
+ *
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.bindObjectId
@@ -102,6 +114,11 @@ export const addBindObjectParent = ({ id, bindObjectId, parentElement }) => {
 };
 
 /**
+ * Rimuoviamo la referenza usando bindObjectId.
+ *
+ * - Questo avviene quando il watcher non trova piu l'elemento target perche e stato rimosso dal DOM.
+ * - Rimuoviamo solo lo specifico watcher non tutti i watcher legati al componente.
+ *
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.bindObjectId
@@ -118,9 +135,12 @@ export const removeBindObjectByBindObjectId = ({ id, bindObjectId }) => {
 };
 
 /**
- * At the end of parse delete web component and add data to real map New map has componentId as key, so easy to destroy,
- * one map for every bindText in component. We need end of parse to get real parent element ( slot/repeater/invalidate
- * issue ).
+ * At the end of parse delete web component and add data to real map
+ *
+ * - Is called from parseComponentsWhile.
+ * - Event there is no component ( es repeater without camponent ) parse function is called by eg: repeater or invalidate.
+ * - New map has componentId as key, so easy to destroy, one map for every bindText in component.
+ * - We need end of parse to get real parent element ( slot/repeater/invalidate issue ).
  *
  * @returns {void}
  */
@@ -146,6 +166,12 @@ export const switchBindObjectMap = () => {
 };
 
 /**
+ * Rimuoviamo la referrenza usando componentId.
+ *
+ * - Questo avviene quando il componente viene distrutto.
+ * - In questo caso tutti i watcher vanno rimossi.
+ * - In realta sitiamo solo la mappa i watcher vengono distrutti insieme allo statao.
+ *
  * @param {object} params
  * @param {string} params.id
  * @returns {void}
@@ -155,6 +181,8 @@ export const removeBindObjectParentById = ({ id }) => {
 };
 
 /**
+ * Alla prima chiamata dalla funzione di watch resitutiamo il parent Element da usare come target.
+ *
  * @param {object} params
  * @param {string} params.id
  * @param {string} params.bindObjectId
@@ -172,6 +200,8 @@ const getParentBindObject = ({ id, bindObjectId }) => {
 };
 
 /**
+ * Utils.
+ *
  * @returns {number}
  */
 export const getBindObjectParentSize = () => {
@@ -183,6 +213,8 @@ export const getBindObjectParentSize = () => {
 };
 
 /**
+ * Utils.
+ *
  * @returns {number}
  */
 export const getBindObjectPlaceholderSize = () => bindObjectPlaceHolderMap.size;
