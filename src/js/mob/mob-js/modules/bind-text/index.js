@@ -199,9 +199,9 @@ export const switchBindTextMap = () => {
     );
 
     /**
-     * Ripuliamo bindTextPlaceHolderMap.
+     * Clean placeHolder map
      *
-     * - La funzione di parse e stata completata
+     * - Parse function is completed
      */
     bindTextPlaceHolderMap.clear();
 };

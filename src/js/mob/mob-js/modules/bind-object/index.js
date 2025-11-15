@@ -162,6 +162,11 @@ export const switchBindObjectMap = () => {
         }
     );
 
+    /**
+     * Clean placeHolder map
+     *
+     * - Parse function is completed
+     */
     bindObjectPlaceHolderMap.clear();
 };
 
