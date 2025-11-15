@@ -9,7 +9,7 @@ import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */
-export const BenchMarkRepeatNoComponentNoKeyFn = ({
+export const BenchMarkRepeatNoComponentWithKeyFn = ({
     onMount,
     delegateEvents,
     bindText,
@@ -33,7 +33,7 @@ export const BenchMarkRepeatNoComponentNoKeyFn = ({
     return html`<div class="benchmark">
         <div class="benchmark__head">
             <h3 class="benchmark__head__subtitle">
-                Repeat no component ( without key ):
+                Repeat no component ( with key ):
             </h3>
             <h2 class="benchmark__head__title">
                 Generate vanilla html performance
@@ -54,6 +54,7 @@ export const BenchMarkRepeatNoComponentNoKeyFn = ({
         <div class="benchmark__list">
             ${repeat({
                 observe: () => proxi.data,
+                key: 'label',
                 render: ({ current }) => {
                     return html`
                         <div

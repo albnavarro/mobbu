@@ -413,6 +413,18 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-benchmark-repeat-no-component-with-key',
+        layout: benchMark,
+        templateName: PAGE_TEMPLATE_TEST,
+        props: {
+            rootComponent: 'benchmark-repeat-no-component-with-key',
+            breadCrumbs: mobJsOverviewBreadCrumbs,
+            source: './data/mob-js/benchmark-repeat-no-componet-with-key.json',
+            title: '( test ) benchmark repeat no component with key',
+            section: 'mobJs',
+        },
+    },
+    {
         name: 'mobJs-benchmark-repeat-no-key-nested',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,

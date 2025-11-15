@@ -612,6 +612,11 @@
                     "url": "mobJs-benchmark-repeat-no-component-no-key"
                 },
                 {
+                    "label": "Repeat no component with key ( test )",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-benchmark-repeat-no-component-with-key"
+                },
+                {
                     "label": "Repeat with no key nested ( test )",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-benchmark-repeat-no-key-nested"

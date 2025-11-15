@@ -6,6 +6,7 @@ import { BenchMarkRepeatNoKey } from '@pagesComponent/benchmark/repeat-no-key/de
 import { BenchMarkRepeatNoKeyBindStore } from '@pagesComponent/benchmark/repeat-no-key-bind-store/definition';
 import { BenchMarkRepeatWithNoKeyNested } from '@pagesComponent/benchmark/repeat-no-key-nested/definition';
 import { BenchMarkRepeatNoComponentNoKey } from '@pagesComponent/benchmark/repeat-no-component-no-key/definition';
+import { BenchMarkRepeatNoComponentWithKey } from '@pagesComponent/benchmark/repeat-no-component-key/definition';
 
 MobJs.useComponent([
     BenchMarkInvalidate,
@@ -15,6 +16,8 @@ MobJs.useComponent([
     BenchMarkRepeatWithNoKeyNested,
     BenchMarkRepeatNoKeyBindStore,
     BenchMarkRepeatNoComponentNoKey,
+    BenchMarkRepeatNoKeyBindStore,
+    BenchMarkRepeatNoComponentWithKey,
 ]);
 
 /** @type {import('@mobJsType').PageAsync} */

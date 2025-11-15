@@ -27613,7 +27613,7 @@
             <h2 class="benchmark__head__title">
                 Generate vanilla html performance
             </h2>
-            ${benchMarkGarbagePartial()}
+            ${benchMarkGarbagePartial(100)}
             ${benchMarkListPartial({
       setRef,
       getRef,
@@ -27682,7 +27682,107 @@
     {
       tag: "benchmark-repeat-no-component-no-key",
       component: BenchMarkRepeatNoComponentNoKeyFn,
-      ...benchMarkDefinitionPartial()
+      ...benchMarkDefinitionPartial(101)
+    }
+  );
+
+  // src/js/component/pages/benchmark/repeat-no-component-key/benchmark-repeat-no-component-key.js
+  var BenchMarkRepeatNoComponentWithKeyFn = ({
+    onMount,
+    delegateEvents,
+    bindText,
+    setRef,
+    getRef,
+    repeat,
+    bindEffect,
+    bindObject,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    onMount(() => {
+      return () => {
+        getRef()?.input.remove();
+      };
+    });
+    return renderHtml`<div class="benchmark">
+        <div class="benchmark__head">
+            <h3 class="benchmark__head__subtitle">
+                Repeat no component ( with key ):
+            </h3>
+            <h2 class="benchmark__head__title">
+                Generate vanilla html performance
+            </h2>
+            ${benchMarkGarbagePartial(100)}
+            ${benchMarkListPartial({
+      setRef,
+      getRef,
+      delegateEvents,
+      bindEffect,
+      proxi
+    })}
+
+            <div class="benchmark__head__time">
+                ${bindText`components generate in <strong>${"time"}ms</strong>`}
+            </div>
+        </div>
+        <div class="benchmark__list">
+            ${repeat({
+      observe: () => proxi.data,
+      key: "label",
+      render: ({ current }) => {
+        return renderHtml`
+                        <div
+                            class="benchmark-fake"
+                            ${bindEffect({
+          /**
+           * Update only when buttonClick. Otherwise every data update selected state back to same
+           * item.
+           *
+           * - Current trigger update on each data mutation.
+           */
+          observe: [() => proxi.currentIndex],
+          toggleClass: {
+            selected: () => current.index === proxi.currentIndex
+          }
+        })}
+                        >
+                            <div class="benchmark-fake__row">
+                                ${bindObject`<strong>index:</strong><br/> ${() => current.index}`}
+                            </div>
+                            <div class="benchmark-fake__row">
+                                ${bindObject`<strong>label:</strong><br/> ${() => current.value.label}`}
+                            </div>
+                            <div class="benchmark-fake__row">
+                                ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`}
+                            </div>
+                            <div class="benchmark-fake__row">
+                                <button
+                                    class="benchmark-fake__button"
+                                    type="button"
+                                    ${delegateEvents({
+          click: () => {
+            proxi.currentIndex = proxi.currentIndex === current.index ? -1 : current.index;
+          }
+        })}
+                                >
+                                    Select
+                                </button>
+                            </div>
+                        </div>
+                    `;
+      }
+    })}
+        </div>
+    </div>`;
+  };
+
+  // src/js/component/pages/benchmark/repeat-no-component-key/definition.js
+  var BenchMarkRepeatNoComponentWithKey = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('../type').BenchMark>} */
+    {
+      tag: "benchmark-repeat-no-component-with-key",
+      component: BenchMarkRepeatNoComponentWithKeyFn,
+      ...benchMarkDefinitionPartial(101)
     }
   );
 
@@ -27694,7 +27794,9 @@
     BenchMarkRepeatWithKeyNested,
     BenchMarkRepeatWithNoKeyNested,
     BenchMarkRepeatNoKeyBindStore,
-    BenchMarkRepeatNoComponentNoKey
+    BenchMarkRepeatNoComponentNoKey,
+    BenchMarkRepeatNoKeyBindStore,
+    BenchMarkRepeatNoComponentWithKey
   ]);
   var benchMark = async ({ props }) => {
     const { rootComponent } = props;
@@ -35785,6 +35887,18 @@
         breadCrumbs: mobJsOverviewBreadCrumbs,
         source: "./data/mob-js/benchmark-repeat-no-componet-no-key.json",
         title: "( test ) benchmark repeat no component no key",
+        section: "mobJs"
+      }
+    },
+    {
+      name: "mobJs-benchmark-repeat-no-component-with-key",
+      layout: benchMark,
+      templateName: PAGE_TEMPLATE_TEST,
+      props: {
+        rootComponent: "benchmark-repeat-no-component-with-key",
+        breadCrumbs: mobJsOverviewBreadCrumbs,
+        source: "./data/mob-js/benchmark-repeat-no-componet-with-key.json",
+        title: "( test ) benchmark repeat no component with key",
         section: "mobJs"
       }
     },
