@@ -35885,7 +35885,7 @@
       props: {
         rootComponent: "benchmark-repeat-no-component-no-key",
         breadCrumbs: mobJsOverviewBreadCrumbs,
-        source: "./data/mob-js/benchmark-repeat-no-componet-no-key.json",
+        source: "./data/mob-js/benchmark-repeat-no-component-no-key.json",
         title: "( test ) benchmark repeat no component no key",
         section: "mobJs"
       }
@@ -35897,7 +35897,7 @@
       props: {
         rootComponent: "benchmark-repeat-no-component-with-key",
         breadCrumbs: mobJsOverviewBreadCrumbs,
-        source: "./data/mob-js/benchmark-repeat-no-componet-with-key.json",
+        source: "./data/mob-js/benchmark-repeat-no-component-with-key.json",
         title: "( test ) benchmark repeat no component with key",
         section: "mobJs"
       }
