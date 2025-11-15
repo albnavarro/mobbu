@@ -27587,6 +27587,17 @@
     }
   );
 
+  // src/js/component/pages/benchmark/partials/bench-mark-vanilla-garbage-partial.js
+  var benchMarkVanillaGarbagePartial = (maxComponent = 1e3) => {
+    return renderHtml`
+        <p>
+            Generates and updates a large list of vanilla HTML element with 4
+            reactive elements inside.<br />
+            ( max component <strong>${maxComponent}</strong> ).
+        </p>
+    `;
+  };
+
   // src/js/component/pages/benchmark/repeat-no-component-no-key/benchmark-repeat-no-component-no-key.js
   var BenchMarkRepeatNoComponentNoKeyFn = ({
     onMount,
@@ -27613,7 +27624,7 @@
             <h2 class="benchmark__head__title">
                 Generate vanilla html performance
             </h2>
-            ${benchMarkGarbagePartial(100)}
+            ${benchMarkVanillaGarbagePartial(100)}
             ${benchMarkListPartial({
       setRef,
       getRef,
@@ -27712,7 +27723,7 @@
             <h2 class="benchmark__head__title">
                 Generate vanilla html performance
             </h2>
-            ${benchMarkGarbagePartial(100)}
+            ${benchMarkVanillaGarbagePartial(100)}
             ${benchMarkListPartial({
       setRef,
       getRef,

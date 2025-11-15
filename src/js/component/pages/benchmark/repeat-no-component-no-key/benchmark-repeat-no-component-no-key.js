@@ -1,8 +1,8 @@
 //@ts-check
 
 import { html } from '@mobJs';
-import { benchMarkGarbagePartial } from '../partials/bench-mark-garbage-partial';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
+import { benchMarkVanillaGarbagePartial } from '../partials/bench-mark-vanilla-garbage-partial';
 
 /**
  * @import {MobComponent} from '@mobJsType';
@@ -38,7 +38,7 @@ export const BenchMarkRepeatNoComponentNoKeyFn = ({
             <h2 class="benchmark__head__title">
                 Generate vanilla html performance
             </h2>
-            ${benchMarkGarbagePartial(100)}
+            ${benchMarkVanillaGarbagePartial(100)}
             ${benchMarkListPartial({
                 setRef,
                 getRef,
