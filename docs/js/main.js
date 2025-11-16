@@ -25173,7 +25173,7 @@
     }
   );
 
-  // src/js/component/instance-name.js
+  // src/js/component-instance-name/index.js
   var debugComponentName = "debug_component";
   var debugFilterListName = "debug_filter_list";
   var debugOverlayName = "debug_overlay";
@@ -36727,6 +36727,72 @@
     });
   };
 
+  // src/js/component/common/animation-description/animation-description.js
+  var AnimationDescriptionFn = ({
+    getProxi,
+    bindEffect,
+    bindText,
+    watch,
+    addMethod
+  }) => {
+    const proxi = getProxi();
+    addMethod("updateRawContent", (content) => {
+      proxi.rawContent = content.length === 0 ? "" : `${content} | <strong>fps: ${modules_exports.getInstantFps()}</strong>`;
+    });
+    watch(
+      () => proxi.rawContent,
+      (value) => {
+        const hasValue = value.length > 0;
+        if (!hasValue) {
+          proxi.visible = false;
+          setTimeout(() => {
+            proxi.content = "";
+          }, 350);
+          return;
+        }
+        setTimeout(() => {
+          proxi.content = `${value}`;
+          if (hasValue) proxi.visible = true;
+        }, 350);
+      },
+      { immediate: true }
+    );
+    return renderHtml`<p
+        class="animation-description"
+        ${bindEffect({
+      toggleClass: {
+        visible: () => proxi.visible && !proxi.navigationIsOpen
+      }
+    })}
+    >
+        ${bindText`${"content"}`}
+    </p>`;
+  };
+
+  // src/js/component/common/animation-description/definition.js
+  var AnimationDescription = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').AnimationDescription>} */
+    {
+      tag: "animation-description",
+      component: AnimationDescriptionFn,
+      bindStore: navigationStore,
+      state: {
+        rawContent: () => ({
+          value: "",
+          type: String
+        }),
+        content: () => ({
+          value: "",
+          type: String
+        }),
+        visible: () => ({
+          value: true,
+          type: Boolean
+        })
+      }
+    }
+  );
+
   // src/js/component/common/debug/debug-overlay/constant.js
   var RESET_FILTER_DEBUG = "reset";
   var DEBUG_USE_TREE = "tree";
@@ -38354,6 +38420,84 @@
     }
   );
 
+  // src/js/component/common/right-sidebar/right-sidebar.js
+  var getList2 = ({ proxi, bindEffect }) => {
+    return proxi.data.map(({ label, url }) => {
+      const urlParsed = url.replaceAll("#", "");
+      return renderHtml`
+                <li class="right-sidebar__item">
+                    <a
+                        href="${url}"
+                        class="right-sidebar__link"
+                        ${bindEffect({
+        toggleClass: {
+          active: () => proxi.activeRoute.route === urlParsed
+        }
+      })}
+                        >${label}</a
+                    >
+                </li>
+            `;
+    }).join("");
+  };
+  var RightSidebarFn = ({
+    getProxi,
+    invalidate,
+    addMethod,
+    computed,
+    bindEffect
+  }) => {
+    const proxi = getProxi();
+    addMethod("updateList", (data) => {
+      proxi.data = data;
+    });
+    modules_exports2.afterRouteChange(({ currentTemplate }) => {
+      if (!docsTemplate.has(currentTemplate)) proxi.data = [];
+    });
+    computed(
+      () => proxi.isVisible,
+      () => proxi.data.length > 0
+    );
+    return renderHtml`<div
+        class="right-sidebar"
+        ${bindEffect({
+      toggleClass: {
+        visible: () => proxi.isVisible
+      }
+    })}
+    >
+        <div class="right-sidebar__title">Sections:</div>
+        <ul class="right-sidebar__list">
+            ${invalidate({
+      observe: () => proxi.data,
+      render: () => {
+        return getList2({ proxi, bindEffect });
+      }
+    })}
+        </ul>
+    </div>`;
+  };
+
+  // src/js/component/common/right-sidebar/definition.js
+  var RightSidebar = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').RightSidebar>} */
+    {
+      tag: "right-sidebar",
+      component: RightSidebarFn,
+      bindStore: [modules_exports2.mainStore],
+      state: {
+        data: () => ({
+          value: [],
+          type: Array
+        }),
+        isVisible: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
   // src/js/component/common/route-loader/route-loader.js
   var RouteLoaderFn = ({ onMount, getProxi, bindEffect, addMethod }) => {
     const proxi = getProxi();
@@ -38460,467 +38604,6 @@
     }
   );
 
-  // src/js/component/common/test-scss-grid/test-scss-grid.js
-  var TestScssGridFn = () => {
-    return renderHtml`
-        <div class="test-grid">
-            <div class="test-grid__grid">
-                <span></span><span></span><span></span><span></span><span></span
-                ><span></span><span></span><span></span><span></span
-                ><span></span><span></span><span></span>
-            </div>
-            <div class="test-grid__cont"><span>test</span></div>
-        </div>
-    `;
-  };
-
-  // src/js/component/common/test-scss-grid/definition.js
-  var TestScssGrid = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<any>} */
-    {
-      tag: "test-scss-grid",
-      component: TestScssGridFn
-    }
-  );
-
-  // src/js/component/lib/utils/get-first-animation-delay.js
-  var getFrameDelay = () => {
-    const { templateName } = modules_exports2.getActiveRoute();
-    return docsTemplate.has(templateName) ? 0 : 40;
-  };
-
-  // src/js/component/common/debug/debug-overlay/utils.js
-  var toggleDebugOverlay = () => {
-    const methods = modules_exports2.useMethodByName(debugOverlayName);
-    methods?.toggle();
-  };
-
-  // src/js/component/layout/footer/footer.js
-  var FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
-    const proxi = getProxi();
-    onMount(() => {
-      modules_exports.useFrameIndex(() => {
-        proxi.isMounted = true;
-      }, getFrameDelay());
-    });
-    return renderHtml`
-        <footer
-            class="l-footer"
-            ${bindEffect({
-      toggleClass: {
-        "is-visible": () => proxi.isMounted
-      }
-    })}
-        >
-            <div class="l-footer__container">
-                <footer-nav></footer-nav>
-                <div class="l-footer__debug">
-                    <debug-button
-                        class="c-button-debug"
-                        ${delegateEvents({
-      click: () => {
-        toggleDebugOverlay();
-      }
-    })}
-                    >
-                        Debug App</debug-button
-                    >
-                    <debug-button
-                        class="c-button-console"
-                        ${delegateEvents({
-      click: () => {
-        consoleLogDebug();
-      }
-    })}
-                    >
-                        Log
-                    </debug-button>
-                </div>
-            </div>
-        </footer>
-    `;
-  };
-
-  // src/js/component/layout/footer/footer-nav/footer-button.js
-  var FooterNavButtonFn = ({ getProxi, bindEffect, computed }) => {
-    const proxi = getProxi();
-    computed(
-      () => proxi.active,
-      () => {
-        return proxi.section === proxi.activeNavigationSection;
-      }
-    );
-    return renderHtml`
-        <button
-            type="button"
-            class="footer-nav__button"
-            ${bindEffect({
-      toggleClass: { current: () => proxi.active }
-    })}
-        >
-            ${proxi.label}
-        </button>
-    `;
-  };
-
-  // src/js/component/layout/footer/footer-nav/footer-nav.js
-  var getItems2 = ({ delegateEvents, staticProps: staticProps2 }) => {
-    const data = getCommonData();
-    return data.footer.nav.map(({ label, url, section }) => {
-      return renderHtml`<li class="footer-nav__item">
-                <footer-nav-button
-                    ${delegateEvents({
-        click: () => {
-          modules_exports2.loadUrl({ url });
-          navigationStore.set("navigationIsOpen", false);
-        }
-      })}
-                    ${staticProps2(
-        /** @type {import('./type').FooterNavButton['props']} */
-        {
-          label,
-          section
-        }
-      )}
-                ></footer-nav-button>
-            </li> `;
-    }).join("");
-  };
-  var FooterNavFn = ({
-    delegateEvents,
-    staticProps: staticProps2,
-    getProxi,
-    onMount,
-    bindEffect
-  }) => {
-    const proxi = getProxi();
-    onMount(() => {
-      modules_exports.useFrameIndex(() => {
-        proxi.isMounted = true;
-      }, 10);
-    });
-    return renderHtml`
-        <ul
-            class="footer-nav"
-            ${bindEffect({
-      toggleClass: {
-        "is-visible": () => proxi.isMounted
-      }
-    })}
-        >
-            ${getItems2({ delegateEvents, staticProps: staticProps2 })}
-        </ul>
-    `;
-  };
-
-  // src/js/component/layout/footer/footer-nav/definition.js
-  var FooterNavButton = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').FooterNavButton>} */
-    {
-      tag: "footer-nav-button",
-      component: FooterNavButtonFn,
-      bindStore: navigationStore,
-      props: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        section: () => ({
-          value: "",
-          type: String
-        })
-      },
-      state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-  var FooterNav = modules_exports2.createComponent({
-    tag: "footer-nav",
-    component: FooterNavFn,
-    child: [FooterNavButton],
-    state: {
-      isMounted: () => ({
-        value: false,
-        type: Boolean
-      })
-    }
-  });
-
-  // src/js/component/common/debug/debug-button.js
-  var DebugButtonFn = () => {
-    return renderHtml`
-        <button type="button" class="c-btn-debug">
-            <mobjs-slot></mobjs-slot>
-        </button>
-    `;
-  };
-
-  // src/js/component/common/debug/definition.js
-  var DebugButton = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<any>} */
-    {
-      tag: "debug-button",
-      component: DebugButtonFn
-    }
-  );
-
-  // src/js/component/layout/footer/definition.js
-  var Footer = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').Footer>} */
-    {
-      tag: "mob-footer",
-      component: FooterFn,
-      child: [FooterNav, DebugButton],
-      state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/layout/navigation/utils.js
-  var scrollToTopNav = () => {
-    const navContainerMethods = modules_exports2.useMethodByName(
-      mobNavigationContainerName
-    );
-    navContainerMethods?.scrollTop();
-  };
-  var refreshNavigationScroller = () => {
-    const methods = modules_exports2.useMethodByName(mobNavigationContainerName);
-    methods?.refresh();
-  };
-
-  // src/js/component/layout/navigation/navigation/utils.js
-  var closeAllNavAccordion = ({ fireCallback = true } = {}) => {
-    const mainNavigationMethods = modules_exports2.useMethodByName(mobNavigationName);
-    mainNavigationMethods?.closeAllAccordion({ fireCallback });
-  };
-
-  // src/js/component/layout/header/header.js
-  function titleHandler() {
-    modules_exports2.loadUrl({ url: "home" });
-    closeAllNavAccordion();
-    navigationStore.set("navigationIsOpen", false);
-    scrollToTopNav();
-  }
-  var HeaderFn = ({
-    delegateEvents,
-    bindEffect,
-    getProxi,
-    onMount,
-    addMethod
-  }) => {
-    const proxi = getProxi();
-    onMount(({ element }) => {
-      addMethod("getHeaderHeight", () => {
-        return outerHeight(element);
-      });
-      modules_exports.useFrameIndex(() => {
-        proxi.isMounted = true;
-      }, getFrameDelay());
-    });
-    return renderHtml`
-        <header
-            class="l-header"
-            ${bindEffect({
-      toggleClass: {
-        "is-visible": () => proxi.isMounted
-      }
-    })}
-        >
-            <div class="l-header__container">
-                <div class="l-header__grid">
-                    <div class="l-header__toggle">
-                        <mob-header-toggle></mob-header-toggle>
-                    </div>
-                    <button
-                        type="button"
-                        class="l-header__title"
-                        ${delegateEvents({
-      click: () => {
-        titleHandler();
-      }
-    })}
-                    >
-                        <div class="l-header__title-container">
-                            <h3
-                                ${bindEffect({
-      toggleClass: {
-        "is-visible": () => proxi.isMounted
-      }
-    })}
-                            >
-                                <span>Mob</span>Project
-                            </h3>
-                            <h5
-                                ${bindEffect({
-      toggleClass: {
-        "is-visible": () => proxi.isMounted
-      }
-    })}
-                            >
-                                v 1.0
-                            </h5>
-                        </div>
-                    </button>
-                    <div
-                        class="l-header__utils"
-                        ${bindEffect({
-      toggleClass: {
-        "is-visible": () => proxi.isMounted
-      }
-    })}
-                    >
-                        <mob-header-nav></mob-header-nav>
-                    </div>
-                </div>
-            </div>
-        </header>
-    `;
-  };
-
-  // src/js/component/layout/header/nav-toggle/header-toggle.js
-  var HeaderToggleFn = ({
-    delegateEvents,
-    bindEffect,
-    getProxi,
-    onMount
-  }) => {
-    const proxi = getProxi();
-    onMount(() => {
-      modules_exports.useFrameIndex(() => {
-        proxi.isMounted = true;
-      }, getFrameDelay());
-    });
-    return renderHtml`
-        <button
-            class="hamburger hamburger--squeeze"
-            type="button"
-            ${delegateEvents({
-      click: () => {
-        navigationStore.update(
-          "navigationIsOpen",
-          (state) => !state
-        );
-        if (!proxi.navigationIsOpen) {
-          UnFreezeMobPageScroll();
-        }
-      }
-    })}
-            ${bindEffect([
-      {
-        toggleClass: {
-          "is-open": () => proxi.navigationIsOpen
-        }
-      },
-      {
-        toggleClass: {
-          "is-visible": () => proxi.isMounted
-        }
-      }
-    ])}
-        >
-            <div
-                class="hamburger__box"
-                ${bindEffect([
-      {
-        toggleClass: {
-          "is-visible": () => proxi.isMounted
-        }
-      }
-    ])}
-            >
-                <div class="hamburger-inner"></div>
-            </div>
-        </button>
-    `;
-  };
-
-  // src/js/component/layout/header/nav-toggle/definition.js
-  var HeaderToggle = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').HeaderToggle>} */
-    {
-      tag: "mob-header-toggle",
-      component: HeaderToggleFn,
-      bindStore: navigationStore,
-      state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/layout/header/header-nav/header-nav.js
-  var onClick = ({ event }) => {
-    const button = event.target;
-    console.log(button);
-    const { url } = (
-      /** @type {HTMLButtonElement} */
-      button?.dataset ?? ""
-    );
-    modules_exports2.loadUrl({ url });
-    navigationStore.set("navigationIsOpen", false);
-  };
-  function additems({ delegateEvents }) {
-    const header = getCommonData().header;
-    const { links } = header;
-    const icon = {
-      github: getIcons()["gitHubIcon"]
-    };
-    return links.map((link) => {
-      const { svg, url, internal } = link;
-      return renderHtml`<li class="l-header__sidenav__item">
-                ${internal ? renderHtml`
-                          <button
-                              type="button"
-                              data-url="${url}"
-                              class="l-header__sidenav__link"
-                              ${delegateEvents({
-        click: (event) => {
-          console.log("click");
-          onClick({ event });
-        }
-      })}
-                          >
-                              ${icon[svg]}
-                          </button>
-                      ` : renderHtml`
-                          <a
-                              href="${url}"
-                              target="_blank"
-                              class="l-header__sidenav__link"
-                          >
-                              ${icon[svg]}
-                          </a>
-                      `}
-            </li>`;
-    }).join("");
-  }
-  var HeadernavFn = ({ delegateEvents }) => {
-    return renderHtml`
-        <ul class="l-header__sidenav">
-            <li class="l-header__sidenav__item">
-                <search-cta></search-cta>
-            </li>
-            ${additems({ delegateEvents })}
-        </ul>
-    `;
-  };
-
-  // src/js/component/common/search/search-overlay/utils.js
-  var toggleSearchOverlay = () => {
-    const overlayMethods = modules_exports2.useMethodByName(searchOverlay);
-    overlayMethods?.toggle();
-  };
-
   // src/js/component/common/search/search-overlay/header/utils.js
   var searchOverlaySetInputFocus = () => {
     const headerMethods = modules_exports2.useMethodByName(searchOverlayHeader);
@@ -38938,640 +38621,6 @@
     const headerMethods = modules_exports2.useMethodByName(searchOverlayHeader);
     headerMethods?.closeSuggestion();
   };
-
-  // src/js/component/common/search/cta-search/search-cta.js
-  var onClick2 = () => {
-    toggleSearchOverlay();
-    searchOverlaySetInputFocus();
-  };
-  var SearchCtaFn = ({ delegateEvents }) => {
-    const searchSvg = getIcons()["searchIcons"];
-    return renderHtml`<button
-        type="button"
-        class="search-cta"
-        ${delegateEvents({
-      click: () => {
-        onClick2();
-      }
-    })}
-    >
-        ${searchSvg}
-    </button>`;
-  };
-
-  // src/js/component/common/search/cta-search/definition.js
-  var Search = modules_exports2.createComponent({
-    tag: "search-cta",
-    component: SearchCtaFn
-  });
-
-  // src/js/component/layout/header/header-nav/definition.js
-  var HeaderNav = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<any>} */
-    {
-      tag: "mob-header-nav",
-      component: HeadernavFn,
-      child: [Search]
-    }
-  );
-
-  // src/js/component/layout/header/definition.js
-  var Header = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').Header>} */
-    {
-      tag: "mob-header",
-      component: HeaderFn,
-      state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
-      },
-      child: [HeaderNav, HeaderToggle]
-    }
-  );
-
-  // src/js/component/layout/navigation/animation/nav-scroller.js
-  var currentPercent = 0;
-  var initNavigationScoller = ({ root: root2 }) => {
-    const screenEl = (
-      /** @type {HTMLElement} */
-      root2.querySelector(".l-navcontainer__wrap")
-    );
-    const scrollerEl = (
-      /** @type {HTMLElement} */
-      root2.querySelector(".l-navcontainer__scroll")
-    );
-    const percentEl = (
-      /** @type {HTMLElement} */
-      root2.querySelector(".l-navcontainer__percent")
-    );
-    const setDelay = 200;
-    const navScroller = new MobSmoothScroller({
-      screen: screenEl,
-      scroller: scrollerEl,
-      direction: "vertical",
-      drag: true,
-      scopedEvent: false,
-      onUpdate: ({ percent }) => {
-        const { navigationIsOpen } = navigationStore.get();
-        if (!navigationIsOpen) return;
-        currentPercent = Math.round(percent) / 100;
-        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
-      }
-    });
-    navScroller.init();
-    navigationStore.watch("activeNavigationSection", (section) => {
-      const currentSection = (
-        /** @type {HTMLElement} */
-        document.querySelector(`[data-sectionname='${section}']`)
-      );
-      if (!currentSection) return;
-      const header = (
-        /** @type {HTMLElement} */
-        document.querySelector(".l-header")
-      );
-      const footer = (
-        /** @type {HTMLElement} */
-        document.querySelector(".l-footer")
-      );
-      const navHeight = outerHeight(scrollerEl);
-      const headerHeight = outerHeight(header);
-      const footerHeight = outerHeight(footer);
-      const percent = 100 * currentSection.offsetTop / (navHeight - window.innerHeight + headerHeight + footerHeight);
-      const maxValue = percent;
-      setTimeout(() => {
-        const navIsOpen = navigationStore.getProp("navigationIsOpen");
-        if (navIsOpen) return;
-        navScroller.set(maxValue);
-      }, 400);
-    });
-    navigationStore.watch("navigationIsOpen", (val2) => {
-      if (val2) {
-        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
-        return;
-      }
-      percentEl.style.transform = `translateZ(0) scaleX(0)`;
-    });
-    return {
-      scrollNativationToTop: () => {
-        setTimeout(() => {
-          navScroller.move(0).catch(() => {
-          });
-          percentEl.style.transform = `translateZ(0) scaleX(0)`;
-        }, setDelay);
-      },
-      refreshScroller: () => {
-        navScroller.refresh();
-      }
-    };
-  };
-
-  // src/js/component/layout/navigation/nav-container.js
-  function closeNavigation({ main, proxi }) {
-    proxi.isOpen = false;
-    modules_exports.useFrame(() => {
-      document.body.style.overflow = "";
-      main.classList.remove("shift");
-    });
-  }
-  function openNavigation({ main, proxi }) {
-    refreshNavigationScroller();
-    proxi.isOpen = true;
-    modules_exports.useFrame(() => {
-      document.body.style.overflow = "hidden";
-      main.classList.add("shift");
-    });
-  }
-  function addMainHandler({ main }) {
-    main.addEventListener("click", () => {
-      navigationStore.set("navigationIsOpen", false);
-      UnFreezeMobPageScroll();
-    });
-  }
-  var toTopBtnHandler = () => {
-    scrollToTopNav();
-    closeAllNavAccordion();
-    const { navigationIsOpen } = navigationStore.get();
-    if (!navigationIsOpen) MobBodyScroll.to(0);
-  };
-  var NavigationContainerFn = ({
-    onMount,
-    addMethod,
-    delegateEvents,
-    bindEffect,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    onMount(({ element }) => {
-      const main = (
-        /** @type {HTMLElement} */
-        document.querySelector("main.main")
-      );
-      navigationStore.watch("navigationIsOpen", (val2) => {
-        if (val2 && main) {
-          openNavigation({ main, proxi });
-          return;
-        }
-        closeNavigation({ main, proxi });
-      });
-      addMainHandler({ main });
-      const { scrollNativationToTop, refreshScroller } = initNavigationScoller({
-        root: element
-      });
-      addMethod("scrollTop", scrollNativationToTop);
-      addMethod("refresh", refreshScroller);
-      modules_exports.useFrameIndex(() => {
-        proxi.isMounted = true;
-      }, getFrameDelay());
-      return () => {
-      };
-    });
-    return renderHtml`
-        <div
-            class="l-navcontainer"
-            ${bindEffect({
-      toggleClass: { active: () => proxi.isOpen }
-    })}
-        >
-            <div
-                class="l-navcontainer__side"
-                ${bindEffect({
-      toggleClass: { "is-visible": () => proxi.isMounted }
-    })}
-            >
-                <div class="l-navcontainer__percent"></div>
-                <button
-                    class="l-navcontainer__totop"
-                    ${delegateEvents({
-      click: () => {
-        toTopBtnHandler();
-      }
-    })}
-                ></button>
-            </div>
-            <div class="l-navcontainer__wrap">
-                <div class="l-navcontainer__scroll">
-                    <mob-navigation
-                        name="${mobNavigationName}"
-                    ></mob-navigation>
-                </div>
-            </div>
-        </div>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigation/navigation.js
-  function getItems3({ data, staticProps: staticProps2, bindProps, proxi }) {
-    return data.map((item, index) => {
-      const {
-        label,
-        url,
-        activeId,
-        children,
-        section,
-        sectioName,
-        scrollToSection,
-        forceChildren,
-        hide
-      } = item;
-      if (section) {
-        return renderHtml`
-                    <mob-navigation-label
-                        ${staticProps2(
-          /** @type {NavigationLabel['props']} */
-          {
-            label,
-            sectioName,
-            hide: !!hide
-          }
-        )}
-                    ></mob-navigation-label>
-                `;
-      }
-      return children ? renderHtml`
-                      <mob-navigation-submenu
-                          ${staticProps2(
-        /** @type {NavigationSubmenu['state']} */
-        {
-          headerButton: {
-            label,
-            url,
-            id: index
-          },
-          children,
-          callback: ({ forceClose = false }) => {
-            if (forceClose) {
-              proxi.currentAccordionId = -1;
-              return;
-            }
-            proxi.currentAccordionId = index;
-          }
-        }
-      )}
-                          ${bindProps(
-        /** @returns {ReturnBindProps<NavigationSubmenu>} */
-        () => ({
-          isOpen: proxi.currentAccordionId === index
-        })
-      )}
-                      >
-                      </mob-navigation-submenu>
-                  ` : renderHtml`
-                      <li class="l-navigation__item">
-                          <mob-navigation-button
-                              ${staticProps2(
-        /** @type {NavigationButton['props']} */
-        {
-          label,
-          url,
-          scrollToSection: scrollToSection ?? "no-scroll",
-          activeId: activeId ?? -1,
-          forceChildren: forceChildren ?? []
-        }
-      )}
-                          ></mob-navigation-button>
-                      </li>
-                  `;
-    }).join("");
-  }
-  var NavigationFn = ({
-    staticProps: staticProps2,
-    setState,
-    bindProps,
-    addMethod,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    const { navigation: data } = getCommonData();
-    addMethod("closeAllAccordion", ({ fireCallback = true } = {}) => {
-      setState(() => proxi.currentAccordionId, -1, { emit: fireCallback });
-    });
-    return renderHtml`
-        <nav class="l-navigation">
-            <ul class="l-navigation__list">
-                ${getItems3({
-      data,
-      staticProps: staticProps2,
-      bindProps,
-      proxi
-    })}
-            </ul>
-        </nav>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigation/navigation-label/navigation-label.js
-  var NavigationLabelFn = ({ bindEffect, getProxi }) => {
-    const proxi = getProxi();
-    return renderHtml`
-        <div
-            class="l-navigation__label"
-            data-sectionname="${proxi.sectioName}"
-            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.sectioName === proxi.activeNavigationSection,
-        hide: () => !!proxi.hide
-      }
-    })}
-        >
-            ${proxi.label}
-        </div>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigation/navigation-label/definition.js
-  var NavigationLabel = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').NavigationLabel>} */
-    {
-      tag: "mob-navigation-label",
-      component: NavigationLabelFn,
-      bindStore: navigationStore,
-      props: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        sectioName: () => ({
-          value: "",
-          type: String
-        }),
-        hide: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/layout/navigation/navigation/navigation-submenu/navigation-submenu.js
-  function getSubmenu({ proxi, staticProps: staticProps2 }) {
-    return proxi.children.map((child) => {
-      const { label, url, scrollToSection, activeId } = child;
-      return renderHtml`
-                <li class="l-navigation__submenu__item">
-                    <mob-navigation-button
-                        ${staticProps2(
-        /** @type {NavigationButton['props']} */
-        {
-          label,
-          url,
-          subMenuClass: "l-navigation__link--submenu",
-          scrollToSection,
-          activeId: activeId ?? -1,
-          callback: () => {
-            proxi.callback({
-              forceClose: false
-            });
-          }
-        }
-      )}
-                    ></mob-navigation-button>
-                </li>
-            `;
-    }).join("");
-  }
-  var NavigationSubmenuFn = ({
-    onMount,
-    staticProps: staticProps2,
-    bindProps,
-    watch,
-    setRef,
-    getRef,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    const { label, url, activeId } = proxi.headerButton;
-    onMount(() => {
-      const { content } = getRef();
-      MobSlide.subscribe(content);
-      MobSlide.reset(content);
-      watch(
-        () => proxi.isOpen,
-        async (isOpen) => {
-          const action2 = isOpen ? "down" : "up";
-          await MobSlide[action2](content);
-          refreshNavigationScroller();
-          if (isOpen) return;
-          closeAllNavAccordion({
-            fireCallback: false
-          });
-        },
-        { immediate: true }
-      );
-      return () => {
-      };
-    });
-    return renderHtml`
-        <li class="l-navigation__item has-child">
-            <mob-navigation-button
-                ${staticProps2(
-      /** @type {NavigationButton['props']} */
-      {
-        label,
-        url,
-        arrowClass: "l-navigation__link--arrow",
-        fireRoute: false,
-        activeId: activeId ?? -1,
-        callback: () => {
-          proxi.callback({ forceClose: proxi.isOpen });
-        }
-      }
-    )}
-                ${bindProps(
-      /** @returns {ReturnBindProps<NavigationButton>} */
-      () => ({
-        isOpen: proxi.isOpen
-      })
-    )}
-            ></mob-navigation-button>
-            <ul class="l-navigation__submenu" ${setRef("content")}>
-                ${getSubmenu({ proxi, staticProps: staticProps2 })}
-            </ul>
-        </li>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigation/navigation-button/navigation-button.js
-  var NavigationButtonFn = ({
-    delegateEvents,
-    getProxi,
-    bindEffect
-  }) => {
-    const proxi = getProxi();
-    const {
-      label,
-      url,
-      arrowClass,
-      subMenuClass,
-      fireRoute,
-      callback: callback2,
-      scrollToSection,
-      activeId,
-      forceChildren
-    } = proxi;
-    modules_exports2.afterRouteChange(({ currentRoute }) => {
-      modules_exports.useFrame(() => {
-        const urlParsed = url.split("?");
-        const hash = urlParsed?.[0] ?? "";
-        const activeParams = modules_exports2.getActiveParams();
-        const paramsMatch = activeId === -1 || activeParams?.["activeId"] === `${activeId}`;
-        const isActiveRoute = currentRoute === hash && paramsMatch;
-        const forceChildrenMatch = forceChildren.includes(currentRoute);
-        proxi.isCurrent = isActiveRoute || forceChildrenMatch;
-        if (isActiveRoute && fireRoute) {
-          callback2();
-          navigationStore.set("activeNavigationSection", scrollToSection);
-        }
-      });
-    });
-    return renderHtml`
-        <button
-            type="button"
-            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
-            ${delegateEvents({
-      click: () => {
-        callback2();
-        if (!fireRoute) return;
-        modules_exports2.loadUrl({ url });
-        navigationStore.set("navigationIsOpen", false);
-      }
-    })}
-            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.isOpen,
-        current: () => proxi.isCurrent
-      }
-    })}
-        >
-            ${label}
-        </button>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigation/navigation-button/definition.js
-  var NavigationButton = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').NavigationButton>} */
-    {
-      tag: "mob-navigation-button",
-      component: NavigationButtonFn,
-      props: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        url: () => ({
-          value: "",
-          type: String
-        }),
-        arrowClass: () => ({
-          value: "",
-          type: String
-        }),
-        subMenuClass: () => ({
-          value: "",
-          type: String
-        }),
-        fireRoute: () => ({
-          value: true,
-          type: Boolean
-        }),
-        callback: () => ({
-          value: () => {
-          },
-          type: Function
-        }),
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        }),
-        scrollToSection: () => ({
-          value: "",
-          type: String
-        }),
-        activeId: () => ({
-          value: -1,
-          type: Number
-        }),
-        forceChildren: () => ({
-          value: [],
-          type: Array
-        })
-      },
-      state: {
-        isCurrent: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/layout/navigation/navigation/navigation-submenu/definition.js
-  var NavigationSubmenu = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').NavigationSubmenu>} */
-    {
-      tag: "mob-navigation-submenu",
-      component: NavigationSubmenuFn,
-      props: {
-        callback: () => ({
-          value: () => {
-          },
-          type: Function
-        }),
-        headerButton: () => ({
-          value: {},
-          type: "Any"
-        }),
-        children: () => ({
-          value: [],
-          type: Array
-        }),
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        })
-      },
-      child: [NavigationButton]
-    }
-  );
-
-  // src/js/component/layout/navigation/navigation/definition.js
-  var Navigation = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').Navigation>} */
-    {
-      tag: "mob-navigation",
-      component: NavigationFn,
-      state: {
-        currentAccordionId: () => ({
-          value: -1,
-          type: Number,
-          skipEqual: false
-        })
-      },
-      child: [NavigationLabel, NavigationSubmenu, NavigationButton]
-    }
-  );
-
-  // src/js/component/layout/navigation/definition.js
-  var NavigationContainer = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').NavigationContainer>} */
-    {
-      tag: "mob-navigation-container",
-      component: NavigationContainerFn,
-      child: [Navigation],
-      state: {
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
 
   // src/js/component/common/search/search-overlay/search-overlay.js
   var closeOverlay = ({ proxi }) => {
@@ -40245,6 +39294,12 @@
     </div>`;
   };
 
+  // src/js/component/common/search/search-overlay/utils.js
+  var toggleSearchOverlay = () => {
+    const overlayMethods = modules_exports2.useMethodByName(searchOverlay);
+    overlayMethods?.toggle();
+  };
+
   // src/js/component/common/search/search-overlay/list/list-item/list-item.js
   var loadPage = ({ uri }) => {
     modules_exports2.loadUrl({ url: uri });
@@ -40371,77 +39426,223 @@
     }
   );
 
-  // src/js/component/common/right-sidebar/right-sidebar.js
-  var getList2 = ({ proxi, bindEffect }) => {
-    return proxi.data.map(({ label, url }) => {
-      const urlParsed = url.replaceAll("#", "");
-      return renderHtml`
-                <li class="right-sidebar__item">
-                    <a
-                        href="${url}"
-                        class="right-sidebar__link"
-                        ${bindEffect({
-        toggleClass: {
-          active: () => proxi.activeRoute.route === urlParsed
+  // src/js/component/common/test-scss-grid/test-scss-grid.js
+  var TestScssGridFn = () => {
+    return renderHtml`
+        <div class="test-grid">
+            <div class="test-grid__grid">
+                <span></span><span></span><span></span><span></span><span></span
+                ><span></span><span></span><span></span><span></span
+                ><span></span><span></span><span></span>
+            </div>
+            <div class="test-grid__cont"><span>test</span></div>
+        </div>
+    `;
+  };
+
+  // src/js/component/common/test-scss-grid/definition.js
+  var TestScssGrid = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<any>} */
+    {
+      tag: "test-scss-grid",
+      component: TestScssGridFn
+    }
+  );
+
+  // src/js/component/lib/utils/get-first-animation-delay.js
+  var getFrameDelay = () => {
+    const { templateName } = modules_exports2.getActiveRoute();
+    return docsTemplate.has(templateName) ? 0 : 40;
+  };
+
+  // src/js/component/common/debug/debug-overlay/utils.js
+  var toggleDebugOverlay = () => {
+    const methods = modules_exports2.useMethodByName(debugOverlayName);
+    methods?.toggle();
+  };
+
+  // src/js/component/layout/footer/footer.js
+  var FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
+    const proxi = getProxi();
+    onMount(() => {
+      modules_exports.useFrameIndex(() => {
+        proxi.isMounted = true;
+      }, getFrameDelay());
+    });
+    return renderHtml`
+        <footer
+            class="l-footer"
+            ${bindEffect({
+      toggleClass: {
+        "is-visible": () => proxi.isMounted
+      }
+    })}
+        >
+            <div class="l-footer__container">
+                <footer-nav></footer-nav>
+                <div class="l-footer__debug">
+                    <debug-button
+                        class="c-button-debug"
+                        ${delegateEvents({
+      click: () => {
+        toggleDebugOverlay();
+      }
+    })}
+                    >
+                        Debug App</debug-button
+                    >
+                    <debug-button
+                        class="c-button-console"
+                        ${delegateEvents({
+      click: () => {
+        consoleLogDebug();
+      }
+    })}
+                    >
+                        Log
+                    </debug-button>
+                </div>
+            </div>
+        </footer>
+    `;
+  };
+
+  // src/js/component/layout/footer/footer-nav/footer-button.js
+  var FooterNavButtonFn = ({ getProxi, bindEffect, computed }) => {
+    const proxi = getProxi();
+    computed(
+      () => proxi.active,
+      () => {
+        return proxi.section === proxi.activeNavigationSection;
+      }
+    );
+    return renderHtml`
+        <button
+            type="button"
+            class="footer-nav__button"
+            ${bindEffect({
+      toggleClass: { current: () => proxi.active }
+    })}
+        >
+            ${proxi.label}
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/footer/footer-nav/footer-nav.js
+  var getItems2 = ({ delegateEvents, staticProps: staticProps2 }) => {
+    const data = getCommonData();
+    return data.footer.nav.map(({ label, url, section }) => {
+      return renderHtml`<li class="footer-nav__item">
+                <footer-nav-button
+                    ${delegateEvents({
+        click: () => {
+          modules_exports2.loadUrl({ url });
+          navigationStore.set("navigationIsOpen", false);
         }
       })}
-                        >${label}</a
-                    >
-                </li>
-            `;
+                    ${staticProps2(
+        /** @type {import('./type').FooterNavButton['props']} */
+        {
+          label,
+          section
+        }
+      )}
+                ></footer-nav-button>
+            </li> `;
     }).join("");
   };
-  var RightSidebarFn = ({
+  var FooterNavFn = ({
+    delegateEvents,
+    staticProps: staticProps2,
     getProxi,
-    invalidate,
-    addMethod,
-    computed,
+    onMount,
     bindEffect
   }) => {
     const proxi = getProxi();
-    addMethod("updateList", (data) => {
-      proxi.data = data;
+    onMount(() => {
+      modules_exports.useFrameIndex(() => {
+        proxi.isMounted = true;
+      }, 10);
     });
-    modules_exports2.afterRouteChange(({ currentTemplate }) => {
-      if (!docsTemplate.has(currentTemplate)) proxi.data = [];
-    });
-    computed(
-      () => proxi.isVisible,
-      () => proxi.data.length > 0
-    );
-    return renderHtml`<div
-        class="right-sidebar"
-        ${bindEffect({
+    return renderHtml`
+        <ul
+            class="footer-nav"
+            ${bindEffect({
       toggleClass: {
-        visible: () => proxi.isVisible
+        "is-visible": () => proxi.isMounted
       }
     })}
-    >
-        <div class="right-sidebar__title">Sections:</div>
-        <ul class="right-sidebar__list">
-            ${invalidate({
-      observe: () => proxi.data,
-      render: () => {
-        return getList2({ proxi, bindEffect });
-      }
-    })}
+        >
+            ${getItems2({ delegateEvents, staticProps: staticProps2 })}
         </ul>
-    </div>`;
+    `;
   };
 
-  // src/js/component/common/right-sidebar/definition.js
-  var RightSidebar = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').RightSidebar>} */
+  // src/js/component/layout/footer/footer-nav/definition.js
+  var FooterNavButton = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').FooterNavButton>} */
     {
-      tag: "right-sidebar",
-      component: RightSidebarFn,
-      bindStore: [modules_exports2.mainStore],
-      state: {
-        data: () => ({
-          value: [],
-          type: Array
+      tag: "footer-nav-button",
+      component: FooterNavButtonFn,
+      bindStore: navigationStore,
+      props: {
+        label: () => ({
+          value: "",
+          type: String
         }),
-        isVisible: () => ({
+        section: () => ({
+          value: "",
+          type: String
+        })
+      },
+      state: {
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+  var FooterNav = modules_exports2.createComponent({
+    tag: "footer-nav",
+    component: FooterNavFn,
+    child: [FooterNavButton],
+    state: {
+      isMounted: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  });
+
+  // src/js/component/common/debug/debug-button.js
+  var DebugButtonFn = () => {
+    return renderHtml`
+        <button type="button" class="c-btn-debug">
+            <mobjs-slot></mobjs-slot>
+        </button>
+    `;
+  };
+
+  // src/js/component/common/debug/definition.js
+  var DebugButton = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<any>} */
+    {
+      tag: "debug-button",
+      component: DebugButtonFn
+    }
+  );
+
+  // src/js/component/layout/footer/definition.js
+  var Footer = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').Footer>} */
+    {
+      tag: "mob-footer",
+      component: FooterFn,
+      child: [FooterNav, DebugButton],
+      state: {
+        isMounted: () => ({
           value: false,
           type: Boolean
         })
@@ -40449,66 +39650,865 @@
     }
   );
 
-  // src/js/component/common/animation-description/animation-description.js
-  var AnimationDescriptionFn = ({
-    getProxi,
+  // src/js/component/layout/navigation/utils.js
+  var scrollToTopNav = () => {
+    const navContainerMethods = modules_exports2.useMethodByName(
+      mobNavigationContainerName
+    );
+    navContainerMethods?.scrollTop();
+  };
+  var refreshNavigationScroller = () => {
+    const methods = modules_exports2.useMethodByName(mobNavigationContainerName);
+    methods?.refresh();
+  };
+
+  // src/js/component/layout/navigation/navigation/utils.js
+  var closeAllNavAccordion = ({ fireCallback = true } = {}) => {
+    const mainNavigationMethods = modules_exports2.useMethodByName(mobNavigationName);
+    mainNavigationMethods?.closeAllAccordion({ fireCallback });
+  };
+
+  // src/js/component/layout/header/header.js
+  function titleHandler() {
+    modules_exports2.loadUrl({ url: "home" });
+    closeAllNavAccordion();
+    navigationStore.set("navigationIsOpen", false);
+    scrollToTopNav();
+  }
+  var HeaderFn = ({
+    delegateEvents,
     bindEffect,
-    bindText,
-    watch,
+    getProxi,
+    onMount,
     addMethod
   }) => {
     const proxi = getProxi();
-    addMethod("updateRawContent", (content) => {
-      proxi.rawContent = content.length === 0 ? "" : `${content} | <strong>fps: ${modules_exports.getInstantFps()}</strong>`;
+    onMount(({ element }) => {
+      addMethod("getHeaderHeight", () => {
+        return outerHeight(element);
+      });
+      modules_exports.useFrameIndex(() => {
+        proxi.isMounted = true;
+      }, getFrameDelay());
     });
-    watch(
-      () => proxi.rawContent,
-      (value) => {
-        const hasValue = value.length > 0;
-        if (!hasValue) {
-          proxi.visible = false;
-          setTimeout(() => {
-            proxi.content = "";
-          }, 350);
-          return;
-        }
-        setTimeout(() => {
-          proxi.content = `${value}`;
-          if (hasValue) proxi.visible = true;
-        }, 350);
-      },
-      { immediate: true }
-    );
-    return renderHtml`<p
-        class="animation-description"
-        ${bindEffect({
+    return renderHtml`
+        <header
+            class="l-header"
+            ${bindEffect({
       toggleClass: {
-        visible: () => proxi.visible && !proxi.navigationIsOpen
+        "is-visible": () => proxi.isMounted
+      }
+    })}
+        >
+            <div class="l-header__container">
+                <div class="l-header__grid">
+                    <div class="l-header__toggle">
+                        <mob-header-toggle></mob-header-toggle>
+                    </div>
+                    <button
+                        type="button"
+                        class="l-header__title"
+                        ${delegateEvents({
+      click: () => {
+        titleHandler();
+      }
+    })}
+                    >
+                        <div class="l-header__title-container">
+                            <h3
+                                ${bindEffect({
+      toggleClass: {
+        "is-visible": () => proxi.isMounted
+      }
+    })}
+                            >
+                                <span>Mob</span>Project
+                            </h3>
+                            <h5
+                                ${bindEffect({
+      toggleClass: {
+        "is-visible": () => proxi.isMounted
+      }
+    })}
+                            >
+                                v 1.0
+                            </h5>
+                        </div>
+                    </button>
+                    <div
+                        class="l-header__utils"
+                        ${bindEffect({
+      toggleClass: {
+        "is-visible": () => proxi.isMounted
+      }
+    })}
+                    >
+                        <mob-header-nav></mob-header-nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+    `;
+  };
+
+  // src/js/component/layout/header/nav-toggle/header-toggle.js
+  var HeaderToggleFn = ({
+    delegateEvents,
+    bindEffect,
+    getProxi,
+    onMount
+  }) => {
+    const proxi = getProxi();
+    onMount(() => {
+      modules_exports.useFrameIndex(() => {
+        proxi.isMounted = true;
+      }, getFrameDelay());
+    });
+    return renderHtml`
+        <button
+            class="hamburger hamburger--squeeze"
+            type="button"
+            ${delegateEvents({
+      click: () => {
+        navigationStore.update(
+          "navigationIsOpen",
+          (state) => !state
+        );
+        if (!proxi.navigationIsOpen) {
+          UnFreezeMobPageScroll();
+        }
+      }
+    })}
+            ${bindEffect([
+      {
+        toggleClass: {
+          "is-open": () => proxi.navigationIsOpen
+        }
+      },
+      {
+        toggleClass: {
+          "is-visible": () => proxi.isMounted
+        }
+      }
+    ])}
+        >
+            <div
+                class="hamburger__box"
+                ${bindEffect([
+      {
+        toggleClass: {
+          "is-visible": () => proxi.isMounted
+        }
+      }
+    ])}
+            >
+                <div class="hamburger-inner"></div>
+            </div>
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/header/nav-toggle/definition.js
+  var HeaderToggle = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').HeaderToggle>} */
+    {
+      tag: "mob-header-toggle",
+      component: HeaderToggleFn,
+      bindStore: navigationStore,
+      state: {
+        isMounted: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/layout/header/header-nav/header-nav.js
+  var onClick = ({ event }) => {
+    const button = event.target;
+    console.log(button);
+    const { url } = (
+      /** @type {HTMLButtonElement} */
+      button?.dataset ?? ""
+    );
+    modules_exports2.loadUrl({ url });
+    navigationStore.set("navigationIsOpen", false);
+  };
+  function additems({ delegateEvents }) {
+    const header = getCommonData().header;
+    const { links } = header;
+    const icon = {
+      github: getIcons()["gitHubIcon"]
+    };
+    return links.map((link) => {
+      const { svg, url, internal } = link;
+      return renderHtml`<li class="l-header__sidenav__item">
+                ${internal ? renderHtml`
+                          <button
+                              type="button"
+                              data-url="${url}"
+                              class="l-header__sidenav__link"
+                              ${delegateEvents({
+        click: (event) => {
+          console.log("click");
+          onClick({ event });
+        }
+      })}
+                          >
+                              ${icon[svg]}
+                          </button>
+                      ` : renderHtml`
+                          <a
+                              href="${url}"
+                              target="_blank"
+                              class="l-header__sidenav__link"
+                          >
+                              ${icon[svg]}
+                          </a>
+                      `}
+            </li>`;
+    }).join("");
+  }
+  var HeadernavFn = ({ delegateEvents }) => {
+    return renderHtml`
+        <ul class="l-header__sidenav">
+            <li class="l-header__sidenav__item">
+                <search-cta></search-cta>
+            </li>
+            ${additems({ delegateEvents })}
+        </ul>
+    `;
+  };
+
+  // src/js/component/common/search/cta-search/search-cta.js
+  var onClick2 = () => {
+    toggleSearchOverlay();
+    searchOverlaySetInputFocus();
+  };
+  var SearchCtaFn = ({ delegateEvents }) => {
+    const searchSvg = getIcons()["searchIcons"];
+    return renderHtml`<button
+        type="button"
+        class="search-cta"
+        ${delegateEvents({
+      click: () => {
+        onClick2();
       }
     })}
     >
-        ${bindText`${"content"}`}
-    </p>`;
+        ${searchSvg}
+    </button>`;
   };
 
-  // src/js/component/common/animation-description/definition.js
-  var AnimationDescription = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').AnimationDescription>} */
+  // src/js/component/common/search/cta-search/definition.js
+  var Search = modules_exports2.createComponent({
+    tag: "search-cta",
+    component: SearchCtaFn
+  });
+
+  // src/js/component/layout/header/header-nav/definition.js
+  var HeaderNav = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<any>} */
     {
-      tag: "animation-description",
-      component: AnimationDescriptionFn,
-      bindStore: navigationStore,
+      tag: "mob-header-nav",
+      component: HeadernavFn,
+      child: [Search]
+    }
+  );
+
+  // src/js/component/layout/header/definition.js
+  var Header = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').Header>} */
+    {
+      tag: "mob-header",
+      component: HeaderFn,
       state: {
-        rawContent: () => ({
+        isMounted: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [HeaderNav, HeaderToggle]
+    }
+  );
+
+  // src/js/component/layout/navigation/animation/nav-scroller.js
+  var currentPercent = 0;
+  var initNavigationScoller = ({ root: root2 }) => {
+    const screenEl = (
+      /** @type {HTMLElement} */
+      root2.querySelector(".l-navcontainer__wrap")
+    );
+    const scrollerEl = (
+      /** @type {HTMLElement} */
+      root2.querySelector(".l-navcontainer__scroll")
+    );
+    const percentEl = (
+      /** @type {HTMLElement} */
+      root2.querySelector(".l-navcontainer__percent")
+    );
+    const setDelay = 200;
+    const navScroller = new MobSmoothScroller({
+      screen: screenEl,
+      scroller: scrollerEl,
+      direction: "vertical",
+      drag: true,
+      scopedEvent: false,
+      onUpdate: ({ percent }) => {
+        const { navigationIsOpen } = navigationStore.get();
+        if (!navigationIsOpen) return;
+        currentPercent = Math.round(percent) / 100;
+        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
+      }
+    });
+    navScroller.init();
+    navigationStore.watch("activeNavigationSection", (section) => {
+      const currentSection = (
+        /** @type {HTMLElement} */
+        document.querySelector(`[data-sectionname='${section}']`)
+      );
+      if (!currentSection) return;
+      const header = (
+        /** @type {HTMLElement} */
+        document.querySelector(".l-header")
+      );
+      const footer = (
+        /** @type {HTMLElement} */
+        document.querySelector(".l-footer")
+      );
+      const navHeight = outerHeight(scrollerEl);
+      const headerHeight = outerHeight(header);
+      const footerHeight = outerHeight(footer);
+      const percent = 100 * currentSection.offsetTop / (navHeight - window.innerHeight + headerHeight + footerHeight);
+      const maxValue = percent;
+      setTimeout(() => {
+        const navIsOpen = navigationStore.getProp("navigationIsOpen");
+        if (navIsOpen) return;
+        navScroller.set(maxValue);
+      }, 400);
+    });
+    navigationStore.watch("navigationIsOpen", (val2) => {
+      if (val2) {
+        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
+        return;
+      }
+      percentEl.style.transform = `translateZ(0) scaleX(0)`;
+    });
+    return {
+      scrollNativationToTop: () => {
+        setTimeout(() => {
+          navScroller.move(0).catch(() => {
+          });
+          percentEl.style.transform = `translateZ(0) scaleX(0)`;
+        }, setDelay);
+      },
+      refreshScroller: () => {
+        navScroller.refresh();
+      }
+    };
+  };
+
+  // src/js/component/layout/navigation/nav-container.js
+  function closeNavigation({ main, proxi }) {
+    proxi.isOpen = false;
+    modules_exports.useFrame(() => {
+      document.body.style.overflow = "";
+      main.classList.remove("shift");
+    });
+  }
+  function openNavigation({ main, proxi }) {
+    refreshNavigationScroller();
+    proxi.isOpen = true;
+    modules_exports.useFrame(() => {
+      document.body.style.overflow = "hidden";
+      main.classList.add("shift");
+    });
+  }
+  function addMainHandler({ main }) {
+    main.addEventListener("click", () => {
+      navigationStore.set("navigationIsOpen", false);
+      UnFreezeMobPageScroll();
+    });
+  }
+  var toTopBtnHandler = () => {
+    scrollToTopNav();
+    closeAllNavAccordion();
+    const { navigationIsOpen } = navigationStore.get();
+    if (!navigationIsOpen) MobBodyScroll.to(0);
+  };
+  var NavigationContainerFn = ({
+    onMount,
+    addMethod,
+    delegateEvents,
+    bindEffect,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    onMount(({ element }) => {
+      const main = (
+        /** @type {HTMLElement} */
+        document.querySelector("main.main")
+      );
+      navigationStore.watch("navigationIsOpen", (val2) => {
+        if (val2 && main) {
+          openNavigation({ main, proxi });
+          return;
+        }
+        closeNavigation({ main, proxi });
+      });
+      addMainHandler({ main });
+      const { scrollNativationToTop, refreshScroller } = initNavigationScoller({
+        root: element
+      });
+      addMethod("scrollTop", scrollNativationToTop);
+      addMethod("refresh", refreshScroller);
+      modules_exports.useFrameIndex(() => {
+        proxi.isMounted = true;
+      }, getFrameDelay());
+      return () => {
+      };
+    });
+    return renderHtml`
+        <div
+            class="l-navcontainer"
+            ${bindEffect({
+      toggleClass: { active: () => proxi.isOpen }
+    })}
+        >
+            <div
+                class="l-navcontainer__side"
+                ${bindEffect({
+      toggleClass: { "is-visible": () => proxi.isMounted }
+    })}
+            >
+                <div class="l-navcontainer__percent"></div>
+                <button
+                    class="l-navcontainer__totop"
+                    ${delegateEvents({
+      click: () => {
+        toTopBtnHandler();
+      }
+    })}
+                ></button>
+            </div>
+            <div class="l-navcontainer__wrap">
+                <div class="l-navcontainer__scroll">
+                    <mob-navigation
+                        name="${mobNavigationName}"
+                    ></mob-navigation>
+                </div>
+            </div>
+        </div>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigation/navigation.js
+  function getItems3({ data, staticProps: staticProps2, bindProps, proxi }) {
+    return data.map((item, index) => {
+      const {
+        label,
+        url,
+        activeId,
+        children,
+        section,
+        sectioName,
+        scrollToSection,
+        forceChildren,
+        hide
+      } = item;
+      if (section) {
+        return renderHtml`
+                    <mob-navigation-label
+                        ${staticProps2(
+          /** @type {NavigationLabel['props']} */
+          {
+            label,
+            sectioName,
+            hide: !!hide
+          }
+        )}
+                    ></mob-navigation-label>
+                `;
+      }
+      return children ? renderHtml`
+                      <mob-navigation-submenu
+                          ${staticProps2(
+        /** @type {NavigationSubmenu['state']} */
+        {
+          headerButton: {
+            label,
+            url,
+            id: index
+          },
+          children,
+          callback: ({ forceClose = false }) => {
+            if (forceClose) {
+              proxi.currentAccordionId = -1;
+              return;
+            }
+            proxi.currentAccordionId = index;
+          }
+        }
+      )}
+                          ${bindProps(
+        /** @returns {ReturnBindProps<NavigationSubmenu>} */
+        () => ({
+          isOpen: proxi.currentAccordionId === index
+        })
+      )}
+                      >
+                      </mob-navigation-submenu>
+                  ` : renderHtml`
+                      <li class="l-navigation__item">
+                          <mob-navigation-button
+                              ${staticProps2(
+        /** @type {NavigationButton['props']} */
+        {
+          label,
+          url,
+          scrollToSection: scrollToSection ?? "no-scroll",
+          activeId: activeId ?? -1,
+          forceChildren: forceChildren ?? []
+        }
+      )}
+                          ></mob-navigation-button>
+                      </li>
+                  `;
+    }).join("");
+  }
+  var NavigationFn = ({
+    staticProps: staticProps2,
+    setState,
+    bindProps,
+    addMethod,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    const { navigation: data } = getCommonData();
+    addMethod("closeAllAccordion", ({ fireCallback = true } = {}) => {
+      setState(() => proxi.currentAccordionId, -1, { emit: fireCallback });
+    });
+    return renderHtml`
+        <nav class="l-navigation">
+            <ul class="l-navigation__list">
+                ${getItems3({
+      data,
+      staticProps: staticProps2,
+      bindProps,
+      proxi
+    })}
+            </ul>
+        </nav>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigation/navigation-label/navigation-label.js
+  var NavigationLabelFn = ({ bindEffect, getProxi }) => {
+    const proxi = getProxi();
+    return renderHtml`
+        <div
+            class="l-navigation__label"
+            data-sectionname="${proxi.sectioName}"
+            ${bindEffect({
+      toggleClass: {
+        active: () => proxi.sectioName === proxi.activeNavigationSection,
+        hide: () => !!proxi.hide
+      }
+    })}
+        >
+            ${proxi.label}
+        </div>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigation/navigation-label/definition.js
+  var NavigationLabel = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').NavigationLabel>} */
+    {
+      tag: "mob-navigation-label",
+      component: NavigationLabelFn,
+      bindStore: navigationStore,
+      props: {
+        label: () => ({
           value: "",
           type: String
         }),
-        content: () => ({
+        sectioName: () => ({
           value: "",
           type: String
         }),
-        visible: () => ({
+        hide: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/layout/navigation/navigation/navigation-submenu/navigation-submenu.js
+  function getSubmenu({ proxi, staticProps: staticProps2 }) {
+    return proxi.children.map((child) => {
+      const { label, url, scrollToSection, activeId } = child;
+      return renderHtml`
+                <li class="l-navigation__submenu__item">
+                    <mob-navigation-button
+                        ${staticProps2(
+        /** @type {NavigationButton['props']} */
+        {
+          label,
+          url,
+          subMenuClass: "l-navigation__link--submenu",
+          scrollToSection,
+          activeId: activeId ?? -1,
+          callback: () => {
+            proxi.callback({
+              forceClose: false
+            });
+          }
+        }
+      )}
+                    ></mob-navigation-button>
+                </li>
+            `;
+    }).join("");
+  }
+  var NavigationSubmenuFn = ({
+    onMount,
+    staticProps: staticProps2,
+    bindProps,
+    watch,
+    setRef,
+    getRef,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    const { label, url, activeId } = proxi.headerButton;
+    onMount(() => {
+      const { content } = getRef();
+      MobSlide.subscribe(content);
+      MobSlide.reset(content);
+      watch(
+        () => proxi.isOpen,
+        async (isOpen) => {
+          const action2 = isOpen ? "down" : "up";
+          await MobSlide[action2](content);
+          refreshNavigationScroller();
+          if (isOpen) return;
+          closeAllNavAccordion({
+            fireCallback: false
+          });
+        },
+        { immediate: true }
+      );
+      return () => {
+      };
+    });
+    return renderHtml`
+        <li class="l-navigation__item has-child">
+            <mob-navigation-button
+                ${staticProps2(
+      /** @type {NavigationButton['props']} */
+      {
+        label,
+        url,
+        arrowClass: "l-navigation__link--arrow",
+        fireRoute: false,
+        activeId: activeId ?? -1,
+        callback: () => {
+          proxi.callback({ forceClose: proxi.isOpen });
+        }
+      }
+    )}
+                ${bindProps(
+      /** @returns {ReturnBindProps<NavigationButton>} */
+      () => ({
+        isOpen: proxi.isOpen
+      })
+    )}
+            ></mob-navigation-button>
+            <ul class="l-navigation__submenu" ${setRef("content")}>
+                ${getSubmenu({ proxi, staticProps: staticProps2 })}
+            </ul>
+        </li>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigation/navigation-button/navigation-button.js
+  var NavigationButtonFn = ({
+    delegateEvents,
+    getProxi,
+    bindEffect
+  }) => {
+    const proxi = getProxi();
+    const {
+      label,
+      url,
+      arrowClass,
+      subMenuClass,
+      fireRoute,
+      callback: callback2,
+      scrollToSection,
+      activeId,
+      forceChildren
+    } = proxi;
+    modules_exports2.afterRouteChange(({ currentRoute }) => {
+      modules_exports.useFrame(() => {
+        const urlParsed = url.split("?");
+        const hash = urlParsed?.[0] ?? "";
+        const activeParams = modules_exports2.getActiveParams();
+        const paramsMatch = activeId === -1 || activeParams?.["activeId"] === `${activeId}`;
+        const isActiveRoute = currentRoute === hash && paramsMatch;
+        const forceChildrenMatch = forceChildren.includes(currentRoute);
+        proxi.isCurrent = isActiveRoute || forceChildrenMatch;
+        if (isActiveRoute && fireRoute) {
+          callback2();
+          navigationStore.set("activeNavigationSection", scrollToSection);
+        }
+      });
+    });
+    return renderHtml`
+        <button
+            type="button"
+            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
+            ${delegateEvents({
+      click: () => {
+        callback2();
+        if (!fireRoute) return;
+        modules_exports2.loadUrl({ url });
+        navigationStore.set("navigationIsOpen", false);
+      }
+    })}
+            ${bindEffect({
+      toggleClass: {
+        active: () => proxi.isOpen,
+        current: () => proxi.isCurrent
+      }
+    })}
+        >
+            ${label}
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigation/navigation-button/definition.js
+  var NavigationButton = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').NavigationButton>} */
+    {
+      tag: "mob-navigation-button",
+      component: NavigationButtonFn,
+      props: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        url: () => ({
+          value: "",
+          type: String
+        }),
+        arrowClass: () => ({
+          value: "",
+          type: String
+        }),
+        subMenuClass: () => ({
+          value: "",
+          type: String
+        }),
+        fireRoute: () => ({
           value: true,
+          type: Boolean
+        }),
+        callback: () => ({
+          value: () => {
+          },
+          type: Function
+        }),
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        }),
+        scrollToSection: () => ({
+          value: "",
+          type: String
+        }),
+        activeId: () => ({
+          value: -1,
+          type: Number
+        }),
+        forceChildren: () => ({
+          value: [],
+          type: Array
+        })
+      },
+      state: {
+        isCurrent: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/layout/navigation/navigation/navigation-submenu/definition.js
+  var NavigationSubmenu = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').NavigationSubmenu>} */
+    {
+      tag: "mob-navigation-submenu",
+      component: NavigationSubmenuFn,
+      props: {
+        callback: () => ({
+          value: () => {
+          },
+          type: Function
+        }),
+        headerButton: () => ({
+          value: {},
+          type: "Any"
+        }),
+        children: () => ({
+          value: [],
+          type: Array
+        }),
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        })
+      },
+      child: [NavigationButton]
+    }
+  );
+
+  // src/js/component/layout/navigation/navigation/definition.js
+  var Navigation = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').Navigation>} */
+    {
+      tag: "mob-navigation",
+      component: NavigationFn,
+      state: {
+        currentAccordionId: () => ({
+          value: -1,
+          type: Number,
+          skipEqual: false
+        })
+      },
+      child: [NavigationLabel, NavigationSubmenu, NavigationButton]
+    }
+  );
+
+  // src/js/component/layout/navigation/definition.js
+  var NavigationContainer = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').NavigationContainer>} */
+    {
+      tag: "mob-navigation-container",
+      component: NavigationContainerFn,
+      child: [Navigation],
+      state: {
+        isOpen: () => ({
+          value: false,
+          type: Boolean
+        }),
+        isMounted: () => ({
+          value: false,
           type: Boolean
         })
       }

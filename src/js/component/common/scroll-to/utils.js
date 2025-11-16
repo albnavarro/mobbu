@@ -1,5 +1,5 @@
+import { scrollToName } from '@instanceName';
 import { MobJs } from '@mobJs';
-import { scrollToName } from '../../instance-name';
 
 /**
  * @param {import('../scroll-to/type').ScrollToItemsToAdd} arg0

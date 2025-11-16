@@ -1,5 +1,5 @@
+import { searchOverlay } from '@instanceName';
 import { MobJs } from '@mobJs';
-import { searchOverlay } from 'src/js/component/instance-name';
 
 export const toggleSearchOverlay = () => {
     /**

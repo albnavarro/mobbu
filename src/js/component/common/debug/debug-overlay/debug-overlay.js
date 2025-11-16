@@ -7,7 +7,7 @@ import {
     debugComponentName,
     debugFilterListName,
     debugTreeName,
-} from 'src/js/component/instance-name';
+} from '@instanceName';
 
 /**
  * @import {MobComponent, ReturnBindProps} from '@mobJsType';

@@ -2,11 +2,11 @@ import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
 import { MobBodyScroll, UnFreezeMobPageScroll } from '@mobMotionPlugin';
 import { initNavigationScoller } from './animation/nav-scroller';
-import { mobNavigationName } from '../../instance-name';
 import { navigationStore } from '@stores/navigation';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 import { refreshNavigationScroller, scrollToTopNav } from './utils';
 import { closeAllNavAccordion } from './navigation/utils';
+import { mobNavigationName } from '@instanceName';
 
 /**
  * @import {ProxiState} from '@mobJsType'

@@ -1,5 +1,5 @@
+import { mobNavigationName } from '@instanceName';
 import { MobJs } from '@mobJs';
-import { mobNavigationName } from 'src/js/component/instance-name';
 
 /**
  * @param {{ fireCallback?: boolean }} arg0

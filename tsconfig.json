@@ -46,7 +46,10 @@
             "@data/*": ["./src/js/data/*"],
 
             // pages
-            "@pages/*": ["./src/js/pages/*"]
+            "@pages/*": ["./src/js/pages/*"],
+
+            // component instance name
+            "@instanceName": ["./src/js/component-instance-name"]
         }
     },
     "ts-node": { "esm": true },
@@ -61,6 +64,7 @@
         "src/js/wrapper",
         "src/js/pageTransition",
         "src/js/utils",
-        "src/js/main-loader"
+        "src/js/main-loader",
+        "src/js/component-instance-name"
     ]
 }

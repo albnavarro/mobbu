@@ -1,5 +1,5 @@
+import { routeLoader } from '@instanceName';
 import { MobJs } from '@mobJs';
-import { routeLoader } from '../../instance-name';
 
 /**
  * Re-enable route loading.

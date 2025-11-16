@@ -1,13 +1,12 @@
+import { AnimationDescription } from '@commonComponent/animation-description/definition';
 import { DebugOverlay } from '@commonComponent/debug/debug-overlay/definition';
 import { LinksMobJs } from '@commonComponent/links-mob-js/definition';
 import { QuickNav } from '@commonComponent/quick-nav/definition';
+import { RightSidebar } from '@commonComponent/right-sidebar/definition';
 import { RouteLoader } from '@commonComponent/route-loader/definition';
 import { ScrollDownLabel } from '@commonComponent/scroll-down-label/definition';
+import { SearchOverlay } from '@commonComponent/search/search-overlay/definition';
 import { TestScssGrid } from '@commonComponent/test-scss-grid/definition';
-import { Footer } from '@layoutComponent/footer/definition';
-import { Header } from '@layoutComponent/header/definition';
-import { NavigationContainer } from '@layoutComponent/navigation/definition';
-import { html, MobJs } from '@mobJs';
 import {
     animationDescription,
     debugOverlayName,
@@ -18,10 +17,11 @@ import {
     routeLoader,
     scrollDownLabelName,
     searchOverlay,
-} from '../component/instance-name';
-import { SearchOverlay } from '@commonComponent/search/search-overlay/definition';
-import { RightSidebar } from '@commonComponent/right-sidebar/definition';
-import { AnimationDescription } from '@commonComponent/animation-description/definition';
+} from '@instanceName';
+import { Footer } from '@layoutComponent/footer/definition';
+import { Header } from '@layoutComponent/header/definition';
+import { NavigationContainer } from '@layoutComponent/navigation/definition';
+import { html, MobJs } from '@mobJs';
 
 MobJs.useComponent([
     Header,

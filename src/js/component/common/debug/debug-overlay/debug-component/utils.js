@@ -1,5 +1,5 @@
+import { debugComponentName } from '@instanceName';
 import { MobJs } from '@mobJs';
-import { debugComponentName } from 'src/js/component/instance-name';
 
 /**
  * @param {string} id

@@ -6,8 +6,8 @@ import { ScrollTo } from '@commonComponent/scroll-to/definition';
 import { html, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
-import { scrollToName } from 'src/js/component/instance-name';
 import { updateRightSidebarList } from '@commonComponent/right-sidebar/utils';
+import { scrollToName } from '@instanceName';
 
 MobJs.useComponent([
     DocContainer,

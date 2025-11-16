@@ -1,5 +1,5 @@
+import { scrollDownLabelName } from '@instanceName';
 import { MobJs } from '@mobJs';
-import { scrollDownLabelName } from '../../instance-name';
 
 /**
  * @import {UseMethodByName} from '@mobJsType';

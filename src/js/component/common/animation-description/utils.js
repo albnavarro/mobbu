@@ -1,5 +1,5 @@
+import { animationDescription } from '@instanceName';
 import { MobJs } from '@mobJs';
-import { animationDescription } from '../../instance-name';
 
 /**
  * @param {string} content

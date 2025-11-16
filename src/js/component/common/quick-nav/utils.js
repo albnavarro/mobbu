@@ -1,5 +1,5 @@
+import { quickNavName } from '@instanceName';
 import { MobJs } from '@mobJs';
-import { quickNavName } from '../../instance-name';
 
 /**
  * @import {UseMethodByName} from '@mobJsType';

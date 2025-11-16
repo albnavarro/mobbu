@@ -1,5 +1,5 @@
+import { rightSidebarName } from '@instanceName';
 import { MobJs } from '@mobJs';
-import { rightSidebarName } from '../../instance-name';
 
 /**
  * @param {import('@commonComponent/right-sidebar/type').RightSideBarList[]} [data]

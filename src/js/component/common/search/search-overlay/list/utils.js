@@ -1,5 +1,5 @@
+import { searchOverlayList } from '@instanceName';
 import { MobJs } from '@mobJs';
-import { searchOverlayList } from 'src/js/component/instance-name';
 
 /**
  * @param {string} currentSearch

@@ -5,7 +5,7 @@ import { HtmlContent } from '@commonComponent/html-content/definition';
 import { ScrollTo } from '@commonComponent/scroll-to/definition';
 import { html, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
-import { scrollToName } from 'src/js/component/instance-name';
+import { scrollToName } from '@instanceName';
 
 MobJs.useComponent([
     DocContainer,

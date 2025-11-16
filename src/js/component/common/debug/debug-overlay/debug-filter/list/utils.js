@@ -1,5 +1,5 @@
+import { debugFilterListName } from '@instanceName';
 import { MobJs } from '@mobJs';
-import { debugFilterListName } from 'src/js/component/instance-name';
 
 /**
  * @param {string} testString

@@ -4,13 +4,10 @@
 
 import { html } from '@mobJs';
 import {
-    searchOverlayHeader,
-    searchOverlayList,
-} from 'src/js/component/instance-name';
-import {
     closeSearchSuggestion,
     shouldCloseSearchSuggestion,
 } from './header/utils';
+import { searchOverlayHeader, searchOverlayList } from '@instanceName';
 
 /**
  * @param {object} params

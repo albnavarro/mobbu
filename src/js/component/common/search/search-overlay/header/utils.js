@@ -1,5 +1,5 @@
+import { searchOverlayHeader } from '@instanceName';
 import { MobJs } from '@mobJs';
-import { searchOverlayHeader } from 'src/js/component/instance-name';
 
 export const searchOverlaySetInputFocus = () => {
     /**
