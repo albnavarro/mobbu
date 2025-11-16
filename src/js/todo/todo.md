@@ -1,16 +1,15 @@
 # Prioritá
 1.  `BindObject/BindText/BindEffect` potrebbero scrollegarsi prima senza aspettare il deref() che diventerebbe un check si sicurezza, come ?
-2.  `StyleLint` order.
-3.  La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
+2.  La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
     ```js
     {
         type: 'string',
         value
     }
     ```
-4. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
-5.  Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
-6. Component app: `dragger` con `pinch zoom`.
+3. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
+4.  Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
+5. Component app: `dragger` con `pinch zoom`.
 
 # App
 ### Docs: AsyncTimeline
