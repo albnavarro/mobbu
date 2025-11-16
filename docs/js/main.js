@@ -38194,7 +38194,7 @@
     </div>`;
   };
 
-  // src/js/component/common/links-mob-js/links-mobjs-button.js
+  // src/js/component/common/links-mob-js/links-mobjs-button/links-mobjs-button.js
   var LinksMobJsButtonFn = ({ getProxi, bindEffect }) => {
     const proxi = getProxi();
     return renderHtml` <a
@@ -38206,7 +38206,7 @@
     >`;
   };
 
-  // src/js/component/common/links-mob-js/definition.js
+  // src/js/component/common/links-mob-js/links-mobjs-button/definition.js
   var LinksMobJsButton = modules_exports2.createComponent(
     /** @type {CreateComponentParams<import('./type').LinksMobJsButton>} */
     {
@@ -38228,6 +38228,8 @@
       }
     }
   );
+
+  // src/js/component/common/links-mob-js/definition.js
   var LinksMobJs = modules_exports2.createComponent(
     /** @type {CreateComponentParams<import('./type').LinksMobJs>} */
     {

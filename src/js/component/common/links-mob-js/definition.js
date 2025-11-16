@@ -1,32 +1,10 @@
 import { MobJs } from '@mobJs';
 import { LinksMobJsFn } from './links-mobjs';
-import { LinksMobJsButtonFn } from './links-mobjs-button';
+import { LinksMobJsButton } from './links-mobjs-button/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
  */
-
-export const LinksMobJsButton = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').LinksMobJsButton>} */
-    ({
-        tag: 'links-mobjs-button',
-        component: LinksMobJsButtonFn,
-        props: {
-            label: () => ({
-                value: '',
-                type: String,
-            }),
-            url: () => ({
-                value: '',
-                type: String,
-            }),
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
-        },
-    })
-);
 
 export const LinksMobJs = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').LinksMobJs>} */

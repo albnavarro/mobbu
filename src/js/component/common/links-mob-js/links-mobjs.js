@@ -1,6 +1,7 @@
 /**
  * @import {BindProps, MobComponent, StaticProps} from '@mobJsType';
- * @import {LinksMobJs, LinksMobJsButton} from './type';
+ * @import {LinksMobJs} from './type';
+ * @import {LinksMobJsButton} from './links-mobjs-button/type';
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';

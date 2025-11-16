@@ -1,11 +1,3 @@
-export interface LinksMobJsButton {
-    props: {
-        label: string;
-        url: string;
-        active: boolean;
-    };
-}
-
 export interface LinksMobJs {
     state: {
         data: { label: string; url: string; isLabel: boolean }[];
