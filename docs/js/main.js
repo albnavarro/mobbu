@@ -39848,6 +39848,37 @@
   };
 
   // src/js/component/common/search/search-overlay/header/suggestion/suggestion.js
+  var SearchOverlaySuggestionFn = ({ getProxi, repeat, bindProps }) => {
+    const proxi = getProxi();
+    return renderHtml`<div>
+        <div class="search-overlay-suggestion">
+            <ul class="search-overlay-suggestion__list">
+                ${repeat({
+      observe: () => proxi.list,
+      key: "word",
+      render: ({ current }) => {
+        return renderHtml`
+                            <search-overlay-suggestion-item
+                                ${bindProps(
+          /**
+           * @returns {ReturnBindProps<SearchOverlaySugestionItem>}
+           */
+          () => ({
+            word: current.value.word,
+            wordHiglight: current.value.wordHiglight
+          })
+        )}
+                            >
+                            </search-overlay-suggestion-item>
+                        `;
+      }
+    })}
+            </ul>
+        </div>
+    </div>`;
+  };
+
+  // src/js/component/common/search/search-overlay/header/suggestion/suggestion-item/suggestion-item.js
   var onKeyDown = ({ code, word }) => {
     if (code.toLowerCase() === "enter") {
       updateSearchFromSuggestion(word);
@@ -39858,50 +39889,54 @@
       return;
     }
   };
-  var SearchOverlaySuggestionFn = ({
+  var SearchOverlaySuggestionItemFn = ({
     getProxi,
-    repeat,
-    bindObject,
-    delegateEvents
+    delegateEvents,
+    bindObject
   }) => {
     const proxi = getProxi();
-    return renderHtml`<div>
-        <div class="search-overlay-suggestion">
-            <ul class="search-overlay-suggestion__list">
-                ${repeat({
-      observe: () => proxi.list,
-      key: "word",
-      render: ({ current }) => {
-        return renderHtml`
-                            <li class="search-overlay-suggestion__item">
-                                <button
-                                    type="button"
-                                    class="search-overlay-suggestion__button"
-                                    ${delegateEvents({
-          click: () => {
-            updateSearchFromSuggestion(
-              current.value.word
-            );
-          },
-          keydown: (event) => {
-            event.preventDefault();
-            onKeyDown({
-              code: event.code,
-              word: current.value.word
-            });
-          }
-        })}
-                                >
-                                    ${bindObject`${() => current.value.wordHiglight}`}
-                                </button>
-                            </li>
-                        `;
+    return renderHtml`
+        <li class="search-overlay-suggestion__item">
+            <button
+                type="button"
+                class="search-overlay-suggestion__button"
+                ${delegateEvents({
+      click: () => {
+        updateSearchFromSuggestion(proxi.word);
+      },
+      keydown: (event) => {
+        event.preventDefault();
+        onKeyDown({
+          code: event.code,
+          word: proxi.word
+        });
       }
     })}
-            </ul>
-        </div>
-    </div>`;
+            >
+                ${bindObject`${() => proxi.wordHiglight}`}
+            </button>
+        </li>
+    `;
   };
+
+  // src/js/component/common/search/search-overlay/header/suggestion/suggestion-item/definition.js
+  var SearchOverlaySuggestionItem = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').SearchOverlaySugestionItem>} */
+    {
+      tag: "search-overlay-suggestion-item",
+      component: SearchOverlaySuggestionItemFn,
+      props: {
+        word: () => ({
+          value: "",
+          type: String
+        }),
+        wordHiglight: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
 
   // src/js/component/common/search/search-overlay/header/suggestion/definition.js
   var SearchOverlaySuggestion = modules_exports2.createComponent(
@@ -39914,7 +39949,8 @@
           value: [],
           type: Array
         })
-      }
+      },
+      child: [SearchOverlaySuggestionItem]
     }
   );
 
