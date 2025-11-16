@@ -3,77 +3,77 @@
 .c-move3d-page {
     &__controls {
         position: fixed;
+        z-index: 10;
         top: calc(var(--header-height) + var(--gap-size));
         right: var(--gap-size);
-        z-index: 10;
 
         &__block {
+            margin-bottom: calc(var(--gap-size) / 3);
             padding: calc(var(--gap-size) / 2);
             border: 1px $grey solid;
-            margin-bottom: calc(var(--gap-size) / 3);
         }
 
         &__range {
             position: relative;
-            pointer-events: none;
             margin-bottom: rem(5);
+            pointer-events: none;
 
             &::after {
                 content: '';
                 position: absolute;
+                z-index: 1;
                 top: 50%;
                 left: 0;
                 width: 100%;
                 height: 1px;
                 background: $grey;
-                z-index: 1;
             }
 
             input {
+                display: block;
+                position: relative;
                 width: 100%;
                 margin: auto;
-                appearance: none;
                 background: transparent;
                 cursor: pointer;
-                position: relative;
-                display: block;
                 pointer-events: all;
+                appearance: none;
 
                 &::-webkit-slider-thumb {
-                    appearance: none;
-                    border: 0;
-                    height: rem(15);
                     width: rem(15);
+                    height: rem(15);
+                    border: 0;
                     border-radius: 100%;
                     background: $grey;
                     cursor: pointer;
+                    appearance: none;
                 }
 
                 &::-moz-range-thumb {
-                    appearance: none;
-                    border: 0;
-                    height: rem(15);
                     width: rem(15);
+                    height: rem(15);
+                    border: 0;
                     border-radius: 100%;
                     background: $grey;
                     cursor: pointer;
+                    appearance: none;
                 }
             }
         }
 
         &__button {
-            padding: rem(5) rem(10);
-            margin-bottom: rem(10);
-            margin-right: rem(10);
             display: inline-block;
-            text-decoration: none;
             min-width: rem(200);
-            color: $black;
-            text-align: center;
+            margin-right: rem(10);
+            margin-bottom: rem(10);
+            padding: rem(5) rem(10);
             transition: background 0.35s;
-            font-size: rem(14);
-            background: $white;
             border: 0;
+            background: $white;
+            color: $black;
+            font-size: rem(14);
+            text-align: center;
+            text-decoration: none;
 
             &:hover {
                 background: $black;
@@ -86,8 +86,8 @@
 .move3d-square {
     width: var(--item-width);
     height: var(--item-height);
-    background: $black;
     border-radius: 100%;
+    background: $black;
 
     &.is-white {
         background: $white;

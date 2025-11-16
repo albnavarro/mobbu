@@ -1,10 +1,10 @@
 @use '../../abstract' as *;
 
 .c-debug-head {
+    display: flex;
+    padding-top: calc(var(--gap-size) / 2);
     color: $white;
     font-size: rem(12);
-    padding-top: calc(var(--gap-size) / 2);
-    display: flex;
 
     &__general,
     &__search {
@@ -12,8 +12,8 @@
     }
 
     &__general {
-        border-right: 1px $black solid;
         padding-left: var(--gap-size);
+        border-right: 1px $black solid;
     }
 
     &__search {

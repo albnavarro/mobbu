@@ -1,12 +1,12 @@
 @use '../../abstract' as *;
 
 .footer-nav {
-    place-self: center start;
-    margin: 0;
     display: block;
+    margin: 0;
     padding: 0;
-    opacity: 0;
     transition: opacity 1s 0.55s;
+    opacity: 0;
+    place-self: center start;
 
     &.is-visible {
         opacity: 1;
@@ -29,12 +29,12 @@
     }
 
     &__button {
-        background: transparent;
-        border: 0;
-        color: $black;
         position: relative;
-        transition: opacity 0.55s;
         min-width: rem(100);
+        transition: opacity 0.55s;
+        border: 0;
+        background: transparent;
+        color: $black;
 
         @include when-inside('[data-template="about"]') {
             color: $white;
@@ -45,9 +45,9 @@
             position: absolute;
             top: 50%;
             right: 0;
-            transform: translateY(-50%);
             width: 1px;
             height: rem(10);
+            transform: translateY(-50%);
             background: #656566;
         }
 

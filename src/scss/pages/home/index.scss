@@ -3,25 +3,25 @@
 $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
 
 .l-index {
-    height: calc(100vh);
     display: flex;
-    justify-content: start;
-    align-items: start;
-    flex-direction: column;
     position: relative;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    height: calc(100vh);
     overflow: hidden;
 
     &__logo {
         position: absolute;
+        z-index: 1;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: 1;
 
         svg {
-            overflow: visible;
             width: min(1920px, calc(((1700 * 100) / 1920) * 1vw));
             height: min($logo-max-height, calc(((800 * 100) / 1920) * 1vw));
+            overflow: visible;
 
             g {
                 transform-origin: center;

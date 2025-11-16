@@ -223,20 +223,20 @@
 }
 
 @mixin button() {
-    padding: rem(5) rem(10);
-    margin-bottom: rem(10);
-    margin-right: rem(10);
     display: inline-block;
-    text-decoration: none;
-    min-width: rem(250);
-    color: $black;
-    text-align: center;
-    transition: background 0.35s;
-    font-size: rem(14);
-    background: $grey-lightteen;
-    border: 0;
     position: relative;
+    min-width: rem(250);
+    margin-right: rem(10);
+    margin-bottom: rem(10);
+    padding: rem(5) rem(10);
+    transition: background 0.35s;
+    border: 0;
     border-radius: rem(20);
+    background: $grey-lightteen;
+    color: $black;
+    font-size: rem(14);
+    text-align: center;
+    text-decoration: none;
 
     &:hover {
         background: $black;

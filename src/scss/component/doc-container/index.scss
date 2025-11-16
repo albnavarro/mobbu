@@ -1,10 +1,10 @@
 @use '../../abstract' as *;
 
 .c-doc-container {
-    padding-bottom: var(--footer-height);
     display: grid;
-    grid-template-columns: var(--doc-width) 1fr;
     position: relative;
+    grid-template-columns: var(--doc-width) 1fr;
+    padding-bottom: var(--footer-height);
 
     @include mq(xlarge) {
         grid-template-columns: var(--right-sidebar) var(--doc-width) 1fr;
@@ -22,26 +22,26 @@
         top: var(--header-height);
         align-self: start;
         height: calc(100vh - var(--header-height) - var(--footer-height));
-        overflow: hidden;
         padding: var(--gap-size);
+        overflow: hidden;
 
         @include mq('xlarge') {
-            grid-column: 1 / span 1;
             display: block;
+            grid-column: 1 / span 1;
         }
     }
 
     &__content {
         position: relative;
-        background: rgba($white, 0.4);
         grid-column: 1 / span 1;
         min-height: 100vh;
+        background: rgba($white, 0.4);
 
         &::after {
             content: '';
             position: absolute;
-            right: 0;
             top: 0;
+            right: 0;
             bottom: 0;
             width: 1px;
             background: $black;
@@ -62,11 +62,11 @@
         position: sticky;
         z-index: 14;
         top: var(--header-height);
+        grid-column: 2 / span 1;
         align-self: start;
+        min-width: rem(250);
         height: calc(100vh - var(--header-height) - var(--footer-height));
         overflow: hidden;
-        min-width: rem(250);
-        grid-column: 2 / span 1;
 
         @include mq('desktop') {
             display: block;

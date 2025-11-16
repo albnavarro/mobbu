@@ -1,21 +1,21 @@
 @use '../../abstract' as *;
 
 .search-overlay-list {
-    color: $white;
     position: absolute;
-    inset: 0;
     overflow: hidden;
+    color: $white;
+    inset: 0;
 
     &__loading {
+        display: none;
         position: absolute;
+        z-index: 10;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 10;
         padding: calc(var(--gap-size) / 2) var(--gap-size);
+        transform: translate(-50%, -50%);
         border: 1px rgba($white, 0.5) solid;
         background: rgba($black, 0.8);
-        display: none;
         pointer-events: none;
 
         &.active {
@@ -24,18 +24,18 @@
     }
 
     &__ul {
-        padding: var(--gap-size);
-        padding-right: calc(var(--gap-size) * 2);
         min-height: 100%;
         margin: 0;
+        padding: var(--gap-size);
+        padding-right: calc(var(--gap-size) * 2);
     }
 
     &__item {
+        position: relative;
         margin-bottom: calc(var(--gap-size) / 2);
         padding-bottom: calc(var(--gap-size) / 2);
-        border-bottom: 1px rgba($white, 0.4) solid;
         transition: opacity 0.35s;
-        position: relative;
+        border-bottom: 1px rgba($white, 0.4) solid;
 
         &:hover {
             opacity: 0.5;
@@ -50,9 +50,9 @@
             &::before {
                 content: '';
                 position: absolute;
-                left: calc(#{rem(10)} * -1);
                 top: 0;
                 bottom: calc(var(--gap-size) / 2);
+                left: calc(#{rem(10)} * -1);
                 width: rem(2);
                 background: $white;
             }
@@ -60,10 +60,10 @@
     }
 
     &__button {
-        background: transparent;
         width: 100%;
-        text-align: left;
         border: 0;
+        background: transparent;
+        text-align: left;
     }
 
     &__section {
@@ -82,15 +82,15 @@
 
     &__scrollbar {
         position: absolute;
+        z-index: 14;
         top: 1vh;
-        width: 47vh;
         left: calc(100% - (var(--gap-size) / 2));
+        width: 47vh;
         transform: rotate(90deg);
         transform-origin: left;
-        z-index: 14;
-        appearance: none;
         background: transparent;
         cursor: pointer;
+        appearance: none;
 
         --thumb-width: #{rem(200)};
 
@@ -103,17 +103,17 @@
         }
 
         &::-webkit-slider-runnable-track {
-            background-color: rgba($grey, 0.3);
-            border-radius: 0;
-            height: rem(10);
             width: var(--thumb-width);
+            height: rem(10);
+            border-radius: 0;
+            background-color: rgba($grey, 0.3);
         }
 
         &::-webkit-slider-thumb {
-            appearance: none;
-            background-color: $white;
-            height: rem(10);
             width: var(--thumb-width);
+            height: rem(10);
+            background-color: $white;
+            appearance: none;
         }
 
         &:focus::-webkit-slider-thumb {
@@ -121,17 +121,17 @@
         }
 
         &::-moz-range-track {
-            background-color: rgba($grey, 0.3);
-            border-radius: 0;
             height: rem(10);
+            border-radius: 0;
+            background-color: rgba($grey, 0.3);
         }
 
         &::-moz-range-thumb {
+            width: var(--thumb-width);
+            height: rem(10);
             border: none; /* Removes extra border that FF applies */
             border-radius: 0; /* Removes default border-radius that FF applies */
             background-color: $white;
-            height: rem(10);
-            width: var(--thumb-width);
         }
 
         &:focus::-moz-range-thumb {

@@ -6,34 +6,34 @@
 
     &__title {
         grid-area: title;
+        margin-right: calc(var(--gap-size) / 2);
         font-size: rem(14);
         font-weight: 600;
-        margin-right: calc(var(--gap-size) / 2);
     }
 
     &__input {
         grid-area: input;
         width: rem(150);
-        background: transparent;
-        border: 1px $white solid;
-        font-size: rem(12);
         margin-right: rem(5);
+        border: 1px $white solid;
+        background: transparent;
+        font-size: rem(12);
     }
 
     &__button {
+        display: inline-block;
         grid-area: submit;
-        background: transparent;
-        border: 1px $white solid;
-        padding-inline: calc(var(--gap-size) / 2);
+        margin: 0;
         padding-top: 0;
         padding-bottom: 0;
-        margin: 0;
-        display: inline-block;
-        line-height: 1.7;
-        font-size: rem(12);
+        padding-inline: calc(var(--gap-size) / 2);
         transition:
             background 0.35s,
             color 0.35s;
+        border: 1px $white solid;
+        background: transparent;
+        font-size: rem(12);
+        line-height: 1.7;
 
         @include on-event {
             background: $white;

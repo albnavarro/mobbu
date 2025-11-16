@@ -1,9 +1,9 @@
 @use '../../abstract' as *;
 
 .c-dynamic-list {
-    border: 0;
-    padding-bottom: var(--footer-height);
     box-sizing: border-box;
+    padding-bottom: var(--footer-height);
+    border: 0;
 
     // Increase scrolling performance on smooth scroll.
     @include when-inside('.is-whelling') {
@@ -12,22 +12,22 @@
 
     &__header {
         position: sticky;
-        top: var(--header-height);
-        background: rgba($white, 0.8);
-        padding: calc(var(--gap-size) / 2) var(--gap-size);
         z-index: 10;
+        top: var(--header-height);
+        padding: calc(var(--gap-size) / 2) var(--gap-size);
         border-bottom: 1px $black solid;
+        background: rgba($white, 0.8);
     }
 
     &__counter {
-        color: $black;
         padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
+        color: $black;
     }
 
     &__container {
-        padding: var(--gap-size);
-        width: 100%;
         box-sizing: border-box;
+        width: 100%;
+        padding: var(--gap-size);
     }
 
     &__grid {
@@ -37,8 +37,8 @@
     }
 
     &__label {
-        color: $black;
         padding: calc(var(--gap-size) / 2);
+        color: $black;
     }
 
     &__top {
@@ -55,8 +55,8 @@
     }
 
     &__invalidate {
-        padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
         display: flex;
+        padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
         border-bottom: 1px $black solid;
 
         &__title {

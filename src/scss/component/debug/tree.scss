@@ -8,22 +8,22 @@
     }
 
     &__scroller {
+        min-height: 100%;
         padding-top: calc(var(--gap-size) / 2);
         padding-bottom: calc(var(--gap-size) / 2);
-        min-height: 100%;
     }
 
     &__scrollbar {
         position: absolute;
+        z-index: 14;
         top: 1vh;
-        width: 32vh;
         left: calc(100% - #{rem(20)});
+        width: 32vh;
         transform: rotate(90deg);
         transform-origin: left;
-        z-index: 14;
-        appearance: none;
         background: transparent;
         cursor: pointer;
+        appearance: none;
 
         --thumb-width: #{rem(200)};
 
@@ -36,17 +36,17 @@
         }
 
         &::-webkit-slider-runnable-track {
-            background-color: rgba($grey, 0.3);
-            border-radius: 0;
-            height: rem(10);
             width: var(--thumb-width);
+            height: rem(10);
+            border-radius: 0;
+            background-color: rgba($grey, 0.3);
         }
 
         &::-webkit-slider-thumb {
-            appearance: none;
-            background-color: $white;
-            height: rem(10);
             width: var(--thumb-width);
+            height: rem(10);
+            background-color: $white;
+            appearance: none;
         }
 
         &:focus::-webkit-slider-thumb {
@@ -54,17 +54,17 @@
         }
 
         &::-moz-range-track {
-            background-color: rgba($grey, 0.3);
-            border-radius: 0;
             height: rem(10);
+            border-radius: 0;
+            background-color: rgba($grey, 0.3);
         }
 
         &::-moz-range-thumb {
+            width: var(--thumb-width);
+            height: rem(10);
             border: none; /* Removes extra border that FF applies */
             border-radius: 0; /* Removes default border-radius that FF applies */
             background-color: $white;
-            height: rem(10);
-            width: var(--thumb-width);
         }
 
         &:focus::-moz-range-thumb {
@@ -73,16 +73,16 @@
     }
 
     &__status {
+        display: none;
+        position: absolute;
+        right: var(--gap-size);
+        bottom: calc(var(--gap-size) / 2);
+        margin-top: calc(var(--gap-size) / 2);
+        padding: rem(5) rem(10);
+        border: 1px $white solid;
+        background: rgba($black, 0.5);
         color: $white;
         font-size: rem(12);
-        margin-top: calc(var(--gap-size) / 2);
-        position: absolute;
-        bottom: calc(var(--gap-size) / 2);
-        right: var(--gap-size);
-        border: 1px $white solid;
-        padding: rem(5) rem(10);
-        background: rgba($black, 0.5);
-        display: none;
 
         &.visible {
             display: block;

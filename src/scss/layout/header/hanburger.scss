@@ -2,19 +2,19 @@
 
 .hamburger {
     display: inline-block;
-    cursor: pointer;
+    width: var(--header-height);
+    height: var(--header-height);
+    margin: 0;
+    overflow: hidden;
     transition-property: opacity, filter;
     transition-duration: 0.15s;
     transition-timing-function: linear;
-    font: inherit;
-    color: inherit;
-    text-transform: none;
-    background-color: transparent;
     border: 0;
-    margin: 0;
-    height: var(--header-height);
-    width: var(--header-height);
-    overflow: hidden;
+    background-color: transparent;
+    color: inherit;
+    font: inherit;
+    text-transform: none;
+    cursor: pointer;
 
     --width: 30px;
     --height: 2px;
@@ -28,9 +28,9 @@
         right: 0;
         width: 1px;
         height: 100%;
-        background: $black;
-        transform-origin: top right;
         transform: scaleY(0);
+        transform-origin: top right;
+        background: $black;
     }
 
     @include when-inside('[data-template="home"]') {
@@ -65,27 +65,27 @@
 
     &-inner {
         display: block;
+        position: absolute;
         top: 50%;
-        margin-top: -2px;
         width: var(--width);
         height: var(--height);
-        background-color: $black;
-        position: absolute;
+        margin-top: -2px;
         transition-property: transform;
         transition-duration: 0.15s;
         transition-timing-function: ease;
+        background-color: $black;
 
         &::before,
         &::after {
+            content: '';
+            display: block;
+            position: absolute;
             width: 100%;
             height: var(--height);
-            background-color: $black;
-            position: absolute;
             transition-property: transform;
             transition-duration: 0.15s;
             transition-timing-function: ease;
-            content: '';
-            display: block;
+            background-color: $black;
         }
 
         &::before {
@@ -100,15 +100,15 @@
     &.is-open {
         .hamburger-inner {
             transform: rotate(45deg);
-            transition-delay: 0.12s;
             transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            transition-delay: 0.12s;
 
             &::before {
                 top: 0;
-                opacity: 0;
                 transition:
                     top 0.075s ease,
                     opacity 0.075s 0.12s ease;
+                opacity: 0;
                 background-color: $black;
             }
 
@@ -124,12 +124,12 @@
     }
 
     &__box {
-        width: var(--width);
-        height: var(--total-height);
         display: inline-block;
         position: relative;
-        opacity: 0;
+        width: var(--width);
+        height: var(--total-height);
         transition: opacity 1s 0.5s;
+        opacity: 0;
 
         &.is-visible {
             opacity: 1;

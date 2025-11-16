@@ -2,16 +2,16 @@
 
 .c-dynamic-list-repeater {
     &__title {
-        color: $black;
         padding: rem(20);
+        color: $black;
     }
 
     &__new {
+        margin-bottom: calc(var(--gap-size) / 2);
+        padding: 0 calc(var(--gap-size) / 2);
         color: $black;
         font-size: rem(12);
-        padding: 0 calc(var(--gap-size) / 2);
         line-height: 1.5;
-        margin-bottom: calc(var(--gap-size) / 2);
     }
 
     &__list {

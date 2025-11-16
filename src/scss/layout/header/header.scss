@@ -2,22 +2,22 @@
 
 [data-component='header'] {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     z-index: 10;
+    top: 0;
+    right: 0;
+    left: 0;
     height: var(--header-height);
 }
 
 .l-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: $grey;
-    z-index: 14;
-    transition: background 0.35s;
     display: none;
+    position: fixed;
+    z-index: 14;
+    top: 0;
+    right: 0;
+    left: 0;
+    transition: background 0.35s;
+    background: $grey;
     user-select: none;
 
     &::after {
@@ -27,9 +27,9 @@
         left: 0;
         width: 100%;
         height: 1px;
-        background: $black;
-        transform-origin: top left;
         transform: scaleX(0);
+        transform-origin: top left;
+        background: $black;
     }
 
     &.is-visible {
@@ -78,14 +78,14 @@
         display: grid;
         grid-template-areas: 'toggle title utils';
         grid-template-columns: var(--header-height) 1fr auto;
-        height: var(--header-height);
         align-items: center;
+        height: var(--header-height);
     }
 
     &__toggle {
+        position: relative;
         grid-area: toggle;
         border: 0;
-        position: relative;
     }
 
     &__title-container {
@@ -94,22 +94,22 @@
     }
 
     &__title {
-        color: $black;
-        grid-area: title;
-        padding-left: rem(20);
         display: inline-block;
-        background: transparent;
+        grid-area: title;
         width: auto;
+        padding-left: rem(20);
         border: 0;
+        background: transparent;
+        color: $black;
         text-align: left;
 
         h3 {
+            display: inline-block;
+            margin: 0;
             transform: translateY(100%);
             transition: transform 1s;
-            pointer-events: none;
-            margin: 0;
             font-weight: 600;
-            display: inline-block;
+            pointer-events: none;
 
             &.is-visible {
                 transform: translateY(0);
@@ -132,10 +132,10 @@
     }
 
     &__utils {
-        text-align: right;
         padding-right: rem(20);
-        opacity: 0;
         transition: opacity 1s 0.55s;
+        opacity: 0;
+        text-align: right;
 
         &.is-visible {
             opacity: 1;
@@ -143,9 +143,9 @@
     }
 
     &__sidenav {
-        list-style-type: none;
-        padding: 0;
         display: flex;
+        padding: 0;
+        list-style-type: none;
 
         --sidebar-item-size: #{rem(24)};
 
@@ -158,18 +158,18 @@
         }
 
         &__link {
-            color: $white;
-            background: transparent;
-            border: 0;
             margin: 0 rem(10);
+            border: 0;
+            background: transparent;
+            color: $white;
         }
 
         /* stylelint-disable-next-line no-descending-specificity */
         svg {
-            fill: $black;
-            transition: opacity 0.55s;
             width: var(--sidebar-item-size);
             height: var(--sidebar-item-size);
+            transition: opacity 0.55s;
+            fill: $black;
         }
     }
 }

@@ -1,10 +1,10 @@
 @use '../../abstract' as *;
 
 .c-debug-filter-list-item {
+    position: relative;
+    padding-left: calc(var(--gap-size) / 2);
     color: $white;
     font-size: rem(12);
-    padding-left: calc(var(--gap-size) / 2);
-    position: relative;
 
     // Performance on scroll
     @include when-inside('.is-whelling') {
@@ -13,13 +13,13 @@
 
     &::after {
         content: '';
+        display: none;
         position: absolute;
-        left: 0;
-        width: rem(5);
         top: 0;
         bottom: 0;
+        left: 0;
+        width: rem(5);
         background: $white;
-        display: none;
     }
 
     &.selected {
@@ -29,15 +29,15 @@
     }
 
     &__id {
-        font-weight: 600;
         opacity: 0.8;
+        font-weight: 600;
     }
 
     &__expand {
-        background: transparent;
-        border: 0;
-        font-size: rem(10);
         transition: opacity 0.35s;
+        border: 0;
+        background: transparent;
+        font-size: rem(10);
 
         &:focus {
             outline: none;
@@ -49,11 +49,11 @@
     }
 
     &__selected {
+        display: none;
         width: rem(10);
         height: rem(10);
         border-radius: 100%;
         background: $white;
-        display: none;
 
         &.active {
             display: inline-block;

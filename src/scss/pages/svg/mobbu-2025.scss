@@ -1,10 +1,10 @@
 @use '../../abstract' as *;
 
 .mobbu2025 {
+    position: relative;
+    width: calc(100vw - (var(--header-height) * 0.5) + 1px);
     height: calc(100vh - var(--footer-height));
     margin-left: calc((var(--header-height) * 0.5) - 1px);
-    width: calc(100vw - (var(--header-height) * 0.5) + 1px);
-    position: relative;
     overflow: hidden;
 
     --mobbu2025-height: calc(
@@ -15,8 +15,8 @@
     &__screen {
         position: relative;
         top: var(--header-height);
-        height: var(--mobbu2025-height);
         width: 100%;
+        height: var(--mobbu2025-height);
         overflow: hidden;
         cursor: grabbing;
     }
@@ -29,16 +29,16 @@
 
     &__layer {
         position: absolute;
-        user-select: none;
-        aspect-ratio: 690/117;
-        height: var(--mobbu2025-height);
         top: 0;
         left: 0;
+        height: var(--mobbu2025-height);
+        user-select: none;
+        aspect-ratio: 690/117;
 
         svg {
-            pointer-events: none;
-            height: var(--mobbu2025-height);
             width: var(--mobbu2025-width);
+            height: var(--mobbu2025-height);
+            pointer-events: none;
         }
     }
 }

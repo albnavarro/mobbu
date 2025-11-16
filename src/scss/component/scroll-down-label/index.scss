@@ -1,37 +1,37 @@
 @use '../../abstract' as *;
 
 .c-scroller-down-label {
+    visibility: hidden;
     position: fixed;
+    z-index: 15;
     top: rem(80);
     left: 50%;
     transform: translate(-50%, +50%);
-    text-align: center;
-    z-index: 15;
-    opacity: 0;
-    visibility: hidden;
     transition:
         opacity 0.35s,
         visibility 0.35s;
+    opacity: 0;
+    text-align: center;
 
     &.active {
-        opacity: 1;
         visibility: visible;
+        opacity: 1;
     }
 
     h1 {
-        text-transform: capitalize;
-        font-size: rem(25);
         color: $black;
+        font-size: rem(25);
         font-weight: 600;
+        text-transform: capitalize;
     }
 
     svg {
         position: absolute;
         top: calc(100% + #{rem(20)});
         left: 50%;
-        transform: translateX(-50%);
-        fill: $black;
         width: rem(30);
         height: rem(30);
+        transform: translateX(-50%);
+        fill: $black;
     }
 }

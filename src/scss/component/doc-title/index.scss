@@ -2,20 +2,20 @@
 
 .c-doc-title {
     h2 {
-        color: $black;
-        font-size: rem(300);
-        opacity: 0.025;
-        font-weight: 800;
-        transform-origin: left bottom;
-        transform: translate(calc(rem(50) * -1), calc(rem(320) * -1))
-            rotate(90deg);
         display: inline-block;
-        line-height: 1;
-        user-select: none;
-        pointer-events: none;
-        overflow: hidden;
         position: absolute;
         top: 0;
+        overflow: hidden;
+        transform: translate(calc(rem(50) * -1), calc(rem(320) * -1))
+            rotate(90deg);
+        transform-origin: left bottom;
+        opacity: 0.025;
+        color: $black;
+        font-size: rem(300);
+        font-weight: 800;
+        line-height: 1;
         white-space: nowrap;
+        pointer-events: none;
+        user-select: none;
     }
 }

@@ -1,9 +1,9 @@
 @use '../../abstract' as *;
 
 .benchmark-fake {
-    border: 1px $black solid;
-    padding: calc(var(--gap-size) / 2);
     flex: 1 1 10%;
+    padding: calc(var(--gap-size) / 2);
+    border: 1px $black solid;
 
     $self: &;
 
@@ -26,11 +26,11 @@
     }
 
     &__button {
-        background: $black;
-        width: 100%;
         display: block;
-        color: $white;
+        width: 100%;
         border: 1px $black solid;
+        background: $black;
+        color: $white;
 
         &:hover {
             background: $white;

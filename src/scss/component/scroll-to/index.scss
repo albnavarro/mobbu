@@ -1,13 +1,13 @@
 @use '../../abstract' as *;
 
 .c-scroll-to {
-    color: $black;
-    margin-left: var(--gap-size);
     margin-top: calc(var(--gap-size) / 2);
+    margin-left: var(--gap-size);
+    color: $black;
 
     ul {
-        padding: 0;
         margin: 0;
+        padding: 0;
         list-style-type: none;
 
         @media screen and (height <= 825px) {
@@ -20,25 +20,25 @@
     }
 
     button {
-        background: transparent;
-        border: 0;
-        transition: opacity 0.55s;
-        position: relative;
         display: block;
+        position: relative;
+        margin-left: rem(10);
         padding: 0;
+        transition: opacity 0.55s;
+        border: 0;
+        background: transparent;
         font-size: rem(12);
         line-height: 1.5;
-        margin-left: rem(10);
 
         @include mq(large) {
             font-size: rem(13);
         }
 
         span {
+            display: block;
             transition:
                 transform 0.55s,
                 opacity 0.55s;
-            display: block;
             text-transform: capitalize;
 
             @media screen and (height >= 200px) and (height <= 900px) {
@@ -47,9 +47,9 @@
         }
 
         &.is-section {
-            font-weight: 600;
             margin-top: calc(var(--gap-size) / 4);
             margin-left: 0;
+            font-weight: 600;
 
             span {
                 text-transform: uppercase;
@@ -58,15 +58,15 @@
 
         &::before {
             content: '';
-            top: 50%;
-            transform: translateY(-50%) rotate(45deg);
-            right: calc(100% + #{rem(5)});
-            height: rem(4);
-            width: rem(4);
             position: absolute;
+            top: 50%;
+            right: calc(100% + #{rem(5)});
+            width: rem(4);
+            height: rem(4);
+            transform: translateY(-50%) rotate(45deg);
+            transition: transform 0.35s;
             border-top: 1px rgba($black, 0.5) solid;
             border-right: 1px rgba($black, 0.5) solid;
-            transition: transform 0.35s;
         }
 
         &:not(.active):hover {
@@ -103,10 +103,10 @@
         }
 
         &.is-note {
+            margin-left: 0;
+            opacity: 0.5;
             font-size: rem(12);
             cursor: auto;
-            opacity: 0.5;
-            margin-left: 0;
         }
     }
 }

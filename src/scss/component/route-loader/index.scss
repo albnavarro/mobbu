@@ -1,22 +1,22 @@
 @use '../../abstract' as *;
 
 .c-loader {
+    display: inline-block;
+    z-index: 16;
     left: calc(50% - #{rem(24)});
-    transform: translate(-50%, -50%);
+    box-sizing: border-box;
     width: rem(48);
     height: rem(48);
-    border-radius: 50%;
-    display: inline-block;
+    transform: translate(-50%, -50%);
+    animation: rotation 1s linear infinite;
     border-top: 4px solid $white;
     border-right: 4px solid transparent;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    z-index: 16;
+    border-radius: 50%;
     pointer-events: none;
 
     &.disable {
-        animation: none;
         display: none;
+        animation: none;
     }
 
     &.center-viewport {
@@ -31,16 +31,16 @@
 
     &::after {
         content: '';
-        box-sizing: border-box;
         position: absolute;
-        left: 0;
         top: 0;
+        left: 0;
+        box-sizing: border-box;
         width: rem(48);
         height: rem(48);
-        border-radius: 50%;
-        border-left: 4px solid $black;
-        border-bottom: 4px solid transparent;
         animation: rotation 0.5s linear infinite reverse;
+        border-bottom: 4px solid transparent;
+        border-left: 4px solid $black;
+        border-radius: 50%;
     }
 
     @keyframes rotation {
@@ -56,29 +56,29 @@
 
 .c-loader-background {
     position: fixed;
+    z-index: 15;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: $white;
     line-height: 1.4;
-    z-index: 15;
 
     &__title,
     &__message {
         position: absolute;
         left: 50%;
+        width: 100%;
         transform: translate(-50%, -50%);
         color: $black;
-        width: 100%;
         text-align: center;
     }
 
     &__title {
         top: calc(50% - rem(100));
         font-family: 'Playfair Display', serif;
-        font-weight: 600;
         font-size: rem(28);
+        font-weight: 600;
     }
 
     &__message {
@@ -87,26 +87,26 @@
     }
 
     &__track {
-        height: rem(8);
-        width: rem(200);
-        background: $black;
         position: absolute;
-        left: 50%;
         top: 50%;
+        left: 50%;
+        width: rem(200);
+        height: rem(8);
         transform: translate(-50%, -50%);
-        color: $black;
         border: 1px $black solid;
+        background: $black;
+        color: $black;
     }
 
     &__track-inner {
+        display: block;
         position: absolute;
-        left: 0;
         top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        background: $white;
         transform: scaleX(0);
         transform-origin: left;
-        display: block;
+        background: $white;
     }
 }

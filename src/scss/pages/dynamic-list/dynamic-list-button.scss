@@ -1,13 +1,13 @@
 @use '../../abstract' as *;
 
 .c-dynamic-list-button {
-    background: $black;
-    color: $white;
-    border-radius: rem(30);
-    border: 1px $black solid;
     transition:
         opacity 0.55s,
         background 0.55s;
+    border: 1px $black solid;
+    border-radius: rem(30);
+    background: $black;
+    color: $white;
 
     &:hover {
         opacity: 0.5;

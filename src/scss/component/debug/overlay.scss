@@ -1,26 +1,26 @@
 @use '../../abstract' as *;
 
 .c-debug-overlay {
+    display: flex;
+    visibility: hidden;
     position: fixed;
+    z-index: 20;
     top: 0;
     bottom: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 20;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition:
-        opacity 0.35s,
-        visibility 0.35s;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition:
+        opacity 0.35s,
+        visibility 0.35s;
+    opacity: 0;
+    pointer-events: none;
 
     &.active {
-        opacity: 1;
         visibility: visible;
+        opacity: 1;
         pointer-events: all;
     }
 
@@ -30,8 +30,8 @@
         bottom: 0;
         width: 100%;
         height: 100%;
-        background: rgba($black, 0.98);
         border: 0;
+        background: rgba($black, 0.98);
 
         &:focus {
             outline: none;
@@ -40,11 +40,11 @@
 
     &__close {
         position: absolute;
+        z-index: 10;
         top: rem(20);
         right: rem(10);
-        z-index: 10;
-        height: var(--gap-size);
         width: var(--gap-size);
+        height: var(--gap-size);
         border: 0;
         background: transparent;
 
@@ -52,10 +52,10 @@
         &::before {
             content: '';
             position: absolute;
-            width: calc(var(--gap-size) / 2);
-            height: 2px;
             top: 50%;
             left: 50%;
+            width: calc(var(--gap-size) / 2);
+            height: 2px;
             background: $white;
         }
 
@@ -70,6 +70,7 @@
 
     &__grid {
         display: grid;
+        position: relative;
         grid-template-areas:
             'head head'
             'list component';
@@ -79,26 +80,25 @@
         width: 100%;
         max-width: 80%;
         border: 1px $white solid;
-        position: relative;
     }
 
     &__log {
+        display: inline-block;
         position: absolute;
-        color: $white;
         top: calc(100% + rem(5));
-        font-size: rem(14);
         right: -1px;
-        background: transparent;
-        border: 1px $white solid;
-        padding-inline: calc(var(--gap-size) / 2);
+        margin: 0;
         padding-top: 0;
         padding-bottom: 0;
-        margin: 0;
-        display: inline-block;
-        line-height: 1.7;
+        padding-inline: calc(var(--gap-size) / 2);
         transition:
             background 0.35s,
             color 0.35s;
+        border: 1px $white solid;
+        background: transparent;
+        color: $white;
+        font-size: rem(14);
+        line-height: 1.7;
 
         @include on-event {
             background: $white;
@@ -114,20 +114,20 @@
     &__list {
         --debug-list-header-height: #{rem(50)};
 
+        position: relative;
         grid-area: list;
         border-right: 1px $white solid;
-        position: relative;
 
         &__header {
-            color: $white;
-            padding-left: rem(40);
-            padding-right: rem(15);
-            height: var(--debug-list-header-height);
-            font-size: rem(16);
-            border-bottom: 1px rgba($white, 0.2) solid;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            height: var(--debug-list-header-height);
+            padding-right: rem(15);
+            padding-left: rem(40);
+            border-bottom: 1px rgba($white, 0.2) solid;
+            color: $white;
+            font-size: rem(16);
         }
 
         &__title {
@@ -136,9 +136,9 @@
         }
 
         &__toggle {
-            background: transparent;
             display: inline-block;
             border: 1px $white solid;
+            background: transparent;
             font-size: rem(12);
 
             &:nth-of-type(1) {
@@ -153,7 +153,7 @@
     }
 
     &__component {
-        grid-area: component;
         position: relative;
+        grid-area: component;
     }
 }

@@ -1,8 +1,8 @@
 @use '../../abstract' as *;
 
 .benchmark {
-    padding: rem(40);
     position: relative;
+    padding: rem(40);
 
     // Increase scrolling performance on smooth scroll.
     @include when-inside('.is-whelling') {
@@ -10,14 +10,14 @@
     }
 
     &__loading {
+        display: none;
         position: fixed;
         top: rem(200);
         left: 50%;
+        padding: rem(20);
         transform: translateX(-50%);
         border: 1px $black solid;
-        padding: rem(20);
         background: $grey;
-        display: none;
 
         &.active {
             display: block;
@@ -37,30 +37,30 @@
 
         &__input {
             width: rem(300);
-            background: transparent;
-            border: 1px $black solid;
             margin-right: rem(5);
-            padding-inline: rem(10);
-            line-height: 1.7;
             padding-top: 0;
             padding-bottom: 0;
+            padding-inline: rem(10);
+            border: 1px $black solid;
+            background: transparent;
+            line-height: 1.7;
         }
 
         &__button {
+            display: inline-block;
             grid-area: submit;
-            background: $black;
-            color: $white;
-            border: 0;
-            padding-inline: calc(var(--gap-size) / 2);
+            margin: 0;
+            margin-right: rem(5);
             padding-top: 0;
             padding-bottom: 0;
-            margin: 0;
-            display: inline-block;
-            line-height: 1.7;
-            margin-right: rem(5);
+            padding-inline: calc(var(--gap-size) / 2);
             transition:
                 background 0.35s,
                 color 0.35s;
+            border: 0;
+            background: $black;
+            color: $white;
+            line-height: 1.7;
 
             &:hover {
                 background: $white;

@@ -1,14 +1,14 @@
 @use '../../abstract' as *;
 
 .c-dynamic-slot {
-    background: $black;
+    margin: rem(20) 0;
     padding: calc(var(--gap-size) / 2);
     border-radius: rem(20);
-    margin: rem(20) 0;
+    background: $black;
 
     &__label {
+        margin: rem(20) 0;
         color: $white;
         font-size: rem(14);
-        margin: rem(20) 0;
     }
 }

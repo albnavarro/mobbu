@@ -1,16 +1,16 @@
 @use '../../abstract' as *;
 
 .right-sidebar {
+    display: none;
+    visibility: hidden;
     position: fixed;
     z-index: 9;
-    display: none;
-    left: var(--header-height);
     top: calc(var(--gap-size) + var(--header-height));
-    opacity: 0;
-    visibility: hidden;
+    left: var(--header-height);
     transition:
         opacity 0.35s,
         visibility 0.35s;
+    opacity: 0;
 
     // Performance on scroll
     @include when-inside('.is-whelling') {
@@ -18,8 +18,8 @@
     }
 
     &.visible {
-        opacity: 1;
         visibility: visible;
+        opacity: 1;
     }
 
     @include mq(xlarge) {
@@ -27,15 +27,15 @@
     }
 
     &__list {
-        list-style-type: none;
         margin: 0;
         padding: 0;
+        list-style-type: none;
     }
 
     &__title {
-        font-weight: 600;
         margin-bottom: calc(var(--gap-size) / 4);
         font-size: rem(12);
+        font-weight: 600;
         text-transform: uppercase;
 
         @include mq(large) {
@@ -44,8 +44,8 @@
     }
 
     &__item {
-        text-transform: capitalize;
         font-size: rem(12);
+        text-transform: capitalize;
 
         @include mq(large) {
             font-size: rem(13);
@@ -53,21 +53,21 @@
     }
 
     &__link {
-        transition: opacity 0.35s;
         position: relative;
+        transition: opacity 0.35s;
 
         &::before {
             content: '';
-            opacity: 0;
-            top: 50%;
-            transform: translateY(-50%) rotate(45deg);
-            right: calc(100% + #{rem(5)});
-            height: rem(4);
-            width: rem(4);
             position: absolute;
+            top: 50%;
+            right: calc(100% + #{rem(5)});
+            width: rem(4);
+            height: rem(4);
+            transform: translateY(-50%) rotate(45deg);
+            transition: opacity 0.35s;
             border-top: 1px rgba($black, 0.5) solid;
             border-right: 1px rgba($black, 0.5) solid;
-            transition: opacity 0.35s;
+            opacity: 0;
         }
 
         &.active {

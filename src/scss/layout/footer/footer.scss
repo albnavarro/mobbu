@@ -1,24 +1,24 @@
 @use '../../abstract' as *;
 
 [data-component='footer'] {
-    height: var(--footer-height);
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
+    height: var(--footer-height);
 }
 
 .l-footer {
-    height: var(--footer-height);
-    background: $grey;
+    display: none;
     position: fixed;
     z-index: 12;
     bottom: 0;
     left: 0;
     width: 100%;
-    text-align: center;
+    height: var(--footer-height);
     transition: background 0.35s;
-    display: none;
+    background: $grey;
+    text-align: center;
     user-select: none;
 
     &::after {
@@ -28,9 +28,9 @@
         left: 0;
         width: 100%;
         height: 1px;
-        background: $black;
-        transform-origin: top left;
         transform: scaleX(0);
+        transform-origin: top left;
+        background: $black;
     }
 
     &.is-visible {
@@ -76,19 +76,19 @@
     }
 
     &__container {
-        padding: 0 var(--gap-size);
         display: grid;
         height: 100%;
+        padding: 0 var(--gap-size);
     }
 
     &__debug {
-        position: absolute;
         display: flex;
+        position: absolute;
         right: rem(20);
         bottom: calc(var(--footer-height) * 0.5);
         transform: translateY(50%);
-        opacity: 0;
         transition: opacity 1s 0.2s;
+        opacity: 0;
 
         @include when-inside('.is-visible') {
             opacity: 1;

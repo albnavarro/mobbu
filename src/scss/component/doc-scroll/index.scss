@@ -3,12 +3,12 @@
 .c-doc-scroll {
     position: absolute;
     left: 0;
-    height: 100%;
     width: rem(10);
-    background: $black;
+    height: 100%;
     transform: scaleY(var(--delta));
     transform-origin: top;
     transition: transform 0.35s;
+    background: $black;
 
     --delta: 0;
 }

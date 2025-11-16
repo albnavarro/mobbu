@@ -4,33 +4,33 @@
     color: $white;
 
     &__label {
-        min-width: rem(200);
         display: inline-block;
+        min-width: rem(200);
     }
 
     &__input {
         width: rem(150);
-        background: transparent;
-        border: 1px $white solid;
         height: calc(var(--gap-size) / 2);
         margin-right: rem(5);
+        border: 1px $white solid;
+        background: transparent;
         vertical-align: middle;
     }
 
     &__button {
-        background: transparent;
-        border: 1px $white solid;
-        padding-inline: calc(var(--gap-size) / 2);
+        display: inline-block;
         height: calc(var(--gap-size) / 2);
+        margin: 0;
         padding-top: 0;
         padding-bottom: 0;
-        margin: 0;
-        display: inline-block;
-        line-height: 1.7;
-        vertical-align: middle;
+        padding-inline: calc(var(--gap-size) / 2);
         transition:
             background 0.35s,
             color 0.35s;
+        border: 1px $white solid;
+        background: transparent;
+        line-height: 1.7;
+        vertical-align: middle;
 
         @include on-event {
             background: $white;

@@ -3,10 +3,10 @@
 .anchor-button {
     @include button;
 
-    padding-left: calc(var(--gap-size) / 2);
-    padding-right: var(--gap-size);
-    text-align: left;
     position: relative;
+    padding-right: var(--gap-size);
+    padding-left: calc(var(--gap-size) / 2);
+    text-align: left;
 
     $self: &;
 
@@ -24,12 +24,12 @@
     }
 
     &__arrow {
+        display: block;
         position: absolute;
         top: 50%;
         right: rem(5);
         width: rem(20);
         height: rem(20);
-        display: block;
 
         &__start {
             position: absolute;
@@ -37,9 +37,9 @@
             left: 0;
             width: 2px;
             height: rem(10);
-            background: $black;
             transform: translate(-50%, -50%);
             transition: background 0.35s;
+            background: $black;
         }
 
         &__end {
@@ -48,10 +48,10 @@
             left: 0;
             width: rem(7);
             height: rem(7);
-            border-right: 2px $black solid;
-            border-bottom: 2px $black solid;
             transform: translate(-50%, -50%) rotate(45deg);
             transition: border-color 0.35s;
+            border-right: 2px $black solid;
+            border-bottom: 2px $black solid;
         }
     }
 }

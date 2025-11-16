@@ -1,19 +1,19 @@
 @use '../abstract' as *;
 
 .test-grid {
-    margin-top: rem(100);
     z-index: 12;
+    margin-top: rem(100);
 
     &__grid {
-        margin-bottom: rem(20);
         height: rem(40);
+        margin-bottom: rem(20);
         overflow: hidden;
 
         @include grid;
 
         span {
-            height: rem(40);
             width: 100%;
+            height: rem(40);
             background: red;
         }
     }
@@ -22,10 +22,10 @@
         @include container;
 
         span {
-            height: rem(100);
-            background: red;
             display: inline-block;
             width: calc(var(--col-size) * 2);
+            height: rem(100);
+            background: red;
         }
     }
 }

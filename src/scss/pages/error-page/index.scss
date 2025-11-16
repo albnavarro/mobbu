@@ -1,11 +1,11 @@
 @use '../../abstract' as *;
 
 .error-page {
-    padding: rem(30);
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: calc(100vh - var(--header-height) - var(--footer-height));
+    padding: rem(30);
     text-align: center;
 
     &__title {

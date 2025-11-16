@@ -11,16 +11,16 @@
 
     &__top,
     &__bottom {
-        height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        height: 100vh;
+        transition: background 0.55s;
         color: $black;
-        text-transform: capitalize;
         font-size: rem(25);
         font-weight: 600;
-        transition: background 0.55s;
+        text-transform: capitalize;
     }
 
     &__top {
@@ -57,23 +57,23 @@
     }
 
     &__wrap {
-        border: 1px $black solid;
-        height: 100%;
         position: relative;
+        height: 100%;
+        border: 1px $black solid;
     }
 
     &__nav {
         position: fixed;
-        left: calc(var(--header-height) * 0.5);
+        z-index: 9;
         top: calc(15% + var(--header-height) * 0.5 + 5px);
+        left: calc(var(--header-height) * 0.5);
         margin: 0;
         padding: 0;
         list-style-type: none;
-        font-size: 0;
-        z-index: 9;
-        opacity: 0;
-        transition: opacity 0.15s;
         transform: translateY(-100%);
+        transition: opacity 0.15s;
+        opacity: 0;
+        font-size: 0;
 
         &.active {
             opacity: 1;
@@ -91,18 +91,18 @@
         }
 
         &__btn {
+            position: relative;
             width: rem(60);
             height: rem(60);
             margin: 0;
-            font-size: rem(16);
-            background: transparent;
-            border: 0;
-            border-top: rem(5) transparent solid;
-            border-bottom: rem(5) transparent solid;
             transition:
                 background 0.55s,
                 border-top 0.55s;
-            position: relative;
+            border: 0;
+            border-top: rem(5) transparent solid;
+            border-bottom: rem(5) transparent solid;
+            background: transparent;
+            font-size: rem(16);
         }
     }
 
@@ -110,45 +110,45 @@
         position: absolute;
         top: 50%;
         left: 50%;
+        width: rem(200);
         transform: translate(-50%, -50%);
         border: rem(10px) rgba($black, 0.15) solid;
-        width: rem(200);
         text-align: center;
 
         h1 {
+            color: $black;
             font-size: rem(200);
             font-weight: 600;
-            color: $black;
         }
     }
 
     &__indicator {
-        border-right: 1px $black solid;
-        border: 0;
+        display: block;
+        z-index: 10;
         width: rem(60);
         height: rem(20);
-        color: $black;
+        margin: 0;
+        padding: 0;
         transition:
             background 0.15s,
             opacity 0.15s;
+        border: 0;
+        border-right: 1px $black solid;
+        opacity: 0;
+        color: $black;
         font-size: rem(16);
         pointer-events: none;
-        opacity: 0;
-        padding: 0;
-        margin: 0;
-        display: block;
-        z-index: 10;
 
         &.hidden {
             visibility: hidden;
         }
 
         span {
-            background: $black;
             display: block;
             width: rem(60);
             height: rem(10);
             transform: translateY(-100%);
+            background: $black;
         }
 
         &.active {

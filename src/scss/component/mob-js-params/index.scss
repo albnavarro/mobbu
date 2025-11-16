@@ -3,20 +3,20 @@
 .c-params-mobjs {
     --links-height: 54vh;
 
-    height: var(--links-height);
-    overflow: hidden;
+    visibility: visible;
     position: fixed;
+    z-index: 14;
     top: calc(var(--header-height) + var(--gap-size) * 2);
     left: calc(var(--doc-width) + (var(--gap-size) / 2));
-    z-index: 14;
     width: rem(250);
-    opacity: 1;
-    visibility: visible;
-    pointer-events: all;
+    height: var(--links-height);
+    overflow: hidden;
     transition:
         transform 0.55s,
         opacity 0.55s,
         visibility 0.55s;
+    opacity: 1;
+    pointer-events: all;
     mask-image: linear-gradient(rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 100%) rem(20));
 
     @include mq(xlarge) {
@@ -26,21 +26,21 @@
     }
 
     &.hide {
-        opacity: 0;
         visibility: hidden;
+        opacity: 0;
         pointer-events: none;
     }
 
     &.shift {
-        pointer-events: none;
         opacity: 0.1;
+        pointer-events: none;
     }
 
     ul {
-        list-style: none;
-        padding-bottom: rem(100);
         min-height: var(--links-height);
         margin: 0;
+        padding-bottom: rem(100);
+        list-style: none;
 
         @media screen and (height <= 825px) {
             margin-top: calc(#{rem(10)} * -1);
@@ -56,9 +56,9 @@
     }
 
     a {
-        transition: color 0.35s;
         display: block;
         position: relative;
+        transition: color 0.35s;
         font-size: rem(12);
         line-height: 1.6;
         text-transform: capitalize;
@@ -69,15 +69,15 @@
 
         &::after {
             content: '';
-            top: 50%;
-            transform: translateY(-50%);
-            left: calc(#{rem(20)} * -1);
-            height: em(15);
-            width: rem(4);
-            background: $black;
             position: absolute;
-            opacity: 0;
+            top: 50%;
+            left: calc(#{rem(20)} * -1);
+            width: rem(4);
+            height: em(15);
+            transform: translateY(-50%);
             transition: opacity 0.35s;
+            opacity: 0;
+            background: $black;
         }
 
         @media screen and (height >= 200px) and (height <= 750px) {
@@ -100,11 +100,11 @@
     }
 
     &__label {
-        line-height: 1.2;
         margin-top: calc(var(--gap-size) / 2);
         margin-bottom: rem(5);
-        font-weight: 600;
         font-size: rem(13);
+        font-weight: 600;
+        line-height: 1.2;
         text-transform: uppercase;
 
         @media screen and (height >= 200px) and (height <= 750px) {
@@ -114,15 +114,15 @@
 
     &__scrollbar {
         position: absolute;
+        z-index: 11;
         top: rem(25);
-        width: calc(var(--links-height) - #{rem(30)});
         left: rem(240);
+        width: calc(var(--links-height) - #{rem(30)});
         transform: rotate(90deg);
         transform-origin: left;
-        z-index: 11;
-        appearance: none;
         background: transparent;
         cursor: pointer;
+        appearance: none;
 
         --thumb-width: #{rem(200)};
 
@@ -135,42 +135,42 @@
         }
 
         &::-webkit-slider-runnable-track {
-            background-color: $grey-light;
-            border-radius: rem(10);
-            height: rem(10);
             width: var(--thumb-width);
+            height: rem(10);
+            border-radius: rem(10);
+            background-color: $grey-light;
         }
 
         &::-webkit-slider-thumb {
-            appearance: none;
-            background-color: $grey-medium-2;
-            height: rem(10);
             width: var(--thumb-width);
+            height: rem(10);
             border-radius: rem(10);
+            background-color: $grey-medium-2;
+            appearance: none;
         }
 
         &:focus::-webkit-slider-thumb {
-            outline-offset: 0;
             border-radius: rem(10);
+            outline-offset: 0;
         }
 
         &::-moz-range-track {
-            background-color: $grey-light;
             height: rem(10);
             border-radius: rem(10);
+            background-color: $grey-light;
         }
 
         &::-moz-range-thumb {
-            border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
-            background-color: $grey-medium-2;
-            height: rem(10);
             width: var(--thumb-width);
+            height: rem(10);
+            border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
             border-radius: rem(10);
+            background-color: $grey-medium-2;
         }
 
         &:focus::-moz-range-thumb {
-            outline-offset: 0;
             border-radius: rem(10);
+            outline-offset: 0;
         }
     }
 }

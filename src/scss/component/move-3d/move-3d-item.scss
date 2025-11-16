@@ -2,9 +2,9 @@
 
 .c-move3d-item {
     position: relative;
-    transform-style: preserve-3d;
     width: var(--item-width);
     height: var(--item-height);
+    transform-style: preserve-3d;
 
     > * {
         outline: 1px solid transparent;
@@ -15,64 +15,64 @@
     }
 
     &.is-children {
-        position: absolute;
         display: grid;
-        justify-content: center;
-        align-items: center;
+        position: absolute;
         grid-template-areas: 'content';
+        align-items: center;
+        justify-content: center;
 
         &.anchor-left {
-            transform-origin: left;
             bottom: var(--offset-y);
             left: calc(100% + var(--offset-x));
+            transform-origin: left;
         }
 
         &.anchor-right {
-            transform-origin: right;
-            bottom: var(--offset-y);
             right: calc(100% + var(--offset-x));
+            bottom: var(--offset-y);
+            transform-origin: right;
         }
 
         &.anchor-bottom {
-            transform-origin: bottom;
             bottom: calc(100% + var(--offset-y));
             left: var(--offset-x);
+            transform-origin: bottom;
         }
 
         &.anchor-top {
-            transform-origin: top;
             top: calc(100% + var(--offset-y));
             left: var(--offset-x);
+            transform-origin: top;
         }
 
         &.anchor-bottom-left {
-            transform-origin: bottom left;
             bottom: calc(100% + var(--offset-y));
             left: calc(100% + var(--offset-x));
+            transform-origin: bottom left;
         }
 
         &.anchor-bottom-right {
-            transform-origin: bottom right;
-            bottom: calc(100% + var(--offset-y));
             right: calc(100% + var(--offset-x));
+            bottom: calc(100% + var(--offset-y));
+            transform-origin: bottom right;
         }
 
         &.anchor-top-left {
-            transform-origin: top left;
             top: calc(100% + var(--offset-y));
             left: calc(100% + var(--offset-x));
+            transform-origin: top left;
         }
 
         &.anchor-top-right {
-            transform-origin: top right;
             top: calc(100% + var(--offset-y));
             right: calc(100% + var(--offset-x));
+            transform-origin: top right;
         }
 
         &.anchor-center {
-            transform-origin: center center;
             top: var(--offset-y);
             left: var(--offset-x);
+            transform-origin: center center;
         }
     }
 
@@ -83,8 +83,8 @@
 
     &__debug {
         position: absolute;
-        color: red;
         top: 0;
         left: 0;
+        color: red;
     }
 }

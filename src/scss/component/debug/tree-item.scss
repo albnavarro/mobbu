@@ -1,10 +1,10 @@
 @use '../../abstract' as *;
 
 .c-debug-tree-item {
+    position: relative;
+    padding-left: rem(40);
     color: $white;
     font-size: rem(12);
-    padding-left: rem(40);
-    position: relative;
 
     // Performance on scroll
     @include when-inside('.is-whelling') {
@@ -13,14 +13,14 @@
 
     &__head {
         &.has-children {
-            cursor: pointer;
             position: relative;
+            cursor: pointer;
 
             &::before {
                 content: '[ + ]';
                 position: absolute;
-                left: calc(#{rem(30)} * -1);
                 top: 50%;
+                left: calc(#{rem(30)} * -1);
                 transform: translateY(-50%);
                 font-size: rem(10);
             }
@@ -40,15 +40,15 @@
     }
 
     &__id {
-        font-weight: 600;
         opacity: 0.8;
+        font-weight: 600;
     }
 
     &__expand {
-        background: transparent;
-        border: 0;
-        font-size: rem(10);
         transition: opacity 0.35s;
+        border: 0;
+        background: transparent;
+        font-size: rem(10);
 
         &:focus {
             outline: none;
@@ -64,11 +64,11 @@
     }
 
     &__selected {
+        display: none;
         width: rem(10);
         height: rem(10);
         border-radius: 100%;
         background: $white;
-        display: none;
 
         &.active {
             display: inline-block;

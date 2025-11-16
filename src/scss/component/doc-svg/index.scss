@@ -2,10 +2,10 @@
 
 .c-doc-svg {
     position: relative;
+    padding: rem(40);
     overflow: hidden;
     border: 2px $white solid;
     border-radius: rem(10);
-    padding: rem(40);
 
     svg {
         width: 100%;

@@ -6,32 +6,32 @@
 
     @include mq(large) {
         display: block;
-        opacity: 0;
         visibility: hidden;
         transition:
             opacity 1s,
             visibility 1s;
+        opacity: 0;
 
         &.active {
-            opacity: 1;
             visibility: visible;
+            opacity: 1;
         }
     }
 
     svg {
         position: fixed;
-        bottom: rem(20);
+        z-index: 10;
         right: 0;
+        bottom: rem(20);
         width: rem(700);
         height: rem(400);
-        transform: translateX(40%);
-        z-index: 10;
         overflow: visible;
+        transform: translateX(40%);
 
         @include mq(xlarge) {
-            transform: translateX(30%);
             width: rem(1000);
             height: rem(500);
+            transform: translateX(30%);
         }
     }
 }

@@ -3,19 +3,19 @@
 .c-dynamic-card {
     $self: &;
 
+    box-sizing: border-box;
     flex: 0 0 100%;
     padding: calc(var(--gap-size) / 4);
-    text-align: left;
-    font-size: rem(14);
-    line-height: 1.4;
-    border: 0;
-    background: transparent;
-    opacity: 0;
     transition:
         opacity 1.55s,
         transform 0.35s;
+    border: 0;
+    opacity: 0;
+    background: transparent;
     color: $black;
-    box-sizing: border-box;
+    font-size: rem(14);
+    line-height: 1.4;
+    text-align: left;
 
     &.active {
         opacity: 1;
@@ -26,18 +26,18 @@
     }
 
     &__title {
-        color: $black;
         margin-bottom: rem(10);
+        color: $black;
         font-weight: 600;
     }
 
     &__container {
-        background: $grey-light;
-        border-radius: rem(30);
         padding: calc(var(--gap-size) / 2);
         transition:
             background 0.55s,
             color 0.55s;
+        border-radius: rem(30);
+        background: $grey-light;
     }
 
     &.is-selected {
@@ -64,10 +64,10 @@
     }
 
     &__repeater {
-        font-size: 0;
-        border-bottom: 1px rgba($black, 0.1) solid;
-        padding-bottom: calc(var(--gap-size) / 4);
         margin-bottom: calc(var(--gap-size) / 4);
+        padding-bottom: calc(var(--gap-size) / 4);
+        border-bottom: 1px rgba($black, 0.1) solid;
+        font-size: 0;
 
         @include when-inside('.is-selected') {
             border-bottom: 1px rgba($white, 0.1) solid;
@@ -75,8 +75,8 @@
     }
 
     &__button {
-        margin-bottom: calc(var(--gap-size) / 4);
         width: 100%;
+        margin-bottom: calc(var(--gap-size) / 4);
         padding: rem(12);
         border: 1px $white solid;
     }
