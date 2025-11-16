@@ -4,12 +4,12 @@
  * @import {MobComponent, ReturnBindProps, StaticProps, DelegateEvents,  ProxiState} from '@mobJsType';
  * @import {DynamicListCardInner} from './innerCard/type';
  * @import {DynamicListCard} from './type';
- * @import {DynamicCounter} from '../counter/type';
- * @import {DynamicListButton} from '../button/type';
+ * @import {DynamicCounter} from './counter/type';
+ * @import {DynamicListButton} from '../../button/type';
  */
 
 import { html, MobJs } from '@mobJs';
-import { innerData } from '../data';
+import { innerData } from '@pagesComponent/dynamic-list/data';
 
 /** @param {number} numberOfItem */
 function createArray(numberOfItem) {

@@ -1,12 +1,12 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DynamicListButton } from '../button/definition';
-import { DynamicCounter } from '../counter/definition';
-import { innerData } from '../data';
-import { DynamicListEmpty } from '../empty/definition';
 import { DynamicListCardFn } from './dynamic-list-card';
 import { DynamicListCardInner } from './innerCard/definition';
+import { innerData } from '@pagesComponent/dynamic-list/data';
+import { DynamicCounter } from './counter/definition';
+import { DynamicListEmpty } from './empty/definition';
+import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";

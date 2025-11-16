@@ -1,9 +1,7 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
-import { DynamicListCard } from '../card/definition';
-import { DynamicListSlottedLabel } from '../slotted-label/definition';
 import { DynamicListRepeaterFn } from './dynamic-list-repeater';
+import { DynamicListCard } from './card/definition';
+import { DynamicListSlottedLabel } from './slotted-label/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";

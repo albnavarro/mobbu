@@ -2,9 +2,9 @@
 
 /**
  * @import {Current, MobComponent, ReturnBindProps, StaticProps, BindProps, DelegateEvents, ProxiState} from '@mobJsType';
- * @import {DynamicListCard} from '../card/type';
+ * @import {DynamicListCard} from './card/type';
  * @import {DynamicListRepeater} from './type';
- * @import {DynamicListSlottedLabel} from '../slotted-label/type';
+ * @import {DynamicListSlottedLabel} from './slotted-label/type';
  */
 
 import { html } from '@mobJs';

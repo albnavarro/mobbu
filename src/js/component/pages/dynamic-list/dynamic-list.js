@@ -5,7 +5,7 @@
  * @import {DynamicList} from './type';
  * @import {DynamicListButton} from './button/type';]
  * @import {DynamicListRepeater} from './repeaters/type';]
- * @import {DynamicListCardInner} from './card/innerCard/type';]
+ * @import {DynamicListCardInner} from './repeaters/card/innerCard/type';]
  */
 
 import { html, MobJs } from '@mobJs';

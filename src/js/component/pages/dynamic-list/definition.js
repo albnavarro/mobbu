@@ -2,10 +2,10 @@
 
 import { MobJs } from '@mobJs';
 import { DynamicListButton } from './button/definition';
-import { DynamicListCardInner } from './card/innerCard/definition';
 import { startData } from './data';
 import { DynamicListFn } from './dynamic-list';
 import { DynamicListRepeater } from './repeaters/definition';
+import { DynamicListCardInner } from './repeaters/card/innerCard/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType";
