@@ -1,15 +1,17 @@
 # Prioritá
-1.  `BindObject/BindText/BindEffect` potrebbero scrollegarsi prima senza aspettare il deref() che diventerebbe un check si sicurezza, come ?
-2.  La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
+1. `MobJs`: I moduli interni vanno usati come `nameSpaces`.
+2.  `BindObject/BindText/BindEffect` potrebbero scrollegarsi prima senza aspettare il deref() che diventerebbe un check si sicurezza.
+    - [detail:](#BindObject/BindText/BindEffect)
+3.  La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
     ```js
     {
         type: 'string',
         value
     }
     ```
-3. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
-4.  Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
-5. Component app: `dragger` con `pinch zoom`.
+4. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
+5. Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
+6. Component app: `dragger` con `pinch zoom`.
 
 # App
 ### Docs: AsyncTimeline
@@ -137,6 +139,20 @@ store[prop] = valueTransformed;
 
 
 # MobJs
+
+<a name="BindObject/BindText/BindEffect"></a>
+### BindObject/BindText/BindEffect
+#### Problema:
+All' interno di un repeater senza componenti la logica delle referenze deboli funziona a meno che il numero di item non sia troppo grande, in questo caso ( ed 1000 item con 3 bindObject ) si possono avere dei leak.<br/>
+In quest casi va usato un repeater con i componenti al suo interno, quando il componente viene distrutto viene scollegato anche lo store relativo invalidano di moduli.
+
+#### Proposta:
+1. il modulo ( es. bindObject ) deve sapere se si trova all' interno di un repeater senza componenti.
+    - In teoria si possono usare i web-component placeholder del modulo stesso o del repeat.
+    - Potrebbe peró portare a un rallentamento anche senza reale necessitá.
+2. Ottenuta l'informazione sarebbe da ottenere anche l' id del repeater.
+3. Con queste informazioni di possono agganciare alla mappa del repeater una serie di callback che fanno un check sull' esistenza del parent della weakRef e nel caso scollegare il modulo.
+
 
 ### Create component:
  - Prendere due picconi con una fava.
