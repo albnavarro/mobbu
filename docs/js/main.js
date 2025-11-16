@@ -38781,64 +38781,7 @@
     `;
   };
 
-  // src/js/component/layout/header/header-nav.js
-  var onClick = ({ event }) => {
-    const button = event.target;
-    console.log(button);
-    const { url } = (
-      /** @type {HTMLButtonElement} */
-      button?.dataset ?? ""
-    );
-    modules_exports2.loadUrl({ url });
-    navigationStore.set("navigationIsOpen", false);
-  };
-  function additems({ delegateEvents }) {
-    const header = getCommonData().header;
-    const { links } = header;
-    const icon = {
-      github: getIcons()["gitHubIcon"]
-    };
-    return links.map((link) => {
-      const { svg, url, internal } = link;
-      return renderHtml`<li class="l-header__sidenav__item">
-                ${internal ? renderHtml`
-                          <button
-                              type="button"
-                              data-url="${url}"
-                              class="l-header__sidenav__link"
-                              ${delegateEvents({
-        click: (event) => {
-          console.log("click");
-          onClick({ event });
-        }
-      })}
-                          >
-                              ${icon[svg]}
-                          </button>
-                      ` : renderHtml`
-                          <a
-                              href="${url}"
-                              target="_blank"
-                              class="l-header__sidenav__link"
-                          >
-                              ${icon[svg]}
-                          </a>
-                      `}
-            </li>`;
-    }).join("");
-  }
-  var HeadernavFn = ({ delegateEvents }) => {
-    return renderHtml`
-        <ul class="l-header__sidenav">
-            <li class="l-header__sidenav__item">
-                <search-cta></search-cta>
-            </li>
-            ${additems({ delegateEvents })}
-        </ul>
-    `;
-  };
-
-  // src/js/component/layout/header/header-toggle.js
+  // src/js/component/layout/header/nav-toggle/header-toggle.js
   var HeaderToggleFn = ({
     delegateEvents,
     bindEffect,
@@ -38895,6 +38838,79 @@
     `;
   };
 
+  // src/js/component/layout/header/nav-toggle/definition.js
+  var HeaderToggle = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').HeaderToggle>} */
+    {
+      tag: "mob-header-toggle",
+      component: HeaderToggleFn,
+      bindStore: navigationStore,
+      state: {
+        isMounted: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/layout/header/header-nav/header-nav.js
+  var onClick = ({ event }) => {
+    const button = event.target;
+    console.log(button);
+    const { url } = (
+      /** @type {HTMLButtonElement} */
+      button?.dataset ?? ""
+    );
+    modules_exports2.loadUrl({ url });
+    navigationStore.set("navigationIsOpen", false);
+  };
+  function additems({ delegateEvents }) {
+    const header = getCommonData().header;
+    const { links } = header;
+    const icon = {
+      github: getIcons()["gitHubIcon"]
+    };
+    return links.map((link) => {
+      const { svg, url, internal } = link;
+      return renderHtml`<li class="l-header__sidenav__item">
+                ${internal ? renderHtml`
+                          <button
+                              type="button"
+                              data-url="${url}"
+                              class="l-header__sidenav__link"
+                              ${delegateEvents({
+        click: (event) => {
+          console.log("click");
+          onClick({ event });
+        }
+      })}
+                          >
+                              ${icon[svg]}
+                          </button>
+                      ` : renderHtml`
+                          <a
+                              href="${url}"
+                              target="_blank"
+                              class="l-header__sidenav__link"
+                          >
+                              ${icon[svg]}
+                          </a>
+                      `}
+            </li>`;
+    }).join("");
+  }
+  var HeadernavFn = ({ delegateEvents }) => {
+    return renderHtml`
+        <ul class="l-header__sidenav">
+            <li class="l-header__sidenav__item">
+                <search-cta></search-cta>
+            </li>
+            ${additems({ delegateEvents })}
+        </ul>
+    `;
+  };
+
   // src/js/component/common/search/search-overlay/utils.js
   var toggleSearchOverlay = () => {
     const overlayMethods = modules_exports2.useMethodByName(searchOverlay);
@@ -38945,7 +38961,7 @@
     component: SearchCtaFn
   });
 
-  // src/js/component/layout/header/definition.js
+  // src/js/component/layout/header/header-nav/definition.js
   var HeaderNav = modules_exports2.createComponent(
     /** @type {CreateComponentParams<any>} */
     {
@@ -38954,20 +38970,8 @@
       child: [Search]
     }
   );
-  var HeaderToggle = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').HeaderToggle>} */
-    {
-      tag: "mob-header-toggle",
-      component: HeaderToggleFn,
-      bindStore: navigationStore,
-      state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
+
+  // src/js/component/layout/header/definition.js
   var Header = modules_exports2.createComponent(
     /** @type {CreateComponentParams<import('./type').Header>} */
     {
