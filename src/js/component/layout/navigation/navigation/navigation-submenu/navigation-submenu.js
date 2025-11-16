@@ -1,11 +1,13 @@
 /**
  * @import {MobComponent, ProxiState, ReturnBindProps, StaticProps} from '@mobJsType';
- * @import {NavigationButton,  NavigationSubmenu} from './type';
+ * @import {NavigationSubmenu} from './type';
+ * @import {NavigationButton} from '../navigation-button/type';
  */
 
 import { html } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
-import { closeAllNavAccordion, refreshNavigationScroller } from './utils';
+import { refreshNavigationScroller } from '../../utils';
+import { closeAllNavAccordion } from '../utils';
 
 /**
  * @param {object} params

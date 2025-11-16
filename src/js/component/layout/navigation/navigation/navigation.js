@@ -1,6 +1,9 @@
 /**
  * @import {MobComponent, ReturnBindProps, StaticProps, BindProps} from '@mobJsType';
- * @import {Navigation, NavigationButton, NavigationLabel, NavigationSubmenu} from './type';
+ * @import {Navigation} from './type';
+ * @import {NavigationButton} from './navigation-button/type';
+ * @import {NavigationLabel} from './navigation-label/type';
+ * @import {NavigationSubmenu} from './navigation-submenu/type';
  */
 
 import { html } from '@mobJs';
@@ -10,7 +13,7 @@ import { getCommonData } from '@data/index';
  * Create first level items.
  *
  * @param {object} param
- * @param {import('../../../data/type').CommonData['navigation']} param.data
+ * @param {import('../../../../data/type').CommonData['navigation']} param.data
  * @param {StaticProps} param.staticProps
  * @param {BindProps<Navigation, NavigationSubmenu>} param.bindProps
  * @param {Navigation['state']} param.proxi

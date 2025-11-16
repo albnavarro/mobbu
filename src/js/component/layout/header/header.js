@@ -7,15 +7,13 @@ import { html, MobJs } from '@mobJs';
 import { navigationStore } from '@stores/navigation';
 import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
-import {
-    closeAllNavAccordion,
-    scrollToTopNav,
-} from '@layoutComponent/navigation/utils';
+import { scrollToTopNav } from '@layoutComponent/navigation/utils';
+import { closeAllNavAccordion } from '@layoutComponent/navigation/navigation/utils';
 
 function titleHandler() {
     MobJs.loadUrl({ url: 'home' });
-    navigationStore.set('navigationIsOpen', false);
     closeAllNavAccordion();
+    navigationStore.set('navigationIsOpen', false);
     scrollToTopNav();
 }
 

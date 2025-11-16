@@ -38683,10 +38683,6 @@
   );
 
   // src/js/component/layout/navigation/utils.js
-  var closeAllNavAccordion = ({ fireCallback = true } = {}) => {
-    const mainNavigationMethods = modules_exports2.useMethodByName(mobNavigationName);
-    mainNavigationMethods?.closeAllAccordion({ fireCallback });
-  };
   var scrollToTopNav = () => {
     const navContainerMethods = modules_exports2.useMethodByName(
       mobNavigationContainerName
@@ -38698,11 +38694,17 @@
     methods?.refresh();
   };
 
+  // src/js/component/layout/navigation/navigation/utils.js
+  var closeAllNavAccordion = ({ fireCallback = true } = {}) => {
+    const mainNavigationMethods = modules_exports2.useMethodByName(mobNavigationName);
+    mainNavigationMethods?.closeAllAccordion({ fireCallback });
+  };
+
   // src/js/component/layout/header/header.js
   function titleHandler() {
     modules_exports2.loadUrl({ url: "home" });
-    navigationStore.set("navigationIsOpen", false);
     closeAllNavAccordion();
+    navigationStore.set("navigationIsOpen", false);
     scrollToTopNav();
   }
   var HeaderFn = ({
@@ -39157,7 +39159,7 @@
     `;
   };
 
-  // src/js/component/layout/navigation/navigation.js
+  // src/js/component/layout/navigation/navigation/navigation.js
   function getItems3({ data, staticProps: staticProps2, bindProps, proxi }) {
     return data.map((item, index) => {
       const {
@@ -39257,64 +39259,7 @@
     `;
   };
 
-  // src/js/component/layout/navigation/navigation-button.js
-  var NavigationButtonFn = ({
-    delegateEvents,
-    getProxi,
-    bindEffect
-  }) => {
-    const proxi = getProxi();
-    const {
-      label,
-      url,
-      arrowClass,
-      subMenuClass,
-      fireRoute,
-      callback: callback2,
-      scrollToSection,
-      activeId,
-      forceChildren
-    } = proxi;
-    modules_exports2.afterRouteChange(({ currentRoute }) => {
-      modules_exports.useFrame(() => {
-        const urlParsed = url.split("?");
-        const hash = urlParsed?.[0] ?? "";
-        const activeParams = modules_exports2.getActiveParams();
-        const paramsMatch = activeId === -1 || activeParams?.["activeId"] === `${activeId}`;
-        const isActiveRoute = currentRoute === hash && paramsMatch;
-        const forceChildrenMatch = forceChildren.includes(currentRoute);
-        proxi.isCurrent = isActiveRoute || forceChildrenMatch;
-        if (isActiveRoute && fireRoute) {
-          callback2();
-          navigationStore.set("activeNavigationSection", scrollToSection);
-        }
-      });
-    });
-    return renderHtml`
-        <button
-            type="button"
-            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
-            ${delegateEvents({
-      click: () => {
-        callback2();
-        if (!fireRoute) return;
-        modules_exports2.loadUrl({ url });
-        navigationStore.set("navigationIsOpen", false);
-      }
-    })}
-            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.isOpen,
-        current: () => proxi.isCurrent
-      }
-    })}
-        >
-            ${label}
-        </button>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigation-label.js
+  // src/js/component/layout/navigation/navigation/navigation-label/navigation-label.js
   var NavigationLabelFn = ({ bindEffect, getProxi }) => {
     const proxi = getProxi();
     return renderHtml`
@@ -39333,7 +39278,31 @@
     `;
   };
 
-  // src/js/component/layout/navigation/navigation-submenu.js
+  // src/js/component/layout/navigation/navigation/navigation-label/definition.js
+  var NavigationLabel = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').NavigationLabel>} */
+    {
+      tag: "mob-navigation-label",
+      component: NavigationLabelFn,
+      bindStore: navigationStore,
+      props: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        sectioName: () => ({
+          value: "",
+          type: String
+        }),
+        hide: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/layout/navigation/navigation/navigation-submenu/navigation-submenu.js
   function getSubmenu({ proxi, staticProps: staticProps2 }) {
     return proxi.children.map((child) => {
       const { label, url, scrollToSection, activeId } = child;
@@ -39421,7 +39390,64 @@
     `;
   };
 
-  // src/js/component/layout/navigation/definition.js
+  // src/js/component/layout/navigation/navigation/navigation-button/navigation-button.js
+  var NavigationButtonFn = ({
+    delegateEvents,
+    getProxi,
+    bindEffect
+  }) => {
+    const proxi = getProxi();
+    const {
+      label,
+      url,
+      arrowClass,
+      subMenuClass,
+      fireRoute,
+      callback: callback2,
+      scrollToSection,
+      activeId,
+      forceChildren
+    } = proxi;
+    modules_exports2.afterRouteChange(({ currentRoute }) => {
+      modules_exports.useFrame(() => {
+        const urlParsed = url.split("?");
+        const hash = urlParsed?.[0] ?? "";
+        const activeParams = modules_exports2.getActiveParams();
+        const paramsMatch = activeId === -1 || activeParams?.["activeId"] === `${activeId}`;
+        const isActiveRoute = currentRoute === hash && paramsMatch;
+        const forceChildrenMatch = forceChildren.includes(currentRoute);
+        proxi.isCurrent = isActiveRoute || forceChildrenMatch;
+        if (isActiveRoute && fireRoute) {
+          callback2();
+          navigationStore.set("activeNavigationSection", scrollToSection);
+        }
+      });
+    });
+    return renderHtml`
+        <button
+            type="button"
+            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
+            ${delegateEvents({
+      click: () => {
+        callback2();
+        if (!fireRoute) return;
+        modules_exports2.loadUrl({ url });
+        navigationStore.set("navigationIsOpen", false);
+      }
+    })}
+            ${bindEffect({
+      toggleClass: {
+        active: () => proxi.isOpen,
+        current: () => proxi.isCurrent
+      }
+    })}
+        >
+            ${label}
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigation/navigation-button/definition.js
   var NavigationButton = modules_exports2.createComponent(
     /** @type {CreateComponentParams<import('./type').NavigationButton>} */
     {
@@ -39478,28 +39504,8 @@
       }
     }
   );
-  var NavigationLabel = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').NavigationLabel>} */
-    {
-      tag: "mob-navigation-label",
-      component: NavigationLabelFn,
-      bindStore: navigationStore,
-      props: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        sectioName: () => ({
-          value: "",
-          type: String
-        }),
-        hide: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
+
+  // src/js/component/layout/navigation/navigation/navigation-submenu/definition.js
   var NavigationSubmenu = modules_exports2.createComponent(
     /** @type {CreateComponentParams<import('./type').NavigationSubmenu>} */
     {
@@ -39527,6 +39533,8 @@
       child: [NavigationButton]
     }
   );
+
+  // src/js/component/layout/navigation/navigation/definition.js
   var Navigation = modules_exports2.createComponent(
     /** @type {CreateComponentParams<import('./type').Navigation>} */
     {
@@ -39542,6 +39550,8 @@
       child: [NavigationLabel, NavigationSubmenu, NavigationButton]
     }
   );
+
+  // src/js/component/layout/navigation/definition.js
   var NavigationContainer = modules_exports2.createComponent(
     /** @type {CreateComponentParams<import('./type').NavigationContainer>} */
     {
