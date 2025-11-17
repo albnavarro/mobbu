@@ -1,16 +1,19 @@
 # Prioritá
+0. `ComponentMap` funzione che ritorna una copia come nello `store`.
 1.  `BindObject/BindText/BindEffect` potrebbero scrollegarsi prima senza aspettare il deref() che diventerebbe un check si sicurezza.
     - [detail:](#BindObject/BindText/BindEffect)
-2.  La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
+2. `BindEffect/BindObject/BindText`, await repeat/invalidate.
+    - [detail:](#await-repeat-invalidate)
+3.  La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
     ```js
     {
         type: 'string',
         value
     }
     ```
-3. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
-4. Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
-5. Component app: `dragger` con `pinch zoom`.
+4. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
+5. Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
+6. Component app: `dragger` con `pinch zoom`.
 
 # App
 ### Docs: AsyncTimeline
@@ -162,6 +165,17 @@ Da migliorare/verificare:
 - Il Set legato ( ad ora ) al `repeater` ( in futuro anche `invalidate` ) attivo traccia lo stato da osservare.
 - Basta a questo punto aggiungere un `watcher` sullo stato e vedere un frame dopo se `ref.deref().parentNode` esiste ancora.
 - Quest'ultima soluzione non é entusiasmante, l' ideale e che `bindObject` etc.. sapessero se il loro elemento esiste ancora dai dati dello stato in quel momento, ma qui é un pó piu complesso, pensiamoci.
+
+
+<a name="await-repeat-invalidate"></a>
+### BindEffect/BindObject/BindText await
+- Questi moduli potrebbero iplementare:
+```js
+return watchById(id, state, async () => {
+    await repeaterTick({ debug: true });
+    await invalidateTick({ debug: true });
+```
+- Secondo tentativo, capire dove fallivano la volta precedente, non noto errori ora.
 
 
 
