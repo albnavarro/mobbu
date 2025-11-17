@@ -69,7 +69,17 @@ export const parseComponentsWhile = async ({
     let componentToParse = result?.componentToParse;
 
     /**
-     * Loop
+     * Main Loop.
+     *
+     * In this loop, components are rendered without the browser performing a reflow. The reflow occurs in two specific
+     * cases and requires intentional user action to happen.
+     *
+     * A) UserFunctionComponent: The user function is asynchronous. This can and should only occur at the root node of a
+     * page. Its internal components will resolve the asynchronous function in the first available microtask.
+     *
+     * B) FireOnMountCallBack: The onMount function is asynchronous. This means the component was used as scoped,
+     * splitting the rendering flow. It is an option but rarely used, as in the previous example, by default it is
+     * resolved in the first available microtask.
      */
     while (componentToParse) {
         /**
@@ -183,7 +193,10 @@ export const parseComponentsWhile = async ({
         });
 
         /**
-         * Launch userFunctionComponent and wait for render function with custom DOM to add to component.
+         * A) Possible reflow id component function use a async function ( eg: a fetch after initialization ).
+         *
+         * - Launch userFunctionComponent and wait for render function with custom DOM to add to component.
+         * - By default component should not return an asynchronous function.
          */
         const content = await userFunctionComponent(
             objectFromComponentFunction
@@ -256,6 +269,11 @@ export const parseComponentsWhile = async ({
         const shoulBeScoped = scoped ?? getDefaultComponent().scoped;
 
         if (shoulBeScoped) {
+            /**
+             * B) Possible reflow if user use a asynchronous call inside onMount.
+             *
+             * - By default onMount should not return an asynchronous function.
+             */
             await fireOnMountCallBack({
                 id,
                 element: newElement,

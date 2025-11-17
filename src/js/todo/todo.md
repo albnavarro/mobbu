@@ -1,17 +1,16 @@
 # Prioritá
-1. `MobJs`: I moduli interni vanno usati come `nameSpaces`.
-2.  `BindObject/BindText/BindEffect` potrebbero scrollegarsi prima senza aspettare il deref() che diventerebbe un check si sicurezza.
+1.  `BindObject/BindText/BindEffect` potrebbero scrollegarsi prima senza aspettare il deref() che diventerebbe un check si sicurezza.
     - [detail:](#BindObject/BindText/BindEffect)
-3.  La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
+2.  La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
     ```js
     {
         type: 'string',
         value
     }
     ```
-4. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
-5. Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
-6. Component app: `dragger` con `pinch zoom`.
+3. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
+4. Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
+5. Component app: `dragger` con `pinch zoom`.
 
 # App
 ### Docs: AsyncTimeline
@@ -147,11 +146,23 @@ All' interno di un repeater senza componenti la logica delle referenze deboli fu
 In quest casi va usato un repeater con i componenti al suo interno, quando il componente viene distrutto viene scollegato anche lo store relativo invalidano di moduli.
 
 #### Proposta:
-1. il modulo ( es. bindObject ) deve sapere se si trova all' interno di un repeater senza componenti.
-    - In teoria si possono usare i web-component placeholder del modulo stesso o del repeat.
-    - Potrebbe peró portare a un rallentamento anche senza reale necessitá.
-2. Ottenuta l'informazione sarebbe da ottenere anche l' id del repeater.
-3. Con queste informazioni di possono agganciare alla mappa del repeater una serie di callback che fanno un check sull' esistenza del parent della weakRef e nel caso scollegare il modulo.
+1. Una variabile `globale` puó sapere se nel ciclo `while` di `parseComponentsWhile` vengono interecettati componenti.
+    - Teoricamante se la varibile globale fosse un `contatore` sia il valore **0** ( non ci sono componenti ) o **1** ( abbiamo dei componenti ma siamo sempre al primo livello ) andrebbero bene.
+2. Il `placeholder`  del modulo nel metodo `connectedCallback()` puó sapere dunque se si trova all'interno di un repeater/invalidate ma fuori da un componente.
+4. Creare una funzione chiamata `getAllActiveRepeater()` in `src/js/mob/mob-js/modules/repeater/active-repeater/index.js`, tornará un Set in cui ci sono le informazioni del repeater attivo.
+    ```js
+    export const getAllActiveRepeater = () => {
+        return [...activeRepeatMap];
+    };
+    ```
+5. Nota: `activeRepeatMap` si dovrebbe chiamare `activeDynamicBlockSet()` e dovrebbe tracciare sia `repeater` che `invalidate` ( con la modifca che estende il controllo anche agli invalidate ).
+5. Con queste informazioni possiamo creare una nuova mappa in cui ad ogni id di `repeat` o `invalidate` si puó collegare un array di id di moduli `bindText/bindObject/bindEffect` che saranno soggetti al controllo.
+
+Da migliorare/verificare:
+- Il Set legato ( ad ora ) al `repeater` ( in futuro anche `invalidate` ) attivo traccia lo stato da osservare.
+- Basta a questo punto aggiungere un `watcher` sullo stato e vedere un frame dopo se `ref.deref().parentNode` esiste ancora.
+- Quest'ultima soluzione non é entusiasmante, l' ideale e che `bindObject` etc.. sapessero se il loro elemento esiste ancora dai dati dello stato in quel momento, ma qui é un pó piu complesso, pensiamoci.
+
 
 
 ### Create component:
