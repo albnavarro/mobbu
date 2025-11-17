@@ -9,6 +9,8 @@
     width: 100%;
     margin: auto;
 
+    $self: &;
+
     &__list {
         margin: 0;
         padding: 0;
@@ -56,11 +58,34 @@
             color 0.35s,
             border-color 0.35s,
             opacity 0.35s;
+        transition: opacity 0.35s;
         border: 0;
         background: transparent;
         color: rgba($black, 0.7);
         text-align: left;
         text-decoration: none;
+
+        &:not(#{$self}__link--arrow) {
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: rem(8);
+                width: rem(5);
+                height: rem(5);
+                transform: translateY(-50%) rotate(45deg);
+                transition: opacity 0.35s;
+                border-top: 2px $black solid;
+                border-right: 2px $black solid;
+                opacity: 0;
+            }
+
+            &:hover {
+                &::after {
+                    opacity: 1;
+                }
+            }
+        }
 
         // Performance on scroll
         @include when-inside('.is-whelling') {
@@ -82,7 +107,7 @@
                 transform: translateY(-50%) rotate(45deg);
                 transition:
                     border-color 0.55s,
-                    transform 0.35s;
+                    transform 0.35s opacity 0.35s;
                 border-right: 2px $black solid;
                 border-bottom: 2px $black solid;
             }
@@ -95,6 +120,10 @@
                 &::before {
                     transform: scaleX(25%);
                 }
+            }
+
+            &:hover {
+                opacity: 0.5;
             }
         }
 
@@ -120,18 +149,6 @@
 
         &__item {
             position: relative;
-
-            &::after {
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 0;
-                width: rem(5);
-                height: rem(5);
-                transform: translateY(-50%);
-                border-radius: 100%;
-                background: $black;
-            }
 
             &:last-child {
                 border-bottom: 0;

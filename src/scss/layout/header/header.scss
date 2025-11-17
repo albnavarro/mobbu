@@ -85,7 +85,12 @@
     &__toggle {
         position: relative;
         grid-area: toggle;
+        transition: opacity 0.35s;
         border: 0;
+
+        &:hover {
+            opacity: 0.5;
+        }
     }
 
     &__title-container {
@@ -98,10 +103,15 @@
         grid-area: title;
         width: auto;
         padding-left: rem(20);
+        transition: transform 0.35s;
         border: 0;
         background: transparent;
         color: $black;
         text-align: left;
+
+        &:hover {
+            transform: translateX(rem(10));
+        }
 
         h3 {
             display: inline-block;

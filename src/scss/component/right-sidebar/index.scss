@@ -61,12 +61,12 @@
             position: absolute;
             top: 50%;
             right: calc(100% + #{rem(5)});
-            width: rem(4);
-            height: rem(4);
+            width: rem(5);
+            height: rem(5);
             transform: translateY(-50%) rotate(45deg);
             transition: opacity 0.35s;
-            border-top: 1px rgba($black, 0.5) solid;
-            border-right: 1px rgba($black, 0.5) solid;
+            border-top: 2px $black solid;
+            border-right: 2px $black solid;
             opacity: 0;
         }
 
