@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { LinksMobJsButtonFn } from './links-mobjs-button';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const LinksMobJsButton = MobJs.createComponent(

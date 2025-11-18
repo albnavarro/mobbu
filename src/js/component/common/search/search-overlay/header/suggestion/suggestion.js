@@ -1,8 +1,11 @@
 import { html } from '@mobJs';
 
 /**
- * @import {MobComponent, ReturnBindProps} from '@mobJsType';
- * @import {SearchOverlaySugestionItem} from './suggestion-item/type';
+ * @import {
+ *   MobComponent,
+ *   ReturnBindProps
+ * } from "@mobJsType"
+ * @import {SearchOverlaySugestionItem} from "./suggestion-item/type"
  */
 
 /** @type {MobComponent<import('./type').SearchOverlaySuggestion>} */

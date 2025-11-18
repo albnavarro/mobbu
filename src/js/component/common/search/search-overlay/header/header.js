@@ -1,5 +1,9 @@
 /**
- * @import {GetRef, MobComponent, ReturnBindProps} from '@mobJsType';
+ * @import {
+ *   GetRef,
+ *   MobComponent,
+ *   ReturnBindProps
+ * } from "@mobJsType"
  */
 
 import { getCommonData } from '@data/index';

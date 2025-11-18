@@ -4,7 +4,7 @@ import { MobJs } from '@mobJs';
 import { DynamicListCardInnerFn } from './dynamic-list-card-inner';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const DynamicListCardInner = MobJs.createComponent(

@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { ParagraphFn } from './paragraph';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const Paragraph = MobJs.createComponent(

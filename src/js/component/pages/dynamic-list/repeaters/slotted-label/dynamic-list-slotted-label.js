@@ -3,8 +3,8 @@
 import { html } from '@mobJs';
 
 /**
- * @import {MobComponent} from '@mobJsType';
- * @import {DynamicListSlottedLabel} from './type';
+ * @import {MobComponent} from "@mobJsType"
+ * @import {DynamicListSlottedLabel} from "./type"
  */
 
 /** @type {MobComponent<DynamicListSlottedLabel>} * */

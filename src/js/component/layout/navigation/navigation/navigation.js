@@ -1,9 +1,14 @@
 /**
- * @import {MobComponent, ReturnBindProps, StaticProps, BindProps} from '@mobJsType';
- * @import {Navigation} from './type';
- * @import {NavigationButton} from './navigation-button/type';
- * @import {NavigationLabel} from './navigation-label/type';
- * @import {NavigationSubmenu} from './navigation-submenu/type';
+ * @import {
+ *   BindProps,
+ *   MobComponent,
+ *   ReturnBindProps,
+ *   StaticProps
+ * } from "@mobJsType"
+ * @import {NavigationButton} from "./navigation-button/type"
+ * @import {NavigationLabel} from "./navigation-label/type"
+ * @import {NavigationSubmenu} from "./navigation-submenu/type"
+ * @import {Navigation} from "./type"
  */
 
 import { html } from '@mobJs';

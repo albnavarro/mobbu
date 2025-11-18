@@ -1,7 +1,7 @@
 import { walkPreOrder } from './query-all-future-component';
 
 /**
- * @import {UserComponent} from '../web-component/type';
+ * @import {UserComponent} from "../web-component/type"
  */
 
 /**

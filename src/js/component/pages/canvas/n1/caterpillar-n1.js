@@ -1,8 +1,8 @@
 //@ts-check
 
 /**
- * @import {MobComponent} from '@mobJsType';
- * @import {CaterpillarN1} from './type';
+ * @import {MobComponent} from "@mobJsType"
+ * @import {CaterpillarN1} from "./type"
  */
 
 import { MobCore } from '@mobCore';

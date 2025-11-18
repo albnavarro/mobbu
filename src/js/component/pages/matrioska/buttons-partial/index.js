@@ -3,8 +3,13 @@ import { buttons } from './utils';
 import { MobCore } from '@mobCore';
 
 /**
- * @import {DelegateEvents, UpdateState,  Invalidate,  ProxiState} from '@mobJsType'
- * @import {Matrioska} from '../type'
+ * @import {
+ *   DelegateEvents,
+ *   Invalidate,
+ *   ProxiState,
+ *   UpdateState
+ * } from "@mobJsType"
+ * @import {Matrioska} from "../type"
  */
 
 /** @param {number} max */

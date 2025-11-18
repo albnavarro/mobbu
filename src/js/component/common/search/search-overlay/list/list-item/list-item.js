@@ -11,7 +11,7 @@ const loadPage = ({ uri }) => {
 };
 
 /**
- * @import {MobComponent} from '@mobJsType';
+ * @import {MobComponent} from "@mobJsType"
  */
 
 /** @type {MobComponent<import('./type').SearchOverlayListItem>} */

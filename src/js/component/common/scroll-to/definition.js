@@ -3,7 +3,7 @@ import { ScrollToButton } from './button/definition';
 import { ScrollToFn } from './scroll-to';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const ScrollTo = MobJs.createComponent(

@@ -1,7 +1,12 @@
 /**
- * @import {MobComponent, ProxiState, ReturnBindProps, StaticProps} from '@mobJsType';
- * @import {NavigationSubmenu} from './type';
- * @import {NavigationButton} from '../navigation-button/type';
+ * @import {
+ *   MobComponent,
+ *   ProxiState,
+ *   ReturnBindProps,
+ *   StaticProps
+ * } from "@mobJsType"
+ * @import {NavigationButton} from "../navigation-button/type"
+ * @import {NavigationSubmenu} from "./type"
  */
 
 import { html } from '@mobJs';

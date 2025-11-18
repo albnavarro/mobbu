@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { RightSidebarFn } from './right-sidebar';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const RightSidebar = MobJs.createComponent(

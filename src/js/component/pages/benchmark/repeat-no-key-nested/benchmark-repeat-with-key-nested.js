@@ -4,8 +4,11 @@ import { html } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 
 /**
- * @import {MobComponent, ReturnBindProps} from '@mobJsType';
- * @import {BenchMarkFakeComponent} from '../fake-component/type';
+ * @import {
+ *   MobComponent,
+ *   ReturnBindProps
+ * } from "@mobJsType"
+ * @import {BenchMarkFakeComponent} from "../fake-component/type"
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */

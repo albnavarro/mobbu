@@ -4,7 +4,7 @@ import { MobJs } from '@mobJs';
 import { Mobbu2025fn } from './mob2025';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const mobbbu2025 = MobJs.createComponent(

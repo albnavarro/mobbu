@@ -1,5 +1,11 @@
 /**
- * @import {BindEffect, DelegateEvents, GetState, MobComponent, SetRef} from '@mobJsType';
+ * @import {
+ *   BindEffect,
+ *   DelegateEvents,
+ *   GetState,
+ *   MobComponent,
+ *   SetRef
+ * } from "@mobJsType"
  */
 
 import { MobCore } from '@mobCore';

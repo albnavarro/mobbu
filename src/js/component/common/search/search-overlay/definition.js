@@ -4,7 +4,7 @@ import { SearchOverlayHeader } from './header/definition';
 import { SearchOverlayList } from './list/definition';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const SearchOverlay = MobJs.createComponent(

@@ -5,7 +5,7 @@ import { benchMarkDefinitionPartial } from '../partials/definition-partial';
 import { BenchMarkRepeatWithKyFn } from './benchmark-repeat-with-key';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const BenchMarkRepeatWithKey = MobJs.createComponent(

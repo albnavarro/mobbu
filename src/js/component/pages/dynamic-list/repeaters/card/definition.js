@@ -9,7 +9,7 @@ import { DynamicListEmpty } from './empty/definition';
 import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definition';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const DynamicListCard = MobJs.createComponent(

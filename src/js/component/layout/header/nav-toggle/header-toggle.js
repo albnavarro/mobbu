@@ -1,5 +1,5 @@
 /**
- * @import {MobComponent} from '@mobJsType';
+ * @import {MobComponent} from "@mobJsType"
  */
 
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';

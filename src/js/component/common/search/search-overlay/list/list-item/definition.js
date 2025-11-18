@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { SearchOverlayListItemFn } from './list-item';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const SearchOverlayListItem = MobJs.createComponent(

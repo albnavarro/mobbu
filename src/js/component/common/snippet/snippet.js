@@ -1,6 +1,6 @@
 /**
- * @import {MobComponent} from '@mobJsType';
- * @import {Snippet} from './type';
+ * @import {MobComponent} from "@mobJsType"
+ * @import {Snippet} from "./type"
  */
 
 import { html } from '@mobJs';

@@ -1,8 +1,11 @@
 //@ts-check
 
 /**
- * @import {MobComponent} from '@mobJsType';
- * @import {AsyncTimeline, AsyncTimelineControls} from './type';
+ * @import {MobComponent} from "@mobJsType"
+ * @import {
+ *   AsyncTimeline,
+ *   AsyncTimelineControls
+ * } from "./type"
  */
 
 import { MobCore } from '@mobCore';

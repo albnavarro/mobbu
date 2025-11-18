@@ -3,9 +3,12 @@ import { getButtons } from './buttons-partial';
 import { getSecondLevel } from './repeat-partial/second-level';
 
 /**
- * @import {MobComponent, ReturnBindProps} from '@mobJsType'
- * @import {Matrioska} from './type'
- * @import {MatrioskaItem} from './item/type'
+ * @import {
+ *   MobComponent,
+ *   ReturnBindProps
+ * } from "@mobJsType"
+ * @import {MatrioskaItem} from "./item/type"
+ * @import {Matrioska} from "./type"
  */
 
 /** @type {MobComponent<Matrioska>} */

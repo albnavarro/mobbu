@@ -1,6 +1,6 @@
 /**
- * @import {MobComponent} from '@mobJsType';
- * @import {SpacerAnchor} from './type';
+ * @import {MobComponent} from "@mobJsType"
+ * @import {SpacerAnchor} from "./type"
  */
 
 import { html, MobJs } from '@mobJs';

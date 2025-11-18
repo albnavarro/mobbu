@@ -4,7 +4,7 @@ import { MobJs } from '@mobJs';
 import { DynamicListCounterFn } from './dynamic-list-counter';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const DynamicCounter = MobJs.createComponent(

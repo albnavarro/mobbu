@@ -10,7 +10,7 @@ import { DebugOverlayFn } from './debug-overlay';
 import { DebugTree } from './tree/definition';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const DebugOverlay = MobJs.createComponent(

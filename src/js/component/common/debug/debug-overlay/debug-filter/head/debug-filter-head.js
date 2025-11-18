@@ -2,7 +2,7 @@ import { html, MobJs } from '@mobJs';
 import { refreshFilterList } from '../list/utils';
 
 /**
- * @import {MobComponent} from '@mobJsType';
+ * @import {MobComponent} from "@mobJsType"
  */
 
 const refreshList = async (testString = '') => {

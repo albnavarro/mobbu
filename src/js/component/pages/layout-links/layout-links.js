@@ -3,7 +3,7 @@ import { linksScroller } from './animation/links-scroller';
 import { MobCore } from '@mobCore';
 
 /**
- * @import {MobComponent} from '@mobJsType';
+ * @import {MobComponent} from "@mobJsType"
  */
 
 /**

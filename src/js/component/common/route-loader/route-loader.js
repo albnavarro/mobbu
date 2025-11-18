@@ -1,6 +1,6 @@
 /**
- * @import {MobComponent} from '@mobJsType';
- * @import {RouteLoader} from './type';
+ * @import {MobComponent} from "@mobJsType"
+ * @import {RouteLoader} from "./type"
  */
 
 import { html, MobJs } from '@mobJs';

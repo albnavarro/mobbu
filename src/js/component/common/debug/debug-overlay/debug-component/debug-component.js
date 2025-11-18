@@ -1,7 +1,11 @@
 //@ts-check
 
 /**
- * @import {GetRef, GetState, MobComponent} from '@mobJsType';
+ * @import {
+ *   GetRef,
+ *   GetState,
+ *   MobComponent
+ * } from "@mobJsType"
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';

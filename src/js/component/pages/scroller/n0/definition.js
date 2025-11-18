@@ -5,7 +5,7 @@ import { detectFirefox, detectSafari } from '@utils/utils';
 import { ScrollerN0Fn } from './scroller-n0';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const ScrollerN0 = MobJs.createComponent(

@@ -3,7 +3,13 @@
 import { html } from '@mobJs';
 
 /**
- * @import {BindObject, DelegateEvents, MobComponent, ProxiState, ReturnBindProps} from '@mobJsType';
+ * @import {
+ *   BindObject,
+ *   DelegateEvents,
+ *   MobComponent,
+ *   ProxiState,
+ *   ReturnBindProps
+ * } from "@mobJsType"
  */
 
 /**

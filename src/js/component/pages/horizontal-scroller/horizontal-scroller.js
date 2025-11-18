@@ -1,9 +1,14 @@
 //@ts-check
 
 /**
- * @import {MobComponent, StaticProps, DelegateEvents, ProxiState} from '@mobJsType';
- * @import {HorizontalScroller} from './type';
- * @import {HorizontalScrollerButton} from './button/type';
+ * @import {
+ *   DelegateEvents,
+ *   MobComponent,
+ *   ProxiState,
+ *   StaticProps
+ * } from "@mobJsType"
+ * @import {HorizontalScrollerButton} from "./button/type"
+ * @import {HorizontalScroller} from "./type"
  */
 
 import { offset, outerHeight } from '@mobCoreUtils';

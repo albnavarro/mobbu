@@ -4,7 +4,7 @@ import { FooterNavFn } from './footer-nav';
 import { navigationStore } from '@stores/navigation';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const FooterNavButton = MobJs.createComponent(

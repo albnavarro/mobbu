@@ -5,7 +5,7 @@ import { detectFirefox, detectSafari } from '@utils/utils';
 import { CaterpillarN1Fn } from './caterpillar-n1';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const CaterpillarN1 = MobJs.createComponent(

@@ -1,7 +1,7 @@
 import { html } from '@mobJs';
 
 /**
- * @import {StaticProps} from '@mobJsType';
+ * @import {StaticProps} from "@mobJsType"
  */
 
 /**

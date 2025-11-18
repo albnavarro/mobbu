@@ -1,11 +1,17 @@
 //@ts-check
 
 /**
- * @import {MobComponent, ReturnBindProps,  StaticProps, DelegateEvents, BindProps} from '@mobJsType';
- * @import {DynamicList} from './type';
- * @import {DynamicListButton} from './button/type';]
- * @import {DynamicListRepeater} from './repeaters/type';]
- * @import {DynamicListCardInner} from './repeaters/card/innerCard/type';]
+ * @import {
+ *   BindProps,
+ *   DelegateEvents,
+ *   MobComponent,
+ *   ReturnBindProps,
+ *   StaticProps
+ * } from "@mobJsType"
+ * @import {DynamicListButton} from "./button/type"
+ * @import {DynamicListCardInner} from "./repeaters/card/innerCard/type"
+ * @import {DynamicListRepeater} from "./repeaters/type"
+ * @import {DynamicList} from "./type"
  */
 
 import { html, MobJs } from '@mobJs';

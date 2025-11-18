@@ -9,7 +9,13 @@ import {
 import { externalBenchmarkStore } from '@stores/benchmark';
 
 /**
- * @import {DelegateEvents, SetRef, GetRef, GetState, BindEffect} from '@mobJsType';
+ * @import {
+ *   BindEffect,
+ *   DelegateEvents,
+ *   GetRef,
+ *   GetState,
+ *   SetRef
+ * } from "@mobJsType"
  */
 
 /**

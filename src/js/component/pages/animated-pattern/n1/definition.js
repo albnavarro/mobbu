@@ -5,7 +5,7 @@ import { detectFirefox, detectSafari } from '@utils/utils';
 import { AnimatedPatternN1Fn } from './animated-pattern-n1';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const AnimatedPatternN1 = MobJs.createComponent(

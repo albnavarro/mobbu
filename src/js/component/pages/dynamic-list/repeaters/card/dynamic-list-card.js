@@ -1,11 +1,17 @@
 //@ts-check
 
 /**
- * @import {MobComponent, ReturnBindProps, StaticProps, DelegateEvents,  ProxiState} from '@mobJsType';
- * @import {DynamicListCardInner} from './innerCard/type';
- * @import {DynamicListCard} from './type';
- * @import {DynamicCounter} from './counter/type';
- * @import {DynamicListButton} from '../../button/type';
+ * @import {
+ *   DelegateEvents,
+ *   MobComponent,
+ *   ProxiState,
+ *   ReturnBindProps,
+ *   StaticProps
+ * } from "@mobJsType"
+ * @import {DynamicListButton} from "../../button/type"
+ * @import {DynamicCounter} from "./counter/type"
+ * @import {DynamicListCardInner} from "./innerCard/type"
+ * @import {DynamicListCard} from "./type"
  */
 
 import { html, MobJs } from '@mobJs';

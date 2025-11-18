@@ -5,7 +5,7 @@ import { Move3DPagefn } from './move-3d-page';
 import { Move3D } from '@commonComponent/move-3d/definition';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const Move3DPage = MobJs.createComponent(

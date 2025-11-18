@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { AnyComponentFn } from './any-component';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const AnyComponent = MobJs.createComponent(

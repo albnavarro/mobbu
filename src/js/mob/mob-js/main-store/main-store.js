@@ -9,7 +9,7 @@ import {
 } from './constant';
 
 /**
- * @import {MobStoreParams} from '../../mob-core/store/type';
+ * @import {MobStoreParams} from "../../mob-core/store/type"
  */
 
 export const mainStore = MobCore.createStore(

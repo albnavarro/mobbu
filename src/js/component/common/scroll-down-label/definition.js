@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { ScrollDownLabelFn } from './scroll-down-label';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const ScrollDownLabel = MobJs.createComponent(

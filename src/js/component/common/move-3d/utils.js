@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { offset, outerHeight, outerWidth } from '@mobCoreUtils';
 
 /**
- * @import {UseMethodArrayByName} from '@mobJsType'
+ * @import {UseMethodArrayByName} from "@mobJsType"
  */
 
 /**

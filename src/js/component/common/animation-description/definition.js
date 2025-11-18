@@ -3,7 +3,7 @@ import { AnimationDescriptionFn } from './animation-description';
 import { navigationStore } from '@stores/navigation';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const AnimationDescription = MobJs.createComponent(

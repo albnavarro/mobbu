@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { ListFn } from './list';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const List = MobJs.createComponent(

@@ -4,7 +4,10 @@ import { html } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 
 /**
- * @import {MobComponent, ReturnBindProps} from '@mobJsType';
+ * @import {
+ *   MobComponent,
+ *   ReturnBindProps
+ * } from "@mobJsType"
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */

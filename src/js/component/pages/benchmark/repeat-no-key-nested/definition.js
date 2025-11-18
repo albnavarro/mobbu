@@ -5,7 +5,7 @@ import { benchMarkDefinitionPartial } from '../partials/definition-partial';
 import { BenchMarkRepeatWithNoKeyFnNested } from './benchmark-repeat-with-key-nested';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const BenchMarkRepeatWithNoKeyNested = MobJs.createComponent(

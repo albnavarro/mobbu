@@ -1,7 +1,12 @@
 /**
- * @import {MobComponent, ReturnBindProps, DelegateEvents, BindProps} from '@mobJsType';
- * @import {ScrollTo} from './type'
- * @import {ScrollToButton} from './button/type'
+ * @import {
+ *   BindProps,
+ *   DelegateEvents,
+ *   MobComponent,
+ *   ReturnBindProps
+ * } from "@mobJsType"
+ * @import {ScrollToButton} from "./button/type"
+ * @import {ScrollTo} from "./type"
  */
 
 import { MobCore } from '@mobCore';

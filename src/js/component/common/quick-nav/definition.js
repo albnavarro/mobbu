@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { QuickNavFn } from './next-page';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const QuickNav = MobJs.createComponent(

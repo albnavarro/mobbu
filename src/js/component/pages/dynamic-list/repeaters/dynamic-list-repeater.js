@@ -1,10 +1,18 @@
 //@ts-check
 
 /**
- * @import {Current, MobComponent, ReturnBindProps, StaticProps, BindProps, DelegateEvents, ProxiState} from '@mobJsType';
- * @import {DynamicListCard} from './card/type';
- * @import {DynamicListRepeater} from './type';
- * @import {DynamicListSlottedLabel} from './slotted-label/type';
+ * @import {
+ *   BindProps,
+ *   Current,
+ *   DelegateEvents,
+ *   MobComponent,
+ *   ProxiState,
+ *   ReturnBindProps,
+ *   StaticProps
+ * } from "@mobJsType"
+ * @import {DynamicListCard} from "./card/type"
+ * @import {DynamicListSlottedLabel} from "./slotted-label/type"
+ * @import {DynamicListRepeater} from "./type"
  */
 
 import { html } from '@mobJs';

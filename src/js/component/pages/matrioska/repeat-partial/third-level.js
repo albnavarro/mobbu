@@ -3,9 +3,16 @@ import { html } from '@mobJs';
 import { toggleMatrioskaItemActive } from '../item/utils';
 
 /**
- * @import {DelegateEvents,  BindProps, StaticProps, Repeat, ReturnBindProps, ProxiState} from '@mobJsType'
- * @import {Matrioska} from '../type'
- * @import {MatrioskaItem} from '../item/type'
+ * @import {
+ *   BindProps,
+ *   DelegateEvents,
+ *   ProxiState,
+ *   Repeat,
+ *   ReturnBindProps,
+ *   StaticProps
+ * } from "@mobJsType"
+ * @import {MatrioskaItem} from "../item/type"
+ * @import {Matrioska} from "../type"
  */
 
 /**

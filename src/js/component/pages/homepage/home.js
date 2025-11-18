@@ -1,8 +1,8 @@
 //@ts-check
 
 /**
- * @import {MobComponent} from '@mobJsType';
- * @import {HomeComponent} from './type';
+ * @import {MobComponent} from "@mobJsType"
+ * @import {HomeComponent} from "./type"
  */
 
 import { simpleIntroAnimation } from '@componentLibs/animation/simple-intro';

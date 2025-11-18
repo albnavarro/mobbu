@@ -3,9 +3,9 @@ import { getButtons } from './buttons-partial';
 import { getSecondLevel } from './invalidate-partial/second-level';
 
 /**
- * @import {MobComponent} from '@mobJsType'
- * @import {Matrioska} from './type'
- * @import {MatrioskaItem} from './item/type'
+ * @import {MobComponent} from "@mobJsType"
+ * @import {MatrioskaItem} from "./item/type"
+ * @import {Matrioska} from "./type"
  */
 
 /** @type {MobComponent<Matrioska>} */

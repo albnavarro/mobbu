@@ -3,7 +3,7 @@ import { HeaderToggleFn } from './header-toggle';
 import { navigationStore } from '@stores/navigation';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const HeaderToggle = MobJs.createComponent(

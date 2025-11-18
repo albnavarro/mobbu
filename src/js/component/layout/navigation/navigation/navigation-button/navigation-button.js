@@ -1,6 +1,6 @@
 /**
- * @import {MobComponent} from '@mobJsType';
- * @import {NavigationButton} from './type';
+ * @import {MobComponent} from "@mobJsType"
+ * @import {NavigationButton} from "./type"
  */
 
 import { MobCore } from '@mobCore';

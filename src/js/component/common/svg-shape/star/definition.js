@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { StarSvgFn } from './star-svg';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const StarSvg = MobJs.createComponent(

@@ -8,7 +8,7 @@ import { MatrioskaItem } from './item/definition';
 import { MatrioskaInvalidateFn } from './matrioska-invalidate';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 /**

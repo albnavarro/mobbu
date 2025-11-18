@@ -18,6 +18,7 @@ This document provides a comprehensive testing example for the MobBu reactive li
 ## Overview
 
 This test suite demonstrates how to test MobJs components using:
+
 - **Vitest** - Modern, fast test runner
 - **JSDOM** - DOM implementation for Node.js
 - **Unit Tests** - Testing pure functions
@@ -26,6 +27,7 @@ This test suite demonstrates how to test MobJs components using:
 - **DOM Tests** - Testing user interactions
 
 **Component Under Test:** `BenchMarkRepeatWithKey`
+
 - **Location:** `src/js/component/pages/benchmark/repeat-key/`
 - **Purpose:** Demonstrates list rendering with keys for optimal performance
 
@@ -42,6 +44,7 @@ npm install --save-dev vitest @vitest/ui @vitest/coverage-v8 jsdom
 ```
 
 **Explanation:**
+
 - `vitest` - Fast test runner with great DX
 - `@vitest/ui` - Optional UI for viewing test results in browser
 - `@vitest/coverage-v8` - Code coverage reporting
@@ -97,21 +100,21 @@ import { MobCore } from '@mobCore';
 
 // Import the component and utilities we want to test
 import { BenchMarkRepeatWithKey } from './definition';
-import { createBenchMarkArray, shuffle } from '../partials/bench-mark-list-partial';
+import {
+    createBenchMarkArray,
+    shuffle,
+} from '../partials/bench-mark-list-partial';
 import { benchMarkDefinitionPartial } from '../partials/definition-partial';
 import { BenchMarkRepeatWithKyFn } from './benchmark-repeat-with-key';
-
 
 // ============================================================================
 // UNIT TESTS - Testing Pure Functions in Isolation
 // ============================================================================
 
 describe('BenchMarkRepeatWithKey - Unit Tests', () => {
-
     // Test Suite for createBenchMarkArray function
     // This function creates an array of objects with labels for benchmarking
     describe('createBenchMarkArray', () => {
-
         // STEP 1: Test basic functionality - correct array length
         it('should create array with correct length', () => {
             // ACTION: Call the function with 5 as parameter
@@ -131,7 +134,7 @@ describe('BenchMarkRepeatWithKey - Unit Tests', () => {
             expect(result).toEqual([
                 { label: 'comp-1' },
                 { label: 'comp-2' },
-                { label: 'comp-3' }
+                { label: 'comp-3' },
             ]);
         });
 
@@ -176,7 +179,6 @@ describe('BenchMarkRepeatWithKey - Unit Tests', () => {
     // Test Suite for shuffle function
     // This function randomizes the order of array elements
     describe('shuffle', () => {
-
         // STEP 1: Test invariant - array length should not change
         it('should maintain array length', () => {
             // ACTION: Create original array and shuffle a copy
@@ -194,9 +196,7 @@ describe('BenchMarkRepeatWithKey - Unit Tests', () => {
             const shuffled = shuffle([...original]);
 
             // ASSERTION: All original elements should still be present
-            expect(shuffled).toEqual(
-                expect.arrayContaining(original)
-            );
+            expect(shuffled).toEqual(expect.arrayContaining(original));
         });
 
         // STEP 3: Test randomness - probabilistic test
@@ -206,8 +206,8 @@ describe('BenchMarkRepeatWithKey - Unit Tests', () => {
             const shuffled = shuffle([...original]);
 
             // COUNT: How many items are still in their original position
-            const samePosition = shuffled.filter((item, i) =>
-                item.label === original[i].label
+            const samePosition = shuffled.filter(
+                (item, i) => item.label === original[i].label
             ).length;
 
             // ASSERTION: At least 80% should have changed position
@@ -236,7 +236,6 @@ describe('BenchMarkRepeatWithKey - Unit Tests', () => {
         });
     });
 });
-
 
 // ============================================================================
 // COMPONENT STATE TESTS - Testing Reactive State Management
@@ -276,14 +275,13 @@ describe('BenchMarkRepeatWithKey - Component State Tests', () => {
 
     // Test Suite for State Initialization
     describe('State Initialization', () => {
-
         // STEP 1: Test that data array starts empty
         it('should initialize with empty data array', () => {
             // ACTION: Create and mount component
             const component = MobJs.createComponent({
                 tag: 'test-benchmark',
                 component: BenchMarkRepeatWithKyFn,
-                ...benchMarkDefinitionPartial()
+                ...benchMarkDefinitionPartial(),
             });
 
             // Mount the component to DOM
@@ -300,7 +298,8 @@ describe('BenchMarkRepeatWithKey - Component State Tests', () => {
         // STEP 2: Test counter initialization
         it('should initialize counter at 0', () => {
             // ACTION: Mount component with its registered tag
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
 
             // Get component state
@@ -313,7 +312,8 @@ describe('BenchMarkRepeatWithKey - Component State Tests', () => {
         // STEP 3: Test time initialization
         it('should initialize time at 0', () => {
             // ACTION: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const state = MobJs.getComponentState(instance);
 
@@ -324,7 +324,8 @@ describe('BenchMarkRepeatWithKey - Component State Tests', () => {
         // STEP 4: Test loading state initialization
         it('should initialize isLoading as false', () => {
             // ACTION: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const state = MobJs.getComponentState(instance);
 
@@ -336,11 +337,11 @@ describe('BenchMarkRepeatWithKey - Component State Tests', () => {
     // Test Suite for Type Validation
     // MobCore provides runtime type checking for state properties
     describe('State Type Validation', () => {
-
         // STEP 1: Test Number type enforcement
         it('should enforce Number type on counter', () => {
             // SETUP: Mount component and get setState method
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const setState = MobJs.getComponentMethods(instance).setState;
 
@@ -363,7 +364,8 @@ describe('BenchMarkRepeatWithKey - Component State Tests', () => {
         // STEP 2: Test Array type enforcement
         it('should enforce Array type on data', () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const setState = MobJs.getComponentMethods(instance).setState;
 
@@ -382,7 +384,8 @@ describe('BenchMarkRepeatWithKey - Component State Tests', () => {
         // STEP 3: Test transformation function
         it('should transform time value to rounded integer', () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const setState = MobJs.getComponentMethods(instance).setState;
 
@@ -398,11 +401,11 @@ describe('BenchMarkRepeatWithKey - Component State Tests', () => {
     // Test Suite for Validation Rules
     // MobCore supports custom validation functions with strict mode
     describe('State Validation Rules', () => {
-
         // STEP 1: Test max length validation (strict mode)
         it('should enforce data array max length (1001)', () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const setState = MobJs.getComponentMethods(instance).setState;
 
@@ -421,7 +424,8 @@ describe('BenchMarkRepeatWithKey - Component State Tests', () => {
         // STEP 2: Test validation boundary (max allowed)
         it('should allow data array at max length (1000)', () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const setState = MobJs.getComponentMethods(instance).setState;
 
@@ -435,7 +439,6 @@ describe('BenchMarkRepeatWithKey - Component State Tests', () => {
         });
     });
 });
-
 
 // ============================================================================
 // DOM INTERACTION TESTS - Testing User Interactions
@@ -453,7 +456,7 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
 
         // STEP 2: Mock performance.now() for timing tests
         global.performance = {
-            now: vi.fn(() => Date.now())
+            now: vi.fn(() => Date.now()),
         };
 
         // STEP 3: Setup container and initialize MobJs
@@ -468,14 +471,16 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
 
     // Test Suite for Input Field Behavior
     describe('Input Field Behavior', () => {
-
         // STEP 1: Test input rendering
         it('should render input field', () => {
             // ACTION: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
 
             // Get input element by CSS selector
-            const input = container.querySelector('input.benchmark__head__input');
+            const input = container.querySelector(
+                'input.benchmark__head__input'
+            );
 
             // ASSERTION 1: Input should exist
             expect(input).not.toBeNull();
@@ -487,15 +492,20 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
         // STEP 2: Test Enter key event
         it('should handle Enter key press', async () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
-            const input = container.querySelector('input.benchmark__head__input');
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
+            const input = container.querySelector(
+                'input.benchmark__head__input'
+            );
             const instance = container.querySelector('benchmark-repeat-key');
 
             // ACTION 1: Set input value
             input.value = '5';
 
             // ACTION 2: Create and dispatch Enter key event
-            const event = new dom.window.KeyboardEvent('keydown', { keyCode: 13 });
+            const event = new dom.window.KeyboardEvent('keydown', {
+                keyCode: 13,
+            });
             input.dispatchEvent(event);
 
             // WAIT: Allow async operations to complete
@@ -510,11 +520,16 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
         // STEP 3: Test preventDefault on Enter
         it('should prevent default on Enter key', () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
-            const input = container.querySelector('input.benchmark__head__input');
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
+            const input = container.querySelector(
+                'input.benchmark__head__input'
+            );
 
             // STEP 1: Create keyboard event
-            const event = new dom.window.KeyboardEvent('keydown', { keyCode: 13 });
+            const event = new dom.window.KeyboardEvent('keydown', {
+                keyCode: 13,
+            });
 
             // STEP 2: Spy on preventDefault method
             const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
@@ -529,14 +544,16 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
 
     // Test Suite for Button Behaviors
     describe('Button Behaviors', () => {
-
         // STEP 1: Test button rendering
         it('should render all control buttons', () => {
             // ACTION: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
 
             // Get all buttons
-            const buttons = container.querySelectorAll('button.benchmark__head__button');
+            const buttons = container.querySelectorAll(
+                'button.benchmark__head__button'
+            );
 
             // ASSERTION 1: Should have 3 buttons
             expect(buttons).toHaveLength(3);
@@ -550,9 +567,14 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
         // STEP 2: Test "Generate components" button
         it('should generate components on button click', async () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
-            const input = container.querySelector('input.benchmark__head__input');
-            const button = container.querySelector('button.benchmark__head__button');
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
+            const input = container.querySelector(
+                'input.benchmark__head__input'
+            );
+            const button = container.querySelector(
+                'button.benchmark__head__button'
+            );
             const instance = container.querySelector('benchmark-repeat-key');
 
             // ACTION 1: Set input value
@@ -573,7 +595,8 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
         // STEP 3: Test "Shuffle array" button
         it('should shuffle existing data', async () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const setState = MobJs.getComponentMethods(instance).setState;
 
@@ -583,7 +606,9 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
             await MobJs.tick();
 
             // STEP 2: Get shuffle button and click it
-            const shuffleButton = container.querySelectorAll('button.benchmark__head__button')[1];
+            const shuffleButton = container.querySelectorAll(
+                'button.benchmark__head__button'
+            )[1];
             shuffleButton.click();
 
             // WAIT: Allow async operations to complete
@@ -595,8 +620,8 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
             expect(state.data).toHaveLength(50);
 
             // ASSERTION 2: Order should have changed
-            const sameOrder = state.data.every((item, i) =>
-                item.label === initialData[i].label
+            const sameOrder = state.data.every(
+                (item, i) => item.label === initialData[i].label
             );
             expect(sameOrder).toBe(false);
         });
@@ -604,9 +629,12 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
         // STEP 4: Test "Update counter" button
         it('should increment counter on button click', () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
-            const counterButton = container.querySelectorAll('button.benchmark__head__button')[2];
+            const counterButton = container.querySelectorAll(
+                'button.benchmark__head__button'
+            )[2];
 
             // ACTION 1: Click once
             counterButton.click();
@@ -627,13 +655,17 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
 
     // Test Suite for Loading State
     describe('Loading State', () => {
-
         // STEP 1: Test loading class appears during generation
         it('should show loading class when generating', async () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
-            const input = container.querySelector('input.benchmark__head__input');
-            const button = container.querySelector('button.benchmark__head__button');
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
+            const input = container.querySelector(
+                'input.benchmark__head__input'
+            );
+            const button = container.querySelector(
+                'button.benchmark__head__button'
+            );
             const loadingDiv = container.querySelector('.benchmark__loading');
 
             // ACTION: Set value and click generate
@@ -650,9 +682,14 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
         // STEP 2: Test loading class is removed after generation
         it('should remove loading class after generation', async () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
-            const input = container.querySelector('input.benchmark__head__input');
-            const button = container.querySelector('button.benchmark__head__button');
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
+            const input = container.querySelector(
+                'input.benchmark__head__input'
+            );
+            const button = container.querySelector(
+                'button.benchmark__head__button'
+            );
             const loadingDiv = container.querySelector('.benchmark__loading');
 
             // ACTION: Generate components
@@ -669,7 +706,6 @@ describe('BenchMarkRepeatWithKey - DOM Interaction Tests', () => {
         });
     });
 });
-
 
 // ============================================================================
 // REPEAT WITH KEY TESTS - Testing List Rendering Performance
@@ -694,11 +730,11 @@ describe('BenchMarkRepeatWithKey - Repeat with Key Tests', () => {
 
     // Test Suite for Repeat Rendering
     describe('Repeat Rendering', () => {
-
         // STEP 1: Test correct number of child components
         it('should render correct number of child components', async () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const setState = MobJs.getComponentMethods(instance).setState;
 
@@ -707,7 +743,9 @@ describe('BenchMarkRepeatWithKey - Repeat with Key Tests', () => {
             await MobJs.tick();
 
             // Get all fake component instances
-            const fakeComponents = container.querySelectorAll('benchmark-fake-component');
+            const fakeComponents = container.querySelectorAll(
+                'benchmark-fake-component'
+            );
 
             // ASSERTION: Should render 5 child components
             expect(fakeComponents).toHaveLength(5);
@@ -716,7 +754,8 @@ describe('BenchMarkRepeatWithKey - Repeat with Key Tests', () => {
         // STEP 2: Test that keys are set correctly
         it('should use label as key attribute', async () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const setState = MobJs.getComponentMethods(instance).setState;
 
@@ -725,7 +764,9 @@ describe('BenchMarkRepeatWithKey - Repeat with Key Tests', () => {
             await MobJs.tick();
 
             // Get all child components
-            const fakeComponents = container.querySelectorAll('benchmark-fake-component');
+            const fakeComponents = container.querySelectorAll(
+                'benchmark-fake-component'
+            );
 
             // ASSERTION: Each component should have correct key attribute
             expect(fakeComponents[0].getAttribute('key')).toBe('comp-1');
@@ -736,7 +777,8 @@ describe('BenchMarkRepeatWithKey - Repeat with Key Tests', () => {
         // STEP 3: Test DOM element reuse with keys (key advantage)
         it('should preserve DOM elements when shuffling (key advantage)', async () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const setState = MobJs.getComponentMethods(instance).setState;
 
@@ -760,7 +802,7 @@ describe('BenchMarkRepeatWithKey - Repeat with Key Tests', () => {
 
             // STEP 3: Check how many elements are the same object references
             // With keys, MobJs should reuse the same DOM elements (just reorder)
-            const sameReferences = originalElements.filter(el =>
+            const sameReferences = originalElements.filter((el) =>
                 shuffledElements.includes(el)
             );
 
@@ -771,7 +813,8 @@ describe('BenchMarkRepeatWithKey - Repeat with Key Tests', () => {
         // STEP 4: Test prop passing to children
         it('should pass correct props to child components', async () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const setState = MobJs.getComponentMethods(instance).setState;
 
@@ -781,7 +824,9 @@ describe('BenchMarkRepeatWithKey - Repeat with Key Tests', () => {
             await MobJs.tick();
 
             // Get child components
-            const fakeComponents = container.querySelectorAll('benchmark-fake-component');
+            const fakeComponents = container.querySelectorAll(
+                'benchmark-fake-component'
+            );
 
             // Get state of first child component
             const firstState = MobJs.getComponentState(fakeComponents[0]);
@@ -795,11 +840,11 @@ describe('BenchMarkRepeatWithKey - Repeat with Key Tests', () => {
 
     // Test Suite for Performance with Keys
     describe('Repeat Performance with Keys', () => {
-
         // STEP 1: Test update performance
         it('should efficiently update on counter change', async () => {
             // SETUP: Mount component with many items
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const setState = MobJs.getComponentMethods(instance).setState;
             const updateState = MobJs.getComponentMethods(instance).updateState;
@@ -822,10 +867,15 @@ describe('BenchMarkRepeatWithKey - Repeat with Key Tests', () => {
         // STEP 2: Test large dataset handling (stress test)
         it('should handle large datasets (1000 items)', async () => {
             // SETUP: Mount component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
-            const input = container.querySelector('input.benchmark__head__input');
-            const button = container.querySelector('button.benchmark__head__button');
+            const input = container.querySelector(
+                'input.benchmark__head__input'
+            );
+            const button = container.querySelector(
+                'button.benchmark__head__button'
+            );
 
             // ACTION: Generate 1000 components
             input.value = '1000';
@@ -846,12 +896,13 @@ describe('BenchMarkRepeatWithKey - Repeat with Key Tests', () => {
             expect(state.time).toBeGreaterThan(0);
 
             // ASSERTION 3: All 1000 components should be rendered
-            const fakeComponents = container.querySelectorAll('benchmark-fake-component');
+            const fakeComponents = container.querySelectorAll(
+                'benchmark-fake-component'
+            );
             expect(fakeComponents).toHaveLength(1000);
         });
     });
 });
-
 
 // ============================================================================
 // PERFORMANCE MEASUREMENT TESTS - Testing Timing Accuracy
@@ -874,7 +925,7 @@ describe('BenchMarkRepeatWithKey - Performance Measurement Tests', () => {
             now: vi.fn(() => {
                 currentTime += 10; // Each call adds 10ms
                 return currentTime;
-            })
+            }),
         };
         global.performance = performanceMock;
 
@@ -888,7 +939,9 @@ describe('BenchMarkRepeatWithKey - Performance Measurement Tests', () => {
         // SETUP: Mount component
         container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
         const input = container.querySelector('input.benchmark__head__input');
-        const button = container.querySelector('button.benchmark__head__button');
+        const button = container.querySelector(
+            'button.benchmark__head__button'
+        );
         const instance = container.querySelector('benchmark-repeat-key');
 
         // ACTION: Generate components
@@ -912,7 +965,9 @@ describe('BenchMarkRepeatWithKey - Performance Measurement Tests', () => {
         // SETUP: Mount component
         container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
         const input = container.querySelector('input.benchmark__head__input');
-        const button = container.querySelector('button.benchmark__head__button');
+        const button = container.querySelector(
+            'button.benchmark__head__button'
+        );
 
         // ACTION: Generate components
         input.value = '10';
@@ -950,7 +1005,6 @@ describe('BenchMarkRepeatWithKey - Performance Measurement Tests', () => {
         expect(Number.isInteger(state.time)).toBe(true);
     });
 });
-
 
 // ============================================================================
 // MEMORY CLEANUP TESTS - Testing Memory Management
@@ -990,7 +1044,8 @@ describe('BenchMarkRepeatWithKey - Memory Cleanup Tests', () => {
         // ACTION: Create and destroy 5 times
         for (let i = 0; i < 5; i++) {
             // Create component
-            container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
+            container.innerHTML =
+                '<benchmark-repeat-key></benchmark-repeat-key>';
             const instance = container.querySelector('benchmark-repeat-key');
             const setState = MobJs.getComponentMethods(instance).setState;
 
@@ -1007,7 +1062,6 @@ describe('BenchMarkRepeatWithKey - Memory Cleanup Tests', () => {
         expect(container.children.length).toBe(0);
     });
 });
-
 
 // ============================================================================
 // EDGE CASE TESTS - Testing Boundary Conditions
@@ -1030,7 +1084,9 @@ describe('BenchMarkRepeatWithKey - Edge Cases', () => {
         // SETUP: Mount component
         container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
         const input = container.querySelector('input.benchmark__head__input');
-        const button = container.querySelector('button.benchmark__head__button');
+        const button = container.querySelector(
+            'button.benchmark__head__button'
+        );
 
         // ACTION: Leave input empty and click generate
         input.value = '';
@@ -1053,7 +1109,9 @@ describe('BenchMarkRepeatWithKey - Edge Cases', () => {
         // SETUP: Mount component
         container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
         const input = container.querySelector('input.benchmark__head__input');
-        const button = container.querySelector('button.benchmark__head__button');
+        const button = container.querySelector(
+            'button.benchmark__head__button'
+        );
 
         // ACTION: Enter invalid text
         input.value = 'abc';
@@ -1075,7 +1133,9 @@ describe('BenchMarkRepeatWithKey - Edge Cases', () => {
     it('should handle shuffle with empty data', async () => {
         // SETUP: Mount component
         container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
-        const shuffleButton = container.querySelectorAll('button.benchmark__head__button')[1];
+        const shuffleButton = container.querySelectorAll(
+            'button.benchmark__head__button'
+        )[1];
 
         // ACTION: Click shuffle with no data
         shuffleButton.click();
@@ -1096,7 +1156,9 @@ describe('BenchMarkRepeatWithKey - Edge Cases', () => {
         // SETUP: Mount component
         container.innerHTML = '<benchmark-repeat-key></benchmark-repeat-key>';
         const input = container.querySelector('input.benchmark__head__input');
-        const button = container.querySelector('button.benchmark__head__button');
+        const button = container.querySelector(
+            'button.benchmark__head__button'
+        );
 
         // ACTION: Set value
         input.value = '10';
@@ -1119,7 +1181,6 @@ describe('BenchMarkRepeatWithKey - Edge Cases', () => {
         expect(state.data).toHaveLength(10);
     });
 });
-
 
 // ============================================================================
 // EXPORT HELPERS - Make utilities available to other test files
@@ -1156,22 +1217,22 @@ export default defineConfig({
 
         // STEP 4: Configure code coverage reporting
         coverage: {
-            provider: 'v8',                    // Use V8 coverage engine
+            provider: 'v8', // Use V8 coverage engine
             reporter: ['text', 'json', 'html'], // Output formats
             exclude: [
-                'node_modules/',               // Don't measure dependencies
-                'test/',                       // Don't measure test files
-                '**/*.config.js'               // Don't measure config files
-            ]
+                'node_modules/', // Don't measure dependencies
+                'test/', // Don't measure test files
+                '**/*.config.js', // Don't measure config files
+            ],
         },
 
         // STEP 5: Setup path aliases for cleaner imports
         alias: {
             '@mobJs': '/src/js/mob/mob-js/main.js',
             '@mobCore': '/src/js/mob/mob-core/main.js',
-            '@mobJsType': '/src/js/mob/mob-js/type.d.ts'
-        }
-    }
+            '@mobJsType': '/src/js/mob/mob-js/type.d.ts',
+        },
+    },
 });
 ```
 
@@ -1251,24 +1312,24 @@ if (!Element.prototype.scrollIntoView) {
 
 ```json
 {
-  "name": "mobbu-tests",
-  "version": "1.0.0",
-  "type": "module",
-  "description": "Test suite for MobBu reactive component library",
+    "name": "mobbu-tests",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Test suite for MobBu reactive component library",
 
-  "scripts": {
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage"
-  },
+    "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:ui": "vitest --ui",
+        "test:coverage": "vitest run --coverage"
+    },
 
-  "devDependencies": {
-    "@vitest/coverage-v8": "^1.0.0",
-    "@vitest/ui": "^1.0.0",
-    "jsdom": "^23.0.0",
-    "vitest": "^1.0.0"
-  }
+    "devDependencies": {
+        "@vitest/coverage-v8": "^1.0.0",
+        "@vitest/ui": "^1.0.0",
+        "jsdom": "^23.0.0",
+        "vitest": "^1.0.0"
+    }
 }
 ```
 
@@ -1305,6 +1366,7 @@ npm run test:coverage
 ### Step 3: View Results
 
 **Console Output:**
+
 ```
 ✓ test/benchmark-repeat-key.test.js (86 tests) 2.45s
   ✓ BenchMarkRepeatWithKey - Unit Tests (11 tests)
@@ -1322,6 +1384,7 @@ Test Files  1 passed (1)
 ```
 
 **Coverage Report:**
+
 ```
 File                          | % Stmts | % Branch | % Funcs | % Lines
 ------------------------------|---------|----------|---------|--------
@@ -1337,12 +1400,14 @@ definition-partial.js         |  100.0  |  100.0   |  100.0  | 100.0
 ### Phase 1: Test File Structure
 
 **What happens:**
+
 1. Import testing utilities (describe, it, expect)
 2. Import DOM simulator (JSDOM)
 3. Import libraries to test (MobJs, MobCore)
 4. Import component and utilities
 
 **Why:**
+
 - Creates isolated test environment
 - Provides assertion tools
 - Makes code under test available
@@ -1350,16 +1415,18 @@ definition-partial.js         |  100.0  |  100.0   |  100.0  | 100.0
 ### Phase 2: Unit Tests
 
 **What happens:**
+
 1. Test `createBenchMarkArray` function
-   - Verify correct array length
-   - Verify label format
-   - Test edge cases (0, negative, invalid input)
+    - Verify correct array length
+    - Verify label format
+    - Test edge cases (0, negative, invalid input)
 2. Test `shuffle` function
-   - Verify array length unchanged
-   - Verify same elements present
-   - Test randomness
+    - Verify array length unchanged
+    - Verify same elements present
+    - Test randomness
 
 **Why:**
+
 - Pure functions are easiest to test
 - No DOM or state dependencies
 - Fast execution
@@ -1368,6 +1435,7 @@ definition-partial.js         |  100.0  |  100.0   |  100.0  | 100.0
 ### Phase 3: Component State Tests
 
 **What happens:**
+
 1. Setup: Create JSDOM environment before each test
 2. Test state initialization (data, counter, time, isLoading)
 3. Test type validation (Number, Array, Boolean)
@@ -1376,6 +1444,7 @@ definition-partial.js         |  100.0  |  100.0   |  100.0  | 100.0
 6. Cleanup: Remove DOM after each test
 
 **Why:**
+
 - Verifies reactive state system works correctly
 - Ensures type safety at runtime
 - Validates business rules (max 1000 items)
@@ -1384,6 +1453,7 @@ definition-partial.js         |  100.0  |  100.0   |  100.0  | 100.0
 ### Phase 4: DOM Interaction Tests
 
 **What happens:**
+
 1. Setup: Create DOM with mocked performance API
 2. Test input field rendering and behavior
 3. Test Enter key event handling
@@ -1391,6 +1461,7 @@ definition-partial.js         |  100.0  |  100.0   |  100.0  | 100.0
 5. Test loading state appearance/removal
 
 **Why:**
+
 - Verifies user interactions work correctly
 - Tests event delegation system
 - Ensures async operations complete properly
@@ -1399,6 +1470,7 @@ definition-partial.js         |  100.0  |  100.0   |  100.0  | 100.0
 ### Phase 5: Repeat with Key Tests
 
 **What happens:**
+
 1. Test correct number of children rendered
 2. Test key attributes set properly
 3. Test DOM element reuse when shuffling
@@ -1406,6 +1478,7 @@ definition-partial.js         |  100.0  |  100.0   |  100.0  | 100.0
 5. Test performance with 100 and 1000 items
 
 **Why:**
+
 - Verifies core feature (list rendering with keys)
 - Ensures performance optimization (element reuse)
 - Tests reactivity (props update children)
@@ -1414,12 +1487,14 @@ definition-partial.js         |  100.0  |  100.0   |  100.0  | 100.0
 ### Phase 6: Performance Measurement Tests
 
 **What happens:**
+
 1. Mock performance.now() for predictable timing
 2. Test that render time is measured
 3. Test time display updates
 4. Test time rounding to integer
 
 **Why:**
+
 - Verifies benchmark timing accuracy
 - Ensures performance metrics are correct
 - Tests transformation (Math.round)
@@ -1427,10 +1502,12 @@ definition-partial.js         |  100.0  |  100.0   |  100.0  | 100.0
 ### Phase 7: Memory Cleanup Tests
 
 **What happens:**
+
 1. Test input reference cleanup on unmount
 2. Test multiple create/destroy cycles
 
 **Why:**
+
 - Prevents memory leaks
 - Verifies lifecycle cleanup works
 - Ensures components can be safely destroyed
@@ -1438,12 +1515,14 @@ definition-partial.js         |  100.0  |  100.0   |  100.0  | 100.0
 ### Phase 8: Edge Case Tests
 
 **What happens:**
+
 1. Test empty input value
 2. Test non-numeric input
 3. Test shuffle with empty data
 4. Test rapid button clicks
 
 **Why:**
+
 - Prevents crashes from unexpected input
 - Tests race condition handling
 - Ensures graceful degradation
@@ -1455,6 +1534,7 @@ definition-partial.js         |  100.0  |  100.0   |  100.0  | 100.0
 ### 1. Test Isolation
 
 Each test should be independent:
+
 ```javascript
 beforeEach(() => {
     // Clean setup before each test
@@ -1468,15 +1548,17 @@ afterEach(() => {
 ### 2. Async Handling
 
 Wait for reactive updates:
+
 ```javascript
 setState('data', newData);
-await MobJs.tick();           // Wait for next render
+await MobJs.tick(); // Wait for next render
 await MobCore.useNextFrame(); // Wait for animation frame
 ```
 
 ### 3. Spies and Mocks
 
 Track function calls:
+
 ```javascript
 const spy = vi.spyOn(console, 'warn');
 // ... trigger code
@@ -1486,6 +1568,7 @@ expect(spy).toHaveBeenCalled();
 ### 4. DOM Queries
 
 Find elements to test:
+
 ```javascript
 const button = container.querySelector('button.benchmark__head__button');
 const allButtons = container.querySelectorAll('button');
@@ -1494,6 +1577,7 @@ const allButtons = container.querySelectorAll('button');
 ### 5. State Inspection
 
 Check component state:
+
 ```javascript
 const instance = container.querySelector('benchmark-repeat-key');
 const state = MobJs.getComponentState(instance);

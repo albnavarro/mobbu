@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { NavigationButtonFn } from './navigation-button';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const NavigationButton = MobJs.createComponent(

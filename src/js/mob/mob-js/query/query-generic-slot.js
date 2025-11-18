@@ -1,7 +1,7 @@
 import { walkPreOrder } from './query-all-future-component';
 
 /**
- * @import {SlotComponent} from '../web-component/type';
+ * @import {SlotComponent} from "../web-component/type"
  */
 
 /**

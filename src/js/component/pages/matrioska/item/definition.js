@@ -4,7 +4,7 @@ import { MobJs } from '@mobJs';
 import { MatrioskaItemFn } from './matrioska-item';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const MatrioskaItem = MobJs.createComponent(

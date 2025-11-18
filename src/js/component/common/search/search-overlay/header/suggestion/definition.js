@@ -3,7 +3,7 @@ import { SearchOverlaySuggestionFn } from './suggestion';
 import { SearchOverlaySuggestionItem } from './suggestion-item/definition';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const SearchOverlaySuggestion = MobJs.createComponent(

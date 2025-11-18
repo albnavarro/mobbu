@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { OnlyDesktopFnCta } from './only-desktop-cta';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const OnlyDesktopCta = MobJs.createComponent(

@@ -3,7 +3,7 @@ import { HeadernavFn } from './header-nav';
 import { Search } from '@commonComponent/search/cta-search/definition';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const HeaderNav = MobJs.createComponent(

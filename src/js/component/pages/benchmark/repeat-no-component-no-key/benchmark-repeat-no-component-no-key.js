@@ -5,7 +5,7 @@ import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { benchMarkVanillaGarbagePartial } from '../partials/bench-mark-vanilla-garbage-partial';
 
 /**
- * @import {MobComponent} from '@mobJsType';
+ * @import {MobComponent} from "@mobJsType"
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */

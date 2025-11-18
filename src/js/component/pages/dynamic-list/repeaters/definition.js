@@ -4,7 +4,7 @@ import { DynamicListCard } from './card/definition';
 import { DynamicListSlottedLabel } from './slotted-label/definition';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const DynamicListRepeater = MobJs.createComponent(

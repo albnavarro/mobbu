@@ -3,7 +3,7 @@ import { NavigationLabelFn } from './navigation-label';
 import { navigationStore } from '@stores/navigation';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const NavigationLabel = MobJs.createComponent(

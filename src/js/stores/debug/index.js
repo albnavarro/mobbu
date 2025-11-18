@@ -1,5 +1,5 @@
 /**
- * @import {MobStoreParams} from '@mobStoreType';
+ * @import {MobStoreParams} from "@mobStoreType"
  */
 
 import { MobCore } from '@mobCore';

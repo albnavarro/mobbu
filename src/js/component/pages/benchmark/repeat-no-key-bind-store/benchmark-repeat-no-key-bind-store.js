@@ -5,8 +5,11 @@ import { benchMarkListExternalPartial } from './bench-mark-list-external-partial
 import { externalBenchmarkStore } from '@stores/benchmark';
 
 /**
- * @import {MobComponent, ReturnBindProps} from '@mobJsType';
- * @import {BenchMarkFakeComponent} from '../fake-component/type';
+ * @import {
+ *   MobComponent,
+ *   ReturnBindProps
+ * } from "@mobJsType"
+ * @import {BenchMarkFakeComponent} from "../fake-component/type"
  */
 
 /** @type {MobComponent<import('./type').BenchMarkExternal>} */

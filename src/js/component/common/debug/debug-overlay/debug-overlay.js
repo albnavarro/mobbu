@@ -10,8 +10,11 @@ import {
 } from '@instanceName';
 
 /**
- * @import {MobComponent, ReturnBindProps} from '@mobJsType';
- * @import {DebugHead} from './head/type';
+ * @import {
+ *   MobComponent,
+ *   ReturnBindProps
+ * } from "@mobJsType"
+ * @import {DebugHead} from "./head/type"
  */
 
 /** @type {MobComponent<import('./type').DebugOverlay>} */

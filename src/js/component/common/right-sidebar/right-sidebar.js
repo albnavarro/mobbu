@@ -1,6 +1,9 @@
 /**
- * @import {BindEffect, MobComponent} from '@mobJsType';
- * @import {RightSidebar} from './type';
+ * @import {
+ *   BindEffect,
+ *   MobComponent
+ * } from "@mobJsType"
+ * @import {RightSidebar} from "./type"
  */
 
 import { html, MobJs } from '@mobJs';

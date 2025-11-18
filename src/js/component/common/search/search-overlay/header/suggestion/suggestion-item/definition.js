@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { SearchOverlaySuggestionItemFn } from './suggestion-item';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const SearchOverlaySuggestionItem = MobJs.createComponent(

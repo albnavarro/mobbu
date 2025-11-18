@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { DebugSearchFn } from './debug-search';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const DebugSearch = MobJs.createComponent(

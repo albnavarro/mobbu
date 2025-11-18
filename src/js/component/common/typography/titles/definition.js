@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { TitleFn } from './title';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const Title = MobJs.createComponent(

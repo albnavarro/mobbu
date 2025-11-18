@@ -2,7 +2,7 @@ import { html, MobJs } from '@mobJs';
 import { DocSvgFn } from './doc-svg';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const DocSvg = MobJs.createComponent(

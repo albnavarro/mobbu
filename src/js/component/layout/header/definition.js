@@ -4,7 +4,7 @@ import { HeaderToggle } from './nav-toggle/definition';
 import { HeaderNav } from './header-nav/definition';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const Header = MobJs.createComponent(

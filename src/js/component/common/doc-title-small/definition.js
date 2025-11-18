@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { DocTitleSmallFn } from './doc-title-small';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const DocsTitleSmall = MobJs.createComponent(

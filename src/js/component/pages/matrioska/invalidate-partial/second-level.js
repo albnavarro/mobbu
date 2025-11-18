@@ -2,9 +2,15 @@ import { html } from '@mobJs';
 import { getThirdLevel } from './third-level';
 
 /**
- * @import {DelegateEvents,  BindProps, StaticProps, Invalidate, ProxiState} from '@mobJsType'
- * @import {Matrioska} from '../type'
- * @import {MatrioskaItem} from '../item/type'
+ * @import {
+ *   BindProps,
+ *   DelegateEvents,
+ *   Invalidate,
+ *   ProxiState,
+ *   StaticProps
+ * } from "@mobJsType"
+ * @import {MatrioskaItem} from "../item/type"
+ * @import {Matrioska} from "../type"
  */
 
 /**

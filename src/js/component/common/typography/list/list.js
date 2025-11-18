@@ -1,8 +1,8 @@
 import { html } from '@mobJs';
 
 /**
- * @import {MobComponent} from '@mobJsType';
- * @import {List} from './type';
+ * @import {MobComponent} from "@mobJsType"
+ * @import {List} from "./type"
  */
 
 /**

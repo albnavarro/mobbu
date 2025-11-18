@@ -3,8 +3,11 @@ import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
 
 /**
- * @import {MobComponent, ReturnBindProps} from '@mobJsType';
- * @import {DebugFilterListItem} from './item/type';
+ * @import {
+ *   MobComponent,
+ *   ReturnBindProps
+ * } from "@mobJsType"
+ * @import {DebugFilterListItem} from "./item/type"
  */
 
 /** @type {import('./type').DebugInitScroller} */

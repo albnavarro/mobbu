@@ -3,7 +3,7 @@ import { MobTween } from '@mobMotion';
 import { getRotate, getRotateFromPosition } from './utils';
 
 /**
- * @import {MobComponent} from '@mobJsType';
+ * @import {MobComponent} from "@mobJsType"
  */
 
 /** @type{(component: {tagName: string, className: string, props: any} ) => string} */

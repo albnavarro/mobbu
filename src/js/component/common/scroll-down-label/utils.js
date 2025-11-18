@@ -2,7 +2,7 @@ import { scrollDownLabelName } from '@instanceName';
 import { MobJs } from '@mobJs';
 
 /**
- * @import {UseMethodByName} from '@mobJsType';
+ * @import {UseMethodByName} from "@mobJsType"
  */
 
 /** @type{() => void} */

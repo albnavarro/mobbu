@@ -3,7 +3,7 @@ import { LinksMobJsFn } from './links-mobjs';
 import { LinksMobJsButton } from './links-mobjs-button/definition';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const LinksMobJs = MobJs.createComponent(

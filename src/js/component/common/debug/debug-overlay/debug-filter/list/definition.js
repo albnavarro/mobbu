@@ -3,7 +3,7 @@ import { DebugFilterListFn } from './debug-filter-list';
 import { DebugFilterListItem } from './item/definition';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const DebugFilterList = MobJs.createComponent(

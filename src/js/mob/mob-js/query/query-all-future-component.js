@@ -1,7 +1,7 @@
 // https://stackfull.dev/applying-tree-traversal-algorithms-to-dom
 
 /**
- * @import {UserComponent} from '../web-component/type';
+ * @import {UserComponent} from "../web-component/type"
  */
 
 /**

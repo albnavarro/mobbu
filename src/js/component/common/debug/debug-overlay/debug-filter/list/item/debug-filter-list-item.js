@@ -1,5 +1,5 @@
 /**
- * @import {MobComponent} from '@mobJsType';
+ * @import {MobComponent} from "@mobJsType"
  */
 
 import { updateDebugComponentById } from '@commonComponent/debug/debug-overlay/debug-component/utils';

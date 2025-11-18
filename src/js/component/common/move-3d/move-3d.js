@@ -7,7 +7,7 @@ import { getChildrenMethod, getMove3DDimension } from './utils';
 const NOOP = () => {};
 
 /**
- * @import {MobComponent} from '@mobJsType';
+ * @import {MobComponent} from "@mobJsType"
  */
 
 /** @type {MobComponent<import('./type').Move3D>} */

@@ -5,7 +5,7 @@ import { NavigationSubmenu } from './navigation-submenu/definition';
 import { NavigationButton } from './navigation-button/definition';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 export const Navigation = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Navigation>} */

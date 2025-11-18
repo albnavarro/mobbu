@@ -9,7 +9,7 @@ import { closeAllNavAccordion } from './navigation/utils';
 import { mobNavigationName } from '@instanceName';
 
 /**
- * @import {ProxiState} from '@mobJsType'
+ * @import {ProxiState} from "@mobJsType"
  */
 
 /**

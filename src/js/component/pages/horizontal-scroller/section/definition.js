@@ -4,7 +4,7 @@ import { MobJs } from '@mobJs';
 import { HorizontalScrollerSectionFn } from './horizontal-scroller-section';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const HorizontalScrollerSection = MobJs.createComponent(

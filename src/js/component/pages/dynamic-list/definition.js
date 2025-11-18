@@ -8,7 +8,7 @@ import { DynamicListRepeater } from './repeaters/definition';
 import { DynamicListCardInner } from './repeaters/card/innerCard/definition';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType";
+ * @import {CreateComponentParams} from "@mobJsType"
  */
 
 export const DynamicList = MobJs.createComponent(

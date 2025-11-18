@@ -5,7 +5,7 @@ import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 import { toggleDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
 
 /**
- * @import {MobComponent} from '@mobJsType'
+ * @import {MobComponent} from "@mobJsType"
  */
 
 /** @type {MobComponent<import('./type').Footer>} */
