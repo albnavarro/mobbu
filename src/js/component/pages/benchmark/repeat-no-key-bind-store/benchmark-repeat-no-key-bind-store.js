@@ -3,6 +3,7 @@
 import { html } from '@mobJs';
 import { benchMarkListExternalPartial } from './bench-mark-list-external-partial';
 import { externalBenchmarkStore } from '@stores/benchmark';
+import { benchMarkUseProxi } from '../strategy';
 
 /**
  * @import {
@@ -65,24 +66,37 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
             ${repeat({
                 observe: () => proxi.data,
                 useSync: true,
-                afterUpdate: () => {
-                    // externalStore.debug();
-                },
                 render: ({ sync, current }) => {
-                    return html`
-                        <benchmark-fake-component
-                            ${bindProps(
-                                /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                                () => ({
-                                    index: current.index,
-                                    label: current.value.label,
-                                    counter: proxi.counter,
-                                })
-                            )}
-                            ${sync()}
-                        >
-                        </benchmark-fake-component>
-                    `;
+                    return benchMarkUseProxi
+                        ? html`
+                              <benchmark-fake-component
+                                  ${bindProps(
+                                      /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                                      () => ({
+                                          index: current.index,
+                                          label: current.value.label,
+                                          counter: proxi.counter,
+                                      })
+                                  )}
+                                  ${sync()}
+                              >
+                              </benchmark-fake-component>
+                          `
+                        : html`
+                              <benchmark-fake-component
+                                  ${bindProps({
+                                      observe: ['counter'],
+                                      /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                                      props: ({ counter }, value, index) => ({
+                                          index: index,
+                                          label: value['label'],
+                                          counter: counter,
+                                      }),
+                                  })}
+                                  ${sync()}
+                              >
+                              </benchmark-fake-component>
+                          `;
                 },
             })}
         </div>

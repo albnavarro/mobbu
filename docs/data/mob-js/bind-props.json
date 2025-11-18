@@ -133,6 +133,13 @@
             "content": "Explicit dependency"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Explicit dependencies, although more verbose, guarantee better <strong>performance</strong> when working with large quantities of components."
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h6"
@@ -214,7 +221,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": " <ul> <li>Provides: <ul> <li>Current value of the repeated item</li> <li>Iteration position (index)</li> </ul> </li> <li>Accessible within <a href='#mobJs-repeat'>repeater</a> module</li> </ul>"
+            "content": "Provides:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "<span class='quote'>value</span> Current value of repeter item",
+                    "<span class='quote'>index</span> Current index of repeater item"
+                ]
+            }
         },
         {
             "component": "mob-paragraph",
@@ -223,7 +241,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Even though these values are available, it is always advisable to refer to the proxy provided by the <a href='#mobJs-repeat'>repeater</a> module ( current )."
+            "content": "Extra data/parameters inside a <a href='#mobJs-repeat'><strong>repeater</strong></a> module<br/>The following method is recommended when dealing with very large lists where <strong>performance</strong> is crucial."
         },
         {
             "component": "mob-snippet",
