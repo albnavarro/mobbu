@@ -200,7 +200,7 @@ return watchById(id, state, async () => {
     await invalidateTick({ debug: true });
 ```
 
-- Logica implementata ma commentata, deve abilitarsi solo per i moduli che si trovano all' interno di un repeater/invalidate.
+- Logica implementata, valutare se abilitarla solo se si trovano all' interno di un repeat/invalidate, ci possono essere pro e contro.
 
 
 ### Create component:
