@@ -1,6 +1,6 @@
 import { getUnivoqueId } from '../utils';
 import { getLogStyle } from './log-style';
-import { getStateFromMainMap, storeMap, updateMainMap } from './store-map';
+import { getStateFromMainMap, updateMainMap } from './store-map';
 import { storeWatchWarning } from './store-warining';
 
 /**
@@ -98,11 +98,11 @@ export const watchEntryPoint = ({ instanceId, prop, callback, wait }) => {
 
     const currentBindId =
         [instanceId, ...bindInstance].find((id) => {
-            const store = storeMap.get(id)?.store;
+            const store = getStateFromMainMap(id)?.store;
             return store && prop in store;
         }) ?? '';
 
-    const unsubscribe = watchMobStore({
+    const innerUnsubscribe = watchMobStore({
         instanceId: currentBindId,
         prop,
         callback,
@@ -111,8 +111,16 @@ export const watchEntryPoint = ({ instanceId, prop, callback, wait }) => {
 
     updateMainMap(instanceId, {
         ...state,
-        unsubscribeBindInstance: [...unsubscribeBindInstance, unsubscribe],
+        unsubscribeBindInstance: [...unsubscribeBindInstance, innerUnsubscribe],
     });
 
-    return unsubscribe;
+    return () => {
+        innerUnsubscribe();
+        updateMainMap(instanceId, {
+            ...state,
+            unsubscribeBindInstance: unsubscribeBindInstance.filter(
+                (unsubscribe) => unsubscribe !== innerUnsubscribe
+            ),
+        });
+    };
 };
