@@ -3,8 +3,6 @@
 import { MobCore } from '../../../mob-core';
 import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
-import { invalidateTick } from '../../queque/tick-invalidate';
-import { repeaterTick } from '../../queque/tick-repeater';
 
 /**
  * Mappa usata per abbinare id component e id `istanta` del singolo modulo.
@@ -300,12 +298,16 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
 
         if (!finalStateTowatch) return;
 
-        return watchById(id, finalStateTowatch, async () => {
+        return watchById(id, finalStateTowatch, () => {
             /**
              * BindEffect/BindText/BindObject is scheduled after repeat/invalidate.
+             *
+             * - TODO: ebnable only for modulo inside repeater or invalidate.
+             * - Should block module that non be blocked.
+             * - Example: benchMark with bindStore, in this case loading pop-up will blocked.
              */
-            await repeaterTick();
-            await invalidateTick();
+            // await repeaterTick();
+            // await invalidateTick();
 
             /**
              * Wait for all all props is settled.

@@ -1,8 +1,6 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { watchById } from '../../component/action/watch';
 import { ATTR_BIND_EFFECT } from '../../constant';
-import { invalidateTick } from '../../queque/tick-invalidate';
-import { repeaterTick } from '../../queque/tick-repeater';
 
 /** @type {import('./type').BindEffectMap} */
 const bindEffectMap = new Map();
@@ -212,12 +210,16 @@ const watchBindEffect = ({ data, element }) => {
                     });
                 }
 
-                return watchById(id, state, async () => {
+                return watchById(id, state, () => {
                     /**
                      * BindEffect/BindText/BindObject is scheduled after repeat/invalidate.
+                     *
+                     * - TODO: ebnable only for modulo inside repeater or invalidate.
+                     * - Should block module that non be blocked.
+                     * - Example: benchMark with bindStore, in this case loading pop-up will blocked.
                      */
-                    await repeaterTick();
-                    await invalidateTick();
+                    // await repeaterTick();
+                    // await invalidateTick();
 
                     /**
                      * Check if element is garbage collected.

@@ -16,7 +16,6 @@ MobJs.useComponent([
     BenchMarkRepeatWithNoKeyNested,
     BenchMarkRepeatNoKeyBindStore,
     BenchMarkRepeatNoComponentNoKey,
-    BenchMarkRepeatNoKeyBindStore,
     BenchMarkRepeatNoComponentWithKey,
 ]);
 

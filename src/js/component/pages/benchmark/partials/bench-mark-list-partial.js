@@ -46,38 +46,40 @@ export const createBenchMarkArray = (numberOfItem) => {
  * @param {number} params.value
  * @param {boolean} [params.useShuffle]
  */
-const setData = async ({ proxi, value, useShuffle = false }) => {
+const setData = ({ proxi, value, useShuffle = false }) => {
     proxi.isLoading = true;
 
     /**
      * Await that loading pop up is showed in current frame before saturate thread
      *
-     * - BindEffect/BindText/BindObject await for repeater/invalidate completed.
      * - Now we saturate thead, so will wait first available tick to update cards.
+     * - Seems we are inside frame, click or enter is fired inseide request animation frame ?
      */
-    MobCore.useNextTick(async () => {
-        const startTime = performance.now();
-        proxi.data = useShuffle
-            ? shuffle(createBenchMarkArray(value))
-            : createBenchMarkArray(value);
+    MobCore.useFrameIndex(() => {
+        MobCore.useNextTick(async () => {
+            const startTime = performance.now();
+            proxi.data = useShuffle
+                ? shuffle(createBenchMarkArray(value))
+                : createBenchMarkArray(value);
 
-        /**
-         * Await app render is completed and invalidate/repeater is finished.
-         */
-        await MobJs.tick();
+            /**
+             * Await app render is completed and invalidate/repeater is finished.
+             */
+            await MobJs.tick();
 
-        /**
-         * Get metrics.
-         */
-        const endTime = performance.now();
-        const difference = endTime - startTime;
-        proxi.time = difference;
+            /**
+             * Get metrics.
+             */
+            const endTime = performance.now();
+            const difference = endTime - startTime;
+            proxi.time = difference;
 
-        /**
-         * Remove laodign pop-up.
-         */
-        proxi.isLoading = false;
-    });
+            /**
+             * Remove laodign pop-up.
+             */
+            proxi.isLoading = false;
+        });
+    }, 2);
 };
 
 /**

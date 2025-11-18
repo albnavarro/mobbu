@@ -1,6 +1,8 @@
+# Problemi noti:
+[BindStore:](#Problemi-noti)
+
 # Prioritá
 
-0. `ComponentMap` funzione che ritorna una copia come nello `store`.
 1. `BindObject/BindText/BindEffect` potrebbero scrollegarsi prima senza aspettare il deref() che diventerebbe un check si sicurezza.
     - [detail:](#BindObject/BindText/BindEffect)
 2. `BindEffect/BindObject/BindText`, await repeat/invalidate.
@@ -14,6 +16,16 @@
 4. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
 5. Custom component: aggiungere la possibilitá di usare `connectedMoveCallback`.
 6. Component app: `dragger` con `pinch zoom`.
+
+
+<a name="Problemi-noti"></a>
+# Problemi noti:
+
+### BindStore.
+- Agganciando uno store, ogni operazione di `get` dello stato del componente implica un merge di stati.
+    - In `#mobJs-benchmark-repeat-key-bind-store` su firefox/linux é evidente.
+    - `BindProps` su 1000 elementi effettuerá 1000 merge rallentando il sitema.
+    - reference: `storeGetEntryPoint()`
 
 # App
 
@@ -188,7 +200,8 @@ return watchById(id, state, async () => {
     await invalidateTick({ debug: true });
 ```
 
-- Secondo tentativo, capire dove fallivano la volta precedente, non noto errori ora.
+- Logica implementata ma commentata, deve abilitarsi solo per i moduli che si trovano all' interno di un repeater/invalidate.
+
 
 ### Create component:
 

@@ -23,26 +23,43 @@ import { externalBenchmarkStore } from '@stores/benchmark';
  * @param {number} params.value
  * @param {boolean} [params.useShuffle]
  */
-const setData = async ({ value, useShuffle = false }) => {
-    const { set } = externalBenchmarkStore;
-    set('isLoading', true);
+const setData = ({ value, useShuffle = false }) => {
+    externalBenchmarkStore.set('isLoading', true);
 
-    // await loading class is applied before saturate thread.
-    MobCore.useNextTick(async () => {
-        const startTime = performance.now();
-        set(
-            'data',
-            useShuffle
-                ? shuffle(createBenchMarkArray(value))
-                : createBenchMarkArray(value)
-        );
-        await MobJs.tick();
+    /**
+     * Await that loading pop up is showed in current frame before saturate thread
+     *
+     * - Now we saturate thead, so will wait first available tick to update cards.
+     * - Seems we are inside frame, click or enter is fired inseide request animation frame ?
+     */
+    MobCore.useFrameIndex(() => {
+        MobCore.useNextTick(async () => {
+            const startTime = performance.now();
+            externalBenchmarkStore.set(
+                'data',
+                useShuffle
+                    ? shuffle(createBenchMarkArray(value))
+                    : createBenchMarkArray(value)
+            );
 
-        const endTime = performance.now();
-        const difference = endTime - startTime;
-        set('time', difference);
-        set('isLoading', false);
-    });
+            /**
+             * Await app render is completed and invalidate/repeater is finished.
+             */
+            await MobJs.tick();
+
+            /**
+             * Get metrics.
+             */
+            const endTime = performance.now();
+            const difference = endTime - startTime;
+
+            /**
+             * Remove laodign pop-up.
+             */
+            externalBenchmarkStore.set('time', difference);
+            externalBenchmarkStore.set('isLoading', false);
+        });
+    }, 2);
 };
 
 /**
@@ -60,8 +77,6 @@ export const benchMarkListExternalPartial = ({
     getState,
     bindEffect,
 }) => {
-    const { update } = externalBenchmarkStore;
-
     return html`
         <div
             class="benchmark__loading"
@@ -129,7 +144,10 @@ export const benchMarkListExternalPartial = ({
                 class="benchmark__head__button"
                 ${delegateEvents({
                     click: () => {
-                        update('counter', (value) => value + 1);
+                        externalBenchmarkStore.update(
+                            'counter',
+                            (value) => value + 1
+                        );
                     },
                 })}
             >
