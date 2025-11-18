@@ -25,27 +25,23 @@ import { externalBenchmarkStore } from '@stores/benchmark';
  */
 const setData = async ({ value, useShuffle = false }) => {
     const { set } = externalBenchmarkStore;
-
     set('isLoading', true);
-    await MobJs.tick();
 
     // await loading class is applied before saturate thread.
-    MobCore.useFrame(() => {
-        MobCore.useNextTick(async () => {
-            const startTime = performance.now();
-            set(
-                'data',
-                useShuffle
-                    ? shuffle(createBenchMarkArray(value))
-                    : createBenchMarkArray(value)
-            );
-            await MobJs.tick();
+    MobCore.useNextTick(async () => {
+        const startTime = performance.now();
+        set(
+            'data',
+            useShuffle
+                ? shuffle(createBenchMarkArray(value))
+                : createBenchMarkArray(value)
+        );
+        await MobJs.tick();
 
-            const endTime = performance.now();
-            const difference = endTime - startTime;
-            set('time', difference);
-            set('isLoading', false);
-        });
+        const endTime = performance.now();
+        const difference = endTime - startTime;
+        set('time', difference);
+        set('isLoading', false);
     });
 };
 
