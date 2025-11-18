@@ -8,7 +8,8 @@
         "buildProject": "node build.config.js",
         "dev": "npm run development",
         "serve": "npm run developmentExperimental",
-        "build": "npm run buildProject"
+        "build": "npm run buildProject",
+        "format": "npx prettier --write ./src/**/*"
     },
     "devDependencies": {
         "@eslint/js": "^9.38.0",
