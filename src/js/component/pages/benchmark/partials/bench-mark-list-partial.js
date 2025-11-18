@@ -4,7 +4,13 @@ import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
 
 /**
- * @import {DelegateEvents, SetRef, GetRef, BindEffect, ProxiState} from '@mobJsType';
+ * @import {
+ *   BindEffect,
+ *   DelegateEvents,
+ *   GetRef,
+ *   ProxiState,
+ *   SetRef
+ * } from "@mobJsType"
  */
 
 /**
@@ -41,24 +47,36 @@ export const createBenchMarkArray = (numberOfItem) => {
  * @param {boolean} [params.useShuffle]
  */
 const setData = async ({ proxi, value, useShuffle = false }) => {
-    // await loading class is applied before saturate thread.
     proxi.isLoading = true;
-    await MobJs.tick();
 
-    MobCore.useFrame(async () => {
-        MobCore.useNextTick(async () => {
-            const startTime = performance.now();
-            proxi.data = useShuffle
-                ? shuffle(createBenchMarkArray(value))
-                : createBenchMarkArray(value);
+    /**
+     * Await that loading pop up is showed in current frame before saturate thread
+     *
+     * - BindEffect/BindText/BindObject await for repeater/invalidate completed.
+     * - Now we saturate thead, so will wait first available tick to update cards.
+     */
+    MobCore.useNextTick(async () => {
+        const startTime = performance.now();
+        proxi.data = useShuffle
+            ? shuffle(createBenchMarkArray(value))
+            : createBenchMarkArray(value);
 
-            await MobJs.tick();
+        /**
+         * Await app render is completed and invalidate/repeater is finished.
+         */
+        await MobJs.tick();
 
-            const endTime = performance.now();
-            const difference = endTime - startTime;
-            proxi.time = difference;
-            proxi.isLoading = false;
-        });
+        /**
+         * Get metrics.
+         */
+        const endTime = performance.now();
+        const difference = endTime - startTime;
+        proxi.time = difference;
+
+        /**
+         * Remove laodign pop-up.
+         */
+        proxi.isLoading = false;
     });
 };
 

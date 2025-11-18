@@ -1,6 +1,8 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { watchById } from '../../component/action/watch';
 import { ATTR_BIND_EFFECT } from '../../constant';
+import { invalidateTick } from '../../queque/tick-invalidate';
+import { repeaterTick } from '../../queque/tick-repeater';
 
 /** @type {import('./type').BindEffectMap} */
 const bindEffectMap = new Map();
@@ -80,7 +82,7 @@ export const setBindEffect = ({ data, id }) => {
  * Get data from map at the end of parse.
  *
  * - Is called from parseComponentsWhile.
- * - Event there is no component ( es repeater without camponent ) parse function is called by eg: repeater or invalidate.
+ * - Event there is no component ( es repeater without camponent ) occurrence will found.
  *
  * @param {HTMLElement} element
  * @returns {void}
@@ -210,7 +212,13 @@ const watchBindEffect = ({ data, element }) => {
                     });
                 }
 
-                return watchById(id, state, () => {
+                return watchById(id, state, async () => {
+                    /**
+                     * BindEffect/BindText/BindObject is scheduled after repeat/invalidate.
+                     */
+                    await repeaterTick();
+                    await invalidateTick();
+
                     /**
                      * Check if element is garbage collected.
                      */

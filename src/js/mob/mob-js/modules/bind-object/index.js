@@ -1,5 +1,7 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { watchById } from '../../component/action/watch';
+import { invalidateTick } from '../../queque/tick-invalidate';
+import { repeaterTick } from '../../queque/tick-repeater';
 
 /**
  * Mappa usata per abbinare id component e id `istanta` del singolo modulo.
@@ -241,7 +243,13 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
     let ref;
 
     const unsubScribeFunction = keys.map((state) => {
-        return watchById(id, state, () => {
+        return watchById(id, state, async () => {
+            /**
+             * BindEffect/BindText/BindObject is scheduled after repeat/invalidate.
+             */
+            await repeaterTick();
+            await invalidateTick();
+
             /**
              * Wait for all all props is settled.
              */
