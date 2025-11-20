@@ -28,9 +28,11 @@ export const storeGetEntryPoint = (instanceId) => {
         return storeGet(instanceId);
     }
 
-    return [...bindInstance, instanceId]
-        .map((id) => storeGet(id))
-        .reduce((previous, current) => ({ ...previous, ...current }), {});
+    return Object.fromEntries(
+        [...bindInstance, instanceId].flatMap((id) =>
+            Object.entries(storeGet(id))
+        )
+    );
 };
 
 /**
