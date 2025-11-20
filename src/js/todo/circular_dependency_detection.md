@@ -1,3 +1,9 @@
+# NOTA:
+- Questa strategia piú complessa andrebbe usata solo abbiamo piú di 2 computed.
+- Da verificare ma dovrebbe essere giusto il controllo, il sitema attuale é piu leggero e non dovrebbe fallire con sole due computed.
+
+
+
 # Rilevamento Dipendenze Circolari nei Computed
 
 ## 📋 Contesto
@@ -11,8 +17,8 @@ Questo documento analizza il sistema attuale e propone algoritmi avanzati per ri
 ## 🔴 Sistema Attuale (Shallow Detection)
 
 ### Localizzazione
-File: `store-set.js`  
-Funzione: `storeComputedAction`  
+File: `store-set.js`
+Funzione: `storeComputedAction`
 Linee: ~490-520
 
 ### Codice Attuale
@@ -149,12 +155,12 @@ const detectCycleWithDFS = (prop, keys, callBackComputed) => {
 
     // 2. Costruisci grafo dipendenze
     const graph = new Map();
-    
+
     // Aggiungi computed esistenti
     for (const { prop: p, keys: k } of callBackComputed) {
         graph.set(p, k);
     }
-    
+
     // Aggiungi il nuovo (temporaneamente per testare)
     graph.set(prop, keys);
 
@@ -306,11 +312,11 @@ const detectCycleWithTopologicalSort = (prop, keys, callBackComputed) => {
     for (const { prop: p, keys: k } of callBackComputed) {
         graph.set(p, k);
         allNodes.add(p);
-        
+
         if (!inDegree.has(p)) {
             inDegree.set(p, 0);
         }
-        
+
         // Incrementa in-degree per ogni dipendenza
         k.forEach(dep => {
             allNodes.add(dep);
@@ -321,11 +327,11 @@ const detectCycleWithTopologicalSort = (prop, keys, callBackComputed) => {
     // Aggiungi nuovo computed
     graph.set(prop, keys);
     allNodes.add(prop);
-    
+
     if (!inDegree.has(prop)) {
         inDegree.set(prop, 0);
     }
-    
+
     keys.forEach(dep => {
         allNodes.add(dep);
         inDegree.set(dep, (inDegree.get(dep) || 0) + 1);
@@ -333,7 +339,7 @@ const detectCycleWithTopologicalSort = (prop, keys, callBackComputed) => {
 
     // 3. Topological sort (Kahn's algorithm)
     const queue = [];
-    
+
     // Inizia con nodi che non hanno dipendenze in ingresso
     for (const node of allNodes) {
         if (inDegree.get(node) === 0) {
@@ -352,7 +358,7 @@ const detectCycleWithTopologicalSort = (prop, keys, callBackComputed) => {
         for (const dep of deps) {
             // Decrementa in-degree
             inDegree.set(dep, inDegree.get(dep) - 1);
-            
+
             // Se in-degree diventa 0, aggiungi alla queue
             if (inDegree.get(dep) === 0) {
                 queue.push(dep);
@@ -412,15 +418,15 @@ Union-Find è ottimo per rilevare cicli in **grafi non diretti**, ma i nostri co
 ```javascript
 export const mobStore = (data = {}, { safe = false } = {}) => {
     const instanceId = getUnivoqueId();
-    
+
     // ... inizializzazione ...
-    
+
     // Salva flag safe nello state
     updateMainMap(instanceId, {
         ...stateUpdated,
         _safeMode: safe  // ← nuovo campo
     });
-    
+
     // ... resto del codice ...
 };
 ```
@@ -538,7 +544,7 @@ const visualizeDependencyGraph = (instanceId) => {
     if (!state) return;
 
     const { callBackComputed } = state;
-    
+
     console.log('=== Dependency Graph ===');
     for (const { prop, keys } of callBackComputed) {
         console.log(`${prop} → [${keys.join(', ')}]`);
@@ -613,9 +619,9 @@ const fireComputed = (instanceId) => {
         depth = 0;
         return;
     }
-    
+
     // ... logica attuale ...
-    
+
     depth = 0; // reset dopo successo
 };
 ```

@@ -571,13 +571,9 @@ const fireComputed = (instanceId) => {
         /**
          * Get dependencies current state;
          */
-        const valuesToObject = keys
-            .map((item) => {
-                return { [item]: storeMerged[item] };
-            })
-            .reduce((previous, current) => {
-                return { ...previous, ...current };
-            }, {});
+        const valuesToObject = Object.fromEntries(
+            keys.map((item) => [item, storeMerged[item]])
+        );
 
         return {
             prop,
@@ -715,16 +711,18 @@ export const initializeCompuntedProp = ({
 
     /**
      * Create onject with values for computed function.
+     *
+     * - Return a tuple [key, value],[key, value].
+     * - Transform in an object {key, value}
      */
-    const valuesObject = keys
-        .map((key) => {
-            if (key in storeMerged) return { [key]: storeMerged[key] };
-            return;
-        })
-        .filter((item) => item !== undefined)
-        .reduce((previous, current) => {
-            return { ...previous, ...current };
-        }, {});
+    const valuesObject = Object.fromEntries(
+        keys
+            .map((key) => {
+                if (key in storeMerged) return [key, storeMerged[key]];
+                return;
+            })
+            .filter((item) => item !== undefined)
+    );
 
     /**
      * Get prop value.
