@@ -109,15 +109,27 @@ export const watchEntryPoint = ({ instanceId, prop, callback, wait }) => {
         wait,
     });
 
+    /**
+     * WatchMobStore get/update store,
+     *
+     * - Reload store updated
+     */
+    const stateAfterWatchInit = getStateFromMainMap(instanceId);
+    if (!stateAfterWatchInit) return () => {};
+
     updateMainMap(instanceId, {
-        ...state,
+        ...stateAfterWatchInit,
         unsubscribeBindInstance: [...unsubscribeBindInstance, innerUnsubscribe],
     });
 
     return () => {
         innerUnsubscribe();
+
+        const stateAfterUnsubscribe = getStateFromMainMap(instanceId);
+        if (!stateAfterUnsubscribe) return;
+
         updateMainMap(instanceId, {
-            ...state,
+            ...stateAfterUnsubscribe,
             unsubscribeBindInstance: unsubscribeBindInstance.filter(
                 (unsubscribe) => unsubscribe !== innerUnsubscribe
             ),
