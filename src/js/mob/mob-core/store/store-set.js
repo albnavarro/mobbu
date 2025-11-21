@@ -649,7 +649,7 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
  * @param {import('./type').MobStoreComputedAction} params
  * @returns {void}
  */
-export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
+const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
@@ -693,12 +693,7 @@ export const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
  * @param {(arg0: { [key: string]: any }) => void} param.callback
  * @returns {void}
  */
-export const initializeCompuntedProp = ({
-    instanceId,
-    prop,
-    keys,
-    callback,
-}) => {
+const initializeCompuntedProp = ({ instanceId, prop, keys, callback }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
 

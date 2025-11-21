@@ -41,7 +41,7 @@ export const storeGetEntryPoint = (instanceId) => {
  * @param {string} param.prop
  * @returns {any}
  */
-export const storeGetProp = ({ instanceId, prop }) => {
+const storeGetProp = ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
 

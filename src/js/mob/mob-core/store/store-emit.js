@@ -10,7 +10,7 @@ import { storeEmitWarning } from './store-warining';
  * @param {string} param.prop
  * @returns {void}
  */
-export const storeEmit = ({ instanceId, prop }) => {
+const storeEmit = ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
     const { store, callBackWatcher, validationStatusObject, bindInstanceBy } =
@@ -75,7 +75,7 @@ export const storeEmitEntryPoint = ({ instanceId, prop }) => {
  * @param {string} param.prop
  * @returns {Promise<any>}
  */
-export const storeEmitAsync = async ({ instanceId, prop }) => {
+const storeEmitAsync = async ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return new Promise((resolve) => resolve(''));
     const { store, callBackWatcher, validationStatusObject, bindInstanceBy } =

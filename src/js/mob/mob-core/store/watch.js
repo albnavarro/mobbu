@@ -7,7 +7,7 @@ import { storeWatchWarning } from './store-warining';
  * @param {import('./type').MobStoreWatchAction} param
  * @returns {import('./type').MobStoreWatchReturnObject}
  */
-export const storeWatchAction = ({ state, prop, callback, wait }) => {
+const storeWatchAction = ({ state, prop, callback, wait }) => {
     const { store, callBackWatcher } = state;
     const logStyle = getLogStyle();
 
@@ -40,7 +40,7 @@ export const storeWatchAction = ({ state, prop, callback, wait }) => {
  * @param {string} param.instanceId
  * @param {string} param.unsubscribeId
  */
-export const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
+const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
@@ -59,7 +59,7 @@ export const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
  * @param {(current: any, previous: any, validate: boolean | { [key: string]: boolean }) => void} param.callback
  * @returns {() => any}
  */
-export const watchMobStore = ({ instanceId, prop, callback, wait }) => {
+const watchMobStore = ({ instanceId, prop, callback, wait }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return () => {};
 
