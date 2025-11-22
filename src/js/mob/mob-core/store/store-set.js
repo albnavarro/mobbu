@@ -213,18 +213,17 @@ const setObj = ({
     /**
      * Transform value
      */
-    const valueTransformed = Object.entries(val)
-        .map((item) => {
+    const valueTransformed = Object.fromEntries(
+        Object.entries(val).map((item) => {
             const [subProp, subVal] = item;
             const subValOld = store[prop][subProp];
 
-            return {
-                [subProp]:
-                    fnTransformation[prop][subProp]?.(subVal, subValOld) ??
-                    subVal,
-            };
+            return [
+                subProp,
+                fnTransformation[prop][subProp]?.(subVal, subValOld) ?? subVal,
+            ];
         })
-        .reduce((previous, current) => ({ ...previous, ...current }));
+    );
 
     /**
      * Check type of each propierties
