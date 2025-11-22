@@ -55,6 +55,7 @@ export const inizializeAllProps = (instanceId, initialState) => {
             fireCallback: false,
             useStrict: false,
             action: STORE_SET,
+            initalizeStep: true,
         });
 
         if (!newState) return;

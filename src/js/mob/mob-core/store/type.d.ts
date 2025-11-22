@@ -226,6 +226,7 @@ export interface storeSetAction {
     useStrict?: boolean;
     state: StoreMapValue;
     action: 'SET' | 'UPDATE';
+    initalizeStep?: boolean;
 }
 
 export interface MobStoreQuickSetEntryPoint {

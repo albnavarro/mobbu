@@ -22,6 +22,7 @@ import {
     storeSetPropTypeWarning,
     storeSetPropValWarning,
     storeSetWarning,
+    storeValidationFailInCreation,
 } from './store-warining';
 
 /**
@@ -36,6 +37,7 @@ import {
  * @param {any} param.val
  * @param {boolean} param.fireCallback
  * @param {boolean} param.useStrict
+ * @param {boolean} [param.initalizeStep]
  * @returns {import('./type').StoreMapValue | undefined}
  */
 const setProp = ({
@@ -45,6 +47,7 @@ const setProp = ({
     val,
     fireCallback = true,
     useStrict = true,
+    initalizeStep = false,
 }) => {
     const {
         type,
@@ -107,6 +110,13 @@ const setProp = ({
     ]?.(valueTransformed, oldVal);
 
     /**
+     * In creation step advise that validation is failed.
+     */
+    if (!isValidated && initalizeStep) {
+        storeValidationFailInCreation(prop, logStyle);
+    }
+
+    /**
      * In strict mode return is prop is not valid
      */
     if (strict[prop] && !isValidated && useStrict) return;
@@ -160,6 +170,7 @@ const setProp = ({
  * @param {any} param.val
  * @param {boolean} param.fireCallback
  * @param {boolean} param.useStrict
+ * @param {boolean} [param.initalizeStep]
  * @returns {import('./type').StoreMapValue | undefined}
  */
 const setObj = ({
@@ -169,6 +180,7 @@ const setObj = ({
     val,
     fireCallback = true,
     useStrict = true,
+    initalizeStep = false,
 }) => {
     const {
         store,
@@ -302,6 +314,14 @@ const setObj = ({
          * logic.
          */
         const validateResult = fnValidate[prop][subProp]?.(subVal, subValOld);
+
+        /**
+         * In creation step advise if some props is not valid
+         */
+        if (!validateResult && initalizeStep) {
+            storeValidationFailInCreation(prop, logStyle);
+        }
+
         if (validateResult === undefined) {
             storeObjectIsNotAnyWarning(logStyle, TYPE_IS_ANY);
         }
@@ -398,6 +418,7 @@ export const storeSetAction = ({
     clone = false,
     useStrict = true,
     action,
+    initalizeStep = false,
 }) => {
     const { store, type } = state;
     if (!store) return;
@@ -438,6 +459,7 @@ export const storeSetAction = ({
               val: valueParsed,
               fireCallback,
               useStrict,
+              initalizeStep,
           })
         : setProp({
               instanceId,
@@ -446,6 +468,7 @@ export const storeSetAction = ({
               val: valueParsed,
               fireCallback,
               useStrict,
+              initalizeStep,
           });
 };
 

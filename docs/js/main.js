@@ -2218,6 +2218,12 @@
       style
     );
   };
+  var storeValidationFailInCreation = (prop, style) => {
+    console.warn(
+      `%c MobStore error: the property ${prop} fail validation during definition.`,
+      style
+    );
+  };
 
   // src/js/mob/mob-core/store/store-utils.js
   var maxDepth = (object) => {
@@ -2318,7 +2324,8 @@
     prop,
     val: val2,
     fireCallback = true,
-    useStrict = true
+    useStrict = true,
+    initalizeStep = false
   }) => {
     const {
       type,
@@ -2355,6 +2362,9 @@
       /** @type {Object<string, function>} */
       fnValidate[prop]?.(valueTransformed, oldVal)
     );
+    if (!isValidated && initalizeStep) {
+      storeValidationFailInCreation(prop, logStyle2);
+    }
     if (strict[prop] && !isValidated && useStrict) return;
     validationStatusObject[prop] = isValidated;
     const isEqual = skipEqual[prop] ? checkEquality(type[prop], oldVal, valueTransformed) : false;
@@ -2386,7 +2396,8 @@
     prop,
     val: val2,
     fireCallback = true,
-    useStrict = true
+    useStrict = true,
+    initalizeStep = false
   }) => {
     const {
       store: store2,
@@ -2462,6 +2473,9 @@
       const [subProp, subVal] = item;
       const subValOld = store2[prop][subProp];
       const validateResult = fnValidate[prop][subProp]?.(subVal, subValOld);
+      if (!validateResult && initalizeStep) {
+        storeValidationFailInCreation(prop, logStyle2);
+      }
       if (validateResult === void 0) {
         storeObjectIsNotAnyWarning(logStyle2, TYPE_IS_ANY);
       }
@@ -2518,7 +2532,8 @@
     fireCallback = true,
     clone = false,
     useStrict = true,
-    action: action2
+    action: action2,
+    initalizeStep = false
   }) => {
     const { store: store2, type } = state;
     if (!store2) return;
@@ -2536,14 +2551,16 @@
       prop,
       val: valueParsed,
       fireCallback,
-      useStrict
+      useStrict,
+      initalizeStep
     }) : setProp({
       instanceId,
       state,
       prop,
       val: valueParsed,
       fireCallback,
-      useStrict
+      useStrict,
+      initalizeStep
     });
   };
   var storeSetEntryPoint = ({
@@ -2739,7 +2756,8 @@
         value,
         fireCallback: false,
         useStrict: false,
-        action: STORE_SET
+        action: STORE_SET,
+        initalizeStep: true
       });
       if (!newState) return;
       updateMainMap(instanceId, newState);
