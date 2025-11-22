@@ -6,7 +6,7 @@ import {
 } from './store-set';
 import { updateMainMap } from './store-map';
 import { inizializeAllProps, inizializeValidation } from './initial-validation';
-import { watchEntryPoint } from './watch';
+import { watchEntryPoint } from './store-watch';
 import { inizializeInstance } from './inizialize-instance';
 import { storeGetEntryPoint, storeGetPropEntryPoint } from './store-get';
 import { storeEmitAsyncEntryPoint, storeEmitEntryPoint } from './store-emit';
@@ -17,7 +17,7 @@ import {
     storeGetValidationEntryPoint,
 } from './store-debug';
 import { STORE_SET, STORE_UPDATE } from './constant';
-import { getProxiEntryPoint } from './proxi';
+import { getProxiEntryPoint } from './store-proxi';
 import { bindStoreEntryPoint } from './bind-store';
 import { destroyStoreEntryPoint } from './destroy';
 import { checkIfPropIsComputed } from './store-utils';

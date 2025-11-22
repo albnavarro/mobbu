@@ -28,6 +28,9 @@ const storeEmit = ({ instanceId, prop }) => {
             instanceId,
         });
 
+        /**
+         * AddToComputedWaitLsit get and update map.
+         */
         addToComputedWaitLsit({ instanceId, prop });
         bindInstanceBy.forEach((id) => {
             addToComputedWaitLsit({ instanceId: id, prop });
@@ -66,6 +69,9 @@ export const storeEmitEntryPoint = ({ instanceId, prop }) => {
             return store && prop in store;
         }) ?? '';
 
+    /**
+     * StoreEmit get and update map.
+     */
     storeEmit({ instanceId: currentBindId, prop });
 };
 

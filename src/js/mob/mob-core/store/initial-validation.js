@@ -1,6 +1,5 @@
 import { STORE_SET } from './constant';
-import { getStateFromMainMap, updateMainMap } from './store-map';
-import { storeSetAction } from './store-set';
+import { storeSetEntryPoint } from './store-set';
 import { storeType } from './store-type';
 
 /**
@@ -41,15 +40,8 @@ export const inizializeAllProps = (instanceId, initialState) => {
     Object.entries(store).forEach((item) => {
         const [prop, value] = item;
 
-        /**
-         * Get last updated state.
-         */
-        const state = getStateFromMainMap(instanceId);
-        if (!state) return;
-
-        const newState = storeSetAction({
+        storeSetEntryPoint({
             instanceId,
-            state,
             prop,
             value,
             fireCallback: false,
@@ -57,12 +49,5 @@ export const inizializeAllProps = (instanceId, initialState) => {
             action: STORE_SET,
             initalizeStep: true,
         });
-
-        if (!newState) return;
-
-        /**
-         * Update main store state
-         */
-        updateMainMap(instanceId, newState);
     });
 };

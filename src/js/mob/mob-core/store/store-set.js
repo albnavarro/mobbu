@@ -32,23 +32,24 @@ import {
 /**
  * @param {Object} param
  * @param {string} param.instanceId
- * @param {import('./type').StoreMapValue} param.state
  * @param {string} param.prop
  * @param {any} param.val
  * @param {boolean} param.fireCallback
  * @param {boolean} param.useStrict
  * @param {boolean} [param.initalizeStep]
- * @returns {import('./type').StoreMapValue | undefined}
+ * @returns {void}
  */
 const setProp = ({
     instanceId,
-    state,
     prop,
     val,
     fireCallback = true,
     useStrict = true,
     initalizeStep = false,
 }) => {
+    const state = getStateFromMainMap(instanceId);
+    if (!state) return;
+
     const {
         type,
         fnTransformation,
@@ -139,6 +140,14 @@ const setProp = ({
      */
     store[prop] = valueTransformed;
 
+    /**
+     * Update map before fire addToComputedWaitLsit
+     */
+    updateMainMap(instanceId, { ...state, store, validationStatusObject });
+
+    /**
+     * Fire callback
+     */
     if (fireCallback) {
         runCallbackQueqe({
             callBackWatcher,
@@ -149,39 +158,37 @@ const setProp = ({
             instanceId,
         });
 
+        /**
+         * AddToComputedWaitLsit get and update map.
+         */
         addToComputedWaitLsit({ instanceId, prop });
         bindInstanceBy.forEach((id) => {
             addToComputedWaitLsit({ instanceId: id, prop });
         });
     }
-
-    return {
-        ...state,
-        store,
-        validationStatusObject,
-    };
 };
 
 /**
  * @param {Object} param
  * @param {string} param.instanceId
- * @param {import('./type').StoreMapValue} param.state
  * @param {string} param.prop
  * @param {any} param.val
  * @param {boolean} param.fireCallback
  * @param {boolean} param.useStrict
  * @param {boolean} [param.initalizeStep]
- * @returns {import('./type').StoreMapValue | undefined}
+ * @returns {void}
  */
 const setObj = ({
     instanceId,
-    state,
     prop,
     val,
     fireCallback = true,
     useStrict = true,
     initalizeStep = false,
 }) => {
+    const state = getStateFromMainMap(instanceId);
+    if (!state) return;
+
     const {
         store,
         type,
@@ -380,6 +387,11 @@ const setObj = ({
      */
     store[prop] = newObjectValues;
 
+    /**
+     * Update map before fire addToComputedWaitLsit
+     */
+    updateMainMap(instanceId, { ...state, store, validationStatusObject });
+
     if (fireCallback) {
         runCallbackQueqe({
             callBackWatcher,
@@ -390,28 +402,24 @@ const setObj = ({
             instanceId,
         });
 
+        /**
+         * AddToComputedWaitLsit get and update map.
+         */
         addToComputedWaitLsit({ instanceId, prop });
         bindInstanceBy.forEach((id) => {
             addToComputedWaitLsit({ instanceId: id, prop });
         });
     }
-
-    return {
-        ...state,
-        store,
-        validationStatusObject,
-    };
 };
 
 /**
  * Here we decided if is normal prop or object prop.
  *
  * @param {import('./type').storeSetAction} params
- * @returns {import('./type').StoreMapValue | undefined}
+ * @returns {void}
  */
-export const storeSetAction = ({
+export const storeSetEntryPoint = ({
     instanceId,
-    state,
     prop,
     value,
     fireCallback = true,
@@ -420,6 +428,9 @@ export const storeSetAction = ({
     action,
     initalizeStep = false,
 }) => {
+    const state = getStateFromMainMap(instanceId);
+    if (!state) return;
+
     const { store, type } = state;
     if (!store) return;
 
@@ -451,54 +462,33 @@ export const storeSetAction = ({
      */
     const isCustomObject = type[prop] === TYPE_IS_ANY;
 
-    return storeType.isObject(previousValue) && !isCustomObject
-        ? setObj({
-              instanceId,
-              state,
-              prop,
-              val: valueParsed,
-              fireCallback,
-              useStrict,
-              initalizeStep,
-          })
-        : setProp({
-              instanceId,
-              state,
-              prop,
-              val: valueParsed,
-              fireCallback,
-              useStrict,
-              initalizeStep,
-          });
-};
+    /**
+     * State is an Object
+     */
+    if (storeType.isObject(previousValue) && !isCustomObject) {
+        setObj({
+            instanceId,
+            prop,
+            val: valueParsed,
+            fireCallback,
+            useStrict,
+            initalizeStep,
+        });
 
-/**
- * @param {import('./type').MobStoreSetEntryPoint} param
- * @returns {void}
- */
-export const storeSetEntryPoint = ({
-    instanceId,
-    prop,
-    value,
-    fireCallback,
-    clone,
-    action,
-}) => {
-    const state = getStateFromMainMap(instanceId);
-    if (!state) return;
+        return;
+    }
 
-    const newState = storeSetAction({
+    /**
+     * State is a normal prop.
+     */
+    setProp({
         instanceId,
-        state,
         prop,
-        value,
+        val: valueParsed,
         fireCallback,
-        clone,
-        action,
+        useStrict,
+        initalizeStep,
     });
-
-    if (!newState) return;
-    updateMainMap(instanceId, newState);
 };
 
 /**
@@ -523,6 +513,8 @@ export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
      */
     store[prop] = value;
 
+    updateMainMap(instanceId, { ...state, store });
+
     runCallbackQueqe({
         callBackWatcher,
         prop,
@@ -531,8 +523,6 @@ export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
         validationValue: true,
         instanceId,
     });
-
-    updateMainMap(instanceId, { ...state, store });
 };
 
 /**

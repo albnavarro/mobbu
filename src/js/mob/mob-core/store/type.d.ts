@@ -224,7 +224,6 @@ export interface storeSetAction {
     clone?: boolean;
     instanceId: string;
     useStrict?: boolean;
-    state: StoreMapValue;
     action: 'SET' | 'UPDATE';
     initalizeStep?: boolean;
 }
