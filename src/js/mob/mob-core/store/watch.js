@@ -7,7 +7,7 @@ import { storeWatchWarning } from './store-warining';
  * @param {import('./type').MobStoreWatchAction} param
  * @returns {import('./type').MobStoreWatchReturnObject}
  */
-const storeWatchAction = ({ state, prop, callback, wait }) => {
+const subscribeWatch = ({ state, prop, callback, wait }) => {
     const { store, callBackWatcher } = state;
     const logStyle = getLogStyle();
 
@@ -63,7 +63,7 @@ const watchMobStore = ({ instanceId, prop, callback, wait }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return () => {};
 
-    const { state: newState, unsubscribeId } = storeWatchAction({
+    const { state: newState, unsubscribeId } = subscribeWatch({
         state,
         prop,
         callback,
@@ -112,7 +112,8 @@ export const watchEntryPoint = ({ instanceId, prop, callback, wait }) => {
     /**
      * WatchMobStore get/update store,
      *
-     * - Reload store updated
+     * - If prop is in current instanceId watchMobStore update state.
+     * - So reload fresh state.
      */
     const stateAfterWatchInit = getStateFromMainMap(instanceId);
     if (!stateAfterWatchInit) return () => {};
