@@ -1,8 +1,9 @@
 /**
  * Shallow copy.
  *
- * Con shallow copy creiamo una copia del `wrapper` che contiene i nostri dati, ma le proprietà interne rimangono
- * riferimenti condivisi, non si tratta di immutabilitá.
+ * With shallow create a copy of `wrapper` witch contains data, but props is shared reference.
+ *
+ * - This is not immutability, this is not the scope.
  *
  * ```js
  * {
@@ -13,6 +14,14 @@
  *   ...
  * }
  * ```
+ *
+ * Update function in not really necessary, we whore with shared reference.
+ *
+ * - BUT:
+ * - Low computation effort.
+ * - More easy for debugging.
+ * - I clearly when we open and close map, logic is more readable.
+ * - Props like `computedRunning: false` need update, for consistency update all prop in map value.
  *
  * @type {boolean}
  */
