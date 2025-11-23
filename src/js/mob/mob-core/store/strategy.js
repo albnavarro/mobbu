@@ -1,29 +1,28 @@
+export const STORE_STRATEGY_SHALLOW_COPY = 'store_shallow_copy';
+export const STORE_STRATEGY_CUSTOM_COPY = 'store_custom_copy';
+export const STORE_STRATEGY_DEFAULT = 'store_default';
+
 /**
- * Shallow copy.
+ * - SHALLOW COPY.
  *
- * With shallow create a copy of `wrapper` witch contains data, but props is shared reference.
+ * Create a copy of `wrapper` witch contains data.
  *
- * - This is not immutability, this is not the scope.
+ * Propierties refer to original data. Proxies use original state in map
  *
- * ```js
- * {
- *   store: Store_A,                 ← Riferimento condiviso
- *   validationStatusObject: VSO_A,  ← Riferimento condiviso
- *   callBackWatcher: Map_A,         ← Riferimento condiviso
- *   computedRunning: false,         ← Primitivo (copiato per valore)
- *   ...
- * }
- * ```
+ * - CUSTOM COPY
  *
- * Update function in not really necessary, we whore with shared reference.
+ * In getStateFromMainMap() is possible return a custom copy of data.
  *
- * - BUT:
- * - Low computation effort.
- * - More easy for debugging.
- * - I clearly when we open and close map, logic is more readable.
- * - Props like `computedRunning: false` need update, for consistency update all prop in map value.
- * - In case of real immutability logic, system is read to work ( update getStateFromMainMap )
+ * In this case proxies refer to last update state.
  *
- * @type {boolean}
+ * - DEFAULT
+ *
+ * Refer directly to original data.
+ *
+ * BOTH CASE:
+ *
+ * In both case, for consistency, data is update like use CUSTOM COPY strategy.
+ *
+ * @type {string}
  */
-export const useStoreCopy = true;
+export const storeCopyStrategy = STORE_STRATEGY_CUSTOM_COPY;

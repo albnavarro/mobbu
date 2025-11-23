@@ -1,4 +1,8 @@
-import { useStoreCopy } from './strategy';
+import {
+    STORE_STRATEGY_CUSTOM_COPY,
+    STORE_STRATEGY_SHALLOW_COPY,
+    storeCopyStrategy,
+} from './strategy';
 
 /**
  * @type {import('./type').StoreMap}
@@ -12,9 +16,26 @@ export const storeMap = new Map();
  * @returns {import('./type').StoreMapValue | undefined}
  */
 export const getStateFromMainMap = (id) => {
-    if (useStoreCopy) {
+    if (storeCopyStrategy === STORE_STRATEGY_SHALLOW_COPY) {
         const valueNow = storeMap.get(id);
         return valueNow ? { ...valueNow } : undefined;
+    }
+
+    if (storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY) {
+        const valueNow = storeMap.get(id);
+
+        return valueNow
+            ? Object.assign(
+                  {},
+                  {
+                      ...valueNow,
+                      store: { ...valueNow.store },
+                      validationStatusObject: {
+                          ...valueNow.validationStatusObject,
+                      },
+                  }
+              )
+            : undefined;
     }
 
     return storeMap.get(id);

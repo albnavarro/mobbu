@@ -5,6 +5,7 @@ import { storeMap, updateMainMap } from './store-map';
 import { storeSetEntryPoint } from './store-set';
 import { checkIfPropIsComputed } from './store-utils';
 import { storeProxiReadOnlyWarning } from './store-warining';
+import { STORE_STRATEGY_CUSTOM_COPY, storeCopyStrategy } from './strategy';
 
 /**
  * Proxi state/states with the original reference of store object.
@@ -38,7 +39,18 @@ export const getProxiEntryPoint = ({ instanceId }) => {
      */
     const selfProxi = new Proxy(store, {
         set(target, /** @type {string} */ prop, value) {
-            if (prop in target) {
+            /**
+             * - With shallow copy refer to original store reference
+             * - With custom copy get update store from main map, copies here is not necessary.
+             */
+            const store =
+                storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY
+                    ? storeMap.get(instanceId)?.store
+                    : target;
+
+            if (!store) return false;
+
+            if (prop in store) {
                 const isComputed = checkIfPropIsComputed({ instanceId, prop });
                 const isReadOnly = proxiReadOnlyProp.has(prop);
 
@@ -63,7 +75,18 @@ export const getProxiEntryPoint = ({ instanceId }) => {
             return false;
         },
         get(target, /** @type {string} */ prop) {
-            if (!(prop in target)) {
+            /**
+             * - With shallow copy refer to original store reference
+             * - With custom copy get update store from main map, copies here is not necessary.
+             */
+            const store =
+                storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY
+                    ? storeMap.get(instanceId)?.store
+                    : target;
+
+            if (!store) return false;
+
+            if (!(prop in store)) {
                 return false;
             }
 
@@ -75,7 +98,7 @@ export const getProxiEntryPoint = ({ instanceId }) => {
             /**
              * Return value
              */
-            return target[prop];
+            return store[prop];
         },
     });
 
@@ -104,7 +127,18 @@ export const getProxiEntryPoint = ({ instanceId }) => {
                 return false;
             },
             get(target, /** @type {string} */ prop) {
-                if (!(prop in target)) {
+                /**
+                 * - With shallow copy refer to original store reference
+                 * - With custom copy get update store from main map, copies here is not necessary.
+                 */
+                const store =
+                    storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY
+                        ? storeMap.get(id)?.store
+                        : target;
+
+                if (!store) return false;
+
+                if (!(prop in store)) {
                     return false;
                 }
 
@@ -116,7 +150,7 @@ export const getProxiEntryPoint = ({ instanceId }) => {
                 /**
                  * Return value
                  */
-                return target[prop];
+                return store[prop];
             },
         });
     });
