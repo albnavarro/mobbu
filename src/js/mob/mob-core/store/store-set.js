@@ -133,7 +133,8 @@ const setProp = ({
     const isEqual = skipEqual[prop]
         ? checkEquality(type[prop], oldVal, valueTransformed)
         : false;
-    if (isEqual) return;
+
+    if (isEqual && !initalizeStep) return;
 
     /**
      * Finally set new value
@@ -148,7 +149,7 @@ const setProp = ({
     /**
      * Fire callback
      */
-    if (fireCallback) {
+    if (fireCallback && !initalizeStep) {
         runCallbackQueqe({
             callBackWatcher,
             prop,
@@ -380,7 +381,7 @@ const setObj = ({
      * If shouldSkipEqual = true and previous object is equal new object return. If at least one modified property of
      * the object has skipEqual set to false then the entire object is considered mutated even if all values are equal
      */
-    if (prevValueIsEqualNew) return;
+    if (prevValueIsEqualNew && !initalizeStep) return;
 
     /**
      * Finally update Object.
@@ -392,7 +393,7 @@ const setObj = ({
      */
     updateMainMap(instanceId, { ...state, store, validationStatusObject });
 
-    if (fireCallback) {
+    if (fireCallback && !initalizeStep) {
         runCallbackQueqe({
             callBackWatcher,
             prop,
