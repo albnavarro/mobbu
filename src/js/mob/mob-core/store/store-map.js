@@ -1,3 +1,4 @@
+import { deepClone } from './store-utils';
 import {
     STORE_STRATEGY_CUSTOM_COPY,
     STORE_STRATEGY_SHALLOW_COPY,
@@ -18,33 +19,26 @@ export const storeMap = new Map();
 export const getStateFromMainMap = (id) => {
     if (storeCopyStrategy === STORE_STRATEGY_SHALLOW_COPY) {
         const valueNow = storeMap.get(id);
-
-        /**
-         * Sallow-copy of wrapper object
-         */
         return valueNow ? { ...valueNow } : undefined;
     }
 
     if (storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY) {
         const valueNow = storeMap.get(id);
 
-        /**
-         * Sallow-copy of wrapper store and validationStatusObject
-         */
         return valueNow
-            ? {
-                  ...valueNow,
-                  store: { ...valueNow.store },
-                  validationStatusObject: {
-                      ...valueNow.validationStatusObject,
-                  },
-              }
+            ? Object.assign(
+                  {},
+                  {
+                      ...valueNow,
+                      store: deepClone(valueNow.store),
+                      validationStatusObject: deepClone(
+                          valueNow.validationStatusObject
+                      ),
+                  }
+              )
             : undefined;
     }
 
-    /**
-     * Default, full mutation.
-     */
     return storeMap.get(id);
 };
 

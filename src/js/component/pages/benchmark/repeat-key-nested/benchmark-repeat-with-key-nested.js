@@ -23,8 +23,36 @@ export const BenchMarkRepeatWithKyFnNested = ({
     bindObject,
     bindEffect,
     getProxi,
+    watch,
 }) => {
     const proxi = getProxi();
+
+    watch(
+        () => proxi.plutone,
+        (val, old, validation) => {
+            console.log(val, old, validation);
+        },
+        { wait: true, immediate: true }
+    );
+
+    watch(
+        () => proxi.currentIndex,
+        (val, old, validation) => {
+            console.log(val, old, validation);
+        },
+        { wait: false, immediate: true }
+    );
+
+    setTimeout(() => {
+        proxi.plutone = { ...proxi.plutone, prop: 2 };
+        proxi.plutone = { ...proxi.plutone, prop: 4 };
+        proxi.plutone = { ...proxi.plutone, prop: 11 };
+        proxi.plutone = { ...proxi.plutone, prop: 50 };
+        proxi.plutone = { ...proxi.plutone, prop2: 7 };
+
+        proxi.currentIndex = 50;
+        proxi.currentIndex = 0;
+    });
 
     onMount(() => {
         // eslint-disable-next-line unicorn/consistent-function-scoping

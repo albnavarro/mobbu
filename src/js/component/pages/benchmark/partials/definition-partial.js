@@ -24,9 +24,24 @@ export const benchMarkDefinitionPartial = (maxItem = 1001) => ({
             type: Boolean,
         }),
         currentIndex: () => ({
-            value: -1,
+            value: 11,
             type: Number,
+            validate: (val) => val > 10,
         }),
+        plutone: {
+            prop: () => ({
+                value: 20,
+                type: 'number',
+                validate: (val) => val > 10,
+                strict: false,
+            }),
+            prop2: () => ({
+                value: 2,
+                type: 'number',
+                validate: (val) => val > 10,
+                strict: false,
+            }),
+        },
     },
     child: [BenchMarkFakeComponent],
 });

@@ -5,6 +5,10 @@ export interface BenchMark {
         data: { label: string }[];
         isLoading: boolean;
         currentIndex: number;
+        plutone: {
+            prop: number;
+            prop2: number;
+        };
     };
     ref: {
         loading: HTMLElement;
