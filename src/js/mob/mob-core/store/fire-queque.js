@@ -52,7 +52,11 @@ export const runCallbackQueqe = ({
             /**
              * Update or initialize single prop value to last.
              */
-            queueByInstanceId.set(prop, newValue);
+            queueByInstanceId.set(prop, {
+                newValue,
+                oldValue,
+                validationValue,
+            });
 
             /**
              * If is in queue return;
@@ -72,10 +76,17 @@ export const runCallbackQueqe = ({
                  * Get last updated value
                  */
                 const propsPerIdNow = waitMap.get(instanceId);
-                const valueNow = propsPerIdNow?.get(prop);
+                const current = propsPerIdNow?.get(prop);
 
-                if (valueNow !== undefined || valueNow !== null) {
-                    fn(valueNow, oldValue, validationValue);
+                if (
+                    current.newValue !== undefined ||
+                    current.newValue !== null
+                ) {
+                    fn(
+                        current.newValue,
+                        current.oldValue,
+                        current.validationValue
+                    );
                 }
 
                 /**
