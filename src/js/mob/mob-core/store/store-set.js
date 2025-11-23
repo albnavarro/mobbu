@@ -641,7 +641,6 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
      * Update computedPropsQueque.
      */
     computedPropsQueque.add(prop);
-
     updateMainMap(instanceId, {
         ...state,
         computedPropsQueque,

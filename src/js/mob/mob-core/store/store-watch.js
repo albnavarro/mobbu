@@ -27,7 +27,6 @@ const subscribeWatch = ({ state, prop, callback, wait }) => {
     }
 
     const id = getUnivoqueId();
-
     callBackWatcher.set(id, { fn: callback, prop, wait });
 
     return {
@@ -49,7 +48,6 @@ const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
     if (!callBackWatcher) return;
 
     callBackWatcher.delete(unsubscribeId);
-
     updateMainMap(instanceId, { ...state, callBackWatcher });
 };
 
