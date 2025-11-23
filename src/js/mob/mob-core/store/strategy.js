@@ -25,4 +25,4 @@ export const STORE_STRATEGY_DEFAULT = 'store_default';
  *
  * @type {string}
  */
-export const storeCopyStrategy = STORE_STRATEGY_CUSTOM_COPY;
+export const storeCopyStrategy = STORE_STRATEGY_SHALLOW_COPY;

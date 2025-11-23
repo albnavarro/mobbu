@@ -2095,7 +2095,7 @@
   // src/js/mob/mob-core/store/strategy.js
   var STORE_STRATEGY_SHALLOW_COPY = "store_shallow_copy";
   var STORE_STRATEGY_CUSTOM_COPY = "store_custom_copy";
-  var storeCopyStrategy = STORE_STRATEGY_CUSTOM_COPY;
+  var storeCopyStrategy = STORE_STRATEGY_SHALLOW_COPY;
 
   // src/js/mob/mob-core/store/store-map.js
   var storeMap = /* @__PURE__ */ new Map();
