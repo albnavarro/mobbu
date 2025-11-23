@@ -27,6 +27,15 @@ const subscribeWatch = ({ state, prop, callback, wait }) => {
     }
 
     const id = getUnivoqueId();
+
+    /**
+     * Direct mutation of shared Map reference from shallow copy (useStoreCopy=true).
+     *
+     * - The updateMainMap call below is technically redundant because callBackWatcher points to the original Map in
+     *   storeMap, which is already mutated by .set().
+     *
+     *   - Kept for consistency and safety, but can be removed for micro-optimization.
+     */
     callBackWatcher.set(id, { fn: callback, prop, wait });
 
     return {
@@ -48,6 +57,15 @@ const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
     if (!callBackWatcher) return;
 
     callBackWatcher.delete(unsubscribeId);
+
+    /**
+     * Direct mutation of shared Map reference from shallow copy (useStoreCopy=true).
+     *
+     * - The updateMainMap call below is technically redundant because callBackWatcher points to the original Map in
+     *   storeMap, which is already mutated by .set().
+     *
+     *   - Kept for consistency and safety, but can be removed for micro-optimization.
+     */
     updateMainMap(instanceId, { ...state, callBackWatcher });
 };
 

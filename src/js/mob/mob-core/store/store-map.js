@@ -6,6 +6,8 @@ import { useStoreCopy } from './strategy';
 export const storeMap = new Map();
 
 /**
+ * Return a shallow-copy of store value.
+ *
  * @param {string} id
  * @returns {import('./type').StoreMapValue | undefined}
  */

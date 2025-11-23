@@ -333,7 +333,22 @@ const setObj = ({
             storeObjectIsNotAnyWarning(logStyle, TYPE_IS_ANY);
         }
 
-        validationStatusObject[prop][subProp] = validateResult;
+        /**
+         * Woring with a shallow-copy (useStoreCopy=true) avoid to mutate nested prop.
+         *
+         * - Reassign whole object.
+         */
+        validationStatusObject[prop] = {
+            ...validationStatusObject[prop],
+            [subProp]: validateResult,
+        };
+
+        /**
+         * Potetial nested mutation issue.
+         *
+         * - Here the mutation is reflected to the original map.
+         */
+        // validationStatusObject[prop][subProp] = validateResult;
     });
 
     /**
@@ -641,6 +656,15 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
      * Update computedPropsQueque.
      */
     computedPropsQueque.add(prop);
+
+    /**
+     * Direct mutation of shared Map reference from shallow copy (useStoreCopy=true).
+     *
+     * - The updateMainMap call below is technically redundant because callBackWatcher points to the original Map in
+     *   storeMap, which is already mutated by .set().
+     *
+     *   - Kept for consistency and safety, but can be removed for micro-optimization.
+     */
     updateMainMap(instanceId, {
         ...state,
         computedPropsQueque,
@@ -689,6 +713,14 @@ const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
         fn,
     });
 
+    /**
+     * Direct mutation of shared Map reference from shallow copy (useStoreCopy=true).
+     *
+     * - The updateMainMap call below is technically redundant because callBackWatcher points to the original Map in
+     *   storeMap, which is already mutated by .set().
+     *
+     *   - Kept for consistency and safety, but can be removed for micro-optimization.
+     */
     updateMainMap(instanceId, {
         ...state,
         callBackComputed,
