@@ -40,7 +40,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
         (val, old, validation) => {
             console.log(val, old, validation);
         },
-        { wait: false, immediate: true }
+        { wait: true, immediate: true }
     );
 
     setTimeout(() => {
@@ -48,7 +48,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
         proxi.plutone = { ...proxi.plutone, prop: 4 };
         proxi.plutone = { ...proxi.plutone, prop: 11 };
         proxi.plutone = { ...proxi.plutone, prop: 50 };
-        proxi.plutone = { ...proxi.plutone, prop2: 7 };
+        proxi.plutone = { ...proxi.plutone, prop2: 70 };
 
         proxi.currentIndex = 50;
         proxi.currentIndex = 0;

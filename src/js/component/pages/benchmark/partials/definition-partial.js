@@ -24,7 +24,7 @@ export const benchMarkDefinitionPartial = (maxItem = 1001) => ({
             type: Boolean,
         }),
         currentIndex: () => ({
-            value: 11,
+            value: -1,
             type: Number,
             validate: (val) => val > 10,
         }),
@@ -36,7 +36,7 @@ export const benchMarkDefinitionPartial = (maxItem = 1001) => ({
                 strict: false,
             }),
             prop2: () => ({
-                value: 2,
+                value: 20,
                 type: 'number',
                 validate: (val) => val > 10,
                 strict: false,

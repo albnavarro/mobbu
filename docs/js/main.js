@@ -2059,14 +2059,22 @@
         const queueByInstanceId = waitMap.get(instanceId) ?? /** @type{Map<string, any>} */
         /* @__PURE__ */ new Map();
         const shouldWait = queueByInstanceId.has(prop);
-        queueByInstanceId.set(prop, newValue);
+        queueByInstanceId.set(prop, {
+          newValue,
+          oldValue,
+          validationValue
+        });
         if (shouldWait) return;
         waitMap.set(instanceId, queueByInstanceId);
         useNextLoop(() => {
           const propsPerIdNow = waitMap.get(instanceId);
-          const valueNow = propsPerIdNow?.get(prop);
-          if (valueNow !== void 0 || valueNow !== null) {
-            fn(valueNow, oldValue, validationValue);
+          const current = propsPerIdNow?.get(prop);
+          if (current.newValue !== void 0 || current.newValue !== null) {
+            fn(
+              current.newValue,
+              current.oldValue,
+              current.validationValue
+            );
           }
           propsPerIdNow?.delete(prop);
           if (propsPerIdNow?.size === 0) {
@@ -2322,7 +2330,7 @@
   // src/js/mob/mob-core/store/strategy.js
   var STORE_STRATEGY_SHALLOW_COPY = "store_shallow_copy";
   var STORE_STRATEGY_CUSTOM_COPY = "store_custom_copy";
-  var storeCopyStrategy = STORE_STRATEGY_SHALLOW_COPY;
+  var storeCopyStrategy = STORE_STRATEGY_CUSTOM_COPY;
 
   // src/js/mob/mob-core/store/store-map.js
   var storeMap = /* @__PURE__ */ new Map();
@@ -26871,7 +26879,7 @@
         type: Boolean
       }),
       currentIndex: () => ({
-        value: 11,
+        value: -1,
         type: Number,
         validate: (val2) => val2 > 10
       }),
@@ -26883,7 +26891,7 @@
           strict: false
         }),
         prop2: () => ({
-          value: 2,
+          value: 20,
           type: "number",
           validate: (val2) => val2 > 10,
           strict: false
@@ -27220,14 +27228,14 @@
       (val2, old, validation) => {
         console.log(val2, old, validation);
       },
-      { wait: false, immediate: true }
+      { wait: true, immediate: true }
     );
     setTimeout(() => {
       proxi.plutone = { ...proxi.plutone, prop: 2 };
       proxi.plutone = { ...proxi.plutone, prop: 4 };
       proxi.plutone = { ...proxi.plutone, prop: 11 };
       proxi.plutone = { ...proxi.plutone, prop: 50 };
-      proxi.plutone = { ...proxi.plutone, prop2: 7 };
+      proxi.plutone = { ...proxi.plutone, prop2: 70 };
       proxi.currentIndex = 50;
       proxi.currentIndex = 0;
     });
