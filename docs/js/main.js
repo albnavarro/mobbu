@@ -2477,10 +2477,7 @@
       if (validateResult === void 0) {
         storeObjectIsNotAnyWarning(logStyle2, TYPE_IS_ANY);
       }
-      validationStatusObject[prop] = {
-        ...validationStatusObject[prop],
-        [subProp]: validateResult
-      };
+      validationStatusObject[prop][subProp] = validateResult;
     });
     const oldObjectValues = store2[prop];
     const newObjectValues = {

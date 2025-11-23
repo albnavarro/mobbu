@@ -333,22 +333,7 @@ const setObj = ({
             storeObjectIsNotAnyWarning(logStyle, TYPE_IS_ANY);
         }
 
-        /**
-         * Woring with a shallow-copy (useStoreCopy=true) avoid to mutate nested prop.
-         *
-         * - Reassign whole object.
-         */
-        validationStatusObject[prop] = {
-            ...validationStatusObject[prop],
-            [subProp]: validateResult,
-        };
-
-        /**
-         * Potetial nested mutation issue.
-         *
-         * - Here the mutation is reflected to the original map.
-         */
-        // validationStatusObject[prop][subProp] = validateResult;
+        validationStatusObject[prop][subProp] = validateResult;
     });
 
     /**
