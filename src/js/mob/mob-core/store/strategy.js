@@ -22,6 +22,7 @@
  * - More easy for debugging.
  * - I clearly when we open and close map, logic is more readable.
  * - Props like `computedRunning: false` need update, for consistency update all prop in map value.
+ * - In case of real immutability logic, system is read to work ( update getStateFromMainMap )
  *
  * @type {boolean}
  */
