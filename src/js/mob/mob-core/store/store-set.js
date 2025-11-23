@@ -642,14 +642,6 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
      */
     computedPropsQueque.add(prop);
 
-    /**
-     * Direct mutation of shared Map reference from shallow copy (useStoreCopy=true).
-     *
-     * - The updateMainMap call below is technically redundant because callBackWatcher points to the original Map in
-     *   storeMap, which is already mutated by .set().
-     *
-     *   - Kept for consistency and safety, but can be removed for micro-optimization.
-     */
     updateMainMap(instanceId, {
         ...state,
         computedPropsQueque,
@@ -698,14 +690,6 @@ const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
         fn,
     });
 
-    /**
-     * Direct mutation of shared Map reference from shallow copy (useStoreCopy=true).
-     *
-     * - The updateMainMap call below is technically redundant because callBackWatcher points to the original Map in
-     *   storeMap, which is already mutated by .set().
-     *
-     *   - Kept for consistency and safety, but can be removed for micro-optimization.
-     */
     updateMainMap(instanceId, {
         ...state,
         callBackComputed,
