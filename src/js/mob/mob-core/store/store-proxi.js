@@ -42,10 +42,12 @@ export const getProxiEntryPoint = ({ instanceId }) => {
             /**
              * - With shallow copy refer to original store reference
              * - With custom copy get update store from main map, copies here is not necessary.
+             * - Fallback to target if component is destroyed and there is no reference, typically call proxi after
+             *   destroy
              */
             const store =
                 storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY
-                    ? storeMap.get(instanceId)?.store
+                    ? (storeMap.get(instanceId)?.store ?? target)
                     : target;
 
             if (!store) return false;
@@ -78,10 +80,12 @@ export const getProxiEntryPoint = ({ instanceId }) => {
             /**
              * - With shallow copy refer to original store reference
              * - With custom copy get update store from main map, copies here is not necessary.
+             * - Fallback to target if component is destroyed and there is no reference, typically call proxi after
+             *   destroy
              */
             const store =
                 storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY
-                    ? storeMap.get(instanceId)?.store
+                    ? (storeMap.get(instanceId)?.store ?? target)
                     : target;
 
             if (!store) return false;
@@ -130,10 +134,12 @@ export const getProxiEntryPoint = ({ instanceId }) => {
                 /**
                  * - With shallow copy refer to original store reference
                  * - With custom copy get update store from main map, copies here is not necessary.
+                 * - Fallback to target if component is destroyed and there is no reference, typically call proxi after
+                 *   destroy
                  */
                 const store =
                     storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY
-                        ? storeMap.get(id)?.store
+                        ? (storeMap.get(id)?.store ?? target)
                         : target;
 
                 if (!store) return false;
