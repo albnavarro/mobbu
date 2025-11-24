@@ -5,7 +5,7 @@ import { storeMap, updateMainMap } from './store-map';
 import { storeSetEntryPoint } from './store-set';
 import { checkIfPropIsComputed } from './store-utils';
 import { storeProxiReadOnlyWarning } from './store-warining';
-import { STORE_STRATEGY_CUSTOM_COPY, storeCopyStrategy } from './strategy';
+import { storeStrategyNeedCopy } from './strategy';
 
 /**
  * Proxi state/states with the original reference of store object.
@@ -45,10 +45,9 @@ export const getProxiEntryPoint = ({ instanceId }) => {
              * - Fallback to target if component is destroyed and there is no reference, typically call proxi after
              *   destroy
              */
-            const store =
-                storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY
-                    ? (storeMap.get(instanceId)?.store ?? target)
-                    : target;
+            const store = storeStrategyNeedCopy()
+                ? (storeMap.get(instanceId)?.store ?? target)
+                : target;
 
             if (!store) return false;
 
@@ -83,10 +82,9 @@ export const getProxiEntryPoint = ({ instanceId }) => {
              * - Fallback to target if component is destroyed and there is no reference, typically call proxi after
              *   destroy
              */
-            const store =
-                storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY
-                    ? (storeMap.get(instanceId)?.store ?? target)
-                    : target;
+            const store = storeStrategyNeedCopy()
+                ? (storeMap.get(instanceId)?.store ?? target)
+                : target;
 
             if (!store) return false;
 
@@ -137,10 +135,9 @@ export const getProxiEntryPoint = ({ instanceId }) => {
                  * - Fallback to target if component is destroyed and there is no reference, typically call proxi after
                  *   destroy
                  */
-                const store =
-                    storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY
-                        ? (storeMap.get(id)?.store ?? target)
-                        : target;
+                const store = storeStrategyNeedCopy()
+                    ? (storeMap.get(id)?.store ?? target)
+                    : target;
 
                 if (!store) return false;
 
