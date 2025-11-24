@@ -47,6 +47,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
         proxi.plutone = { ...proxi.plutone, prop: 2 };
         proxi.plutone = { ...proxi.plutone, prop: 4 };
         proxi.plutone = { ...proxi.plutone, prop: 11 };
+        proxi.plutone = { ...proxi.plutone, prop: 5 };
         proxi.plutone = { ...proxi.plutone, prop: 50 };
         proxi.plutone = { ...proxi.plutone, prop2: 70 };
 

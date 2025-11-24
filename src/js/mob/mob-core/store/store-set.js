@@ -7,7 +7,7 @@ import {
 } from './current-key';
 import { runCallbackQueqe } from './fire-queque';
 import { getLogStyle } from './log-style';
-import { getStateFromMainMap, storeMap, updateMainMap } from './store-map';
+import { getStateFromMainMap, updateMainMap } from './store-map';
 import { checkType, storeType, TYPE_IS_ANY } from './store-type';
 import { cloneValueOrGet, maxDepth } from './store-utils';
 import {
@@ -133,6 +133,7 @@ const setProp = ({
     const isEqual = skipEqual[prop]
         ? checkEquality(type[prop], oldVal, valueTransformed)
         : false;
+
     if (isEqual && !initalizeStep) return;
 
     /**

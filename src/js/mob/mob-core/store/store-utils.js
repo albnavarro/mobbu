@@ -215,38 +215,3 @@ export const checkIfPropIsComputed = ({ instanceId, prop }) => {
 
     return isComputed;
 };
-
-export const deepClone = (obj) => {
-    if (obj == null) return obj;
-    if (typeof obj !== 'object') return obj;
-
-    //  PRIMA i check per tipi speciali
-    if (obj instanceof Date) return new Date(obj.getTime());
-    if (obj instanceof RegExp) return new RegExp(obj.source, obj.flags);
-
-    //  DOM check PRIMA di entrare nella logica di oggetti
-    if (
-        typeof window !== 'undefined' &&
-        (obj instanceof Node ||
-            obj instanceof NodeList ||
-            obj instanceof HTMLCollection)
-    ) {
-        return obj;
-    }
-
-    if (obj instanceof Map || obj instanceof Set) return obj;
-    if (typeof obj === 'function') return obj; //  Funzioni preservate
-
-    if (Array.isArray(obj)) {
-        return obj.map((item) => deepClone(item));
-    }
-
-    // Plain Object - ultimo
-    const cloned = {};
-    for (const key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) {
-            cloned[key] = deepClone(obj[key]);
-        }
-    }
-    return cloned;
-};

@@ -2100,6 +2100,124 @@
   var logStyle = "padding: 10px;";
   var getLogStyle = () => logStyle;
 
+  // src/js/mob/mob-core/store/clone-obj.js
+  var deepClone = (obj, hash = /* @__PURE__ */ new WeakMap()) => {
+    if (obj === null || typeof obj !== "object") {
+      return obj;
+    }
+    if (typeof Element !== "undefined" && obj instanceof Element) {
+      return obj;
+    }
+    if (hash.has(obj)) {
+      return hash.get(obj);
+    }
+    if (obj instanceof Date) {
+      return new Date(obj);
+    }
+    if (obj instanceof RegExp) {
+      return new RegExp(obj.source, obj.flags);
+    }
+    if (Array.isArray(obj)) {
+      const clonedArray = [];
+      hash.set(obj, clonedArray);
+      obj.forEach((item, index) => {
+        clonedArray[index] = deepClone(item, hash);
+      });
+      return clonedArray;
+    }
+    if (typeof obj === "function") {
+      return obj;
+    }
+    if (obj instanceof Map) {
+      const clonedMap = /* @__PURE__ */ new Map();
+      hash.set(obj, clonedMap);
+      obj.forEach((value, key) => {
+        clonedMap.set(deepClone(key, hash), deepClone(value, hash));
+      });
+      return clonedMap;
+    }
+    if (obj instanceof Set) {
+      const clonedSet = /* @__PURE__ */ new Set();
+      hash.set(obj, clonedSet);
+      obj.forEach((value) => {
+        clonedSet.add(deepClone(value, hash));
+      });
+      return clonedSet;
+    }
+    const clonedObj = Object.create(Object.getPrototypeOf(obj));
+    hash.set(obj, clonedObj);
+    Object.getOwnPropertyNames(obj).forEach((key) => {
+      const descriptor = Object.getOwnPropertyDescriptor(obj, key);
+      if (descriptor) {
+        if ("value" in descriptor) {
+          Object.defineProperty(clonedObj, key, {
+            ...descriptor,
+            value: deepClone(descriptor.value, hash)
+          });
+        } else {
+          Object.defineProperty(clonedObj, key, descriptor);
+        }
+      }
+    });
+    Object.getOwnPropertySymbols(obj).forEach((symbol) => {
+      const descriptor = Object.getOwnPropertyDescriptor(obj, symbol);
+      if (descriptor) {
+        if ("value" in descriptor) {
+          Object.defineProperty(clonedObj, symbol, {
+            ...descriptor,
+            value: deepClone(descriptor.value, hash)
+          });
+        } else {
+          Object.defineProperty(clonedObj, symbol, descriptor);
+        }
+      }
+    });
+    return clonedObj;
+  };
+
+  // src/js/mob/mob-core/store/strategy.js
+  var STORE_STRATEGY_SHALLOW_COPY = "store_shallow_copy";
+  var STORE_STRATEGY_CUSTOM_COPY = "store_custom_copy";
+  var STORE_STRATEGY_DEEP_COPY = "store_deep_copy";
+  var storeCopyStrategy = STORE_STRATEGY_DEEP_COPY;
+  var storeStrategyNeedCopy = () => storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY || storeCopyStrategy === STORE_STRATEGY_DEEP_COPY;
+
+  // src/js/mob/mob-core/store/store-map.js
+  var storeMap = /* @__PURE__ */ new Map();
+  var getStateFromMainMap = (id) => {
+    if (storeCopyStrategy === STORE_STRATEGY_SHALLOW_COPY) {
+      const valueNow = storeMap.get(id);
+      return valueNow ? { ...valueNow } : void 0;
+    }
+    if (storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY) {
+      const valueNow = storeMap.get(id);
+      return valueNow ? {
+        ...valueNow,
+        store: { ...valueNow.store },
+        validationStatusObject: {
+          ...valueNow.validationStatusObject
+        }
+      } : void 0;
+    }
+    if (storeCopyStrategy === STORE_STRATEGY_DEEP_COPY) {
+      const valueNow = storeMap.get(id);
+      return valueNow ? {
+        ...valueNow,
+        store: deepClone(valueNow.store),
+        validationStatusObject: deepClone(
+          valueNow.validationStatusObject
+        )
+      } : void 0;
+    }
+    return storeMap.get(id);
+  };
+  var updateMainMap = (id, state) => {
+    storeMap.set(id, state);
+  };
+  var removeStateFromMainMap = (id) => {
+    storeMap.delete(id);
+  };
+
   // src/js/mob/mob-core/store/store-warining.js
   var storeDepthWarning = (data, style) => {
     console.warn(
@@ -2304,61 +2422,6 @@
       );
     }
     return isComputed;
-  };
-  var deepClone = (obj) => {
-    if (obj == null) return obj;
-    if (typeof obj !== "object") return obj;
-    if (obj instanceof Date) return new Date(obj.getTime());
-    if (obj instanceof RegExp) return new RegExp(obj.source, obj.flags);
-    if (typeof window !== "undefined" && (obj instanceof Node || obj instanceof NodeList || obj instanceof HTMLCollection)) {
-      return obj;
-    }
-    if (obj instanceof Map || obj instanceof Set) return obj;
-    if (typeof obj === "function") return obj;
-    if (Array.isArray(obj)) {
-      return obj.map((item) => deepClone(item));
-    }
-    const cloned = {};
-    for (const key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        cloned[key] = deepClone(obj[key]);
-      }
-    }
-    return cloned;
-  };
-
-  // src/js/mob/mob-core/store/strategy.js
-  var STORE_STRATEGY_SHALLOW_COPY = "store_shallow_copy";
-  var STORE_STRATEGY_CUSTOM_COPY = "store_custom_copy";
-  var storeCopyStrategy = STORE_STRATEGY_CUSTOM_COPY;
-
-  // src/js/mob/mob-core/store/store-map.js
-  var storeMap = /* @__PURE__ */ new Map();
-  var getStateFromMainMap = (id) => {
-    if (storeCopyStrategy === STORE_STRATEGY_SHALLOW_COPY) {
-      const valueNow = storeMap.get(id);
-      return valueNow ? { ...valueNow } : void 0;
-    }
-    if (storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY) {
-      const valueNow = storeMap.get(id);
-      return valueNow ? Object.assign(
-        {},
-        {
-          ...valueNow,
-          store: deepClone(valueNow.store),
-          validationStatusObject: deepClone(
-            valueNow.validationStatusObject
-          )
-        }
-      ) : void 0;
-    }
-    return storeMap.get(id);
-  };
-  var updateMainMap = (id, state) => {
-    storeMap.set(id, state);
-  };
-  var removeStateFromMainMap = (id) => {
-    storeMap.delete(id);
   };
 
   // src/js/mob/mob-core/store/store-set.js
@@ -3085,7 +3148,7 @@
     const store2 = state?.store;
     const selfProxi = new Proxy(store2, {
       set(target, prop, value) {
-        const store3 = storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY ? storeMap.get(instanceId)?.store ?? target : target;
+        const store3 = storeStrategyNeedCopy() ? storeMap.get(instanceId)?.store ?? target : target;
         if (!store3) return false;
         if (prop in store3) {
           const isComputed = checkIfPropIsComputed({ instanceId, prop });
@@ -3107,7 +3170,7 @@
         return false;
       },
       get(target, prop) {
-        const store3 = storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY ? storeMap.get(instanceId)?.store ?? target : target;
+        const store3 = storeStrategyNeedCopy() ? storeMap.get(instanceId)?.store ?? target : target;
         if (!store3) return false;
         if (!(prop in store3)) {
           return false;
@@ -3131,7 +3194,7 @@
           return false;
         },
         get(target, prop) {
-          const store4 = storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY ? storeMap.get(id)?.store ?? target : target;
+          const store4 = storeStrategyNeedCopy() ? storeMap.get(id)?.store ?? target : target;
           if (!store4) return false;
           if (!(prop in store4)) {
             return false;
@@ -26879,19 +26942,19 @@
         type: Boolean
       }),
       currentIndex: () => ({
-        value: -1,
+        value: 11,
         type: Number,
         validate: (val2) => val2 > 10
       }),
       plutone: {
         prop: () => ({
-          value: 20,
+          value: 11,
           type: "number",
           validate: (val2) => val2 > 10,
           strict: false
         }),
         prop2: () => ({
-          value: 20,
+          value: 5,
           type: "number",
           validate: (val2) => val2 > 10,
           strict: false
@@ -27234,6 +27297,7 @@
       proxi.plutone = { ...proxi.plutone, prop: 2 };
       proxi.plutone = { ...proxi.plutone, prop: 4 };
       proxi.plutone = { ...proxi.plutone, prop: 11 };
+      proxi.plutone = { ...proxi.plutone, prop: 5 };
       proxi.plutone = { ...proxi.plutone, prop: 50 };
       proxi.plutone = { ...proxi.plutone, prop2: 70 };
       proxi.currentIndex = 50;

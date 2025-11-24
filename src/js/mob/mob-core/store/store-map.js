@@ -1,6 +1,7 @@
-import { deepClone } from './store-utils';
+import { deepClone } from './clone-obj';
 import {
     STORE_STRATEGY_CUSTOM_COPY,
+    STORE_STRATEGY_DEEP_COPY,
     STORE_STRATEGY_SHALLOW_COPY,
     storeCopyStrategy,
 } from './strategy';
@@ -19,26 +20,50 @@ export const storeMap = new Map();
 export const getStateFromMainMap = (id) => {
     if (storeCopyStrategy === STORE_STRATEGY_SHALLOW_COPY) {
         const valueNow = storeMap.get(id);
+
+        /**
+         * Sallow-copy of wrapper object
+         */
         return valueNow ? { ...valueNow } : undefined;
     }
 
     if (storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY) {
         const valueNow = storeMap.get(id);
 
+        /**
+         * Sallow-copy of wrapper store and validationStatusObject
+         */
         return valueNow
-            ? Object.assign(
-                  {},
-                  {
-                      ...valueNow,
-                      store: deepClone(valueNow.store),
-                      validationStatusObject: deepClone(
-                          valueNow.validationStatusObject
-                      ),
-                  }
-              )
+            ? {
+                  ...valueNow,
+                  store: { ...valueNow.store },
+                  validationStatusObject: {
+                      ...valueNow.validationStatusObject,
+                  },
+              }
             : undefined;
     }
 
+    if (storeCopyStrategy === STORE_STRATEGY_DEEP_COPY) {
+        const valueNow = storeMap.get(id);
+
+        /**
+         * Deep-copy of wrapper store and validationStatusObject
+         */
+        return valueNow
+            ? {
+                  ...valueNow,
+                  store: deepClone(valueNow.store),
+                  validationStatusObject: deepClone(
+                      valueNow.validationStatusObject
+                  ),
+              }
+            : undefined;
+    }
+
+    /**
+     * Default, full mutation.
+     */
     return storeMap.get(id);
 };
 

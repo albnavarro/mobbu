@@ -1,4 +1,11 @@
 /**
+ * DEFAULT
+ *
+ * Refer directly to original data.
+ */
+export const STORE_STRATEGY_DEFAULT = 'store_default';
+
+/**
  * SHALLOW COPY
  *
  * Create a copy of `wrapper` witch contains data.
@@ -11,20 +18,15 @@ export const STORE_STRATEGY_SHALLOW_COPY = 'store_shallow_copy';
  * CUSTOM COPY
  *
  * In getStateFromMainMap() is possible return a custom copy of data.
- *
- * - Proxies get fresh state from store each time.
- * - First validation can fail, maybe for previous equal current value
- *
- * TODO clean mode to refine, es: `if (prevValueIsEqualNew && !initalizeStep) return;`
  */
 export const STORE_STRATEGY_CUSTOM_COPY = 'store_custom_copy';
 
 /**
- * DEFAULT
+ * DEEP COPY
  *
- * Refer directly to original data.
+ * Deep copy of store and validationStatusObject for testing purpose.
  */
-export const STORE_STRATEGY_DEFAULT = 'store_default';
+export const STORE_STRATEGY_DEEP_COPY = 'store_deep_copy';
 
 /**
  * BOTH CASE:
@@ -33,4 +35,11 @@ export const STORE_STRATEGY_DEFAULT = 'store_default';
  *
  * @type {string}
  */
-export const storeCopyStrategy = STORE_STRATEGY_CUSTOM_COPY;
+export const storeCopyStrategy = STORE_STRATEGY_DEEP_COPY;
+
+/**
+ * Proxies need fresh copy of store each time set && get is invoked.
+ */
+export const storeStrategyNeedCopy = () =>
+    storeCopyStrategy === STORE_STRATEGY_CUSTOM_COPY ||
+    storeCopyStrategy === STORE_STRATEGY_DEEP_COPY;
