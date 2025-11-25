@@ -49,6 +49,10 @@ export const getStateFromMainMap = (id) => {
 
         /**
          * Deep-copy of wrapper store and validationStatusObject
+         *
+         * - Store && validationStatusObject is the only object where propierties should be overridden.
+         * - Test only overridden object not new insert or delete propierties
+         * - Primiteves is copy with shallow-copy by defat.
          */
         return valueNow
             ? {
