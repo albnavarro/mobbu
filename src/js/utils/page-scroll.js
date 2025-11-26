@@ -13,11 +13,7 @@ import { MobCore } from '@mobCore';
 
 let shouldFreezePageScroll = false;
 
-const routeShoulNotUsePageScroll = new Set([
-    'scrollerN0',
-    'scrollerN1',
-    'horizontalScroller',
-]);
+const routeShoulNotUsePageScroll = new Set(['scrollerN0', 'scrollerN1']);
 
 export const usePageScroll = () => {
     const rootElement = /** @type {HTMLElement} */ (
