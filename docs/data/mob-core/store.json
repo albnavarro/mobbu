@@ -1311,7 +1311,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/update-map-set.js",
-                "numLines": 11
+                "numLines": 12
             }
         },
         {

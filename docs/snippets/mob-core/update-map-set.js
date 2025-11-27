@@ -4,6 +4,7 @@ const myStore = MobCore.createStore({
     myMap: () => ({
         value: new Map(),
         type: Map,
+        skipEqual: false,
     }),
 });
 
