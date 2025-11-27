@@ -1292,82 +1292,27 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The store implementation relies on value reassignment for reactivity. Note:  <li>Special objects (Map, Set) require full reassignment</li> "
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "with update:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
+            "content": "<span class='quote'>Map</span> and <span class='quote'>Set</span>, if not reassigned, are treated as <span class='quote'>shallow copies</span>, so they will always reference the original object, which is why it is important to pay attention to setting the <span class='quote'>skipEqual</span> property to <span class='quote'>false</span>. In this specific case, reassignment makes little sense, since by directly mutating the map, the previous value and the current value will always be equal."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Cloning ensures proper value comparison by:  <li>Generating distinct new updated values</li> <li>Enabling accurate previous/current tracking in watch utilities</li> "
+            "content": "The most convenient pattern for working with <span class='quote'>Map</span> and <span class='quote'>Set</span> is achieved, as in the following example, by using <span class='quote'>update</span>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/update-map-set.js",
-                "numLines": 19
+                "numLines": 11
             }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "with set/proxi:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Unlike update, this operation:  <li>Cannot clone values (modifies source data directly)</li> <li>Requires skipEqual: false to force updates when values match</li>  Watch utility behavior: Previous and current values will report as equal during these direct modifications."
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/set-proxi-map-set.js",
-                "numLines": 17
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium",
-                "boxed": true,
-                "note": true
-            },
-            "content": "I'm evaluating the possibility of inserting a new parameter in the state definition called skipUpdate to fully exploit the potential of states based on direct mutation such as map and set. For now, you will always have a copy of the previous state or you will update the state remotely by creating a copy anyway. It could be interesting to be able to modify the state remotely without creating a new copy."
         },
         {
             "component": "mob-spacer",

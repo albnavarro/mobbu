@@ -7,13 +7,5 @@ const myStore = MobCore.createStore({
     }),
 });
 
-/**
- * Clone a array and return new array with one item added with classic push methods.
- */
-myStore.update(
-    'myMap',
-    (value) => {
-        return value.set('myKey', 10);
-    },
-    { clone: true }
-);
+const proxi = myStore.getProxi();
+myStore.update(proxi.myMap, (value) => value.set('myKey', 10));
