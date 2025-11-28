@@ -18,6 +18,17 @@ import { MobBodyScroll } from '@mobMotionPlugin';
 import { horizontalScrollerAnimation } from './animation/animation';
 
 /**
+ * @param {number} id
+ * @param {number} total
+ * @returns {number}
+ */
+const getScrollAdjustment = (id, total) => {
+    if (id === 0) return 1;
+    if (id === total - 1) return -1;
+    return 0;
+};
+
+/**
  * @param {object} params
  * @param {number} params.numOfCol
  * @param {boolean} params.pinIsVisible
@@ -84,6 +95,7 @@ export const HorizontalScrollerFn = ({
     onMount(({ element }) => {
         if (MobMotionCore.mq('max', 'desktop')) return;
 
+        const numberOfColumns = 10;
         const indicators = [...element.querySelectorAll('.js-indicator')];
         const nav = element.querySelector('.js-nav');
         const titles = [...element.querySelectorAll('.js-title h1')];
@@ -106,19 +118,12 @@ export const HorizontalScrollerFn = ({
 
         watch(
             () => proxi.currentId,
-            (id) => {
-                if (id === -1) return;
-
-                /**
-                 * Hre the nav is open so on route landing the offset is wrong So, refresh scroller and the scroll to
-                 * item.
-                 */
-
+            (currentId, previousId) => {
                 /**
                  * Get item shadow element.
                  */
                 const shadowCenter = element.querySelector(
-                    `.shadowClass--section-${id} .shadowClass--in-center`
+                    `.shadowClass--section-${currentId} .shadowClass--in-center`
                 );
 
                 /**
@@ -134,14 +139,31 @@ export const HorizontalScrollerFn = ({
                      * currentIdFromScroll ( onLeaveBack issue )
                      */
                     // @ts-ignore
-                    Number.parseInt(id) === 0
+                    Number.parseInt(currentId) === 0
                         ? window.innerHeight + 1
                         : top + height - window.innerHeight;
 
                 /**
-                 * Scroll
+                 * Get duration value related of distance. Minimum, distance is 1
                  */
-                MobBodyScroll.to(scrollValue, { duration: 2000 });
+                const distance = Math.max(1, Math.abs(currentId - previousId));
+                const baseDuration = 2000;
+                const multiplier = 0.9;
+                const factor =
+                    1 +
+                    ((numberOfColumns - distance) / numberOfColumns) *
+                        multiplier;
+                const duration =
+                    (distance / numberOfColumns) * baseDuration * factor;
+
+                /**
+                 * Scroll remove 1px to avoid navigation disappear ( secure margin )
+                 */
+                MobBodyScroll.to(
+                    scrollValue +
+                        getScrollAdjustment(currentId, numberOfColumns),
+                    { duration }
+                );
             }
         );
 
@@ -181,10 +203,6 @@ export const HorizontalScrollerFn = ({
                         pinIsVisible: !proxi.animatePin,
                         staticProps,
                     })}
-                    <section
-                        class="l-h-scroller__fakeColumn js-column"
-                        ${setRef('js_column')}
-                    ></section>
                 </div>
                 <div
                     class="l-h-scroller__trigger js-trigger"

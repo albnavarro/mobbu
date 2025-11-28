@@ -39,7 +39,6 @@ const createPins = ({ indicators, proxi }) => {
                 },
             },
             onEnter: () => {
-                proxi.currentId = -1;
                 proxi.currentIdFromScroll = i;
             },
             onLeaveBack: () => {

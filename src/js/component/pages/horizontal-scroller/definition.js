@@ -24,6 +24,7 @@ export const HorizontalScroller = MobJs.createComponent(
             currentId: () => ({
                 value: 0,
                 type: Number,
+                skipEqual: false,
             }),
             currentIdFromScroll: () => ({
                 value: 0,

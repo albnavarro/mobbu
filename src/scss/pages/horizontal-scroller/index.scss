@@ -2,7 +2,6 @@
 
 .l-h-scroller {
     margin-top: calc(var(--header-height) * -1);
-    margin-left: calc(var(--header-height) * -0.5);
 
     // Performance on scroll
     @include when-inside('.is-whelling') {
@@ -50,10 +49,6 @@
         &:last-of-type {
             margin-right: 1px;
         }
-    }
-
-    &__fakeColumn {
-        width: rem(100) !important;
     }
 
     &__wrap {
