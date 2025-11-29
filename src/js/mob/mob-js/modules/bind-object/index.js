@@ -292,8 +292,7 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
                     }
 
                     /**
-                     * - True: Unsubscribe module if element is disconnected from DOM.
-                     * - False: update DOM.
+                     * - Unsubscribe module if element is disconnected from DOM.
                      */
                     if (ref.deref() && !ref.deref()?.isConnected) {
                         unsubScribeFunction.forEach((fn) => {
@@ -301,7 +300,12 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
                         });
 
                         unsubScribeFunction.length = 0;
-                    } else {
+                    }
+
+                    /**
+                     * - Update DOM.
+                     */
+                    if (ref.deref() && ref.deref()?.isConnected) {
                         // @ts-ignore
                         ref.deref().textContent = '';
                         // @ts-ignore
