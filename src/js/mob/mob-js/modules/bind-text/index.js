@@ -330,12 +330,32 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
                         if (refElement) {
                             ref = new WeakRef(refElement);
                             removeBindTextByBindTextId({ id, bindTextId });
-                            // @ts-ignore
-                            refElement = null;
                         }
+
+                        if (!refElement) {
+                            unsubScribeFunction.forEach((fn) => {
+                                if (fn) fn();
+                            });
+
+                            unsubScribeFunction.length = 0;
+                            return;
+                        }
+
+                        // @ts-ignore
+                        refElement = null;
                     }
 
-                    if (ref && ref?.deref()) {
+                    /**
+                     * - True: Unsubscribe module if element is disconnected from DOM.
+                     * - False: update DOM.
+                     */
+                    if (ref.deref() && !ref.deref()?.isConnected) {
+                        unsubScribeFunction.forEach((fn) => {
+                            if (fn) fn();
+                        });
+
+                        unsubScribeFunction.length = 0;
+                    } else {
                         // @ts-ignore
                         ref.deref().textContent = '';
                         // @ts-ignore
@@ -343,16 +363,6 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
                     }
 
                     watchIsRunning = false;
-
-                    MobCore.useNextTick(async () => {
-                        if (!ref || !ref?.deref()) {
-                            unsubScribeFunction.forEach((fn) => {
-                                if (fn) fn();
-                            });
-
-                            unsubScribeFunction.length = 0;
-                        }
-                    });
                 });
             });
         });

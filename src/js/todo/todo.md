@@ -3,18 +3,16 @@
 
 # Prioritá
 
-1. `BindObject/BindText/BindEffect` potrebbero scrollegarsi prima senza aspettare il deref() che diventerebbe un check si sicurezza.
+1. `BindObject/BindText/BindEffect` optimization all' interno di un repeat/invalidate senza componente.
     - [detail:](#BindObject/BindText/BindEffect)
-2. `BindEffect/BindObject/BindText`, await repeat/invalidate.
-    - [detail:](#await-repeat-invalidate)
-3. La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
+2. La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
     ```js
     {
         type: ('string', value);
     }
     ```
-4. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
-5. Component app: `dragger` con `pinch zoom`.
+3. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
+4. Component app: `dragger` con `pinch zoom`.
 
 # App
 
@@ -40,46 +38,14 @@
 
 <a name="BindObject/BindText/BindEffect"></a>
 
-### BindObject/BindText/BindEffect
+### BindObject/BindText/BindEffect all' interno di un repeater/invalidate senza componente.
 
-#### Problema:
+- Ogni istanza di `bindObject` etc.., si scollega molto piu rapidamente ogni qual volta il `watch` viene invocato.
+- Funziona bene per i dati legati al proxi del repeater, a ogni suo aggiornamanto gli elementi rimossi scatenano l'unsubscribe.
+- Funziona meno bene per i bind diretti sullo stato del componente, per scollegarsi hanno bisogno che lo stato venga `triggerato`, questo si puó riperquotere sopratutto negli invalidate.
+- Risolvere l'unsubscribe immediato dei moduli non legati al proxi del repeater senza sovraccaricare il resto.
+- Idealmente i moduli all' interno di un `repeater/invalidate` e al di fuori di un componente dovrebbero osservare anche lo stato che usa il `repeater/invalidate`.
 
-All' interno di un repeater senza componenti la logica delle referenze deboli funziona a meno che il numero di item non sia troppo grande, in questo caso ( ed 1000 item con 3 bindObject ) si possono avere dei leak.<br/>
-In quest casi va usato un repeater con i componenti al suo interno, quando il componente viene distrutto viene scollegato anche lo store relativo invalidano di moduli.
-
-#### Proposta:
-
-1. Una variabile `globale` puó sapere se nel ciclo `while` di `parseComponentsWhile` vengono interecettati componenti.
-    - Teoricamante se la varibile globale fosse un `contatore` sia il valore **0** ( non ci sono componenti ) o **1** ( abbiamo dei componenti ma siamo sempre al primo livello ) andrebbero bene.
-2. Il `placeholder` del modulo nel metodo `connectedCallback()` puó sapere dunque se si trova all'interno di un repeater/invalidate ma fuori da un componente.
-3. Creare una funzione chiamata `getAllActiveRepeater()` in `src/js/mob/mob-js/modules/repeater/active-repeater/index.js`, tornará un Set in cui ci sono le informazioni del repeater attivo.
-    ```js
-    export const getAllActiveRepeater = () => {
-        return [...activeRepeatMap];
-    };
-    ```
-4. Nota: `activeRepeatMap` si dovrebbe chiamare `activeDynamicBlockSet()` e dovrebbe tracciare sia `repeater` che `invalidate` ( con la modifca che estende il controllo anche agli invalidate ).
-5. Con queste informazioni possiamo creare una nuova mappa in cui ad ogni id di `repeat` o `invalidate` si puó collegare un array di id di moduli `bindText/bindObject/bindEffect` che saranno soggetti al controllo.
-
-Da migliorare/verificare:
-
-- Il Set legato ( ad ora ) al `repeater` ( in futuro anche `invalidate` ) attivo traccia lo stato da osservare.
-- Basta a questo punto aggiungere un `watcher` sullo stato e vedere un frame dopo se `ref.deref().parentNode` esiste ancora.
-- Quest'ultima soluzione non é entusiasmante, l' ideale e che `bindObject` etc.. sapessero se il loro elemento esiste ancora dai dati dello stato in quel momento, ma qui é un pó piu complesso, pensiamoci.
-
-<a name="await-repeat-invalidate"></a>
-
-### BindEffect/BindObject/BindText await
-
-- Questi moduli potrebbero iplementare:
-
-```js
-return watchById(id, state, async () => {
-    await repeaterTick({ debug: true });
-    await invalidateTick({ debug: true });
-```
-
-- Logica implementata, valutare se abilitarla solo se si trovano all' interno di un repeat/invalidate, ci possono essere pro e contro.
 
 
 ### Create component:

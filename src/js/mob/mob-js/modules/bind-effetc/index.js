@@ -223,9 +223,9 @@ const watchBindEffect = ({ data, element }) => {
                     await invalidateTick();
 
                     /**
-                     * Check if element is garbage collected.
+                     * Unsubscribe module if element is disconnected from DOM
                      */
-                    if (!ref || !ref?.deref()) {
+                    if (ref.deref() && !ref.deref()?.isConnected) {
                         /**
                          * Unsubscribe all watcher attached to this ref
                          */

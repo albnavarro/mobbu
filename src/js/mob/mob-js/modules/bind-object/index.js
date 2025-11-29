@@ -91,7 +91,7 @@ export const renderBindObject = (strings, ...values) => {
  * @param {HTMLElement} params.parentElement
  * @returns {void}
  */
-export const addBindObjectParent = ({ id, bindObjectId, parentElement }) => {
+const addBindObjectParent = ({ id, bindObjectId, parentElement }) => {
     const items = bindObjectMap.get(id);
 
     const itemsUpdated =
@@ -177,7 +177,7 @@ export const switchBindObjectMap = () => {
  *
  * - Questo avviene quando il componente viene distrutto.
  * - In questo caso tutti i watcher vanno rimossi.
- * - In realta sitiamo solo la mappa i watcher vengono distrutti insieme allo statao.
+ * - In realta svuotiamo solo la mappa i watcher vengono distrutti insieme allo stato.
  *
  * @param {object} params
  * @param {string} params.id
@@ -276,12 +276,32 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
                                 id,
                                 bindObjectId,
                             });
-                            // @ts-ignore
-                            refElement = null;
                         }
+
+                        if (!refElement) {
+                            unsubScribeFunction.forEach((fn) => {
+                                if (fn) fn();
+                            });
+
+                            unsubScribeFunction.length = 0;
+                            return;
+                        }
+
+                        // @ts-ignore
+                        refElement = null;
                     }
 
-                    if (ref && ref?.deref()) {
+                    /**
+                     * - True: Unsubscribe module if element is disconnected from DOM.
+                     * - False: update DOM.
+                     */
+                    if (ref.deref() && !ref.deref()?.isConnected) {
+                        unsubScribeFunction.forEach((fn) => {
+                            if (fn) fn();
+                        });
+
+                        unsubScribeFunction.length = 0;
+                    } else {
                         // @ts-ignore
                         ref.deref().textContent = '';
                         // @ts-ignore
@@ -289,16 +309,6 @@ export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
                     }
 
                     watchIsRunning = false;
-
-                    MobCore.useNextTick(async () => {
-                        if (!ref || !ref?.deref()) {
-                            unsubScribeFunction.forEach((fn) => {
-                                if (fn) fn();
-                            });
-
-                            unsubScribeFunction.length = 0;
-                        }
-                    });
                 });
             });
         });
