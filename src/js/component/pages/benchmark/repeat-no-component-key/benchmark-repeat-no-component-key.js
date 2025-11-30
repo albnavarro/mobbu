@@ -66,7 +66,10 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
                                  *
                                  * - Current trigger update on each data mutation.
                                  */
-                                observe: [() => proxi.currentIndex],
+                                observe: [
+                                    () => proxi.currentIndex,
+                                    () => proxi.data,
+                                ],
                                 toggleClass: {
                                     selected: () =>
                                         current.index === proxi.currentIndex,

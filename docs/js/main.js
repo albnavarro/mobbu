@@ -665,7 +665,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,D=E),A===void 0&&(
             ${s({observe:()=>l.data,render:({current:p})=>g`
                         <div
                             class="benchmark-fake"
-                            ${i({observe:[()=>l.currentIndex],toggleClass:{selected:()=>p.index===l.currentIndex}})}
+                            ${i({observe:[()=>l.currentIndex,()=>l.data],toggleClass:{selected:()=>p.index===l.currentIndex}})}
                         >
                             <div class="benchmark-fake__row">
                                 ${a`<strong>index:</strong><br/> ${()=>p.index}`}
@@ -707,7 +707,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=S,D=E),A===void 0&&(
             ${s({observe:()=>l.data,key:"label",render:({current:p})=>g`
                         <div
                             class="benchmark-fake"
-                            ${i({observe:[()=>l.currentIndex],toggleClass:{selected:()=>p.index===l.currentIndex}})}
+                            ${i({observe:[()=>l.currentIndex,()=>l.data],toggleClass:{selected:()=>p.index===l.currentIndex}})}
                         >
                             <div class="benchmark-fake__row">
                                 ${a`<strong>index:</strong><br/> ${()=>p.index}`}

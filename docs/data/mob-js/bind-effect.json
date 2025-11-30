@@ -217,6 +217,32 @@
                 "source": "./snippets/mob-js/bind-effect-1.js",
                 "numLines": 27
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Trick:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "When working within a repeater using <span class='quote'>plain HTML</span> (without components) and handling large quantities of elements, if the module references the general state of the component rather than the <span class='quote'>repeater's</span> <span class='quote'>proxy</span>, it is recommended to explicitly add the dependencies to observe, including the value observed by the repeater ( <span class='quote'>observe</span> property ). This allows the module to update in sync with the repeater and detach the module if the HTML element it references has been removed from the DOM. This mechanism also applies to the invalidate module."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         }
     ]
 }
