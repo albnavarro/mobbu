@@ -1295,13 +1295,6 @@
             "content": "<span class='quote'>Map</span> and <span class='quote'>Set</span>, if not reassigned, are treated as <span class='quote'>shallow copies</span>, so they will always reference the original object, which is why it is important to pay attention to setting the <span class='quote'>skipEqual</span> property to <span class='quote'>false</span>. In this specific case, reassignment makes little sense, since by directly mutating the map, the previous value and the current value will always be equal."
         },
         {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The most convenient pattern for working with <span class='quote'>Map</span> and <span class='quote'>Set</span> is achieved, as in the following example, by using <span class='quote'>update</span>."
-        },
-        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -1311,7 +1304,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/update-map-set.js",
-                "numLines": 12
+                "numLines": 23
             }
         },
         {
