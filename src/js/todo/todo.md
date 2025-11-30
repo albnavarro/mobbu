@@ -1,6 +1,3 @@
-# Problemi noti:
-[BindStore:](#Problemi-noti)
-
 # Prioritá
 
 1. `BindObject/BindText/BindEffect` optimization all' interno di un repeat/invalidate senza componente.
@@ -40,17 +37,19 @@
 
 ### BindObject/BindText/BindEffect all' interno di un repeater/invalidate senza componente.
 
-- Ogni istanza di `bindObject` etc.., si scollega molto piu rapidamente ogni qual volta il `watch` viene invocato.
-- Funziona bene per i dati legati al proxi del repeater, a ogni suo aggiornamanto gli elementi rimossi scatenano l'unsubscribe.
+- Con le ultime modifiche ogni istanza di `bindObject` etc.., si scollega molto piu rapidamente ogni qual volta il `watch` viene invocato.
+- Funziona bene per i dati legati al proxi del repeater, ad ogni aggiornamanto del `repeater` gli elementi rimossi scatenano l'unsubscribe.
 - Funziona meno bene per i bind diretti sullo stato del componente, per scollegarsi hanno bisogno che lo stato venga `triggerato`, questo si puó riperquotere sopratutto negli invalidate.
 - Risolvere l'unsubscribe immediato dei moduli non legati al proxi del repeater senza sovraccaricare il resto.
 - Idealmente i moduli all' interno di un `repeater/invalidate` e al di fuori di un componente dovrebbero osservare anche lo stato che usa il `repeater/invalidate`.
-- Attualamente iniettiamo uno stato reattivo inerte in questo modo `${() => current.value && ''}` cosi da triggerare il watch ogni volta che il repeater si aggiorna, e scollegare il modulo se l'elemento é disconsso dal DOM:
+- Attualamente iniettiamo uno stato reattivo inerte in questo modo `${() => current.value && ''}` cosi da triggerare il watch ogni volta che il repeater si aggiorna, e scollegare il modulo se l'elemento é disconsso dal DOM, il modulo `bindEffect` usa un ragionamento simile.
 - La docs é aggiornata a questo step manuale.
 
 ```js
 ${bindObject`counter: ${() => proxi.counter} ${() => current.value && ''}`}
 ```
+
+- `Fondamentale:` I moduli sono pensati per essere il piú indipendenti possibili. Il modulo `repeater` non dove essere sovraccaricato di altra logica, lo ritnego arrivato al muo massimlo livello di complessitá.
 
 
 
