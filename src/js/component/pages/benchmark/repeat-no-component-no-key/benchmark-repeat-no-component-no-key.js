@@ -79,7 +79,7 @@ export const BenchMarkRepeatNoComponentNoKeyFn = ({
                                 ${bindObject`<strong>label:</strong><br/> ${() => current.value.label}`}
                             </div>
                             <div class="benchmark-fake__row">
-                                ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`}
+                                ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter} ${() => current.value && ''}`}
                             </div>
                             <div class="benchmark-fake__row">
                                 <button

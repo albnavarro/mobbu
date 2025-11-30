@@ -45,6 +45,14 @@
 - Funziona meno bene per i bind diretti sullo stato del componente, per scollegarsi hanno bisogno che lo stato venga `triggerato`, questo si puó riperquotere sopratutto negli invalidate.
 - Risolvere l'unsubscribe immediato dei moduli non legati al proxi del repeater senza sovraccaricare il resto.
 - Idealmente i moduli all' interno di un `repeater/invalidate` e al di fuori di un componente dovrebbero osservare anche lo stato che usa il `repeater/invalidate`.
+- Attualamente iniettiamo uno stato reattivo inerte in questo modo `${() => current.value && ''}` cosi da triggerare il watch ogni volta che il repeater si aggiorna, e scollegare il modulo se l'elemento é disconsso dal DOM:
+- La docs é aggiornata a questo step manuale.
+
+```js
+${bindObject`counter: ${() => proxi.counter} ${() => current.value && ''}`}
+```
+
+
 
 
 

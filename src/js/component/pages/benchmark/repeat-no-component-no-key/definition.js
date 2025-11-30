@@ -13,6 +13,6 @@ export const BenchMarkRepeatNoComponentNoKey = MobJs.createComponent(
     ({
         tag: 'benchmark-repeat-no-component-no-key',
         component: BenchMarkRepeatNoComponentNoKeyFn,
-        ...benchMarkDefinitionPartial(101),
+        ...benchMarkDefinitionPartial(1001),
     })
 );

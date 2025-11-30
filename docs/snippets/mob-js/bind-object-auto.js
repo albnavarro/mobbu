@@ -16,7 +16,8 @@ export const MyComponent = ({ bindObject, repeat, getProxi }) => {
                             ${bindObject`value: ${() => current.value.label}.`}
                         </div>
                         <div>
-                            ${bindObject`${() => (proxi.isExpanded ? 'close' : 'expand')}`}
+                            <!-- trigger repeater proxi for automatic cleanup -->
+                            ${bindObject`${() => (proxi.isExpanded ? 'close' : 'expand')}, ${() => current.value && ''}`}
                         </div>
                     </div>`;
                 },
