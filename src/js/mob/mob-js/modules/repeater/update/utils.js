@@ -66,11 +66,17 @@ export const updateRepeaterWitoutKey = ({
             const fragment = range.createContextualFragment(rawRender);
 
             /**
-             * GetParamsForComponentFunction repeat first render can reset skip value. If shoulf be true set true and
-             * not false.
+             * Nested repeater issue:
+             *
+             * - Restore last value when nested repeat is found.
              */
             setSkipAddUserComponent(lastSkipUserValue);
 
+            /**
+             * Query strategy:
+             *
+             * - Use custom query for find child component.
+             */
             if (useRepeatWithoutSyncQuery) {
                 const components = queryAllFutureComponent(fragment, false).map(
                     (element) => {
@@ -88,6 +94,14 @@ export const updateRepeaterWitoutKey = ({
                 });
             }
 
+            /**
+             * Set strategy:
+             *
+             * - UserComponent add host inMemoryElementSet ( new Set ).
+             * - Get all child component once
+             * - SetSkipAddUserComponent prevents the component's host from being added to the list of components to be
+             *   rendered.
+             */
             if (!useRepeatWithoutSyncQuery) {
                 setRepeatAttributeFromInMemory({
                     components: getInMemorySet(),
@@ -217,10 +231,17 @@ export const updateRepeaterWithtKey = ({
     );
 
     /**
-     * GetParamsForComponentFunction repeat first render can reset skip value. If shoulf be true set true and not false.
+     * Nested repeater issue:
+     *
+     * - Restore last value when nested repeat is found.
      */
     setSkipAddUserComponent(lastSkipUserValue);
 
+    /**
+     * Query strategy:
+     *
+     * - Use custom query for find child component.
+     */
     if (useRepeatWithoutSyncQuery) {
         const components = queryAllFutureComponent(fragment, false).map(
             (element) => {
@@ -238,6 +259,13 @@ export const updateRepeaterWithtKey = ({
         });
     }
 
+    /**
+     * Set strategy:
+     *
+     * - UserComponent add host inMemoryElementSet ( new Set ).
+     * - Get all child component once
+     * - SetSkipAddUserComponent prevents the component's host from being added to the list of components to be rendered.
+     */
     if (!useRepeatWithoutSyncQuery) {
         setRepeatAttributeFromInMemory({
             components: getInMemorySet(),
@@ -367,11 +395,17 @@ export const getRenderWithoutSync = ({
         );
 
         /**
-         * GetParamsForComponentFunction repeat first render can reset skip value. If shoulf be true set true and not
-         * false.
+         * Nested repeater issue:
+         *
+         * - Restore last value when nested repeat is found.
          */
         setSkipAddUserComponent(lastSkipUserValue);
 
+        /**
+         * Query strategy:
+         *
+         * - Use custom query for find child component.
+         */
         if (useRepeatWithoutSyncQuery) {
             const components = queryAllFutureComponent(fragment, false).map(
                 (element) => {
@@ -389,6 +423,14 @@ export const getRenderWithoutSync = ({
             });
         }
 
+        /**
+         * Set strategy:
+         *
+         * - UserComponent add host inMemoryElementSet ( new Set ).
+         * - Get all child component once
+         * - SetSkipAddUserComponent prevents the component's host from being added to the list of components to be
+         *   rendered.
+         */
         if (!useRepeatWithoutSyncQuery) {
             setRepeatAttributeFromInMemory({
                 components: getInMemorySet(),
