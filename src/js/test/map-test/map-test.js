@@ -1,6 +1,6 @@
 import { updateAll, updateStateByKey, updateStateByProp } from './uilts';
 
-export const stateTest = () => {
+export const mapTest = () => {
     /**
      * @type {import('./type').myMap}
      */
