@@ -72,7 +72,8 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
                                 ],
                                 toggleClass: {
                                     selected: () =>
-                                        current.index === proxi.currentIndex,
+                                        current.value.label ===
+                                        `comp-${proxi.currentIndex + 1}`,
                                 },
                             })}
                         >
