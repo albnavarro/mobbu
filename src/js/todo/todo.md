@@ -51,6 +51,72 @@ ${bindObject`counter: ${() => proxi.counter} ${() => current.value && ''}`}
 
 - `Fondamentale:` I moduli sono pensati per essere il piú indipendenti possibili. Il modulo `repeater` non dove essere sovraccaricato di altra logica, lo ritnego arrivato al muo massimlo livello di complessitá.
 
+#### Proposta 1
+- In questo modo possiamo aggiungere stati non effettivamante usati, ma l' impatto dovrebbe essere minimo.
+- Estrarre la fuzione di supporto `getRepeaterObserverWithoutComponent` in repeat module folder.
+    - Prediamo tutti i repeater per componente.
+    - Filtriamo tutti i repeater che hanno `nativeDOMChildren`
+    - Prediamo lo stato osservato
+- Al momento `invalidate` non traccia lo stato nelle sue mappe, aggiungerlo e fare la stessa cosa.
+    - non avremmo traccia di componenti/non componenti perció possiamo tracciare tutte le chiavi.
+- `plus`: L' inizializzazione del modulo andrebbe spostata in parseComponentsWhile come per glia ltri per evitare await repeaterTick && invalidateTick.
+
+```js
+// src/js/mob/mob-js/modules/bind-object/index.js
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @returns {string[]}
+ */
+const getRepeaterObserverWithoutComponent = ({ id }) => {
+    const repeaterIdByComponent = repeatIdsMap.get(id);
+    if (!repeaterIdByComponent) return [];
+
+    return repeaterIdByComponent
+        .map((repeat) => {
+            return repeat.repeatId;
+        })
+        .map((id) => repeatInstancesMap.get(id))
+        .filter((value) => {
+            return value && value?.nativeDOMChildren?.length > 0;
+        })
+        .map((item) => item?.key)
+        .filter((item) => item !== undefined);
+};
+
+/**
+ * @param {string} id
+ * @param {string} bindObjectId
+ * @param {string[]} keys
+ * @param {() => string} render
+ * @returns {Promise<void>}
+ */
+export const createBindObjectWatcher = async (
+    id,
+    bindObjectId,
+    keys,
+    render
+) => {
+    await repeaterTick({ debug: true });
+    await invalidateTick({ debug: true });
+
+    const observeFromRepeater = getRepeaterObserverWithoutComponent({ id });
+
+    /**
+     * Watch props on change
+     */
+    let watchIsRunning = false;
+
+    /** @type {WeakRef<HTMLElement>} */
+    let ref;
+
+    const keyParsed = [...new Set([...keys, ...observeFromRepeater])];
+
+    const unsubScribeFunction = keyParsed.map((state) => {
+        return watchById(id, state, async () => {
+```
+
 
 
 
