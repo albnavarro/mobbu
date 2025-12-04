@@ -245,7 +245,11 @@ export const getParamsForComponentFunction = ({
             let isInizialized = false;
 
             initializeInvalidateIdsMap({ invalidateId, scopeId: id });
-            initializeInvalidateInstacesMap({ invalidateId, scopeId: id });
+            initializeInvalidateInstacesMap({
+                invalidateId,
+                scopeId: id,
+                observe: observeParsed,
+            });
 
             setInvalidateInitializeFunction({
                 invalidateId,
@@ -304,14 +308,16 @@ export const getParamsForComponentFunction = ({
              *
              * - Key: repeatId.
              * - ScopeId.
+             * - Observed state
              * - Other value is default value.
              */
             initializeRepeaterInstancesMap({
                 repeatId,
                 scopeId: id,
+                observe: observeParsed,
             });
 
-            /** Type @type{Record<string, any>[]} */
+            /** @type{Record<string, any>[]} */
             const initialState = getState()?.[observeParsed];
             const currentUnique = hasKey
                 ? getUnivoqueByKey({ data: initialState, key })
@@ -414,7 +420,6 @@ export const getParamsForComponentFunction = ({
                         setRepeaterNativeDOMChildren({
                             repeatId,
                             id,
-                            observe: observeParsed,
                         });
                     }
                 },

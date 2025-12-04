@@ -61,6 +61,11 @@ export type InvalidateInstancesMap = Map<
         scopeId: string | undefined;
 
         /**
+         * The observed state
+         */
+        observed: string[];
+
+        /**
          * Initialize function
          */
         initializeModule: () => void;

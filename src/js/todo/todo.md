@@ -53,13 +53,37 @@ ${bindObject`counter: ${() => proxi.counter} ${() => current.value && ''}`}
 
 #### Proposta 1
 - In questo modo possiamo aggiungere stati non effettivamante usati, ma l' impatto dovrebbe essere minimo.
-- Estrarre la fuzione di supporto `getRepeaterObserverWithoutComponent` in repeat module folder.
+- **1 OK** Al momento `invalidate` non traccia lo stato nelle sue mappe, aggiungerlo e fare la stessa cosa.
+    - non avremmo traccia di componenti/non componenti perció possiamo tracciare tutte le chiavi.
+- **2**: L' inizializzazione del modulo andrebbe spostata in parseComponentsWhile come per gli altri per evitare await repeaterTick && invalidateTick.
+    - prevedere un `new Set` temporaneo che raccoglie tutti i dati al posto di
+    ```js
+    // src/js/mob/mob-js/parse/steps/get-params-for-component.js
+
+    bindObject: (strings, ...values) => {
+        ...
+        // qui il set verra popolato al posto di createBindObjectWatcher
+        createBindObjectWatcher(id, bindObjectId, keys, render);
+        ...
+    },
+    ```
+    - Usare il nuovo set per lanciare tutte le istanze dal modulo dopo il rendering.
+    - `clear` di tutto il set.
+
+    ```js
+    // src/js/mob/mob-js/modules/bind-object/index.js
+
+    export const switchBindObjectMap = () => {
+        // qui il set viene letto e per ogni elemento di lancia
+        createBindObjectWatcher(id, bindObjectId, keys, render);
+        ...
+    }
+
+    ```
+- **3** Estrarre la fuzione di supporto `getRepeaterObserverWithoutComponent` in repeat module folder.
     - Prediamo tutti i repeater per componente.
     - Filtriamo tutti i repeater che hanno `nativeDOMChildren`
     - Prediamo lo stato osservato
-- Al momento `invalidate` non traccia lo stato nelle sue mappe, aggiungerlo e fare la stessa cosa.
-    - non avremmo traccia di componenti/non componenti perció possiamo tracciare tutte le chiavi.
-- `plus`: L' inizializzazione del modulo andrebbe spostata in parseComponentsWhile come per glia ltri per evitare await repeaterTick && invalidateTick.
 
 ```js
 // src/js/mob/mob-js/modules/bind-object/index.js
@@ -79,6 +103,7 @@ const getRepeaterObserverWithoutComponent = ({ id }) => {
         })
         .map((id) => repeatInstancesMap.get(id))
         .filter((value) => {
+            // Questo step vá elininato.
             return value && value?.nativeDOMChildren?.length > 0;
         })
         .map((item) => item?.key)

@@ -5,14 +5,13 @@ import { repeatInstancesMap } from '../repeat-id-intances-map';
  * @param {object} params
  * @param {string} params.repeatId
  * @param {string} params.id
- * @param {string} params.observe
  * @returns {void}
  */
-export const setRepeaterNativeDOMChildren = ({ repeatId, id, observe }) => {
+export const setRepeaterNativeDOMChildren = ({ repeatId, id }) => {
     const item = repeatInstancesMap.get(repeatId);
     if (!item) return;
 
-    const { element } = item;
+    const { element, observed } = item;
     if (!element) return;
 
     /**
@@ -20,11 +19,10 @@ export const setRepeaterNativeDOMChildren = ({ repeatId, id, observe }) => {
      */
     const children = /** @type {HTMLElement[]} */ ([...element.children]);
     const state = getStateById(id);
-    const stateByProp = state[observe];
+    const stateByProp = state[observed];
 
     repeatInstancesMap.set(repeatId, {
         ...item,
-        key: observe,
         nativeDOMChildren: children.map((child, index) => {
             return { index, value: stateByProp[index], element: child };
         }),

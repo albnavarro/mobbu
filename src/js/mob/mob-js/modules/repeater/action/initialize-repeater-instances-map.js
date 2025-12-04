@@ -11,15 +11,20 @@ import { repeatInstancesMap } from '../repeat-id-intances-map';
  * @param {object} params
  * @param {string} params.repeatId
  * @param {string} params.scopeId
+ * @param {string} params.observe
  * @returns {void}
  */
 
-export const initializeRepeaterInstancesMap = ({ repeatId, scopeId }) => {
+export const initializeRepeaterInstancesMap = ({
+    repeatId,
+    scopeId,
+    observe,
+}) => {
     repeatInstancesMap.set(repeatId, {
         element: undefined,
         initialized: false,
         scopeId,
-        key: '',
+        observed: observe,
         nativeDOMChildren: [],
         componentChildren: [],
         currentData: [],

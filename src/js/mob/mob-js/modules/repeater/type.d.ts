@@ -158,7 +158,7 @@ export type RepeatInstancesMap = Map<
         /**
          * The observed state
          */
-        key: string;
+        observed: string;
 
         /**
          * Id of component inside repeater.

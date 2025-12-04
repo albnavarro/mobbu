@@ -320,7 +320,6 @@ export const watchRepeat = ({
                     setRepeaterNativeDOMChildren({
                         repeatId,
                         id,
-                        observe: state,
                     });
                 }
             });

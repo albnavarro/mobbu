@@ -11,13 +11,19 @@ import { invalidateInstancesMap } from '../invalidate-id-instances-map';
  * @param {object} params
  * @param {string} params.invalidateId - InvalidateId
  * @param {string} params.scopeId - ScopeId
+ * @param {string[]} params.observe
  * @returns {void}
  */
 
-export const initializeInvalidateInstacesMap = ({ invalidateId, scopeId }) => {
+export const initializeInvalidateInstacesMap = ({
+    invalidateId,
+    scopeId,
+    observe,
+}) => {
     invalidateInstancesMap.set(invalidateId, {
         element: undefined,
         initialized: false,
+        observed: observe,
         scopeId,
         initializeModule: () => {},
         unsubscribe: [() => {}],
