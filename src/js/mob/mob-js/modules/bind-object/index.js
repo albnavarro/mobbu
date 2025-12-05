@@ -4,6 +4,24 @@ import { invalidateTick } from '../../queque/tick-invalidate';
 import { repeaterTick } from '../../queque/tick-repeater';
 
 /**
+ * Collect all future module to initialize at the end of parse.
+ *
+ * - Modules will initialize in switchBindObjectMap
+ *
+ * @type {Set<import('./type').BindObectToInitialize>}
+ */
+const bindObjectToInitializeSet = new Set();
+
+/**
+ * Add all future module to initialize at the end of parse.
+ *
+ * @param {import('./type').BindObectToInitialize} params
+ */
+export const addBindObjectToInitialzie = (params) => {
+    bindObjectToInitializeSet.add(params);
+};
+
+/**
  * Mappa usata per abbinare id component e id `istanta` del singolo modulo.
  *
  * @type {Map<string, import('./type').BindObject[]>}
@@ -165,11 +183,19 @@ export const switchBindObjectMap = () => {
     );
 
     /**
-     * Clean placeHolder map
+     * Initialize all watcher.
+     */
+    for (const data of bindObjectToInitializeSet) {
+        createBindObjectWatcher(data);
+    }
+
+    /**
+     * Clean placeHolder map && module to initialize Set.
      *
      * - Parse function is completed
      */
     bindObjectPlaceHolderMap.clear();
+    bindObjectToInitializeSet.clear();
 };
 
 /**
@@ -227,13 +253,9 @@ export const getBindObjectParentSize = () => {
 export const getBindObjectPlaceholderSize = () => bindObjectPlaceHolderMap.size;
 
 /**
- * @param {string} id
- * @param {string} bindObjectId
- * @param {string[]} keys
- * @param {() => string} render
- * @returns {void}
+ * @type {import('./type').BindObjectWatcher}
  */
-export const createBindObjectWatcher = (id, bindObjectId, keys, render) => {
+const createBindObjectWatcher = ({ id, bindObjectId, keys, render }) => {
     /**
      * Watch props on change
      */

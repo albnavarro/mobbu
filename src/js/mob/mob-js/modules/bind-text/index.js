@@ -1,10 +1,26 @@
-//@ts-check
-
 import { MobCore } from '../../../mob-core';
 import { getStateById } from '../../component/action/state/get-state-by-id';
 import { watchById } from '../../component/action/watch';
 import { invalidateTick } from '../../queque/tick-invalidate';
 import { repeaterTick } from '../../queque/tick-repeater';
+
+/**
+ * Collect all future module to initialize at the end of parse.
+ *
+ * - Modules will initialize in switchBindTextMap
+ *
+ * @type {Set<import('./type').BindTextToInitialize>}
+ */
+const bindTextToInitializeSet = new Set();
+
+/**
+ * Add all future module to initialize at the end of parse.
+ *
+ * @param {import('./type').BindTextToInitialize} params
+ */
+export const addBindTextToInitialzie = (params) => {
+    bindTextToInitializeSet.add(params);
+};
 
 /**
  * Mappa usata per abbinare id component e id `istanta` del singolo modulo.
@@ -201,11 +217,19 @@ export const switchBindTextMap = () => {
     );
 
     /**
+     * Initialize all watcher.
+     */
+    for (const data of bindTextToInitializeSet) {
+        createBindTextWatcher(data);
+    }
+
+    /**
      * Clean placeHolder map
      *
      * - Parse function is completed
      */
     bindTextPlaceHolderMap.clear();
+    bindTextToInitializeSet.clear();
 };
 
 /**
@@ -265,13 +289,9 @@ export const getBindTextPlaceholderSize = () => bindTextPlaceHolderMap.size;
 /**
  * Main function.
  *
- * @param {string} id
- * @param {string} bindTextId
- * @param {string[]} props
- * @param {() => string} render
- * @returns {void}
+ * @type {import('./type').BindTextWatcher}
  */
-export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
+const createBindTextWatcher = ({ id, bindTextId, render, props }) => {
     /**
      * Watch props on change
      */

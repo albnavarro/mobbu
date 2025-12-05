@@ -33,13 +33,16 @@ import {
 import { setBindEffect } from '../../modules/bind-effetc';
 import { setBindEvents } from '../../modules/bind-events';
 import {
-    createBindObjectWatcher,
+    addBindObjectToInitialzie,
     getBindObjectKeys,
     renderBindObject,
 } from '../../modules/bind-object';
 import { setBindProps } from '../../modules/bind-props';
 import { getBindRefById, getBindRefsById } from '../../modules/bind-refs';
-import { createBindTextWatcher, renderBindText } from '../../modules/bind-text';
+import {
+    addBindTextToInitialzie,
+    renderBindText,
+} from '../../modules/bind-text';
 import { setDelegateBindEvent } from '../../modules/delegate-events';
 import { inizializeInvalidateWatch } from '../../modules/invalidate/action/inizialize-invalidate-watch';
 import { parseObserveInvalidate } from '../../modules/invalidate/action/parse-bindprop-invalidate';
@@ -213,7 +216,7 @@ export const getParamsForComponentFunction = ({
         bindText: (strings, ...values) => {
             const bindTextId = MobCore.getUnivoqueId();
             const render = () => renderBindText(id, strings, ...values);
-            createBindTextWatcher(id, bindTextId, render, ...values);
+            addBindTextToInitialzie({ id, bindTextId, render, props: values });
 
             return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render()}`;
         },
@@ -221,7 +224,7 @@ export const getParamsForComponentFunction = ({
             const keys = getBindObjectKeys(values);
             const bindObjectId = MobCore.getUnivoqueId();
             const render = () => renderBindObject(strings, ...values);
-            createBindObjectWatcher(id, bindObjectId, keys, render);
+            addBindObjectToInitialzie({ id, bindObjectId, keys, render });
 
             return `<mobjs-bind-object ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_OBJECT_ID}="${bindObjectId}"></mobjs-bind-object>${render()}`;
         },

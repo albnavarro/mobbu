@@ -55,7 +55,7 @@ ${bindObject`counter: ${() => proxi.counter} ${() => current.value && ''}`}
 - In questo modo possiamo aggiungere stati non effettivamante usati, ma l' impatto dovrebbe essere minimo.
 - **1 OK** Al momento `invalidate` non traccia lo stato nelle sue mappe, aggiungerlo e fare la stessa cosa.
     - non avremmo traccia di componenti/non componenti perció possiamo tracciare tutte le chiavi.
-- **2**: L' inizializzazione del modulo andrebbe spostata in parseComponentsWhile come per gli altri per evitare await repeaterTick && invalidateTick.
+- **2 OK**: L' inizializzazione del modulo andrebbe spostata in parseComponentsWhile come per gli altri per evitare await repeaterTick && invalidateTick.
     - prevedere un `new Set` temporaneo che raccoglie tutti i dati al posto di
     ```js
     // src/js/mob/mob-js/parse/steps/get-params-for-component.js
@@ -123,6 +123,7 @@ export const createBindObjectWatcher = async (
     keys,
     render
 ) => {
+    // questi await avendo ora dovrebebro essere superflui.
     await repeaterTick({ debug: true });
     await invalidateTick({ debug: true });
 
