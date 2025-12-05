@@ -8,25 +8,19 @@ import { repeaterTick } from '../../queque/tick-repeater';
  *
  * - Modules will initialize in switchBindObjectMap
  *
- * @type {Set<import('./type').BindObectToInitialize>}
+ * @type {Map<string, import('./type').BindObectToInitialize>}
  */
-const bindObjectToInitializeSet = new Set();
+const bindObjectToInitializeMap = new Map();
 
 /**
  * Add all future module to initialize at the end of parse.
  *
+ * @param {String} bindObjectId
  * @param {import('./type').BindObectToInitialize} params
  */
-export const addBindObjectToInitialzie = (params) => {
-    bindObjectToInitializeSet.add(params);
+export const addBindObjectToInitialzie = (bindObjectId, params) => {
+    bindObjectToInitializeMap.set(bindObjectId, params);
 };
-
-/**
- * Mappa usata per abbinare id component e id `istanta` del singolo modulo.
- *
- * @type {Map<string, import('./type').BindObject[]>}
- */
-export const bindObjectMap = new Map();
 
 /**
  * Mappa usata dal webComponent per tracciare il parent element.
@@ -101,60 +95,6 @@ export const renderBindObject = (strings, ...values) => {
 };
 
 /**
- * Aggiungiamo il placeholder Element che il webComponent a indivuato nella bindObjectMap.
- *
- * @param {object} params
- * @param {string} params.id
- * @param {string} params.bindObjectId
- * @param {HTMLElement} params.parentElement
- * @returns {void}
- */
-const addBindObjectParent = ({ id, bindObjectId, parentElement }) => {
-    const items = bindObjectMap.get(id);
-
-    const itemsUpdated =
-        items && items.length > 0
-            ? (() => {
-                  /**
-                   * When placeholder change position ( slot/repeater ) Add multiple time. Remove the old and use last
-                   * with last parent element.
-                   */
-                  const itemsFiltered = items.filter(
-                      (item) => item.bindObjectId !== bindObjectId
-                  );
-
-                  return [
-                      ...itemsFiltered,
-                      { parentNode: parentElement, bindObjectId },
-                  ];
-              })()
-            : [{ parentNode: parentElement, bindObjectId }];
-
-    bindObjectMap.set(id, itemsUpdated);
-};
-
-/**
- * Rimuoviamo la referenza usando bindObjectId.
- *
- * - Questo avviene quando il watcher non trova piu l'elemento target perche e stato rimosso dal DOM.
- * - Rimuoviamo solo lo specifico watcher non tutti i watcher legati al componente.
- *
- * @param {object} params
- * @param {string} params.id
- * @param {string} params.bindObjectId
- * @returns {void}
- */
-export const removeBindObjectByBindObjectId = ({ id, bindObjectId }) => {
-    const items = bindObjectMap.get(id);
-    if (!items) return;
-
-    const itemsUpdated = items.filter(
-        (item) => item.bindObjectId !== bindObjectId
-    );
-    bindObjectMap.set(id, itemsUpdated);
-};
-
-/**
  * At the end of parse delete web component and add data to real map
  *
  * - Is called from parseComponentsWhile.
@@ -165,29 +105,27 @@ export const removeBindObjectByBindObjectId = ({ id, bindObjectId }) => {
  * @returns {void}
  */
 export const switchBindObjectMap = () => {
-    [...bindObjectPlaceHolderMap].forEach(
-        ([placeholder, { componentId, bindObjectId }]) => {
-            const parentElement = placeholder.parentElement;
-            if (!parentElement) return;
-
-            addBindObjectParent({
-                id: componentId,
-                bindObjectId,
-                parentElement,
-            });
-
-            // @ts-ignore
-            placeholder?.removeCustomComponent?.();
-            placeholder?.remove();
+    [...bindObjectPlaceHolderMap].forEach(([placeholder, { bindObjectId }]) => {
+        /**
+         * Individuiamo il div che sara da aggiornare.
+         */
+        let parentElement = placeholder.parentElement;
+        if (!parentElement) {
+            bindObjectToInitializeMap.delete(bindObjectId);
+            return;
         }
-    );
 
-    /**
-     * Initialize all watcher.
-     */
-    for (const data of bindObjectToInitializeSet) {
-        createBindObjectWatcher(data);
-    }
+        const item = bindObjectToInitializeMap.get(bindObjectId);
+        if (!item) return;
+
+        bindObjectToInitializeMap.delete(bindObjectId);
+        createBindObjectWatcher({ ...item, element: parentElement });
+
+        // @ts-ignore
+        placeholder?.removeCustomComponent?.();
+        placeholder?.remove();
+        parentElement = null;
+    });
 
     /**
      * Clean placeHolder map && module to initialize Set.
@@ -195,74 +133,19 @@ export const switchBindObjectMap = () => {
      * - Parse function is completed
      */
     bindObjectPlaceHolderMap.clear();
-    bindObjectToInitializeSet.clear();
 };
-
-/**
- * Rimuoviamo la referrenza usando componentId.
- *
- * - Questo avviene quando il componente viene distrutto.
- * - In questo caso tutti i watcher vanno rimossi.
- * - In realta svuotiamo solo la mappa i watcher vengono distrutti insieme allo stato.
- *
- * @param {object} params
- * @param {string} params.id
- * @returns {void}
- */
-export const removeBindObjectParentById = ({ id }) => {
-    bindObjectMap.delete(id);
-};
-
-/**
- * Alla prima chiamata dalla funzione di watch resitutiamo il parent Element da usare come target.
- *
- * @param {object} params
- * @param {string} params.id
- * @param {string} params.bindObjectId
- * @returns {HTMLElement | undefined}
- */
-const getParentBindObject = ({ id, bindObjectId }) => {
-    const item = bindObjectMap.get(id);
-    if (!item) return;
-
-    const current = item.find((item) => {
-        return bindObjectId === item.bindObjectId;
-    });
-
-    return current?.parentNode;
-};
-
-/**
- * Utils.
- *
- * @returns {number}
- */
-export const getBindObjectParentSize = () => {
-    return [...bindObjectMap].reduce(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        (previous, [_, values]) => previous + values.length,
-        0
-    );
-};
-
-/**
- * Utils.
- *
- * @returns {number}
- */
-export const getBindObjectPlaceholderSize = () => bindObjectPlaceHolderMap.size;
 
 /**
  * @type {import('./type').BindObjectWatcher}
  */
-const createBindObjectWatcher = ({ id, bindObjectId, keys, render }) => {
+const createBindObjectWatcher = ({ id, keys, render, element }) => {
     /**
      * Watch props on change
      */
     let watchIsRunning = false;
 
     /** @type {WeakRef<HTMLElement>} */
-    let ref;
+    const ref = new WeakRef(element);
 
     const unsubScribeFunction = keys.map((state) => {
         return watchById(id, state, async () => {
@@ -283,36 +166,6 @@ const createBindObjectWatcher = ({ id, bindObjectId, keys, render }) => {
 
             MobCore.useNextLoop(() => {
                 MobCore.useFrame(() => {
-                    if (!ref) {
-                        let refElement = getParentBindObject({
-                            id,
-                            bindObjectId,
-                        });
-
-                        /**
-                         * Skip if refElement is undefined. refElement is settled to null to remove any reference.
-                         */
-                        if (refElement) {
-                            ref = new WeakRef(refElement);
-                            removeBindObjectByBindObjectId({
-                                id,
-                                bindObjectId,
-                            });
-                        }
-
-                        if (!refElement) {
-                            unsubScribeFunction.forEach((fn) => {
-                                if (fn) fn();
-                            });
-
-                            unsubScribeFunction.length = 0;
-                            return;
-                        }
-
-                        // @ts-ignore
-                        refElement = null;
-                    }
-
                     /**
                      * - Unsubscribe module if element is disconnected from DOM.
                      */

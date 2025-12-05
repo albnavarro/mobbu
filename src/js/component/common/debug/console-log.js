@@ -5,10 +5,7 @@ import { activeRepeatMap } from '../../../mob/mob-js/modules/repeater/active-rep
 import { staticPropsMap } from '../../../mob/mob-js/modules/static-props';
 import { getSlotPlaceholderSize } from '../../../mob/mob-js/modules/slot';
 import { getUserChildPlaceholderSize } from '../../../mob/mob-js/modules/user-component';
-import {
-    getBindTextParentSize,
-    getBindTextPlaceholderSize,
-} from '../../../mob/mob-js/modules/bind-text';
+import { getBindTextPlaceholderSize } from '../../../mob/mob-js/modules/bind-text';
 import { repeatInstancesMap } from '../../../mob/mob-js/modules/repeater/repeat-id-intances-map';
 import { repeatIdsMap } from '../../../mob/mob-js/modules/repeater/repeat-ids-map';
 import { invalidateInstancesMap } from '../../../mob/mob-js/modules/invalidate/invalidate-id-instances-map';
@@ -39,7 +36,6 @@ export const consoleLogDebug = () => {
     console.log('repeatInstancesMap', repeatInstancesMap);
     console.log('userChildPlaceholderSize', getUserChildPlaceholderSize());
     console.log('slotPlaceholderSize', getSlotPlaceholderSize());
-    console.log('bindTextMapSize', getBindTextParentSize());
     console.log('bindTextPlaceholderMapSize', getBindTextPlaceholderSize());
     console.log('instanceMap', instanceMap);
 };

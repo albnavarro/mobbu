@@ -216,7 +216,11 @@ export const getParamsForComponentFunction = ({
         bindText: (strings, ...values) => {
             const bindTextId = MobCore.getUnivoqueId();
             const render = () => renderBindText(id, strings, ...values);
-            addBindTextToInitialzie({ id, bindTextId, render, props: values });
+            addBindTextToInitialzie(bindTextId, {
+                id,
+                render,
+                props: values,
+            });
 
             return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render()}`;
         },
@@ -224,7 +228,7 @@ export const getParamsForComponentFunction = ({
             const keys = getBindObjectKeys(values);
             const bindObjectId = MobCore.getUnivoqueId();
             const render = () => renderBindObject(strings, ...values);
-            addBindObjectToInitialzie({ id, bindObjectId, keys, render });
+            addBindObjectToInitialzie(bindObjectId, { id, keys, render });
 
             return `<mobjs-bind-object ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_OBJECT_ID}="${bindObjectId}"></mobjs-bind-object>${render()}`;
         },

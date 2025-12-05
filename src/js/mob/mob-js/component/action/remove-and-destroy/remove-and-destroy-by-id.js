@@ -1,6 +1,4 @@
 import { removeCurrentIdToBindProps } from '../../../modules/bind-props/remove-current-id-to-bind-props';
-import { removeBindObjectParentById } from '../../../modules/bind-object';
-import { removeBindTextParentById } from '../../../modules/bind-text';
 import { removeInvalidateId } from '../../../modules/invalidate/action/remove-invalidate-id';
 import { removeRepeaterId } from '../../../modules/repeater/action/remove-repeater-id';
 import { componentMap } from '../../component-map';
@@ -65,8 +63,6 @@ export const removeAndDestroyById = ({ id = '' }) => {
      */
     removeInvalidateId({ id });
     removeRepeaterId({ id });
-    removeBindTextParentById({ id });
-    removeBindObjectParentById({ id });
 
     /**
      * Remove id component from repeaterPlaceholderMap.

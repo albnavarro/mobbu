@@ -3,8 +3,6 @@
  */
 
 import { html, MobJs } from '@mobJs';
-import { getBindObjectParentSize } from '../../../../../mob/mob-js/modules/bind-object';
-import { getBindTextParentSize } from '../../../../../mob/mob-js/modules/bind-text';
 
 /** @type {MobComponent<import('./type').DebugHead>} */
 export const DebugHeadFn = ({ invalidate, getProxi }) => {
@@ -34,14 +32,6 @@ export const DebugHeadFn = ({ invalidate, getProxi }) => {
                         <div class="c-debug-head__invalidate">
                             <strong>Active invalidate: </strong>:
                             ${MobJs.getNumberOfActiveInvalidate()}
-                        </div>
-                        <div class="c-debug-head__invalidate">
-                            <strong>Active bindText: </strong>:
-                            ${getBindTextParentSize()}
-                        </div>
-                        <div class="c-debug-head__invalidate">
-                            <strong>Active bindObject: </strong>:
-                            ${getBindObjectParentSize()}
                         </div>
                     `;
                 },
