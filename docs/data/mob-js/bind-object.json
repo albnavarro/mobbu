@@ -110,26 +110,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "Trick:"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "As in the previous example, when working within a repeater using <span class='quote'>plain HTML</span> (without components) and handling large quantities of elements, if the module references the general state of the component and not the the <span class='quote'>repeater's</span> <span class='quote'>proxy</span>, it is recommended to add a reference to the <span class='quote'>repeater's</span> <span class='quote'>proxy</span> even when returning an empty value. This allows the module to update in sync with the repeater and detach the module if the HTML element it references has been <span class='quote'>removed</span> from the DOM. This mechanism also applies to the invalidate module and, in general, in every situation.<br/> When using components, cleanup operations are automatic."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "style": "medium"
             }
         },
