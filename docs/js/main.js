@@ -27826,7 +27826,7 @@
             () => proxi.data
           ],
           toggleClass: {
-            selected: () => current.value.label === `comp-${proxi.currentIndex + 1}`
+            selected: () => current.index === proxi.currentIndex
           }
         })}
                         >
