@@ -38,7 +38,7 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
             <h2 class="benchmark__head__title">
                 Generate vanilla html performance
             </h2>
-            ${benchMarkVanillaGarbagePartial(100)}
+            ${benchMarkVanillaGarbagePartial(1000)}
             ${benchMarkListPartial({
                 setRef,
                 getRef,
@@ -66,10 +66,7 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
                                  *
                                  * - Current trigger update on each data mutation.
                                  */
-                                observe: [
-                                    () => proxi.currentIndex,
-                                    () => proxi.data,
-                                ],
+                                observe: [() => proxi.currentIndex],
                                 toggleClass: {
                                     selected: () =>
                                         current.index === proxi.currentIndex,
@@ -83,7 +80,7 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
                                 ${bindObject`<strong>label:</strong><br/> ${() => current.value.label}`}
                             </div>
                             <div class="benchmark-fake__row">
-                                ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter} ${() => current.value && ''}`}
+                                ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`}
                             </div>
                             <div class="benchmark-fake__row">
                                 <button

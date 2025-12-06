@@ -3,6 +3,8 @@ import { watchById } from '../../component/action/watch';
 import { ATTR_BIND_EFFECT } from '../../constant';
 import { invalidateTick } from '../../queque/tick-invalidate';
 import { repeaterTick } from '../../queque/tick-repeater';
+import { getInvalidateObservedByComponentid } from '../invalidate/action/get-invalidate-observed-by-component-id';
+import { getRepeaterObservedByComponentid } from '../repeater/action/get-repeater-observed-by-component-id';
 
 /** @type {import('./type').BindEffectMap} */
 const bindEffectMap = new Map();
@@ -184,7 +186,27 @@ const watchBindEffect = ({ data, element }) => {
              */
             let watchIsRunning = false;
 
-            return observe.map((state) => {
+            /**
+             * Merge keys with repater/invalidate key if scope component use it.
+             *
+             * - Need when dom element is inside repearter/invalidate
+             * - Unsubscribe module when DOM element is removed
+             * - Sure, track modulo outside repeater/invalidate too, but is a light overload.
+             */
+            const repeaterObserved = getRepeaterObservedByComponentid({ id });
+            const invalidateObserved = getInvalidateObservedByComponentid({
+                id,
+            });
+
+            const observedParsed = [
+                ...new Set([
+                    ...observe,
+                    ...repeaterObserved,
+                    ...invalidateObserved,
+                ]),
+            ];
+
+            return observedParsed.map((state) => {
                 /**
                  * Initial class render
                  */

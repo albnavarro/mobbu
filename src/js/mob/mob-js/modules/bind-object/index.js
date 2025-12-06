@@ -2,6 +2,8 @@ import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { watchById } from '../../component/action/watch';
 import { invalidateTick } from '../../queque/tick-invalidate';
 import { repeaterTick } from '../../queque/tick-repeater';
+import { getInvalidateObservedByComponentid } from '../invalidate/action/get-invalidate-observed-by-component-id';
+import { getRepeaterObservedByComponentid } from '../repeater/action/get-repeater-observed-by-component-id';
 
 /**
  * Collect all future module to initialize at the end of parse.
@@ -147,7 +149,20 @@ const createBindObjectWatcher = ({ id, keys, render, element }) => {
     /** @type {WeakRef<HTMLElement>} */
     const ref = new WeakRef(element);
 
-    const unsubScribeFunction = keys.map((state) => {
+    /**
+     * Merge keys with repater/invalidate key if scope component use it.
+     *
+     * - Need when dom element is inside repearter/invalidate
+     * - Unsubscribe module when DOM element is removed
+     * - Sure, track modulo outside repeater/invalidate too, but is a light overload.
+     */
+    const repeaterObserved = getRepeaterObservedByComponentid({ id });
+    const invalidateObserved = getInvalidateObservedByComponentid({ id });
+    const keysParsed = [
+        ...new Set([...keys, ...repeaterObserved, ...invalidateObserved]),
+    ];
+
+    const unsubScribeFunction = keysParsed.map((state) => {
         return watchById(id, state, async () => {
             /**
              * BindEffect/BindText/BindObject is scheduled after repeat/invalidate.

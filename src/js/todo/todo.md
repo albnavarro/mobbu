@@ -1,6 +1,6 @@
 # Prioritá
 
-1. `BindObject/BindText/BindEffect` optimization all' interno di un repeat/invalidate senza componente.
+1. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
     - [detail:](#BindObject/BindText/BindEffect)
 2. La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
     ```js
@@ -35,113 +35,13 @@
 
 <a name="BindObject/BindText/BindEffect"></a>
 
-### BindObject/BindText/BindEffect all' interno di un repeater/invalidate senza componente.
-
-- Con le ultime modifiche ogni istanza di `bindObject` etc.., si scollega molto piu rapidamente ogni qual volta il `watch` viene invocato.
-- Funziona bene per i dati legati al proxi del repeater, ad ogni aggiornamanto del `repeater` gli elementi rimossi scatenano l'unsubscribe.
-- Funziona meno bene per i bind diretti sullo stato del componente, per scollegarsi hanno bisogno che lo stato venga `triggerato`, questo si puó riperquotere sopratutto negli invalidate.
-- Risolvere l'unsubscribe immediato dei moduli non legati al proxi del repeater senza sovraccaricare il resto.
-- Idealmente i moduli all' interno di un `repeater/invalidate` e al di fuori di un componente dovrebbero osservare anche lo stato che usa il `repeater/invalidate`.
-- Attualamente iniettiamo uno stato reattivo inerte in questo modo `${() => current.value && ''}` cosi da triggerare il watch ogni volta che il repeater si aggiorna, e scollegare il modulo se l'elemento é disconsso dal DOM, il modulo `bindEffect` usa un ragionamento simile.
-- La docs é aggiornata a questo step manuale.
-
-```js
-${bindObject`counter: ${() => proxi.counter} ${() => current.value && ''}`}
-```
-
-- `Fondamentale:` I moduli sono pensati per essere il piú indipendenti possibili. Il modulo `repeater` non dove essere sovraccaricato di altra logica, lo ritnego arrivato al muo massimlo livello di complessitá.
-
-#### Proposta 1
-- In questo modo possiamo aggiungere stati non effettivamante usati, ma l' impatto dovrebbe essere minimo.
-- **1 OK** Al momento `invalidate` non traccia lo stato nelle sue mappe, aggiungerlo e fare la stessa cosa.
-    - non avremmo traccia di componenti/non componenti perció possiamo tracciare tutte le chiavi.
-- **2 OK**: L' inizializzazione del modulo andrebbe spostata in parseComponentsWhile come per gli altri per evitare await repeaterTick && invalidateTick.
-    - prevedere un `new Set` temporaneo che raccoglie tutti i dati al posto di
-    ```js
-    // src/js/mob/mob-js/parse/steps/get-params-for-component.js
-
-    bindObject: (strings, ...values) => {
-        ...
-        // qui il set verra popolato al posto di createBindObjectWatcher
-        createBindObjectWatcher(id, bindObjectId, keys, render);
-        ...
-    },
-    ```
-    - Usare il nuovo set per lanciare tutte le istanze dal modulo dopo il rendering.
-    - `clear` di tutto il set.
-
-    ```js
-    // src/js/mob/mob-js/modules/bind-object/index.js
-
-    export const switchBindObjectMap = () => {
-        // qui il set viene letto e per ogni elemento di lancia
-        createBindObjectWatcher(id, bindObjectId, keys, render);
-        ...
-    }
-
-    ```
-- **3** Estrarre la fuzione di supporto `getRepeaterObserverWithoutComponent` in repeat module folder.
-    - Prediamo tutti i repeater per componente.
-    - Filtriamo tutti i repeater che hanno `nativeDOMChildren`
-    - Prediamo lo stato osservato
-
-```js
-// src/js/mob/mob-js/modules/bind-object/index.js
-
-/**
- * @param {object} params
- * @param {string} params.id
- * @returns {string[]}
- */
-const getRepeaterObserverWithoutComponent = ({ id }) => {
-    const repeaterIdByComponent = repeatIdsMap.get(id);
-    if (!repeaterIdByComponent) return [];
-
-    return repeaterIdByComponent
-        .map((repeat) => {
-            return repeat.repeatId;
-        })
-        .map((id) => repeatInstancesMap.get(id))
-        .filter((value) => {
-            // Questo step vá elininato.
-            return value && value?.nativeDOMChildren?.length > 0;
-        })
-        .map((item) => item?.key)
-        .filter((item) => item !== undefined);
-};
-
-/**
- * @param {string} id
- * @param {string} bindObjectId
- * @param {string[]} keys
- * @param {() => string} render
- * @returns {Promise<void>}
- */
-export const createBindObjectWatcher = async (
-    id,
-    bindObjectId,
-    keys,
-    render
-) => {
-    // questi await avendo ora dovrebebro essere superflui.
-    await repeaterTick({ debug: true });
-    await invalidateTick({ debug: true });
-
-    const observeFromRepeater = getRepeaterObserverWithoutComponent({ id });
-
-    /**
-     * Watch props on change
-     */
-    let watchIsRunning = false;
-
-    /** @type {WeakRef<HTMLElement>} */
-    let ref;
-
-    const keyParsed = [...new Set([...keys, ...observeFromRepeater])];
-
-    const unsubScribeFunction = keyParsed.map((state) => {
-        return watchById(id, state, async () => {
-```
+### BindObject/BindText/BindEffect update in sincrono con repeater/invalidate.
+- Il meccanismo é ok, i moduli tracciano gli stati che i moduli repeat/invalidate ( se usati ) osservano nel `componente-scope`.
+- Il meccanismo é `indisciminatorio` ovvero tutti i moduli si agganciano a tali stati se usati del componente a prescindere che siano figli di `repeat`/`invalidate` o meno.
+- Possibile miglioramanto.
+    - I  moduli si agganciano solo se figli di un repeat/invalidate.
+    - Basta che il meccanismo non si riveli piu pensante che aganciare una callback a prescindere cosi come avviene ora.
+    - In linea teorica l' `overhead` cosi come é ora é minimo, da valutare solo se a basso costo.
 
 
 
