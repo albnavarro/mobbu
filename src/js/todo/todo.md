@@ -1,7 +1,7 @@
 # Prioritá
 
-1. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
-    - [detail:](#BindObject/BindText/BindEffect)
+1. `RepeaterRender`: `nativeDOMChildren` -> testare element come weakMap per alleggerire il `GC`.
+    - Verficare e nel caso portare la cosa su altri `element` gestiti nella mappe piú grandi.
 2. La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
     ```js
     {
@@ -9,6 +9,8 @@
     }
     ```
 3. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
+4. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
+    - [detail:](#BindObject/BindText/BindEffect)
 4. Component app: `dragger` con `pinch zoom`.
 
 # App
