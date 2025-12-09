@@ -5296,8 +5296,66 @@
   };
 
   // src/js/mob/mob-js/modules/bind-props/bind-props-map.js
-  var bindPropsMap = /* @__PURE__ */ new Map();
-  var bindComponentTobindId = /* @__PURE__ */ new Map();
+  var internalBindPropsMap = (
+    /** @type {Map<string, import('./type').BindPropsMap>} */
+    /* @__PURE__ */ new Map()
+  );
+  var bindPropsMap = {
+    get: (key) => internalBindPropsMap.get(key),
+    set: (key, value) => {
+      internalBindPropsMap.set(key, value);
+      return bindPropsMap;
+    },
+    delete: (key) => internalBindPropsMap.delete(key),
+    has: (key) => internalBindPropsMap.has(key),
+    clear: () => internalBindPropsMap.clear(),
+    get size() {
+      return internalBindPropsMap.size;
+    },
+    [Symbol.iterator]: () => internalBindPropsMap[Symbol.iterator](),
+    entries: () => internalBindPropsMap.entries(),
+    keys: () => internalBindPropsMap.keys(),
+    values: () => internalBindPropsMap.values(),
+    forEach: (callback2) => {
+      internalBindPropsMap.forEach((value, key) => callback2(value, key));
+    },
+    compact() {
+      internalBindPropsMap = new Map(internalBindPropsMap);
+    }
+  };
+  var internalbindComponentTobindId = (
+    /** @type {Map<string, string>} */
+    /* @__PURE__ */ new Map()
+  );
+  var bindComponentTobindId = {
+    get: (key) => internalbindComponentTobindId.get(key),
+    set: (key, value) => {
+      internalbindComponentTobindId.set(key, value);
+      return bindComponentTobindId;
+    },
+    delete: (key) => internalbindComponentTobindId.delete(key),
+    has: (key) => internalbindComponentTobindId.has(key),
+    clear: () => internalbindComponentTobindId.clear(),
+    get size() {
+      return internalbindComponentTobindId.size;
+    },
+    [Symbol.iterator]: () => internalbindComponentTobindId[Symbol.iterator](),
+    entries: () => internalbindComponentTobindId.entries(),
+    keys: () => internalbindComponentTobindId.keys(),
+    values: () => internalbindComponentTobindId.values(),
+    forEach: (callback2) => {
+      internalbindComponentTobindId.forEach(
+        (value, key) => callback2(value, key)
+      );
+    },
+    compact() {
+      internalbindComponentTobindId = new Map(internalbindComponentTobindId);
+    }
+  };
+  var compactBindPropsMap = () => {
+    bindPropsMap.compact();
+    bindComponentTobindId.compact();
+  };
 
   // src/js/mob/mob-js/modules/bind-props/remove-current-id-to-bind-props.js
   var removeCurrentIdToBindProps = ({ componentId }) => {
@@ -7700,6 +7758,7 @@
           afterUpdate();
           modules_exports.compactStoreMap();
           compactComponentMap();
+          compactBindPropsMap();
         });
       });
       return unsubscribe3;
@@ -8733,6 +8792,7 @@
           }
           modules_exports.compactStoreMap();
           compactComponentMap();
+          compactBindPropsMap();
         });
       }
     );
@@ -9671,6 +9731,7 @@
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, false);
     modules_exports.compactStoreMap();
     compactComponentMap();
+    compactBindPropsMap();
   };
 
   // src/js/mob/mob-js/route/redirect/index.js

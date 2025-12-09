@@ -22,7 +22,6 @@ export const componentMap = {
     forEach: (callback) => {
         internalMap.forEach((value, key) => callback(value, key));
     },
-
     compact() {
         internalMap = new Map(internalMap);
     },

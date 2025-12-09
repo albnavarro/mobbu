@@ -28,7 +28,6 @@ export const storeMap = {
     forEach: (callback) => {
         internalStoreMap.forEach((value, key) => callback(value, key));
     },
-
     compact() {
         internalStoreMap = new Map(internalStoreMap);
     },

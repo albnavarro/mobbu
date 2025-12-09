@@ -17,6 +17,7 @@ import {
 import { addDOMfromString } from '../../../parse/steps/utils';
 import { incrementTickQueuque } from '../../../queque/tick';
 import { incrementInvalidateTickQueuque } from '../../../queque/tick-invalidate';
+import { compactBindPropsMap } from '../../bind-props/bind-props-map';
 import { destroyNestedRepeat } from '../../repeater/action/destroy-nested-repeat';
 import { inizializeNestedRepeat } from '../../repeater/action/inizialize-nested-repeat';
 import { addInvalidateUnsubcribe } from './add-invalidate-unsubcribe';
@@ -162,6 +163,7 @@ export const inizializeInvalidateWatch = async ({
 
                 MobCore.compactStoreMap();
                 compactComponentMap();
+                compactBindPropsMap();
             });
         });
 

@@ -28,6 +28,7 @@ import { getRepeatParent } from '../action/get-repeater-parent';
 import { inizializeNestedRepeat } from '../action/inizialize-nested-repeat';
 import { setRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { compactComponentMap } from '../../../component/component-map';
+import { compactBindPropsMap } from '../../bind-props/bind-props-map';
 
 /**
  * @param {import('../type').WatchList} param
@@ -326,6 +327,7 @@ export const watchRepeat = ({
 
                 MobCore.compactStoreMap();
                 compactComponentMap();
+                compactBindPropsMap();
             });
         }
     );

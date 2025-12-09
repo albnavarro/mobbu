@@ -17,6 +17,7 @@ import { removeCancellableComponent } from '../../component/action/remove-and-de
 import { addDOMfromString } from '../../parse/steps/utils';
 import { MobCore } from '@mobCore';
 import { compactComponentMap } from '../../component/component-map';
+import { compactBindPropsMap } from '../../modules/bind-props/bind-props-map';
 
 /**
  * @type {Map<string, number>}
@@ -245,4 +246,5 @@ export const loadRoute = async ({
 
     MobCore.compactStoreMap();
     compactComponentMap();
+    compactBindPropsMap();
 };
