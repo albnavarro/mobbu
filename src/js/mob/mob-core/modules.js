@@ -1,3 +1,4 @@
+export { compactStoreMap } from './store/store-map.js';
 export { throttle } from './events/throttle.js';
 export { debounceFuncion as debounce } from './events/debounce.js';
 import { eventStore } from './events/event-store.js';

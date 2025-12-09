@@ -322,3 +322,22 @@ type MobStoreState<T> = {
 export type MobStoreParams<T = any> = MobStoreState<T>;
 
 export type MobStoreWatchWaintList = Map<string, Map<string, any>>;
+
+export interface StoreMapWrapper {
+    get: (key: string) => import('./type').StoreMapValue | undefined;
+    set: (
+        key: string,
+        value: import('./type').StoreMapValue
+    ) => StoreMapWrapper;
+    delete: (key: string) => boolean;
+    has: (key: string) => boolean;
+    clear: () => void;
+    size: number;
+    entries: () => IterableIterator<[string, import('./type').StoreMapValue]>;
+    keys: () => IterableIterator<string>;
+    values: () => IterableIterator<import('./type').StoreMapValue>;
+    forEach: (
+        callback: (value: import('./type').StoreMapValue, key: string) => void
+    ) => void;
+    compact: () => void;
+}

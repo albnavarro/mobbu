@@ -7,7 +7,7 @@ import { getInvalidateObservedByComponentid } from '../invalidate/action/get-inv
 import { getRepeaterObservedByComponentid } from '../repeater/action/get-repeater-observed-by-component-id';
 
 /** @type {import('./type').BindEffectMap} */
-const bindEffectMap = new Map();
+let bindEffectMap = new Map();
 
 /**
  * @param {string | string[] | (() => void) | (() => void)[]} observe
@@ -108,6 +108,13 @@ export const applyBindEffect = (element) => {
         watchBindEffect({ data, element: target });
         bindEffectMap.delete(id);
     });
+
+    /**
+     * Compact map if is empty
+     */
+    if (bindEffectMap.size === 0) {
+        bindEffectMap = new Map(bindEffectMap);
+    }
 };
 
 /**

@@ -63,3 +63,22 @@ export interface ComponentStoreReturn {
     watch: MobStoreWatch;
     debug: () => void;
 }
+
+export interface ComponentMapWrapper {
+    get: (key: string) => import('./type').ComponentStore | undefined;
+    set: (
+        key: string,
+        value: import('./type').ComponentStore
+    ) => ComponentMapWrapper;
+    delete: (key: string) => boolean;
+    has: (key: string) => boolean;
+    clear: () => void;
+    size: number;
+    entries: () => IterableIterator<[string, import('./type').ComponentStore]>;
+    keys: () => IterableIterator<string>;
+    values: () => IterableIterator<import('./type').ComponentStore>;
+    forEach: (
+        callback: (value: import('./type').ComponentStore, key: string) => void
+    ) => void;
+    compact: () => void;
+}

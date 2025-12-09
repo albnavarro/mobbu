@@ -27,6 +27,7 @@ import { chunkIdsByCurrentValue } from '../utils';
 import { getRepeatParent } from '../action/get-repeater-parent';
 import { inizializeNestedRepeat } from '../action/inizialize-nested-repeat';
 import { setRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
+import { compactComponentMap } from '../../../component/component-map';
 
 /**
  * @param {import('../type').WatchList} param
@@ -322,6 +323,9 @@ export const watchRepeat = ({
                         id,
                     });
                 }
+
+                MobCore.compactStoreMap();
+                compactComponentMap();
             });
         }
     );

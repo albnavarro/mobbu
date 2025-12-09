@@ -7,6 +7,7 @@ import {
 } from '../../../component/action/freeze';
 import { getParentIdFromWeakElementMap } from '../../../component/action/parent';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
+import { compactComponentMap } from '../../../component/component-map';
 import { QUEQUE_TYPE_INVALIDATE } from '../../../constant';
 import { MAIN_STORE_ASYNC_PARSER } from '../../../main-store/constant';
 import {
@@ -158,6 +159,9 @@ export const inizializeInvalidateWatch = async ({
                 unFreezePropById({ id, prop: state });
 
                 afterUpdate();
+
+                MobCore.compactStoreMap();
+                compactComponentMap();
             });
         });
 

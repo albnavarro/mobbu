@@ -13,7 +13,7 @@ import { getRepeaterObservedByComponentid } from '../repeater/action/get-repeate
  *
  * @type {Map<string, import('./type').BindTextToInitialize>}
  */
-const bindTextToInitializeMap = new Map();
+let bindTextToInitializeMap = new Map();
 
 /**
  * Add all future module to initialize at the end of parse.
@@ -30,7 +30,7 @@ export const addBindTextToInitialzie = (bindTextId, params) => {
  *
  * @type {Map<Element, import('./type').BindTextPlaceHolder>}
  */
-export const bindTextPlaceHolderMap = new Map();
+let bindTextPlaceHolderMap = new Map();
 
 /**
  * Funzione usata dal webComponent per passare l' host.
@@ -161,6 +161,11 @@ export const switchBindTextMap = () => {
      * - Parse function is completed
      */
     bindTextPlaceHolderMap.clear();
+    bindTextPlaceHolderMap = new Map(bindTextPlaceHolderMap);
+
+    if (bindTextToInitializeMap.size === 0) {
+        bindTextToInitializeMap = new Map(bindTextToInitializeMap);
+    }
 };
 
 /**

@@ -6,10 +6,35 @@ import {
     storeCopyStrategy,
 } from './strategy';
 
-/**
- * @type {import('./type').StoreMap}
- */
-export const storeMap = new Map();
+let internalStoreMap = /** @type {import('./type').StoreMap} */ (new Map());
+
+/** @type {import('./type').StoreMapWrapper & Iterable<[string, import('./type').StoreMapValue]>} */
+export const storeMap = {
+    get: (key) => internalStoreMap.get(key),
+    set: (key, value) => {
+        internalStoreMap.set(key, value);
+        return storeMap;
+    },
+    delete: (key) => internalStoreMap.delete(key),
+    has: (key) => internalStoreMap.has(key),
+    clear: () => internalStoreMap.clear(),
+    get size() {
+        return internalStoreMap.size;
+    },
+    [Symbol.iterator]: () => internalStoreMap[Symbol.iterator](),
+    entries: () => internalStoreMap.entries(),
+    keys: () => internalStoreMap.keys(),
+    values: () => internalStoreMap.values(),
+    forEach: (callback) => {
+        internalStoreMap.forEach((value, key) => callback(value, key));
+    },
+
+    compact() {
+        internalStoreMap = new Map(internalStoreMap);
+    },
+};
+
+export const compactStoreMap = () => storeMap.compact();
 
 /**
  * Return a shallow-copy of store value.

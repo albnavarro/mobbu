@@ -15,6 +15,8 @@ import { getRestoreScroll } from '../scroll';
 import { tick } from '../../queque/tick';
 import { removeCancellableComponent } from '../../component/action/remove-and-destroy/cancellable-component/destroy-all-non-persisitent-component';
 import { addDOMfromString } from '../../parse/steps/utils';
+import { MobCore } from '@mobCore';
+import { compactComponentMap } from '../../component/component-map';
 
 /**
  * @type {Map<string, number>}
@@ -240,4 +242,7 @@ export const loadRoute = async ({
     unWatchRouteChange?.();
 
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, false);
+
+    MobCore.compactStoreMap();
+    compactComponentMap();
 };

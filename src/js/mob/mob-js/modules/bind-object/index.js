@@ -12,7 +12,7 @@ import { getRepeaterObservedByComponentid } from '../repeater/action/get-repeate
  *
  * @type {Map<string, import('./type').BindObectToInitialize>}
  */
-const bindObjectToInitializeMap = new Map();
+let bindObjectToInitializeMap = new Map();
 
 /**
  * Add all future module to initialize at the end of parse.
@@ -29,7 +29,7 @@ export const addBindObjectToInitialzie = (bindObjectId, params) => {
  *
  * @type {Map<Element, import('./type').BindObjectPlaceHolder>}
  */
-export const bindObjectPlaceHolderMap = new Map();
+let bindObjectPlaceHolderMap = new Map();
 
 /**
  * Funzione usata dal webComponent per passare l' host.
@@ -133,8 +133,14 @@ export const switchBindObjectMap = () => {
      * Clean placeHolder map && module to initialize Set.
      *
      * - Parse function is completed
+     * - Compact map
      */
     bindObjectPlaceHolderMap.clear();
+    bindObjectPlaceHolderMap = new Map(bindObjectPlaceHolderMap);
+
+    if (bindObjectToInitializeMap.size === 0) {
+        bindObjectToInitializeMap = new Map(bindObjectToInitializeMap);
+    }
 };
 
 /**
