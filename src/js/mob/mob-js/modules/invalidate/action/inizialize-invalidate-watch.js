@@ -7,7 +7,6 @@ import {
 } from '../../../component/action/freeze';
 import { getParentIdFromWeakElementMap } from '../../../component/action/parent';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
-import { compactComponentMap } from '../../../component/component-map';
 import { QUEQUE_TYPE_INVALIDATE } from '../../../constant';
 import { MAIN_STORE_ASYNC_PARSER } from '../../../main-store/constant';
 import {
@@ -17,7 +16,7 @@ import {
 import { addDOMfromString } from '../../../parse/steps/utils';
 import { incrementTickQueuque } from '../../../queque/tick';
 import { incrementInvalidateTickQueuque } from '../../../queque/tick-invalidate';
-import { compactBindPropsMap } from '../../bind-props/bind-props-map';
+import { compactMap } from '../../../utils/compact-map';
 import { destroyNestedRepeat } from '../../repeater/action/destroy-nested-repeat';
 import { inizializeNestedRepeat } from '../../repeater/action/inizialize-nested-repeat';
 import { addInvalidateUnsubcribe } from './add-invalidate-unsubcribe';
@@ -160,10 +159,7 @@ export const inizializeInvalidateWatch = async ({
                 unFreezePropById({ id, prop: state });
 
                 afterUpdate();
-
-                MobCore.compactStoreMap();
-                compactComponentMap();
-                compactBindPropsMap();
+                compactMap();
             });
         });
 

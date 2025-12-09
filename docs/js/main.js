@@ -7526,6 +7526,13 @@
     });
   };
 
+  // src/js/mob/mob-js/utils/compact-map.js
+  var compactMap = () => {
+    modules_exports.compactStoreMap();
+    compactComponentMap();
+    compactBindPropsMap();
+  };
+
   // src/js/mob/mob-js/modules/common-repeat-invalidate.js
   var MODULE_REPEATER = "repeater";
   var MODULE_INVALIDATE = "invalidate";
@@ -7756,9 +7763,7 @@
           inizializeNestedRepeat({ repeatParent: invalidateParent, id });
           unFreezePropById({ id, prop: state });
           afterUpdate();
-          modules_exports.compactStoreMap();
-          compactComponentMap();
-          compactBindPropsMap();
+          compactMap();
         });
       });
       return unsubscribe3;
@@ -8790,9 +8795,7 @@
               id
             });
           }
-          modules_exports.compactStoreMap();
-          compactComponentMap();
-          compactBindPropsMap();
+          compactMap();
         });
       }
     );
@@ -9729,9 +9732,7 @@
     clone = null;
     unWatchRouteChange?.();
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, false);
-    modules_exports.compactStoreMap();
-    compactComponentMap();
-    compactBindPropsMap();
+    compactMap();
   };
 
   // src/js/mob/mob-js/route/redirect/index.js
