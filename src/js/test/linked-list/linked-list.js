@@ -1,10 +1,9 @@
 /**
- * TODO: add Generic and d.ts notation
+ * @template T
  */
-
 class Node {
     /**
-     * @param {any} data
+     * @param {T} data
      */
     constructor(data) {
         this.data = data;
@@ -12,31 +11,34 @@ class Node {
         /**
          * Next node
          *
-         * @type {Node | null}
+         * @type {Node<T> | null}
          */
         this.next = null;
 
         /**
          * Previous node
          *
-         * @type {Node | null}
+         * @type {Node<T> | null}
          */
         this.prev = null;
     }
 }
 
+/**
+ * @template T
+ */
 export class LinkedList {
     /**
      * First node of list
      *
-     * @type {Node | null}
+     * @type {Node<T> | null}
      */
     #head = null;
 
     /**
      * Last node of list
      *
-     * @type {Node | null}
+     * @type {Node<T> | null}
      */
     #tail = null;
 
@@ -48,7 +50,7 @@ export class LinkedList {
     /**
      * Add node at end of the list
      *
-     * @param {any} data
+     * @param {T} data
      */
     add(data) {
         const newNode = new Node(data);
@@ -76,7 +78,7 @@ export class LinkedList {
     /**
      * Add node at beginning of the list
      *
-     * @param {any} data
+     * @param {T} data
      */
     addFirst(data) {
         const newNode = new Node(data);
@@ -97,7 +99,7 @@ export class LinkedList {
     /**
      * Add node at specific position
      *
-     * @param {any} data
+     * @param {T} data
      * @param {number} index
      */
     insertAt(data, index) {
@@ -150,7 +152,7 @@ export class LinkedList {
     /**
      * Remove from value
      *
-     * @param {any} data
+     * @param {T} data
      */
     remove(data) {
         if (this.#head === null) {
@@ -305,7 +307,7 @@ export class LinkedList {
     /**
      * Get index by value.
      *
-     * @param {any} data
+     * @param {T} data
      */
     indexOf(data) {
         let current = this.#head;
@@ -329,6 +331,7 @@ export class LinkedList {
      * Get element by specific position
      *
      * @param {number} index
+     * @returns {Node<T> | null}
      */
     get(index) {
         if (index < 0 || index >= this.#size) {
@@ -369,7 +372,7 @@ export class LinkedList {
     /**
      * Traverse forward through the list
      *
-     * @param {(node: Node) => void} callback
+     * @param {(node: Node<T>) => void} callback
      */
     traverse(callback) {
         let current = this.#head;
@@ -383,7 +386,7 @@ export class LinkedList {
     /**
      * Traverse backward through the list
      *
-     * @param {(node: Node) => void} callback
+     * @param {(node: Node<T>) => void} callback
      */
     traverseReverse(callback) {
         let current = this.#tail;
@@ -508,7 +511,7 @@ export class LinkedList {
     /**
      * Get first node (head)
      *
-     * @returns {Node | null}
+     * @returns {Node<T> | null}
      */
     get head() {
         return this.#head;
@@ -517,7 +520,7 @@ export class LinkedList {
     /**
      * Get last node (tail)
      *
-     * @returns {Node | null}
+     * @returns {Node<T> | null}
      */
     get tail() {
         return this.#tail;
