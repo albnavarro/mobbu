@@ -16,6 +16,7 @@ import { skipRouteLoader } from '@commonComponent/route-loader/utils';
 // import { clockModule } from './test/math-test/clock-module';
 // import { swapVariables } from './test/math-test/xor';
 // import { LRUTest } from './test/lru';
+// import { likendListTest } from './test/linked-list';
 
 const fpsLoopNumber = 60;
 
@@ -131,4 +132,5 @@ MobCore.useLoad(() => {
     // clockModule();
     // swapVariables();
     // LRUTest();
+    // likendListTest();
 });
