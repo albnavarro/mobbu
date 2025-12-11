@@ -22,6 +22,13 @@ class Node {
          */
         this.prev = null;
     }
+
+    dispose() {
+        // @ts-ignore
+        this.data = null;
+        this.next = null;
+        this.prev = null;
+    }
 }
 
 /**
@@ -51,6 +58,7 @@ export class LinkedList {
      * Add node at end of the list
      *
      * @param {T} data
+     * @returns {LinkedList<T>}
      */
     add(data) {
         const newNode = new Node(data);
@@ -62,7 +70,7 @@ export class LinkedList {
             this.#head = newNode;
             this.#tail = newNode;
             this.#size++;
-            return;
+            return this;
         }
 
         /**
@@ -73,12 +81,15 @@ export class LinkedList {
         newNode.prev = this.#tail;
         this.#tail = newNode;
         this.#size++;
+
+        return this;
     }
 
     /**
      * Add node at beginning of the list
      *
      * @param {T} data
+     * @returns {LinkedList<T>}
      */
     addFirst(data) {
         const newNode = new Node(data);
@@ -87,13 +98,15 @@ export class LinkedList {
             this.#head = newNode;
             this.#tail = newNode;
             this.#size++;
-            return;
+            return this;
         }
 
         newNode.next = this.#head;
         this.#head.prev = newNode;
         this.#head = newNode;
         this.#size++;
+
+        return this;
     }
 
     /**
@@ -101,6 +114,7 @@ export class LinkedList {
      *
      * @param {T} data
      * @param {number} index
+     * @returns {LinkedList<T>}
      */
     insertAt(data, index) {
         if (index < 0 || index > this.#size) {
@@ -112,7 +126,7 @@ export class LinkedList {
          */
         if (index === 0) {
             this.addFirst(data);
-            return;
+            return this;
         }
 
         /**
@@ -120,7 +134,7 @@ export class LinkedList {
          */
         if (index === this.#size) {
             this.add(data);
-            return;
+            return this;
         }
 
         const newNode = new Node(data);
@@ -147,16 +161,19 @@ export class LinkedList {
         // @ts-expect-error current exists
         current.prev = newNode;
         this.#size++;
+
+        return this;
     }
 
     /**
      * Remove from value
      *
      * @param {T} data
+     * @returns {LinkedList<T>}
      */
     remove(data) {
         if (this.#head === null) {
-            return null;
+            return this;
         }
 
         let current = this.#head;
@@ -173,38 +190,47 @@ export class LinkedList {
          * Element not found
          */
         if (current === null) {
-            return null;
+            return this;
         }
 
         /**
-         * Remove the node by updating pointers
+         * It is head node. Point head to next node.
          */
         if (current.prev === null) {
-            /**
-             * Remove head
-             */
             this.#head = current.next;
-        } else {
+        }
+
+        /**
+         * It is not head, Node before next-pointer now point to next current Node.
+         */
+        if (current.prev) {
             current.prev.next = current.next;
         }
 
+        /**
+         * It is tail, new tail is previous current node.
+         */
         if (current.next === null) {
-            /**
-             * Remove tail
-             */
             this.#tail = current.prev;
-        } else {
+        }
+
+        /**
+         * It is not tail, Next previous pointer now point current previous.
+         */
+        if (current.next) {
             current.next.prev = current.prev;
         }
 
+        current.dispose();
         this.#size--;
-        return data;
+        return this;
     }
 
     /**
      * Remove element in specific position
      *
      * @param {number} index
+     * @returns {LinkedList<T>}
      */
     removeAt(index) {
         if (index < 0 || index >= this.#size) {
@@ -224,90 +250,118 @@ export class LinkedList {
         }
 
         /**
-         * Update pointers to remove the node
+         * It is not head, switch previous next-pointer to current next-pointer.
          */
-        // @ts-expect-error current exists
-        if (current.prev) {
-            // @ts-expect-error current exists
+        if (current?.prev) {
             current.prev.next = current.next;
-        } else {
-            /**
-             * Removing head
-             */
-            // @ts-expect-error current exists
+        }
+
+        /**
+         * It is head, new head is next pointer
+         */
+        if (current?.prev === null) {
             this.#head = current.next;
         }
 
-        // @ts-expect-error current exists
-        if (current.next) {
-            // @ts-expect-error current exists
+        /**
+         * It is not tail, next previous pointer now point to current previous.
+         */
+        if (current?.next) {
             current.next.prev = current.prev;
-        } else {
-            /**
-             * Removing tail
-             */
-            // @ts-expect-error current exists
+        }
+
+        /**
+         * It is tail, new tail is current previous.
+         */
+        if (current?.next === null) {
             this.#tail = current.prev;
         }
 
+        if (current) current.dispose();
         this.#size--;
-
-        // @ts-expect-error current exists
-        return current.data;
+        return this;
     }
 
     /**
      * Remove first element (head)
+     *
+     * @returns {LinkedList<T>}
      */
     removeFirst() {
+        /**
+         * List is empty
+         */
         if (this.#head === null) {
-            return null;
+            return this;
         }
 
-        const data = this.#head.data;
+        const nodeToDispose = this.#head;
+
+        /**
+         * New head is next node.
+         */
         this.#head = this.#head.next;
 
+        /**
+         * Set head previous to null ( is first element )
+         */
         if (this.#head) {
             this.#head.prev = null;
-        } else {
-            /**
-             * List is now empty
-             */
+        }
+
+        /**
+         * If no head, tail is removed too.
+         */
+        if (this.#head === null) {
             this.#tail = null;
         }
 
+        nodeToDispose.dispose();
         this.#size--;
-        return data;
+        return this;
     }
 
     /**
      * Remove last element.
+     *
+     * @returns {LinkedList<T>}
      */
     removeLast() {
         if (this.#tail === null) {
-            return null;
+            return this;
         }
 
-        const data = this.#tail.data;
+        const nodeToDispose = this.#tail;
+
+        /**
+         * Now tail is previous node.
+         */
         this.#tail = this.#tail.prev;
 
+        /**
+         * Set tail next to null ( is last element )
+         */
         if (this.#tail) {
             this.#tail.next = null;
-        } else {
-            /**
-             * List is now empty
-             */
+        }
+
+        /**
+         * If no tail, head is removed too.
+         */
+        if (this.#tail === null) {
             this.#head = null;
         }
 
+        nodeToDispose.dispose();
         this.#size--;
-        return data;
+        return this;
     }
 
     /**
      * Get index by value.
      *
      * @param {T} data
+     * @returns {number}
      */
     indexOf(data) {
         let current = this.#head;
@@ -317,6 +371,7 @@ export class LinkedList {
             if (current.data === data) {
                 return index;
             }
+
             current = current.next;
             index++;
         }
@@ -339,7 +394,7 @@ export class LinkedList {
         }
 
         /**
-         * Optimization: start from tail if index is closer to the end
+         * Perf: start from tail if index is closer to the end
          */
         if (index > this.#size / 2) {
             let current = this.#tail;
@@ -370,9 +425,10 @@ export class LinkedList {
     }
 
     /**
-     * Traverse forward through the list
+     * Sync traverse forward through the list
      *
      * @param {(node: Node<T>) => void} callback
+     * @returns {LinkedList<T>}
      */
     traverse(callback) {
         let current = this.#head;
@@ -381,12 +437,32 @@ export class LinkedList {
             callback(current);
             current = current.next;
         }
+
+        return this;
+    }
+
+    /**
+     * Async traverse forward through the list
+     *
+     * @param {(node: Node<T>) => Promise<void>} callback
+     * @returns {Promise<LinkedList<T>>}
+     */
+    async traverseAsync(callback) {
+        let current = this.#head;
+
+        while (current !== null) {
+            await callback(current);
+            current = current.next;
+        }
+
+        return this;
     }
 
     /**
      * Traverse backward through the list
      *
      * @param {(node: Node<T>) => void} callback
+     * @returns {LinkedList<T>}
      */
     traverseReverse(callback) {
         let current = this.#tail;
@@ -395,10 +471,53 @@ export class LinkedList {
             callback(current);
             current = current.prev;
         }
+
+        return this;
+    }
+
+    /**
+     * Async Traverse backward through the list
+     *
+     * @param {(node: Node<T>) => Promise<void>} callback
+     * @returns {Promise<LinkedList<T>>}
+     */
+    async traverseReverseAsync(callback) {
+        let current = this.#tail;
+
+        while (current !== null) {
+            await callback(current);
+            current = current.prev;
+        }
+
+        return this;
+    }
+
+    /**
+     * Execute custom operation in chaining
+     *
+     * @param {() => void} callback
+     * @returns {LinkedList<T>}
+     */
+    execute(callback) {
+        callback();
+        return this;
+    }
+
+    /**
+     * Async execute custom operation in chaining
+     *
+     * @param {() => Promise<void>} callback
+     * @returns {Promise<LinkedList<T>>}
+     */
+    async executeAsync(callback) {
+        await callback();
+        return this;
     }
 
     /**
      * Print all elements in the list
+     *
+     * @returns {LinkedList<T>}
      */
     print() {
         let current = this.#head;
@@ -410,10 +529,13 @@ export class LinkedList {
         }
 
         console.log(result.join(' <-> '));
+        return this;
     }
 
     /**
      * Print all elements in reverse order
+     *
+     * @returns {LinkedList<T>}
      */
     printReverse() {
         let current = this.#tail;
@@ -425,10 +547,13 @@ export class LinkedList {
         }
 
         console.log(result.join(' <-> '));
+        return this;
     }
 
     /**
      * Get empty status
+     *
+     * @returns {boolean}
      */
     isEmpty() {
         return this.#head === null;
@@ -436,6 +561,8 @@ export class LinkedList {
 
     /**
      * Get size
+     *
+     * @returns {number}
      */
     getSize() {
         return this.#size;
@@ -443,15 +570,21 @@ export class LinkedList {
 
     /**
      * Clear list
+     *
+     * @returns {LinkedList<T>}
      */
     clear() {
         this.#head = null;
         this.#tail = null;
         this.#size = 0;
+
+        return this;
     }
 
     /**
      * Reverse list
+     *
+     * @returns {LinkedList<T>}
      */
     reverse() {
         let current = this.#head;
@@ -476,10 +609,14 @@ export class LinkedList {
             this.#head = current;
             current = current.prev;
         }
+
+        return this;
     }
 
     /**
      * Convert to array
+     *
+     * @returns {T[]}
      */
     toArray() {
         const arr = [];
@@ -495,6 +632,8 @@ export class LinkedList {
 
     /**
      * Convert to array in reverse order
+     *
+     * @returns {T[]}
      */
     toArrayReverse() {
         const arr = [];
