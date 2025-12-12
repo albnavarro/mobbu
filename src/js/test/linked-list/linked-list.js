@@ -1,4 +1,18 @@
 /**
+ * TODO:
+ *
+ * - MoveAfter(nodeToMove, targetNode)
+ * - MoveBefore(nodeToMove, targetNode)
+ * - Swap(nodeA, nodeB)
+ * - Concact(otherList)
+ * - Reduce
+ * - Clone
+ * - Contains/has(data)
+ * - Every
+ * - Some
+ */
+
+/**
  * @template T
  */
 class Node {
@@ -60,7 +74,7 @@ export class LinkedList {
      * @param {T} data
      * @returns {LinkedList<T>}
      */
-    add(data) {
+    addLast(data) {
         const newNode = new Node(data);
 
         /**
@@ -76,8 +90,7 @@ export class LinkedList {
         /**
          * Add to the end using tail reference
          */
-        // @ts-expect-error tail exists when head exists
-        this.#tail.next = newNode;
+        if (this.#tail) this.#tail.next = newNode;
         newNode.prev = this.#tail;
         this.#tail = newNode;
         this.#size++;
@@ -110,174 +123,24 @@ export class LinkedList {
     }
 
     /**
-     * Add node at specific position
+     * Remove node
      *
-     * @param {T} data
-     * @param {number} index
+     * @param {Node<T>} node
      * @returns {LinkedList<T>}
      */
-    insertAt(data, index) {
-        if (index < 0 || index > this.#size) {
-            throw new Error('Out of range');
-        }
+    removeNode(node) {
+        if (!node) return this;
+
+        if (node === this.#head) return this.removeFirst();
+        if (node === this.#tail) return this.removeLast();
 
         /**
-         * Insert at beginning
+         * Rimuovi nodi intermedi.
          */
-        if (index === 0) {
-            this.addFirst(data);
-            return this;
-        }
+        if (node.prev) node.prev.next = node.next;
+        if (node.next) node.next.prev = node.prev;
 
-        /**
-         * Insert at end
-         */
-        if (index === this.#size) {
-            this.add(data);
-            return this;
-        }
-
-        const newNode = new Node(data);
-        let current = this.#head;
-        let count = 0;
-
-        /**
-         * Find the node at the specified index
-         */
-        while (count < index) {
-            // @ts-expect-error index is validated
-            current = current.next;
-            count++;
-        }
-
-        /**
-         * Insert newNode before current
-         */
-        // @ts-expect-error current and prev exist
-        newNode.prev = current.prev;
-        newNode.next = current;
-        // @ts-expect-error current.prev exists
-        current.prev.next = newNode;
-        // @ts-expect-error current exists
-        current.prev = newNode;
-        this.#size++;
-
-        return this;
-    }
-
-    /**
-     * Remove from value
-     *
-     * @param {T} data
-     * @returns {LinkedList<T>}
-     */
-    remove(data) {
-        if (this.#head === null) {
-            return this;
-        }
-
-        let current = this.#head;
-
-        /**
-         * Find element to remove
-         */
-        while (current !== null && current.data !== data) {
-            // @ts-expect-error current exists
-            current = current.next;
-        }
-
-        /**
-         * Element not found
-         */
-        if (current === null) {
-            return this;
-        }
-
-        /**
-         * It is head node. Point head to next node.
-         */
-        if (current.prev === null) {
-            this.#head = current.next;
-        }
-
-        /**
-         * It is not head, Node before next-pointer now point to next current Node.
-         */
-        if (current.prev) {
-            current.prev.next = current.next;
-        }
-
-        /**
-         * It is tail, new tail is previous current node.
-         */
-        if (current.next === null) {
-            this.#tail = current.prev;
-        }
-
-        /**
-         * It is not tail, Next previous pointer now point current previous.
-         */
-        if (current.next) {
-            current.next.prev = current.prev;
-        }
-
-        current.dispose();
-        this.#size--;
-        return this;
-    }
-
-    /**
-     * Remove element in specific position
-     *
-     * @param {number} index
-     * @returns {LinkedList<T>}
-     */
-    removeAt(index) {
-        if (index < 0 || index >= this.#size) {
-            throw new Error('Indice fuori range');
-        }
-
-        let current = this.#head;
-        let count = 0;
-
-        /**
-         * Find the node to remove
-         */
-        while (count < index) {
-            // @ts-expect-error index is validated
-            current = current.next;
-            count++;
-        }
-
-        /**
-         * It is not head, switch previous next-pointer to current next-pointer.
-         */
-        if (current?.prev) {
-            current.prev.next = current.next;
-        }
-
-        /**
-         * It is head, new head is next pointer
-         */
-        if (current?.prev === null) {
-            this.#head = current.next;
-        }
-
-        /**
-         * It is not tail, next previous pointer now point to current previous.
-         */
-        if (current?.next) {
-            current.next.prev = current.prev;
-        }
-
-        /**
-         * It is tail, new tail is current previous.
-         */
-        if (current?.next === null) {
-            this.#tail = current.prev;
-        }
-
-        if (current) current.dispose();
+        node.dispose();
         this.#size--;
         return this;
     }
@@ -305,16 +168,12 @@ export class LinkedList {
         /**
          * Set head previous to null ( is first element )
          */
-        if (this.#head) {
-            this.#head.prev = null;
-        }
+        if (this.#head) this.#head.prev = null;
 
         /**
          * If no head, tail is removed too.
          */
-        if (this.#head === null) {
-            this.#tail = null;
-        }
+        if (this.#head === null) this.#tail = null;
 
         nodeToDispose.dispose();
         this.#size--;
@@ -341,16 +200,12 @@ export class LinkedList {
         /**
          * Set tail next to null ( is last element )
          */
-        if (this.#tail) {
-            this.#tail.next = null;
-        }
+        if (this.#tail) this.#tail.next = null;
 
         /**
          * If no tail, head is removed too.
          */
-        if (this.#tail === null) {
-            this.#head = null;
-        }
+        if (this.#tail === null) this.#head = null;
 
         nodeToDispose.dispose();
         this.#size--;
@@ -358,70 +213,112 @@ export class LinkedList {
     }
 
     /**
-     * Get index by value.
+     * Insert data after a specific node
      *
+     * @param {Node<T>} node
      * @param {T} data
-     * @returns {number}
+     * @returns {LinkedList<T>}
      */
-    indexOf(data) {
+    insertAfter(node, data) {
+        if (!node) return this;
+
+        const newNode = new Node(data);
+        newNode.prev = node;
+        newNode.next = node.next;
+
+        if (node.next) node.next.prev = newNode;
+        node.next = newNode;
+
+        if (node === this.#tail) this.#tail = newNode;
+
+        this.#size++;
+        return this;
+    }
+
+    /**
+     * Insert data before a specific node
+     *
+     * @param {Node<T>} node
+     * @param {T} data
+     * @returns {LinkedList<T>}
+     */
+    insertBefore(node, data) {
+        if (!node) return this;
+
+        const newNode = new Node(data);
+        newNode.next = node;
+        newNode.prev = node.prev;
+
+        if (node.prev) node.prev.next = newNode;
+        node.prev = newNode;
+
+        if (node === this.#head) this.#head = newNode;
+
+        this.#size++;
+        return this;
+    }
+
+    /**
+     * Find specific node
+     *
+     * @param {(node: Node<T>) => boolean} callback
+     * @returns {Node<T> | undefined}
+     */
+    find(callback) {
         let current = this.#head;
+        let returnNode;
+
+        while (current !== null) {
+            if (callback(current)) {
+                returnNode = current;
+                break;
+            }
+
+            current = current.next;
+        }
+
+        return returnNode;
+    }
+
+    /**
+     * Filter list and create new list.
+     *
+     * @param {(arg0: Node<T>, index: number) => boolean} callback
+     * @returns {LinkedList<T>}
+     */
+    filter(callback) {
+        let current = this.#head;
+        const newList = new LinkedList();
         let index = 0;
 
         while (current !== null) {
-            if (current.data === data) {
-                return index;
-            }
-
+            if (callback(current, index)) newList.addLast(current.data);
             current = current.next;
             index++;
         }
 
-        /**
-         * Index not found
-         */
-        return -1;
+        return newList;
     }
 
     /**
-     * Get element by specific position
+     * Create new List
      *
-     * @param {number} index
-     * @returns {Node<T> | null}
+     * @template K
+     * @param {(arg0: Node<T>, index: number) => K} callback
+     * @returns {LinkedList<K>}
      */
-    get(index) {
-        if (index < 0 || index >= this.#size) {
-            throw new Error('Index out of range');
-        }
-
-        /**
-         * Perf: start from tail if index is closer to the end
-         */
-        if (index > this.#size / 2) {
-            let current = this.#tail;
-            let count = this.#size - 1;
-
-            while (count > index) {
-                // @ts-expect-error validated by condition
-                current = current.prev;
-                count--;
-            }
-
-            return current;
-        }
-
-        /**
-         * Start from head for indices closer to the beginning
-         */
+    map(callback) {
         let current = this.#head;
-        let count = 0;
+        const newList = new LinkedList();
+        let index = 0;
 
-        while (count < index) {
-            // @ts-expect-error validated by condition
+        while (current !== null) {
+            newList.addLast(callback(current, index));
             current = current.next;
-            count++;
+            index++;
         }
 
-        return current;
+        return newList;
     }
 
     /**
@@ -439,6 +336,18 @@ export class LinkedList {
         }
 
         return this;
+    }
+
+    /**
+     * Iterator
+     */
+    *[Symbol.iterator]() {
+        let current = this.#head;
+
+        while (current) {
+            yield current.data;
+            current = current.next;
+        }
     }
 
     /**
@@ -528,7 +437,7 @@ export class LinkedList {
             current = current.next;
         }
 
-        console.log(result.join(' <-> '));
+        console.log(result);
         return this;
     }
 
@@ -546,7 +455,7 @@ export class LinkedList {
             current = current.prev;
         }
 
-        console.log(result.join(' <-> '));
+        console.log(result);
         return this;
     }
 
@@ -557,15 +466,6 @@ export class LinkedList {
      */
     isEmpty() {
         return this.#head === null;
-    }
-
-    /**
-     * Get size
-     *
-     * @returns {number}
-     */
-    getSize() {
-        return this.#size;
     }
 
     /**
@@ -652,7 +552,7 @@ export class LinkedList {
      *
      * @returns {Node<T> | null}
      */
-    get head() {
+    get first() {
         return this.#head;
     }
 
@@ -661,7 +561,7 @@ export class LinkedList {
      *
      * @returns {Node<T> | null}
      */
-    get tail() {
+    get last() {
         return this.#tail;
     }
 
