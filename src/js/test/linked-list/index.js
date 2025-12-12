@@ -22,19 +22,19 @@ export const linkedListTest = () => {
     console.log(list.toArray());
 
     console.log('--- current head ----');
-    console.log(list.first);
+    console.log(list.first?.data);
 
     console.log('--- next head ----');
-    console.log(list.first?.next);
+    console.log(list.first?.next?.data);
 
     console.log('--- head next next ----');
-    console.log(list.first?.next?.next);
+    console.log(list.first?.next?.next?.data);
 
     console.log('--- head next next prev ----');
-    console.log(list.first?.next?.next?.prev);
+    console.log(list.first?.next?.next?.prev?.data);
 
     console.log('tail');
-    console.log(list.last);
+    console.log(list.last?.data);
 
     console.log('size');
     console.log(list.size);
@@ -42,23 +42,30 @@ export const linkedListTest = () => {
     const node10 = list.find((node) => node.data === 10);
     console.log('find node 10', node10);
 
+    list.print();
+
     console.log('insert 11 after 10');
     if (node10) list.insertAfter(node10, 11);
+
+    list.print();
 
     console.log('insert 9 before 10');
     if (node10) list.insertBefore(node10, 9);
 
+    list.print();
+
     console.log('remove 10');
     if (node10) list.removeNode(node10);
+
+    list.print();
 
     console.log('Map list:');
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const listMapped = list
         .map((node, index) => ({ prop: node.data, index }))
-        .print()
         .traverse((node) => {
-            console.log(node);
+            console.log(node.data);
         });
 
     console.log('Filter list:');

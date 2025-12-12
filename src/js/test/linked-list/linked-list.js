@@ -1,42 +1,75 @@
 /**
  * TODO:
  *
- * - Clear: deve fare i dispose dei nodi.
  * - MoveAfter(nodeToMove, targetNode)
  * - MoveBefore(nodeToMove, targetNode)
  * - Swap(NodeA, NodeB)
  */
 
 /**
+ * Define symbols for internal setter use in module.
+ */
+const SET_NEXT = Symbol('LinkedList.setNext');
+const SET_PREV = Symbol('LinkedList.setPrev');
+
+/**
  * @template T
  */
 class Node {
+    /**
+     * Next node
+     *
+     * @type {Node<T> | null}
+     */
+    #next = null;
+
+    /**
+     * Previous node
+     *
+     * @type {Node<T> | null}
+     */
+    #prev = null;
+
     /**
      * @param {T} data
      */
     constructor(data) {
         this.data = data;
+    }
 
-        /**
-         * Next node
-         *
-         * @type {Node<T> | null}
-         */
-        this.next = null;
+    /**
+     * @returns {Node<T> | null}
+     */
+    get next() {
+        return this.#next;
+    }
 
-        /**
-         * Previous node
-         *
-         * @type {Node<T> | null}
-         */
-        this.prev = null;
+    /**
+     * @param {Node<T> | null} value
+     */
+    [SET_NEXT](value) {
+        this.#next = value;
+    }
+
+    /**
+     * @returns {Node<T> | null}
+     */
+    get prev() {
+        return this.#prev;
+    }
+
+    /**
+     * @param {Node<T> | null} value
+     */
+    [SET_PREV](value) {
+        this.#prev = value;
     }
 
     dispose() {
         // @ts-ignore
         this.data = null;
-        this.next = null;
-        this.prev = null;
+        this.#next = null;
+        this.#prev = null;
     }
 }
 
@@ -93,8 +126,8 @@ export class LinkedList {
         /**
          * Add to the end using tail reference
          */
-        if (this.#tail) this.#tail.next = newNode;
-        newNode.prev = this.#tail;
+        if (this.#tail) this.#tail[SET_NEXT](newNode);
+        newNode[SET_PREV](this.#tail);
         this.#tail = newNode;
         this.#size++;
 
@@ -118,8 +151,8 @@ export class LinkedList {
             return this;
         }
 
-        newNode.next = this.#head;
-        this.#head.prev = newNode;
+        newNode[SET_NEXT](this.#head);
+        this.#head[SET_PREV](newNode);
         this.#head = newNode;
         this.#size++;
 
@@ -141,8 +174,8 @@ export class LinkedList {
         /**
          * Rimuovi nodi intermedi.
          */
-        if (node.prev) node.prev.next = node.next;
-        if (node.next) node.next.prev = node.prev;
+        if (node.prev) node.prev[SET_NEXT](node.next);
+        if (node.next) node.next[SET_PREV](node.prev);
 
         node.dispose();
         this.#size--;
@@ -172,7 +205,7 @@ export class LinkedList {
         /**
          * Set head previous to null ( is first element )
          */
-        if (this.#head) this.#head.prev = null;
+        if (this.#head) this.#head[SET_PREV](null);
 
         /**
          * If no head, tail is removed too.
@@ -204,7 +237,7 @@ export class LinkedList {
         /**
          * Set tail next to null ( is last element )
          */
-        if (this.#tail) this.#tail.next = null;
+        if (this.#tail) this.#tail[SET_NEXT](null);
 
         /**
          * If no tail, head is removed too.
@@ -217,7 +250,7 @@ export class LinkedList {
     }
 
     /**
-     * Insert data after a specific node
+     * Create node after other node.
      *
      * @param {Node<T>} node
      * @param {T} data
@@ -229,11 +262,11 @@ export class LinkedList {
         const newNode = new Node(data);
         this.#nodes.add(newNode);
 
-        newNode.prev = node;
-        newNode.next = node.next;
+        newNode[SET_PREV](node);
+        newNode[SET_NEXT](node.next);
 
-        if (node.next) node.next.prev = newNode;
-        node.next = newNode;
+        if (node.next) node.next[SET_PREV](newNode);
+        node[SET_NEXT](newNode);
 
         if (node === this.#tail) this.#tail = newNode;
 
@@ -242,7 +275,7 @@ export class LinkedList {
     }
 
     /**
-     * Insert data before a specific node
+     * Create node before other node.
      *
      * @param {Node<T>} node
      * @param {T} data
@@ -254,11 +287,11 @@ export class LinkedList {
         const newNode = new Node(data);
         this.#nodes.add(newNode);
 
-        newNode.next = node;
-        newNode.prev = node.prev;
+        newNode[SET_NEXT](node);
+        newNode[SET_PREV](node.prev);
 
-        if (node.prev) node.prev.next = newNode;
-        node.prev = newNode;
+        if (node.prev) node.prev[SET_NEXT](newNode);
+        node[SET_PREV](newNode);
 
         if (node === this.#head) this.#head = newNode;
 
@@ -492,20 +525,15 @@ export class LinkedList {
         this.#tail = current;
 
         while (current !== null) {
-            /**
-             * Store current pointer before swap.
-             */
-            const currentNode = current.next;
+            // Salva next originale
+            const nextNode = current.next;
 
-            /**
-             * Swap pointer.
-             */
-            [current.next, current.prev] = [current.prev, current.next];
+            // Swap direttamente
+            current[SET_NEXT](current.prev);
+            current[SET_PREV](nextNode);
 
-            /**
-             * Resote current pointer.
-             */
-            current = currentNode;
+            // Avanza
+            current = nextNode;
         }
 
         return this;
