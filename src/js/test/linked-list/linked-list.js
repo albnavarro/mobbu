@@ -1,16 +1,10 @@
 /**
  * TODO:
  *
+ * - Clear: deve fare i dispose dei nodi.
  * - MoveAfter(nodeToMove, targetNode)
  * - MoveBefore(nodeToMove, targetNode)
  * - Swap(nodeA, nodeB)
- * - Concact(otherList)
- * - Reduce
- * - Clone
- * - Contains/has(data)
- * - Every
- * - Some
- * - Clear: deve fare i dispose dei nodi.
  */
 
 /**

@@ -10,13 +10,7 @@ import { getScrollbarWith } from './utils/scrollbar-with';
 import { wrapper } from './wrapper';
 import { initMainLoader } from './main-loader';
 import { skipRouteLoader } from '@commonComponent/route-loader/utils';
-
-// import { storeTest } from './test/store-test/store-test';
-// import { mapTest } from './test/map-test/map-test';
-// import { clockModule } from './test/math-test/clock-module';
-// import { swapVariables } from './test/math-test/xor';
-// import { LRUTest } from './test/lru';
-// import { linkedListTest } from './test/linked-list';
+// import { testModule } from './test';
 
 const fpsLoopNumber = 60;
 
@@ -126,11 +120,5 @@ MobCore.useLoad(() => {
 
     initApp();
     usePageScroll();
-
-    // storeTest();
-    // mapTest();
-    // clockModule();
-    // swapVariables();
-    // LRUTest();
-    // linkedListTest();
+    // testModule();
 });
