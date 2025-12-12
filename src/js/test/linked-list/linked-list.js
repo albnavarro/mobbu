@@ -10,6 +10,7 @@
  * - Contains/has(data)
  * - Every
  * - Some
+ * - Clear: deve fare i dispose dei nodi.
  */
 
 /**
@@ -439,33 +440,6 @@ export class LinkedList {
 
         console.log(result);
         return this;
-    }
-
-    /**
-     * Print all elements in reverse order
-     *
-     * @returns {LinkedList<T>}
-     */
-    printReverse() {
-        let current = this.#tail;
-        const result = [];
-
-        while (current !== null) {
-            result.push(current.data);
-            current = current.prev;
-        }
-
-        console.log(result);
-        return this;
-    }
-
-    /**
-     * Get empty status
-     *
-     * @returns {boolean}
-     */
-    isEmpty() {
-        return this.#head === null;
     }
 
     /**
