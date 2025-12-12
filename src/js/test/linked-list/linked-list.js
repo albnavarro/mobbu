@@ -1,16 +1,10 @@
 /**
- * TODO:
- *
- * - MoveAfter(nodeToMove, targetNode)
- * - MoveBefore(nodeToMove, targetNode)
- * - Swap(NodeA, NodeB)
- */
-
-/**
  * Define symbols for internal setter use in module.
  */
 const SET_NEXT = Symbol('LinkedList.setNext');
 const SET_PREV = Symbol('LinkedList.setPrev');
+const MOVE_AFTER = 'after';
+const MOVE_BEFORE = 'before';
 
 /**
  * @template T
@@ -300,6 +294,199 @@ export class LinkedList {
     }
 
     /**
+     * Create node before other node.
+     *
+     * @param {Node<T>} node
+     * @param {Node<T>} target
+     * @param {string} position
+     * @returns {LinkedList<T>}
+     */
+    move(node, target, position = MOVE_AFTER) {
+        /**
+         * Il nodo non fá parte della lista
+         */
+        if (!this.#nodes.has(node) || !this.#nodes.has(target)) return this;
+
+        /**
+         * I due nodi sono uguali
+         */
+        if (node === target) return this;
+
+        /**
+         * Condizione di NOOP, i nodi sono giá nella giusta posizione.
+         */
+        if (position === MOVE_AFTER && target.next === node) return this;
+        if (position === MOVE_BEFORE && target.prev === node) return this;
+
+        /**
+         * - Gestione degli adiacenti a node ( virtuale rimozione di node ).
+         * - Il suo nodo precedente punta al suo node successivo.
+         * - Il suo node successivo punta al suo node precendente.
+         * - In pratica abbiamo eleminato il nodo dai suoi estremi.
+         * - I suoi estremi puntano a se stessi saltando node.
+         */
+        if (node.prev) node.prev[SET_NEXT](node.next);
+        if (node.next) node.next[SET_PREV](node.prev);
+
+        /**
+         * Se il nodo era head ora il nuov head sará il suo prossimo nodo.
+         */
+        if (node === this.#head) this.#head = node.next;
+
+        /**
+         * Se il nodo era tail ora il nuovo tail sará il suo precendente nodo.
+         */
+        if (node === this.#tail) this.#tail = node.prev;
+
+        if (position == MOVE_AFTER) {
+            /**
+             * Aggiorniamo i valori prev e next del node.
+             *
+             * - In pratica lo rimettiamo nella lista dopo averlo scollegato.
+             */
+            node[SET_PREV](target);
+            node[SET_NEXT](target.next);
+
+            /**
+             * Aggiorniamo il nodo adiacente ( next ) a target.
+             *
+             * - Il prev del nodo successico a target ora punta al node
+             */
+            if (target.next) target.next[SET_PREV](node);
+
+            /**
+             * Aggiorniamo il nodo next di target. Target next ora punta a node.
+             */
+            target[SET_NEXT](node);
+
+            /**
+             * Se target era la coda, ora node diventa la nuova coda perché si trova giá in posizione.
+             */
+            if (target === this.#tail) this.#tail = node;
+        }
+
+        if (position == MOVE_BEFORE) {
+            /**
+             * Aggiorniamo i valori prev e next del node.
+             *
+             * - In pratica lo rimettiamo nella lista dopo averlo scollegato.
+             */
+            node[SET_PREV](target.prev);
+            node[SET_NEXT](target);
+
+            /**
+             * Aggiorniamo il nodo adiacente ( prev ) a target.
+             *
+             * - Il next del nodo precedente a target ora punta al node
+             */
+            if (target.prev) target.prev[SET_NEXT](node);
+
+            /**
+             * Aggiorniamo il nodo next di target. Target next ora punta a node.
+             */
+            target[SET_PREV](node);
+
+            /**
+             * Target era head, ora la nuova head é node.
+             */
+            if (target === this.#head) this.#head = node;
+        }
+
+        return this;
+    }
+
+    /**
+     * Create node before other node.
+     *
+     * @param {Node<T>} node
+     * @param {Node<T>} target
+     * @returns {LinkedList<T>}
+     */
+    moveAfter(node, target) {
+        return this.move(node, target, MOVE_AFTER);
+    }
+
+    /**
+     * Create node before other node.
+     *
+     * @param {Node<T>} node
+     * @param {Node<T>} target
+     * @returns {LinkedList<T>}
+     */
+    moveBefore(node, target) {
+        return this.move(node, target, MOVE_BEFORE);
+    }
+
+    /**
+     * Create node before other node.
+     *
+     * @param {Node<T>} nodeA
+     * @param {Node<T>} nodeB
+     * @returns {LinkedList<T>}
+     */
+    swap(nodeA, nodeB) {
+        if (!this.#nodes.has(nodeA) || !this.#nodes.has(nodeB)) return this;
+        if (nodeA === nodeB) return this;
+
+        /**
+         * Nodi adiacenti.
+         */
+        if (nodeA.next === nodeB) return this.moveAfter(nodeA, nodeB);
+        if (nodeB.next === nodeA) return this.moveAfter(nodeB, nodeA);
+
+        /**
+         * Salviamo le refernze dei nodi intorno.
+         */
+        const aPrev = nodeA.prev;
+        const aNext = nodeA.next;
+        const bPrev = nodeB.prev;
+        const bNext = nodeB.next;
+
+        /**
+         * Controlliamo che siano head || tail
+         */
+        const aWasHead = nodeA === this.#head;
+        const aWasTail = nodeA === this.#tail;
+        const bWasHead = nodeB === this.#head;
+        const bWasTail = nodeB === this.#tail;
+
+        /**
+         * Disconnetiamo il nodo dai vicini limitrofi.
+         */
+        if (aPrev) aPrev[SET_NEXT](aNext);
+        if (aNext) aNext[SET_PREV](aPrev);
+        if (bPrev) bPrev[SET_NEXT](bNext);
+        if (bNext) bNext[SET_PREV](bPrev);
+
+        /**
+         * Ricolleghiamo i nodi `scolelgati`.
+         */
+        nodeA[SET_PREV](bPrev);
+        nodeA[SET_NEXT](bNext);
+        nodeB[SET_PREV](aPrev);
+        nodeB[SET_NEXT](aNext);
+
+        if (bPrev) bPrev[SET_NEXT](nodeA);
+        if (bNext) bNext[SET_PREV](nodeA);
+        if (aPrev) aPrev[SET_NEXT](nodeB);
+        if (aNext) aNext[SET_PREV](nodeB);
+
+        /**
+         * Casi specifici per head.
+         */
+        if (aWasHead) this.#head = nodeB;
+        else if (bWasHead) this.#head = nodeA;
+
+        /**
+         * Casi specifici per tail.
+         */
+        if (aWasTail) this.#tail = nodeB;
+        else if (bWasTail) this.#tail = nodeA;
+
+        return this;
+    }
+
+    /**
      * Find specific node
      *
      * @param {(node: Node<T>) => boolean} callback
@@ -525,15 +712,13 @@ export class LinkedList {
         this.#tail = current;
 
         while (current !== null) {
-            // Salva next originale
-            const nextNode = current.next;
+            const originalNext = current.next;
+            const originalPrev = current.prev;
 
-            // Swap direttamente
-            current[SET_NEXT](current.prev);
-            current[SET_PREV](nextNode);
+            current[SET_NEXT](originalPrev);
+            current[SET_PREV](originalNext);
 
-            // Avanza
-            current = nextNode;
+            current = originalNext;
         }
 
         return this;
