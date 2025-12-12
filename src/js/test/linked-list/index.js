@@ -74,4 +74,7 @@ export const linkedListTest = () => {
     for (const node of listMapped) {
         console.log('iterator node:', node);
     }
+
+    console.log('clear');
+    list.clear().print();
 };

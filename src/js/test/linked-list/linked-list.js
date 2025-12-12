@@ -4,7 +4,7 @@
  * - Clear: deve fare i dispose dei nodi.
  * - MoveAfter(nodeToMove, targetNode)
  * - MoveBefore(nodeToMove, targetNode)
- * - Swap(nodeA, nodeB)
+ * - Swap(NodeA, NodeB)
  */
 
 /**
@@ -64,6 +64,13 @@ export class LinkedList {
     #size = 0;
 
     /**
+     * Use to check if node to remove is in map
+     *
+     * @type {WeakSet<Node<T>>}
+     */
+    #nodes = new WeakSet();
+
+    /**
      * Add node at end of the list
      *
      * @param {T} data
@@ -71,6 +78,7 @@ export class LinkedList {
      */
     addLast(data) {
         const newNode = new Node(data);
+        this.#nodes.add(newNode);
 
         /**
          * List is empty: new node is both head and tail
@@ -101,6 +109,7 @@ export class LinkedList {
      */
     addFirst(data) {
         const newNode = new Node(data);
+        this.#nodes.add(newNode);
 
         if (!this.#head) {
             this.#head = newNode;
@@ -124,7 +133,7 @@ export class LinkedList {
      * @returns {LinkedList<T>}
      */
     removeNode(node) {
-        if (!node) return this;
+        if (!node || !this.#nodes.has(node)) return this;
 
         if (node === this.#head) return this.removeFirst();
         if (node === this.#tail) return this.removeLast();
@@ -215,9 +224,11 @@ export class LinkedList {
      * @returns {LinkedList<T>}
      */
     insertAfter(node, data) {
-        if (!node) return this;
+        if (!node || !this.#nodes.has(node)) return this;
 
         const newNode = new Node(data);
+        this.#nodes.add(newNode);
+
         newNode.prev = node;
         newNode.next = node.next;
 
@@ -238,9 +249,11 @@ export class LinkedList {
      * @returns {LinkedList<T>}
      */
     insertBefore(node, data) {
-        if (!node) return this;
+        if (!node || !this.#nodes.has(node)) return this;
 
         const newNode = new Node(data);
+        this.#nodes.add(newNode);
+
         newNode.next = node;
         newNode.prev = node.prev;
 
@@ -399,22 +412,22 @@ export class LinkedList {
     /**
      * Execute custom operation in chaining
      *
-     * @param {() => void} callback
+     * @param {(list: LinkedList<T>) => void} callback
      * @returns {LinkedList<T>}
      */
     execute(callback) {
-        callback();
+        callback(this);
         return this;
     }
 
     /**
      * Async execute custom operation in chaining
      *
-     * @param {() => Promise<void>} callback
+     * @param {(list: LinkedList<T>) => Promise<void>} callback
      * @returns {Promise<LinkedList<T>>}
      */
     async executeAsync(callback) {
-        await callback();
+        await callback(this);
         return this;
     }
 
@@ -442,9 +455,28 @@ export class LinkedList {
      * @returns {LinkedList<T>}
      */
     clear() {
+        let current = this.#head;
+
+        /**
+         * First extract node list, then dispose one by one.
+         */
+        const nodes = [];
+        while (current !== null) {
+            nodes.push(current);
+            current = current.next;
+        }
+
+        /**
+         * Then dispose all to remove all reference ( like data ).
+         */
+        for (const node of nodes) {
+            node.dispose();
+        }
+
         this.#head = null;
         this.#tail = null;
         this.#size = 0;
+        nodes.length = 0;
 
         return this;
     }
@@ -456,26 +488,24 @@ export class LinkedList {
      */
     reverse() {
         let current = this.#head;
-        let temp = null;
-
-        /**
-         * Swap head and tail
-         */
-        this.#tail = this.#head;
+        this.#head = this.#tail;
+        this.#tail = current;
 
         while (current !== null) {
             /**
-             * Swap next and prev pointers
+             * Store current pointer before swap.
              */
-            temp = current.prev;
-            current.prev = current.next;
-            current.next = temp;
+            const currentNode = current.next;
 
             /**
-             * Move to next node (which is now prev due to swap)
+             * Swap pointer.
              */
-            this.#head = current;
-            current = current.prev;
+            [current.next, current.prev] = [current.prev, current.next];
+
+            /**
+             * Resote current pointer.
+             */
+            current = currentNode;
         }
 
         return this;
