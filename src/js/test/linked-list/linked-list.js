@@ -323,6 +323,18 @@ export class LinkedList {
     }
 
     /**
+     * Iterator
+     */
+    *[Symbol.iterator]() {
+        let current = this.#head;
+
+        while (current) {
+            yield current.data;
+            current = current.next;
+        }
+    }
+
+    /**
      * Sync traverse forward through the list
      *
      * @param {(node: Node<T>) => void} callback
@@ -337,18 +349,6 @@ export class LinkedList {
         }
 
         return this;
-    }
-
-    /**
-     * Iterator
-     */
-    *[Symbol.iterator]() {
-        let current = this.#head;
-
-        while (current) {
-            yield current.data;
-            current = current.next;
-        }
     }
 
     /**
