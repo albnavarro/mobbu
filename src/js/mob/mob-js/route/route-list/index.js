@@ -27,22 +27,22 @@ export const setRouteList = (list) => {
  * Get route list to store.
  *
  * @param {object} obj
- * @param {string} obj.routeName
+ * @param {string} obj.hash
  * @returns {import('../../type').Route | undefined}
  */
-export const getRouteByName = ({ routeName = '' }) => {
-    return routeList.find(({ name }) => routeName === name);
+export const getRouteByHash = ({ hash = '' }) => {
+    return routeList.find(({ hash: currentHash }) => hash === currentHash);
 };
 
 /**
  * Set index route.
  *
  * @param {object} obj
- * @param {string} obj.routeName
+ * @param {string} obj.hash
  * @returns {void}
  */
-export const setIndex = ({ routeName = '' }) => {
-    indexPage = routeName;
+export const setIndex = ({ hash = '' }) => {
+    indexPage = hash;
 };
 
 /**
@@ -56,11 +56,11 @@ export const getIndex = () => indexPage;
  * Set pageNotFound route.
  *
  * @param {object} obj
- * @param {string} obj.routeName
+ * @param {string} obj.hash
  * @returns {void}
  */
-export const setPageNotFound = ({ routeName = '' }) => {
-    pageNotFound = routeName;
+export const setPageNotFound = ({ hash = '' }) => {
+    pageNotFound = hash;
 };
 
 /**

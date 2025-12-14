@@ -74,12 +74,12 @@ export const inizializeApp = async ({
     /**
      * Set idnex route
      */
-    setIndex({ routeName: index });
+    setIndex({ hash: index });
 
     /**
      * Set idnex route
      */
-    setPageNotFound({ routeName: pageNotFound });
+    setPageNotFound({ hash: pageNotFound });
 
     /**
      * Add wrapper to root node.

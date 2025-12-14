@@ -230,7 +230,7 @@ export type PageTransition = (arg0: {
 }) => Promise<any>;
 
 export interface Route {
-    name: string;
+    hash: string;
     templateName?: string;
     layout:
         | ((arg0: { params: any; props: any }) => Promise<string>)

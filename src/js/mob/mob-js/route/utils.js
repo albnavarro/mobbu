@@ -1,4 +1,4 @@
-import { getIndex, getPageNotFound, getRouteByName } from './route-list';
+import { getIndex, getPageNotFound, getRouteByHash } from './route-list';
 
 /**
  * Validate url, in not exist return pageNotFound.
@@ -13,7 +13,7 @@ export const getRouteModule = ({ url = '' }) => {
 
     if (url === '') return index;
 
-    return getRouteByName({ routeName: url }) ? url : pageNotFound;
+    return getRouteByHash({ hash: url }) ? url : pageNotFound;
 };
 
 /**
@@ -24,7 +24,7 @@ export const getRouteModule = ({ url = '' }) => {
  * @returns {string}
  */
 export const getTemplateName = ({ url = '' }) => {
-    return getRouteByName({ routeName: url })?.templateName ?? '';
+    return getRouteByHash({ hash: url })?.templateName ?? '';
 };
 
 /**
@@ -35,5 +35,5 @@ export const getTemplateName = ({ url = '' }) => {
  * @returns {boolean}
  */
 export const getRestoreScrollVale = ({ url = '' }) => {
-    return getRouteByName({ routeName: url })?.restoreScroll ?? true;
+    return getRouteByHash({ hash: url })?.restoreScroll ?? true;
 };

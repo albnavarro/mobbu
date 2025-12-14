@@ -1,5 +1,5 @@
 import { removeOrphanTempIds } from '../component/action/remove-and-destroy/remove-orphan-temp-ids';
-import { getRouteByName } from './route-list';
+import { getRouteByHash } from './route-list';
 import {
     MAIN_STORE_ACTIVE_PARAMS,
     MAIN_STORE_ACTIVE_ROUTE,
@@ -131,7 +131,7 @@ export const loadPage = async ({
     /**
      * Get route.
      */
-    const routeObejct = getRouteByName({ routeName: route });
+    const routeObejct = getRouteByHash({ hash: route });
 
     /**
      * Get route props,

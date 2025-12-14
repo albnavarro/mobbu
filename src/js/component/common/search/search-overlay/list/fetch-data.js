@@ -61,11 +61,11 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
         .filter(({ props }) => {
             return props?.source && props?.title;
         })
-        .map(({ name, props }) => {
+        .map(({ hash, props }) => {
             return {
                 fn: executeFetch({
                     source: props.source ?? '',
-                    uri: name ?? 'uri not forud',
+                    uri: hash ?? 'uri not forud',
                     title: props.title ?? 'title not found',
                     section: props.section ?? 'title not found',
                     breadCrumbs: props.breadCrumbs ?? [],
