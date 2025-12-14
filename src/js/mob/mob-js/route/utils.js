@@ -4,36 +4,36 @@ import { getIndex, getPageNotFound, getRouteByHash } from './route-list';
  * Validate url, in not exist return pageNotFound.
  *
  * @param {object} obj
- * @param {string} obj.url
+ * @param {string} obj.hash
  * @returns {string}
  */
-export const getRouteModule = ({ url = '' }) => {
+export const getRouteModule = ({ hash = '' }) => {
     const index = getIndex();
     const pageNotFound = getPageNotFound();
 
-    if (url === '') return index;
+    if (hash === '') return index;
 
-    return getRouteByHash({ hash: url }) ? url : pageNotFound;
+    return getRouteByHash({ hash }) ? hash : pageNotFound;
 };
 
 /**
  * Validate url, in not exist return pageNotFound.
  *
  * @param {object} obj
- * @param {string} obj.url
+ * @param {string} obj.hash
  * @returns {string}
  */
-export const getTemplateName = ({ url = '' }) => {
-    return getRouteByHash({ hash: url })?.templateName ?? '';
+export const getTemplateName = ({ hash = '' }) => {
+    return getRouteByHash({ hash })?.templateName ?? '';
 };
 
 /**
  * Validate url, in not exist return pageNotFound.
  *
  * @param {object} obj
- * @param {string} obj.url
+ * @param {string} obj.hash
  * @returns {boolean}
  */
-export const getRestoreScrollVale = ({ url = '' }) => {
-    return getRouteByHash({ hash: url })?.restoreScroll ?? true;
+export const getRestoreScrollVale = ({ hash = '' }) => {
+    return getRouteByHash({ hash })?.restoreScroll ?? true;
 };

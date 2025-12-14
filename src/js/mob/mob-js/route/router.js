@@ -158,9 +158,9 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
      */
     currentParamsFromLoadUrl = undefined;
 
-    const targetRoute = getRouteModule({ url: currentCleanHash });
+    const targetRoute = getRouteModule({ hash: currentCleanHash });
     const targetTemplate = getTemplateName({
-        url:
+        hash:
             currentCleanHash && currentCleanHash.length > 0
                 ? currentCleanHash
                 : getIndex(),
@@ -196,7 +196,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
             route: targetRoute,
             templateName: targetTemplate,
             isBrowserNavigation:
-                getRestoreScrollVale({ url: currentCleanHash }) &&
+                getRestoreScrollVale({ hash: currentCleanHash }) &&
                 !!currentHistory,
             params,
             skipTransition:
