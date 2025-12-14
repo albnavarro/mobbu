@@ -556,7 +556,7 @@ export class LinkedList {
         let current = this.#head;
 
         while (current) {
-            yield current.data;
+            yield current;
             current = current.next;
         }
     }

@@ -95,7 +95,7 @@ export const linkedListTest = () => {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const filteredlist = list
-        .filter((node) => node.data === 10 || node.data === 5)
+        .filter((node) => node.data === 11 || node.data === 5)
         .print()
         .traverse((node) => {
             console.log(node);
@@ -103,6 +103,7 @@ export const linkedListTest = () => {
 
     for (const node of listMapped) {
         console.log('iterator node:', node);
+        console.log('iterator value:', node.data);
     }
 
     console.log('clear');
