@@ -6,7 +6,7 @@ import {
 } from '../main-store/constant';
 import { mainStore } from '../main-store/main-store';
 import { awaitNextLoop } from '../queque/utils';
-import { loadRoute } from './load-route';
+import { loadPage } from './load-page';
 import { tryRedirect } from './redirect';
 import { getIndex } from './route-list';
 import { getRestoreScrollVale, getRouteModule, getTemplateName } from './utils';
@@ -192,7 +192,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
          *
          * - It means direct navigate
          */
-        await loadRoute({
+        await loadPage({
             route: targetRoute,
             templateName: targetTemplate,
             isBrowserNavigation:

@@ -3,15 +3,14 @@ import { frameDelayAfterParse } from '../constant';
 import { setComponentList } from '../component/component-list';
 import { setIndex, setPageNotFound, setRouteList } from '../route/route-list';
 import { initParseWatcher, parseComponents } from '../parse';
-import { parseUrlHash, router } from '../route';
-// import { debugRoute } from '../route/test';
+import { parseUrlHash, router } from '../route/router';
 import { setContentElement, setContentId } from '../route/dom-ref/content';
 import { setRoot } from '../route/dom-ref/root';
 import {
     setBeforePageTransition,
     setPageTransition,
 } from '../route/page-transition';
-import { setRestoreScroll } from '../route/scroll';
+import { setRestoreScroll } from '../route/scroll-store';
 import { setRedirectFunction } from '../route/redirect';
 import { setDefaultComponent } from '../component/create-component';
 import { addDOMfromString } from '../parse/steps/utils';
@@ -122,5 +121,3 @@ export const inizializeApp = async ({
      */
     router();
 };
-
-// debugRoute();

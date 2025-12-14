@@ -36,6 +36,6 @@ export { getNumberOfActiveInvalidate } from './modules/invalidate/action/get-num
 export { getNumberOfActiveRepeater } from './modules/repeater/action/get-number-of-active-repeater';
 export { getPropsFromParent } from './modules/static-props';
 export { tick } from './queque/tick';
-export { loadUrl } from './route';
+export { loadUrl } from './route/router';
 export { staticProps } from './utils';
 export { getRoot } from './route/dom-ref/root';

@@ -1,20 +1,20 @@
-import { removeOrphanTempIds } from '../../component/action/remove-and-destroy/remove-orphan-temp-ids';
-import { getRouteByName } from '../route-list';
+import { removeOrphanTempIds } from '../component/action/remove-and-destroy/remove-orphan-temp-ids';
+import { getRouteByName } from './route-list';
 import {
     MAIN_STORE_ACTIVE_PARAMS,
     MAIN_STORE_ACTIVE_ROUTE,
     MAIN_STORE_AFTER_ROUTE_CHANGE,
     MAIN_STORE_BEFORE_ROUTE_CHANGE,
     MAIN_STORE_ROUTE_IS_LOADING,
-} from '../../main-store/constant';
-import { getContentElement } from '../dom-ref/content';
-import { mainStore } from '../../main-store/main-store';
-import { getBeforePageTransition, getPageTransition } from '../page-transition';
-import { parseComponents } from '../../parse';
-import { getRestoreScroll } from '../scroll';
-import { tick } from '../../queque/tick';
-import { removeCancellableComponent } from '../../component/action/remove-and-destroy/cancellable-component/destroy-all-non-persisitent-component';
-import { addDOMfromString } from '../../parse/steps/utils';
+} from '../main-store/constant';
+import { getContentElement } from './dom-ref/content';
+import { mainStore } from '../main-store/main-store';
+import { getBeforePageTransition, getPageTransition } from './page-transition';
+import { parseComponents } from '../parse';
+import { getRestoreScroll } from './scroll-store';
+import { tick } from '../queque/tick';
+import { removeCancellableComponent } from '../component/action/remove-and-destroy/cancellable-component/destroy-all-non-persisitent-component';
+import { addDOMfromString } from '../parse/steps/utils';
 
 /**
  * @type {Map<string, number>}
@@ -45,7 +45,7 @@ const createRouteString = ({ route, params }) => {
  * @param {{ [key: string]: any }} param.params
  * @param {boolean | undefined} param.skipTransition
  */
-export const loadRoute = async ({
+export const loadPage = async ({
     route = '',
     templateName = '',
     isBrowserNavigation = false,
