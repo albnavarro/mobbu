@@ -1,19 +1,38 @@
 # Prioritá
 
-1. `RepeaterRender`: `nativeDOMChildren` -> testare element come weakMap per alleggerire il `GC`.
+1. `custom history`
+    - [detail:](#history)
+2. `RepeaterRender`: `nativeDOMChildren` -> testare element come weakMap per alleggerire il `GC`.
     - Verficare e nel caso portare la cosa su altri `element` gestiti nella mappe piú grandi.
-2. La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
+3. La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
     ```js
     {
         type: ('string', value);
     }
     ```
-3. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
-4. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
+4. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
+5. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
     - [detail:](#BindObject/BindText/BindEffect)
-4. Component app: `dragger` con `pinch zoom`.
+5. Component app: `dragger` con `pinch zoom`.
 
 # App
+
+<a name="history"></a>
+### Custom History
+- `Linked-list` based.
+- `linked-list` -> spostarla in `mobCore` come `custom-data-set` o simile.
+- `docs` -> documentare linked-list.
+- Pop-up/tendina con lista, prev e next..
+- Possibilitá di selezione multiple degli item della lista.
+- Alla selezione `icone` di `delete`,`mobeBefore` ( prev node ), `moveAfer` ( next.node ) si attivano.
+- Se la selezione ha due elementi abilitare anche lo `swap`.
+- Reference: src/js/test/linked-list/store-integration.md.
+- ListParsed userá repeater with `key`, la chiave sará una stringa random che identifica la rotta della history.
+    - Usando repeat con key, non perdemo la selezione durante le operazioni di `moveAfer` e `moveBefore`.
+- Ipotesi states: `linkedList`, `listParsed`, `selectedNode[]`, `currentNode`.
+- Possibilitá di inserire una rotta con suggestion rotte ( hash ) disponibili ?
+
+
 
 ### Docs: AsyncTimeline
 
