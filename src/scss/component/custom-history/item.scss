@@ -1,0 +1,12 @@
+@use '../../abstract' as *;
+
+.c-history-item {
+    display: block;
+    border: 0;
+    background: transparent;
+    font-size: rem(14);
+
+    &.active {
+        font-weight: 800;
+    }
+}

@@ -52,7 +52,6 @@ function additems({ delegateEvents }) {
                               class="l-header__sidenav__link"
                               ${delegateEvents({
                                   click: (/** @type {Event} */ event) => {
-                                      console.log('click');
                                       onClick({ event });
                                   },
                               })}
@@ -78,6 +77,9 @@ function additems({ delegateEvents }) {
 export const HeadernavFn = ({ delegateEvents }) => {
     return html`
         <ul class="l-header__sidenav">
+            <li class="l-header__sidenav__item">
+                <history-cta></history-cta>
+            </li>
             <li class="l-header__sidenav__item">
                 <search-cta></search-cta>
             </li>

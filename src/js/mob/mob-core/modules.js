@@ -36,6 +36,7 @@ import {
     handlePointerOver,
     handlePointerUp,
 } from './events/pointer-event/handle-pointer.js';
+import { LinkedList } from './data-set/linked-list/index.js';
 
 /**
  * MobStore initialization. The store accepts single properties or objects Each individual property can be initialized
@@ -788,6 +789,10 @@ function usePointerLeave(callback = () => {}) {
  */
 const store = eventStore;
 
+function useLinkedList() {
+    return new LinkedList();
+}
+
 export {
     store,
     usePointerLeave,
@@ -823,6 +828,7 @@ export {
     getFps,
     getInstantFps,
     createStore,
+    useLinkedList,
 };
 
 export { normalizeWheel } from './events/mouse-utils/normalize-whell.js';

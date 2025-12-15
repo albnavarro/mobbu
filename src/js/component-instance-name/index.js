@@ -15,3 +15,4 @@ export const searchOverlayHeader = 'search_overlay_header';
 export const rightSidebarName = 'right-sidebar';
 export const animationDescription = 'animation-description';
 export const routeLoader = 'route-loader';
+export const customHistoryName = 'custom-history';
