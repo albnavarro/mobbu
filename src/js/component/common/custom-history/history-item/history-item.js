@@ -3,7 +3,10 @@
  */
 
 import { html } from '@mobJs';
-import { addHistoryRouteWithoutUpdate } from '../utils';
+import {
+    addHistoryRouteWithoutUpdate,
+    addHistorySelectedNodes,
+} from '../utils';
 
 /** @type {MobComponent<import('./type').HistoryItem>} */
 export const HistoryItemFn = ({ getProxi, delegateEvents, bindEffect }) => {
@@ -17,9 +20,11 @@ export const HistoryItemFn = ({ getProxi, delegateEvents, bindEffect }) => {
                 ${delegateEvents({
                     click: (/** @type {MouseEvent} */ event) => {
                         const target = event.target;
-                        // @ts-ignore
-                        const value = target?.checked;
-                        console.log(value, proxi.id);
+                        addHistorySelectedNodes({
+                            id: proxi.id,
+                            // @ts-ignore
+                            add: target?.checked,
+                        });
                     },
                 })}
             />

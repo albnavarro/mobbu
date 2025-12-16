@@ -28,9 +28,10 @@ export const CustomHistory = MobJs.createComponent(
                 type: 'any',
                 skipEqual: false,
             }),
-            selectedNode: () => ({
-                value: [],
-                type: Array,
+            selectedNodes: () => ({
+                value: new Set(),
+                type: Set,
+                skipEqual: false,
             }),
             active: () => ({
                 value: false,

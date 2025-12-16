@@ -37557,13 +37557,20 @@
     staticProps: staticProps2,
     delegateEvents,
     bindProps,
-    watch
+    watch,
+    emit
   }) => {
     const proxi = getProxi();
     watch(
       () => proxi.currentNode,
       (node) => {
         modules_exports2.loadUrl({ url: node?.data.url, params: node?.data?.params });
+      }
+    );
+    watch(
+      () => proxi.selectedNodes,
+      (nodes) => {
+        console.log(nodes);
       }
     );
     computed(
@@ -37578,6 +37585,14 @@
         (node) => node.data.id === id
       );
       addToLinkedList = false;
+    });
+    addMethod("addSelectedNodes", ({ id, add: add5 }) => {
+      if (add5) {
+        proxi.selectedNodes.add(id);
+      } else {
+        proxi.selectedNodes.delete(id);
+      }
+      emit(() => proxi.selectedNodes);
     });
     modules_exports2.afterRouteChange(() => {
       const currentParams = modules_exports2.getActiveParams();
@@ -37660,6 +37675,10 @@
     const methods = useMethodByName(customHistoryName);
     methods?.addRouteWithoutUpdate({ id });
   };
+  var addHistorySelectedNodes = ({ id, add: add5 }) => {
+    const methods = useMethodByName(customHistoryName);
+    methods?.addSelectedNodes({ id, add: add5 });
+  };
 
   // src/js/component/common/custom-history/history-item/history-item.js
   var HistoryItemFn = ({ getProxi, delegateEvents, bindEffect }) => {
@@ -37672,8 +37691,11 @@
                 ${delegateEvents({
       click: (event) => {
         const target = event.target;
-        const value = target?.checked;
-        console.log(value, proxi.id);
+        addHistorySelectedNodes({
+          id: proxi.id,
+          // @ts-ignore
+          add: target?.checked
+        });
       }
     })}
             />
@@ -37743,9 +37765,10 @@
           type: "any",
           skipEqual: false
         }),
-        selectedNode: () => ({
-          value: [],
-          type: Array
+        selectedNodes: () => ({
+          value: /* @__PURE__ */ new Set(),
+          type: Set,
+          skipEqual: false
         }),
         active: () => ({
           value: false,

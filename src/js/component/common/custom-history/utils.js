@@ -4,7 +4,6 @@ import { useMethodByName } from 'src/js/mob/mob-js/modules';
 export const toggleHistory = () => {
     /** @type {import('@mobJsType').UseMethodByName<import('./type').CustomHistory>} */
     const methods = useMethodByName(customHistoryName);
-
     methods?.toggle();
 };
 
@@ -15,6 +14,16 @@ export const toggleHistory = () => {
 export const addHistoryRouteWithoutUpdate = ({ id }) => {
     /** @type {import('@mobJsType').UseMethodByName<import('./type').CustomHistory>} */
     const methods = useMethodByName(customHistoryName);
-
     methods?.addRouteWithoutUpdate({ id });
+};
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {boolean} params.add
+ */
+export const addHistorySelectedNodes = ({ id, add }) => {
+    /** @type {import('@mobJsType').UseMethodByName<import('./type').CustomHistory>} */
+    const methods = useMethodByName(customHistoryName);
+    methods?.addSelectedNodes({ id, add });
 };

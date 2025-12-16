@@ -119,6 +119,7 @@ export const CustomHistoryFn = ({
     delegateEvents,
     bindProps,
     watch,
+    emit,
 }) => {
     const proxi = getProxi();
 
@@ -129,6 +130,13 @@ export const CustomHistoryFn = ({
         () => proxi.currentNode,
         (node) => {
             MobJs.loadUrl({ url: node?.data.url, params: node?.data?.params });
+        }
+    );
+
+    watch(
+        () => proxi.selectedNodes,
+        (nodes) => {
+            console.log(nodes);
         }
     );
 
@@ -156,6 +164,24 @@ export const CustomHistoryFn = ({
         );
 
         addToLinkedList = false;
+    });
+
+    /**
+     * Set current node without add to linkd-list
+     */
+    addMethod('addSelectedNodes', ({ id, add }) => {
+        /**
+         * Delete return boolean so delete should not be used directly
+         *
+         * - So update and emit.
+         */
+        if (add) {
+            proxi.selectedNodes.add(id);
+        } else {
+            proxi.selectedNodes.delete(id);
+        }
+
+        emit(() => proxi.selectedNodes);
     });
 
     /**
