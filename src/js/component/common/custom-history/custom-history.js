@@ -1,3 +1,4 @@
+import { getIcons } from '@data/index';
 import { MobCore } from '@mobCore';
 import { html, MobJs } from '@mobJs';
 
@@ -18,6 +19,11 @@ let addToLinkedList = true;
  * @param {DelegateEvents} params.delegateEvents
  */
 const getOptions = ({ proxi, delegateEvents }) => {
+    const removeIcon = getIcons()['close'];
+    const previousIcon = getIcons()['previous'];
+    const upIcon = getIcons()['up'];
+    const swapIcon = getIcons()['swap'];
+
     return html`
         <ul class="c-custom-history__nav">
             <li class="c-custom-history__prev">
@@ -32,10 +38,10 @@ const getOptions = ({ proxi, delegateEvents }) => {
                         },
                     })}
                 >
-                    prev
+                    ${previousIcon}
                 </button>
             </li>
-            <li class="c-custom-history__prev">
+            <li class="c-custom-history__next">
                 <button
                     type="button"
                     ${delegateEvents({
@@ -47,7 +53,55 @@ const getOptions = ({ proxi, delegateEvents }) => {
                         },
                     })}
                 >
-                    next
+                    ${previousIcon}
+                </button>
+            </li>
+            <li class="c-custom-history__remove">
+                <button
+                    type="button"
+                    ${delegateEvents({
+                        click: () => {
+                            console.log('removeIcon');
+                        },
+                    })}
+                >
+                    ${removeIcon}
+                </button>
+            </li>
+            <li class="c-custom-history__up">
+                <button
+                    type="button"
+                    ${delegateEvents({
+                        click: () => {
+                            console.log('up');
+                        },
+                    })}
+                >
+                    ${upIcon}
+                </button>
+            </li>
+            <li class="c-custom-history__down">
+                <button
+                    type="button"
+                    ${delegateEvents({
+                        click: () => {
+                            console.log('up');
+                        },
+                    })}
+                >
+                    ${upIcon}
+                </button>
+            </li>
+            <li class="c-custom-history__swap">
+                <button
+                    type="button"
+                    ${delegateEvents({
+                        click: () => {
+                            console.log('swapIcon');
+                        },
+                    })}
+                >
+                    ${swapIcon}
                 </button>
             </li>
         </ul>

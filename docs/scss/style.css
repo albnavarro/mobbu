@@ -5086,7 +5086,7 @@ ul li::marker {
   right: 0;
   bottom: 0;
   width: 26.6666666667rem;
-  padding: 4rem 1.3333333333rem;
+  padding: 5.3333333333rem 1.3333333333rem 4rem;
   transform: translateX(101%);
   transition: transform 0.35s;
   background: rgba(46, 52, 64, 0.9);
@@ -5120,6 +5120,34 @@ ul li::marker {
 }
 .c-custom-history__close::after {
   transform: translate(-50%, -50%) rotate(135deg);
+}
+.c-custom-history__nav {
+  display: flex;
+  position: absolute;
+  top: 1.6666666667rem;
+  left: 1.3333333333rem;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.c-custom-history__nav button {
+  display: block;
+  margin-right: 0.3333333333rem;
+  transition: opacity 0.35s;
+  border: 0;
+  background: transparent;
+}
+.c-custom-history__nav button:hover {
+  opacity: 0.2;
+}
+.c-custom-history__nav svg {
+  width: 1.3333333333rem;
+  height: 1.3333333333rem;
+  fill: #fff;
+}
+.c-custom-history__next svg,
+.c-custom-history__down svg {
+  transform: rotate(180deg);
 }
 .history-cta {
   border: 0;

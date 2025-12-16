@@ -15,6 +15,10 @@ const iconsToLoad = [
     { name: 'searchIcons', source: 'search.svg' },
     { name: 'historyIcons', source: 'history.svg' },
     { name: 'starOutline', source: 'star-outline.svg' },
+    { name: 'previous', source: 'previous.svg' },
+    { name: 'close', source: 'close.svg' },
+    { name: 'up', source: 'up.svg' },
+    { name: 'swap', source: 'swap.svg' },
 ];
 
 export const getCommonData = () => commonData;

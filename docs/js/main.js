@@ -24662,7 +24662,11 @@
     { name: "scrollIcon", source: "scroll_arrow.svg" },
     { name: "searchIcons", source: "search.svg" },
     { name: "historyIcons", source: "history.svg" },
-    { name: "starOutline", source: "star-outline.svg" }
+    { name: "starOutline", source: "star-outline.svg" },
+    { name: "previous", source: "previous.svg" },
+    { name: "close", source: "close.svg" },
+    { name: "up", source: "up.svg" },
+    { name: "swap", source: "swap.svg" }
   ];
   var getCommonData = () => commonData;
   var getIcons = () => icons;
@@ -37457,6 +37461,10 @@
   // src/js/component/common/custom-history/custom-history.js
   var addToLinkedList = true;
   var getOptions = ({ proxi, delegateEvents }) => {
+    const removeIcon = getIcons()["close"];
+    const previousIcon = getIcons()["previous"];
+    const upIcon = getIcons()["up"];
+    const swapIcon = getIcons()["swap"];
     return renderHtml`
         <ul class="c-custom-history__nav">
             <li class="c-custom-history__prev">
@@ -37471,10 +37479,10 @@
       }
     })}
                 >
-                    prev
+                    ${previousIcon}
                 </button>
             </li>
-            <li class="c-custom-history__prev">
+            <li class="c-custom-history__next">
                 <button
                     type="button"
                     ${delegateEvents({
@@ -37486,7 +37494,55 @@
       }
     })}
                 >
-                    next
+                    ${previousIcon}
+                </button>
+            </li>
+            <li class="c-custom-history__remove">
+                <button
+                    type="button"
+                    ${delegateEvents({
+      click: () => {
+        console.log("removeIcon");
+      }
+    })}
+                >
+                    ${removeIcon}
+                </button>
+            </li>
+            <li class="c-custom-history__up">
+                <button
+                    type="button"
+                    ${delegateEvents({
+      click: () => {
+        console.log("up");
+      }
+    })}
+                >
+                    ${upIcon}
+                </button>
+            </li>
+            <li class="c-custom-history__down">
+                <button
+                    type="button"
+                    ${delegateEvents({
+      click: () => {
+        console.log("up");
+      }
+    })}
+                >
+                    ${upIcon}
+                </button>
+            </li>
+            <li class="c-custom-history__swap">
+                <button
+                    type="button"
+                    ${delegateEvents({
+      click: () => {
+        console.log("swapIcon");
+      }
+    })}
+                >
+                    ${swapIcon}
                 </button>
             </li>
         </ul>
