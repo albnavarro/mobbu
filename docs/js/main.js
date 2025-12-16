@@ -37666,7 +37666,17 @@
     const proxi = getProxi();
     return renderHtml`<div class="c-history-item">
         <div class="c-history-item__checkbox">
-            <input type="checkbox" id="${proxi.id}" />
+            <input
+                type="checkbox"
+                id="${proxi.id}"
+                ${delegateEvents({
+      click: (event) => {
+        const target = event.target;
+        const value = target?.checked;
+        console.log(value, proxi.id);
+      }
+    })}
+            />
             <span class="checkbox-control"></span>
         </div>
         <button
