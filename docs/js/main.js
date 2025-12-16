@@ -37492,12 +37492,25 @@
       const currentHash = modules_exports2.getActiveRoute()?.route;
       if (addToLinkedList && currentHash !== proxi.currentNode?.data.url) {
         if (proxi.linkedList.size >= 20) proxi.linkedList.removeFirst();
-        proxi.linkedList = proxi.linkedList.addLast({
-          id: modules_exports.getUnivoqueId(),
-          url: currentHash,
-          params: currentParams
-        });
-        proxi.currentNode = proxi.linkedList.last;
+        if (proxi.currentNode) {
+          proxi.linkedList = proxi.linkedList.insertAfter(
+            proxi.currentNode,
+            {
+              id: modules_exports.getUnivoqueId(),
+              url: currentHash,
+              params: currentParams
+            }
+          );
+          proxi.currentNode = proxi.currentNode.next;
+        }
+        if (!proxi.currentNode) {
+          proxi.linkedList = proxi.linkedList.addLast({
+            id: modules_exports.getUnivoqueId(),
+            url: currentHash,
+            params: currentParams
+          });
+          proxi.currentNode = proxi.linkedList.last;
+        }
       }
       addToLinkedList = true;
     });

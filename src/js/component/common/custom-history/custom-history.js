@@ -73,13 +73,34 @@ export const CustomHistoryFn = ({
         if (addToLinkedList && currentHash !== proxi.currentNode?.data.url) {
             if (proxi.linkedList.size >= 20) proxi.linkedList.removeFirst();
 
-            proxi.linkedList = proxi.linkedList.addLast({
-                id: MobCore.getUnivoqueId(),
-                url: currentHash,
-                params: currentParams,
-            });
+            /**
+             * If we have a current node ( es: middle of list ) insert after.
+             */
+            if (proxi.currentNode) {
+                proxi.linkedList = proxi.linkedList.insertAfter(
+                    proxi.currentNode,
+                    {
+                        id: MobCore.getUnivoqueId(),
+                        url: currentHash,
+                        params: currentParams,
+                    }
+                );
 
-            proxi.currentNode = proxi.linkedList.last;
+                proxi.currentNode = proxi.currentNode.next;
+            }
+
+            /**
+             * If we don't have a current node insert last
+             */
+            if (!proxi.currentNode) {
+                proxi.linkedList = proxi.linkedList.addLast({
+                    id: MobCore.getUnivoqueId(),
+                    url: currentHash,
+                    params: currentParams,
+                });
+
+                proxi.currentNode = proxi.linkedList.last;
+            }
         }
 
         addToLinkedList = true;
