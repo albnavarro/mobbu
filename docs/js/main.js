@@ -37456,6 +37456,42 @@
 
   // src/js/component/common/custom-history/custom-history.js
   var addToLinkedList = true;
+  var getOptions = ({ proxi, delegateEvents }) => {
+    return renderHtml`
+        <ul class="c-custom-history__nav">
+            <li class="c-custom-history__prev">
+                <button
+                    type="button"
+                    ${delegateEvents({
+      click: () => {
+        if (proxi.currentNode?.prev) {
+          addToLinkedList = false;
+          proxi.currentNode = proxi.currentNode?.prev;
+        }
+      }
+    })}
+                >
+                    prev
+                </button>
+            </li>
+            <li class="c-custom-history__prev">
+                <button
+                    type="button"
+                    ${delegateEvents({
+      click: () => {
+        if (proxi.currentNode?.next) {
+          addToLinkedList = false;
+          proxi.currentNode = proxi.currentNode?.next;
+        }
+      }
+    })}
+                >
+                    next
+                </button>
+            </li>
+        </ul>
+    `;
+  };
   var CustomHistoryFn = ({
     getProxi,
     computed,
@@ -37529,38 +37565,7 @@
       click: () => proxi.active = false
     })}
             ></button>
-            <ul class="c-custom-history__nav">
-                <li class="c-custom-history__prev">
-                    <button
-                        type="button"
-                        ${delegateEvents({
-      click: () => {
-        if (proxi.currentNode?.prev) {
-          addToLinkedList = false;
-          proxi.currentNode = proxi.currentNode?.prev;
-        }
-      }
-    })}
-                    >
-                        prev
-                    </button>
-                </li>
-                <li class="c-custom-history__prev">
-                    <button
-                        type="button"
-                        ${delegateEvents({
-      click: () => {
-        if (proxi.currentNode?.next) {
-          addToLinkedList = false;
-          proxi.currentNode = proxi.currentNode?.next;
-        }
-      }
-    })}
-                    >
-                        next
-                    </button>
-                </li>
-            </ul>
+            ${getOptions({ proxi, delegateEvents })}
             <div class="c-custom-history__container">
                 ${repeat({
       observe: () => proxi.listParsed,

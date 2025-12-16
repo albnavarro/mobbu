@@ -5,10 +5,54 @@ let addToLinkedList = true;
 
 /**
  * @import {
+ *   DelegateEvents,
  *   MobComponent,
+ *   ProxiState,
  *   ReturnBindProps
  * } from "@mobJsType"
  */
+
+/**
+ * @param {object} params
+ * @param {ProxiState<import('./type').CustomHistory>} params.proxi
+ * @param {DelegateEvents} params.delegateEvents
+ */
+const getOptions = ({ proxi, delegateEvents }) => {
+    return html`
+        <ul class="c-custom-history__nav">
+            <li class="c-custom-history__prev">
+                <button
+                    type="button"
+                    ${delegateEvents({
+                        click: () => {
+                            if (proxi.currentNode?.prev) {
+                                addToLinkedList = false;
+                                proxi.currentNode = proxi.currentNode?.prev;
+                            }
+                        },
+                    })}
+                >
+                    prev
+                </button>
+            </li>
+            <li class="c-custom-history__prev">
+                <button
+                    type="button"
+                    ${delegateEvents({
+                        click: () => {
+                            if (proxi.currentNode?.next) {
+                                addToLinkedList = false;
+                                proxi.currentNode = proxi.currentNode?.next;
+                            }
+                        },
+                    })}
+                >
+                    next
+                </button>
+            </li>
+        </ul>
+    `;
+};
 
 /** @type {MobComponent<import('./type').CustomHistory>} */
 export const CustomHistoryFn = ({
@@ -121,38 +165,7 @@ export const CustomHistoryFn = ({
                     click: () => (proxi.active = false),
                 })}
             ></button>
-            <ul class="c-custom-history__nav">
-                <li class="c-custom-history__prev">
-                    <button
-                        type="button"
-                        ${delegateEvents({
-                            click: () => {
-                                if (proxi.currentNode?.prev) {
-                                    addToLinkedList = false;
-                                    proxi.currentNode = proxi.currentNode?.prev;
-                                }
-                            },
-                        })}
-                    >
-                        prev
-                    </button>
-                </li>
-                <li class="c-custom-history__prev">
-                    <button
-                        type="button"
-                        ${delegateEvents({
-                            click: () => {
-                                if (proxi.currentNode?.next) {
-                                    addToLinkedList = false;
-                                    proxi.currentNode = proxi.currentNode?.next;
-                                }
-                            },
-                        })}
-                    >
-                        next
-                    </button>
-                </li>
-            </ul>
+            ${getOptions({ proxi, delegateEvents })}
             <div class="c-custom-history__container">
                 ${repeat({
                     observe: () => proxi.listParsed,
