@@ -13,7 +13,7 @@ export interface CustomHistory {
     state: {
         linkedList: LinkedList<NodeData>;
         listParsed: NodeData[];
-        selectedNode: LinkedListNode<NodeData>[];
+        selectedNode: string[];
         currentNode?: LinkedListNode<NodeData> | null;
         active: boolean;
     };
