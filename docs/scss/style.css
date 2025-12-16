@@ -5072,11 +5072,51 @@ ul li::marker {
 }
 .c-history-item {
   display: block;
+  position: relative;
+  padding-left: 2rem;
   border: 0;
   background: transparent;
   font-size: 0.9333333333rem;
 }
-.c-history-item.active {
+.c-history-item .checkbox-control {
+  display: inline-block;
+  position: absolute;
+  z-index: 2;
+  border: 1px #fff solid;
+  background: transparent;
+  pointer-events: none;
+}
+.c-history-item input {
+  opacity: 0;
+  cursor: pointer;
+  pointer-events: all;
+}
+.c-history-item input,
+.c-history-item .checkbox-control {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+  transform: translateY(-50%);
+}
+.c-history-item input:checked + .checkbox-control::after,
+.c-history-item .checkbox-control:checked + .checkbox-control::after {
+  content: "";
+  position: absolute;
+  top: 0.2666666667rem;
+  left: 50%;
+  width: 0.4666666667rem;
+  height: 0.3333333333rem;
+  transform: translate(-50%, -50%) rotate(135deg);
+  border-top: 2px #fff solid;
+  border-right: 2px #fff solid;
+}
+.c-history-item__button {
+  border: 0;
+  background: transparent;
+}
+.c-history-item__button.active {
   font-weight: 800;
 }
 .c-custom-history {

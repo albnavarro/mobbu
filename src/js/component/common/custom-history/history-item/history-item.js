@@ -9,20 +9,26 @@ import { addHistoryRouteWithoutUpdate } from '../utils';
 export const HistoryItemFn = ({ getProxi, delegateEvents, bindEffect }) => {
     const proxi = getProxi();
 
-    return html`<button
-        type="button"
-        class="c-history-item"
-        ${delegateEvents({
-            click: () => {
-                addHistoryRouteWithoutUpdate({ id: proxi.id });
-            },
-        })}
-        ${bindEffect({
-            toggleClass: {
-                active: () => proxi.active,
-            },
-        })}
-    >
-        ${proxi.url}
-    </button>`;
+    return html`<div class="c-history-item">
+        <div class="c-history-item__checkbox">
+            <input type="checkbox" id="${proxi.id}" />
+            <span class="checkbox-control"></span>
+        </div>
+        <button
+            type="button"
+            class="c-history-item__button"
+            ${delegateEvents({
+                click: () => {
+                    addHistoryRouteWithoutUpdate({ id: proxi.id });
+                },
+            })}
+            ${bindEffect({
+                toggleClass: {
+                    active: () => proxi.active,
+                },
+            })}
+        >
+            ${proxi.url}
+        </button>
+    </div>`;
 };

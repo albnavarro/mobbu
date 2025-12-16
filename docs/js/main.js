@@ -37664,22 +37664,28 @@
   // src/js/component/common/custom-history/history-item/history-item.js
   var HistoryItemFn = ({ getProxi, delegateEvents, bindEffect }) => {
     const proxi = getProxi();
-    return renderHtml`<button
-        type="button"
-        class="c-history-item"
-        ${delegateEvents({
+    return renderHtml`<div class="c-history-item">
+        <div class="c-history-item__checkbox">
+            <input type="checkbox" id="${proxi.id}" />
+            <span class="checkbox-control"></span>
+        </div>
+        <button
+            type="button"
+            class="c-history-item__button"
+            ${delegateEvents({
       click: () => {
         addHistoryRouteWithoutUpdate({ id: proxi.id });
       }
     })}
-        ${bindEffect({
+            ${bindEffect({
       toggleClass: {
         active: () => proxi.active
       }
     })}
-    >
-        ${proxi.url}
-    </button>`;
+        >
+            ${proxi.url}
+        </button>
+    </div>`;
   };
 
   // src/js/component/common/custom-history/history-item/definition.js
