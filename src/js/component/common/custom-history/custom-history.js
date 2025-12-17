@@ -6,7 +6,9 @@ let addToLinkedList = true;
 
 /**
  * @import {
+ *   BindEffect,
  *   DelegateEvents,
+ *   Emit,
  *   MobComponent,
  *   ProxiState,
  *   ReturnBindProps
@@ -16,9 +18,81 @@ let addToLinkedList = true;
 /**
  * @param {object} params
  * @param {ProxiState<import('./type').CustomHistory>} params.proxi
- * @param {DelegateEvents} params.delegateEvents
+ * @param {Emit<import('./type').CustomHistory>} params.emit
  */
-const getOptions = ({ proxi, delegateEvents }) => {
+const deleteNodes = ({ proxi, emit }) => {
+    proxi.selectedNodes.forEach((id) => {
+        let node = proxi.linkedList.find((node) => node.data.id === id);
+        if (node) {
+            proxi.linkedList = proxi.linkedList.removeNode(node);
+            proxi.currentNode = null;
+            emit(() => proxi.currentNode);
+        }
+
+        // @ts-ignore
+        node = null;
+    });
+
+    proxi.selectedNodes.clear();
+    emit(() => proxi.selectedNodes);
+};
+
+/**
+ * @param {object} params
+ * @param {ProxiState<import('./type').CustomHistory>} params.proxi
+ * @param {Emit<import('./type').CustomHistory>} params.emit
+ * @param {string} params.direction
+ */
+const moveNode = ({ proxi, emit, direction = 'up' }) => {
+    proxi.selectedNodes.forEach((id) => {
+        let node = proxi.linkedList.find((node) => node.data.id === id);
+
+        if (node && direction === 'up' && node?.prev) {
+            proxi.linkedList.moveBefore(node, node.prev);
+        }
+
+        if (node && direction === 'down' && node?.next) {
+            proxi.linkedList.moveAfter(node, node.next);
+        }
+
+        // @ts-ignore
+        node = null;
+    });
+
+    emit(() => proxi.linkedList);
+};
+
+/**
+ * @param {object} params
+ * @param {ProxiState<import('./type').CustomHistory>} params.proxi
+ * @param {Emit<import('./type').CustomHistory>} params.emit
+ */
+const swapNode = ({ proxi, emit }) => {
+    if (proxi.selectedNodes.size !== 2) return;
+    const iterator = proxi.selectedNodes[Symbol.iterator]();
+    const idA = iterator.next().value;
+    const idB = iterator.next().value;
+    let nodeA = proxi.linkedList.find((node) => node.data.id === idA);
+    let nodeB = proxi.linkedList.find((node) => node.data.id === idB);
+
+    if (!nodeA || !nodeB) return;
+
+    proxi.linkedList.swap(nodeA, nodeB);
+    emit(() => proxi.linkedList);
+    // @ts-ignore
+    nodeA = null;
+    // @ts-ignore
+    nodeB = null;
+};
+
+/**
+ * @param {object} params
+ * @param {ProxiState<import('./type').CustomHistory>} params.proxi
+ * @param {DelegateEvents} params.delegateEvents
+ * @param {BindEffect<import('./type').CustomHistory>} params.bindEffect
+ * @param {Emit<import('./type').CustomHistory>} params.emit
+ */
+const getOptions = ({ proxi, delegateEvents, bindEffect, emit }) => {
     const removeIcon = getIcons()['close'];
     const previousIcon = getIcons()['previous'];
     const upIcon = getIcons()['up'];
@@ -29,6 +103,15 @@ const getOptions = ({ proxi, delegateEvents }) => {
             <li class="c-custom-history__prev">
                 <button
                     type="button"
+                    ${bindEffect({
+                        toggleClass: {
+                            active: () =>
+                                !!(
+                                    proxi.currentNode &&
+                                    proxi.currentNode?.prev !== null
+                                ),
+                        },
+                    })}
                     ${delegateEvents({
                         click: () => {
                             if (proxi.currentNode?.prev) {
@@ -44,6 +127,15 @@ const getOptions = ({ proxi, delegateEvents }) => {
             <li class="c-custom-history__next">
                 <button
                     type="button"
+                    ${bindEffect({
+                        toggleClass: {
+                            active: () =>
+                                !!(
+                                    proxi.currentNode &&
+                                    proxi.currentNode?.next !== null
+                                ),
+                        },
+                    })}
                     ${delegateEvents({
                         click: () => {
                             if (proxi.currentNode?.next) {
@@ -59,9 +151,14 @@ const getOptions = ({ proxi, delegateEvents }) => {
             <li class="c-custom-history__remove">
                 <button
                     type="button"
+                    ${bindEffect({
+                        toggleClass: {
+                            active: () => proxi.selectedNodes.size > 0,
+                        },
+                    })}
                     ${delegateEvents({
                         click: () => {
-                            console.log('removeIcon');
+                            deleteNodes({ proxi, emit });
                         },
                     })}
                 >
@@ -71,9 +168,14 @@ const getOptions = ({ proxi, delegateEvents }) => {
             <li class="c-custom-history__up">
                 <button
                     type="button"
+                    ${bindEffect({
+                        toggleClass: {
+                            active: () => proxi.selectedNodes.size === 1,
+                        },
+                    })}
                     ${delegateEvents({
                         click: () => {
-                            console.log('up');
+                            moveNode({ emit, proxi, direction: 'up' });
                         },
                     })}
                 >
@@ -83,9 +185,14 @@ const getOptions = ({ proxi, delegateEvents }) => {
             <li class="c-custom-history__down">
                 <button
                     type="button"
+                    ${bindEffect({
+                        toggleClass: {
+                            active: () => proxi.selectedNodes.size === 1,
+                        },
+                    })}
                     ${delegateEvents({
                         click: () => {
-                            console.log('up');
+                            moveNode({ emit, proxi, direction: 'down' });
                         },
                     })}
                 >
@@ -95,9 +202,14 @@ const getOptions = ({ proxi, delegateEvents }) => {
             <li class="c-custom-history__swap">
                 <button
                     type="button"
+                    ${bindEffect({
+                        toggleClass: {
+                            active: () => proxi.selectedNodes.size === 2,
+                        },
+                    })}
                     ${delegateEvents({
                         click: () => {
-                            console.log('swapIcon');
+                            swapNode({ proxi, emit });
                         },
                     })}
                 >
@@ -130,13 +242,6 @@ export const CustomHistoryFn = ({
         () => proxi.currentNode,
         (node) => {
             MobJs.loadUrl({ url: node?.data.url, params: node?.data?.params });
-        }
-    );
-
-    watch(
-        () => proxi.selectedNodes,
-        (nodes) => {
-            console.log(nodes);
         }
     );
 
@@ -195,7 +300,20 @@ export const CustomHistoryFn = ({
          * New route load outside History
          */
         if (addToLinkedList && currentHash !== proxi.currentNode?.data.url) {
-            if (proxi.linkedList.size >= 20) proxi.linkedList.removeFirst();
+            /**
+             * Max X item, if e selected item is first node remove from selectedNodes set.
+             */
+            if (proxi.linkedList.size >= 20) {
+                let firstNode = proxi.linkedList.first;
+
+                if (firstNode) {
+                    proxi.selectedNodes.delete(firstNode.data.id);
+                    emit(() => proxi.selectedNodes);
+                }
+
+                proxi.linkedList.removeFirst();
+                firstNode = null;
+            }
 
             /**
              * If we have a current node ( es: middle of list ) insert after.
@@ -245,7 +363,7 @@ export const CustomHistoryFn = ({
                     click: () => (proxi.active = false),
                 })}
             ></button>
-            ${getOptions({ proxi, delegateEvents })}
+            ${getOptions({ proxi, delegateEvents, bindEffect, emit })}
             <div class="c-custom-history__container">
                 ${repeat({
                     observe: () => proxi.listParsed,

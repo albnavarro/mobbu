@@ -21,3 +21,9 @@ myStore.watch(
 myStore.update(proxi.myMap, (value) => value.set('myKey', 10));
 myStore.set(proxi.myMap, proxi.myMap.set('myKey', 11));
 proxi.myMap = proxi.myMap.set('myKey', 12);
+
+/**
+ * Alternative:
+ */
+proxi.myMap.set('myKey', 12);
+myStore.emit(() => proxi.myMap);
