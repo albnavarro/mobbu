@@ -8,6 +8,19 @@ import {
     addHistorySelectedNodes,
 } from '../utils';
 
+/**
+ * Returns the first `limit` characters from the given `string`.
+ *
+ * @param {String} string
+ * @param {Number} limit
+ * @returns {String}
+ */
+function limit(string = '', limit = 30) {
+    return string.length > limit
+        ? `${string.slice(0, Math.max(0, limit))} ...`
+        : string;
+}
+
 /** @type {MobComponent<import('./type').HistoryItem>} */
 export const HistoryItemFn = ({ getProxi, delegateEvents, bindEffect }) => {
     const proxi = getProxi();
@@ -44,7 +57,7 @@ export const HistoryItemFn = ({ getProxi, delegateEvents, bindEffect }) => {
                 },
             })}
         >
-            ${proxi.url}
+            ${limit(proxi.url)}
         </button>
     </div>`;
 };

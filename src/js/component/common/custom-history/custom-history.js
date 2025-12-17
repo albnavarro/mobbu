@@ -114,6 +114,9 @@ const getOptions = ({ proxi, delegateEvents, bindEffect, emit }) => {
                     })}
                     ${delegateEvents({
                         click: () => {
+                            if (MobJs.mainStore.getProp('routeIsLoading'))
+                                return;
+
                             if (proxi.currentNode?.prev) {
                                 addToLinkedList = false;
                                 proxi.currentNode = proxi.currentNode?.prev;
@@ -138,6 +141,9 @@ const getOptions = ({ proxi, delegateEvents, bindEffect, emit }) => {
                     })}
                     ${delegateEvents({
                         click: () => {
+                            if (MobJs.mainStore.getProp('routeIsLoading'))
+                                return;
+
                             if (proxi.currentNode?.next) {
                                 addToLinkedList = false;
                                 proxi.currentNode = proxi.currentNode?.next;
@@ -357,6 +363,9 @@ export const CustomHistoryFn = ({
                 },
             })}
         >
+            <div class="custom-history__head">
+                <h5>Custom history navigation</h5>
+            </div>
             <button
                 class="c-custom-history__close"
                 ${delegateEvents({

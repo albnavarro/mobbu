@@ -32,6 +32,13 @@
         height: rem(12);
         transform: translateY(-50%);
 
+        &::before {
+            content: '';
+            position: absolute;
+            inset: calc(#{rem(4)} * -1) calc(#{rem(4)} * -1)
+                calc(#{rem(4)} * -1) calc(#{rem(4)} * -1);
+        }
+
         &:checked {
             + .checkbox-control {
                 &::after {
