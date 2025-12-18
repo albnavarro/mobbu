@@ -33,30 +33,14 @@ export const AnimationDescriptionFn = ({
         (value) => {
             const hasValue = value.length > 0;
 
-            /**
-             * Animation out
-             *
-             * - First animation then remove content.
-             */
             if (!hasValue) {
                 proxi.visible = false;
-
-                setTimeout(() => {
-                    proxi.content = '';
-                }, 350);
-
+                proxi.content = '';
                 return;
             }
 
-            /**
-             * Animation in
-             *
-             * - Animation && content is same time
-             */
-            setTimeout(() => {
-                proxi.content = `${value}`;
-                if (hasValue) proxi.visible = true;
-            }, 350);
+            proxi.content = `${value}`;
+            if (hasValue) proxi.visible = true;
         },
         { immediate: true }
     );

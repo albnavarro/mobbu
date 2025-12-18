@@ -1,22 +1,17 @@
 @use '../../abstract' as *;
 
 .animation-description {
-    visibility: hidden;
+    display: none;
     position: fixed;
     z-index: 8;
     top: var(--header-height);
     left: calc(var(--header-height) * 0.5);
     padding: calc(var(--header-height) * 0.25) calc(var(--header-height) * 0.5);
-    transition:
-        opacity 0.35s,
-        visibility 0.35s;
     border-right: 1px $black solid;
     border-bottom: 1px $black solid;
-    opacity: 0;
     user-select: none;
 
     &.visible {
-        visibility: visible;
-        opacity: 1;
+        display: block;
     }
 }
