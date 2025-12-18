@@ -253,7 +253,7 @@
             "props": {
                 "tag": "h6"
             },
-            "content": "Navigate via javascript"
+            "content": "Navigate via javascript ( loadUrl )"
         },
         {
             "component": "mob-snippet",

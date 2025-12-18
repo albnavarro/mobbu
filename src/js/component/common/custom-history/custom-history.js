@@ -267,7 +267,11 @@ export const CustomHistoryFn = ({
     watch(
         () => proxi.currentNode,
         (node) => {
-            MobJs.loadUrl({ url: node?.data.url, params: node?.data?.params });
+            MobJs.loadUrl({
+                url: node?.data.url,
+                params: node?.data?.params,
+                skipTransition: true,
+            });
         }
     );
 
@@ -384,7 +388,7 @@ export const CustomHistoryFn = ({
             })}
         >
             <div class="custom-history__head">
-                <h5>Custom history navigation</h5>
+                <h5>Custom history navigation ( max 20 )</h5>
             </div>
             <button
                 class="c-custom-history__close"
