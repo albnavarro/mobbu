@@ -98,13 +98,12 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     const { routeIsLoading } = mainStore.get();
     if (routeIsLoading) {
         /**
-         * Restore previous hash/params.
+         * Forza visivamante l'hash nell' url a tornare allo stato precedente.
+         *
+         * - Pro: semplice.
+         * - Cons: i tentativi di load saranno cmq nella history.
          */
-        history.replaceState(
-            { nextId: historyObejct },
-            '',
-            previousFullHashLoaded
-        );
+        globalThis.location.hash = previousFullHashLoaded.replace('#', '');
         return;
     }
 
@@ -233,20 +232,6 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
  */
 export const router = () => {
     parseUrlHash();
-
-    /**
-     * Prevent click on app while route is loading.
-     *
-     * - Has effect on <a href=""> tag
-     * - Has effect only if usePassive = false;
-     *
-     * ```js
-     * MobMotionCore.setDefault({ usePassive: false });
-     * ```
-     */
-    MobCore.useMouseClick(({ preventDefault }) => {
-        if (mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)) preventDefault();
-    });
 
     /**
      * Prevent browser to force scroll position.
