@@ -22,14 +22,39 @@ function limit(string = '', limit = 30) {
 }
 
 /** @type {MobComponent<import('./type').HistoryItem>} */
-export const HistoryItemFn = ({ getProxi, delegateEvents, bindEffect }) => {
+export const HistoryItemFn = ({
+    getProxi,
+    delegateEvents,
+    bindEffect,
+    onMount,
+    setRef,
+    getRef,
+    watch,
+}) => {
     const proxi = getProxi();
+
+    onMount(() => {
+        const { checkbox } = getRef();
+
+        watch(
+            () => proxi.forceSelect,
+            (value) => {
+                checkbox.checked = value;
+                addHistorySelectedNodes({ id: proxi.id, add: value });
+            }
+        );
+
+        return () => {
+            checkbox.remove();
+        };
+    });
 
     return html`<div class="c-history-item">
         <div class="c-history-item__checkbox">
             <input
                 type="checkbox"
                 id="${proxi.id}"
+                ${setRef('checkbox')}
                 ${delegateEvents({
                     click: (/** @type {MouseEvent} */ event) => {
                         const target = event.target;

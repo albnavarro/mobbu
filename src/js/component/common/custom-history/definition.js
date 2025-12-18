@@ -37,6 +37,10 @@ export const CustomHistory = MobJs.createComponent(
                 value: false,
                 type: Boolean,
             }),
+            selectAllOn: () => ({
+                value: false,
+                type: Boolean,
+            }),
         },
         child: [HistoryItem],
     })

@@ -16,6 +16,7 @@ export interface CustomHistory {
         selectedNodes: Set<string>;
         currentNode?: LinkedListNode<NodeData> | null;
         active: boolean;
+        selectAllOn: boolean;
     };
     methods: {
         toggle: () => void;

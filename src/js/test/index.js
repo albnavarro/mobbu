@@ -3,7 +3,6 @@
 // import { clockModule } from './math-test/clock-module';
 // import { swapVariables } from './math-test/xor';
 // import { LRUTest } from './lru';
-import { linkedListTest } from './linked-list';
 
 export const testModule = () => {
     // storeTest();
@@ -11,5 +10,4 @@ export const testModule = () => {
     // clockModule();
     // swapVariables();
     // LRUTest();
-    linkedListTest();
 };

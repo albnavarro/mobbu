@@ -19,6 +19,7 @@ const iconsToLoad = [
     { name: 'close', source: 'close.svg' },
     { name: 'up', source: 'up.svg' },
     { name: 'swap', source: 'swap.svg' },
+    { name: 'selectAll', source: 'select-all.svg' },
 ];
 
 export const getCommonData = () => commonData;

@@ -23,6 +23,10 @@ export const HistoryItem = MobJs.createComponent(
                 value: false,
                 type: Boolean,
             }),
+            forceSelect: () => ({
+                value: false,
+                type: Boolean,
+            }),
         },
     })
 );

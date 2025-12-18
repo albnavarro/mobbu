@@ -23,6 +23,7 @@ let addToLinkedList = true;
 const deleteNodes = ({ proxi, emit }) => {
     proxi.selectedNodes.forEach((id) => {
         let node = proxi.linkedList.find((node) => node.data.id === id);
+
         if (node) {
             proxi.linkedList = proxi.linkedList.removeNode(node);
             proxi.currentNode = null;
@@ -97,6 +98,7 @@ const getOptions = ({ proxi, delegateEvents, bindEffect, emit }) => {
     const previousIcon = getIcons()['previous'];
     const upIcon = getIcons()['up'];
     const swapIcon = getIcons()['swap'];
+    const selectIcon = getIcons()['selectAll'];
 
     return html`
         <ul class="c-custom-history__nav">
@@ -165,6 +167,7 @@ const getOptions = ({ proxi, delegateEvents, bindEffect, emit }) => {
                     ${delegateEvents({
                         click: () => {
                             deleteNodes({ proxi, emit });
+                            proxi.selectAllOn = false;
                         },
                     })}
                 >
@@ -220,6 +223,23 @@ const getOptions = ({ proxi, delegateEvents, bindEffect, emit }) => {
                     })}
                 >
                     ${swapIcon}
+                </button>
+            </li>
+            <li class="c-custom-history__select-all">
+                <button
+                    type="button"
+                    ${bindEffect({
+                        toggleClass: {
+                            active: () => proxi.linkedList.size > 0,
+                        },
+                    })}
+                    ${delegateEvents({
+                        click: () => {
+                            proxi.selectAllOn = !proxi.selectAllOn;
+                        },
+                    })}
+                >
+                    ${selectIcon}
                 </button>
             </li>
         </ul>
@@ -393,6 +413,7 @@ export const CustomHistoryFn = ({
                                         active:
                                             proxi.currentNode?.data.id ===
                                             current.value.id,
+                                        forceSelect: proxi.selectAllOn,
                                     })
                             )}
                         ></history-item>`;

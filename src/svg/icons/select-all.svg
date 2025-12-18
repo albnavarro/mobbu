@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   data-name="Layer 1"
+   viewBox="0 0 90 90"
+   x="0px"
+   y="0px"
+   version="1.1"
+   id="svg862"
+   sodipodi:docname="select-all.svg"
+   width="90"
+   height="90"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs866" />
+  <sodipodi:namedview
+     id="namedview864"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="3.3833333"
+     inkscape:cx="64.876847"
+     inkscape:cy="75.665025"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg862" />
+  <title
+     id="title854">Select All 1</title>
+  <path
+     d="M 49.390422,31.326739 38.367999,42.124215 v 0 l -2.744359,2.699369 a 3.9590743,3.9590743 0 0 1 -5.488716,0 l -2.789348,-2.789348 -5.488717,-5.398738 5.488717,-5.308759 5.533706,5.488717 11.022423,-11.022423 z m 35.721647,4.498948 v 44.989481 a 4.4989481,4.4989481 0 0 1 -4.498948,4.498948 H 35.62364 A 4.4989481,4.4989481 0 0 1 31.124692,80.815168 V 67.318324 H 8.6299518 A 4.4989481,4.4989481 0 0 1 4.1310037,62.819376 V 8.8319992 A 4.4989481,4.4989481 0 0 1 8.6299518,4.3330511 H 62.617329 a 4.4989481,4.4989481 0 0 1 4.498948,4.4989481 V 31.326739 h 13.496844 a 4.4989481,4.4989481 0 0 1 4.498948,4.498948 z M 31.124692,58.320428 H 58.118381 V 13.330947 H 13.1289 V 58.320428 Z M 76.114173,40.324636 h -8.997896 v 22.49474 a 4.4989481,4.4989481 0 0 1 -4.498948,4.498948 h -22.49474 v 8.997896 h 35.991584 z"
+     id="path856"
+     style="stroke-width:4.49895" />
+  <metadata
+     id="metadata948">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Select All 1</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
