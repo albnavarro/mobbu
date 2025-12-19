@@ -28,5 +28,11 @@ export const HistoryItem = MobJs.createComponent(
                 type: Boolean,
             }),
         },
+        state: {
+            checked: () => ({
+                value: false,
+                type: Boolean,
+            }),
+        },
     })
 );

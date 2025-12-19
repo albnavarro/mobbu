@@ -231,6 +231,7 @@ const getOptions = ({ proxi, delegateEvents, bindEffect, emit }) => {
                     ${bindEffect({
                         toggleClass: {
                             active: () => proxi.linkedList.size > 0,
+                            'should-add': () => proxi.selectAllOn,
                         },
                     })}
                     ${delegateEvents({

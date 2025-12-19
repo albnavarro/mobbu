@@ -5,7 +5,7 @@ export interface HistoryItem {
         active: boolean;
         forceSelect: boolean;
     };
-    ref: {
-        checkbox: HTMLInputElement;
+    state: {
+        checked: boolean;
     };
 }

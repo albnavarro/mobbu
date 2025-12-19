@@ -90,4 +90,14 @@
             transform: rotate(180deg);
         }
     }
+
+    &__select-all {
+        button {
+            &.should-add {
+                svg {
+                    fill: #24c324;
+                }
+            }
+        }
+    }
 }
