@@ -145,7 +145,7 @@ const applyStyle = ({ ref, data }) => {
 /**
  * @param {object} params
  * @param {WeakRef<HTMLElement>} params.ref
- * @param {Record<string, () => string | null | undefined>} params.data
+ * @param {Record<string, () => string | boolean | null | undefined>} params.data
  * @returns {void}
  */
 const applyAttribute = ({ ref, data }) => {
@@ -153,6 +153,18 @@ const applyAttribute = ({ ref, data }) => {
         if (!ref.deref()) return;
         const value = fn?.();
 
+        /**
+         * Special case like checked checkboxes attribute.
+         */
+        if (MobCore.checkType(Boolean, value)) {
+            // @ts-ignore
+            ref.deref()[attributeName] = value;
+            return;
+        }
+
+        /**
+         * Default case.
+         */
         if (!value) {
             // @ts-ignore
             ref.deref().removeAttribute(attributeName);

@@ -9,7 +9,7 @@ export interface BindEffectObject<T> {
         | (() => ExtractPropsAndState<T>[keyof ExtractPropsAndState<T>])[];
     toggleClass?: Record<string, () => boolean>;
     toggleStyle?: Record<string, () => string>;
-    toggleAttribute?: Record<string, () => string | null | undefined>;
+    toggleAttribute?: Record<string, () => string | boolean | null | undefined>;
 }
 
 export interface BindEffectMapValue {
@@ -18,7 +18,10 @@ export interface BindEffectMapValue {
         observe: string[];
         toggleClass?: Record<string, () => boolean>;
         toggleStyle?: Record<string, () => string>;
-        toggleAttribute?: Record<string, () => string | null | undefined>;
+        toggleAttribute?: Record<
+            string,
+            () => string | boolean | null | undefined
+        >;
     }[];
 }
 
