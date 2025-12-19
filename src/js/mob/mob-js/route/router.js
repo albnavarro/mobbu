@@ -77,6 +77,23 @@ const convertObjectParamsToString = (params) => {
 };
 
 /**
+ * Prevent click on a element while route is loading.
+ */
+document.addEventListener(
+    'click',
+    (event) => {
+        const target = event.target;
+        if (!target) return;
+
+        const link = /** @type {HTMLElement} */ (event.target).closest('a');
+        if (link && mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)) {
+            event.preventDefault();
+        }
+    },
+    { passive: false }
+);
+
+/**
  * Get hash from url and load new route.
  *
  * If shouldLoadRoute is false, update only mainStore currentRoute etc...
@@ -94,6 +111,8 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
 
     /**
      * Prevent multiple routes start at same time.
+     *
+     * - Fallback to click preventDefault logic.
      */
     const { routeIsLoading } = mainStore.get();
     if (routeIsLoading) {
