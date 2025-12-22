@@ -1,29 +1,10 @@
 # Prioritá
 
-1. Migliorare il check sui multipli tentativi di carimanto della rotta mentre stá giá caricando.
-    - [detail:](#load-route)
+1. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
+    - [detail:](#BindObject/BindText/BindEffect)
 2. `RepeaterRender`: `nativeDOMChildren` -> testare element come weakMap per alleggerire il `GC`.
     - Verficare e nel caso portare la cosa su altri `element` gestiti nella mappe piú grandi.
-3. La funzione html potrebbe tornare un oggetto del seguente tipo in previsione del punto `( 6 )`.
-    ```js
-    {
-        type: ('string', value);
-    }
-    ```
-4. Component render puó ritornare un `oggetto` al posto del DOM formato `stringa`, che verrá convertito direttamante in DOM Element.
-5. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
-    - [detail:](#BindObject/BindText/BindEffect)
-5. Component app: `dragger` con `pinch zoom`.
-
-<a name="load-route"></a>
-### Router prevent load route while is loading
-- Non é il massimo della vita.
-
-```js
-MobCore.useMouseClick(({ preventDefault }) => {
-    if (mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)) preventDefault();
-});
-```
+3. Component app: `dragger` con `pinch zoom`.
 
 
 
@@ -36,11 +17,9 @@ MobCore.useMouseClick(({ preventDefault }) => {
 - `observe` nei nelle funzioni interne dovrebbe diventare `observedState` per una migliore leggibilitá.
 
 ### eslint:
-
 - Valutare per ora solo a livello di store https://github.com/eslint-functional/eslint-plugin-functional
 
 ### Store - deepEquality:
-
 - Agiungere `deepEquality`, basta un `JSON.stringigfy(current) === JSON.stringigfy(current)`.
 - Utile per `array/object`.
 - Rivedere un controllo piu permissivo e veloce per gli `oggetti`?
@@ -152,10 +131,6 @@ MobCore.useMouseClick(({ preventDefault }) => {
 #### Sanitize
 
 - Aggiungere una `callBack` per fare un parsing dell' `html` prima di appenderlo al `DOM` con librerie esterne.
-
-#### Render return object.
-
-- Funizione utility che converte un `oggetto` in `html`.
 
 ### Web component:
 
