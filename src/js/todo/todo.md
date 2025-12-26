@@ -1,19 +1,15 @@
 # Prioritá
 
-1. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
+1. **Component app: `dragger` con `pinch zoom`**.
+2. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
     - [detail:](#BindObject/BindText/BindEffect)
-2. `RepeaterRender`: `nativeDOMChildren` -> testare element come weakMap per alleggerire il `GC`.
+3. `RepeaterRender`: `nativeDOMChildren` -> testare element come weakMap per alleggerire il `GC`.
     - Verficare e nel caso portare la cosa su altri `element` gestiti nella mappe piú grandi.
-3. Component app: `dragger` con `pinch zoom`.
-
-
 
 ### Docs: AsyncTimeline
-
 - Breve riassunto con lista puntata delle feature.
 
 ### New Observe props.
-
 - `observe` nei nelle funzioni interne dovrebbe diventare `observedState` per una migliore leggibilitá.
 
 ### eslint:
@@ -108,20 +104,13 @@
 ```
 
 ### Routing:
-
 - Rendere opzionale il blocco sul caricamento della stessa rotta.
 
-### PageTrasition:
-
-- possibilitá di disabilitare le trasizioni di pagina per rotta ( nella definizione della rotta ).
-
 ### src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
-
 - Parent id ternario innestato, semplificare.
 - Idealmante con `weakElementMap` si puó usare solo una strategia.
 
 ### src/js/mob/mob-js/doc/ ?
-
 - Aggiungere:
     - Parent id logic.
     - Repeat `element` vs `innerWrapper` vs `repeatIdPlaceHolderMap` ( use external map children propierties, es: `getRepeaterChild()` ).
@@ -129,13 +118,11 @@
 ### ParserHTML
 
 #### Sanitize
-
 - Aggiungere una `callBack` per fare un parsing dell' `html` prima di appenderlo al `DOM` con librerie esterne.
 
 ### Web component:
 
 #### attributeChangedCallback
-
 - In riferimento agli `stati esportabili`, `attributeChangedCallback` puo intereccettare se l'atributo é uno stato e automaticamante eseguire un `this.#params.setState(state, <val>)`.
 - Detect della props:
     - i `word-word` dovranno essere convertiti in `wordWord` per combaciare con lo stato. es, `isLoading` sará scritto come `is-loading` attributo nel `dom`.
@@ -144,7 +131,6 @@
 - Bisognerá fare un lavoro sui tipi, arriveranno tutte `string` ma prima del set venno convertite nel giusto tipo, per fare questo lavoro bisogna accedere all' oggetto `type` delle store.
 
 ### BindProps:
-
 - Valutare await `applyBindProps` in `parse-function.js`
 
 ```js
