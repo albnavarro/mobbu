@@ -149,6 +149,7 @@
                     "<span class='quote'>templateName</span>: name ( identifier ) of the template unlike the name ( route ), this parameter is not unique.",
                     "<span class='quote'>layout</span>: page function to use",
                     "<span class='quote'>restoreScroll</span>: override restoreScroll global value",
+                    "<span class='quote'>skipTransition</span>: skip page transition",
                     "<span class='quote'>props</span>: the props (object) to pass to the layout function "
                 ]
             }
@@ -166,7 +167,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/route-inizialization.js",
-                "numLines": 32
+                "numLines": 33
             }
         },
         {

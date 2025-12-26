@@ -173,10 +173,6 @@ for (const item of functionToFireAtTheEnd.reverse()) {
 }
 ```
 
-### Page transition.
-
-- Possibilitá di sovrascrivere le due funzioni per rotta.
-
 ### Repeat
 
 #### Use object

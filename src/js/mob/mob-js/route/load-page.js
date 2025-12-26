@@ -134,6 +134,11 @@ export const loadPage = async ({
     const routeObejct = getRouteByHash({ hash: route });
 
     /**
+     * Skip transition by loadUrl params or route definition.
+     */
+    const skipTransitionParsed = skipTransition || routeObejct?.skipTransition;
+
+    /**
      * Get route props,
      */
     const props = routeObejct?.props ?? {};
@@ -153,7 +158,7 @@ export const loadPage = async ({
      */
     let clone = contentElement.cloneNode(true);
 
-    if (beforePageTransition && clone && !skipTransition) {
+    if (beforePageTransition && clone && !skipTransitionParsed) {
         await beforePageTransition({
             // @ts-ignore
             oldNode: clone,
@@ -180,7 +185,7 @@ export const loadPage = async ({
      * Wait for all render.
      */
     await parseComponents({ element: contentElement });
-    if (!skipTransition) contentElement.style.visibility = '';
+    if (!skipTransitionParsed) contentElement.style.visibility = '';
 
     /**
      * SKit after route change if another route is called.
@@ -215,7 +220,7 @@ export const loadPage = async ({
      * Animate pgae teansition. Remove old route.
      */
     const pageTransition = getPageTransition();
-    if (pageTransition && !skipTransition) {
+    if (pageTransition && !skipTransitionParsed) {
         await pageTransition({
             oldNode: clone,
             newNode: contentElement,

@@ -236,6 +236,7 @@ export interface Route {
         | ((arg0: { params: any; props: any }) => Promise<string>)
         | ((arg0: { params: any; props: any }) => string);
     restoreScroll?: boolean;
+    skipTransition?: boolean;
     props: any;
 }
 

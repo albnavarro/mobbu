@@ -233,6 +233,7 @@ export const routes = [
         hash: 'dynamic-list',
         layout: dynamic_list,
         templateName: PAGE_TEMPLATE_TEST,
+        skipTransition: true,
         props: {
             source: './data/mob-js/general-repeat-test.json',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -244,6 +245,7 @@ export const routes = [
         hash: 'matrioska-repeat',
         layout: matrioska_repeat_page,
         templateName: PAGE_TEMPLATE_TEST,
+        skipTransition: true,
         props: {
             source: './data/mob-js/matrioska.json',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -255,6 +257,7 @@ export const routes = [
         hash: 'matrioska-invalidate',
         layout: matrioska_invalidate_page,
         templateName: PAGE_TEMPLATE_TEST,
+        skipTransition: true,
         props: {
             source: './data/mob-js/matrioska.json',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -271,6 +274,7 @@ export const routes = [
     {
         hash: 'mobCore-overview',
         layout: layoutSidebarAnchor,
+        skipTransition: true,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         props: {
             source: './data/mob-core/overview.json',
@@ -284,6 +288,7 @@ export const routes = [
         hash: 'mobCore-defaults',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-core/defaults.json',
             title: 'Defaults',
@@ -296,6 +301,7 @@ export const routes = [
         hash: 'mobCore-events',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-core/events.json',
             title: 'Events',
@@ -308,6 +314,7 @@ export const routes = [
         hash: 'mobCore-store',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-core/store.json',
             title: 'Store',
@@ -320,6 +327,7 @@ export const routes = [
         hash: 'mobJs-overview',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-js/overview.json',
             title: 'mobJs',
@@ -332,6 +340,7 @@ export const routes = [
         hash: 'mobJs-initialization',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-js/initialization.json',
             title: 'initialization',
@@ -344,6 +353,7 @@ export const routes = [
         hash: 'mobJs-component',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-js/component.json',
             title: 'component',
@@ -356,6 +366,7 @@ export const routes = [
         hash: 'mobJs-routing',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-js/routing.json',
             title: 'routing',
@@ -368,6 +379,7 @@ export const routes = [
         hash: 'mobJs-benchmark-invalidate',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
+        skipTransition: true,
         props: {
             rootComponent: 'benchmark-invalidate',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -380,6 +392,7 @@ export const routes = [
         hash: 'mobJs-benchmark-repeat-no-key',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
+        skipTransition: true,
         props: {
             rootComponent: 'benchmark-repeat-no-key',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -392,6 +405,7 @@ export const routes = [
         hash: 'mobJs-benchmark-repeat-key',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
+        skipTransition: true,
         props: {
             rootComponent: 'benchmark-repeat-key',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -404,6 +418,7 @@ export const routes = [
         hash: 'mobJs-benchmark-repeat-no-component-no-key',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
+        skipTransition: true,
         props: {
             rootComponent: 'benchmark-repeat-no-component-no-key',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -416,6 +431,7 @@ export const routes = [
         hash: 'mobJs-benchmark-repeat-no-component-with-key',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
+        skipTransition: true,
         props: {
             rootComponent: 'benchmark-repeat-no-component-with-key',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -428,6 +444,7 @@ export const routes = [
         hash: 'mobJs-benchmark-repeat-no-key-nested',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
+        skipTransition: true,
         props: {
             rootComponent: 'benchmark-repeat-key-no-nested',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -440,6 +457,7 @@ export const routes = [
         hash: 'mobJs-benchmark-repeat-key-nested',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
+        skipTransition: true,
         props: {
             rootComponent: 'benchmark-repeat-key-nested',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -452,6 +470,7 @@ export const routes = [
         hash: 'mobJs-benchmark-repeat-key-bind-store',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
+        skipTransition: true,
         props: {
             rootComponent: 'benchmark-repeat-no-key-bind-store',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -464,6 +483,7 @@ export const routes = [
         hash: 'mobJs-tick',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-js/tick.json',
             title: 'tick',
@@ -476,6 +496,7 @@ export const routes = [
         hash: 'mobJs-utils',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-js/utils.json',
             title: 'utils',
@@ -488,6 +509,7 @@ export const routes = [
         hash: 'mobJs-memory-management',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-js/memory-management.json',
             title: 'memory management',
@@ -500,6 +522,7 @@ export const routes = [
         hash: 'mobJs-debug',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-js/debug.json',
             title: 'debug',
@@ -512,6 +535,7 @@ export const routes = [
         hash: 'mobJs-onMount',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/on-mount.json',
             title: 'onMount',
@@ -524,6 +548,7 @@ export const routes = [
         hash: 'mobJs-getState',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/get-state.json',
             title: 'getState',
@@ -536,6 +561,7 @@ export const routes = [
         hash: 'mobJs-setState',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/set-state.json',
             title: 'setState',
@@ -548,6 +574,7 @@ export const routes = [
         hash: 'mobJs-updateState',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/update-state.json',
             title: 'updateState',
@@ -560,6 +587,7 @@ export const routes = [
         hash: 'mobJs-getProxi',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/get-proxi.json',
             title: 'getProxi',
@@ -572,6 +600,7 @@ export const routes = [
         hash: 'mobJs-watch',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/watch.json',
             title: 'watch',
@@ -584,6 +613,7 @@ export const routes = [
         hash: 'mobJs-staticProps',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/static-props.json',
             title: 'staticProps',
@@ -596,6 +626,7 @@ export const routes = [
         hash: 'mobJs-dataAttribute',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/data-attribute.json',
             title: 'dataAttribute',
@@ -608,6 +639,7 @@ export const routes = [
         hash: 'mobJs-bindProps',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/bind-props.json',
             title: 'bindProps',
@@ -620,6 +652,7 @@ export const routes = [
         hash: 'mobJs-bindEvents',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/bind-events.json',
             title: 'bindEvents',
@@ -632,6 +665,7 @@ export const routes = [
         hash: 'mobJs-delegateEvents',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/delegate-events.json',
             title: 'delegateEvents',
@@ -644,6 +678,7 @@ export const routes = [
         hash: 'mobJs-bindtext',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/bind-text.json',
             title: 'bindText',
@@ -656,6 +691,7 @@ export const routes = [
         hash: 'mobJs-bindObject',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/bind-object.json',
             title: 'bindObject',
@@ -668,6 +704,7 @@ export const routes = [
         hash: 'mobJs-bind-effect',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/bind-effect.json',
             title: 'bindEffect',
@@ -680,6 +717,7 @@ export const routes = [
         hash: 'mobJs-methods',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/methods.json',
             title: 'add methods',
@@ -692,6 +730,7 @@ export const routes = [
         hash: 'mobJs-useMethodByName',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/use-method-by-name.json',
             title: 'useMethodByName',
@@ -704,6 +743,7 @@ export const routes = [
         hash: 'mobJs-useMethodArrayByName',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/use-method-array-by-name.json',
             title: 'useMethodArrayByName',
@@ -716,6 +756,7 @@ export const routes = [
         hash: 'mobJs-setStateByName',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/set-state-by-name.json',
             title: 'setStateByName',
@@ -728,6 +769,7 @@ export const routes = [
         hash: 'mobJs-updateStateByName',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/update-state-by-name.json',
             title: 'updateStateByName',
@@ -740,6 +782,7 @@ export const routes = [
         hash: 'mobJs-refs',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/refs.json',
             title: 'refs',
@@ -752,6 +795,7 @@ export const routes = [
         hash: 'mobJs-runtime',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/runtime.json',
             title: 'renderComponent',
@@ -764,6 +808,7 @@ export const routes = [
         hash: 'mobJs-repeat',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/repeat.json',
             title: 'repeat',
@@ -776,6 +821,7 @@ export const routes = [
         hash: 'mobJs-invalidate',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/invalidate.json',
             title: 'invalidate',
@@ -788,6 +834,7 @@ export const routes = [
         hash: 'mobJs-invalidate-vs-repeater',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/invalidate-vs-repeater.json',
             title: 'invalidate vs repeater',
@@ -800,6 +847,7 @@ export const routes = [
         hash: 'mobJs-web-component',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/web-component.json',
             title: 'webComponent',
@@ -812,6 +860,7 @@ export const routes = [
         hash: 'mobJs-slot',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/slot.json',
             title: 'slot',
@@ -824,6 +873,7 @@ export const routes = [
         hash: 'mobJs-unBind',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/unbind.json',
             title: 'unBind',
@@ -836,6 +886,7 @@ export const routes = [
         hash: 'mobJs-emit',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/emit.json',
             title: 'emit',
@@ -848,6 +899,7 @@ export const routes = [
         hash: 'mobJs-emitAsync',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/emit-async.json',
             title: 'emitAsync',
@@ -860,6 +912,7 @@ export const routes = [
         hash: 'mobJs-computed',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/computed.json',
             title: 'computed',
@@ -872,6 +925,7 @@ export const routes = [
         hash: 'mobJs-bindStore',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/bind-store.json',
             title: 'bindStore',
@@ -884,6 +938,7 @@ export const routes = [
         hash: 'mobJs-removeDom',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/remove-dom.json',
             title: 'removeDom',
@@ -896,6 +951,7 @@ export const routes = [
         hash: 'mobJs-remove',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/remove.json',
             title: 'remove',
@@ -908,6 +964,7 @@ export const routes = [
         hash: 'mobJs-getChildren',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/get-children.json',
             title: 'getChildren',
@@ -920,6 +977,7 @@ export const routes = [
         hash: 'mobJs-freezeProp',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/freeze-prop.json',
             title: 'freezeProp',
@@ -932,6 +990,7 @@ export const routes = [
         hash: 'mobJs-unFreezeProp',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/unfreeze-prop.json',
             title: 'unFreezeProp',
@@ -944,6 +1003,7 @@ export const routes = [
         hash: 'mobJs-getParentId',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/get-parent-id.json',
             title: 'getParentId',
@@ -956,6 +1016,7 @@ export const routes = [
         hash: 'mobJs-watchParent',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/watch-parent.json',
             title: 'watchParent',
@@ -968,6 +1029,7 @@ export const routes = [
         hash: 'mobJs-instanceName',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/instance-name.json',
             title: 'instanceName',
@@ -980,6 +1042,7 @@ export const routes = [
         hash: 'mobJs-class-list',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
+        skipTransition: true,
         props: {
             source: './data/mob-js/class-list.json',
             title: 'classList',
@@ -992,6 +1055,7 @@ export const routes = [
         hash: 'mobMotion-stagger',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-motion/stagger.json',
             title: 'Stagger',
@@ -1004,6 +1068,7 @@ export const routes = [
         hash: 'mobMotion-defaults',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-motion/defaults.json',
             title: 'Defaults',
@@ -1016,6 +1081,7 @@ export const routes = [
         hash: 'mobMotion-overview',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-motion/overview.json',
             title: 'mobMotion',
@@ -1028,6 +1094,7 @@ export const routes = [
         hash: 'mobMotion-parallax',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-motion/parallax.json',
             title: 'Parallax',
@@ -1040,6 +1107,7 @@ export const routes = [
         hash: 'mobMotion-sequencer',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-motion/sequencer.json',
             title: 'Sequencer',
@@ -1052,6 +1120,7 @@ export const routes = [
         hash: 'mobMotion-scrolltrigger',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-motion/scroll-trigger.json',
             title: 'ScrollTrigger',
@@ -1064,6 +1133,7 @@ export const routes = [
         hash: 'mobMotion-sync-timeline',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-motion/sync-timeline.json',
             title: 'Synctimeline',
@@ -1076,6 +1146,7 @@ export const routes = [
         hash: 'mobMotion-create-stagger',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-motion/create-stagger.json',
             title: 'CreateStagger',
@@ -1088,6 +1159,7 @@ export const routes = [
         hash: 'mobMotion-async-timeline',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-motion/async-timeline.json',
             title: 'Asynctimeline',
@@ -1100,6 +1172,7 @@ export const routes = [
         hash: 'mobMotion-tween-spring-lerp',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
         props: {
             source: './data/mob-motion/tween-spring-lerp.json',
             title: 'TimeTween Spring Lerp',

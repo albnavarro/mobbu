@@ -25,6 +25,7 @@ export const routes = [
         templateName: 'myTemplate',
         layout: my_route,
         restoreScroll: false,
+        skipTransition: true,
         props: {
             myProp: 'hello',
         },
