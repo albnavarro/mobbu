@@ -8,7 +8,10 @@ import {
 import { getParentIdFromWeakElementMap } from '../../../component/action/parent';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
 import { QUEQUE_TYPE_INVALIDATE } from '../../../constant';
-import { MAIN_STORE_ASYNC_PARSER } from '../../../main-store/constant';
+import {
+    MAIN_STORE_PARSER_ASYNC,
+    PARSER_ASYNC_INVALIDATE,
+} from '../../../main-store/constant';
 import {
     mainStore,
     resetMainStoreAsyncParser,
@@ -133,16 +136,17 @@ export const inizializeInvalidateWatch = async ({
                  * Parse new component.
                  */
                 mainStore.set(
-                    MAIN_STORE_ASYNC_PARSER,
+                    MAIN_STORE_PARSER_ASYNC,
                     {
                         element: invalidateParent,
                         parentId: fallBackParentId ?? id,
                         persistent,
+                        source: PARSER_ASYNC_INVALIDATE,
                     },
                     { emit: false }
                 );
 
-                await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+                await mainStore.emitAsync(MAIN_STORE_PARSER_ASYNC);
                 resetMainStoreAsyncParser();
 
                 watchIsRunning = false;

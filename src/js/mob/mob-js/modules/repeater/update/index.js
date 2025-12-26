@@ -1,6 +1,9 @@
 // @ts-check
 
-import { MAIN_STORE_ASYNC_PARSER } from '../../../main-store/constant';
+import {
+    MAIN_STORE_PARSER_ASYNC,
+    PARSER_ASYNC_REPEATER,
+} from '../../../main-store/constant';
 import {
     mainStore,
     resetMainStoreAsyncParser,
@@ -74,15 +77,16 @@ export const updateRepeater = async ({
      * - FallBackParentId is used with autoDetectParentId strategy disabled only
      */
     mainStore.set(
-        MAIN_STORE_ASYNC_PARSER,
+        MAIN_STORE_PARSER_ASYNC,
         {
             element: repeaterParentElement,
             parentId: fallBackParentId ?? id,
             persistent,
+            source: PARSER_ASYNC_REPEATER,
         },
         { emit: false }
     );
-    await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+    await mainStore.emitAsync(MAIN_STORE_PARSER_ASYNC);
     resetMainStoreAsyncParser();
 
     /**

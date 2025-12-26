@@ -25,7 +25,10 @@ import {
     ATTR_PROPS,
     ATTR_WEAK_BIND_EVENTS,
 } from '../../constant';
-import { MAIN_STORE_ASYNC_PARSER } from '../../main-store/constant';
+import {
+    MAIN_STORE_PARSER_ASYNC,
+    PARSER_ASYNC_RENDER_COMPONENT,
+} from '../../main-store/constant';
 import {
     mainStore,
     resetMainStoreAsyncParser,
@@ -134,16 +137,17 @@ export const getParamsForComponentFunction = ({
              * Render
              */
             mainStore.set(
-                MAIN_STORE_ASYNC_PARSER,
+                MAIN_STORE_PARSER_ASYNC,
                 {
                     element: attachTo,
                     parentId: id,
                     persistent: componentIsPersistent(id),
+                    source: PARSER_ASYNC_RENDER_COMPONENT,
                 },
                 { emit: false }
             );
 
-            await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+            await mainStore.emitAsync(MAIN_STORE_PARSER_ASYNC);
             resetMainStoreAsyncParser();
 
             return;

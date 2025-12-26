@@ -4,8 +4,9 @@ import {
     MAIN_STORE_ACTIVE_ROUTE,
     MAIN_STORE_AFTER_ROUTE_CHANGE,
     MAIN_STORE_BEFORE_ROUTE_CHANGE,
-    MAIN_STORE_ASYNC_PARSER,
+    MAIN_STORE_PARSER_ASYNC,
     MAIN_STORE_ROUTE_IS_LOADING,
+    PARSER_ASYNC_DEFAULT,
 } from './constant';
 
 /**
@@ -49,7 +50,7 @@ export const mainStore = MobCore.createStore(
             value: false,
             type: Boolean,
         }),
-        [MAIN_STORE_ASYNC_PARSER]: {
+        [MAIN_STORE_PARSER_ASYNC]: {
             element: () => ({
                 value: document.createElement('div'),
                 type: HTMLElement,
@@ -65,6 +66,11 @@ export const mainStore = MobCore.createStore(
                 type: Boolean,
                 skipEqual: false,
             }),
+            source: () => ({
+                value: PARSER_ASYNC_DEFAULT,
+                type: String,
+                skipEqual: false,
+            }),
         },
     })
 );
@@ -76,11 +82,12 @@ export const mainStore = MobCore.createStore(
  */
 export const resetMainStoreAsyncParser = () => {
     mainStore.set(
-        MAIN_STORE_ASYNC_PARSER,
+        MAIN_STORE_PARSER_ASYNC,
         {
             element: document.createElement('div'),
             parentId: '',
             persistent: false,
+            source: PARSER_ASYNC_DEFAULT,
         },
         { emit: false }
     );

@@ -25,10 +25,11 @@ export interface MainStore {
         currentTemplate: string;
     };
     routeIsLoading: boolean;
-    repeaterParserAsync: {
+    parserAsync: {
         element: HTMLElement;
         parentId: string;
         persistent: boolean | undefined;
+        source: string;
     };
 }
 

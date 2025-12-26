@@ -1,4 +1,7 @@
-import { MAIN_STORE_ASYNC_PARSER } from '../main-store/constant';
+import {
+    MAIN_STORE_PARSER_ASYNC,
+    PARSER_ASYNC_DEFAULT,
+} from '../main-store/constant';
 import { mainStore } from '../main-store/main-store';
 import { parseComponentsWhile } from './parse-function-while';
 import { resetCurrentIterationCounter } from './utils';
@@ -8,17 +11,20 @@ import { resetCurrentIterationCounter } from './utils';
  * @param {HTMLElement} obj.element
  * @param {boolean} [obj.persistent]
  * @param {string} [obj.parentIdForced]
+ * @param {string} [obj.source]
  * @returns {Promise<void>} A promise to the token.
  */
 export const parseComponents = async ({
     element,
     persistent = false,
     parentIdForced = '',
+    source = PARSER_ASYNC_DEFAULT,
 }) => {
     await parseComponentsWhile({
         element,
         persistent,
         parentIdForced,
+        source,
     });
 
     resetCurrentIterationCounter();
@@ -31,12 +37,18 @@ export const parseComponents = async ({
  */
 export const initParseWatcher = () => {
     mainStore.watch(
-        MAIN_STORE_ASYNC_PARSER,
-        async ({ element, parentId, persistent = false }) => {
+        MAIN_STORE_PARSER_ASYNC,
+        async ({
+            element,
+            parentId,
+            persistent = false,
+            source = PARSER_ASYNC_DEFAULT,
+        }) => {
             await parseComponents({
                 element,
                 parentIdForced: parentId ?? '',
                 persistent,
+                source,
             });
         }
     );

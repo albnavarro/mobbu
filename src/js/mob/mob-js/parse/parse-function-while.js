@@ -30,6 +30,7 @@ import { switchBindTextMap } from '../modules/bind-text';
 import { switchBindObjectMap } from '../modules/bind-object';
 import { applyBindEffect } from '../modules/bind-effetc';
 import { getComponentList } from '../component/component-list';
+import { PARSER_ASYNC_DEFAULT } from '../main-store/constant';
 /**
  * Create all component from DOM.
  *
@@ -37,6 +38,7 @@ import { getComponentList } from '../component/component-list';
  * @param {HTMLElement} obj.element
  * @param {boolean} [obj.persistent]
  * @param {string} [obj.parentIdForced]
+ * @param {string} [obj.source]
  * @returns {Promise<void>}
  */
 
@@ -44,7 +46,11 @@ export const parseComponentsWhile = async ({
     element,
     persistent = false,
     parentIdForced = '',
+    source = PARSER_ASYNC_DEFAULT,
 }) => {
+    const { debug: debugMode } = getDefaultComponent();
+    if (debugMode) console.log('parse source:', source);
+
     const componentList = getComponentList();
 
     /**
