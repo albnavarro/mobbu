@@ -10,7 +10,10 @@ export const DraggerFn = ({ getProxi, setRef, getRef, onMount }) => {
     });
 
     return html`<div class="c-dragger ${proxi.rootClass}">
+        <!-- Root border -->
         <mobjs-slot name="root-slot"></mobjs-slot>
+
+        <!-- Child -->
         <div class="c-dragger__wrapper ${proxi.childClass}" ${setRef('child')}>
             <mobjs-slot name="child-slot"></mobjs-slot>
         </div>

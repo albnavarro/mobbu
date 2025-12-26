@@ -43,26 +43,17 @@ export const DraggerRoute = () => {
                 })
             )}
         >
+            <!-- Root border -->
             <any-component
                 slot="root-slot"
-                ${MobJs.staticProps(
-                    /** @type {import('@commonComponent/any-component/type').AnyComponent['props']} */
-                    ({
-                        content: rootContent,
-                    })
-                )}
-            >
-            </any-component>
+                ${MobJs.staticProps({ content: rootContent })}
+            ></any-component>
+
+            <!-- Child -->
             <any-component
                 slot="child-slot"
-                ${MobJs.staticProps(
-                    /** @type {import('@commonComponent/any-component/type').AnyComponent['props']} */
-                    ({
-                        content: childContent,
-                    })
-                )}
-            >
-            </any-component>
+                ${MobJs.staticProps({ content: childContent })}
+            ></any-component>
         </c-dragger>
     </div>`;
 };

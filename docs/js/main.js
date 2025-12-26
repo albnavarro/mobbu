@@ -36233,7 +36233,10 @@
       console.log(element, child);
     });
     return renderHtml`<div class="c-dragger ${proxi.rootClass}">
+        <!-- Root border -->
         <mobjs-slot name="root-slot"></mobjs-slot>
+
+        <!-- Child -->
         <div class="c-dragger__wrapper ${proxi.childClass}" ${setRef("child")}>
             <mobjs-slot name="child-slot"></mobjs-slot>
         </div>
@@ -36306,26 +36309,17 @@
       }
     )}
         >
+            <!-- Root border -->
             <any-component
                 slot="root-slot"
-                ${modules_exports2.staticProps(
-      /** @type {import('@commonComponent/any-component/type').AnyComponent['props']} */
-      {
-        content: rootContent
-      }
-    )}
-            >
-            </any-component>
+                ${modules_exports2.staticProps({ content: rootContent })}
+            ></any-component>
+
+            <!-- Child -->
             <any-component
                 slot="child-slot"
-                ${modules_exports2.staticProps(
-      /** @type {import('@commonComponent/any-component/type').AnyComponent['props']} */
-      {
-        content: childContent
-      }
-    )}
-            >
-            </any-component>
+                ${modules_exports2.staticProps({ content: childContent })}
+            ></any-component>
         </c-dragger>
     </div>`;
   };
