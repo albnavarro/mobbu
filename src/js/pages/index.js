@@ -22,6 +22,7 @@ import { onlyDesktop } from './onlyDesktop';
 import { asyncTimeline } from './canvas/async-timeline';
 import { rdp } from './svg/rdp';
 import { mob_02 } from './svg/mob-02';
+import { DraggerRoute } from './plugin/dragger';
 
 export const PAGE_TEMPLATE_HOME = 'home';
 export const PAGE_TEMPLATE_ABOUT = 'about';
@@ -1189,18 +1190,24 @@ export const routes = [
         props: {},
     },
     {
+        hash: 'move3D-shape1',
+        templateName: PAGE_TEMPLATE_ANIMATION,
+        layout: move3DRoute,
+        props: move3DrouteProps.shape1,
+    },
+    {
+        hash: 'plugin-dragger',
+        layout: DraggerRoute,
+        templateName: PAGE_TEMPLATE_ANIMATION,
+        props: {},
+    },
+    {
         hash: 'plugin-overview',
         layout: layoutLinksPage,
         templateName: PAGE_TEMPLATE_LINKS,
         props: {
             source: './data/plugin/data.json',
         },
-    },
-    {
-        hash: 'move3D-shape1',
-        templateName: PAGE_TEMPLATE_ANIMATION,
-        layout: move3DRoute,
-        props: move3DrouteProps.shape1,
     },
     {
         hash: 'svg-overview',

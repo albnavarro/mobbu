@@ -8,6 +8,10 @@
         {
             "title": "move3D shape 1",
             "url": "./#move3D-shape1"
+        },
+        {
+            "title": "Dragger",
+            "url": "./#plugin-dragger"
         }
     ]
 }

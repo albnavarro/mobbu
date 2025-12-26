@@ -1,9 +1,11 @@
 # Prioritá
 
 1. **Component app: `dragger` con `pinch zoom`**.
-2. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
+2. Slot
+    - [detail:](#slot)
+3. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
     - [detail:](#BindObject/BindText/BindEffect)
-3. `RepeaterRender`: `nativeDOMChildren` -> testare element come weakMap per alleggerire il `GC`.
+4. `RepeaterRender`: `nativeDOMChildren` -> testare element come weakMap per alleggerire il `GC`.
     - Verficare e nel caso portare la cosa su altri `element` gestiti nella mappe piú grandi.
 
 ### Docs: AsyncTimeline
@@ -22,8 +24,13 @@
 
 # MobJs
 
-<a name="BindObject/BindText/BindEffect"></a>
+<a name="slot"></a>
+### Slot
+- Specificare che gli slot funzionano solo sui componenti.
+- DOCS per costruire any-component ?
 
+
+<a name="BindObject/BindText/BindEffect"></a>
 ### BindObject/BindText/BindEffect update in sincrono con repeater/invalidate.
 - Il meccanismo é ok, i moduli tracciano gli stati che i moduli repeat/invalidate ( se usati ) osservano nel `componente-scope`.
 - Il meccanismo é `indisciminatorio` ovvero tutti i moduli si agganciano a tali stati se usati del componente a prescindere che siano figli di `repeat`/`invalidate` o meno.

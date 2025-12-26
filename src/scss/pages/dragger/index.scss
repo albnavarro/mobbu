@@ -1,0 +1,72 @@
+@use '../../abstract' as *;
+
+.l-dragger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.dragger-component {
+    width: 40vw;
+    height: 40vh;
+
+    &::after {
+        content: '';
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        border: 1px $black solid;
+        pointer-events: none;
+    }
+}
+
+.dragger-border {
+    pointer-events: none;
+
+    &__top-left,
+    &__top-right,
+    &__bottom-left,
+    &__bottom-right {
+        content: '';
+        position: absolute;
+        z-index: 2;
+        width: rem(50);
+        height: rem(50);
+    }
+
+    &__top-left {
+        top: 0;
+        left: 0;
+        border-top: 5px $black solid;
+        border-left: 5px $black solid;
+    }
+
+    &__top-right {
+        top: 0;
+        right: 0;
+        border-top: 5px $black solid;
+        border-right: 5px $black solid;
+    }
+
+    &__bottom-left {
+        bottom: 0;
+        left: 0;
+        border-bottom: 5px $black solid;
+        border-left: 5px $black solid;
+    }
+
+    &__bottom-right {
+        right: 0;
+        bottom: 0;
+        border-right: 5px $black solid;
+        border-bottom: 5px $black solid;
+    }
+}
+
+.dragger-child {
+    width: 70vw;
+    height: 60vh;
+    background-color: rgba($grey, 0.2);
+}

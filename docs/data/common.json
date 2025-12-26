@@ -724,6 +724,11 @@
             "label": "move3D shape 1",
             "scrollToSection": "plugin",
             "url": "move3D-shape1"
+        },
+        {
+            "label": "dragger",
+            "scrollToSection": "plugin",
+            "url": "plugin-dragger"
         }
     ],
     "suggestion": [
