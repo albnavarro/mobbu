@@ -1,6 +1,5 @@
 # Prioritá
 
-1. **Component app: `dragger` con `pinch zoom`**.
 2. Slot
     - [detail:](#slot)
 3. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
@@ -13,9 +12,6 @@
 
 ### New Observe props.
 - `observe` nei nelle funzioni interne dovrebbe diventare `observedState` per una migliore leggibilitá.
-
-### eslint:
-- Valutare per ora solo a livello di store https://github.com/eslint-functional/eslint-plugin-functional
 
 ### Store - deepEquality:
 - Agiungere `deepEquality`, basta un `JSON.stringigfy(current) === JSON.stringigfy(current)`.
