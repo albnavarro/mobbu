@@ -16,6 +16,9 @@ export const DraggerFn = ({
         let firstChild = child.firstChild;
         if (!firstChild) return;
 
+        /**
+         * Create dragger animation
+         */
         const methods = draggerAnimation({
             align: proxi.align,
             root: element,
@@ -24,7 +27,13 @@ export const DraggerFn = ({
             perspective: proxi.perspective,
             maxLowDepth: proxi.maxLowDepth,
             maxHightDepth: proxi.maxHightDepth,
+            onDepthChange: proxi.onDepthChange,
         });
+
+        /**
+         * Callback after init
+         */
+        proxi.afterInit({ root: element });
 
         return () => {
             methods.destroy();

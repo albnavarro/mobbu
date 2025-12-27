@@ -8,6 +8,8 @@ export interface Dragger {
         ease: boolean;
         maxLowDepth: number;
         maxHightDepth: number;
+        onDepthChange: ({ depth: number }) => void;
+        afterInit: ({ root: HTMLElement }) => void;
         align:
             | 'TOP-LEFT'
             | 'TOP-RIGHT'
@@ -28,4 +30,5 @@ export type DraggerAnimation = (arg0: {
     perspective: number;
     maxLowDepth?: number;
     maxHightDepth?: number;
+    onDepthChange: ({ depth: number }) => void;
 }) => { destroy: () => void };

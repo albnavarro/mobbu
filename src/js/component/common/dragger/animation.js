@@ -17,6 +17,7 @@ export const draggerAnimation = ({
     usePrespective,
     maxLowDepth = -200,
     maxHightDepth = 200,
+    onDepthChange = () => {},
 }) => {
     /**
      * Mutables inner state:
@@ -291,6 +292,7 @@ export const draggerAnimation = ({
                 );
 
                 updatePerspectiveLimits();
+                onDepthChange({ depth });
 
                 spring.goTo({ z: depth }).catch(() => {});
             },

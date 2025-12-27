@@ -36240,7 +36240,9 @@
     perspective,
     usePrespective,
     maxLowDepth = -200,
-    maxHightDepth = 200
+    maxHightDepth = 200,
+    onDepthChange = () => {
+    }
   }) => {
     let dragY = 0;
     let dragX = 0;
@@ -36417,6 +36419,7 @@
             maxHightDepth
           );
           updatePerspectiveLimits();
+          onDepthChange({ depth });
           spring.goTo({ z: depth }).catch(() => {
           });
         },
@@ -36469,8 +36472,10 @@
         usePrespective: proxi.usePrespective,
         perspective: proxi.perspective,
         maxLowDepth: proxi.maxLowDepth,
-        maxHightDepth: proxi.maxHightDepth
+        maxHightDepth: proxi.maxHightDepth,
+        onDepthChange: proxi.onDepthChange
       });
+      proxi.afterInit({ root: element });
       return () => {
         methods.destroy();
         firstChild = null;
@@ -36540,6 +36545,16 @@
         maxHightDepth: () => ({
           value: 200,
           type: Number
+        }),
+        afterInit: () => ({
+          value: () => {
+          },
+          type: Function
+        }),
+        onDepthChange: () => ({
+          value: () => {
+          },
+          type: Function
         })
       }
     }
@@ -36547,6 +36562,7 @@
 
   // src/js/pages/plugin/dragger/index.js
   modules_exports2.useComponent([Dragger, AnyComponent]);
+  var useLog = false;
   var DraggerRoute = () => {
     updateQuickNavState({
       active: true,
@@ -36581,7 +36597,13 @@
         childClass: "",
         align: "CENTER",
         maxHightDepth: 200,
-        maxLowDepth: -500
+        maxLowDepth: -500,
+        afterInit: ({ root: root2 }) => {
+          console.log(root2);
+        },
+        onDepthChange: ({ depth }) => {
+          if (useLog) console.log(depth);
+        }
       }
     )}
         >

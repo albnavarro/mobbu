@@ -4,6 +4,7 @@ import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 
 MobJs.useComponent([Dragger, AnyComponent]);
+const useLog = false;
 
 /** @type {import('@mobJsType').Page} */
 export const DraggerRoute = () => {
@@ -51,6 +52,12 @@ export const DraggerRoute = () => {
                     align: 'CENTER',
                     maxHightDepth: 200,
                     maxLowDepth: -500,
+                    afterInit: ({ root }) => {
+                        console.log(root);
+                    },
+                    onDepthChange: ({ depth }) => {
+                        if (useLog) console.log(depth);
+                    },
                 })
             )}
         >

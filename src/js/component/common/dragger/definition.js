@@ -51,6 +51,14 @@ export const Dragger = MobJs.createComponent(
                 value: 200,
                 type: Number,
             }),
+            afterInit: () => ({
+                value: () => {},
+                type: Function,
+            }),
+            onDepthChange: () => ({
+                value: () => {},
+                type: Function,
+            }),
         },
     })
 );
