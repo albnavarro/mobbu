@@ -22,6 +22,8 @@ export const DraggerFn = ({
             child: /** @type {HTMLElement} */ (firstChild),
             usePrespective: proxi.usePrespective,
             perspective: proxi.perspective,
+            maxLowDepth: proxi.maxLowDepth,
+            maxHightDepth: proxi.maxHightDepth,
         });
 
         return () => {

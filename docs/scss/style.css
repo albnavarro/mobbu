@@ -2855,7 +2855,11 @@ ul li::marker {
   pointer-events: all;
 }
 .dragger-child__link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   padding: 1.3333333333rem;
+  transform: translate(-50%, -50%);
   background: #2e3440;
   color: #fff;
 }
@@ -2883,7 +2887,7 @@ ul li::marker {
   left: 50%;
   width: 50%;
   height: 50%;
-  transform: translate3d(-50%, -50%, -100px);
+  transform: translate3d(-50%, -50%, -150px);
   transform-style: preserve-3d;
   background: rgba(46, 52, 64, 0.1);
 }

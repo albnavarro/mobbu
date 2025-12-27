@@ -36238,7 +36238,9 @@
     root: root2,
     child,
     perspective,
-    usePrespective
+    usePrespective,
+    maxLowDepth = -200,
+    maxHightDepth = 200
   }) => {
     let dragY = 0;
     let dragX = 0;
@@ -36409,7 +36411,11 @@
         "wheel",
         (event) => {
           const { spinY } = modules_exports.normalizeWheel(event);
-          depth = depth + spinY * depthThreshold;
+          depth = core_exports.clamp(
+            depth + spinY * depthThreshold,
+            maxLowDepth,
+            maxHightDepth
+          );
           updatePerspectiveLimits();
           spring.goTo({ z: depth }).catch(() => {
           });
@@ -36461,7 +36467,9 @@
           firstChild
         ),
         usePrespective: proxi.usePrespective,
-        perspective: proxi.perspective
+        perspective: proxi.perspective,
+        maxLowDepth: proxi.maxLowDepth,
+        maxHightDepth: proxi.maxHightDepth
       });
       return () => {
         methods.destroy();
@@ -36524,6 +36532,14 @@
         perspective: () => ({
           value: 600,
           type: Number
+        }),
+        maxLowDepth: () => ({
+          value: -200,
+          type: Number
+        }),
+        maxHightDepth: () => ({
+          value: 200,
+          type: Number
         })
       }
     }
@@ -36563,7 +36579,9 @@
       {
         rootClass: "dragger-component",
         childClass: "",
-        align: "CENTER"
+        align: "CENTER",
+        maxHightDepth: 200,
+        maxLowDepth: -500
       }
     )}
         >

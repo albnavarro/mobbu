@@ -15,6 +15,8 @@ export const draggerAnimation = ({
     child,
     perspective,
     usePrespective,
+    maxLowDepth = -200,
+    maxHightDepth = 200,
 }) => {
     /**
      * Mutables inner state:
@@ -282,7 +284,12 @@ export const draggerAnimation = ({
             'wheel',
             (event) => {
                 const { spinY } = MobCore.normalizeWheel(event);
-                depth = depth + spinY * depthThreshold;
+                depth = MobMotionCore.clamp(
+                    depth + spinY * depthThreshold,
+                    maxLowDepth,
+                    maxHightDepth
+                );
+
                 updatePerspectiveLimits();
 
                 spring.goTo({ z: depth }).catch(() => {});

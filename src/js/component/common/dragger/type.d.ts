@@ -6,6 +6,8 @@ export interface Dragger {
         childClass: string;
         initialZoom: number;
         ease: boolean;
+        maxLowDepth: number;
+        maxHightDepth: number;
         align:
             | 'TOP-LEFT'
             | 'TOP-RIGHT'
@@ -24,4 +26,6 @@ export type DraggerAnimation = (arg0: {
     child: HTMLElement;
     usePrespective: boolean;
     perspective: number;
+    maxLowDepth?: number;
+    maxHightDepth?: number;
 }) => { destroy: () => void };

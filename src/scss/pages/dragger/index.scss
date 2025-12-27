@@ -74,7 +74,11 @@
     pointer-events: all;
 
     &__link {
+        position: absolute;
+        top: 50%;
+        left: 50%;
         padding: rem(20);
+        transform: translate(-50%, -50%);
         background: $black;
         color: $white;
     }
@@ -105,7 +109,7 @@
     left: 50%;
     width: 50%;
     height: 50%;
-    transform: translate3d(-50%, -50%, -100px);
+    transform: translate3d(-50%, -50%, -150px);
     transform-style: preserve-3d;
     background: rgba($black, 0.1);
 

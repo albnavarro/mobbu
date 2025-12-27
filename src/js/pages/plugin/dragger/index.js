@@ -49,6 +49,8 @@ export const DraggerRoute = () => {
                     rootClass: 'dragger-component',
                     childClass: '',
                     align: 'CENTER',
+                    maxHightDepth: 200,
+                    maxLowDepth: -500,
                 })
             )}
         >

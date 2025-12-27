@@ -43,6 +43,14 @@ export const Dragger = MobJs.createComponent(
                 value: 600,
                 type: Number,
             }),
+            maxLowDepth: () => ({
+                value: -200,
+                type: Number,
+            }),
+            maxHightDepth: () => ({
+                value: 200,
+                type: Number,
+            }),
         },
     })
 );
