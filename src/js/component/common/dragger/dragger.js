@@ -1,4 +1,5 @@
 import { html } from '@mobJs';
+import { draggerAnimation } from './animation';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Dragger>} */
 export const DraggerFn = ({ getProxi, setRef, getRef, onMount }) => {
@@ -6,7 +7,23 @@ export const DraggerFn = ({ getProxi, setRef, getRef, onMount }) => {
 
     onMount(({ element }) => {
         const { child } = getRef();
-        console.log(element, child);
+        let firstChild = child.firstChild;
+        if (!firstChild) return;
+
+        const methods = draggerAnimation({
+            align: proxi.align,
+            root: element,
+            child: /** @type {HTMLElement} */ (firstChild),
+        });
+
+        return () => {
+            methods.destroy();
+
+            /**
+             * Remove reference.
+             */
+            firstChild = null;
+        };
     });
 
     return html`<div class="c-dragger ${proxi.rootClass}">

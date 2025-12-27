@@ -2796,6 +2796,7 @@ ul li::marker {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  overflow: hidden;
 }
 .dragger-component {
   width: 40vw;
@@ -2850,6 +2851,8 @@ ul li::marker {
   width: 70vw;
   height: 60vh;
   background-color: rgba(238, 238, 238, 0.2);
+  cursor: grab;
+  pointer-events: all;
 }
 .c-page-transiotion {
   position: fixed;

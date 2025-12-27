@@ -36225,12 +36225,212 @@
     </div>`;
   };
 
+  // src/js/component/common/dragger/constant.js
+  var DRAGGER_TOP_LEFT = "TOP-LEFT";
+  var DRAGGER_TOP_RIGHT = "TOP-RIGHT";
+  var DRAGGER_BOTTOM_LEFT = "BOTTOM-LEFT";
+  var DRAGGER_BOTTOM_RIGHT = "BOTTOM-RIGHT";
+  var DRAGGER_CENTER = "CENTER";
+
+  // src/js/component/common/dragger/animation.js
+  var draggerAnimation = ({ align, root: root2, child }) => {
+    let dragY = 0;
+    let dragX = 0;
+    let lastX = 0;
+    let lastY = 0;
+    let itemWidth = child.offsetWidth;
+    let itemHeight = child.offsetHeight;
+    let rootWidth = root2.offsetWidth;
+    let rootHeight = root2.offsetHeight;
+    let dragLimitX = (itemWidth - rootWidth) / 2;
+    let dragLimitY = (itemHeight - rootHeight) / 2;
+    let firstTouchValue = { x: 0, y: 0 };
+    let onDrag = false;
+    let firstDrag = false;
+    const threshold = 30;
+    let endValue = { xValue: 0, yValue: 0 };
+    let spring = tween_exports.createSpring({
+      data: {
+        x: 0,
+        y: 0
+      }
+    });
+    switch (align) {
+      case DRAGGER_TOP_LEFT: {
+        endValue = {
+          xValue: dragLimitX,
+          yValue: dragLimitY
+        };
+        dragX = itemWidth;
+        dragY = itemHeight;
+        break;
+      }
+      case DRAGGER_TOP_RIGHT: {
+        endValue = {
+          xValue: -dragLimitX,
+          yValue: dragLimitY
+        };
+        dragX = -itemWidth;
+        dragY = itemHeight;
+        break;
+      }
+      case DRAGGER_BOTTOM_LEFT: {
+        endValue = {
+          xValue: dragLimitX,
+          yValue: -dragLimitY
+        };
+        dragX = itemWidth;
+        dragY = -itemHeight;
+        break;
+      }
+      case DRAGGER_BOTTOM_RIGHT: {
+        endValue = {
+          xValue: -dragLimitX,
+          yValue: -dragLimitY
+        };
+        dragX = -itemWidth;
+        dragY = -itemHeight;
+        break;
+      }
+    }
+    const unsubscribeSpring = spring.subscribe(({ x, y }) => {
+      child.style.transform = `translate3D(0,0,0) translateX(${x}px) translateY(${y}px)`;
+    });
+    const unsubscribeOnComplete = spring.onComplete(({ x, y }) => {
+      child.style.transform = ` translateX(${x}px) translateY(${y}px)`;
+    });
+    spring.set({
+      x: endValue.xValue,
+      y: endValue.yValue
+    });
+    const activeElement = root2.querySelectorAll("a, button");
+    [...activeElement].forEach((item) => {
+      item.setAttribute("draggable", "false");
+      item.style.userSelect = "none";
+    });
+    const startDrag = ({ page, target }) => {
+      if (target === child || isDescendant(
+        child,
+        /** @type {HTMLElement | undefined} */
+        target
+      )) {
+        onDrag = true;
+        firstDrag = true;
+        firstTouchValue = { x: page.x, y: page.y };
+      }
+    };
+    const move3 = ({ page }) => {
+      const { x, y } = page;
+      const { xgap, ygap } = (() => {
+        if (!onDrag) return { xgap: 0, ygap: 0 };
+        if (firstDrag) {
+          firstDrag = false;
+          return {
+            xgap: 0,
+            ygap: 0
+          };
+        } else {
+          return {
+            xgap: x - lastX,
+            ygap: y - lastY
+          };
+        }
+      })();
+      const currentDragX = onDrag ? core_exports.clamp(dragX + xgap, -dragLimitX, dragLimitX) : dragX;
+      const currenteDragY = onDrag ? core_exports.clamp(dragY + ygap, -dragLimitY, dragLimitY) : dragY;
+      const { xComputed, yComputed } = onDrag ? {
+        xComputed: currentDragX,
+        yComputed: currenteDragY
+      } : {
+        xComputed: x,
+        yComputed: y
+      };
+      const xValue = itemWidth < rootWidth ? 0 : xComputed;
+      const yValue = itemHeight < rootHeight ? 0 : yComputed;
+      dragX = currentDragX;
+      dragY = currenteDragY;
+      lastX = x;
+      lastY = y;
+      if (onDrag) {
+        endValue = { xValue, yValue };
+        spring.goTo({ x: xValue, y: yValue }).catch(() => {
+        });
+      }
+    };
+    const unsubscribeTouchStart = modules_exports.useTouchStart(({ page, target }) => {
+      startDrag({ page, target });
+    });
+    const unsubscribeMouseDown = modules_exports.useMouseDown(({ page, target }) => {
+      startDrag({ page, target });
+    });
+    const unsubscribeTouchEnd = modules_exports.useTouchEnd(() => {
+      onDrag = false;
+    });
+    const unsubscribeMouseUp = modules_exports.useMouseUp(() => {
+      onDrag = false;
+    });
+    const unsubscribeMouseMove = modules_exports.useMouseMove(({ page }) => {
+      move3({ page });
+    });
+    const unsubscribeTouchMove = modules_exports.useTouchMove(({ page }) => {
+      move3({ page });
+    });
+    root2.addEventListener(
+      "click",
+      (event) => {
+        const { x, y } = firstTouchValue;
+        const xChecker = Math.abs(lastX - x) > threshold;
+        const yChecker = Math.abs(lastY - y) > threshold;
+        if (xChecker || yChecker) {
+          event.preventDefault();
+        }
+      },
+      false
+    );
+    const unsubscribeResize = modules_exports.useResize(() => {
+      itemWidth = child.offsetWidth;
+      itemHeight = child.offsetHeight;
+      rootWidth = root2.offsetWidth;
+      rootHeight = root2.offsetHeight;
+      dragLimitX = (itemWidth - rootWidth) / 2;
+      dragLimitY = (itemHeight - rootHeight) / 2;
+    });
+    return {
+      destroy: () => {
+        unsubscribeSpring();
+        unsubscribeOnComplete();
+        unsubscribeTouchStart();
+        unsubscribeTouchEnd();
+        unsubscribeMouseDown();
+        unsubscribeMouseUp();
+        unsubscribeMouseMove();
+        unsubscribeTouchMove();
+        unsubscribeResize();
+        spring.destroy();
+        spring = null;
+      }
+    };
+  };
+
   // src/js/component/common/dragger/dragger.js
   var DraggerFn = ({ getProxi, setRef, getRef, onMount }) => {
     const proxi = getProxi();
     onMount(({ element }) => {
       const { child } = getRef();
-      console.log(element, child);
+      let firstChild = child.firstChild;
+      if (!firstChild) return;
+      const methods = draggerAnimation({
+        align: proxi.align,
+        root: element,
+        child: (
+          /** @type {HTMLElement} */
+          firstChild
+        )
+      });
+      return () => {
+        methods.destroy();
+        firstChild = null;
+      };
     });
     return renderHtml`<div class="c-dragger ${proxi.rootClass}">
         <!-- Root border -->
@@ -36267,8 +36467,11 @@
           type: Boolean
         }),
         align: () => ({
-          value: "CENTER",
-          type: String
+          value: DRAGGER_CENTER,
+          type: String,
+          transform: (value) => {
+            return value.toUpperCase();
+          }
         })
       },
       state: {
@@ -36305,7 +36508,8 @@
       /** @type {import('@commonComponent/dragger/type').Dragger['props']} */
       {
         rootClass: "dragger-component",
-        childClass: ""
+        childClass: "",
+        align: "CENTER"
       }
     )}
         >

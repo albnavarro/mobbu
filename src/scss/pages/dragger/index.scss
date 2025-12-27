@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    overflow: hidden;
 }
 
 .dragger-component {
@@ -69,4 +70,6 @@
     width: 70vw;
     height: 60vh;
     background-color: rgba($grey, 0.2);
+    cursor: grab;
+    pointer-events: all;
 }

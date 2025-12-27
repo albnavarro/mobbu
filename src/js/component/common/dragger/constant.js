@@ -1,0 +1,5 @@
+export const DRAGGER_TOP_LEFT = 'TOP-LEFT';
+export const DRAGGER_TOP_RIGHT = 'TOP-RIGHT';
+export const DRAGGER_BOTTOM_LEFT = 'BOTTOM-LEFT';
+export const DRAGGER_BOTTOM_RIGHT = 'BOTTOM-RIGHT';
+export const DRAGGER_CENTER = 'CENTER';
