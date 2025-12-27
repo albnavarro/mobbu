@@ -2854,13 +2854,20 @@ ul li::marker {
   cursor: grab;
   pointer-events: all;
 }
+.dragger-child__link {
+  background: #2e3440;
+  color: #fff;
+  padding: 1.3333333333rem;
+}
 .dragger-child-1 {
   position: absolute;
-  inset: 0;
+  padding: 2.6666666667rem;
   transform-style: preserve-3d;
+  inset: 0;
 }
 .dragger-child-1__diagonal {
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   width: 100%;
@@ -2878,7 +2885,7 @@ ul li::marker {
   height: 50%;
   transform: translate3d(-50%, -50%, -100px);
   transform-style: preserve-3d;
-  opacity: 0.5;
+  background: rgba(46, 52, 64, 0.1);
 }
 .dragger-child-2__diagonal {
   position: absolute;

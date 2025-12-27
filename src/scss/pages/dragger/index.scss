@@ -72,15 +72,23 @@
     transform-style: preserve-3d;
     cursor: grab;
     pointer-events: all;
+
+    &__link {
+        background: $black;
+        color: $white;
+        padding: rem(20);
+    }
 }
 
 .dragger-child-1 {
     position: absolute;
-    inset: 0;
+    padding: rem(40);
     transform-style: preserve-3d;
+    inset: 0;
 
     &__diagonal {
         position: absolute;
+        z-index: -1;
         top: 0;
         left: 0;
         width: 100%;
@@ -99,7 +107,7 @@
     height: 50%;
     transform: translate3d(-50%, -50%, -100px);
     transform-style: preserve-3d;
-    opacity: 0.5;
+    background: rgba($black, 0.1);
 
     &__diagonal {
         position: absolute;
