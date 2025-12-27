@@ -74,9 +74,9 @@
     pointer-events: all;
 
     &__link {
+        padding: rem(20);
         background: $black;
         color: $white;
-        padding: rem(20);
     }
 }
 

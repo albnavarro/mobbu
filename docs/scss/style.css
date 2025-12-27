@@ -2855,9 +2855,9 @@ ul li::marker {
   pointer-events: all;
 }
 .dragger-child__link {
+  padding: 1.3333333333rem;
   background: #2e3440;
   color: #fff;
-  padding: 1.3333333333rem;
 }
 .dragger-child-1 {
   position: absolute;
