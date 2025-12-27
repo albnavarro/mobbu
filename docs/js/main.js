@@ -36240,7 +36240,6 @@
     perspective,
     usePrespective
   }) => {
-    console.log(perspective, usePrespective);
     let dragY = 0;
     let dragX = 0;
     let depth = 0;

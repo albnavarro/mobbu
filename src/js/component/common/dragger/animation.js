@@ -16,8 +16,6 @@ export const draggerAnimation = ({
     perspective,
     usePrespective,
 }) => {
-    console.log(perspective, usePrespective);
-
     /**
      * Mutables inner state:
      */
