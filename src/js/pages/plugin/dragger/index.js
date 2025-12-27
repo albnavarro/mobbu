@@ -32,7 +32,12 @@ export const DraggerRoute = () => {
      * Child
      */
     const childContent = html`<div class="dragger-child">
-        <span class="dragger-child__diagonal"></span>
+        <div class="dragger-child-1">
+            <span class="dragger-child-1__diagonal"></span>
+        </div>
+        <div class="dragger-child-2">
+            <span class="dragger-child-2__diagonal"></span>
+        </div>
     </div>`;
 
     return html`<div class="l-dragger">

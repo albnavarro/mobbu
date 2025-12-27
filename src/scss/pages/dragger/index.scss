@@ -69,8 +69,37 @@
 .dragger-child {
     width: 70vw;
     height: 60vh;
+    transform-style: preserve-3d;
     cursor: grab;
     pointer-events: all;
+}
+
+.dragger-child-1 {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+
+    &__diagonal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 1px #000 solid;
+
+        @include diagonal-cross-lines(#000, 0.1, 'butt', 1);
+    }
+}
+
+.dragger-child-2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    transform: translate3d(-50%, -50%, -100px);
+    transform-style: preserve-3d;
+    opacity: 0.5;
 
     &__diagonal {
         position: absolute;
