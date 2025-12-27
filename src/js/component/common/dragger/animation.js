@@ -48,8 +48,11 @@ export const draggerAnimation = ({
     const updatePerspectiveLimits = () => {
         if (usePrespective && perspective > 0) {
             const scale = perspective / (perspective - depth);
-            dragLimitX = (itemWidth - rootWidth / scale) / 2;
-            dragLimitY = (itemHeight - rootHeight / scale) / 2;
+            /**
+             * Math.max -> avoid negative limit.
+             */
+            dragLimitX = Math.max(0, (itemWidth - rootWidth / scale) / 2);
+            dragLimitY = Math.max(0, (itemHeight - rootHeight / scale) / 2);
         } else {
             dragLimitX = (itemWidth - rootWidth) / 2;
             dragLimitY = (itemHeight - rootHeight) / 2;
