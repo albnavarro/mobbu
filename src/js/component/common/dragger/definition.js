@@ -35,10 +35,12 @@ export const Dragger = MobJs.createComponent(
                     return value.toUpperCase();
                 },
             }),
-        },
-        state: {
-            zoom: () => ({
-                value: 1,
+            usePrespective: () => ({
+                value: true,
+                type: Boolean,
+            }),
+            perspective: () => ({
+                value: 600,
                 type: Number,
             }),
         },

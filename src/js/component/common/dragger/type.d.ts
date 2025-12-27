@@ -1,8 +1,7 @@
 export interface Dragger {
-    state: {
-        zoom: number;
-    };
     props: {
+        usePrespective: boolean;
+        perspective: number;
         rootClass: string;
         childClass: string;
         initialZoom: number;
@@ -23,4 +22,6 @@ export type DraggerAnimation = (arg0: {
     align: 'TOP-LEFT' | 'TOP-RIGHT' | 'BOTTOM-LEFT' | 'BOTTOM-RIGHT' | 'CENTER';
     root: HTMLElement;
     child: HTMLElement;
+    usePrespective: boolean;
+    perspective: number;
 }) => { destroy: () => void };

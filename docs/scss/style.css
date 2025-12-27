@@ -2848,8 +2848,8 @@ ul li::marker {
   border-bottom: 5px #2e3440 solid;
 }
 .dragger-child {
-  width: 70vw;
-  height: 60vh;
+  width: 66.6666666667rem;
+  height: 40rem;
   transform-style: preserve-3d;
   cursor: grab;
   pointer-events: all;
@@ -4839,7 +4839,6 @@ ul li::marker {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  perspective: 600px;
 }
 .search-cta {
   border: 0;

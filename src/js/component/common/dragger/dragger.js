@@ -2,7 +2,13 @@ import { html } from '@mobJs';
 import { draggerAnimation } from './animation';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Dragger>} */
-export const DraggerFn = ({ getProxi, setRef, getRef, onMount }) => {
+export const DraggerFn = ({
+    getProxi,
+    setRef,
+    getRef,
+    bindEffect,
+    onMount,
+}) => {
     const proxi = getProxi();
 
     onMount(({ element }) => {
@@ -14,6 +20,8 @@ export const DraggerFn = ({ getProxi, setRef, getRef, onMount }) => {
             align: proxi.align,
             root: element,
             child: /** @type {HTMLElement} */ (firstChild),
+            usePrespective: proxi.usePrespective,
+            perspective: proxi.perspective,
         });
 
         return () => {
@@ -31,7 +39,15 @@ export const DraggerFn = ({ getProxi, setRef, getRef, onMount }) => {
         <mobjs-slot name="root-slot"></mobjs-slot>
 
         <!-- Child -->
-        <div class="c-dragger__wrapper ${proxi.childClass}" ${setRef('child')}>
+        <div
+            class="c-dragger__wrapper ${proxi.childClass}"
+            ${setRef('child')}
+            ${bindEffect({
+                toggleStyle: {
+                    perspective: () => `${proxi.perspective}px`,
+                },
+            })}
+        >
             <mobjs-slot name="child-slot"></mobjs-slot>
         </div>
     </div>`;

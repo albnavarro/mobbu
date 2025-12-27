@@ -36233,9 +36233,17 @@
   var DRAGGER_CENTER = "CENTER";
 
   // src/js/component/common/dragger/animation.js
-  var draggerAnimation = ({ align, root: root2, child }) => {
+  var draggerAnimation = ({
+    align,
+    root: root2,
+    child,
+    perspective,
+    usePrespective
+  }) => {
+    console.log(perspective, usePrespective);
     let dragY = 0;
     let dragX = 0;
+    let depth = 0;
     let lastX = 0;
     let lastY = 0;
     let itemWidth = child.offsetWidth;
@@ -36248,11 +36256,13 @@
     let onDrag = false;
     let firstDrag = false;
     const threshold = 30;
+    const depthThreshold = 10;
     let endValue = { xValue: 0, yValue: 0 };
     let spring = tween_exports.createSpring({
       data: {
         x: 0,
-        y: 0
+        y: 0,
+        z: 0
       }
     });
     switch (align) {
@@ -36293,11 +36303,8 @@
         break;
       }
     }
-    const unsubscribeSpring = spring.subscribe(({ x, y }) => {
-      child.style.transform = `translate3D(0,0,0) translateX(${x}px) translateY(${y}px)`;
-    });
-    const unsubscribeOnComplete = spring.onComplete(({ x, y }) => {
-      child.style.transform = ` translateX(${x}px) translateY(${y}px)`;
+    const unsubscribeSpring = spring.subscribe(({ x, y, z }) => {
+      child.style.transform = `translate3D(${x}px, ${y}px, ${z}px)`;
     });
     spring.set({
       x: endValue.xValue,
@@ -36387,6 +36394,19 @@
       },
       false
     );
+    if (usePrespective) {
+      child.addEventListener(
+        "wheel",
+        (event) => {
+          const { spinY } = modules_exports.normalizeWheel(event);
+          depth = depth + spinY * depthThreshold;
+          console.log(depth);
+          spring.goTo({ z: depth }).catch(() => {
+          });
+        },
+        { passive: true }
+      );
+    }
     const unsubscribeResize = modules_exports.useResize(() => {
       itemWidth = child.offsetWidth;
       itemHeight = child.offsetHeight;
@@ -36398,7 +36418,6 @@
     return {
       destroy: () => {
         unsubscribeSpring();
-        unsubscribeOnComplete();
         unsubscribeTouchStart();
         unsubscribeTouchEnd();
         unsubscribeMouseDown();
@@ -36413,7 +36432,13 @@
   };
 
   // src/js/component/common/dragger/dragger.js
-  var DraggerFn = ({ getProxi, setRef, getRef, onMount }) => {
+  var DraggerFn = ({
+    getProxi,
+    setRef,
+    getRef,
+    bindEffect,
+    onMount
+  }) => {
     const proxi = getProxi();
     onMount(({ element }) => {
       const { child } = getRef();
@@ -36425,7 +36450,9 @@
         child: (
           /** @type {HTMLElement} */
           firstChild
-        )
+        ),
+        usePrespective: proxi.usePrespective,
+        perspective: proxi.perspective
       });
       return () => {
         methods.destroy();
@@ -36437,7 +36464,15 @@
         <mobjs-slot name="root-slot"></mobjs-slot>
 
         <!-- Child -->
-        <div class="c-dragger__wrapper ${proxi.childClass}" ${setRef("child")}>
+        <div
+            class="c-dragger__wrapper ${proxi.childClass}"
+            ${setRef("child")}
+            ${bindEffect({
+      toggleStyle: {
+        perspective: () => `${proxi.perspective}px`
+      }
+    })}
+        >
             <mobjs-slot name="child-slot"></mobjs-slot>
         </div>
     </div>`;
@@ -36472,11 +36507,13 @@
           transform: (value) => {
             return value.toUpperCase();
           }
-        })
-      },
-      state: {
-        zoom: () => ({
-          value: 1,
+        }),
+        usePrespective: () => ({
+          value: true,
+          type: Boolean
+        }),
+        perspective: () => ({
+          value: 600,
           type: Number
         })
       }

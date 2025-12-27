@@ -9,12 +9,21 @@ import {
 } from './constant';
 
 /** @type {import('./type').DraggerAnimation} */
-export const draggerAnimation = ({ align, root, child }) => {
+export const draggerAnimation = ({
+    align,
+    root,
+    child,
+    perspective,
+    usePrespective,
+}) => {
+    console.log(perspective, usePrespective);
+
     /**
      * Mutables inner state:
      */
     let dragY = 0;
     let dragX = 0;
+    let depth = 0;
     let lastX = 0;
     let lastY = 0;
     let itemWidth = child.offsetWidth;
@@ -31,6 +40,7 @@ export const draggerAnimation = ({ align, root, child }) => {
     let onDrag = false;
     let firstDrag = false;
     const threshold = 30;
+    const depthThreshold = 10;
 
     /**
      * Animation
@@ -41,6 +51,7 @@ export const draggerAnimation = ({ align, root, child }) => {
         data: {
             x: 0,
             y: 0,
+            z: 0,
         },
     });
 
@@ -86,12 +97,8 @@ export const draggerAnimation = ({ align, root, child }) => {
         }
     }
 
-    const unsubscribeSpring = spring.subscribe(({ x, y }) => {
-        child.style.transform = `translate3D(0,0,0) translateX(${x}px) translateY(${y}px)`;
-    });
-
-    const unsubscribeOnComplete = spring.onComplete(({ x, y }) => {
-        child.style.transform = ` translateX(${x}px) translateY(${y}px)`;
+    const unsubscribeSpring = spring.subscribe(({ x, y, z }) => {
+        child.style.transform = `translate3D(${x}px, ${y}px, ${z}px)`;
     });
 
     spring.set({
@@ -250,6 +257,20 @@ export const draggerAnimation = ({ align, root, child }) => {
         false
     );
 
+    if (usePrespective) {
+        child.addEventListener(
+            'wheel',
+            (event) => {
+                const { spinY } = MobCore.normalizeWheel(event);
+                depth = depth + spinY * depthThreshold;
+                console.log(depth);
+
+                spring.goTo({ z: depth }).catch(() => {});
+            },
+            { passive: true }
+        );
+    }
+
     /**
      * Update cached values on resize
      */
@@ -265,7 +286,6 @@ export const draggerAnimation = ({ align, root, child }) => {
     return {
         destroy: () => {
             unsubscribeSpring();
-            unsubscribeOnComplete();
             unsubscribeTouchStart();
             unsubscribeTouchEnd();
             unsubscribeMouseDown();

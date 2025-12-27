@@ -67,8 +67,8 @@
 }
 
 .dragger-child {
-    width: 70vw;
-    height: 60vh;
+    width: rem(1000);
+    height: rem(600);
     transform-style: preserve-3d;
     cursor: grab;
     pointer-events: all;
