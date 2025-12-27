@@ -36257,6 +36257,17 @@
     let firstDrag = false;
     const threshold = 30;
     const depthThreshold = 10;
+    const updatePerspectiveLimits = () => {
+      if (usePrespective && perspective > 0) {
+        const scale = perspective / (perspective - depth);
+        dragLimitX = (itemWidth - rootWidth / scale) / 2;
+        dragLimitY = (itemHeight - rootHeight / scale) / 2;
+      } else {
+        dragLimitX = (itemWidth - rootWidth) / 2;
+        dragLimitY = (itemHeight - rootHeight) / 2;
+      }
+    };
+    updatePerspectiveLimits();
     let endValue = { xValue: 0, yValue: 0 };
     let spring = tween_exports.createSpring({
       data: {
@@ -36400,7 +36411,7 @@
         (event) => {
           const { spinY } = modules_exports.normalizeWheel(event);
           depth = depth + spinY * depthThreshold;
-          console.log(depth);
+          updatePerspectiveLimits();
           spring.goTo({ z: depth }).catch(() => {
           });
         },
@@ -36412,8 +36423,7 @@
       itemHeight = child.offsetHeight;
       rootWidth = root2.offsetWidth;
       rootHeight = root2.offsetHeight;
-      dragLimitX = (itemWidth - rootWidth) / 2;
-      dragLimitY = (itemHeight - rootHeight) / 2;
+      updatePerspectiveLimits();
     });
     return {
       destroy: () => {

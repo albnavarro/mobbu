@@ -43,6 +43,25 @@ export const draggerAnimation = ({
     const depthThreshold = 10;
 
     /**
+     * Update limit with current perspective value.
+     */
+    const updatePerspectiveLimits = () => {
+        if (usePrespective && perspective > 0) {
+            const scale = perspective / (perspective - depth);
+            dragLimitX = (itemWidth - rootWidth / scale) / 2;
+            dragLimitY = (itemHeight - rootHeight / scale) / 2;
+        } else {
+            dragLimitX = (itemWidth - rootWidth) / 2;
+            dragLimitY = (itemHeight - rootHeight) / 2;
+        }
+    };
+
+    /**
+     * First run
+     */
+    updatePerspectiveLimits();
+
+    /**
      * Animation
      */
     let endValue = { xValue: 0, yValue: 0 };
@@ -263,7 +282,7 @@ export const draggerAnimation = ({
             (event) => {
                 const { spinY } = MobCore.normalizeWheel(event);
                 depth = depth + spinY * depthThreshold;
-                console.log(depth);
+                updatePerspectiveLimits();
 
                 spring.goTo({ z: depth }).catch(() => {});
             },
@@ -279,8 +298,7 @@ export const draggerAnimation = ({
         itemHeight = child.offsetHeight;
         rootWidth = root.offsetWidth;
         rootHeight = root.offsetHeight;
-        dragLimitX = (itemWidth - rootWidth) / 2;
-        dragLimitY = (itemHeight - rootHeight) / 2;
+        updatePerspectiveLimits();
     });
 
     return {
