@@ -5,6 +5,8 @@
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:list';
+@use 'sass:meta';
+@use 'sass:string';
 @use './mq-map' as *;
 @use './grid-map' as *;
 @use './font-map' as *;
@@ -268,4 +270,32 @@
     -moz-user-select: text; /* Firefox */
     /* stylelint-disable-next-line  property-no-vendor-prefix */
     -ms-user-select: text; /* Edge, IE */
+}
+
+@function encode-color($color) {
+    @return '%23' + string.slice(meta.inspect($color), 2);
+}
+
+@mixin diagonal-cross-lines(
+    $line-color: #000,
+    $line-thickness: 1,
+
+    // 'butt', 'round', 'square'
+    $line-cap: 'butt',
+
+    // 'none', '5,5', '10,5', etc.
+    $line-dasharray: 'none'
+) {
+    $encoded-color: encode-color($line-color);
+    $dasharray-encoded: '';
+
+    @if $line-dasharray != 'none' {
+        $dasharray-encoded: ' stroke-dasharray="' + $line-dasharray + '"';
+    }
+
+    $svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L100,100' stroke='#{$encoded-color}' stroke-width='#{$line-thickness}' stroke-linecap='#{$line-cap}'#{$dasharray-encoded} /%3E%3Cpath d='M100,0 L0,100' stroke='#{$encoded-color}' stroke-width='#{$line-thickness}' stroke-linecap='#{$line-cap}'#{$dasharray-encoded} /%3E%3C/svg%3E");
+
+    background-image: $svg;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }

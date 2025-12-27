@@ -36501,7 +36501,9 @@
             <div class="dragger-border__bottom-right"></div>
         </div>
     `;
-    const childContent = renderHtml`<div class="dragger-child"></div>`;
+    const childContent = renderHtml`<div class="dragger-child">
+        <span class="dragger-child__diagonal"></span>
+    </div>`;
     return renderHtml`<div class="l-dragger">
         <c-dragger
             ${modules_exports2.staticProps(

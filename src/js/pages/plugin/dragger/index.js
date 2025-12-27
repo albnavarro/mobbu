@@ -31,7 +31,9 @@ export const DraggerRoute = () => {
     /**
      * Child
      */
-    const childContent = html`<div class="dragger-child"></div>`;
+    const childContent = html`<div class="dragger-child">
+        <span class="dragger-child__diagonal"></span>
+    </div>`;
 
     return html`<div class="l-dragger">
         <c-dragger
