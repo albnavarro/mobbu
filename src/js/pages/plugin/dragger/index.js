@@ -51,7 +51,7 @@ export const DraggerRoute = () => {
                     childClass: '',
                     align: 'CENTER',
                     maxHightDepth: 200,
-                    maxLowDepth: -700,
+                    maxLowDepth: -1000,
                     afterInit: ({ root }) => {
                         if (useLog) console.log(root);
                     },

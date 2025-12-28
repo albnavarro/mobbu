@@ -36259,12 +36259,12 @@
     let onDrag = false;
     let firstDrag = false;
     const threshold = 30;
-    const depthThreshold = 10;
+    const depthThreshold = 20;
     const updatePerspectiveLimits = () => {
       if (usePrespective && perspective > 0) {
         const scale = perspective / (perspective - depth);
-        dragLimitX = Math.max(0, (itemWidth - rootWidth / scale) / 2);
-        dragLimitY = Math.max(0, (itemHeight - rootHeight / scale) / 2);
+        dragLimitX = (itemWidth - rootWidth / scale) / 2;
+        dragLimitY = (itemHeight - rootHeight / scale) / 2;
       } else {
         dragLimitX = (itemWidth - rootWidth) / 2;
         dragLimitY = (itemHeight - rootHeight) / 2;
@@ -36357,8 +36357,10 @@
           };
         }
       })();
-      const currentDragX = onDrag ? core_exports.clamp(dragX + xgap, -dragLimitX, dragLimitX) : dragX;
-      const currenteDragY = onDrag ? core_exports.clamp(dragY + ygap, -dragLimitY, dragLimitY) : dragY;
+      const xValueOnDrag = dragLimitX > 0 ? core_exports.clamp(dragX + xgap, -dragLimitX, dragLimitX) : core_exports.clamp(dragX + xgap, dragLimitX, -dragLimitX);
+      const yValueOnDrag = dragLimitY > 0 ? core_exports.clamp(dragY + ygap, -dragLimitY, dragLimitY) : core_exports.clamp(dragY + ygap, dragLimitY, -dragLimitY);
+      const currentDragX = onDrag ? xValueOnDrag : dragX;
+      const currenteDragY = onDrag ? yValueOnDrag : dragY;
       const { xComputed, yComputed } = onDrag ? {
         xComputed: currentDragX,
         yComputed: currenteDragY
@@ -36366,15 +36368,13 @@
         xComputed: x,
         yComputed: y
       };
-      const xValue = itemWidth < rootWidth ? 0 : xComputed;
-      const yValue = itemHeight < rootHeight ? 0 : yComputed;
       dragX = currentDragX;
       dragY = currenteDragY;
       lastX = x;
       lastY = y;
       if (onDrag) {
-        endValue = { xValue, yValue };
-        spring.goTo({ x: xValue, y: yValue }).catch(() => {
+        endValue = { xValue: xComputed, yValue: yComputed };
+        spring.goTo({ x: xComputed, y: yComputed }).catch(() => {
         });
       }
     };
@@ -36597,7 +36597,7 @@
         childClass: "",
         align: "CENTER",
         maxHightDepth: 200,
-        maxLowDepth: -700,
+        maxLowDepth: -1e3,
         afterInit: ({ root: root2 }) => {
           if (useLog) console.log(root2);
         },

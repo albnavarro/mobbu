@@ -41,7 +41,7 @@ export const draggerAnimation = ({
     let onDrag = false;
     let firstDrag = false;
     const threshold = 30;
-    const depthThreshold = 10;
+    const depthThreshold = 20;
 
     /**
      * Update limit with current perspective value.
@@ -49,11 +49,13 @@ export const draggerAnimation = ({
     const updatePerspectiveLimits = () => {
         if (usePrespective && perspective > 0) {
             const scale = perspective / (perspective - depth);
+
             /**
-             * Math.max -> avoid negative limit.
+             * - Value > 0 child is bigger than root.
+             * - Value < 0 child is smaller than root.
              */
-            dragLimitX = Math.max(0, (itemWidth - rootWidth / scale) / 2);
-            dragLimitY = Math.max(0, (itemHeight - rootHeight / scale) / 2);
+            dragLimitX = (itemWidth - rootWidth / scale) / 2;
+            dragLimitY = (itemHeight - rootHeight / scale) / 2;
         } else {
             dragLimitX = (itemWidth - rootWidth) / 2;
             dragLimitY = (itemHeight - rootHeight) / 2;
@@ -182,18 +184,30 @@ export const draggerAnimation = ({
         })();
 
         /**
+         * Clamp to limit x when child is bigger than root or smaller than root
+         */
+        const xValueOnDrag =
+            dragLimitX > 0
+                ? MobMotionCore.clamp(dragX + xgap, -dragLimitX, dragLimitX)
+                : MobMotionCore.clamp(dragX + xgap, dragLimitX, -dragLimitX);
+
+        /**
+         * Clamp to limit x when child is bigger than root or smaller than root
+         */
+        const yValueOnDrag =
+            dragLimitY > 0
+                ? MobMotionCore.clamp(dragY + ygap, -dragLimitY, dragLimitY)
+                : MobMotionCore.clamp(dragY + ygap, dragLimitY, -dragLimitY);
+
+        /**
          * Get x value clamped to min max if is dragging or last value
          */
-        const currentDragX = onDrag
-            ? MobMotionCore.clamp(dragX + xgap, -dragLimitX, dragLimitX)
-            : dragX;
+        const currentDragX = onDrag ? xValueOnDrag : dragX;
 
         /**
          * Get y value clamped to min max if is dragging or last value
          */
-        const currenteDragY = onDrag
-            ? MobMotionCore.clamp(dragY + ygap, -dragLimitY, dragLimitY)
-            : dragY;
+        const currenteDragY = onDrag ? yValueOnDrag : dragY;
 
         /**
          * Use calmped value or mouse value if is dragging
@@ -209,12 +223,6 @@ export const draggerAnimation = ({
               };
 
         /**
-         * Get final value if item is bigger then container
-         */
-        const xValue = itemWidth < rootWidth ? 0 : xComputed;
-        const yValue = itemHeight < rootHeight ? 0 : yComputed;
-
-        /**
          * Update global value
          */
         dragX = currentDragX;
@@ -224,8 +232,8 @@ export const draggerAnimation = ({
         lastY = y;
 
         if (onDrag) {
-            endValue = { xValue, yValue };
-            spring.goTo({ x: xValue, y: yValue }).catch(() => {});
+            endValue = { xValue: xComputed, yValue: yComputed };
+            spring.goTo({ x: xComputed, y: yComputed }).catch(() => {});
         }
     };
 
