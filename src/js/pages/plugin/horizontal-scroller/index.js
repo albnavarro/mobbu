@@ -10,8 +10,8 @@ export const horizontalScroller = async () => {
     updateQuickNavState({
         active: true,
         prevRoute: '',
-        nextRoute: '#move3D-shape1',
-        backRoute: '#plugin-overview',
+        nextRoute: '',
+        backRoute: '',
         color: 'black',
     });
 

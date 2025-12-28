@@ -31,6 +31,11 @@
                 "section": "canvas"
             },
             {
+                "label": "Extras",
+                "url": "plugin-overview",
+                "section": "extras"
+            },
+            {
                 "label": "MobCore",
                 "url": "mobCore-overview",
                 "section": "mobCore"
@@ -711,23 +716,17 @@
         },
         {
             "label": "overview",
-            "scrollToSection": "plugin",
+            "scrollToSection": "extras",
             "url": "plugin-overview"
         },
         {
-            "label": "horizotnal scroller",
-            "scrollToSection": "plugin",
-            "url": "horizontalScroller",
-            "activeId": 0
-        },
-        {
             "label": "move3D shape 1",
-            "scrollToSection": "plugin",
+            "scrollToSection": "extras",
             "url": "move3D-shape1"
         },
         {
             "label": "dragger",
-            "scrollToSection": "plugin",
+            "scrollToSection": "extras",
             "url": "plugin-dragger"
         }
     ],
@@ -899,6 +898,7 @@
         { "word": "matrioska" },
         { "word": "without" },
         { "word": "nested" },
-        { "word": "test" }
+        { "word": "test" },
+        { "word": "horizontalScroller" }
     ]
 }

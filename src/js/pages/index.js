@@ -1187,7 +1187,10 @@ export const routes = [
         layout: horizontalScroller,
         templateName: PAGE_TEMPLATE_ANIMATION,
         restoreScroll: false,
-        props: {},
+        props: {
+            source: './data/plugin/horizontal-scroller.json',
+            title: 'HorizontalScroller',
+        },
     },
     {
         hash: 'move3D-shape1',

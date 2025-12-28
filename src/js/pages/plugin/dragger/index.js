@@ -1,3 +1,4 @@
+import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
 import { AnyComponent } from '@commonComponent/any-component/definition';
 import { Dragger } from '@commonComponent/dragger/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
@@ -41,6 +42,9 @@ export const DraggerRoute = () => {
             <span class="dragger-child-2__diagonal"> </span>
         </div>
     </div>`;
+
+    const description = '<strong>Dragger:</strong> Drag and zoom';
+    updateAnimationDescription(description);
 
     return html`<div class="l-dragger">
         <c-dragger
