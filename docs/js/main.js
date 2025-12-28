@@ -36318,6 +36318,7 @@
       }
     }
     const unsubscribeSpring = spring.subscribe(({ x, y, z }) => {
+      if (!child) return;
       child.style.transform = `translate3D(${x}px, ${y}px, ${z}px)`;
     });
     spring.set({
@@ -36445,6 +36446,8 @@
         unsubscribeResize();
         spring.destroy();
         spring = null;
+        root2 = null;
+        child = null;
       }
     };
   };

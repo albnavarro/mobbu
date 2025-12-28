@@ -45,6 +45,20 @@ export const draggerAnimation = ({
 
     /**
      * Update limit with current perspective value.
+     *
+     * - Durante la scale child non cambia dimensione reale cosi come root
+     * - Child cambia pero la dimensione apparente per l'effetto della prospettiva
+     * - RootWidth / scale -> dimensione virtuale che avremmo se root fosse scalato come child
+     *
+     * Esempio:
+     *
+     * - ItemWidth = 400px
+     * - RootWidth = 300px
+     * - Scale = 1.5
+     * - DragLimitX = (400 - 300/1.5) / 2 = (400 - 200) / 2 = 100px
+     * - Root "visto dal sistema di riferimento del child scalato" vale 200px, quindi il child può muoversi di 100px prima
+     *   che i bordi collidano. La divisione per scale compensa la trasformazione prospettica, mantenendo i limiti
+     *   coerenti con ciò che l'utente vede.
      */
     const updatePerspectiveLimits = () => {
         if (usePrespective && perspective > 0) {
@@ -123,6 +137,8 @@ export const draggerAnimation = ({
     }
 
     const unsubscribeSpring = spring.subscribe(({ x, y, z }) => {
+        if (!child) return;
+
         child.style.transform = `translate3D(${x}px, ${y}px, ${z}px)`;
     });
 
@@ -332,6 +348,19 @@ export const draggerAnimation = ({
             spring.destroy();
             // @ts-ignore
             spring = null;
+
+            /**
+             * Le referenze in ingresso passano una copia dei puntatori alla memoria in cui root e child sono salvate,
+             *
+             * - E' necessario eliminare il riferimento alla copia dei puntatori direttamante all' interno della funzione
+             *   chiamata.
+             */
+
+            // @ts-ignore
+            root = null;
+
+            // @ts-ignore
+            child = null;
         },
     };
 };

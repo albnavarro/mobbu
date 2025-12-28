@@ -1,5 +1,6 @@
 # Prioritá
 
+1. Animazioni: eliminare le referenze agli oggetti DOM all' interno delle funzioni chiamate.
 2. Slot
     - [detail:](#slot)
 3. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
