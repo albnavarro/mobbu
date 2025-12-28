@@ -1,6 +1,6 @@
 # Prioritá
 
-1. Animazioni: eliminare le referenze agli oggetti DOM all' interno delle funzioni chiamate.
+1. **Generale: eliminare le referenze ( se ci sono ) agli oggetti all' interno delle funzioni se usate all' interno di una closure. Solo gli ogetti ragionano come copia del puntatore, le primitiva normali copiano sempre il valore**
 2. Slot
     - [detail:](#slot)
 3. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.

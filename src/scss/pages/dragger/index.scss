@@ -93,6 +93,7 @@
     padding: rem(40);
     transform-style: preserve-3d;
     backface-visibility: hidden;
+    border: 5px $black solid;
     background: rgba($black, 0.1);
 
     &__diagonal {
@@ -116,6 +117,7 @@
     transform: translate3d(-50%, -50%, -150px);
     transform-style: preserve-3d;
     backface-visibility: hidden;
+    border: 5px $black solid;
     background: rgba($black, 0.1);
 
     &__diagonal {

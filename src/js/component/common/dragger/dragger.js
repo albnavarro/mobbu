@@ -27,6 +27,7 @@ export const DraggerFn = ({
             perspective: proxi.perspective,
             maxLowDepth: proxi.maxLowDepth,
             maxHightDepth: proxi.maxHightDepth,
+            depthFactor: proxi.depthFactor,
             onDepthChange: proxi.onDepthChange,
         });
 

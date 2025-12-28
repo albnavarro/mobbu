@@ -18,6 +18,7 @@ export const draggerAnimation = ({
     maxLowDepth = -200,
     maxHightDepth = 200,
     onDepthChange = () => {},
+    depthFactor = 30,
 }) => {
     /**
      * Mutables inner state:
@@ -41,7 +42,6 @@ export const draggerAnimation = ({
     let onDrag = false;
     let firstDrag = false;
     const threshold = 30;
-    const depthThreshold = 20;
 
     /**
      * Update limit with current perspective value.
@@ -310,7 +310,7 @@ export const draggerAnimation = ({
             (event) => {
                 const { spinY } = MobCore.normalizeWheel(event);
                 depth = MobMotionCore.clamp(
-                    depth + spinY * depthThreshold,
+                    depth + spinY * depthFactor,
                     maxLowDepth,
                     maxHightDepth
                 );
