@@ -710,9 +710,9 @@
             "url": "mobMotion-defaults"
         },
         {
-            "label": "plugin",
+            "label": "extras",
             "section": true,
-            "sectioName": "plugin"
+            "sectioName": "extras"
         },
         {
             "label": "overview",
