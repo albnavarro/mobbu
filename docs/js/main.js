@@ -36597,9 +36597,9 @@
         childClass: "",
         align: "CENTER",
         maxHightDepth: 200,
-        maxLowDepth: -500,
+        maxLowDepth: -700,
         afterInit: ({ root: root2 }) => {
-          console.log(root2);
+          if (useLog) console.log(root2);
         },
         onDepthChange: ({ depth }) => {
           if (useLog) console.log(depth);
