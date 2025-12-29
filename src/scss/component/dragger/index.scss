@@ -2,7 +2,8 @@
 
 .c-dragger {
     position: relative;
-    user-select: none;
+
+    @include user-select-none;
 
     &__wrapper {
         position: absolute;

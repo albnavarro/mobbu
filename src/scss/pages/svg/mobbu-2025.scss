@@ -32,8 +32,9 @@
         top: 0;
         left: 0;
         height: var(--mobbu2025-height);
-        user-select: none;
         aspect-ratio: 690/117;
+
+        @include user-select-none;
 
         svg {
             width: var(--mobbu2025-width);

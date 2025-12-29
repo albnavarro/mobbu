@@ -19,7 +19,8 @@
     transition: background 0.35s;
     background: $grey;
     text-align: center;
-    user-select: none;
+
+    @include user-select-none;
 
     &::after {
         content: '';

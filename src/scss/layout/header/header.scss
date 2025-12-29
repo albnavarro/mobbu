@@ -18,7 +18,8 @@
     left: 0;
     transition: background 0.35s;
     background: $grey;
-    user-select: none;
+
+    @include user-select-none;
 
     &::after {
         content: '';

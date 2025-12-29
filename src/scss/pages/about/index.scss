@@ -9,9 +9,7 @@
     --sreen-size: 60vw;
 
     * {
-        /* stylelint-disable-next-line  property-no-vendor-prefix */
-        -webkit-user-select: none; /* Safari */
-        user-select: none;
+        @include user-select-none;
     }
 
     &.active {

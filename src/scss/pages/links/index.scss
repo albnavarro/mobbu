@@ -34,7 +34,8 @@
         line-height: calc(var(--scroller-height) / 2);
         text-transform: uppercase;
         text-wrap: nowrap;
-        user-select: none;
+
+        @include user-select-none;
 
         &.is-visible {
             transform: translateY(30%);
@@ -66,7 +67,8 @@
             opacity 1s,
             transform 1s;
         opacity: 0;
-        user-select: none;
+
+        @include user-select-none;
 
         &.is-visible {
             transform: translate(0, -120%);
