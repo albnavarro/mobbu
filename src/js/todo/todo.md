@@ -1,11 +1,12 @@
 # Prioritá
 
-1. **Generale: eliminare le referenze ( se ci sono ) agli oggetti all' interno delle funzioni se usate all' interno di una closure. Solo gli ogetti ragionano come copia del puntatore, le primitiva normali copiano sempre il valore**
-2. Slot
+1. `MobJs`: root.contains(element) -> element.isConnected.
+2. `footer`: full black.
+3. Slot
     - [detail:](#slot)
-3. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
+4. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
     - [detail:](#BindObject/BindText/BindEffect)
-4. `RepeaterRender`: `nativeDOMChildren` -> testare element come weakMap per alleggerire il `GC`.
+5. `RepeaterRender`: `nativeDOMChildren` -> testare element come weakMap per alleggerire il `GC`.
     - Verficare e nel caso portare la cosa su altri `element` gestiti nella mappe piú grandi.
 
 ### Docs: AsyncTimeline
