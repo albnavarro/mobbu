@@ -23,6 +23,7 @@ import { asyncTimeline } from './canvas/async-timeline';
 import { rdp } from './svg/rdp';
 import { mob_02 } from './svg/mob-02';
 import { DraggerRoute } from './plugin/dragger';
+import { mathAnimationRoute } from './plugin/math-animation';
 
 export const PAGE_TEMPLATE_HOME = 'home';
 export const PAGE_TEMPLATE_ABOUT = 'about';
@@ -1203,6 +1204,14 @@ export const routes = [
         layout: DraggerRoute,
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
+    },
+    {
+        hash: 'math-animation-01',
+        layout: mathAnimationRoute,
+        templateName: PAGE_TEMPLATE_ANIMATION,
+        props: {
+            types: ['circle', 'sin', 'infinite'],
+        },
     },
     {
         hash: 'plugin-overview',

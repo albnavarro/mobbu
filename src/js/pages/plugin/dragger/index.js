@@ -13,7 +13,7 @@ export const DraggerRoute = () => {
     updateQuickNavState({
         active: true,
         prevRoute: '#move3D-shape1',
-        nextRoute: '',
+        nextRoute: '#math-animation-01',
         backRoute: '#plugin-overview',
         color: 'black',
     });

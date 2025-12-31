@@ -728,6 +728,11 @@
             "label": "dragger",
             "scrollToSection": "extras",
             "url": "plugin-dragger"
+        },
+        {
+            "label": "Math 01",
+            "scrollToSection": "extras",
+            "url": "math-animation-01"
         }
     ],
     "suggestion": [
