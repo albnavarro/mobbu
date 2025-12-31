@@ -35,4 +35,56 @@
         border: 2px $black solid;
         border-radius: 100%;
     }
+
+    &__play {
+        top: rem(20);
+        right: rem(60);
+
+        &::after {
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            transform: translate(-50%, -50%);
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 10px solid $black;
+        }
+    }
+
+    &__stop {
+        top: rem(20);
+        right: rem(20);
+
+        &::after {
+            top: 8px;
+            left: 8px;
+            width: rem(13);
+            height: rem(13);
+            background: $black;
+        }
+    }
+
+    &__play,
+    &__stop {
+        position: absolute;
+        width: rem(30);
+        height: rem(30);
+        margin: 0;
+        padding: 0;
+        border: 1px rgba($black, 0.3) solid;
+        background: transparent;
+
+        &::after {
+            content: '';
+            position: absolute;
+            transition: opacity 0.35s;
+        }
+
+        &:hover {
+            &::after {
+                opacity: 0.5;
+            }
+        }
+    }
 }

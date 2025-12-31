@@ -5442,6 +5442,51 @@ ul li::marker {
   border: 2px #2e3440 solid;
   border-radius: 100%;
 }
+.c-math__play {
+  top: 1.3333333333rem;
+  right: 4rem;
+}
+.c-math__play::after {
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 10px solid #2e3440;
+}
+.c-math__stop {
+  top: 1.3333333333rem;
+  right: 1.3333333333rem;
+}
+.c-math__stop::after {
+  top: 8px;
+  left: 8px;
+  width: 0.8666666667rem;
+  height: 0.8666666667rem;
+  background: #2e3440;
+}
+.c-math__play,
+.c-math__stop {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  border: 1px rgba(46, 52, 64, 0.3) solid;
+  background: transparent;
+}
+.c-math__play::after,
+.c-math__stop::after {
+  content: "";
+  position: absolute;
+  transition: opacity 0.35s;
+}
+.c-math__play:hover::after,
+.c-math__stop:hover::after {
+  opacity: 0.5;
+}
 .test-grid {
   z-index: 12;
   margin-top: 6.6666666667rem;
