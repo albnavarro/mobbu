@@ -1210,7 +1210,7 @@ export const routes = [
         layout: mathAnimationRoute,
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {
-            types: ['circle', 'sin', 'infinite'],
+            names: ['circle', 'sin', 'infinite'],
         },
     },
     {

@@ -1,12 +1,13 @@
+import { MathAnimation } from '@commonComponent/math-animation/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 
-MobJs.useComponent([]);
+MobJs.useComponent([MathAnimation]);
 
 /** @type {import('@mobJsType').PageAsync} */
 export const mathAnimationRoute = async ({ props }) => {
-    const { types } = /** @type{{types: string[]}} */ (props);
-    if (types.length > 4) console.warn('math layout, max item excedded');
+    const { names } = /** @type{{names: string[]}} */ (props);
+    if (names.length > 4) console.warn('math layout, max item excedded');
 
     /** Quicknav */
     updateQuickNavState({
@@ -18,9 +19,13 @@ export const mathAnimationRoute = async ({ props }) => {
     });
 
     return html`<div class="l-math">
-        ${types
-            .map((type) => {
-                return `<div class="l-math__item">${type}</div>`;
+        ${names
+            .map((name) => {
+                return html`<div class="l-math__item">
+                    <math-animation
+                        ${MobJs.staticProps({ name })}
+                    ></math-animation>
+                </div>`;
             })
             .join('')}
     </div>`;

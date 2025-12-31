@@ -36634,14 +36634,48 @@
     </div>`;
   };
 
+  // src/js/component/common/math-animation/math-animation.js
+  var MathAnimationFn = ({ getProxi, setRef, getRefs, onMount }) => {
+    const proxi = getProxi();
+    console.log(proxi.name);
+    const staggers = Array.from({ length: 5 });
+    onMount(() => {
+      const { target: circles } = getRefs();
+      console.log(circles);
+    });
+    return renderHtml`<div class="c-math">
+        ${staggers.map(() => {
+      return renderHtml`<span
+                    class="c-math__circle"
+                    ${setRef("target")}
+                ></span>`;
+    }).join("")}
+    </div>`;
+  };
+
+  // src/js/component/common/math-animation/definition.js
+  var MathAnimation = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').MathAnimation>} */
+    {
+      tag: "math-animation",
+      component: MathAnimationFn,
+      props: {
+        name: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
+
   // src/js/pages/plugin/math-animation/index.js
-  modules_exports2.useComponent([]);
+  modules_exports2.useComponent([MathAnimation]);
   var mathAnimationRoute = async ({ props }) => {
-    const { types } = (
-      /** @type{{types: string[]}} */
+    const { names } = (
+      /** @type{{names: string[]}} */
       props
     );
-    if (types.length > 4) console.warn("math layout, max item excedded");
+    if (names.length > 4) console.warn("math layout, max item excedded");
     updateQuickNavState({
       active: true,
       prevRoute: "#plugin-dragger",
@@ -36650,8 +36684,12 @@
       color: "black"
     });
     return renderHtml`<div class="l-math">
-        ${types.map((type) => {
-      return `<div class="l-math__item">${type}</div>`;
+        ${names.map((name) => {
+      return renderHtml`<div class="l-math__item">
+                    <math-animation
+                        ${modules_exports2.staticProps({ name })}
+                    ></math-animation>
+                </div>`;
     }).join("")}
     </div>`;
   };
@@ -37830,7 +37868,7 @@
       layout: mathAnimationRoute,
       templateName: PAGE_TEMPLATE_ANIMATION,
       props: {
-        types: ["circle", "sin", "infinite"]
+        names: ["circle", "sin", "infinite"]
       }
     },
     {
