@@ -3782,9 +3782,8 @@
   var fire = (frameCounter) => {
     for (const value of subscriberMap.values()) {
       const { data, fn, el, freeze: freeze2 } = value;
-      if (freeze2.active) return;
       const callBackObject = data.get(frameCounter);
-      if (callBackObject) {
+      if (callBackObject && !freeze2.active) {
         fn(callBackObject, el);
         data.delete(frameCounter);
         cacheCoutner--;
@@ -36709,6 +36708,7 @@
         destroy: () => {
         }
       };
+    const halfTagetHeight = outerHeight(targets[0]) / 2;
     const xAmplitude = outerWidth(container) / 2 - 100;
     const yAmplitude = outerHeight(container);
     const duration2 = 10;
@@ -36727,7 +36727,7 @@
         const factor = 2 / (3 - Math.cos(2 * val2));
         const xr = factor * Math.cos(val2) * xAmplitude;
         const yr = factor * Math.sin(2 * val2) / 2 * yAmplitude;
-        item.style.transform = `translate3D(0px,0px,0px) translate(${xr}px, ${yr}px)`;
+        item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetHeight}px, ${yr - halfTagetHeight}px)`;
         item.style.opacity = `${opacity}`;
       });
     });
