@@ -36634,6 +36634,61 @@
     </div>`;
   };
 
+  // src/js/component/common/math-animation/animations/circle.js
+  var mathCircle = () => {
+    return {
+      play: () => {
+      },
+      stop: () => {
+      },
+      destroy: () => {
+      }
+    };
+  };
+
+  // src/js/component/common/math-animation/animations/infinite.js
+  var mathInfinite = () => {
+    return {
+      play: () => {
+      },
+      stop: () => {
+      },
+      destroy: () => {
+      }
+    };
+  };
+
+  // src/js/component/common/math-animation/animations/sin-animation.js
+  var mathSin = () => {
+    return {
+      play: () => {
+      },
+      stop: () => {
+      },
+      destroy: () => {
+      }
+    };
+  };
+
+  // src/js/component/common/math-animation/pair-animation.js
+  var mathPairAnimation = {
+    circle: mathCircle,
+    sin: mathSin,
+    infinite: mathInfinite
+  };
+
+  // src/js/component/common/math-animation/animations/fake-animation.js
+  var fakeAnimation = () => {
+    return {
+      play: () => {
+      },
+      stop: () => {
+      },
+      destroy: () => {
+      }
+    };
+  };
+
   // src/js/component/common/math-animation/math-animation.js
   var MathAnimationFn = ({
     getProxi,
@@ -36644,9 +36699,22 @@
   }) => {
     const proxi = getProxi();
     const staggers = Array.from({ length: 5 });
+    const fake = fakeAnimation();
+    let { destroy: destroy3, play, stop: stop2 } = fake;
     onMount(() => {
       const { target: circles } = getRefs();
       console.log(circles);
+      const animation = mathPairAnimation[proxi.name];
+      destroy3 = animation().destroy;
+      play = animation().play;
+      stop2 = animation().stop;
+      play();
+      return () => {
+        destroy3();
+        destroy3 = null;
+        play = null;
+        stop2 = null;
+      };
     });
     return renderHtml`<div class="c-math">
         <div class="c-math__nav">
@@ -36655,7 +36723,7 @@
                 class="c-math__play"
                 ${delegateEvents({
       click: () => {
-        console.log("play", proxi.name);
+        play();
       }
     })}
             ></button>
@@ -36664,7 +36732,7 @@
                 class="c-math__stop"
                 ${delegateEvents({
       click: () => {
-        console.log("stop", proxi.name);
+        stop2();
       }
     })}
             ></button>

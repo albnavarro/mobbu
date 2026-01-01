@@ -3,6 +3,8 @@
  */
 
 import { html } from '@mobJs';
+import { mathPairAnimation } from './pair-animation';
+import { fakeAnimation } from './animations/fake-animation';
 
 /** @type {MobComponent<import('./type').MathAnimation>} */
 export const MathAnimationFn = ({
@@ -15,9 +17,33 @@ export const MathAnimationFn = ({
     const proxi = getProxi();
     const staggers = Array.from({ length: 5 });
 
+    /**
+     * Create fake methods before onMount to prevent nav buttons error.
+     */
+    const fake = fakeAnimation();
+    let { destroy, play, stop } = fake;
+
     onMount(() => {
         const { target: circles } = getRefs();
         console.log(circles);
+
+        const animation = mathPairAnimation[proxi.name];
+        destroy = animation().destroy;
+        play = animation().play;
+        stop = animation().stop;
+
+        play();
+
+        return () => {
+            destroy();
+
+            // @ts-ignore
+            destroy = null;
+            // @ts-ignore
+            play = null;
+            // @ts-ignore
+            stop = null;
+        };
     });
 
     return html`<div class="c-math">
@@ -27,7 +53,7 @@ export const MathAnimationFn = ({
                 class="c-math__play"
                 ${delegateEvents({
                     click: () => {
-                        console.log('play', proxi.name);
+                        play();
                     },
                 })}
             ></button>
@@ -36,7 +62,7 @@ export const MathAnimationFn = ({
                 class="c-math__stop"
                 ${delegateEvents({
                     click: () => {
-                        console.log('stop', proxi.name);
+                        stop();
                     },
                 })}
             ></button>
