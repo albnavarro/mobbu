@@ -34,7 +34,7 @@
         transition: opacity 0.55s;
         border: 0;
         background: transparent;
-        color: $white;
+        color: $grey-medium-2;
         font-size: rem(14);
 
         @include mq(large) {
@@ -61,6 +61,7 @@
         }
 
         &.current {
+            color: $white;
             font-weight: 600;
         }
     }
