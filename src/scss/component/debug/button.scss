@@ -6,10 +6,10 @@
     margin-right: rem(10);
     padding: rem(5) rem(30);
     transition: background 0.35s;
-    border: 1px $black solid;
+    border: 1px $white solid;
     border-radius: rem(20);
     background: transparent;
-    color: $black;
+    color: $white;
     font-size: rem(14);
     text-align: center;
     text-decoration: none;
@@ -20,7 +20,7 @@
     }
 
     &:hover {
-        background: $black;
-        color: $white;
+        background: $white;
+        color: $black;
     }
 }

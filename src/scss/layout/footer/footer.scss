@@ -17,11 +17,12 @@
     width: 100%;
     height: var(--footer-height);
     transition: background 0.35s;
-    background: $grey;
+    background: black;
     text-align: center;
 
     @include user-select-none;
 
+    /*
     &::after {
         content: '';
         position: absolute;
@@ -39,11 +40,13 @@
             transform: scaleX(100%);
         }
     }
+    */
 
     @include mq(desktop) {
         display: block;
     }
 
+    /*
     @include when-inside('[data-template="home"]') {
         background: transparent;
 
@@ -75,6 +78,7 @@
             transition: transform 1s 0.2s;
         }
     }
+    */
 
     &__container {
         display: grid;

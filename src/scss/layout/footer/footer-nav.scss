@@ -34,7 +34,8 @@
         transition: opacity 0.55s;
         border: 0;
         background: transparent;
-        color: $black;
+        color: $white;
+        font-size: rem(14);
 
         @include mq(large) {
             min-width: rem(100);
