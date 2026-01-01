@@ -11,6 +11,7 @@ export const mathInfinite = ({ targets, container } = {}) => {
             destroy: () => {},
         };
 
+    const halfTagetHeight = outerHeight(targets[0]) / 2;
     const xAmplitude = outerWidth(container) / 2 - 100;
     const yAmplitude = outerHeight(container);
     const duration = 10;
@@ -36,7 +37,8 @@ export const mathInfinite = ({ targets, container } = {}) => {
             const factor = 2 / (3 - Math.cos(2 * val));
             const xr = factor * Math.cos(val) * xAmplitude;
             const yr = ((factor * Math.sin(2 * val)) / 2) * yAmplitude;
-            item.style.transform = `translate3D(0px,0px,0px) translate(${xr}px, ${yr}px)`;
+
+            item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetHeight}px, ${yr - halfTagetHeight}px)`;
             item.style.opacity = `${opacity}`;
         });
     });
