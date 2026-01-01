@@ -29,7 +29,7 @@ export const mathSin = ({ targets, container } = {}) => {
     targets.forEach((item) => {
         let previousX = 0;
 
-        tween.subscribe(({ x }) => {
+        tween.subscribeCache(item, ({ x }) => {
             const yDirection = x >= previousX ? 1 : -1;
             const y = Math.sin(x / wavelength) * amplitude * yDirection;
 

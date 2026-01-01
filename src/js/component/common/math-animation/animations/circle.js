@@ -23,7 +23,7 @@ export const mathCircle = ({ targets, container } = {}) => {
     const itemHalfHeight = itemHeight / 2;
 
     targets.forEach((item) => {
-        tween.subscribe(({ x }) => {
+        tween.subscribeCache(item, ({ x }) => {
             const xr = Math.sin(x * step) * radius;
             const yr = Math.cos(x * step) * radius;
             item.style.transform = `translate3D(0px,0px,0px) translate(${xr - itemHalfHeight}px, ${yr - itemHalfHeight}px)`;
