@@ -36707,15 +36707,17 @@
     const itemHeight = outerHeight(targets[0]);
     const distance = outerWidth(container) - 200;
     const amplitude = outerHeight(container) / 3;
-    const stepNumber = 3;
-    const step = distance / Math.PI / stepNumber;
-    const duration2 = 1e3 * stepNumber;
+    const cycles = 3;
+    const wavelength = distance / (Math.PI * cycles);
+    const duration2 = 1e3 * cycles;
+    const itemHalfHeight = itemHeight / 2;
+    const halfDistance = distance / 2;
     targets.forEach((item) => {
       let previousX = 0;
       tween2.subscribe(({ x }) => {
-        const multiplier = x >= previousX ? 1 : -1;
-        const y = Math.sin(x / step) * amplitude * multiplier;
-        item.style.transform = `translate3D(0px,0px,0px) translate(${x - distance / 2}px, ${y - itemHeight / 2}px)`;
+        const yDirection = x >= previousX ? 1 : -1;
+        const y = Math.sin(x / wavelength) * amplitude * yDirection;
+        item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfDistance}px, ${y - itemHalfHeight}px)`;
         previousX = x;
       });
     });
@@ -36743,6 +36745,7 @@
         timeline.pause();
       },
       destroy: () => {
+        timeline.stop();
         tween2.destroy();
         timeline.destroy();
         tween2 = null;

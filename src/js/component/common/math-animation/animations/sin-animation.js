@@ -20,18 +20,20 @@ export const mathSin = ({ targets, container } = {}) => {
     const itemHeight = outerHeight(targets[0]);
     const distance = outerWidth(container) - 200;
     const amplitude = outerHeight(container) / 3;
-    const stepNumber = 3;
-    const step = distance / Math.PI / stepNumber;
-    const duration = 1000 * stepNumber;
+    const cycles = 3;
+    const wavelength = distance / (Math.PI * cycles);
+    const duration = 1000 * cycles;
+    const itemHalfHeight = itemHeight / 2;
+    const halfDistance = distance / 2;
 
     targets.forEach((item) => {
         let previousX = 0;
 
         tween.subscribe(({ x }) => {
-            const multiplier = x >= previousX ? 1 : -1;
-            const y = Math.sin(x / step) * amplitude * multiplier;
+            const yDirection = x >= previousX ? 1 : -1;
+            const y = Math.sin(x / wavelength) * amplitude * yDirection;
 
-            item.style.transform = `translate3D(0px,0px,0px) translate(${x - distance / 2}px, ${y - itemHeight / 2}px)`;
+            item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfDistance}px, ${y - itemHalfHeight}px)`;
             previousX = x;
         });
     });
@@ -62,6 +64,7 @@ export const mathSin = ({ targets, container } = {}) => {
             timeline.pause();
         },
         destroy: () => {
+            timeline.stop();
             tween.destroy();
             timeline.destroy();
 
