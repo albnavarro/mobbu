@@ -22,13 +22,6 @@ export const asyncTimeline = () => {
     updateAnimationDescription(description);
 
     return html`<div class="l-padding">
-        <async-timeline
-            ${MobJs.staticProps(
-                /** @type {import('@pagesComponent/async-timeline/type').AsyncTimeline['props']} */
-                ({
-                    disableOffcanvas: false,
-                })
-            )}
-        ></async-timeline>
+        <async-timeline></async-timeline>
     </div>`;
 };
