@@ -6,7 +6,7 @@
     z-index: 8;
     top: var(--header-height);
     left: calc(var(--header-height) * 0.5);
-    padding: calc(var(--header-height) * 0.25) calc(var(--header-height) * 0.5);
+    padding: calc(var(--header-height) * 0.1) calc(var(--header-height) * 0.5);
     border-right: 1px $black solid;
     border-bottom: 1px $black solid;
 

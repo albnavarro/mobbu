@@ -21,7 +21,7 @@
 
     // Stadard css var
     --header-height: calc(var(--gap-size) * 2);
-    --footer-height: calc(var(--gap-size) * 2);
+    --footer-height: calc(var(--gap-size) * 1.5);
     --nav-width: #{rem(340)};
     --doc-width: none;
     --right-sidebar: none;
