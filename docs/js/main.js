@@ -36635,8 +36635,8 @@
   };
 
   // src/js/component/common/math-animation/animations/circle.js
-  var mathCircle = ({ targets } = {}) => {
-    if (!targets)
+  var mathCircle = ({ targets, container } = {}) => {
+    if (!targets || !container)
       return {
         play: () => {
         },
@@ -36647,15 +36647,51 @@
         destroy: () => {
         }
       };
-    console.log(targets);
+    let tween2 = tween_exports.createSpring({
+      stagger: { each: 6 },
+      data: { x: 0 }
+    });
+    const step = 0.06;
+    const radius = 100;
+    const itemHeight = outerHeight(targets[0]);
+    const itemHalfHeight = itemHeight / 2;
+    targets.forEach((item) => {
+      tween2.subscribe(({ x }) => {
+        const xr = Math.sin(x * step) * radius;
+        const yr = Math.cos(x * step) * radius;
+        item.style.transform = `translate3D(0px,0px,0px) translate(${xr - itemHalfHeight}px, ${yr - itemHalfHeight}px)`;
+      });
+    });
+    tween2.set({ x: 0 });
+    let counter2 = 0;
+    let isRunning2 = false;
+    const loop = () => {
+      counter2++;
+      if (!tween2) return;
+      tween2.goTo({ x: counter2 }).catch(() => {
+      });
+      if (isRunning2) modules_exports.useNextFrame(() => loop());
+    };
     return {
       play: () => {
+        if (isRunning2) return;
+        isRunning2 = true;
+        loop();
       },
       resume: () => {
+        if (isRunning2) return;
+        isRunning2 = true;
+        loop();
       },
       stop: () => {
+        isRunning2 = false;
       },
       destroy: () => {
+        tween2.destroy();
+        tween2 = null;
+        targets = null;
+        counter2 = null;
+        isRunning2 = null;
       }
     };
   };
@@ -36757,8 +36793,8 @@
 
   // src/js/component/common/math-animation/pair-animation.js
   var mathPairAnimation = {
-    circle: mathCircle,
     sin: mathSin,
+    circle: mathCircle,
     infinite: mathInfinite
   };
 

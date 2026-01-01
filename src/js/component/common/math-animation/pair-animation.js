@@ -4,7 +4,7 @@ import { mathSin } from './animations/sin-animation';
 
 /** @type{Record<string, import('./animations/type').MathCommonAnimation>} */
 export const mathPairAnimation = {
-    circle: mathCircle,
     sin: mathSin,
+    circle: mathCircle,
     infinite: mathInfinite,
 };
