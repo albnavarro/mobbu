@@ -2,6 +2,7 @@
 export const fakeAnimation = () => {
     return {
         play: () => {},
+        resume: () => {},
         stop: () => {},
         destroy: () => {},
     };

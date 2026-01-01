@@ -36635,9 +36635,23 @@
   };
 
   // src/js/component/common/math-animation/animations/circle.js
-  var mathCircle = () => {
+  var mathCircle = ({ targets } = {}) => {
+    if (!targets)
+      return {
+        play: () => {
+        },
+        resume: () => {
+        },
+        stop: () => {
+        },
+        destroy: () => {
+        }
+      };
+    console.log(targets);
     return {
       play: () => {
+      },
+      resume: () => {
       },
       stop: () => {
       },
@@ -36647,9 +36661,23 @@
   };
 
   // src/js/component/common/math-animation/animations/infinite.js
-  var mathInfinite = () => {
+  var mathInfinite = ({ targets } = {}) => {
+    if (!targets)
+      return {
+        play: () => {
+        },
+        resume: () => {
+        },
+        stop: () => {
+        },
+        destroy: () => {
+        }
+      };
+    console.log(targets);
     return {
       play: () => {
+      },
+      resume: () => {
       },
       stop: () => {
       },
@@ -36659,13 +36687,67 @@
   };
 
   // src/js/component/common/math-animation/animations/sin-animation.js
-  var mathSin = () => {
+  var mathSin = ({ targets, container } = {}) => {
+    if (!targets || !container)
+      return {
+        play: () => {
+        },
+        resume: () => {
+        },
+        stop: () => {
+        },
+        destroy: () => {
+        }
+      };
+    let tween2 = tween_exports.createTimeTween({
+      ease: "easeLinear",
+      stagger: { each: 6 },
+      data: { x: 0 }
+    });
+    const itemHeight = outerHeight(targets[0]);
+    const distance = outerWidth(container) - 200;
+    const amplitude = outerHeight(container) / 3;
+    const stepNumber = 3;
+    const step = distance / Math.PI / stepNumber;
+    const duration2 = 1e3 * stepNumber;
+    targets.forEach((item) => {
+      let previousX = 0;
+      tween2.subscribe(({ x }) => {
+        const multiplier = x >= previousX ? 1 : -1;
+        const y = Math.sin(x / step) * amplitude * multiplier;
+        item.style.transform = `translate3D(0px,0px,0px) translate(${x - distance / 2}px, ${y - itemHeight / 2}px)`;
+        previousX = x;
+      });
+    });
+    let timeline = timeline_exports.createAsyncTimeline({
+      repeat: -1,
+      yoyo: true,
+      forceFromTo: false,
+      autoSet: false
+    });
+    timeline.goTo(
+      tween2,
+      { x: distance },
+      {
+        duration: duration2
+      }
+    );
     return {
       play: () => {
+        timeline.play();
+      },
+      resume: () => {
+        timeline.resume();
       },
       stop: () => {
+        timeline.pause();
       },
       destroy: () => {
+        tween2.destroy();
+        timeline.destroy();
+        tween2 = null;
+        timeline = null;
+        targets = null;
       }
     };
   };
@@ -36681,6 +36763,8 @@
   var fakeAnimation = () => {
     return {
       play: () => {
+      },
+      resume: () => {
       },
       stop: () => {
       },
@@ -36700,17 +36784,30 @@
     const proxi = getProxi();
     const staggers = Array.from({ length: 5 });
     const fake = fakeAnimation();
-    let { destroy: destroy3, play, stop: stop2 } = fake;
-    onMount(() => {
-      const { target: circles } = getRefs();
-      console.log(circles);
-      ({ destroy: destroy3, play, stop: stop2 } = mathPairAnimation[proxi.name]());
+    let { destroy: destroy3, play, stop: stop2, resume: resume2 } = fake;
+    onMount(({ element }) => {
+      const { target: targets } = getRefs();
+      ({ destroy: destroy3, play, stop: stop2, resume: resume2 } = mathPairAnimation[proxi.name]({
+        targets,
+        container: element
+      }));
       play();
+      const unsubscribeResize = modules_exports.useResize(() => {
+        stop2();
+        destroy3();
+        ({ destroy: destroy3, play, stop: stop2, resume: resume2 } = mathPairAnimation[proxi.name]({
+          targets,
+          container: element
+        }));
+        play();
+      });
       return () => {
         destroy3();
+        unsubscribeResize();
         destroy3 = null;
         play = null;
         stop2 = null;
+        resume2 = null;
       };
     });
     return renderHtml`<div class="c-math">
@@ -36720,7 +36817,7 @@
                 class="c-math__play"
                 ${delegateEvents({
       click: () => {
-        play();
+        resume2();
       }
     })}
             ></button>
@@ -36734,12 +36831,15 @@
     })}
             ></button>
         </div>
-        ${staggers.map(() => {
+        <div class="c-math__circle-container">
+            ${staggers.map((_, index) => {
       return renderHtml`<span
-                    class="c-math__circle"
-                    ${setRef("target")}
-                ></span>`;
+                        class="c-math__circle"
+                        data-index="${index + 1}"
+                        ${setRef("target")}
+                    ></span>`;
     }).join("")}
+        </div>
     </div>`;
   };
 

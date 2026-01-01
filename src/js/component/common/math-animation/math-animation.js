@@ -5,6 +5,7 @@
 import { html } from '@mobJs';
 import { mathPairAnimation } from './pair-animation';
 import { fakeAnimation } from './animations/fake-animation';
+import { MobCore } from '@mobCore';
 
 /** @type {MobComponent<import('./type').MathAnimation>} */
 export const MathAnimationFn = ({
@@ -21,25 +22,43 @@ export const MathAnimationFn = ({
      * Create fake methods before onMount to prevent nav buttons error.
      */
     const fake = fakeAnimation();
-    let { destroy, play, stop } = fake;
+    let { destroy, play, stop, resume } = fake;
 
-    onMount(() => {
-        const { target: circles } = getRefs();
-        console.log(circles);
-
-        ({ destroy, play, stop } = mathPairAnimation[proxi.name]());
+    onMount(({ element }) => {
+        const { target: targets } = getRefs();
+        ({ destroy, play, stop, resume } = mathPairAnimation[proxi.name]({
+            targets,
+            container: element,
+        }));
 
         play();
 
+        const unsubscribeResize = MobCore.useResize(() => {
+            stop();
+            destroy();
+
+            ({ destroy, play, stop, resume } = mathPairAnimation[proxi.name]({
+                targets,
+                container: element,
+            }));
+            play();
+        });
+
         return () => {
             destroy();
+            unsubscribeResize();
 
             // @ts-ignore
             destroy = null;
+
             // @ts-ignore
             play = null;
+
             // @ts-ignore
             stop = null;
+
+            // @ts-ignore
+            resume = null;
         };
     });
 
@@ -50,7 +69,7 @@ export const MathAnimationFn = ({
                 class="c-math__play"
                 ${delegateEvents({
                     click: () => {
-                        play();
+                        resume();
                     },
                 })}
             ></button>
@@ -64,13 +83,16 @@ export const MathAnimationFn = ({
                 })}
             ></button>
         </div>
-        ${staggers
-            .map(() => {
-                return html`<span
-                    class="c-math__circle"
-                    ${setRef('target')}
-                ></span>`;
-            })
-            .join('')}
+        <div class="c-math__circle-container">
+            ${staggers
+                .map((_, index) => {
+                    return html`<span
+                        class="c-math__circle"
+                        data-index="${index + 1}"
+                        ${setRef('target')}
+                    ></span>`;
+                })
+                .join('')}
+        </div>
     </div>`;
 };

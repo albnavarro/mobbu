@@ -5439,8 +5439,33 @@ ul li::marker {
   width: 3.3333333333rem;
   height: 3.3333333333rem;
   transform: translate(-50%, -50%);
-  border: 2px #2e3440 solid;
   border-radius: 100%;
+  background: #2e3440;
+}
+.c-math__circle[data-index="1"] {
+  width: 3.3333333333rem;
+  height: 3.3333333333rem;
+  opacity: 1;
+}
+.c-math__circle[data-index="2"] {
+  width: 2.8rem;
+  height: 2.8rem;
+  opacity: 0.8;
+}
+.c-math__circle[data-index="3"] {
+  width: 2.2666666667rem;
+  height: 2.2666666667rem;
+  opacity: 0.6;
+}
+.c-math__circle[data-index="4"] {
+  width: 1.7333333333rem;
+  height: 1.7333333333rem;
+  opacity: 0.4;
+}
+.c-math__circle[data-index="5"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  opacity: 0.2;
 }
 .c-math__play {
   top: 1.3333333333rem;
