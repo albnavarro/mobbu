@@ -41,9 +41,11 @@
             min-width: rem(100);
         }
 
+        /*
         @include when-inside('[data-template="about"]') {
             color: $white;
         }
+        */
 
         &::after {
             content: '';
