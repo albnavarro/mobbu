@@ -33,7 +33,9 @@ export const scrollerN0Animation = ({
     /**
      * Check if offscrennCanvas can be used.
      */
-    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+
+    // eslint-disable-next-line prefer-const
+    let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
 
     /**
      * Mutable keyword is used for destroy reference.
@@ -354,7 +356,12 @@ export const scrollerN0Animation = ({
         offscreen = null;
         offScreenCtx = null;
         gridData = [];
-        data = [];
         isActive = false;
+
+        // @ts-ignore
+        data = null;
+
+        // @ts-ignore
+        context = null;
     };
 };

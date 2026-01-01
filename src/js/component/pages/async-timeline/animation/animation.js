@@ -17,7 +17,9 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     /**
      * Check if offscrennCanvas can be used.
      */
-    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+
+    // eslint-disable-next-line prefer-const
+    let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
 
     /**
      * Mutable keyword is used for destroy reference.
@@ -482,7 +484,6 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             offscreen = null;
             offScreenCtx = null;
             gridData = [];
-            data = [];
             isActive = false;
 
             tweenGrid?.destroy?.();
@@ -490,6 +491,18 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             tweenGridRotate?.destroy?.();
             timeline?.destroy?.();
             gridTimeline?.destroy?.();
+
+            // @ts-ignore
+            data = null;
+
+            // @ts-ignore
+            tweenAroundTarget = null;
+
+            // @ts-ignore
+            tweenRotateTarget = null;
+
+            // @ts-ignore
+            context = null;
 
             // @ts-ignore
             tweenGrid = null;

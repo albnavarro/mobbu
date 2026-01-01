@@ -67,7 +67,9 @@ export const caterpillarN0Animation = ({
     /**
      * Check if offscrennCanvas can be used.
      */
-    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+
+    // eslint-disable-next-line prefer-const
+    let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
 
     /**
      * Mutable keyword is used for destroy reference.
@@ -354,8 +356,13 @@ export const caterpillarN0Animation = ({
         offScreenCtx = null;
         // @ts-ignore
         mainTween = null;
-        steamDataReorded = [];
         stemData = [];
         isActive = false;
+
+        // @ts-ignore
+        steamDataReorded = null;
+
+        // @ts-ignore
+        context = null;
     };
 };
