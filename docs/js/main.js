@@ -36704,10 +36704,7 @@
     onMount(() => {
       const { target: circles } = getRefs();
       console.log(circles);
-      const animation = mathPairAnimation[proxi.name];
-      destroy3 = animation().destroy;
-      play = animation().play;
-      stop2 = animation().stop;
+      ({ destroy: destroy3, play, stop: stop2 } = mathPairAnimation[proxi.name]());
       play();
       return () => {
         destroy3();

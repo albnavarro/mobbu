@@ -27,10 +27,7 @@ export const MathAnimationFn = ({
         const { target: circles } = getRefs();
         console.log(circles);
 
-        const animation = mathPairAnimation[proxi.name];
-        destroy = animation().destroy;
-        play = animation().play;
-        stop = animation().stop;
+        ({ destroy, play, stop } = mathPairAnimation[proxi.name]());
 
         play();
 
