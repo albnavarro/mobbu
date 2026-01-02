@@ -37,7 +37,7 @@ export const animatedPatternN1Animation = ({
      */
     let isActive = true;
     let { top, left } = offset(canvas);
-    let ctx = canvas.getContext(context, { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: true });
 
     const activeRoute = MobJs.getActiveRoute();
 
@@ -138,10 +138,11 @@ export const animatedPatternN1Animation = ({
         // eslint-disable-next-line no-self-assign
         canvas.width = canvas.width;
 
-        // context.clearRect(0, 0, canvas.width, canvas.height);
-        context.fillStyle = '#fff';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-
+        /**
+         * Draw all black element.
+         *
+         * - Element to be masked.
+         */
         data.forEach(
             ({
                 x,
@@ -157,6 +158,8 @@ export const animatedPatternN1Animation = ({
                 offsetXCenter,
                 offsetYCenter,
             }) => {
+                if (!hasFill) return;
+
                 /**
                  * X difference in px form mouse to square.
                  */
@@ -219,21 +222,112 @@ export const animatedPatternN1Animation = ({
                     width,
                     height
                 );
+                context.fillStyle = `#000000`;
+                context.fill();
 
-                if (hasFill) {
-                    context.fillStyle = `#000000`;
-                    context.fill();
-                } else {
-                    context.fillStyle = `#ffff`;
-                    context.fill();
-                }
-
-                /**
-                 * Reset all transform instead save() restore().
-                 */
                 context.setTransform(1, 0, 0, 1, 0, 0);
             }
         );
+
+        /**
+         * Start mask mode.
+         */
+        context.globalCompositeOperation = 'destination-out';
+
+        /**
+         * Draw all white element
+         *
+         * - Mask element.
+         */
+        data.forEach(
+            ({
+                x,
+                y,
+                centerX,
+                centerY,
+                width,
+                height,
+                mouseX,
+                mouseY,
+                scale,
+                hasFill,
+                offsetXCenter,
+                offsetYCenter,
+            }) => {
+                if (hasFill) return;
+
+                /**
+                 * X difference in px form mouse to square.
+                 */
+                const mouseXparsed =
+                    mouseX -
+                    (canvas.width - (width + gutter) * numberOfColumn) / 2;
+
+                /**
+                 * Y difference in px form mouse to square.
+                 */
+                const mouseYparsed =
+                    mouseY -
+                    (canvas.height - (height + gutter) * numberOfRow) / 2;
+
+                /**
+                 * Scale value
+                 */
+                const xScale = (x - mouseXparsed) / 250;
+                const yScale = (y - mouseYparsed) / 250;
+
+                /**
+                 * Scale factor y and x together.
+                 */
+                const delta = Math.sqrt(
+                    Math.pow(Math.abs(xScale), 2) +
+                        Math.pow(Math.abs(yScale), 2)
+                );
+
+                /**
+                 * Clamp scale factor between .1 and 1.
+                 */
+                const scaleFactor = MobMotionCore.clamp(Math.abs(delta), 0, 2);
+
+                /**
+                 * Basic data for setTransform.
+                 */
+                const rotation = 0;
+                const xx = Math.cos(rotation) * (scaleFactor + scale);
+                const xy = Math.sin(rotation) * (scaleFactor + scale);
+
+                /**
+                 * Apply scale/rotation/scale all together.
+                 */
+                context.setTransform(
+                    xx,
+                    xy,
+                    -xy,
+                    xx,
+                    Math.round(centerX + offsetXCenter),
+                    Math.round(centerY + offsetYCenter)
+                );
+
+                /**
+                 * Draw.
+                 */
+                context.beginPath();
+                context.rect(
+                    Math.round(-centerX + x),
+                    Math.round(-centerY + y),
+                    width,
+                    height
+                );
+                context.fill();
+
+                context.setTransform(1, 0, 0, 1, 0, 0);
+            }
+        );
+
+        /**
+         * Stop mask mode. Enable if other operation is needed.
+         */
+        // context.globalCompositeOperation = 'source-over';
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
