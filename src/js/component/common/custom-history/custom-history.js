@@ -300,6 +300,7 @@ export const CustomHistoryFn = ({
         );
 
         addToLinkedList = false;
+        proxi.active = false;
     });
 
     /**
