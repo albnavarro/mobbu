@@ -137,8 +137,15 @@
         {
             "component": "anchor-button",
             "props": {
-                "anchor": "#special",
-                "content": "Special component"
+                "anchor": "#web-component",
+                "content": "Web Component"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#slot",
+                "content": "Slot"
             }
         },
         {
@@ -1108,8 +1115,8 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "special",
-                "label": "Special component"
+                "id": "web-component",
+                "label": "Web Component"
             }
         },
         {
@@ -1123,14 +1130,14 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "Special component"
+            "content": "Web Component"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Specialized components, slot patterns, and web component support"
+            "content": "Web component support"
         },
         {
             "component": "mob-list",
@@ -1142,7 +1149,45 @@
                     {
                         "label": "web component",
                         "url": "./#mobJs-web-component"
-                    },
+                    }
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "slot",
+                "label": "Slot"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Slot"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Slot support"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "links": true,
+                "items": [
                     {
                         "label": "slot",
                         "url": "./#mobJs-slot"
