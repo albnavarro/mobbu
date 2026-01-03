@@ -1,12 +1,9 @@
 # Prioritá
 
 1. `MobJs`: root.contains(element) -> element.isConnected.
-2. `footer`: full black.
-3. Slot
-    - [detail:](#slot)
-4. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
+2. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
     - [detail:](#BindObject/BindText/BindEffect)
-5. `RepeaterRender`: `nativeDOMChildren` -> testare element come weakMap per alleggerire il `GC`.
+3. `RepeaterRender`: `nativeDOMChildren` -> testare element come weakMap per alleggerire il `GC`.
     - Verficare e nel caso portare la cosa su altri `element` gestiti nella mappe piú grandi.
 
 ### Docs: AsyncTimeline
@@ -21,11 +18,6 @@
 - Rivedere un controllo piu permissivo e veloce per gli `oggetti`?
 
 # MobJs
-
-<a name="slot"></a>
-### Slot
-- Specificare che gli slot funzionano solo sui componenti.
-- DOCS per costruire any-component ?
 
 
 <a name="BindObject/BindText/BindEffect"></a>
