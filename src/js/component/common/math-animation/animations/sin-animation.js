@@ -19,21 +19,62 @@ export const mathSin = ({ targets, container } = {}) => {
 
     const itemHeight = outerHeight(targets[0]);
     const distance = outerWidth(container) - 200;
+
+    /**
+     * Ampiezza dell' onda.
+     */
     const amplitude = outerHeight(container) / 3;
-    const cycles = 3;
-    const wavelength = distance / (Math.PI * cycles);
-    const duration = 1000 * cycles;
+
+    /**
+     * Numero di cicli desiderati.
+     */
+    const cycles = 2;
+
+    /**
+     * Questa calcola quanto spazio in pixel occupa un radiante.
+     *
+     * - PixelsPerRadian = pixel per 1 radiante.
+     * - PixelsPerRadian × 2π = pixel per 1 ciclo completo dell'onda ( 0 -> 1 -> 0 -> -1 -> 0 ).
+     *
+     * Un radiante è l'angolo che si forma al centro di un cerchio quando l'arco è lungo quanto il raggio, dunque
+     * parliamo di cerchi.
+     *
+     * - Math.sin() e Math.cos() ragionano in radianti non in gradi.
+     * - Un cerchio completo = 360° = 2π radianti (≈ 6.28 radianti).
+     * - Mezzo cerchio = 180° = π radianti (≈ 3.14 radianti).
+     * - Quarto di cerchio = 90° = π/2 radianti (≈ 1.57 radianti).
+     */
+    const pixelsPerRadian = distance / (2 * Math.PI * cycles);
+    const duration = 1500 * cycles;
     const itemHalfHeight = itemHeight / 2;
-    const halfDistance = distance / 2;
+
+    /**
+     * Il target parte del centro, aggistiamo il valore per partire da sinistra.
+     */
+    const xAxisAdjustValue = -itemHalfHeight - distance / 2;
 
     targets.forEach((item) => {
         let previousX = 0;
 
         tween.subscribeCache(item, ({ x }) => {
-            const yDirection = x >= previousX ? 1 : -1;
-            const y = Math.sin(x / wavelength) * amplitude * yDirection;
+            /**
+             * Inverte l'onda quando il movimento va all'indietro Math.sign() ritorna -1 | 0 | 1.
+             */
+            const direction = Math.sign(x - previousX) || 1;
 
-            item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfDistance}px, ${y - itemHalfHeight}px)`;
+            /**
+             * Quanti radianti ho percorso rispetto a pixelsPerRadian?
+             *
+             * `x / pixelsPerRadian` -> Converte la distanza da px a radianti ( proporzione ).
+             *
+             * - `x` = spazio percorso.
+             * - `x : pixelsPerRadian = ? : 1`
+             * - Math.sin() -> converte in un valore tra -1 e 1 ( oscilla tra -1 e 1 ogni 2π radianti ).
+             * - Amplitude -> gestisce la dimensione dell' onda.
+             */
+            const y = Math.sin(x / pixelsPerRadian) * amplitude * direction;
+
+            item.style.transform = `translate3D(0px,0px,0px) translate(${x + xAxisAdjustValue}px, ${y - itemHalfHeight}px)`;
             previousX = x;
         });
     });
