@@ -4,5 +4,6 @@ export interface MathAnimation {
     };
     ref: {
         target: HTMLElement;
+        canvas: HTMLCanvasElement;
     };
 }

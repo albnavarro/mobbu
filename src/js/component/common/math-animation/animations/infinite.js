@@ -1,15 +1,24 @@
+import { MobCore } from '@mobCore';
 import { outerHeight, outerWidth } from '@mobCoreUtils';
 import { MobTimeline, MobTween } from '@mobMotion';
 
 /** @type {import('./type').MathCommonAnimation} */
-export const mathInfinite = ({ targets, container } = {}) => {
-    if (!targets || !container)
+export const mathInfinite = ({ targets, container, canvas } = {}) => {
+    if (!targets || !container || !canvas)
         return {
             play: () => {},
             resume: () => {},
             stop: () => {},
             destroy: () => {},
         };
+
+    let ctx = canvas.getContext('2d', {
+        alpha: true,
+        willReadFrequently: false,
+    });
+
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
 
     /**
      * Simulazione della Lemniscata di Bernoulli (∞).
@@ -125,6 +134,58 @@ export const mathInfinite = ({ targets, container } = {}) => {
         duration: 3000,
     }).add(tween);
 
+    /**
+     * Draw canvas background line.
+     */
+    function draw() {
+        if (!ctx || !canvas) return;
+
+        // eslint-disable-next-line no-self-assign
+        canvas.width = canvas.width;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+
+        /**
+         * Numero di punti per disegnare la linea (più punti = linea più liscia)
+         */
+        const numPoints = 200;
+
+        /**
+         * Setup line.
+         */
+        ctx.setLineDash([2, 5, 2, 5]);
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+
+        /**
+         * Disegna la lemniscata come linea continua
+         */
+        for (let index = 0; index <= numPoints; index++) {
+            const angleInRadian = (index / numPoints) * 2 * Math.PI;
+            const distanceFromCenter = 2 / (3 - Math.cos(2 * angleInRadian));
+            const x = distanceFromCenter * Math.cos(angleInRadian) * xAmplitude;
+            const y =
+                ((distanceFromCenter * Math.sin(2 * angleInRadian)) / 2) *
+                yAmplitude;
+
+            if (index === 0) {
+                ctx.moveTo(centerX + x, centerY + y);
+            } else {
+                ctx.lineTo(centerX + x, centerY + y);
+            }
+        }
+
+        ctx.stroke();
+        // ctx.setLineDash([]);
+    }
+
+    const unsubscribeResize = MobCore.useResize(() => {
+        draw();
+    });
+
+    draw();
+
     return {
         play: () => {
             timeline.play();
@@ -139,6 +200,10 @@ export const mathInfinite = ({ targets, container } = {}) => {
             timeline.stop();
             tween.destroy();
             timeline.destroy();
+            unsubscribeResize();
+
+            // @ts-ignore
+            ctx = null;
 
             // @ts-ignore
             tween = null;

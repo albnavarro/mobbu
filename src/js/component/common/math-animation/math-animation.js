@@ -11,6 +11,7 @@ import { MobCore } from '@mobCore';
 export const MathAnimationFn = ({
     getProxi,
     setRef,
+    getRef,
     getRefs,
     delegateEvents,
     onMount,
@@ -26,9 +27,12 @@ export const MathAnimationFn = ({
 
     onMount(({ element }) => {
         const { target: targets } = getRefs();
+        const { canvas } = getRef();
+
         ({ destroy, play, stop, resume } = mathPairAnimation[proxi.name]({
             targets,
             container: element,
+            canvas,
         }));
 
         play();
@@ -40,6 +44,7 @@ export const MathAnimationFn = ({
             ({ destroy, play, stop, resume } = mathPairAnimation[proxi.name]({
                 targets,
                 container: element,
+                canvas,
             }));
             play();
         });
@@ -63,6 +68,7 @@ export const MathAnimationFn = ({
     });
 
     return html`<div class="c-math">
+        <canvas class="c-math__canvas" ${setRef('canvas')}></canvas>
         <div class="c-math__nav">
             <button
                 type="button"

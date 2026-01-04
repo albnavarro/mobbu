@@ -1,15 +1,24 @@
+import { MobCore } from '@mobCore';
 import { outerHeight, outerWidth } from '@mobCoreUtils';
 import { MobTimeline, MobTween } from '@mobMotion';
 
 /** @type {import('./type').MathCommonAnimation} */
-export const mathSin = ({ targets, container } = {}) => {
-    if (!targets || !container)
+export const mathSin = ({ targets, container, canvas } = {}) => {
+    if (!targets || !container || !canvas)
         return {
             play: () => {},
             resume: () => {},
             stop: () => {},
             destroy: () => {},
         };
+
+    let ctx = canvas.getContext('2d', {
+        alpha: true,
+        willReadFrequently: false,
+    });
+
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
 
     let tween = MobTween.createTimeTween({
         ease: 'easeLinear',
@@ -94,6 +103,85 @@ export const mathSin = ({ targets, container } = {}) => {
         }
     );
 
+    /**
+     * Draw canvas background line.
+     */
+    function draw() {
+        if (!ctx || !canvas) return;
+
+        // eslint-disable-next-line no-self-assign
+        canvas.width = canvas.width;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+
+        /**
+         * Numero di punti per disegnare la linea (più punti = linea più liscia)
+         */
+        const numPoints = 200;
+        const totalPoints = numPoints * 2;
+
+        /**
+         * Setup line.
+         */
+        ctx.setLineDash([2, 5, 2, 5]);
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+
+        /**
+         * Forward line
+         */
+        for (let index = 0; index <= totalPoints; index++) {
+            const { x, y } = (() => {
+                /**
+                 * Sinusoide positive andata.
+                 */
+                if (index <= numPoints) {
+                    const x = (index / numPoints) * distance;
+                    const y = Math.sin(x / pixelsPerRadian) * amplitude;
+
+                    return {
+                        x,
+                        y,
+                    };
+                }
+
+                /**
+                 * Sinusoide negative andata.
+                 */
+                if (index > numPoints) {
+                    const reverseIndex = totalPoints - index;
+                    const x = (reverseIndex / numPoints) * distance;
+                    const y = Math.sin(x / pixelsPerRadian) * amplitude * -1;
+
+                    return {
+                        x,
+                        y,
+                    };
+                }
+
+                return {
+                    x: 0,
+                    y: 0,
+                };
+            })();
+
+            if (index === 0) {
+                ctx.moveTo(centerX + x - distance / 2, centerY + y);
+            } else {
+                ctx.lineTo(centerX + x - distance / 2, centerY + y);
+            }
+        }
+
+        ctx.stroke();
+        // ctx.setLineDash([]);
+    }
+
+    const unsubscribeResize = MobCore.useResize(() => {
+        draw();
+    });
+
+    draw();
     return {
         play: () => {
             timeline.play();
@@ -108,6 +196,10 @@ export const mathSin = ({ targets, container } = {}) => {
             timeline.stop();
             tween.destroy();
             timeline.destroy();
+            unsubscribeResize();
+
+            // @ts-ignore
+            ctx = null;
 
             // @ts-ignore
             tween = null;
