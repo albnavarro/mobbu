@@ -5428,19 +5428,18 @@ ul li::marker {
   width: 0;
   height: 0;
   transform: translate(-50%, -50%);
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-left: 10px solid #2e3440;
+  border-top: 0.5333333333rem solid transparent;
+  border-bottom: 0.5333333333rem solid transparent;
+  border-left: 0.6666666667rem solid #2e3440;
 }
 .c-math__stop {
   top: 1.3333333333rem;
   right: 1.3333333333rem;
 }
 .c-math__stop::after {
-  top: 8px;
-  left: 8px;
-  width: 0.8666666667rem;
-  height: 0.8666666667rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  transform: translate(-50%, -50%);
   background: #2e3440;
 }
 .c-math__play,

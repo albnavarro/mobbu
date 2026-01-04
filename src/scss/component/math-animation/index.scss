@@ -57,9 +57,9 @@
             width: 0;
             height: 0;
             transform: translate(-50%, -50%);
-            border-top: 8px solid transparent;
-            border-bottom: 8px solid transparent;
-            border-left: 10px solid $black;
+            border-top: rem(8) solid transparent;
+            border-bottom: rem(8) solid transparent;
+            border-left: rem(10) solid $black;
         }
     }
 
@@ -68,10 +68,9 @@
         right: rem(20);
 
         &::after {
-            top: 8px;
-            left: 8px;
-            width: rem(13);
-            height: rem(13);
+            width: rem(12);
+            height: rem(12);
+            transform: translate(-50%, -50%);
             background: $black;
         }
     }
