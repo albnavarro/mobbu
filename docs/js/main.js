@@ -36678,8 +36678,8 @@
   };
 
   // src/js/component/common/math-animation/animations/circle.js
-  var mathCircle = ({ targets, container } = {}) => {
-    if (!targets || !container)
+  var mathCircle = ({ targets, container, canvas } = {}) => {
+    if (!targets || !container || !canvas)
       return {
         play: () => {
         },
@@ -36690,14 +36690,20 @@
         destroy: () => {
         }
       };
+    let ctx = canvas.getContext("2d", {
+      alpha: true,
+      willReadFrequently: false
+    });
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
     let tween2 = tween_exports.createSpring({
       stagger: { each: 6 },
       data: { x: 0 }
     });
     const step = 0.06;
-    const radius = 100;
     const itemHeight = outerHeight(targets[0]);
     const itemHalfHeight = itemHeight / 2;
+    const radius = outerHeight(container) / 2 - 100;
     targets.forEach((item) => {
       tween2.subscribeCache(item, ({ x }) => {
         const xr = Math.sin(x * step) * radius;
@@ -36715,6 +36721,22 @@
       });
       if (isRunning2) modules_exports.useNextFrame(() => loop());
     };
+    function draw() {
+      if (!ctx || !canvas) return;
+      canvas.width = canvas.width;
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      ctx.setLineDash([2, 5, 2, 5]);
+      ctx.strokeStyle = "rgba(0, 0, 0, 0.5)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+      ctx.stroke();
+    }
+    const unsubscribeResize = modules_exports.useResize(() => {
+      draw();
+    });
+    draw();
     return {
       play: () => {
         if (isRunning2) return;
@@ -36731,6 +36753,8 @@
       },
       destroy: () => {
         tween2.destroy();
+        unsubscribeResize();
+        ctx = null;
         tween2 = null;
         targets = null;
         counter2 = null;
