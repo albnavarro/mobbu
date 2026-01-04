@@ -24,7 +24,11 @@ export const mathInfinite = ({ targets, container, canvas } = {}) => {
      * Simulazione della Lemniscata di Bernoulli (∞).
      */
 
-    const halfTagetHeight = outerHeight(targets[0]) / 2;
+    /**
+     * Ogni target ha una grandezza diversa, é necessario che ogni target faccia riferimento alla propia dimensione per
+     * allinearsi esattamante al canvas background.
+     */
+    const halfTagetsHeight = targets.map((target) => outerHeight(target) / 2);
 
     /**
      * Ampiezza orizzontale del simbolo dell'infinito (metà larghezza del container - margine)
@@ -73,7 +77,7 @@ export const mathInfinite = ({ targets, container, canvas } = {}) => {
         .goTo({ opacity: 0 }, { start: 5, end: 7.5, ease: 'easeOutQuad' })
         .goTo({ opacity: 1 }, { start: 7.5, end: 10, ease: 'easeInQuad' });
 
-    targets.forEach((item) => {
+    targets.forEach((item, index) => {
         tween.subscribeCache(item, ({ x, opacity }) => {
             /**
              * EQUAZIONI PARAMETRICHE DELLA LEMNISCATA DI BERNOULLI (simbolo ∞)
@@ -123,7 +127,7 @@ export const mathInfinite = ({ targets, container, canvas } = {}) => {
              * - Sottrae halfTagetHeight per centrare sia orizzontalmente che verticalmente
              * - I target partono già centrati (position: absolute al centro)
              */
-            item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetHeight}px, ${yr - halfTagetHeight}px)`;
+            item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetsHeight[index]}px, ${yr - halfTagetsHeight[index]}px)`;
             item.style.opacity = `${opacity}`;
         });
     });

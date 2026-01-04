@@ -26,15 +26,19 @@ export const mathCircle = ({ targets, container, canvas } = {}) => {
     });
 
     const step = 0.06;
-    const itemHeight = outerHeight(targets[0]);
-    const itemHalfHeight = itemHeight / 2;
     const radius = outerHeight(container) / 2 - 100;
 
-    targets.forEach((item) => {
+    /**
+     * Ogni target ha una grandezza diversa, é necessario che ogni target faccia riferimento alla propia dimensione per
+     * allinearsi esattamante al canvas background.
+     */
+    const halfTagetsHeight = targets.map((target) => outerHeight(target) / 2);
+
+    targets.forEach((item, index) => {
         tween.subscribeCache(item, ({ x }) => {
             const xr = Math.sin(x * step) * radius;
             const yr = Math.cos(x * step) * radius;
-            item.style.transform = `translate3D(0px,0px,0px) translate(${xr - itemHalfHeight}px, ${yr - itemHalfHeight}px)`;
+            item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetsHeight[index]}px, ${yr - halfTagetsHeight[index]}px)`;
         });
     });
 

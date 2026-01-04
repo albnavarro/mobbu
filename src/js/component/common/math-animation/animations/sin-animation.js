@@ -26,7 +26,6 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
         data: { x: 0 },
     });
 
-    const itemHeight = outerHeight(targets[0]);
     const distance = outerWidth(container) - 200;
 
     /**
@@ -55,15 +54,20 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
      */
     const pixelsPerRadian = distance / (2 * Math.PI * cycles);
     const duration = 1500 * cycles;
-    const itemHalfHeight = itemHeight / 2;
 
     /**
-     * Il target parte del centro, aggistiamo il valore per partire da sinistra.
+     * Ogni target ha una grandezza diversa, é necessario che ogni target faccia riferimento alla propia dimensione per
+     * allinearsi esattamante al canvas background.
      */
-    const xAxisAdjustValue = -itemHalfHeight - distance / 2;
+    const halfTagetsHeight = targets.map((target) => outerHeight(target) / 2);
 
-    targets.forEach((item) => {
+    targets.forEach((item, index) => {
         let previousX = 0;
+
+        /**
+         * Il target parte del centro, aggistiamo il valore per partire da sinistra.
+         */
+        const xAxisAdjustValue = -halfTagetsHeight[index] - distance / 2;
 
         tween.subscribeCache(item, ({ x }) => {
             /**
@@ -83,7 +87,7 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
              */
             const y = Math.sin(x / pixelsPerRadian) * amplitude * direction;
 
-            item.style.transform = `translate3D(0px,0px,0px) translate(${x + xAxisAdjustValue}px, ${y - itemHalfHeight}px)`;
+            item.style.transform = `translate3D(0px,0px,0px) translate(${x + xAxisAdjustValue}px, ${y - halfTagetsHeight[index]}px)`;
             previousX = x;
         });
     });
@@ -182,6 +186,7 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
     });
 
     draw();
+
     return {
         play: () => {
             timeline.play();

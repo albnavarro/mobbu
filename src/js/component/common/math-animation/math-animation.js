@@ -29,13 +29,18 @@ export const MathAnimationFn = ({
         const { target: targets } = getRefs();
         const { canvas } = getRef();
 
-        ({ destroy, play, stop, resume } = mathPairAnimation[proxi.name]({
-            targets,
-            container: element,
-            canvas,
-        }));
+        /**
+         * Probably style is not computree here. Await first frame available, so canvas has exact dimension.
+         */
+        MobCore.useFrame(() => {
+            ({ destroy, play, stop, resume } = mathPairAnimation[proxi.name]({
+                targets,
+                container: element,
+                canvas,
+            }));
 
-        play();
+            play();
+        });
 
         const unsubscribeResize = MobCore.useResize(() => {
             stop();
@@ -46,6 +51,7 @@ export const MathAnimationFn = ({
                 container: element,
                 canvas,
             }));
+
             play();
         });
 
