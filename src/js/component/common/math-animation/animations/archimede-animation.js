@@ -31,7 +31,7 @@ export const mathArchimede = ({ targets, container, canvas } = {}) => {
     const cycles = 3;
 
     /**
-     * Angolo totale da percorrere (cycles cicli completi)
+     * Angolo totale da percorrere (cycles cicli completi) in radianti.
      */
     const totalAngle = 2 * Math.PI * cycles;
 
@@ -43,13 +43,15 @@ export const mathArchimede = ({ targets, container, canvas } = {}) => {
     /**
      * Costante di crescita del raggio (b nella formula della spirale di Archimede: r = a + b*θ)
      *
-     * Quanto cresce il raggio per ogni radiante, calcoliamo il fattore di crescita prendendo come riferimento il
-     * massimo raggio consentito.
-     *
      * - `r` = raggio corrente
      * - `a` = raggio iniziale (distanza dal centro all'inizio)
      * - `b` = velocità di crescita del raggio (questa variabile)
      * - `Θ` = angolo corrente in radianti
+     *
+     * Quanto cresce il raggio per ogni radiante, calcoliamo il fattore di crescita prendendo come riferimento:
+     *
+     * - `r` -> raggio finale -> maxRadius.
+     * - `θ` -> valore dei radianti sul massimo raggio -> totalAngle.
      *
      * Di conseguenza:
      *
