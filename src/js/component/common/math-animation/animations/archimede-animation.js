@@ -36,18 +36,26 @@ export const mathArchimede = ({ targets, container, canvas } = {}) => {
     const totalAngle = 2 * Math.PI * cycles;
 
     /**
-     * Raggio iniziale (a nella formula r = a + b*θ) Impostato a 0 per partire dal centro.
-     *
-     * Nella formula: r = initialRadius + radiusGrowthRate * angleInRadian
+     * Raggio iniziale (a nella formula r = a + b * θ) impostato a 0 per partire dal centro.
      */
     const initialRadius = 0;
 
     /**
-     * Velocità di crescita del raggio (b nella formula r = a + b*θ)
+     * Costante di crescita del raggio (b nella formula della spirale di Archimede: r = a + b*θ)
      *
-     * Calcolato per raggiungere maxRadius dopo totalAngle radianti.
+     * Quanto cresce il raggio per ogni radiante, calcoliamo il fattore di crescita prendendo come riferimento il
+     * massimo raggio consentito.
      *
-     * - Formula: b = (maxRadius - initialRadius) / totalAngle
+     * - `r` = raggio corrente
+     * - `a` = raggio iniziale (distanza dal centro all'inizio)
+     * - `b` = velocità di crescita del raggio (questa variabile)
+     * - `Θ` = angolo corrente in radianti
+     *
+     * Di conseguenza:
+     *
+     * - `r = a + b * θ`
+     * - `b = (r - a) / θ`
+     * - `b = (maxRadius - initialRadius) / totalAngle`
      */
     const radiusGrowthRate = (maxRadius - initialRadius) / totalAngle;
 
