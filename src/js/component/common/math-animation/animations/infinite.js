@@ -59,7 +59,7 @@ export const mathInfinite = ({ targets, container, canvas } = {}) => {
 
     let tween = MobTween.createSequencer({
         stagger: { each: 5 },
-        data: { x: duration / 4, opacity: 1 },
+        data: { x: duration / 4, scale: 0 },
         duration,
     })
 
@@ -72,13 +72,15 @@ export const mathInfinite = ({ targets, container, canvas } = {}) => {
             { x: duration + duration / 4 },
             { start: 0, end: duration, ease: 'easeLinear' }
         )
-        .goTo({ opacity: 0 }, { start: 0, end: 2.5, ease: 'easeOutQuad' })
-        .goTo({ opacity: 1 }, { start: 2.5, end: 5, ease: 'easeInQuad' })
-        .goTo({ opacity: 0 }, { start: 5, end: 7.5, ease: 'easeOutQuad' })
-        .goTo({ opacity: 1 }, { start: 7.5, end: 10, ease: 'easeInQuad' });
+        .goTo({ scale: 1 }, { start: 0, end: 1.5, ease: 'easeOutQuad' })
+        .goTo({ scale: 0 }, { start: 1.5, end: 5, ease: 'easeInQuad' })
+        .goTo({ scale: 1 }, { start: 5, end: 8.5, ease: 'easeOutQuad' })
+        .goTo({ scale: 0 }, { start: 8.5, end: 10, ease: 'easeInQuad' });
 
     targets.forEach((item, index) => {
-        tween.subscribeCache(item, ({ x, opacity }) => {
+        const innerElement = /** @type {HTMLSpanElement} */ (item.firstChild);
+
+        tween.subscribeCache(item, ({ x, scale }) => {
             /**
              * EQUAZIONI PARAMETRICHE DELLA LEMNISCATA DI BERNOULLI (simbolo ∞)
              *
@@ -128,7 +130,7 @@ export const mathInfinite = ({ targets, container, canvas } = {}) => {
              * - I target partono già centrati (position: absolute al centro)
              */
             item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetsHeight[index]}px, ${yr - halfTagetsHeight[index]}px)`;
-            item.style.opacity = `${opacity}`;
+            if (innerElement) innerElement.style.scale = `${scale}`;
         });
     });
 
