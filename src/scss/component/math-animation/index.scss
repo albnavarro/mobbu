@@ -40,8 +40,6 @@
         width: rem(50);
         height: rem(50);
         transform: translate(-50%, -50%);
-        border-radius: 100%;
-        background: $black;
 
         $size-step: 8;
         $opacity-step: 0.2;
@@ -52,6 +50,16 @@
                 height: rem(50 - (($i - 1) * $size-step));
                 opacity: calc(1 + $opacity-step - ($i * $opacity-step));
             }
+        }
+
+        &__inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            background: $black;
         }
     }
 

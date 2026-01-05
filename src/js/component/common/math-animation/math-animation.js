@@ -102,6 +102,7 @@ export const MathAnimationFn = ({
                         class="c-math__circle"
                         data-index="${index + 1}"
                         ${setRef('target')}
+                        ><span class="c-math__circle__inner"></span
                     ></span>`;
                 })
                 .join('')}

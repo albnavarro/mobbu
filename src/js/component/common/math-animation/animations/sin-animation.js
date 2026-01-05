@@ -20,12 +20,6 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    let tween = MobTween.createTimeTween({
-        ease: 'easeLinear',
-        stagger: { each: 6 },
-        data: { x: 0 },
-    });
-
     const distance = outerWidth(container) - 200;
 
     /**
@@ -61,15 +55,32 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
      */
     const halfTagetsHeight = targets.map((target) => outerHeight(target) / 2);
 
+    let tween = MobTween.createSequencer({
+        ease: 'easeLinear',
+        stagger: { each: 6 },
+        data: { x: 0, scale: 0 },
+    })
+        .goTo({ x: distance }, { start: 0, end: 10, ease: 'easeLinear' })
+        .goTo(
+            { scale: 1 },
+            { start: 0, end: 10 / cycles / 2, ease: 'easeOutQuad' }
+        )
+        .goTo(
+            { scale: 0 },
+            { start: 10 - 10 / cycles / 2, end: 10, ease: 'easeOutQuad' }
+        );
+
     targets.forEach((item, index) => {
         let previousX = 0;
+
+        const innerElement = /** @type {HTMLSpanElement} */ (item.firstChild);
 
         /**
          * Il target parte del centro, aggistiamo il valore per partire da sinistra.
          */
         const xAxisAdjustValue = -halfTagetsHeight[index] - distance / 2;
 
-        tween.subscribeCache(item, ({ x }) => {
+        tween.subscribeCache(item, ({ x, scale }) => {
             /**
              * Inverte l'onda quando il movimento va all'indietro Math.sign() ritorna -1 | 0 | 1.
              */
@@ -88,24 +99,16 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
             const y = Math.sin(x / pixelsPerRadian) * amplitude * direction;
 
             item.style.transform = `translate3D(0px,0px,0px) translate(${x + xAxisAdjustValue}px, ${y - halfTagetsHeight[index]}px)`;
+            if (innerElement) innerElement.style.scale = `${scale}`;
             previousX = x;
         });
     });
 
-    let timeline = MobTimeline.createAsyncTimeline({
+    let timeline = MobTimeline.createSyncTimeline({
         repeat: -1,
         yoyo: true,
-        forceFromTo: false,
-        autoSet: false,
-    });
-
-    timeline.goTo(
-        tween,
-        { x: distance },
-        {
-            duration,
-        }
-    );
+        duration: duration,
+    }).add(tween);
 
     /**
      * Draw canvas background line.
