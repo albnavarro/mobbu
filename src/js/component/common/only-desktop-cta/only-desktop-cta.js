@@ -12,22 +12,13 @@ const shouldActivateCta = () => {
 
 let lastValidRoute = '#home';
 
+/** @type{Record<string, string>|null} */
+let lastValidParams = null;
+
 MobJs.afterRouteChange(({ currentRoute }) => {
     if (currentRoute !== 'onlyDesktop') {
-        const activeParams = MobJs.getActiveParams();
-
-        /**
-         * Merge params with route.
-         */
-        const params = Object.entries(activeParams).reduce(
-            (previous, [key, value], index) => {
-                const pre = index === 0 ? '?' : '';
-                return `${pre}${previous}&${key}=${value}`;
-            },
-            ''
-        );
-
-        lastValidRoute = `${currentRoute}${params}`;
+        lastValidParams = MobJs.getActiveParams();
+        lastValidRoute = currentRoute;
     }
 });
 
@@ -51,12 +42,16 @@ export const OnlyDesktopFnCta = ({ onMount, getProxi, bindEffect, watch }) => {
             (value) => {
                 if (!value) return;
 
-                MobJs.loadUrl({ url: `${lastValidRoute}` });
+                MobJs.loadUrl({
+                    url: lastValidRoute,
+                    params: lastValidParams ?? {},
+                });
             }
         );
 
         return () => {
             unsubscribeResize();
+            lastValidParams = null;
         };
     });
 
