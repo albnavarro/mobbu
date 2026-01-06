@@ -13,6 +13,8 @@
     opacity: 0;
     text-align: center;
 
+    @include user-select-none;
+
     &.active {
         visibility: visible;
         opacity: 1;

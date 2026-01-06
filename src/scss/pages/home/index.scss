@@ -19,9 +19,17 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
         transform: translate(-50%, -50%);
 
         svg {
-            width: min(1920px, calc(((1700 * 100) / 1920) * 1vw));
-            height: min($logo-max-height, calc(((800 * 100) / 1920) * 1vw));
             overflow: visible;
+
+            @media (aspect-ratio >= 3/2) {
+                width: min(1920px, calc(((1700 * 100) / 1920) * 1vw));
+                height: min($logo-max-height, calc(((800 * 100) / 1920) * 1vw));
+            }
+
+            @media (aspect-ratio < 3/2) {
+                width: calc(((1700 * 100) / 1240) * 1vw);
+                height: calc(((800 * 100) / 1240) * 1vw);
+            }
 
             g {
                 transform-origin: center;
