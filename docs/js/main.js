@@ -1397,7 +1397,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),B=_,F=k),A===void 0&&(
         <move-3d
             ${m.staticProps({shape:W_({u0:t,u1:r,o,o_b:n,m1:s,m2:a,m3:c,m4:p,b1:f,b1_b:h,b3:v,b4:y,b5:T,sign:x,m1_b:i,m3_b:l,m4_b:d,b1_stone:S,m1_stone:C}),xDepth:100,yDepth:30,factor:20,xLimit:20,yLimit:20,drag:!0,perspective:1e3})}
         ></move-3d>
-    </div>`};var z_=()=>be.mq("min","desktop"),H_="#home";m.afterRouteChange(({currentRoute:e})=>{e!=="onlyDesktop"&&(H_=e)});var U_=({onMount:e,getProxi:t,bindEffect:r,watch:o})=>{let n=t();return n.active=z_(),e(()=>{let s=u.useResize(()=>{n.active=z_()});return o(()=>n.active,i=>{i&&m.loadUrl({url:`${H_}`})}),()=>{s()}}),g`
+    </div>`};var z_=()=>be.mq("min","desktop"),H_="#home";m.afterRouteChange(({currentRoute:e})=>{if(e!=="onlyDesktop"){let t=m.getActiveParams(),r=Object.entries(t).reduce((o,[n,s],i)=>`${i===0?"?":""}${o}&${n}=${s}`,"");H_=`${e}${r}`}});var U_=({onMount:e,getProxi:t,bindEffect:r,watch:o})=>{let n=t();return n.active=z_(),e(()=>{let s=u.useResize(()=>{n.active=z_()});return o(()=>n.active,i=>{i&&m.loadUrl({url:`${H_}`})}),()=>{s()}}),g`
         <a
             href="#home"
             class="l-only-desktop__link"

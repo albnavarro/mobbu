@@ -13,7 +13,22 @@ const shouldActivateCta = () => {
 let lastValidRoute = '#home';
 
 MobJs.afterRouteChange(({ currentRoute }) => {
-    if (currentRoute !== 'onlyDesktop') lastValidRoute = currentRoute;
+    if (currentRoute !== 'onlyDesktop') {
+        const activeParams = MobJs.getActiveParams();
+
+        /**
+         * Merge params with route.
+         */
+        const params = Object.entries(activeParams).reduce(
+            (previous, [key, value], index) => {
+                const pre = index === 0 ? '?' : '';
+                return `${pre}${previous}&${key}=${value}`;
+            },
+            ''
+        );
+
+        lastValidRoute = `${currentRoute}${params}`;
+    }
 });
 
 /** @type {MobComponent<import('./type').OnlyDesktop>} */
