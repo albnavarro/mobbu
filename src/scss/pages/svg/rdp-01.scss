@@ -5,8 +5,15 @@
         transform: translate(rem(20), 0);
 
         svg {
-            width: calc(((1098 * 100) / 1400) * 1vw);
-            height: calc(((466 * 100) / 1400) * 1vw);
+            @media (aspect-ratio >= 3/2) {
+                width: calc(((1098 * 100) / 1400) * 1vw);
+                height: calc(((466 * 100) / 1400) * 1vw);
+            }
+
+            @media (aspect-ratio < 3/2) {
+                width: calc(((1098 * 100) / 1240) * 1vw);
+                height: calc(((466 * 100) / 1240) * 1vw);
+            }
         }
     }
 }

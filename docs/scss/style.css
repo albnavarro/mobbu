@@ -2179,16 +2179,32 @@ ul li::marker {
 .l-rdp-01__block {
   transform: translate(1.3333333333rem, 0);
 }
-.l-rdp-01__block svg {
-  width: 78.4285714286vw;
-  height: 33.2857142857vw;
+@media (aspect-ratio >= 3/2) {
+  .l-rdp-01__block svg {
+    width: 78.4285714286vw;
+    height: 33.2857142857vw;
+  }
+}
+@media (aspect-ratio < 3/2) {
+  .l-rdp-01__block svg {
+    width: 88.5483870968vw;
+    height: 37.5806451613vw;
+  }
 }
 .l-mob-01__block {
   transform: translate(1.3333333333rem, 0);
 }
-.l-mob-01__block svg {
-  width: 68.625vw;
-  height: 29.125vw;
+@media (aspect-ratio >= 3/2) {
+  .l-mob-01__block svg {
+    width: 68.625vw;
+    height: 29.125vw;
+  }
+}
+@media (aspect-ratio < 3/2) {
+  .l-mob-01__block svg {
+    width: 88.5483870968vw;
+    height: 37.5806451613vw;
+  }
 }
 .mobbu2025 {
   position: relative;
@@ -4571,7 +4587,7 @@ ul li::marker {
   visibility: hidden;
   position: fixed;
   z-index: 15;
-  top: 5.3333333333rem;
+  bottom: 7.6666666667rem;
   left: 50%;
   transform: translate(-50%, 50%);
   transition: opacity 0.35s, visibility 0.35s;
@@ -4590,16 +4606,16 @@ ul li::marker {
 }
 .c-scroller-down-label h1 {
   color: #2e3440;
-  font-size: 1.6666666667rem;
+  font-size: 1.3333333333rem;
   font-weight: 600;
   text-transform: capitalize;
 }
 .c-scroller-down-label svg {
   position: absolute;
-  top: calc(100% + 1.3333333333rem);
+  top: 2rem;
   left: 50%;
-  width: 2rem;
-  height: 2rem;
+  width: 1.3333333333rem;
+  height: 1.3333333333rem;
   transform: translateX(-50%);
   fill: #2e3440;
 }
