@@ -730,7 +730,7 @@ ul li::marker {
 }
 .footer-nav__button {
   position: relative;
-  min-width: 5.3333333333rem;
+  min-width: 5.6666666667rem;
   transition: opacity 0.55s;
   border: 0;
   background: transparent;
@@ -1984,10 +1984,9 @@ ul li::marker {
 .c-canvas__controls__btn {
   display: block;
   width: 100%;
-  min-width: var(--header-height);
   margin-top: 0;
   margin-bottom: calc(var(--gap-size) / 5);
-  padding: 0.3333333333rem 1.3333333333rem;
+  padding: 0.3333333333rem 0.6666666667rem;
   transition: background 0.2s;
   border: 1px #2e3440 solid;
   border-radius: 1.3333333333rem;
@@ -2702,7 +2701,7 @@ ul li::marker {
 }
 .c-move3d-page__controls__block {
   margin-bottom: calc(var(--gap-size) / 3);
-  padding: calc(var(--gap-size) / 2);
+  padding: calc(var(--gap-size) / 3);
   border: 1px rgba(238, 238, 238, 0.3) solid;
 }
 .c-move3d-page__controls__range {

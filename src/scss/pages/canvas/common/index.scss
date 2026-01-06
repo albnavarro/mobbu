@@ -68,10 +68,9 @@
         &__btn {
             display: block;
             width: 100%;
-            min-width: var(--header-height);
             margin-top: 0;
             margin-bottom: calc(var(--gap-size) / 5);
-            padding: rem(5) rem(20);
+            padding: rem(5) rem(10);
             transition: background 0.2s;
             border: 1px $black solid;
             border-radius: rem(20);
