@@ -24951,11 +24951,11 @@
   var DocContainerFn = () => {
     return renderHtml`
         <div class="c-doc-container">
-            <div class="c-doc-container__right-sidebar"></div>
+            <div class="c-doc-container__left-sidebar"></div>
             <div class="c-doc-container__content">
                 <mobjs-slot name="docs"></mobjs-slot>
             </div>
-            <div class="c-doc-container__side">
+            <div class="c-doc-container__right-sidebar">
                 <mobjs-slot name="section-title-small"></mobjs-slot>
                 <mobjs-slot name="section-title"></mobjs-slot>
                 <mobjs-slot name="section-links"></mobjs-slot>

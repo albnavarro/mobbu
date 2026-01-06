@@ -6,8 +6,8 @@
     grid-template-columns: var(--doc-width) 1fr;
     padding-bottom: var(--footer-height);
 
-    @include mq(xlarge) {
-        grid-template-columns: var(--right-sidebar) var(--doc-width) 1fr;
+    @include mq(large) {
+        grid-template-columns: var(--left-sidebar) var(--doc-width) 1fr;
     }
 
     // Increase scrolling performance on smooth scroll.
@@ -15,7 +15,7 @@
         pointer-events: none;
     }
 
-    &__right-sidebar {
+    &__left-sidebar {
         display: none;
         position: sticky;
         z-index: 14;
@@ -25,7 +25,7 @@
         padding: var(--gap-size);
         overflow: hidden;
 
-        @include mq('xlarge') {
+        @include mq('large') {
             display: block;
             grid-column: 1 / span 1;
         }
@@ -51,13 +51,13 @@
             width: auto;
         }
 
-        @include mq(xlarge) {
+        @include mq(large) {
             grid-column: 2 / span 1;
             border-left: 1px $black solid;
         }
     }
 
-    &__side {
+    &__right-sidebar {
         display: none;
         position: sticky;
         z-index: 14;
@@ -72,7 +72,7 @@
             display: block;
         }
 
-        @include mq(xlarge) {
+        @include mq(large) {
             grid-column: 3 / span 1;
         }
     }

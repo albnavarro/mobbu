@@ -19,9 +19,9 @@
     pointer-events: all;
     mask-image: linear-gradient(rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 100%) rem(20));
 
-    @include mq(xlarge) {
+    @include mq(large) {
         left: calc(
-            var(--doc-width) + var(--right-sidebar) + (var(--gap-size) / 2)
+            var(--doc-width) + var(--left-sidebar) + (var(--gap-size) / 2)
         );
     }
 

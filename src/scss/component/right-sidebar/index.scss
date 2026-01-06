@@ -22,7 +22,7 @@
         opacity: 1;
     }
 
-    @include mq(xlarge) {
+    @include mq(large) {
         display: block;
     }
 
