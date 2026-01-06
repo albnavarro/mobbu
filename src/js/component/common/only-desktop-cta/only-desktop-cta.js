@@ -11,6 +11,7 @@ const shouldActivateCta = () => {
 };
 
 let lastValidRoute = '#home';
+const getLastValidRoute = () => lastValidRoute;
 
 MobJs.afterRouteChange(({ currentRoute }) => {
     if (currentRoute !== 'onlyDesktop') {
@@ -51,7 +52,7 @@ export const OnlyDesktopFnCta = ({ onMount, getProxi, bindEffect, watch }) => {
             (value) => {
                 if (!value) return;
 
-                MobJs.loadUrl({ url: `${lastValidRoute}` });
+                MobJs.loadUrl({ url: `${getLastValidRoute()}` });
             }
         );
 
