@@ -78,15 +78,21 @@
     }
 
     &__list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: calc(var(--gap-size) / 2);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         margin-bottom: rem(100);
+        column-gap: calc(var(--gap-size) / 2);
+
+        @include mq(large) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @include mq(xlarge) {
+            grid-template-columns: repeat(6, 1fr);
+        }
     }
 
     &__static-item {
-        flex: 1 1 10%;
-
         &__inner {
             margin-bottom: calc(var(--gap-size) / 2);
             font-weight: 600;

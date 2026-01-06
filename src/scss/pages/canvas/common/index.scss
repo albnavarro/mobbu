@@ -72,16 +72,16 @@
             margin-bottom: calc(var(--gap-size) / 5);
             padding: rem(5) rem(10);
             transition: background 0.2s;
-            border: 1px $black solid;
+            border: 0;
             border-radius: rem(20);
-            background: transparent;
-            color: $black;
+            background: $black;
+            color: $white;
             font-size: rem(14);
             text-align: center;
 
             &:hover {
-                background: $black;
-                color: $white;
+                background: $white;
+                color: $black;
             }
         }
 

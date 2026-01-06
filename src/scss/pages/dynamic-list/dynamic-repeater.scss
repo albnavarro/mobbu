@@ -21,7 +21,9 @@
     }
 
     &__item {
-        @include mq(large) {
+        flex: 0 0 100%;
+
+        @include mq(xlarge) {
             flex: 0 0 50%;
         }
     }
