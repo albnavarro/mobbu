@@ -10,6 +10,12 @@ const shouldActivateCta = () => {
     return /** @type {boolean} */ (MobMotionCore.mq('min', 'desktop'));
 };
 
+let lastValidRoute = '#home';
+
+MobJs.afterRouteChange(({ currentRoute }) => {
+    if (currentRoute !== 'onlyDesktop') lastValidRoute = currentRoute;
+});
+
 /** @type {MobComponent<import('./type').OnlyDesktop>} */
 export const OnlyDesktopFnCta = ({ onMount, getProxi, bindEffect, watch }) => {
     const proxi = getProxi();
@@ -30,7 +36,7 @@ export const OnlyDesktopFnCta = ({ onMount, getProxi, bindEffect, watch }) => {
             (value) => {
                 if (!value) return;
 
-                MobJs.loadUrl({ url: '#home' });
+                MobJs.loadUrl({ url: `${lastValidRoute}` });
             }
         );
 

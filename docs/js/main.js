@@ -35189,6 +35189,10 @@
       core_exports.mq("min", "desktop")
     );
   };
+  var lastValidRoute = "#home";
+  modules_exports2.afterRouteChange(({ currentRoute }) => {
+    if (currentRoute !== "onlyDesktop") lastValidRoute = currentRoute;
+  });
   var OnlyDesktopFnCta = ({ onMount, getProxi, bindEffect, watch }) => {
     const proxi = getProxi();
     proxi.active = shouldActivateCta();
@@ -35200,7 +35204,7 @@
         () => proxi.active,
         (value) => {
           if (!value) return;
-          modules_exports2.loadUrl({ url: "#home" });
+          modules_exports2.loadUrl({ url: `${lastValidRoute}` });
         }
       );
       return () => {
