@@ -2750,10 +2750,10 @@ ul li::marker {
 }
 .c-move3d-page__controls__button {
   display: inline-block;
+  width: 100%;
   min-width: 6.6666666667rem;
   margin-right: 0;
   margin-bottom: 0;
-  width: 100%;
   padding: 0.3333333333rem 0.6666666667rem;
   transition: background 0.35s;
   border: 0;
