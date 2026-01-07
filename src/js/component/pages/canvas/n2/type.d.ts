@@ -24,6 +24,7 @@ export interface CaterpillarN2 {
     state: {
         isMounted: boolean;
         buttons: CaterpillarN2Button;
+        controlsActive: boolean;
     };
     ref: {
         canvas: HTMLCanvasElement;

@@ -43,6 +43,7 @@ export const CaterpillarN2Fn = ({
     getRef,
     bindEffect,
     getProxi,
+    delegateEvents,
 }) => {
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
@@ -101,7 +102,34 @@ export const CaterpillarN2Fn = ({
                         toggleClass: { active: () => proxi.isMounted },
                     })}
                 >
-                    <ul class="c-canvas__controls">
+                    <button
+                        type="button"
+                        class="c-canvas__controls__open"
+                        ${delegateEvents({
+                            click: () => {
+                                proxi.controlsActive = true;
+                            },
+                        })}
+                    >
+                        show controls
+                    </button>
+                    <ul
+                        class="c-canvas__controls"
+                        ${bindEffect({
+                            toggleClass: {
+                                active: () => proxi.controlsActive,
+                            },
+                        })}
+                    >
+                        <button
+                            type="button"
+                            class="c-canvas__controls__close"
+                            ${delegateEvents({
+                                click: () => {
+                                    proxi.controlsActive = false;
+                                },
+                            })}
+                        ></button>
                         ${getControls({ buttons: proxi.buttons })}
                         <li class="c-canvas__controls__item is-like-button">
                             <label class="c-canvas__controls__label">

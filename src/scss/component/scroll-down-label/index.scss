@@ -11,29 +11,16 @@
         opacity 0.35s,
         visibility 0.35s;
     opacity: 0;
+    color: $black;
+    font-size: rem(20);
+    font-weight: 600;
     text-align: center;
+    text-transform: capitalize;
 
     @include user-select-none;
 
     &.active {
         visibility: visible;
         opacity: 1;
-    }
-
-    h1 {
-        color: $black;
-        font-size: rem(20);
-        font-weight: 600;
-        text-transform: capitalize;
-    }
-
-    svg {
-        position: absolute;
-        top: rem(30);
-        left: 50%;
-        width: rem(20);
-        height: rem(20);
-        transform: translateX(-50%);
-        fill: $black;
     }
 }

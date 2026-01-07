@@ -10,7 +10,7 @@
     padding: rem(80) rem(20) rem(60);
     transform: translateX(101%);
     transition: transform 0.35s;
-    background: rgba($black, 0.9);
+    background: $black;
     color: $white;
 
     &.active {

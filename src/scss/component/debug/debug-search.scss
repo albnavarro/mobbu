@@ -10,7 +10,7 @@
 
     &__input {
         width: rem(150);
-        height: calc(var(--gap-size) / 2);
+        height: rem(22);
         margin-right: rem(5);
         border: 1px $white solid;
         background: transparent;
@@ -19,7 +19,7 @@
 
     &__button {
         display: inline-block;
-        height: calc(var(--gap-size) / 2);
+        height: rem(22);
         margin: 0;
         padding-top: 0;
         padding-bottom: 0;

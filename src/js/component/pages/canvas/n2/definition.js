@@ -77,6 +77,10 @@ export const CaterpillarN2 = MobJs.createComponent(
         },
         state: {
             isMounted: false,
+            controlsActive: () => ({
+                value: false,
+                type: Boolean,
+            }),
             buttons: () => ({
                 value: buttons,
                 type: 'Any',

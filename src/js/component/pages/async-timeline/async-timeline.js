@@ -43,6 +43,7 @@ export const AsyncTimelineFn = ({
     getRef,
     bindEffect,
     getProxi,
+    delegateEvents,
 }) => {
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
@@ -110,7 +111,34 @@ export const AsyncTimelineFn = ({
                         toggleClass: { active: () => proxi.isMounted },
                     })}
                 >
-                    <ul class="c-canvas__controls">
+                    <button
+                        type="button"
+                        class="c-canvas__controls__open"
+                        ${delegateEvents({
+                            click: () => {
+                                proxi.controlsActive = true;
+                            },
+                        })}
+                    >
+                        show controls
+                    </button>
+                    <ul
+                        class="c-canvas__controls"
+                        ${bindEffect({
+                            toggleClass: {
+                                active: () => proxi.controlsActive,
+                            },
+                        })}
+                    >
+                        <button
+                            type="button"
+                            class="c-canvas__controls__close"
+                            ${delegateEvents({
+                                click: () => {
+                                    proxi.controlsActive = false;
+                                },
+                            })}
+                        ></button>
                         ${getControls({ buttons: proxi.buttons })}
                     </ul>
                     <canvas ${setRef('canvas')}></canvas>

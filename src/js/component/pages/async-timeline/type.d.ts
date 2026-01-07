@@ -20,6 +20,7 @@ export interface AsyncTimeline {
     state: {
         isMounted: boolean;
         buttons: AsyncTimelineControls;
+        controlsActive: boolean;
     };
     ref: {
         canvas: HTMLCanvasElement;
