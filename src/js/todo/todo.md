@@ -1,6 +1,5 @@
 # Prioritá
 
-0. `mobMotion`: syncTimeline, play dovrebbe resettare lo stato di pause, check su `caterpillar n.2`
 1. `MobJs`: root.contains(element) -> element.isConnected.
 2. `BindObject/BindText/BindEffect` update in sincrono con repeater/invalidate.
     - [detail:](#BindObject/BindText/BindEffect)

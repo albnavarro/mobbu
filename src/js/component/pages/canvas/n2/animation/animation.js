@@ -304,27 +304,21 @@ export const caterpillarN2Animation = ({
             context = null;
         },
         play: () => {
-            if (syncTimeline.isPaused()) return;
             syncTimeline.play();
         },
         playReverse: () => {
-            if (syncTimeline.isPaused()) return;
             syncTimeline.playReverse();
         },
         playUseCurrent: () => {
-            if (syncTimeline.isPaused()) return;
             syncTimeline.play({ useCurrent: true });
         },
         playReverseUseCurrent: () => {
-            if (syncTimeline.isPaused()) return;
             syncTimeline.playReverse({ useCurrent: true });
         },
         playFromLabel: () => {
-            if (syncTimeline.isPaused()) return;
             syncTimeline.playFrom('mylabel');
         },
         plaFromLabelReverse: () => {
-            if (syncTimeline.isPaused()) return;
             syncTimeline.playFromReverse('mylabel');
         },
         stop: () => syncTimeline.stop(),

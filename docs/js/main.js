@@ -18999,6 +18999,7 @@
      * @type {import('./type.js').SyncTimelinePlay}
      */
     play(props = {}) {
+      this.resume();
       const useCurrent = props?.useCurrent;
       if (!useCurrent) this.stop();
       return new Promise((resolve, reject) => {
@@ -19035,6 +19036,7 @@
      * @type {import('./type.js').SyncTimelinePlayFrom} value
      */
     playFrom(value = 0) {
+      this.resume();
       this.stop();
       return new Promise((resolve, reject) => {
         if (this.#fpsIsInLoading) return;
@@ -19080,6 +19082,7 @@
      * @type {import('./type.js').syncTimelinePlayFromReverse} value
      */
     playFromReverse(value) {
+      this.resume();
       this.stop();
       return new Promise((resolve, reject) => {
         if (this.#fpsIsInLoading) return;
@@ -19112,6 +19115,7 @@
      * @type {import('./type.js').SyncTimelinePlayReverse}
      */
     playReverse(props = {}) {
+      this.resume();
       const useCurrent = props?.useCurrent;
       if (!useCurrent) this.stop();
       return new Promise((resolve, reject) => {
@@ -19196,7 +19200,6 @@
      */
     resume({ unFreezeCache = true } = {}) {
       if (this.#isStopped || !this.#isInPause || this.#fpsIsInLoading) return;
-      this.#isStopped = false;
       this.#isInPause = false;
       if (unFreezeCache) {
         this.#sequencers.forEach((item) => {
@@ -19209,7 +19212,8 @@
      * @type {import('./type.js').SyncTimelineReverse}
      */
     reverse() {
-      if (this.#isStopped || this.#isInPause || this.#fpsIsInLoading) return;
+      if (this.#isInPause) this.resume();
+      if (this.#isStopped || this.#fpsIsInLoading) return;
       this.#resetSequencerLastValue();
       this.#isReverse = !this.#isReverse;
       if (this.#isReverse) {
@@ -19223,8 +19227,8 @@
      * @returns {void}
      */
     stop({ clearCache = true } = {}) {
+      this.resume();
       this.#isStopped = true;
-      this.#isInPause = false;
       this.#rejectPromise();
       if (clearCache) {
         this.#sequencers.forEach((item) => {
@@ -30232,27 +30236,21 @@
         context = null;
       },
       play: () => {
-        if (syncTimeline.isPaused()) return;
         syncTimeline.play();
       },
       playReverse: () => {
-        if (syncTimeline.isPaused()) return;
         syncTimeline.playReverse();
       },
       playUseCurrent: () => {
-        if (syncTimeline.isPaused()) return;
         syncTimeline.play({ useCurrent: true });
       },
       playReverseUseCurrent: () => {
-        if (syncTimeline.isPaused()) return;
         syncTimeline.playReverse({ useCurrent: true });
       },
       playFromLabel: () => {
-        if (syncTimeline.isPaused()) return;
         syncTimeline.playFrom("mylabel");
       },
       plaFromLabelReverse: () => {
-        if (syncTimeline.isPaused()) return;
         syncTimeline.playFromReverse("mylabel");
       },
       stop: () => syncTimeline.stop(),
