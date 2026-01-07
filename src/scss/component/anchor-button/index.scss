@@ -6,6 +6,7 @@
     position: relative;
     padding-right: var(--gap-size);
     padding-left: calc(var(--gap-size) / 2);
+    background: transparent;
     text-align: left;
 
     $self: &;
