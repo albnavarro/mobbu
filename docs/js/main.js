@@ -33274,99 +33274,115 @@
   );
 
   // src/js/component/pages/move-3d/move-3d-page.js
-  var getControls2 = ({ delegateEvents, bindObject, proxiState }) => {
-    return renderHtml`<div class="c-move3d-page__controls">
+  var getControls2 = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
+    return renderHtml`<div
+        class="c-move3d-page__controls"
+        ${bindEffect({
+      toggleClass: {
+        active: () => proxi.controlsActive
+      }
+    })}
+    >
+        <button
+            type="button"
+            class="c-canvas__controls__close"
+            ${delegateEvents({
+      click: () => {
+        proxi.controlsActive = false;
+      }
+    })}
+        ></button>
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
                 <input
                     type="range"
-                    value=${proxiState.factor}
+                    value=${proxi.factor}
                     ${delegateEvents({
       input: (event) => {
         const value = (
           /** @type {HTMLInputElement} */
           event.target.value ?? 0
         );
-        proxiState.factor = Number(value);
+        proxi.factor = Number(value);
       }
     })}
                 />
             </div>
-            <div>${bindObject`factor: ${() => proxiState.factor}`}</div>
+            <div>${bindObject`factor: ${() => proxi.factor}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
                 <input
                     type="range"
-                    value=${proxiState.xDepth}
+                    value=${proxi.xDepth}
                     ${delegateEvents({
       input: (event) => {
         const value = (
           /** @type {HTMLInputElement} */
           event.target.value ?? 0
         );
-        proxiState.xDepth = Number(value);
+        proxi.xDepth = Number(value);
       }
     })}
                 />
             </div>
-            <div>${bindObject`xDepth: ${() => proxiState.xDepth}`}</div>
+            <div>${bindObject`xDepth: ${() => proxi.xDepth}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
                 <input
                     type="range"
-                    value=${proxiState.xLimit}
-                    max=${proxiState.xLimit}
+                    value=${proxi.xLimit}
+                    max=${proxi.xLimit}
                     ${delegateEvents({
       input: (event) => {
         const value = (
           /** @type {HTMLInputElement} */
           event.target.value ?? 0
         );
-        proxiState.xLimit = Number(value);
+        proxi.xLimit = Number(value);
       }
     })}
                 />
             </div>
-            <div>${bindObject`xLimit: ${() => proxiState.xLimit}`}</div>
+            <div>${bindObject`xLimit: ${() => proxi.xLimit}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
                 <input
                     type="range"
-                    value=${proxiState.yDepth}
+                    value=${proxi.yDepth}
                     ${delegateEvents({
       input: (event) => {
         const value = (
           /** @type {HTMLInputElement} */
           event.target.value ?? 0
         );
-        proxiState.yDepth = Number(value);
+        proxi.yDepth = Number(value);
       }
     })}
                 />
             </div>
-            <div>${bindObject`yDepth: ${() => proxiState.yDepth}`}</div>
+            <div>${bindObject`yDepth: ${() => proxi.yDepth}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <div class="c-move3d-page__controls__range">
                 <input
                     type="range"
-                    value=${proxiState.yLimit}
-                    max=${proxiState.yLimit}
+                    value=${proxi.yLimit}
+                    max=${proxi.yLimit}
                     ${delegateEvents({
       input: (event) => {
         const value = (
           /** @type {HTMLInputElement} */
           event.target.value ?? 0
         );
-        proxiState.yLimit = Number(value);
+        proxi.yLimit = Number(value);
       }
     })}
                 />
             </div>
-            <div>${bindObject`yLimit: ${() => proxiState.yLimit}`}</div>
+            <div>${bindObject`yLimit: ${() => proxi.yLimit}`}</div>
         </div>
         <div class="c-move3d-page__controls__block">
             <button
@@ -33374,7 +33390,7 @@
                 class="c-move3d-page__controls__button"
                 ${delegateEvents({
       click: () => {
-        proxiState.debug = !proxiState.debug;
+        proxi.debug = !proxi.debug;
       }
     })}
             >
@@ -33387,36 +33403,34 @@
     bindProps,
     delegateEvents,
     bindObject,
-    getProxi
+    getProxi,
+    bindEffect
   }) => {
-    const proxiState = getProxi();
+    const proxi = getProxi();
     return renderHtml`<div>
-        ${getControls2({ delegateEvents, bindObject, proxiState })}
+        <button
+            type="button"
+            class="c-move3d-page__controls__open"
+            ${delegateEvents({
+      click: () => {
+        proxi.controlsActive = true;
+      }
+    })}
+        >
+            show controls
+        </button>
+        ${getControls2({ delegateEvents, bindEffect, bindObject, proxi })}
         <move-3d
             ${bindProps(
       /** @returns {ReturnBindProps<import('../../common/move-3d/type').Move3D>} */
       () => ({
-        shape: proxiState.data,
-        xDepth: proxiState.xDepth,
-        yDepth: proxiState.yDepth,
-        xLimit: proxiState.xLimit,
-        yLimit: proxiState.yLimit,
-        factor: proxiState.factor,
-        debug: proxiState.debug
-      })
-    )}
-        ></move-3d>
-        <move-3d
-            ${bindProps(
-      /** @returns {ReturnBindProps<import('../../common/move-3d/type').Move3D>} */
-      () => ({
-        shape: proxiState.data,
-        xDepth: proxiState.xDepth,
-        yDepth: proxiState.yDepth,
-        xLimit: proxiState.xLimit,
-        yLimit: proxiState.yLimit,
-        factor: proxiState.factor,
-        debug: proxiState.debug
+        shape: proxi.data,
+        xDepth: proxi.xDepth,
+        yDepth: proxi.yDepth,
+        xLimit: proxi.xLimit,
+        yLimit: proxi.yLimit,
+        factor: proxi.factor,
+        debug: proxi.debug
       })
     )}
         ></move-3d>
@@ -34170,6 +34184,10 @@
             return value > 1;
           },
           strict: true
+        }),
+        controlsActive: () => ({
+          value: false,
+          type: Boolean
         })
       },
       child: [Move3D]

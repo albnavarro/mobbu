@@ -4,13 +4,76 @@
     &__controls {
         position: fixed;
         z-index: 10;
-        top: calc(var(--header-height) + var(--gap-size));
-        right: var(--gap-size);
+        top: var(--header-height);
+        right: 0;
+        min-width: rem(250);
+        height: calc(100vh - var(--header-height) - var(--footer-height));
+        padding: rem(60) rem(20) rem(20);
+        transform: translateX(100%);
+        transition: transform 0.35s;
+        background: $black;
+
+        &.active {
+            transform: translateX(0);
+        }
+
+        &__open {
+            display: block;
+            position: fixed;
+            z-index: 10;
+            top: calc(var(--header-height) + rem(20));
+            right: rem(20);
+            margin-top: 0;
+            padding: rem(5) rem(20);
+            transition:
+                background 0.35s,
+                color 0.35s;
+            border: 0;
+            background: $black;
+            color: $white;
+            font-size: rem(14);
+            text-align: right;
+
+            &:hover {
+                background: $white;
+                color: $black;
+            }
+        }
+
+        &__close {
+            position: absolute;
+            z-index: 10;
+            top: rem(10);
+            right: rem(10);
+            width: rem(40);
+            height: rem(40);
+            border: 0;
+            background: transparent;
+
+            &::after,
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: rem(20);
+                height: 2px;
+                background: $white;
+            }
+
+            &::before {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+
+            &::after {
+                transform: translate(-50%, -50%) rotate(135deg);
+            }
+        }
 
         &__block {
             margin-bottom: calc(var(--gap-size) / 3);
             padding: calc(var(--gap-size) / 3);
-            border: 1px rgba($grey, 0.3) solid;
+            color: $white;
         }
 
         &__range {
@@ -62,23 +125,22 @@
         }
 
         &__button {
-            display: inline-block;
+            display: block;
             width: 100%;
-            min-width: rem(100);
-            margin-right: 0;
-            margin-bottom: 0;
+            margin-top: 0;
+            margin-bottom: calc(var(--gap-size) / 5);
             padding: rem(5) rem(10);
-            transition: background 0.35s;
-            border: 0;
-            background: $white;
-            color: $black;
+            transition:
+                background 0.35s,
+                color 0.35s;
+            border: 1px rgba($white, 0.3) solid;
+            background: transparent;
+            color: $white;
             font-size: rem(14);
-            text-align: center;
-            text-decoration: none;
 
             &:hover {
-                background: $black;
-                color: $white;
+                background: $white;
+                color: $black;
             }
         }
     }

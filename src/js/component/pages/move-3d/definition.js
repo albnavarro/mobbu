@@ -52,6 +52,10 @@ export const Move3DPage = MobJs.createComponent(
                 },
                 strict: true,
             }),
+            controlsActive: () => ({
+                value: false,
+                type: Boolean,
+            }),
         },
         child: [Move3D],
     })

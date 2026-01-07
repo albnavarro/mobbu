@@ -12,5 +12,6 @@ export interface Move3DPage {
         factor: number;
         debug: boolean;
         perspective: number;
+        controlsActive: boolean;
     };
 }
