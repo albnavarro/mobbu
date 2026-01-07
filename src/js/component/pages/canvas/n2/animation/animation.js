@@ -91,7 +91,7 @@ export const caterpillarN2Animation = ({
     canvas.height = canvas.clientHeight;
 
     let infiniteTween = MobTween.createSequencer({
-        stagger: { each: 6 },
+        stagger: { each: 7 },
         data: { x: duration / 4, rotate: 0 },
         duration,
     })
@@ -212,8 +212,8 @@ export const caterpillarN2Animation = ({
                 if (hasFill) {
                     context.fillStyle = `#000000`;
                 } else {
-                    context.strokeStyle = `#000`;
-                    context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
+                    context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
+                    context.fillStyle = `rgba(238, 238, 238, 0)`;
                     context.stroke();
                 }
 

@@ -64,7 +64,7 @@ export const CaterpillarN2 = MobJs.createComponent(
             height: window.innerHeight / 13,
             radius: 0,
             fill: [2],
-            opacity: 1,
+            opacity: 0.03,
             xAmplitude: 500,
             yAmplitude: 400,
             duration: 10,
