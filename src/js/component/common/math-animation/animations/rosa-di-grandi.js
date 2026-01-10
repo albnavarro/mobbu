@@ -119,7 +119,7 @@ export const mathRosaDiGrandi = (
     let iteration = 0;
     let angle = 0;
 
-    while (angle < totalAngle && totalAngle > 0) {
+    while (angle < totalAngle && totalAngle > 0 && k > 0) {
         angle = (Math.PI / 2 + iteration * Math.PI) / k;
         if (angle >= 0) zeroAngles.push(angle);
         iteration++;
