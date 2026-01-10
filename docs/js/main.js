@@ -37071,8 +37071,7 @@
 
   // src/js/component/common/math-animation/animations/rosa-di-grandi.js
   var mathRosaDiGrandi = ({ targets, container, canvas } = {}, ...args) => {
-    const [petals] = args;
-    console.log(petals);
+    const [numerator, denominator] = args;
     if (!targets || !container || !canvas)
       return {
         play: () => {
@@ -37091,11 +37090,12 @@
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     const maxRadius = (outerHeight(container) - 100) / 2;
-    const cycles = 3;
-    const totalAngle = 2 * Math.PI * cycles;
-    const initialRadius = 0;
-    const radiusGrowthRate = (maxRadius - initialRadius) / totalAngle;
-    const duration2 = 1e3 * cycles;
+    const k = numerator / denominator;
+    const isNumeratorOdd = numerator % 2 !== 0;
+    const isDenominatorOdd = denominator % 2 !== 0;
+    const numberOfPetals = isNumeratorOdd && isDenominatorOdd ? numerator : 2 * numerator;
+    const totalAngle = 2 * Math.PI * denominator;
+    const duration2 = 3e3 * denominator;
     const halfTagetsHeight = targets.map((target) => outerHeight(target) / 2);
     let tween2 = tween_exports.createSequencer({
       ease: "easeLinear",
@@ -37111,7 +37111,7 @@
         item.firstChild
       );
       tween2.subscribeCache(item, ({ angleInRadian, scale }) => {
-        const radius = initialRadius + radiusGrowthRate * angleInRadian;
+        const radius = maxRadius * Math.cos(k * angleInRadian);
         const x = radius * Math.cos(angleInRadian);
         const y = radius * Math.sin(angleInRadian);
         item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index]}px, ${y - halfTagetsHeight[index]}px)`;
@@ -37127,7 +37127,7 @@
       if (!ctx || !canvas) return;
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-      const steps = 200;
+      const steps = 2e3 * denominator;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.setLineDash([2, 5, 2, 5]);
       ctx.strokeStyle = "rgba(0, 0, 0, 0.5)";
@@ -37135,7 +37135,7 @@
       ctx.beginPath();
       for (let index = 0; index <= steps; index++) {
         const angle = totalAngle / steps * index;
-        const radius = initialRadius + radiusGrowthRate * angle;
+        const radius = maxRadius * Math.cos(k * angle);
         const x = centerX + radius * Math.cos(angle);
         const y = centerY + radius * Math.sin(angle);
         if (index === 0) {
@@ -37145,6 +37145,16 @@
         }
       }
       ctx.stroke();
+      ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+      ctx.font = "14px Arial";
+      ctx.textAlign = "left";
+      ctx.fillText(
+        `Rose curve: r = cos(${numerator}/${denominator} * \u03B8)`,
+        20,
+        30
+      );
+      ctx.fillText(`Petals: ${numberOfPetals}`, 20, 50);
+      ctx.fillText(`Total angle: ${totalAngle.toFixed(2)} rad`, 20, 70);
     }
     const unsubscribeResize = modules_exports.useResize(() => {
       canvas.width = canvas.clientWidth;
@@ -37466,7 +37476,7 @@
                     <math-animation
                         ${modules_exports2.staticProps({
           name: "rosaDiGrandi",
-          args: [proxi.petals]
+          args: [proxi.petals, proxi.denominator]
         })}
                     ></math-animation>
                 `;
@@ -37483,7 +37493,11 @@
       component: RosaDiGrandiPageFn,
       state: {
         petals: () => ({
-          value: 4,
+          value: 7,
+          type: Number
+        }),
+        denominator: () => ({
+          value: 9,
           type: Number
         })
       },

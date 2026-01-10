@@ -15,7 +15,11 @@ export const RosaDiGrandiPage = MobJs.createComponent(
         component: RosaDiGrandiPageFn,
         state: {
             petals: () => ({
-                value: 4,
+                value: 7,
+                type: Number,
+            }),
+            denominator: () => ({
+                value: 9,
                 type: Number,
             }),
         },

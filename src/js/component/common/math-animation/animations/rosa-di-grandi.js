@@ -8,8 +8,7 @@ export const mathRosaDiGrandi = (
     ...args
 ) => {
     /** @type {number[]} */
-    const [petals] = args;
-    console.log(petals);
+    const [numerator, denominator] = args;
 
     if (!targets || !container || !canvas)
         return {
@@ -28,50 +27,35 @@ export const mathRosaDiGrandi = (
     canvas.height = canvas.clientHeight;
 
     /**
-     * Raggio massimo della spirale (1 quarto della distanza per centrare)
+     * Raggio massimo della curva
      */
     const maxRadius = (outerHeight(container) - 100) / 2;
 
     /**
-     * Numero di cicli completi della spirale
+     * Parametri della rosa: k = numerator/denominator r = cos(kθ)
      */
-    const cycles = 3;
+    const k = numerator / denominator;
 
     /**
-     * Angolo totale da percorrere (cycles cicli completi) in radianti.
+     * Calcolo del numero di petali:
+     *
+     * - Se numerator e denominator sono entrambi dispari → numerator petali
+     * - Altrimenti → 2 * numerator petali
      */
-    const totalAngle = 2 * Math.PI * cycles;
+    const isNumeratorOdd = numerator % 2 !== 0;
+    const isDenominatorOdd = denominator % 2 !== 0;
+    const numberOfPetals =
+        isNumeratorOdd && isDenominatorOdd ? numerator : 2 * numerator;
 
     /**
-     * Raggio iniziale (a nella formula r = a + b * θ) impostato a 0 per partire dal centro.
+     * Angolo totale da percorrere per completare la curva La curva si ripete ogni 2π * denominator radianti
      */
-    const initialRadius = 0;
-
-    /**
-     * Costante di crescita del raggio (b nella formula della spirale di Archimede: r = a + b*θ)
-     *
-     * - `r` = raggio corrente
-     * - `a` = raggio iniziale (distanza dal centro all'inizio)
-     * - `b` = velocità di crescita del raggio (questa variabile)
-     * - `Θ` = angolo corrente in radianti
-     *
-     * Quanto cresce il raggio per ogni radiante, calcoliamo il fattore di crescita prendendo come riferimento:
-     *
-     * - `r` -> raggio finale -> maxRadius.
-     * - `θ` -> valore dei radianti sul massimo raggio -> totalAngle.
-     *
-     * Di conseguenza:
-     *
-     * - `r = a + b * θ`
-     * - `b = (r - a) / θ`
-     * - `b = (maxRadius - initialRadius) / totalAngle`
-     */
-    const radiusGrowthRate = (maxRadius - initialRadius) / totalAngle;
+    const totalAngle = 2 * Math.PI * denominator;
 
     /**
      * Timeline duration.
      */
-    const duration = 1000 * cycles;
+    const duration = 3000 * denominator;
 
     /**
      * Ogni target ha una grandezza diversa, é necessario che ogni target faccia riferimento alla propia dimensione per
@@ -96,13 +80,13 @@ export const mathRosaDiGrandi = (
 
         tween.subscribeCache(item, ({ angleInRadian, scale }) => {
             /**
-             * SPIRALE DI ARCHIMEDE Formula: r = a + b * θ
+             * ROSA DI GRANDI Formula: r = a * cos(k * θ)
              *
-             * - InitialRadius (a): raggio di partenza
-             * - RadiusGrowthRate (b): velocità di crescita del raggio
-             * - AngleInRadian (θ): angolo corrente in radianti
+             * - MaxRadius: ampiezza massima della curva
+             * - K: numerator/denominator
+             * - Θ: angolo corrente in radianti
              */
-            const radius = initialRadius + radiusGrowthRate * angleInRadian;
+            const radius = maxRadius * Math.cos(k * angleInRadian);
 
             /**
              * Conversione da coordinate polari (r, θ) a cartesiane (x, y)
@@ -129,7 +113,7 @@ export const mathRosaDiGrandi = (
 
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
-        const steps = 200;
+        const steps = 2000 * denominator; // Più passi per curve complesse
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.setLineDash([2, 5, 2, 5]);
@@ -139,11 +123,17 @@ export const mathRosaDiGrandi = (
 
         for (let index = 0; index <= steps; index++) {
             const angle = (totalAngle / steps) * index;
-            const radius = initialRadius + radiusGrowthRate * angle;
+
+            /**
+             * ROSA DI GRANDI Formula: r = a * cos(k * θ)
+             */
+            const radius = maxRadius * Math.cos(k * angle);
+
             const x = centerX + radius * Math.cos(angle);
             const y = centerY + radius * Math.sin(angle);
 
             if (index === 0) {
+                // Se siamo troppo lontani dall'ultimo punto, muoviamo il pennello
                 ctx.moveTo(x, y);
             } else {
                 ctx.lineTo(x, y);
@@ -151,6 +141,18 @@ export const mathRosaDiGrandi = (
         }
 
         ctx.stroke();
+
+        // Aggiungiamo informazioni testuali sulla curva
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+        ctx.font = '14px Arial';
+        ctx.textAlign = 'left';
+        ctx.fillText(
+            `Rose curve: r = cos(${numerator}/${denominator} * θ)`,
+            20,
+            30
+        );
+        ctx.fillText(`Petals: ${numberOfPetals}`, 20, 50);
+        ctx.fillText(`Total angle: ${totalAngle.toFixed(2)} rad`, 20, 70);
     }
 
     const unsubscribeResize = MobCore.useResize(() => {
