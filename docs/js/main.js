@@ -37503,15 +37503,110 @@
   };
 
   // src/js/component/pages/rosa-di-grandi/rosa-di-grandi-page.js
-  var RosaDiGrandiPageFn = ({ getProxi, invalidate }) => {
+  var getControls4 = ({ proxi, delegateEvents, bindObject }) => {
+    return renderHtml`
+        <li class="l-rosa__controls__item">
+            <span for="numerators" class="l-rosa__controls__label">
+                ${bindObject`numerators: <strong>${() => proxi.numerators}</strong>`}
+            </span>
+            <div class="l-rosa__controls__range">
+                <input
+                    id="numerators"
+                    type="range"
+                    min="0"
+                    max="10"
+                    value="${proxi.numerators}"
+                    step="1"
+                    ${delegateEvents({
+      change: (event) => {
+        const { target } = event;
+        if (!target) return;
+        const value = target.value;
+        proxi.numerators = Number(value);
+      }
+    })}
+                />
+            </div>
+        </li>
+        <li class="l-rosa__controls__item">
+            <span for="denominator" class="l-rosa__controls__label">
+                ${bindObject`denominator: <strong>${() => proxi.denominator}</strong>`}
+            </span>
+            <div class="l-rosa__controls__range">
+                <input
+                    type="range"
+                    id="denominator"
+                    min="0"
+                    max="10"
+                    value="${proxi.denominator}"
+                    step="1"
+                    ${delegateEvents({
+      change: (event) => {
+        const { target } = event;
+        if (!target) return;
+        const value = target.value;
+        proxi.denominator = Number(value);
+      }
+    })}
+                />
+            </div>
+        </li>
+    `;
+  };
+  var RosaDiGrandiPageFn = ({
+    getProxi,
+    delegateEvents,
+    invalidate,
+    bindEffect,
+    getRef,
+    setRef,
+    bindObject
+  }) => {
     const proxi = getProxi();
     return renderHtml`<div class="l-rosa">
-        ${invalidate({
+        <button
+            type="button"
+            class="l-rosa__controls__open"
+            ${delegateEvents({
+      click: () => {
+        proxi.controlsActive = true;
+      }
+    })}
+        >
+            show controls
+        </button>
+        <ul
+            class="l-rosa__controls"
+            ${bindEffect({
+      toggleClass: {
+        active: () => proxi.controlsActive
+      }
+    })}
+        >
+            <button
+                type="button"
+                class="l-rosa__controls__close"
+                ${delegateEvents({
+      click: () => {
+        proxi.controlsActive = false;
+      }
+    })}
+            ></button>
+            ${getControls4({
+      proxi,
+      getRef,
+      setRef,
+      delegateEvents,
+      bindObject
+    })}
+        </ul>
+        <div class="l-rosa__wrap">
+            ${invalidate({
       observe: [() => proxi.numerators, () => proxi.denominator],
       render: () => {
         return renderHtml`
-                    <math-animation
-                        ${modules_exports2.staticProps({
+                        <math-animation
+                            ${modules_exports2.staticProps({
           name: "rosaDiGrandi",
           showNavigation: false,
           args: [
@@ -37521,10 +37616,11 @@
             proxi.staggerEach
           ]
         })}
-                    ></math-animation>
-                `;
+                        ></math-animation>
+                    `;
       }
     })}
+        </div>
     </div>`;
   };
 
@@ -37550,6 +37646,10 @@
         staggerEach: () => ({
           value: 4,
           type: Number
+        }),
+        controlsActive: () => ({
+          value: false,
+          type: Boolean
         })
       },
       child: [MathAnimation]

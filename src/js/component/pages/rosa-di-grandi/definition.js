@@ -30,6 +30,10 @@ export const RosaDiGrandiPage = MobJs.createComponent(
                 value: 4,
                 type: Number,
             }),
+            controlsActive: () => ({
+                value: false,
+                type: Boolean,
+            }),
         },
         child: [MathAnimation],
     })

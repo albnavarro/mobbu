@@ -4,5 +4,6 @@ export interface RosaDiGrandiPage {
         denominator: number;
         duration: number;
         staggerEach: number;
+        controlsActive: boolean;
     };
 }
