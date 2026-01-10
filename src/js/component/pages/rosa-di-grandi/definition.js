@@ -2,6 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { RosaDiGrandiPageFn } from './rosa-di-grandi-page';
+import { MathAnimation } from '@commonComponent/math-animation/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -18,5 +19,6 @@ export const RosaDiGrandiPage = MobJs.createComponent(
                 type: Number,
             }),
         },
+        child: [MathAnimation],
     })
 );

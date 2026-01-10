@@ -37069,6 +37069,110 @@
     };
   };
 
+  // src/js/component/common/math-animation/animations/rosa-di-grandi.js
+  var mathRosaDiGrandi = ({ targets, container, canvas } = {}) => {
+    if (!targets || !container || !canvas)
+      return {
+        play: () => {
+        },
+        resume: () => {
+        },
+        stop: () => {
+        },
+        destroy: () => {
+        }
+      };
+    let ctx = canvas.getContext("2d", {
+      alpha: true,
+      willReadFrequently: false
+    });
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    const maxRadius = (outerHeight(container) - 100) / 2;
+    const cycles = 3;
+    const totalAngle = 2 * Math.PI * cycles;
+    const initialRadius = 0;
+    const radiusGrowthRate = (maxRadius - initialRadius) / totalAngle;
+    const duration2 = 1e3 * cycles;
+    const halfTagetsHeight = targets.map((target) => outerHeight(target) / 2);
+    let tween2 = tween_exports.createSequencer({
+      ease: "easeLinear",
+      stagger: { each: 6 },
+      data: { angleInRadian: 0, scale: 0 }
+    }).goTo(
+      { angleInRadian: totalAngle },
+      { start: 0, end: 10, ease: "easeLinear" }
+    ).goTo({ scale: 1 }, { start: 0, end: 4, ease: "easeOutQuad" }).goTo({ scale: 0 }, { start: 9, end: 10, ease: "easeOutQuad" });
+    targets.forEach((item, index) => {
+      const innerElement = (
+        /** @type {HTMLSpanElement} */
+        item.firstChild
+      );
+      tween2.subscribeCache(item, ({ angleInRadian, scale }) => {
+        const radius = initialRadius + radiusGrowthRate * angleInRadian;
+        const x = radius * Math.cos(angleInRadian);
+        const y = radius * Math.sin(angleInRadian);
+        item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index]}px, ${y - halfTagetsHeight[index]}px)`;
+        if (innerElement) innerElement.style.scale = `${scale}`;
+      });
+    });
+    let timeline = timeline_exports.createSyncTimeline({
+      repeat: -1,
+      yoyo: false,
+      duration: duration2
+    }).add(tween2);
+    function draw() {
+      if (!ctx || !canvas) return;
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const steps = 200;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.setLineDash([2, 5, 2, 5]);
+      ctx.strokeStyle = "rgba(0, 0, 0, 0.5)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let index = 0; index <= steps; index++) {
+        const angle = totalAngle / steps * index;
+        const radius = initialRadius + radiusGrowthRate * angle;
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        if (index === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+    }
+    const unsubscribeResize = modules_exports.useResize(() => {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+      draw();
+    });
+    draw();
+    return {
+      play: () => {
+        timeline.play();
+      },
+      resume: () => {
+        timeline.resume();
+      },
+      stop: () => {
+        timeline.pause();
+      },
+      destroy: () => {
+        timeline.stop();
+        tween2.destroy();
+        timeline.destroy();
+        unsubscribeResize();
+        ctx = null;
+        tween2 = null;
+        timeline = null;
+        targets = null;
+      }
+    };
+  };
+
   // src/js/component/common/math-animation/animations/sin-animation.js
   var mathSin = ({ targets, container, canvas } = {}) => {
     if (!targets || !container || !canvas)
@@ -37200,7 +37304,8 @@
     sin: mathSin,
     circle: mathCircle,
     infinite: mathInfinite,
-    archimede: mathArchimede
+    archimede: mathArchimede,
+    rosaDiGrandi: mathRosaDiGrandi
   };
 
   // src/js/component/common/math-animation/animations/fake-animation.js
@@ -37339,12 +37444,23 @@
   };
 
   // src/js/component/pages/rosa-di-grandi/rosa-di-grandi-page.js
-  var RosaDiGrandiPageFn = ({ onMount, getProxi }) => {
+  var RosaDiGrandiPageFn = ({ onMount, getProxi, invalidate }) => {
     const proxi = getProxi();
     onMount(() => {
       console.log(proxi.petals);
     });
-    return renderHtml`<div class="l-rosa"></div>`;
+    return renderHtml`<div class="l-rosa">
+        ${invalidate({
+      observe: () => proxi.petals,
+      render: () => {
+        return renderHtml`
+                    <math-animation
+                        ${modules_exports2.staticProps({ name: "rosaDiGrandi" })}
+                    ></math-animation>
+                `;
+      }
+    })}
+    </div>`;
   };
 
   // src/js/component/pages/rosa-di-grandi/definition.js
@@ -37358,7 +37474,8 @@
           value: 4,
           type: Number
         })
-      }
+      },
+      child: [MathAnimation]
     }
   );
 

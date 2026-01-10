@@ -1,6 +1,7 @@
 import { mathArchimede } from './animations/archimede-animation';
 import { mathCircle } from './animations/circle';
 import { mathInfinite } from './animations/infinite';
+import { mathRosaDiGrandi } from './animations/rosa-di-grandi';
 import { mathSin } from './animations/sin-animation';
 
 /** @type{Record<string, import('./animations/type').MathCommonAnimation>} */
@@ -9,4 +10,5 @@ export const mathPairAnimation = {
     circle: mathCircle,
     infinite: mathInfinite,
     archimede: mathArchimede,
+    rosaDiGrandi: mathRosaDiGrandi,
 };
