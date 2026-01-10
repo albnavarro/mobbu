@@ -80,6 +80,11 @@ export const mathRosaDiGrandi = (
     }
 
     /**
+     * Use to get timeGap.
+     */
+    let lastTimePosition = 0;
+
+    /**
      * Converti angoli radianti in posizioni temporali (0-10)
      */
     zeroAngles.forEach((angleRad) => {
@@ -88,10 +93,12 @@ export const mathRosaDiGrandi = (
          */
         const timePosition = (angleRad / totalAngle) * 10;
 
-        const factor = 0.3;
-        const start = Math.max(0, timePosition - factor);
+        const timeGap = Math.abs((timePosition - lastTimePosition) / 2);
+        lastTimePosition = timePosition;
+
+        const start = Math.max(0, timePosition - timeGap);
         const center = timePosition;
-        const end = Math.min(10, timePosition + factor);
+        const end = Math.min(10, timePosition + timeGap);
 
         tween.goTo({ scale: 0 }, { start, end: center, ease: 'easeInQuad' });
         tween.goTo({ scale: 1 }, { start: center, end, ease: 'easeOutQuad' });

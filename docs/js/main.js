@@ -37112,12 +37112,14 @@
       }
       cadvenceFactor++;
     }
+    let lastTimePosition = 0;
     zeroAngles.forEach((angleRad) => {
       const timePosition = angleRad / totalAngle * 10;
-      const factor = 0.3;
-      const start = Math.max(0, timePosition - factor);
+      const timeGap = Math.abs((timePosition - lastTimePosition) / 2);
+      lastTimePosition = timePosition;
+      const start = Math.max(0, timePosition - timeGap);
       const center = timePosition;
-      const end = Math.min(10, timePosition + factor);
+      const end = Math.min(10, timePosition + timeGap);
       tween2.goTo({ scale: 0 }, { start, end: center, ease: "easeInQuad" });
       tween2.goTo({ scale: 1 }, { start: center, end, ease: "easeOutQuad" });
     });
