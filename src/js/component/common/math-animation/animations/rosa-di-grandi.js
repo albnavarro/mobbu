@@ -65,10 +65,10 @@ export const mathRosaDiGrandi = (
      * Get points when target passes through the center.
      */
     const zeroAngles = [];
-    let cadvenceFactor = 0;
+    let iteration = 0;
 
     while (true) {
-        const angle = (Math.PI / 2 + cadvenceFactor * Math.PI) / k;
+        const angle = (Math.PI / 2 + iteration * Math.PI) / k;
 
         if (angle > totalAngle) break;
 
@@ -76,7 +76,7 @@ export const mathRosaDiGrandi = (
             zeroAngles.push(angle);
         }
 
-        cadvenceFactor++;
+        iteration++;
     }
 
     /**
@@ -100,8 +100,16 @@ export const mathRosaDiGrandi = (
         const center = timePosition;
         const end = Math.min(10, timePosition + timeGap);
 
-        tween.goTo({ scale: 0 }, { start, end: center, ease: 'easeInQuad' });
-        tween.goTo({ scale: 1 }, { start: center, end, ease: 'easeOutQuad' });
+        if (end > start) {
+            tween.goTo(
+                { scale: 0 },
+                { start, end: center, ease: 'easeInQuad' }
+            );
+            tween.goTo(
+                { scale: 1 },
+                { start: center, end, ease: 'easeOutQuad' }
+            );
+        }
     });
 
     targets.forEach((item, index) => {

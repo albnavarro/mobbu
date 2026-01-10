@@ -37103,14 +37103,14 @@
       { start: 0, end: 10, ease: "easeLinear" }
     );
     const zeroAngles = [];
-    let cadvenceFactor = 0;
+    let iteration = 0;
     while (true) {
-      const angle = (Math.PI / 2 + cadvenceFactor * Math.PI) / k;
+      const angle = (Math.PI / 2 + iteration * Math.PI) / k;
       if (angle > totalAngle) break;
       if (angle >= 0) {
         zeroAngles.push(angle);
       }
-      cadvenceFactor++;
+      iteration++;
     }
     let lastTimePosition = 0;
     zeroAngles.forEach((angleRad) => {
@@ -37120,8 +37120,16 @@
       const start = Math.max(0, timePosition - timeGap);
       const center = timePosition;
       const end = Math.min(10, timePosition + timeGap);
-      tween2.goTo({ scale: 0 }, { start, end: center, ease: "easeInQuad" });
-      tween2.goTo({ scale: 1 }, { start: center, end, ease: "easeOutQuad" });
+      if (end > start) {
+        tween2.goTo(
+          { scale: 0 },
+          { start, end: center, ease: "easeInQuad" }
+        );
+        tween2.goTo(
+          { scale: 1 },
+          { start: center, end, ease: "easeOutQuad" }
+        );
+      }
     });
     targets.forEach((item, index) => {
       const innerElement = (
