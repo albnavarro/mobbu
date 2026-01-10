@@ -15,11 +15,11 @@ export const RosaDiGrandiPage = MobJs.createComponent(
         component: RosaDiGrandiPageFn,
         state: {
             numerators: () => ({
-                value: 7,
+                value: 2,
                 type: Number,
             }),
             denominator: () => ({
-                value: 9,
+                value: 3,
                 type: Number,
             }),
             duration: () => ({
