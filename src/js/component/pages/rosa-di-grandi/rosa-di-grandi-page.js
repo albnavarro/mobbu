@@ -7,12 +7,8 @@ import { html, MobJs } from '@mobJs';
  */
 
 /** @type {MobComponent<import('./type').RosaDiGrandiPage>} */
-export const RosaDiGrandiPageFn = ({ onMount, getProxi, invalidate }) => {
+export const RosaDiGrandiPageFn = ({ getProxi, invalidate }) => {
     const proxi = getProxi();
-
-    onMount(() => {
-        console.log(proxi.petals);
-    });
 
     return html`<div class="l-rosa">
         ${invalidate({
@@ -20,7 +16,10 @@ export const RosaDiGrandiPageFn = ({ onMount, getProxi, invalidate }) => {
             render: () => {
                 return html`
                     <math-animation
-                        ${MobJs.staticProps({ name: 'rosaDiGrandi' })}
+                        ${MobJs.staticProps({
+                            name: 'rosaDiGrandi',
+                            args: [proxi.petals],
+                        })}
                     ></math-animation>
                 `;
             },

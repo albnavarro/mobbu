@@ -37070,7 +37070,9 @@
   };
 
   // src/js/component/common/math-animation/animations/rosa-di-grandi.js
-  var mathRosaDiGrandi = ({ targets, container, canvas } = {}) => {
+  var mathRosaDiGrandi = ({ targets, container, canvas } = {}, ...args) => {
+    const [petals] = args;
+    console.log(petals);
     if (!targets || !container || !canvas)
       return {
         play: () => {
@@ -37339,21 +37341,27 @@
       const { target: targets } = getRefs();
       const { canvas } = getRef();
       modules_exports.useFrame(() => {
-        ({ destroy: destroy3, play, stop: stop2, resume: resume2 } = mathPairAnimation[proxi.name]({
-          targets,
-          container: element,
-          canvas
-        }));
+        ({ destroy: destroy3, play, stop: stop2, resume: resume2 } = mathPairAnimation[proxi.name](
+          {
+            targets,
+            container: element,
+            canvas
+          },
+          ...proxi.args
+        ));
         play();
       });
       const unsubscribeResize = modules_exports.useResize(() => {
         stop2();
         destroy3();
-        ({ destroy: destroy3, play, stop: stop2, resume: resume2 } = mathPairAnimation[proxi.name]({
-          targets,
-          container: element,
-          canvas
-        }));
+        ({ destroy: destroy3, play, stop: stop2, resume: resume2 } = mathPairAnimation[proxi.name](
+          {
+            targets,
+            container: element,
+            canvas
+          },
+          ...proxi.args
+        ));
         play();
       });
       return () => {
@@ -37410,6 +37418,10 @@
         name: () => ({
           value: "",
           type: String
+        }),
+        args: () => ({
+          value: [],
+          type: Array
         })
       }
     }
@@ -37444,18 +37456,18 @@
   };
 
   // src/js/component/pages/rosa-di-grandi/rosa-di-grandi-page.js
-  var RosaDiGrandiPageFn = ({ onMount, getProxi, invalidate }) => {
+  var RosaDiGrandiPageFn = ({ getProxi, invalidate }) => {
     const proxi = getProxi();
-    onMount(() => {
-      console.log(proxi.petals);
-    });
     return renderHtml`<div class="l-rosa">
         ${invalidate({
       observe: () => proxi.petals,
       render: () => {
         return renderHtml`
                     <math-animation
-                        ${modules_exports2.staticProps({ name: "rosaDiGrandi" })}
+                        ${modules_exports2.staticProps({
+          name: "rosaDiGrandi",
+          args: [proxi.petals]
+        })}
                     ></math-animation>
                 `;
       }

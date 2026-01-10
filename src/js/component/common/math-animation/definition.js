@@ -15,6 +15,10 @@ export const MathAnimation = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
+            args: () => ({
+                value: [],
+                type: Array,
+            }),
         },
     })
 );

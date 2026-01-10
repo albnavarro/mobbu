@@ -3,7 +3,14 @@ import { outerHeight } from '@mobCoreUtils';
 import { MobTimeline, MobTween } from '@mobMotion';
 
 /** @type {import('./type').MathCommonAnimation} */
-export const mathRosaDiGrandi = ({ targets, container, canvas } = {}) => {
+export const mathRosaDiGrandi = (
+    { targets, container, canvas } = {},
+    ...args
+) => {
+    /** @type {number[]} */
+    const [petals] = args;
+    console.log(petals);
+
     if (!targets || !container || !canvas)
         return {
             play: () => {},
