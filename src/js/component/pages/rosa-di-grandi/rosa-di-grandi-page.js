@@ -12,14 +12,14 @@ export const RosaDiGrandiPageFn = ({ getProxi, invalidate }) => {
 
     return html`<div class="l-rosa">
         ${invalidate({
-            observe: () => proxi.petals,
+            observe: [() => proxi.numerators, () => proxi.denominator],
             render: () => {
                 return html`
                     <math-animation
                         ${MobJs.staticProps({
                             name: 'rosaDiGrandi',
                             args: [
-                                proxi.petals,
+                                proxi.numerators,
                                 proxi.denominator,
                                 proxi.duration,
                                 proxi.staggerEach,

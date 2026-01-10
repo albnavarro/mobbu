@@ -37070,6 +37070,23 @@
   };
 
   // src/js/component/common/math-animation/animations/rosa-di-grandi.js
+  function calculateCurveLength(maxRadius, k, totalAngle, steps = 2e3) {
+    let length = 0;
+    let prevX = maxRadius;
+    let prevY = 0;
+    for (let i = 1; i <= steps; i++) {
+      const angle = totalAngle / steps * i;
+      const radius = maxRadius * Math.cos(k * angle);
+      const x = radius * Math.cos(angle);
+      const y = radius * Math.sin(angle);
+      const dx = x - prevX;
+      const dy = y - prevY;
+      length += Math.hypot(dx, dy);
+      prevX = x;
+      prevY = y;
+    }
+    return length;
+  }
   var mathRosaDiGrandi = ({ targets, container, canvas } = {}, ...args) => {
     const [numerator, denominator, duration2, staggerEach] = args;
     if (!targets || !container || !canvas)
@@ -37092,7 +37109,8 @@
     const maxRadius = (outerHeight(container) - 100) / 2;
     const k = numerator / denominator;
     const totalAngle = 2 * Math.PI * denominator;
-    const durationparsed = duration2 * denominator;
+    const curveLength = calculateCurveLength(maxRadius, k, totalAngle);
+    const durationparsed = duration2 * (curveLength / maxRadius);
     const halfTagetsHeight = targets.map((target) => outerHeight(target) / 2);
     let tween2 = tween_exports.createSequencer({
       ease: "easeLinear",
@@ -37486,14 +37504,14 @@
     const proxi = getProxi();
     return renderHtml`<div class="l-rosa">
         ${invalidate({
-      observe: () => proxi.petals,
+      observe: [() => proxi.numerators, () => proxi.denominator],
       render: () => {
         return renderHtml`
                     <math-animation
                         ${modules_exports2.staticProps({
           name: "rosaDiGrandi",
           args: [
-            proxi.petals,
+            proxi.numerators,
             proxi.denominator,
             proxi.duration,
             proxi.staggerEach
@@ -37513,7 +37531,7 @@
       tag: "rosa-di-grandi-page",
       component: RosaDiGrandiPageFn,
       state: {
-        petals: () => ({
+        numerators: () => ({
           value: 7,
           type: Number
         }),
@@ -37522,7 +37540,7 @@
           type: Number
         }),
         duration: () => ({
-          value: 3e3,
+          value: 500,
           type: Number
         }),
         staggerEach: () => ({

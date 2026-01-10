@@ -1,6 +1,6 @@
 export interface RosaDiGrandiPage {
     state: {
-        petals: number;
+        numerators: number;
         denominator: number;
         duration: number;
         staggerEach: number;

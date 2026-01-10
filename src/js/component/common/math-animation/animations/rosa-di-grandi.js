@@ -2,6 +2,56 @@ import { MobCore } from '@mobCore';
 import { outerHeight } from '@mobCoreUtils';
 import { MobTimeline, MobTween } from '@mobMotion';
 
+/**
+ * Calcola la lunghezza effettiva della curva Rosa di Grandi tramite approssimazione numerica.
+ *
+ * Poiché la lunghezza di una curva polare r = a × cos(k × θ) richiede un integrale complesso senza soluzione analitica
+ * semplice:
+ *
+ * L = ∫₀^(2π×d) √[r² + (dr/dθ)²] dθ
+ *
+ * Usiamo il metodo della "somma delle distanze euclidee":
+ *
+ * 1. Dividiamo la curva in `steps` segmenti (default 10000 per precisione)
+ * 2. Per ogni segmento, calcoliamo le coordinate cartesiane (x, y) del punto convertendo da coordinate polari (r, θ)
+ * 3. Calcoliamo la distanza euclidea tra punti consecutivi: √[(x₁-x₀)² + (y₁-y₀)²]
+ * 4. Sommiamo tutte le distanze per ottenere la lunghezza totale approssimata
+ *
+ * Più alto è il numero di steps, più preciso è il calcolo (ma più costoso computazionalmente). Con 10000 steps l'errore
+ * è trascurabile per scopi di animazione.
+ *
+ * @param {number} maxRadius - Raggio massimo della curva (parametro 'a' nella formula)
+ * @param {number} k - Rapporto numeratore/denominatore (controlla il numero di petali)
+ * @param {number} totalAngle - Angolo totale da percorrere (2π × denominatore)
+ * @param {number} steps - Numero di segmenti per l'approssimazione (default: 10000)
+ * @returns {number} Lunghezza totale della curva in pixel
+ */
+function calculateCurveLength(maxRadius, k, totalAngle, steps = 2000) {
+    let length = 0;
+
+    /**
+     * Punto iniziale: quando θ=0, r=maxRadius×cos(0)=maxRadius
+     */
+    let prevX = maxRadius;
+    let prevY = 0;
+
+    for (let i = 1; i <= steps; i++) {
+        const angle = (totalAngle / steps) * i;
+        const radius = maxRadius * Math.cos(k * angle);
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+
+        const dx = x - prevX;
+        const dy = y - prevY;
+        length += Math.hypot(dx, dy);
+
+        prevX = x;
+        prevY = y;
+    }
+
+    return length;
+}
+
 /** @type {import('./type').MathCommonAnimation} */
 export const mathRosaDiGrandi = (
     { targets, container, canvas } = {},
@@ -44,7 +94,8 @@ export const mathRosaDiGrandi = (
     /**
      * Timeline duration.
      */
-    const durationparsed = duration * denominator;
+    const curveLength = calculateCurveLength(maxRadius, k, totalAngle);
+    const durationparsed = duration * (curveLength / maxRadius);
 
     /**
      * Ogni target ha una grandezza diversa, é necessario che ogni target faccia riferimento alla propia dimensione per

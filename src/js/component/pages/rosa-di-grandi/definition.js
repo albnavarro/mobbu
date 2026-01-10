@@ -14,7 +14,7 @@ export const RosaDiGrandiPage = MobJs.createComponent(
         tag: 'rosa-di-grandi-page',
         component: RosaDiGrandiPageFn,
         state: {
-            petals: () => ({
+            numerators: () => ({
                 value: 7,
                 type: Number,
             }),
@@ -23,7 +23,7 @@ export const RosaDiGrandiPage = MobJs.createComponent(
                 type: Number,
             }),
             duration: () => ({
-                value: 3000,
+                value: 500,
                 type: Number,
             }),
             staggerEach: () => ({
