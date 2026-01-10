@@ -17,6 +17,7 @@ export const MathAnimationFn = ({
     onMount,
 }) => {
     const proxi = getProxi();
+    const showNavigationClass = proxi.showNavigation ? 'active' : '';
     const staggers = Array.from({ length: 5 });
 
     /**
@@ -81,7 +82,7 @@ export const MathAnimationFn = ({
 
     return html`<div class="c-math">
         <canvas class="c-math__canvas" ${setRef('canvas')}></canvas>
-        <div class="c-math__nav">
+        <div class="c-math__nav ${showNavigationClass}">
             <button
                 type="button"
                 class="c-math__play"

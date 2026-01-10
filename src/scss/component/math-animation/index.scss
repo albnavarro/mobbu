@@ -63,6 +63,14 @@
         }
     }
 
+    &__nav {
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
+
     &__play {
         top: rem(20);
         right: rem(60);

@@ -18,6 +18,7 @@ export const RosaDiGrandiPageFn = ({ getProxi, invalidate }) => {
                     <math-animation
                         ${MobJs.staticProps({
                             name: 'rosaDiGrandi',
+                            showNavigation: false,
                             args: [
                                 proxi.numerators,
                                 proxi.denominator,

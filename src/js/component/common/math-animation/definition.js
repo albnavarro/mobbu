@@ -15,6 +15,10 @@ export const MathAnimation = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
+            showNavigation: () => ({
+                value: true,
+                type: Boolean,
+            }),
             args: () => ({
                 value: [],
                 type: Array,
