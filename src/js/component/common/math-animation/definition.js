@@ -19,6 +19,10 @@ export const MathAnimation = MobJs.createComponent(
                 value: true,
                 type: Boolean,
             }),
+            numberOfStaggers: () => ({
+                value: 5,
+                type: Number,
+            }),
             args: () => ({
                 value: [],
                 type: Array,

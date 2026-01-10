@@ -25,7 +25,7 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
     return html`
         <li class="l-rosa__controls__item">
             <span for="numerators" class="l-rosa__controls__label">
-                ${bindObject`numerators: <strong>${() => proxi.numerators}</strong>`}
+                ${bindObject`numerators: <strong>${() => proxi.numeratorsLabel}</strong>`}
             </span>
             <div class="l-rosa__controls__range">
                 <input
@@ -36,6 +36,14 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
                     value="${proxi.numerators}"
                     step="1"
                     ${delegateEvents({
+                        input: (/** @type {InputEvent} */ event) => {
+                            const { target } = event;
+                            if (!target) return;
+
+                            // @ts-ignore
+                            const value = target.value;
+                            proxi.numeratorsLabel = Number(value);
+                        },
                         change: (/** @type {InputEvent} */ event) => {
                             const { target } = event;
                             if (!target) return;
@@ -50,7 +58,7 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
         </li>
         <li class="l-rosa__controls__item">
             <span for="denominator" class="l-rosa__controls__label">
-                ${bindObject`denominator: <strong>${() => proxi.denominator}</strong>`}
+                ${bindObject`denominator: <strong>${() => proxi.denominatorLabel}</strong>`}
             </span>
             <div class="l-rosa__controls__range">
                 <input
@@ -61,6 +69,14 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
                     value="${proxi.denominator}"
                     step="1"
                     ${delegateEvents({
+                        input: (/** @type {InputEvent} */ event) => {
+                            const { target } = event;
+                            if (!target) return;
+
+                            // @ts-ignore
+                            const value = target.value;
+                            proxi.denominatorLabel = Number(value);
+                        },
                         change: (/** @type {InputEvent} */ event) => {
                             const { target } = event;
                             if (!target) return;
@@ -134,6 +150,7 @@ export const RosaDiGrandiPageFn = ({
                             ${MobJs.staticProps({
                                 name: 'rosaDiGrandi',
                                 showNavigation: false,
+                                numberOfStaggers: 10,
                                 args: [
                                     proxi.numerators,
                                     proxi.denominator,

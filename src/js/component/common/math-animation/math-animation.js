@@ -18,7 +18,17 @@ export const MathAnimationFn = ({
 }) => {
     const proxi = getProxi();
     const showNavigationClass = proxi.showNavigation ? 'active' : '';
-    const staggers = Array.from({ length: 5 });
+    const targetSize = 3;
+    const gap = targetSize / proxi.numberOfStaggers;
+
+    const staggers = Array.from({ length: proxi.numberOfStaggers }).map(
+        (_, index) => {
+            return {
+                size: targetSize - gap * index,
+                opacity: 1 / index,
+            };
+        }
+    );
 
     /**
      * Create fake methods before onMount to prevent nav buttons error.
@@ -104,11 +114,11 @@ export const MathAnimationFn = ({
         </div>
         <div class="c-math__circle-container">
             ${staggers
-                .map((_, index) => {
+                .map(({ size, opacity }) => {
                     return html`<span
                         class="c-math__circle"
-                        data-index="${index + 1}"
                         ${setRef('target')}
+                        style="width:${size}rem;height:${size}rem;opacity:${opacity}"
                         ><span class="c-math__circle__inner"></span
                     ></span>`;
                 })

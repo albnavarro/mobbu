@@ -37,20 +37,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: rem(50);
-        height: rem(50);
         transform: translate(-50%, -50%);
-
-        $size-step: 8;
-        $opacity-step: 0.2;
-
-        @for $i from 1 through 5 {
-            &[data-index='#{$i}'] {
-                width: rem(50 - (($i - 1) * $size-step));
-                height: rem(50 - (($i - 1) * $size-step));
-                opacity: calc(1 + $opacity-step - ($i * $opacity-step));
-            }
-        }
 
         &__inner {
             position: absolute;

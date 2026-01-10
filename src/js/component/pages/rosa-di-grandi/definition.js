@@ -22,6 +22,14 @@ export const RosaDiGrandiPage = MobJs.createComponent(
                 value: 3,
                 type: Number,
             }),
+            numeratorsLabel: () => ({
+                value: 2,
+                type: Number,
+            }),
+            denominatorLabel: () => ({
+                value: 3,
+                type: Number,
+            }),
             duration: () => ({
                 value: 500,
                 type: Number,
