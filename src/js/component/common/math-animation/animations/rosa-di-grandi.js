@@ -8,7 +8,7 @@ export const mathRosaDiGrandi = (
     ...args
 ) => {
     /** @type {number[]} */
-    const [numerator, denominator] = args;
+    const [numerator, denominator, duration, staggerEach] = args;
 
     if (!targets || !container || !canvas)
         return {
@@ -55,7 +55,7 @@ export const mathRosaDiGrandi = (
     /**
      * Timeline duration.
      */
-    const duration = 3000 * denominator;
+    const durationparsed = duration * denominator;
 
     /**
      * Ogni target ha una grandezza diversa, é necessario che ogni target faccia riferimento alla propia dimensione per
@@ -65,15 +65,15 @@ export const mathRosaDiGrandi = (
 
     let tween = MobTween.createSequencer({
         ease: 'easeLinear',
-        stagger: { each: 6 },
+        stagger: { each: staggerEach },
         data: { angleInRadian: 0, scale: 0 },
-    })
-        .goTo(
-            { angleInRadian: totalAngle },
-            { start: 0, end: 10, ease: 'easeLinear' }
-        )
-        .goTo({ scale: 1 }, { start: 0, end: 4, ease: 'easeOutQuad' })
-        .goTo({ scale: 0 }, { start: 9, end: 10, ease: 'easeOutQuad' });
+    }).goTo(
+        { angleInRadian: totalAngle },
+        { start: 0, end: 10, ease: 'easeLinear' }
+    );
+
+    tween.goTo({ scale: 1 }, { start: 0, end: 4, ease: 'easeOutQuad' });
+    tween.goTo({ scale: 1 }, { start: 9, end: 10, ease: 'easeOutQuad' });
 
     targets.forEach((item, index) => {
         const innerElement = /** @type {HTMLSpanElement} */ (item.firstChild);
@@ -102,7 +102,7 @@ export const mathRosaDiGrandi = (
     let timeline = MobTimeline.createSyncTimeline({
         repeat: -1,
         yoyo: false,
-        duration,
+        duration: durationparsed,
     }).add(tween);
 
     /**

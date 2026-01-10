@@ -22,6 +22,14 @@ export const RosaDiGrandiPage = MobJs.createComponent(
                 value: 9,
                 type: Number,
             }),
+            duration: () => ({
+                value: 3000,
+                type: Number,
+            }),
+            staggerEach: () => ({
+                value: 4,
+                type: Number,
+            }),
         },
         child: [MathAnimation],
     })

@@ -37071,7 +37071,7 @@
 
   // src/js/component/common/math-animation/animations/rosa-di-grandi.js
   var mathRosaDiGrandi = ({ targets, container, canvas } = {}, ...args) => {
-    const [numerator, denominator] = args;
+    const [numerator, denominator, duration2, staggerEach] = args;
     if (!targets || !container || !canvas)
       return {
         play: () => {
@@ -37095,16 +37095,18 @@
     const isDenominatorOdd = denominator % 2 !== 0;
     const numberOfPetals = isNumeratorOdd && isDenominatorOdd ? numerator : 2 * numerator;
     const totalAngle = 2 * Math.PI * denominator;
-    const duration2 = 3e3 * denominator;
+    const durationparsed = duration2 * denominator;
     const halfTagetsHeight = targets.map((target) => outerHeight(target) / 2);
     let tween2 = tween_exports.createSequencer({
       ease: "easeLinear",
-      stagger: { each: 6 },
+      stagger: { each: staggerEach },
       data: { angleInRadian: 0, scale: 0 }
     }).goTo(
       { angleInRadian: totalAngle },
       { start: 0, end: 10, ease: "easeLinear" }
-    ).goTo({ scale: 1 }, { start: 0, end: 4, ease: "easeOutQuad" }).goTo({ scale: 0 }, { start: 9, end: 10, ease: "easeOutQuad" });
+    );
+    tween2.goTo({ scale: 1 }, { start: 0, end: 4, ease: "easeOutQuad" });
+    tween2.goTo({ scale: 1 }, { start: 9, end: 10, ease: "easeOutQuad" });
     targets.forEach((item, index) => {
       const innerElement = (
         /** @type {HTMLSpanElement} */
@@ -37121,7 +37123,7 @@
     let timeline = timeline_exports.createSyncTimeline({
       repeat: -1,
       yoyo: false,
-      duration: duration2
+      duration: durationparsed
     }).add(tween2);
     function draw() {
       if (!ctx || !canvas) return;
@@ -37476,7 +37478,12 @@
                     <math-animation
                         ${modules_exports2.staticProps({
           name: "rosaDiGrandi",
-          args: [proxi.petals, proxi.denominator]
+          args: [
+            proxi.petals,
+            proxi.denominator,
+            proxi.duration,
+            proxi.staggerEach
+          ]
         })}
                     ></math-animation>
                 `;
@@ -37498,6 +37505,14 @@
         }),
         denominator: () => ({
           value: 9,
+          type: Number
+        }),
+        duration: () => ({
+          value: 3e3,
+          type: Number
+        }),
+        staggerEach: () => ({
+          value: 4,
           type: Number
         })
       },
