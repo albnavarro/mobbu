@@ -37,17 +37,6 @@ export const mathRosaDiGrandi = (
     const k = numerator / denominator;
 
     /**
-     * Calcolo del numero di petali:
-     *
-     * - Se numerator e denominator sono entrambi dispari → numerator petali
-     * - Altrimenti → 2 * numerator petali
-     */
-    const isNumeratorOdd = numerator % 2 !== 0;
-    const isDenominatorOdd = denominator % 2 !== 0;
-    const numberOfPetals =
-        isNumeratorOdd && isDenominatorOdd ? numerator : 2 * numerator;
-
-    /**
      * Angolo totale da percorrere per completare la curva La curva si ripete ogni 2π * denominator radianti
      */
     const totalAngle = 2 * Math.PI * denominator;
@@ -66,14 +55,47 @@ export const mathRosaDiGrandi = (
     let tween = MobTween.createSequencer({
         ease: 'easeLinear',
         stagger: { each: staggerEach },
-        data: { angleInRadian: 0, scale: 0 },
+        data: { angleInRadian: 0, scale: 1 },
     }).goTo(
         { angleInRadian: totalAngle },
         { start: 0, end: 10, ease: 'easeLinear' }
     );
 
-    tween.goTo({ scale: 1 }, { start: 0, end: 4, ease: 'easeOutQuad' });
-    tween.goTo({ scale: 1 }, { start: 9, end: 10, ease: 'easeOutQuad' });
+    /**
+     * Get points when target passes through the center.
+     */
+    const zeroAngles = [];
+    let cadvenceFactor = 0;
+
+    while (true) {
+        const angle = (Math.PI / 2 + cadvenceFactor * Math.PI) / k;
+
+        if (angle > totalAngle) break;
+
+        if (angle >= 0) {
+            zeroAngles.push(angle);
+        }
+
+        cadvenceFactor++;
+    }
+
+    /**
+     * Converti angoli radianti in posizioni temporali (0-10)
+     */
+    zeroAngles.forEach((angleRad) => {
+        /**
+         * Mappa l'angolo da [0, totalAngle] a [0, 10]
+         */
+        const timePosition = (angleRad / totalAngle) * 10;
+
+        const factor = 0.3;
+        const start = Math.max(0, timePosition - factor);
+        const center = timePosition;
+        const end = Math.min(10, timePosition + factor);
+
+        tween.goTo({ scale: 0 }, { start, end: center, ease: 'easeInQuad' });
+        tween.goTo({ scale: 1 }, { start: center, end, ease: 'easeOutQuad' });
+    });
 
     targets.forEach((item, index) => {
         const innerElement = /** @type {HTMLSpanElement} */ (item.firstChild);
@@ -141,18 +163,6 @@ export const mathRosaDiGrandi = (
         }
 
         ctx.stroke();
-
-        // Aggiungiamo informazioni testuali sulla curva
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-        ctx.font = '14px Arial';
-        ctx.textAlign = 'left';
-        ctx.fillText(
-            `Rose curve: r = cos(${numerator}/${denominator} * θ)`,
-            20,
-            30
-        );
-        ctx.fillText(`Petals: ${numberOfPetals}`, 20, 50);
-        ctx.fillText(`Total angle: ${totalAngle.toFixed(2)} rad`, 20, 70);
     }
 
     const unsubscribeResize = MobCore.useResize(() => {
