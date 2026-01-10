@@ -14,7 +14,7 @@ export const mathAnimationRoute = async ({ props }) => {
     updateQuickNavState({
         active: true,
         prevRoute: '#plugin-dragger',
-        nextRoute: '',
+        nextRoute: '#rosa-di-grandi',
         backRoute: '#plugin-overview',
         color: 'black',
     });

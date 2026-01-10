@@ -733,6 +733,11 @@
             "label": "Math 01",
             "scrollToSection": "extras",
             "url": "math-animation-01"
+        },
+        {
+            "label": "Rosa di Grandi",
+            "scrollToSection": "extras",
+            "url": "rosa-di-grandi"
         }
     ],
     "suggestion": [

@@ -24,6 +24,7 @@ import { rdp } from './svg/rdp';
 import { mob_02 } from './svg/mob-02';
 import { DraggerRoute } from './plugin/dragger';
 import { mathAnimationRoute } from './plugin/math-animation';
+import { rosaDiGrandiRoute } from './plugin/rosa-di-grandi';
 
 export const PAGE_TEMPLATE_HOME = 'home';
 export const PAGE_TEMPLATE_ABOUT = 'about';
@@ -1212,6 +1213,12 @@ export const routes = [
         props: {
             names: ['circle', 'sin', 'infinite', 'archimede'],
         },
+    },
+    {
+        hash: 'rosa-di-grandi',
+        layout: rosaDiGrandiRoute,
+        templateName: PAGE_TEMPLATE_ANIMATION,
+        props: {},
     },
     {
         hash: 'plugin-overview',
