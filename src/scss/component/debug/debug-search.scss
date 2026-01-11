@@ -9,12 +9,16 @@
     }
 
     &__input {
-        width: rem(150);
+        width: rem(100);
         height: rem(22);
         margin-right: rem(5);
         border: 1px $white solid;
         background: transparent;
         vertical-align: middle;
+
+        @include mq(large) {
+            width: rem(150);
+        }
     }
 
     &__button {

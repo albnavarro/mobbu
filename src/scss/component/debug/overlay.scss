@@ -78,8 +78,12 @@
         /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
         grid-template-rows: rem(140) 40vh;
         width: 100%;
-        max-width: 80%;
+        max-width: 90%;
         border: 1px $white solid;
+
+        @include mq(large) {
+            max-width: 80%;
+        }
     }
 
     &__log {
