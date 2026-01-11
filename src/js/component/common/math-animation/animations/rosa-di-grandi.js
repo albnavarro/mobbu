@@ -52,6 +52,58 @@ function calculateCurveLength(maxRadius, k, totalAngle, steps = 2000) {
     return length;
 }
 
+/**
+ * Calcola il Massimo Comun Divisore (MCD/GCD) tra due numeri usando l'algoritmo di Euclide.
+ *
+ * L'algoritmo di Euclide è un metodo efficiente per trovare il più grande numero intero che divide entrambi i numeri
+ * senza lasciare resto.
+ *
+ * Funzionamento:
+ *
+ * 1. Se il divisore è 0, il MCD è il dividendo
+ * 2. Altrimenti, calcola ricorsivamente MCD(divisore, resto della divisione)
+ *
+ * Esempio: gcd(48, 18)
+ *
+ * - 48 % 18 = 12 -> gcd(18, 12)
+ * - 18 % 12 = 6 -> gcd(12, 6)
+ * - 12 % 6 = 0 -> gcd(6, 0)
+ * - Risultato: 6
+ *
+ * @param {number} dividendo - Il primo numero (più grande o uguale)
+ * @param {number} divisore - Il secondo numero
+ * @returns {number} Il Massimo Comun Divisore
+ */
+const gcd = (dividendo, divisore) =>
+    divisore === 0 ? dividendo : gcd(divisore, dividendo % divisore);
+
+/**
+ * Calcola il periodo minimo necessario per completare la curva.
+ *
+ * Per una rosa di Grandi r = a × cos(k × θ) con k = n/d (frazione ridotta):
+ *
+ * - La curva ha n petali se n è dispari, 2n petali se n è pari
+ * - Il periodo completo è sempre 2π × d (denominatore della frazione ridotta)
+ *
+ * Questo assicura di disegnare la curva completa una sola volta.
+ *
+ * @param {number} numerator - Numeratore della frazione k
+ * @param {number} denominator - Denominatore della frazione k
+ * @returns {number} Angolo minimo per completare la curva
+ */
+function getMinimalPeriod(numerator, denominator) {
+    /**
+     * Calcola il MCD per ridurre la frazione
+     */
+    const divisor = gcd(numerator, denominator);
+    const d = denominator / divisor;
+
+    /**
+     * Il periodo è sempre 2π × denominatore (ridotto)
+     */
+    return 2 * Math.PI * d;
+}
+
 /** @type {import('./type').MathCommonAnimation} */
 export const mathRosaDiGrandi = (
     { targets, container, canvas } = {},
@@ -87,9 +139,10 @@ export const mathRosaDiGrandi = (
     const k = numerator / denominator;
 
     /**
-     * Angolo totale da percorrere per completare la curva La curva si ripete ogni 2π * denominator radianti
+     * Calcola il periodo minimo per evitare di disegnare la curva più volte. Con [2,2], [6,6] ecc. evita
+     * sovrapposizioni che rendono il tratteggio continuo.
      */
-    const totalAngle = 2 * Math.PI * denominator;
+    const totalAngle = getMinimalPeriod(numerator, denominator);
 
     /**
      * Timeline duration.
@@ -199,7 +252,8 @@ export const mathRosaDiGrandi = (
         const steps = 2000 * denominator; // Più passi per curve complesse
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.setLineDash([2, 5, 2, 5]);
+        ctx.setLineDash([3, 7]);
+        ctx.lineDashOffset = 3;
         ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
         ctx.lineWidth = 1;
         ctx.beginPath();
