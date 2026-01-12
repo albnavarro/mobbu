@@ -81,6 +81,9 @@ export const HeaderFn = ({
                             </h5>
                         </div>
                     </button>
+                    <div class="l-header__main-menu">
+                        <header-main-menu></header-main-menu>
+                    </div>
                     <div
                         class="l-header__utils"
                         ${bindEffect({

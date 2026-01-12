@@ -77,8 +77,8 @@
 
     &__grid {
         display: grid;
-        grid-template-areas: 'toggle title utils';
-        grid-template-columns: var(--header-height) 1fr auto;
+        grid-template-areas: 'toggle title menu utils';
+        grid-template-columns: var(--header-height) auto 1fr auto;
         align-items: center;
         height: var(--header-height);
     }
@@ -140,6 +140,10 @@
                 pointer-events: all;
             }
         }
+    }
+
+    &__main-menu {
+        justify-self: end;
     }
 
     &__utils {

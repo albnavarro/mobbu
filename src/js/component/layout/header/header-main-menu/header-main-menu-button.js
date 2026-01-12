@@ -1,12 +1,12 @@
 /**
  * @import {MobComponent} from "@mobJsType"
- * @import {FooterNavButton} from "./type"
+ * @import {HeaderMainMenuButton} from "./type"
  */
 
 import { html } from '@mobJs';
 
-/** @type {MobComponent<FooterNavButton>} */
-export const FooterNavButtonFn = ({ getProxi, bindEffect, computed }) => {
+/** @type {MobComponent<HeaderMainMenuButton>} */
+export const HeaderMainMenuButtonFn = ({ getProxi, bindEffect, computed }) => {
     const proxi = getProxi();
 
     computed(
@@ -19,7 +19,7 @@ export const FooterNavButtonFn = ({ getProxi, bindEffect, computed }) => {
     return html`
         <button
             type="button"
-            class="footer-nav__button"
+            class="header-main-menu__button"
             ${bindEffect({
                 toggleClass: { current: () => proxi.active },
             })}

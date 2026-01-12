@@ -14,15 +14,15 @@ import { MobCore } from '@mobCore';
 /**
  * @param {object} params
  * @param {DelegateEvents} params.delegateEvents
- * @param {StaticProps<import('./type').FooterNavButton>} params.staticProps
+ * @param {StaticProps<import('./type').HeaderMainMenuButton>} params.staticProps
  */
 const getItems = ({ delegateEvents, staticProps }) => {
     const data = getCommonData();
 
     return data.footer.nav
         .map(({ label, url, section }) => {
-            return html`<li class="footer-nav__item">
-                <footer-nav-button
+            return html`<li class="header-main-menu__item">
+                <header-main-menu-button
                     ${delegateEvents({
                         click: () => {
                             MobJs.loadUrl({ url });
@@ -30,19 +30,19 @@ const getItems = ({ delegateEvents, staticProps }) => {
                         },
                     })}
                     ${staticProps(
-                        /** @type {import('./type').FooterNavButton['props']} */ ({
+                        /** @type {import('./type').HeaderMainMenuButton['props']} */ ({
                             label,
                             section,
                         })
                     )}
-                ></footer-nav-button>
+                ></header-main-menu-button>
             </li> `;
         })
         .join('');
 };
 
 /** @type {MobComponent} */
-export const FooterNavFn = ({
+export const headerMainMenuFn = ({
     delegateEvents,
     staticProps,
     getProxi,
@@ -59,7 +59,7 @@ export const FooterNavFn = ({
 
     return html`
         <ul
-            class="footer-nav"
+            class="header-main-menu"
             ${bindEffect({
                 toggleClass: {
                     'is-visible': () => proxi.isMounted,

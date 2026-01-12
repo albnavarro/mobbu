@@ -28,7 +28,6 @@ export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
             })}
         >
             <div class="l-footer__container">
-                <footer-nav></footer-nav>
                 <div class="l-footer__debug">
                     <debug-button
                         class="c-button-debug"

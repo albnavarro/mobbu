@@ -1,6 +1,6 @@
 @use '../../abstract' as *;
 
-.footer-nav {
+.header-main-menu {
     display: block;
     margin: 0;
     padding: 0;
@@ -30,32 +30,22 @@
 
     &__button {
         position: relative;
-        min-width: rem(85);
+        margin-inline: rem(7);
+        padding: 0;
         transition: opacity 0.55s;
         border: 0;
         background: transparent;
-        color: $grey-medium-2;
+        color: $black;
         font-size: rem(14);
+        font-weight: 600;
 
         @include mq(large) {
-            min-width: rem(100);
+            margin-inline: rem(10);
+            font-size: rem(14);
         }
 
-        /*
-        @include when-inside('[data-template="about"]') {
-            color: $white;
-        }
-        */
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: 0;
-            width: 1px;
-            height: rem(10);
-            transform: translateY(-50%);
-            background: #656566;
+        @include mq(xlarge) {
+            margin-inline: rem(20);
         }
 
         &:hover {
@@ -63,8 +53,7 @@
         }
 
         &.current {
-            color: $white;
-            font-weight: 600;
+            color: $black;
         }
     }
 }

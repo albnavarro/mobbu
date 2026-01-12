@@ -1,17 +1,17 @@
 import { MobJs } from '@mobJs';
-import { FooterNavButtonFn } from './footer-button';
-import { FooterNavFn } from './footer-nav';
+import { HeaderMainMenuButtonFn } from './header-main-menu-button';
+import { headerMainMenuFn } from './header-main-menu';
 import { navigationStore } from '@stores/navigation';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
  */
 
-export const FooterNavButton = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').FooterNavButton>} */
+export const HeaderMainMenuButton = MobJs.createComponent(
+    /** @type {CreateComponentParams<import('./type').HeaderMainMenuButton>} */
     ({
-        tag: 'footer-nav-button',
-        component: FooterNavButtonFn,
+        tag: 'header-main-menu-button',
+        component: HeaderMainMenuButtonFn,
         bindStore: navigationStore,
         props: {
             label: () => ({
@@ -32,10 +32,10 @@ export const FooterNavButton = MobJs.createComponent(
     })
 );
 
-export const FooterNav = MobJs.createComponent({
-    tag: 'footer-nav',
-    component: FooterNavFn,
-    child: [FooterNavButton],
+export const HeaderMainMenu = MobJs.createComponent({
+    tag: 'header-main-menu',
+    component: headerMainMenuFn,
+    child: [HeaderMainMenuButton],
     state: {
         isMounted: () => ({
             value: false,

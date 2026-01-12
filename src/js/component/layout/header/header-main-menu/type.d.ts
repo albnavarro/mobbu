@@ -4,7 +4,7 @@ interface State extends NavigationStore {
     active: boolean;
 }
 
-export interface FooterNavButton {
+export interface HeaderMainMenuButton {
     props: {
         label: string;
         section: string;
@@ -12,7 +12,7 @@ export interface FooterNavButton {
     state: State;
 }
 
-export interface FooterNav {
+export interface HeaderMainMenu {
     state: {
         isMounted: boolean;
     };
