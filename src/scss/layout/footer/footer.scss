@@ -22,76 +22,34 @@
 
     @include user-select-none;
 
-    /*
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        transform: scaleX(0);
-        transform-origin: top left;
-        background: $black;
-    }
-
-    &.is-visible {
-        &::after {
-            transform: scaleX(100%);
-        }
-    }
-    */
-
     @include mq(desktop) {
         display: block;
     }
 
-    /*
-    @include when-inside('[data-template="home"]') {
-        background: transparent;
-
-        &::after {
-            transition: transform 1s 0.2s;
-        }
-    }
-
-    @include when-inside('[data-template="about"]') {
-        background: rgba($black, 0.6);
-
-        &::after {
-            transition: transform 1s 0.2s;
-        }
-    }
-
-    @include when-inside('[data-template="template-animation"]') {
-        background: transparent;
-
-        &::after {
-            transition: transform 1s 0.2s;
-        }
-    }
-
-    @include when-inside('[data-template="template-listing"]') {
-        background: transparent;
-
-        &::after {
-            transition: transform 1s 0.2s;
-        }
-    }
-    */
-
     &__container {
         display: grid;
+        grid-template-areas: 'bio action';
+        grid-template-columns: 1fr auto;
+        align-items: center;
         height: 100%;
         padding: 0 var(--gap-size);
     }
 
+    &__bio {
+        grid-area: bio;
+        padding-left: 0;
+        text-align: left;
+
+        &__item {
+            display: inline-block;
+            margin-inline: rem(10);
+            color: $grey-medium-2;
+        }
+    }
+
     &__debug {
         display: flex;
-        position: absolute;
-        right: rem(20);
-        bottom: calc(var(--footer-height) * 0.5);
-        transform: translateY(50%);
+        grid-area: action;
         transition: opacity 1s 0.2s;
         opacity: 0;
 

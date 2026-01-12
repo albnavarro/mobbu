@@ -688,19 +688,27 @@ ul li::marker {
     display: block;
   }
 }
-.l-footer {
-}
 .l-footer__container {
   display: grid;
+  grid-template-areas: "bio action";
+  grid-template-columns: 1fr auto;
+  align-items: center;
   height: 100%;
   padding: 0 var(--gap-size);
 }
+.l-footer__bio {
+  grid-area: bio;
+  padding-left: 0;
+  text-align: left;
+}
+.l-footer__bio__item {
+  display: inline-block;
+  margin-inline: 0.6666666667rem;
+  color: #ccc;
+}
 .l-footer__debug {
   display: flex;
-  position: absolute;
-  right: 1.3333333333rem;
-  bottom: calc(var(--footer-height) * 0.5);
-  transform: translateY(50%);
+  grid-area: action;
   transition: opacity 1s 0.2s;
   opacity: 0;
 }
@@ -717,7 +725,7 @@ ul li::marker {
   transition-duration: 0.15s;
   transition-timing-function: linear;
   border: 0;
-  background-color: transparent;
+  background-color: #2e3440;
   color: inherit;
   font: inherit;
   text-transform: none;
@@ -763,7 +771,7 @@ ul li::marker {
   transition-property: transform;
   transition-duration: 0.15s;
   transition-timing-function: ease;
-  background-color: #2e3440;
+  background-color: #fff;
 }
 .hamburger-inner::before,
 .hamburger-inner::after {
@@ -775,7 +783,7 @@ ul li::marker {
   transition-property: transform;
   transition-duration: 0.15s;
   transition-timing-function: ease;
-  background-color: #2e3440;
+  background-color: #fff;
 }
 .hamburger-inner::before {
   top: var(--offset);
@@ -792,13 +800,13 @@ ul li::marker {
   top: 0;
   transition: top 0.075s ease, opacity 0.075s 0.12s ease;
   opacity: 0;
-  background-color: #2e3440;
+  background-color: #fff;
 }
 .hamburger.is-open .hamburger-inner::after {
   bottom: 0;
   transform: rotate(-90deg);
   transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
-  background-color: #2e3440;
+  background-color: #fff;
 }
 .hamburger__box {
   display: inline-block;
@@ -953,6 +961,9 @@ ul li::marker {
   list-style-type: none;
   --sidebar-item-size: 1.6rem;
 }
+.l-header__sidenav__item {
+  height: var(--sidebar-item-size);
+}
 .l-header__sidenav__item:hover svg {
   opacity: 0.2;
 }
@@ -967,6 +978,7 @@ ul li::marker {
 .l-header__sidenav svg {
   width: var(--sidebar-item-size);
   height: var(--sidebar-item-size);
+  height: 100%;
   transition: opacity 0.55s;
   fill: #2e3440;
 }
@@ -1011,7 +1023,7 @@ ul li::marker {
 }
 @media (min-width: 100em) {
   .header-main-menu__button {
-    margin-inline: 1.3333333333rem;
+    margin-inline: 1rem;
   }
 }
 .header-main-menu__button:hover {
@@ -1546,7 +1558,7 @@ ul li::marker {
   display: flex;
   position: absolute;
   z-index: 11;
-  top: 1.6rem;
+  bottom: 2rem;
   left: 50%;
   margin-left: 0;
   padding-left: 0;

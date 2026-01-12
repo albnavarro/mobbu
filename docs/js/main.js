@@ -27039,12 +27039,6 @@
     3: 100 / 3 * 2,
     4: 100
   };
-  var bioInfo = [
-    "Alberto Navarro",
-    "Milan, Italy",
-    '<a href="https://github.com/albnavarro/" target="_blank">github</a>',
-    '<a href="https://www.linkedin.com/in/alberto-navarro74/" target="_blank">linkedin</a>'
-  ];
   var block01 = ({ setRef, getState }) => {
     const { titleTop, titleBottom } = getState().block_1;
     return renderHtml`
@@ -27146,17 +27140,6 @@
                         </li>
                     `;
     }).join("")}
-        </ul>
-    `;
-  };
-  var getBio = () => {
-    return renderHtml`
-        <ul class="l-about__bio">
-            <li class="l-about__bio__item">[</li>
-            ${bioInfo.map((item) => {
-      return renderHtml` <li class="l-about__bio__item">${item}</li> `;
-    }).join("")}
-            <li class="l-about__bio__item">]</li>
         </ul>
     `;
   };
@@ -27268,7 +27251,6 @@
       }
     })}
     >
-        <div>${getBio()}</div>
         <div class="l-about__sqaure-container">${getSquare()}</div>
         <span class="l-about__background">
             <div
@@ -42190,6 +42172,21 @@
   };
 
   // src/js/component/layout/footer/footer.js
+  var bioInfo = [
+    "Alberto Navarro",
+    "Milan, Italy",
+    '<a href="https://github.com/albnavarro/" target="_blank">github</a>',
+    '<a href="https://www.linkedin.com/in/alberto-navarro74/" target="_blank">linkedin</a>'
+  ];
+  var getBio = () => {
+    return renderHtml`
+        <ul class="l-footer__bio">
+            ${bioInfo.map((item) => {
+      return renderHtml` <li class="l-footer__bio__item">${item}</li> `;
+    }).join("")}
+        </ul>
+    `;
+  };
   var FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
     const proxi = getProxi();
     onMount(() => {
@@ -42207,6 +42204,7 @@
     })}
         >
             <div class="l-footer__container">
+                ${getBio()}
                 <div class="l-footer__debug">
                     <debug-button
                         class="c-button-debug"

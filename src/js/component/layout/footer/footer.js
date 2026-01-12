@@ -8,6 +8,28 @@ import { toggleDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
  * @import {MobComponent} from "@mobJsType"
  */
 
+const bioInfo = [
+    'Alberto Navarro',
+    'Milan, Italy',
+    '<a href="https://github.com/albnavarro/" target="_blank">github</a>',
+    '<a href="https://www.linkedin.com/in/alberto-navarro74/" target="_blank">linkedin</a>',
+];
+
+/**
+ * @returns {string}
+ */
+const getBio = () => {
+    return html`
+        <ul class="l-footer__bio">
+            ${bioInfo
+                .map((item) => {
+                    return html` <li class="l-footer__bio__item">${item}</li> `;
+                })
+                .join('')}
+        </ul>
+    `;
+};
+
 /** @type {MobComponent<import('./type').Footer>} */
 export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
     const proxi = getProxi();
@@ -28,6 +50,7 @@ export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
             })}
         >
             <div class="l-footer__container">
+                ${getBio()}
                 <div class="l-footer__debug">
                     <debug-button
                         class="c-button-debug"

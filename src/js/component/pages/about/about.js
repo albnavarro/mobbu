@@ -31,13 +31,6 @@ const goToPercentage = {
     4: 100,
 };
 
-const bioInfo = [
-    'Alberto Navarro',
-    'Milan, Italy',
-    '<a href="https://github.com/albnavarro/" target="_blank">github</a>',
-    '<a href="https://www.linkedin.com/in/alberto-navarro74/" target="_blank">linkedin</a>',
-];
-
 /**
  * @param {object} params
  * @param {SetRef<import('./type').About>} params.setRef
@@ -185,23 +178,6 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
 /**
  * @returns {string}
  */
-const getBio = () => {
-    return html`
-        <ul class="l-about__bio">
-            <li class="l-about__bio__item">[</li>
-            ${bioInfo
-                .map((item) => {
-                    return html` <li class="l-about__bio__item">${item}</li> `;
-                })
-                .join('')}
-            <li class="l-about__bio__item">]</li>
-        </ul>
-    `;
-};
-
-/**
- * @returns {string}
- */
 const getSquare = () => {
     return html`
         <div class="l-about__square">
@@ -338,7 +314,6 @@ export const AboutComponentFn = ({
             },
         })}
     >
-        <div>${getBio()}</div>
         <div class="l-about__sqaure-container">${getSquare()}</div>
         <span class="l-about__background">
             <div
