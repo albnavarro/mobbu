@@ -26,7 +26,6 @@ export const animatedPatternN0 = ({ params }) => {
         prevRoute: props.nav.prevRoute,
         nextRoute: props.nav.nextRoute,
         backRoute: props.nav.backRoute,
-        color: 'black',
     });
 
     updateAnimationDescription(props.description);

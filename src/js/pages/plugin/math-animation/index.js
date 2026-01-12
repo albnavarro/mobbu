@@ -16,7 +16,6 @@ export const mathAnimationRoute = async ({ props }) => {
         prevRoute: '#plugin-dragger',
         nextRoute: '#rosa-di-grandi',
         backRoute: '#plugin-overview',
-        color: 'black',
     });
 
     const description = '<strong>Math:</strong> trigonometry based animation';

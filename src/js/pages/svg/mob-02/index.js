@@ -31,7 +31,6 @@ export const mob_02 = async () => {
         prevRoute: '#mob-01',
         nextRoute: '',
         backRoute: '#svg-overview',
-        color: 'black',
     });
 
     const description =

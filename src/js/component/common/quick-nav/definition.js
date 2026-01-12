@@ -11,13 +11,6 @@ export const QuickNav = MobJs.createComponent(
         tag: 'quick-nav',
         component: QuickNavFn,
         state: {
-            color: () => ({
-                value: 'black',
-                type: String,
-                validate: (value) => {
-                    return ['white', 'black'].includes(value);
-                },
-            }),
             active: () => ({
                 value: false,
                 type: Boolean,

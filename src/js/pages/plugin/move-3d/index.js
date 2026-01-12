@@ -16,7 +16,6 @@ export const move3DRoute = async ({ props }) => {
         prevRoute: prevRoute,
         nextRoute: nextRoute,
         backRoute: '#plugin-overview',
-        color: 'black',
     });
 
     const description = '<strong>Move#d:</strong> css && js 3d shape';

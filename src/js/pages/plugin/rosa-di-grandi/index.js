@@ -13,7 +13,6 @@ export const rosaDiGrandiRoute = async () => {
         prevRoute: '#math-animation-01',
         nextRoute: '',
         backRoute: '#plugin-overview',
-        color: 'black',
     });
 
     const description = '<strong>Rosa di Grandi</strong>';

@@ -54,7 +54,6 @@ export const rdp = async () => {
         prevRoute: '',
         nextRoute: '#mob-01',
         backRoute: '#svg-overview',
-        color: 'black',
     });
 
     const description = '<strong>Svg</strong>: RDP lettering';

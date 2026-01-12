@@ -12,7 +12,6 @@ export const horizontalScroller = async () => {
         prevRoute: '',
         nextRoute: '',
         backRoute: '',
-        color: 'black',
     });
 
     return html`<div>

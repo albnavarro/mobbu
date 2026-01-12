@@ -13,7 +13,6 @@ export const updateQuickNavState = ({
     nextRoute = '',
     prevRoute = '',
     backRoute = '',
-    color = 'black',
 }) => {
     /** @type {UseMethodByName<import('./type').QuickNav>} */
     const methods = MobJs.useMethodByName(quickNavName);
@@ -21,7 +20,6 @@ export const updateQuickNavState = ({
     methods.update('nextRoute', nextRoute);
     methods.update('prevRoute', prevRoute);
     methods.update('backRoute', backRoute);
-    methods.update('color', color);
 };
 
 /**
@@ -34,5 +32,4 @@ MobJs.beforeRouteChange(() => {
     methods.update('nextRoute', '');
     methods.update('prevRoute', '');
     methods.update('backRoute', '');
-    methods.update('color', 'black');
 });

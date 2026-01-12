@@ -12,7 +12,6 @@ export const animatedPatternN1 = () => {
         prevRoute: '#animatedPatternN0?version=3&activeId=3',
         nextRoute: '#scrollerN0?version=0&activeId=0',
         backRoute: '#canvas-overview',
-        color: 'black',
     });
 
     const description =

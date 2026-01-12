@@ -12,7 +12,6 @@ export const caterpillarN0 = () => {
         prevRoute: '',
         nextRoute: '#caterpillarN1',
         backRoute: '#canvas-overview',
-        color: 'black',
     });
 
     const description = '<strong>Canvas</strong>: spring animation';

@@ -68,7 +68,6 @@ export const lettering01 = async () => {
         prevRoute: '#rdp-01',
         nextRoute: '#mob-02',
         backRoute: '#svg-overview',
-        color: 'black',
     });
 
     const description = '<strong>Svg</strong>: Mob lettering';

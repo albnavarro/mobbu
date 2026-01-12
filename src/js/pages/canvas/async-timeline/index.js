@@ -13,7 +13,6 @@ export const asyncTimeline = () => {
         prevRoute: '#caterpillarN2',
         nextRoute: '#animatedPatternN0?version=0&activeId=0',
         backRoute: '#canvas-overview',
-        color: 'black',
     });
 
     const description =

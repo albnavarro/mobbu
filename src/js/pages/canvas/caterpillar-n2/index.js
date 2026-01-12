@@ -12,7 +12,6 @@ export const caterpillarN2 = () => {
         prevRoute: '#caterpillarN1',
         nextRoute: '#async-timeline',
         backRoute: '#canvas-overview',
-        color: 'black',
     });
 
     const description = '<strong>Canvas</strong>: Sequencer & SyncTimeline';

@@ -12,7 +12,6 @@ export const scrollerN1 = () => {
         prevRoute: '#scrollerN0?version=4&activeId=4',
         nextRoute: '',
         backRoute: '#canvas-overview',
-        color: 'black',
     });
 
     const description = '<strong>Canvas</strong>: ScrollTrigger';

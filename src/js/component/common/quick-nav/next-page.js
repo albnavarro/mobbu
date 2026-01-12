@@ -19,12 +19,6 @@ export const QuickNavFn = ({ getProxi, bindEffect, addMethod }) => {
             {
                 toggleClass: { active: () => proxi.active },
             },
-            {
-                toggleClass: {
-                    'fill-white': () => proxi.color === 'white',
-                    'fill-black': () => proxi.color === 'black',
-                },
-            },
         ])}
     >
         <a

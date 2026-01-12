@@ -12,7 +12,6 @@ export const caterpillarN1 = () => {
         prevRoute: '#caterpillarN0',
         nextRoute: '#caterpillarN2',
         backRoute: '#canvas-overview',
-        color: 'black',
     });
 
     const description = '<strong>Canvas</strong>: Spring & AnsyncTimeline';

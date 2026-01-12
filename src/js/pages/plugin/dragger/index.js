@@ -15,7 +15,6 @@ export const DraggerRoute = () => {
         prevRoute: '#move3D-shape1',
         nextRoute: '#math-animation-01',
         backRoute: '#plugin-overview',
-        color: 'black',
     });
 
     /**
