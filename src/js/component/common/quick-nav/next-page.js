@@ -3,13 +3,11 @@
  * @import {QuickNav} from "./type"
  */
 
-import { getIcons } from '@data/index';
 import { html } from '@mobJs';
 
 /** @type {MobComponent<QuickNav>} */
 export const QuickNavFn = ({ getProxi, bindEffect, addMethod }) => {
     const proxi = getProxi();
-    const arrow = getIcons()['scrollIcon'];
 
     addMethod('update', (prop, value) => {
         proxi[prop] = value;

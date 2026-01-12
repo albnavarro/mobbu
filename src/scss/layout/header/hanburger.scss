@@ -21,48 +21,6 @@
     --total-height: 10px;
     --offset: -8px;
 
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 1px;
-        height: 100%;
-        transform: scaleY(0);
-        transform-origin: top right;
-        background: $black;
-    }
-
-    @include when-inside('[data-template="home"]') {
-        &::after {
-            transition: transform 1s 0.5s;
-        }
-    }
-
-    @include when-inside('[data-template="about"]') {
-        &::after {
-            transition: transform 1s 0.5s;
-        }
-    }
-
-    @include when-inside('[data-template="template-listing"]') {
-        &::after {
-            transition: transform 1s 0.5s;
-        }
-    }
-
-    @include when-inside('[data-template="template-animation"]') {
-        &::after {
-            transition: transform 1s 0.5s;
-        }
-    }
-
-    &.is-visible {
-        &::after {
-            transform: scaleY(100%);
-        }
-    }
-
     &-inner {
         display: block;
         position: absolute;

@@ -742,32 +742,6 @@ ul li::marker {
   --total-height: 10px;
   --offset: -8px;
 }
-.hamburger::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 100%;
-  transform: scaleY(0);
-  transform-origin: top right;
-  background: #2e3440;
-}
-[data-template=home] .hamburger::after {
-  transition: transform 1s 0.5s;
-}
-[data-template=about] .hamburger::after {
-  transition: transform 1s 0.5s;
-}
-[data-template=template-listing] .hamburger::after {
-  transition: transform 1s 0.5s;
-}
-[data-template=template-animation] .hamburger::after {
-  transition: transform 1s 0.5s;
-}
-.hamburger.is-visible::after {
-  transform: scaleY(100%);
-}
 .hamburger-inner {
   display: block;
   position: absolute;
@@ -896,7 +870,7 @@ ul li::marker {
 .l-header__grid {
   display: grid;
   grid-template-areas: "toggle title menu utils";
-  grid-template-columns: var(--header-height) 1fr auto;
+  grid-template-columns: calc(var(--header-height) * 2) 1fr calc(var(--header-height) * 2);
   align-items: center;
   height: var(--header-height);
 }

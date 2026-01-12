@@ -24699,7 +24699,6 @@
   var iconsPath = "./asset/svg/icons/";
   var iconsToLoad = [
     { name: "gitHubIcon", source: "icon-github.svg" },
-    { name: "scrollIcon", source: "scroll_arrow.svg" },
     { name: "searchIcons", source: "search.svg" },
     { name: "historyIcons", source: "history.svg" },
     { name: "starOutline", source: "star-outline.svg" },
@@ -41038,7 +41037,6 @@
   // src/js/component/common/quick-nav/next-page.js
   var QuickNavFn = ({ getProxi, bindEffect, addMethod }) => {
     const proxi = getProxi();
-    const arrow = getIcons()["scrollIcon"];
     addMethod("update", (prop, value) => {
       proxi[prop] = value;
     });
