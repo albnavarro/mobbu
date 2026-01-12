@@ -896,9 +896,14 @@ ul li::marker {
 .l-header__grid {
   display: grid;
   grid-template-areas: "toggle title menu utils";
-  grid-template-columns: var(--header-height) auto 1fr auto;
+  grid-template-columns: var(--header-height) 1fr auto;
   align-items: center;
   height: var(--header-height);
+}
+@media (min-width: 75em) {
+  .l-header__grid {
+    grid-template-columns: var(--header-height) auto 1fr auto;
+  }
 }
 .l-header__toggle {
   position: relative;
@@ -914,7 +919,7 @@ ul li::marker {
   overflow: hidden;
 }
 .l-header__title {
-  display: inline-block;
+  display: none;
   grid-area: title;
   width: auto;
   padding-left: 1.3333333333rem;
@@ -923,6 +928,11 @@ ul li::marker {
   background: transparent;
   color: #2e3440;
   text-align: left;
+}
+@media (min-width: 75em) {
+  .l-header__title {
+    display: inline-block;
+  }
 }
 .l-header__title:hover {
   transform: translateX(0.6666666667rem);
@@ -951,7 +961,12 @@ ul li::marker {
   pointer-events: all;
 }
 .l-header__main-menu {
-  justify-self: end;
+  justify-self: center;
+}
+@media (min-width: 75em) {
+  .l-header__main-menu {
+    justify-self: end;
+  }
 }
 .l-header__utils {
   padding-right: 1.3333333333rem;
@@ -1013,8 +1028,10 @@ ul li::marker {
 }
 .header-main-menu__button {
   position: relative;
+  height: var(--header-height);
+  margin: 0;
   margin-inline: 0.4666666667rem;
-  padding: 0;
+  padding-inline: 0.6666666667rem;
   transition: opacity 0.55s;
   border: 0;
   background: transparent;
@@ -1022,22 +1039,17 @@ ul li::marker {
   font-size: 0.9333333333rem;
   font-weight: 600;
 }
-@media (min-width: 75em) {
-  .header-main-menu__button {
-    margin-inline: 0.6666666667rem;
-    font-size: 0.9333333333rem;
-  }
-}
 @media (min-width: 100em) {
   .header-main-menu__button {
-    margin-inline: 1rem;
+    padding-inline: 1rem;
   }
 }
 .header-main-menu__button:hover {
   opacity: 0.5;
 }
 .header-main-menu__button.current {
-  color: #2e3440;
+  background: #2e3440;
+  color: #fff;
 }
 [data-component=navigation] {
   width: 100%;
@@ -4807,9 +4819,9 @@ ul li::marker {
   left: 50%;
   width: 1rem;
   height: 1rem;
+  transition: border-color 0.55s;
   border-top: 1px #fff solid;
   border-right: 1px #fff solid;
-  transition: border-color 0.55s;
 }
 .c-quick-nav--next::after {
   transform: translate(-75%, -50%) rotate(45deg);

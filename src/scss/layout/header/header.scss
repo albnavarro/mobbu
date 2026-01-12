@@ -78,9 +78,13 @@
     &__grid {
         display: grid;
         grid-template-areas: 'toggle title menu utils';
-        grid-template-columns: var(--header-height) auto 1fr auto;
+        grid-template-columns: var(--header-height) 1fr auto;
         align-items: center;
         height: var(--header-height);
+
+        @include mq(large) {
+            grid-template-columns: var(--header-height) auto 1fr auto;
+        }
     }
 
     &__toggle {
@@ -100,7 +104,7 @@
     }
 
     &__title {
-        display: inline-block;
+        display: none;
         grid-area: title;
         width: auto;
         padding-left: rem(20);
@@ -109,6 +113,10 @@
         background: transparent;
         color: $black;
         text-align: left;
+
+        @include mq(large) {
+            display: inline-block;
+        }
 
         &:hover {
             transform: translateX(rem(10));
@@ -143,7 +151,11 @@
     }
 
     &__main-menu {
-        justify-self: end;
+        justify-self: center;
+
+        @include mq(large) {
+            justify-self: end;
+        }
     }
 
     &__utils {

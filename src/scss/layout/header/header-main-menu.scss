@@ -30,8 +30,10 @@
 
     &__button {
         position: relative;
+        height: var(--header-height);
+        margin: 0;
         margin-inline: rem(7);
-        padding: 0;
+        padding-inline: rem(10);
         transition: opacity 0.55s;
         border: 0;
         background: transparent;
@@ -39,13 +41,8 @@
         font-size: rem(14);
         font-weight: 600;
 
-        @include mq(large) {
-            margin-inline: rem(10);
-            font-size: rem(14);
-        }
-
         @include mq(xlarge) {
-            margin-inline: rem(15);
+            padding-inline: rem(15);
         }
 
         &:hover {
@@ -53,7 +50,8 @@
         }
 
         &.current {
-            color: $black;
+            background: $black;
+            color: $white;
         }
     }
 }
