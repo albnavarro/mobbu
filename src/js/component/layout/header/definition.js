@@ -1,7 +1,7 @@
 import { MobJs } from '@mobJs';
 import { HeaderFn } from './header';
 import { HeaderToggle } from './nav-toggle/definition';
-import { HeaderNav } from './header-nav/definition';
+import { HeaderUtils } from './header-utils/definition';
 import { HeaderMainMenu } from './header-main-menu/definition';
 
 /**
@@ -19,6 +19,6 @@ export const Header = MobJs.createComponent(
                 type: Boolean,
             }),
         },
-        child: [HeaderMainMenu, HeaderNav, HeaderToggle],
+        child: [HeaderMainMenu, HeaderUtils, HeaderToggle],
     })
 );

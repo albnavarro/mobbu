@@ -1,4 +1,4 @@
-export interface HeaderLinks {
+export interface HeaderUtils {
     links: {
         svg: string;
         url: string;

@@ -30,7 +30,7 @@ const onClick = ({ event }) => {
  * @returns {string}
  */
 function additems({ delegateEvents }) {
-    /** @type {import('./type').HeaderLinks} */
+    /** @type {import('./type').HeaderUtils} */
     const header = getCommonData().header;
     const { links } = header;
 
@@ -74,7 +74,7 @@ function additems({ delegateEvents }) {
 }
 
 /** @type {MobComponent} */
-export const HeadernavFn = ({ delegateEvents }) => {
+export const HeaderUtilsFn = ({ delegateEvents }) => {
     return html`
         <ul class="l-header__sidenav">
             <li class="l-header__sidenav__item">

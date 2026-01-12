@@ -42357,7 +42357,7 @@
       }
     })}
                     >
-                        <mob-header-nav></mob-header-nav>
+                        <mob-header-utils></mob-header-utils>
                     </div>
                 </div>
             </div>
@@ -42438,7 +42438,7 @@
     }
   );
 
-  // src/js/component/layout/header/header-nav/header-nav.js
+  // src/js/component/layout/header/header-utils/header-utils.js
   var onClick = ({ event }) => {
     const button = event.target;
     console.log(button);
@@ -42483,7 +42483,7 @@
             </li>`;
     }).join("");
   }
-  var HeadernavFn = ({ delegateEvents }) => {
+  var HeaderUtilsFn = ({ delegateEvents }) => {
     return renderHtml`
         <ul class="l-header__sidenav">
             <li class="l-header__sidenav__item">
@@ -42545,37 +42545,15 @@
     component: HistoryCtaFn
   });
 
-  // src/js/component/layout/header/header-nav/definition.js
-  var HeaderNav = modules_exports2.createComponent(
+  // src/js/component/layout/header/header-utils/definition.js
+  var HeaderUtils = modules_exports2.createComponent(
     /** @type {CreateComponentParams<any>} */
     {
-      tag: "mob-header-nav",
-      component: HeadernavFn,
+      tag: "mob-header-utils",
+      component: HeaderUtilsFn,
       child: [Search, HistoryCta]
     }
   );
-
-  // src/js/component/layout/header/header-main-menu/header-main-menu-button.js
-  var HeaderMainMenuButtonFn = ({ getProxi, bindEffect, computed }) => {
-    const proxi = getProxi();
-    computed(
-      () => proxi.active,
-      () => {
-        return proxi.section === proxi.activeNavigationSection;
-      }
-    );
-    return renderHtml`
-        <button
-            type="button"
-            class="header-main-menu__button"
-            ${bindEffect({
-      toggleClass: { current: () => proxi.active }
-    })}
-        >
-            ${proxi.label}
-        </button>
-    `;
-  };
 
   // src/js/component/layout/header/header-main-menu/header-main-menu.js
   var getItems2 = ({ delegateEvents, staticProps: staticProps2 }) => {
@@ -42590,7 +42568,7 @@
         }
       })}
                     ${staticProps2(
-        /** @type {import('./type').HeaderMainMenuButton['props']} */
+        /** @type {import('./main-menu-button/type').HeaderMainMenuButton['props']} */
         {
           label,
           section
@@ -42627,7 +42605,29 @@
     `;
   };
 
-  // src/js/component/layout/header/header-main-menu/definition.js
+  // src/js/component/layout/header/header-main-menu/main-menu-button/header-main-menu-button.js
+  var HeaderMainMenuButtonFn = ({ getProxi, bindEffect, computed }) => {
+    const proxi = getProxi();
+    computed(
+      () => proxi.active,
+      () => {
+        return proxi.section === proxi.activeNavigationSection;
+      }
+    );
+    return renderHtml`
+        <button
+            type="button"
+            class="header-main-menu__button"
+            ${bindEffect({
+      toggleClass: { current: () => proxi.active }
+    })}
+        >
+            ${proxi.label}
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/header/header-main-menu/main-menu-button/definition.js
   var HeaderMainMenuButton = modules_exports2.createComponent(
     /** @type {CreateComponentParams<import('./type').HeaderMainMenuButton>} */
     {
@@ -42652,17 +42652,22 @@
       }
     }
   );
-  var HeaderMainMenu = modules_exports2.createComponent({
-    tag: "header-main-menu",
-    component: headerMainMenuFn,
-    child: [HeaderMainMenuButton],
-    state: {
-      isMounted: () => ({
-        value: false,
-        type: Boolean
-      })
+
+  // src/js/component/layout/header/header-main-menu/definition.js
+  var HeaderMainMenu = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').HeaderMainMenu>} */
+    {
+      tag: "header-main-menu",
+      component: headerMainMenuFn,
+      child: [HeaderMainMenuButton],
+      state: {
+        isMounted: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
-  });
+  );
 
   // src/js/component/layout/header/definition.js
   var Header = modules_exports2.createComponent(
@@ -42676,7 +42681,7 @@
           type: Boolean
         })
       },
-      child: [HeaderMainMenu, HeaderNav, HeaderToggle]
+      child: [HeaderMainMenu, HeaderUtils, HeaderToggle]
     }
   );
 

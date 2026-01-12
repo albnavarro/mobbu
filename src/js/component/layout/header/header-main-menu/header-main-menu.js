@@ -14,7 +14,7 @@ import { MobCore } from '@mobCore';
 /**
  * @param {object} params
  * @param {DelegateEvents} params.delegateEvents
- * @param {StaticProps<import('./type').HeaderMainMenuButton>} params.staticProps
+ * @param {StaticProps<import('./main-menu-button/type').HeaderMainMenuButton>} params.staticProps
  */
 const getItems = ({ delegateEvents, staticProps }) => {
     const data = getCommonData();
@@ -30,7 +30,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
                         },
                     })}
                     ${staticProps(
-                        /** @type {import('./type').HeaderMainMenuButton['props']} */ ({
+                        /** @type {import('./main-menu-button/type').HeaderMainMenuButton['props']} */ ({
                             label,
                             section,
                         })

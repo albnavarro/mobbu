@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { HeadernavFn } from './header-nav';
+import { HeaderUtilsFn } from './header-utils';
 import { Search } from '@commonComponent/search/cta-search/definition';
 import { HistoryCta } from '@commonComponent/custom-history/history-cta/definition';
 
@@ -7,11 +7,11 @@ import { HistoryCta } from '@commonComponent/custom-history/history-cta/definiti
  * @import {CreateComponentParams} from "@mobJsType"
  */
 
-export const HeaderNav = MobJs.createComponent(
+export const HeaderUtils = MobJs.createComponent(
     /** @type {CreateComponentParams<any>} */
     ({
-        tag: 'mob-header-nav',
-        component: HeadernavFn,
+        tag: 'mob-header-utils',
+        component: HeaderUtilsFn,
         child: [Search, HistoryCta],
     })
 );
