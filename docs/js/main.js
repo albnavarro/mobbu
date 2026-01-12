@@ -41067,8 +41067,7 @@
         }
       }
     })}
-            >${arrow}</a
-        >
+        ></a>
         <a
             class="c-quick-nav c-quick-nav--prev"
             ${bindEffect({
@@ -41080,8 +41079,7 @@
         }
       }
     })}
-            >${arrow}</a
-        >
+        ></a>
         <a
             class="c-quick-nav c-quick-nav--next"
             ${bindEffect({
@@ -41093,8 +41091,7 @@
         }
       }
     })}
-            >${arrow}</a
-        >
+        ></a>
     </div>`;
   };
 

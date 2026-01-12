@@ -42,8 +42,17 @@
 
         &__item {
             display: inline-block;
-            margin-inline: rem(10);
-            color: $grey-medium-2;
+            margin-inline: rem(5);
+            color: $white;
+            font-size: rem(13);
+        }
+
+        a {
+            transition: opacity 0.35s;
+
+            &:hover {
+                opacity: 0.5;
+            }
         }
     }
 

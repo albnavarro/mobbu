@@ -703,8 +703,15 @@ ul li::marker {
 }
 .l-footer__bio__item {
   display: inline-block;
-  margin-inline: 0.6666666667rem;
-  color: #ccc;
+  margin-inline: 0.3333333333rem;
+  color: #fff;
+  font-size: 0.8666666667rem;
+}
+.l-footer__bio a {
+  transition: opacity 0.35s;
+}
+.l-footer__bio a:hover {
+  opacity: 0.5;
 }
 .l-footer__debug {
   display: flex;
@@ -4765,59 +4772,63 @@ ul li::marker {
   outline-offset: 0;
 }
 .c-quick-nav-container {
+  display: flex;
   visibility: hidden;
-  position: relative;
-  z-index: 10;
+  position: fixed;
+  z-index: 12;
+  bottom: 2px;
+  left: 50%;
+  height: calc(var(--footer-height) - var(--gap));
+  transform: translateX(-50%);
   transition: opacity 0.35s, visibility 0.35s;
   opacity: 0;
   pointer-events: none;
+  gap: var(--gap);
+  --gap: 0.5333333333rem;
 }
 .c-quick-nav-container.active {
   visibility: visible;
   opacity: 1;
   pointer-events: all;
-  mix-blend-mode: color-burn;
-}
-.c-quick-nav-container svg {
-  width: 100%;
-  height: 100%;
-  transition: fill 0.55s;
-  fill: #2e3440;
-}
-.c-quick-nav-container.fill-white svg {
-  fill: #fff;
-}
-.c-quick-nav-container.fill-black svg {
-  fill: #2e3440;
 }
 .c-quick-nav {
-  position: fixed;
+  position: relative;
   z-index: 15;
-  bottom: calc(var(--header-height) + 2rem);
-  width: 1.6666666667rem;
-  height: 1.6666666667rem;
-  transform-origin: center;
-  transition: opacity 0.55s;
-  border: 0;
+  width: calc(var(--footer-height) - var(--gap));
+  height: 100%;
+  transition: opacity 0.55s, background 0.55s;
+  border: 1px #fff solid;
   background: transparent;
 }
-.c-quick-nav--next {
-  right: 2.6666666667rem;
-  transform: rotate(-90deg);
+.c-quick-nav::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1rem;
+  height: 1rem;
+  border-top: 1px #fff solid;
+  border-right: 1px #fff solid;
+  transition: border-color 0.55s;
 }
-.c-quick-nav--prev {
-  right: 5.3333333333rem;
-  transform: rotate(90deg);
+.c-quick-nav--next::after {
+  transform: translate(-75%, -50%) rotate(45deg);
 }
-.c-quick-nav--back {
-  right: 8rem;
+.c-quick-nav--prev::after {
+  transform: translate(-25%, -50%) rotate(-135deg);
+}
+.c-quick-nav--back::after {
+  transform: translate(-50%, -75%) rotate(135deg);
 }
 .c-quick-nav.is-disable {
   opacity: 0.2;
   pointer-events: none;
 }
 .c-quick-nav:hover {
-  opacity: 0.3;
+  background: #fff;
+}
+.c-quick-nav:hover::after {
+  border-color: #2e3440;
 }
 .m-logo-1 {
   display: none;

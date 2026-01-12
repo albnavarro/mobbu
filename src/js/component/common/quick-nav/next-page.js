@@ -40,8 +40,7 @@ export const QuickNavFn = ({ getProxi, bindEffect, addMethod }) => {
                     },
                 },
             })}
-            >${arrow}</a
-        >
+        ></a>
         <a
             class="c-quick-nav c-quick-nav--prev"
             ${bindEffect({
@@ -53,8 +52,7 @@ export const QuickNavFn = ({ getProxi, bindEffect, addMethod }) => {
                     },
                 },
             })}
-            >${arrow}</a
-        >
+        ></a>
         <a
             class="c-quick-nav c-quick-nav--next"
             ${bindEffect({
@@ -66,7 +64,6 @@ export const QuickNavFn = ({ getProxi, bindEffect, addMethod }) => {
                     },
                 },
             })}
-            >${arrow}</a
-        >
+        ></a>
     </div>`;
 };
