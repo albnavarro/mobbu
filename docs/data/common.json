@@ -476,6 +476,36 @@
             "children": null
         },
         {
+            "label": "extras",
+            "section": true,
+            "sectioName": "extras"
+        },
+        {
+            "label": "overview",
+            "scrollToSection": "extras",
+            "url": "plugin-overview"
+        },
+        {
+            "label": "move3D shape 1",
+            "scrollToSection": "extras",
+            "url": "move3D-shape1"
+        },
+        {
+            "label": "dragger",
+            "scrollToSection": "extras",
+            "url": "plugin-dragger"
+        },
+        {
+            "label": "Math 01",
+            "scrollToSection": "extras",
+            "url": "math-animation-01"
+        },
+        {
+            "label": "Rosa di Grandi",
+            "scrollToSection": "extras",
+            "url": "rosa-di-grandi"
+        },
+        {
             "label": "mobCore",
             "section": true,
             "sectioName": "mobCore"
@@ -708,36 +738,6 @@
             "label": "Defaults",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-defaults"
-        },
-        {
-            "label": "extras",
-            "section": true,
-            "sectioName": "extras"
-        },
-        {
-            "label": "overview",
-            "scrollToSection": "extras",
-            "url": "plugin-overview"
-        },
-        {
-            "label": "move3D shape 1",
-            "scrollToSection": "extras",
-            "url": "move3D-shape1"
-        },
-        {
-            "label": "dragger",
-            "scrollToSection": "extras",
-            "url": "plugin-dragger"
-        },
-        {
-            "label": "Math 01",
-            "scrollToSection": "extras",
-            "url": "math-animation-01"
-        },
-        {
-            "label": "Rosa di Grandi",
-            "scrollToSection": "extras",
-            "url": "rosa-di-grandi"
         }
     ],
     "suggestion": [
