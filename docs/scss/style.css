@@ -4734,7 +4734,7 @@ ul li::marker {
   width: var(--thumb-width);
   height: 0.6666666667rem;
   border-radius: 0.6666666667rem;
-  background-color: #ccc;
+  background-color: #2e3440;
   appearance: none;
 }
 .c-params-mobjs__scrollbar:focus::-webkit-slider-thumb {
@@ -4751,7 +4751,7 @@ ul li::marker {
   height: 0.6666666667rem;
   border: none;
   border-radius: 0.6666666667rem;
-  background-color: #ccc;
+  background-color: #2e3440;
 }
 .c-params-mobjs__scrollbar:focus::-moz-range-thumb {
   border-radius: 0.6666666667rem;

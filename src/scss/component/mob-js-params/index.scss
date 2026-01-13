@@ -145,7 +145,7 @@
             width: var(--thumb-width);
             height: rem(10);
             border-radius: rem(10);
-            background-color: $grey-medium-2;
+            background-color: $black;
             appearance: none;
         }
 
@@ -165,7 +165,7 @@
             height: rem(10);
             border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
             border-radius: rem(10);
-            background-color: $grey-medium-2;
+            background-color: $black;
         }
 
         &:focus::-moz-range-thumb {
