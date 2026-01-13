@@ -12,7 +12,6 @@ import {
     getOffsetCanvas,
     getOffsetXCenter,
     getOffsetYCenter,
-    roundRectCustom,
     roundRectIsSupported,
 } from '@utils/canvas-utils';
 
@@ -153,8 +152,6 @@ export const scrollerN0Animation = ({
             ({
                 x,
                 y,
-                centerX,
-                centerY,
                 width,
                 height,
                 rotate,
@@ -175,27 +172,15 @@ export const scrollerN0Animation = ({
                     xy,
                     -xy,
                     xx,
-                    Math.round(centerX + offsetXCenter),
-                    Math.round(centerY + offsetYCenter)
-                );
-
-                /**
-                 * Draw.
-                 */
-                roundRectCustom(
-                    /** @type {CanvasRenderingContext2D} */ (context),
-                    Math.round(-centerX + x),
-                    Math.round(-centerY + y),
-                    width,
-                    height,
-                    5
+                    Math.floor(offsetXCenter + x),
+                    Math.floor(offsetYCenter + y)
                 );
 
                 if (useRadius) {
                     context.beginPath();
                     context.roundRect(
-                        Math.round(-centerX + x),
-                        Math.round(-centerY + y),
+                        Math.floor(-width / 2),
+                        Math.floor(-height / 2),
                         width,
                         height,
                         5
@@ -203,8 +188,8 @@ export const scrollerN0Animation = ({
                 } else {
                     context.beginPath();
                     context.rect(
-                        Math.round(-centerX + x),
-                        Math.round(-centerY + y),
+                        Math.floor(-width / 2),
+                        Math.floor(-height / 2),
                         width,
                         height
                     );

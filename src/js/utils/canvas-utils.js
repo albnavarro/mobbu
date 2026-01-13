@@ -142,9 +142,7 @@ export const getOffsetXCenter = ({
     gutter,
     numberOfColumn,
 }) => {
-    return (
-        canvasWidth / 2 - ((width + gutter) * numberOfColumn) / 2 - width / 2
-    );
+    return canvasWidth / 2 - ((width + gutter) * numberOfColumn) / 2;
 };
 
 /**
@@ -161,9 +159,5 @@ export const getOffsetYCenter = ({
     gutter,
     numberOfRow,
 }) => {
-    return (
-        canvasHeight / 2 -
-        ((height + gutter) * (numberOfRow + 1)) / 2 -
-        height / 2
-    );
+    return canvasHeight / 2 - ((height + gutter) * (numberOfRow + 1)) / 2;
 };

@@ -140,8 +140,6 @@ export const animatedPatternN0Animation = ({
             ({
                 x,
                 y,
-                centerX,
-                centerY,
                 width,
                 height,
                 rotate,
@@ -162,8 +160,8 @@ export const animatedPatternN0Animation = ({
                     xy,
                     -xy,
                     xx,
-                    Math.round(centerX + offsetXCenter),
-                    Math.round(centerY + offsetYCenter)
+                    Math.floor(offsetXCenter + x),
+                    Math.floor(offsetYCenter + y)
                 );
 
                 /**
@@ -172,8 +170,8 @@ export const animatedPatternN0Animation = ({
                 if (useRadius) {
                     context.beginPath();
                     context.roundRect(
-                        Math.round(-centerX + x),
-                        Math.round(-centerY + y),
+                        Math.floor(-width / 2),
+                        Math.floor(-height / 2),
                         width,
                         height,
                         5
@@ -181,8 +179,8 @@ export const animatedPatternN0Animation = ({
                 } else {
                     context.beginPath();
                     context.rect(
-                        Math.round(-centerX + x),
-                        Math.round(-centerY + y),
+                        Math.floor(-width / 2),
+                        Math.floor(-height / 2),
                         width,
                         height
                     );

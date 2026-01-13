@@ -21,7 +21,7 @@ export const AnimatedPatternN1 = MobJs.createComponent(
             gutter: window.innerHeight / 150,
             fill: [
                 2, 18, 10, 27, 21, 22, 23, 24, 25, 25, 26, 37, 42, 53, 58, 69,
-                74, 85, 86, 87, 88, 89, 90, 44, 60, 65, 66,
+                74, 85, 86, 87, 88, 89, 90, 44, 60, 65, 98, 108,
             ],
             disableOffcanvas: () => ({
                 value: detectFirefox() || detectSafari() ? true : false,

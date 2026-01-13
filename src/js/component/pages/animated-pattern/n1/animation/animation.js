@@ -147,8 +147,6 @@ export const animatedPatternN1Animation = ({
             ({
                 x,
                 y,
-                centerX,
-                centerY,
                 width,
                 height,
                 mouseX,
@@ -208,8 +206,8 @@ export const animatedPatternN1Animation = ({
                     xy,
                     -xy,
                     xx,
-                    Math.round(centerX + offsetXCenter),
-                    Math.round(centerY + offsetYCenter)
+                    Math.floor(offsetXCenter + x),
+                    Math.floor(offsetYCenter + y)
                 );
 
                 /**
@@ -217,8 +215,8 @@ export const animatedPatternN1Animation = ({
                  */
                 context.beginPath();
                 context.rect(
-                    Math.round(-centerX + x),
-                    Math.round(-centerY + y),
+                    Math.floor(-width / 2),
+                    Math.floor(-height / 2),
                     width,
                     height
                 );
@@ -243,8 +241,6 @@ export const animatedPatternN1Animation = ({
             ({
                 x,
                 y,
-                centerX,
-                centerY,
                 width,
                 height,
                 mouseX,
@@ -304,8 +300,8 @@ export const animatedPatternN1Animation = ({
                     xy,
                     -xy,
                     xx,
-                    Math.round(centerX + offsetXCenter),
-                    Math.round(centerY + offsetYCenter)
+                    Math.floor(offsetXCenter + x),
+                    Math.floor(offsetYCenter + y)
                 );
 
                 /**
@@ -313,11 +309,12 @@ export const animatedPatternN1Animation = ({
                  */
                 context.beginPath();
                 context.rect(
-                    Math.round(-centerX + x),
-                    Math.round(-centerY + y),
+                    Math.floor(-width / 2),
+                    Math.floor(-height / 2),
                     width,
                     height
                 );
+                // context.fillStyle = `red`;
                 context.fill();
 
                 context.setTransform(1, 0, 0, 1, 0, 0);

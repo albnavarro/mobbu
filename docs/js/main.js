@@ -28532,17 +28532,6 @@
     }
   };
   var roundRectIsSupported = (ctx) => "roundRect" in ctx;
-  var roundRectCustom = (ctx, x, y, w, h, r) => {
-    if (w < 2 * r) r = w / 2;
-    if (h < 2 * r) r = h / 2;
-    ctx.beginPath();
-    ctx.moveTo(x + r, y);
-    ctx.arcTo(x + w, y, x + w, y + h, r);
-    ctx.arcTo(x + w, y + h, x, y + h, r);
-    ctx.arcTo(x, y + h, x, y, r);
-    ctx.arcTo(x, y, x + w, y, r);
-    ctx.closePath();
-  };
   var createGrid = ({
     canvas,
     numberOfRow,
@@ -28599,7 +28588,7 @@
     gutter,
     numberOfColumn
   }) => {
-    return canvasWidth / 2 - (width + gutter) * numberOfColumn / 2 - width / 2;
+    return canvasWidth / 2 - (width + gutter) * numberOfColumn / 2;
   };
   var getOffsetYCenter = ({
     canvasHeight,
@@ -28607,7 +28596,7 @@
     gutter,
     numberOfRow
   }) => {
-    return canvasHeight / 2 - (height + gutter) * (numberOfRow + 1) / 2 - height / 2;
+    return canvasHeight / 2 - (height + gutter) * (numberOfRow + 1) / 2;
   };
 
   // src/js/stores/navigation/index.js
@@ -28704,8 +28693,6 @@
         ({
           x,
           y,
-          centerX,
-          centerY,
           width,
           height,
           rotate,
@@ -28722,14 +28709,14 @@
             xy,
             -xy,
             xx,
-            Math.round(centerX + offsetXCenter),
-            Math.round(centerY + offsetYCenter)
+            Math.floor(offsetXCenter + x),
+            Math.floor(offsetYCenter + y)
           );
           if (useRadius) {
             context2.beginPath();
             context2.roundRect(
-              Math.round(-centerX + x),
-              Math.round(-centerY + y),
+              Math.floor(-width / 2),
+              Math.floor(-height / 2),
               width,
               height,
               5
@@ -28737,8 +28724,8 @@
           } else {
             context2.beginPath();
             context2.rect(
-              Math.round(-centerX + x),
-              Math.round(-centerY + y),
+              Math.floor(-width / 2),
+              Math.floor(-height / 2),
               width,
               height
             );
@@ -29169,8 +29156,6 @@
         ({
           x,
           y,
-          centerX,
-          centerY,
           width,
           height,
           mouseX,
@@ -29197,13 +29182,13 @@
             xy,
             -xy,
             xx,
-            Math.round(centerX + offsetXCenter),
-            Math.round(centerY + offsetYCenter)
+            Math.floor(offsetXCenter + x),
+            Math.floor(offsetYCenter + y)
           );
           context2.beginPath();
           context2.rect(
-            Math.round(-centerX + x),
-            Math.round(-centerY + y),
+            Math.floor(-width / 2),
+            Math.floor(-height / 2),
             width,
             height
           );
@@ -29217,8 +29202,6 @@
         ({
           x,
           y,
-          centerX,
-          centerY,
           width,
           height,
           mouseX,
@@ -29245,13 +29228,13 @@
             xy,
             -xy,
             xx,
-            Math.round(centerX + offsetXCenter),
-            Math.round(centerY + offsetYCenter)
+            Math.floor(offsetXCenter + x),
+            Math.floor(offsetYCenter + y)
           );
           context2.beginPath();
           context2.rect(
-            Math.round(-centerX + x),
-            Math.round(-centerY + y),
+            Math.floor(-width / 2),
+            Math.floor(-height / 2),
             width,
             height
           );
@@ -29424,7 +29407,8 @@
           44,
           60,
           65,
-          66
+          98,
+          108
         ],
         disableOffcanvas: () => ({
           value: detectFirefox() || detectSafari() ? true : false,
@@ -30541,8 +30525,6 @@
         ({
           x,
           y,
-          centerX,
-          centerY,
           width,
           height,
           rotate,
@@ -30559,23 +30541,14 @@
             xy,
             -xy,
             xx,
-            Math.round(centerX + offsetXCenter),
-            Math.round(centerY + offsetYCenter)
-          );
-          roundRectCustom(
-            /** @type {CanvasRenderingContext2D} */
-            context2,
-            Math.round(-centerX + x),
-            Math.round(-centerY + y),
-            width,
-            height,
-            5
+            Math.floor(offsetXCenter + x),
+            Math.floor(offsetYCenter + y)
           );
           if (useRadius) {
             context2.beginPath();
             context2.roundRect(
-              Math.round(-centerX + x),
-              Math.round(-centerY + y),
+              Math.floor(-width / 2),
+              Math.floor(-height / 2),
               width,
               height,
               5
@@ -30583,8 +30556,8 @@
           } else {
             context2.beginPath();
             context2.rect(
-              Math.round(-centerX + x),
-              Math.round(-centerY + y),
+              Math.floor(-width / 2),
+              Math.floor(-height / 2),
               width,
               height
             );
