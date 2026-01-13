@@ -48,7 +48,12 @@ export const mathCircle = ({ targets, container, canvas } = {}) => {
     let isRunning = false;
 
     const loop = () => {
-        counter++;
+        /**
+         * Equal incremente by frameRate.
+         */
+        const increment = 60 / MobCore.getFps();
+        counter += increment;
+
         if (!tween) return;
 
         tween.goTo({ x: counter }).catch(() => {});
