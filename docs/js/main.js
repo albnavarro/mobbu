@@ -27134,7 +27134,7 @@
         }
       })}
                             >
-                                [ ${label} ]
+                                ${label}
                             </button>
                         </li>
                     `;
@@ -42144,8 +42144,8 @@
   var bioInfo = [
     "Alberto Navarro",
     "Milan, Italy",
-    '<a href="https://github.com/albnavarro/" target="_blank">github</a>',
-    '<a href="https://www.linkedin.com/in/alberto-navarro74/" target="_blank">linkedin</a>'
+    '<a href="https://github.com/albnavarro/" target="_blank">[ github ]</a>',
+    '<a href="https://www.linkedin.com/in/alberto-navarro74/" target="_blank">[ linkedin ]</a>'
   ];
   var getBio = () => {
     return renderHtml`

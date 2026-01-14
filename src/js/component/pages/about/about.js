@@ -166,7 +166,7 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
                                     },
                                 })}
                             >
-                                [ ${label} ]
+                                ${label}
                             </button>
                         </li>
                     `;

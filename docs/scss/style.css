@@ -1602,7 +1602,7 @@ ul li::marker {
   display: flex;
   position: absolute;
   z-index: 11;
-  bottom: 2rem;
+  bottom: 8rem;
   left: 50%;
   margin-left: 0;
   padding-left: 0;
@@ -1614,15 +1614,19 @@ ul li::marker {
 }
 .l-about__nav__button {
   display: inline-block;
+  margin-inline: 0.3333333333rem;
+  padding: 0.3333333333rem 0.6666666667rem;
   transition: opacity 0.35s;
-  border: 0;
+  transition: background 0.55s, color 0.55s;
+  border: 1px rgba(46, 52, 64, 0.2) solid;
   background: transparent;
+  font-size: 0.8666666667rem;
+  line-height: 1;
 }
-.l-about__nav__button.active {
-  font-weight: 800;
-}
+.l-about__nav__button.active,
 .l-about__nav__button:hover {
-  opacity: 0.5;
+  background: #2e3440;
+  color: #fff;
 }
 .l-links {
   position: relative;
