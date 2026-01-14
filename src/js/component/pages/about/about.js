@@ -363,6 +363,7 @@ export const AboutComponentFn = ({
                             MobMotionCore.clamp(1, 4, proxi.activenavItem - 1)
                         ]
                     );
+                    moveSvgFromNav();
                 },
             })}
         ></button>
@@ -382,6 +383,7 @@ export const AboutComponentFn = ({
                             MobMotionCore.clamp(1, 4, proxi.activenavItem + 1)
                         ]
                     );
+                    moveSvgFromNav();
                 },
             })}
         ></button>
