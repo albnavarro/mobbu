@@ -6,9 +6,7 @@
     height: var(--header-height);
     margin: 0;
     overflow: hidden;
-    transition-property: opacity, filter;
-    transition-duration: 0.15s;
-    transition-timing-function: linear;
+    transition: transform 0.55s;
     border: 0;
     background-color: $black;
     color: inherit;
@@ -20,6 +18,10 @@
     --height: 2px;
     --total-height: 10px;
     --offset: -8px;
+
+    &:hover {
+        transform: translateX(calc(#{rem(15)} * -1));
+    }
 
     &-inner {
         display: block;

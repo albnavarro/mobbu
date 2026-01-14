@@ -728,9 +728,7 @@ ul li::marker {
   height: var(--header-height);
   margin: 0;
   overflow: hidden;
-  transition-property: opacity, filter;
-  transition-duration: 0.15s;
-  transition-timing-function: linear;
+  transition: transform 0.55s;
   border: 0;
   background-color: #2e3440;
   color: inherit;
@@ -741,6 +739,9 @@ ul li::marker {
   --height: 2px;
   --total-height: 10px;
   --offset: -8px;
+}
+.hamburger:hover {
+  transform: translateX(calc(1rem * -1));
 }
 .hamburger-inner {
   display: block;
@@ -884,9 +885,6 @@ ul li::marker {
   grid-area: toggle;
   transition: opacity 0.35s;
   border: 0;
-}
-.l-header__toggle:hover {
-  opacity: 0.5;
 }
 .l-header__title-container {
   display: block;

@@ -94,10 +94,6 @@
         grid-area: toggle;
         transition: opacity 0.35s;
         border: 0;
-
-        &:hover {
-            opacity: 0.5;
-        }
     }
 
     &__title-container {
