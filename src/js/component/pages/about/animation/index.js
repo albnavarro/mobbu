@@ -102,6 +102,8 @@ export const aboutAnimation = ({
 
     return {
         goTo: (value) => {
+            if (!value && value !== 0) return;
+
             aboutScroller?.move?.(value).catch(() => {});
         },
         destroy: () => {

@@ -250,6 +250,8 @@ export const AboutComponentFn = ({
             }
 
             const valueParsed = -Math.abs(value / 30);
+            if (Number.isNaN(valueParsed)) return;
+
             await svgSpring.goTo({ x: valueParsed }).catch(() => {});
         };
 
@@ -360,7 +362,7 @@ export const AboutComponentFn = ({
                 click: () => {
                     _goTo(
                         goToPercentage[
-                            MobMotionCore.clamp(1, 4, proxi.activenavItem - 1)
+                            MobMotionCore.clamp(proxi.activenavItem - 1, 1, 4)
                         ]
                     );
                     moveSvgFromNav();
@@ -380,7 +382,7 @@ export const AboutComponentFn = ({
                 click: () => {
                     _goTo(
                         goToPercentage[
-                            MobMotionCore.clamp(1, 4, proxi.activenavItem + 1)
+                            MobMotionCore.clamp(proxi.activenavItem + 1, 1, 4)
                         ]
                     );
                     moveSvgFromNav();
