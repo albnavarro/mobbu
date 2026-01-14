@@ -10,6 +10,7 @@
 
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
+import { MobMotionCore } from '@mobMotion';
 import { aboutAnimation } from './animation';
 import { aboutSvgAnimation } from './animation/svg-animation';
 
@@ -347,6 +348,42 @@ export const AboutComponentFn = ({
                 </div>
             </div>
         </div>
+        <button
+            type="button"
+            class="l-about__prev"
+            ${bindEffect({
+                toggleAttribute: {
+                    disabled: () => proxi.activenavItem == 1,
+                },
+            })}
+            ${delegateEvents({
+                click: () => {
+                    _goTo(
+                        goToPercentage[
+                            MobMotionCore.clamp(1, 4, proxi.activenavItem - 1)
+                        ]
+                    );
+                },
+            })}
+        ></button>
         ${navigation({ bindEffect, delegateEvents, proxi })}
+        <button
+            type="button"
+            class="l-about__next"
+            ${bindEffect({
+                toggleAttribute: {
+                    disabled: () => proxi.activenavItem == 4,
+                },
+            })}
+            ${delegateEvents({
+                click: () => {
+                    _goTo(
+                        goToPercentage[
+                            MobMotionCore.clamp(1, 4, proxi.activenavItem + 1)
+                        ]
+                    );
+                },
+            })}
+        ></button>
     </div>`;
 };

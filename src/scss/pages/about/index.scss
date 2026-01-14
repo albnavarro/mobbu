@@ -278,6 +278,66 @@
         }
     }
 
+    &__prev,
+    &__next {
+        position: absolute;
+        z-index: 12;
+        bottom: rem(122);
+        left: 50%;
+        width: rem(50);
+        height: rem(50);
+        transition:
+            transform 0.35s,
+            opacity 0.35s;
+        border: 0;
+        background: $black;
+
+        &:disabled {
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: rem(15);
+            height: rem(15);
+            transition: border-color 0.55s;
+            border-top: 1px $white solid;
+            border-right: 1px $white solid;
+        }
+    }
+
+    /* stylelint-disable-next-line  no-descending-specificity */
+    &__prev {
+        transform: translateX(calc(2px + var(--sreen-size) / 2 * -1));
+
+        &::after {
+            transform: translate(-25%, -50%) rotate(-135deg);
+        }
+
+        &:hover {
+            transform: translateX(calc(2px + var(--sreen-size) / 2 * -1))
+                scale(1.2);
+        }
+    }
+
+    /* stylelint-disable-next-line  no-descending-specificity */
+    &__next {
+        transform: translateX(calc(-100% - 2px + var(--sreen-size) / 2));
+
+        &::after {
+            transform: translate(-75%, -50%) rotate(45deg);
+        }
+
+        &:hover {
+            transform: translateX(calc(-100% - 2px + var(--sreen-size) / 2))
+                scale(1.2);
+        }
+    }
+
     &__nav {
         display: flex;
         position: absolute;
