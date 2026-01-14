@@ -1004,26 +1004,39 @@ ul li::marker {
   position: relative;
   height: var(--header-height);
   margin: 0;
-  margin-inline: 0.4666666667rem;
   padding-inline: 0.6666666667rem;
   transition: opacity 0.55s;
+  transition: background 0.35s, color 0.35s;
   border: 0;
   background: transparent;
   color: #2e3440;
   font-size: 0.9333333333rem;
-  font-weight: 600;
+}
+.header-main-menu__button::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.55s;
+  background: #2e3440;
 }
 @media (min-width: 100em) {
   .header-main-menu__button {
-    padding-inline: 1rem;
+    padding-inline: 1.6666666667rem;
   }
 }
-.header-main-menu__button:hover {
-  opacity: 0.5;
-}
+.header-main-menu__button:hover,
 .header-main-menu__button.current {
-  background: #2e3440;
   color: #fff;
+}
+.header-main-menu__button:hover::after,
+.header-main-menu__button.current::after {
+  transform: scaleY(1);
 }
 [data-component=navigation] {
   width: 100%;

@@ -32,26 +32,41 @@
         position: relative;
         height: var(--header-height);
         margin: 0;
-        margin-inline: rem(7);
         padding-inline: rem(10);
         transition: opacity 0.55s;
+        transition:
+            background 0.35s,
+            color 0.35s;
         border: 0;
         background: transparent;
         color: $black;
         font-size: rem(14);
-        font-weight: 600;
+
+        &::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 100%;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.55s;
+            background: $black;
+        }
 
         @include mq(xlarge) {
-            padding-inline: rem(15);
+            padding-inline: rem(25);
         }
 
-        &:hover {
-            opacity: 0.5;
-        }
-
+        &:hover,
         &.current {
-            background: $black;
             color: $white;
+
+            &::after {
+                transform: scaleY(1);
+            }
         }
     }
 }
