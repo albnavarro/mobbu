@@ -997,9 +997,6 @@ ul li::marker {
 .header-main-menu__item {
   display: inline-block;
 }
-.header-main-menu__item:last-child > button::after {
-  display: none;
-}
 .header-main-menu__button {
   position: relative;
   height: var(--header-height);
