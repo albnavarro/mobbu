@@ -2,10 +2,10 @@
 
 .hamburger {
     display: inline-block;
+    position: relative;
     width: var(--header-height);
     height: var(--header-height);
     margin: 0;
-    overflow: hidden;
     transition: transform 0.55s;
     border: 0;
     background-color: $black;
@@ -19,8 +19,21 @@
     --total-height: 10px;
     --offset: -8px;
 
+    &::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        transition: transform 0.55s;
+        background: $black;
+        inset: 0;
+    }
+
     &:hover {
-        transform: translateX(calc(#{rem(15)} * -1));
+        transform: translateX(calc(#{rem(15)} * 1));
+
+        &::after {
+            transform: translateX(calc(#{rem(15)} * -2));
+        }
     }
 
     &-inner {
