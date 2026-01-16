@@ -1,5 +1,4 @@
 import { MobCore } from '@mobCore';
-import { isDescendant } from '@mobCoreUtils';
 import { MobMotionCore, MobTween } from '@mobMotion';
 import {
     DRAGGER_BOTTOM_LEFT,
@@ -8,18 +7,117 @@ import {
     DRAGGER_TOP_RIGHT,
 } from './constant';
 
+/**
+ * Extract translateZ value from element's transform style
+ */
+const getTranslateZ = (/** @type {HTMLElement} */ el) => {
+    const style = globalThis.getComputedStyle(el);
+    const transform = style.transform;
+
+    if (transform === 'none') return 0;
+
+    /**
+     * Matrix3d(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) translateZ is the 15th value (index 14)
+     */
+    const matrix3dMatch = transform.match(/matrix3d\(([^)]+)\)/);
+    if (matrix3dMatch) {
+        const values = matrix3dMatch[1].split(',').map(Number);
+        return values[14] || 0;
+    }
+
+    return 0;
+};
+
 /** @type {import('./type').DraggerAnimation} */
 export const draggerAnimation = ({
     align,
     root,
     child,
+    containerClass,
+    childrenClass,
     perspective,
     usePrespective,
     maxLowDepth = -200,
     maxHightDepth = 200,
     onDepthChange = () => {},
     depthFactor = 30,
+    hideThreshold = 1.3,
 }) => {
+    let containerEl = /** @type {HTMLElement} */ (
+        document.querySelector(containerClass)
+    );
+
+    if (containerEl) {
+        containerEl.style.cursor = 'grab';
+    }
+
+    let children = /** @type {HTMLElement[]} */ ([
+        ...containerEl.querySelectorAll(childrenClass),
+    ]);
+
+    const childrenDepthThreshold = children.map((childEl) => {
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const childWidth = childEl.offsetWidth;
+        const childHeight = childEl.offsetHeight;
+        const childTranslateZ = getTranslateZ(childEl);
+
+        /**
+         * Dimensione virtuale
+         *
+         * - La larghezza che l'utente vede è:
+         * - VirtualWidth = childWidth * scale
+         *
+         * Quando nascondere?
+         *
+         * - Vogliamo nascondere quando:
+         * - VirtualWidth > viewportWidth * hideThreshold
+         *
+         * Derivazione ( Sostituendo: )
+         *
+         * - ChildWidth * scale > viewportWidth * hideThreshold
+         * - ChildWidth * (perspective / (perspective - effectiveZ)) > viewportWidth * hideThreshold
+         * - Dove effectiveZ = depth + childTranslateZ (profondità totale = contenitore + child).
+         *
+         * Risolvendo per depth:
+         *
+         * - Perspective / (perspective - effectiveZ) > (viewportWidth * hideThreshold) / childWidth
+         * - Perspective - effectiveZ < (perspective * childWidth) / (viewportWidth * hideThreshold)
+         * - EffectiveZ > perspective - (perspective * childWidth) / (viewportWidth * hideThreshold)
+         * - Depth + childTranslateZ > perspective - (perspective * childWidth) / (viewportWidth * hideThreshold)
+         * - Depth > perspective - (perspective * childWidth) / (viewportWidth * hideThreshold) - childTranslateZ
+         *
+         * Risultato finale
+         *
+         * - DepthThresholdX = perspective - (perspective * childWidth) / (viewportWidth * hideThreshold) -
+         *   childTranslateZ;
+         * - Quando depth > depthThresholdX, il child appare più largo dell'80% ( hideThreshold ) del viewport -> va
+         *   nascosto.
+         */
+        const depthThresholdX =
+            perspective -
+            (perspective * childWidth) / (viewportWidth * hideThreshold) -
+            childTranslateZ;
+
+        const depthThresholdY =
+            perspective -
+            (perspective * childHeight) / (viewportHeight * hideThreshold) -
+            childTranslateZ;
+
+        const threshold = Math.min(depthThresholdX, depthThresholdY);
+        return threshold;
+    });
+
+    /**
+     * Toggle hide class based on current depth
+     */
+    const updateChildrenVisibility = () => {
+        children.forEach((childEl, index) => {
+            const shouldHide = depth > childrenDepthThreshold[index];
+            childEl.classList.toggle('hide', shouldHide);
+        });
+    };
+
     /**
      * Mutables inner state:
      */
@@ -160,15 +258,10 @@ export const draggerAnimation = ({
      * @param {{ x: number; y: number }} params.page
      * @param {EventTarget | null} params.target
      */
-    const startDrag = ({ page, target }) => {
-        if (
-            target === child ||
-            isDescendant(child, /** @type {HTMLElement | undefined} */ (target))
-        ) {
-            onDrag = true;
-            firstDrag = true;
-            firstTouchValue = { x: page.x, y: page.y };
-        }
+    const startDrag = ({ page }) => {
+        onDrag = true;
+        firstDrag = true;
+        firstTouchValue = { x: page.x, y: page.y };
     };
 
     /**
@@ -289,23 +382,24 @@ export const draggerAnimation = ({
     /**
      * PreventChecker - prevent default if scroll difference from dow to up is less thshold value
      */
-    root.addEventListener(
-        'click',
-        (event) => {
-            const { x, y } = firstTouchValue;
+    if (containerEl)
+        containerEl.addEventListener(
+            'click',
+            (event) => {
+                const { x, y } = firstTouchValue;
 
-            const xChecker = Math.abs(lastX - x) > threshold;
-            const yChecker = Math.abs(lastY - y) > threshold;
+                const xChecker = Math.abs(lastX - x) > threshold;
+                const yChecker = Math.abs(lastY - y) > threshold;
 
-            if (xChecker || yChecker) {
-                event.preventDefault();
-            }
-        },
-        false
-    );
+                if (xChecker || yChecker) {
+                    event.preventDefault();
+                }
+            },
+            false
+        );
 
-    if (usePrespective) {
-        child.addEventListener(
+    if (usePrespective && containerEl) {
+        containerEl.addEventListener(
             'wheel',
             (event) => {
                 const { spinY } = MobCore.normalizeWheel(event);
@@ -315,14 +409,39 @@ export const draggerAnimation = ({
                     maxHightDepth
                 );
 
+                /**
+                 * Update dragLimitY && dragLimitY based on current scale value.
+                 */
                 updatePerspectiveLimits();
+
+                /**
+                 * Clamp current position to new limits
+                 *
+                 * - We need to maintain constrain while zoom action si active.
+                 */
+                dragX =
+                    dragLimitX > 0
+                        ? MobMotionCore.clamp(dragX, -dragLimitX, dragLimitX)
+                        : MobMotionCore.clamp(dragX, dragLimitX, -dragLimitX);
+
+                dragY =
+                    dragLimitY > 0
+                        ? MobMotionCore.clamp(dragY, -dragLimitY, dragLimitY)
+                        : MobMotionCore.clamp(dragY, dragLimitY, -dragLimitY);
+
                 onDepthChange({ depth });
 
-                spring.goTo({ z: depth }).catch(() => {});
+                spring.goTo({ x: dragX, y: dragY, z: depth }).catch(() => {});
             },
             { passive: true }
         );
     }
+
+    const unsubScribeMouseWheel = MobCore.useMouseWheel(
+        MobCore.useDebounce(() => {
+            updateChildrenVisibility();
+        }, 100)
+    );
 
     /**
      * Update cached values on resize
@@ -345,9 +464,16 @@ export const draggerAnimation = ({
             unsubscribeMouseMove();
             unsubscribeTouchMove();
             unsubscribeResize();
+            unsubScribeMouseWheel();
             spring.destroy();
             // @ts-ignore
             spring = null;
+
+            // @ts-ignore
+            containerEl = null;
+
+            // @ts-ignore
+            children = null;
 
             /**
              * Le referenze in ingresso passano una copia dei puntatori alla memoria in cui root e child sono salvate,

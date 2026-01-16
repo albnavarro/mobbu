@@ -16,7 +16,11 @@ export const Dragger = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
-            childClass: () => ({
+            childrenClass: () => ({
+                value: '',
+                type: String,
+            }),
+            containerClass: () => ({
                 value: '',
                 type: String,
             }),

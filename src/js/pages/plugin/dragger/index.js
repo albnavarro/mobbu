@@ -22,6 +22,7 @@ export const DraggerRoute = () => {
      */
     const rootContent = html`
         <div class="dragger-border">
+            <h2 class="dragger-border__title">Drag and zoom</h2>
             <div class="dragger-border__top-left"></div>
             <div class="dragger-border__top-right"></div>
             <div class="dragger-border__bottom-left"></div>
@@ -32,17 +33,16 @@ export const DraggerRoute = () => {
     /**
      * Child
      */
-    const childContent = html`<div class="dragger-child">
-        <div class="dragger-child-1">
-            <a class="dragger-child__link" href="#">link test</a>
-            <span class="dragger-child-1__diagonal"> </span>
-        </div>
-        <div class="dragger-child-2">
-            <span class="dragger-child-2__diagonal"> </span>
-        </div>
+    const childContent = html`<div class="dragger-child-container">
+        <div class="dragger-child dragger-child--1"></div>
+        <div class="dragger-child dragger-child--2"></div>
+        <div class="dragger-child dragger-child--3"></div>
+        <div class="dragger-child dragger-child--4"></div>
+        <div class="dragger-child dragger-child--5"></div>
+        <div class="dragger-child dragger-child--6"></div>
     </div>`;
 
-    const description = '<strong>Dragger:</strong> Drag and zoom';
+    const description = '<strong>Dragger</strong>';
     updateAnimationDescription(description);
 
     return html`<div class="l-dragger">
@@ -51,10 +51,12 @@ export const DraggerRoute = () => {
                 /** @type {import('@commonComponent/dragger/type').Dragger['props']} */
                 ({
                     rootClass: 'dragger-component',
-                    childClass: '',
+                    containerClass: '.l-dragger',
+                    childrenClass: '.dragger-child',
                     align: 'CENTER',
-                    maxHightDepth: 200,
-                    maxLowDepth: -1000,
+                    maxHightDepth: 300,
+                    maxLowDepth: -200,
+                    perspective: 300,
                     afterInit: ({ root }) => {
                         if (useLog) console.log(root);
                     },

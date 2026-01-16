@@ -29,6 +29,8 @@ export const DraggerFn = ({
             maxHightDepth: proxi.maxHightDepth,
             depthFactor: proxi.depthFactor,
             onDepthChange: proxi.onDepthChange,
+            containerClass: proxi.containerClass,
+            childrenClass: proxi.childrenClass,
         });
 
         /**
@@ -52,7 +54,7 @@ export const DraggerFn = ({
 
         <!-- Child -->
         <div
-            class="c-dragger__wrapper ${proxi.childClass}"
+            class="c-dragger__wrapper"
             ${setRef('child')}
             ${bindEffect({
                 toggleStyle: {

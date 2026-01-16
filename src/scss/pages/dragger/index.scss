@@ -26,6 +26,14 @@
 .dragger-border {
     pointer-events: none;
 
+    &__title {
+        position: absolute;
+        bottom: calc(100% + #{rem(10)});
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+    }
+
     &__top-left,
     &__top-right,
     &__bottom-left,
@@ -66,65 +74,67 @@
     }
 }
 
-.dragger-child {
-    width: 50vw;
-    height: 60vh;
+.dragger-child-container {
+    position: relative;
+    width: rem(900);
+    height: rem(600);
     transform-style: preserve-3d;
     cursor: grab;
+
+    --card-with: #{rem(200)};
+    --card-height: #{rem(250)};
+}
+
+.dragger-child {
+    visibility: visible;
+    position: absolute;
+    width: var(--card-with);
+    height: var(--card-height);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition:
+        opacity 0.35s,
+        visibility 0.35s;
+    background: $black;
     pointer-events: all;
 
-    &__link {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        padding: rem(20);
-        transform: translate(-50%, -50%);
-        background: $black;
-        color: $white;
+    &.hide {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
     }
-}
 
-.dragger-child-1 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: rem(40);
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    background: rgba($white, 0.2);
-
-    &__diagonal {
-        position: absolute;
-        z-index: -1;
+    &--1 {
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-
-        @include diagonal-cross-lines(#fff, 0.1, 'butt', 1);
     }
-}
 
-.dragger-child-2 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 50%;
-    height: 50%;
-    transform: translate3d(-50%, -50%, -150px);
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    background: rgba($white, 0.4);
+    &--2 {
+        right: 0;
+        bottom: 0;
+    }
 
-    &__diagonal {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+    &--3 {
+        top: rem(200);
+        left: rem(300);
+        transform: translateZ(-150px);
+    }
 
-        // @include diagonal-cross-lines(#000, 0.1, 'butt', 1);
+    &--4 {
+        top: rem(50);
+        right: rem(0);
+        transform: translateZ(-250px);
+    }
+
+    &--5 {
+        bottom: rem(0);
+        left: rem(0);
+        transform: translateZ(-350px);
+    }
+
+    &--6 {
+        bottom: rem(-200);
+        left: rem(600);
+        transform: translateZ(-650px);
     }
 }
