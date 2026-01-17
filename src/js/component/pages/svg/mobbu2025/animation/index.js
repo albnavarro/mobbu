@@ -5,30 +5,12 @@ import { MobSmoothScroller } from '@mobMotionPlugin';
 export const mobbu2025Scroller = ({
     screenElement,
     scrollerElement,
-    layer01,
     layer02,
-    layer04,
 }) => {
-    let parallax1 = MobScroll.createParallax({
-        item: layer01,
-        align: 'center',
-        range: 3,
-        propierties: 'x',
-        ease: false,
-    });
-
     let parallax2 = MobScroll.createParallax({
         item: layer02,
         align: 'center',
-        range: 5,
-        propierties: 'x',
-        ease: false,
-    });
-
-    let parallax4 = MobScroll.createParallax({
-        item: layer04,
-        align: 'center',
-        range: 7,
+        range: 10,
         propierties: 'x',
         ease: false,
     });
@@ -41,7 +23,7 @@ export const mobbu2025Scroller = ({
         useHorizontalScroll: true,
         easeType: 'lerp',
         breakpoint: 'small',
-        children: [parallax1, parallax2, parallax4],
+        children: [parallax2],
     });
 
     scroller.init();
@@ -50,17 +32,11 @@ export const mobbu2025Scroller = ({
     return {
         destroy: () => {
             scroller.destroy();
-            parallax1.destroy();
             parallax2.destroy();
-            parallax4.destroy();
             // @ts-ignore
             scroller = null;
             // @ts-ignore
-            parallax1 = null;
-            // @ts-ignore
             parallax2 = null;
-            // @ts-ignore
-            parallax4 = null;
         },
     };
 };

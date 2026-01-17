@@ -1,25 +1,19 @@
 export interface Mobbu2025 {
     props: {
-        layer01: string;
         layer02: string;
         layer03: string;
-        layer04: string;
     };
     ref: {
         screen: HTMLDivElement;
         scroller: HTMLDivElement;
-        layer04: HTMLDivElement;
         layer02: HTMLDivElement;
-        layer01: HTMLDivElement;
     };
 }
 
 export type Mobbu2025Scroller = (arg0: {
     screenElement: HTMLDivElement;
     scrollerElement: HTMLDivElement;
-    layer04: HTMLDivElement;
     layer02: HTMLDivElement;
-    layer01: HTMLDivElement;
 }) => {
     destroy: () => void;
 };

@@ -10,21 +10,14 @@ MobJs.useComponent([mobbbu2025]);
 
 export const mob_02 = async () => {
     const { data: letteringMob } = await loadTextContent({
-        source: './asset/svg/lettering-mob-2025.svg?v=0.9',
+        source: './asset/svg/lettering-mob-2025-pure.svg?v=0.9',
     });
 
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',
     });
 
-    /**
-     * Layer01, puppet is commented
-     */
-    const [layer02, layer03, layer04] = [
-        'layer-02',
-        'layer-03',
-        'layer-04',
-    ].map((id) => {
+    const [layer02, layer03] = ['layer-02', 'layer-03'].map((id) => {
         return parseSvg({
             svg: letteringMob,
             id: id,
@@ -52,7 +45,6 @@ export const mob_02 = async () => {
                 ({
                     layer02,
                     layer03,
-                    layer04,
                 })
             )}
         ></mobbu-2025>
