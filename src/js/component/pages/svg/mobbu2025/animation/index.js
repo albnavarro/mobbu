@@ -10,7 +10,7 @@ export const mobbu2025Scroller = ({
     let parallax2 = MobScroll.createParallax({
         item: layer02,
         align: 'center',
-        range: 10,
+        range: 8,
         propierties: 'x',
         ease: false,
     });
