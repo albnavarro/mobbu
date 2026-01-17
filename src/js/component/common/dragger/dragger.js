@@ -12,7 +12,7 @@ export const DraggerFn = ({
     const proxi = getProxi();
 
     onMount(({ element }) => {
-        const { child } = getRef();
+        let { child } = getRef();
         let firstChild = child.firstChild;
         if (!firstChild) return;
 
@@ -41,11 +41,15 @@ export const DraggerFn = ({
 
         return () => {
             methods.destroy();
+            element.remove();
+            child.remove();
 
-            /**
-             * Remove reference.
-             */
+            // @ts-ignore
+            child = null;
             firstChild = null;
+
+            // @ts-ignore
+            element = null;
         };
     });
 
