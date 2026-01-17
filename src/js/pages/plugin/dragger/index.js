@@ -69,7 +69,7 @@ export const DraggerRoute = async () => {
                     containerClass: '.l-dragger',
                     childrenClass: '.dragger-child',
                     align: 'CENTER',
-                    maxHightDepth: 150,
+                    maxHightDepth: 140,
                     maxLowDepth: -200,
                     perspective: 300,
                     hideThreshold: 10,
