@@ -10,7 +10,7 @@
     --mobbu2025-height: calc(
         100vh - var(--header-height) - var(--footer-height)
     );
-    --mobbu2025-width: calc((var(--mobbu2025-height) * 500) / 112);
+    --mobbu2025-width: calc((var(--mobbu2025-height) * 690) / 112);
 
     &__screen {
         position: relative;
@@ -24,7 +24,7 @@
     &__scroller {
         position: absolute;
         height: var(--mobbu2025-height);
-        aspect-ratio: 500/117;
+        aspect-ratio: 690/117;
     }
 
     &__layer {
@@ -32,7 +32,7 @@
         bottom: 0;
         left: 0;
         height: var(--mobbu2025-height);
-        aspect-ratio: 500/117;
+        aspect-ratio: 690/117;
 
         @include user-select-none;
 
