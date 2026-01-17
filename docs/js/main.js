@@ -1521,7 +1521,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),V=x,B=R),O===void 0&&(
                 </div>
             </div>
         </div>
-    </div>`};var nx=m.createComponent({tag:"mobbu-2025",component:ox,props:{layer02:()=>({value:"",type:String}),layer03:()=>({value:"",type:String})}});m.useComponent([nx]);var sx=async()=>{let{data:e}=await Me({source:"./asset/svg/lettering-mob-2025-pure.svg?v=0.9"}),{data:t}=await Me({source:"./asset/svg/lettering-mob.svg?v=1.3"}),[r,o]=["layer-02","layer-03"].map(s=>ns({svg:e,id:s}));return Te({active:!0,prevRoute:"#mob-01",nextRoute:"",backRoute:"#svg-overview"}),Se("<strong>Svg</strong>: Mobbu2025 parallax"),g`<div class="l-mob-02">
+    </div>`};var nx=m.createComponent({tag:"mobbu-2025",component:ox,props:{layer02:()=>({value:"",type:String}),layer03:()=>({value:"",type:String})}});m.useComponent([nx]);var sx=async()=>{let{data:e}=await Me({source:"./asset/svg/lettering-mob-2025-pure.svg?v=0.9"}),{data:t}=await Me({source:"./asset/svg/lettering-mob.svg?v=1.4"}),[r,o]=["layer-02","layer-03"].map(s=>ns({svg:e,id:s}));return Te({active:!0,prevRoute:"#mob-01",nextRoute:"",backRoute:"#svg-overview"}),Se("<strong>Svg</strong>: Mobbu2025 parallax"),g`<div class="l-mob-02">
         <div class="background-shape">${t}</div>
         <h3 class="l-mob-02__title">Scroll or Drag</h3>
         <mobbu-2025

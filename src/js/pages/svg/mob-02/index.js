@@ -14,7 +14,7 @@ export const mob_02 = async () => {
     });
 
     const { data: bg } = await loadTextContent({
-        source: './asset/svg/lettering-mob.svg?v=1.3',
+        source: './asset/svg/lettering-mob.svg?v=1.4',
     });
 
     const [layer02, layer03] = ['layer-02', 'layer-03'].map((id) => {
