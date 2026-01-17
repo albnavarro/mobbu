@@ -47,6 +47,10 @@ export const Dragger = MobJs.createComponent(
                 value: 600,
                 type: Number,
             }),
+            hideThreshold: () => ({
+                value: 1,
+                type: Number,
+            }),
             depthFactor: () => ({
                 value: 30,
                 type: Number,

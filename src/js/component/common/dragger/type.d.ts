@@ -10,6 +10,7 @@ export interface Dragger {
         maxLowDepth: number;
         maxHightDepth: number;
         depthFactor: number;
+        hideThreshold: number;
         align:
             | 'TOP-LEFT'
             | 'TOP-RIGHT'

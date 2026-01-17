@@ -13,8 +13,14 @@ export const mob_02 = async () => {
         source: './asset/svg/lettering-mob-2025.svg?v=0.9',
     });
 
-    const [layer01, layer02, layer03, layer04] = [
-        'layer-01',
+    const { data: bg } = await loadTextContent({
+        source: './asset/svg/lettering-mob.svg?v=1.3',
+    });
+
+    /**
+     * Layer01, puppet is commented
+     */
+    const [layer02, layer03, layer04] = [
         'layer-02',
         'layer-03',
         'layer-04',
@@ -39,11 +45,11 @@ export const mob_02 = async () => {
     updateAnimationDescription(description);
 
     return html`<div class="l-mob-02">
+        <div class="background-shape">${bg}</div>
         <mobbu-2025
             ${staticProps(
                 /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['props']} */
                 ({
-                    layer01,
                     layer02,
                     layer03,
                     layer04,

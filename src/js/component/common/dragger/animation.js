@@ -41,7 +41,7 @@ export const draggerAnimation = ({
     maxHightDepth = 200,
     onDepthChange = () => {},
     depthFactor = 30,
-    hideThreshold = 1.3,
+    hideThreshold = 1,
 }) => {
     let containerEl = /** @type {HTMLElement} */ (
         document.querySelector(containerClass)

@@ -31,6 +31,7 @@ export const DraggerFn = ({
             onDepthChange: proxi.onDepthChange,
             containerClass: proxi.containerClass,
             childrenClass: proxi.childrenClass,
+            hideThreshold: proxi.hideThreshold,
         });
 
         /**

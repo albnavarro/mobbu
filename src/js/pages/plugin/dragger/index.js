@@ -3,12 +3,21 @@ import { AnyComponent } from '@commonComponent/any-component/definition';
 import { Dragger } from '@commonComponent/dragger/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
+import { loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([Dragger, AnyComponent]);
 const useLog = false;
 
 /** @type {import('@mobJsType').Page} */
-export const DraggerRoute = () => {
+export const DraggerRoute = async () => {
+    const { data: svg } = await loadTextContent({
+        source: './asset/svg/ms_nord_compact.svg?v=1.3',
+    });
+
+    const { data: bg } = await loadTextContent({
+        source: './asset/svg/lettering-mob.svg?v=1.3',
+    });
+
     /** Quicknav */
     updateQuickNavState({
         active: true,
@@ -22,7 +31,7 @@ export const DraggerRoute = () => {
      */
     const rootContent = html`
         <div class="dragger-border">
-            <h2 class="dragger-border__title">Drag and zoom</h2>
+            <h3 class="dragger-border__title">Drag and zoom</h3>
             <div class="dragger-border__top-left"></div>
             <div class="dragger-border__top-right"></div>
             <div class="dragger-border__bottom-left"></div>
@@ -40,12 +49,18 @@ export const DraggerRoute = () => {
         <div class="dragger-child dragger-child--4"></div>
         <div class="dragger-child dragger-child--5"></div>
         <div class="dragger-child dragger-child--6"></div>
+        <div class="dragger-child dragger-child--7"></div>
+        <div class="dragger-child dragger-child--8"></div>
+        <div class="dragger-child dragger-child--9"></div>
+        <div class="dragger-child dragger-child--10"></div>
+        <div class="dragger-child dragger-child--svg">${svg}</div>
     </div>`;
 
     const description = '<strong>Dragger</strong>';
     updateAnimationDescription(description);
 
     return html`<div class="l-dragger">
+        <div class="background-shape">${bg}</div>
         <c-dragger
             ${MobJs.staticProps(
                 /** @type {import('@commonComponent/dragger/type').Dragger['props']} */
@@ -54,9 +69,10 @@ export const DraggerRoute = () => {
                     containerClass: '.l-dragger',
                     childrenClass: '.dragger-child',
                     align: 'CENTER',
-                    maxHightDepth: 300,
+                    maxHightDepth: 150,
                     maxLowDepth: -200,
                     perspective: 300,
+                    hideThreshold: 10,
                     afterInit: ({ root }) => {
                         if (useLog) console.log(root);
                     },

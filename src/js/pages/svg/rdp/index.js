@@ -15,6 +15,10 @@ export const rdp = async () => {
         source: './asset/svg/rdp.svg?v=0.4',
     });
 
+    const { data: bg } = await loadTextContent({
+        source: './asset/svg/lettering-mob.svg?v=1.3',
+    });
+
     const [
         letter_d,
         letter_r,
@@ -61,6 +65,7 @@ export const rdp = async () => {
     updateAnimationDescription(description);
 
     return html`<div class="l-rdp-01">
+        <div class="background-shape">${bg}</div>
         <mouse-trail></mouse-trail>
         <move-3d
             ${MobJs.staticProps(

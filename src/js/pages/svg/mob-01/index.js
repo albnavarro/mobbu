@@ -15,6 +15,10 @@ export const lettering01 = async () => {
         source: './asset/svg/lettering-mob.svg?v=0.9',
     });
 
+    const { data: bg } = await loadTextContent({
+        source: './asset/svg/rdp.svg?v=1.3',
+    });
+
     const [
         u0,
         u1,
@@ -75,6 +79,7 @@ export const lettering01 = async () => {
     updateAnimationDescription(description);
 
     return html`<div class="l-mob-01">
+        <div class="background-shape">${bg}</div>
         <mouse-trail></mouse-trail>
         <move-3d
             ${MobJs.staticProps(
