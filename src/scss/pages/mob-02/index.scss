@@ -1,0 +1,15 @@
+@use '../../abstract' as *;
+
+.l-mob-02 {
+    &__title {
+        position: absolute;
+        z-index: 12;
+        top: rem(120);
+        left: 50%;
+        padding: rem(6) rem(20) rem(10);
+        transform: translateX(-50%);
+        border: 1px rgba($black, 0.3) solid;
+        line-height: 1;
+        pointer-events: none;
+    }
+}

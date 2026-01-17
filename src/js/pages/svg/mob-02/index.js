@@ -32,13 +32,13 @@ export const mob_02 = async () => {
         backRoute: '#svg-overview',
     });
 
-    const description =
-        '<strong>Svg</strong>: Mobbu2025 parallax /  <strong>[ drag or scroll ]</strong>';
+    const description = '<strong>Svg</strong>: Mobbu2025 parallax';
 
     updateAnimationDescription(description);
 
     return html`<div class="l-mob-02">
         <div class="background-shape">${bg}</div>
+        <h3 class="l-mob-02__title">Scroll or Drag</h3>
         <mobbu-2025
             ${staticProps(
                 /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['props']} */
