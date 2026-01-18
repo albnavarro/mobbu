@@ -24,19 +24,21 @@ const logAddMethods = ({ value, direction, isForced }) => {
 /** @type {import('../type').CaterpillarN2Animation} */
 export const caterpillarN2Animation = ({
     canvas,
-    numItems,
-    width,
-    height,
-    radius,
-    fill,
-    opacity,
-    xAmplitude,
-    yAmplitude,
-    duration,
-    friction,
     rotationDefault,
     disableOffcanvas,
 }) => {
+    const numItems = 20;
+    const width = window.innerHeight / 13;
+    const height = window.innerHeight / 13;
+
+    // eslint-disable-next-line unicorn/prefer-set-has
+    const fill = [2];
+    const opacity = 0.03;
+    const xAmplitude = 500;
+    const yAmplitude = 400;
+    const duration = 10;
+    const friction = duration / 2 / Math.PI;
+
     /**
      * Check if offscrennCanvas can be used.
      */
@@ -78,7 +80,6 @@ export const caterpillarN2Animation = ({
                 y: 0,
                 hasFill: fill.includes(i),
                 opacity: opacityVal,
-                radius,
                 rotate: 0,
             };
         }

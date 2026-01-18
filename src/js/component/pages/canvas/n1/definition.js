@@ -14,16 +14,10 @@ export const CaterpillarN1 = MobJs.createComponent(
         tag: 'caterpillar-n1',
         component: CaterpillarN1Fn,
         props: {
-            background: '',
-            numItems: 20,
-            width: window.innerHeight / 30,
-            height: window.innerHeight / 30,
-            fill: [14],
-            opacity: 1,
-            radius: 0,
-            rotationEach: 15,
-            centerEach: 3,
-            rotationDuration: 5000,
+            background: () => ({
+                value: '',
+                type: String,
+            }),
             disableOffcanvas: () => ({
                 value: detectFirefox() || detectSafari() ? true : false,
                 type: Boolean,

@@ -8,8 +8,6 @@ import { CaterpillarN2Fn } from './caterpillar-n2';
  * @import {CreateComponentParams} from "@mobJsType"
  */
 
-const duration = 10;
-
 const buttons = {
     'js-CN2-play': {
         label: 'play',
@@ -59,24 +57,17 @@ export const CaterpillarN2 = MobJs.createComponent(
         tag: 'caterpillar-n2',
         component: CaterpillarN2Fn,
         props: {
-            background: '',
-            numItems: 20,
-            width: window.innerHeight / 13,
-            height: window.innerHeight / 13,
-            radius: 0,
-            fill: [2],
-            opacity: 0.03,
-            xAmplitude: 500,
-            yAmplitude: 400,
-            duration: 10,
-            rotationDefault: 166,
-            friction: duration / 2 / Math.PI,
+            background: () => ({
+                value: '',
+                type: String,
+            }),
             disableOffcanvas: () => ({
                 value: detectFirefox() || detectSafari() ? true : false,
                 type: Boolean,
             }),
         },
         state: {
+            rotationDefault: 166,
             isMounted: false,
             controlsActive: () => ({
                 value: false,

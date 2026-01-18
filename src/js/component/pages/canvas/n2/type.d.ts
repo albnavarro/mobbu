@@ -9,22 +9,12 @@ export type CaterpillarN2Button = Record<
 export interface CaterpillarN2 {
     props: {
         background: string;
-        numItems: number;
-        width: number;
-        height: number;
-        radius: number;
-        fill: number[];
-        opacity: number;
-        xAmplitude: number;
-        yAmplitude: number;
-        duration: number;
-        rotationDefault: number;
-        friction: number;
         disableOffcanvas: boolean;
     };
     state: {
         isMounted: boolean;
         buttons: CaterpillarN2Button;
+        rotationDefault: number;
         controlsActive: boolean;
     };
     ref: {
@@ -36,17 +26,7 @@ export interface CaterpillarN2 {
 
 export type CaterpillarN2Animation = (arg0: {
     canvas: HTMLCanvasElement;
-    numItems: number;
-    width: number;
-    height: number;
-    radius: number;
-    fill: number[];
-    opacity: number;
-    xAmplitude: number;
-    yAmplitude: number;
-    duration: number;
     rotationDefault: number;
-    friction: number;
     disableOffcanvas: boolean;
 }) => {
     destroy: () => void;

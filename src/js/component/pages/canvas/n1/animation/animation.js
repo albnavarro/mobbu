@@ -12,19 +12,19 @@ import {
 } from '@utils/canvas-utils';
 
 /** @type {import('../type').CaterpillarN1Animation} */
-export const caterpillarN1Animation = ({
-    canvas,
-    numItems,
-    width,
-    height,
-    fill,
-    opacity,
-    radius,
-    rotationDuration,
-    rotationEach,
-    centerEach,
-    disableOffcanvas,
-}) => {
+export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
+    const numItems = 20;
+    const width = window.innerHeight / 30;
+    const height = window.innerHeight / 30;
+
+    // eslint-disable-next-line unicorn/prefer-set-has
+    const fill = [14];
+    const opacity = 1;
+    const radius = 0;
+    const rotationEach = 15;
+    const centerEach = 3;
+    const rotationDuration = 5000;
+
     /**
      * Check if offscrennCanvas can be used.
      */
