@@ -28657,7 +28657,6 @@
     canvas,
     numberOfRow,
     numberOfColumn,
-    gutter,
     fill,
     disableOffcanvas,
     stagger,
@@ -28665,6 +28664,7 @@
   }) => {
     const cellWidth = window.innerHeight >= 700 ? window.innerHeight / 18 : window.innerHeight / 20;
     const cellHeight = window.innerHeight >= 700 ? window.innerHeight / 18 : window.innerHeight / 20;
+    const gutter = 1;
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: true });
@@ -28897,17 +28897,16 @@
       tag: "animatedpattern-n0",
       component: AnimatedPatternN0Fn,
       props: {
-        background: "",
+        background: () => ({
+          value: "",
+          type: String
+        }),
         numberOfRow: () => ({
           value: 10,
           type: Number
         }),
         numberOfColumn: () => ({
           value: 10,
-          type: Number
-        }),
-        gutter: () => ({
-          value: 1,
           type: Number
         }),
         fill: () => ({
@@ -28979,7 +28978,6 @@
           189,
           209
         ],
-        gutter: 1,
         numberOfColumn: 20,
         numberOfRow: 10,
         stagger: {
@@ -29026,7 +29024,6 @@
           189,
           209
         ],
-        gutter: 1,
         numberOfColumn: 10,
         numberOfRow: 10,
         stagger: {
@@ -29046,7 +29043,6 @@
       description: "<strong>Canvas</strong>: AsyncTimeline - Animated pattern v3",
       animation: {
         fill: [],
-        gutter: 1,
         numberOfColumn: 8,
         numberOfRow: 9,
         stagger: {
@@ -29111,16 +29107,42 @@
   };
 
   // src/js/component/pages/animated-pattern/n1/animation/animation.js
-  var animatedPatternN1Animation = ({
-    canvas,
-    numberOfRow,
-    numberOfColumn,
-    gutter,
-    fill,
-    disableOffcanvas
-  }) => {
+  var animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
     const cellWidth = window.innerHeight >= 700 ? window.innerHeight / 16 : window.innerHeight / 20;
     const cellHeight = window.innerHeight >= 700 ? window.innerHeight / 16 : window.innerHeight / 20;
+    const numberOfRow = 7;
+    const numberOfColumn = 15;
+    const gutter = window.innerHeight / 150;
+    const fill = [
+      2,
+      18,
+      10,
+      27,
+      21,
+      22,
+      23,
+      24,
+      25,
+      25,
+      26,
+      37,
+      42,
+      53,
+      58,
+      69,
+      74,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      44,
+      60,
+      65,
+      98,
+      108
+    ];
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let { top, left } = offset(canvas);
@@ -29406,40 +29428,10 @@
       tag: "animatedpattern-n1",
       component: AnimatedPatternN1Fn,
       props: {
-        background: "",
-        numberOfRow: 7,
-        numberOfColumn: 15,
-        gutter: window.innerHeight / 150,
-        fill: [
-          2,
-          18,
-          10,
-          27,
-          21,
-          22,
-          23,
-          24,
-          25,
-          25,
-          26,
-          37,
-          42,
-          53,
-          58,
-          69,
-          74,
-          85,
-          86,
-          87,
-          88,
-          89,
-          90,
-          44,
-          60,
-          65,
-          98,
-          108
-        ],
+        background: () => ({
+          value: "",
+          type: String
+        }),
         disableOffcanvas: () => ({
           value: detectFirefox() || detectSafari() ? true : false,
           type: Boolean
@@ -30212,7 +30204,6 @@
     canvasScroller,
     numberOfRow,
     numberOfColumn,
-    gutter,
     fill,
     stagger,
     reorder,
@@ -30220,6 +30211,7 @@
   }) => {
     const cellWidth = window.innerHeight >= 700 ? window.innerHeight / 16 : window.innerHeight / 20;
     const cellHeight = window.innerHeight >= 700 ? window.innerHeight / 16 : window.innerHeight / 20;
+    const gutter = 1;
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let masterSequencer = tween_exports.createMasterSequencer();
@@ -30476,17 +30468,16 @@
       tag: "scroller-n0",
       component: ScrollerN0Fn,
       props: {
-        background: "",
+        background: () => ({
+          value: "",
+          type: String
+        }),
         numberOfRow: () => ({
           value: 10,
           type: Number
         }),
         numberOfColumn: () => ({
           value: 10,
-          type: Number
-        }),
-        gutter: () => ({
-          value: 1,
           type: Number
         }),
         fill: () => ({

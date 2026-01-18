@@ -15,14 +15,7 @@ import {
 } from '@utils/canvas-utils';
 
 /** @type {import('../type').AnimatedPatternN1Animation} */
-export const animatedPatternN1Animation = ({
-    canvas,
-    numberOfRow,
-    numberOfColumn,
-    gutter,
-    fill,
-    disableOffcanvas,
-}) => {
+export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
     const cellWidth =
         window.innerHeight >= 700
             ? window.innerHeight / 16
@@ -32,6 +25,16 @@ export const animatedPatternN1Animation = ({
         window.innerHeight >= 700
             ? window.innerHeight / 16
             : window.innerHeight / 20;
+
+    const numberOfRow = 7;
+    const numberOfColumn = 15;
+    const gutter = window.innerHeight / 150;
+
+    // eslint-disable-next-line unicorn/prefer-set-has
+    const fill = [
+        2, 18, 10, 27, 21, 22, 23, 24, 25, 25, 26, 37, 42, 53, 58, 69, 74, 85,
+        86, 87, 88, 89, 90, 44, 60, 65, 98, 108,
+    ];
 
     /**
      * Check if offscrennCanvas can be used.

@@ -21,7 +21,6 @@ export const scrollerN0Animation = ({
     canvasScroller,
     numberOfRow,
     numberOfColumn,
-    gutter,
     fill,
     stagger,
     reorder,
@@ -36,6 +35,8 @@ export const scrollerN0Animation = ({
         window.innerHeight >= 700
             ? window.innerHeight / 16
             : window.innerHeight / 20;
+
+    const gutter = 1;
 
     /**
      * Check if offscrennCanvas can be used.

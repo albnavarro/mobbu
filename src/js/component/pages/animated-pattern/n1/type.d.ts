@@ -1,10 +1,6 @@
 export interface AnimatedPatternN1 {
     props: {
         background: string;
-        numberOfRow: number;
-        numberOfColumn: number;
-        gutter: number;
-        fill: number[];
         disableOffcanvas: boolean;
     };
     state: {
@@ -17,9 +13,5 @@ export interface AnimatedPatternN1 {
 
 export type AnimatedPatternN1Animation = (arg0: {
     canvas: HTMLCanvasElement;
-    numberOfRow: number;
-    numberOfColumn: number;
-    gutter: number;
-    fill: number[];
     disableOffcanvas: boolean;
 }) => () => void;

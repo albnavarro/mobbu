@@ -5,7 +5,6 @@ export interface AnimatedPatternN0 {
         background: string;
         numberOfRow: number;
         numberOfColumn: number;
-        gutter: number;
         fill: number[];
         stagger: Partial<StaggerObject>;
         reorder: boolean;
@@ -23,7 +22,6 @@ export type AnimatedPatternN0Animation = (arg0: {
     canvas: HTMLCanvasElement;
     numberOfRow: number;
     numberOfColumn: number;
-    gutter: number;
     fill: number[];
     disableOffcanvas: boolean;
     stagger: Partial<StaggerObject>;

@@ -17,7 +17,6 @@ export const animatedPatternN0Params = [
                 0, 13, 20, 45, 65, 71, 72, 73, 74, 75, 76, 77, 83, 92, 96, 113,
                 117, 134, 138, 155, 156, 157, 158, 159, 189, 209,
             ],
-            gutter: 1,
             numberOfColumn: 20,
             numberOfRow: 10,
             stagger: {
@@ -41,7 +40,6 @@ export const animatedPatternN0Params = [
                 0, 13, 20, 45, 65, 71, 72, 73, 74, 75, 76, 77, 83, 92, 96, 113,
                 117, 134, 138, 155, 156, 157, 158, 159, 189, 209,
             ],
-            gutter: 1,
             numberOfColumn: 10,
             numberOfRow: 10,
             stagger: {
@@ -62,7 +60,6 @@ export const animatedPatternN0Params = [
             '<strong>Canvas</strong>: AsyncTimeline - Animated pattern v3',
         animation: {
             fill: [],
-            gutter: 1,
             numberOfColumn: 8,
             numberOfRow: 9,
             stagger: {

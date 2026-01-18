@@ -14,17 +14,16 @@ export const ScrollerN0 = MobJs.createComponent(
         tag: 'scroller-n0',
         component: ScrollerN0Fn,
         props: {
-            background: '',
+            background: () => ({
+                value: '',
+                type: String,
+            }),
             numberOfRow: () => ({
                 value: 10,
                 type: Number,
             }),
             numberOfColumn: () => ({
                 value: 10,
-                type: Number,
-            }),
-            gutter: () => ({
-                value: 1,
                 type: Number,
             }),
             fill: () => ({

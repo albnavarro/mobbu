@@ -19,7 +19,6 @@ export const animatedPatternN0Animation = ({
     canvas,
     numberOfRow,
     numberOfColumn,
-    gutter,
     fill,
     disableOffcanvas,
     stagger,
@@ -34,6 +33,8 @@ export const animatedPatternN0Animation = ({
         window.innerHeight >= 700
             ? window.innerHeight / 18
             : window.innerHeight / 20;
+
+    const gutter = 1;
 
     /**
      * Check if offscrennCanvas can be used.
