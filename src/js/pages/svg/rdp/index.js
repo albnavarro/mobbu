@@ -5,7 +5,6 @@ import { html, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_scehema } from './data';
-import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
 import { MouseTrail } from '@commonComponent/mouse-trail/definition';
 
 MobJs.useComponent([Move3D, AnyComponent, MouseTrail]);
@@ -59,10 +58,6 @@ export const rdp = async () => {
         nextRoute: '#mob-01',
         backRoute: '#svg-overview',
     });
-
-    const description = '<strong>Svg</strong>: RDP lettering';
-
-    updateAnimationDescription(description);
 
     return html`<div class="l-rdp-01">
         <div class="background-shape">${bg}</div>

@@ -1,4 +1,3 @@
-import { AnimationDescription } from '@commonComponent/animation-description/definition';
 import { CustomHistory } from '@commonComponent/custom-history/definition';
 import { DebugOverlay } from '@commonComponent/debug/debug-overlay/definition';
 import { LinksMobJs } from '@commonComponent/links-mob-js/definition';
@@ -9,7 +8,6 @@ import { ScrollDownLabel } from '@commonComponent/scroll-down-label/definition';
 import { SearchOverlay } from '@commonComponent/search/search-overlay/definition';
 import { TestScssGrid } from '@commonComponent/test-scss-grid/definition';
 import {
-    animationDescription,
     customHistoryName,
     debugOverlayName,
     headerName,
@@ -37,7 +35,6 @@ MobJs.useComponent([
     TestScssGrid,
     SearchOverlay,
     RightSidebar,
-    AnimationDescription,
     CustomHistory,
 ]);
 
@@ -66,8 +63,5 @@ export const wrapper = async () => {
         <links-mobjs></links-mobjs>
         <right-sidebar name="${rightSidebarName}"></right-sidebar>
         <search-overlay name="${searchOverlay}"></search-overlay>
-        <animation-description
-            name="${animationDescription}"
-        ></animation-description>
     `;
 };

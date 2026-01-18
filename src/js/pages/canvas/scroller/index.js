@@ -2,7 +2,6 @@ import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { ScrollerN0 } from '@pagesComponent/scroller/n0/definition';
 import { scrollerParams } from './scroller-params';
-import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
 import { loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([ScrollerN0]);
@@ -29,8 +28,6 @@ export const scrollerN0 = async ({ params }) => {
         nextRoute: props.nav.nextRoute,
         backRoute: props.nav.backRoute,
     });
-
-    updateAnimationDescription(props.description);
 
     return html`<div>
         <scroller-n0

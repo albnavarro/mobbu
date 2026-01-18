@@ -2,7 +2,6 @@ import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { AnimatedPatternN0 } from '@pagesComponent/animated-pattern/n0/definition';
 import { animatedPatternN0Params } from './animated-pattern-n0-params';
-import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
 import { loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([AnimatedPatternN0]);
@@ -32,8 +31,6 @@ export const animatedPatternN0 = async ({ params }) => {
         nextRoute: props.nav.nextRoute,
         backRoute: props.nav.backRoute,
     });
-
-    updateAnimationDescription(props.description);
 
     return html`<div class="l-padding">
         <animatedpattern-n0

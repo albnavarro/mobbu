@@ -1,4 +1,3 @@
-import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
 import { AnyComponent } from '@commonComponent/any-component/definition';
 import { Dragger } from '@commonComponent/dragger/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
@@ -55,9 +54,6 @@ export const DraggerRoute = async () => {
         <div class="dragger-child dragger-child--10"></div>
         <div class="dragger-child dragger-child--svg">${svg}</div>
     </div>`;
-
-    const description = '<strong>Dragger</strong>';
-    updateAnimationDescription(description);
 
     return html`<div class="l-dragger">
         <div class="background-shape">${bg}</div>

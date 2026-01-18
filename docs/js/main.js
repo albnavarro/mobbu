@@ -25843,7 +25843,6 @@
   var searchOverlayList = "search_overlay_list";
   var searchOverlayHeader = "search_overlay_header";
   var rightSidebarName = "right-sidebar";
-  var animationDescription = "animation-description";
   var routeLoader = "route-loader";
   var customHistoryName = "custom-history";
 
@@ -28937,7 +28936,6 @@
       }
     },
     {
-      description: "<strong>Canvas</strong>: AsyncTimeline - Animated pattern v1",
       animation: {
         fill: [
           0,
@@ -28983,7 +28981,6 @@
       }
     },
     {
-      description: "<strong>Canvas</strong>: AsyncTimeline - Animated pattern v2",
       animation: {
         fill: [
           0,
@@ -29029,7 +29026,6 @@
       }
     },
     {
-      description: "<strong>Canvas</strong>: AsyncTimeline - Animated pattern v3",
       animation: {
         fill: [],
         numberOfColumn: 8,
@@ -29054,15 +29050,6 @@
     }
   ];
 
-  // src/js/component/common/animation-description/utils.js
-  var updateAnimationDescription = (content) => {
-    const methods = modules_exports2.useMethodByName(animationDescription);
-    methods?.updateRawContent?.(content);
-  };
-  modules_exports2.beforeRouteChange(() => {
-    updateAnimationDescription("");
-  });
-
   // src/js/pages/canvas/animated-pattern-n0/index.js
   modules_exports2.useComponent([AnimatedPatternN0]);
   var animatedPatternN0 = async ({ params }) => {
@@ -29081,7 +29068,6 @@
       nextRoute: props.nav.nextRoute,
       backRoute: props.nav.backRoute
     });
-    updateAnimationDescription(props.description);
     return renderHtml`<div class="l-padding">
         <animatedpattern-n0
             ${modules_exports2.staticProps(
@@ -29431,8 +29417,6 @@
       nextRoute: "#scrollerN0?version=0&activeId=0",
       backRoute: "#canvas-overview"
     });
-    const description = "<strong>Canvas</strong>: TimeTween Lerp & AsyncTimeline";
-    updateAnimationDescription(description);
     return renderHtml`<div class="l-padding">
         <animatedpattern-n1
             ${modules_exports2.staticProps({ background: bg })}
@@ -29732,8 +29716,6 @@
       nextRoute: "#caterpillarN2",
       backRoute: "#canvas-overview"
     });
-    const description = "<strong>Canvas</strong>: Spring & AnsyncTimeline";
-    updateAnimationDescription(description);
     return renderHtml`<div class="l-padding">
         <caterpillar-n1 ${modules_exports2.staticProps({ background: bg })}>
         </caterpillar-n1>
@@ -30155,8 +30137,6 @@
       nextRoute: "#async-timeline",
       backRoute: "#canvas-overview"
     });
-    const description = "<strong>Canvas</strong>: Sequencer & SyncTimeline";
-    updateAnimationDescription(description);
     return renderHtml`<div class="l-padding">
         <caterpillar-n2
             ${modules_exports2.staticProps({ background: bg })}
@@ -30494,7 +30474,6 @@
   var scrollerParams = [
     {
       animation: {},
-      description: "<strong>Canvas</strong>: ScrollTrigger & createStagger v0",
       nav: {
         prevRoute: "#animatedPatternN1",
         nextRoute: "#scrollerN0?version=1&activeId=1",
@@ -30502,7 +30481,6 @@
       }
     },
     {
-      description: "<strong>Canvas</strong>: ScrollTrigger & createStagger v1",
       animation: {
         stagger: {
           type: "end",
@@ -30519,7 +30497,6 @@
       }
     },
     {
-      description: "<strong>Canvas</strong>: ScrollTrigger & createStagger v2",
       animation: {
         stagger: {
           type: "equal",
@@ -30536,7 +30513,6 @@
       }
     },
     {
-      description: "<strong>Canvas</strong>: ScrollTrigger & createStagger v3",
       animation: {
         stagger: {
           type: "equal",
@@ -30553,7 +30529,6 @@
       }
     },
     {
-      description: "<strong>Canvas</strong>: ScrollTrigger & createStagger v4",
       animation: {
         stagger: {
           type: "equal",
@@ -30585,7 +30560,6 @@
       nextRoute: props.nav.nextRoute,
       backRoute: props.nav.backRoute
     });
-    updateAnimationDescription(props.description);
     return renderHtml`<div>
         <scroller-n0
             ${modules_exports2.staticProps(
@@ -30861,8 +30835,6 @@
       nextRoute: "",
       backRoute: "#canvas-overview"
     });
-    const description = "<strong>Canvas</strong>: ScrollTrigger";
-    updateAnimationDescription(description);
     return renderHtml`<div class="l-padding">
         <scroller-n1 ${modules_exports2.staticProps({ background: bg })}></scroller-n1>
     </div>`;
@@ -33888,8 +33860,6 @@
       nextRoute,
       backRoute: "#plugin-overview"
     });
-    const description = "<strong>Move#d:</strong> css && js 3d shape";
-    updateAnimationDescription(description);
     return renderHtml` <div>
         <div class="background-shape">${bg}</div>
         <move-3d-page
@@ -34878,8 +34848,6 @@
       nextRoute: "#mob-02",
       backRoute: "#svg-overview"
     });
-    const description = "<strong>Svg</strong>: Mob lettering";
-    updateAnimationDescription(description);
     return renderHtml`<div class="l-mob-01">
         <div class="background-shape">${bg}</div>
         <mouse-trail></mouse-trail>
@@ -35558,8 +35526,6 @@
       nextRoute: "#animatedPatternN0?version=0&activeId=0",
       backRoute: "#canvas-overview"
     });
-    const description = "<strong>Canvas</strong>: TimeTween Spring & AsyncTimeline";
-    updateAnimationDescription(description);
     return renderHtml`<div class="l-padding">
         <async-timeline
             ${modules_exports2.staticProps({ background: bg })}
@@ -35865,8 +35831,6 @@
       nextRoute: "#mob-01",
       backRoute: "#svg-overview"
     });
-    const description = "<strong>Svg</strong>: RDP lettering";
-    updateAnimationDescription(description);
     return renderHtml`<div class="l-rdp-01">
         <div class="background-shape">${bg}</div>
         <mouse-trail></mouse-trail>
@@ -36005,8 +35969,6 @@
       nextRoute: "",
       backRoute: "#svg-overview"
     });
-    const description = "<strong>Svg</strong>: Mobbu2025 parallax";
-    updateAnimationDescription(description);
     return renderHtml`<div class="l-mob-02">
         <div class="background-shape">${bg}</div>
         <h3 class="l-mob-02__title">Scroll or Drag</h3>
@@ -36467,8 +36429,6 @@
         <div class="dragger-child dragger-child--10"></div>
         <div class="dragger-child dragger-child--svg">${svg}</div>
     </div>`;
-    const description = "<strong>Dragger</strong>";
-    updateAnimationDescription(description);
     return renderHtml`<div class="l-dragger">
         <div class="background-shape">${bg}</div>
         <c-dragger
@@ -37237,8 +37197,6 @@
       nextRoute: "#rosa-di-grandi",
       backRoute: "#plugin-overview"
     });
-    const description = "<strong>Math:</strong> trigonometry based animation";
-    updateAnimationDescription(description);
     return renderHtml`<div class="l-math">
         ${names.map((name) => {
       return renderHtml`<div class="l-math__item">
@@ -37434,8 +37392,6 @@
       nextRoute: "",
       backRoute: "#plugin-overview"
     });
-    const description = "<strong>Rosa di Grandi</strong>";
-    updateAnimationDescription(description);
     return renderHtml`<rosa-di-grandi-page></rosa-di-grandi-page>`;
   };
 
@@ -38732,68 +38688,6 @@
       setValue();
     });
   };
-
-  // src/js/component/common/animation-description/animation-description.js
-  var AnimationDescriptionFn = ({
-    getProxi,
-    bindEffect,
-    bindText,
-    watch,
-    addMethod
-  }) => {
-    const proxi = getProxi();
-    addMethod("updateRawContent", (content) => {
-      proxi.rawContent = content.length === 0 ? "" : `${content} | <strong>fps: ${modules_exports.getInstantFps()}</strong>`;
-    });
-    watch(
-      () => proxi.rawContent,
-      (value) => {
-        const hasValue = value.length > 0;
-        if (!hasValue) {
-          proxi.visible = false;
-          proxi.content = "";
-          return;
-        }
-        proxi.content = `${value}`;
-        if (hasValue) proxi.visible = true;
-      },
-      { immediate: true }
-    );
-    return renderHtml`<p
-        class="animation-description"
-        ${bindEffect({
-      toggleClass: {
-        visible: () => proxi.visible && !proxi.navigationIsOpen
-      }
-    })}
-    >
-        ${bindText`${"content"}`}
-    </p>`;
-  };
-
-  // src/js/component/common/animation-description/definition.js
-  var AnimationDescription = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').AnimationDescription>} */
-    {
-      tag: "animation-description",
-      component: AnimationDescriptionFn,
-      bindStore: navigationStore,
-      state: {
-        rawContent: () => ({
-          value: "",
-          type: String
-        }),
-        content: () => ({
-          value: "",
-          type: String
-        }),
-        visible: () => ({
-          value: true,
-          type: Boolean
-        })
-      }
-    }
-  );
 
   // src/js/component/common/custom-history/custom-history.js
   var addToLinkedList = true;
@@ -43071,7 +42965,6 @@
     TestScssGrid,
     SearchOverlay,
     RightSidebar,
-    AnimationDescription,
     CustomHistory
   ]);
   var wrapper = async () => {
@@ -43098,9 +42991,6 @@
         <links-mobjs></links-mobjs>
         <right-sidebar name="${rightSidebarName}"></right-sidebar>
         <search-overlay name="${searchOverlay}"></search-overlay>
-        <animation-description
-            name="${animationDescription}"
-        ></animation-description>
     `;
   };
 

@@ -1,4 +1,3 @@
-import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
 import { AnyComponent } from '@commonComponent/any-component/definition';
 import { MouseTrail } from '@commonComponent/mouse-trail/definition';
 import { Move3D } from '@commonComponent/move-3d/definition';
@@ -73,10 +72,6 @@ export const lettering01 = async () => {
         nextRoute: '#mob-02',
         backRoute: '#svg-overview',
     });
-
-    const description = '<strong>Svg</strong>: Mob lettering';
-
-    updateAnimationDescription(description);
 
     return html`<div class="l-mob-01">
         <div class="background-shape">${bg}</div>

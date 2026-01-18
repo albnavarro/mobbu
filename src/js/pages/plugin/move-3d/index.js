@@ -1,4 +1,3 @@
-import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { StarSvg } from '@commonComponent/svg-shape/star/definition';
 import { html, MobJs } from '@mobJs';
@@ -22,9 +21,6 @@ export const move3DRoute = async ({ props }) => {
         nextRoute: nextRoute,
         backRoute: '#plugin-overview',
     });
-
-    const description = '<strong>Move#d:</strong> css && js 3d shape';
-    updateAnimationDescription(description);
 
     return html` <div>
         <div class="background-shape">${bg}</div>

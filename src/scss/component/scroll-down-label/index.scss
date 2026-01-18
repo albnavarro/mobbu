@@ -4,20 +4,21 @@
     visibility: hidden;
     position: fixed;
     z-index: 15;
-    bottom: rem(115);
+    top: calc(var(--header-height) - 1px);
     left: 50%;
     padding: rem(10) rem(20) rem(6);
-    transform: translate(-50%, +50%);
+    transform: translateX(-50%);
     transition:
         opacity 0.35s,
         visibility 0.35s;
-    border: 1px rgba($black, 0.3) solid;
+    border: 0;
+    border: 1px $black solid;
     opacity: 0;
     color: $black;
-    font-size: rem(20);
+    font-size: rem(14);
     font-weight: 600;
     text-align: center;
-    text-transform: capitalize;
+    text-transform: uppercase;
 
     @include user-select-none;
 

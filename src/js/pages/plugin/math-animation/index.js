@@ -1,4 +1,3 @@
-import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
 import { MathAnimation } from '@commonComponent/math-animation/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
@@ -17,9 +16,6 @@ export const mathAnimationRoute = async ({ props }) => {
         nextRoute: '#rosa-di-grandi',
         backRoute: '#plugin-overview',
     });
-
-    const description = '<strong>Math:</strong> trigonometry based animation';
-    updateAnimationDescription(description);
 
     return html`<div class="l-math">
         ${names
