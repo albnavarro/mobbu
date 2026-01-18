@@ -15,7 +15,6 @@ export const scrollerParams = [
                 from: { x: 0, y: 0 },
                 grid: { col: 11, row: 10, direction: 'radial' },
             },
-            reorder: false,
         },
         nav: {
             prevRoute: '#scrollerN0?version=0&activeId=0',
@@ -31,7 +30,6 @@ export const scrollerParams = [
                 from: 'center',
                 grid: { col: 11, row: 10, direction: 'col' },
             },
-            reorder: false,
         },
         nav: {
             prevRoute: '#scrollerN0?version=1&activeId=1',
@@ -47,7 +45,6 @@ export const scrollerParams = [
                 from: 'end',
                 grid: { col: 11, row: 10, direction: 'row' },
             },
-            reorder: false,
         },
         nav: {
             prevRoute: '#scrollerN0?version=2&activeId=2',
@@ -62,7 +59,6 @@ export const scrollerParams = [
                 each: 2,
                 from: 'end',
             },
-            reorder: false,
         },
         nav: {
             prevRoute: '#scrollerN0?version=3&activeId=3',

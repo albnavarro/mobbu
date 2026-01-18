@@ -18,21 +18,6 @@ export const ScrollerN0 = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
-            numberOfRow: () => ({
-                value: 10,
-                type: Number,
-            }),
-            numberOfColumn: () => ({
-                value: 10,
-                type: Number,
-            }),
-            fill: () => ({
-                value: [
-                    36, 37, 38, 39, 40, 47, 51, 58, 62, 69, 73, 80, 81, 82, 83,
-                    84,
-                ],
-                type: Array,
-            }),
             stagger: () => ({
                 value: {
                     type: 'equal',
@@ -40,10 +25,6 @@ export const ScrollerN0 = MobJs.createComponent(
                     from: 'random',
                 },
                 type: 'Any',
-            }),
-            reorder: () => ({
-                value: true,
-                type: Boolean,
             }),
             disableOffcanvas: () => ({
                 value: detectFirefox() || detectSafari() ? true : false,

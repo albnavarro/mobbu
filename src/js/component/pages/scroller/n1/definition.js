@@ -14,14 +14,10 @@ export const ScrollerN1 = MobJs.createComponent(
         tag: 'scroller-n1',
         component: ScrollerN1Fn,
         props: {
-            background: '',
-            amountOfPath: 17,
-            width: 15,
-            height: 40,
-            radius: 0,
-            opacity: 0.05,
-            intialRotation: 33,
-            endRotation: 720,
+            background: () => ({
+                value: '',
+                type: String,
+            }),
             disableOffcanvas: () => ({
                 value: detectFirefox() || detectSafari() ? true : false,
                 type: Boolean,

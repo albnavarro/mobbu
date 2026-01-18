@@ -53,14 +53,15 @@ function getHeightRounded({ height, relativeIndex, amountOfPath }) {
 export const scrollerN1Animation = ({
     canvas,
     canvasScroller,
-    amountOfPath,
-    width,
-    height,
-    opacity,
-    intialRotation,
-    endRotation,
     disableOffcanvas,
 }) => {
+    const amountOfPath = 17;
+    const width = 15;
+    const height = 40;
+    const opacity = 0.05;
+    const intialRotation = 33;
+    const endRotation = 720;
+
     /**
      * Check if offscrennCanvas can be used.
      */

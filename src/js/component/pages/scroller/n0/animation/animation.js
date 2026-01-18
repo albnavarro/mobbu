@@ -17,11 +17,7 @@ import {
 export const scrollerN0Animation = ({
     canvas,
     canvasScroller,
-    numberOfRow,
-    numberOfColumn,
-    fill,
     stagger,
-    reorder,
     disableOffcanvas,
 }) => {
     const cellWidth =
@@ -35,6 +31,14 @@ export const scrollerN0Animation = ({
             : window.innerHeight / 20;
 
     const gutter = 1;
+    const numberOfRow = 10;
+    const numberOfColumn = 10;
+    const reorder = false;
+
+    // eslint-disable-next-line unicorn/prefer-set-has
+    const fill = [
+        36, 37, 38, 39, 40, 47, 51, 58, 62, 69, 73, 80, 81, 82, 83, 84,
+    ];
 
     /**
      * Check if offscrennCanvas can be used.
