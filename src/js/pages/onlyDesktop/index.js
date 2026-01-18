@@ -10,10 +10,16 @@ export const onlyDesktop = async () => {
         source: './asset/svg/lettering-mob-only-desktop.svg?v=0.1',
     });
 
+    const { data: bg } = await loadTextContent({
+        source: './asset/svg/lettering-mob.svg?v=1.3',
+    });
+
     return html`
         <div class="l-only-desktop">
             <div class="l-only-desktop__content">
-                <h2 class="l-only-desktop__title">ops...<br /></h2>
+                <div class="background-shape">${bg}</div>
+                <h1 class="l-only-desktop__title">MobProject v0.1</h1>
+                <h2 class="l-only-desktop__subtitle">ops...<br /></h2>
                 <p>
                     This site is designed<br />
                     for a desktop experience,<br />
@@ -24,7 +30,7 @@ export const onlyDesktop = async () => {
                         or use a different device.
                     </strong>
                 </p>
-                <h3 class="l-only-desktop__title">My apologies ...</h3>
+                <h3 class="l-only-desktop__subtitle">My apologies ...</h3>
                 <div>
                     <only-desktop-cta></only-desktop-cta>
                 </div>

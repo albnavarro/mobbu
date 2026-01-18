@@ -25,7 +25,7 @@ export const HeaderToggleFn = ({
 
     return html`
         <button
-            class="hamburger hamburger--squeeze"
+            class="hamburger"
             type="button"
             ${delegateEvents({
                 click: () => {
@@ -50,21 +50,12 @@ export const HeaderToggleFn = ({
                 },
                 {
                     toggleClass: {
-                        'is-visible': () => proxi.isMounted,
+                        'is-mounted': () => proxi.isMounted,
                     },
                 },
             ])}
         >
-            <div
-                class="hamburger__box"
-                ${bindEffect([
-                    {
-                        toggleClass: {
-                            'is-visible': () => proxi.isMounted,
-                        },
-                    },
-                ])}
-            >
+            <div class="hamburger__box">
                 <div class="hamburger-inner"></div>
             </div>
         </button>
