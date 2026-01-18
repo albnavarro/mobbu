@@ -3,12 +3,17 @@ import { html, MobJs } from '@mobJs';
 import { ScrollerN0 } from '@pagesComponent/scroller/n0/definition';
 import { scrollerParams } from './scroller-params';
 import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
+import { loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([ScrollerN0]);
 
 /** @type {import('@mobJsType').Page} */
-export const scrollerN0 = ({ params }) => {
+export const scrollerN0 = async ({ params }) => {
     const { version } = params;
+
+    const { data: bg } = await loadTextContent({
+        source: './asset/svg/lettering-mob.svg?v=1.3',
+    });
 
     const props =
         scrollerParams[
@@ -30,9 +35,10 @@ export const scrollerN0 = ({ params }) => {
     return html`<div>
         <scroller-n0
             ${MobJs.staticProps(
-                /** @type {import('@pagesComponent/scroller/n0/type').ScrollerN0['state']} */
+                /** @type {import('@pagesComponent/scroller/n0/type').ScrollerN0['props']} */
                 ({
                     ...props.animation,
+                    background: bg,
                 })
             )}
         ></scroller-n0>

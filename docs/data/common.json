@@ -374,12 +374,6 @@
             "children": null
         },
         {
-            "label": "caterpillar n.0",
-            "url": "caterpillarN0",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
             "label": "caterpillar n.1",
             "url": "caterpillarN1",
             "scrollToSection": "canvas",

@@ -1,5 +1,6 @@
 export interface ScrollerN1 {
     props: {
+        background: string;
         amountOfPath: number;
         width: number;
         height: number;

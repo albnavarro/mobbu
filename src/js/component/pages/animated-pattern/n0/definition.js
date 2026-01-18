@@ -14,6 +14,7 @@ export const AnimatedPatternN0 = MobJs.createComponent(
         tag: 'animatedpattern-n0',
         component: AnimatedPatternN0Fn,
         props: {
+            background: '',
             numberOfRow: () => ({
                 value: 10,
                 type: Number,

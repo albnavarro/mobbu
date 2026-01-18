@@ -14,6 +14,7 @@ export const ScrollerN1 = MobJs.createComponent(
         tag: 'scroller-n1',
         component: ScrollerN1Fn,
         props: {
+            background: '',
             amountOfPath: 17,
             width: 15,
             height: 40,

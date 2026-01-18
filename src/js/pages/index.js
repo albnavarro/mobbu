@@ -6,7 +6,6 @@ import { layoutAbout } from './about/layout-about';
 import { benchMark } from './benchmark';
 import { animatedPatternN0 } from './canvas/animated-pattern-n0';
 import { animatedPatternN1 } from './canvas/animate-pattern-n1';
-import { caterpillarN0 } from './canvas/caterpillar-n0';
 import { caterpillarN1 } from './canvas/caterpillar-n1';
 import { caterpillarN2 } from './canvas/caterpillar-n2';
 import { scrollerN0 } from './canvas/scroller';
@@ -193,12 +192,6 @@ export const routes = [
     {
         hash: 'animatedPatternN1',
         layout: animatedPatternN1,
-        templateName: PAGE_TEMPLATE_ANIMATION,
-        props: {},
-    },
-    {
-        hash: 'caterpillarN0',
-        layout: caterpillarN0,
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },

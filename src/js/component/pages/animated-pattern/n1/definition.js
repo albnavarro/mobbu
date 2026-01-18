@@ -14,6 +14,7 @@ export const AnimatedPatternN1 = MobJs.createComponent(
         tag: 'animatedpattern-n1',
         component: AnimatedPatternN1Fn,
         props: {
+            background: '',
             numberOfRow: 7,
             numberOfColumn: 15,
             cellWidth: window.innerHeight / 13,

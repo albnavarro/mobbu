@@ -63,6 +63,7 @@ export const ScrollerN0Fn = ({
     return html`
         <div>
             <div class="c-canvas c-canvas--fixed ">
+                <div class="background-shape">${proxi.background}</div>
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({

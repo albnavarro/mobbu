@@ -1,5 +1,6 @@
 export interface CaterpillarN1 {
     props: {
+        background: string;
         numItems: number;
         width: number;
         height: number;

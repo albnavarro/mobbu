@@ -2,10 +2,15 @@ import { updateAnimationDescription } from '@commonComponent/animation-descripti
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { AnimatedPatternN1 } from '@pagesComponent/animated-pattern/n1/definition';
+import { loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([AnimatedPatternN1]);
 
-export const animatedPatternN1 = () => {
+export const animatedPatternN1 = async () => {
+    const { data: bg } = await loadTextContent({
+        source: './asset/svg/lettering-mob.svg?v=1.3',
+    });
+
     /** Quicknav */
     updateQuickNavState({
         active: true,
@@ -20,6 +25,8 @@ export const animatedPatternN1 = () => {
     updateAnimationDescription(description);
 
     return html`<div class="l-padding">
-        <animatedpattern-n1></animatedpattern-n1>
+        <animatedpattern-n1
+            ${MobJs.staticProps({ background: bg })}
+        ></animatedpattern-n1>
     </div>`;
 };

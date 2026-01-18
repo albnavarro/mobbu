@@ -2,11 +2,16 @@ import { updateAnimationDescription } from '@commonComponent/animation-descripti
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { AsyncTimeline } from '@pagesComponent/async-timeline/definition';
+import { loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([AsyncTimeline]);
 
 /** @type {import('@mobJsType').Page} */
-export const asyncTimeline = () => {
+export const asyncTimeline = async () => {
+    const { data: bg } = await loadTextContent({
+        source: './asset/svg/lettering-mob.svg?v=1.3',
+    });
+
     /** Quicknav */
     updateQuickNavState({
         active: true,
@@ -21,6 +26,8 @@ export const asyncTimeline = () => {
     updateAnimationDescription(description);
 
     return html`<div class="l-padding">
-        <async-timeline></async-timeline>
+        <async-timeline
+            ${MobJs.staticProps({ background: bg })}
+        ></async-timeline>
     </div>`;
 };

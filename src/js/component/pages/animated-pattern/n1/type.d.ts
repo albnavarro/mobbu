@@ -1,5 +1,6 @@
 export interface AnimatedPatternN1 {
     props: {
+        background: string;
         numberOfRow: number;
         numberOfColumn: number;
         cellWidth: number;

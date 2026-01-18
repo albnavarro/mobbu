@@ -59,6 +59,7 @@ export const CaterpillarN2 = MobJs.createComponent(
         tag: 'caterpillar-n2',
         component: CaterpillarN2Fn,
         props: {
+            background: '',
             numItems: 20,
             width: window.innerHeight / 13,
             height: window.innerHeight / 13,

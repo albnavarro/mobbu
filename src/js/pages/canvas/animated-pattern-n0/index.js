@@ -3,12 +3,17 @@ import { html, MobJs } from '@mobJs';
 import { AnimatedPatternN0 } from '@pagesComponent/animated-pattern/n0/definition';
 import { animatedPatternN0Params } from './animated-pattern-n0-params';
 import { updateAnimationDescription } from '@commonComponent/animation-description/utils';
+import { loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([AnimatedPatternN0]);
 
 /** @type {import('@mobJsType').Page} */
-export const animatedPatternN0 = ({ params }) => {
+export const animatedPatternN0 = async ({ params }) => {
     const { version } = params;
+
+    const { data: bg } = await loadTextContent({
+        source: './asset/svg/lettering-mob.svg?v=1.3',
+    });
 
     const props =
         animatedPatternN0Params[
@@ -33,9 +38,10 @@ export const animatedPatternN0 = ({ params }) => {
     return html`<div class="l-padding">
         <animatedpattern-n0
             ${MobJs.staticProps(
-                /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['state']} */
+                /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
                 ({
                     ...props.animation,
+                    background: bg,
                 })
             )}
         ></animatedpattern-n0>

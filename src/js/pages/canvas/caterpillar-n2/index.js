@@ -2,10 +2,15 @@ import { updateAnimationDescription } from '@commonComponent/animation-descripti
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { html, MobJs } from '@mobJs';
 import { CaterpillarN2 } from '@pagesComponent/canvas/n2/definition';
+import { loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([CaterpillarN2]);
 
-export const caterpillarN2 = () => {
+export const caterpillarN2 = async () => {
+    const { data: bg } = await loadTextContent({
+        source: './asset/svg/lettering-mob.svg?v=1.3',
+    });
+
     /** Quicknav */
     updateQuickNavState({
         active: true,
@@ -19,6 +24,8 @@ export const caterpillarN2 = () => {
     updateAnimationDescription(description);
 
     return html`<div class="l-padding">
-        <caterpillar-n2></caterpillar-n2>
+        <caterpillar-n2
+            ${MobJs.staticProps({ background: bg })}
+        ></caterpillar-n2>
     </div>`;
 };

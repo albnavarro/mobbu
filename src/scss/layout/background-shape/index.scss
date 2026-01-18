@@ -8,6 +8,11 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+    opacity: 0.05;
+
+    &--light {
+        opacity: 0.03;
+    }
 
     svg {
         position: absolute;
@@ -16,7 +21,6 @@
         width: 500vw;
         height: 500vh;
         transform: translate(-50%, -50%);
-        opacity: 0.05;
 
         @include mq(desktop) {
             width: 200vw;

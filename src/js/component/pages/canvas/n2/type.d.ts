@@ -8,6 +8,7 @@ export type CaterpillarN2Button = Record<
 
 export interface CaterpillarN2 {
     props: {
+        background: string;
         numItems: number;
         width: number;
         height: number;

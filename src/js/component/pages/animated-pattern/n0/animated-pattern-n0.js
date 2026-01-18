@@ -43,6 +43,7 @@ export const AnimatedPatternN0Fn = ({
     return html`
         <div>
             <div class="c-canvas">
+                <div class="background-shape">${proxi.background}</div>
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({
