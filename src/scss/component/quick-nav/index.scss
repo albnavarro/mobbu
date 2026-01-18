@@ -13,7 +13,6 @@
         opacity 0.35s,
         visibility 0.35s;
     opacity: 0;
-    pointer-events: none;
     gap: var(--gap);
 
     --gap: #{rem(8px)};
@@ -35,6 +34,8 @@
         background 0.55s;
     border: 1px $white solid;
     background: transparent;
+
+    $self: &;
 
     &::after {
         content: '';
@@ -76,6 +77,56 @@
 
         &::after {
             border-color: $black;
+        }
+
+        #{$self}__label {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+    &__label-container {
+        position: absolute;
+        top: calc(#{rem(35)} * -1);
+        width: var(--item-width);
+        height: var(--item-height);
+        overflow: hidden;
+
+        --item-width: #{rem(172)};
+        --item-height: #{rem(30)};
+    }
+
+    &__label {
+        display: inline-block;
+        z-index: -1;
+        width: var(--item-width);
+        height: var(--item-height);
+        overflow: hidden;
+        transform: translateY(100%);
+        transition:
+            opacity 0.35s,
+            visibility 0.35s;
+        border: 1px black solid;
+        color: black;
+        font-size: rem(13);
+        line-height: 1;
+        text-align: center;
+
+        &__container {
+            position: relative;
+            height: calc(var(--item-height) * 3);
+        }
+
+        span {
+            display: block;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: var(--item-width);
+            height: var(--item-height);
+            padding-top: rem(4);
+            font-weight: 600;
+            text-transform: uppercase;
         }
     }
 }

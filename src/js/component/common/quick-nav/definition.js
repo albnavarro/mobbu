@@ -27,6 +27,10 @@ export const QuickNav = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
+            currentLabelId: () => ({
+                value: -1,
+                type: Number,
+            }),
         },
     })
 );
