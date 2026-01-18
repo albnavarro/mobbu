@@ -19,12 +19,20 @@ export const animatedPatternN1Animation = ({
     canvas,
     numberOfRow,
     numberOfColumn,
-    cellWidth,
-    cellHeight,
     gutter,
     fill,
     disableOffcanvas,
 }) => {
+    const cellWidth =
+        window.innerHeight >= 700
+            ? window.innerHeight / 16
+            : window.innerHeight / 20;
+
+    const cellHeight =
+        window.innerHeight >= 700
+            ? window.innerHeight / 16
+            : window.innerHeight / 20;
+
     /**
      * Check if offscrennCanvas can be used.
      */

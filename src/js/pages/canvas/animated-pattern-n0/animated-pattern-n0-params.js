@@ -20,8 +20,6 @@ export const animatedPatternN0Params = [
             gutter: 1,
             numberOfColumn: 20,
             numberOfRow: 10,
-            cellWidth: window.innerHeight / 18,
-            cellHeight: window.innerHeight / 18,
             stagger: {
                 each: 2,
                 from: 'random',
@@ -65,16 +63,14 @@ export const animatedPatternN0Params = [
         animation: {
             fill: [],
             gutter: 1,
-            numberOfColumn: 12,
-            numberOfRow: 13,
-            cellWidth: window.innerHeight / 22,
-            cellHeight: window.innerHeight / 22,
+            numberOfColumn: 8,
+            numberOfRow: 9,
             stagger: {
                 each: 20,
-                from: { x: 6, y: 6 },
+                from: { x: 4, y: 4 },
                 grid: {
-                    col: 13,
-                    row: 13,
+                    col: 9,
+                    row: 9,
                     direction: 'radial',
                 },
                 waitComplete: false,

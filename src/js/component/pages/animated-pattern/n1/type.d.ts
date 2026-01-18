@@ -3,8 +3,6 @@ export interface AnimatedPatternN1 {
         background: string;
         numberOfRow: number;
         numberOfColumn: number;
-        cellWidth: number;
-        cellHeight: number;
         gutter: number;
         fill: number[];
         disableOffcanvas: boolean;
@@ -21,8 +19,6 @@ export type AnimatedPatternN1Animation = (arg0: {
     canvas: HTMLCanvasElement;
     numberOfRow: number;
     numberOfColumn: number;
-    cellWidth: number;
-    cellHeight: number;
     gutter: number;
     fill: number[];
     disableOffcanvas: boolean;

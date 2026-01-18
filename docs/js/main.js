@@ -28982,8 +28982,6 @@
         gutter: 1,
         numberOfColumn: 20,
         numberOfRow: 10,
-        cellWidth: window.innerHeight / 18,
-        cellHeight: window.innerHeight / 18,
         stagger: {
           each: 2,
           from: "random",
@@ -29049,16 +29047,14 @@
       animation: {
         fill: [],
         gutter: 1,
-        numberOfColumn: 12,
-        numberOfRow: 13,
-        cellWidth: window.innerHeight / 22,
-        cellHeight: window.innerHeight / 22,
+        numberOfColumn: 8,
+        numberOfRow: 9,
         stagger: {
           each: 20,
-          from: { x: 6, y: 6 },
+          from: { x: 4, y: 4 },
           grid: {
-            col: 13,
-            row: 13,
+            col: 9,
+            row: 9,
             direction: "radial"
           },
           waitComplete: false
@@ -29119,12 +29115,12 @@
     canvas,
     numberOfRow,
     numberOfColumn,
-    cellWidth,
-    cellHeight,
     gutter,
     fill,
     disableOffcanvas
   }) => {
+    const cellWidth = window.innerHeight >= 700 ? window.innerHeight / 16 : window.innerHeight / 20;
+    const cellHeight = window.innerHeight >= 700 ? window.innerHeight / 16 : window.innerHeight / 20;
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let { top, left } = offset(canvas);
@@ -29413,8 +29409,6 @@
         background: "",
         numberOfRow: 7,
         numberOfColumn: 15,
-        cellWidth: window.innerHeight / 13,
-        cellHeight: window.innerHeight / 13,
         gutter: window.innerHeight / 150,
         fill: [
           2,
