@@ -7,7 +7,6 @@
 
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
-import { canvasBackground } from '@utils/canvas-utils';
 import { animatedPatternN1Animation } from './animation/animation';
 
 /** @type {MobComponent<AnimatedPatternN1>} */
@@ -20,7 +19,6 @@ export const AnimatedPatternN1Fn = ({
     getProxi,
 }) => {
     const proxi = getProxi();
-    document.body.style.background = canvasBackground;
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let destroy = () => {};
@@ -56,7 +54,6 @@ export const AnimatedPatternN1Fn = ({
         });
 
         return () => {
-            document.body.style.background = '';
             unsubscribeResize();
             destroy();
 

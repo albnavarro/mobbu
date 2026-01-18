@@ -1,5 +1,3 @@
-export const canvasBackground = 'rgba(255, 255, 255, 0)';
-
 /**
  * @param {object} params
  * @param {boolean} params.disableOffcanvas

@@ -10,7 +10,6 @@
 
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
-import { canvasBackground } from '@utils/canvas-utils';
 import { asyncTimelineanimation } from './animation/animation';
 
 /**
@@ -46,7 +45,6 @@ export const AsyncTimelineFn = ({
     delegateEvents,
 }) => {
     const proxi = getProxi();
-    document.body.style.background = canvasBackground;
 
     let methods = {};
     // eslint-disable-next-line unicorn/consistent-function-scoping
@@ -107,7 +105,6 @@ export const AsyncTimelineFn = ({
         return () => {
             unsubscribeResize();
             destroy();
-            document.body.style.background = '';
         };
     });
 

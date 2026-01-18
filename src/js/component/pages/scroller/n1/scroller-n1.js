@@ -7,7 +7,6 @@
 
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
-import { canvasBackground } from '@utils/canvas-utils';
 import {
     activateScrollDownArrow,
     deactivateScrollDownArrow,
@@ -24,7 +23,6 @@ export const ScrollerN1Fn = ({
     getProxi,
 }) => {
     const proxi = getProxi();
-    document.body.style.background = canvasBackground;
 
     onMount(() => {
         // eslint-disable-next-line unicorn/consistent-function-scoping
@@ -60,7 +58,6 @@ export const ScrollerN1Fn = ({
         return () => {
             destroy();
             deactivateScrollDownArrow();
-            document.body.style.background = '';
 
             // @ts-ignore
             destroy = null;
