@@ -94,6 +94,10 @@
 
         --item-width: #{rem(172)};
         --item-height: #{rem(30)};
+
+        @media screen and (height <= 700px) {
+            --item-width: #{rem(142)};
+        }
     }
 
     &__label {

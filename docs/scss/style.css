@@ -5040,6 +5040,11 @@ ul li::marker {
   --item-width: 11.4666666667rem;
   --item-height: 2rem;
 }
+@media screen and (height <= 700px) {
+  .c-quick-nav__label-container {
+    --item-width: 9.4666666667rem;
+  }
+}
 .c-quick-nav__label {
   display: inline-block;
   z-index: -1;

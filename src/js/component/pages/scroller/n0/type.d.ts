@@ -5,8 +5,6 @@ export interface ScrollerN0 {
         background: string;
         numberOfRow: number;
         numberOfColumn: number;
-        cellWidth: number;
-        cellHeight: number;
         gutter: number;
         fill: number[];
         stagger: StaggerObject;
@@ -27,8 +25,6 @@ export type ScrollerN0Animation = (arg0: {
     canvasScroller: HTMLElement;
     numberOfRow: number;
     numberOfColumn: number;
-    cellWidth: number;
-    cellHeight: number;
     gutter: number;
     fill: number[];
     stagger: StaggerObject;

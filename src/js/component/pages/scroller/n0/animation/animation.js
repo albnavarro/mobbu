@@ -21,14 +21,22 @@ export const scrollerN0Animation = ({
     canvasScroller,
     numberOfRow,
     numberOfColumn,
-    cellWidth,
-    cellHeight,
     gutter,
     fill,
     stagger,
     reorder,
     disableOffcanvas,
 }) => {
+    const cellWidth =
+        window.innerHeight >= 700
+            ? window.innerHeight / 16
+            : window.innerHeight / 20;
+
+    const cellHeight =
+        window.innerHeight >= 700
+            ? window.innerHeight / 16
+            : window.innerHeight / 20;
+
     /**
      * Check if offscrennCanvas can be used.
      */

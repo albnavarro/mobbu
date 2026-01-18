@@ -23,14 +23,6 @@ export const AnimatedPatternN0 = MobJs.createComponent(
                 value: 10,
                 type: Number,
             }),
-            cellWidth: () => ({
-                value: window.innerHeight / 16,
-                type: Number,
-            }),
-            cellHeight: () => ({
-                value: window.innerHeight / 16,
-                type: Number,
-            }),
             gutter: () => ({
                 value: 1,
                 type: Number,

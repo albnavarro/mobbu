@@ -28657,14 +28657,14 @@
     canvas,
     numberOfRow,
     numberOfColumn,
-    cellWidth,
-    cellHeight,
     gutter,
     fill,
     disableOffcanvas,
     stagger,
     reorder
   }) => {
+    const cellWidth = window.innerHeight >= 700 ? window.innerHeight / 18 : window.innerHeight / 20;
+    const cellHeight = window.innerHeight >= 700 ? window.innerHeight / 18 : window.innerHeight / 20;
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: true });
@@ -28904,14 +28904,6 @@
         }),
         numberOfColumn: () => ({
           value: 10,
-          type: Number
-        }),
-        cellWidth: () => ({
-          value: window.innerHeight / 16,
-          type: Number
-        }),
-        cellHeight: () => ({
-          value: window.innerHeight / 16,
           type: Number
         }),
         gutter: () => ({
@@ -30226,14 +30218,14 @@
     canvasScroller,
     numberOfRow,
     numberOfColumn,
-    cellWidth,
-    cellHeight,
     gutter,
     fill,
     stagger,
     reorder,
     disableOffcanvas
   }) => {
+    const cellWidth = window.innerHeight >= 700 ? window.innerHeight / 16 : window.innerHeight / 20;
+    const cellHeight = window.innerHeight >= 700 ? window.innerHeight / 16 : window.innerHeight / 20;
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let masterSequencer = tween_exports.createMasterSequencer();
@@ -30497,14 +30489,6 @@
         }),
         numberOfColumn: () => ({
           value: 10,
-          type: Number
-        }),
-        cellWidth: () => ({
-          value: window.innerHeight / 16,
-          type: Number
-        }),
-        cellHeight: () => ({
-          value: window.innerHeight / 16,
           type: Number
         }),
         gutter: () => ({
@@ -35106,8 +35090,8 @@
     canvas.height = canvas.clientHeight;
     const numberOfRow = 10;
     const numberOfColumn = 10;
-    const cellWidth = window.innerHeight / 18;
-    const cellHeight = window.innerHeight / 18;
+    const cellWidth = window.innerHeight >= 800 ? window.innerHeight / 18 : window.innerHeight / 20;
+    const cellHeight = window.innerHeight >= 800 ? window.innerHeight / 18 : window.innerHeight / 20;
     const gutter = 1;
     let gridData = createGrid({
       canvas,

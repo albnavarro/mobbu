@@ -46,8 +46,16 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
 
     const numberOfRow = 10;
     const numberOfColumn = 10;
-    const cellWidth = window.innerHeight / 18;
-    const cellHeight = window.innerHeight / 18;
+    const cellWidth =
+        window.innerHeight >= 800
+            ? window.innerHeight / 18
+            : window.innerHeight / 20;
+
+    const cellHeight =
+        window.innerHeight >= 800
+            ? window.innerHeight / 18
+            : window.innerHeight / 20;
+
     const gutter = 1;
 
     /**
