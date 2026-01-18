@@ -27,6 +27,9 @@ export const ScrollerN1Fn = ({
     document.body.style.background = canvasBackground;
 
     onMount(() => {
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        let destroy = () => {};
+
         /** Show scroll down label. */
         activateScrollDownArrow();
 
@@ -34,10 +37,20 @@ export const ScrollerN1Fn = ({
          * Refs
          */
         const { canvas, canvasScroller } = getRef();
-        const destroyAnimation = scrollerN1Animation({
-            canvas,
-            canvasScroller,
-            ...getState(),
+
+        /**
+         * - Wait one frame to get right canvas dimension.
+         */
+        MobCore.useFrame(() => {
+            MobCore.useNextTick(() => {
+                destroy();
+
+                destroy = scrollerN1Animation({
+                    canvas,
+                    canvasScroller,
+                    ...getState(),
+                });
+            });
         });
 
         MobCore.useFrame(() => {
@@ -45,9 +58,12 @@ export const ScrollerN1Fn = ({
         });
 
         return () => {
-            destroyAnimation();
+            destroy();
             deactivateScrollDownArrow();
             document.body.style.background = '';
+
+            // @ts-ignore
+            destroy = null;
         };
     });
 

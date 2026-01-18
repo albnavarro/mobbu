@@ -55,13 +55,25 @@ export const AsyncTimelineFn = ({
     onMount(({ element }) => {
         const { canvas } = getRef();
 
-        methods = asyncTimelineanimation({
-            canvas,
-            ...getState(),
-        });
+        /**
+         * - Wait one frame to get right canvas dimension.
+         */
+        MobCore.useFrame(() => {
+            MobCore.useNextTick(() => {
+                destroy();
 
-        // @ts-ignore
-        destroy = methods.destroy;
+                methods = asyncTimelineanimation({
+                    canvas,
+                    ...getState(),
+                });
+
+                // @ts-ignore
+                destroy = methods.destroy;
+
+                // @ts-ignore
+                methods?.play?.();
+            });
+        });
 
         const unsubscribeResize = MobCore.useResize(() => {
             destroy();
@@ -91,9 +103,6 @@ export const AsyncTimelineFn = ({
         MobCore.useFrame(() => {
             proxi.isMounted = true;
         });
-
-        // @ts-ignore
-        methods?.play?.();
 
         return () => {
             unsubscribeResize();

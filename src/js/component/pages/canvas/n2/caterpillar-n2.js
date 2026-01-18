@@ -10,7 +10,6 @@
 
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
-import { canvasBackground } from '@utils/canvas-utils';
 import { caterpillarN2Animation } from './animation/animation';
 
 /**
@@ -46,10 +45,15 @@ export const CaterpillarN2Fn = ({
     delegateEvents,
 }) => {
     const proxi = getProxi();
-    document.body.style.background = canvasBackground;
 
     onMount(({ element }) => {
         const { canvas, rangeValue, rotationButton } = getRef();
+
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        let destroy = () => {};
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars,unicorn/consistent-function-scoping
+        let setRotation = (/** @type {number} */ _value) => {};
 
         /**
          * Inizializa animation and get anima methods.
@@ -60,9 +64,13 @@ export const CaterpillarN2Fn = ({
         });
 
         /**
-         * Get destroy methods.
+         * - Wait one frame to get right canvas dimension.
          */
-        const { destroy, setRotation } = animationMethods;
+        MobCore.useFrame(() => {
+            MobCore.useNextTick(() => {
+                ({ destroy, setRotation } = animationMethods);
+            });
+        });
 
         /**
          * Inizalize controls handler.
@@ -88,8 +96,13 @@ export const CaterpillarN2Fn = ({
         });
 
         return () => {
-            document.body.style.background = '';
             destroy();
+
+            // @ts-ignore
+            destroy = null;
+
+            // @ts-ignore
+            setRotation = null;
         };
     });
 

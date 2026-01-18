@@ -43,10 +43,19 @@ export const ScrollerN0Fn = ({
          */
         window.scrollTo(0, 0);
 
-        destroy = scrollerN0Animation({
-            canvas,
-            canvasScroller,
-            ...getState(),
+        /**
+         * - Wait one frame to get right canvas dimension.
+         */
+        MobCore.useFrame(() => {
+            MobCore.useNextTick(() => {
+                destroy();
+
+                destroy = scrollerN0Animation({
+                    canvas,
+                    canvasScroller,
+                    ...getState(),
+                });
+            });
         });
 
         const unsubscribeResize = MobCore.useResize(() => {
@@ -68,6 +77,9 @@ export const ScrollerN0Fn = ({
             unsubscribeResize();
             deactivateScrollDownArrow();
             document.body.style.background = '';
+
+            // @ts-ignore
+            destroy = null;
         };
     });
 

@@ -28,9 +28,18 @@ export const AnimatedPatternN1Fn = ({
     onMount(() => {
         const { canvas } = getRef();
 
-        destroy = animatedPatternN1Animation({
-            canvas,
-            ...getState(),
+        /**
+         * - Wait one frame to get right canvas dimension.
+         */
+        MobCore.useFrame(() => {
+            MobCore.useNextTick(() => {
+                destroy();
+
+                destroy = animatedPatternN1Animation({
+                    canvas,
+                    ...getState(),
+                });
+            });
         });
 
         const unsubscribeResize = MobCore.useResize(() => {
@@ -50,6 +59,9 @@ export const AnimatedPatternN1Fn = ({
             document.body.style.background = '';
             unsubscribeResize();
             destroy();
+
+            // @ts-ignore
+            destroy = null;
         };
     });
 

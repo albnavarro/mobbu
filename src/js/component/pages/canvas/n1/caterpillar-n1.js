@@ -7,7 +7,6 @@
 
 import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
-import { canvasBackground } from '@utils/canvas-utils';
 import { caterpillarN1Animation } from './animation/animation';
 
 /** @type {MobComponent<CaterpillarN1>} */
@@ -20,14 +19,25 @@ export const CaterpillarN1Fn = ({
     getProxi,
 }) => {
     const proxi = getProxi();
-    document.body.style.background = canvasBackground;
 
     onMount(() => {
         const { canvas } = getRef();
 
-        const destroyAnimation = caterpillarN1Animation({
-            canvas,
-            ...getState(),
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        let destroy = () => {};
+
+        /**
+         * - Wait one frame to get right canvas dimension.
+         */
+        MobCore.useFrame(() => {
+            MobCore.useNextTick(() => {
+                destroy();
+
+                destroy = caterpillarN1Animation({
+                    canvas,
+                    ...getState(),
+                });
+            });
         });
 
         MobCore.useFrame(() => {
@@ -35,8 +45,10 @@ export const CaterpillarN1Fn = ({
         });
 
         return () => {
-            destroyAnimation();
-            document.body.style.background = '';
+            destroy();
+
+            // @ts-ignore
+            destroy = null;
         };
     });
 
