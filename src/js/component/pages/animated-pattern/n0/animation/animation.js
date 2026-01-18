@@ -9,8 +9,6 @@ import {
     createGrid,
     getCanvasContext,
     getOffsetCanvas,
-    getOffsetXCenter,
-    getOffsetYCenter,
     roundRectIsSupported,
 } from '@utils/canvas-utils';
 
@@ -258,37 +256,6 @@ export const animatedPatternN0Animation = ({
         loop();
     });
 
-    const unsubscribeResize = MobCore.useResize(() => {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-
-        /**
-         * Update offset position to center grid in canvas.
-         */
-        data.forEach((item) => {
-            const { width, height, gutter, numberOfColumn } = item;
-
-            item.offsetXCenter = getOffsetXCenter({
-                canvasWidth: canvas.width,
-                width,
-                gutter,
-                numberOfColumn,
-            });
-
-            item.offsetYCenter = getOffsetYCenter({
-                canvasHeight: canvas.height,
-                height,
-                gutter,
-                numberOfRow,
-            });
-        });
-
-        /**
-         * Render.
-         */
-        MobCore.useFrame(() => draw());
-    });
-
     /**
      * Pause/Resume animation on nav open.
      */
@@ -322,7 +289,6 @@ export const animatedPatternN0Animation = ({
     return () => {
         gridTween.destroy();
         gridTimeline.destroy();
-        unsubscribeResize();
         unWatchPause();
         // @ts-ignore
         gridTween = null;

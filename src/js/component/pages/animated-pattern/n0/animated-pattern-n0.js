@@ -22,12 +22,24 @@ export const AnimatedPatternN0Fn = ({
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let destroy = () => {};
+
     onMount(() => {
         const { canvas } = getRef();
 
-        const destroyAnimation = animatedPatternN0Animation({
+        destroy = animatedPatternN0Animation({
             canvas,
             ...getState(),
+        });
+
+        const unsubscribeResize = MobCore.useResize(() => {
+            destroy();
+
+            destroy = animatedPatternN0Animation({
+                canvas,
+                ...getState(),
+            });
         });
 
         MobCore.useFrame(() => {
@@ -35,7 +47,8 @@ export const AnimatedPatternN0Fn = ({
         });
 
         return () => {
-            destroyAnimation();
+            destroy();
+            unsubscribeResize();
             document.body.style.background = '';
         };
     });

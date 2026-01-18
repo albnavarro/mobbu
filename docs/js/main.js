@@ -28797,26 +28797,6 @@
     modules_exports.useFrame(() => {
       loop();
     });
-    const unsubscribeResize = modules_exports.useResize(() => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-      data.forEach((item) => {
-        const { width, height, gutter: gutter2, numberOfColumn: numberOfColumn2 } = item;
-        item.offsetXCenter = getOffsetXCenter({
-          canvasWidth: canvas.width,
-          width,
-          gutter: gutter2,
-          numberOfColumn: numberOfColumn2
-        });
-        item.offsetYCenter = getOffsetYCenter({
-          canvasHeight: canvas.height,
-          height,
-          gutter: gutter2,
-          numberOfRow
-        });
-      });
-      modules_exports.useFrame(() => draw());
-    });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
         gridTimeline?.pause();
@@ -28834,7 +28814,6 @@
     return () => {
       gridTween.destroy();
       gridTimeline.destroy();
-      unsubscribeResize();
       unWatchPause();
       gridTween = null;
       gridTimeline = null;
@@ -28859,17 +28838,27 @@
   }) => {
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
+    let destroy3 = () => {
+    };
     onMount(() => {
       const { canvas } = getRef();
-      const destroyAnimation = animatedPatternN0Animation({
+      destroy3 = animatedPatternN0Animation({
         canvas,
         ...getState()
+      });
+      const unsubscribeResize = modules_exports.useResize(() => {
+        destroy3();
+        destroy3 = animatedPatternN0Animation({
+          canvas,
+          ...getState()
+        });
       });
       modules_exports.useFrame(() => {
         proxi.isMounted = true;
       });
       return () => {
-        destroyAnimation();
+        destroy3();
+        unsubscribeResize();
         document.body.style.background = "";
       };
     });
@@ -29145,7 +29134,7 @@
     ];
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
-    let { top, left } = offset(canvas);
+    const { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
@@ -29322,28 +29311,6 @@
     modules_exports.useFrame(() => {
       loop();
     });
-    const unsubscribeResize = modules_exports.useResize(() => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-      top = offset(canvas).top;
-      left = offset(canvas).left;
-      data.forEach((item) => {
-        const { width, height, gutter: gutter2, numberOfColumn: numberOfColumn2 } = item;
-        item.offsetXCenter = getOffsetXCenter({
-          canvasWidth: canvas.width,
-          width,
-          gutter: gutter2,
-          numberOfColumn: numberOfColumn2
-        });
-        item.offsetYCenter = getOffsetYCenter({
-          canvasHeight: canvas.height,
-          height,
-          gutter: gutter2,
-          numberOfRow
-        });
-      });
-      modules_exports.useFrame(() => draw());
-    });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
         gridTimeline?.stop();
@@ -29362,7 +29329,6 @@
       gridTween.destroy();
       gridTimeline.destroy();
       centerTween.destroy();
-      unsubscribeResize();
       unsubscribeMouseMove();
       unsubscribeTouchMove();
       unWatchPause();
@@ -29390,18 +29356,28 @@
   }) => {
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
+    let destroy3 = () => {
+    };
     onMount(() => {
       const { canvas } = getRef();
-      const destroyAnimation = animatedPatternN1Animation({
+      destroy3 = animatedPatternN1Animation({
         canvas,
         ...getState()
+      });
+      const unsubscribeResize = modules_exports.useResize(() => {
+        destroy3();
+        destroy3 = animatedPatternN1Animation({
+          canvas,
+          ...getState()
+        });
       });
       modules_exports.useFrame(() => {
         proxi.isMounted = true;
       });
       return () => {
         document.body.style.background = "";
-        destroyAnimation();
+        unsubscribeResize();
+        destroy3();
       };
     });
     return renderHtml`
@@ -30359,26 +30335,6 @@
     modules_exports.useFrame(() => {
       loop();
     });
-    const unsubscribeResize = modules_exports.useResize(() => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-      data.forEach((item) => {
-        const { width, height, gutter: gutter2, numberOfColumn: numberOfColumn2 } = item;
-        item.offsetXCenter = getOffsetXCenter({
-          canvasWidth: canvas.width,
-          width,
-          gutter: gutter2,
-          numberOfColumn: numberOfColumn2
-        });
-        item.offsetYCenter = getOffsetYCenter({
-          canvasHeight: canvas.height,
-          height,
-          gutter: gutter2,
-          numberOfRow
-        });
-      });
-      modules_exports.useFrame(() => draw());
-    });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
       if (val2) {
         isActive2 = false;
@@ -30392,7 +30348,6 @@
       }, 500);
     });
     return () => {
-      unsubscribeResize();
       unWatchPause();
       sequencersInstances.forEach(({ sequencer, unsubscribe: unsubscribe3 }) => {
         sequencer.destroy();
@@ -30425,20 +30380,31 @@
   }) => {
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
+    let destroy3 = () => {
+    };
     onMount(() => {
       activateScrollDownArrow();
       const { canvas, canvasScroller } = getRef();
       window.scrollTo(0, 0);
-      const destroyAnimation = scrollerN0Animation({
+      destroy3 = scrollerN0Animation({
         canvas,
         canvasScroller,
         ...getState()
+      });
+      const unsubscribeResize = modules_exports.useResize(() => {
+        destroy3();
+        destroy3 = scrollerN0Animation({
+          canvas,
+          canvasScroller,
+          ...getState()
+        });
       });
       modules_exports.useFrame(() => {
         proxi.isMounted = true;
       });
       return () => {
-        destroyAnimation();
+        destroy3();
+        unsubscribeResize();
         deactivateScrollDownArrow();
         document.body.style.background = "";
       };

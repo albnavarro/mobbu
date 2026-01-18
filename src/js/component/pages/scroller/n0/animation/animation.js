@@ -10,8 +10,6 @@ import {
     createGrid,
     getCanvasContext,
     getOffsetCanvas,
-    getOffsetXCenter,
-    getOffsetYCenter,
     roundRectIsSupported,
 } from '@utils/canvas-utils';
 
@@ -272,37 +270,6 @@ export const scrollerN0Animation = ({
         loop();
     });
 
-    const unsubscribeResize = MobCore.useResize(() => {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-
-        /**
-         * Update offset position to center grid in canvas.
-         */
-        data.forEach((item) => {
-            const { width, height, gutter, numberOfColumn } = item;
-
-            item.offsetXCenter = getOffsetXCenter({
-                canvasWidth: canvas.width,
-                width,
-                gutter,
-                numberOfColumn,
-            });
-
-            item.offsetYCenter = getOffsetYCenter({
-                canvasHeight: canvas.height,
-                height,
-                gutter,
-                numberOfRow,
-            });
-        });
-
-        /**
-         * Render.
-         */
-        MobCore.useFrame(() => draw());
-    });
-
     /**
      * Pause/Resume animation on nav open.
      */
@@ -332,7 +299,6 @@ export const scrollerN0Animation = ({
      * Destroy.
      */
     return () => {
-        unsubscribeResize();
         unWatchPause();
         sequencersInstances.forEach(({ sequencer, unsubscribe }) => {
             sequencer.destroy();

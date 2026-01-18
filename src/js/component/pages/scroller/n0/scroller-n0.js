@@ -26,6 +26,9 @@ export const ScrollerN0Fn = ({
     const proxi = getProxi();
     document.body.style.background = canvasBackground;
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let destroy = () => {};
+
     onMount(() => {
         /** Show scroll down label. */
         activateScrollDownArrow();
@@ -40,10 +43,20 @@ export const ScrollerN0Fn = ({
          */
         window.scrollTo(0, 0);
 
-        const destroyAnimation = scrollerN0Animation({
+        destroy = scrollerN0Animation({
             canvas,
             canvasScroller,
             ...getState(),
+        });
+
+        const unsubscribeResize = MobCore.useResize(() => {
+            destroy();
+
+            destroy = scrollerN0Animation({
+                canvas,
+                canvasScroller,
+                ...getState(),
+            });
         });
 
         MobCore.useFrame(() => {
@@ -51,7 +64,8 @@ export const ScrollerN0Fn = ({
         });
 
         return () => {
-            destroyAnimation();
+            destroy();
+            unsubscribeResize();
             deactivateScrollDownArrow();
             document.body.style.background = '';
         };

@@ -10,8 +10,6 @@ import {
     createGrid,
     getCanvasContext,
     getOffsetCanvas,
-    getOffsetXCenter,
-    getOffsetYCenter,
 } from '@utils/canvas-utils';
 
 /** @type {import('../type').AnimatedPatternN1Animation} */
@@ -47,7 +45,7 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let { top, left } = offset(canvas);
+    const { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: true });
 
     const activeRoute = MobJs.getActiveRoute();
@@ -393,42 +391,6 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
     });
 
     /**
-     * On resize.
-     */
-    const unsubscribeResize = MobCore.useResize(() => {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-        top = offset(canvas).top;
-        left = offset(canvas).left;
-
-        /**
-         * Update offset position to center grid in canvas.
-         */
-        data.forEach((item) => {
-            const { width, height, gutter, numberOfColumn } = item;
-
-            item.offsetXCenter = getOffsetXCenter({
-                canvasWidth: canvas.width,
-                width,
-                gutter,
-                numberOfColumn,
-            });
-
-            item.offsetYCenter = getOffsetYCenter({
-                canvasHeight: canvas.height,
-                height,
-                gutter,
-                numberOfRow,
-            });
-        });
-
-        /**
-         * Render.
-         */
-        MobCore.useFrame(() => draw());
-    });
-
-    /**
      * Pause/Resume animation on nav open.
      */
     const unWatchPause = navigationStore.watch('navigationIsOpen', (val) => {
@@ -462,7 +424,6 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
         gridTween.destroy();
         gridTimeline.destroy();
         centerTween.destroy();
-        unsubscribeResize();
         unsubscribeMouseMove();
         unsubscribeTouchMove();
         unWatchPause();
