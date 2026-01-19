@@ -11,7 +11,7 @@ export type VerticalScroller = (arg0: {
     goToTop: () => void;
 };
 
-export type SimpleIntroAnimation = (arg0: { refs: HTMLElement[] }) => {
+export type SimpleIntroAnimation = (arg0: { refs: HTMLSVGElement[] }) => {
     playIntro: () => Promise<void>;
     playSvg: () => void;
     destroy: () => void;

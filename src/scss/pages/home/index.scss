@@ -12,14 +12,20 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
     overflow: hidden;
 
     &__logo {
+        display: grid;
         position: absolute;
         z-index: 1;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        inset: 0;
+        grid-template-areas: 'svg';
+        place-content: center center;
 
         svg {
+            position: relative;
+            grid-area: svg;
             overflow: visible;
+            transform: translateZ(0.5px);
+            transform-origin: center;
+            scale: 0;
 
             @media (aspect-ratio >= 3/2) {
                 width: min(1920px, calc(((1700 * 100) / 1920) * 1vw));
@@ -30,18 +36,6 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
                 width: calc(((1700 * 100) / 1240) * 1vw);
                 height: calc(((800 * 100) / 1240) * 1vw);
             }
-
-            g {
-                transform: translateZ(0.5px);
-                transform-origin: center;
-                scale: 0;
-            }
-
-            // @include when-inside('.is-firefox') {
-            //     g {
-            //         transform: translateZ(0.5px);
-            //     }
-            // }
         }
     }
 

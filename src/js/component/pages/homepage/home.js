@@ -25,10 +25,10 @@ export const HomeComponentFn = ({ onMount, getProxi }) => {
     const { svg } = proxi;
 
     onMount(({ element }) => {
-        const svg_group = [...element.querySelectorAll('[ref="svg_group"]')];
+        const svg_group = [...element.querySelectorAll('svg')];
 
         const { destroy, playIntro, playSvg } = simpleIntroAnimation({
-            refs: /** @type {HTMLElement[]} */ (svg_group),
+            refs: /** @type {HTMLOrSVGElement[]} */ (svg_group),
         });
 
         setTimeout(() => {
@@ -41,6 +41,12 @@ export const HomeComponentFn = ({ onMount, getProxi }) => {
     });
 
     return html`<div class="l-index">
-        <div class="l-index__logo">${svg}</div>
+        <div class="l-index__logo">
+            ${svg
+                .map((item) => {
+                    return html`${item}`;
+                })
+                .join('')}
+        </div>
     </div>`;
 };

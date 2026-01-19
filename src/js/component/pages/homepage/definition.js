@@ -14,8 +14,8 @@ export const HomeComponent = MobJs.createComponent(
         component: HomeComponentFn,
         props: {
             svg: () => ({
-                value: '',
-                type: String,
+                value: [],
+                type: Array,
             }),
         },
         state: {
