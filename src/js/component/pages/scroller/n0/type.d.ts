@@ -8,6 +8,8 @@ export interface ScrollerN0 {
     };
     state: {
         isMounted: boolean;
+        destroy: () => void;
+        currentParamsId: number;
     };
     ref: {
         canvas: HTMLCanvasElement;

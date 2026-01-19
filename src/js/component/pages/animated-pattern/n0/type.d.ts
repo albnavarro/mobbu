@@ -3,11 +3,6 @@ import { StaggerObject } from 'src/js/mob/mobMotion/animation/utils/stagger/type
 export interface AnimatedPatternN0 {
     props: {
         background: string;
-        numberOfRow: number;
-        numberOfColumn: number;
-        fill: number[];
-        stagger: Partial<StaggerObject>;
-        reorder: boolean;
         disableOffcanvas: boolean;
     };
     state: {
