@@ -1,6 +1,6 @@
 export const params = [
     {
-        label: 'variant 1',
+        label: 'asymmetric row',
         params: {
             fill: [16, 27, 38, 49, 60, 71, 82, 93],
             numberOfColumn: 10,
@@ -14,7 +14,7 @@ export const params = [
         },
     },
     {
-        label: 'variant 2',
+        label: 'random',
         params: {
             fill: [
                 0, 13, 20, 45, 65, 71, 72, 73, 74, 75, 76, 77, 83, 92, 96, 113,
@@ -31,7 +31,7 @@ export const params = [
         },
     },
     {
-        label: 'variant 3',
+        label: 'edges',
         params: {
             fill: [
                 0, 13, 20, 45, 65, 71, 72, 73, 74, 75, 76, 77, 83, 92, 96, 113,
@@ -48,7 +48,7 @@ export const params = [
         },
     },
     {
-        label: 'variant 3',
+        label: 'radial',
         params: {
             fill: [],
             numberOfColumn: 8,

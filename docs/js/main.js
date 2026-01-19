@@ -28826,7 +28826,7 @@
   // src/js/component/pages/animated-pattern/n0/variations.js
   var params = [
     {
-      label: "variant 1",
+      label: "asymmetric row",
       params: {
         fill: [16, 27, 38, 49, 60, 71, 82, 93],
         numberOfColumn: 10,
@@ -28840,7 +28840,7 @@
       }
     },
     {
-      label: "variant 2",
+      label: "random",
       params: {
         fill: [
           0,
@@ -28881,7 +28881,7 @@
       }
     },
     {
-      label: "variant 3",
+      label: "edges",
       params: {
         fill: [
           0,
@@ -28922,7 +28922,7 @@
       }
     },
     {
-      label: "variant 3",
+      label: "radial",
       params: {
         fill: [],
         numberOfColumn: 8,
@@ -28951,7 +28951,7 @@
       disableOffcanvas: detectFirefox() || detectSafari() ? true : false
     });
   };
-  function getControls({ delegateEvents, proxi, getRef }) {
+  function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     return params.map(({ label }, index) => {
       return renderHtml` <li class="c-canvas__controls__item">
                 <button
@@ -28961,6 +28961,11 @@
         click: () => {
           proxi.currentParamsId = index;
           createAnimation({ proxi, getRef });
+        }
+      })}
+                    ${bindEffect({
+        toggleClass: {
+          active: () => proxi.currentParamsId === index
         }
       })}
                 >
@@ -29028,7 +29033,12 @@
       }
     })}
                     ></button>
-                    ${getControls({ delegateEvents, proxi, getRef })}
+                    ${getControls({
+      delegateEvents,
+      bindEffect,
+      proxi,
+      getRef
+    })}
                 </ul>
                 <div class="background-shape">${proxi.background}</div>
                 <div

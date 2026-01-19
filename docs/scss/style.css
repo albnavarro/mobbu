@@ -2148,7 +2148,8 @@ ul li::marker {
   font-size: 0.9333333333rem;
   text-align: right;
 }
-.c-canvas__controls__btn:hover {
+.c-canvas__controls__btn:hover,
+.c-canvas__controls__btn.active {
   background: #fff;
   color: #2e3440;
 }

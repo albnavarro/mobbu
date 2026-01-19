@@ -2,6 +2,7 @@
 
 /**
  * @import {
+ *   BindEffect,
  *   DelegateEvents,
  *   GetRef,
  *   MobComponent,
@@ -37,9 +38,10 @@ const createAnimation = ({ proxi, getRef }) => {
  * @param {DelegateEvents} params.delegateEvents
  * @param {ProxiState<AnimatedPatternN0>} params.proxi
  * @param {GetRef<AnimatedPatternN0>} params.getRef
+ * @param {BindEffect<AnimatedPatternN0>} params.bindEffect
  * @returns {string}
  */
-function getControls({ delegateEvents, proxi, getRef }) {
+function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     return params
         .map(({ label }, index) => {
             return html` <li class="c-canvas__controls__item">
@@ -50,6 +52,11 @@ function getControls({ delegateEvents, proxi, getRef }) {
                         click: () => {
                             proxi.currentParamsId = index;
                             createAnimation({ proxi, getRef });
+                        },
+                    })}
+                    ${bindEffect({
+                        toggleClass: {
+                            active: () => proxi.currentParamsId === index,
                         },
                     })}
                 >
@@ -129,7 +136,12 @@ export const AnimatedPatternN0Fn = ({
                             },
                         })}
                     ></button>
-                    ${getControls({ delegateEvents, proxi, getRef })}
+                    ${getControls({
+                        delegateEvents,
+                        bindEffect,
+                        proxi,
+                        getRef,
+                    })}
                 </ul>
                 <div class="background-shape">${proxi.background}</div>
                 <div
