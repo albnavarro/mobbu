@@ -12,6 +12,9 @@ export interface AnimatedPatternN0 {
     };
     state: {
         isMounted: boolean;
+        controlsActive: boolean;
+        destroy: () => void;
+        currentParamsId: number;
     };
     ref: {
         canvas: HTMLCanvasElement;

@@ -1,16 +1,21 @@
-export const animatedPatternN0Params = [
+export const params = [
     {
-        animation: {},
-        description:
-            '<strong>Canvas</strong>: AsyncTimeline - Animated pattern v0',
-        nav: {
-            prevRoute: '#async-timeline',
-            nextRoute: '#animatedPatternN0?version=1&activeId=1',
-            backRoute: '#canvas-overview',
+        label: 'variant 1',
+        params: {
+            fill: [16, 27, 38, 49, 60, 71, 82, 93],
+            numberOfColumn: 10,
+            numberOfRow: 10,
+            stagger: {
+                each: 5,
+                grid: { col: 11, row: 11, direction: 'row' },
+                waitComplete: false,
+            },
+            reorder: true,
         },
     },
     {
-        animation: {
+        label: 'variant 2',
+        params: {
             fill: [
                 0, 13, 20, 45, 65, 71, 72, 73, 74, 75, 76, 77, 83, 92, 96, 113,
                 117, 134, 138, 155, 156, 157, 158, 159, 189, 209,
@@ -24,14 +29,10 @@ export const animatedPatternN0Params = [
             },
             reorder: false,
         },
-        nav: {
-            prevRoute: '#animatedPatternN0?version=0&activeId=0',
-            nextRoute: '#animatedPatternN0?version=2&activeId=2',
-            backRoute: '#canvas-overview',
-        },
     },
     {
-        animation: {
+        label: 'variant 3',
+        params: {
             fill: [
                 0, 13, 20, 45, 65, 71, 72, 73, 74, 75, 76, 77, 83, 92, 96, 113,
                 117, 134, 138, 155, 156, 157, 158, 159, 189, 209,
@@ -45,14 +46,10 @@ export const animatedPatternN0Params = [
             },
             reorder: false,
         },
-        nav: {
-            prevRoute: '#animatedPatternN0?version=1&activeId=1',
-            nextRoute: '#animatedPatternN0?version=3&activeId=3',
-            backRoute: '#canvas-overview',
-        },
     },
     {
-        animation: {
+        label: 'variant 3',
+        params: {
             fill: [],
             numberOfColumn: 8,
             numberOfRow: 9,
@@ -67,11 +64,6 @@ export const animatedPatternN0Params = [
                 waitComplete: false,
             },
             reorder: false,
-        },
-        nav: {
-            prevRoute: '#animatedPatternN0?version=2&activeId=2',
-            nextRoute: '#animatedPatternN1',
-            backRoute: '#canvas-overview',
         },
     },
 ];

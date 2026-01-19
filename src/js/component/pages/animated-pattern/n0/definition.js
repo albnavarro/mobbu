@@ -18,30 +18,6 @@ export const AnimatedPatternN0 = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
-            numberOfRow: () => ({
-                value: 10,
-                type: Number,
-            }),
-            numberOfColumn: () => ({
-                value: 10,
-                type: Number,
-            }),
-            fill: () => ({
-                value: [16, 27, 38, 49, 60, 71, 82, 93],
-                type: Array,
-            }),
-            stagger: () => ({
-                value: {
-                    each: 5,
-                    grid: { col: 11, row: 11, direction: 'row' },
-                    waitComplete: false,
-                },
-                type: 'any',
-            }),
-            reorder: () => ({
-                value: true,
-                type: Boolean,
-            }),
             disableOffcanvas: () => ({
                 value: detectFirefox() || detectSafari() ? true : false,
                 type: Boolean,
@@ -49,6 +25,18 @@ export const AnimatedPatternN0 = MobJs.createComponent(
         },
         state: {
             isMounted: false,
+            controlsActive: () => ({
+                value: false,
+                type: Boolean,
+            }),
+            destroy: () => ({
+                value: () => {},
+                type: Function,
+            }),
+            currentParamsId: () => ({
+                value: 0,
+                type: Number,
+            }),
         },
     })
 );
