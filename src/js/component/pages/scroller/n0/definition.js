@@ -1,7 +1,6 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { detectFirefox, detectSafari } from '@utils/utils';
 import { ScrollerN0Fn } from './scroller-n0';
 
 /**
@@ -18,21 +17,24 @@ export const ScrollerN0 = MobJs.createComponent(
                 value: '',
                 type: String,
             }),
-            stagger: () => ({
-                value: {
-                    type: 'equal',
-                    each: 6,
-                    from: 'random',
-                },
-                type: 'Any',
-            }),
-            disableOffcanvas: () => ({
-                value: detectFirefox() || detectSafari() ? true : false,
-                type: Boolean,
-            }),
         },
         state: {
-            isMounted: false,
+            isMounted: () => ({
+                value: false,
+                type: Boolean,
+            }),
+            controlsActive: () => ({
+                value: false,
+                type: Boolean,
+            }),
+            destroy: () => ({
+                value: () => {},
+                type: Function,
+            }),
+            currentParamsId: () => ({
+                value: 0,
+                type: Number,
+            }),
         },
     })
 );

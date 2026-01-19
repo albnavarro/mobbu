@@ -6601,8 +6601,8 @@
 
   // src/js/mob/mob-js/modules/bind-text/index.js
   var bindTextToInitializeMap = /* @__PURE__ */ new Map();
-  var addBindTextToInitialzie = (bindTextId, params2) => {
-    bindTextToInitializeMap.set(bindTextId, params2);
+  var addBindTextToInitialzie = (bindTextId, params3) => {
+    bindTextToInitializeMap.set(bindTextId, params3);
   };
   var bindTextPlaceHolderMap = /* @__PURE__ */ new Map();
   var addBindTextPlaceHolderMap = ({
@@ -6731,8 +6731,8 @@
 
   // src/js/mob/mob-js/modules/bind-object/index.js
   var bindObjectToInitializeMap = /* @__PURE__ */ new Map();
-  var addBindObjectToInitialzie = (bindObjectId, params2) => {
-    bindObjectToInitializeMap.set(bindObjectId, params2);
+  var addBindObjectToInitialzie = (bindObjectId, params3) => {
+    bindObjectToInitializeMap.set(bindObjectId, params3);
   };
   var bindObjectPlaceHolderMap = /* @__PURE__ */ new Map();
   var addBindObjectPlaceHolderMap = ({
@@ -10077,8 +10077,8 @@
 
   // src/js/mob/mob-js/route/load-page.js
   var scrolMap = /* @__PURE__ */ new Map();
-  var createRouteString = ({ route, params: params2 }) => {
-    return Object.entries(params2).reduce((previous, [key, value]) => {
+  var createRouteString = ({ route, params: params3 }) => {
+    return Object.entries(params3).reduce((previous, [key, value]) => {
       return `${previous}-${key}-${value}`;
     }, route);
   };
@@ -10086,7 +10086,7 @@
     route = "",
     templateName = "",
     isBrowserNavigation = false,
-    params: params2 = {},
+    params: params3 = {},
     skipTransition
   }) => {
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, true);
@@ -10096,7 +10096,7 @@
     const { activeRoute: fromRoute, activeParams: activeParamsFromRoute } = mainStore.get();
     const toRouteUID = createRouteString({
       route,
-      params: params2
+      params: params3
     });
     const fromRouteUID = createRouteString({
       route: fromRoute.route,
@@ -10120,11 +10120,11 @@
     );
     removeOrphanTempIds();
     mainStore.set(MAIN_STORE_ACTIVE_ROUTE, { route, templateName });
-    mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params2);
+    mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params3);
     const routeObejct = getRouteByHash({ hash: route });
     const skipTransitionParsed = skipTransition || routeObejct?.skipTransition;
     const props = routeObejct?.props ?? {};
-    const content = await routeObejct?.layout?.({ params: params2, props }) ?? "";
+    const content = await routeObejct?.layout?.({ params: params3, props }) ?? "";
     const beforePageTransition3 = getBeforePageTransition();
     let clone = contentElement.cloneNode(true);
     if (beforePageTransition3 && clone && !skipTransitionParsed) {
@@ -10227,8 +10227,8 @@
       return key && key.length > 0 ? { ...previous, [key]: value2 } : previous;
     }, {});
   };
-  var convertObjectParamsToString = (params2) => {
-    return params2 && Object.entries(params2).reduce((previous, [key, value], index) => {
+  var convertObjectParamsToString = (params3) => {
+    return params3 && Object.entries(params3).reduce((previous, [key, value], index) => {
       const currentJoin = index === 0 ? "" : "&";
       return `${previous}${currentJoin}${key}=${value}`;
     }, "");
@@ -10270,7 +10270,7 @@
     const search = sanitizeParams(parts?.[1] ?? "");
     previousCleanHash = currentCleanHash;
     currentCleanHash = sanitizeHash(parts?.[0] ?? "");
-    const params2 = getParams(currentParamsFromLoadUrl ?? search);
+    const params3 = getParams(currentParamsFromLoadUrl ?? search);
     const currentParams = currentParamsFromLoadUrl || Object.keys(search).length > 0 ? `?${currentParamsFromLoadUrl ?? search}` : "";
     currentParamsFromLoadUrl = void 0;
     const targetRoute = getRouteModule({ hash: currentCleanHash });
@@ -10284,7 +10284,7 @@
         route: targetRoute,
         templateName: targetTemplate,
         isBrowserNavigation: getRestoreScrollVale({ hash: currentCleanHash }) && !!currentHistory,
-        params: params2,
+        params: params3,
         skipTransition: currentHistory ?? currentSkipTransition ? true : false
       });
     }
@@ -10293,7 +10293,7 @@
         route: targetRoute,
         templateName: targetTemplate
       });
-      mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params2);
+      mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params3);
     }
     currentSkipTransition = void 0;
     modules_exports.useNextLoop(() => {
@@ -10311,12 +10311,12 @@
       parseUrlHash();
     });
   };
-  var loadUrl = ({ url, params: params2, skipTransition }) => {
+  var loadUrl = ({ url, params: params3, skipTransition }) => {
     if (!url || mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)) return;
     currentSkipTransition = skipTransition;
     const parts = url.split("?");
     const hash = sanitizeHash(parts?.[0] ?? "");
-    const objectParams = convertObjectParamsToString(params2);
+    const objectParams = convertObjectParamsToString(params3);
     const stringParams = sanitizeParams(parts?.[1] ?? "");
     const urlsParams = objectParams ?? stringParams;
     currentParamsFromLoadUrl = urlsParams.length > 0 ? urlsParams : "";
@@ -29064,14 +29064,13 @@
         background: () => ({
           value: "",
           type: String
-        }),
-        disableOffcanvas: () => ({
-          value: detectFirefox() || detectSafari() ? true : false,
-          type: Boolean
         })
       },
       state: {
-        isMounted: false,
+        isMounted: () => ({
+          value: false,
+          type: Boolean
+        }),
         controlsActive: () => ({
           value: false,
           type: Boolean
@@ -30241,14 +30240,14 @@
     let data = reorder ? gridData.map((item, i) => {
       return {
         ...item,
-        scale: 0,
+        scale: 1,
         rotate: 0,
         hasFill: fill.includes(i)
       };
     }).toSorted((value) => value.hasFill ? -1 : 1) : gridData.map((item, i) => {
       return {
         ...item,
-        scale: 0,
+        scale: 1,
         rotate: 0,
         hasFill: fill.includes(i)
       };
@@ -30258,13 +30257,12 @@
       stagger
     });
     let sequencersInstances = staggers.map(({ item, start, end }) => {
-      const scale = item.hasFill ? 1.1 : 1;
-      const sequencer = tween_exports.createSequencer({ data: { scale: 0 } }).goTo(
-        { scale },
+      const sequencer = tween_exports.createSequencer({ data: { scale: 1 } }).goTo(
+        { scale: 0 },
         { start, end, ease: "easeInOutQuad" }
       );
-      const unsubscribe3 = sequencer.subscribe(({ scale: scale2 }) => {
-        item.scale = scale2;
+      const unsubscribe3 = sequencer.subscribe(({ scale }) => {
+        item.scale = scale;
       });
       masterSequencer.add(sequencer);
       return { sequencer, unsubscribe: unsubscribe3 };
@@ -30350,7 +30348,7 @@
         position: "bottom",
         value: () => outerHeight(canvasScroller)
       },
-      reverse: true,
+      reverse: false,
       ease: true,
       easeType: "lerp"
     });
@@ -30397,53 +30395,154 @@
     };
   };
 
+  // src/js/component/pages/scroller/n0/variations.js
+  var params2 = [
+    {
+      label: "random",
+      params: {
+        stagger: {
+          type: "equal",
+          each: 6,
+          from: "random"
+        }
+      }
+    },
+    {
+      label: "column",
+      params: {
+        stagger: {
+          type: "equal",
+          each: 7,
+          from: "center",
+          grid: { col: 11, row: 10, direction: "col" }
+        }
+      }
+    },
+    {
+      label: "row",
+      params: {
+        stagger: {
+          type: "equal",
+          each: 3,
+          from: "start",
+          grid: { col: 11, row: 10, direction: "row" }
+        }
+      }
+    },
+    {
+      label: "sequential",
+      params: {
+        stagger: {
+          type: "equal",
+          each: 2,
+          from: "end"
+        }
+      }
+    }
+  ];
+
   // src/js/component/pages/scroller/n0/scroller-n0.js
+  var createAnimation2 = ({ proxi, getRef, resetScroll = true }) => {
+    if (resetScroll) window.scrollTo(0, 0);
+    proxi.destroy();
+    proxi.destroy = scrollerN0Animation({
+      canvas: getRef().canvas,
+      canvasScroller: getRef().canvasScroller,
+      ...params2[proxi.currentParamsId].params,
+      disableOffcanvas: detectFirefox() || detectSafari() ? true : false
+    });
+  };
+  function getControls3({ delegateEvents, bindEffect, proxi, getRef }) {
+    return params2.map(({ label }, index) => {
+      return renderHtml` <li class="c-canvas__controls__item">
+                <button
+                    type="button"
+                    class="c-canvas__controls__btn"
+                    ${delegateEvents({
+        click: () => {
+          proxi.currentParamsId = index;
+          createAnimation2({ proxi, getRef });
+        }
+      })}
+                    ${bindEffect({
+        toggleClass: {
+          active: () => proxi.currentParamsId === index
+        }
+      })}
+                >
+                    ${label}
+                </button>
+            </li>`;
+    }).join("");
+  }
   var ScrollerN0Fn = ({
     onMount,
-    getState,
     setRef,
     getRef,
     bindEffect,
-    getProxi
+    getProxi,
+    delegateEvents
   }) => {
     const proxi = getProxi();
-    let destroy3 = () => {
-    };
     onMount(() => {
       activateScrollDownArrow();
-      const { canvas, canvasScroller } = getRef();
-      window.scrollTo(0, 0);
       modules_exports.useFrame(() => {
         modules_exports.useNextTick(() => {
-          destroy3();
-          destroy3 = scrollerN0Animation({
-            canvas,
-            canvasScroller,
-            ...getState()
-          });
+          createAnimation2({ proxi, getRef });
         });
       });
       const unsubscribeResize = modules_exports.useResize(() => {
-        destroy3();
-        destroy3 = scrollerN0Animation({
-          canvas,
-          canvasScroller,
-          ...getState()
-        });
+        createAnimation2({ proxi, getRef, resetScroll: false });
       });
       modules_exports.useFrame(() => {
         proxi.isMounted = true;
       });
       return () => {
-        destroy3();
-        unsubscribeResize();
+        proxi.destroy();
+        proxi.destroy = () => {
+        };
         deactivateScrollDownArrow();
-        destroy3 = null;
+        unsubscribeResize();
       };
     });
     return renderHtml`
         <div>
             <div class="c-canvas c-canvas--fixed ">
+                <button
+                    type="button"
+                    class="c-canvas__controls__open"
+                    ${delegateEvents({
+      click: () => {
+        proxi.controlsActive = true;
+      }
+    })}
+                >
+                    variations
+                </button>
+                <ul
+                    class="c-canvas__controls"
+                    ${bindEffect({
+      toggleClass: {
+        active: () => proxi.controlsActive
+      }
+    })}
+                >
+                    <button
+                        type="button"
+                        class="c-canvas__controls__close"
+                        ${delegateEvents({
+      click: () => {
+        proxi.controlsActive = false;
+      }
+    })}
+                    ></button>
+                    ${getControls3({
+      delegateEvents,
+      bindEffect,
+      proxi,
+      getRef
+    })}
+                </ul>
                 <div class="background-shape">${proxi.background}</div>
                 <div
                     class="c-canvas__wrap"
@@ -30469,118 +30568,47 @@
         background: () => ({
           value: "",
           type: String
-        }),
-        stagger: () => ({
-          value: {
-            type: "equal",
-            each: 6,
-            from: "random"
-          },
-          type: "Any"
-        }),
-        disableOffcanvas: () => ({
-          value: detectFirefox() || detectSafari() ? true : false,
-          type: Boolean
         })
       },
       state: {
-        isMounted: false
+        isMounted: () => ({
+          value: false,
+          type: Boolean
+        }),
+        controlsActive: () => ({
+          value: false,
+          type: Boolean
+        }),
+        destroy: () => ({
+          value: () => {
+          },
+          type: Function
+        }),
+        currentParamsId: () => ({
+          value: 0,
+          type: Number
+        })
       }
     }
   );
 
-  // src/js/pages/canvas/scroller/scroller-params.js
-  var scrollerParams = [
-    {
-      animation: {},
-      nav: {
-        prevRoute: "#animatedPatternN1",
-        nextRoute: "#scrollerN0?version=1&activeId=1",
-        backRoute: "#canvas-overview"
-      }
-    },
-    {
-      animation: {
-        stagger: {
-          type: "end",
-          each: 1,
-          from: { x: 0, y: 0 },
-          grid: { col: 11, row: 10, direction: "radial" }
-        }
-      },
-      nav: {
-        prevRoute: "#scrollerN0?version=0&activeId=0",
-        nextRoute: "#scrollerN0?version=2&activeId=2",
-        backRoute: "#canvas-overview"
-      }
-    },
-    {
-      animation: {
-        stagger: {
-          type: "equal",
-          each: 7,
-          from: "center",
-          grid: { col: 11, row: 10, direction: "col" }
-        }
-      },
-      nav: {
-        prevRoute: "#scrollerN0?version=1&activeId=1",
-        nextRoute: "#scrollerN0?version=3&activeId=3",
-        backRoute: "#canvas-overview"
-      }
-    },
-    {
-      animation: {
-        stagger: {
-          type: "equal",
-          each: 3,
-          from: "end",
-          grid: { col: 11, row: 10, direction: "row" }
-        }
-      },
-      nav: {
-        prevRoute: "#scrollerN0?version=2&activeId=2",
-        nextRoute: "#scrollerN0?version=4&activeId=4",
-        backRoute: "#canvas-overview"
-      }
-    },
-    {
-      animation: {
-        stagger: {
-          type: "equal",
-          each: 2,
-          from: "end"
-        }
-      },
-      nav: {
-        prevRoute: "#scrollerN0?version=3&activeId=3",
-        nextRoute: "#scrollerN1",
-        backRoute: "#canvas-overview"
-      }
-    }
-  ];
-
   // src/js/pages/canvas/scroller/index.js
   modules_exports2.useComponent([ScrollerN0]);
-  var scrollerN0 = async ({ params: params2 }) => {
-    const { version } = params2;
+  var scrollerN0 = async () => {
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
     });
-    const props = scrollerParams[Math.max(0, Math.min(Number(version), scrollerParams.length - 1))];
-    if (!props) return "";
     updateQuickNavState({
       active: true,
-      prevRoute: props.nav.prevRoute,
-      nextRoute: props.nav.nextRoute,
-      backRoute: props.nav.backRoute
+      prevRoute: "#animatedPatternN1",
+      nextRoute: "#scrollerN1",
+      backRoute: "#canvas-overview"
     });
     return renderHtml`<div>
         <scroller-n0
             ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/scroller/n0/type').ScrollerN0['props']} */
+      /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
       {
-        ...props.animation,
         background: bg
       }
     )}
@@ -32944,7 +32972,7 @@
   );
 
   // src/js/component/pages/move-3d/move-3d-page.js
-  var getControls3 = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
+  var getControls4 = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
     return renderHtml`<div
         class="c-move3d-page__controls"
         ${bindEffect({
@@ -33089,7 +33117,7 @@
         >
             show controls
         </button>
-        ${getControls3({ delegateEvents, bindEffect, bindObject, proxi })}
+        ${getControls4({ delegateEvents, bindEffect, bindObject, proxi })}
         <move-3d
             ${bindProps(
       /** @returns {ReturnBindProps<import('../../common/move-3d/type').Move3D>} */
@@ -35365,7 +35393,7 @@
   };
 
   // src/js/component/pages/async-timeline/async-timeline.js
-  function getControls4({ buttons: buttons5 }) {
+  function getControls5({ buttons: buttons5 }) {
     return Object.entries(buttons5).map(([className, value]) => {
       const { label } = value;
       return renderHtml` <li class="c-canvas__controls__item">
@@ -35464,7 +35492,7 @@
       }
     })}
                         ></button>
-                        ${getControls4({ buttons: proxi.buttons })}
+                        ${getControls5({ buttons: proxi.buttons })}
                     </ul>
                     <canvas ${setRef("canvas")}></canvas>
                 </div>
@@ -37229,7 +37257,7 @@
   };
 
   // src/js/component/pages/rosa-di-grandi/rosa-di-grandi-page.js
-  var getControls5 = ({ proxi, delegateEvents, bindObject }) => {
+  var getControls6 = ({ proxi, delegateEvents, bindObject }) => {
     return renderHtml`
         <li class="l-rosa__controls__item">
             <span for="numerators" class="l-rosa__controls__label">
@@ -37330,7 +37358,7 @@
       }
     })}
             ></button>
-            ${getControls5({
+            ${getControls6({
       proxi,
       getRef,
       setRef,

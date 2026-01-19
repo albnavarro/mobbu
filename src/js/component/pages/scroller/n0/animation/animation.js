@@ -88,7 +88,7 @@ export const scrollerN0Animation = ({
               .map((item, i) => {
                   return {
                       ...item,
-                      scale: 0,
+                      scale: 1,
                       rotate: 0,
                       hasFill: fill.includes(i),
                   };
@@ -97,7 +97,7 @@ export const scrollerN0Animation = ({
         : gridData.map((item, i) => {
               return {
                   ...item,
-                  scale: 0,
+                  scale: 1,
                   rotate: 0,
                   hasFill: fill.includes(i),
               };
@@ -116,10 +116,8 @@ export const scrollerN0Animation = ({
      */
 
     let sequencersInstances = staggers.map(({ item, start, end }) => {
-        const scale = item.hasFill ? 1.1 : 1;
-
-        const sequencer = MobTween.createSequencer({ data: { scale: 0 } }).goTo(
-            { scale },
+        const sequencer = MobTween.createSequencer({ data: { scale: 1 } }).goTo(
+            { scale: 0 },
             { start, end, ease: 'easeInOutQuad' }
         );
 
@@ -247,7 +245,7 @@ export const scrollerN0Animation = ({
             position: 'bottom',
             value: () => outerHeight(canvasScroller),
         },
-        reverse: true,
+        reverse: false,
         ease: true,
         easeType: 'lerp',
     });
