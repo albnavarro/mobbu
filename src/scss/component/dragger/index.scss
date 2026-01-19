@@ -3,8 +3,6 @@
 .c-dragger {
     position: relative;
 
-    @include user-select-none;
-
     &__wrapper {
         position: absolute;
         top: 50%;

@@ -20,8 +20,6 @@
     background: black;
     text-align: center;
 
-    @include user-select-none;
-
     @include mq(desktop) {
         display: block;
     }

@@ -20,8 +20,6 @@
     text-align: center;
     text-transform: uppercase;
 
-    @include user-select-none;
-
     &.active {
         visibility: visible;
         opacity: 1;

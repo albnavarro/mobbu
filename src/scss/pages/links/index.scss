@@ -35,8 +35,6 @@
         text-transform: uppercase;
         text-wrap: nowrap;
 
-        @include user-select-none;
-
         &.is-visible {
             transform: translateY(30%);
             opacity: 0.1;
@@ -67,8 +65,6 @@
             opacity 1s,
             transform 1s;
         opacity: 0;
-
-        @include user-select-none;
 
         &.is-visible {
             transform: translate(0, -120%);

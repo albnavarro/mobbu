@@ -8,10 +8,6 @@
 
     --sreen-size: 60vw;
 
-    * {
-        @include user-select-none;
-    }
-
     &.active {
         pointer-events: all;
     }

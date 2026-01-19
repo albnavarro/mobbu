@@ -3,6 +3,18 @@
 .html-content {
     position: relative;
 
+    p,
+    a,
+    pre,
+    li,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        @include user-select-text;
+    }
+
     &.use-padding {
         padding: var(--gap-size) var(--gap-size) var(--col-size);
     }

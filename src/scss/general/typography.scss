@@ -11,6 +11,8 @@ html {
     font-weight: 400;
     line-height: 1.7em;
     font-optical-sizing: auto;
+
+    @include user-select-none;
 }
 
 h1,

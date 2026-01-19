@@ -468,6 +468,12 @@ html {
   font-weight: 400;
   line-height: 1.7em;
   font-optical-sizing: auto;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 h1,
 h2,
@@ -676,12 +682,6 @@ ul li::marker {
   transition: background 0.35s;
   background: black;
   text-align: center;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 @media (min-width: 62em) {
   .l-footer {
@@ -829,12 +829,6 @@ ul li::marker {
   left: 0;
   transition: background 0.35s;
   background: #fff;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 .l-header::after {
   content: "";
@@ -1361,14 +1355,6 @@ ul li::marker {
   pointer-events: none;
   --sreen-size: 60vw;
 }
-.l-about * {
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
 .l-about.active {
   pointer-events: all;
 }
@@ -1700,12 +1686,6 @@ ul li::marker {
   line-height: calc(var(--scroller-height) / 2);
   text-transform: uppercase;
   text-wrap: nowrap;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 .l-links__under.is-visible {
   transform: translateY(30%);
@@ -1736,12 +1716,6 @@ ul li::marker {
   transform: translate(-10%, -120%);
   transition: opacity 1s, transform 1s;
   opacity: 0;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 .l-links__title.is-visible {
   transform: translate(0, -120%);
@@ -2410,12 +2384,6 @@ ul li::marker {
   left: 0;
   height: var(--mobbu2025-height);
   aspect-ratio: 690/117;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 .mobbu2025__layer svg {
   width: var(--mobbu2025-width);
@@ -4097,6 +4065,22 @@ ul li::marker {
 .html-content {
   position: relative;
 }
+.html-content p,
+.html-content a,
+.html-content pre,
+.html-content li,
+.html-content h1,
+.html-content h2,
+.html-content h3,
+.html-content h4,
+.html-content h5 {
+  user-select: text;
+  -webkit-touch-callout: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+}
 .html-content.use-padding {
   padding: var(--gap-size) var(--gap-size) var(--col-size);
 }
@@ -4608,12 +4592,6 @@ ul li::marker {
   line-height: 1;
   white-space: nowrap;
   pointer-events: none;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 .c-doc-title-small {
   position: relative;
@@ -5125,12 +5103,6 @@ ul li::marker {
   font-weight: 600;
   text-align: center;
   text-transform: uppercase;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 .c-scroller-down-label.active {
   visibility: visible;
@@ -5324,22 +5296,10 @@ ul li::marker {
 .c-move-3d__scene {
   position: relative;
   transform-style: preserve-3d;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 .c-move-3d__container {
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 .c-move3d-item {
   position: relative;
@@ -5417,12 +5377,6 @@ ul li::marker {
 }
 .c-dragger {
   position: relative;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 .c-dragger__wrapper {
   position: absolute;
@@ -5723,25 +5677,6 @@ ul li::marker {
   height: 1rem;
   transform: translateY(-50%);
   background: #fff;
-}
-.animation-description {
-  display: none;
-  position: fixed;
-  z-index: 8;
-  top: var(--header-height);
-  left: calc(var(--header-height) * 0.5);
-  padding: calc(var(--header-height) * 0.1) calc(var(--header-height) * 0.5);
-  border-right: 1px #2e3440 solid;
-  border-bottom: 1px #2e3440 solid;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-.animation-description.visible {
-  display: block;
 }
 .mouse-trail {
   position: fixed;

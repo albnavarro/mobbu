@@ -19,8 +19,6 @@
     transition: background 0.35s;
     background: $white;
 
-    @include user-select-none;
-
     &::after {
         content: '';
         position: absolute;
