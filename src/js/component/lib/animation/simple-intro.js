@@ -6,9 +6,9 @@ import { navigationStore } from '@stores/navigation';
 /** @type {import('./type').SimpleIntroAnimation} */
 export const simpleIntroAnimation = ({ refs }) => {
     let introTween = MobTween.createTimeTween({
-        data: { opacity: 0, scale: 0.5 },
-        duration: 2000,
-        ease: 'easeOutQuart',
+        data: { scale: 0 },
+        duration: 3000,
+        ease: 'easeOutBack',
         stagger: { each: 8, from: 'end' },
     });
 
@@ -20,9 +20,8 @@ export const simpleIntroAnimation = ({ refs }) => {
     });
 
     refs.forEach((item) => {
-        introTween.subscribeCache(item, ({ scale, opacity }) => {
+        introTween.subscribeCache(item, ({ scale }) => {
             item.style.scale = `${scale}`;
-            item.style.opacity = `${opacity}`;
         });
 
         loopTween.subscribeCache(item, ({ scale }) => {
@@ -34,7 +33,6 @@ export const simpleIntroAnimation = ({ refs }) => {
         repeat: 1,
         autoSet: false,
     }).goTo(introTween, {
-        opacity: 1,
         scale: 1,
     });
 

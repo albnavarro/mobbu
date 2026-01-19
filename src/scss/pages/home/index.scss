@@ -32,15 +32,16 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
             }
 
             g {
+                transform: translateZ(0.5px);
                 transform-origin: center;
-                opacity: 0;
+                scale: 0;
             }
 
-            @include when-inside('.is-firefox') {
-                g {
-                    transform: translateZ(0.5px);
-                }
-            }
+            // @include when-inside('.is-firefox') {
+            //     g {
+            //         transform: translateZ(0.5px);
+            //     }
+            // }
         }
     }
 
