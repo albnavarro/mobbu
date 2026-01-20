@@ -80,306 +80,325 @@ export const rdp_01_schema = ({
                             },
                         },
                     },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 2,
-                        depth: 21,
-                        initialDepth: 0,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
+                    children: [
+                        {
                             props: {
-                                content: o_b,
+                                id: 2,
+                                depth: 21,
+                                initialDepth: 0,
+                                anchorPoint: 'center',
+                                classList: '',
+                                animate: true,
+                                component: {
+                                    tagName: 'any-component',
+                                    className:
+                                        'u-any-center-svg l-mob-01__block',
+                                    props: {
+                                        content: o_b,
+                                    },
+                                },
                             },
+                            children: [],
                         },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 3,
-                        depth: 150,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
+                        {
                             props: {
-                                content: m1,
+                                id: 3,
+                                depth: 100,
+                                anchorPoint: 'right',
+                                classList: '',
+                                animate: true,
+                                rotate: 'y',
+                                component: {
+                                    tagName: 'any-component',
+                                    className:
+                                        'u-any-center-svg l-mob-01__block',
+                                    props: {
+                                        content: m1,
+                                    },
+                                },
                             },
+                            children: [
+                                {
+                                    props: {
+                                        id: 3,
+                                        depth: 20,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: m1_b,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                                {
+                                    props: {
+                                        id: 6,
+                                        depth: 45,
+                                        initialDepth: 1,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: m4,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                                {
+                                    props: {
+                                        id: 6,
+                                        depth: 20,
+                                        initialDepth: 0,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: m4_b,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                                {
+                                    props: {
+                                        id: 6,
+                                        depth: 20,
+                                        initialDepth: 0,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: m1_stone,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                                {
+                                    props: {
+                                        id: 4,
+                                        depth: 65,
+                                        initialDepth: 1,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: m2,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                                {
+                                    props: {
+                                        id: 4,
+                                        depth: 20,
+                                        initialDepth: 1,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: sign,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                                {
+                                    props: {
+                                        id: 5,
+                                        depth: 30,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: m3,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                                {
+                                    props: {
+                                        id: 5,
+                                        depth: 20,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: m3_b,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                            ],
                         },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 3,
-                        depth: 150,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
+                        {
                             props: {
-                                content: m1_b,
+                                id: 6,
+                                depth: 100,
+                                anchorPoint: 'left',
+                                initialDepth: 0,
+                                classList: '',
+                                animate: true,
+                                rotate: 'y',
+                                component: {
+                                    tagName: 'any-component',
+                                    className:
+                                        'u-any-center-svg l-mob-01__block',
+                                    props: {
+                                        content: b1_b,
+                                    },
+                                },
                             },
+                            children: [
+                                {
+                                    props: {
+                                        id: 6,
+                                        depth: 51,
+                                        anchorPoint: 'center',
+                                        initialDepth: 1,
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: b1,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                                {
+                                    props: {
+                                        id: 7,
+                                        depth: 120,
+                                        anchorPoint: 'center',
+                                        initialDepth: 20,
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: b1_stone,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                                {
+                                    props: {
+                                        id: 8,
+                                        depth: 70,
+                                        initialDepth: 10,
+                                        anchorPoint: 'center',
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: b3,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                                {
+                                    props: {
+                                        id: 10,
+                                        depth: 170,
+                                        anchorPoint: 'center',
+                                        initialDepth: 10,
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: b4,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                                {
+                                    props: {
+                                        id: 11,
+                                        depth: 100,
+                                        anchorPoint: 'center',
+                                        initialDepth: 1,
+                                        classList: '',
+                                        animate: true,
+                                        rotate: 'y',
+                                        component: {
+                                            tagName: 'any-component',
+                                            className:
+                                                'u-any-center-svg l-mob-01__block',
+                                            props: {
+                                                content: b5,
+                                            },
+                                        },
+                                    },
+                                    children: [],
+                                },
+                            ],
                         },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 6,
-                        depth: 155,
-                        initialDepth: 1,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: m4,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 6,
-                        depth: 155,
-                        initialDepth: 1,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: m4_b,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 6,
-                        depth: 170,
-                        initialDepth: 1,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: m1_stone,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 4,
-                        depth: 180,
-                        initialDepth: 1,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: m2,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 4,
-                        depth: 180,
-                        initialDepth: 1,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: sign,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 5,
-                        depth: 100,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: m3,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 5,
-                        depth: 100,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: m3_b,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 6,
-                        depth: 50,
-                        anchorPoint: 'center',
-                        initialDepth: 1,
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: b1,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 6,
-                        depth: 51,
-                        anchorPoint: 'center',
-                        initialDepth: 1,
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: b1_b,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 7,
-                        depth: 120,
-                        anchorPoint: 'center',
-                        initialDepth: 20,
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: b1_stone,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 8,
-                        depth: 100,
-                        initialDepth: 10,
-                        anchorPoint: 'center',
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: b3,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 10,
-                        depth: 170,
-                        anchorPoint: 'center',
-                        initialDepth: 10,
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: b4,
-                            },
-                        },
-                    },
-                    children: [],
-                },
-                {
-                    props: {
-                        id: 11,
-                        depth: 100,
-                        anchorPoint: 'center',
-                        initialDepth: 1,
-                        classList: '',
-                        animate: true,
-                        rotate: 'y',
-                        component: {
-                            tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
-                            props: {
-                                content: b5,
-                            },
-                        },
-                    },
-                    children: [],
+                    ],
                 },
             ],
         },

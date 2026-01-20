@@ -178,12 +178,12 @@ export const rdp_01_scehema = ({
                         {
                             props: {
                                 id: 0,
-                                depth: -100,
-                                initialDepth: -1,
-                                offsetX: '-10',
-                                anchorPoint: 'right',
+                                depth: 100,
+                                initialDepth: 0,
+                                anchorPoint: 'left',
                                 classList: '',
                                 animate: true,
+                                rotate: 'y',
                                 component: {
                                     tagName: 'any-component',
                                     className:

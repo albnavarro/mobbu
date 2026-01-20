@@ -103,7 +103,7 @@ export const lettering01 = async () => {
                     xDepth: 100,
                     yDepth: 30,
                     factor: 20,
-                    xLimit: 20,
+                    xLimit: 10,
                     yLimit: 20,
                     drag: true,
                     perspective: 1000,
