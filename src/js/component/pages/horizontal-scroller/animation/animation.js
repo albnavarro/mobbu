@@ -141,7 +141,7 @@ export const horizontalScrollerAnimation = ({
         useSticky: !animatePin,
         useThrottle: true,
         animateAtStart: false,
-        ease: false,
+        ease: true,
         easeType: 'lerp',
         addCss: true,
         columnHeight: 70,

@@ -22,7 +22,7 @@ export const LinksMobJs = MobJs.createComponent(
                 type: String,
             }),
             hide: () => ({
-                value: false,
+                value: true,
                 type: Boolean,
             }),
             shift: () => ({

@@ -34,10 +34,6 @@
         pointer-events: none;
     }
 
-    &__row {
-        background-color: $grey;
-    }
-
     &__column {
         padding: calc(var(--header-height) * 0.5);
         pointer-events: all;

@@ -166,7 +166,7 @@ export const LinksMobJsFn = ({
             value="0"
             step=".5"
             ${setRef('scrollbar')}
-            class="c-params-mobjs__scrollbar"
+            class="c-params-mobjs__scrollbar hide-scrollbar"
         />
         <ul ${setRef('scrollerEl')}>
             ${invalidate({
