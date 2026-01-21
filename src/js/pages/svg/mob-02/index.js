@@ -9,7 +9,7 @@ MobJs.useComponent([mobbbu2025]);
 
 export const mob_02 = async () => {
     const { data: letteringMob } = await loadTextContent({
-        source: './asset/svg/lettering-mob-2025-pure-optimized.svg?v=0.2',
+        source: './asset/svg/lettering-mob-2025-pure-optimized.svg?v=0.3',
     });
 
     const { data: bg } = await loadTextContent({

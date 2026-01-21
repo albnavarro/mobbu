@@ -34,10 +34,7 @@ export const Mobbu2025fn = ({ getState, onMount, setRef, getRef }) => {
         <div class="mobbu2025__screen" ${setRef('screen')}>
             <div class="mobbu2025__scroller" ${setRef('scroller')}>
                 <div class="mobbu2025__layer">${layer03}</div>
-                <div
-                    class="mobbu2025__layer no-pointer-event"
-                    ${setRef('layer02')}
-                >
+                <div class="mobbu2025__layer" ${setRef('layer02')}>
                     ${layer02}
                 </div>
             </div>

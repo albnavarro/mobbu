@@ -39,5 +39,11 @@
             height: var(--mobbu2025-height);
             pointer-events: none;
         }
+
+        g {
+            &#white-block {
+                fill: $white;
+            }
+        }
     }
 }
