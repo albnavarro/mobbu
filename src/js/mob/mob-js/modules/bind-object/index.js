@@ -52,6 +52,11 @@ export const addBindObjectPlaceHolderMap = ({
 };
 
 /**
+ * Return state to observe
+ *
+ * - `value` key is used in case of explicit dependencies:
+ * - If `observe` is missed but value is used module should track dependencies correctly.
+ *
  * @param {any} values
  * @returns {string[]}
  */
@@ -84,6 +89,11 @@ export const getBindObjectKeys = (values) => {
 };
 
 /**
+ * Return the rendered content
+ *
+ * - `value` key is used in case of explicit dependencies:
+ * - ${bindObject`my text: ${{ observe: 'data', value: () => current.value.label, }}.`}
+ *
  * @param {TemplateStringsArray} strings
  * @param {any[]} values
  * @returns {string}
