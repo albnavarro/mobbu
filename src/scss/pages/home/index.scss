@@ -23,9 +23,12 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
             position: relative;
             grid-area: svg;
             overflow: visible;
-            transform: translateZ(0.5px);
             transform-origin: center;
             scale: 0;
+
+            @include when-inside('.is-firefox') {
+                transform: translateZ(0.5px);
+            }
 
             @media (aspect-ratio >= 3/2) {
                 width: min(1920px, calc(((1700 * 100) / 1920) * 1vw));
