@@ -30,8 +30,10 @@ export const updateSubScribers = (currentCallback, arrayOfCallback) => {
                 /**
                  * Disable single stagger without modify staggers order ( add NOOP )
                  */
-                if (idNow === id) return { id, cb: () => {}, index, frame };
-                return { id, cb, index, frame };
+                if (idNow === id)
+                    return { id: idNow, cb: () => {}, index, frame };
+
+                return { id: idNow, cb, index, frame };
             }),
     };
 };
@@ -83,8 +85,9 @@ export const updateSubscribersCache = (
              * Disable single stagger without modify staggers order ( remove cb id from handleCache )
              */
             return callbackNow.map(({ id: idNow, cb, index, frame }) => {
-                if (idNow === id) return { id, cb: '', index, frame };
-                return { id, cb, index, frame };
+                if (idNow === id) return { id: idNow, cb: '', index, frame };
+
+                return { id: idNow, cb, index, frame };
             });
         },
     };
