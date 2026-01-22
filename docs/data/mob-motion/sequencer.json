@@ -562,7 +562,7 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "Stores targets/callbacks once",
+                    "Stores callbacks once",
                     "It only accumulates an object with the actual updated values."
                 ]
             }

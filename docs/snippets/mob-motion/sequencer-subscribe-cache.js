@@ -1,6 +1,6 @@
 const targets = document.querySelectorAll('target');
 const unsunscribeAll = [...targets].map((item) => {
-    return mySequencer.subscribeCache(item, ({ x, y }) => {
+    return mySequencer.subscribeCache(({ x, y }) => {
         item.style.translate = `${x}px ${y}px`;
     });
 });

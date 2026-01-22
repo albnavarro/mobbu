@@ -139,7 +139,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
      * Subscribe tweens
      */
     data.forEach((item) => {
-        tweenGrid.subscribeCache(item, ({ scale, rotate }) => {
+        tweenGrid.subscribeCache(({ scale, rotate }) => {
             item.rotate = rotate;
             item.scale = scale;
         });

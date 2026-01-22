@@ -214,7 +214,7 @@ export const mathRosaDiGrandi = (
     targets.forEach((item, index) => {
         const innerElement = /** @type {HTMLSpanElement} */ (item.firstChild);
 
-        tween.subscribeCache(item, ({ angleInRadian, scale }) => {
+        tween.subscribeCache(({ angleInRadian, scale }) => {
             /**
              * ROSA DI GRANDI Formula: r = a * cos(k * θ)
              *

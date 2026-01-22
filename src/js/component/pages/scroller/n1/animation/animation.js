@@ -130,7 +130,7 @@ export const scrollerN1Animation = ({
      * Subscribe rect to rotation tween.
      */
     [...stemData].forEach((item) => {
-        scrollerTween.subscribeCache(item, ({ rotate }) => {
+        scrollerTween.subscribeCache(({ rotate }) => {
             item.rotate = rotate;
         });
     });

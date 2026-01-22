@@ -80,7 +80,7 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
          */
         const xAxisAdjustValue = -halfTagetsHeight[index] - distance / 2;
 
-        tween.subscribeCache(item, ({ x, scale }) => {
+        tween.subscribeCache(({ x, scale }) => {
             /**
              * Inverte l'onda quando il movimento va all'indietro Math.sign() ritorna -1 | 0 | 1.
              */

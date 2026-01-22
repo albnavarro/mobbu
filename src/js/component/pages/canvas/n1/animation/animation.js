@@ -88,7 +88,7 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
      * Subscribe rect to rotation tween.
      */
     [...squareData].forEach((item) => {
-        rotationTween.subscribeCache(item, ({ rotate }) => {
+        rotationTween.subscribeCache(({ rotate }) => {
             item.rotate = rotate;
         });
     });
@@ -105,7 +105,7 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
      * Subscribe rect to rotation tween.
      */
     [...squareData].forEach((item) => {
-        centerTween.subscribeCache(item, ({ x, y }) => {
+        centerTween.subscribeCache(({ x, y }) => {
             item.x = x;
             item.y = y;
         });

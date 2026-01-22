@@ -112,7 +112,7 @@ export const animatedPatternN0Animation = ({
      * Subscribe to tween
      */
     data.forEach((item) => {
-        gridTween.subscribeCache(item, ({ scale, rotate }) => {
+        gridTween.subscribeCache(({ scale, rotate }) => {
             item.rotate = rotate;
             item.scale = scale;
         });

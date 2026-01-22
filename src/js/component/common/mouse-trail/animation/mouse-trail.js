@@ -44,7 +44,7 @@ export const mouseTrailAnimation = ({ elements }) => {
     elements.forEach((item) => {
         if (!item) return;
 
-        mouseTweenRotate.subscribeCache(item, ({ rotation }) => {
+        mouseTweenRotate.subscribeCache(({ rotation }) => {
             item.style.rotate = `${rotation}deg`;
         });
     });

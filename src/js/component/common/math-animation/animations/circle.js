@@ -35,7 +35,7 @@ export const mathCircle = ({ targets, container, canvas } = {}) => {
     const halfTagetsHeight = targets.map((target) => outerHeight(target) / 2);
 
     targets.forEach((item, index) => {
-        tween.subscribeCache(item, ({ x }) => {
+        tween.subscribeCache(({ x }) => {
             const xr = Math.sin(x * step) * radius;
             const yr = Math.cos(x * step) * radius;
             item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetsHeight[index]}px, ${yr - halfTagetsHeight[index]}px)`;

@@ -120,7 +120,7 @@ export const caterpillarN2Animation = ({
      * Subscribe sequencer to timeline.
      */
     squareData.forEach((item) => {
-        infiniteTween.subscribeCache(item, ({ x, rotate }) => {
+        infiniteTween.subscribeCache(({ x, rotate }) => {
             const val = x / friction;
             const factor = 2 / (3 - Math.cos(2 * val));
             const xr = factor * Math.cos(val) * xAmplitude;

@@ -87,7 +87,7 @@ export const mathArchimede = ({ targets, container, canvas } = {}) => {
     targets.forEach((item, index) => {
         const innerElement = /** @type {HTMLSpanElement} */ (item.firstChild);
 
-        tween.subscribeCache(item, ({ angleInRadian, scale }) => {
+        tween.subscribeCache(({ angleInRadian, scale }) => {
             /**
              * SPIRALE DI ARCHIMEDE Formula: r = a + b * θ
              *

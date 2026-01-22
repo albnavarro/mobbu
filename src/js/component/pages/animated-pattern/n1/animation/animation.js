@@ -96,7 +96,7 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
      * Subscribe rect to mouse tween.
      */
     data.forEach((item) => {
-        centerTween.subscribeCache(item, ({ mouseX, mouseY }) => {
+        centerTween.subscribeCache(({ mouseX, mouseY }) => {
             item.mouseX = mouseX;
             item.mouseY = mouseY;
         });
@@ -120,7 +120,7 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
      * Subscribe to tween
      */
     data.forEach((item) => {
-        gridTween.subscribeCache(item, ({ scale }) => {
+        gridTween.subscribeCache(({ scale }) => {
             item.scale = scale;
         });
     });
