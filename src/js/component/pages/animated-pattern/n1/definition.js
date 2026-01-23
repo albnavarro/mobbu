@@ -1,7 +1,6 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { detectFirefox, detectSafari } from '@utils/utils';
 import { AnimatedPatternN1Fn } from './animated-pattern-n1';
 
 /**
@@ -19,7 +18,8 @@ export const AnimatedPatternN1 = MobJs.createComponent(
                 type: String,
             }),
             disableOffcanvas: () => ({
-                value: detectFirefox() || detectSafari() ? true : false,
+                // value: detectFirefox() || detectSafari() ? true : false,
+                value: true,
                 type: Boolean,
             }),
         },

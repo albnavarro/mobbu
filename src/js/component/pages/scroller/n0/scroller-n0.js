@@ -19,7 +19,6 @@ import {
 } from '../../../common/scroll-down-label/utils';
 import { scrollerN0Animation } from './animation/animation';
 import { params } from './variations';
-import { detectFirefox, detectSafari } from '@utils/utils';
 
 /**
  * @param {object} params
@@ -39,7 +38,8 @@ const createAnimation = ({ proxi, getRef, resetScroll = true }) => {
         canvas: getRef().canvas,
         canvasScroller: getRef().canvasScroller,
         ...params[proxi.currentParamsId].params,
-        disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
+        // disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
+        disableOffcanvas: true,
     });
 };
 

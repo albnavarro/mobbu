@@ -1,7 +1,6 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { detectFirefox, detectSafari } from '@utils/utils';
 import { CaterpillarN2Fn } from './caterpillar-n2';
 
 /**
@@ -62,7 +61,8 @@ export const CaterpillarN2 = MobJs.createComponent(
                 type: String,
             }),
             disableOffcanvas: () => ({
-                value: detectFirefox() || detectSafari() ? true : false,
+                // value: detectFirefox() || detectSafari() ? true : false,
+                value: true,
                 type: Boolean,
             }),
         },

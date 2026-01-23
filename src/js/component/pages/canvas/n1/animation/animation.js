@@ -16,8 +16,6 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
     const numItems = 20;
     const width = window.innerHeight / 30;
     const height = window.innerHeight / 30;
-
-    // eslint-disable-next-line unicorn/prefer-set-has
     const fill = [14];
     const opacity = 1;
     const radius = 0;
@@ -87,8 +85,8 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
     /**
      * Subscribe rect to rotation tween.
      */
-    [...squareData].forEach((item) => {
-        rotationTween.subscribeCache(({ rotate }) => {
+    const unsubScribeRotate = [...squareData].map((item) => {
+        return rotationTween.subscribeCache(({ rotate }) => {
             item.rotate = rotate;
         });
     });
@@ -317,29 +315,40 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
         }, 500);
     });
 
-    return () => {
-        rotationTween.destroy();
-        centerTween.destroy();
-        rectTimeline.destroy();
-        unsubscribeResize();
-        unsubscribeMouseMove();
-        unsubscribeTouchMove();
-        unWatchPause();
-        // @ts-ignore
-        rotationTween = null;
-        // @ts-ignore
-        centerTween = null;
-        // @ts-ignore
-        rectTimeline = null;
-        ctx = null;
-        offscreen = null;
-        offScreenCtx = null;
-        isActive = false;
+    return {
+        destroy: () => {
+            rotationTween.destroy();
+            centerTween.destroy();
+            rectTimeline.destroy();
+            unsubscribeResize();
+            unsubscribeMouseMove();
+            unsubscribeTouchMove();
+            unWatchPause();
+            unsubScribeRotate.forEach((unsubScribe) => {
+                unsubScribe();
+            });
+            unsubScribeRotate.length = 0;
+            // @ts-ignore
+            rotationTween = null;
+            // @ts-ignore
+            centerTween = null;
+            // @ts-ignore
+            rectTimeline = null;
+            ctx = null;
+            offscreen = null;
+            offScreenCtx = null;
+            isActive = false;
 
-        // @ts-ignore
-        squareData = null;
+            // @ts-ignore
+            squareData = null;
 
-        // @ts-ignore
-        context = null;
+            // @ts-ignore
+            context = null;
+        },
+        stopBlackOne: () => {
+            fill.forEach((index) => {
+                unsubScribeRotate[index]?.();
+            });
+        },
     };
 };

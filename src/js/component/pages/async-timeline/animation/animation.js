@@ -196,11 +196,15 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         .closeGroup()
         .label({ name: 'my-label' })
         .createGroup({ waitComplete: false })
-        .goTo(tweenAround, {
-            x: getCoordinate({ row: 8, col: 1 }).x,
-            rotate: 0,
-            scale: 1,
-        })
+        .goTo(
+            tweenAround,
+            {
+                x: getCoordinate({ row: 8, col: 1 }).x,
+                rotate: 0,
+                scale: 1,
+            },
+            { ease: 'easeOutQuad', duration: 500 }
+        )
         .goTo(
             tweenGridRotate,
             {

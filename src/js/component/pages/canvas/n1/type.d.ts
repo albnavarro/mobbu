@@ -5,6 +5,10 @@ export interface CaterpillarN1 {
     };
     state: {
         isMounted: boolean;
+        controlsActive: boolean;
+        destroy: () => void;
+        stopBlackOne: () => void;
+        blackOneIsStopped: boolean;
     };
     ref: {
         canvas: HTMLCanvasElement;
@@ -14,4 +18,4 @@ export interface CaterpillarN1 {
 export type CaterpillarN1Animation = (arg0: {
     canvas: HTMLCanvasElement;
     disableOffcanvas: boolean;
-}) => () => void;
+}) => { destroy: () => void; stopBlackOne: () => void };

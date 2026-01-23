@@ -1,7 +1,6 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { detectFirefox, detectSafari } from '@utils/utils';
 import { AsyncTimelineFn } from './async-timeline';
 
 const buttons = {
@@ -51,7 +50,8 @@ export const AsyncTimeline = MobJs.createComponent(
         props: {
             background: '',
             disableOffcanvas: () => ({
-                value: detectFirefox() || detectSafari() ? true : false,
+                // value: detectFirefox() || detectSafari() ? true : false,
+                value: true,
                 type: Boolean,
             }),
         },

@@ -15,7 +15,6 @@ import { MobCore } from '@mobCore';
 import { html } from '@mobJs';
 import { animatedPatternN0Animation } from './animation/animation';
 import { params } from './variations';
-import { detectFirefox, detectSafari } from '@utils/utils';
 
 /**
  * @param {object} params
@@ -29,7 +28,8 @@ const createAnimation = ({ proxi, getRef }) => {
     proxi.destroy = animatedPatternN0Animation({
         canvas: getRef().canvas,
         ...params[proxi.currentParamsId].params,
-        disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
+        // disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
+        disableOffcanvas: true,
     });
 };
 
