@@ -67,8 +67,15 @@ export const CaterpillarN2 = MobJs.createComponent(
             }),
         },
         state: {
-            rotationDefault: 166,
             isMounted: false,
+            rotation: () => ({
+                value: 166,
+                type: Number,
+            }),
+            rotationlabel: () => ({
+                value: 166,
+                type: Number,
+            }),
             controlsActive: () => ({
                 value: false,
                 type: Boolean,

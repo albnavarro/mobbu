@@ -2100,16 +2100,6 @@ ul li::marker {
 .c-canvas__controls__item:last-of-type {
   border-bottom: 0;
 }
-.c-canvas__controls__item.is-like-button {
-  display: flex;
-  align-items: center;
-  margin-top: 0.3333333333rem;
-  margin-bottom: 0.3333333333rem;
-  padding: 0.3333333333rem 1.3333333333rem;
-  border-radius: 1.3333333333rem;
-  background: transparent;
-  gap: 0.6666666667rem;
-}
 .c-canvas__controls__btn {
   display: block;
   width: 100%;
@@ -2144,8 +2134,7 @@ ul li::marker {
 }
 .c-canvas__controls__range {
   position: relative;
-  width: 6.6666666667rem;
-  margin: auto;
+  margin: 1.0666666667rem auto 0;
   pointer-events: none;
 }
 .c-canvas__controls__range::after {
@@ -2185,6 +2174,12 @@ ul li::marker {
   background: #fff;
   cursor: pointer;
   appearance: none;
+}
+.c-canvas__controls__range-value {
+  display: block;
+  margin-top: 1.0666666667rem;
+  color: #fff;
+  text-align: left;
 }
 .c-canvas canvas {
   width: 100%;

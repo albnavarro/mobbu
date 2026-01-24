@@ -55,13 +55,13 @@ export const scrollerN1Animation = ({
     canvas,
     canvasScroller,
     disableOffcanvas,
+    proxi,
 }) => {
     const amountOfPath = 17;
     const width = 15;
     const height = 30;
     const opacity = 0.09;
     const intialRotation = 33;
-    const endRotation = 720;
 
     /**
      * Check if offscrennCanvas can be used.
@@ -125,7 +125,7 @@ export const scrollerN1Animation = ({
      */
     let scrollerTween = MobTween.createScrollerTween({
         from: { rotate: 0 },
-        to: { rotate: endRotation },
+        to: { rotate: () => proxi.rotation },
         stagger: { each: 2, from: 'center' },
     });
 

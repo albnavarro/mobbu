@@ -1,3 +1,5 @@
+import { ProxiState } from '@mobJsType';
+
 export type CaterpillarN2Button = Record<
     string,
     {
@@ -14,20 +16,18 @@ export interface CaterpillarN2 {
     state: {
         isMounted: boolean;
         buttons: CaterpillarN2Button;
-        rotationDefault: number;
+        rotation: number;
+        rotationlabel: number;
         controlsActive: boolean;
     };
     ref: {
         canvas: HTMLCanvasElement;
-        rangeValue: HTMLSpanElement;
-        rotationButton: HTMLButtonElement;
     };
 }
 
 export type CaterpillarN2Animation = (arg0: {
     canvas: HTMLCanvasElement;
-    rotationDefault: number;
-    disableOffcanvas: boolean;
+    proxi: ProxiState<CaterpillarN2>;
 }) => {
     destroy: () => void;
     play: () => void;
@@ -40,5 +40,4 @@ export type CaterpillarN2Animation = (arg0: {
     pause: () => void;
     resume: () => void;
     reverse: () => void;
-    setRotation: (value: number) => void;
 };

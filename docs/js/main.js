@@ -29850,11 +29850,7 @@
     if (isForced) return;
     console.log(`current: ${value}, direction: ${direction2}`);
   };
-  var caterpillarN2Animation = ({
-    canvas,
-    rotationDefault,
-    disableOffcanvas
-  }) => {
+  var caterpillarN2Animation = ({ canvas, proxi }) => {
     const numItems = 20;
     const width = window.innerHeight / 13;
     const height = window.innerHeight / 13;
@@ -29864,10 +29860,11 @@
     const yAmplitude = 400;
     const duration = 10;
     const friction = duration / 2 / Math.PI;
-    let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+    let { useOffscreen, context } = getCanvasContext({
+      disableOffcanvas: proxi.disableOffcanvas
+    });
     let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: true });
-    let userRotation = rotationDefault;
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     const useRadius = true;
@@ -29898,7 +29895,7 @@
       { x: duration + duration / 4 },
       { start: 0, end: duration, ease: "easeLinear" }
     ).goTo(
-      { rotate: () => -userRotation },
+      { rotate: () => -proxi.rotation },
       { start: 0, end: 5, ease: "easeInOutBack" }
     ).goTo({ rotate: 0 }, { start: 5, end: duration, ease: "easeInOutBack" }).label("mylabel", 2).add(({ isForced, direction: direction2 }) => {
       logAddMethods({ isForced, direction: direction2, value: 1 });
@@ -30041,8 +30038,7 @@
       pause: () => syncTimeline.pause(),
       resume: () => syncTimeline.resume(),
       // eslint-disable-next-line unicorn/no-array-reverse
-      reverse: () => syncTimeline.reverse(),
-      setRotation: (value) => userRotation = value
+      reverse: () => syncTimeline.reverse()
     };
   };
 
@@ -30062,27 +30058,25 @@
   }
   var CaterpillarN2Fn = ({
     onMount,
-    getState,
     setRef,
     getRef,
     bindEffect,
     getProxi,
-    delegateEvents
+    delegateEvents,
+    bindObject
   }) => {
     const proxi = getProxi();
     onMount(({ element }) => {
-      const { canvas, rangeValue, rotationButton } = getRef();
+      const { canvas } = getRef();
       let destroy3 = () => {
-      };
-      let setRotation = (_value) => {
       };
       const animationMethods = caterpillarN2Animation({
         canvas,
-        ...getState()
+        proxi
       });
       modules_exports.useFrame(() => {
         modules_exports.useNextTick(() => {
-          ({ destroy: destroy3, setRotation } = animationMethods);
+          ({ destroy: destroy3 } = animationMethods);
         });
       });
       Object.entries(proxi.buttons).forEach(([className, value]) => {
@@ -30090,18 +30084,12 @@
         const btn = element.querySelector(`.${className}`);
         btn?.addEventListener("click", () => animationMethods?.[method]());
       });
-      rotationButton.addEventListener("change", () => {
-        const value = rotationButton.value;
-        setRotation(Number(value));
-        rangeValue.textContent = value;
-      });
       modules_exports.useFrame(() => {
         proxi.isMounted = true;
       });
       return () => {
         destroy3();
         destroy3 = null;
-        setRotation = null;
       };
     });
     return renderHtml`
@@ -30145,25 +30133,42 @@
     })}
                         ></button>
                         ${getControls3({ buttons: proxi.buttons })}
-                        <li class="c-canvas__controls__item is-like-button">
-                            <label class="c-canvas__controls__label">
-                                deg:
-                                <span
-                                    class="js-range-value"
-                                    ${setRef("rangeValue")}
-                                    >${proxi.rotationDefault}</span
-                                >
-                            </label>
+                        <li class="c-canvas__controls__item">
                             <div class="c-canvas__controls__range">
                                 <input
                                     type="range"
                                     min="0"
                                     max="720"
-                                    value="${proxi.rotationDefault}"
+                                    value="${proxi.rotation}"
                                     step="1"
-                                    ${setRef("rotationButton")}
+                                    id="range-value"
+                                    ${delegateEvents({
+      change: (event) => {
+        const target = (
+          /** @type {HTMLInputElement} */
+          event.currentTarget
+        );
+        if (!target) return;
+        proxi.rotation = Number(
+          target.value
+        );
+      },
+      input: (event) => {
+        const target = (
+          /** @type {HTMLInputElement} */
+          event.currentTarget
+        );
+        if (!target) return;
+        proxi.rotationlabel = Number(
+          target.value
+        );
+      }
+    })}
                                 />
                             </div>
+                            <label class="c-canvas__controls__range-value">
+                                ${bindObject`deg: ${() => proxi.rotationlabel}`}
+                            </label>
                         </li>
                     </ul>
                     <canvas ${setRef("canvas")}></canvas>
@@ -30233,8 +30238,15 @@
         })
       },
       state: {
-        rotationDefault: 166,
         isMounted: false,
+        rotation: () => ({
+          value: 166,
+          type: Number
+        }),
+        rotationlabel: () => ({
+          value: 166,
+          type: Number
+        }),
         controlsActive: () => ({
           value: false,
           type: Boolean
@@ -30729,14 +30741,14 @@
   var scrollerN1Animation = ({
     canvas,
     canvasScroller,
-    disableOffcanvas
+    disableOffcanvas,
+    proxi
   }) => {
     const amountOfPath = 17;
     const width = 15;
     const height = 30;
     const opacity = 0.09;
     const intialRotation = 33;
-    const endRotation = 720;
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: true });
@@ -30769,7 +30781,7 @@
     );
     let scrollerTween = tween_exports.createScrollerTween({
       from: { rotate: 0 },
-      to: { rotate: endRotation },
+      to: { rotate: () => proxi.rotation },
       stagger: { each: 2, from: "center" }
     });
     [...stemData].forEach((item) => {
@@ -30893,13 +30905,49 @@
   };
 
   // src/js/component/pages/scroller/n1/scroller-n1.js
+  function getControls5({ proxi, delegateEvents, bindObject }) {
+    return renderHtml` <li class="c-canvas__controls__item">
+        <div class="c-canvas__controls__range">
+            <input
+                type="range"
+                min="360"
+                max="2220"
+                value="${proxi.rotation}"
+                step="10"
+                id="range-value"
+                ${delegateEvents({
+      change: (event) => {
+        const target = (
+          /** @type {HTMLInputElement} */
+          event.currentTarget
+        );
+        if (!target) return;
+        proxi.rotation = Number(target.value);
+      },
+      input: (event) => {
+        const target = (
+          /** @type {HTMLInputElement} */
+          event.currentTarget
+        );
+        if (!target) return;
+        proxi.rotationlabel = Number(target.value);
+      }
+    })}
+            />
+        </div>
+        <label for="range-value" class="c-canvas__controls__range-value">
+            ${bindObject`rotationValue: ${() => proxi.rotationlabel}`}
+        </label>
+    </li>`;
+  }
   var ScrollerN1Fn = ({
     onMount,
-    getState,
     setRef,
     getRef,
     bindEffect,
-    getProxi
+    getProxi,
+    delegateEvents,
+    bindObject
   }) => {
     const proxi = getProxi();
     onMount(() => {
@@ -30913,7 +30961,8 @@
           destroy3 = scrollerN1Animation({
             canvas,
             canvasScroller,
-            ...getState()
+            ...proxi,
+            proxi
           });
         });
       });
@@ -30930,6 +30979,36 @@
         <div>
             <div class="c-canvas c-canvas--fixed ">
                 <div class="background-shape">${proxi.background}</div>
+                <button
+                    type="button"
+                    class="c-canvas__controls__open"
+                    ${delegateEvents({
+      click: () => {
+        proxi.controlsActive = true;
+      }
+    })}
+                >
+                    show controls
+                </button>
+                <ul
+                    class="c-canvas__controls"
+                    ${bindEffect({
+      toggleClass: {
+        active: () => proxi.controlsActive
+      }
+    })}
+                >
+                    <button
+                        type="button"
+                        class="c-canvas__controls__close"
+                        ${delegateEvents({
+      click: () => {
+        proxi.controlsActive = false;
+      }
+    })}
+                    ></button>
+                    ${getControls5({ proxi, delegateEvents, bindObject })}
+                </ul>
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({
@@ -30962,7 +31041,19 @@
         })
       },
       state: {
-        isMounted: false
+        isMounted: false,
+        controlsActive: () => ({
+          value: false,
+          type: Boolean
+        }),
+        rotation: () => ({
+          value: 720,
+          type: Number
+        }),
+        rotationlabel: () => ({
+          value: 720,
+          type: Number
+        })
       }
     }
   );
@@ -33131,7 +33222,7 @@
   );
 
   // src/js/component/pages/move-3d/move-3d-page.js
-  var getControls5 = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
+  var getControls6 = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
     return renderHtml`<div
         class="c-move3d-page__controls"
         ${bindEffect({
@@ -33276,7 +33367,7 @@
         >
             show controls
         </button>
-        ${getControls5({ delegateEvents, bindEffect, bindObject, proxi })}
+        ${getControls6({ delegateEvents, bindEffect, bindObject, proxi })}
         <move-3d
             ${bindProps(
       /** @returns {ReturnBindProps<import('../../common/move-3d/type').Move3D>} */
@@ -35543,7 +35634,7 @@
   };
 
   // src/js/component/pages/async-timeline/async-timeline.js
-  function getControls6({ buttons: buttons5 }) {
+  function getControls7({ buttons: buttons5 }) {
     return Object.entries(buttons5).map(([className, value]) => {
       const { label } = value;
       return renderHtml` <li class="c-canvas__controls__item">
@@ -35642,7 +35733,7 @@
       }
     })}
                         ></button>
-                        ${getControls6({ buttons: proxi.buttons })}
+                        ${getControls7({ buttons: proxi.buttons })}
                     </ul>
                     <canvas ${setRef("canvas")}></canvas>
                 </div>
@@ -37405,7 +37496,7 @@
   };
 
   // src/js/component/pages/rosa-di-grandi/rosa-di-grandi-page.js
-  var getControls7 = ({ proxi, delegateEvents, bindObject }) => {
+  var getControls8 = ({ proxi, delegateEvents, bindObject }) => {
     return renderHtml`
         <li class="l-rosa__controls__item">
             <span for="numerators" class="l-rosa__controls__label">
@@ -37506,7 +37597,7 @@
       }
     })}
             ></button>
-            ${getControls7({
+            ${getControls8({
       proxi,
       getRef,
       setRef,

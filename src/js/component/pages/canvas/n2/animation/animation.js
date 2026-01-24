@@ -22,11 +22,7 @@ const logAddMethods = ({ value, direction, isForced }) => {
 };
 
 /** @type {import('../type').CaterpillarN2Animation} */
-export const caterpillarN2Animation = ({
-    canvas,
-    rotationDefault,
-    disableOffcanvas,
-}) => {
+export const caterpillarN2Animation = ({ canvas, proxi }) => {
     const numItems = 20;
     const width = window.innerHeight / 13;
     const height = window.innerHeight / 13;
@@ -44,14 +40,15 @@ export const caterpillarN2Animation = ({
      */
 
     // eslint-disable-next-line prefer-const
-    let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+    let { useOffscreen, context } = getCanvasContext({
+        disableOffcanvas: proxi.disableOffcanvas,
+    });
 
     /**
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
     let ctx = canvas.getContext(context, { alpha: true });
-    let userRotation = rotationDefault;
     const activeRoute = MobJs.getActiveRoute();
 
     /**
@@ -101,7 +98,7 @@ export const caterpillarN2Animation = ({
             { start: 0, end: duration, ease: 'easeLinear' }
         )
         .goTo(
-            { rotate: () => -userRotation },
+            { rotate: () => -proxi.rotation },
             { start: 0, end: 5, ease: 'easeInOutBack' }
         )
         .goTo({ rotate: 0 }, { start: 5, end: duration, ease: 'easeInOutBack' })
@@ -327,6 +324,5 @@ export const caterpillarN2Animation = ({
         resume: () => syncTimeline.resume(),
         // eslint-disable-next-line unicorn/no-array-reverse
         reverse: () => syncTimeline.reverse(),
-        setRotation: (value) => (userRotation = value),
     };
 };

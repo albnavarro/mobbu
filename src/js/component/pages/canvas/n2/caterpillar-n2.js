@@ -37,30 +37,27 @@ function getControls({ buttons }) {
 /** @type {MobComponent<CaterpillarN2>} */
 export const CaterpillarN2Fn = ({
     onMount,
-    getState,
     setRef,
     getRef,
     bindEffect,
     getProxi,
     delegateEvents,
+    bindObject,
 }) => {
     const proxi = getProxi();
 
     onMount(({ element }) => {
-        const { canvas, rangeValue, rotationButton } = getRef();
+        const { canvas } = getRef();
 
         // eslint-disable-next-line unicorn/consistent-function-scoping
         let destroy = () => {};
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars,unicorn/consistent-function-scoping
-        let setRotation = (/** @type {number} */ _value) => {};
 
         /**
          * Inizializa animation and get anima methods.
          */
         const animationMethods = caterpillarN2Animation({
             canvas,
-            ...getState(),
+            proxi,
         });
 
         /**
@@ -68,7 +65,7 @@ export const CaterpillarN2Fn = ({
          */
         MobCore.useFrame(() => {
             MobCore.useNextTick(() => {
-                ({ destroy, setRotation } = animationMethods);
+                ({ destroy } = animationMethods);
             });
         });
 
@@ -82,15 +79,6 @@ export const CaterpillarN2Fn = ({
             btn?.addEventListener('click', () => animationMethods?.[method]());
         });
 
-        /**
-         * Rotation handler
-         */
-        rotationButton.addEventListener('change', () => {
-            const value = rotationButton.value;
-            setRotation(Number(value));
-            rangeValue.textContent = value;
-        });
-
         MobCore.useFrame(() => {
             proxi.isMounted = true;
         });
@@ -100,9 +88,6 @@ export const CaterpillarN2Fn = ({
 
             // @ts-ignore
             destroy = null;
-
-            // @ts-ignore
-            setRotation = null;
         };
     });
 
@@ -147,25 +132,50 @@ export const CaterpillarN2Fn = ({
                             })}
                         ></button>
                         ${getControls({ buttons: proxi.buttons })}
-                        <li class="c-canvas__controls__item is-like-button">
-                            <label class="c-canvas__controls__label">
-                                deg:
-                                <span
-                                    class="js-range-value"
-                                    ${setRef('rangeValue')}
-                                    >${proxi.rotationDefault}</span
-                                >
-                            </label>
+                        <li class="c-canvas__controls__item">
                             <div class="c-canvas__controls__range">
                                 <input
                                     type="range"
                                     min="0"
                                     max="720"
-                                    value="${proxi.rotationDefault}"
+                                    value="${proxi.rotation}"
                                     step="1"
-                                    ${setRef('rotationButton')}
+                                    id="range-value"
+                                    ${delegateEvents({
+                                        change: (
+                                            /** @type {InputEvent} */ event
+                                        ) => {
+                                            const target =
+                                                /** @type {HTMLInputElement} */ (
+                                                    event.currentTarget
+                                                );
+
+                                            if (!target) return;
+
+                                            proxi.rotation = Number(
+                                                target.value
+                                            );
+                                        },
+                                        input: (
+                                            /** @type {InputEvent} */ event
+                                        ) => {
+                                            const target =
+                                                /** @type {HTMLInputElement} */ (
+                                                    event.currentTarget
+                                                );
+
+                                            if (!target) return;
+
+                                            proxi.rotationlabel = Number(
+                                                target.value
+                                            );
+                                        },
+                                    })}
                                 />
                             </div>
+                            <label class="c-canvas__controls__range-value">
+                                ${bindObject`deg: ${() => proxi.rotationlabel}`}
+                            </label>
                         </li>
                     </ul>
                     <canvas ${setRef('canvas')}></canvas>
