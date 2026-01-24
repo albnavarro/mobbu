@@ -22,6 +22,7 @@ export interface CaterpillarN2 {
     };
     ref: {
         canvas: HTMLCanvasElement;
+        inputRange: HTMLInputElement;
     };
 }
 

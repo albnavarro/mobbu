@@ -5,7 +5,8 @@
  *   BindObject,
  *   DelegateEvents,
  *   MobComponent,
- *   ProxiState
+ *   ProxiState,
+ *   SetRef
  * } from "@mobJsType"
  * @import {ScrollerN1} from "./type"
  */
@@ -21,11 +22,14 @@ import { scrollerN1Animation } from './animation/animation';
 /**
  * @param {object} params
  * @param {ProxiState<ScrollerN1>} params.proxi
+ * @param {SetRef<ScrollerN1>} params.setRef
  * @param {DelegateEvents} params.delegateEvents
  * @param {BindObject} params.bindObject
  * @returns {string}
  */
-function getControls({ proxi, delegateEvents, bindObject }) {
+function getControls({ proxi, setRef, delegateEvents, bindObject }) {
+    const inputId = MobCore.getUnivoqueId();
+
     return html` <li class="c-canvas__controls__item">
         <div class="c-canvas__controls__range">
             <input
@@ -34,17 +38,9 @@ function getControls({ proxi, delegateEvents, bindObject }) {
                 max="2220"
                 value="${proxi.rotation}"
                 step="10"
-                id="range-value"
+                id=${inputId}
+                ${setRef('inputRange')}
                 ${delegateEvents({
-                    change: (/** @type {InputEvent} */ event) => {
-                        const target = /** @type {HTMLInputElement} */ (
-                            event.currentTarget
-                        );
-
-                        if (!target) return;
-
-                        proxi.rotation = Number(target.value);
-                    },
                     input: (/** @type {InputEvent} */ event) => {
                         const target = /** @type {HTMLInputElement} */ (
                             event.currentTarget
@@ -57,7 +53,7 @@ function getControls({ proxi, delegateEvents, bindObject }) {
                 })}
             />
         </div>
-        <label for="range-value" class="c-canvas__controls__range-value">
+        <label for=${inputId} class="c-canvas__controls__range-value">
             ${bindObject`rotationValue: ${() => proxi.rotationlabel}`}
         </label>
     </li>`;
@@ -85,7 +81,7 @@ export const ScrollerN1Fn = ({
         /**
          * Refs
          */
-        const { canvas, canvasScroller } = getRef();
+        const { canvas, canvasScroller, inputRange } = getRef();
 
         /**
          * - Wait one frame to get right canvas dimension.
@@ -107,9 +103,22 @@ export const ScrollerN1Fn = ({
             proxi.isMounted = true;
         });
 
+        /**
+         * Custom listener to input range change.
+         */
+        inputRange.addEventListener('change', (event) => {
+            const target = /** @type {HTMLInputElement} */ (
+                event.currentTarget
+            );
+
+            if (!target) return;
+            proxi.rotation = Number(target.value);
+        });
+
         return () => {
             destroy();
             deactivateScrollDownArrow();
+            inputRange.remove();
 
             // @ts-ignore
             destroy = null;
@@ -151,7 +160,12 @@ export const ScrollerN1Fn = ({
                             },
                         })}
                     ></button>
-                    ${getControls({ proxi, delegateEvents, bindObject })}
+                    ${getControls({
+                        proxi,
+                        setRef,
+                        delegateEvents,
+                        bindObject,
+                    })}
                 </ul>
                 <div
                     class="c-canvas__wrap"

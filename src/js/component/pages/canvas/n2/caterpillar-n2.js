@@ -45,9 +45,10 @@ export const CaterpillarN2Fn = ({
     bindObject,
 }) => {
     const proxi = getProxi();
+    const inputId = MobCore.getUnivoqueId();
 
     onMount(({ element }) => {
-        const { canvas } = getRef();
+        const { canvas, inputRange } = getRef();
 
         // eslint-disable-next-line unicorn/consistent-function-scoping
         let destroy = () => {};
@@ -83,8 +84,21 @@ export const CaterpillarN2Fn = ({
             proxi.isMounted = true;
         });
 
+        /**
+         * Custom listener to input range change.
+         */
+        inputRange.addEventListener('change', (event) => {
+            const target = /** @type {HTMLInputElement} */ (
+                event.currentTarget
+            );
+
+            if (!target) return;
+            proxi.rotation = Number(target.value);
+        });
+
         return () => {
             destroy();
+            inputRange.remove();
 
             // @ts-ignore
             destroy = null;
@@ -140,22 +154,9 @@ export const CaterpillarN2Fn = ({
                                     max="720"
                                     value="${proxi.rotation}"
                                     step="1"
-                                    id="range-value"
+                                    id=${inputId}
+                                    ${setRef('inputRange')}
                                     ${delegateEvents({
-                                        change: (
-                                            /** @type {InputEvent} */ event
-                                        ) => {
-                                            const target =
-                                                /** @type {HTMLInputElement} */ (
-                                                    event.currentTarget
-                                                );
-
-                                            if (!target) return;
-
-                                            proxi.rotation = Number(
-                                                target.value
-                                            );
-                                        },
                                         input: (
                                             /** @type {InputEvent} */ event
                                         ) => {
@@ -173,7 +174,10 @@ export const CaterpillarN2Fn = ({
                                     })}
                                 />
                             </div>
-                            <label class="c-canvas__controls__range-value">
+                            <label
+                                for=${inputId}
+                                class="c-canvas__controls__range-value"
+                            >
                                 ${bindObject`deg: ${() => proxi.rotationlabel}`}
                             </label>
                         </li>

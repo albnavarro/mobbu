@@ -20,7 +20,22 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": " <ul> <li>Event Delegation: <ul> <li>Consolidates listeners at root level</li></ul> </li> <li>Compatibility: <ul> <li>Works on both components and DOM nodes</li></ul> </li> <li>Execution Control: <ul> <li>Blocks duplicate calls during app updates</li> <li>Leverages asynchronous processing</li></ul></li></ul>"
+            "content": "DelegateEvents delegates <span class='quote'>event listeners</span> to a single element, the root element of the app.  The utility can be applied to any DOM element, not only compoents. Depending on the <span class='quote'>current target</span>, the appropriate callback will be selected.<br/>  The module will execute only <span class='quote'>one event at a time</span>, waiting for the end of the application’s internal <span class='quote'>tick</span>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "Since the number of events is limited to <span class='quote'>one per tick</span>, it is possible that not all <span class='quote'>overlapping</span> events will be executed. An example could be using <span class='quote'>input</span> and <span class='quote'>change</span> events applied to the <span class='quote'>same element</span>.<br/> In these specific cases, it is advisable to use the browser’s native <span class='quote'>eventListener API</span> for more granular control. Specific workarounds for these cases have not been implemented to keep the code simpler and to allow reliance on native DOM events when needed."
         },
         {
             "component": "mob-spacer",

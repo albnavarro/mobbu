@@ -62,6 +62,7 @@ export const scrollerN1Animation = ({
     const height = 30;
     const opacity = 0.09;
     const intialRotation = 33;
+    const fill = new Set([14, 5]);
 
     /**
      * Check if offscrennCanvas can be used.
@@ -113,6 +114,7 @@ export const scrollerN1Animation = ({
                     getHeightRounded({ height, relativeIndex, amountOfPath })
                 ),
                 opacity: relativeIndex * opacity,
+                hasFill: fill.has(i),
                 rotate: 0,
                 relativeIndex,
                 index: i,
@@ -172,65 +174,73 @@ export const scrollerN1Animation = ({
         // eslint-disable-next-line no-self-assign
         canvas.width = canvas.width;
 
-        stemData.forEach(({ width, height, opacity, rotate, index }) => {
-            const unitInverse = stemData.length / 2 - index;
+        stemData.forEach(
+            ({ width, height, opacity, rotate, index, hasFill }) => {
+                const unitInverse = stemData.length / 2 - index;
 
-            /**
-             * Center canvas in the screen
-             */
+                /**
+                 * Center canvas in the screen
+                 */
 
-            const scale = 1;
-            const rotation = (Math.PI / 180) * (rotate - intialRotation);
-            const xx = Math.cos(rotation) * scale;
-            const xy = Math.sin(rotation) * scale;
+                const scale = 1;
+                const rotation = (Math.PI / 180) * (rotate - intialRotation);
+                const xx = Math.cos(rotation) * scale;
+                const xy = Math.sin(rotation) * scale;
 
-            /**
-             * Apply scale/rotation/scale all together.
-             */
-            context.setTransform(
-                xx,
-                xy,
-                -xy,
-                xx,
-                centerX,
-                centerY + unitInverse * 19
-            );
-
-            /**
-             * Shape
-             */
-            if (useRadius) {
-                context.beginPath();
-                context.roundRect(
-                    -width / 2,
-                    -height / 2 + unitInverse * 19,
-                    width,
-                    height,
-                    150
+                /**
+                 * Apply scale/rotation/scale all together.
+                 */
+                context.setTransform(
+                    xx,
+                    xy,
+                    -xy,
+                    xx,
+                    centerX,
+                    centerY + unitInverse * 19
                 );
-            } else {
-                context.beginPath();
-                context.rect(
-                    Math.round(-width / 2),
-                    Math.round(-height / 2),
-                    width,
-                    height
-                );
+
+                /**
+                 * Shape
+                 */
+                if (useRadius) {
+                    context.beginPath();
+                    context.roundRect(
+                        -width / 2,
+                        -height / 2 + unitInverse * 19,
+                        width,
+                        height,
+                        150
+                    );
+                } else {
+                    context.beginPath();
+                    context.rect(
+                        Math.round(-width / 2),
+                        Math.round(-height / 2),
+                        width,
+                        height
+                    );
+                }
+
+                /**
+                 * Color.
+                 */
+
+                if (hasFill) {
+                    context.fillStyle = '#000';
+                } else {
+                    context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
+                    context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
+                    context.stroke();
+                }
+
+                context.fill();
+
+                /**
+                 * Reset all transform instead save() restore().
+                 */
+                context.setTransform(1, 0, 0, 1, 0, 0);
             }
-
-            /**
-             * Color.
-             */
-            context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
-            context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
-            context.stroke();
-            context.fill();
-
-            /**
-             * Reset all transform instead save() restore().
-             */
-            context.setTransform(1, 0, 0, 1, 0, 0);
-        });
+        );
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
