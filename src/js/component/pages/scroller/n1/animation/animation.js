@@ -9,6 +9,7 @@ import {
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
+    roundRectIsSupported,
 } from '@utils/canvas-utils';
 
 /**
@@ -57,8 +58,8 @@ export const scrollerN1Animation = ({
 }) => {
     const amountOfPath = 17;
     const width = 15;
-    const height = 40;
-    const opacity = 0.05;
+    const height = 30;
+    const opacity = 0.09;
     const intialRotation = 33;
     const endRotation = 720;
 
@@ -80,11 +81,13 @@ export const scrollerN1Animation = ({
      * If offscreen is supported use.
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    // let wichContext = useOffscreen ? offScreenCtx : ctx;
-    // const useRadius = roundRectIsSupported(wichContext) && !detectSafari();
-    // wichContext = null;
+    let wichContext = useOffscreen ? offScreenCtx : ctx;
+    const useRadius = roundRectIsSupported(
+        /** @type {CanvasRenderingContext2D} */ (wichContext)
+    );
+    wichContext = null;
 
-    const useRadius = false;
+    // const useRadius = false;
 
     /**
      * Initial misure.
@@ -123,7 +126,7 @@ export const scrollerN1Animation = ({
     let scrollerTween = MobTween.createScrollerTween({
         from: { rotate: 0 },
         to: { rotate: endRotation },
-        stagger: { each: 5, from: 'center' },
+        stagger: { each: 2, from: 'center' },
     });
 
     /**
@@ -218,9 +221,8 @@ export const scrollerN1Animation = ({
             /**
              * Color.
              */
-            context.strokeStyle = `#000`;
+            context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
             context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
-            // context.fillStyle = `rgba(238, 238, 238, 0.9)`;
             context.stroke();
             context.fill();
 
