@@ -35,7 +35,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Since the number of events is limited to <span class='quote'>one per tick</span>, it is possible that not all <span class='quote'>overlapping</span> events will be executed. An example could be using <span class='quote'>input</span> and <span class='quote'>change</span> events applied to the <span class='quote'>same element</span>.<br/> In these specific cases, it is advisable to use the browser’s native <span class='quote'>eventListener API</span> for more granular control. Specific workarounds for these cases have not been implemented to keep the code simpler and to allow reliance on native DOM events when needed."
+            "content": "As mentioned, events are processed one at a time. If you need to handle two events within the same application tick, you can add the <span class='quote'>:force</span> suffix to force the execution of the event.<br/> A case where this is necessary is when using an <span class='quote'>input</span> <span class='quote'>type='range'</span>. In this scenario, the <span class='quote'>input</span> and <span class='quote'>change</span> events may collide, so it will be required to use the <strong>change:force</strong> form for the change event."
         },
         {
             "component": "mob-spacer",

@@ -1,6 +1,7 @@
 export interface WeakBindEventsData {
     event: string;
     callback: (arg0: Event, arg1: Record<string, any>, arg2: number) => void;
+    force: boolean;
 }
 
 export type WeakBindEventsDataArray = WeakBindEventsData[];

@@ -380,6 +380,12 @@
             "children": null
         },
         {
+            "label": "ScrollerTrigger n.1",
+            "url": "scrollerN1",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
             "label": "caterpillar n.2",
             "url": "caterpillarN2",
             "scrollToSection": "canvas",
@@ -407,12 +413,6 @@
             "scrollToSection": "canvas",
             "url": "scrollerN0",
             "activeId": 0
-        },
-        {
-            "label": "ScrollerTrigger n.1",
-            "url": "scrollerN1",
-            "scrollToSection": "canvas",
-            "children": null
         },
         {
             "label": "extras",

@@ -5,8 +5,7 @@
  *   BindObject,
  *   DelegateEvents,
  *   MobComponent,
- *   ProxiState,
- *   SetRef
+ *   ProxiState
  * } from "@mobJsType"
  * @import {ScrollerN1} from "./type"
  */
@@ -22,12 +21,11 @@ import { scrollerN1Animation } from './animation/animation';
 /**
  * @param {object} params
  * @param {ProxiState<ScrollerN1>} params.proxi
- * @param {SetRef<ScrollerN1>} params.setRef
  * @param {DelegateEvents} params.delegateEvents
  * @param {BindObject} params.bindObject
  * @returns {string}
  */
-function getControls({ proxi, setRef, delegateEvents, bindObject }) {
+function getControls({ proxi, delegateEvents, bindObject }) {
     const inputId = MobCore.getUnivoqueId();
 
     return html` <li class="c-canvas__controls__item">
@@ -39,8 +37,15 @@ function getControls({ proxi, setRef, delegateEvents, bindObject }) {
                 value="${proxi.rotation}"
                 step="10"
                 id=${inputId}
-                ${setRef('inputRange')}
                 ${delegateEvents({
+                    'change:force': (/** @type {InputEvent} */ event) => {
+                        const target = /** @type {HTMLInputElement} */ (
+                            event.currentTarget
+                        );
+
+                        if (!target) return;
+                        proxi.rotation = Number(target.value);
+                    },
                     input: (/** @type {InputEvent} */ event) => {
                         const target = /** @type {HTMLInputElement} */ (
                             event.currentTarget
@@ -81,7 +86,7 @@ export const ScrollerN1Fn = ({
         /**
          * Refs
          */
-        const { canvas, canvasScroller, inputRange } = getRef();
+        const { canvas, canvasScroller } = getRef();
 
         /**
          * - Wait one frame to get right canvas dimension.
@@ -103,22 +108,9 @@ export const ScrollerN1Fn = ({
             proxi.isMounted = true;
         });
 
-        /**
-         * Custom listener to input range change.
-         */
-        inputRange.addEventListener('change', (event) => {
-            const target = /** @type {HTMLInputElement} */ (
-                event.currentTarget
-            );
-
-            if (!target) return;
-            proxi.rotation = Number(target.value);
-        });
-
         return () => {
             destroy();
             deactivateScrollDownArrow();
-            inputRange.remove();
 
             // @ts-ignore
             destroy = null;
@@ -162,7 +154,6 @@ export const ScrollerN1Fn = ({
                     ></button>
                     ${getControls({
                         proxi,
-                        setRef,
                         delegateEvents,
                         bindObject,
                     })}

@@ -14,7 +14,7 @@ export const caterpillarN1 = async () => {
     updateQuickNavState({
         active: true,
         prevRoute: '',
-        nextRoute: '#caterpillarN2',
+        nextRoute: '#scrollerN1',
         backRoute: '#canvas-overview',
     });
 

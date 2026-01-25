@@ -13,8 +13,8 @@ export const animatedPatternN1 = async () => {
     /** Quicknav */
     updateQuickNavState({
         active: true,
-        prevRoute: '#animatedPatternN0?version=3&activeId=3',
-        nextRoute: '#scrollerN0?version=0&activeId=0',
+        prevRoute: '#animatedPatternN0',
+        nextRoute: '#scrollerN0',
         backRoute: '#canvas-overview',
     });
 

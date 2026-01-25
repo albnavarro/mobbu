@@ -13,8 +13,8 @@ export const scrollerN1 = async () => {
     /** Quicknav */
     updateQuickNavState({
         active: true,
-        prevRoute: '#scrollerN0?version=4&activeId=4',
-        nextRoute: '',
+        prevRoute: '#caterpillarN1',
+        nextRoute: '#caterpillarN2',
         backRoute: '#canvas-overview',
     });
 

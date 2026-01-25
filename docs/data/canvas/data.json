@@ -6,6 +6,10 @@
             "url": "./#caterpillarN1"
         },
         {
+            "title": "ScrollerTrigger n.1",
+            "url": "./#scrollerN1"
+        },
+        {
             "title": "Sync Timeline",
             "url": "./#caterpillarN2"
         },
@@ -24,10 +28,6 @@
         {
             "title": "ScrollerTrigger n.0",
             "url": "./#scrollerN0"
-        },
-        {
-            "title": "ScrollerTrigger n.1",
-            "url": "./#scrollerN1"
         }
     ]
 }

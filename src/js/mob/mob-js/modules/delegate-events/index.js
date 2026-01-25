@@ -16,6 +16,8 @@ import {
     preventFireEvent,
 } from '../common-event';
 
+const FORCE_EVENT = ':FORCE';
+
 /**
  * @type {Map<string, { [key: string]: () => void }[]>}
  */
@@ -80,7 +82,7 @@ const findParentElementInMap = (target) => {
  */
 const getItemFromTarget = (target) => {
     const data = eventDelegationMap.get(target);
-    if (data) return { target, data: eventDelegationMap.get(target) };
+    if (data) return { target, data };
 
     /**
      * Wall up DOM tree searcing first element in map. If event.target is inside element where eventi is applied.
@@ -97,18 +99,6 @@ async function handleAction(eventKey, event) {
     const target = event?.target;
     if (!target) return;
 
-    /**
-     * Fire one event at time on end of app tick.
-     *
-     * - Set shouldFireEvent to true immediatyle after tick to restore event if callback fail.
-     * - If route is loading skip action
-     */
-    if (!getFireEvent()) return;
-
-    preventFireEvent();
-    await tick();
-    allowFireEvent();
-
     const { target: targetParsed, data } = getItemFromTarget(target);
 
     // @ts-ignore
@@ -120,7 +110,27 @@ async function handleAction(eventKey, event) {
     /**
      * Get callback.
      */
-    const { callback } = currentEvent;
+    const { callback, force } = currentEvent;
+
+    /**
+     * Fire one event at time on end of app tick.
+     *
+     * - Set shouldFireEvent to true immediatyle after tick to restore event if callback fail.
+     * - If route is loading skip action
+     * - Force value skip tick check.
+     */
+    if (!getFireEvent() && !force) return;
+
+    preventFireEvent();
+    await tick();
+    allowFireEvent();
+
+    /**
+     * Seconda verifica: elemento potrebbe essere stato rimosso durante tick (specialmente con :FORCE che bypassa il
+     * blocco eventi)
+     */
+    // @ts-ignore
+    if (!document.contains(targetParsed)) return;
 
     /**
      * Get current repeater state if target is a component.
@@ -177,8 +187,15 @@ export const applyDelegationBindEvent = async (root) => {
         const dataParsed = data?.flatMap((item) => {
             return Object.entries(item).map((current) => {
                 const [event, callback] = current;
-                if (!eventToAdd.includes(event)) eventToAdd.push(event);
-                return { event, callback };
+                const force = event.toUpperCase().endsWith(FORCE_EVENT);
+                const eventParsed = event
+                    .toUpperCase()
+                    .replaceAll(FORCE_EVENT, '')
+                    .toLowerCase();
+
+                if (!eventToAdd.includes(eventParsed))
+                    eventToAdd.push(eventParsed);
+                return { event: eventParsed, callback, force };
             });
         });
 
@@ -188,7 +205,7 @@ export const applyDelegationBindEvent = async (root) => {
     const rootElement = getRoot();
 
     /**
-     * Cycle all event and add a click if needed.
+     * Register event listeners on root element for all discovered event types.
      */
     eventToAdd.forEach((eventKey) => {
         if (eventRegistered.includes(eventKey)) return;

@@ -14,7 +14,6 @@ export interface ScrollerN1 {
     ref: {
         canvas: HTMLCanvasElement;
         canvasScroller: HTMLCanvasElement;
-        inputRange: HTMLInputElement;
     };
 }
 

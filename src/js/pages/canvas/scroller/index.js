@@ -15,7 +15,7 @@ export const scrollerN0 = async () => {
     updateQuickNavState({
         active: true,
         prevRoute: '#animatedPatternN1',
-        nextRoute: '#scrollerN1',
+        nextRoute: '',
         backRoute: '#canvas-overview',
     });
 

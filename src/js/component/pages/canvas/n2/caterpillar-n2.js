@@ -48,7 +48,7 @@ export const CaterpillarN2Fn = ({
     const inputId = MobCore.getUnivoqueId();
 
     onMount(({ element }) => {
-        const { canvas, inputRange } = getRef();
+        const { canvas } = getRef();
 
         // eslint-disable-next-line unicorn/consistent-function-scoping
         let destroy = () => {};
@@ -84,21 +84,8 @@ export const CaterpillarN2Fn = ({
             proxi.isMounted = true;
         });
 
-        /**
-         * Custom listener to input range change.
-         */
-        inputRange.addEventListener('change', (event) => {
-            const target = /** @type {HTMLInputElement} */ (
-                event.currentTarget
-            );
-
-            if (!target) return;
-            proxi.rotation = Number(target.value);
-        });
-
         return () => {
             destroy();
-            inputRange.remove();
 
             // @ts-ignore
             destroy = null;
@@ -155,8 +142,20 @@ export const CaterpillarN2Fn = ({
                                     value="${proxi.rotation}"
                                     step="1"
                                     id=${inputId}
-                                    ${setRef('inputRange')}
                                     ${delegateEvents({
+                                        'change:force': (
+                                            /** @type {InputEvent} */ event
+                                        ) => {
+                                            const target =
+                                                /** @type {HTMLInputElement} */ (
+                                                    event.currentTarget
+                                                );
+
+                                            if (!target) return;
+                                            proxi.rotation = Number(
+                                                target.value
+                                            );
+                                        },
                                         input: (
                                             /** @type {InputEvent} */ event
                                         ) => {
