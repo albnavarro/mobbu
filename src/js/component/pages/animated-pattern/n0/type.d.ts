@@ -24,4 +24,5 @@ export type AnimatedPatternN0Animation = (arg0: {
     disableOffcanvas: boolean;
     stagger: Partial<StaggerObject>;
     reorder: boolean;
+    animationType: string;
 }) => () => void;

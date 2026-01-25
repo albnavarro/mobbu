@@ -46,16 +46,8 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
 
     const numberOfRow = 10;
     const numberOfColumn = 10;
-    const cellWidth =
-        window.innerHeight >= 800
-            ? window.innerHeight / 18
-            : window.innerHeight / 20;
-
-    const cellHeight =
-        window.innerHeight >= 800
-            ? window.innerHeight / 18
-            : window.innerHeight / 20;
-
+    const cellWidth = window.innerWidth / 20;
+    const cellHeight = window.innerHeight / 20;
     const gutter = 1;
 
     /**
@@ -311,7 +303,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                                 Math.floor(-tweenAroundTarget.height / 2),
                                 Math.floor(tweenAroundTarget.width),
                                 tweenAroundTarget.height,
-                                5
+                                150
                             );
                         } else {
                             context.beginPath();
@@ -357,7 +349,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                         Math.floor(-height / 2),
                         width,
                         height,
-                        5
+                        150
                     );
                 } else {
                     context.beginPath();
@@ -412,7 +404,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                     Math.floor(-tweenRotateTarget.height / 2),
                     Math.floor(tweenRotateTarget.width),
                     Math.floor(tweenRotateTarget.height),
-                    5
+                    150
                 );
             } else {
                 context.beginPath();

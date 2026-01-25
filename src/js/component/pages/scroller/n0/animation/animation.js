@@ -20,16 +20,8 @@ export const scrollerN0Animation = ({
     stagger,
     disableOffcanvas,
 }) => {
-    const cellWidth =
-        window.innerHeight >= 700
-            ? window.innerHeight / 16
-            : window.innerHeight / 20;
-
-    const cellHeight =
-        window.innerHeight >= 700
-            ? window.innerHeight / 16
-            : window.innerHeight / 20;
-
+    const cellWidth = window.innerWidth / 20;
+    const cellHeight = window.innerHeight / 20;
     const gutter = 1;
     const numberOfRow = 10;
     const numberOfColumn = 10;
@@ -192,7 +184,7 @@ export const scrollerN0Animation = ({
                         Math.floor(-height / 2),
                         width,
                         height,
-                        5
+                        150
                     );
                 } else {
                     context.beginPath();

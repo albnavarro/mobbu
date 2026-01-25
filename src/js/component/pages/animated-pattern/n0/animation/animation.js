@@ -21,17 +21,10 @@ export const animatedPatternN0Animation = ({
     disableOffcanvas,
     stagger,
     reorder,
+    animationType,
 }) => {
-    const cellWidth =
-        window.innerHeight >= 700
-            ? window.innerHeight / 18
-            : window.innerHeight / 20;
-
-    const cellHeight =
-        window.innerHeight >= 700
-            ? window.innerHeight / 18
-            : window.innerHeight / 20;
-
+    const cellWidth = window.innerWidth / 20;
+    const cellHeight = window.innerHeight / 20;
     const gutter = 1;
 
     /**
@@ -181,7 +174,7 @@ export const animatedPatternN0Animation = ({
                         Math.floor(-height / 2),
                         width,
                         height,
-                        5
+                        150
                     );
                 } else {
                     context.beginPath();
@@ -199,7 +192,7 @@ export const animatedPatternN0Animation = ({
                 } else {
                     // context.strokeStyle = `#000`;
                     // context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
-                    context.fillStyle = `rgba(238, 238, 238, 0.9)`;
+                    context.fillStyle = `rgba(255, 255, 255, 1)`;
                     // context.stroke();
                     context.fill();
                 }
@@ -222,13 +215,20 @@ export const animatedPatternN0Animation = ({
         repeat: -1,
         yoyo: true,
         autoSet: false,
-    })
-        .label({ name: 'label1' })
-        .goTo(gridTween, { scale: 1.5, rotate: 90 }, { duration: 1000 })
-        .goTo(gridTween, { scale: 0.5 }, { duration: 500 })
-        .goTo(gridTween, { rotate: 180, scale: 1.2 }, { duration: 500 })
-        .goTo(gridTween, { scale: 1.3 }, { duration: 500 })
-        .goTo(gridTween, { scale: 1 }, { duration: 1200 });
+    }).label({ name: 'label1' });
+
+    if (animationType === 'asymmetric' || animationType === 'random')
+        gridTimeline
+            .goTo(gridTween, { scale: 0.2, rotate: 90 }, { duration: 1000 })
+            .goTo(gridTween, { scale: 1 }, { duration: 500 })
+            .goTo(gridTween, { rotate: 180, scale: 1.2 }, { duration: 500 })
+            .goTo(gridTween, { scale: 0.3, rotate: 0 }, { duration: 500 })
+            .goTo(gridTween, { scale: 1 }, { duration: 1200 });
+
+    if (animationType === 'edges' || animationType === 'radial')
+        gridTimeline
+            .goTo(gridTween, { scale: 0.3, rotate: 0 }, { duration: 1000 })
+            .goTo(gridTween, { scale: 1 }, { duration: 1000 });
 
     gridTimeline.onLoopEnd(({ direction, loop }) => {
         console.log(`loop end: ${direction}, ${loop}`);
