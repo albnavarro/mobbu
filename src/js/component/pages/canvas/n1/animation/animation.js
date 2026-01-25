@@ -13,13 +13,13 @@ import {
 
 /** @type {import('../type').CaterpillarN1Animation} */
 export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
-    const numItems = 20;
+    const numItems = 19;
     const width = window.innerHeight / 30;
-    const height = window.innerHeight / 30;
-    const fill = [14];
-    const opacity = 1;
+    const height = window.innerHeight / 60;
+    const fill = [14, 5];
+    const opacity = 0.1;
     const radius = 0;
-    const rotationEach = 15;
+    const rotationEach = 10;
     const centerEach = 3;
     const rotationDuration = 5000;
 
@@ -168,7 +168,7 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
                         Math.round(-height / 2),
                         width,
                         height,
-                        [40, 40]
+                        150
                     );
                 } else {
                     context.beginPath();
@@ -183,8 +183,8 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
                 if (hasFill) {
                     context.fillStyle = '#000';
                 } else {
-                    context.strokeStyle = `#000`;
                     context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
+                    context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
                     context.stroke();
                 }
 
