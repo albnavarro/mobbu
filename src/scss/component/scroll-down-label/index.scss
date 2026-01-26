@@ -4,9 +4,9 @@
     visibility: hidden;
     position: fixed;
     z-index: 15;
-    top: calc(var(--header-height) - 1px);
+    top: calc(var(--header-height) + rem(20));
     left: 50%;
-    padding: rem(10) rem(20) rem(6);
+    padding: rem(6) rem(20) rem(10);
     transform: translateX(-50%);
     transition:
         opacity 0.35s,
@@ -15,10 +15,8 @@
     border: 1px $black solid;
     opacity: 0;
     color: $black;
-    font-size: rem(14);
-    font-weight: 600;
+    line-height: 1;
     text-align: center;
-    text-transform: uppercase;
 
     &.active {
         visibility: visible;

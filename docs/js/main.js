@@ -2343,12 +2343,12 @@ https://github.com/highlightjs/highlight.js/issues/2277`),V=E,B=R),$===void 0&&(
             <span class="c-loader__inner"></span>
         </div>
     `};var d0=m.createComponent({tag:"route-loader",component:m0,state:{isLoading:()=>({value:!1,type:Boolean}),isDisable:()=>({value:!1,type:Boolean}),skip:()=>({value:!0,type:Boolean})}});var h0=({getProxi:e,bindEffect:t,addMethod:r})=>{let o=e();return r("update",n=>{o.active=n}),g`
-        <div
+        <h3
             class="c-scroller-down-label"
             ${t({toggleClass:{active:()=>o.active}})}
         >
             Scroll down
-        </div>
+        </h3>
     `};var f0=m.createComponent({tag:"scroll-down-label",component:h0,state:{active:()=>({value:!1,type:Boolean})}});var g0=()=>{m.useMethodByName(jo)?.setInputFocus()},hp=e=>{m.useMethodByName(jo)?.updateCurrentSearchFromSuggestion(e)},b0=e=>{m.useMethodByName(jo)?.shouldCloseSuggestion(e)},Nc=()=>{m.useMethodByName(jo)?.closeSuggestion()};var y0=({proxi:e})=>{e.active=!1,Nc()},Bk=({target:e})=>{e&&b0(e)},v0=({getProxi:e,delegateEvents:t,bindEffect:r,addMethod:o,bindObject:n,staticProps:s})=>{let i=e();return o("toggle",()=>{i.active=!i.active}),g`<div
         class="search-overlay"
         ${r({toggleClass:{active:()=>i.active}})}

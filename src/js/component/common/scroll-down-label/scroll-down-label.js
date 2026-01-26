@@ -15,13 +15,13 @@ export const ScrollDownLabelFn = ({ getProxi, bindEffect, addMethod }) => {
     });
 
     return html`
-        <div
+        <h3
             class="c-scroller-down-label"
             ${bindEffect({
                 toggleClass: { active: () => proxi.active },
             })}
         >
             Scroll down
-        </div>
+        </h3>
     `;
 };
