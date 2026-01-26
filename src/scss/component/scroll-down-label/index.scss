@@ -18,6 +18,11 @@
     line-height: 1;
     text-align: center;
 
+    @media screen and (height <= 700px) {
+        top: calc(var(--header-height) - 1px);
+        font-size: rem(16);
+    }
+
     &.active {
         visibility: visible;
         opacity: 1;
