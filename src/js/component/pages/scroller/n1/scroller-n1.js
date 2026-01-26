@@ -40,7 +40,7 @@ function getControls({ proxi, delegateEvents, bindObject }) {
                 ${delegateEvents({
                     'change:force': (/** @type {InputEvent} */ event) => {
                         const target = /** @type {HTMLInputElement} */ (
-                            event.currentTarget
+                            event.target
                         );
 
                         if (!target) return;
@@ -48,7 +48,7 @@ function getControls({ proxi, delegateEvents, bindObject }) {
                     },
                     input: (/** @type {InputEvent} */ event) => {
                         const target = /** @type {HTMLInputElement} */ (
-                            event.currentTarget
+                            event.target
                         );
 
                         if (!target) return;

@@ -168,7 +168,7 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
                         Math.round(-height / 2),
                         width,
                         height,
-                        150
+                        130
                     );
                 } else {
                     context.beginPath();

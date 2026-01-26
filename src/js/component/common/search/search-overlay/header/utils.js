@@ -21,14 +21,14 @@ export const updateSearchFromSuggestion = (word) => {
 };
 
 /**
- * @param {HTMLElement} currentTarget
+ * @param {HTMLElement} target
  */
-export const shouldCloseSearchSuggestion = (currentTarget) => {
+export const shouldCloseSearchSuggestion = (target) => {
     /**
      * @type {import('@mobJsType').UseMethodByName<import('./type').SearchOverlayHeader>}
      */
     const headerMethods = MobJs.useMethodByName(searchOverlayHeader);
-    headerMethods?.shouldCloseSuggestion(currentTarget);
+    headerMethods?.shouldCloseSuggestion(target);
 };
 
 export const closeSearchSuggestion = () => {

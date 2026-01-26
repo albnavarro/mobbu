@@ -20,11 +20,11 @@ const closeOverlay = ({ proxi }) => {
 
 /**
  * @param {object} params
- * @param {HTMLElement} params.currentTarget
+ * @param {HTMLElement} params.target
  */
-const shouldCloseSuggestion = ({ currentTarget }) => {
-    if (!currentTarget) return;
-    shouldCloseSearchSuggestion(currentTarget);
+const shouldCloseSuggestion = ({ target }) => {
+    if (!target) return;
+    shouldCloseSearchSuggestion(target);
 };
 
 /** @type {MobComponent<import('./type').SearchOverlay>} */
@@ -75,9 +75,7 @@ export const SearchOverlayFn = ({
             ${delegateEvents({
                 click: (/** @type {Event} */ event) => {
                     shouldCloseSuggestion({
-                        currentTarget: /** @type {HTMLElement} */ (
-                            event.currentTarget
-                        ),
+                        target: /** @type {HTMLElement} */ (event.target),
                     });
                 },
             })}

@@ -148,7 +148,7 @@ export const CaterpillarN2Fn = ({
                                         ) => {
                                             const target =
                                                 /** @type {HTMLInputElement} */ (
-                                                    event.currentTarget
+                                                    event.target
                                                 );
 
                                             if (!target) return;
@@ -161,7 +161,7 @@ export const CaterpillarN2Fn = ({
                                         ) => {
                                             const target =
                                                 /** @type {HTMLInputElement} */ (
-                                                    event.currentTarget
+                                                    event.target
                                                 );
 
                                             if (!target) return;
