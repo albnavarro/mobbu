@@ -16,8 +16,7 @@ export const mouseTrailAnimation = ({ elements }) => {
      */
     let lastY = 0;
     let lastX = 0;
-    let lastRotation = 0;
-    let loopToAdd = 0;
+    let currentRotation = 0;
 
     /**
      * Create position tween.
@@ -64,42 +63,40 @@ export const mouseTrailAnimation = ({ elements }) => {
         const { x, y } = client;
 
         /**
-         * Get X
-         */
-        /**
-         * Get Rad
+         * Calculate rotation based on movement direction.
          */
         const yDiff = y - lastY;
         const xDiff = x - lastX;
 
         /**
-         * Rotation tween. TODO: usare seno e coseno
+         * Calculate euclidean distance to avoid rotations on minimal movements.
          */
-        if (Math.abs(xDiff) > 10 || Math.abs(yDiff) > 10) {
+        const distance = Math.hypot(xDiff, yDiff);
+
+        if (distance > 10) {
             lastY = y;
             lastX = x;
-            const rotationBase = Math.atan2(yDiff, xDiff) * RAD2DEG;
-            const rotationParsed = rotationBase + 180;
-            const difference = Math.abs(lastRotation - rotationParsed);
 
             /**
-             * Fix 360 to 0;
+             * Get angle from movement direction
              */
-            if (difference > 180 && lastRotation < rotationParsed)
-                loopToAdd -= difference;
+            const targetAngle = Math.atan2(yDiff, xDiff) * RAD2DEG + 180 + 90;
 
             /**
-             * Fix 360 to 0;
+             * Calculate the shortest angular distance between current and target rotation.
+             * Normalize delta to [-180, 180] range to always take the shortest path.
+             * Example: rotating from 350° to 10° will use +20° instead of -340°.
+             * This prevents unwanted full rotations when crossing the 0°/360° boundary.
              */
-            if (difference > 180 && lastRotation > rotationParsed)
-                loopToAdd += difference;
+            let delta = targetAngle - currentRotation;
+            while (delta > 180) delta -= 360;
+            while (delta < -180) delta += 360;
 
             /**
-             * Add or remove 360.
+             * Update current rotation incrementally (spring tween handles smoothing)
              */
-            const rotationDef = rotationParsed + loopToAdd + 90;
-            mouseTweenRotate.goTo({ rotation: rotationDef });
-            lastRotation = rotationParsed;
+            currentRotation += delta;
+            mouseTweenRotate.goTo({ rotation: currentRotation });
         }
 
         mouseTween.goTo({ x: x - windowWidth / 2, y: y - windowHeight / 2 });
@@ -124,9 +121,7 @@ export const mouseTrailAnimation = ({ elements }) => {
             // @ts-ignore
             lastX = null;
             // @ts-ignore
-            lastRotation = null;
-            // @ts-ignore
-            loopToAdd = null;
+            currentRotation = null;
         },
     };
 };
