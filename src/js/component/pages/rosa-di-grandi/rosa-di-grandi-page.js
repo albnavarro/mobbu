@@ -37,19 +37,19 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
                     step="1"
                     ${delegateEvents({
                         input: (/** @type {InputEvent} */ event) => {
-                            const { target } = event;
-                            if (!target) return;
+                            const { currentTarget } = event;
+                            if (!currentTarget) return;
 
                             // @ts-ignore
-                            const value = target.value;
+                            const value = currentTarget.value;
                             proxi.numeratorsLabel = Number(value);
                         },
                         change: (/** @type {InputEvent} */ event) => {
-                            const { target } = event;
-                            if (!target) return;
+                            const { currentTarget } = event;
+                            if (!currentTarget) return;
 
                             // @ts-ignore
-                            const value = target.value;
+                            const value = currentTarget.value;
                             proxi.numerators = Number(value);
                         },
                     })}

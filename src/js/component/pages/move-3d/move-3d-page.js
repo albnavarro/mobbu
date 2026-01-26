@@ -46,8 +46,9 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
                     ${delegateEvents({
                         input: (/** @type {KeyboardEvent} */ event) => {
                             const value =
-                                /** @type {HTMLInputElement} */ (event.target)
-                                    .value ?? 0;
+                                /** @type {HTMLInputElement} */ (
+                                    event.currentTarget
+                                ).value ?? 0;
                             proxi.factor = Number(value);
                         },
                     })}
@@ -63,8 +64,9 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
                     ${delegateEvents({
                         input: (/** @type {KeyboardEvent} */ event) => {
                             const value =
-                                /** @type {HTMLInputElement} */ (event.target)
-                                    .value ?? 0;
+                                /** @type {HTMLInputElement} */ (
+                                    event.currentTarget
+                                ).value ?? 0;
                             proxi.xDepth = Number(value);
                         },
                     })}
@@ -81,8 +83,9 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
                     ${delegateEvents({
                         input: (/** @type {KeyboardEvent} */ event) => {
                             const value =
-                                /** @type {HTMLInputElement} */ (event.target)
-                                    .value ?? 0;
+                                /** @type {HTMLInputElement} */ (
+                                    event.currentTarget
+                                ).value ?? 0;
                             proxi.xLimit = Number(value);
                         },
                     })}
@@ -98,8 +101,9 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
                     ${delegateEvents({
                         input: (/** @type {KeyboardEvent} */ event) => {
                             const value =
-                                /** @type {HTMLInputElement} */ (event.target)
-                                    .value ?? 0;
+                                /** @type {HTMLInputElement} */ (
+                                    event.currentTarget
+                                ).value ?? 0;
                             proxi.yDepth = Number(value);
                         },
                     })}
@@ -116,8 +120,9 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
                     ${delegateEvents({
                         input: (/** @type {KeyboardEvent} */ event) => {
                             const value =
-                                /** @type {HTMLInputElement} */ (event.target)
-                                    .value ?? 0;
+                                /** @type {HTMLInputElement} */ (
+                                    event.currentTarget
+                                ).value ?? 0;
                             proxi.yLimit = Number(value);
                         },
                     })}

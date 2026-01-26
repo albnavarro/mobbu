@@ -43,7 +43,7 @@ export const DebugFilterHeadFn = ({
                         event.preventDefault();
 
                         const testString = /** @type {HTMLInputElement} */ (
-                            event.target
+                            event.currentTarget
                         ).value;
                         refreshList(testString);
                     }

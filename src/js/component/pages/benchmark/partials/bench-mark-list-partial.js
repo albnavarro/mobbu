@@ -120,8 +120,9 @@ export const benchMarkListPartial = ({
                             event.preventDefault();
 
                             const value = Number(
-                                /** @type {HTMLInputElement} */ (event.target)
-                                    ?.value ?? 0
+                                /** @type {HTMLInputElement} */ (
+                                    event.currentTarget
+                                )?.value ?? 0
                             );
 
                             setData({ proxi, value });

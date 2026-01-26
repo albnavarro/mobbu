@@ -60,7 +60,7 @@ export const HistoryItemFn = ({
                 ${delegateEvents({
                     click: (/** @type {MouseEvent} */ event) => {
                         proxi.checked = /** @type {HTMLInputElement} */ (
-                            event.target
+                            event.currentTarget
                         ).checked;
                     },
                 })}

@@ -146,28 +146,28 @@ export const CaterpillarN2Fn = ({
                                         'change:force': (
                                             /** @type {InputEvent} */ event
                                         ) => {
-                                            const target =
+                                            const currentTarget =
                                                 /** @type {HTMLInputElement} */ (
-                                                    event.target
+                                                    event.currentTarget
                                                 );
 
-                                            if (!target) return;
+                                            if (!currentTarget) return;
                                             proxi.rotation = Number(
-                                                target.value
+                                                currentTarget.value
                                             );
                                         },
                                         input: (
                                             /** @type {InputEvent} */ event
                                         ) => {
-                                            const target =
+                                            const currentTarget =
                                                 /** @type {HTMLInputElement} */ (
-                                                    event.target
+                                                    event.currentTarget
                                                 );
 
-                                            if (!target) return;
+                                            if (!currentTarget) return;
 
                                             proxi.rotationlabel = Number(
-                                                target.value
+                                                currentTarget.value
                                             );
                                         },
                                     })}

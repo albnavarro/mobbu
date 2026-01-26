@@ -226,8 +226,9 @@ export const SearchOverlayHeaderFn = ({
 
                             // update suggestion
                             const currentSearch =
-                                /** @type {HTMLInputElement} */ (event.target)
-                                    .value;
+                                /** @type {HTMLInputElement} */ (
+                                    event.currentTarget
+                                ).value;
                             filterSuggestion({ currentSearch, proxi });
                         },
                         60

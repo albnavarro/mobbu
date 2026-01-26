@@ -26,7 +26,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                             event.preventDefault();
 
                             const id = /** @type {HTMLInputElement} */ (
-                                event.target
+                                event.currentTarget
                             ).value;
 
                             updateDebugComponentById(id ?? '');
@@ -64,8 +64,9 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                             event.preventDefault();
 
                             const instanceName =
-                                /** @type {HTMLInputElement} */ (event.target)
-                                    .value;
+                                /** @type {HTMLInputElement} */ (
+                                    event.currentTarget
+                                ).value;
 
                             const id = MobJs.getIdByInstanceName(instanceName);
                             updateDebugComponentById(id ?? '');

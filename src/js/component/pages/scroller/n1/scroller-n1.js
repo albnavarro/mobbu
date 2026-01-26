@@ -39,21 +39,21 @@ function getControls({ proxi, delegateEvents, bindObject }) {
                 id=${inputId}
                 ${delegateEvents({
                     'change:force': (/** @type {InputEvent} */ event) => {
-                        const target = /** @type {HTMLInputElement} */ (
-                            event.target
+                        const currentTarget = /** @type {HTMLInputElement} */ (
+                            event.currentTarget
                         );
 
-                        if (!target) return;
-                        proxi.rotation = Number(target.value);
+                        if (!currentTarget) return;
+                        proxi.rotation = Number(currentTarget.value);
                     },
                     input: (/** @type {InputEvent} */ event) => {
-                        const target = /** @type {HTMLInputElement} */ (
-                            event.target
+                        const currentTarget = /** @type {HTMLInputElement} */ (
+                            event.currentTarget
                         );
 
-                        if (!target) return;
+                        if (!currentTarget) return;
 
-                        proxi.rotationlabel = Number(target.value);
+                        proxi.rotationlabel = Number(currentTarget.value);
                     },
                 })}
             />
