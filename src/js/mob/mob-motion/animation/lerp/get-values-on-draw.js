@@ -16,7 +16,8 @@ export const lerpGetValuesOnDraw = ({ values, fps, velocity, precision }) => {
 
         const lerpValue = lerp(currentValue, toValue, (velocity / fps) * 60);
         const newCurrentValue = getRoundedValue(lerpValue);
-        const settled = Math.abs(toValue - newCurrentValue) <= precision;
+        const settled =
+            Number(Math.abs(toValue - newCurrentValue).toFixed(4)) <= precision;
 
         if (settled) {
             return {

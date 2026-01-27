@@ -13228,7 +13228,7 @@
       const { currentValue, toValue } = item;
       const lerpValue = lerp(currentValue, toValue, velocity / fps2 * 60);
       const newCurrentValue = getRoundedValue(lerpValue);
-      const settled = Math.abs(toValue - newCurrentValue) <= precision;
+      const settled = Number(Math.abs(toValue - newCurrentValue).toFixed(4)) <= precision;
       if (settled) {
         return {
           ...item,
