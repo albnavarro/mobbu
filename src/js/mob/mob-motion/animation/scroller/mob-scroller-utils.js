@@ -210,9 +210,9 @@ export const getStartPoint = (screenUnit, data, direction) => {
     );
 
     /**
-     * -"-100px" -> -100
-     * -".5vh" -> 0.5
-     * -" 50 px" -> 50
+     * - "-100px" -> -100
+     * - ".5vh" -> 0.5
+     * - " 50 px" -> 50
      */
     const val = Number.parseFloat(String(numberVal));
     const startValInNumber = Number.isNaN(val) ? 0 : val;
@@ -267,9 +267,9 @@ export const getEndPoint = (
     );
 
     /**
-     * -"-100px" -> -100
-     * -".5vh" -> 0.5
-     * -" 50 px" -> 50
+     * - "-100px" -> -100
+     * - ".5vh" -> 0.5
+     * - " 50 px" -> 50
      */
     const val = Number.parseFloat(String(numberVal));
     const endValInNumber = Number.isNaN(val) ? 0 : val;
