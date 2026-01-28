@@ -716,6 +716,15 @@
             }
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "This means that when the property start is set to <span class='quote'>bottom</span> (default), the scroll direction will be traditional (downwards), and the <span class='quote'>start</span> marker will be positioned at the <span class='quote'>bottom</span> of the screen (ScrollTrigger will activate when the top edge of the target element collides with this point). If, instead, the property start is set to <span class='quote'>top</span>, an opposite scroll direction is considered, and the <span class='quote'>start</span> marker will be at the top of the screen; in this case, the <span class='quote'>bottom edge</span> of the target object is taken into account."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
