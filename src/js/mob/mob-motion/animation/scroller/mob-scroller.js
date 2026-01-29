@@ -1142,11 +1142,11 @@ export default class MobScroller {
             this.#unitMisure = MobScrollerConstant.PX;
         } else {
             const str = String(this.#range);
-            const firstChar = str.charAt(0);
-            const isNegative = firstChar === '-' ? -1 : 1;
 
             /**
-             * Check if px|vw|deg or other is associated with the right props Ex: rotate have a value like '45deg'
+             * Validate value and return value or 0px.
+             *
+             * Check if px|vw|deg or other is associated with the right props Es: rotate have a value like '45deg'
              */
             const strParsed = checkStringRangeOnPropierties(
                 str,
@@ -1155,11 +1155,13 @@ export default class MobScroller {
 
             /**
              * Extract number forms string
+             *
+             * - "-100px" -> -100
+             * - ".5vh" -> 0.5
+             * - " 50 px" -> 50
              */
-            this.#numericRange =
-                // @ts-ignore
-                Number.parseFloat(strParsed.replaceAll(/^\D+/g, '')) *
-                isNegative;
+            const value = Number.parseFloat(str);
+            this.#numericRange = Number.isNaN(value) ? 0 : value;
 
             /**
              * Get px|vw|etc...
