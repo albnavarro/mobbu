@@ -209,8 +209,20 @@ export const Move3Dfn = ({
         const unsubscribeSpring = spring.subscribe(({ delta, ax, ay }) => {
             container.style.transform = `translate3D(0,0,0) rotateY(${ax}deg) rotateX(${ay}deg)`;
 
-            // Callback
-            proxi.onUpdate({ delta, deltaX: ax, deltaY: ay });
+            /**
+             * Here proxi can be destroyed, spring action is in frame queque.
+             *
+             * Il `trick` arriva dall' inserimento della seguente riga in `src/js/mob/mob-core/store/store-proxi.js`
+             *
+             * - Controlliamo che le trap del proxi non tornino elementi se lo store é stato distrutto.
+             * - Ma il proxi é un wrapper e puó resisutire riferimenti all' oggetto originale non ancora eliminati dal GC.
+             * - If (!storeMap.has(instanceId)) return false;
+             * - Il trick con i proxi in questo caso é salvare i refirenti alla propietá e controllare il riferimento.
+             * - Le trap `has` e `get` possono non essere coerenti.
+             * - Approfondire ma il ragionamento alla base sembra corretto.
+             */
+            const onUpdate = proxi.onUpdate;
+            if (onUpdate) onUpdate({ delta, deltaX: ax, deltaY: ay });
         });
 
         const unsubscribeOnComplete = spring.onComplete(({ ax, ay }) => {

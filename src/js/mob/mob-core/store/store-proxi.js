@@ -40,6 +40,11 @@ export const getProxiEntryPoint = ({ instanceId }) => {
     const selfProxi = new Proxy(store, {
         set(target, /** @type {string} */ prop, value) {
             /**
+             * Make sure that store is not destroyed
+             */
+            if (!storeMap.has(instanceId)) return false;
+
+            /**
              * - With shallow copy refer to original store reference
              * - With custom copy get update store from main map, copies here is not necessary.
              * - Fallback to target if component is destroyed and there is no reference, typically call proxi after
@@ -76,6 +81,11 @@ export const getProxiEntryPoint = ({ instanceId }) => {
             return false;
         },
         get(target, /** @type {string} */ prop) {
+            /**
+             * Make sure that store is not destroyed
+             */
+            if (!storeMap.has(instanceId)) return false;
+
             /**
              * - With shallow copy refer to original store reference
              * - With custom copy get update store from main map, copies here is not necessary.
