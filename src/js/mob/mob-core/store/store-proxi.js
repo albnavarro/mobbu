@@ -5,7 +5,6 @@ import { storeMap, updateMainMap } from './store-map';
 import { storeSetEntryPoint } from './store-set';
 import { checkIfPropIsComputed } from './store-utils';
 import { storeProxiReadOnlyWarning } from './store-warining';
-import { storeStrategyNeedCopy } from './strategy';
 
 /**
  * Proxi state/states with the original reference of store object.
@@ -32,87 +31,78 @@ export const getProxiEntryPoint = ({ instanceId }) => {
         return previousProxiObject;
     }
 
-    const store = state?.store;
-
     /**
      * Create self proxi
      */
-    const selfProxi = new Proxy(store, {
-        set(target, /** @type {string} */ prop, value) {
-            /**
-             * Make sure that store is not destroyed
-             */
-            if (!storeMap.has(instanceId)) return false;
+    const selfProxi = new Proxy(
+        {},
+        {
+            set(_, /** @type {string} */ prop, value) {
+                /**
+                 * Make sure that store is not destroyed
+                 */
+                if (!storeMap.has(instanceId)) return false;
 
-            /**
-             * - With shallow copy refer to original store reference
-             * - With custom copy get update store from main map, copies here is not necessary.
-             * - Fallback to target if component is destroyed and there is no reference, typically call proxi after
-             *   destroy
-             */
-            const store = storeStrategyNeedCopy()
-                ? (storeMap.get(instanceId)?.store ?? target)
-                : target;
+                const store = storeMap.get(instanceId)?.store;
+                if (!store) return false;
 
-            if (!store) return false;
+                if (prop in store) {
+                    const isComputed = checkIfPropIsComputed({
+                        instanceId,
+                        prop,
+                    });
+                    const isReadOnly = proxiReadOnlyProp.has(prop);
 
-            if (prop in store) {
-                const isComputed = checkIfPropIsComputed({ instanceId, prop });
-                const isReadOnly = proxiReadOnlyProp.has(prop);
+                    if (isReadOnly) {
+                        storeProxiReadOnlyWarning(prop, logStyle);
+                    }
 
-                if (isReadOnly) {
-                    storeProxiReadOnlyWarning(prop, logStyle);
+                    if (isComputed || isReadOnly) return false;
+
+                    storeSetEntryPoint({
+                        instanceId,
+                        prop,
+                        value,
+                        fireCallback: true,
+                        clone: false,
+                        action: STORE_SET,
+                    });
+
+                    return true;
                 }
 
-                if (isComputed || isReadOnly) return false;
-
-                storeSetEntryPoint({
-                    instanceId,
-                    prop,
-                    value,
-                    fireCallback: true,
-                    clone: false,
-                    action: STORE_SET,
-                });
-
-                return true;
-            }
-
-            return false;
-        },
-        get(target, /** @type {string} */ prop) {
-            /**
-             * Make sure that store is not destroyed
-             */
-            if (!storeMap.has(instanceId)) return false;
-
-            /**
-             * - With shallow copy refer to original store reference
-             * - With custom copy get update store from main map, copies here is not necessary.
-             * - Fallback to target if component is destroyed and there is no reference, typically call proxi after
-             *   destroy
-             */
-            const store = storeStrategyNeedCopy()
-                ? (storeMap.get(instanceId)?.store ?? target)
-                : target;
-
-            if (!store) return false;
-
-            if (!(prop in store)) {
                 return false;
-            }
+            },
+            get(_, /** @type {string} */ prop) {
+                /**
+                 * Make sure that store is not destroyed
+                 */
+                if (!storeMap.has(instanceId)) return false;
 
-            /**
-             * Autodetect dependencies
-             */
-            setCurrentDependencies(prop);
+                const store = storeMap.get(instanceId)?.store;
+                if (!store) return false;
 
-            /**
-             * Return value
-             */
-            return store[prop];
-        },
-    });
+                if (!(prop in store)) {
+                    return false;
+                }
+
+                /**
+                 * Autodetect dependencies
+                 */
+                setCurrentDependencies(prop);
+
+                /**
+                 * Return value
+                 */
+                return store[prop];
+            },
+            has(_, /** @type {string} */ prop) {
+                if (!storeMap.has(instanceId)) return false;
+                const store = storeMap.get(instanceId)?.store;
+                return store ? prop in store : false;
+            },
+        }
+    );
 
     /**
      * Rerturn self proxi if no bindedInstace is used.
@@ -131,41 +121,39 @@ export const getProxiEntryPoint = ({ instanceId }) => {
      * Create proxi for binded store. Binded proxi has only read operation.
      */
     const bindedProxi = bindInstance.map((id) => {
-        const state = storeMap.get(id);
-        const store = state?.store ?? {};
-
-        return new Proxy(store, {
-            set() {
-                return false;
-            },
-            get(target, /** @type {string} */ prop) {
-                /**
-                 * - With shallow copy refer to original store reference
-                 * - With custom copy get update store from main map, copies here is not necessary.
-                 * - Fallback to target if component is destroyed and there is no reference, typically call proxi after
-                 *   destroy
-                 */
-                const store = storeStrategyNeedCopy()
-                    ? (storeMap.get(id)?.store ?? target)
-                    : target;
-
-                if (!store) return false;
-
-                if (!(prop in store)) {
+        return new Proxy(
+            {},
+            {
+                set() {
                     return false;
-                }
+                },
+                get(_, /** @type {string} */ prop) {
+                    if (!storeMap.has(id)) return false;
 
-                /**
-                 * Autodetect dependencies
-                 */
-                setCurrentDependencies(prop);
+                    const store = storeMap.get(id)?.store;
+                    if (!store) return false;
 
-                /**
-                 * Return value
-                 */
-                return store[prop];
-            },
-        });
+                    if (!(prop in store)) {
+                        return false;
+                    }
+
+                    /**
+                     * Autodetect dependencies
+                     */
+                    setCurrentDependencies(prop);
+
+                    /**
+                     * Return value
+                     */
+                    return store[prop];
+                },
+                has(_, /** @type {string} */ prop) {
+                    if (!storeMap.has(id)) return false;
+                    const store = storeMap.get(id)?.store;
+                    return store ? prop in store : false;
+                },
+            }
+        );
     });
 
     /**
