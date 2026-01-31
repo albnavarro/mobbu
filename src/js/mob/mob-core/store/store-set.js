@@ -9,7 +9,11 @@ import { runCallbackQueqe } from './fire-queque';
 import { getLogStyle } from './log-style';
 import { getStateFromMainMap, updateMainMap } from './store-map';
 import { checkType, storeType, TYPE_IS_ANY } from './store-type';
-import { cloneValueOrGet, maxDepth } from './store-utils';
+import {
+    checkIfPropIsComputed,
+    cloneValueOrGet,
+    maxDepth,
+} from './store-utils';
 import {
     storeComputedKeyUsedWarning,
     storeObjectIsNotAnyWarning,
@@ -765,6 +769,16 @@ export const storeComputedEntryPoint = ({
     keys,
     callback,
 }) => {
+    /**
+     * Only one computed per prop is allowed.
+     */
+    const isComputed = checkIfPropIsComputed({
+        instanceId,
+        prop,
+    });
+
+    if (isComputed) return;
+
     /**
      * If there is no dependencies get keys from proxi used in callback.
      */

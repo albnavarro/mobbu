@@ -209,7 +209,7 @@ export const checkIfPropIsComputed = ({ instanceId, prop }) => {
 
     if (isComputed) {
         console.warn(
-            `${prop} is used as computed, explicit set is disallowed.`
+            `${prop} is used as computed target, set and multiple computed on same prop is blocked.`
         );
     }
 
