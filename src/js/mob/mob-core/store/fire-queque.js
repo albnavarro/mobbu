@@ -47,7 +47,14 @@ export const runCallbackQueqe = ({
             /**
              * Props is in queue ?
              */
-            const shouldWait = queueByInstanceId.has(prop);
+            const firstItemInQueue = queueByInstanceId.has(prop);
+
+            /**
+             * With multiple watch with multiple wait we should stare every single callback.
+             */
+            const callbacksAccumulated = firstItemInQueue
+                ? (queueByInstanceId.get(prop)?.callbacks ?? [])
+                : [];
 
             /**
              * Update or initialize single prop value to last.
@@ -56,12 +63,12 @@ export const runCallbackQueqe = ({
                 newValue,
                 oldValue,
                 validationValue,
-            });
 
-            /**
-             * If is in queue return;
-             */
-            if (shouldWait) return;
+                /**
+                 * NOTE: for more efficence consider to push `fn` instead use spread.
+                 */
+                callbacks: [...callbacksAccumulated, fn],
+            });
 
             /**
              * Update main instanceId map
@@ -69,38 +76,47 @@ export const runCallbackQueqe = ({
             waitMap.set(instanceId, queueByInstanceId);
 
             /**
-             * Fire callback.
+             * Fire callback one tick after.
+             *
+             * - Fire only one time nextLoop is fired on first watch with wait props setteld.
              */
-            useNextLoop(() => {
-                /**
-                 * Get last updated value
-                 */
-                const propsPerIdNow = waitMap.get(instanceId);
-                const current = propsPerIdNow?.get(prop);
+            if (!firstItemInQueue) {
+                useNextLoop(() => {
+                    /**
+                     * Get last updated value
+                     */
+                    const propsPerIdNow = waitMap.get(instanceId);
+                    const current = propsPerIdNow?.get(prop);
 
-                if (
-                    current.newValue !== undefined ||
-                    current.newValue !== null
-                ) {
-                    fn(
-                        current.newValue,
-                        current.oldValue,
-                        current.validationValue
-                    );
-                }
+                    if (
+                        current.newValue !== undefined ||
+                        current.newValue !== null
+                    ) {
+                        /**
+                         * Fire every single callback related to every watch with wait props active.
+                         */
+                        for (const currentFunction of current.callbacks) {
+                            currentFunction(
+                                current.newValue,
+                                current.oldValue,
+                                current.validationValue
+                            );
+                        }
+                    }
 
-                /**
-                 * Remove prop in instanceId map once fired.
-                 */
-                propsPerIdNow?.delete(prop);
+                    /**
+                     * Remove prop in instanceId map once fired.
+                     */
+                    propsPerIdNow?.delete(prop);
 
-                /**
-                 * If instanceId has no more prop in queque delete.
-                 */
-                if (propsPerIdNow?.size === 0) {
-                    waitMap.delete(instanceId);
-                }
-            });
+                    /**
+                     * If instanceId has no more prop in queque delete.
+                     */
+                    if (propsPerIdNow?.size === 0) {
+                        waitMap.delete(instanceId);
+                    }
+                });
+            }
         }
     }
 };
