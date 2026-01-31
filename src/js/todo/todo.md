@@ -1,33 +1,32 @@
-### Docs: AsyncTimeline
-- Breve riassunto con lista puntata delle feature.
+# App
+#### Passare il css a `@scope`.
 
-### New Observe props.
-- `observe` nei nelle funzioni interne dovrebbe diventare `observedState` per una migliore leggibilitá.
 
-### Store - deepEquality:
+# MobCore
+
+#### Store - watcher structure:
+- Usare nnidamento map per una iterazione di piu efficente delel callback:
+`src/js/mob/mob-core/store/possibile-watch-update.md`
+
+#### Store - deepEquality:
 - Agiungere `deepEquality`, basta un `JSON.stringigfy(current) === JSON.stringigfy(current)`.
 - Utile per `array/object`.
 - Rivedere un controllo piu permissivo e veloce per gli `oggetti`?
 
 # MobJs
 
-### DelegateEvents
-- `currentEvent` e `target` forse sono inveriti.
+#### New Observe props.
+- `observe` nei nelle funzioni interne dovrebbe diventare `observedState` per una migliore leggibilitá.
 
-
-### Routing:
+#### Routing:
 - Rendere opzionale il blocco sul caricamento della stessa rotta.
 
-### src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
+#### src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
 - Parent id ternario innestato, semplificare.
 - Idealmante con `weakElementMap` si puó usare solo una strategia.
 
-### ParserHTML
-
 #### Sanitize
 - Aggiungere una `callBack` per fare un parsing dell' `html` prima di appenderlo al `DOM` con librerie esterne.
-
-### Web component:
 
 #### attributeChangedCallback
 - In riferimento agli `stati esportabili`, `attributeChangedCallback` puo intereccettare se l'atributo é uno stato e automaticamante eseguire un `this.#params.setState(state, <val>)`.
@@ -37,7 +36,7 @@
 
 - Bisognerá fare un lavoro sui tipi, arriveranno tutte `string` ma prima del set venno convertite nel giusto tipo, per fare questo lavoro bisogna accedere all' oggetto `type` delle store.
 
-### BindProps:
+#### BindProps:
 - Valutare await `applyBindProps` in `parse-function.js`
 
 ```js
@@ -66,32 +65,28 @@ for (const item of functionToFireAtTheEnd.reverse()) {
 }
 ```
 
-### Repeat
 
-### Quickset
-
+#### Quickset
 - Aggiungere `Quickset`.
 
-### Debug
-
+#### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
 
 # Mobmotion
 
-## MobScroller
+#### Docs: AsyncTimeline
+- Breve riassunto con lista puntata delle feature.
 
+#### MobScroller
 - Il valore `gap` ( detectViewPortInterception() ), deve essere regolabile dall' esterno.
 
-### MobCore
-
+#### MobCore
 - Parallax/Scroltriiger
 - Puo usare il metodo `freezeCache` on `scrollEnd` ? ( scrollerTween/sequencer ).
 
-### Velocity.
-
+#### Velocity.
 - Inserire nei timeTween/lerp/Spring in concetto di velocity.
 
 #### SetTween.
-
 - Se chiamato durante un add / addAsync puó generare un errore, ( da verificare che questa condizione sia giusta ) ???
 
