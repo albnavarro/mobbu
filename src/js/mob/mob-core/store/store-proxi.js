@@ -77,13 +77,13 @@ export const getProxiEntryPoint = ({ instanceId }) => {
                 /**
                  * Make sure that store is not destroyed
                  */
-                if (!storeMap.has(instanceId)) return false;
+                if (!storeMap.has(instanceId)) return;
 
                 const store = storeMap.get(instanceId)?.store;
-                if (!store) return false;
+                if (!store) return;
 
                 if (!(prop in store)) {
-                    return false;
+                    return;
                 }
 
                 /**
@@ -128,13 +128,13 @@ export const getProxiEntryPoint = ({ instanceId }) => {
                     return false;
                 },
                 get(_, /** @type {string} */ prop) {
-                    if (!storeMap.has(id)) return false;
+                    if (!storeMap.has(id)) return;
 
                     const store = storeMap.get(id)?.store;
-                    if (!store) return false;
+                    if (!store) return;
 
                     if (!(prop in store)) {
-                        return false;
+                        return;
                     }
 
                     /**
@@ -169,7 +169,7 @@ export const getProxiEntryPoint = ({ instanceId }) => {
         },
         get(proxies, prop) {
             const currentProxi = proxies.find((proxi) => prop in proxi);
-            if (!currentProxi) return false;
+            if (!currentProxi) return;
 
             return Reflect.get(currentProxi, prop);
         },
