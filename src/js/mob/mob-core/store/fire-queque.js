@@ -101,6 +101,7 @@ export const runCallbackQueqe = ({
                     const current = propsPerIdNow?.get(prop);
 
                     if (
+                        current &&
                         current.newValue !== undefined &&
                         current.newValue !== null
                     ) {
