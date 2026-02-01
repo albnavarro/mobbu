@@ -15,7 +15,22 @@ export interface WatcherCallback {
 }
 
 export interface StoreMapValue {
+    /**
+     * Main record, store every callback by prop for O(1) access.
+     *
+     * - First key: prop
+     * - Inner key: unsubscribeId
+     */
     watcherByProp: Map<string, Map<string, WatcherCallback>>;
+
+    /**
+     * Support map, for fast unsubscribe.
+     *
+     * Get prop for unsubscribeId so we havbe direct access to watcherByProp.
+     *
+     * - Key: unsubscribeId;
+     * - Value: prop
+     */
     watcherMetadata: Map<string, string>; // id -> propName
     callBackComputed: Set<{
         prop: string;

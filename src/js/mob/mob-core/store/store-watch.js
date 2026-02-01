@@ -28,8 +28,22 @@ const subscribeWatch = ({ state, prop, callback, wait }) => {
 
     const id = getUnivoqueId();
 
+    /**
+     * Check if watcherByProp has current prop, if not create.
+     */
     if (!watcherByProp.has(prop)) watcherByProp.set(prop, new Map());
+
+    /**
+     * Add data ( callback && wait value ) to current callbacks quque by prop.
+     */
     watcherByProp.get(prop)?.set(id, { fn: callback, wait });
+
+    /**
+     * Add reference id ( unsubscribeId ) -> prop for fast unsubscribe.
+     *
+     * - Get prop from id
+     * - Clean from watcherByProp record inside prop subMap.
+     */
     watcherMetadata.set(id, prop);
 
     return {
@@ -50,12 +64,22 @@ const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
     const { watcherByProp, watcherMetadata } = state;
     if (!watcherByProp || !watcherMetadata) return;
 
+    /**
+     * Get reference prop by unsubscribeId
+     */
     const prop = watcherMetadata.get(unsubscribeId);
 
     if (prop) {
+        /**
+         * - Delete record from watcherByProp.
+         * - Remove record from watcherMetadata.
+         */
         watcherByProp.get(prop)?.delete(unsubscribeId);
         watcherMetadata.delete(unsubscribeId);
 
+        /**
+         * - In case there is no more prop active remove main record from watcherByProp.
+         */
         if (watcherByProp.get(prop)?.size === 0) {
             watcherByProp.delete(prop);
         }
