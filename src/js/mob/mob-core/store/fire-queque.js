@@ -4,6 +4,18 @@ import { useNextLoop } from '../utils/next-tick';
 const waitMap = new Map();
 
 /**
+ * Clean waitMap when component is destroyed
+ *
+ * - WaitMap is global
+ * - Component should be destroyed before useNextLoop is called.
+ *
+ * @type {(id: string) => void}
+ */
+export const removeIdFromWaitMap = (id) => {
+    waitMap.delete(id);
+};
+
+/**
  * Fire callback on state update ( setState, emit ). Used to fire callback in watch function.
  *
  * - Wait: ( fire next event loop )
@@ -89,7 +101,7 @@ export const runCallbackQueqe = ({
                     const current = propsPerIdNow?.get(prop);
 
                     if (
-                        current.newValue !== undefined ||
+                        current.newValue !== undefined &&
                         current.newValue !== null
                     ) {
                         /**

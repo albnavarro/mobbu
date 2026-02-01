@@ -2044,6 +2044,9 @@
 
   // src/js/mob/mob-core/store/fire-queque.js
   var waitMap = /* @__PURE__ */ new Map();
+  var removeIdFromWaitMap = (id) => {
+    waitMap.delete(id);
+  };
   var runCallbackQueqe = ({
     watcherByProp,
     prop,
@@ -2077,7 +2080,7 @@
           useNextLoop(() => {
             const propsPerIdNow = waitMap.get(instanceId);
             const current = propsPerIdNow?.get(prop);
-            if (current.newValue !== void 0 || current.newValue !== null) {
+            if (current.newValue !== void 0 && current.newValue !== null) {
               for (const currentFunction of current.callbacks) {
                 currentFunction(
                   current.newValue,
@@ -3355,6 +3358,7 @@
     bindInstance.forEach((id) => {
       removeSelfIdToBindInstanceBy({ selfId: instanceId, bindId: id });
     });
+    removeIdFromWaitMap(instanceId);
     removeStateFromMainMap(instanceId);
   };
 

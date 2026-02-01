@@ -1,4 +1,5 @@
 import { removeSelfIdToBindInstanceBy } from './bind-store';
+import { removeIdFromWaitMap } from './fire-queque';
 import { removeStateFromMainMap, storeMap } from './store-map';
 
 /**
@@ -37,5 +38,9 @@ export const destroyStoreEntryPoint = (instanceId) => {
         removeSelfIdToBindInstanceBy({ selfId: instanceId, bindId: id });
     });
 
+    /**
+     * Clean global wait map.
+     */
+    removeIdFromWaitMap(instanceId);
     removeStateFromMainMap(instanceId);
 };
