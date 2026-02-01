@@ -12,9 +12,10 @@ export const destroyStoreEntryPoint = (instanceId) => {
     const state = storeMap.get(instanceId);
     if (!state) return;
 
-    state.callBackWatcher.clear();
     state.callBackComputed.clear();
     state.computedPropsQueque.clear();
+    state.watcherByProp.clear();
+    state.watcherMetadata.clear();
     state.store = {};
     state.proxiObject = null;
 

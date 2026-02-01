@@ -62,7 +62,7 @@ const setProp = ({
         strict,
         validationStatusObject,
         skipEqual,
-        callBackWatcher,
+        watcherByProp,
         bindInstanceBy,
     } = state;
     const logStyle = getLogStyle();
@@ -155,7 +155,7 @@ const setProp = ({
      */
     if (fireCallback && !initalizeStep) {
         runCallbackQueqe({
-            callBackWatcher,
+            watcherByProp,
             prop,
             newValue: valueTransformed,
             oldValue: oldVal,
@@ -202,7 +202,7 @@ const setObj = ({
         fnValidate,
         validationStatusObject,
         skipEqual,
-        callBackWatcher,
+        watcherByProp,
         bindInstanceBy,
     } = state;
     const logStyle = getLogStyle();
@@ -399,7 +399,7 @@ const setObj = ({
 
     if (fireCallback && !initalizeStep) {
         runCallbackQueqe({
-            callBackWatcher,
+            watcherByProp,
             prop,
             newValue: store[prop],
             oldValue: oldObjectValues,
@@ -506,7 +506,7 @@ export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
-    const { store, callBackWatcher } = state;
+    const { store, watcherByProp } = state;
 
     /**
      * Update value and fire callback associated
@@ -521,7 +521,7 @@ export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
     updateMainMap(instanceId, { ...state, store });
 
     runCallbackQueqe({
-        callBackWatcher,
+        watcherByProp,
         prop,
         newValue: value,
         oldValue: oldVal,

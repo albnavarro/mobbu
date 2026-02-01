@@ -18,25 +18,25 @@ const waitMap = new Map();
  * @returns {void}
  */
 export const runCallbackQueqe = ({
-    callBackWatcher,
+    watcherByProp,
     prop,
     newValue,
     oldValue,
     validationValue,
     instanceId,
 }) => {
-    for (const { prop: currentProp, fn, wait } of callBackWatcher.values()) {
-        /*
-         * No wait next loop
-         */
-        if (currentProp === prop && !wait) {
+    const propWatchers = watcherByProp?.get(prop);
+    if (!propWatchers || propWatchers.size === 0) return;
+
+    for (const { fn, wait } of propWatchers.values()) {
+        if (!wait) {
             fn(newValue, oldValue, validationValue);
         }
 
         /*
          * Wait next loop
          */
-        if (instanceId && currentProp === prop && wait) {
+        if (instanceId && wait) {
             /**
              * Get all props for current instanceId.
              */
@@ -126,13 +126,16 @@ export const runCallbackQueqe = ({
  * @returns {Promise<any>}
  */
 export const runCallbackQueqeAsync = async ({
-    callBackWatcher,
+    watcherByProp,
     prop,
     newValue,
     oldValue,
     validationValue,
 }) => {
-    for (const { prop: currentProp, fn } of callBackWatcher.values()) {
-        if (currentProp === prop) await fn(newValue, oldValue, validationValue);
+    const propWatchers = watcherByProp?.get(prop);
+    if (!propWatchers || propWatchers.size === 0) return;
+
+    for (const { fn } of propWatchers.values()) {
+        await fn(newValue, oldValue, validationValue);
     }
 };

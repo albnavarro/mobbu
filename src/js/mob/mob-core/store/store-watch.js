@@ -8,7 +8,7 @@ import { storeWatchWarning } from './store-warining';
  * @returns {import('./type').MobStoreWatchReturnObject}
  */
 const subscribeWatch = ({ state, prop, callback, wait }) => {
-    const { store, callBackWatcher } = state;
+    const { store, watcherByProp, watcherMetadata } = state;
     const logStyle = getLogStyle();
 
     if (!store)
@@ -27,10 +27,13 @@ const subscribeWatch = ({ state, prop, callback, wait }) => {
     }
 
     const id = getUnivoqueId();
-    callBackWatcher.set(id, { fn: callback, prop, wait });
+
+    if (!watcherByProp.has(prop)) watcherByProp.set(prop, new Map());
+    watcherByProp.get(prop)?.set(id, { fn: callback, wait });
+    watcherMetadata.set(id, prop);
 
     return {
-        state: { ...state, callBackWatcher },
+        state: { ...state, watcherByProp, watcherMetadata },
         unsubscribeId: id,
     };
 };
@@ -44,11 +47,21 @@ const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
-    const { callBackWatcher } = state;
-    if (!callBackWatcher) return;
+    const { watcherByProp, watcherMetadata } = state;
+    if (!watcherByProp || !watcherMetadata) return;
 
-    callBackWatcher.delete(unsubscribeId);
-    updateMainMap(instanceId, { ...state, callBackWatcher });
+    const prop = watcherMetadata.get(unsubscribeId);
+
+    if (prop) {
+        watcherByProp.get(prop)?.delete(unsubscribeId);
+        watcherMetadata.delete(unsubscribeId);
+
+        if (watcherByProp.get(prop)?.size === 0) {
+            watcherByProp.delete(prop);
+        }
+
+        updateMainMap(instanceId, { ...state, watcherByProp, watcherMetadata });
+    }
 };
 
 /**

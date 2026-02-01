@@ -5,19 +5,18 @@ export type StoreMap = Map<string, StoreMapValue>;
 
 export type MobStoreValidateState = boolean | Record<string, boolean>;
 
+export interface WatcherCallback {
+    fn: (
+        current: any,
+        previous: any,
+        validate: MobStoreValidateState
+    ) => void | Promise<void>;
+    wait: boolean;
+}
+
 export interface StoreMapValue {
-    callBackWatcher: Map<
-        string,
-        {
-            prop: string;
-            fn: (
-                current: any,
-                previous: any,
-                validate: MobStoreValidateState
-            ) => void;
-            wait: boolean;
-        }
-    >;
+    watcherByProp: Map<string, Map<string, WatcherCallback>>;
+    watcherMetadata: Map<string, string>; // id -> propName
     callBackComputed: Set<{
         prop: string;
         fn: (arg0: Record<string, any>) => void;
@@ -258,18 +257,7 @@ export interface MobStoreComputedAction {
 }
 
 export interface MobStoreCallbackQueue {
-    callBackWatcher: Map<
-        string,
-        {
-            prop: string;
-            fn: (
-                arg0: any,
-                arg1: any,
-                arg2: boolean | Record<string, boolean>
-            ) => void | Promise<void>;
-            wait: boolean;
-        }
-    >;
+    watcherByProp: Map<string, Map<string, WatcherCallback>>;
     prop: string;
     newValue: any;
     oldValue: any;
