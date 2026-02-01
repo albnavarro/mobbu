@@ -26,6 +26,32 @@ import { extractkeyFromProp, extractKeysFromArray } from './current-key';
 import { setProxiPropReadOnlyEntryPoint } from './proxi-read-only';
 
 /**
+ * This module implements a reactive store.
+ *
+ * Important notes:
+ *
+ * Computed properties must not contain side effects; only read operations should be performed inside them, and direct
+ * updates to the store are never allowed. This ensures the consistency of the module.
+ *
+ * The module allows multiple stores to be linked, meaning that a specific store can be reactive to property mutations
+ * in external stores linked via the bindStore method. When using properties such as computed, properties of the linked
+ * store are explicitly referenced to leverage their reactivity. For this reason, in the store's lifecycle, it must
+ * always be considered that any store linked via bindStore cannot be destroyed before the store it is linked to. The
+ * store using bindStore must always be able to access the properties of the linked store to maintain consistency.
+ *
+ * Currently, no type of try/catch is implemented for callbacks passed to the store. This is an explicit design choice
+ * at this stage. We aim to identify all issues with callbacks defined externally by the user and, in case of an error,
+ * halt the script.
+ *
+ * The watch system intentionally supports multiple watchers on the same property, regardless of whether the property’s
+ * wait flag is false or true. This is because the store will later be used to create JavaScript components where
+ * multiple watchers on the same property with different callbacks are anticipated.
+ *
+ * TODO:
+ *
+ * - The arrayAreEquals and objectAreEqual functions are currently not optimized. Their optimization is already planned.
+ * - Check bidirectional binding of Store, now there is no check for this situation.
+ *
  * @param {import('./type').MobStoreParams} data
  * @returns {import('./type').MobStoreReturnType<any>}
  */
@@ -142,6 +168,13 @@ export const mobStore = (data = {}) => {
                 action: STORE_UPDATE,
             });
         },
+        /**
+         * Restituisce un Proxy reattivo sullo store.
+         *
+         * - IMPORTANTE: Se usi `bindStore()`, chiámalo PRIMA di `getProxi()`.
+         * - Il proxy viene creato e cachato alla prima chiamata;
+         * - Binding successivi non saranno riflessi nell'istanza proxy esistente.
+         */
         getProxi: () => {
             return getProxiEntryPoint({ instanceId });
         },
