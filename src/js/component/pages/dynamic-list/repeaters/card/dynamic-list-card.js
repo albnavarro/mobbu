@@ -86,6 +86,12 @@ export const DynamicListCardFn = ({
     onMount(async () => {
         (async () => {
             await MobJs.tick();
+
+            /**
+             * Here proxi can be destroyed;
+             */
+            if (!('isMounted' in proxi)) return;
+
             proxi.isMounted = true;
         })();
 

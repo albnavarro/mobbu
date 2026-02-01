@@ -85,6 +85,11 @@ export const CaterpillarN1Fn = ({
         });
 
         MobCore.useFrame(() => {
+            /**
+             * Here proxi can be destroyed;
+             */
+            if (!('isMounted' in proxi)) return;
+
             proxi.isMounted = true;
         });
 

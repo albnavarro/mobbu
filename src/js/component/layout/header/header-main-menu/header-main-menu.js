@@ -53,6 +53,11 @@ export const headerMainMenuFn = ({
 
     onMount(() => {
         MobCore.useFrameIndex(() => {
+            /**
+             * Here proxi can be destroyed;
+             */
+            if (!('isMounted' in proxi)) return;
+
             proxi.isMounted = true;
         }, 10);
     });

@@ -48,6 +48,11 @@ export const LayoutLinksFn = ({
          * Stagger start later, so show path in background later.
          */
         setTimeout(() => {
+            /**
+             * Here proxi can be destroyed;
+             */
+            if (!('isMounted' in proxi)) return;
+
             proxi.isMounted = true;
         }, 500);
 

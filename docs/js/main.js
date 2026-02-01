@@ -24869,6 +24869,7 @@
         refresh();
       });
       setTimeout(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       }, 500);
       return () => {
@@ -26467,6 +26468,7 @@
               winHeight = window.innerHeight;
             });
           });
+          if (!("anchorItems" in proxi)) return;
           proxi.anchorItems.forEach((item) => {
             item.top = offset(item.element).top;
           });
@@ -29040,6 +29042,7 @@
         createAnimation({ proxi, getRef });
       });
       modules_exports.useFrame(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       });
       return () => {
@@ -29440,6 +29443,7 @@
         });
       });
       modules_exports.useFrame(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       });
       return () => {
@@ -29780,6 +29784,7 @@
         });
       });
       modules_exports.useFrame(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       });
       return () => {
@@ -30144,6 +30149,7 @@
         btn?.addEventListener("click", () => animationMethods?.[method]());
       });
       modules_exports.useFrame(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       });
       return () => {
@@ -30662,6 +30668,7 @@
         createAnimation2({ proxi, getRef, resetScroll: false });
       });
       modules_exports.useFrame(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       });
       return () => {
@@ -31038,6 +31045,7 @@
         });
       });
       modules_exports.useFrame(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       });
       return () => {
@@ -31673,6 +31681,7 @@
     onMount(async () => {
       (async () => {
         await modules_exports2.tick();
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       })();
       return () => {
@@ -35759,6 +35768,7 @@
         btn?.addEventListener("click", () => methods?.[method]());
       });
       modules_exports.useFrame(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       });
       return () => {
@@ -42238,6 +42248,7 @@
     const proxi = getProxi();
     onMount(() => {
       modules_exports.useFrameIndex(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       }, getFrameDelay());
     });
@@ -42351,6 +42362,7 @@
         return outerHeight(element);
       });
       modules_exports.useFrameIndex(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       }, getFrameDelay());
     });
@@ -42427,6 +42439,7 @@
     const proxi = getProxi();
     onMount(() => {
       modules_exports.useFrameIndex(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       }, getFrameDelay());
     });
@@ -42631,6 +42644,7 @@
     const proxi = getProxi();
     onMount(() => {
       modules_exports.useFrameIndex(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       }, 10);
     });
@@ -42859,6 +42873,7 @@
       addMethod("scrollTop", scrollNativationToTop);
       addMethod("refresh", refreshScroller);
       modules_exports.useFrameIndex(() => {
+        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       }, getFrameDelay());
       return () => {

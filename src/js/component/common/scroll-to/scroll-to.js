@@ -181,6 +181,11 @@ export const ScrollToFn = ({
                     });
                 });
 
+                /**
+                 * Here proxi can be destroyed;
+                 */
+                if (!('anchorItems' in proxi)) return;
+
                 proxi.anchorItems.forEach((item) => {
                     item.top = offset(item.element).top;
                 });
