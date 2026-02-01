@@ -36,11 +36,6 @@ export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
 
     onMount(() => {
         MobCore.useFrameIndex(() => {
-            /**
-             * Here proxi can be destroyed;
-             */
-            if (!('isMounted' in proxi)) return;
-
             proxi.isMounted = true;
         }, getFrameDelay());
     });

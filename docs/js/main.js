@@ -42248,7 +42248,6 @@
     const proxi = getProxi();
     onMount(() => {
       modules_exports.useFrameIndex(() => {
-        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       }, getFrameDelay());
     });
@@ -42362,7 +42361,6 @@
         return outerHeight(element);
       });
       modules_exports.useFrameIndex(() => {
-        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       }, getFrameDelay());
     });
@@ -42439,7 +42437,6 @@
     const proxi = getProxi();
     onMount(() => {
       modules_exports.useFrameIndex(() => {
-        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       }, getFrameDelay());
     });
@@ -42873,7 +42870,6 @@
       addMethod("scrollTop", scrollNativationToTop);
       addMethod("refresh", refreshScroller);
       modules_exports.useFrameIndex(() => {
-        if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       }, getFrameDelay());
       return () => {
