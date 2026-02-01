@@ -1253,6 +1253,15 @@
             "content": "<span class='quote'>Proxi</span> must be create after store is <span class='quote'>binded</span>, as the following example:"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "Store that bind another store must be destroyed before binded store ( <span class='quote'>child store</span> ) for consistency."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
