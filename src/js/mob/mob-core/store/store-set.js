@@ -508,6 +508,8 @@ export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
 
     const { store, watcherByProp } = state;
 
+    if (!(prop in store)) return;
+
     /**
      * Update value and fire callback associated
      */
