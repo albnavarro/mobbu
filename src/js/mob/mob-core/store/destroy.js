@@ -28,6 +28,8 @@ export const destroyStoreEntryPoint = (instanceId) => {
         unsubscribe?.();
     });
 
+    state.unsubscribeBindInstance.length = 0;
+
     /**
      * Remove itself from bindInstanceBy of binded store.
      */

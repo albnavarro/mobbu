@@ -79,6 +79,11 @@ export const mobStore = (data = {}) => {
                 ? /** @type {string} */ (prop)
                 : extractkeyFromProp(prop);
 
+            /**
+             * StoreSetEntryPoint is called by compured, proxi etc..
+             *
+             * - So isComputed check is isolated outSide entryPoint
+             */
             const isComputed = checkIfPropIsComputed({
                 instanceId,
                 prop: propParsed,
@@ -109,6 +114,11 @@ export const mobStore = (data = {}) => {
                 ? /** @type {string} */ (prop)
                 : extractkeyFromProp(prop);
 
+            /**
+             * StoreSetEntryPoint is called by compured, proxi etc..
+             *
+             * - So isComputed check is isolated outSide entryPoint
+             */
             const isComputed = checkIfPropIsComputed({
                 instanceId,
                 prop: propParsed,
@@ -173,6 +183,9 @@ export const mobStore = (data = {}) => {
 
             const keysParsed = extractKeysFromArray(keys);
 
+            /**
+             * - Insiee entryPoint check is compured is duplicated.
+             */
             storeComputedEntryPoint({
                 instanceId,
                 prop: propParsed,

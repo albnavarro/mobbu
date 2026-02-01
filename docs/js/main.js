@@ -3105,8 +3105,7 @@
         prop,
         newValue: store2[prop],
         oldValue: store2[prop],
-        validationValue: validationStatusObject[prop],
-        instanceId
+        validationValue: validationStatusObject[prop]
       });
       addToComputedWaitLsit({ instanceId, prop });
       bindInstanceBy.forEach((id) => {
@@ -3352,6 +3351,7 @@
     unsubscribeBindInstance.forEach((unsubscribe3) => {
       unsubscribe3?.();
     });
+    state.unsubscribeBindInstance.length = 0;
     bindInstance.forEach((id) => {
       removeSelfIdToBindInstanceBy({ selfId: instanceId, bindId: id });
     });
