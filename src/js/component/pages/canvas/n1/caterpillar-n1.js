@@ -76,7 +76,7 @@ export const CaterpillarN1Fn = ({
 
                 methods = caterpillarN1Animation({
                     canvas,
-                    ...proxi,
+                    disableOffcanvas: proxi.disableOffcanvas,
                 });
 
                 proxi.destroy = methods.destroy;

@@ -98,7 +98,7 @@ export const ScrollerN1Fn = ({
                 destroy = scrollerN1Animation({
                     canvas,
                     canvasScroller,
-                    ...proxi,
+                    disableOffcanvas: proxi.disableOffcanvas,
                     proxi,
                 });
             });

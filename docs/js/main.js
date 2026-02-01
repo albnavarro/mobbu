@@ -29777,7 +29777,7 @@
           proxi.destroy();
           methods = caterpillarN1Animation({
             canvas,
-            ...proxi
+            disableOffcanvas: proxi.disableOffcanvas
           });
           proxi.destroy = methods.destroy;
           proxi.stopBlackOne = methods.stopBlackOne;
@@ -31039,7 +31039,7 @@
           destroy3 = scrollerN1Animation({
             canvas,
             canvasScroller,
-            ...proxi,
+            disableOffcanvas: proxi.disableOffcanvas,
             proxi
           });
         });
