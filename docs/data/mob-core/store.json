@@ -1244,6 +1244,21 @@
             }
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "<span class='quote'>Proxi</span> must be create after store is <span class='quote'>binded</span>, as the following example:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/bind-store.js",
