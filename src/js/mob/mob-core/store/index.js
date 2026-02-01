@@ -47,6 +47,47 @@ import { setProxiPropReadOnlyEntryPoint } from './proxi-read-only';
  * wait flag is false or true. This is because the store will later be used to create JavaScript components where
  * multiple watchers on the same property with different callbacks are anticipated.
  *
+ * Object Handling Strategy: This store implements a two-tier strategy for handling nested objects, balancing type
+ * safety with runtime performance:
+ *
+ * 1. STRUCTURED OBJECTS (2 Levels Max - Full Control):
+ *
+ * Objects with a known schema and maximum depth of 2 levels support granular control over each property: type checking,
+ * validation, transformation, strict mode, and skipEqual.
+ *
+ * Example:
+ *
+ * ```js
+ *    {
+ *        myObj: {
+ *            prop1: () => ({ value: 2, type: Number }),
+ *            prop2: () => ({ value: 2, type: Number, validate: (val) => val < 5 })
+ *        }
+ *    }
+ * ```
+ *
+ * 2. TYPE 'ANY' (Arbitrary Depth - Flexibility): For objects with arbitrary nesting or dynamic structures, use the special
+ *    type 'ANY' (or TYPE_IS_ANY constant). This disables recursive type checking and treats the object as an opaque
+ *    value blob.
+ *
+ *    Example:
+ *
+ * ```js
+ *    {
+ *        complexData: () => ({
+ *            value: { nested: { deep: { value: 123 } } },  // Depth > 2
+ *            type: 'ANY'  // Disables deep property validation
+ *        })
+ *    }
+ * ```
+ *
+ * Rationale: The 2-level limitation for detailed control is an architectural choice to keep the codebase lightweight
+ * and performant. Granular validation on deeply nested objects would significantly complicate the validation logic
+ * without proportional value for most UI use cases.
+ *
+ * Use ANY for external data (API responses, DOM trees) or highly dynamic structures; use 2-level structured objects for
+ * well-defined application state.
+ *
  * TODO:
  *
  * - The arrayAreEquals and objectAreEqual functions are currently not optimized. Their optimization is already planned.
