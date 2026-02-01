@@ -2080,7 +2080,7 @@
           useNextLoop(() => {
             const propsPerIdNow = waitMap.get(instanceId);
             const current = propsPerIdNow?.get(prop);
-            if (current.newValue !== void 0 && current.newValue !== null) {
+            if (current && current.newValue !== void 0 && current.newValue !== null) {
               for (const currentFunction of current.callbacks) {
                 currentFunction(
                   current.newValue,
@@ -3099,9 +3099,9 @@
   };
   var storeEmitAsync = async ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
-    if (!state) return new Promise((resolve) => resolve(""));
+    if (!state) return new Promise((resolve) => resolve({ success: false }));
     const { store: store2, watcherByProp, validationStatusObject, bindInstanceBy } = state;
-    if (!store2) return { success: false };
+    if (!store2) return new Promise((resolve) => resolve({ success: false }));
     if (prop in store2) {
       await runCallbackQueqeAsync({
         watcherByProp,
@@ -3204,11 +3204,11 @@
           return false;
         },
         get(_, prop) {
-          if (!storeMap.has(instanceId)) return false;
+          if (!storeMap.has(instanceId)) return;
           const store2 = storeMap.get(instanceId)?.store;
-          if (!store2) return false;
+          if (!store2) return;
           if (!(prop in store2)) {
-            return false;
+            return;
           }
           setCurrentDependencies(prop);
           return store2[prop];
@@ -3235,11 +3235,11 @@
             return false;
           },
           get(_, prop) {
-            if (!storeMap.has(id)) return false;
+            if (!storeMap.has(id)) return;
             const store2 = storeMap.get(id)?.store;
-            if (!store2) return false;
+            if (!store2) return;
             if (!(prop in store2)) {
-              return false;
+              return;
             }
             setCurrentDependencies(prop);
             return store2[prop];
@@ -3261,7 +3261,7 @@
       },
       get(proxies, prop) {
         const currentProxi = proxies.find((proxi) => prop in proxi);
-        if (!currentProxi) return false;
+        if (!currentProxi) return;
         return Reflect.get(currentProxi, prop);
       }
     });

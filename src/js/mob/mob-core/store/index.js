@@ -57,6 +57,13 @@ export const mobStore = (data = {}) => {
     return {
         getId: () => instanceId,
         bindStore: (value) => {
+            /**
+             * Note:
+             *
+             * - In a normal flow store the bind another Store ( this store ) must be destroyed before binded store.
+             * - This store use component and potentially other methods that referee to binded store
+             * - So this stor emust be removed before binded store.
+             */
             bindStoreEntryPoint({ value, instanceId });
         },
         get: () => {
