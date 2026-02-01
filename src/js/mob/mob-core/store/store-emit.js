@@ -79,15 +79,16 @@ export const storeEmitEntryPoint = ({ instanceId, prop }) => {
  * @param {Object} param
  * @param {string} param.instanceId
  * @param {string} param.prop
- * @returns {Promise<any>}
+ * @returns {Promise<{ success: boolean }>}
  */
 const storeEmitAsync = async ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
-    if (!state) return new Promise((resolve) => resolve(''));
+    if (!state) return new Promise((resolve) => resolve({ success: false }));
+
     const { store, watcherByProp, validationStatusObject, bindInstanceBy } =
         state;
 
-    if (!store) return { success: false };
+    if (!store) return new Promise((resolve) => resolve({ success: false }));
 
     if (prop in store) {
         await runCallbackQueqeAsync({
