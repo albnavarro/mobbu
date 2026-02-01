@@ -2,7 +2,7 @@ import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
     prop: 0,
-    myObject: {
+    myComplexObj: {
         prop: () => ({
             value: 0,
             type: Number,
@@ -15,4 +15,6 @@ const myStore = MobCore.createStore({
 });
 
 myStore.set('prop', 2);
-myStore.set('myObject', { prop: 10 });
+
+// It is possible modify single propierites of complexObject.
+myStore.set('myComplexObj', { prop: 10 });

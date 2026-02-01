@@ -116,7 +116,7 @@ export const addComponentToStore = ({
         },
         updateState: (
             prop = '',
-            updateFunction = () => {},
+            updateFunction = () => ({}),
             { emit = true, clone = false } = {}
         ) => {
             const isFreezed = getFreezePropStatus({ id, prop });

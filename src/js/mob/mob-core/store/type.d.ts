@@ -99,7 +99,7 @@ export type MobStoregetProp<T> = <K extends keyof T>(
 interface MobStoreSet<T> {
     <K extends keyof T>(
         prop: Extract<K, string>,
-        value: T[K],
+        value: Partial<T[K]>,
         options?: {
             emit?: boolean;
             usePropAsString?: boolean;
@@ -107,7 +107,7 @@ interface MobStoreSet<T> {
     ): void;
     <K extends T[keyof T]>(
         prop: () => K,
-        value: NoInfer<K>,
+        value: NoInfer<Partial<K>>,
         options?: {
             emit?: boolean;
             usePropAsString?: boolean;
@@ -118,7 +118,7 @@ interface MobStoreSet<T> {
 interface MobStoreUpdate<T> {
     <K extends keyof T>(
         prop: Extract<K, string>,
-        value: (arg0: T[K]) => T[K],
+        value: (arg0: Partial<T[K]>) => Partial<T[K]>,
         options?: {
             emit?: boolean;
             clone?: boolean;
@@ -127,7 +127,7 @@ interface MobStoreUpdate<T> {
     ): void;
     <K extends T[keyof T]>(
         prop: () => K,
-        value: (arg0: K) => NoInfer<K>,
+        value: (arg0: K) => NoInfer<Partial<K>>,
         options?: {
             emit?: boolean;
             clone?: boolean;

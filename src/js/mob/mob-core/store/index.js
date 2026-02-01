@@ -60,10 +60,22 @@ import { setProxiPropReadOnlyEntryPoint } from './proxi-read-only';
  * ```js
  *    {
  *        myObj: {
- *            prop1: () => ({ value: 2, type: Number }),
- *            prop2: () => ({ value: 2, type: Number, validate: (val) => val < 5 })
+ *            prop1: () => ({
+ *              value: 2,
+ *              type: Number
+ *            }),
+ *            prop2: () => ({
+ *              value: 2,
+ *              type: Number,
+ *              validate: (val) => val < 5
+ *           })
  *        }
  *    }
+ *
+ *
+ * // It is possible modify single propierites of structured object.
+ * myStore.set('myObj', { prop1: 10 });
+ * myStore.set('myObj', { prop2: 10 });
  * ```
  *
  * 2. TYPE 'ANY' (Arbitrary Depth - Flexibility): For objects with arbitrary nesting or dynamic structures, use the special
@@ -75,9 +87,15 @@ import { setProxiPropReadOnlyEntryPoint } from './proxi-read-only';
  * ```js
  *    {
  *        complexData: () => ({
- *            value: { nested: { deep: { value: 123 } } },  // Depth > 2
- *            type: 'ANY'  // Disables deep property validation
- *        })
+ *            value: {
+ *              nested: {
+ *                  deep: {
+ *                    value: 123
+ *                  }
+ *              }
+ *           },
+ *           type: 'any'  // Disables deep property validation
+ *       })
  *    }
  * ```
  *

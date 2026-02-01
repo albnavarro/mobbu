@@ -2,7 +2,7 @@ import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
     prop: 0,
-    myObject: {
+    myComplexObj: {
         prop: () => ({
             value: 0,
             type: Number,

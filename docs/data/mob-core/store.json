@@ -602,7 +602,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/set.js",
-                "numLines": 18
+                "numLines": 20
             }
         },
         {
