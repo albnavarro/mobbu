@@ -59,7 +59,7 @@ const myStore = MobCore.createStore({
 ```
 
 ## Advanced implementations
-For advanced usage, it is necessary to return a function that returns an object containing the `value` property and at least one of the following properties: `validate`, `type`, or `skipEqual`.
+For advanced usage, it is necessary to return a function that returns an object containing the `value` property and at least one of the following properties: `validate`, `type`, `skipEqual` or `strict`.
 
 You can nest up to **two levels** (supporting both basic and advanced use cases) for properties, as demonstrated in example below.
 
@@ -134,7 +134,7 @@ const myStore = MobCore.createStore({
 
 ## State params
 
-Details of the parameters if defining a single state via an advanced implementation. Recall that in this case, the practice is to provide a function that returns an object with a `value` property and one of `validate`, `type`, or `skipEqual`.
+Details of the parameters if defining a single state via an advanced implementation. Recall that in this case, the practice is to provide a function that returns an object with a `value` property and one of `validate`, `type`, `skipEqual` or `strict`.
 
 ### value
 Initial value
@@ -805,48 +805,4 @@ halt the script.
 
 ##### checkEquality
 - `arrayAreEquals` && `objectAreEqual` must be optimize.
-
-##### Fix strict: true senza validate blocca tutti gli update
-Problema: Quando una proprietà è definita con strict: true ma senza validate, tutti gli update vengono bloccati silenziosamente.
-
-```javascript
-// Esempio problematico
-const store = MobCore.createStore({
-    prop: () => ({
-        value: 0,
-        strict: true,  // ← ATTIVO
-        // validate: undefined (default)
-    }),
-});
-
-store.set('prop', 5);  // BLOCCATO! Nessun update, nessun warning runtime
-console.log(store.get().prop);  // 0 (non cambiato)
-```
-
-Causa: In store-set.js (funzione setProp):
-
-```javascript
-const isValidated = fnValidate[prop]?.(valueTransformed, oldVal);  // undefined
-
-if (strict[prop] && !isValidated && useStrict) return;  // !undefined === true, quindi return
-```
-
-Suggerimento implementazione Opzione B (minimo breaking change):
-
-```javascript
-// store-set.js
-const validateFn = fnValidate[prop] ?? (() => true);  // Default se mancante
-const isValidated = validateFn(valueTransformed, oldVal);
-```
-
-Oppure in fase di inizializzazione (inizializeInstance):
-
-```javascript
-// inizialize-instance.js
-fnValidate: inizializeSpecificProp({
-    // ...
-    fallback: (/** @type {any} */ value) => value,  // Cambiare in:
-    fallback: () => true,  // Se strict è true, altrimenti value => value
-}),
-```
 

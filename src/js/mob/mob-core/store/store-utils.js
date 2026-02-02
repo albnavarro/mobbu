@@ -48,12 +48,12 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
                 const functionResult = value();
 
                 /**
-                 * Complex data with validate || type || skipEqual
+                 * Complex data with validate || type || skipEqual || strict
                  */
                 if (
                     storeType.isObject(functionResult) &&
                     'value' in functionResult &&
-                    ['validate', 'type', 'skipEqual'].some(
+                    ['validate', 'type', 'skipEqual', 'strict'].some(
                         (prop) => prop in functionResult
                     )
                 ) {

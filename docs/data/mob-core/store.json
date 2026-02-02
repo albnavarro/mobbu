@@ -131,7 +131,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "For advanced usage, it is necessary to return a function that returns an object containing the <span class='quote'>value</span> property and at least one of the following properties: <span class='quote'>validate</span>, <span class='quote'>type</span>, or <span class='quote'>skipEqual</span>. You can nest up to two levels (supporting both basic and advanced use cases) for properties, as demonstrated in example below."
+            "content": "For advanced usage, it is necessary to return a function that returns an object containing the <span class='quote'>value</span> property and at least one of the following properties: <span class='quote'>validate</span>, <span class='quote'>type</span>, <span class='quote'>skipEqual</span> or <span class='quote'>strict</span>. You can nest up to two levels (supporting both basic and advanced use cases) for properties, as demonstrated in example below."
         },
         {
             "component": "mob-paragraph",
@@ -251,7 +251,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "Details of the parameters if defining a single state via an advanced implementation. Recall that in this case, the practice is to provide a function that returns an object with a value property and one of validate, type, or skipEqual."
+            "content": "Details of the parameters if defining a single state via an advanced implementation. Recall that in this case, the practice is to provide a function that returns an object with a <span class='quote'>value</span> property and one of <span class='quote'>validate</span>, <span class='quote'>type</span>, <span class='quote'>skipEqual</span> or <span class='quote'>strict</span>."
         },
         {
             "component": "mob-spacer",
