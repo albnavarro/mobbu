@@ -13,6 +13,14 @@ export const destroyStoreEntryPoint = (instanceId) => {
     const state = storeMap.get(instanceId);
     if (!state) return;
 
+    /**
+     * Warning: This store is referencied by another store, destroy the store may generate unespected behaviour.
+     */
+    if (state.bindInstanceBy.length > 0)
+        console.warn(
+            `${instanceId} store will be destroyed but is used by another store.`
+        );
+
     state.callBackComputed.clear();
     state.computedPropsQueque.clear();
     state.watcherByProp.clear();
