@@ -107,7 +107,7 @@ export const bindStoreEntryPoint = ({ value, instanceId }) => {
      */
     checkDuplicatedBindProp({ bindStores: value, selfStore: state });
 
-    const { bindInstance } = state;
+    const { bindInstance, bindInstanceBy } = state;
     if (!bindInstance) return;
 
     const ids = checkType(Array, value)
@@ -119,6 +119,19 @@ export const bindStoreEntryPoint = ({ value, instanceId }) => {
                   value
               ).getId(),
           ];
+
+    /**
+     * Check circular bindnds or store bind itSelf.
+     */
+    const isBindable = bindInstanceBy.every((id) => !ids.includes(id));
+    const tryToBindItself = ids.includes(instanceId);
+
+    if (!isBindable || tryToBindItself) {
+        console.warn(
+            `${instanceId}, binding store failed, circular dependencies found.`
+        );
+        return;
+    }
 
     const bindInstanceUpdated = [...bindInstance, ...ids];
 
