@@ -63,6 +63,10 @@ For advanced usage, it is necessary to return a function that returns an object 
 
 You can nest up to **two levels** (supporting both basic and advanced use cases) for properties, as demonstrated in example below.
 
+This implementation is designed to group multiple properties by `domain` rather than managing an object. It can only be used at the first level of property definition, as in the following example.
+
+One of the advantages of this approach is the ability to use `set` or `update` to mutate a single property of the `object` without having to manage the object in its entirety, as shown in the `set` property section.
+
 In this case, after the definition it will no longer be possible to add new properties; to add new properties dynamically use any
 
 
@@ -105,8 +109,9 @@ const myStore = MobCore.createStore({
 To use an object with infinite insertions, employ the **any** type.
 With any every type of object will be accepted and no validation is applied.
 
-Note that this approach disables property-specific definitions for nested properties.
-Works only with advanced implementation.
+The `any` type can also be used to handle custom data, such as classes and other personalized data implementations. When using `any`, no dynamic type checking will be performed.
+
+Note that this approach disables property-specific definitions for nested properties, this works only with advanced implementation.
 
 ```JavaScript
 import { MobCore } from '@mobCore';
@@ -230,6 +235,10 @@ Using proxies enables the simplest way to both read and modify state values.
 The proxy intentionally omits deep watch for performance optimization.
 To modify nested object contents, you must reassign the entire property.
 
+**Note:** If using `proxi` and the `binstore` utility, remember to define the proxy (`getProxi()`) after binding one or more stores.
+
+The `proxi` is in fact created only once on the first invocation of `getProxi()`, after which it will always return the same instance.
+
 ```JavaScript
 import { MobCore } from '@mobCore';
 
@@ -280,6 +289,8 @@ Directly updates the state while maintaining reactivity.
 
 set provides an alternative to proxy-based state updates.
 It offers more configuration options than the proxy approach.
+
+As described above, using `set` (and `update`) allows you to modify a single property of a `group` or `domain` ( complex object ). The new value will then be automatically merged with the original object.
 
 ```JavaScript
 import { MobCore } from '@mobCore';
@@ -727,6 +738,15 @@ interface StoreOne extends Readonly<Store2> {
 }
 ```
 
+### getId
+Returns the unique ID of the store.
+
+### quickSetProp
+With `quickSetProp`, you can mutate a property while skipping the entire validation cycle. This is useful for animations or situations where performance is a critical factor.
+
+### setProxiReadOnlyProp
+Utility to define which properties, when used through a proxy, will be read-only. Useful for integrations with other modules.
+
 ### Built-in objects Map/Set
 Map and Set, if not reassigned, are treated as shallow copies, so they will always reference the original object, which is why it is important to pay attention to setting the skipEqual property to false. In this specific case, reassignment makes little sense, since by directly mutating the map, the previous value and the current value will always be equal.
 
@@ -761,6 +781,8 @@ myStore.update(
     { clone: true }
 );
 ```
+
+
 
 ### Destroy
 Destroy store and remove all reference
