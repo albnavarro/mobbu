@@ -134,6 +134,27 @@
             "content": "For advanced usage, it is necessary to return a function that returns an object containing the <span class='quote'>value</span> property and at least one of the following properties: <span class='quote'>validate</span>, <span class='quote'>type</span>, or <span class='quote'>skipEqual</span>. You can nest up to two levels (supporting both basic and advanced use cases) for properties, as demonstrated in example below."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "This implementation is designed to <span class='quote'>group</span> multiple properties by <span class='quote'>domain</span> rather than managing an object.<br/> It can only be used at the <span class='quote'>first level</span> of property definition, as in the following example."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "One of the advantages of this approach is the ability to use set or update to mutate a single property of the object without having to manage the object in its entirety, as shown in the set property section."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "In this case, after the definition it will no longer be possible to add new properties; to add new properties dynamically use any"
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/advanced-use.js",
@@ -160,7 +181,21 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "To use an object with infinite insertions, employ the <span class='quote'>any</span> type. Note that this approach disables property-specific definitions for nested properties.<br/><br/>Works only with advanced implementation"
+            "content": "To use an object with infinite insertions, employ the <span class='quote'>any</span> type. Note that this approach disables property-specific definitions for nested properties."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The any type can also be used to handle custom data, such as <span class='quote'>classes</span> and other <span class='quote'>personalized data</span> implementations. When using any, no dynamic type checking will be performed."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Note that this approach <span class='quote'>disables</span> property-specific definitions for <span class='quote'>nested</span> properties, this works only with advanced implementation."
         },
         {
             "component": "mob-snippet",
@@ -535,6 +570,20 @@
             "content": "Using proxies enables the simplest way to both read and modify state values."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Note: If using proxi and the binstore utility, remember to define the proxy ( <span class='quote'>getProxi()</span> ) after binding one or more stores."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The proxi is in fact created only once on the first invocation of <span class='quote'>getProxi()</span>, after which it will always return the same instance."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
@@ -597,6 +646,13 @@
                 "note": true
             },
             "content": "set provides an alternative to proxy-based state updates.<br />It offers more configuration options than the proxy approach."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "As described above, using set (and update) allows you to modify a single property of a <span class='quote'>group</span> or <span class='quote'>domain</span> ( complex object ). The new value will then be automatically merged with the original object."
         },
         {
             "component": "mob-snippet",
@@ -692,6 +748,13 @@
                 "note": true
             },
             "content": "update serves as a proxy alternative for state modifications,<br />offering additional configuration options beyond proxy capabilities."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "As described above, using update ( and set ) allows you to modify a single property of a <span class='quote'>group</span> or <span class='quote'>domain</span> ( complex object ). The new value will then be automatically merged with the original object."
         },
         {
             "component": "mob-snippet",
@@ -1083,7 +1146,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "To configure the target of a computed property and its optional dependencies, you may specify either:  <li>Property keys as strings</li> <li>A function that returns the proxy's value</li>"
+            "content": "To configure the target of a computed property and its optional dependencies, you may specify either:  <ul><li>Property keys as strings</li> <li>A function that returns the proxy's value</li></ul>"
         },
         {
             "component": "mob-spacer",
@@ -1103,14 +1166,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Using a functional approach lets you:  <li>Declare explicit dependencies</li> <li>Pass current dependency values as callback parameters</li> <li>Avoid relying on state values outside the callback context</li> "
+            "content": "Using a functional approach lets you:  <ul><li>Declare explicit dependencies</li> <li>Pass current dependency values as callback parameters</li> <li>Avoid relying on state values outside the callback context</li> </ul>"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "When dependencies are explicitly declared:  <li>The callback receives <em>only</em> the specified dependencies</li> <li>Alternative: Access proxies directly within the callback</li> "
+            "content": "When dependencies are explicitly declared:  <ul><li>The callback receives <em>only</em> the specified dependencies</li> <li>Alternative: Access proxies directly within the callback</li></ul> "
         },
         {
             "component": "mob-snippet",
@@ -1328,7 +1391,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/update-map-set.js",
-                "numLines": 29
+                "numLines": 32
             }
         },
         {

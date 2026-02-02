@@ -21,5 +21,5 @@ myStore.update('prop', (oldValue) => {
 
 // Object
 myStore.update('myObject', (obj) => {
-    return { ...obj, prop: 10 };
+    return { prop: obj.prop + 1 };
 });

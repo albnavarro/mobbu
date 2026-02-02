@@ -4,7 +4,7 @@ const myStore = MobCore.createStore({
     myMap: () => ({
         value: new Map(),
         type: Map,
-        skipEqual: false, // !important
+        skipEqual: false,
     }),
 });
 
@@ -12,18 +12,21 @@ const proxi = myStore.getProxi();
 
 myStore.watch(
     () => proxi.myMap,
-    (current, previous) => {
-        // current and previous is equal, map is not reassigned.
-        console.log(current === previous);
+    (current) => {
+        console.log('Map updated:', current.get('myKey'));
     }
 );
 
-myStore.update(proxi.myMap, (value) => value.set('myKey', 10));
-myStore.set(proxi.myMap, proxi.myMap.set('myKey', 11));
-proxi.myMap = proxi.myMap.set('myKey', 12);
+// Metodo 1: Diretto (raccomandato)
+proxi.myMap.set('myKey', 10);
+myStore.emit('myMap');
 
-/**
- * Alternative:
- */
-proxi.myMap.set('myKey', 12);
-myStore.emit(() => proxi.myMap);
+// Metodo 2: Update con clone
+myStore.update(
+    () => proxi.myMap,
+    (map) => {
+        map.set('myKey', 11);
+        return map;
+    },
+    { clone: true }
+);
