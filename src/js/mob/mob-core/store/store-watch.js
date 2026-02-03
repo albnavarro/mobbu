@@ -168,9 +168,10 @@ export const watchEntryPoint = ({ instanceId, prop, callback, wait }) => {
 
         updateMainMap(instanceId, {
             ...stateAfterUnsubscribe,
-            unsubscribeBindInstance: unsubscribeBindInstance.filter(
-                (unsubscribe) => unsubscribe !== innerUnsubscribe
-            ),
+            unsubscribeBindInstance:
+                stateAfterUnsubscribe.unsubscribeBindInstance.filter(
+                    (unsubscribe) => unsubscribe !== innerUnsubscribe
+                ),
         });
     };
 };

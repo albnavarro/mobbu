@@ -5,8 +5,8 @@
 # MobCore
 
 #### Store - watcher structure:
-- Check su `bindind bidirezionali` dello store, al momento gli store possono collegarsi secondo lo schema A bind B e B bind A creando un possibile loop infinito o cmq effetti collaterali.
 - check-equality: `objectAreEqual` puo portare a cicli infiniti.
+- `unsubscribeBindInstance` portare la logica a O(1).
 
 #### Store - deepEquality:
 - Agiungere `deepEquality`, basta un `JSON.stringigfy(current) === JSON.stringigfy(current)`.

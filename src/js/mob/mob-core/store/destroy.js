@@ -33,7 +33,7 @@ export const destroyStoreEntryPoint = (instanceId) => {
     /**
      * Unsubscribe binded watcher
      */
-    unsubscribeBindInstance.forEach((unsubscribe) => {
+    [...unsubscribeBindInstance].toReversed().forEach((unsubscribe) => {
         unsubscribe?.();
     });
 
