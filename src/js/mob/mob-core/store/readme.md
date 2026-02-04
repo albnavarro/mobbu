@@ -235,7 +235,8 @@ Using proxies enables the simplest way to both read and modify state values.
 The proxy intentionally omits deep watch for performance optimization.
 To modify nested object contents, you must reassign the entire property.
 
-**Note:** If using `proxi` and the `binstore` utility, remember to define the proxy (`getProxi()`) after binding one or more stores.
+**Note:** If using `proxi` and the `binstore` utility, remember to define the proxy (`getProxi()`) after binding one or more stores.<br/><br/>
+**Note:** The module performs an internal merge of the store states when necessary, assuming that the property names do not conflict; only the first property found will be valid. This mechanism streamlines the store logic, making it simpler and more maintainable. The decision not to handle this specific case stems from a cost/benefit analysis.
 
 The `proxi` is in fact created only once on the first invocation of `getProxi()`, after which it will always return the same instance.
 
@@ -800,9 +801,112 @@ Currently, no type of try/catch is implemented for callbacks passed to the store
 at this stage. We aim to identify all issues with callbacks defined externally by the user and, in case of an error,
 halt the script.
 
+#### 1) Sicurezza del Pattern di Mutazione Interna
+
+In diversi punti del codice, lo stato viene gestito mediante shallow copy del wrapper object con mutazione diretta delle collection interne (Set/Map):
+
+```javascript
+const state = getStateFromMainMap(instanceId);  // Shallow copy del wrapper
+state.internalSet.add(value);                    // Mutazione diretta
+updateMainMap(instanceId, state);                // Aggiornamento
+```
+
+**Punti dove il Pattern è applicato**
+- `store-set.js` -> `addToComputedWaitLsit()` -> `computedPropsQueque` ( Set )
+- `store-set.js` -> `fireComputed()` -> `callBackComputed` ( iterazione )
+- `fire-queque.js` -> `runCallbackQueqe()` -> `waitMap` ( Map globale )
+- `store-watch.js` -> `subscribeWatch()` -> `watcherByProp`, `watcherMetadata`
+- `bind-store.js` -> `bindStoreEntryPoint()` -> `bindInstance` (array push implicito)
+
+
+**Perché è Sicuro**
+- JavaScript Single-Threaded
+
+```javascript
+// Tutte le operazioni tra get e update sono atomiche
+const state = getStateFromMainMap(instanceId);  // Tick 1 - Inizio
+state.computedPropsQueque.add(prop);            // Tick 1 - Esecuzione
+updateMainMap(instanceId, state);               // Tick 1 - Fine
+// Non esiste interleaving possibile
+```
+
+-  Nessuna Asincronicità nel Mezzo
+Non ci sono await, Promise o callback asincroni tra la lettura ( `getStateFromMainMap` ) e la scrittura ( `updateMainMap` ). Il flusso è puramente sincrono.
+
+- Riferimento Condiviso Intenzionale
+La shallow copy restituisce un nuovo wrapper, ma le collection interne (Set/Map) sono riferimenti condivisi con l'oggetto nella mappa globale. Questo è intenzionale e sicuro perché:
+L'operazione di mutazione (`add`, `set`, `delete`) è immediata
+Non c'è yield del controllo tra la mutazione e l'aggiornamento della mappa
+L'ordine di esecuzione garantisce che ogni modifica sia visibile alle operazioni successive nello stesso tick
+
+- Isolamento dei Callback
+```javascript
+// In fire-queque.js
+if (firstCycle) {
+    useNextLoop(() => {
+        // Qui lo stato è garantito stabile
+        const propsPerIdNow = waitMap.get(instanceId);
+        // ...
+    });
+}
+```
+
+**Punti di Attenzione per Future Modifiche**
+NON introdurre await o operazioni asincrone tra getStateFromMainMap e updateMainMap
+
+```javascript
+// ERRATO - Introduce race condition
+async function dangerousOperation(instanceId, value) {
+    const state = getStateFromMainMap(instanceId);
+    await validateAsync(value);  // YIELD! Altro codice può modificare lo stato
+    state.store.prop = value;    // Sovrascrive modifiche intermedie
+    updateMainMap(instanceId, state);
+}
+
+// CORRETTO - Mantiene atomicità
+function safeOperation(instanceId, value) {
+    const state = getStateFromMainMap(instanceId);
+    state.store.prop = value;
+    updateMainMap(instanceId, state);
+    // Eventuali operazioni async dopo l'update
+}
+```
+
+
+## Problemi noti:
+
+#### 2) Problema: Mancata Reattività nelle Mutazioni Profonde tramite Proxy
+ Attualmente, il metodo getProxi() restituisce un proxy `shallow` (superficiale). Quando si accede a una proprietà che è a sua volta un oggetto o un array (es. proxi.myObj), il proxy restituisce il riferimento diretto all'oggetto originale in memoria, senza avvolgerlo in un ulteriore livello di controllo.
+
+**Effetti:**
+- **Perdita di Reattività**: Se l'utente modifica una proprietà annidata (es. proxi.myObj.nestedProp = 10), la modifica avviene direttamente sull'oggetto in memoria. Poiché non passa attraverso il set trap del proxy principale, nessun watcher viene attivato, nessuna computata viene ricalcolata e nessuna validazione viene eseguita.
+- **Stato Desincronizzato**: Lo store si trova in uno stato mutato, ma il resto dell'applicazione (componenti, UI) "pensa" che il dato sia ancora quello vecchio, portando a inconsistenze visive e logiche.
+- **Sicurezza**: È possibile violare vincoli di tipo o validatori definiti nello store, poiché la modifica diretta bypassa tutti i check implementati nel metodo set dello store.
+
+**Future opzioni**
+- Ipotizzare piu serimente l'opzione di un meccanismo di `deep-proxi`, valutare costi/benefici.
+
+
+#### 3) Cache del Proxy e bindStore (Race Condition nell'Inizializzazione)
+
+1. Ad ora é previsto che il proxi venga creato solo dopo l'operazione di binding.
+
+    ```javascript
+    storeOne.bindStore([storeTwo]);
+    const myProxi = getProxi():
+    ```
+
+Anche creando un nuovo proxi ed eliminando la cache del vecchio proxi l'operazione di chiamare due volte `getProxi()` a poco senso a meno che:
+  - `getProxi()` ritorna il puntamanto al proxi: `state.proxiObject` e non il proxi appena creato.
+  - dopo la chiamata a `bindStore()` `getProxiEntryPoint()` viene invocata e il proxi ricreato.
+  - Avendo tornato il `puntamanto` a `state.proxiObject` dovremmo avere un proxi valido anche se definito prima di chiamare `bindStore()`.
+
+
 
 ## TODO:
 
-##### checkEquality
+#### checkEquality
 - `arrayAreEquals` && `objectAreEqual` must be optimize.
+
+
 

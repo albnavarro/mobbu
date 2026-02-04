@@ -563,25 +563,9 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium",
-                "boxed": true,
-                "note": true
-            },
-            "content": "Using proxies enables the simplest way to both read and modify state values."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
                 "style": "medium"
             },
-            "content": "Note: If using proxi and the binstore utility, remember to define the proxy ( <span class='quote'>getProxi()</span> ) after binding one or more stores."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The proxi is in fact created only once on the first invocation of <span class='quote'>getProxi()</span>, after which it will always return the same instance."
+            "content": "<strong>Note:</strong> If using proxi and the binstore utility, remember to define the proxy ( <span class='quote'>getProxi()</span> ) after binding one or more stores.<br/>The proxi is in fact created only once on the first invocation of <span class='quote'>getProxi()</span>, after which it will always return the same instance."
         },
         {
             "component": "mob-spacer",
@@ -597,11 +581,16 @@
             "content": "Deep watch"
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
-                "style": "medium"
-            },
-            "content": "The proxy intentionally omits deep watch for performance optimization.<br />To modify nested object contents, you must reassign the entire property."
+                "tag": "h3",
+                "dots": false,
+                "items": [
+                    "The proxy at now omits deep watch for nested propierites.",
+                    "To modify nested object contents, you must reassign the entire property.",
+                    "Modifying a nested property will change the value of the object inside the store without triggering any reaction. Additionally, all security checks—such as type, transform, etc.—will be bypassed. For this reason as well, <strong>objects should be reassigned</strong>."
+                ]
+            }
         },
         {
             "component": "mob-spacer",

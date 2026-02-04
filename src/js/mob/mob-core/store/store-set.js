@@ -623,13 +623,24 @@ const fireComputed = (instanceId) => {
 };
 
 /**
- * When a prop is updated ( set o emit ). add prop to computed waiting list.
+ * When a prop is updated (set or emit), add prop to computed waiting list.
  *
  * - At the end of current event loop fire computed.
  * - ComputedPropsQueque save all props for computed check.
- * - At this time we doesn't now if prop is a dependencies.
+ * - At this time we don't know if prop is a dependency.
  * - ComputedRunning is reset in fireComputed function.
  * - The same function is used both for current instance and binded instance.
+ *
+ * Note: addToComputedWaitList performs an additional map update even when called from setProp/setObj which have already
+ * updated the state.
+ *
+ * This redundancy is intentional and acceptable:
+ *
+ * 1. The cost is negligible (shallow copy of ~15 properties)
+ * 2. Maintains the autonomy of addToComputedWaitList for other entry points (emit)
+ * 3. Avoids complications in passing pre-loaded state
+ *
+ * Atomicity is guaranteed by the single-threaded nature of JavaScript.
  *
  * @param {Object} param
  * @param {string} param.instanceId
