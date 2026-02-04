@@ -896,9 +896,15 @@ function safeOperation(instanceId, value) {
     const myProxi = getProxi():
     ```
 
-Anche creando un nuovo proxi ed eliminando la cache del vecchio proxi l'operazione di chiamare due volte `getProxi()` a poco senso a meno che:
-  - `getProxi()` ritorna il puntamanto al proxi: `state.proxiObject` e non il proxi appena creato.
-  - dopo la chiamata a `bindStore()` `getProxiEntryPoint()` viene invocata e il proxi ricreato.
+Se si vuole che la creazione di un proxi tramite `getProxi()` sia coerente anche prima di effettuare un' operazione di binding di uno/altri store dobbiamo ipotizzare:
+  - `getProxi()` ritorna il puntamanto al proxi: ( `state.proxiObject` ) e non il proxi appena creato.
+  - dopo la chiamata a `bindStore()` la funzione `getProxiEntryPoint()` viene invocata e il proxi rigenerato.
+  - Il seguente statement non ha percio piú senso:
+    ```javascript
+    if (previousProxiObject) {
+        return previousProxiObject;
+    }
+    ```
   - Avendo tornato il `puntamanto` a `state.proxiObject` dovremmo avere un proxi valido anche se definito prima di chiamare `bindStore()`.
 
 
