@@ -1,7 +1,7 @@
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    myProps: () => ({
+    props1: () => ({
         value: 0,
         type: Number,
         transform: (val) => {
@@ -13,20 +13,8 @@ const myStore = MobCore.createStore({
         strict: false,
         skipEqual: false,
     }),
-    myObject: {
-        myProps: () => ({
-            value: 'option1',
-            type: String,
-            transform: (val) => {
-                return `option${val}`;
-            },
-            validate: (val) => {
-                return ['option1', 'option2'].includes(val);
-            },
-        }),
-        myProps2: () => ({
-            value: [],
-            type: Array,
-        }),
-    },
+    props2: () => ({
+        value: 'test',
+        type: String,
+    }),
 });

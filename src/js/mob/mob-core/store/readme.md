@@ -61,6 +61,30 @@ const myStore = MobCore.createStore({
 ## Advanced implementations
 For advanced usage, it is necessary to return a function that returns an object containing the `value` property and at least one of the following properties: `validate`, `type`, `skipEqual` or `strict`.
 
+```JavaScript
+import { MobCore } from '@mobCore';
+
+const myStore = MobCore.createStore({
+    props1: () => ({
+        value: 0,
+        type: Number,
+        transform: (val) => {
+            return val * 2;
+        },
+        validate: (val) => {
+            return val > 0;
+        },
+        strict: false,
+        skipEqual: false,
+    }),
+    props2: () => ({
+        value: 'test',
+        type: String,
+    }),
+});
+```
+
+## Default ( controlled ) object:
 You can nest up to **two levels** (supporting both basic and advanced use cases) for properties, as demonstrated in example below.
 
 This implementation is designed to group multiple properties by `domain` rather than managing an object. It can only be used at the first level of property definition, as in the following example.
@@ -74,18 +98,6 @@ In this case, after the definition it will no longer be possible to add new prop
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    myProps: () => ({
-        value: 0,
-        type: Number,
-        transform: (val) => {
-            return val * 2;
-        },
-        validate: (val) => {
-            return val > 0;
-        },
-        strict: false,
-        skipEqual: false,
-    }),
     myObject: {
         myProps: () => ({
             value: 'option1',
@@ -140,8 +152,8 @@ Details of the parameters if defining a single state via an advanced implementat
 Initial value
 
 ### type
-The type can be defined as a native JavaScript object or in the form of a string.
-In the case of any, only the string form is supported.
+The type can be defined as a native JavaScript object or in the form of a string.<br/>
+The `object` type has been intentionally omitted. Please refer to the `default controlled object` section or the `any` type.
 
 - `Function` | 'Function'
 - `String` | 'String'

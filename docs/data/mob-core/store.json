@@ -134,6 +134,26 @@
             "content": "For advanced usage, it is necessary to return a function that returns an object containing the <span class='quote'>value</span> property and at least one of the following properties: <span class='quote'>validate</span>, <span class='quote'>type</span>, <span class='quote'>skipEqual</span> or <span class='quote'>strict</span>. You can nest up to two levels (supporting both basic and advanced use cases) for properties, as demonstrated in example below."
         },
         {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-core/advanced-use.js",
+                "numLines": 20
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Default ( controlled ) object:"
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
@@ -157,8 +177,8 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-core/advanced-use.js",
-                "numLines": 32
+                "source": "./snippets/mob-core/default-controlled-object.js",
+                "numLines": 20
             }
         },
         {
@@ -291,7 +311,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The type can be defined as a native JavaScript object or in the form of a string.<br/> In the case of any, only the string form is supported."
+            "content": "The <span class='quote'>object</span> type has been intentionally omitted. Please refer to the default <strong>controlled object</strong> section or the <strong>any</strong> type."
         },
         {
             "component": "mob-list",
