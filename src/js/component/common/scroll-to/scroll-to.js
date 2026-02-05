@@ -90,6 +90,8 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
 const setActiveLabelOnScroll = ({ proxi, direction, winHeight }) => {
     MobCore.useFrame(() => {
         MobCore.useNextTick(() => {
+            if (!('anchorItems' in proxi)) return;
+
             if (direction === 'DOWN') {
                 const activeItem = proxi.anchorItems.findLast(
                     ({ top, isNote }) => {
