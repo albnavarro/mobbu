@@ -595,7 +595,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/get-proxi.js",
-                "numLines": 40
+                "numLines": 51
             }
         },
         {

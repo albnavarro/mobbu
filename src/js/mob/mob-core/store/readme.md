@@ -232,13 +232,11 @@ Returns a proxy wrapper for the original object.
 
 Using proxies enables the simplest way to both read and modify state values.
 
-The proxy intentionally omits deep watch for performance optimization.
-To modify nested object contents, you must reassign the entire property.
+The proxy intentionally omits deep watch for performance optimization.<br/>
+To modify nested object contents, you must reassign the entire property.<br/>
+Modify nested property means that orinal object reference in store will be update without trigger any reaction or validation.
 
 **Note:** If using `proxi` and the `binstore` utility, remember to define the proxy (`getProxi()`) after binding one or more stores.<br/><br/>
-**Note:** The module performs an internal merge of the store states when necessary, assuming that the property names do not conflict; only the first property found will be valid. This mechanism streamlines the store logic, making it simpler and more maintainable. The decision not to handle this specific case stems from a cost/benefit analysis.
-
-The `proxi` is in fact created only once on the first invocation of `getProxi()`, after which it will always return the same instance.
 
 ```JavaScript
 import { MobCore } from '@mobCore';
@@ -249,15 +247,14 @@ const myStore = MobCore.createStore({
         type: String,
     }),
     myObj: () => ({
-        value: { prop: 2 },
+        value: {
+            prop: 2,
+            prop2: {
+                nested: 10,
+            }
+        },
         type: 'any',
     }),
-    myComplexObj: {
-        prop: () => ({
-            value: 2,
-            type: Number,
-        }),
-    },
 });
 
 const proxi = myStore.getProxi();
@@ -274,13 +271,30 @@ proxi.myProp = 'test value 2';
 proxi.myProp = 'test value 3';
 
 /**
- * Since the proxy does not implement deep watch, it is necessary to reassign the object
- */
-proxi.myObj = { prop: 3 }; // wrong
-proxi.myObj = { ...proxi.myObj, prop: 4 }; // right
-proxi.myComplexObj = { ...proxi.myComplexObj, prop: 4 }; // right
+* SAFE:
+* override entire object and trigger reactivity.
+*/
+proxi.myObj = { prop: 3 };
 
-console.log(proxi.myObj.prop);
+/**
+* SAFE:
+* update object and trigger reactivity.
+*/
+proxi.myObj = { ...proxi.myObj, prop: 4 }; // right
+
+/**
+* DAGEROUS ( mutate nested prop ):
+* update myObj.prop directly in store reference
+* - no reactivity will trigger.
+* - no validation, typecheck etc.. is trigger.
+*
+* use:
+* myStore.emit(() => proxi.myObject)
+* to trigger reactivity.
+*/
+proxi.myObj.prop = 10;
+myStore.emit(() => proxi.myObject)
+
 ```
 
 ### Set

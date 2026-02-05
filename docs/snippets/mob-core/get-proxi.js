@@ -6,15 +6,14 @@ const myStore = MobCore.createStore({
         type: String,
     }),
     myObj: () => ({
-        value: { prop: 2 },
+        value: {
+            prop: 2,
+            prop2: {
+                nested: 10,
+            },
+        },
         type: 'any',
     }),
-    myComplexObj: {
-        prop: () => ({
-            value: 2,
-            type: Number,
-        }),
-    },
 });
 
 const proxi = myStore.getProxi();
@@ -31,10 +30,22 @@ proxi.myProp = 'test value 2';
 proxi.myProp = 'test value 3';
 
 /**
- * - Since the proxy does not implement deep watch, it is necessary to reassign the object
+ * SAFE: override entire object and trigger reactivity.
  */
-proxi.myObj = { prop: 3 }; // wrong
-proxi.myObj = { ...proxi.myObj, prop: 4 }; // right
-proxi.myComplexObj = { ...proxi.myComplexObj, prop: 4 }; // right
+proxi.myObj = { prop: 3 };
 
-console.log(proxi.myObj.prop);
+/**
+ * SAFE: update object and trigger reactivity.
+ */
+proxi.myObj = { ...proxi.myObj, prop: 4 }; // right
+
+/**
+ * DAGEROUS ( mutate nested prop ): update myObj.prop directly in store reference
+ *
+ * - No reactivity will trigger.
+ * - No validation, typecheck etc.. is trigger.
+ *
+ * Use: myStore.emit(() => proxi.myObject) to trigger reactivity.
+ */
+proxi.myObj.prop = 10;
+myStore.emit(() => proxi.myObject);
