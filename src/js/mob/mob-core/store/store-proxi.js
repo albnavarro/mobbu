@@ -7,178 +7,116 @@ import { checkIfPropIsComputed } from './store-utils';
 import { storeProxiReadOnlyWarning } from './store-warining';
 
 /**
- * Proxi state/states with the original reference of store object.
+ * Crea proxy dinamico.
  *
+ * - Get: legge da self e binded stores
+ * - Set: scrive SOLO su self store
+ *
+ * @param {string} instanceId
+ * @returns {Record<string, any>}
+ */
+const createDynamicProxy = (instanceId) => {
+    const logStyle = getLogStyle();
+
+    return new Proxy(
+        {},
+        {
+            set(_, /** @type {string} */ prop, value) {
+                const mainState = storeMap.get(instanceId);
+                if (!mainState) return false;
+
+                /**
+                 * Set operation is applied only in `self` store.
+                 */
+                if (!(prop in mainState.store)) return false;
+
+                const isComputed = checkIfPropIsComputed({ instanceId, prop });
+                const isReadOnly = mainState.proxiReadOnlyProp.has(prop);
+
+                if (isReadOnly) storeProxiReadOnlyWarning(prop, logStyle);
+                if (isComputed || isReadOnly) return false;
+
+                storeSetEntryPoint({
+                    instanceId,
+                    prop,
+                    value,
+                    fireCallback: true,
+                    clone: false,
+                    action: STORE_SET,
+                });
+
+                return true;
+            },
+            get(_, /** @type {string} */ prop) {
+                if (!storeMap.has(instanceId)) return;
+
+                const state = storeMap.get(instanceId);
+                if (!state) return;
+
+                /**
+                 * GET: cerca prima in self, poi nei binded
+                 */
+                if (prop in state.store) {
+                    /**
+                     * Autodetect dependencies
+                     */
+                    setCurrentDependencies(prop);
+                    return state.store[prop];
+                }
+
+                for (const bindId of state.bindInstance) {
+                    const bindState = storeMap.get(bindId);
+
+                    if (bindState && prop in bindState.store) {
+                        /**
+                         * Autodetect dependencies
+                         */
+                        setCurrentDependencies(prop);
+                        return bindState.store[prop];
+                    }
+                }
+            },
+            has(_, /** @type {string} */ prop) {
+                if (!storeMap.has(instanceId)) return false;
+
+                const state = storeMap.get(instanceId);
+                if (!state) return false;
+
+                /**
+                 * HAS: cerca prima in self, poi nei binded
+                 */
+                if (prop in state.store) return true;
+
+                for (const bindId of state.bindInstance) {
+                    const bindState = storeMap.get(bindId);
+                    if (bindState && prop in bindState.store) return true;
+                }
+
+                return false;
+            },
+        }
+    );
+};
+
+/**
  * @param {object} params
  * @param {string} params.instanceId
  * @returns {Record<string, any>}
  */
 export const getProxiEntryPoint = ({ instanceId }) => {
-    const logStyle = getLogStyle();
     const state = storeMap.get(instanceId);
     if (!state) return {};
 
-    const {
-        bindInstance,
-        proxiObject: previousProxiObject,
-        proxiReadOnlyProp,
-    } = state;
-
-    /**
-     * Return previous proxi if exist.
-     */
-    if (previousProxiObject) {
-        return previousProxiObject;
+    if (state.proxiObject) {
+        return state.proxiObject;
     }
 
-    /**
-     * Create self proxi
-     */
-    const selfProxi = new Proxy(
-        {},
-        {
-            set(_, /** @type {string} */ prop, value) {
-                /**
-                 * Make sure that store is not destroyed
-                 */
-                if (!storeMap.has(instanceId)) return false;
-
-                const store = storeMap.get(instanceId)?.store;
-                if (!store) return false;
-
-                if (prop in store) {
-                    const isComputed = checkIfPropIsComputed({
-                        instanceId,
-                        prop,
-                    });
-                    const isReadOnly = proxiReadOnlyProp.has(prop);
-
-                    if (isReadOnly) {
-                        storeProxiReadOnlyWarning(prop, logStyle);
-                    }
-
-                    if (isComputed || isReadOnly) return false;
-
-                    storeSetEntryPoint({
-                        instanceId,
-                        prop,
-                        value,
-                        fireCallback: true,
-                        clone: false,
-                        action: STORE_SET,
-                    });
-
-                    return true;
-                }
-
-                return false;
-            },
-            get(_, /** @type {string} */ prop) {
-                /**
-                 * Make sure that store is not destroyed
-                 */
-                if (!storeMap.has(instanceId)) return;
-
-                const store = storeMap.get(instanceId)?.store;
-                if (!store) return;
-
-                if (!(prop in store)) {
-                    return;
-                }
-
-                /**
-                 * Autodetect dependencies
-                 */
-                setCurrentDependencies(prop);
-
-                /**
-                 * Return value
-                 */
-                return store[prop];
-            },
-            has(_, /** @type {string} */ prop) {
-                if (!storeMap.has(instanceId)) return false;
-                const store = storeMap.get(instanceId)?.store;
-                return store ? prop in store : false;
-            },
-        }
-    );
-
-    /**
-     * Rerturn self proxi if no bindedInstace is used.
-     */
-
-    if (!bindInstance || bindInstance.length === 0) {
-        updateMainMap(instanceId, {
-            ...state,
-            proxiObject: selfProxi,
-        });
-
-        return selfProxi;
-    }
-
-    /**
-     * Create proxi for binded store. Binded proxi has only read operation.
-     */
-    const bindedProxi = bindInstance.map((id) => {
-        return new Proxy(
-            {},
-            {
-                set() {
-                    return false;
-                },
-                get(_, /** @type {string} */ prop) {
-                    if (!storeMap.has(id)) return;
-
-                    const store = storeMap.get(id)?.store;
-                    if (!store) return;
-
-                    if (!(prop in store)) {
-                        return;
-                    }
-
-                    /**
-                     * Autodetect dependencies
-                     */
-                    setCurrentDependencies(prop);
-
-                    /**
-                     * Return value
-                     */
-                    return store[prop];
-                },
-                has(_, /** @type {string} */ prop) {
-                    if (!storeMap.has(id)) return false;
-                    const store = storeMap.get(id)?.store;
-                    return store ? prop in store : false;
-                },
-            }
-        );
-    });
-
-    /**
-     * Create a proxy with all new proxi. Reflect operation to the proxies with prop
-     */
-    const bindedProxiArray = new Proxy([selfProxi, ...bindedProxi], {
-        set(proxies, prop, value) {
-            const currentProxi = proxies.find((proxi) => prop in proxi);
-            if (!currentProxi) return false;
-
-            Reflect.set(currentProxi, prop, value);
-            return true;
-        },
-        get(proxies, prop) {
-            const currentProxi = proxies.find((proxi) => prop in proxi);
-            if (!currentProxi) return;
-
-            return Reflect.get(currentProxi, prop);
-        },
-    });
+    const proxiObject = createDynamicProxy(instanceId);
 
     updateMainMap(instanceId, {
         ...state,
-        proxiObject: bindedProxiArray,
+        proxiObject,
     });
 
-    return bindedProxiArray;
+    return proxiObject;
 };

@@ -561,13 +561,6 @@
             }
         },
         {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "<strong>Note:</strong> If using proxi and the binstore utility, remember to define the proxy ( <span class='quote'>getProxi()</span> ) after binding one or more stores.<br/>The proxi is in fact created only once on the first invocation of <span class='quote'>getProxi()</span>, after which it will always return the same instance."
-        },
-        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
@@ -1294,15 +1287,6 @@
             "props": {
                 "style": "small"
             }
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium",
-                "boxed": true,
-                "note": true
-            },
-            "content": "<span class='quote'>Proxi</span> must be create after store is <span class='quote'>binded</span>, as the following example:"
         },
         {
             "component": "mob-paragraph",
