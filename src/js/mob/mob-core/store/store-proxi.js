@@ -1,15 +1,53 @@
+// store-proxi.js (modificato)
+
 import { STORE_SET } from './constant';
 import { setCurrentDependencies } from './current-key';
 import { getLogStyle } from './log-style';
 import { storeMap, updateMainMap } from './store-map';
 import { storeSetEntryPoint } from './store-set';
+import { checkType } from './store-type';
 import { checkIfPropIsComputed } from './store-utils';
 import { storeProxiReadOnlyWarning } from './store-warining';
 
 /**
- * Crea proxy dinamico.
+ * Controlla se il valore è un oggetto che dovrebbe essere congelato (non primitivi, non Map/Set che devono rimanere
+ * modificabili)
  *
- * - Get: legge da self e binded stores
+ * @param {any} value
+ * @returns {boolean}
+ */
+const shouldFreeze = (value) => {
+    /**
+     * Non congelare null/undefined
+     */
+    if (value == null) return false;
+
+    /**
+     * Non congelare primitivi
+     */
+    if (!checkType(Object, value)) return false;
+
+    /**
+     * NON congelare Map e Set - l'utente deve poterli usare con .set/.get e poi chiamare emit manualmente
+     */
+    if (checkType(Map, value)) return false;
+    if (checkType(Set, value)) return false;
+
+    /**
+     * Non congelare funzioni
+     */
+    if (checkType(Function, value)) return false;
+
+    /**
+     * Congela Array e Object normali
+     */
+    return true;
+};
+
+/**
+ * Crea un proxy dinamico con protezione anti-mutazione nested.
+ *
+ * - Get: legge da self e binded stores, restituisce valori congelati
  * - Set: scrive SOLO su self store
  *
  * @param {string} instanceId
@@ -47,35 +85,58 @@ const createDynamicProxy = (instanceId) => {
 
                 return true;
             },
+
             get(_, /** @type {string} */ prop) {
                 if (!storeMap.has(instanceId)) return;
 
                 const state = storeMap.get(instanceId);
                 if (!state) return;
 
+                let value;
+
                 /**
-                 * GET: cerca prima in self, poi nei binded
+                 * Cerca prima in self, poi nei binded
                  */
                 if (prop in state.store) {
-                    /**
-                     * Autodetect dependencies
-                     */
+                    value = state.store[prop];
                     setCurrentDependencies(prop);
-                    return state.store[prop];
                 }
 
-                for (const bindId of state.bindInstance) {
-                    const bindState = storeMap.get(bindId);
+                if (!(prop in state.store)) {
+                    for (const bindId of state.bindInstance) {
+                        const bindState = storeMap.get(bindId);
 
-                    if (bindState && prop in bindState.store) {
-                        /**
-                         * Autodetect dependencies
-                         */
-                        setCurrentDependencies(prop);
-                        return bindState.store[prop];
+                        if (bindState && prop in bindState.store) {
+                            value = bindState.store[prop];
+                            setCurrentDependencies(prop);
+                            break;
+                        }
                     }
                 }
+
+                if (value === undefined) return;
+
+                /**
+                 * Se è un Object o Array. restituisci una versione congelata.
+                 *
+                 * Map e Set rimangono modificabili (l'utente deve usare emit).
+                 *
+                 * NOTA: Non usiamo Object.freeze() direttamente sul valore originale per non rompere lo store interno.
+                 * Creiamo una shallow copy e la congeliamo.
+                 */
+                if (shouldFreeze(value)) {
+                    /**
+                     * Shallow copy + freeze per bloccare mutazioni nested
+                     *
+                     * Ma permettere comunque la lettura delle proprietà
+                     */
+                    if (Array.isArray(value)) return Object.freeze([...value]);
+                    return Object.freeze({ ...value });
+                }
+
+                return value;
             },
+
             has(_, /** @type {string} */ prop) {
                 if (!storeMap.has(instanceId)) return false;
 
