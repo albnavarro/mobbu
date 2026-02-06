@@ -79,7 +79,7 @@ export const runCallbackQueqe = ({
                 /**
                  * NOTE: for more efficence consider to push `fn` instead use spread.
                  */
-                callbacks: [...callbacksAccumulated, fn],
+                callbacks: [...new Set([...callbacksAccumulated, fn])],
             });
 
             /**

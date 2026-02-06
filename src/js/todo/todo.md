@@ -15,6 +15,9 @@
 
 # MobJs
 
+#### Repat proxi
+- il `proxi` repeater dovrebbe tornare un oggetto `frezzed` per evutare accidentali mutazioni.
+
 #### New Observe props.
 - `observe` nei nelle funzioni interne dovrebbe diventare `observedState` per una migliore leggibilitá.
 
