@@ -204,20 +204,6 @@
             "content": "To use an object with infinite insertions, employ the <span class='quote'>any</span> type. Note that this approach disables property-specific definitions for nested properties."
         },
         {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The any type can also be used to handle custom data, such as <span class='quote'>classes</span> and other <span class='quote'>personalized data</span> implementations. When using any, no dynamic type checking will be performed."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Note that this approach <span class='quote'>disables</span> property-specific definitions for <span class='quote'>nested</span> properties, this works only with advanced implementation."
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/any.js",

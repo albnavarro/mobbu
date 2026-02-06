@@ -47,4 +47,4 @@ proxi.myObj.prop = 10;
 /**
  * !! DANGEROUS:
  */
-proxi.myObj.prop.subprop = 10;
+proxi.myObj.prop2.nested = 10;
