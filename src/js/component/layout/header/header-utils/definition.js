@@ -1,7 +1,6 @@
 import { MobJs } from '@mobJs';
 import { HeaderUtilsFn } from './header-utils';
 import { Search } from '@commonComponent/search/cta-search/definition';
-import { HistoryCta } from '@commonComponent/custom-history/history-cta/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -12,6 +11,6 @@ export const HeaderUtils = MobJs.createComponent(
     ({
         tag: 'mob-header-utils',
         component: HeaderUtilsFn,
-        child: [Search, HistoryCta],
+        child: [Search],
     })
 );
