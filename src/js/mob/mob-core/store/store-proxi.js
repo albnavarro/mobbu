@@ -117,12 +117,22 @@ const createDynamicProxy = (instanceId) => {
                 if (value === undefined) return;
 
                 /**
+                 * QUesto controllo serve a spinge l'uso della riassegnazione.
+                 *
                  * Se è un Object o Array. restituisci una versione congelata.
                  *
                  * Map e Set rimangono modificabili (l'utente deve usare emit).
                  *
-                 * NOTA: Non usiamo Object.freeze() direttamente sul valore originale per non rompere lo store interno.
+                 * NOTA:
+                 *
+                 * Non usiamo Object.freeze() direttamente sul valore originale per non rompere lo store interno.
                  * Creiamo una shallow copy e la congeliamo.
+                 *
+                 * Es:
+                 *
+                 * - Proxi.myObj.prop = 2;
+                 * - `proxi.myObj`, qui il getter del proxi viene invocato resituendo un aversione congelata
+                 * - `.prop = 2`, qui viene invocato il setter ma il valore é congelato.
                  */
                 if (shouldFreeze(value)) {
                     /**
