@@ -40,12 +40,11 @@ proxi.myObj = { prop: 3 };
 proxi.myObj = { ...proxi.myObj, prop: 4 }; // right
 
 /**
- * DAGEROUS ( mutate nested prop ): update myObj.prop directly in store reference
- *
- * - No reactivity will trigger.
- * - No validation, typecheck etc.. is trigger.
- *
- * Use: myStore.emit(() => proxi.myObject) to trigger reactivity.
+ * BLOCKED ( generate error ):
  */
 proxi.myObj.prop = 10;
-myStore.emit(() => proxi.myObject);
+
+/**
+ * !! DANGEROUS:
+ */
+proxi.myObj.prop.subprop = 10;

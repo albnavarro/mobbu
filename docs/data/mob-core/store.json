@@ -587,23 +587,11 @@
             }
         },
         {
-            "component": "mob-title",
+            "component": "mob-paragraph",
             "props": {
-                "tag": "h6"
+                "style": "medium"
             },
-            "content": "Deep watch"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "tag": "h3",
-                "dots": false,
-                "items": [
-                    "The proxy at now omits deep watch for nested propierites.",
-                    "To modify nested object contents, you must reassign the entire property.",
-                    "Modifying a nested property will change the value of the object inside the store without triggering any reaction. Additionally, all security checks—such as type, transform, etc.—will be bypassed. For this reason as well, <strong>objects should be reassigned</strong>."
-                ]
-            }
+            "content": " The proxy mechanism ensures that when an array or <span class='quote'>object</span> property (excluding Map and Set) is accessed, it returns a <span class='quote'>frozen</span> copy of that property. This prevents accidental direct mutations to the original store data.<br/><br/><strong>Note:</strong> This is not a deep freeze—deeply nested properties will still be accessible. It is a compromise between simplicity and security. "
         },
         {
             "component": "mob-spacer",
@@ -615,7 +603,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/get-proxi.js",
-                "numLines": 51
+                "numLines": 50
             }
         },
         {

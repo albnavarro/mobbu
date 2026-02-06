@@ -244,11 +244,9 @@ Returns a proxy wrapper for the original object.
 
 Using proxies enables the simplest way to both read and modify state values.
 
-The proxy intentionally omits deep watch for performance optimization.<br/>
-To modify nested object contents, you must reassign the entire property.<br/>
-Modify nested property means that orinal object reference in store will be update without trigger any reaction or validation.
+The proxy mechanism ensures that when an array or object property (excluding Map and Set) is accessed, it returns a `frozen copy` of that property. This prevents accidental direct mutations to the original store data.
 
-**Note:** If using `proxi` and the `binstore` utility, remember to define the proxy (`getProxi()`) after binding one or more stores.<br/><br/>
+**Note:** This is not a deep freeze—deeply nested properties will still be accessible. It is a compromise between simplicity and security.
 
 ```JavaScript
 import { MobCore } from '@mobCore';
@@ -295,18 +293,14 @@ proxi.myObj = { prop: 3 };
 proxi.myObj = { ...proxi.myObj, prop: 4 }; // right
 
 /**
-* DAGEROUS ( mutate nested prop ):
-* update myObj.prop directly in store reference
-* - no reactivity will trigger.
-* - no validation, typecheck etc.. is trigger.
-*
-* use:
-* myStore.emit(() => proxi.myObject)
-* to trigger reactivity.
+* BLOCKED:
 */
 proxi.myObj.prop = 10;
-myStore.emit(() => proxi.myObject)
 
+/**
+* !! DANGEROUS:
+*/
+proxi.myObj.prop.subprop = 10;
 ```
 
 ### Set
@@ -895,21 +889,6 @@ function safeOperation(instanceId, value) {
     // Eventuali operazioni async dopo l'update
 }
 ```
-
-
-## Problemi noti:
-
-#### 2) Problema: Mancata Reattività nelle Mutazioni Profonde tramite Proxy
- Attualmente, il metodo getProxi() restituisce un proxy `shallow` (superficiale). Quando si accede a una proprietà che è a sua volta un oggetto o un array (es. proxi.myObj), il proxy restituisce il riferimento diretto all'oggetto originale in memoria, senza avvolgerlo in un ulteriore livello di controllo.
-
-**Effetti:**
-- **Perdita di Reattività**: Se l'utente modifica una proprietà annidata (es. proxi.myObj.nestedProp = 10), la modifica avviene direttamente sull'oggetto in memoria. Poiché non passa attraverso il set trap del proxy principale, nessun watcher viene attivato, nessuna computata viene ricalcolata e nessuna validazione viene eseguita.
-- **Stato Desincronizzato**: Lo store si trova in uno stato mutato, ma il resto dell'applicazione (componenti, UI) "pensa" che il dato sia ancora quello vecchio, portando a inconsistenze visive e logiche.
-- **Sicurezza**: È possibile violare vincoli di tipo o validatori definiti nello store, poiché la modifica diretta bypassa tutti i check implementati nel metodo set dello store.
-
-**Future opzioni**
-- Ipotizzare piu serimente l'opzione di un meccanismo di `deep-proxi`, valutare costi/benefici.
-
 
 ## TODO:
 
