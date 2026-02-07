@@ -93,6 +93,8 @@ One of the advantages of this approach is the ability to use `set` or `update` t
 
 In this case, after the definition it will no longer be possible to add new properties; to add new properties dynamically use any
 
+When using a `controlled object` but nesting it more than two levels deep, the data will be added to the store, but its validation status will automatically be set to false.
+
 
 ```JavaScript
 import { MobCore } from '@mobCore';
@@ -433,6 +435,28 @@ myStore.update(
     { clone: true, emit: true }
 );
 ```
+
+**Attenzione alle mutazioni degli oggetti**
+```javascript
+// Sbagliato: muta l'oggetto originale
+store.update('myObj', (obj) => {
+    obj.nested = 1;
+    return obj;
+});
+
+// Corretto: nuovo oggetto
+store.update('myObj', (obj) => ({
+    ...obj,
+    nested: 1
+}));
+
+// Corretto: con clone
+store.update('myObj', (obj) => {
+    obj.nested = 1;
+    return obj;
+}, { clone: true });
+```
+
 
 **With proxi**
 

@@ -175,6 +175,13 @@
             "content": "In this case, after the definition it will no longer be possible to add new properties; to add new properties dynamically use any"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "When using a <span class='quote'>controlled object</span> but nesting it more than two levels deep, the data will be added to the store, but its validation status will automatically be set to false."
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/default-controlled-object.js",
@@ -768,6 +775,26 @@
             "props": {
                 "source": "./snippets/mob-core/update-params.js",
                 "numLines": 20
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "Pay attention to mutations."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-core/update-mutation.js",
+                "numLines": 27
             }
         },
         {

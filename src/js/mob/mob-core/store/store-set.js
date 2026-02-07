@@ -357,6 +357,8 @@ const setObj = ({
         (subProp) => skipEqual[prop][subProp] === true
     );
 
+    let allPropsDethIsValid = true;
+
     /**
      * - Depth check, skip seObject if depth is not respected and objecy is not ANY
      * - Check depth BEFORE .every() to properly block execution
@@ -369,10 +371,23 @@ const setObj = ({
             storeSetObjDepthWarning(prop, valueTransformed, logStyle);
 
             /**
+             * First time value is checked ( initialize ) set validation to false if datadeph is wrong
+             */
+            validationStatusObject[prop][key] = false;
+
+            /**
              * Skip setObject
              */
-            return;
+            allPropsDethIsValid = false;
         }
+    }
+
+    /**
+     * Persist validation status and exit if depth check failed
+     */
+    if (!allPropsDethIsValid) {
+        updateMainMap(instanceId, { ...state, validationStatusObject });
+        return;
     }
 
     /**
