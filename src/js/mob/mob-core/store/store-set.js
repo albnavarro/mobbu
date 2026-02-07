@@ -242,6 +242,19 @@ const setObj = ({
             const [subProp, subVal] = item;
             const subValOld = store[prop][subProp];
 
+            /**
+             * Trasforma il valore solo se il dato è effettivamente cambiato.
+             *
+             * - In fase di inzializzazione tutti dati devono essere trasformati, comportamanto coerente a setProp.
+             * - Se dopo la fase di inzializzazione un oggetto cambia solo una propietá le altre propieta che sono rimaste
+             *   uguali non devo essere trasformate.
+             */
+            if (
+                !initalizeStep &&
+                checkEquality(type[prop][subProp], subVal, subValOld)
+            )
+                return [subProp, subVal];
+
             return [
                 subProp,
                 fnTransformation[prop][subProp]?.(subVal, subValOld) ?? subVal,
@@ -314,6 +327,11 @@ const setObj = ({
      * Validate value (value passed to setObj is a Object to merge with original) and store the result in
      * validationStatusObject arr id there is no validation return true, otherwise get boolean value from fnValidate
      * obj
+     *
+     * - La validazione viene effettuata sempre a prescindere che il dato sia effettivamante cambiato
+     * - QUesto garantisce piu sicurezza.
+     * - Object ( controlled ) non e sepcifco per le performance.
+     * - Per le performance conviene utilizzare una propietá normale.
      */
     Object.entries(newValParsedByStrict).forEach((item) => {
         const [subProp, subVal] = item;
