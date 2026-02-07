@@ -358,21 +358,28 @@ const setObj = ({
     );
 
     /**
+     * - Depth check, skip seObject if depth is not respected and objecy is not ANY
+     * - Check depth BEFORE .every() to properly block execution
+     */
+    for (const [key, value] of Object.entries(newValParsedByStrict)) {
+        const isCustomObject = type[prop][key] === TYPE_IS_ANY;
+        const dataDepth = maxDepth(value);
+
+        if (dataDepth > 1 && !isCustomObject) {
+            storeSetObjDepthWarning(prop, valueTransformed, logStyle);
+
+            /**
+             * Skip setObject
+             */
+            return;
+        }
+    }
+
+    /**
      * Check if all old props value is equal new props value.
      */
     const prevValueIsEqualNew = shouldSkipEqual
         ? Object.entries(newObjectValues).every(([key, value]) => {
-              const isCustomObject = type[prop][key] === TYPE_IS_ANY;
-
-              /**
-               * Check val have nested Object ( not 'Any' )
-               */
-              const dataDepth = maxDepth(value);
-              if (dataDepth > 1 && !isCustomObject) {
-                  storeSetObjDepthWarning(prop, valueTransformed, logStyle);
-                  return;
-              }
-
               return checkEquality(
                   type[prop][key],
                   oldObjectValues[key],
