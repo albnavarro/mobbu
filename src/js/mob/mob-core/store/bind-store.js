@@ -124,11 +124,19 @@ export const bindStoreEntryPoint = ({ value, instanceId }) => {
      * Check circular bindnds or store bind itSelf.
      */
     const isBindable = bindInstanceBy.every((id) => !ids.includes(id));
+    const alreadyBound = ids.every((id) => !bindInstance.includes(id));
     const tryToBindItself = ids.includes(instanceId);
 
     if (!isBindable || tryToBindItself) {
         console.warn(
             `${instanceId}, binding store failed, circular dependencies found.`
+        );
+        return;
+    }
+
+    if (!alreadyBound) {
+        console.warn(
+            `${instanceId}, binding store failed, store is binded more than once.`
         );
         return;
     }
