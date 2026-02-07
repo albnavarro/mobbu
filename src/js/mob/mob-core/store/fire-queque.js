@@ -69,11 +69,20 @@ export const runCallbackQueqe = ({
                 : (queueByInstanceId.get(prop)?.callbacks ?? []);
 
             /**
+             * Preserve old value before tick
+             */
+            const existing = queueByInstanceId.get(prop);
+
+            /**
              * Update or initialize single prop value to last.
              */
             queueByInstanceId.set(prop, {
                 newValue,
-                oldValue,
+
+                /**
+                 * Preserve old value before tick
+                 */
+                oldValue: existing?.oldValue ?? oldValue,
                 validationValue,
 
                 /**
