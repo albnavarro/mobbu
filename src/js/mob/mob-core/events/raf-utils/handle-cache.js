@@ -264,7 +264,13 @@ const updateFrameId = (maxFramecounter) => {
             data.delete(frame);
         }
 
-        subscriberMap.set(key, { data: newMap, fn, freeze });
+        subscriberMap.set(key, {
+            data: newMap,
+            fn,
+            freeze: freeze.active
+                ? { ...freeze, atFrame: freeze.atFrame - maxFramecounter }
+                : freeze,
+        });
     }
 };
 
