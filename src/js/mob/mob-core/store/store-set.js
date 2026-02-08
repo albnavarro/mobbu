@@ -245,9 +245,12 @@ const setObj = ({
             /**
              * Trasforma il valore solo se il dato è effettivamente cambiato.
              *
-             * - In fase di inzializzazione tutti dati devono essere trasformati, comportamanto coerente a setProp.
-             * - Se dopo la fase di inzializzazione un oggetto cambia solo una propietá le altre propieta che sono rimaste
-             *   uguali non devo essere trasformate.
+             * - Confrontiamo il nuovo valore con il vecchio valore trasformato
+             * - Se coincidono non abbiamo bisogno di traformarlo
+             * - Questo permetti di modificare una sola propietá senza triggere un nuovo transform in una propietá non
+             *   mutata.
+             *
+             * Durante l'inizializzazione tutti i trasfrom devono essere eseguiti almeno una volta.
              */
             if (
                 !initalizeStep &&
