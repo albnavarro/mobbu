@@ -152,7 +152,7 @@ const shouldMakeSomethingStart = () => {
  * Stop timer when user change tab
  */
 handleVisibilityChange(({ visibilityState }) => {
-    isStopped = visibilityState === 'visible';
+    isStopped = visibilityState !== 'visible';
 });
 
 catchAnimationReject();
@@ -172,7 +172,7 @@ const nextTickFn = () => {
      * If currentFrame reach currentFrameLimit back to zero to avoid big numbers
      * executte the operation outside requestAnimationFrame if deferredNextTick is active
      */
-    if (currentFrame === currentFrameLimit) {
+    if (currentFrame >= currentFrameLimit) {
         currentFrame = 0;
         eventStore.quickSetProp('currentFrame', currentFrame);
         handleFrameIndex.updateKeys(currentFrameLimit);
@@ -215,7 +215,6 @@ const nextTickFn = () => {
         initFrame();
     } else {
         isStopped = true;
-        currentFrame = 0;
         lastTime = time;
         eventStore.quickSetProp('currentFrame', currentFrame);
     }
@@ -278,11 +277,6 @@ const render = (timestamp) => {
                 : eventStore.getProp('instantFps');
         fpsPrevTime = time;
         frames = 0;
-
-        /**
-         * Prevent fps error; Se a minimum of 30 fps.
-         */
-        fps = fps < 30 ? eventStore.getProp('instantFps') : fps;
     }
 
     /**
