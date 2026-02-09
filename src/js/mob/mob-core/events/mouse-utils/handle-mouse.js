@@ -143,18 +143,26 @@ function handleMouse(eventType) {
      * @param {import('./type.js').MouseEventCallback} cb - Callback function fired on mouse action.
      * @returns {() => void}
      */
-    const addCb = (cb) => {
-        const id = getUnivoqueId();
-        callbacks.set(id, cb);
-
-        if (typeof globalThis !== 'undefined') {
-            init();
+    const addCallback = (cb) => {
+        if (globalThis.window === undefined) {
+            return () => {};
         }
 
-        return () => callbacks.delete(id);
+        const id = getUnivoqueId();
+        callbacks.set(id, cb);
+        init();
+
+        return () => {
+            callbacks.delete(id);
+
+            if (callbacks.size === 0 && initialized) {
+                globalThis.removeEventListener(eventType, handler);
+                initialized = false;
+            }
+        };
     };
 
-    return addCb;
+    return addCallback;
 }
 
 /**

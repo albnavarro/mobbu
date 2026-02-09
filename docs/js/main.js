@@ -2250,10 +2250,10 @@
       style
     );
   };
-  var storeSetPropValWarning = (prop, val2, style) => {
+  var storeSetPropValWarning = (prop, val, style) => {
     console.warn(
       `%c trying to execute setProp method on '${prop}' propierties: setProp methods doesn't allow objects as value, ${JSON.stringify(
-        val2
+        val
       )} is an Object, use 'Any' type for custom object`,
       style
     );
@@ -2266,17 +2266,17 @@
       style
     );
   };
-  var storeSetPropTypeWarning = (prop, val2, type, style) => {
+  var storeSetPropTypeWarning = (prop, val, type, style) => {
     console.warn(
-      `%c trying to execute setProp method on '${prop}' propierties: ${val2} is not a ${getTypeName(
+      `%c trying to execute setProp method on '${prop}' propierties: ${val} is not a ${getTypeName(
         type
       )}`,
       style
     );
   };
-  var storeSetObjectValWarning = (prop, val2, style) => {
+  var storeSetObjectValWarning = (prop, val, style) => {
     console.warn(
-      `%c trying to execute setObj method on '${prop}' propierties: setObj methods allow only objects as value, ${val2} is not an Object`,
+      `%c trying to execute setObj method on '${prop}' propierties: setObj methods allow only objects as value, ${val} is not an Object`,
       style
     );
   };
@@ -2292,10 +2292,10 @@
       style
     );
   };
-  var storeSetObjDepthWarning = (prop, val2, style) => {
+  var storeSetObjDepthWarning = (prop, val, style) => {
     console.warn(
       `%c trying to execute setObj data method on '${prop}' propierties: '${JSON.stringify(
-        val2
+        val
       )}' have a depth > 1, nested obj is not allowed, use 'any' type for deep nested object`,
       style
     );
@@ -2447,7 +2447,7 @@
   var setProp = ({
     instanceId,
     prop,
-    val: val2,
+    val,
     fireCallback = true,
     useStrict = true,
     initalizeStep = false
@@ -2467,8 +2467,8 @@
     } = state;
     const logStyle2 = getLogStyle();
     const isCustomObject = type[prop] === TYPE_IS_ANY;
-    if (storeType.isObject(val2) && !isCustomObject) {
-      storeSetPropValWarning(prop, val2, logStyle2);
+    if (storeType.isObject(val) && !isCustomObject) {
+      storeSetPropValWarning(prop, val, logStyle2);
       return;
     }
     if (storeType.isObject(store2[prop]) && !isCustomObject) {
@@ -2478,7 +2478,7 @@
     const oldVal = store2[prop];
     const valueTransformed = (
       /** @type{{[key:string]: ((current: any, previous: any) => any)}} */
-      fnTransformation[prop]?.(val2, oldVal) ?? val2
+      fnTransformation[prop]?.(val, oldVal) ?? val
     );
     const isValidType = checkType(type[prop], valueTransformed);
     if (!isValidType) {
@@ -2516,7 +2516,7 @@
   var setObj = ({
     instanceId,
     prop,
-    val: val2,
+    val,
     fireCallback = true,
     useStrict = true,
     initalizeStep = false
@@ -2535,15 +2535,15 @@
       bindInstanceBy
     } = state;
     const logStyle2 = getLogStyle();
-    if (!storeType.isObject(val2)) {
-      storeSetObjectValWarning(prop, val2, logStyle2);
+    if (!storeType.isObject(val)) {
+      storeSetObjectValWarning(prop, val, logStyle2);
       return;
     }
     if (!storeType.isObject(store2[prop])) {
       storeSetObjectPropWarning(prop, logStyle2);
       return;
     }
-    const valKeys = Object.keys(val2);
+    const valKeys = Object.keys(val);
     const propKeys = Object.keys(store2[prop]);
     const hasKeys = valKeys.every((item) => propKeys.includes(item));
     if (!hasKeys) {
@@ -2551,7 +2551,7 @@
       return;
     }
     const valueTransformed = Object.fromEntries(
-      Object.entries(val2).map((item) => {
+      Object.entries(val).map((item) => {
         const [subProp, subVal] = item;
         const subValOld = store2[prop][subProp];
         if (!initalizeStep && checkEquality(type[prop][subProp], subVal, subValOld))
@@ -2593,7 +2593,7 @@
     const allStrictFail = strictObjectResult.length === 0;
     if (allStrictFail) return;
     const newValParsedByStrict = Object.fromEntries(
-      strictObjectResult.map(({ item }) => item).map(([key, val3]) => [key, val3])
+      strictObjectResult.map(({ item }) => item).map(([key, val2]) => [key, val2])
     );
     Object.entries(newValParsedByStrict).forEach((item) => {
       const [subProp, subVal] = item;
@@ -3735,15 +3735,23 @@
         passive: usePassive
       });
     }
-    const addCb6 = (cb) => {
+    const addCallback6 = (cb) => {
+      if (globalThis.window === void 0) {
+        return () => {
+        };
+      }
       const id = getUnivoqueId();
       callbacks9.set(id, cb);
-      if (typeof globalThis !== "undefined") {
-        init8();
-      }
-      return () => callbacks9.delete(id);
+      init8();
+      return () => {
+        callbacks9.delete(id);
+        if (callbacks9.size === 0 && initialized7) {
+          globalThis.removeEventListener(eventType, handler7);
+          initialized7 = false;
+        }
+      };
     };
-    return addCb6;
+    return addCallback6;
   }
   var handleMouseClick = handleMouse("click");
   var handleMouseDown = handleMouse("mousedown");
@@ -4191,22 +4199,22 @@
   var callbacks5 = /* @__PURE__ */ new Map();
   var debouceFunctionReference = () => {
   };
-  var previousWindowHeight = window.innerHeight;
-  var previousWindowWidth = window.innerWidth;
+  var previousWindowHeight = 0;
+  var previousWindowWidth = 0;
   function handler3() {
     if (callbacks5.size === 0) {
-      window.removeEventListener("resize", debouceFunctionReference);
+      globalThis.removeEventListener("resize", debouceFunctionReference);
       initialized3 = false;
       return;
     }
-    const windowsHeight = window.innerHeight;
-    const windowsWidth = window.innerWidth;
+    const windowsHeight = globalThis.innerHeight;
+    const windowsWidth = globalThis.innerWidth;
     const verticalResize = windowsHeight !== previousWindowHeight;
     const horizontalResize = windowsWidth !== previousWindowWidth;
     previousWindowHeight = windowsHeight;
     previousWindowWidth = windowsWidth;
     const resizeData = {
-      scrollY: window.scrollY,
+      scrollY: globalThis.scrollY,
       windowsHeight,
       windowsWidth,
       documentHeight: document.documentElement.scrollHeight,
@@ -4220,44 +4228,54 @@
   function init3() {
     if (initialized3) return;
     initialized3 = true;
+    previousWindowHeight = globalThis.window.innerHeight;
+    previousWindowWidth = globalThis.window.innerWidth;
     debouceFunctionReference = debounceFuncion(() => handler3());
-    window.addEventListener("resize", debouceFunctionReference, {
+    globalThis.addEventListener("resize", debouceFunctionReference, {
       passive: false
     });
   }
-  var addCb2 = (cb) => {
+  var addCallback2 = (cb) => {
+    if (globalThis.window === void 0) {
+      return () => {
+      };
+    }
     const id = getUnivoqueId();
     callbacks5.set(id, cb);
-    if (typeof globalThis !== "undefined") {
-      init3();
-    }
-    return () => callbacks5.delete(id);
+    init3();
+    return () => {
+      callbacks5.delete(id);
+      if (callbacks5.size === 0 && initialized3) {
+        globalThis.removeEventListener("resize", debouceFunctionReference);
+        initialized3 = false;
+      }
+    };
   };
-  var handleResize = /* @__PURE__ */ (() => addCb2)();
+  var handleResize = /* @__PURE__ */ (() => addCallback2)();
 
   // src/js/mob/mob-core/events/scroll-utils/handle-scroll-immediate.js
   var initialized4 = false;
   var callbacks6 = /* @__PURE__ */ new Map();
   var UP = "UP";
   var DOWN = "DOWN";
-  var prev = window.scrollY;
-  var val = window.scrollY;
+  var previousScrollValue = 0;
+  var currentScrollValue = 0;
   var direction = DOWN;
   var scrollData = {
-    scrollY: val,
+    scrollY: currentScrollValue,
     direction
   };
   function handler4() {
     if (callbacks6.size === 0) {
-      window.removeEventListener("scroll", handler4);
+      globalThis.removeEventListener("scroll", handler4);
       initialized4 = false;
       return;
     }
-    prev = val;
-    val = window.scrollY;
-    direction = val > prev ? DOWN : UP;
+    previousScrollValue = currentScrollValue;
+    currentScrollValue = globalThis.scrollY;
+    direction = currentScrollValue > previousScrollValue ? DOWN : UP;
     scrollData = {
-      scrollY: val,
+      scrollY: currentScrollValue,
       direction
     };
     for (const value of callbacks6.values()) {
@@ -4267,20 +4285,30 @@
   function init4() {
     if (initialized4) return;
     initialized4 = true;
+    previousScrollValue = globalThis.scrollY;
+    currentScrollValue = globalThis.scrollY;
     window.addEventListener("scroll", handler4, {
       passive: true
     });
   }
-  var addCb3 = (cb) => {
+  var addCallback3 = (cb) => {
+    if (globalThis.window === void 0) {
+      return () => {
+      };
+    }
     const id = getUnivoqueId();
     callbacks6.set(id, cb);
-    if (typeof globalThis !== "undefined") {
-      init4();
-    }
-    return () => callbacks6.delete(id);
+    init4();
+    return () => {
+      callbacks6.delete(id);
+      if (callbacks6.size === 0 && initialized4) {
+        globalThis.removeEventListener("scroll", handler4);
+        initialized4 = false;
+      }
+    };
   };
   var handleScrollImmediate = /* @__PURE__ */ (() => {
-    return addCb3;
+    return addCallback3;
   })();
 
   // src/js/mob/mob-core/events/scroll-utils/handle-scroll.js
@@ -4307,20 +4335,29 @@
     initialized5 = true;
     unsubscribe = handleScrollImmediate(handler5);
   }
-  var addCb4 = (cb) => {
+  var addCallback4 = (cb) => {
+    if (globalThis.window === void 0) {
+      return () => {
+      };
+    }
     const id = getUnivoqueId();
     callbacks7.set(id, cb);
-    if (typeof globalThis !== "undefined") {
-      init5();
-    }
-    return () => callbacks7.delete(id);
+    init5();
+    return () => {
+      callbacks7.delete(id);
+      if (callbacks7.size === 0 && initialized5) {
+        unsubscribe();
+        initialized5 = false;
+      }
+    };
   };
-  var handleScroll = /* @__PURE__ */ (() => addCb4)();
+  var handleScroll = /* @__PURE__ */ (() => addCallback4)();
 
   // src/js/mob/mob-core/events/scroll-utils/handle-scroll-throttle.js
   var initialized6 = false;
   var callbacks8 = /* @__PURE__ */ new Map();
-  var throttleFunctionReference;
+  var throttleFunctionReference = () => {
+  };
   var unsubscribe2 = () => {
   };
   function handler6(scrollData2) {
@@ -4346,24 +4383,32 @@
     );
     unsubscribe2 = handleScrollImmediate(throttleFunctionReference);
   }
-  var addCb5 = (cb) => {
+  var addCallback5 = (cb) => {
+    if (globalThis.window === void 0) {
+      return () => {
+      };
+    }
     const id = getUnivoqueId();
     callbacks8.set(id, cb);
-    if (typeof globalThis !== "undefined") {
-      init6();
-    }
-    return () => callbacks8.delete(id);
+    init6();
+    return () => {
+      callbacks8.delete(id);
+      if (callbacks8.size === 0 && initialized6) {
+        unsubscribe2();
+        initialized6 = false;
+      }
+    };
   };
-  var handleScrollThrottle = /* @__PURE__ */ (() => addCb5)();
+  var handleScrollThrottle = /* @__PURE__ */ (() => addCallback5)();
 
   // src/js/mob/mob-core/events/scroll-utils/handle-scroll-utils.js
-  var unsubscribeScrollStart = () => {
-  };
-  var unsubscribeScrollEnd = () => {
-  };
-  var debouceFunctionReference2 = () => {
-  };
   function handleScrollUtils(type) {
+    let unsubscribeScrollStart = () => {
+    };
+    let unsubscribeScrollEnd = () => {
+    };
+    let debouceFunctionReference2 = () => {
+    };
     let initialized7 = false;
     const callbacks9 = /* @__PURE__ */ new Map();
     let isScrolling = false;
@@ -4380,7 +4425,7 @@
       handleFrame.add(() => {
         handleNextTick.add(() => {
           const scrollData2 = {
-            scrollY: window.scrollY
+            scrollY: globalThis.scrollY
           };
           if (type === "END") {
             for (const value of callbacks9.values()) {
@@ -4409,15 +4454,22 @@
         });
       }
     }
-    const addCb6 = (cb) => {
+    const addCallback6 = (cb) => {
+      if (globalThis.window === void 0) {
+        return () => {
+        };
+      }
       const id = getUnivoqueId();
       callbacks9.set(id, cb);
-      if (typeof globalThis !== "undefined") {
-        init8();
-      }
-      return () => callbacks9.delete(id);
+      init8();
+      return () => {
+        callbacks9.delete(id);
+        if (callbacks9.size === 0 && initialized7) {
+          handler7();
+        }
+      };
     };
-    return addCb6;
+    return addCallback6;
   }
   var handleScrollStart = handleScrollUtils("START");
   var handleScrollEnd = handleScrollUtils("END");
@@ -4441,15 +4493,23 @@
       initialized7 = true;
       globalThis.addEventListener(eventType, handler7);
     }
-    const addCallback2 = (cb) => {
+    const addCallback6 = (cb) => {
+      if (globalThis.window === void 0) {
+        return () => {
+        };
+      }
       const id = getUnivoqueId();
       callbacks9.set(id, cb);
-      if (typeof globalThis !== "undefined") {
-        init8();
-      }
-      return () => callbacks9.delete(id);
+      init8();
+      return () => {
+        callbacks9.delete(id);
+        if (callbacks9.size === 0 && initialized7) {
+          globalThis.removeEventListener(eventType, handler7);
+          initialized7 = false;
+        }
+      };
     };
-    return addCallback2;
+    return addCallback6;
   }
   var handlePointerOver = handlePointer("pointerover");
   var handlePointerDown = handlePointer("pointerdown");
@@ -11332,22 +11392,22 @@
       `tween | sequencer: ${label} is not valid value, must be a number or a Function that return a number`
     );
   };
-  var sequencerRangeStartWarning = (val2) => {
+  var sequencerRangeStartWarning = (val) => {
     console.warn(
-      `sequencer, start option: ${val2} value is not valid, must be a Number`
+      `sequencer, start option: ${val} value is not valid, must be a Number`
     );
   };
-  var sequencerRangeEndWarning = (val2) => {
+  var sequencerRangeEndWarning = (val) => {
     console.warn(
-      `sequencer, end option: ${val2} value is not valid, must be a Number`
+      `sequencer, end option: ${val} value is not valid, must be a Number`
     );
   };
   var relativePropInsideTimelineWarning = () => {
     console.warn("relative prop is not allowed inside a timeline");
   };
-  var timelineSuspendWarning = (val2) => {
+  var timelineSuspendWarning = (val) => {
     console.warn(
-      `Timeline Supend: ${val2()} is not a valid value, must be a boolean`
+      `Timeline Supend: ${val()} is not a valid value, must be a boolean`
     );
   };
   var timelineReverseGoFromWarning = () => {
@@ -11393,9 +11453,9 @@
   var staggerEachWarning = () => {
     console.warn(`stagger each must be a Number `);
   };
-  var staggerRowColGenericWarining = (val2) => {
+  var staggerRowColGenericWarining = (val) => {
     console.warn(
-      `stagger, row/col: ${val2} value is not valid, must be a Number`
+      `stagger, row/col: ${val} value is not valid, must be a Number`
     );
   };
   var staggerWaitCompleteWarning = () => {
@@ -11459,22 +11519,22 @@
       `createStagger:  each must be between 1 and ${eachProportion}`
     );
   };
-  var relativeWarining = (val2, tweenType) => {
+  var relativeWarining = (val, tweenType) => {
     console.warn(
-      `${tweenType}: relative prop: ${val2} is not a valid parameter, must be a boolean `
+      `${tweenType}: relative prop: ${val} is not a valid parameter, must be a boolean `
     );
   };
-  var booleanWarning = (val2, label) => {
-    console.warn(`${label}: '${val2}' is not Boolean`);
+  var booleanWarning = (val, label) => {
+    console.warn(`${label}: '${val}' is not Boolean`);
   };
-  var stringWarning = (val2, label) => {
-    console.warn(`${label}: '${val2}' is not String`);
+  var stringWarning = (val, label) => {
+    console.warn(`${label}: '${val}' is not String`);
   };
-  var naumberWarning = (val2, label) => {
-    console.warn(`${label}: '${val2}' is not Number`);
+  var naumberWarning = (val, label) => {
+    console.warn(`${label}: '${val}' is not Number`);
   };
-  var functionWarning = (val2, label) => {
-    console.warn(`${label}: '${val2}' is not Function`);
+  var functionWarning = (val, label) => {
+    console.warn(`${label}: '${val}' is not Function`);
   };
   var lerpVelocityWarining = () => {
     console.warn(
@@ -11542,9 +11602,9 @@
       )}`
     );
   };
-  var scrollerOpacityWarning = (val2, label) => {
+  var scrollerOpacityWarning = (val, label) => {
     console.warn(
-      `${label}: '${val2}' is not Number, must be a number between 0 and 100`
+      `${label}: '${val}' is not Number, must be a number between 0 and 100`
     );
   };
   var scrollerTypeWarining = (value, choice) => {
@@ -11961,9 +12021,9 @@
   };
 
   // src/js/mob/mob-motion/animation/utils/tween-action/tween-validation.js
-  var dataTweenValueIsValid = (val2) => {
-    return modules_exports.checkType(Number, val2) || // @ts-ignore
-    modules_exports.checkType(Function, val2) && modules_exports.checkType(Number, val2());
+  var dataTweenValueIsValid = (val) => {
+    return modules_exports.checkType(Number, val) || // @ts-ignore
+    modules_exports.checkType(Function, val) && modules_exports.checkType(Number, val());
   };
   var sequencerRangeValidate = ({ start, end }) => {
     const startIsValid = modules_exports.checkType(Number, start);
@@ -12024,10 +12084,10 @@
     if (!fromIsValid) staggerFromGenericWarning(from);
     return fromIsValid;
   };
-  var validateStaggerColRow = (val2) => {
-    if (!val2) return;
-    const valIsValid = modules_exports.checkType(Number, val2);
-    if (!valIsValid) staggerRowColGenericWarining(val2);
+  var validateStaggerColRow = (val) => {
+    if (!val) return;
+    const valIsValid = modules_exports.checkType(Number, val);
+    if (!valIsValid) staggerRowColGenericWarining(val);
     return valIsValid;
   };
   var validateStaggerDirection = (direction2) => {
@@ -12067,12 +12127,12 @@
     }
     return isValid;
   };
-  var relativeIsValid = (val2, tweenType) => {
-    const isValid = modules_exports.checkType(Boolean, val2);
-    if (!isValid && val2) relativeWarining(val2, tweenType);
+  var relativeIsValid = (val, tweenType) => {
+    const isValid = modules_exports.checkType(Boolean, val);
+    if (!isValid && val) relativeWarining(val, tweenType);
     return isValid ? (
       /** @type {boolean} */
-      val2
+      val
     ) : handleSetUp.get(tweenType).relative;
   };
   var easeTweenIsValidGetFunction = (ease) => {
@@ -14452,9 +14512,9 @@
      * @param {number} val
      * @returns {void}
      */
-    setDuration(val2) {
+    setDuration(val) {
       this.#children.forEach((item) => {
-        item.setDuration(val2);
+        item.setDuration(val);
       });
     }
     /**
@@ -14467,9 +14527,9 @@
      * @param {number} val
      * @returns {void}
      */
-    setStretchFactor(val2) {
+    setStretchFactor(val) {
       this.#children.forEach((item) => {
-        item.setStretchFactor(val2);
+        item.setStretchFactor(val);
       });
     }
     /**
@@ -14638,9 +14698,9 @@
       for (let i = 0; i < timeline.length; i++) {
         const { start: start2, end: end2, values } = timeline[i];
         let currentValuesItem = null;
-        for (const val2 of values) {
-          if (val2.prop === valueItem.prop) {
-            currentValuesItem = val2;
+        for (const val of values) {
+          if (val.prop === valueItem.prop) {
+            currentValuesItem = val;
             break;
           }
         }
@@ -15351,8 +15411,8 @@
      *
      * @type {import('./type.js').SequencerSetDuration}
      */
-    setDuration(val2 = 0) {
-      this.#duration = val2;
+    setDuration(val = 0) {
+      this.#duration = val;
     }
     /**
      * Get tween type - 'sequencer'
@@ -17222,9 +17282,9 @@
   // src/js/mob/mob-motion/animation/async-timeline/fitler-active-props.js
   var filterActiveProps = ({ data, filterBy }) => {
     return Object.entries(data).map((item) => {
-      const [prop, val2] = item;
+      const [prop, val] = item;
       const valueIsValid = prop in filterBy;
-      return { data: { [prop]: val2 }, active: valueIsValid };
+      return { data: { [prop]: val }, active: valueIsValid };
     }).filter(({ active: active2 }) => active2).map(({ data: data2 }) => data2).reduce((p, c) => {
       return { ...p, ...c };
     }, {});
@@ -20643,8 +20703,8 @@
       values,
       direction2
     );
-    const val2 = Number.parseFloat(String(numberVal));
-    const startValInNumber = Number.isNaN(val2) ? 0 : val2;
+    const val = Number.parseFloat(String(numberVal));
+    const startValInNumber = Number.isNaN(val) ? 0 : val;
     return unitMisure === MobScrollerConstant.PX ? {
       value: startValInNumber,
       additionalVal,
@@ -20662,8 +20722,8 @@
       values,
       direction2
     );
-    const val2 = Number.parseFloat(String(numberVal));
-    const endValInNumber = Number.isNaN(val2) ? 0 : val2;
+    const val = Number.parseFloat(String(numberVal));
+    const endValInNumber = Number.isNaN(val) ? 0 : val;
     const positionFromConstant = getScrollerPositionFromContanst(position2);
     const isFromTopLeft = positionFromConstant === MobScrollerConstant.POSITION_TOP || positionFromConstant === MobScrollerConstant.POSITION_LEFT;
     return unitMisure === MobScrollerConstant.PX ? {
@@ -20749,13 +20809,13 @@
       }
     }
   };
-  var getRetReverseValue = (propierties, val2) => {
+  var getRetReverseValue = (propierties, val) => {
     switch (propierties) {
       case MobScrollerConstant.PROP_OPACITY: {
-        return 1 - val2;
+        return 1 - val;
       }
       default: {
-        return -val2;
+        return -val;
       }
     }
   };
@@ -21560,38 +21620,38 @@
     #setMotion() {
       const initialValue = MobScrollerConstant.PROP_SCALE || MobScrollerConstant.PROP_SCALE_X || MobScrollerConstant.PROP_SCALE_Y || MobScrollerConstant.PROP_OPACITY ? 1 : 0;
       this.#motion.setData({ val: initialValue });
-      this.#unsubscribeMotion = this.#motion.subscribe(({ val: val2 }) => {
-        if (val2 === this.#lastValue) return;
+      this.#unsubscribeMotion = this.#motion.subscribe(({ val }) => {
+        if (val === this.#lastValue) return;
         if (this.#propierties === MobScrollerConstant.PROP_TWEEN && this.#tween?.draw) {
           this.#tween.draw({
-            partial: val2,
+            partial: val,
             isLastDraw: false,
             useFrame: false
           });
-          this.#lastValue = val2;
+          this.#lastValue = val;
           this.#firstTime = false;
         } else {
-          this.#updateStyle(val2);
+          this.#updateStyle(val);
         }
         modules_exports.useNextTick(() => {
           if (this.#onTickCallback)
-            this.#onTickCallback({ value: val2, parentIsMoving: true });
+            this.#onTickCallback({ value: val, parentIsMoving: true });
         });
       });
-      this.#unsubscribeOnComplete = this.#motion.onComplete(({ val: val2 }) => {
+      this.#unsubscribeOnComplete = this.#motion.onComplete(({ val }) => {
         this.#force3D = false;
         if (this.#propierties === MobScrollerConstant.PROP_TWEEN && this.#tween?.draw) {
           this.#tween.draw({
-            partial: val2,
+            partial: val,
             isLastDraw: true,
             useFrame: false
           });
         } else {
-          this.#updateStyle(val2);
+          this.#updateStyle(val);
         }
         modules_exports.useNextTick(() => {
           if (this.#onTickCallback)
-            this.#onTickCallback({ value: val2, parentIsMoving: false });
+            this.#onTickCallback({ value: val, parentIsMoving: false });
         });
       });
       switch (this.#easeType) {
@@ -22506,9 +22566,9 @@
   var tween = new MobTimeTween({ ease: defaultPreset, data: { val: 0 } });
   var isRunning = false;
   var overflow = false;
-  tween.subscribe(({ val: val2 }) => {
+  tween.subscribe(({ val }) => {
     window.scrollTo({
-      top: val2,
+      top: val,
       left: 0,
       behavior: "auto"
     });
@@ -23461,13 +23521,13 @@
               }
             })();
             const left = (() => {
-              const val2 = window.innerWidth > window.innerHeight ? windowDifference / percentrange : windowDifference / percentrange + window.innerWidth / screenRatio;
+              const val = window.innerWidth > window.innerHeight ? windowDifference / percentrange : windowDifference / percentrange + window.innerWidth / screenRatio;
               switch (offset2) {
                 case 0: {
                   return 0;
                 }
                 default: {
-                  return val2;
+                  return val;
                 }
               }
             })();
@@ -23710,8 +23770,8 @@
     const tween2 = new MobTimeTween({ ease: "easeOutQuad", data: { val: 0 } });
     return {
       tween: tween2,
-      unsubscribe: tween2.subscribe(({ val: val2 }) => {
-        target.style.height = `${val2}px`;
+      unsubscribe: tween2.subscribe(({ val }) => {
+        target.style.height = `${val}px`;
       })
     };
   };
@@ -24344,37 +24404,37 @@
     #initMotion() {
       if (!this.#motion) return;
       this.#motion.setData({ val: 0 });
-      this.#subscribeMotion = this.#motion.subscribe(({ val: val2 }) => {
-        this.#scroller.style.transform = this.#direction == MobScrollerConstant.DIRECTION_VERTICAL ? `translate3d(0px, 0px, 0px) translateY(${-Math.trunc(val2)}px)` : `translate3d(0px, 0px, 0px) translateX(${-Math.trunc(val2)}px)`;
+      this.#subscribeMotion = this.#motion.subscribe(({ val }) => {
+        this.#scroller.style.transform = this.#direction == MobScrollerConstant.DIRECTION_VERTICAL ? `translate3d(0px, 0px, 0px) translateY(${-Math.trunc(val)}px)` : `translate3d(0px, 0px, 0px) translateX(${-Math.trunc(val)}px)`;
         this.#children.forEach((element) => {
           element.triggerScrollStart();
         });
         modules_exports.useNextTick(() => {
           this.#onTickCallback({
-            value: -val2,
+            value: -val,
             percent: this.#percent,
             parentIsMoving: true
           });
           this.#children.forEach((element) => {
             element.move({
-              value: -val2,
+              value: -val,
               parentIsMoving: true
             });
           });
         });
       });
-      this.#subscribeOnComplete = this.#motion.onComplete(({ val: val2 }) => {
-        this.#scroller.style.transform = this.#direction == MobScrollerConstant.DIRECTION_VERTICAL ? `translateY(${-Math.trunc(val2)}px)` : `translateX(${-Math.trunc(val2)}px)`;
+      this.#subscribeOnComplete = this.#motion.onComplete(({ val }) => {
+        this.#scroller.style.transform = this.#direction == MobScrollerConstant.DIRECTION_VERTICAL ? `translateY(${-Math.trunc(val)}px)` : `translateX(${-Math.trunc(val)}px)`;
         modules_exports.useNextTick(() => {
           this.#onTickCallback({
-            value: -val2,
+            value: -val,
             percent: this.#percent,
             parentIsMoving: false
           });
           this.#children.forEach((element) => {
             element.triggerScrollEnd();
             element.move({
-              value: -val2,
+              value: -val,
               parentIsMoving: false
             });
           });
@@ -25986,7 +26046,7 @@
         style: () => ({
           value: "x-small",
           type: String,
-          validate: (val2) => ["x-small", "small", "medium", "big"].includes(val2),
+          validate: (val) => ["x-small", "small", "medium", "big"].includes(val),
           strict: true
         }),
         line: () => ({
@@ -26093,7 +26153,7 @@
         style: () => ({
           value: "medium",
           type: String,
-          validate: (val2) => ["small", "medium", "big"].includes(val2),
+          validate: (val) => ["small", "medium", "big"].includes(val),
           strict: true
         }),
         dots: () => ({
@@ -26107,9 +26167,9 @@
         color: () => ({
           value: "black",
           type: String,
-          validate: (val2) => {
+          validate: (val) => {
             return ["white", "black", "grey", "hightlight"].includes(
-              val2
+              val
             );
           }
         }),
@@ -26144,15 +26204,15 @@
         style: () => ({
           value: "medium",
           type: String,
-          validate: (val2) => ["small", "medium", "big"].includes(val2),
+          validate: (val) => ["small", "medium", "big"].includes(val),
           strict: true
         }),
         color: () => ({
           value: "inherit",
           type: String,
-          validate: (val2) => {
+          validate: (val) => {
             return ["inherit", "white", "hightlight", "black"].includes(
-              val2
+              val
             );
           }
         }),
@@ -26199,8 +26259,8 @@
         color: () => ({
           value: "inherit",
           type: String,
-          validate: (val2) => {
-            return ["inherit", "white", "black"].includes(val2);
+          validate: (val) => {
+            return ["inherit", "white", "black"].includes(val);
           }
         }),
         isSection: () => ({
@@ -26457,8 +26517,8 @@
     let direction2 = "DOWN";
     let winHeight = window.innerHeight;
     addMethod("addItem", ({ id, label, element, isSection, isNote }) => {
-      updateState("anchorItemsToBeComputed", (val2) => {
-        return [...val2, { id, label, element, isSection, isNote }];
+      updateState("anchorItemsToBeComputed", (val) => {
+        return [...val, { id, label, element, isSection, isNote }];
       });
     });
     addMethod("setActiveLabel", (label) => {
@@ -28884,8 +28944,8 @@
     modules_exports.useFrame(() => {
       loop();
     });
-    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
-      if (val2) {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val) => {
+      if (val) {
         gridTimeline?.pause();
         isActive2 = false;
         return;
@@ -29398,8 +29458,8 @@
     modules_exports.useFrame(() => {
       loop();
     });
-    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
-      if (val2) {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val) => {
+      if (val) {
         gridTimeline?.stop();
         isActive2 = false;
         return;
@@ -29700,8 +29760,8 @@
       const { x, y } = client;
       move3({ x, y });
     });
-    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
-      if (val2) {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val) => {
+      if (val) {
         isActive2 = false;
         rectTimeline?.pause();
         rotationTween?.pause();
@@ -29989,10 +30049,10 @@
     }, 9);
     squareData.forEach((item) => {
       infiniteTween.subscribeCache(({ x, rotate }) => {
-        const val2 = x / friction;
-        const factor = 2 / (3 - Math.cos(2 * val2));
-        const xr = factor * Math.cos(val2) * xAmplitude;
-        const yr = factor * Math.sin(2 * val2) / 2 * yAmplitude;
+        const val = x / friction;
+        const factor = 2 / (3 - Math.cos(2 * val));
+        const xr = factor * Math.cos(val) * xAmplitude;
+        const yr = factor * Math.sin(2 * val) / 2 * yAmplitude;
         item.x = xr;
         item.y = yr;
         item.rotate = rotate;
@@ -30070,8 +30130,8 @@
       canvas.height = canvas.clientHeight;
       draw();
     });
-    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
-      if (val2) {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val) => {
+      if (val) {
         isActive2 = false;
         syncTimeline?.pause();
         return;
@@ -30553,8 +30613,8 @@
     modules_exports.useFrame(() => {
       loop();
     });
-    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
-      if (val2) {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val) => {
+      if (val) {
         isActive2 = false;
         return;
       }
@@ -30971,8 +31031,8 @@
         draw();
       });
     });
-    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
-      if (val2) {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val) => {
+      if (val) {
         isActive2 = false;
         return;
       }
@@ -31501,8 +31561,8 @@
     )}
                         ${delegateEvents({
       click: async () => {
-        updateState("counter", (prev2) => {
-          return prev2 + 1;
+        updateState("counter", (prev) => {
+          return prev + 1;
         });
       }
     })}
@@ -31517,9 +31577,9 @@
     )}
                         ${delegateEvents({
       click: async () => {
-        updateState("counter", (prev2) => {
-          if (prev2 > 0) return prev2 -= 1;
-          return prev2;
+        updateState("counter", (prev) => {
+          if (prev > 0) return prev -= 1;
+          return prev;
         });
       }
     })}
@@ -32031,7 +32091,7 @@
         counter: () => ({
           value: 1,
           type: Number,
-          validate: (val2) => val2 <= 10 && val2 >= 0,
+          validate: (val) => val <= 10 && val >= 0,
           strict: true
         }),
         data: () => ({
@@ -32299,8 +32359,8 @@
           updateState(
             /** @type {'level1' | 'level2' | 'level3'} */
             button.state,
-            (val2) => {
-              return val2.slice(0, -1);
+            (val) => {
+              return val.slice(0, -1);
             }
           );
         }
@@ -32314,9 +32374,9 @@
           updateState(
             /** @type {'level1' | 'level2' | 'level3'} */
             button.state,
-            (val2) => {
+            (val) => {
               return [
-                ...val2,
+                ...val,
                 {
                   key: getRandomInt2(1e3),
                   value: modules_exports.getUnivoqueId()
@@ -32353,7 +32413,7 @@
                 class="matrioska__button"
                 ${delegateEvents({
       click: () => {
-        updateState("counter", (val2) => val2 + 1);
+        updateState("counter", (val) => val + 1);
       }
     })}
                 >Increment counter</dynamic-list-button
@@ -32852,7 +32912,7 @@
       level1: () => ({
         value: [{ key: 1, value: modules_exports.getUnivoqueId() }],
         type: Array,
-        validate: (val2) => val2.length <= 10,
+        validate: (val) => val.length <= 10,
         strict: true
       }),
       level2: () => ({
@@ -32861,7 +32921,7 @@
           { key: 2, value: modules_exports.getUnivoqueId() }
         ],
         type: Array,
-        validate: (val2) => val2.length <= 10,
+        validate: (val) => val.length <= 10,
         strict: true
       }),
       level3: () => ({
@@ -32870,10 +32930,10 @@
           { key: 2, value: modules_exports.getUnivoqueId() }
         ],
         type: Array,
-        transform: (val2, oldVal) => {
-          return val2 > oldVal ? shuffle2(val2) : val2;
+        transform: (val, oldVal) => {
+          return val > oldVal ? shuffle2(val) : val;
         },
-        validate: (val2) => val2.length <= 6,
+        validate: (val) => val.length <= 6,
         strict: true
       }),
       counter: () => ({
@@ -35657,8 +35717,8 @@
     });
     const unWatchPause = navigationStore.watch(
       "navigationIsOpen",
-      modules_exports.useDebounce((val2) => {
-        if (val2) {
+      modules_exports.useDebounce((val) => {
+        if (val) {
           timeline.pause();
           gridTimeline.pause();
           isActive2 = false;
@@ -39129,9 +39189,9 @@
         scrollbar.style.setProperty("--thumb-width", `${thumbWidth}px`);
         instance?.refresh();
       },
-      move: (val2) => {
+      move: (val) => {
         if (!instance) return;
-        instance.move(val2).catch(() => {
+        instance.move(val).catch(() => {
         });
       },
       goToTop: () => {
@@ -42337,8 +42397,8 @@
         navScroller.set(maxValue);
       }, 400);
     });
-    navigationStore.watch("navigationIsOpen", (val2) => {
-      if (val2) {
+    navigationStore.watch("navigationIsOpen", (val) => {
+      if (val) {
         percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
         return;
       }
@@ -42399,8 +42459,8 @@
         /** @type {HTMLElement} */
         document.querySelector("main.main")
       );
-      navigationStore.watch("navigationIsOpen", (val2) => {
-        if (val2 && main) {
+      navigationStore.watch("navigationIsOpen", (val) => {
+        if (val && main) {
           openNavigation({ main, proxi });
           return;
         }
@@ -43004,7 +43064,8 @@
   modules_exports.useLoad(() => {
     setBrowserClass();
     core_exports.setDefault({
-      deferredNextTick: true
+      deferredNextTick: true,
+      throttle: 100
     });
     initApp();
     usePageScroll();

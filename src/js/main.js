@@ -114,6 +114,7 @@ MobCore.useLoad(() => {
 
     MobMotionCore.setDefault({
         deferredNextTick: true,
+        throttle: 100,
     });
 
     // MobMotionCore.printDefault();
