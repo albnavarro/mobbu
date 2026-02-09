@@ -18,6 +18,10 @@ export const Move3DPage = MobJs.createComponent(
                 value: [],
                 type: Array,
             }),
+            drag: () => ({
+                value: true,
+                type: Boolean,
+            }),
         },
         state: {
             xDepth: () => ({

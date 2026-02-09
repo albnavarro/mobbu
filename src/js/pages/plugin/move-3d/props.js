@@ -5,5 +5,6 @@ export const move3DrouteProps = {
         prevRoute: '',
         nextRoute: '#plugin-dragger',
         data: move3DShape1,
+        drag: true,
     },
 };

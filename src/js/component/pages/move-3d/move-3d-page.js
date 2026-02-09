@@ -180,6 +180,7 @@ export const Move3DPagefn = ({
                     yLimit: proxi.yLimit,
                     factor: proxi.factor,
                     debug: proxi.debug,
+                    drag: proxi.drag,
                 })
             )}
         ></move-3d>

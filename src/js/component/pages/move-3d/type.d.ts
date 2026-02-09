@@ -3,6 +3,7 @@ import { Move3DChildren } from '../type';
 export interface Move3DPage {
     props: {
         data: Move3DChildren[];
+        drag: boolean;
     };
     state: {
         xDepth: number;

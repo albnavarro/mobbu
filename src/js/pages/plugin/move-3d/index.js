@@ -8,7 +8,7 @@ MobJs.useComponent([Move3DPage, StarSvg]);
 
 /** @type {import('@mobJsType').PageAsync} */
 export const move3DRoute = async ({ props }) => {
-    const { data, prevRoute, nextRoute } = props;
+    const { data, drag, prevRoute, nextRoute } = props;
 
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',
@@ -27,7 +27,7 @@ export const move3DRoute = async ({ props }) => {
         <move-3d-page
             ${MobJs.staticProps(
                 /** @type {import('@pagesComponent/move-3d/type').Move3DPage['props']} */
-                ({ data })
+                ({ data, drag })
             )}
         ></move-3d-page>
     </div>`;
