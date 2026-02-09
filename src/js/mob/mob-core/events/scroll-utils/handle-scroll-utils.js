@@ -96,6 +96,8 @@ function handleScrollUtils(type) {
 
         /**
          * Add debunce function to detect scroll end
+         *
+         * - Necessary in scrollStart to update isScrolling value.
          */
         debouceFunctionReference = debounceFuncion(() => handler());
         unsubscribeScrollEnd = handleScrollImmediate(debouceFunctionReference);
