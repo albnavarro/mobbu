@@ -4,36 +4,60 @@ import { MobCore } from '../../../mob-core';
 import { getRepeaterStateById } from '../../component/action/repeater';
 
 /**
- * Get new element of current array compare to previous.
+ * Extract from collectionA item not found in collectionB
  *
- * @param {any[]} current
- * @param {any[]} previous
+ * - CollectionA && collectionB should be a object
+ * - Compare value for specific key
+ * - Value should be number or string, comparison is a simple `===.`
+ *
+ * @param {Record<string, any>[]} collectionA
+ * @param {Record<string, any>[]} collectionB
  * @param {string} key
  * @returns {any[]}
  */
-export const getItemToRemoveByKey = (current = [], previous = [], key = '') => {
-    return current.filter((el) => {
-        const value = el?.[key];
-        return !previous.some((a) => a?.[key] === value);
-    });
+export const getItemToRemoveByKey = (
+    collectionA = [],
+    collectionB = [],
+    key = ''
+) => {
+    const valuesInB = new Set(collectionB.map((item) => item?.[key]));
+    return collectionA.filter((item) => !valuesInB.has(item?.[key]));
 };
 
 /**
- * Mix previous and current data to manage the insertion of new component in right position.
+ * Identifies new elements in the current dataset by comparing against previous data.
  *
- * @param {any[]} current
- * @param {any[]} previous
+ * For each element in `current`, checks if it existed in `previous` based on a key value. Returns metadata for each
+ * element indicating whether it's new and its position.
+ *
+ * @example
+ *     const current = [{ id: 1 }, { id: 2 }, { id: 3 }];
+ *     const previous = [{ id: 1 }, { id: 3 }];
+ *
+ *     mixPreviousAndCurrentData(current, previous, 'id');
+ *
+ *     // Returns: [
+ *     //   { isNewElement: false, keyValue: 1, index: 0 },
+ *     //   { isNewElement: true, keyValue: 2, index: 1 },
+ *     //   { isNewElement: false, keyValue: 3, index: 2 }
+ *     // ]
+ *
+ * @param {any[]} collectionA
+ * @param {any[]} collectionB
  * @param {string} key
  * @returns {{ isNewElement: boolean; keyValue: string; index: number }[]}
  */
-export const mixPreviousAndCurrentData = (current, previous, key) => {
-    return current.map((el, index) => {
-        const value = el?.[key];
-        const isNewElement = !previous.some((a) => a?.[key] === value);
-        return isNewElement
-            ? { isNewElement: true, keyValue: el?.[key], index }
-            : { isNewElement: false, keyValue: el?.[key], index };
-    });
+export const mixPreviousAndCurrentData = (
+    collectionA = [],
+    collectionB = [],
+    key = ''
+) => {
+    const previousKeys = new Set(collectionB.map((el) => el?.[key]));
+    return collectionA.map((el, index) => ({
+        isNewElement: !previousKeys.has(el?.[key]),
+        keyValue: el?.[key],
+        index,
+    }));
 };
 
 /**
@@ -67,78 +91,79 @@ export const listKeyExist = ({ current, previous, key }) => {
 };
 
 /**
- * Get univique array by key.
+ * Returns unique elements from an array based on a specific key value.
+ *
+ * - Keeps only the first occurrence of each key value, removing subsequent duplicates.
  *
  * @param {object} obj
- * @param {any[]} obj.data
- * @param {string | undefined} obj.key
- * @returns {Record<string, any>[]}
+ * @param {any[]} obj.data - Array of objects to deduplicate
+ * @param {string} obj.key - Property key used for uniqueness check
+ * @returns {Record<string, any>[]} Array with unique elements by key
  */
-export const getUnivoqueByKey = ({ data = [], key = '' }) => {
-    return data.filter(
-        (v, i, a) => a.findIndex((v2) => v2?.[key] === v?.[key]) === i
-    );
+export const getUnivoqueByKey = ({
+    data: currentCollection = [],
+    key = '',
+}) => {
+    const seen = new Set();
+
+    return currentCollection.filter((item) => {
+        const value = item?.[key];
+        if (seen.has(value)) return false;
+        seen.add(value);
+        return true;
+    });
 };
 
 /**
- * Group component inside single repeat node
+ * Children e previousChildren contengono gli id dei vecchi e nuovi componenti.
+ *
+ * - Venfono usati i vecchi componenti e i nuovi componenti per avere un `gancio` per raggrupparli piú semplicemente.
+ * - Sappiamo il valore fresco di `currentRepeaterState.index` dei nuovi componenti aggiunti, ma lo stesso puo collidere
+ *   con i vecchi componenti non ancora aggironati
+ * - Con un contronto sui vecchi componenti possiamo disaccoppiare i valori di `currentRepeaterState.index` dei vecchi e
+ *   quello dei nuovi che puó collidere.
+ *
+ * Ribadendo:
+ *
+ * - Lo scopo é raggruppare i componenti in children per repeater item, sfruttando il valore di
+ *   `currentRepeaterState.index`
+ * - Ogni gruppo conterrá i componenti definiti all'interno del return del repeater.
+ * - Questo permetterá poi di aggiornare per ogni gruppo i valori di `currentRepeaterState`.
+ *
+ * Logica aper risolvere i conflitti:
+ *
+ * - I valore di currentRepeaterState per ogni componente persistente non é agiornato.
+ * - I valori di currentRepeaterState per i nuovi componenti é fresco e coerente.
+ * - Questo vuol dire che il valore di `index` dei nuovi componenti e dei componenti persistenti puó collidere.
+ * - Gli elementi persistenti useranno il valore di index corrente ( ma obsoleto ) per identificare il gruppo.
+ * - I nuovi elementi usaranno un index univoco che modifica l'ideax reale in modo da non creare conflitti di chiave:
+ *   `_${index}`.
+ * - In questo modo possono essere raggruppati in un gruppo univoco.
  *
  * @param {object} obj
- * @param {string[]} obj.children
- * @param {string[]} [obj.previousChildren]
+ * @param {string[]} obj.children - Component id collection
+ * @param {string[]} [obj.previousChildren] - Component id collection
  * @returns {string[][]}
  */
 export const chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
-    /** @type {Record<string, any>} */
-    const initialState = {};
+    const previousSet = new Set(previousChildren);
+    const hasPrevious = previousChildren.length > 0;
 
-    return previousChildren.length === 0
-        ? Object.values(
-              /**
-               * Chunk children by currentValue ( index ) from a previous empty array.
-               */
-              children.reduce((previous, current) => {
-                  const { index } = getRepeaterStateById({ id: current });
+    /** @type{Record<string, any>} */
+    const groups = {};
 
-                  if (index in previous) {
-                      return {
-                          ...previous,
-                          [index]: [...previous[index], current],
-                      };
-                  }
+    for (const child of children) {
+        const { index } = getRepeaterStateById({ id: child });
 
-                  return { ...previous, [index]: [current] };
-              }, initialState)
-          )
-        : Object.values(
-              /**
-               * New elements has the same index of persistent element.
-               *
-               * The currentValue values of each component at this point have not yet been updated, so new index values
-               * collide with previous ones (persistent elements).
-               *
-               * Mark new index element with `_<index>` char so we have a new group of component for new repeat node.
-               *
-               * `_<index>` has only internal use state, the function return string[][], the scope of `_<index>` is only
-               * create a new group.
-               */
-              children.reduce((previous, current) => {
-                  const { index } = getRepeaterStateById({ id: current });
+        const key =
+            hasPrevious && !previousSet.has(child) ? `_${index}` : index;
 
-                  const indexParsed = previousChildren.includes(current)
-                      ? `${index}`
-                      : `_${index}`;
+        if (groups[key]) {
+            groups[key].push(child);
+        } else {
+            groups[key] = [child];
+        }
+    }
 
-                  const values = previous?.[indexParsed];
-
-                  if (values) {
-                      return {
-                          ...previous,
-                          [indexParsed]: [...values, current],
-                      };
-                  }
-
-                  return { ...previous, [indexParsed]: [current] };
-              }, initialState)
-          );
+    return Object.values(groups);
 };

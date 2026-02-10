@@ -75,7 +75,11 @@ export const addWithKey = ({
      */
 
     /**
-     * Extract from current item to remove comparer key.
+     * Extract from previous collection item not found in current collection
+     *
+     * - Previous && currentUnique should be a object
+     * - Compare value for specific key
+     * - Value should be number or string, comparison is a simple `===.`
      */
     const currentItemToRemoveByKey = getItemToRemoveByKey(
         previous,

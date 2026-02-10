@@ -204,9 +204,7 @@ export const watchRepeat = ({
             const hasKey = key && key !== '';
 
             /**
-             * After update, group component inside single repeat node in a chunked array.
-             *
-             * At this time the components are still in no particular order.
+             * After update, group component inside single repeat node into a chunked array.
              */
             const childrenChunkedByWrapper = chunkIdsByCurrentValue({
                 children: childrenFilteredByRepeatId,
@@ -214,14 +212,19 @@ export const watchRepeat = ({
             });
 
             /**
-             * Ik key is used and element change position we have to order childrenChunkedByWrapper by currentUnivoque
-             * position. Starting from currentUnivoque, use key to remap currentUnivoque with an array of component with
-             * the the specific key.
+             * With key
              *
-             * TODO: pass currentUpdated to getOrderedChunkByCurrentRepeatValue(), internally the value is recalculated.
+             * - If key is used and element change position we have to order childrenChunkedByWrapper by currentUnivoque
+             *   position.
+             * - Starting from currentUnivoque, use key to remap currentUnivoque with an array of component with the the
+             *   specific key.
              *
-             * If no key is used, component children only update it's state. Element are add to componentMap in tree
-             * traversal order. So is natuarally ordered.
+             * No Key is Uses:
+             *
+             * - If no key is used, component children only update it's state.
+             * - Element are add to componentMap in tree traversal order.
+             * - Element is extractd with GetIdsByByRepeatId, original map is cycled in insert order.
+             * - So is natuarally ordered.
              */
             const chunkChildrenOrdered = hasKey
                 ? [
