@@ -124,7 +124,32 @@ export const gerOrderedChunkByDOMPosition = ({ children }) => {
 };
 
 /**
- * Get a chunked array of children sorted by Key
+ * Ordiniamo i gruppi di figli in base a una propietá condivisa tra i due set:
+ *
+ * - I dati : current | currentParsed
+ * - I gruppi di componenti : children
+ *
+ * Se abbiamo una chiave ordinamo i gruppi di componenti in base alla sua posizione nei dati.
+ *
+ * UseIndex
+ *
+ * Case useIndex = false ( repater con chiave );
+ *
+ * - Usiamo il valore di key per eseguire l' ordinamento.
+ *
+ * Case useIndex = true ( repater senza chiave );
+ *
+ * - Opzione non usata in quanto ridondante.
+ * - ChunkIdsByCurrentValue non puó avere creato conflitti di index
+ * - Non ci possono essere indici 0 e _0, gli elementi vengono sempre aggiunti o tolti.
+ * - Se si aggiuno nuovi componenti la situazione sará sempre:
+ * - Valori di groups prima di uscire da chunkIdsByCurrentValue sono: 0, 1, 2, _3, _4, ( _3, _4 sono nuove aggiunte ).
+ * - Valori in uscita da chunkIdsByCurrentValue 0, 1, 2, 3, 4 etc...
+ * - Potrebbe essere un' opzione di sicurezza se i children non dovessero essere presi dalla mappa in ordine corretto.
+ * - Ma é un caso estremo:
+ * - GetIdsByByRepeatId: Dovrebbe giá tornare i componenti nel giusto ordine.
+ * - ChunkIdsByCurrentValue: Questo modulo poi si assicura che se non ci sono conflitti di index i componenti siano
+ *   ordinati secondo la loro index corrente.
  *
  * @param {object} obj
  * @param {string[][]} obj.children
@@ -144,11 +169,13 @@ export const getOrderedChunkByCurrentRepeatValue = ({
     const currentParsed = useIndex ? current : currentUnivoque;
 
     /**
-     * Associate index && key value ( currentValue?.[key] ) to every group of component ( id of component ).
-     *
-     * GetRepeaterStateById() return current component repeater data value by id.
+     * - Aggiungiamo le propietá index && key ai gruppi di componenti.
+     * - Index && key vengono prese direttamante dell' oggetto currentRepeaterState specifico pe rogni componente.
      */
     const childrenRemapped = children.map((items) => {
+        /**
+         * Per ogni gruppo ci basta sapere il valore di un elemento, ogni gruppo condivide le stesse informazioni.
+         */
         const { index: indexValue, current: currentValue } =
             getRepeaterStateById({
                 id: items?.[0],
@@ -162,7 +189,10 @@ export const getOrderedChunkByCurrentRepeatValue = ({
     });
 
     /**
-     * Remap currentUnivoque with index && key value ( item?.[key] ).
+     * Creiamo un nuovo array parentedo da currentParsed in cui mappiamo le seguenti propietá:
+     *
+     * - Index:
+     * - Key props
      */
     const currentRemapped = currentParsed.map((item, index) => ({
         index,
@@ -170,10 +200,12 @@ export const getOrderedChunkByCurrentRepeatValue = ({
     }));
 
     /**
-     * Start from original data array parsed ( univique ).
+     * TODO: questa operazione puó essere semplificata nella complessita algoritmica.
      *
-     * Find from children array the group with same key ( or index ) and return it. The return array is the component
-     * array ordered by data array ( currentUnivoque ).
+     * La mappa dei dati rispetta l'ordine corretto.
+     *
+     * - Creiamo da questa un nuvo array usando come riferimento la propietá `key` o `index`.
+     * - Usiamo l'ordine corretto dei dati per ordinare i gruppi di figli.
      */
     const orderdChildren = currentRemapped
         .map((currentItem) => {

@@ -204,7 +204,16 @@ export const watchRepeat = ({
             const hasKey = key && key !== '';
 
             /**
-             * After update, group component inside single repeat node into a chunked array.
+             * Raggruppiamo i componenti presenti nel return del repeat in gruppi.
+             *
+             * Con chiave ( key ):
+             *
+             * - I gruppo verranno riordinati nel prossimo step.
+             *
+             * Senza chive ( key ):
+             *
+             * - I componenti persisitenti mantegono l'ordine definito in currentRepeaterState.index
+             * - I componenti nuovi vengono aggiunti e mantengono l'ordine definito in previousChildren
              */
             const childrenChunkedByWrapper = chunkIdsByCurrentValue({
                 children: childrenFilteredByRepeatId,
@@ -212,19 +221,15 @@ export const watchRepeat = ({
             });
 
             /**
-             * With key
+             * Con chiave:
              *
-             * - If key is used and element change position we have to order childrenChunkedByWrapper by currentUnivoque
-             *   position.
-             * - Starting from currentUnivoque, use key to remap currentUnivoque with an array of component with the the
-             *   specific key.
+             * Ordiniamo i gruppi di figli in base alla chiave prendendo come riferimento il set di dati aggiornato.
              *
-             * No Key is Uses:
+             * - In questo caso il set di dati aggiornato sará currentUnivoque
              *
-             * - If no key is used, component children only update it's state.
-             * - Element are add to componentMap in tree traversal order.
-             * - Element is extractd with GetIdsByByRepeatId, original map is cycled in insert order.
-             * - So is natuarally ordered.
+             * Senza chiave:
+             *
+             * - I componenti sono giá ordinati.
              */
             const chunkChildrenOrdered = hasKey
                 ? [

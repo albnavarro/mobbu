@@ -115,30 +115,32 @@ export const getUnivoqueByKey = ({
 };
 
 /**
+ * Ragguppa tutti gli id dei componenti per gruppi, ogni gruppo conterrá i componenti definiti nel return del repeat.
+ *
  * Children e previousChildren contengono gli id dei vecchi e nuovi componenti.
  *
- * - Venfono usati i vecchi componenti e i nuovi componenti per avere un `gancio` per raggrupparli piú semplicemente.
+ * - Vengono usati i vecchi componenti e i nuovi componenti per avere un `gancio` per raggrupparli piú semplicemente.
  * - Sappiamo il valore fresco di `currentRepeaterState.index` dei nuovi componenti aggiunti, ma lo stesso puo collidere
- *   con i vecchi componenti non ancora aggironati
- * - Con un contronto sui vecchi componenti possiamo disaccoppiare i valori di `currentRepeaterState.index` dei vecchi e
- *   quello dei nuovi che puó collidere.
- *
- * Ribadendo:
- *
- * - Lo scopo é raggruppare i componenti in children per repeater item, sfruttando il valore di
- *   `currentRepeaterState.index`
- * - Ogni gruppo conterrá i componenti definiti all'interno del return del repeater.
- * - Questo permetterá poi di aggiornare per ogni gruppo i valori di `currentRepeaterState`.
+ *   con il valore corrispondente dei componenti persistenti non ancora aggiornati.
+ * - Con un confronto sui vecchi componenti possiamo disaccoppiare i valori di `currentRepeaterState.index` dei vecchi e
+ *   quello dei nuovi che puó collidere con un trick ( aggiungenedo il prefisso `_` ).
  *
  * Logica aper risolvere i conflitti:
  *
- * - I valore di currentRepeaterState per ogni componente persistente non é agiornato.
- * - I valori di currentRepeaterState per i nuovi componenti é fresco e coerente.
+ * - I valore di currentRepeaterState.index per ogni componente persistente non é agiornato.
+ * - I valori di currentRepeaterState.index per i nuovi componenti é fresco e coerente.
  * - Questo vuol dire che il valore di `index` dei nuovi componenti e dei componenti persistenti puó collidere.
  * - Gli elementi persistenti useranno il valore di index corrente ( ma obsoleto ) per identificare il gruppo.
  * - I nuovi elementi usaranno un index univoco che modifica l'ideax reale in modo da non creare conflitti di chiave:
  *   `_${index}`.
  * - In questo modo possono essere raggruppati in un gruppo univoco.
+ *
+ * SE REPATER NON USA LA CHIAVE ( KEY ):
+ *
+ * - In questo caso children e previousChildren non avranno valori di index in comune.
+ * - Gli elementi vengono solo tolti o aggiunti e mai rimescolati, i componenti persisitenti conservano la propia index.
+ * - L'ordine dei gruppi in uscito sará crescente rispetto a index, sará ordinato rispetto ai persisitenti e ai nuovi.
+ * - Questo vuol dire che se children non fosse ordinato i componenti persisitenti uscirebbero riordinati rispetto a index
  *
  * @param {object} obj
  * @param {string[]} obj.children - Component id collection
