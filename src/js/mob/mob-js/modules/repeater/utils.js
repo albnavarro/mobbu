@@ -139,15 +139,32 @@ export const getUnivoqueByKey = ({
  *
  * - In questo caso children e previousChildren non avranno valori di index in comune.
  * - Gli elementi vengono solo tolti o aggiunti e mai rimescolati, i componenti persisitenti conservano la propia index.
- * - L'ordine dei gruppi in uscito sará crescente rispetto a index, sará ordinato rispetto ai persisitenti e ai nuovi.
+ * - I gruppi persisitenti e nuovi saranno ordinati ripetto a index.
  * - Questo vuol dire che se children non fosse ordinato i componenti persisitenti uscirebbero riordinati rispetto a index
+ * - Ricordiamoci che in javascript:
+ *
+ *   ```javascript
+ *   const obj = {};
+ *   obj[5] = 'cinque';
+ *   obj[0] = 'zero';
+ *   obj[10] = 'dieci';
+ *
+ *   Object.values(obj);
+ *
+ *   ['zero', 'cinque', 'diece'];
+ *   ```
  *
  * @param {object} obj
  * @param {string[]} obj.children - Component id collection
  * @param {string[]} [obj.previousChildren] - Component id collection
+ * @param {boolean} obj.hasKey
  * @returns {string[][]}
  */
-export const chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
+export const chunkIdsByCurrentValue = ({
+    children,
+    previousChildren = [],
+    hasKey,
+}) => {
     const previousSet = new Set(previousChildren);
     const hasPrevious = previousChildren.length > 0;
 
@@ -157,8 +174,15 @@ export const chunkIdsByCurrentValue = ({ children, previousChildren = [] }) => {
     for (const child of children) {
         const { index } = getRepeaterStateById({ id: child });
 
+        /**
+         * Senza chiave non ci possono essere conflitti di index.
+         *
+         * - Uisamo sempre index per mantenere l'ordinamento del valore di index originale.
+         */
         const key =
-            hasPrevious && !previousSet.has(child) ? `_${index}` : index;
+            hasKey && hasPrevious && !previousSet.has(child)
+                ? `_${index}`
+                : index;
 
         if (groups[key]) {
             groups[key].push(child);

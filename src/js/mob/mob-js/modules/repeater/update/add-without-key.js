@@ -132,11 +132,14 @@ export const addWithoutKey = ({
 
     if (diff < 0) {
         /**
-         * For singling component inside same repeater item. Group all childrn by wrapper ( or undefined if there is no
-         * wrapper ) So destroy all right element by index
+         * For singling component inside same repeater item.
+         *
+         * - Group all childrn by wrapper ( or undefined if there is no wrapper )
+         * - So destroy all right element by index
          */
         const childrenComponentChunkedByWrapper = chunkIdsByCurrentValue({
             children: currentChildren,
+            hasKey: false,
         });
 
         /**

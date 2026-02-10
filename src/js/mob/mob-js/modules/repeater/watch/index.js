@@ -201,7 +201,7 @@ export const watchRepeat = ({
             /**
              * Use key ?
              */
-            const hasKey = key && key !== '';
+            const hasKey = Boolean(key);
 
             /**
              * Raggruppiamo i componenti presenti nel return del repeat in gruppi.
@@ -212,12 +212,13 @@ export const watchRepeat = ({
              *
              * Senza chive ( key ):
              *
-             * - I componenti persisitenti mantegono l'ordine definito in currentRepeaterState.index
-             * - I componenti nuovi vengono aggiunti e mantengono l'ordine definito in previousChildren
+             * - I componenti nuovi e persisitenti mantegono l'ordine definito in currentRepeaterState.index
+             * - Non ci possono essere conflitti di index
              */
             const childrenChunkedByWrapper = chunkIdsByCurrentValue({
                 children: childrenFilteredByRepeatId,
                 previousChildren: childrenBeforeUdateByRepeatId,
+                hasKey,
             });
 
             /**
