@@ -92,6 +92,7 @@ export const getOrderedChunkByCurrentRepeatValue = ({
      * A questo punto il controllo e semplice.
      *
      * - Il valore corrispondente a key in data corrisponda ad una chiave nella nuova mappa.
+     * - `childrenMap.get(item[key])`, qui prederemo il gruppo di id ( component id ) corrispondente alla chiave.
      */
     return data
         .map((item) => childrenMap.get(item[key]))
