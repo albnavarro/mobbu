@@ -237,8 +237,7 @@ export const watchRepeat = ({
                       ...getOrderedChunkByCurrentRepeatValue({
                           children: childrenChunkedByWrapper,
                           key,
-                          current,
-                          currentUnivoque: currentUpdated,
+                          data: currentUpdated,
                       }),
                   ]
                 : childrenChunkedByWrapper;
