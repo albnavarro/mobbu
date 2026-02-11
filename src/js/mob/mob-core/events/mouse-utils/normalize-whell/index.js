@@ -1,1 +1,1 @@
-export { normalizeWheel } from './legacy.js';
+export { normalizeWheel } from './modern.js';
