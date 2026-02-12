@@ -42,12 +42,13 @@ export const removeChildFromChildrenArray = ({
     componentName = '',
 }) => {
     const childGroupByName = currentChild?.[componentName] ?? [];
-    currentChild[componentName] = childGroupByName.filter(
-        (/** @type {string} */ currentId) => {
-            return id !== currentId;
-        }
-    );
-    return currentChild;
+
+    return {
+        ...currentChild,
+        [componentName]: childGroupByName.filter(
+            (currentId) => currentId !== id
+        ),
+    };
 };
 
 /**

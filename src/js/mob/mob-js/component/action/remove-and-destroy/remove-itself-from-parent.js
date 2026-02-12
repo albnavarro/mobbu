@@ -8,24 +8,17 @@ import { removeChildFromChildrenArray } from '../../utils';
  * @param {string} param.componentName
  */
 export const removeItselfFromParent = ({ id, parentId, componentName }) => {
-    if (!id) return;
+    if (!id || !parentId) return;
 
-    const value = componentMap.get(parentId ?? '');
-    if (!value) return;
-
-    const { child } = value;
-    if (!parentId || !child) return;
+    const value = componentMap.get(parentId);
+    if (!value?.child) return;
 
     componentMap.set(parentId, {
         ...value,
-
-        child: {
-            ...child,
-            ...removeChildFromChildrenArray({
-                currentChild: child,
-                id,
-                componentName,
-            }),
-        },
+        child: removeChildFromChildrenArray({
+            currentChild: value.child,
+            id,
+            componentName,
+        }),
     });
 };
