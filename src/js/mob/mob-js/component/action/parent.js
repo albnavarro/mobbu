@@ -48,14 +48,11 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
 
     componentMap.set(parentId, {
         ...value,
-        child: {
-            ...child,
-            ...updateChildrenArray({
-                currentChild: child,
-                id,
-                componentName,
-            }),
-        },
+        child: updateChildrenArray({
+            currentChild: child,
+            id,
+            componentName,
+        }),
     });
 };
 

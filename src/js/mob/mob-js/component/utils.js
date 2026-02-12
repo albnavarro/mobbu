@@ -1,6 +1,8 @@
 /**
  * Support getChildrenIdByName action. Update child obj id, insert new child id in the array of same component family.
  *
+ * - Use mutation for better performance here ( large set of component )
+ *
  * [componentName] : [string, string, ...]
  *
  * @param {object} obj
@@ -14,8 +16,14 @@ export const updateChildrenArray = ({
     id = '',
     componentName = '',
 }) => {
-    const childGroupByName = currentChild?.[componentName] ?? [];
-    currentChild[componentName] = [...childGroupByName, id];
+    const childGroupByName = currentChild?.[componentName];
+
+    if (childGroupByName) {
+        childGroupByName.push(id);
+    } else {
+        currentChild[componentName] = [id];
+    }
+
     return currentChild;
 };
 
