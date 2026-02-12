@@ -1,7 +1,6 @@
 // @ts-check
 
 import { MobCore } from '../../../../mob-core';
-import { getOrderedChunkByCurrentRepeatValue } from '../../../component/action/children';
 import { setRepeaterStateById } from '../../../component/action/repeater';
 import {
     getElementById,
@@ -23,7 +22,10 @@ import {
 import { updateRepeater } from '../update';
 import { inizializeNestedInvalidate } from '../../invalidate/action/inizialize-nested-invalidate';
 import { getParentIdFromWeakElementMap } from '../../../component/action/parent';
-import { chunkIdsByCurrentValue } from '../utils';
+import {
+    chunkIdsByCurrentValue,
+    getOrderedChunkByCurrentRepeatValue,
+} from '../utils';
 import { getRepeatParent } from '../action/get-repeater-parent';
 import { inizializeNestedRepeat } from '../action/inizialize-nested-repeat';
 import { setRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
