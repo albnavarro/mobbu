@@ -18,7 +18,14 @@ const setsAreEqual = (a, b) =>
     a.size === b.size && [...a].every((value) => b.has(value));
 
 /**
- * Confronta due array per uguaglianza, indipendentemente dall'ordine. Usa Map per conteggio con complessità O(n).
+ * Confronta due array per uguaglianza posizionale.
+ *
+ * L'ordine degli elementi è significativo: due array sono uguali solo se hanno la stessa lunghezza e ogni elemento
+ * nella stessa posizione è uguale.
+ *
+ * - Utilizza esclusivamente `objectAreEqual` per il confronto degli elementi.
+ * - Questa funzione è sufficiente per tutti i tipi: per primitive esegue un veloce strict equality (===), per oggetti
+ *   esegue deep comparison ricorsiva.
  *
  * @param {any[]} a
  * @param {any[]} b
@@ -30,32 +37,15 @@ const arrayAreEquals = (a, b) => {
      */
     if (a.length !== b.length) return false;
 
-    /** @type {Map<any, number>} */
-    const needed = new Map();
-
     /**
-     * Conta occorrenze necessarie da a
+     * Confronto posizionale:
+     *
+     * - Ogni elemento deve corrispondere alla stessa index
      */
-    for (const item of a) {
-        needed.set(item, (needed.get(item) ?? 0) + 1);
-    }
-
-    /**
-     * Consuma occorrenze verificando b
-     */
-    for (const item of b) {
-        const remaining = needed.get(item);
-
-        /**
-         * - False se: elemento non esiste in a (undefined)
-         * - Oppure b ne richiede più di quanti ne ha a (0)
-         */
-        if (remaining === undefined || remaining === 0) return false;
-
-        /**
-         * Consuma una occorrenza
-         */
-        needed.set(item, remaining - 1);
+    for (const [i, element] of a.entries()) {
+        if (!objectAreEqual(element, b[i])) {
+            return false;
+        }
     }
 
     return true;
