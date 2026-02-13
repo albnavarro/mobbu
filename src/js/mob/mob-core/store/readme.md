@@ -914,10 +914,4 @@ function safeOperation(instanceId, value) {
 }
 ```
 
-## TODO:
-
-#### checkEquality
-- `arrayAreEquals` && `objectAreEqual` must be optimize.
-
-
 
