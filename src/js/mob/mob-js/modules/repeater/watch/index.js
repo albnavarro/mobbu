@@ -265,7 +265,11 @@ export const watchRepeat = ({
                         : index;
 
                     /**
-                     * Store current value in store to use in dynamicrops FrstRepeaterChild
+                     * Update current repeater data ( index && current ) for each component.
+                     *
+                     * - This step is fundamental for:
+                     * - Group repeater item in next repeater call.
+                     * - Get fresch repeater data in utils like bindProps/bindEvent and so on if proxi is not used.
                      */
                     setRepeaterStateById({
                         id,
