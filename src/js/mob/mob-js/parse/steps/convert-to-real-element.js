@@ -20,40 +20,36 @@ import {
 import { addMultipleDOMElement } from './utils';
 
 /**
- * Get new element from content ( render ). Prevent accidentally return of element or component deleted runtime. Check
- * parentNode to insertAdjacentHTML possible error.
+ * Render component ( content ) and add to DOM.
  *
- * @param {object} obj
- * @param {import('../../web-component/type').UserComponent | HTMLElement} obj.element
- * @param {string} obj.content
+ * @param {object} params
+ * @param {import('../../web-component/type').UserComponent | HTMLElement} params.element
+ * @param {string} params.content
  * @returns {HTMLElement | import('../../web-component/type').UserComponent | undefined}
  */
 const getNewElement = ({ element, content }) => {
     const { debug } = getDefaultComponent();
 
     if (element.parentNode) {
-        // element.insertAdjacentHTML('afterend', content);
-        // const node = element.nextElementSibling;
-
-        // const node = document
-        //     .createRange()
-        //     .createContextualFragment(content).firstElementChild;
-
-        // const parser = new DOMParser();
-        // const doc = parser.parseFromString(content, 'text/html');
-        // const node = doc.body.firstElementChild;
-
+        /**
+         * Render content in real DOM element.
+         */
         const template = document.createElement('template');
         template.innerHTML = content;
         const node = template.content.firstElementChild;
 
         /**
-         * Disable placeholder before add to DOM Avoid add component to userPlaceholder map.
+         * Disable placeholder status of new node in case new component is a customComponent.
+         *
+         * - Here custom component is real component not a placeHolder component.
          */
 
         // @ts-expect-error node can be a user web component.
         node?.disablePlaceHolderState?.();
 
+        /**
+         * Add rendered component after placeHolder component.
+         */
         if (node) element.after(node);
 
         /**
@@ -97,14 +93,10 @@ const removeOrphanSlot = ({ element }) => {
  */
 const addToNamedSlot = ({ element }) => {
     /**
-     * Skip if use Slot Set database instead do query. Id database is empty return; there two strategy:
+     * Skip if use slotPlaceholder is empty in case no explicit query is used.
      *
-     * - UseSlotQuery
-     * - UseComponentHasNamedSlotQuery
-     *
-     * SlotPlaceholder is filled if useSlotQuery is false.
-     *
-     * - UseComponentHasNamedSlotQuery is specific strategy for named slot.
+     * - If useSlotQuery is true
+     * - <mobjs-slot> add to slotPlaceholder it's host element.
      */
     if (!useSlotQuery && getSlotPlaceholderSize() === 0) return;
 
@@ -119,6 +111,9 @@ const addToNamedSlot = ({ element }) => {
 
     if (componentWithSlot.length === 0) return;
 
+    /**
+     * For each node found.
+     */
     [...componentWithSlot].forEach((component) => {
         // @ts-ignore - Get slot name
         const slotName = component?.getSlotPosition();
@@ -154,9 +149,6 @@ const executeConversion = ({ element, content }) => {
      */
     const newElement = getNewElement({ element, content });
 
-    /**
-     * Get inner content and copy data from provvisory component
-     */
     if (newElement) {
         // @ts-ignore
         const id = element.getId();
@@ -171,14 +163,42 @@ const executeConversion = ({ element, content }) => {
         const bindRefName = element?.getBindRefName();
 
         /**
-         * Detect Unnamed slot
+         * Detect Unnamed slot inside rendered component.
+         *
+         * Return custom component <mobjs-slot><mobjs-slot>
          */
         const unNamedSlot = useSlotQuery
             ? queryUnNamedSlot(newElement)
             : getUnamedPlaceholderSlot({ element: newElement });
 
         /**
-         * Replace unnamed slot with userPlaceholder orinal content.
+         * - A) Unnamed slot is found.
+         *
+         * Replace unnamed slot with userPlaceholder original content ( element.childNodes ).
+         *
+         * - Example replace <mobjs-slot> with <div>myContent</div>
+         * - If content contains a component, will render next cycle.
+         *
+         * Step:
+         *
+         * - <mobjs-slot> is inside result of render function.
+         *
+         *   ```javascrit
+         *   return html`
+         *       <button type="button" class="c-btn-debug">
+         *           <mobjs-slot></mobjs-slot>
+         *       </button>
+         *   `;
+         *   ```
+         * - Content inside <debug-button> tag is moved in slot position
+         *
+         *   ```javascrit
+         *   return html`
+         *       <debug-button>
+         *           <div>my content</div>
+         *       </button>
+         *   `;
+         *   ```
          */
         if (unNamedSlot) {
             addMultipleDOMElement({
@@ -191,7 +211,9 @@ const executeConversion = ({ element, content }) => {
         }
 
         /**
-         * Add original userPlaceholder content as first-child of new component.
+         * - B) No unnamed slot is found.
+         * - Move original content ( <div>my content</div> ) as firstChild of rendered component.
+         * - Similar to unNamed slot but with fixed position limitation ( firstChild ).
          */
         if (!unNamedSlot) {
             addMultipleDOMElement({
@@ -201,7 +223,17 @@ const executeConversion = ({ element, content }) => {
             });
         }
 
+        /**
+         * Move component inside rendered element to related slot with name.
+         *
+         * - Get all component with slot=<slot-name>
+         * - Find slot custom component with related name
+         */
         addToNamedSlot({ element: newElement });
+
+        /**
+         * CleanUp
+         */
         removeOrphanSlot({ element: newElement });
 
         /**
@@ -210,9 +242,15 @@ const executeConversion = ({ element, content }) => {
         if (delegateEventId && delegateEventId.length > 0)
             newElement.setAttribute(ATTR_WEAK_BIND_EVENTS, delegateEventId);
 
+        /**
+         * Transfer bindRefId if exist in placeholder element.
+         */
         if (bindRefId && bindRefId.length > 0)
             newElement.setAttribute(ATTR_BIND_REFS_ID, bindRefId);
 
+        /**
+         * Transfer bindRefName if exist in placeholder element.
+         */
         if (bindRefName && bindRefName.length > 0)
             newElement.setAttribute(ATTR_BIND_REFS_NAME, bindRefName);
 
@@ -224,7 +262,7 @@ const executeConversion = ({ element, content }) => {
     }
 
     /**
-     * Delete provvisory component and add real component.
+     * Finally delete placeholder component.
      */
     element.remove();
 
@@ -232,10 +270,10 @@ const executeConversion = ({ element, content }) => {
 };
 
 /**
- * Add content to component
+ * Render component.
  *
  * @param {object} obj
- * @param {HTMLElement | import('../../web-component/type').UserComponent} obj.element - Current user component.
+ * @param {HTMLElement | import('../../web-component/type').UserComponent} obj.element - Current placeholder component.
  * @param {string} obj.content - The return DOM from component function.
  * @returns {{ newElement: HTMLElement | import('../../web-component/type').UserComponent | undefined }
  *     | { newElement: HTMLElement | undefined }}
