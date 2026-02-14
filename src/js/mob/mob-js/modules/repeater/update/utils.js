@@ -67,19 +67,30 @@ export const updateRepeaterWitoutKey = ({
             });
 
             const lastSkipUserValue = getSkipAddUserComponent();
+
+            /**
+             * Enable inMemoryElementSet to store each host element
+             */
             setSkipAddUserComponent(true);
 
+            /**
+             * Here each userComponent:
+             *
+             * - Fire his constructor
+             * - Add his host to inMemoryElementSet
+             * - Skip addUserPlaceholder ( so component will not render in parse-function-while )
+             * - This step is fundamantal to add repeater attribute to custom component.
+             */
             const fragment = range.createContextualFragment(rawRender);
 
             /**
-             * Nested repeater issue:
-             *
+             * - Repeater should be nested one inside each other.
              * - Restore last value when nested repeat is found.
              */
             setSkipAddUserComponent(lastSkipUserValue);
 
             /**
-             * Query strategy:
+             * A) Query strategy:
              *
              * - Use custom query for find child component.
              */
@@ -90,6 +101,9 @@ export const updateRepeaterWitoutKey = ({
                     }
                 );
 
+                /**
+                 * - Set manually attribute for each component found with query.
+                 */
                 setRepeatAttribute({
                     components,
                     current: initialValue,
@@ -101,12 +115,13 @@ export const updateRepeaterWitoutKey = ({
             }
 
             /**
-             * Set strategy:
+             * B) InMemoryElementSet strategy:
              *
              * - UserComponent add host inMemoryElementSet ( new Set ).
              * - Get all child component once
              * - SetSkipAddUserComponent prevents the component's host from being added to the list of components to be
              *   rendered.
+             * - Set manually attribute for each component inside InMemoryElementSet
              */
             if (!useRepeatWithoutSyncQuery) {
                 setRepeatAttributeFromInMemory({
@@ -236,8 +251,20 @@ export const updateRepeaterWithtKey = ({
     });
 
     const lastSkipUserValue = getSkipAddUserComponent();
+
+    /**
+     * Enable inMemoryElementSet to store each host element
+     */
     setSkipAddUserComponent(true);
 
+    /**
+     * Here each userComponent:
+     *
+     * - Fire his constructor
+     * - Add his host to inMemoryElementSet
+     * - Skip addUserPlaceholder ( so component will not render in parse-function-while )
+     * - This step is fundamantal to add repeater attribute to custom component.
+     */
     const fragment = document.createRange().createContextualFragment(
         render({
             initialIndex: index,
@@ -248,14 +275,13 @@ export const updateRepeaterWithtKey = ({
     );
 
     /**
-     * Nested repeater issue:
-     *
+     * - Repeater should be nested one inside each other.
      * - Restore last value when nested repeat is found.
      */
     setSkipAddUserComponent(lastSkipUserValue);
 
     /**
-     * Query strategy:
+     * A) Query strategy:
      *
      * - Use custom query for find child component.
      */
@@ -266,6 +292,9 @@ export const updateRepeaterWithtKey = ({
             }
         );
 
+        /**
+         * - Set manually attribute for each component found with query.
+         */
         setRepeatAttribute({
             components,
             current: currentValue,
@@ -277,11 +306,12 @@ export const updateRepeaterWithtKey = ({
     }
 
     /**
-     * Set strategy:
+     * B) InMemoryElementSet strategy:
      *
      * - UserComponent add host inMemoryElementSet ( new Set ).
      * - Get all child component once
      * - SetSkipAddUserComponent prevents the component's host from being added to the list of components to be rendered.
+     * - Set manually attribute for each component inside InMemoryElementSet
      */
     if (!useRepeatWithoutSyncQuery) {
         setRepeatAttributeFromInMemory({
