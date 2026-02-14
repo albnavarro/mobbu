@@ -92,13 +92,15 @@ export const watchRepeat = ({
              */
             const descrementQueue = incrementTickQueuque({
                 state,
-                id,
+                componentId: id,
+                moduleId: repeatId,
                 type: QUEQUE_TYPE_REPEATER,
             });
 
             const descrementRepeaterQueue = incrementRepeaterTickQueuque({
                 state,
-                id,
+                componentId: id,
+                repeatId,
                 type: QUEQUE_TYPE_REPEATER,
             });
 

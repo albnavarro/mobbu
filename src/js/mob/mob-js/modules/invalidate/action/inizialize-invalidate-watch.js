@@ -86,13 +86,15 @@ export const inizializeInvalidateWatch = async ({
              */
             const descrementQueue = incrementTickQueuque({
                 state,
-                id,
+                componentId: id,
+                moduleId: invalidateId,
                 type: QUEQUE_TYPE_INVALIDATE,
             });
 
             const decrementInvalidateQueque = incrementInvalidateTickQueuque({
                 state,
-                id,
+                componentId: id,
+                invalidateId,
                 type: QUEQUE_TYPE_INVALIDATE,
             });
 

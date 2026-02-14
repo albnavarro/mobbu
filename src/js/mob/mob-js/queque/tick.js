@@ -2,23 +2,32 @@ import { MobCore } from '../../mob-core';
 import { awaitNextLoop } from './utils';
 
 /**
- * @type {Map<string, string>}
+ * @type {Map<string, import('./type').TickQuequeData>}
  */
 const queque = new Map();
 
 /**
  * Limit queque size. Prevent possible side effect
  */
-const maxQueuqueSize = 100_000;
+const maxQueuqueSize = 1000;
 
 /**
- * @param {any} props
+ * @param {import('./type').TickQuequeData} props
  * @returns {() => void}
  */
 export const incrementTickQueuque = (props) => {
+    /**
+     * Quando la coda dei tick cresce troppo possiamo essere nelal condizione di un loop infinito.
+     *
+     * - Lanciamo un avvertimento.
+     * - Risolviamo l'esecuzione cancellando la code.
+     */
     if (queque.size >= maxQueuqueSize) {
-        console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
+        console.warn(
+            `Tick: maximum queue size reached (${maxQueuqueSize}). Likely an infinite watch loop. Queue force-cleared. `
+        );
 
+        queque.clear();
         return () => {};
     }
 
@@ -32,7 +41,7 @@ export const incrementTickQueuque = (props) => {
  * @returns {boolean}
  */
 const queueIsResolved = () => {
-    return queque.size === 0 || queque.size >= maxQueuqueSize;
+    return queque.size === 0;
 };
 
 /**

@@ -343,7 +343,8 @@ export const applyBindProps = async ({
              */
             const decrementQueue = incrementTickQueuque({
                 state,
-                id: componentId,
+                componentId,
+                moduleId: '',
                 type: QUEQUE_TYPE_BINDPROPS,
             });
 

@@ -14,7 +14,7 @@
  * @import {DynamicList} from "./type"
  */
 
-import { html, MobJs } from '@mobJs';
+import { html } from '@mobJs';
 import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
@@ -78,8 +78,6 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
                         click: async () => {
                             proxi.data = data;
                             proxi.activeSample = index;
-
-                            await MobJs.tick();
                         },
                     })}
                     ${bindProps(

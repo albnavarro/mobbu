@@ -2,7 +2,7 @@ import { MobCore } from '../../mob-core';
 import { awaitNextLoop } from './utils';
 
 /**
- * @type {Map<string, string>}
+ * @type {Map<string, import('./type').InvalidateTickQuequeData>}
  */
 const invalidateQueque = new Map();
 
@@ -17,13 +17,22 @@ export const invalidateQuequeIsEmpty = () => invalidateQueque.size === 0;
 const maxQueuqueSize = 1000;
 
 /**
- * @param {any} props
+ * @param {import('./type').InvalidateTickQuequeData} props
  * @returns {() => void}
  */
 export const incrementInvalidateTickQueuque = (props) => {
+    /**
+     * Quando la coda dei invalidateTick cresce troppo possiamo essere nelal condizione di un loop infinito.
+     *
+     * - Lanciamo un avvertimento.
+     * - Risolviamo l'esecuzione cancellando la coda.
+     */
     if (invalidateQueque.size >= maxQueuqueSize) {
-        console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
+        console.warn(
+            `InvalidateTick: maximum queue size reached (${maxQueuqueSize}). Likely an infinite watch loop. Queue force-cleared. `
+        );
 
+        invalidateQueque.clear();
         return () => {};
     }
 
@@ -37,9 +46,7 @@ export const incrementInvalidateTickQueuque = (props) => {
  * @returns {boolean}
  */
 const queueIsResolved = () => {
-    return (
-        invalidateQueque.size === 0 || invalidateQueque.size >= maxQueuqueSize
-    );
+    return invalidateQueque.size === 0;
 };
 
 /**

@@ -38,101 +38,6 @@ Per interazioni UI normali (click, input), il repeater è sufficientemente veloc
 
 **Gravità ridimensionata a BASSO** — il meccanismo funziona come design di protezione, il problema è solo l'assenza di feedback all'utente.
 
----
-
-## 2. La tick queue in overflow è trattata come "risolta" (ALTO)
-
-**File:** `queque/tick.js:18-36`
-
-Lo stesso pattern è presente in tutti e 3 i file di queue:
-
-- `queque/tick.js` (main tick, max: 100.000)
-- `queque/tick-repeater.js` (repeater tick, max: 1.000)
-- `queque/tick-invalidate.js` (invalidate tick, max: 1.000)
-
-```js
-export const incrementTickQueuque = (props) => {
-    if (queque.size >= maxQueuqueSize) {
-        console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
-        return () => {};  // no-op decrementer
-    }
-    // ...
-};
-
-const queueIsResolved = () => {
-    return queque.size === 0 || queque.size >= maxQueuqueSize;
-};
-```
-
-Quando la queue raggiunge il max:
-
-- Nuovi incrementi restituiscono decrementori no-op.
-- `queueIsResolved()` ritorna `true` perché `size >= max`.
-- `await tick()` si risolve immediatamente pensando che tutto sia completato.
-- La queue resta piena di operazioni mai completate, e i no-op decrementors non la svuoteranno mai.
-
-**Risultato:** la queue resta permanentemente piena. Ogni successiva chiamata a `tick()` si risolve subito, rompendo tutto il meccanismo di batching per il resto della vita dell'applicazione.
-
-### Come si raggiunge l'overflow
-
-Tutti e 3 i consumer seguono lo stesso pattern: **increment sincrono, decrement differito** (in `useNextLoop` o dopo `await`). Se qualcosa fallisce tra i due, la entry resta nella queue per sempre.
-
-| Consumer | Increment | Decrement | Leak se... |
-|---|---|---|---|
-| **repeater** (`watch/index.js:93`) | Sincrono | `useNextLoop` (linea 313) | `beforeUpdate` o `updateRepeater` lancia |
-| **bindProps** (`bind-props/index.js:344`) | Dopo `await` | `useNextLoop` (linea 368) | `updateBindProp` lancia |
-| **invalidate** (`inizialize-invalidate-watch.js:87`) | Sincrono | `useNextLoop` (linea 153) | `beforeUpdate` o `emitAsync` lancia |
-
-Caso specifico nell'invalidate (linee 104-107): se `invalidateParent` è null (componente distrutto mentre il watcher è attivo), la funzione esce senza chiamare `descrementQueue()` né `decrementInvalidateQueque()`, e `watchIsRunning` non viene mai resettato. Ogni trigger successivo lascia 2 entry orfane.
-
-**Scenari di raggiungimento:**
-
-- **Bug nel callback utente** (`beforeUpdate` che lancia sempre): ogni state change aggiunge 1-2 entry leak. In una SPA long-lived, accumulabile.
-- **Invalidate parent null**: componente distrutto con watcher attivi, accumulo silenzioso senza errori visibili.
-- **Loop infinito** (issue #4, misuso utente): raggiunge il max rapidamente.
-
-### Soluzione proposta: Circuit Breaker
-
-**A) `incrementTickQueuque`: quando si raggiunge il max, svuotare forzatamente la queue (circuit breaker).**
-
-```js
-export const incrementTickQueuque = (props) => {
-    if (queque.size >= maxQueuqueSize) {
-        console.error(
-            `maximum queue size reached (${maxQueuqueSize}). ` +
-            `Likely an infinite watch loop. Queue force-cleared.`
-        );
-
-        queque.clear();
-        return () => {};
-    }
-
-    const id = MobCore.getUnivoqueId();
-    queque.set(id, props);
-
-    return () => queque.delete(id);
-};
-```
-
-**B) `queueIsResolved`: rimuovere la condizione di overflow.**
-
-```js
-const queueIsResolved = () => {
-    return queque.size === 0;
-};
-```
-
-### Verifica edge cases della soluzione
-
-| Scenario | Dopo `clear()` | Risultato |
-|---|---|---|
-| Decrementers in volo dei vecchi entry | `queque.delete(oldId)` su chiave inesistente → no-op | Innocuo |
-| `tick()` in attesa | `size === 0` dopo clear → resolve | tick si sblocca |
-| Nuove operazioni dopo clear | Incrementano normalmente su queue vuota | Queue operativa |
-| Loop infinito ripetuto | Fill → clear → fill → clear | `console.error` ripetuto, sistema non si blocca mai |
-| Tick ricorsivo | `awaitNextLoop` → check `size === 0` → resolve | Nessun rischio di ricorsione infinita |
-
-**La stessa correzione va applicata identicamente a tutti e 3 i file di queue.**
 
 ---
 
@@ -298,7 +203,6 @@ Se si raggiunge il limite (default 5000), i componenti rimanenti restano come pl
 | # | Problema | Gravità | Tipo |
 |---|---|---|---|
 | 1 | Drop silenzioso di setState durante il repeater | **Basso** | Caso limite, by design |
-| 2 | Tick queue overflow = risolto per sempre | **Alto** | Corruzione stato |
 | 3 | `afterUpdate` eseguito con prop ancora frozen | **Medio** | Sequenza errata |
 | 4 | Nessun cycle detection nei watch cross-componente | **Basso** | Uso scorretto utente |
 | 5 | Destroy: user callback precede il cleanup framework | **Medio** | Stato sporco su errore utente |

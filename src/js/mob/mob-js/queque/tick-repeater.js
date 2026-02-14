@@ -2,7 +2,7 @@ import { MobCore } from '../../mob-core';
 import { awaitNextLoop } from './utils';
 
 /**
- * @type {Map<string, string>}
+ * @type {Map<string, import('./type').RepeaterTickQuequeData>}
  */
 const repeaterQueque = new Map();
 
@@ -17,13 +17,22 @@ export const repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
 const maxQueuqueSize = 1000;
 
 /**
- * @param {any} props
+ * @param {import('./type').RepeaterTickQuequeData} props
  * @returns {() => void}
  */
 export const incrementRepeaterTickQueuque = (props) => {
+    /**
+     * Quando la coda dei repeaterTick cresce troppo possiamo essere nelal condizione di un loop infinito.
+     *
+     * - Lanciamo un avvertimento.
+     * - Risolviamo l'esecuzione cancellando la coda.
+     */
     if (repeaterQueque.size >= maxQueuqueSize) {
-        console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
+        console.warn(
+            `RepeaterTick: maximum queue size reached (${maxQueuqueSize}). Likely an infinite watch loop. Queue force-cleared. `
+        );
 
+        repeaterQueque.clear();
         return () => {};
     }
 
@@ -37,7 +46,7 @@ export const incrementRepeaterTickQueuque = (props) => {
  * @returns {boolean}
  */
 const queueIsResolved = () => {
-    return repeaterQueque.size === 0 || repeaterQueque.size >= maxQueuqueSize;
+    return repeaterQueque.size === 0;
 };
 
 /**
