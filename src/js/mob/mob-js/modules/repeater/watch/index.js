@@ -306,6 +306,13 @@ export const watchRepeat = ({
                  * Unfreeze prop onnly when all is quiet
                  *
                  * Prevent overload error.
+                 *
+                 * Important:
+                 *
+                 * - Here freeze only watch state
+                 * - Unfreeze after fire afterUpdate to prevent consegutive, involontary list update
+                 * - Other component state is not affected.
+                 * - User should not update repeater list here, is dangeous.
                  */
                 unFreezePropById({ id, prop: state });
 
