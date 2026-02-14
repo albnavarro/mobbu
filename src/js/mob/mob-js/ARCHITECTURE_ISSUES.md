@@ -86,22 +86,6 @@ Se il callback utente lancia, lo stato del framework è già pulito. L'errore è
 
 ---
 
-## 6. ~~`activeRepeatMap` fragile al replace del container~~ (NON VALIDO)
-
-**File:** `modules/repeater/active-repeater/index.js`
-
-### Analisi rivista
-
-Lo scenario ipotizzato (container del repeater sostituito durante un `invalidate`) non è raggiungibile con uso normale del framework:
-
-- Il repeater crea/rimuove figli **dentro** il container, non sostituisce il container stesso.
-- Un `invalidate` sul componente parent distruggerebbe e ricreerebbe l'intero repeater (nuovo `repeatId`, nuova entry nella map), non solo il container.
-- L'unico modo per avere un container diverso è manipolazione diretta del DOM da parte dell'utente, che è un uso scorretto del pattern.
-
-Il confronto per reference (`container === repeat.container`) è corretto perché il container è stabile per design. **Issue declassata a non valida.**
-
----
-
 ## 7. Il parse loop ha un limite silenzioso (BASSO)
 
 **File:** `parse/parse-function-while.js:348-360`
@@ -122,8 +106,5 @@ Se si raggiunge il limite (default 5000), i componenti rimanenti restano come pl
 | # | Problema | Gravità | Tipo |
 |---|---|---|---|
 | 1 | Drop silenzioso di setState durante il repeater | **Basso** | Caso limite, by design |
-| 3 | `afterUpdate` eseguito con prop ancora frozen | **Medio** | Sequenza errata |
-| 4 | Nessun cycle detection nei watch cross-componente | **Basso** | Uso scorretto utente |
 | 5 | Destroy: user callback precede il cleanup framework | **Medio** | Stato sporco su errore utente |
-| 6 | ~~activeRepeatMap fragile al replace del container~~ | **Non valido** | Uso scorretto utente |
 | 7 | Parse limit silenzioso | **Basso** | Troncamento DOM |
