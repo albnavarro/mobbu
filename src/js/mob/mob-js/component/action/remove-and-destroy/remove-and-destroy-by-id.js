@@ -49,6 +49,10 @@ export const removeAndDestroyById = ({ id = '' }) => {
 
     /**
      * Destroy
+     *
+     * - Fire destroy before state/component cleanUp
+     * - Refs should be used in this callback in special case ( eg. remove input manually to cleanUp GC better ).
+     * - If destroy fire an exception app crash, at now is right, app must crash if callback is used wrong.
      */
     destroy?.();
     state.destroy();
