@@ -71,6 +71,9 @@ export const watchRepeat = ({
 
     /**
      * Fire first callback The main parse is ended.
+     *
+     * - Intentionally try/catch is omitted.
+     * - In case of user error app should crash.
      */
     afterUpdate();
 
@@ -144,6 +147,9 @@ export const watchRepeat = ({
 
             /**
              * Run function before update.
+             *
+             * - Intentionally try/catch is omitted.
+             * - In case of user error app should crash.
              */
             if (mainComponent) {
                 await beforeUpdate();
@@ -286,6 +292,9 @@ export const watchRepeat = ({
             MobCore.useNextLoop(async () => {
                 /**
                  * Execute afterUpdate function
+                 *
+                 * - Intentionally try/catch is omitted.
+                 * - In case of user error app should crash.
                  */
                 if (mainComponent) {
                     afterUpdate();
@@ -336,8 +345,9 @@ export const watchRepeat = ({
                 });
 
                 /**
-                 * If there is no component in repeater update repaaterMapChildren. This utils is used only when repeat
-                 * has no component inside.
+                 * If there is no component in repeater update repaaterMapChildren.
+                 *
+                 * - This utils is used only when repeat has no component inside.
                  */
                 if (chunkChildrenOrdered.length === 0) {
                     setRepeaterNativeDOMChildren({

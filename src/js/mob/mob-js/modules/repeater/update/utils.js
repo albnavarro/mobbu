@@ -19,6 +19,12 @@ import { setComponentRepeaterState } from '../repeater-value';
 import { getRepeatProxi } from './get-proxi';
 
 /**
+ * - Add without key ( update step ).
+ * - UseSync === false
+ * - Means user do not add manually repeater attribute.
+ * - Manually add repeater attribute to web component.
+ * - Then return real DOM element
+ *
  * @param {object} params
  * @param {number} params.diff
  * @param {any} params.current
@@ -140,6 +146,11 @@ const getSyncWithoutKey = ({ initialIndex, initialValue, state, repeatId }) => {
 };
 
 /**
+ * - Add without key ( update step ).
+ * - UseSync === true
+ * - Means user add manually repeater attribute.
+ * - Then return DOM in string format.
+ *
  * @param {object} params
  * @param {number} params.diff
  * @param {any} params.current
@@ -190,6 +201,12 @@ export const updateRepeaterWithoutKeyUseSync = ({
 };
 
 /**
+ * - Add with key ( update step ).
+ * - UseSync === false
+ * - Means user do not add manually repeater attribute.
+ * - Manually add repeater attribute to web component.
+ * - Then return real DOM element
+ *
  * @param {object} params
  * @param {Record<string, any>} params.currentValue
  * @param {number} params.index
@@ -303,6 +320,11 @@ const getSyncWithKey = ({ keyValue, index, currentValue, state, repeatId }) => {
 };
 
 /**
+ * - Add with key ( update step ).
+ * - UseSync === true
+ * - Means user add manually repeater attribute.
+ * - Then return DOM in string format.
+ *
  * @param {object} params
  * @param {Record<string, any>} params.currentValue
  * @param {number} params.index
@@ -350,6 +372,12 @@ export const updateRepeaterWithtKeyUseSync = ({
 };
 
 /**
+ * - First render step, ( directly from get-params-for-component.js )
+ * - UseSync === false
+ * - Means user do not add manually repeater attribute.
+ * - Manually add repeater attribute to web component.
+ * - Then return real DOM element
+ *
  * @param {object} params
  * @param {Record<string, any>[]} params.currentUnique
  * @param {import('../type').RepeaterRender} params.render
@@ -452,6 +480,11 @@ export const getRenderWithoutSync = ({
 };
 
 /**
+ * - First render step, ( directly from get-params-for-component.js )
+ * - UseSync === true
+ * - Means user add manually repeater attribute.
+ * - Then return DOM in string format.
+ *
  * @param {object} params
  * @param {Record<string, any>[]} params.currentUnique
  * @param {import('../type').RepeaterRender} params.render

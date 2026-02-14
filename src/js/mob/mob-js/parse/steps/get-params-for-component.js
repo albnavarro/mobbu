@@ -251,24 +251,44 @@ export const getParamsForComponentFunction = ({
             const invalidateRender = () => render();
 
             /**
-             * When invalidate is inizilized runtime, all neseted invalidate is initialized. Fire each repeater once.
+             * Flag to ensure that initialize function is fired once.
              */
             let isInizialized = false;
 
+            /**
+             * Add current invalidate id to invalidateIdsMap.
+             *
+             * - InvalidateIdsMap store all invalidate id for each component.
+             */
             initializeInvalidateIdsMap({ invalidateId, scopeId: id });
+
+            /**
+             * Initialize invalidateInstancesMap
+             *
+             * - Key: invalidateId.
+             * - ScopeId.
+             * - Observed state
+             * - Initialized is set to false.
+             * - Other value is default value.
+             */
             initializeInvalidateInstacesMap({
                 invalidateId,
                 scopeId: id,
                 observe: observeParsed,
             });
 
+            /**
+             * Initialize module.
+             *
+             * - Enable watch utils to update current invalidate.
+             */
             setInvalidateInitializeFunction({
                 invalidateId,
                 initializeModule: () => {
                     if (isInizialized) return;
 
                     /**
-                     * Fire invalidate id after component parse
+                     * Enable watch to update invalidate.
                      */
                     inizializeInvalidateWatch({
                         observe: /** @type {string[]} */ (observeParsed),
@@ -283,6 +303,9 @@ export const getParamsForComponentFunction = ({
 
                     isInizialized = true;
 
+                    /**
+                     * Set isInizialized to true
+                     */
                     setInvalidateInstancesMapInitialized({
                         invalidateId,
                     });
@@ -310,16 +333,19 @@ export const getParamsForComponentFunction = ({
             const hasKey = key !== '';
 
             /**
-             * Initialize repeater function map
+             * Add current repeat id to repeatIdsMap.
+             *
+             * - RepeatIdsMap store all repeat id for each component.
              */
             initializeRepeaterIdsMap({ repeatId, scopeId: id });
 
             /**
-             * Initialize placeholder map with
+             * Initialize repeatInstancesMap.
              *
              * - Key: repeatId.
              * - ScopeId.
              * - Observed state
+             * - Initialized is set to false.
              * - Other value is default value.
              */
             initializeRepeaterInstancesMap({
@@ -335,7 +361,9 @@ export const getParamsForComponentFunction = ({
                 : initialState;
 
             /**
-             * Add first dataset related to sitem, with key is filtered by univique key.
+             * Add first dataset in repeatInstancesMap.
+             *
+             * - Key is filtered by univique key
              */
             setRepeaterInstancesCurrentData({
                 repeatId,
@@ -343,7 +371,11 @@ export const getParamsForComponentFunction = ({
             });
 
             /**
-             * If sync as used by user, add the initial string directly
+             * Get first render if user use sync utils, fallback to empty string if not.
+             *
+             * - User add repeater attribute manually.
+             * - Sync utils contains repeater attribute.
+             * - Get first render in string format.
              */
             const initialStringRender = useSync
                 ? getRenderWithSync({
@@ -357,9 +389,11 @@ export const getParamsForComponentFunction = ({
                 : '';
 
             /**
-             * If no sync as used by user, save the DOM created with attributes added to inner component .
+             * Get first render if user do not use sync utils, fallback to empty array if not.
              *
-             * - Than add the DOM when repeat web-component is added to DOM
+             * - Here we need to add repeater attribute manually.
+             * - Sync utils contains repeater attribute .
+             * - Get first render in real DOM format
              */
             const initialDOMRender = useSync
                 ? []
@@ -373,14 +407,23 @@ export const getParamsForComponentFunction = ({
                   });
 
             /**
-             * When repeater is inizilized runtime, all neseted repater is initialized. Fire each repeater once.
+             * Flag to ensure that initialize function is fired once.
              */
             let isInizialized = false;
 
             /**
-             * If no sync is used, getRenderWithSync() render component with attribute added.
+             * Set first render in repeatInstancesMap.
              *
-             * - When repeater is added to DOM `<mobjs-repeat>` children rendered is added to repeater parent element.
+             * Render is a string:
+             *
+             * - Add empty array.
+             * - Dom is added in return function as string and will render normally.
+             *
+             * Render is a DOM collection:
+             *
+             * - Add all element to initialRenderWithoutSync prop in repeatInstancesMap.
+             * - Will be added to DOM in setParentRepeater() function.
+             * - SetParentRepeater is fired when `mobjs-repeat` customComponent is added to the DOM.
              */
             setRepeaterInstancesDOMRender({
                 repeatId,
@@ -389,6 +432,9 @@ export const getParamsForComponentFunction = ({
 
             /**
              * Initialize module.
+             *
+             * - Enable watch utils update current repeat
+             * - Set first child element in repeatInstancesMap if no component is used.
              */
             setRepeatFunction({
                 repeatId,
@@ -396,7 +442,7 @@ export const getParamsForComponentFunction = ({
                     if (isInizialized) return;
 
                     /**
-                     * Fire invalidate id after component parse
+                     * Enable watch to update repeat.
                      */
                     inizializeRepeatWatch({
                         repeatId,
@@ -417,15 +463,15 @@ export const getParamsForComponentFunction = ({
                     isInizialized = true;
 
                     /**
-                     * Now repeater is active. When create destroy repeater check this value to speed up the process for
-                     * initialize nested repeater.
+                     * Set isInizialized to true
                      */
                     setRepeaterInstancesMapInitialized({
                         repeatId,
                     });
 
                     /**
-                     * If repeater has no component, so generic DOM node get children inside node and save.
+                     * If repeater has no component inside, get DOM node get children inside node and save in
+                     * nativeDOMChildren.
                      */
                     if (!repeaterhasComponentChildren({ repeatId })) {
                         setRepeaterNativeDOMChildren({
