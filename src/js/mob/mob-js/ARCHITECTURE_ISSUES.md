@@ -40,30 +40,6 @@ Per interazioni UI normali (click, input), il repeater è sufficientemente veloc
 
 ---
 
-## 4. Nessuna protezione contro catene circolari di watch (BASSO)
-
-**File:** `modules/bind-props/index.js:328-371`
-
-I watcher di `bindProps` osservano lo stato del parent e aggiornano lo stato del child. Non c'è protezione esplicita contro cicli:
-
-```
-Componente A (parent) -> bindProps -> Componente B (child)
-                                        |  watch su prop
-                                        v
-                                      setState su A (via metodo/callback)
-                                        |
-                                        v
-                              Componente A -> bindProps -> Componente B -> ...
-```
-
-Il flag `watchIsRunning` (linea 326) previene l'esecuzione multipla dello stesso watcher nel medesimo tick, ma non previene cicli cross-componente.
-
-**Nota:** questo scenario richiede un uso scorretto del sistema da parte dell'utente. Il flusso dati in MobJs è unidirezionale by design (parent -> child via `bindProps`). Per creare un ciclo bisogna forzare esplicitamente il flusso inverso (child -> parent) con `setStateById` o `useMethodByName`. In condizioni normali non si verifica.
-
-Un cycle detection esplicito avrebbe impatto sulle performance (hot path di ogni mutazione di stato) per proteggere da un caso d'uso scorretto. Il circuit breaker della issue #2 (`queque.clear()`) funge già da rete di sicurezza: se un loop infinito si verifica, la queue viene svuotata e il `console.error` segnala il problema.
-
----
-
 ## 5. `removeAndDestroyById`: il callback utente precede il cleanup del framework (MEDIO)
 
 **File:** `component/action/remove-and-destroy/remove-and-destroy-by-id.js`
