@@ -88,25 +88,3 @@ export const getElementsByKeyAndRepeatId = ({
             id,
         }));
 };
-
-/**
- * Get children of component inside a element by a precompiler children list
- *
- * @param {object} obj
- * @param {string} obj.id
- * @param {string} obj.repeatId
- * @returns {string[]}
- */
-export const getIdsByByRepeatId = ({ id, repeatId }) => {
-    if (!id || id === '') return [];
-
-    const repeaterChildrenId = getRepeaterComponentChildren({ repeatId });
-    return repeaterChildrenId
-        .map((id) => {
-            return componentMap.get(id);
-        })
-        .filter((item) => item !== undefined)
-        .map((item) => {
-            return item.id;
-        });
-};

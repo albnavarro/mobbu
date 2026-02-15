@@ -2,10 +2,7 @@
 
 import { MobCore } from '../../../../mob-core';
 import { setRepeaterStateById } from '../../../component/action/repeater';
-import {
-    getElementById,
-    getIdsByByRepeatId,
-} from '../../../component/action/element';
+import { getElementById } from '../../../component/action/element';
 import {
     freezePropById,
     unFreezePropById,
@@ -29,6 +26,7 @@ import {
 import { getRepeatParent } from '../action/get-repeater-parent';
 import { inizializeNestedRepeat } from '../action/inizialize-nested-repeat';
 import { setRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
+import { getRepeaterComponentChildren } from '../action/set-repeat-component-children';
 
 /**
  * @param {import('../type').WatchList} param
@@ -140,8 +138,7 @@ export const watchRepeat = ({
             /**
              * Get current component inside repeater.
              */
-            const childrenBeforeUdateByRepeatId = getIdsByByRepeatId({
-                id,
+            const childrenBeforeUdateByRepeatId = getRepeaterComponentChildren({
                 repeatId,
             });
 
@@ -203,8 +200,7 @@ export const watchRepeat = ({
             /**
              * Get new children after update.
              */
-            const childrenFilteredByRepeatId = getIdsByByRepeatId({
-                id,
+            const childrenFilteredByRepeatId = getRepeaterComponentChildren({
                 repeatId,
             });
 
