@@ -91,19 +91,14 @@ export const addWithKey = ({
      * Get first element to remove/delete by key ( currentItemToRemoveByKey ). Then if element is single child remove
      * it. If there is more element inside a wrapper remove all component inside wrapper SO we need only first
      * occurrence.
-     *
-     * TODO ( maybe ). return all component ( find to filter ). Then in forEach above destroy single component without
-     * use `destroyComponentInsideNodeById`, cycle item and destroy component, the result should be a multidimensional
-     * array.
      */
     const componentsToRemoveByKey = currentItemToRemoveByKey
-        .map((item) => {
-            const keyValue = item?.[key];
-            return getElementsByKeyAndRepeatId({
-                keyValue,
+        .map((item) =>
+            getElementsByKeyAndRepeatId({
+                keyValue: item?.[key],
                 repeatId,
-            });
-        })
+            })
+        )
         .filter((item) => item.length > 0);
 
     /**

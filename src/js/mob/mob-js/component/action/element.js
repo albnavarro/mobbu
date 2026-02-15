@@ -61,7 +61,7 @@ export const getIdByElement = ({ element }) => {
 };
 
 /**
- * Get element by key and repeatId.
+ * Get component ( element && id ) from repeatInstancesMap filtered by key equality
  *
  * @param {object} obj
  * @param {string} obj.keyValue
@@ -75,16 +75,20 @@ export const getElementsByKeyAndRepeatId = ({
     if (keyValue?.length === 0) return [];
 
     const repeaterChildrenId = getRepeaterComponentChildren({ repeatId });
-    const occurrence = repeaterChildrenId
-        .map((id) => {
-            return componentMap.get(id);
-        })
-        .filter((item) => item !== undefined);
 
-    return occurrence
-        .filter((item) => `${item.key}` === `${keyValue}`)
-        .map(({ element, id }) => ({
-            element,
-            id,
-        }));
+    /**
+     * Logica del pettern
+     *
+     * - All' interno di un flatMap tornare un array vuoto ( [] ) permette di:
+     * - Filtrare in uscita tramite gli array vuoti ( flat ).
+     * - In questo modo l'array finale puó avere una lunghezza diversa rispetto all'array iniziale.
+     * - E' simile ad un reduce ma da un array torna un array.
+     */
+    return repeaterChildrenId.flatMap((id) => {
+        const component = componentMap.get(id);
+        if (!component) return [];
+
+        const { element, key } = component;
+        return `${key}` === `${keyValue}` ? [{ element, id }] : [];
+    });
 };
