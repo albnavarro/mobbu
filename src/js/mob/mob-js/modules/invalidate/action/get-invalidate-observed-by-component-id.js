@@ -10,9 +10,19 @@ export const getInvalidateObservedByComponentid = ({ id }) => {
     const invalidateIdByComponent = invalidateIdsMap.get(id);
     if (!invalidateIdByComponent) return [];
 
-    return invalidateIdByComponent
-        .map((item) => item.invalidateId)
-        .map((id) => invalidateInstancesMap.get(id))
-        .flatMap((item) => item?.observed)
-        .filter((item) => item !== undefined);
+    /**
+     * Use flatMap to filter observed propierties instead filter.
+     *
+     * - Perform only one operation
+     * - Invalidate use an array of observed state.
+     */
+    return invalidateIdByComponent.flatMap(({ invalidateId }) => {
+        /**
+         * ObservedState here is string[] | undefined.
+         */
+        const observedState =
+            invalidateInstancesMap.get(invalidateId)?.observed;
+
+        return observedState ?? [];
+    });
 };

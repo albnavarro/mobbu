@@ -168,6 +168,7 @@ const createBindObjectWatcher = ({ id, keys, render, element }) => {
      */
     const repeaterObserved = getRepeaterObservedByComponentid({ id });
     const invalidateObserved = getInvalidateObservedByComponentid({ id });
+
     const keysParsed = [
         ...new Set([...keys, ...repeaterObserved, ...invalidateObserved]),
     ];

@@ -10,9 +10,16 @@ export const getRepeaterObservedByComponentid = ({ id }) => {
     const repeaterIdByComponent = repeatIdsMap.get(id);
     if (!repeaterIdByComponent) return [];
 
-    return repeaterIdByComponent
-        .map((item) => item.repeatId)
-        .map((id) => repeatInstancesMap.get(id))
-        .map((item) => item?.observed)
-        .filter((item) => item !== undefined);
+    /**
+     * Use flatMap to filter observed propierties instead filter.
+     *
+     * - Perform only one operation
+     */
+    return repeaterIdByComponent.flatMap(({ repeatId }) => {
+        /**
+         * ObservedState here is string | undefined.
+         */
+        const observedState = repeatInstancesMap.get(repeatId)?.observed;
+        return observedState ? [observedState] : [];
+    });
 };
