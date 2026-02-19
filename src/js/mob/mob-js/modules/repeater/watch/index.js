@@ -249,6 +249,22 @@ export const watchRepeat = ({
                 : childrenChunkedByWrapper;
 
             /**
+             * Creiamo una mappa che dato il valore della chiave restituisce l'index nell' array parsato.
+             *
+             * - La chiave della mappa é il valore di key
+             * - Il valore l' index corrispondente.
+             *
+             * Tramite questa mappa possiamo recuperare con O(1) l' index per igni chiave quando utlizziamo una chiave
+             *
+             * { "key": "comp-1", "value": 0 } { "key": "comp-2", "value": 1 }
+             */
+            const keyToIndex = hasKey
+                ? new Map(
+                      current.map((item, index) => [`${item?.[key]}`, index])
+                  )
+                : new Map();
+
+            /**
              * Update persistent component current value.
              */
             chunkChildrenOrdered.forEach((childArray, index) => {
@@ -256,16 +272,20 @@ export const watchRepeat = ({
                     const currentValue = currentUpdated?.[index];
                     if (!currentValue) return;
 
+                    // const realIndex = hasKey
+                    //     ? current.findIndex((value) => {
+                    //           return (
+                    //               `${value?.[key]}` ===
+                    //               `${currentUpdated?.[index]?.[key]}`
+                    //           );
+                    //       })
+                    //     : index;
+
                     /**
                      * Find real index in original array ( currentUpdated )
                      */
                     const realIndex = hasKey
-                        ? current.findIndex((value) => {
-                              return (
-                                  `${value?.[key]}` ===
-                                  `${currentUpdated?.[index]?.[key]}`
-                              );
-                          })
+                        ? (keyToIndex.get(`${currentValue?.[key]}`) ?? -1)
                         : index;
 
                     /**
