@@ -268,26 +268,17 @@ export const watchRepeat = ({
              * Update persistent component current value.
              */
             chunkChildrenOrdered.forEach((childArray, index) => {
+                const currentValue = currentUpdated?.[index];
+                if (!currentValue) return;
+
+                /**
+                 * Find real index in original array ( currentUpdated )
+                 */
+                const realIndex = hasKey
+                    ? (keyToIndex.get(`${currentValue?.[key]}`) ?? -1)
+                    : index;
+
                 childArray.forEach((id) => {
-                    const currentValue = currentUpdated?.[index];
-                    if (!currentValue) return;
-
-                    // const realIndex = hasKey
-                    //     ? current.findIndex((value) => {
-                    //           return (
-                    //               `${value?.[key]}` ===
-                    //               `${currentUpdated?.[index]?.[key]}`
-                    //           );
-                    //       })
-                    //     : index;
-
-                    /**
-                     * Find real index in original array ( currentUpdated )
-                     */
-                    const realIndex = hasKey
-                        ? (keyToIndex.get(`${currentValue?.[key]}`) ?? -1)
-                        : index;
-
                     /**
                      * Update current repeater data ( index && current ) for each component.
                      *
