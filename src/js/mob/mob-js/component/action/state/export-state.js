@@ -18,12 +18,9 @@ export const filterExportableStateFromObject = ({
     const exportableState =
         componentList?.[componentName]?.componentParams?.exportState ?? [];
 
-    return Object.entries(currentProps)
-        .filter(([key]) => {
-            return exportableState.includes(key);
-        })
-        .reduce((previous, current) => {
-            const [key, value] = current;
-            return { ...previous, [key]: value };
-        }, {});
+    return Object.fromEntries(
+        Object.entries(currentProps).filter(([key]) =>
+            exportableState.includes(key)
+        )
+    );
 };
