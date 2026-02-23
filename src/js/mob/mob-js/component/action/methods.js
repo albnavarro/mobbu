@@ -82,9 +82,11 @@ export const useMethodByName = (name) => {
 export const useMethodArrayByName = (name) => {
     const ids = getIdArrayByInstanceName(name);
 
-    return ids
-        .map((id) => getMethodsById({ id }))
-        .filter((method) => {
-            return Object.keys(method).length > 0;
-        });
+    /**
+     * FlatMap con [] / [value] per filtrare e mappare in un solo passaggio
+     */
+    return ids.flatMap((id) => {
+        const methods = getMethodsById({ id });
+        return Object.keys(methods).length === 0 ? [] : [methods];
+    });
 };
