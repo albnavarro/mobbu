@@ -1,12 +1,13 @@
 import { getUnivoqueId } from '@mobCoreUtils';
-import { debounceFuncion } from '../debounce';
-import { handlePointerMove } from '../pointer-event/handle-pointer';
-import { getTime } from '../raf-utils/time';
+import MobLerp from '../../animation/lerp/mob-lerp';
+import { MobCore } from '@mobCore';
 
 let previousClientX = 0;
 let previousClientY = 0;
 let previousTime = 0;
 let firstMove = false;
+let directionX = 1;
+let directionY = 1;
 
 /**
  * @type {boolean}
@@ -19,6 +20,11 @@ let unsubscribeDetectEnd = () => {};
 let unsubscribePointerMove = () => {};
 
 /**
+ * @type {import('@mobMotionType').MobLerp}
+ */
+let lerpInstance;
+
+/**
  * @type {Map<string, any>}
  */
 const callbacks = new Map();
@@ -26,10 +32,10 @@ const callbacks = new Map();
 /**
  * @param {PointerEvent} params
  */
-const getVelocity = ({ clientX, clientY }) => {
+const updateVelocity = ({ clientX, clientY }) => {
     const diffX = clientX - previousClientX;
     const diffY = clientY - previousClientY;
-    const time = getTime();
+    const time = MobCore.getTime();
     const diffTime = time - previousTime;
 
     /**
@@ -46,11 +52,12 @@ const getVelocity = ({ clientX, clientY }) => {
         previousTime = time;
         firstMove = false;
 
-        return {
+        lerpInstance.goTo({
             speed: 1,
-            x: { speed: 1, direction: 1 },
-            y: { speed: 1, direction: 1 },
-        };
+            speedX: 1,
+            speedY: 1,
+        });
+        return;
     }
 
     const vx = diffX / diffTime;
@@ -60,23 +67,14 @@ const getVelocity = ({ clientX, clientY }) => {
     previousClientY = clientY;
     previousTime = time;
 
-    return {
+    lerpInstance.goTo({
         speed: Math.max(1, Math.round((speed + 1) * 10_000) / 10_000),
-        x: {
-            speed: Math.max(
-                1,
-                Math.round((Math.abs(vx) + 1) * 10_000) / 10_000
-            ),
-            direction: Math.sign(vx) || 1,
-        },
-        y: {
-            speed: Math.max(
-                1,
-                Math.round((Math.abs(vy) + 1) * 10_000) / 10_000
-            ),
-            direction: Math.sign(vy) || 1,
-        },
-    };
+        speedX: Math.max(1, Math.round((Math.abs(vx) + 1) * 10_000) / 10_000),
+        speedY: Math.max(1, Math.round((Math.abs(vy) + 1) * 10_000) / 10_000),
+    });
+
+    directionX = Math.sign(vx) || 1;
+    directionY = Math.sign(vy) || 1;
 };
 
 /**
@@ -85,9 +83,9 @@ const getVelocity = ({ clientX, clientY }) => {
  * - Dobbiamo riallineare il valore di previousTime.
  */
 const initDetectStart = () => {
-    unsubscribeDetectStart = handlePointerMove(() => {
+    unsubscribeDetectStart = MobCore.usePointerMove(() => {
         unsubscribeDetectStart();
-        previousTime = getTime();
+        previousTime = MobCore.getTime();
         firstMove = true;
     });
 };
@@ -96,10 +94,8 @@ const initDetectStart = () => {
  * Detect dell' evento pointerMove reale.
  */
 const initPointerMove = () => {
-    unsubscribePointerMove = handlePointerMove((event) => {
-        for (const callback of callbacks.values()) {
-            callback(getVelocity(event));
-        }
+    unsubscribePointerMove = MobCore.usePointerMove((event) => {
+        updateVelocity(event);
     });
 };
 
@@ -107,7 +103,16 @@ const initPointerMove = () => {
  * Detect dell' evento virtuale pointerEnd.
  */
 const initPointerEnd = () => {
-    debouceFunctionReference = debounceFuncion(() => {
+    debouceFunctionReference = MobCore.useDebounce(() => {
+        /**
+         * Back to neutral value at the end
+         */
+        lerpInstance.goTo({
+            speed: 1,
+            speedX: 1,
+            speedY: 1,
+        });
+
         /**
          * - Il primo evento deve essere sempre start.
          * - L' evento move dese essere sempre successivo a start.
@@ -129,16 +134,43 @@ const initPointerEnd = () => {
         initPointerMove();
     });
 
-    unsubscribeDetectEnd = handlePointerMove(debouceFunctionReference);
+    unsubscribeDetectEnd = MobCore.usePointerMove(debouceFunctionReference);
 };
 
 const init = () => {
     if (initialized) return;
     initialized = true;
 
+    /**
+     * Init handler
+     */
     initDetectStart();
     initPointerMove();
     initPointerEnd();
+
+    /**
+     * Init Lerp
+     */
+    lerpInstance = new MobLerp({
+        data: {
+            speed: 1,
+            speedX: 1,
+            speedY: 1,
+        },
+    });
+
+    /**
+     * Subscribe lerp
+     */
+    lerpInstance.subscribe(({ speed, speedX, speedY }) => {
+        for (const callback of callbacks.values()) {
+            callback({
+                speed,
+                x: { speed: speedX, direction: directionX },
+                y: { speed: speedY, direction: directionY },
+            });
+        }
+    });
 };
 
 /**
@@ -172,6 +204,9 @@ const addCallback = (cb) => {
             unsubscribeDetectStart();
             unsubscribeDetectEnd();
             unsubscribePointerMove();
+            lerpInstance.destroy();
+            // @ts-ignore
+            lerpInstance = null;
             initialized = false;
         }
     };
