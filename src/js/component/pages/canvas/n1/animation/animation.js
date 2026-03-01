@@ -123,7 +123,7 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
         const centerY = canvas.height / 2;
         const squarelenght = squareData.length;
 
-        const speedDelta = Math.max(1, mouseSpeed / 3);
+        const speedDelta = Math.max(1, mouseSpeed / 4);
 
         const context = useOffscreen
             ? offScreenCtx
