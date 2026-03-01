@@ -3521,7 +3521,7 @@
     }
     return () => callbacks.delete(id);
   };
-  var handleLoad = /* @__PURE__ */ (() => addCallback)();
+  var handleLoad = addCallback;
 
   // src/js/mob/mob-core/events/mouse-utils/normalize-whell/legacy.js
   var PIXEL_STEP = 10;
@@ -3841,7 +3841,7 @@
       passive: false
     });
   }
-  var addCb = (cb) => {
+  var addCallabck = (cb) => {
     const id = getUnivoqueId();
     callbacks2.set(id, cb);
     if (typeof globalThis !== "undefined") {
@@ -3849,7 +3849,7 @@
     }
     return () => callbacks2.delete(id);
   };
-  var handleVisibilityChange = /* @__PURE__ */ (() => addCb)();
+  var handleVisibilityChange = addCallabck;
 
   // src/js/mob/mob-core/events/raf-utils/handle-next-tick.js
   var callbacks3 = [];
@@ -4166,7 +4166,7 @@
       }
     };
   };
-  var handleResize = /* @__PURE__ */ (() => addCallback2)();
+  var handleResize = addCallback2;
 
   // src/js/mob/mob-core/events/scroll-utils/handle-scroll-immediate.js
   var initialized4 = false;
@@ -4266,7 +4266,7 @@
       }
     };
   };
-  var handleScroll = /* @__PURE__ */ (() => addCallback4)();
+  var handleScroll = addCallback4;
 
   // src/js/mob/mob-core/events/scroll-utils/handle-scroll-throttle.js
   var initialized6 = false;
@@ -4314,7 +4314,7 @@
       }
     };
   };
-  var handleScrollThrottle = /* @__PURE__ */ (() => addCallback5)();
+  var handleScrollThrottle = addCallback5;
 
   // src/js/mob/mob-core/events/scroll-utils/handle-scroll-utils.js
   function handleScrollUtils(type) {
@@ -14015,6 +14015,7 @@
   var lerpInstance;
   var callbacks9 = /* @__PURE__ */ new Map();
   var updateVelocity = ({ clientX, clientY }) => {
+    if (!lerpInstance) return;
     const diffX = clientX - previousClientX;
     const diffY = clientY - previousClientY;
     const time2 = modules_exports.getTime();
@@ -14037,20 +14038,13 @@
     const vx = diffX / diffTime;
     const vy = diffY / diffTime;
     const speed = Math.hypot(vx, vy);
-    const baseVelocity = 0.08;
-    const minVelocity = 5e-3;
-    const sensitivity = 0.5;
-    const adaptiveVelocity = Math.max(
-      minVelocity,
-      baseVelocity / (1 + speed * sensitivity)
-    );
     lerpInstance.goTo(
       {
         speed: Math.max(1, Math.round((speed + 1) * 1e4) / 1e4),
         speedX: Math.max(1, Math.round((vx + 1) * 1e4) / 1e4),
         speedY: Math.max(1, Math.round((vy + 1) * 1e4) / 1e4)
       },
-      { velocity: adaptiveVelocity }
+      { velocity: 0.02 }
     );
     previousClientX = clientX;
     previousClientY = clientY;
@@ -14070,6 +14064,7 @@
   };
   var initPointerEnd = () => {
     debouceFunctionReference2 = modules_exports.useDebounce(() => {
+      if (!lerpInstance) return;
       lerpInstance.goTo(
         {
           speed: 1,
@@ -14138,7 +14133,7 @@
       }
     };
   };
-  var handleVelocity = /* @__PURE__ */ (() => addCallback6)();
+  var handleVelocity = addCallback6;
 
   // src/js/mob/mob-motion/core.js
   function setDefault(props) {

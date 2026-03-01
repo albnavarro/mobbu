@@ -31,6 +31,8 @@ const callbacks = new Map();
  * @param {PointerEvent} params
  */
 const updateVelocity = ({ clientX, clientY }) => {
+    if (!lerpInstance) return;
+
     const diffX = clientX - previousClientX;
     const diffY = clientY - previousClientY;
     const time = MobCore.getTime();
@@ -66,32 +68,17 @@ const updateVelocity = ({ clientX, clientY }) => {
     const speed = Math.hypot(vx, vy);
 
     /**
-     * Calcola velocity adattivo: inversamente proporzionale alla velocità del mouse
+     * Durante il movimento usiamo un esasing molto morbido.
      *
-     * - Più speed è alta, più velocity è basso (lerp lento)
-     * - Più speed è bassa, più velocity è alto (lerp veloce)
+     * - Quando l'evento end viene scatenato useremo un easing piu secco per tornare al valore neutro.
      */
-    const baseVelocity = 0.08; // Velocity massimo (movimento lento)
-    const minVelocity = 0.005; // Velocity minimo (movimento veloce)
-    const sensitivity = 0.5; // Quanto agisce la velocità del mouse
-
-    /**
-     * Formula: mappiamo speed su un range di velocity
-     *
-     * - Usiamo un easing per non rendere troppo lineare la risposta
-     */
-    const adaptiveVelocity = Math.max(
-        minVelocity,
-        baseVelocity / (1 + speed * sensitivity)
-    );
-
     lerpInstance.goTo(
         {
             speed: Math.max(1, Math.round((speed + 1) * 10_000) / 10_000),
             speedX: Math.max(1, Math.round((vx + 1) * 10_000) / 10_000),
             speedY: Math.max(1, Math.round((vy + 1) * 10_000) / 10_000),
         },
-        { velocity: adaptiveVelocity }
+        { velocity: 0.02 }
     );
 
     previousClientX = clientX;
@@ -126,6 +113,8 @@ const initPointerMove = () => {
  */
 const initPointerEnd = () => {
     debouceFunctionReference = MobCore.useDebounce(() => {
+        if (!lerpInstance) return;
+
         /**
          * Back to neutral value at the end
          */
@@ -261,4 +250,4 @@ const addCallback = (cb) => {
 /**
  * Function to execute a callback on page load
  */
-export const handleVelocity = (() => addCallback)();
+export const handleVelocity = addCallback;
