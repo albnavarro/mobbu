@@ -35,6 +35,7 @@ const callbacks = new Map();
  * @param {PointerEvent} params
  */
 const updateVelocity = ({ clientX, clientY }) => {
+    console.log('move');
     const diffX = clientX - previousClientX;
     const diffY = clientY - previousClientY;
     const time = MobCore.getTime();
@@ -65,9 +66,6 @@ const updateVelocity = ({ clientX, clientY }) => {
     const vx = diffX / diffTime;
     const vy = diffY / diffTime;
     const speed = Math.hypot(vx, vy);
-    previousClientX = clientX;
-    previousClientY = clientY;
-    previousTime = time;
 
     lerpInstance.goTo({
         speed: Math.max(1, Math.round((speed + 1) * 10_000) / 10_000),
@@ -77,6 +75,10 @@ const updateVelocity = ({ clientX, clientY }) => {
 
     directionX = Math.sign(vx) || previousDirectionX;
     directionY = Math.sign(vy) || previousDirectionY;
+
+    previousClientX = clientX;
+    previousClientY = clientY;
+    previousTime = time;
 };
 
 /**
@@ -86,6 +88,7 @@ const updateVelocity = ({ clientX, clientY }) => {
  */
 const initDetectStart = () => {
     unsubscribeDetectStart = MobCore.usePointerMove(() => {
+        console.log('start');
         unsubscribeDetectStart();
         previousTime = MobCore.getTime();
         firstMove = true;
@@ -106,6 +109,8 @@ const initPointerMove = () => {
  */
 const initPointerEnd = () => {
     debouceFunctionReference = MobCore.useDebounce(() => {
+        console.log('end');
+
         /**
          * Back to neutral value at the end
          */
@@ -131,9 +136,12 @@ const initPointerEnd = () => {
          * - 2. Move
          * - 3. End
          */
+
         unsubscribePointerMove();
+        unsubscribeDetectEnd();
         initDetectStart();
         initPointerMove();
+        initPointerEnd();
     });
 
     unsubscribeDetectEnd = MobCore.usePointerMove(debouceFunctionReference);
