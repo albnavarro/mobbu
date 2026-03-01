@@ -131,10 +131,8 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
     const draw = () => {
         if (!ctx) return;
 
-        if (useOffscreen && offscreen) {
-            offscreen.width = canvas.width;
-            offscreen.height = canvas.height;
-        }
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
 
         const context = useOffscreen
             ? offScreenCtx
@@ -144,8 +142,12 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
 
         if (!context) return;
 
-        // eslint-disable-next-line no-self-assign
-        canvas.width = canvas.width;
+        if (useOffscreen && offscreen) {
+            offscreen.width = canvasWidth;
+            offscreen.height = canvasHeight;
+        } else {
+            context.reset();
+        }
 
         /**
          * Draw all black element.
@@ -204,17 +206,17 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
                  * Basic data for setTransform.
                  */
                 const rotation = 0;
-                const xx = Math.cos(rotation) * (scaleFactor + scale);
-                const xy = Math.sin(rotation) * (scaleFactor + scale);
+                const cos = Math.cos(rotation) * (scaleFactor + scale);
+                const sin = Math.sin(rotation) * (scaleFactor + scale);
 
                 /**
                  * Apply scale/rotation/scale all together.
                  */
                 context.setTransform(
-                    xx,
-                    xy,
-                    -xy,
-                    xx,
+                    cos,
+                    sin,
+                    -sin,
+                    cos,
                     Math.floor(offsetXCenter + x),
                     Math.floor(offsetYCenter + y)
                 );
@@ -231,8 +233,6 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
                 );
                 context.fillStyle = `#000000`;
                 context.fill();
-
-                context.setTransform(1, 0, 0, 1, 0, 0);
             }
         );
 
@@ -298,17 +298,17 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
                  * Basic data for setTransform.
                  */
                 const rotation = 0;
-                const xx = Math.cos(rotation) * (scaleFactor + scale);
-                const xy = Math.sin(rotation) * (scaleFactor + scale);
+                const cos = Math.cos(rotation) * (scaleFactor + scale);
+                const sin = Math.sin(rotation) * (scaleFactor + scale);
 
                 /**
                  * Apply scale/rotation/scale all together.
                  */
                 context.setTransform(
-                    xx,
-                    xy,
-                    -xy,
-                    xx,
+                    cos,
+                    sin,
+                    -sin,
+                    cos,
                     Math.floor(offsetXCenter + x),
                     Math.floor(offsetYCenter + y)
                 );
@@ -323,17 +323,9 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
                     width,
                     height
                 );
-                // context.fillStyle = `red`;
                 context.fill();
-
-                context.setTransform(1, 0, 0, 1, 0, 0);
             }
         );
-
-        /**
-         * Stop mask mode. Enable if other operation is needed.
-         */
-        // context.globalCompositeOperation = 'source-over';
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });

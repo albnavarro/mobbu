@@ -146,10 +146,10 @@ export const scrollerN1Animation = ({
     const draw = () => {
         if (!ctx) return;
 
-        if (useOffscreen && offscreen) {
-            offscreen.width = canvas.width;
-            offscreen.height = canvas.height;
-        }
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
 
         const context = useOffscreen
             ? offScreenCtx
@@ -159,20 +159,12 @@ export const scrollerN1Animation = ({
 
         if (!context) return;
 
-        /**
-         * Get center of canvas.
-         */
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-
-        /**
-         * Clear rpevious render.
-         */
-        // context.fillStyle = '#fff';
-        // context.fillRect(0, 0, canvas.width, canvas.height);
-
-        // eslint-disable-next-line no-self-assign
-        canvas.width = canvas.width;
+        if (useOffscreen && offscreen) {
+            offscreen.width = canvasWidth;
+            offscreen.height = canvasHeight;
+        } else {
+            context.reset();
+        }
 
         stemData.forEach(
             ({ width, height, opacity, rotate, index, hasFill }) => {
@@ -184,17 +176,17 @@ export const scrollerN1Animation = ({
 
                 const scale = 1;
                 const rotation = (Math.PI / 180) * (rotate - intialRotation);
-                const xx = Math.cos(rotation) * scale;
-                const xy = Math.sin(rotation) * scale;
+                const cos = Math.cos(rotation) * scale;
+                const sin = Math.sin(rotation) * scale;
 
                 /**
                  * Apply scale/rotation/scale all together.
                  */
                 context.setTransform(
-                    xx,
-                    xy,
-                    -xy,
-                    xx,
+                    cos,
+                    sin,
+                    -sin,
+                    cos,
                     centerX,
                     centerY + unitInverse * 19
                 );
@@ -234,11 +226,6 @@ export const scrollerN1Animation = ({
                 }
 
                 context.fill();
-
-                /**
-                 * Reset all transform instead save() restore().
-                 */
-                context.setTransform(1, 0, 0, 1, 0, 0);
             }
         );
 

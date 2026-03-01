@@ -229,10 +229,8 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     const draw = () => {
         if (!ctx) return;
 
-        if (useOffscreen && offscreen) {
-            offscreen.width = canvas.width;
-            offscreen.height = canvas.height;
-        }
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
 
         const context = useOffscreen
             ? offScreenCtx
@@ -242,11 +240,12 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
 
         if (!context) return;
 
-        // context.fillStyle = '#fff';
-        // context.fillRect(0, 0, canvas.width, canvas.height);
-
-        // eslint-disable-next-line no-self-assign
-        canvas.width = canvas.width;
+        if (useOffscreen && offscreen) {
+            offscreen.width = canvasWidth;
+            offscreen.height = canvasHeight;
+        } else {
+            context.reset();
+        }
 
         /**
          * Grid
@@ -272,17 +271,21 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                     {
                         const rotation =
                             (Math.PI / 180) * tweenAroundTarget.rotate;
-                        const xx = Math.cos(rotation) * tweenAroundTarget.scale;
-                        const xy = Math.sin(rotation) * tweenAroundTarget.scale;
+
+                        const cos =
+                            Math.cos(rotation) * tweenAroundTarget.scale;
+
+                        const sin =
+                            Math.sin(rotation) * tweenAroundTarget.scale;
 
                         /**
                          * Apply scale/rotation/scale all together.
                          */
                         context.setTransform(
-                            xx,
-                            xy,
-                            -xy,
-                            xx,
+                            cos,
+                            sin,
+                            -sin,
+                            cos,
                             Math.floor(
                                 tweenAroundTarget.offsetXCenter +
                                     tweenAroundTarget.x
@@ -324,48 +327,36 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                  * GRID
                  */
                 const rotation = (Math.PI / 180) * rotate;
-                const xx = Math.cos(rotation) * scale;
-                const xy = Math.sin(rotation) * scale;
+                const cos = Math.cos(rotation) * scale;
+                const sin = Math.sin(rotation) * scale;
 
                 /**
                  * Apply scale/rotation/scale all together.
                  */
                 context.setTransform(
-                    xx,
-                    xy,
-                    -xy,
-                    xx,
+                    cos,
+                    sin,
+                    -sin,
+                    cos,
                     Math.floor(offsetXCenter + x),
                     Math.floor(offsetYCenter + y)
                 );
+
+                const rx = Math.round(-width / 2);
+                const ry = Math.round(-height / 2);
 
                 /**
                  * Draw.
                  */
                 if (useRadius) {
                     context.beginPath();
-                    context.roundRect(
-                        Math.floor(-width / 2),
-                        Math.floor(-height / 2),
-                        width,
-                        height,
-                        150
-                    );
+                    context.roundRect(rx, ry, width, height, 150);
                 } else {
                     context.beginPath();
-                    context.rect(
-                        Math.floor(-width / 2),
-                        Math.floor(-height / 2),
-                        width,
-                        height
-                    );
+                    context.rect(rx, ry, width, height);
                 }
 
-                // context.fillStyle = '#eee';
-                // context.strokeStyle = `#000`;
-                // context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
                 context.fillStyle = `rgba(238, 238, 238, 0.9)`;
-                // context.stroke();
                 context.fill();
             }
         );
@@ -375,17 +366,17 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
          */
         {
             const rotation = (Math.PI / 180) * tweenRotateTarget.rotate;
-            const xx = Math.cos(rotation) * tweenRotateTarget.scale;
-            const xy = Math.sin(rotation) * tweenRotateTarget.scale;
+            const cos = Math.cos(rotation) * tweenRotateTarget.scale;
+            const sin = Math.sin(rotation) * tweenRotateTarget.scale;
 
             /**
              * Apply scale/rotation/scale all together.
              */
             context.setTransform(
-                xx,
-                xy,
-                -xy,
-                xx,
+                cos,
+                sin,
+                -sin,
+                cos,
                 Math.floor(
                     tweenRotateTarget.offsetXCenter + tweenRotateTarget.x
                 ),
@@ -419,11 +410,6 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             context.fillStyle = '#a86464';
             context.fill();
         }
-
-        /**
-         * Reset all transform instead save() restore().
-         */
-        // context.setTransform(1, 0, 0, 1, 0, 0);
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
