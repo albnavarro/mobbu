@@ -8,6 +8,8 @@ let previousTime = 0;
 let firstMove = false;
 let directionX = 1;
 let directionY = 1;
+let previousDirectionX = 1;
+let previousDirectionY = 1;
 
 /**
  * @type {boolean}
@@ -25,7 +27,7 @@ let unsubscribePointerMove = () => {};
 let lerpInstance;
 
 /**
- * @type {Map<string, any>}
+ * @type {import('./type').VelocityCallback}
  */
 const callbacks = new Map();
 
@@ -73,8 +75,8 @@ const updateVelocity = ({ clientX, clientY }) => {
         speedY: Math.max(1, Math.round((Math.abs(vy) + 1) * 10_000) / 10_000),
     });
 
-    directionX = Math.sign(vx) || 1;
-    directionY = Math.sign(vy) || 1;
+    directionX = Math.sign(vx) || previousDirectionX;
+    directionY = Math.sign(vy) || previousDirectionY;
 };
 
 /**
@@ -150,6 +152,8 @@ const init = () => {
 
     /**
      * Init Lerp
+     *
+     * Il valore di speed `neutro` é 1 in quanto verrá usato come moltiplicatore.
      */
     lerpInstance = new MobLerp({
         data: {
@@ -161,13 +165,38 @@ const init = () => {
 
     /**
      * Subscribe lerp
+     *
+     * - Restituisce il valore durante l'interpolazione
+     * - Quando la velicitá degli assi e 1 per coerenza il valore della direzione sará 1.
      */
     lerpInstance.subscribe(({ speed, speedX, speedY }) => {
         for (const callback of callbacks.values()) {
             callback({
                 speed,
-                x: { speed: speedX, direction: directionX },
-                y: { speed: speedY, direction: directionY },
+                x: {
+                    speed: speedX,
+                    direction: speedX === 1 ? 1 : directionX,
+                },
+                y: {
+                    speed: speedY,
+                    direction: speedY === 1 ? 1 : directionY,
+                },
+            });
+        }
+
+        previousDirectionX = directionX;
+        previousDirectionY = directionY;
+    });
+
+    /**
+     * Alla fine dell' interpolazione resettiamo la direzione a 1 ( valore neutro )
+     */
+    lerpInstance.onComplete(({ speed, speedX, speedY }) => {
+        for (const callback of callbacks.values()) {
+            callback({
+                speed,
+                x: { speed: speedX, direction: 1 },
+                y: { speed: speedY, direction: 1 },
             });
         }
     });
@@ -185,7 +214,7 @@ const init = () => {
  *
  *     ```;
  *
- * @param {(event: any) => void} cb
+ * @param {(arg: import('./type').VelocityParams) => void} cb
  * @returns {() => void}
  */
 const addCallback = (cb) => {
@@ -200,7 +229,7 @@ const addCallback = (cb) => {
     return () => {
         callbacks.delete(id);
 
-        if (callbacks.size === 0) {
+        if (callbacks.size === 0 && initialized) {
             unsubscribeDetectStart();
             unsubscribeDetectEnd();
             unsubscribePointerMove();
