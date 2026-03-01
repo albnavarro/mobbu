@@ -1,6 +1,6 @@
 import { getUnivoqueId } from '@mobCoreUtils';
-import MobLerp from '../../animation/lerp/mob-lerp';
 import { MobCore } from '@mobCore';
+import MobSpring from '../../animation/spring/mob-spring';
 
 let previousClientX = 0;
 let previousClientY = 0;
@@ -18,9 +18,9 @@ let unsubscribeDetectEnd = () => {};
 let unsubscribePointerMove = () => {};
 
 /**
- * @type {import('@mobMotionType').MobLerp}
+ * @type {import('@mobMotionType').MobSpring}
  */
-let lerpInstance;
+let tweenInstance;
 
 /**
  * @type {import('./type').VelocityMap}
@@ -31,7 +31,7 @@ const callbacks = new Map();
  * @param {PointerEvent} params
  */
 const updateVelocity = ({ clientX, clientY }) => {
-    if (!lerpInstance) return;
+    if (!tweenInstance) return;
 
     const diffX = clientX - previousClientX;
     const diffY = clientY - previousClientY;
@@ -51,13 +51,15 @@ const updateVelocity = ({ clientX, clientY }) => {
         previousClientY = clientY;
         previousTime = time;
 
-        lerpInstance.goTo(
+        tweenInstance.goTo(
             {
                 speed: 1,
                 speedX: 1,
                 speedY: 1,
-            },
-            { velocity: 0.02 }
+            }
+            /**
+             * Lerp logic fi needed:{ velocity: 0.02 }
+             */
         );
         return;
     }
@@ -66,18 +68,17 @@ const updateVelocity = ({ clientX, clientY }) => {
     const vy = diffY / diffTime;
     const speed = Math.hypot(vx, vy);
 
-    /**
-     * Durante il movimento usiamo un esasing molto morbido.
-     *
-     * - Quando l'evento end viene scatenato useremo un easing piu secco per tornare al valore neutro.
-     */
-    lerpInstance.goTo(
+    tweenInstance.goTo(
         {
             speed: Math.max(1, Math.round((speed + 1) * 10_000) / 10_000),
             speedX: Math.max(1, Math.round((vx + 1) * 10_000) / 10_000),
             speedY: Math.max(1, Math.round((vy + 1) * 10_000) / 10_000),
-        },
-        { velocity: 0.02 }
+        }
+        /**
+         * Lerp logic fi needed:{ velocity: 0.02 }
+         *
+         * - Quando l'evento end viene scatenato useremo un easing piu secco per tornare al valore neutro.
+         */
     );
 
     previousClientX = clientX;
@@ -121,18 +122,20 @@ const initPointerMove = () => {
  */
 const initPointerEnd = () => {
     debouceFunctionReference = MobCore.useDebounce(() => {
-        if (!lerpInstance) return;
+        if (!tweenInstance) return;
 
         /**
          * Back to neutral value at the end
          */
-        lerpInstance.goTo(
+        tweenInstance.goTo(
             {
                 speed: 1,
                 speedX: 1,
                 speedY: 1,
-            },
-            { velocity: 0.06 }
+            }
+            /**
+             * Lerp logic if needed: { velocity: 0.06 }
+             */
         );
 
         /**
@@ -178,7 +181,7 @@ const init = () => {
      *
      * Il valore di speed `neutro` é 1 in quanto verrá usato come moltiplicatore.
      */
-    lerpInstance = new MobLerp({
+    tweenInstance = new MobSpring({
         data: {
             speed: 1,
             speedX: 1,
@@ -192,7 +195,7 @@ const init = () => {
      * - Restituisce il valore durante l'interpolazione
      * - Quando la velicitá degli assi e 1 per coerenza il valore della direzione sará 1.
      */
-    lerpInstance.subscribe(({ speed, speedX, speedY }) => {
+    tweenInstance.subscribe(({ speed, speedX, speedY }) => {
         for (const callback of callbacks.values()) {
             callback({
                 speed,
@@ -205,7 +208,7 @@ const init = () => {
     /**
      * Alla fine dell' interpolazione resettiamo la direzione a 1 ( valore neutro )
      */
-    lerpInstance.onComplete(({ speed, speedX, speedY }) => {
+    tweenInstance.onComplete(({ speed, speedX, speedY }) => {
         for (const callback of callbacks.values()) {
             callback({
                 speed,
@@ -247,9 +250,9 @@ const addCallback = (cb) => {
             unsubscribeDetectStart();
             unsubscribeDetectEnd();
             unsubscribePointerMove();
-            lerpInstance.destroy();
+            tweenInstance.destroy();
             // @ts-ignore
-            lerpInstance = null;
+            tweenInstance = null;
             initialized = false;
         }
     };
