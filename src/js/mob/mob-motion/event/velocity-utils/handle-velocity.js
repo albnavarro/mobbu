@@ -50,7 +50,6 @@ const updateVelocity = ({ clientX, clientY }) => {
         previousClientX = clientX;
         previousClientY = clientY;
         previousTime = time;
-        firstMove = false;
 
         lerpInstance.goTo(
             {
@@ -95,6 +94,10 @@ const initDetectStart = () => {
     unsubscribeDetectStart = MobCore.usePointerMove(() => {
         unsubscribeDetectStart();
         previousTime = MobCore.getTime();
+
+        /**
+         * Set first iteration
+         */
         firstMove = true;
     });
 };
@@ -105,6 +108,11 @@ const initDetectStart = () => {
 const initPointerMove = () => {
     unsubscribePointerMove = MobCore.usePointerMove((event) => {
         updateVelocity(event);
+
+        /**
+         * After start => move first iteration is consumed.
+         */
+        if (firstMove) firstMove = false;
     });
 };
 
@@ -214,7 +222,7 @@ const init = () => {
  * @example
  *     ```javascript
  *
- *     handleAccelleration(() => {
+ *     const unsubscribe = handleVelocity(() => {
  *         ...
  *     });
  *
