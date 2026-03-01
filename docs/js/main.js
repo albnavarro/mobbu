@@ -14024,21 +14024,34 @@
       previousClientY = clientY;
       previousTime = time2;
       firstMove = false;
-      lerpInstance.goTo({
-        speed: 1,
-        speedX: 1,
-        speedY: 1
-      });
+      lerpInstance.goTo(
+        {
+          speed: 1,
+          speedX: 1,
+          speedY: 1
+        },
+        { velocity: 0.02 }
+      );
       return;
     }
     const vx = diffX / diffTime;
     const vy = diffY / diffTime;
     const speed = Math.hypot(vx, vy);
-    lerpInstance.goTo({
-      speed: Math.max(1, Math.round((speed + 1) * 1e4) / 1e4),
-      speedX: Math.max(1, Math.round((vx + 1) * 1e4) / 1e4),
-      speedY: Math.max(1, Math.round((vy + 1) * 1e4) / 1e4)
-    });
+    const baseVelocity = 0.08;
+    const minVelocity = 5e-3;
+    const sensitivity = 0.5;
+    const adaptiveVelocity = Math.max(
+      minVelocity,
+      baseVelocity / (1 + speed * sensitivity)
+    );
+    lerpInstance.goTo(
+      {
+        speed: Math.max(1, Math.round((speed + 1) * 1e4) / 1e4),
+        speedX: Math.max(1, Math.round((vx + 1) * 1e4) / 1e4),
+        speedY: Math.max(1, Math.round((vy + 1) * 1e4) / 1e4)
+      },
+      { velocity: adaptiveVelocity }
+    );
     previousClientX = clientX;
     previousClientY = clientY;
     previousTime = time2;
@@ -14057,11 +14070,14 @@
   };
   var initPointerEnd = () => {
     debouceFunctionReference2 = modules_exports.useDebounce(() => {
-      lerpInstance.goTo({
-        speed: 1,
-        speedX: 1,
-        speedY: 1
-      });
+      lerpInstance.goTo(
+        {
+          speed: 1,
+          speedX: 1,
+          speedY: 1
+        },
+        { velocity: 0.06 }
+      );
       unsubscribePointerMove();
       unsubscribeDetectEnd();
       initDetectStart();
@@ -14081,8 +14097,7 @@
         speed: 1,
         speedX: 1,
         speedY: 1
-      },
-      velocity: 0.01
+      }
     });
     lerpInstance.subscribe(({ speed, speedX, speedY }) => {
       for (const callback2 of callbacks9.values()) {
@@ -43085,9 +43100,6 @@
     });
     initApp();
     usePageScroll();
-    core_exports.useVelocity(({ speedX }) => {
-      console.log("x", speedX);
-    });
   });
 })();
 //# sourceMappingURL=main.js.map

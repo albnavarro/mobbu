@@ -122,11 +122,5 @@ MobCore.useLoad(() => {
     initApp();
     usePageScroll();
 
-    MobMotionCore.useVelocity(({ speedX }) => {
-        console.log('x', speedX);
-    });
-
-    // test();
-
     // testModule();
 });
