@@ -127,10 +127,8 @@ export const scrollerN0Animation = ({
     const draw = () => {
         if (!ctx) return;
 
-        if (useOffscreen && offscreen) {
-            offscreen.width = canvas.width;
-            offscreen.height = canvas.height;
-        }
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
 
         const context = useOffscreen
             ? offScreenCtx
@@ -140,14 +138,12 @@ export const scrollerN0Animation = ({
 
         if (!context) return;
 
-        /**
-         * Clear rpevious render.
-         */
-        // context.fillStyle = '#fff';
-        // context.fillRect(0, 0, canvas.width, canvas.height);
-
-        // eslint-disable-next-line no-self-assign
-        canvas.width = canvas.width;
+        if (useOffscreen && offscreen) {
+            offscreen.width = canvasWidth;
+            offscreen.height = canvasHeight;
+        } else {
+            context.reset();
+        }
 
         data.forEach(
             ({
@@ -177,23 +173,15 @@ export const scrollerN0Animation = ({
                     Math.floor(offsetYCenter + y)
                 );
 
+                const rx = Math.round(-width / 2);
+                const ry = Math.round(-height / 2);
+
                 if (useRadius) {
                     context.beginPath();
-                    context.roundRect(
-                        Math.floor(-width / 2),
-                        Math.floor(-height / 2),
-                        width,
-                        height,
-                        150
-                    );
+                    context.roundRect(rx, ry, width, height, 150);
                 } else {
                     context.beginPath();
-                    context.rect(
-                        Math.floor(-width / 2),
-                        Math.floor(-height / 2),
-                        width,
-                        height
-                    );
+                    context.rect(rx, ry, width, height);
                 }
 
                 if (hasFill) {
@@ -202,19 +190,12 @@ export const scrollerN0Animation = ({
                 } else {
                     context.strokeStyle = `#000`;
                     context.fillStyle = `rgb(238, 238, 238)`;
-                    // context.stroke();
                     context.fill();
 
                     if (!useRadius) {
                         context.strokeStyle = '#ccc';
-                        // context.stroke();
                     }
                 }
-
-                /**
-                 * Reset all transform instead save() restore().
-                 */
-                context.setTransform(1, 0, 0, 1, 0, 0);
             }
         );
 

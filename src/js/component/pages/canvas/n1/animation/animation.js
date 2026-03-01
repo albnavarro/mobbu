@@ -115,10 +115,11 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
     const draw = () => {
         if (!ctx) return;
 
-        if (useOffscreen && offscreen) {
-            offscreen.width = canvas.width;
-            offscreen.height = canvas.height;
-        }
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const squarelenght = squareData.length;
 
         const context = useOffscreen
             ? offScreenCtx
@@ -128,17 +129,19 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
 
         if (!context) return;
 
-        // context.fillStyle = '#fff';
-        // context.fillRect(0, 0, canvas.width, canvas.height);
-
-        // eslint-disable-next-line no-self-assign
-        canvas.width = canvas.width;
+        /**
+         * Clear previous draw.
+         */
+        if (useOffscreen && offscreen) {
+            offscreen.width = canvasWidth;
+            offscreen.height = canvasHeight;
+        } else {
+            context.reset();
+        }
 
         squareData.forEach(
             ({ width, height, x, y, rotate, hasFill, opacity }, i) => {
-                const unitInverse = squareData.length - i;
-                const centerX = canvas.width / 2;
-                const centerY = canvas.height / 2;
+                const unitInverse = squarelenght - i;
 
                 /**
                  * Center canvas
@@ -146,38 +149,30 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
 
                 const scale = 1;
                 const rotation = (Math.PI / 180) * rotate;
-                const xx = Math.cos(rotation) * scale;
-                const xy = Math.sin(rotation) * scale;
+                const cos = Math.cos(rotation) * scale;
+                const sin = Math.sin(rotation) * scale;
 
                 /**
                  * Apply scale/rotation/scale all together.
                  */
                 context.setTransform(
-                    xx,
-                    xy,
-                    -xy,
-                    xx,
+                    cos,
+                    sin,
+                    -sin,
+                    cos,
                     centerX + x + (unitInverse * x) / 20,
                     centerY + y + (unitInverse * y) / 20
                 );
 
+                const rx = Math.round(-width / 2);
+                const ry = Math.round(-height / 2);
+
                 if (useRadius) {
                     context.beginPath();
-                    context.roundRect(
-                        Math.round(-width / 2),
-                        Math.round(-height / 2),
-                        width,
-                        height,
-                        130
-                    );
+                    context.roundRect(rx, ry, width, height, 130);
                 } else {
                     context.beginPath();
-                    context.rect(
-                        Math.round(-width / 2),
-                        Math.round(-height / 2),
-                        width,
-                        height
-                    );
+                    context.rect(rx, ry, width, height);
                 }
 
                 if (hasFill) {
@@ -189,11 +184,6 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
                 }
 
                 context.fill();
-
-                /**
-                 * Reset all transform instead save() restore().
-                 */
-                context.setTransform(1, 0, 0, 1, 0, 0);
             }
         );
 
