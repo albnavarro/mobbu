@@ -23,6 +23,8 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
     const centerEach = 3;
     const rotationDuration = 5000;
 
+    let mouseSpeed = 1;
+
     /**
      * Check if offscrennCanvas can be used.
      */
@@ -121,6 +123,8 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
         const centerY = canvas.height / 2;
         const squarelenght = squareData.length;
 
+        const speedDelta = Math.max(1, mouseSpeed / 3);
+
         const context = useOffscreen
             ? offScreenCtx
             : /** @type {CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D} */ (
@@ -164,15 +168,26 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
                     centerY + y + (unitInverse * y) / 20
                 );
 
-                const rx = Math.round(-width / 2);
-                const ry = Math.round(-height / 2);
+                const rx = Math.round(-width / 2) * speedDelta;
+                const ry = Math.round(-height / 2) * speedDelta;
 
                 if (useRadius) {
                     context.beginPath();
-                    context.roundRect(rx, ry, width, height, 130);
+                    context.roundRect(
+                        rx,
+                        ry,
+                        width * speedDelta,
+                        height * speedDelta,
+                        130
+                    );
                 } else {
                     context.beginPath();
-                    context.rect(rx, ry, width, height);
+                    context.rect(
+                        rx,
+                        ry,
+                        width * speedDelta,
+                        height * speedDelta
+                    );
                 }
 
                 if (hasFill) {
@@ -235,6 +250,10 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
         top = offset(canvas).top;
         left = offset(canvas).left;
         draw();
+    });
+
+    const unsubScribeVelocity = MobMotionCore.useVelocity(({ speed }) => {
+        mouseSpeed = speed;
     });
 
     /**
@@ -313,6 +332,7 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
             unsubscribeResize();
             unsubscribeMouseMove();
             unsubscribeTouchMove();
+            unsubScribeVelocity();
             unWatchPause();
             unsubScribeRotate.forEach((unsubScribe) => {
                 unsubScribe();

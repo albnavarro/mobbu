@@ -14003,10 +14003,6 @@
   var previousClientY = 0;
   var previousTime = 0;
   var firstMove = false;
-  var directionX = 1;
-  var directionY = 1;
-  var previousDirectionX = 1;
-  var previousDirectionY = 1;
   var initialized7 = false;
   var debouceFunctionReference2 = () => {
   };
@@ -14040,11 +14036,9 @@
     const speed = Math.hypot(vx, vy);
     lerpInstance.goTo({
       speed: Math.max(1, Math.round((speed + 1) * 1e4) / 1e4),
-      speedX: Math.max(1, Math.round((Math.abs(vx) + 1) * 1e4) / 1e4),
-      speedY: Math.max(1, Math.round((Math.abs(vy) + 1) * 1e4) / 1e4)
+      speedX: Math.max(1, Math.round((vx + 1) * 1e4) / 1e4),
+      speedY: Math.max(1, Math.round((vy + 1) * 1e4) / 1e4)
     });
-    directionX = Math.sign(vx) || previousDirectionX;
-    directionY = Math.sign(vy) || previousDirectionY;
     previousClientX = clientX;
     previousClientY = clientY;
     previousTime = time2;
@@ -14087,31 +14081,24 @@
         speed: 1,
         speedX: 1,
         speedY: 1
-      }
+      },
+      velocity: 0.01
     });
     lerpInstance.subscribe(({ speed, speedX, speedY }) => {
       for (const callback2 of callbacks9.values()) {
         callback2({
           speed,
-          x: {
-            speed: speedX,
-            direction: speedX === 1 ? 1 : directionX
-          },
-          y: {
-            speed: speedY,
-            direction: speedY === 1 ? 1 : directionY
-          }
+          speedX,
+          speedY
         });
       }
-      previousDirectionX = directionX;
-      previousDirectionY = directionY;
     });
     lerpInstance.onComplete(({ speed, speedX, speedY }) => {
       for (const callback2 of callbacks9.values()) {
         callback2({
           speed,
-          x: { speed: speedX, direction: 1 },
-          y: { speed: speedY, direction: 1 }
+          speedX,
+          speedY
         });
       }
     });
@@ -29632,6 +29619,7 @@
     const rotationEach = 10;
     const centerEach = 3;
     const rotationDuration = 5e3;
+    let mouseSpeed = 1;
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let ctx = canvas.getContext(context, { alpha: true });
@@ -29686,6 +29674,7 @@
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const squarelenght = squareData.length;
+      const speedDelta = Math.max(1, mouseSpeed / 3);
       const context2 = useOffscreen ? offScreenCtx : (
         /** @type {CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D} */
         ctx
@@ -29712,14 +29701,25 @@
             centerX + x + unitInverse * x / 20,
             centerY + y + unitInverse * y / 20
           );
-          const rx = Math.round(-width2 / 2);
-          const ry = Math.round(-height2 / 2);
+          const rx = Math.round(-width2 / 2) * speedDelta;
+          const ry = Math.round(-height2 / 2) * speedDelta;
           if (useRadius) {
             context2.beginPath();
-            context2.roundRect(rx, ry, width2, height2, 130);
+            context2.roundRect(
+              rx,
+              ry,
+              width2 * speedDelta,
+              height2 * speedDelta,
+              130
+            );
           } else {
             context2.beginPath();
-            context2.rect(rx, ry, width2, height2);
+            context2.rect(
+              rx,
+              ry,
+              width2 * speedDelta,
+              height2 * speedDelta
+            );
           }
           if (hasFill) {
             context2.fillStyle = "#000";
@@ -29756,6 +29756,9 @@
       top = offset(canvas).top;
       left = offset(canvas).left;
       draw();
+    });
+    const unsubScribeVelocity = core_exports.useVelocity(({ speed }) => {
+      mouseSpeed = speed;
     });
     const move3 = ({ x, y }) => {
       const winWidth = window.innerWidth;
@@ -29810,6 +29813,7 @@
         unsubscribeResize();
         unsubscribeMouseMove();
         unsubscribeTouchMove();
+        unsubScribeVelocity();
         unWatchPause();
         unsubScribeRotate.forEach((unsubScribe) => {
           unsubScribe();
@@ -43081,6 +43085,9 @@
     });
     initApp();
     usePageScroll();
+    core_exports.useVelocity(({ speedX }) => {
+      console.log("x", speedX);
+    });
   });
 })();
 //# sourceMappingURL=main.js.map

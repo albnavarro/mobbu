@@ -6,10 +6,6 @@ let previousClientX = 0;
 let previousClientY = 0;
 let previousTime = 0;
 let firstMove = false;
-let directionX = 1;
-let directionY = 1;
-let previousDirectionX = 1;
-let previousDirectionY = 1;
 
 /**
  * @type {boolean}
@@ -68,12 +64,9 @@ const updateVelocity = ({ clientX, clientY }) => {
 
     lerpInstance.goTo({
         speed: Math.max(1, Math.round((speed + 1) * 10_000) / 10_000),
-        speedX: Math.max(1, Math.round((Math.abs(vx) + 1) * 10_000) / 10_000),
-        speedY: Math.max(1, Math.round((Math.abs(vy) + 1) * 10_000) / 10_000),
+        speedX: Math.max(1, Math.round((vx + 1) * 10_000) / 10_000),
+        speedY: Math.max(1, Math.round((vy + 1) * 10_000) / 10_000),
     });
-
-    directionX = Math.sign(vx) || previousDirectionX;
-    directionY = Math.sign(vy) || previousDirectionY;
 
     previousClientX = clientX;
     previousClientY = clientY;
@@ -165,6 +158,7 @@ const init = () => {
             speedX: 1,
             speedY: 1,
         },
+        velocity: 0.01,
     });
 
     /**
@@ -177,19 +171,10 @@ const init = () => {
         for (const callback of callbacks.values()) {
             callback({
                 speed,
-                x: {
-                    speed: speedX,
-                    direction: speedX === 1 ? 1 : directionX,
-                },
-                y: {
-                    speed: speedY,
-                    direction: speedY === 1 ? 1 : directionY,
-                },
+                speedX,
+                speedY,
             });
         }
-
-        previousDirectionX = directionX;
-        previousDirectionY = directionY;
     });
 
     /**
@@ -199,8 +184,8 @@ const init = () => {
         for (const callback of callbacks.values()) {
             callback({
                 speed,
-                x: { speed: speedX, direction: 1 },
-                y: { speed: speedY, direction: 1 },
+                speedX,
+                speedY,
             });
         }
     });

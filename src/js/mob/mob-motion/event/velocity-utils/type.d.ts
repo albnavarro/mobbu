@@ -4,12 +4,6 @@ export type VelocityCallBack = (arg0: VelocityParams) => void;
 
 export interface VelocityParams {
     speed: number;
-    x: {
-        speed: number;
-        direction: number;
-    };
-    y: {
-        speed: number;
-        direction: number;
-    };
+    speedX: number;
+    speedY: number;
 }
