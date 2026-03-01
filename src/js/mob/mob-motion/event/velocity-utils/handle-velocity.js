@@ -35,7 +35,6 @@ const callbacks = new Map();
  * @param {PointerEvent} params
  */
 const updateVelocity = ({ clientX, clientY }) => {
-    console.log('move');
     const diffX = clientX - previousClientX;
     const diffY = clientY - previousClientY;
     const time = MobCore.getTime();
@@ -88,7 +87,6 @@ const updateVelocity = ({ clientX, clientY }) => {
  */
 const initDetectStart = () => {
     unsubscribeDetectStart = MobCore.usePointerMove(() => {
-        console.log('start');
         unsubscribeDetectStart();
         previousTime = MobCore.getTime();
         firstMove = true;
@@ -109,8 +107,6 @@ const initPointerMove = () => {
  */
 const initPointerEnd = () => {
     debouceFunctionReference = MobCore.useDebounce(() => {
-        console.log('end');
-
         /**
          * Back to neutral value at the end
          */
