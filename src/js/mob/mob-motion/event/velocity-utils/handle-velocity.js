@@ -27,7 +27,7 @@ let unsubscribePointerMove = () => {};
 let lerpInstance;
 
 /**
- * @type {import('./type').VelocityCallback}
+ * @type {import('./type').VelocityMap}
  */
 const callbacks = new Map();
 
@@ -214,7 +214,7 @@ const init = () => {
  *
  *     ```;
  *
- * @param {(arg: import('./type').VelocityParams) => void} cb
+ * @param {import('./type').VelocityCallBack} cb
  * @returns {() => void}
  */
 const addCallback = (cb) => {
