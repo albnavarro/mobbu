@@ -153,6 +153,10 @@ const mobMotionRightSidebar = [
         label: 'Default',
         url: '#mobMotion-defaults',
     },
+    {
+        label: 'Utils',
+        url: '#mobMotion-utils',
+    },
 ];
 
 /**
@@ -1068,6 +1072,19 @@ export const routes = [
         props: {
             source: './data/mob-motion/defaults.json',
             title: 'Defaults',
+            breadCrumbs: mobMotionOverviewBreadCrumbs,
+            section: 'mobMotion',
+            rightSidebar: mobMotionRightSidebar,
+        },
+    },
+    {
+        hash: 'mobMotion-utils',
+        layout: layoutSidebarAnchor,
+        templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        skipTransition: true,
+        props: {
+            source: './data/mob-motion/utils.json',
+            title: 'Utils',
             breadCrumbs: mobMotionOverviewBreadCrumbs,
             section: 'mobMotion',
             rightSidebar: mobMotionRightSidebar,

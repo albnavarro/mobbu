@@ -1,0 +1,86 @@
+{
+    "data": [
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "x-small",
+                "id": "start",
+                "label": "Top"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1",
+                "isBold": true
+            },
+            "content": "Utils"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "use_velocity",
+                "label": "useVelocity"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "useVelocity:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "useVelocity calculates the speed of mouse/trackpad movement; the utility is based on the pointermove event."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The calculated values start from a minimum of 1, this to facilitate use as a <span class='quote'>multiplier</span>.<br/>The value is interpolated by a spring to handle the easing."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "params:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span class='quote'>speed</span>: Movement speed on both axes",
+                    "<span class='quote'>speedX</span>: Movement speed on the horizontal axis",
+                    "<span class='quote'>speedY</span>: Movement speed on the vertical axis"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-motion/use-velocity.js",
+                "numLines": 7
+            }
+        }
+    ]
+}

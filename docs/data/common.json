@@ -848,6 +848,7 @@
         { "word": "without" },
         { "word": "nested" },
         { "word": "test" },
-        { "word": "horizontalScroller" }
+        { "word": "horizontalScroller" },
+        { "word": "useVelocity" }
     ]
 }
