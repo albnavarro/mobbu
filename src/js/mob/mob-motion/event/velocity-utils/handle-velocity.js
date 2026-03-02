@@ -8,6 +8,31 @@ let previousTime = 0;
 let firstMove = false;
 
 /**
+ * Direction
+ *
+ * - -1 : left | top
+ * - 1 : right | bottom
+ * - 0 : neutral position
+ */
+let currentDirectionX = 0;
+let currentDirectionY = 0;
+
+/**
+ * Params to detect threshold to detect mouse move.
+ */
+const directionTresholdBase = 2;
+const EXP_GROWTH_FACTOR = 0.6;
+const THRESHOLD_CAP = 60;
+let previousThreshold = directionTresholdBase;
+
+/**
+ * Il threshold scende lentamente con una logica di tupo LERP
+ *
+ * Più basso = scende più lentamente (0.1-0.5)
+ */
+const RELEASE_LERP = 0.3;
+
+/**
  * @type {boolean}
  */
 let initialized = false;
@@ -26,6 +51,28 @@ let tweenInstance;
  * @type {import('./type').VelocityMap}
  */
 const callbacks = new Map();
+
+/**
+ * Calcola il threshold dinamico con curva esponenziale
+ *
+ * - Minimo: 2px (movimento fermo/lento)
+ * - Cresce esponenzialmente con la velocità
+ *
+ * @param {number} currentSpeed
+ * @returns {number}
+ */
+const getDynamicTreshold = (currentSpeed) => {
+    if (currentSpeed <= 1) return directionTresholdBase;
+
+    const exponentialMultiplier = Math.exp(
+        (currentSpeed - 1) * EXP_GROWTH_FACTOR
+    );
+
+    return Math.min(
+        directionTresholdBase * exponentialMultiplier,
+        THRESHOLD_CAP
+    );
+};
 
 /**
  * @param {PointerEvent} params
@@ -51,6 +98,11 @@ const updateVelocity = ({ clientX, clientY }) => {
         previousClientY = clientY;
         previousTime = time;
 
+        /**
+         * Reset anche del threshold quando ricomincia
+         */
+        previousThreshold = directionTresholdBase;
+
         tweenInstance.goTo(
             {
                 speed: 1,
@@ -67,6 +119,32 @@ const updateVelocity = ({ clientX, clientY }) => {
     const vx = diffX / diffTime;
     const vy = diffY / diffTime;
     const speed = Math.hypot(vx, vy);
+
+    const targetThreshold = getDynamicTreshold(speed);
+
+    /**
+     * Asymmetric lerp: sale istantaneo, scende lento
+     *
+     * Sbailizziamo il valore di trashold su movimenti veloci.
+     */
+    if (targetThreshold > previousThreshold) {
+        /**
+         * Attack: istantaneo
+         */
+        previousThreshold = targetThreshold;
+    } else {
+        /**
+         * Release: lento
+         */
+        previousThreshold +=
+            (targetThreshold - previousThreshold) * RELEASE_LERP;
+    }
+
+    if (Math.abs(diffX) > previousThreshold)
+        currentDirectionX = Math.sign(diffX);
+
+    if (Math.abs(diffY) > previousThreshold)
+        currentDirectionY = Math.sign(diffY);
 
     tweenInstance.goTo(
         {
@@ -138,6 +216,10 @@ const initPointerEnd = () => {
              */
         );
 
+        currentDirectionX = 0;
+        currentDirectionY = 0;
+        previousThreshold = directionTresholdBase;
+
         /**
          * - Il primo evento deve essere sempre start.
          * - L' evento move dese essere sempre successivo a start.
@@ -201,6 +283,8 @@ const init = () => {
                 speed,
                 speedX,
                 speedY,
+                directionX: currentDirectionX,
+                directionY: currentDirectionY,
             });
         }
     });
@@ -214,6 +298,8 @@ const init = () => {
                 speed,
                 speedX,
                 speedY,
+                directionX: 0,
+                directionY: 0,
             });
         }
     });
