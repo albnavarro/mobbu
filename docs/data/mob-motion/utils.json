@@ -83,6 +83,28 @@
                 "source": "./snippets/mob-motion/use-velocity.js",
                 "numLines": 7
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "The callback is returned immediately after the <span class='quote'>requestAnimationFrame</span>.<br/> Below is a trick to use the speed value as a multiplier but dampened."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-motion/use-velocity-next-tick.js",
+                "numLines": 16
+            }
         }
     ]
 }

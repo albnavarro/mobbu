@@ -37,7 +37,10 @@ const RELEASE_LERP = 0.3;
  */
 let initialized = false;
 
-let debouceFunctionReference = () => {};
+/** @type {any} */
+let debounceTimeoutId = null;
+const DEBOUNCE_DELAY = 200;
+
 let unsubscribeDetectStart = () => {};
 let unsubscribeDetectEnd = () => {};
 let unsubscribePointerMove = () => {};
@@ -196,53 +199,71 @@ const initPointerMove = () => {
 };
 
 /**
+ * Clear pending debounce
+ */
+const clearPendingDebounce = () => {
+    if (debounceTimeoutId) {
+        clearTimeout(debounceTimeoutId);
+        debounceTimeoutId = null;
+    }
+};
+
+const onPointerEnd = () => {
+    if (!tweenInstance) return;
+
+    tweenInstance.goTo(
+        {
+            speed: 1,
+            speedX: 1,
+            speedY: 1,
+        }
+
+        /**
+         * Detect dell' evento pointerMove reale.
+         */
+    );
+
+    currentDirectionX = 0;
+    currentDirectionY = 0;
+    previousThreshold = directionTresholdBase;
+
+    /**
+     * - Il primo evento deve essere sempre start.
+     * - L' evento move dese essere sempre successivo a start.
+     *
+     * Per questo motivo prima dobbiamo:
+     *
+     * - 1. Rimuovere l'evento move
+     * - 2- Iscriversi dopo che l'evento start é stato ricreato
+     * - 3. La callback usano Map che garantisce l' ordine di inserimento
+     *
+     * In questo modo l'ordine degli eventi sará sempre:
+     *
+     * - 1. Start
+     * - 2. Move
+     * - 3. End
+     */
+    unsubscribePointerMove();
+    unsubscribeDetectEnd();
+    initDetectStart();
+    initPointerMove();
+    initPointerEnd();
+};
+
+/**
  * Detect dell' evento virtuale pointerEnd.
  */
 const initPointerEnd = () => {
-    debouceFunctionReference = MobCore.useDebounce(() => {
-        if (!tweenInstance) return;
+    clearPendingDebounce();
 
-        /**
-         * Back to neutral value at the end
-         */
-        tweenInstance.goTo(
-            {
-                speed: 1,
-                speedX: 1,
-                speedY: 1,
-            }
-            /**
-             * Lerp logic if needed: { velocity: 0.06 }
-             */
-        );
+    const debouceFunctionReference = () => {
+        clearPendingDebounce();
 
-        currentDirectionX = 0;
-        currentDirectionY = 0;
-        previousThreshold = directionTresholdBase;
-
-        /**
-         * - Il primo evento deve essere sempre start.
-         * - L' evento move dese essere sempre successivo a start.
-         *
-         * Per questo motivo prima dobbiamo:
-         *
-         * - 1. Rimuovere l'evento move
-         * - 2- Iscriversi dopo che l'evento start é stato ricreato
-         * - 3. La callback usano Map che garantisce l' ordine di inserimento
-         *
-         * In questo modo l'ordine degli eventi sará sempre:
-         *
-         * - 1. Start
-         * - 2. Move
-         * - 3. End
-         */
-
-        unsubscribePointerMove();
-        unsubscribeDetectEnd();
-        initDetectStart();
-        initPointerMove();
-        initPointerEnd();
-    });
+        debounceTimeoutId = setTimeout(() => {
+            debounceTimeoutId = null;
+            onPointerEnd();
+        }, DEBOUNCE_DELAY);
+    };
 
     unsubscribeDetectEnd = MobCore.usePointerMove(debouceFunctionReference);
 };
@@ -278,30 +299,34 @@ const init = () => {
      * - Quando la velicitá degli assi e 1 per coerenza il valore della direzione sará 1.
      */
     tweenInstance.subscribe(({ speed, speedX, speedY }) => {
-        for (const callback of callbacks.values()) {
-            callback({
-                speed,
-                speedX,
-                speedY,
-                directionX: currentDirectionX,
-                directionY: currentDirectionY,
-            });
-        }
+        MobCore.useNextTick(() => {
+            for (const callback of callbacks.values()) {
+                callback({
+                    speed,
+                    speedX,
+                    speedY,
+                    directionX: currentDirectionX,
+                    directionY: currentDirectionY,
+                });
+            }
+        });
     });
 
     /**
      * Alla fine dell' interpolazione resettiamo la direzione a 1 ( valore neutro )
      */
     tweenInstance.onComplete(({ speed, speedX, speedY }) => {
-        for (const callback of callbacks.values()) {
-            callback({
-                speed,
-                speedX,
-                speedY,
-                directionX: 0,
-                directionY: 0,
-            });
-        }
+        MobCore.useNextTick(() => {
+            for (const callback of callbacks.values()) {
+                callback({
+                    speed,
+                    speedX,
+                    speedY,
+                    directionX: 0,
+                    directionY: 0,
+                });
+            }
+        });
     });
 };
 
@@ -340,6 +365,17 @@ const addCallback = (cb) => {
             // @ts-ignore
             tweenInstance = null;
             initialized = false;
+
+            /**
+             * Reset state.
+             */
+            previousClientX = 0;
+            previousClientY = 0;
+            previousTime = 0;
+            firstMove = false;
+            currentDirectionX = 0;
+            currentDirectionY = 0;
+            previousThreshold = directionTresholdBase;
         }
     };
 };
