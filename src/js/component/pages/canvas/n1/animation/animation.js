@@ -70,6 +70,7 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
                 radius,
                 rotate: 0,
                 relativeIndex,
+                scale: 1,
             };
         }
     );
@@ -87,7 +88,7 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
     /**
      * Subscribe rect to rotation tween.
      */
-    const unsubScribeRotate = [...squareData].map((item) => {
+    const unsubScribeRotate = squareData.map((item) => {
         return rotationTween.subscribeCache(({ rotate }) => {
             item.rotate = rotate;
         });
@@ -104,10 +105,11 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
     /**
      * Subscribe rect to rotation tween.
      */
-    [...squareData].forEach((item) => {
+    squareData.forEach((item) => {
         centerTween.subscribeCache(({ x, y }) => {
             item.x = x;
             item.y = y;
+            item.scale = mouseSpeed;
         });
     });
 
@@ -122,8 +124,6 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
         const squarelenght = squareData.length;
-
-        const speedDelta = Math.max(1, mouseSpeed / 4);
 
         const context = useOffscreen
             ? offScreenCtx
@@ -144,17 +144,19 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
         }
 
         squareData.forEach(
-            ({ width, height, x, y, rotate, hasFill, opacity }, i) => {
+            ({ width, height, x, y, rotate, hasFill, opacity, scale }, i) => {
                 const unitInverse = squarelenght - i;
+
+                const speedDelta = Math.max(1, scale / 4);
 
                 /**
                  * Center canvas
                  */
 
-                const scale = 1;
+                const camvasScale = 1;
                 const rotation = (Math.PI / 180) * rotate;
-                const cos = Math.cos(rotation) * scale;
-                const sin = Math.sin(rotation) * scale;
+                const cos = Math.cos(rotation) * camvasScale;
+                const sin = Math.sin(rotation) * camvasScale;
 
                 /**
                  * Apply scale/rotation/scale all together.
