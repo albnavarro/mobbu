@@ -138,17 +138,13 @@ export const Move3Dfn = ({
         if (yLimitReached) dragY -= ygap;
 
         const axClamped = MobMotionCore.clamp(ax, -proxi.xLimit, proxi.xLimit);
-
         const ayClamped = MobMotionCore.clamp(ay, -proxi.yLimit, proxi.yLimit);
 
         /*
          * Calcolo il valore da passare ai componenti figli per animarre l'asse Z.
          * Il delta sarà l'ipotenusa del triangolo formato dai volri ax e ay
          */
-        const delta = Math.sqrt(
-            Math.pow(Math.abs(ayClamped), 2) + Math.pow(Math.abs(axClamped), 2)
-        );
-
+        const delta = Math.hypot(Math.abs(ayClamped), Math.abs(axClamped));
         spring.goTo({ delta, ax: axClamped, ay: ayClamped }).catch(() => {});
 
         /**
