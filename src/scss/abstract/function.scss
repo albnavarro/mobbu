@@ -14,6 +14,7 @@
 /// @return {Url}
 @use 'sass:math';
 @use 'sass:map';
+@use 'sass:list';
 
 @function strip-unit($value) {
     @return math.div($value, $value * 0 + 1);
@@ -53,24 +54,26 @@
     }
 
     /*
-    Check if key exist in font-map.
-    */
-    $map-has-key: map.has-key($html-font-size, $mq);
-
-    /*
-    If user key doesn't exist alert.
-    */
-    @if not $map-has-key and $mq {
-        @debug ($mq, "doesn't exist in font-map");
-    }
-
-    /*
     Get user value or default.
     */
     $value: 1rem;
 
-    @if $map-has-key {
-        $value: map.get($html-font-size, $mq);
+    @if $mq {
+        /*
+        Get key of first available key iterating from key ( $breakpoints ) up to first available key.
+        */
+        $mq-parsed: get-prev-available-key($html-font-size, $mq, $breakpoints);
+
+        /*
+        Fallback di sicurezza se la catena è rotta
+        */
+        @if not $mq-parsed {
+            $mq-parsed: $defult-key;
+
+            @debug "Warning: '#{$mq}' not resolved, using default '#{$defult-key}'";
+        }
+
+        $value: map.get($html-font-size, $mq-parsed);
     } @else {
         $value: map.get($html-font-size, $defult-key);
     }
@@ -153,4 +156,40 @@
     }
 
     @return $filter-map;
+}
+
+@function get-prev-available-key($map, $key, $ref-map) {
+    /*
+    Ottieni lista ordinata delle chiavi di riferimento (breakpoints)
+    */
+    $ref-keys: map.keys($ref-map);
+    $target-index: list.index($ref-keys, $key);
+
+    /*
+    Se la chiave esiste già nella mappa target, restituiscila
+    */
+    @if map.has-key($map, $key) {
+        @return $key;
+    }
+
+    /*
+    Se la chiave non esiste nei riferimenti, errore
+    */
+    @if not $target-index {
+        @return null;
+    }
+
+    /*
+    Itera all'indietro dalla chiave target
+    */
+    @for $i from ($target-index - 1) through 1 {
+        $prev-key: list.nth($ref-keys, $i);
+
+        @if map.has-key($map, $prev-key) {
+            @return $prev-key;
+        }
+    }
+
+    // Se non trova nulla, restituisci null (gestito dal chiamante)
+    @return null;
 }
