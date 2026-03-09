@@ -15,10 +15,6 @@ default: Default brackpoint for rem/em conversion.
 es: true.
 */
 $font-map: (
-    'xsmall': (
-        size: 12px,
-        unit: px,
-    ),
     'small': (
         size: 12px,
     ),
@@ -27,16 +23,10 @@ $font-map: (
         unit: px,
         ratio: null,
     ),
-    'tablet': (
-        size: 14px,
-    ),
     'desktop': (
         size: 15px,
         unit: px,
         default: true,
-    ),
-    'large': (
-        size: 16px,
     ),
     'xlarge': (
         size: 16px,
