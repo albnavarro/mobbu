@@ -1,22 +1,57 @@
+## handleVelocity upgrade:
+
+#### Distanza percorsa (start -> end)
+   - Somma cumulativa di Math.hypot(diffX, diffY) (o Manhattan).
+   - Resetta a ogni nuovo start (dopo debounce).
+   - Esporta valore nel callback finale o in tempo reale.
+
+#### Previsione posizione breve termine (~100ms)
+   - Estrapola da velocità corrente: `predictedX = currentX + velocityX * time`
+   - Usa valori già smussati dal MobSpring.
+   - Costo O(1), beneficio: precaricamento, anticipazione UI.
+
+
+## NEW: handleGeometry (analisi geometrica).
+   - Si appoggia a `handleVelocity` come `handleVelocity` si appoggia a `usePointerMove`.
+
+#### Input necessari:
+   - Velocità (speed, speedX, speedY) da handleVelocity.
+   - Posizioni assolute (clientX, clientY): espandere output handleVelocity.
+
+#### Curvatura / raggio:
+   - Rilevare quando l'utente sta "curvando" vs andando dritto
+   - Anticipare la destinazione in navigazioni a traiettoria
+   - Effetti visivi che seguono l'arco del movimento, non solo la direzione istantanea
+
+#### Pattern semplificati:
+   - `Zig-zag rapido`: gesture di cancellatura o "indietro"
+   - `Cerchio`: selezione radiale, attivazione menu contestuale
+   - `Linea retta prolungata`: intenzionalità, "sto andando da quella parte"
+
+#### Riconoscimento gesture
+   - Distinguere "flick" (veloce, breve, rettilineo) da "trascinamento" (più lento, lungo)
+   - `Shake`: sequenza rapida di inversioni direzione
+   - `Hold and release`: combinazione stabilità + distanza percorsa post-movimento
+
+#### Contesto temporale
+   - Analisi su finestre scorrevoli (ultimi 300-500ms)
+   - Non istantanea, ma neanche troppo storica
+
+#### Esempio concreto:
+   - Slider con inertia: velocità alta + linea retta = scroll fluido. Velocità alta + curvatura = frena, l'utente sta correggendo.
+
 # App
 #### Passare il css a `@scope`.
-
 
 # MobCore
 
 #### Store - watcher structure:
-- check-equality: `objectAreEqual` puo portare a cicli infiniti.
 - `unsubscribeBindInstance` portare la logica a O(1).
-
-#### Store - deepEquality:
-- Agiungere `deepEquality`, basta un `JSON.stringigfy(current) === JSON.stringigfy(current)`.
-- Utile per `array/object`.
-- Rivedere un controllo piu permissivo e veloce per gli `oggetti`?
 
 # MobJs
 
 #### Repat proxi
-- il `proxi` repeater dovrebbe tornare un oggetto `frezzed` per evutare accidentali mutazioni.
+- il `proxi` repeater potrebbe tornare un oggetto `frezzed` per evutare accidentali mutazioni.
 
 #### New Observe props.
 - `observe` nei nelle funzioni interne dovrebbe diventare `observedState` per una migliore leggibilitá.
@@ -39,36 +74,6 @@
 
 - Bisognerá fare un lavoro sui tipi, arriveranno tutte `string` ma prima del set venno convertite nel giusto tipo, per fare questo lavoro bisogna accedere all' oggetto `type` delle store.
 
-#### BindProps:
-- Valutare await `applyBindProps` in `parse-function.js`
-
-```js
-initializeBindPropsWatcher: async () => {
-    await applyBindProps({
-        componentId: id,
-        repeatPropBind,
-        inizilizeWatcher: true,
-    });
-},
-```
-
-```js
-for (const item of functionToFireAtTheEnd.reverse()) {
-    const {
-        onMount,
-        initializeBindPropsWatcher,
-        fireInvalidateFunction,
-        fireRepeatFunction,
-    } = item;
-
-    await onMount();
-    fireRepeatFunction();
-    fireInvalidateFunction();
-    await initializeBindPropsWatcher();
-}
-```
-
-
 #### Quickset
 - Aggiungere `Quickset`.
 
@@ -82,13 +87,6 @@ for (const item of functionToFireAtTheEnd.reverse()) {
 
 #### MobScroller
 - Il valore `gap` ( detectViewPortInterception() ), deve essere regolabile dall' esterno.
-
-#### MobCore
-- Parallax/Scroltriiger
-- Puo usare il metodo `freezeCache` on `scrollEnd` ? ( scrollerTween/sequencer ).
-
-#### Velocity.
-- Inserire nei timeTween/lerp/Spring in concetto di velocity.
 
 #### SetTween.
 - Se chiamato durante un add / addAsync puó generare un errore, ( da verificare che questa condizione sia giusta ) ???
