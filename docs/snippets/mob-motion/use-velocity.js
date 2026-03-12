@@ -1,5 +1,13 @@
 const unsubScribeVelocity = MobMotionCore.useVelocity(
-    ({ speed, speedX, speedY, directionX, directionY }) => {
+    ({
+        speed,
+        speedX,
+        speedY,
+        directionX,
+        directionY,
+        distance,
+        completed,
+    }) => {
         //
     }
 );

@@ -8,6 +8,19 @@ let previousTime = 0;
 let firstMove = false;
 
 /**
+ * - TotalDistance: valore "secco" sincronizzato con l'evento fisico di stop.
+ * - Si resetta immediatamente al nuovo movimento,
+ * - Utile per logiche che devono reagire istantaneamente al "nuovo inizio" senza aspettare lerp.
+ */
+let totalDistance = 1;
+
+/**
+ * - Detect immediato dell'evento stop del mouse.
+ * - Questo valore é sincronizzato con totalDistance.
+ */
+let completed = false;
+
+/**
  * Direction
  *
  * - -1 : left | top
@@ -39,7 +52,27 @@ let initialized = false;
 
 /** @type {any} */
 let debounceTimeoutId = null;
+
+/**
+ * Perché debounce invece di pointerup/pointerleave?
+ *
+ * Tracciamo il MOVIMENTO, non la pressione. L'utente può:
+ *
+ * - Fermare il mouse senza rilasciare (hover)
+ * - Uscire dalla finestra (leave) ma non avere "fermato" intenzionalmente
+ *
+ * Il debounce di 200ms (tuning empirico) definisce "stop" come: "nessun movimento rilevante per X ms",
+ * indipendentemente da pressione o posizione.
+ */
 const DEBOUNCE_DELAY = 200;
+
+/**
+ * Tolleranza pausa (sotto: stesso movimento)
+ */
+const GAP_MAX = 400;
+
+/** @type {any} */
+let gapTimeoutId = null;
 
 let unsubscribeDetectStart = () => {};
 let unsubscribeDetectEnd = () => {};
@@ -119,16 +152,26 @@ const updateVelocity = ({ clientX, clientY }) => {
         return;
     }
 
+    /**
+     * Track total distance
+     *
+     * - Il calcolo dell' ipotenusa resituisce sempre un valore positivo.
+     * - Questo rende inutile l' uso di Math.abs()
+     */
+    const distance = Math.hypot(diffX, diffY);
+    totalDistance += distance;
+
     const vx = diffX / diffTime;
     const vy = diffY / diffTime;
     const speed = Math.hypot(vx, vy);
-
     const targetThreshold = getDynamicTreshold(speed);
 
     /**
      * Asymmetric lerp: sale istantaneo, scende lento
      *
-     * Sbailizziamo il valore di trashold su movimenti veloci.
+     * - Su movimento veloce (target > previous): reazione immediata per non perdere la direzione reale dell'utente.
+     * - Su rallentamento: transizione morbida per evitare flicker di direzione quando il mouse si ferma con
+     *   micro-tremori.
      */
     if (targetThreshold > previousThreshold) {
         /**
@@ -176,10 +219,33 @@ const initDetectStart = () => {
     unsubscribeDetectStart = MobCore.usePointerMove(() => {
         unsubscribeDetectStart();
         previousTime = MobCore.getTime();
+        completed = false;
+
+        /**
+         * - TotalDistance é coerente con l'evento reale ( fisico ) di stop.
+         * - Fino a che abbiamo un timeOut attivo consideriamo il movimento come `in corso`.
+         * - Stiamo considerando movimenti ravvicinati come un unico movimento.
+         */
+        if (gapTimeoutId) {
+            /**
+             * - Siamo dentro il gap di sicurezza, qui possiamo fermarlo
+             * - Al prossimo `evento` di end verrá creato un nuovo timeOut.
+             */
+            clearTimeout(gapTimeoutId);
+            gapTimeoutId = null;
+        } else {
+            /**
+             * - Al primo movimento in cui il timeOut é risolto azzeriamo la distanza.
+             * - La resettiamo sempre e solo al primo movimento abbastanza distante a livello temporale dall' ultimo
+             *   movimento.
+             */
+            totalDistance = 1;
+        }
 
         /**
          * Set first iteration
          */
+
         firstMove = true;
     });
 };
@@ -208,6 +274,18 @@ const clearPendingDebounce = () => {
     }
 };
 
+/**
+ * Ri-inizializzazione ciclica dei listener per garantire ordine esatto:
+ *
+ * 1. Start (prima) -> 2. Move -> 3. End (ultima)
+ *
+ * Map garantisce ordine di inserimento. Questo é necessario perché:
+ *
+ * - L'evento "move" fisico può fire prima del nostro "start" virtuale
+ * - L'ordine Start -> Move -> End deve essere invariante per i subscriber
+ *
+ * Costo prestazionale: 3 subscription ogni 200ms di inattività (trascurabile).
+ */
 const onPointerEnd = () => {
     if (!tweenInstance) return;
 
@@ -226,6 +304,14 @@ const onPointerEnd = () => {
     currentDirectionX = 0;
     currentDirectionY = 0;
     previousThreshold = directionTresholdBase;
+
+    /**
+     * Gestiamo un gap temporale per considerare movimenti ravvicinati come un unico movimento.
+     */
+    gapTimeoutId = setTimeout(() => {
+        gapTimeoutId = null;
+        completed = true;
+    }, GAP_MAX);
 
     /**
      * - Il primo evento deve essere sempre start.
@@ -299,6 +385,10 @@ const init = () => {
      * - Quando la velicitá degli assi e 1 per coerenza il valore della direzione sará 1.
      */
     tweenInstance.subscribe(({ speed, speedX, speedY }) => {
+        /**
+         * Usiamo nextTick per disaccopiare la callback dal requestAnimationFrame. Il request animation frame sará
+         * gestito dall' utente se ne ha bisogno.
+         */
         MobCore.useNextTick(() => {
             for (const callback of callbacks.values()) {
                 callback({
@@ -307,6 +397,8 @@ const init = () => {
                     speedY,
                     directionX: currentDirectionX,
                     directionY: currentDirectionY,
+                    distance: totalDistance,
+                    completed,
                 });
             }
         });
@@ -314,8 +406,14 @@ const init = () => {
 
     /**
      * Alla fine dell' interpolazione resettiamo la direzione a 1 ( valore neutro )
+     *
+     * - OnComplete é sempre l'ultima callback.
      */
     tweenInstance.onComplete(({ speed, speedX, speedY }) => {
+        /**
+         * Usiamo nextTick per disaccopiare la callback dal requestAnimationFrame. Il request animation frame sará
+         * gestito dall' utente se ne ha bisogno.
+         */
         MobCore.useNextTick(() => {
             for (const callback of callbacks.values()) {
                 callback({
@@ -324,6 +422,8 @@ const init = () => {
                     speedY,
                     directionX: 0,
                     directionY: 0,
+                    distance: totalDistance,
+                    completed,
                 });
             }
         });
@@ -331,7 +431,12 @@ const init = () => {
 };
 
 /**
- * Add callback on page load
+ * /** Reset completo dello stato al cleanup.
+ *
+ * Quando callbacks.size === 0, nessuno sta usando il modulo -> é una nuova sessione. Stati come previousThreshold o
+ * totalDistance non hanno senso persistere senza subscriber attivi.
+ *
+ * NOTA: Se ci sono N subscriber attivi, condividono lo stato. Il reset avviene solo quando l'ultimo se ne va.
  *
  * @example
  *     ```javascript
@@ -358,6 +463,11 @@ const addCallback = (cb) => {
         callbacks.delete(id);
 
         if (callbacks.size === 0 && initialized) {
+            if (gapTimeoutId) {
+                clearTimeout(gapTimeoutId);
+                gapTimeoutId = null;
+            }
+
             unsubscribeDetectStart();
             unsubscribeDetectEnd();
             unsubscribePointerMove();
@@ -376,6 +486,8 @@ const addCallback = (cb) => {
             currentDirectionX = 0;
             currentDirectionY = 0;
             previousThreshold = directionTresholdBase;
+            totalDistance = 1;
+            completed = false;
         }
     };
 };

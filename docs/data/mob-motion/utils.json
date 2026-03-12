@@ -67,7 +67,9 @@
                     "<span class='quote'>speedX</span>: Movement speed on the horizontal axis",
                     "<span class='quote'>speedY</span>: Movement speed on the vertical axis",
                     "<span class='quote'>directionX</span>: direction on horizontal axis ( 1 | -1 | 0 )",
-                    "<span class='quote'>directionY</span>: direction on vertical axis ( 1 | -1 | 0 )"
+                    "<span class='quote'>directionY</span>: direction on vertical axis ( 1 | -1 | 0 )",
+                    "<span class='quote'>distance</span>: Actual distance not interpolated by the tween",
+                    "<span class='quote'>completed</span>: value indicating when the actual non-interpolated movement has finished"
                 ]
             }
         },
@@ -81,7 +83,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-motion/use-velocity.js",
-                "numLines": 7
+                "numLines": 15
             }
         },
         {

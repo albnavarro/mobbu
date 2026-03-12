@@ -8,4 +8,6 @@ export interface VelocityParams {
     speedY: number;
     directionX: number;
     directionY: number;
+    distance: number;
+    completed: boolean;
 }
