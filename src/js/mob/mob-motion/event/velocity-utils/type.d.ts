@@ -6,6 +6,8 @@ export interface VelocityParams {
     speed: number;
     speedX: number;
     speedY: number;
+    clientX: number;
+    clientY: number;
     directionX: number;
     directionY: number;
     distance: number;

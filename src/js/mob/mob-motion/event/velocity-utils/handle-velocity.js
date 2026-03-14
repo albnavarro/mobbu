@@ -6,6 +6,8 @@ let previousClientX = 0;
 let previousClientY = 0;
 let previousTime = 0;
 let firstMove = false;
+let currentClientX = 0;
+let currentClientY = 0;
 
 /**
  * - TotalDistance: valore "secco" sincronizzato con l'evento fisico di stop.
@@ -116,6 +118,8 @@ const getDynamicTreshold = (currentSpeed) => {
 const updateVelocity = ({ clientX, clientY }) => {
     if (!tweenInstance) return;
 
+    currentClientX = clientX;
+    currentClientY = clientY;
     const diffX = clientX - previousClientX;
     const diffY = clientY - previousClientY;
     const time = MobCore.getTime();
@@ -395,6 +399,8 @@ const init = () => {
                     speed,
                     speedX,
                     speedY,
+                    clientX: currentClientX,
+                    clientY: currentClientY,
                     directionX: currentDirectionX,
                     directionY: currentDirectionY,
                     distance: totalDistance,
@@ -420,6 +426,8 @@ const init = () => {
                     speed,
                     speedX,
                     speedY,
+                    clientX: currentClientX,
+                    clientY: currentClientY,
                     directionX: 0,
                     directionY: 0,
                     distance: totalDistance,
@@ -485,6 +493,8 @@ const addCallback = (cb) => {
             firstMove = false;
             currentDirectionX = 0;
             currentDirectionY = 0;
+            currentClientX = 0;
+            currentClientY = 0;
             previousThreshold = directionTresholdBase;
             totalDistance = 1;
             completed = false;
