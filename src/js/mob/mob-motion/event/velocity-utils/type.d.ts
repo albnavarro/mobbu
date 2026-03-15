@@ -12,4 +12,5 @@ export interface VelocityParams {
     directionY: number;
     distance: number;
     completed: boolean;
+    pointerEnd: boolean;
 }

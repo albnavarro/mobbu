@@ -8,6 +8,7 @@ let previousTime = 0;
 let firstMove = false;
 let currentClientX = 0;
 let currentClientY = 0;
+let pointerEnd = false;
 
 /**
  * - TotalDistance: valore "secco" sincronizzato con l'evento fisico di stop.
@@ -45,7 +46,7 @@ let previousThreshold = directionTresholdBase;
  *
  * Più basso = scende più lentamente (0.1-0.5)
  */
-const RELEASE_LERP = 0.3;
+const RELEASE_LERP = 0.1;
 
 /**
  * @type {boolean}
@@ -71,7 +72,7 @@ const DEBOUNCE_DELAY = 200;
 /**
  * Tolleranza pausa (sotto: stesso movimento)
  */
-const GAP_MAX = 400;
+const GAP_MAX = 120;
 
 /** @type {any} */
 let gapTimeoutId = null;
@@ -153,6 +154,7 @@ const updateVelocity = ({ clientX, clientY }) => {
              * Lerp logic fi needed:{ velocity: 0.02 }
              */
         );
+
         return;
     }
 
@@ -244,6 +246,7 @@ const initDetectStart = () => {
              *   movimento.
              */
             totalDistance = 1;
+            pointerEnd = false;
         }
 
         /**
@@ -315,6 +318,7 @@ const onPointerEnd = () => {
     gapTimeoutId = setTimeout(() => {
         gapTimeoutId = null;
         completed = true;
+        pointerEnd = true;
     }, GAP_MAX);
 
     /**
@@ -405,6 +409,7 @@ const init = () => {
                     directionY: currentDirectionY,
                     distance: totalDistance,
                     completed,
+                    pointerEnd,
                 });
             }
         });
@@ -432,6 +437,7 @@ const init = () => {
                     directionY: 0,
                     distance: totalDistance,
                     completed,
+                    pointerEnd,
                 });
             }
         });
@@ -498,6 +504,7 @@ const addCallback = (cb) => {
             previousThreshold = directionTresholdBase;
             totalDistance = 1;
             completed = false;
+            pointerEnd = false;
         }
     };
 };
