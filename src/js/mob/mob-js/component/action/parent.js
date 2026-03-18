@@ -1,6 +1,3 @@
-import { useParentIdQuery } from '../../parse/strategy';
-import { queryAllFutureComponent } from '../../query/query-all-future-component';
-import { getAllUserChildPlaceholder } from '../../modules/user-component';
 import { componentMap } from '../component-map';
 import { updateChildrenArray } from '../utils';
 import { getIdFromWeakElementMap } from '../weak-element-map';
@@ -53,32 +50,6 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
             id,
             componentName,
         }),
-    });
-};
-
-/**
- * Add self id to future component. If id is assigned to component nested in next cycle will be override.
- *
- * @param {object} params
- * @param {HTMLElement | undefined} params.element
- * @param {string} params.id
- * @returns {void}
- */
-export const addParentIdToFutureComponent = ({ element, id }) => {
-    if (!element) return;
-
-    if (useParentIdQuery) {
-        const children = queryAllFutureComponent(element, false);
-        children.forEach((child) => {
-            child.setParentId(id);
-        });
-
-        return;
-    }
-
-    const childrenComponent = getAllUserChildPlaceholder({ element });
-    childrenComponent.forEach((component) => {
-        component.setParentId(id);
     });
 };
 

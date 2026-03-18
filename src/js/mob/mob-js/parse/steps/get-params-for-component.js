@@ -140,7 +140,6 @@ export const getParamsForComponentFunction = ({
                 MAIN_STORE_PARSER_ASYNC,
                 {
                     element: attachTo,
-                    parentId: id,
                     persistent: componentIsPersistent(id),
                     source: PARSER_ASYNC_RENDER_COMPONENT,
                 },

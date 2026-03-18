@@ -5,12 +5,7 @@ import {
     ATTR_KEY,
     ATTR_REPEATER_PROP_BIND,
 } from '../../../constant';
-import {
-    setRepeatAttribute,
-    setRepeatAttributeFromInMemory,
-} from '../../../parse/steps/utils';
-import { useRepeatWithoutSyncQuery } from '../../../parse/strategy';
-import { queryAllFutureComponent } from '../../../query/query-all-future-component';
+import { setRepeatAttributeFromInMemory } from '../../../parse/steps/utils';
 import {
     getSkipAddUserComponent,
     setSkipAddUserComponent,
@@ -90,49 +85,20 @@ export const updateRepeaterWitoutKey = ({
             setSkipAddUserComponent(lastSkipUserValue);
 
             /**
-             * A) Query strategy:
-             *
-             * - Use custom query for find child component.
-             */
-            if (useRepeatWithoutSyncQuery) {
-                const components = queryAllFutureComponent(fragment, false).map(
-                    (element) => {
-                        return new WeakRef(element);
-                    }
-                );
-
-                /**
-                 * - Set manually attribute for each component found with query.
-                 */
-                setRepeatAttribute({
-                    components,
-                    current: initialValue,
-                    index: initialIndex,
-                    observe: state,
-                    repeatId,
-                    key: undefined,
-                });
-            }
-
-            /**
-             * B) InMemoryElementSet strategy:
-             *
              * - UserComponent add host inMemoryElementSet ( new Set ).
              * - Get all child component once
              * - SetSkipAddUserComponent prevents the component's host from being added to the list of components to be
              *   rendered.
              * - Set manually attribute for each component inside InMemoryElementSet
              */
-            if (!useRepeatWithoutSyncQuery) {
-                setRepeatAttributeFromInMemory({
-                    components: getInMemorySet(),
-                    current: initialValue,
-                    index: initialIndex,
-                    observe: state,
-                    repeatId,
-                    key: undefined,
-                });
-            }
+            setRepeatAttributeFromInMemory({
+                components: getInMemorySet(),
+                current: initialValue,
+                index: initialIndex,
+                observe: state,
+                repeatId,
+                key: undefined,
+            });
 
             /**
              * Remove fragment as soon as possible from GC. TODO Is really necessary ?
@@ -281,48 +247,19 @@ export const updateRepeaterWithtKey = ({
     setSkipAddUserComponent(lastSkipUserValue);
 
     /**
-     * A) Query strategy:
-     *
-     * - Use custom query for find child component.
-     */
-    if (useRepeatWithoutSyncQuery) {
-        const components = queryAllFutureComponent(fragment, false).map(
-            (element) => {
-                return new WeakRef(element);
-            }
-        );
-
-        /**
-         * - Set manually attribute for each component found with query.
-         */
-        setRepeatAttribute({
-            components,
-            current: currentValue,
-            index,
-            observe: state,
-            repeatId,
-            key: keyValue,
-        });
-    }
-
-    /**
-     * B) InMemoryElementSet strategy:
-     *
      * - UserComponent add host inMemoryElementSet ( new Set ).
      * - Get all child component once
      * - SetSkipAddUserComponent prevents the component's host from being added to the list of components to be rendered.
      * - Set manually attribute for each component inside InMemoryElementSet
      */
-    if (!useRepeatWithoutSyncQuery) {
-        setRepeatAttributeFromInMemory({
-            components: getInMemorySet(),
-            current: currentValue,
-            index,
-            observe: state,
-            repeatId,
-            key: keyValue,
-        });
-    }
+    setRepeatAttributeFromInMemory({
+        components: getInMemorySet(),
+        current: currentValue,
+        index,
+        observe: state,
+        repeatId,
+        key: keyValue,
+    });
 
     /**
      * Remove fragment as soon as possible from GC. TODO Is really necessary ?
@@ -460,45 +397,19 @@ export const getRenderWithoutSync = ({
         setSkipAddUserComponent(lastSkipUserValue);
 
         /**
-         * Query strategy:
-         *
-         * - Use custom query for find child component.
-         */
-        if (useRepeatWithoutSyncQuery) {
-            const components = queryAllFutureComponent(fragment, false).map(
-                (element) => {
-                    return new WeakRef(element);
-                }
-            );
-
-            setRepeatAttribute({
-                components,
-                current: item,
-                index,
-                observe,
-                repeatId,
-                key: hasKey ? item?.[key] : '',
-            });
-        }
-
-        /**
-         * Set strategy:
-         *
          * - UserComponent add host inMemoryElementSet ( new Set ).
          * - Get all child component once
          * - SetSkipAddUserComponent prevents the component's host from being added to the list of components to be
          *   rendered.
          */
-        if (!useRepeatWithoutSyncQuery) {
-            setRepeatAttributeFromInMemory({
-                components: getInMemorySet(),
-                current: item,
-                index,
-                observe,
-                repeatId,
-                key: hasKey ? item?.[key] : '',
-            });
-        }
+        setRepeatAttributeFromInMemory({
+            components: getInMemorySet(),
+            current: item,
+            index,
+            observe,
+            repeatId,
+            key: hasKey ? item?.[key] : '',
+        });
 
         /**
          * Remove fragment as soon as possible from GC. TODO Is really necessary ?

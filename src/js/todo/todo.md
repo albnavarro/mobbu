@@ -59,10 +59,6 @@
 #### Routing:
 - Rendere opzionale il blocco sul caricamento della stessa rotta.
 
-#### src/js/mob/mob-js/parse/steps/get-params-from-web-component.js
-- Parent id ternario innestato, semplificare.
-- Idealmante con `weakElementMap` si puó usare solo una strategia.
-
 #### Sanitize
 - Aggiungere una `callBack` per fare un parsing dell' `html` prima di appenderlo al `DOM` con librerie esterne.
 

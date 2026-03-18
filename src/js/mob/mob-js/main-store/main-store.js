@@ -56,11 +56,6 @@ export const mainStore = MobCore.createStore(
                 type: HTMLElement,
                 skipEqual: false,
             }),
-            parentId: () => ({
-                value: '',
-                type: String,
-                skipEqual: false,
-            }),
             persistent: () => ({
                 value: false,
                 type: Boolean,
@@ -85,7 +80,6 @@ export const resetMainStoreAsyncParser = () => {
         MAIN_STORE_PARSER_ASYNC,
         {
             element: document.createElement('div'),
-            parentId: '',
             persistent: false,
             source: PARSER_ASYNC_DEFAULT,
         },

@@ -141,7 +141,6 @@ export const inizializeInvalidateWatch = async ({
                     MAIN_STORE_PARSER_ASYNC,
                     {
                         element: invalidateParent,
-                        parentId: fallBackParentId ?? id,
                         persistent,
                         source: PARSER_ASYNC_INVALIDATE,
                     },

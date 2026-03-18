@@ -10,20 +10,17 @@ import { resetCurrentIterationCounter } from './utils';
  * @param {object} obj
  * @param {HTMLElement} obj.element
  * @param {boolean} [obj.persistent]
- * @param {string} [obj.parentIdForced]
  * @param {string} [obj.source]
  * @returns {Promise<void>} A promise to the token.
  */
 export const parseComponents = async ({
     element,
     persistent = false,
-    parentIdForced = '',
     source = PARSER_ASYNC_DEFAULT,
 }) => {
     await parseComponentsWhile({
         element,
         persistent,
-        parentIdForced,
         source,
     });
 
@@ -40,13 +37,11 @@ export const initParseWatcher = () => {
         MAIN_STORE_PARSER_ASYNC,
         async ({
             element,
-            parentId,
             persistent = false,
             source = PARSER_ASYNC_DEFAULT,
         }) => {
             await parseComponents({
                 element,
-                parentIdForced: parentId ?? '',
                 persistent,
                 source,
             });

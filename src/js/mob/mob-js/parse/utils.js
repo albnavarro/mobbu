@@ -1,7 +1,3 @@
-import { queryAllFutureComponent } from '../query/query-all-future-component';
-import { getFirstUserChildPlaceHolder } from '../modules/user-component';
-import { useQuery } from './strategy';
-
 /**
  * @type {number}
  */
@@ -24,31 +20,4 @@ export const getCurrentIterationCounter = () => currentIterationCounter;
  */
 export const resetCurrentIterationCounter = () => {
     currentIterationCounter = 0;
-};
-
-/**
- * @param {object} obj
- * @param {Element} obj.element
- * @param {import('../web-component/type').UserComponent[]} obj.currentSelectors
- * @returns {{
- *     componentToParse: import('../web-component/type').UserComponent;
- *     parseSourceArray: import('../web-component/type').UserComponent[];
- * }}
- */
-export const getParseSourceArray = ({ element, currentSelectors }) => {
-    if (currentSelectors.length > 0) {
-        const componentToParse = currentSelectors[0];
-        const parseSourceArray = currentSelectors.slice(1);
-
-        return { componentToParse, parseSourceArray };
-    } else {
-        const query = useQuery
-            ? [...queryAllFutureComponent(element)]
-            : getFirstUserChildPlaceHolder(element);
-
-        const componentToParse = query?.[0];
-        const parseSourceArray = query.slice(1);
-
-        return { componentToParse, parseSourceArray };
-    }
 };

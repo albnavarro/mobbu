@@ -3,17 +3,13 @@ import { convertToRealElement } from './steps/convert-to-real-element';
 import { getDefaultComponent } from '../component/create-component';
 import {
     getCurrentIterationCounter,
-    getParseSourceArray,
     incrementCurrentIterationCounter,
 } from './utils';
 import { fireOnMountCallBack } from '../modules/on-mount';
 import { applyBindEvents } from '../modules/bind-events';
 import { addCurrentIdToBindProps, applyBindProps } from '../modules/bind-props';
 import { getParamsForComponentFunction } from './steps/get-params-for-component';
-import {
-    addParentIdToFutureComponent,
-    addSelfIdToParentComponent,
-} from '../component/action/parent';
+import { addSelfIdToParentComponent } from '../component/action/parent';
 import { applyDelegationBindEvent } from '../modules/delegate-events';
 import { getParamsFromWebComponent } from './steps/get-params-from-web-component';
 import { addComponentToStore } from '../component';
@@ -25,19 +21,19 @@ import { getInvalidateFunctions } from '../modules/invalidate/action/get-invalid
 import { getRepeatFunctions } from '../modules/repeater/action/get-repeat-functions';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bind-refs';
 import { clearSlotPlaceHolder } from '../modules/slot';
-import { autoDetectParentId, useSlotQuery } from './strategy';
+import { useSlotQuery } from './strategy';
 import { switchBindTextMap } from '../modules/bind-text';
 import { switchBindObjectMap } from '../modules/bind-object';
 import { applyBindEffect } from '../modules/bind-effetc';
 import { getComponentList } from '../component/component-list';
 import { PARSER_ASYNC_DEFAULT } from '../main-store/constant';
+import { getFirstUserChildPlaceHolder } from '../modules/user-component';
 /**
  * Create all component from DOM.
  *
  * @param {object} obj
  * @param {HTMLElement} obj.element
  * @param {boolean} [obj.persistent]
- * @param {string} [obj.parentIdForced]
  * @param {string} [obj.source]
  * @returns {Promise<void>}
  */
@@ -45,7 +41,6 @@ import { PARSER_ASYNC_DEFAULT } from '../main-store/constant';
 export const parseComponentsWhile = async ({
     element,
     persistent = false,
-    parentIdForced = '',
     source = PARSER_ASYNC_DEFAULT,
 }) => {
     const { debug: debugMode } = getDefaultComponent();
@@ -63,16 +58,8 @@ export const parseComponentsWhile = async ({
      */
     const functionToFireAtTheEnd = [];
 
-    const result = getParseSourceArray({
-        element,
-        currentSelectors: [],
-    });
-
-    /** Used only with useQuery stragy = true */
-    let currentSelectors = result.parseSourceArray;
-
     /** Current component to parse */
-    let componentToParse = result?.componentToParse;
+    let componentToParse = getFirstUserChildPlaceHolder(element);
 
     /**
      * Main Loop.
@@ -115,7 +102,6 @@ export const parseComponentsWhile = async ({
             repeatPropBind,
         } = getParamsFromWebComponent({
             element: componentToParse,
-            parentIdForced,
         });
 
         /**
@@ -235,13 +221,6 @@ export const parseComponentsWhile = async ({
         }
 
         /**
-         * Set parentId to component inside current. Add self id to future component. If id is assigned to component
-         * nested in next cycle will be override by current component.
-         */
-        if (!autoDetectParentId)
-            addParentIdToFutureComponent({ element: newElement, id });
-
-        /**
          * If element wad destroyed during parse es: repat function fired with async component to fast return without
          * render dom component.
          */
@@ -334,13 +313,7 @@ export const parseComponentsWhile = async ({
                     : () => {},
         });
 
-        const result = getParseSourceArray({
-            element,
-            currentSelectors,
-        });
-
-        currentSelectors = result.parseSourceArray;
-        componentToParse = result.componentToParse;
+        componentToParse = getFirstUserChildPlaceHolder(element);
 
         /**
          * Check if max parse number is reached.
@@ -393,7 +366,6 @@ export const parseComponentsWhile = async ({
      * Reset reference.
      */
     functionToFireAtTheEnd.length = 0;
-    currentSelectors.length = 0;
 
     // @ts-expect-error remove component reference for GC.
     componentToParse = null;

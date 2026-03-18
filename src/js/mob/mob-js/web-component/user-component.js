@@ -14,7 +14,6 @@ import {
     ATTR_SLOT,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
-import { useQuery, useRepeatWithoutSyncQuery } from '../parse/strategy';
 import {
     addUserPlaceholder,
     getSkipAddUserComponent,
@@ -169,13 +168,11 @@ export const defineUserComponent = (componentList) => {
                      */
                     const skip = getSkipAddUserComponent();
 
-                    if (skip && !useRepeatWithoutSyncQuery) {
+                    if (skip) {
                         addElementToInMemorySet(
                             /** @type {import('./type').UserComponent} */ (host)
                         );
-                    }
 
-                    if (skip) {
                         return;
                     }
 
@@ -402,7 +399,7 @@ export const defineUserComponent = (componentList) => {
                         }
 
                         // @ts-ignore
-                        if (!useQuery) addUserPlaceholder(host);
+                        addUserPlaceholder(host);
                         return;
                     }
                 }
@@ -411,17 +408,13 @@ export const defineUserComponent = (componentList) => {
                     if (!this.shadowRoot) return;
                     const host = this.shadowRoot?.host;
 
-                    if (!useQuery) {
-                        removeUserPlaceholder(
-                            /** @type {import('./type').UserComponent} */ (host)
-                        );
-                    }
+                    removeUserPlaceholder(
+                        /** @type {import('./type').UserComponent} */ (host)
+                    );
 
-                    if (!useRepeatWithoutSyncQuery) {
-                        cleanInMemorySet(
-                            /** @type {import('./type').UserComponent} */ (host)
-                        );
-                    }
+                    cleanInMemorySet(
+                        /** @type {import('./type').UserComponent} */ (host)
+                    );
 
                     if (!this.active) return;
 

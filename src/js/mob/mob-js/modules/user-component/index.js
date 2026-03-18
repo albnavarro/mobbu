@@ -32,13 +32,9 @@ export const removeUserPlaceholder = (element) => {
  * Return an array with one element, to maintain compatibility with query solution.
  *
  * @param {Element} element
- * @returns {import('../../web-component/type').UserComponent[]}
+ * @returns {import('../../web-component/type').UserComponent | undefined}
  */
 export const getFirstUserChildPlaceHolder = (element) => {
-    // const userComponent = [...userPlaceholder].find((item) => {
-    //     return element?.contains(item) && item.getIsPlaceholder();
-    // });
-
     let userComponent;
 
     for (const item of userPlaceholder) {
@@ -48,10 +44,10 @@ export const getFirstUserChildPlaceHolder = (element) => {
         }
     }
 
-    if (!userComponent) return [];
+    if (!userComponent) return;
 
     userPlaceholder.delete(userComponent);
-    return [userComponent];
+    return userComponent;
 };
 
 /**
@@ -94,29 +90,6 @@ export const getAllUserComponentUseNamedSlot = ({ element }) => {
  */
 export const getUserChildPlaceholderSize = () => {
     return userPlaceholder.size;
-};
-
-/**
- * Redorder placeholder in traversal order. Slot move element, so reorder all map Should be not mandatory, but this smap
- * is a foundamenal step
- *
- * @returns {void}
- */
-export const sortUserPlaceholder = () => {
-    const orderedSet = [...userPlaceholder].toSorted((a, b) => {
-        if (a === b || !a || !b) return 0;
-        if (a.compareDocumentPosition(b) & 2) {
-            // b comes before a
-            return 1;
-        }
-        return -1;
-    });
-
-    clearUserPlaceHolder();
-
-    orderedSet.forEach((item) => {
-        userPlaceholder.add(item);
-    });
 };
 
 /**

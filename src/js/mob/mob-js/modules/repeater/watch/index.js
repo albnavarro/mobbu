@@ -18,7 +18,6 @@ import {
 } from '../active-repeater';
 import { updateRepeater } from '../update';
 import { inizializeNestedInvalidate } from '../../invalidate/action/inizialize-nested-invalidate';
-import { getParentIdFromWeakElementMap } from '../../../component/action/parent';
 import {
     chunkIdsByCurrentValue,
     getOrderedChunkByCurrentRepeatValue,
@@ -47,25 +46,6 @@ export const watchRepeat = ({
     useSync = false,
 }) => {
     const mainComponent = getElementById({ id });
-
-    /**
-     * Nested issue: When repeat is created nested Main component is not parsed.
-     *
-     * - SetRepeatFunction() save initialize function.
-     * - We have to wait repat that initialize function will be fired.
-     * - Here we are sure that module is initialized.
-     */
-    const parentByElement = getRepeatParent({ id: repeatId });
-
-    /**
-     * FallBackParentId is used with autoDetectParentId strategy disabled only
-     *
-     * - In this case we provide id of the component that contain repeater
-     * - So first level component has right id, for the neseted level is not necessary
-     */
-    const fallBackParentId = parentByElement
-        ? (getParentIdFromWeakElementMap({ element: parentByElement }) ?? '')
-        : '';
 
     /**
      * Fire first callback The main parse is ended.
@@ -190,7 +170,6 @@ export const watchRepeat = ({
                 previous: clean ? [] : previous,
                 key,
                 id,
-                fallBackParentId,
                 render,
                 repeatId,
                 useSync,

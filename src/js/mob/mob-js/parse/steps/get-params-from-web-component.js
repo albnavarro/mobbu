@@ -2,20 +2,17 @@ import { getComponentRepeaterState } from '../../modules/repeater/repeater-value
 import { getPropsFromParent } from '../../modules/static-props';
 import { filterExportableStateFromObject } from '../../component/action/state/export-state';
 import { getParentIdFromWeakElementMap } from '../../component/action/parent';
-import { autoDetectParentId } from '../strategy';
 
 /**
  * Create base DOM component from component tag.
  *
  * @param {object} obj
  * @param {import('../../web-component/type').UserComponent} obj.element
- * @param {string | undefined} obj.parentIdForced
  * @returns {import('./type').ComponentData}
  */
-export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
+export const getParamsFromWebComponent = ({ element }) => {
     const id = element.getId();
     const instanceName = element.getInstanceName();
-    const parentIdFromWebComponent = element.getParentId();
 
     /**
      * First choice is parentId passed directly in webComponent Second choice is parentId passed to initParseWatcher (
@@ -26,12 +23,7 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
      *
      * So after first level of node tree parentIdFromWebComponent always win.
      */
-    const parentId = autoDetectParentId
-        ? getParentIdFromWeakElementMap({ element })
-        : parentIdFromWebComponent && parentIdFromWebComponent.length > 0
-          ? parentIdFromWebComponent
-          : parentIdForced;
-
+    const parentId = getParentIdFromWeakElementMap({ element });
     const propsId = element.getStaticPropsId();
     const dynamicPropsId = element.getDynamicPropsid();
     const bindEventsId = element.getBindEventsId();

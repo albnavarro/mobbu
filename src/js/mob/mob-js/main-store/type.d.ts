@@ -27,7 +27,6 @@ export interface MainStore {
     routeIsLoading: boolean;
     parserAsync: {
         element: HTMLElement;
-        parentId: string;
         persistent: boolean | undefined;
         source: string;
     };

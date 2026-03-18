@@ -23,7 +23,6 @@ import { listKeyExist } from '../utils';
  * @param {Record<string, any>[]} params.previous - Current state array
  * @param {string} params.key - Define id repeater use a key
  * @param {string} params.id - Component id where repeater is contained.
- * @param {string} params.fallBackParentId - FallBackParentId is used with autoDetectParentId strategy disabled only
  * @param {string} params.repeatId - Id of repeater
  * @param {import('../type').RepeaterRender} params.render - The render function that return repeater item.
  * @param {boolean} params.useSync - If true dataset is add manually by user.
@@ -38,7 +37,6 @@ export const updateRepeater = async ({
     previous = [],
     key = '',
     id,
-    fallBackParentId = '',
     render,
     repeatId,
     useSync,
@@ -80,7 +78,6 @@ export const updateRepeater = async ({
         MAIN_STORE_PARSER_ASYNC,
         {
             element: repeaterParentElement,
-            parentId: fallBackParentId ?? id,
             persistent,
             source: PARSER_ASYNC_REPEATER,
         },
