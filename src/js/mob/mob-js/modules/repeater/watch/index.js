@@ -22,7 +22,10 @@ import {
     chunkIdsByCurrentValue,
     getOrderedChunkByCurrentRepeatValue,
 } from '../utils';
-import { getRepeatParent } from '../action/get-repeater-parent';
+import {
+    getRepeatParent,
+    removeRepeaterWebComponent,
+} from '../action/get-repeater-parent';
 import { inizializeNestedRepeat } from '../action/inizialize-nested-repeat';
 import { setRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { getRepeaterComponentChildren } from '../action/set-repeat-component-children';
@@ -46,6 +49,15 @@ export const watchRepeat = ({
     useSync = false,
 }) => {
     const mainComponent = getElementById({ id });
+
+    /**
+     * Nested component issue.
+     *
+     * - Started function not fire.
+     * - Here we are sure that module is initialized.
+     * - So remove webComponent as soon as possible;
+     */
+    removeRepeaterWebComponent({ id: repeatId });
 
     /**
      * Fire first callback The main parse is ended.
