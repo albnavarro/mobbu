@@ -13,11 +13,6 @@ export type OnUpdate = (arg0: {
     parentIsMoving: boolean;
 }) => void;
 
-export type OnSwipe = (arg0: {
-    direction: number;
-    move: (value: number) => void;
-}) => void;
-
 export interface MobSmoothScroller {
     /**
      * Defines the scroll direction
@@ -55,17 +50,6 @@ export interface MobSmoothScroller {
     useHorizontalScroll?: boolean;
 
     /**
-     * Enable horizontal swipe. If useSwipe is used useHorizontalScroll will be disabled. each sipe event onSwipe
-     * callback is fired.
-     */
-    useSwipe?: boolean;
-
-    /**
-     * Reverse swipe direction.
-     */
-    revertSwipeDirection?: boolean;
-
-    /**
      * You can adjust the speed of the wheel event. The default value is `60`.
      */
     speed?: number;
@@ -87,12 +71,6 @@ export interface MobSmoothScroller {
      * parameter. `value`: scroll value `percent`: scroll value in percent
      */
     onUpdate?: OnUpdate;
-
-    /**
-     * Function that is launched at each swipe event. The function will have an Object as input parameter. `direction`:
-     * swipe direction, 1 || -1 `move`: callback that move scroller by a percent value,
-     */
-    onSwipe?: OnSwipe;
 
     /**
      * Function that is launched after refresh

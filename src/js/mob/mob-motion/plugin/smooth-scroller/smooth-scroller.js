@@ -217,11 +217,6 @@ export class MobSmoothScroller {
     #onUpdateCallback;
 
     /**
-     * @type {import('./type.js').OnSwipe}
-     */
-    #onSwipeCallback;
-
-    /**
      * @type {(arg0: { shouldScroll: boolean }) => void}
      */
     #onAfterRefresh;
@@ -230,11 +225,6 @@ export class MobSmoothScroller {
      * @type {(arg0: { shouldScroll: boolean }) => void}
      */
     #afterInit;
-
-    /**
-     * @type {boolean}
-     */
-    #swipeisActive = false;
 
     /**
      * @type {any[]}
@@ -265,16 +255,6 @@ export class MobSmoothScroller {
      * @type {boolean}
      */
     #useHorizontalScroll;
-
-    /**
-     * @type {boolean}
-     */
-    #useSwipe;
-
-    /**
-     * @type {boolean}
-     */
-    #revertSwipeDirection;
 
     /**
      * Create new SmoothScroller instance.
@@ -408,24 +388,6 @@ export class MobSmoothScroller {
             data?.onUpdate,
             'SmoothScroller: onUpdate',
             NOOP
-        );
-
-        this.#onSwipeCallback = valueIsFunctionAndReturnDefault(
-            data?.onSwipe,
-            'SmoothScroller: onSwipe',
-            NOOP
-        );
-
-        this.#useSwipe = valueIsBooleanAndReturnDefault(
-            data?.useSwipe,
-            'SmoothScroller: useSwipe',
-            false
-        );
-
-        this.#revertSwipeDirection = valueIsBooleanAndReturnDefault(
-            data?.revertSwipeDirection,
-            'SmoothScroller: revertSwipeDirection',
-            false
         );
 
         this.#useHorizontalScroll = valueIsBooleanAndReturnDefault(
@@ -577,16 +539,16 @@ export class MobSmoothScroller {
          */
         if (!this.#scopedEvent) {
             this.#subscribeMouseWheel = MobCore.useMouseWheel((data) => {
-                this.#detectSwipe(data);
                 this.#onWhell(data);
             });
 
-            this.#subscribeMouseMove = MobCore.useMouseMove((data) =>
-                this.#onTouchMove(data)
-            );
-            this.#subscribeTouchMove = MobCore.useTouchMove((data) =>
-                this.#onTouchMove(data)
-            );
+            this.#subscribeMouseMove = MobCore.useMouseMove((data) => {
+                this.#onTouchMove(data);
+            });
+
+            this.#subscribeTouchMove = MobCore.useTouchMove((data) => {
+                this.#onTouchMove(data);
+            });
         }
 
         /**
@@ -656,37 +618,6 @@ export class MobSmoothScroller {
                 });
             });
         }, 3);
-    }
-
-    /**
-     * @param {import('../../../mob-core/events/mouse-utils/type.js').MouseEventParsed} params
-     */
-    #detectSwipe({ pixelX }) {
-        if (
-            !this.#useSwipe ||
-            !pixelX ||
-            this.#swipeisActive ||
-            this.#onSwipeCallback.length === 0
-        )
-            return;
-
-        if (Math.abs(pixelX) > 40) {
-            this.#swipeisActive = true;
-
-            const direction = pixelX > 0 ? -1 : 1;
-            const directionParsed = this.#revertSwipeDirection
-                ? direction
-                : direction * -1;
-
-            this.#onSwipeCallback({
-                direction: directionParsed,
-                move: (value) => this.move(value).catch(() => {}),
-            });
-
-            setTimeout(() => {
-                this.#swipeisActive = false;
-            }, 500);
-        }
     }
 
     /**
@@ -948,16 +879,13 @@ export class MobSmoothScroller {
             const spinYdiff = Math.abs(this.#lastSpinY - spinY);
 
             /**
-             * In horizontal mode, allow scroll in X and Y direction if no swipe is used.
-             *
-             * With swipe enabled use only vertical wheel, both vertical && horizontal mode.
+             * In horizontal mode, allow scroll in X and Y direction.
              */
-            const spinValue =
-                this.#useHorizontalScroll && !this.#useSwipe
-                    ? (() => {
-                          return spinXdiff > spinYdiff ? spinX : spinY;
-                      })()
-                    : spinY;
+            const spinValue = this.#useHorizontalScroll
+                ? (() => {
+                      return spinXdiff > spinYdiff ? spinX : spinY;
+                  })()
+                : spinY;
 
             /**
              * When there is no advanced return;

@@ -75,8 +75,6 @@ export const aboutAnimation = ({
         easeType: 'lerp',
         breakpoint: 'small',
         useHorizontalScroll: true,
-        useSwipe: false,
-        revertSwipeDirection: false,
         children: [
             pathScroller,
             title1parallax,
