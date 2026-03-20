@@ -9,6 +9,9 @@ let firstMove = false;
 let currentClientX = 0;
 let currentClientY = 0;
 let pointerEnd = false;
+let rawSpeed = 1;
+let rawSpeedX = 1;
+let rawSpeedY = 1;
 
 /**
  * - TotalDistance: valore "secco" sincronizzato con l'evento fisico di stop.
@@ -138,6 +141,9 @@ const updateVelocity = ({ clientX, clientY }) => {
         previousClientX = clientX;
         previousClientY = clientY;
         previousTime = time;
+        rawSpeed = 1;
+        rawSpeedX = 1;
+        rawSpeedY = 1;
 
         /**
          * Reset anche del threshold quando ricomincia
@@ -198,14 +204,18 @@ const updateVelocity = ({ clientX, clientY }) => {
     if (Math.abs(diffY) > previousThreshold)
         currentDirectionY = Math.sign(diffY);
 
+    rawSpeed = Math.max(1, Math.round((speed + 1) * 10_000) / 10_000);
+    rawSpeedX = Math.max(1, Math.round((Math.abs(vx) + 1) * 10_000) / 10_000);
+    rawSpeedY = Math.max(1, Math.round((Math.abs(vy) + 1) * 10_000) / 10_000);
+
     tweenInstance.goTo(
         {
-            speed: Math.max(1, Math.round((speed + 1) * 10_000) / 10_000),
-            speedX: Math.max(1, Math.round((vx + 1) * 10_000) / 10_000),
-            speedY: Math.max(1, Math.round((vy + 1) * 10_000) / 10_000),
+            speed: rawSpeed,
+            speedX: rawSpeedX,
+            speedY: rawSpeedY,
         }
         /**
-         * Lerp logic fi needed:{ velocity: 0.02 }
+         * Lerp logic if needed:{ velocity: 0.02 }
          *
          * - Quando l'evento end viene scatenato useremo un easing piu secco per tornare al valore neutro.
          */
@@ -318,6 +328,9 @@ const onPointerEnd = () => {
     gapTimeoutId = setTimeout(() => {
         gapTimeoutId = null;
         completed = true;
+        rawSpeed = 1;
+        rawSpeedX = 1;
+        rawSpeedY = 1;
         pointerEnd = true;
     }, GAP_MAX);
 
@@ -410,6 +423,9 @@ const init = () => {
                     distance: totalDistance,
                     completed,
                     pointerEnd,
+                    rawSpeed,
+                    rawSpeedX,
+                    rawSpeedY,
                 });
             }
         });
@@ -438,6 +454,9 @@ const init = () => {
                     distance: totalDistance,
                     completed,
                     pointerEnd,
+                    rawSpeed,
+                    rawSpeedX,
+                    rawSpeedY,
                 });
             }
         });
@@ -505,6 +524,9 @@ const addCallback = (cb) => {
             totalDistance = 1;
             completed = false;
             pointerEnd = false;
+            rawSpeed = 1;
+            rawSpeedX = 1;
+            rawSpeedY = 1;
         }
     };
 };
