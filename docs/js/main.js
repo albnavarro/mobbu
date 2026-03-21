@@ -24110,7 +24110,17 @@
       this.#subscribeTouchMove = NOOP;
       this.#subscribeMouseClick = NOOP;
       this.#subscribeDebuoceWhell = NOOP;
-      this.#motion = {};
+      this.#motion = {
+        updateVelocity: NOOP,
+        // @ts-ignore
+        subscribe: NOOP,
+        // @ts-ignore
+        onComplete: NOOP,
+        goTo: () => Promise.resolve(),
+        set: () => Promise.resolve(),
+        stop: NOOP,
+        destroy: NOOP
+      };
       this.#subscribeMotion = NOOP;
       this.#subscribeOnComplete = NOOP;
       this.#direction = directionIsValid(data?.direction, "SmoothScroller");

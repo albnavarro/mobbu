@@ -348,8 +348,23 @@ export class MobSmoothScroller {
         this.#subscribeMouseClick = NOOP;
         this.#subscribeDebuoceWhell = NOOP;
 
-        // @ts-ignore
-        this.#motion = {};
+        /**
+         * Initialize tween param.
+         *
+         * - Them we store here real tween.
+         */
+        this.#motion = {
+            updateVelocity: NOOP,
+            // @ts-ignore
+            subscribe: NOOP,
+            // @ts-ignore
+            onComplete: NOOP,
+            goTo: () => Promise.resolve(),
+            set: () => Promise.resolve(),
+            stop: NOOP,
+            destroy: NOOP,
+        };
+
         this.#subscribeMotion = NOOP;
         this.#subscribeOnComplete = NOOP;
         this.#direction = directionIsValid(data?.direction, 'SmoothScroller');
