@@ -24038,7 +24038,7 @@
     /**
      * @type {number}
      */
-    #velocity = 0;
+    #velocity = 1;
     /**
      * @type {number}
      */
@@ -24585,7 +24585,7 @@
       }
       this.#snapResetDebounce = setTimeout(() => {
         this.#freezeSnap = false;
-        this.#velocity = 0;
+        this.#velocity = 1;
         this.#snapResetDebounce = null;
       }, 150);
     }

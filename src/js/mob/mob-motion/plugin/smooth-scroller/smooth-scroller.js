@@ -270,7 +270,7 @@ export class MobSmoothScroller {
     /**
      * @type {number}
      */
-    #velocity = 0;
+    #velocity = 1;
 
     /**
      * @type {number}
@@ -1033,7 +1033,7 @@ export class MobSmoothScroller {
 
         this.#snapResetDebounce = setTimeout(() => {
             this.#freezeSnap = false;
-            this.#velocity = 0;
+            this.#velocity = 1;
             this.#snapResetDebounce = null;
         }, 150); // 150ms di pausa = utente fermo
     }
