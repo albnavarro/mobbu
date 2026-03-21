@@ -1354,7 +1354,7 @@ ul li::marker {
   height: calc(100vh - var(--header-height) - var(--footer-height));
   overflow: hidden;
   pointer-events: none;
-  --sreen-size: 60vw;
+  --sreen-size: 80vw;
 }
 .l-about.active {
   pointer-events: all;
