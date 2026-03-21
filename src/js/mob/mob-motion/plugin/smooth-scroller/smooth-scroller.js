@@ -721,7 +721,11 @@ export class MobSmoothScroller {
                     : `translate3d(0px, 0px, 0px) translateX(${-Math.trunc(val)}px)`;
 
             /**
-             * TODO Move to scroll Start (scopedEvent or not , wheel touch etc...) Used by instance with ease = true;
+             * TODO:
+             *
+             * - TriggerScrollStart() should be called once at the beginning of motion,
+             * - Not on every tick. Currently there is no dedicated "first tick" event from
+             * - Internalli children set this.#force3D = true when triggerScrollStart is Called.
              */
             this.#children.forEach((element) => {
                 element.triggerScrollStart();
@@ -906,6 +910,8 @@ export class MobSmoothScroller {
         this.#goToNextSnap();
 
         /**
+         * - Qui non vogliamo triggere uno snap, il movimento durante il drag é 1:1
+         * - Lo snap si triggera al rilascio del mouse.
          * - Schedula il reset dello stato (come nel wheel).
          * - Se useSnap è true, aspetta il delay prima di permettere altri snap.
          * - Se useSnap è false, resetta comunque la velocity accumulata.
