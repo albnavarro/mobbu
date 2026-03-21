@@ -96,6 +96,8 @@ export interface MobSmoothScroller {
     queryType?: MqAction;
 
     breakpoint?: MqValues;
+
+    snapPoints?: number[];
 }
 
 export type MobSmoothScrollerOnMouseEvent = (

@@ -9,6 +9,7 @@ import {
     breakpointTypeIsValid,
     directionIsValid,
     genericEaseTypeIsValid,
+    valueIsArrayAndReturnDefault,
     valueIsBooleanAndReturnDefault,
     valueIsFunctionAndReturnDefault,
     valueIsNumberAndReturnDefault,
@@ -257,6 +258,36 @@ export class MobSmoothScroller {
     #useHorizontalScroll;
 
     /**
+     * @type {number[]}
+     */
+    #snapPoints;
+
+    /**
+     * @type {boolean}
+     */
+    #freezeSnap = false;
+
+    /**
+     * @type {number}
+     */
+    #velocity = 0;
+
+    /**
+     * @type {number}
+     */
+    #previousEndValue = 0;
+
+    /**
+     * @type {number}
+     */
+    #previousTime = 0;
+
+    /**
+     * @type {number}
+     */
+    #scrollDirection = 0;
+
+    /**
      * Create new SmoothScroller instance.
      *
      *        Available methods:
@@ -276,6 +307,7 @@ export class MobSmoothScroller {
      *            drag: [Boolean],
      *            scopedEvent: [Boolean],
      *            children: [child1,child2, ...],
+     *            snapPoints: [1,2,...],
      *            ease: [Boolean],
      *            easeType: [String],
      *            afterInit: () => {
@@ -406,6 +438,12 @@ export class MobSmoothScroller {
             data?.afterInit,
             'SmoothScroller: afterInit',
             NOOP
+        );
+
+        this.#snapPoints = valueIsArrayAndReturnDefault(
+            data?.snapPoints,
+            'SmoothScroller: snapPoints',
+            []
         );
 
         this.#children = data?.children || [];
@@ -778,6 +816,12 @@ export class MobSmoothScroller {
         this.#dragEnable = false;
 
         /**
+         * Check next span on wheel, skip drag mode.
+         */
+        const useSnap = !this.#dragEnable && this.#goToNextSnap();
+        if (useSnap) return;
+
+        /**
          * Speed variation by screensize
          */
         const delta = this.#getDelta();
@@ -825,6 +869,11 @@ export class MobSmoothScroller {
      */
     #onMouseUp() {
         this.#dragEnable = false;
+
+        /**
+         * Check next span on drag end;
+         */
+        this.#goToNextSnap();
     }
 
     /**
@@ -875,6 +924,15 @@ export class MobSmoothScroller {
             preventDefault?.();
             FreezeMobPageScroll();
 
+            /**
+             * Check next span on wheel, skip drag mode.
+             */
+            const useSnap = !this.#dragEnable && this.#goToNextSnap();
+            if (useSnap) return;
+
+            /**
+             * Default mode.
+             */
             const spinXdiff = Math.abs(this.#lastSpinX - spinX);
             const spinYdiff = Math.abs(this.#lastSpinY - spinY);
 
@@ -934,6 +992,44 @@ export class MobSmoothScroller {
     }
 
     /**
+     * Go to next snap by velocity;
+     *
+     * @returns {boolean | undefined}
+     */
+    #goToNextSnap() {
+        if (
+            this.#snapPoints.length === 0 ||
+            this.#velocity < 5 ||
+            this.#freezeSnap
+        )
+            return;
+
+        const percentTarget =
+            this.#scrollDirection === 1
+                ? this.#snapPoints.find((percent) => {
+                      return this.#percent <= percent;
+                  })
+                : this.#snapPoints.findLast((percent) => {
+                      return this.#percent >= percent;
+                  });
+
+        if (!percentTarget && percentTarget !== 0) return;
+
+        this.#freezeSnap = true;
+        this.move(percentTarget);
+
+        /**
+         * Allow 1 snap every 500ms.
+         */
+        setTimeout(() => {
+            this.#freezeSnap = false;
+            this.#velocity = 0;
+        }, 100);
+
+        return true;
+    }
+
+    /**
      * Move scroller immediatr
      *
      * @example
@@ -962,9 +1058,37 @@ export class MobSmoothScroller {
      * @type {() => void}
      */
     #calculateValue() {
+        if (this.#freezeSnap) return;
+
         const percentValue = (this.#endValue * 100) / this.#maxValue;
         this.#percent = clamp(percentValue, 0, 100);
         this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
+
+        /**
+         * Start velocity check.
+         */
+        const time = MobCore.getTime();
+        const diffTime = time - this.#previousTime;
+        const diffEndValue = this.#endValue - this.#previousEndValue;
+        this.#scrollDirection = Math.sign(diffEndValue);
+
+        if (diffTime < 100) {
+            const vv = diffEndValue / diffTime;
+            this.#velocity = Math.max(
+                1,
+                Math.round((Math.abs(vv) + 1) * 10_000) / 10_000
+            );
+        }
+
+        if (diffTime > 100) {
+            this.#velocity = 1;
+        }
+
+        this.#previousTime = time;
+        this.#previousEndValue = this.#endValue;
+        /**
+         * End velocity check.
+         */
 
         /**
          * This.motion use spring or lerp, so goTo generic type is not the same. But we don't use props here, so skip ts

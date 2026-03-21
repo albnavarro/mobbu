@@ -56,6 +56,7 @@ export type AboutScroller = (arg0: {
     section2_title: HTMLElement;
     section3_title: HTMLElement;
     section4_title: HTMLElement;
+    snapPoints: number[];
     setActiveItem: (value: number) => void;
     onMove: (value: number) => void;
     onScrollEnd: () => void;

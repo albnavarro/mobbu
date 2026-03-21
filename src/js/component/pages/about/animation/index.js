@@ -17,6 +17,7 @@ export const aboutAnimation = ({
     setActiveItem,
     onMove,
     onScrollEnd,
+    snapPoints,
 }) => {
     /**
      * Garbage collector utils for path svg Prevent path loop inside to not collected
@@ -75,6 +76,7 @@ export const aboutAnimation = ({
         easeType: 'lerp',
         breakpoint: 'small',
         useHorizontalScroll: true,
+        snapPoints,
         children: [
             pathScroller,
             title1parallax,

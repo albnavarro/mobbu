@@ -276,6 +276,7 @@ export const AboutComponentFn = ({
             section2_title,
             section3_title,
             section4_title,
+            snapPoints: Object.values(goToPercentage),
             setActiveItem: (value) => {
                 proxi.activenavItem = value;
             },

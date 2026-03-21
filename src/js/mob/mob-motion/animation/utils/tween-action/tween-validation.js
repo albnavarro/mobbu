@@ -72,6 +72,7 @@ import {
     timelineSetTweenLabelWarining,
     tweenEaseWarning,
     valueStringWarning,
+    arrayWarning,
 } from '../warning';
 import {
     checkIfIsOnlyNumber,
@@ -539,6 +540,23 @@ export const valueIsNumberAndReturnDefault = (value, label, defaultValue) => {
 export const valueIsFunctionAndReturnDefault = (value, label, defaultValue) => {
     const isValid = MobCore.checkType(Function, value);
     if (!isValid && value) functionWarning(value, label);
+
+    // @ts-ignore
+    return isValid ? value : defaultValue;
+};
+
+/**
+ * Check if value is Function and return default
+ *
+ * @template T
+ * @param {T | undefined} value
+ * @param {string} label
+ * @param {(number[] | undefined} defaultValue
+ * @returns {T}
+ */
+export const valueIsArrayAndReturnDefault = (value, label, defaultValue) => {
+    const isValid = MobCore.checkType(Array, value);
+    if (!isValid && value) arrayWarning(value, label);
 
     // @ts-ignore
     return isValid ? value : defaultValue;
