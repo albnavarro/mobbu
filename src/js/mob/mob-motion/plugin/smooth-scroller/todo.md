@@ -1,3 +1,7 @@
+### VelocityTreshold
+
+- Esporre come parametro la `velocitá` minima per far scattare lo snap.
+
 ### triggerScrollStart.
 
 - `triggerScrollStart()` andrebbe chiamato una sola volta quando il movimento parte/riparte.
@@ -18,3 +22,4 @@ if (!this.#isMoving) {
 this.#isMoving = false;
 this.#children.forEach((element) => element.triggerScrollEnd());
 ```
+
