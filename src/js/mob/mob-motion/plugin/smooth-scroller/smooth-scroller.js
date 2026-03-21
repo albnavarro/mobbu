@@ -1183,6 +1183,15 @@ export class MobSmoothScroller {
         const time = MobCore.getTime();
         const diffTime = time - this.#previousTime;
         const diffEndValue = this.#endValue - this.#previousEndValue;
+
+        /**
+         * - Calcola la direzione dello scroll.
+         * - Il risultato è sempre 1 (avanti) o -1 (indietro)
+         * - #setVelocity() viene invocata esclusivamente da #calculateValue(), che a sua volta è triggerata solo da input
+         *   utente reale (wheel, drag, touch).
+         * - In tutti questi casi #endValue è già stato modificato, quindi diffEndValue non può mai essere 0 in condizioni
+         *   normali.
+         */
         this.#scrollDirection = Math.sign(diffEndValue);
 
         if (diffTime < 100) {
