@@ -24052,6 +24052,10 @@
      */
     #scrollDirection = 0;
     /**
+     * @type {any}
+     */
+    #snapResetDebounce = null;
+    /**
      * Create new SmoothScroller instance.
      *
      *        Available methods:
@@ -24489,6 +24493,13 @@
         /** @type {HTMLElement} */
         target
       )) {
+        if (this.#snapResetDebounce) {
+          clearTimeout(this.#snapResetDebounce);
+          this.#snapResetDebounce = null;
+        }
+        if (this.#freezeSnap) {
+          this.#freezeSnap = false;
+        }
         this.#firstTouchValue = this.#endValue;
         this.#dragEnable = true;
         this.#prevTouchVal = this.#getMousePos({
@@ -24507,6 +24518,7 @@
     #onMouseUp() {
       this.#dragEnable = false;
       this.#goToNextSnap();
+      this.#scheduleSnapReset();
     }
     /**
      * @type {import('./type.js').MobSmoothScrollerOnMouseEvent}
@@ -24544,8 +24556,18 @@
         this.#dragEnable = false;
         preventDefault?.();
         FreezeMobPageScroll();
+        if (this.#snapResetDebounce) {
+          clearTimeout(this.#snapResetDebounce);
+          this.#snapResetDebounce = null;
+        }
+        if (this.#freezeSnap) {
+          this.#freezeSnap = false;
+        }
         const useSnap = !this.#dragEnable && this.#goToNextSnap();
-        if (useSnap) return;
+        if (useSnap) {
+          this.#scheduleSnapReset();
+          return;
+        }
         const spinXdiff = Math.abs(this.#lastSpinX - spinX);
         const spinYdiff = Math.abs(this.#lastSpinY - spinY);
         const spinValue = this.#useHorizontalScroll ? (() => {
@@ -24557,7 +24579,25 @@
         this.#calculateValue();
         this.#lastSpinY = spinY;
         this.#lastSpinX = spinX;
+        this.#scheduleSnapReset();
       }
+    }
+    /**
+     * Schedula il reset di freezeSnap e velocity.
+     *
+     * - Viene chiamato dopo ogni wheel o dopo uno snap.
+     *
+     * @type {() => void}
+     */
+    #scheduleSnapReset() {
+      if (this.#snapResetDebounce) {
+        clearTimeout(this.#snapResetDebounce);
+      }
+      this.#snapResetDebounce = setTimeout(() => {
+        this.#freezeSnap = false;
+        this.#velocity = 0;
+        this.#snapResetDebounce = null;
+      }, 150);
     }
     /**
      * Move scroller
@@ -24591,10 +24631,6 @@
       if (!percentTarget && percentTarget !== 0) return;
       this.#freezeSnap = true;
       this.move(percentTarget);
-      setTimeout(() => {
-        this.#freezeSnap = false;
-        this.#velocity = 0;
-      }, 100);
       return true;
     }
     /**
@@ -24611,16 +24647,7 @@
       this.#endValue = this.#percent * this.#maxValue / 100;
       this.#motion.set({ val: this.#endValue });
     }
-    /**
-     * Utils
-     *
-     * @type {() => void}
-     */
-    #calculateValue() {
-      if (this.#freezeSnap) return;
-      const percentValue = this.#endValue * 100 / this.#maxValue;
-      this.#percent = clamp3(percentValue, 0, 100);
-      this.#endValue = clamp3(this.#endValue, 0, this.#maxValue);
+    #setVelocity() {
       const time2 = modules_exports.getTime();
       const diffTime = time2 - this.#previousTime;
       const diffEndValue = this.#endValue - this.#previousEndValue;
@@ -24637,6 +24664,18 @@
       }
       this.#previousTime = time2;
       this.#previousEndValue = this.#endValue;
+    }
+    /**
+     * Utils
+     *
+     * @type {() => void}
+     */
+    #calculateValue() {
+      if (this.#freezeSnap) return;
+      const percentValue = this.#endValue * 100 / this.#maxValue;
+      this.#percent = clamp3(percentValue, 0, 100);
+      this.#endValue = clamp3(this.#endValue, 0, this.#maxValue);
+      this.#setVelocity();
       this.#motion.goTo({ val: this.#endValue }).catch(() => {
       });
       this.#onUpdateCallback?.({
@@ -24732,6 +24771,9 @@
       this.#onUpdateCallback = NOOP;
       this.#onAfterRefresh = NOOP;
       this.#afterInit = NOOP;
+      if (this.#snapResetDebounce) {
+        clearTimeout(this.#snapResetDebounce);
+      }
       if (this.#scopedEvent) {
         this.#scroller?.removeEventListener(
           "wheel",

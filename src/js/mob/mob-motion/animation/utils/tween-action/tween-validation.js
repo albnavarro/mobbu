@@ -551,7 +551,7 @@ export const valueIsFunctionAndReturnDefault = (value, label, defaultValue) => {
  * @template T
  * @param {T | undefined} value
  * @param {string} label
- * @param {(number[] | undefined} defaultValue
+ * @param {number[] | undefined} defaultValue
  * @returns {T}
  */
 export const valueIsArrayAndReturnDefault = (value, label, defaultValue) => {

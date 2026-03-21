@@ -288,6 +288,11 @@ export class MobSmoothScroller {
     #scrollDirection = 0;
 
     /**
+     * @type {any}
+     */
+    #snapResetDebounce = null;
+
+    /**
      * Create new SmoothScroller instance.
      *
      *        Available methods:
@@ -851,12 +856,26 @@ export class MobSmoothScroller {
                 /** @type {HTMLElement} */ (target)
             )
         ) {
+            /**
+             * Stessa logica del wheel: nuovo input = reset stato
+             */
+            if (this.#snapResetDebounce) {
+                clearTimeout(this.#snapResetDebounce);
+                this.#snapResetDebounce = null;
+            }
+
+            if (this.#freezeSnap) {
+                this.#freezeSnap = false;
+            }
+
             this.#firstTouchValue = this.#endValue;
             this.#dragEnable = true;
+
             this.#prevTouchVal = this.#getMousePos({
                 x: client?.x ?? 0,
                 y: client?.y ?? 0,
             });
+
             this.#touchVal = this.#getMousePos({
                 x: client?.x ?? 0,
                 y: client?.y ?? 0,
@@ -874,6 +893,12 @@ export class MobSmoothScroller {
          * Check next span on drag end;
          */
         this.#goToNextSnap();
+
+        /**
+         * Schedula il reset dello stato (come nel wheel). Se useSnap è true, aspetta il delay prima di permettere altri
+         * snap. Se useSnap è false, resetta comunque la velocity accumulata.
+         */
+        this.#scheduleSnapReset();
     }
 
     /**
@@ -925,10 +950,40 @@ export class MobSmoothScroller {
             FreezeMobPageScroll();
 
             /**
-             * Check next span on wheel, skip drag mode.
+             * DEBOUNCE:
+             *
+             * - Se l'utente scorre, cancella il reset pending.
+             * - Questo permette di accumulare "inertia" senza resettare.
+             */
+            if (this.#snapResetDebounce) {
+                clearTimeout(this.#snapResetDebounce);
+                this.#snapResetDebounce = null;
+            }
+
+            /**
+             * - Se siamo in uno snap ma l'utente scorre di nuovo,
+             * - Interrompi immediatamente lo snap per fluidità.
+             * - Il motion (lerp/spring) gestirà il cambio target.
+             */
+            if (this.#freezeSnap) {
+                this.#freezeSnap = false;
+                // Non resettare velocity qui: il nuovo wheel la aggiornerà
+            }
+
+            /**
+             * Check next span on wheel.
+             *
+             * - Ora freezeSnap è false se eravamo in uno snap interrotto.
+             * - Quindi possiamo valutare un nuovo snap.
              */
             const useSnap = !this.#dragEnable && this.#goToNextSnap();
-            if (useSnap) return;
+            if (useSnap) {
+                /**
+                 * Schedula il reset solo quando l'utente smette davvero di scorrere
+                 */
+                this.#scheduleSnapReset();
+                return;
+            }
 
             /**
              * Default mode.
@@ -963,7 +1018,34 @@ export class MobSmoothScroller {
             this.#calculateValue();
             this.#lastSpinY = spinY;
             this.#lastSpinX = spinX;
+
+            /**
+             * Schedula il reset:
+             *
+             * - Se non arrivano altri wheel per 150ms.
+             * - Considera l'utente fermo e resetta lo stato.
+             */
+            this.#scheduleSnapReset();
         }
+    }
+
+    /**
+     * Schedula il reset di freezeSnap e velocity.
+     *
+     * - Viene chiamato dopo ogni wheel o dopo uno snap.
+     *
+     * @type {() => void}
+     */
+    #scheduleSnapReset() {
+        if (this.#snapResetDebounce) {
+            clearTimeout(this.#snapResetDebounce);
+        }
+
+        this.#snapResetDebounce = setTimeout(() => {
+            this.#freezeSnap = false;
+            this.#velocity = 0;
+            this.#snapResetDebounce = null;
+        }, 150); // 150ms di pausa = utente fermo
     }
 
     /**
@@ -1018,14 +1100,6 @@ export class MobSmoothScroller {
         this.#freezeSnap = true;
         this.move(percentTarget);
 
-        /**
-         * Allow 1 snap every 500ms.
-         */
-        setTimeout(() => {
-            this.#freezeSnap = false;
-            this.#velocity = 0;
-        }, 100);
-
         return true;
     }
 
@@ -1052,21 +1126,7 @@ export class MobSmoothScroller {
         this.#motion.set({ val: this.#endValue });
     }
 
-    /**
-     * Utils
-     *
-     * @type {() => void}
-     */
-    #calculateValue() {
-        if (this.#freezeSnap) return;
-
-        const percentValue = (this.#endValue * 100) / this.#maxValue;
-        this.#percent = clamp(percentValue, 0, 100);
-        this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
-
-        /**
-         * Start velocity check.
-         */
+    #setVelocity() {
         const time = MobCore.getTime();
         const diffTime = time - this.#previousTime;
         const diffEndValue = this.#endValue - this.#previousEndValue;
@@ -1086,9 +1146,24 @@ export class MobSmoothScroller {
 
         this.#previousTime = time;
         this.#previousEndValue = this.#endValue;
+    }
+
+    /**
+     * Utils
+     *
+     * @type {() => void}
+     */
+    #calculateValue() {
+        if (this.#freezeSnap) return;
+
+        const percentValue = (this.#endValue * 100) / this.#maxValue;
+        this.#percent = clamp(percentValue, 0, 100);
+        this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
+
         /**
-         * End velocity check.
+         * Start velocity check.
          */
+        this.#setVelocity();
 
         /**
          * This.motion use spring or lerp, so goTo generic type is not the same. But we don't use props here, so skip ts
@@ -1212,6 +1287,10 @@ export class MobSmoothScroller {
         this.#onUpdateCallback = NOOP;
         this.#onAfterRefresh = NOOP;
         this.#afterInit = NOOP;
+
+        if (this.#snapResetDebounce) {
+            clearTimeout(this.#snapResetDebounce);
+        }
 
         if (this.#scopedEvent) {
             /** @type {HTMLElement} */ (this.#scroller)?.removeEventListener(
