@@ -24472,12 +24472,23 @@
     #onScopedWhell({ spinY = 0 }) {
       if (!mq[this.#queryType](this.#breakpoint)) return;
       this.#dragEnable = false;
+      if (this.#snapResetDebounce) {
+        clearTimeout(this.#snapResetDebounce);
+        this.#snapResetDebounce = null;
+      }
+      if (this.#freezeSnap) {
+        this.#freezeSnap = false;
+      }
       const useSnap = !this.#dragEnable && this.#goToNextSnap();
-      if (useSnap) return;
+      if (useSnap) {
+        this.#scheduleSnapReset();
+        return;
+      }
       const delta = this.#getDelta();
       const spinYParsed = clamp3(spinY, -1, 1);
-      this.#endValue += spinYParsed * this.#speed * delta;
+      this.#endValue += spinYParsed * this.#speed * clamp3(delta, 1, 10);
       this.#calculateValue();
+      this.#scheduleSnapReset();
     }
     /**
      * Listener related event. Global
@@ -24773,6 +24784,7 @@
       this.#afterInit = NOOP;
       if (this.#snapResetDebounce) {
         clearTimeout(this.#snapResetDebounce);
+        this.#snapResetDebounce = null;
       }
       if (this.#scopedEvent) {
         this.#scroller?.removeEventListener(

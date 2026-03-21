@@ -821,10 +821,22 @@ export class MobSmoothScroller {
         this.#dragEnable = false;
 
         /**
-         * Check next span on wheel, skip drag mode.
+         * Come #onWhell
          */
+        if (this.#snapResetDebounce) {
+            clearTimeout(this.#snapResetDebounce);
+            this.#snapResetDebounce = null;
+        }
+
+        if (this.#freezeSnap) {
+            this.#freezeSnap = false;
+        }
+
         const useSnap = !this.#dragEnable && this.#goToNextSnap();
-        if (useSnap) return;
+        if (useSnap) {
+            this.#scheduleSnapReset();
+            return;
+        }
 
         /**
          * Speed variation by screensize
@@ -835,8 +847,10 @@ export class MobSmoothScroller {
          * Normalize spinValue between -1 && 1.
          */
         const spinYParsed = clamp(spinY, -1, 1);
-        this.#endValue += spinYParsed * this.#speed * delta;
+        this.#endValue += spinYParsed * this.#speed * clamp(delta, 1, 10);
         this.#calculateValue();
+
+        this.#scheduleSnapReset();
     }
 
     /**
@@ -1290,6 +1304,7 @@ export class MobSmoothScroller {
 
         if (this.#snapResetDebounce) {
             clearTimeout(this.#snapResetDebounce);
+            this.#snapResetDebounce = null;
         }
 
         if (this.#scopedEvent) {
