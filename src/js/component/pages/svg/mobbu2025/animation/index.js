@@ -21,7 +21,7 @@ export const mobbu2025Scroller = ({
         direction: 'horizontal',
         drag: true,
         useHorizontalScroll: true,
-        easeType: 'lerp',
+        easeType: 'spring',
         breakpoint: 'small',
         children: [parallax2],
     });
