@@ -24260,11 +24260,17 @@
       if (!this.#propsIsValid) return;
       switch (this.#easeType) {
         case MobScrollerConstant.EASE_SPRING: {
-          this.#motion = new MobSpring();
+          this.#motion = new MobSpring({
+            data: { val: 0 },
+            config: "scroller",
+            configProps: {
+              tension: 15
+            }
+          });
           break;
         }
         default: {
-          this.#motion = new MobLerp();
+          this.#motion = new MobLerp({ data: { val: 0 } });
           this.#motion.updateVelocity(0.1);
           break;
         }
@@ -24387,7 +24393,6 @@
      */
     #initMotion() {
       if (!this.#motion) return;
-      this.#motion.setData({ val: 0 });
       this.#subscribeMotion = this.#motion.subscribe(({ val }) => {
         this.#scroller.style.transform = this.#direction == MobScrollerConstant.DIRECTION_VERTICAL ? `translate3d(0px, 0px, 0px) translateY(${-Math.trunc(val)}px)` : `translate3d(0px, 0px, 0px) translateX(${-Math.trunc(val)}px)`;
         this.#children.forEach((element) => {
@@ -24472,18 +24477,8 @@
     #onScopedWhell({ spinY = 0 }) {
       if (!mq[this.#queryType](this.#breakpoint)) return;
       this.#dragEnable = false;
-      if (this.#snapResetDebounce) {
-        clearTimeout(this.#snapResetDebounce);
-        this.#snapResetDebounce = null;
-      }
-      if (this.#freezeSnap) {
-        this.#freezeSnap = false;
-      }
-      const useSnap = !this.#dragEnable && this.#goToNextSnap();
-      if (useSnap) {
-        this.#scheduleSnapReset();
-        return;
-      }
+      const useSnap = this.#scheduleCurrentSnap();
+      if (useSnap) return;
       const delta = this.#getDelta();
       const spinYParsed = clamp3(spinY, -1, 1);
       this.#endValue += spinYParsed * this.#speed * clamp3(delta, 1, 10);
@@ -24504,15 +24499,9 @@
         /** @type {HTMLElement} */
         target
       )) {
-        if (this.#snapResetDebounce) {
-          clearTimeout(this.#snapResetDebounce);
-          this.#snapResetDebounce = null;
-        }
-        if (this.#freezeSnap) {
-          this.#freezeSnap = false;
-        }
         this.#firstTouchValue = this.#endValue;
         this.#dragEnable = true;
+        this.#scheduleCurrentSnap();
         this.#prevTouchVal = this.#getMousePos({
           x: client?.x ?? 0,
           y: client?.y ?? 0
@@ -24567,18 +24556,8 @@
         this.#dragEnable = false;
         preventDefault?.();
         FreezeMobPageScroll();
-        if (this.#snapResetDebounce) {
-          clearTimeout(this.#snapResetDebounce);
-          this.#snapResetDebounce = null;
-        }
-        if (this.#freezeSnap) {
-          this.#freezeSnap = false;
-        }
-        const useSnap = !this.#dragEnable && this.#goToNextSnap();
-        if (useSnap) {
-          this.#scheduleSnapReset();
-          return;
-        }
+        const useSnap = this.#scheduleCurrentSnap();
+        if (useSnap) return;
         const spinXdiff = Math.abs(this.#lastSpinX - spinX);
         const spinYdiff = Math.abs(this.#lastSpinY - spinY);
         const spinValue = this.#useHorizontalScroll ? (() => {
@@ -24611,20 +24590,21 @@
       }, 150);
     }
     /**
-     * Move scroller
-     *
-     * @example
-     *     myInstance.move(val);
-     *
-     * @param {number} percent Position in percent, from 0 to 100
-     * @returns {Promise<void>} Percent position in percent, from 0 to 100
+     * @returns {boolean | undefined}
      */
-    move(percent) {
-      if (!mq[this.#queryType](this.#breakpoint))
-        return new Promise((resolve) => resolve());
-      this.#percent = percent;
-      this.#endValue = this.#percent * this.#maxValue / 100;
-      return this.#motion.goTo({ val: this.#endValue });
+    #scheduleCurrentSnap() {
+      if (this.#snapResetDebounce) {
+        clearTimeout(this.#snapResetDebounce);
+        this.#snapResetDebounce = null;
+      }
+      if (this.#freezeSnap) {
+        this.#freezeSnap = false;
+      }
+      const useSnap = !this.#dragEnable && this.#goToNextSnap();
+      if (useSnap) {
+        this.#scheduleSnapReset();
+      }
+      return useSnap;
     }
     /**
      * Go to next snap by velocity;
@@ -24643,6 +24623,22 @@
       this.#freezeSnap = true;
       this.move(percentTarget);
       return true;
+    }
+    /**
+     * Move scroller
+     *
+     * @example
+     *     myInstance.move(val);
+     *
+     * @param {number} percent Position in percent, from 0 to 100
+     * @returns {Promise<void>} Percent position in percent, from 0 to 100
+     */
+    move(percent) {
+      if (!mq[this.#queryType](this.#breakpoint))
+        return new Promise((resolve) => resolve());
+      this.#percent = percent;
+      this.#endValue = this.#percent * this.#maxValue / 100;
+      return this.#motion.goTo({ val: this.#endValue });
     }
     /**
      * Move scroller immediatr
@@ -27174,7 +27170,7 @@
       scroller: scrollerElement,
       direction: "horizontal",
       drag: true,
-      easeType: "lerp",
+      easeType: "spring",
       breakpoint: "small",
       useHorizontalScroll: true,
       snapPoints,

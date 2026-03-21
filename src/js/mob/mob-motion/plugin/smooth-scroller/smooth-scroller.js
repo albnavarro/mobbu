@@ -537,12 +537,18 @@ export class MobSmoothScroller {
 
         switch (this.#easeType) {
             case MobScrollerConstant.EASE_SPRING: {
-                this.#motion = new MobSpring();
+                this.#motion = new MobSpring({
+                    data: { val: 0 },
+                    config: 'scroller',
+                    configProps: {
+                        tension: 15,
+                    },
+                });
                 break;
             }
 
             default: {
-                this.#motion = new MobLerp();
+                this.#motion = new MobLerp({ data: { val: 0 } });
                 this.#motion.updateVelocity(0.1);
                 break;
             }
@@ -708,7 +714,6 @@ export class MobSmoothScroller {
     #initMotion() {
         if (!this.#motion) return;
 
-        this.#motion.setData({ val: 0 });
         this.#subscribeMotion = this.#motion.subscribe(({ val }) => {
             /** @type {HTMLElement} */ (this.#scroller).style.transform =
                 this.#direction == MobScrollerConstant.DIRECTION_VERTICAL
@@ -821,22 +826,18 @@ export class MobSmoothScroller {
         this.#dragEnable = false;
 
         /**
-         * Come #onWhell
+         * Gestisce il lifecycle dello snap:
+         *
+         * 1. Interrompe eventuali snap in corso (freezeSnap = false)
+         * 2. Aggiorna/Cancella il timer di debounce
+         * 3. Valuta se attivare un nuovo snap (velocity > 5, direzione, etc.)
+         *
+         * Se uno snap viene attivato, il flusso corrente termina qui
+         *
+         * - Lo motion gestirà l'animazione verso il punto di snap.
          */
-        if (this.#snapResetDebounce) {
-            clearTimeout(this.#snapResetDebounce);
-            this.#snapResetDebounce = null;
-        }
-
-        if (this.#freezeSnap) {
-            this.#freezeSnap = false;
-        }
-
-        const useSnap = !this.#dragEnable && this.#goToNextSnap();
-        if (useSnap) {
-            this.#scheduleSnapReset();
-            return;
-        }
+        const useSnap = this.#scheduleCurrentSnap();
+        if (useSnap) return;
 
         /**
          * Speed variation by screensize
@@ -870,20 +871,16 @@ export class MobSmoothScroller {
                 /** @type {HTMLElement} */ (target)
             )
         ) {
-            /**
-             * Stessa logica del wheel: nuovo input = reset stato
-             */
-            if (this.#snapResetDebounce) {
-                clearTimeout(this.#snapResetDebounce);
-                this.#snapResetDebounce = null;
-            }
-
-            if (this.#freezeSnap) {
-                this.#freezeSnap = false;
-            }
-
             this.#firstTouchValue = this.#endValue;
             this.#dragEnable = true;
+
+            /**
+             * - Interrompe eventuali snap in corso.
+             * - #dragEnable sará sempre true qui, per cui:
+             * - ScheduleCurrentSnap ritorna sempre false
+             * - Non abbiamo bisogno di uteriori controlli.
+             */
+            this.#scheduleCurrentSnap();
 
             this.#prevTouchVal = this.#getMousePos({
                 x: client?.x ?? 0,
@@ -909,8 +906,9 @@ export class MobSmoothScroller {
         this.#goToNextSnap();
 
         /**
-         * Schedula il reset dello stato (come nel wheel). Se useSnap è true, aspetta il delay prima di permettere altri
-         * snap. Se useSnap è false, resetta comunque la velocity accumulata.
+         * - Schedula il reset dello stato (come nel wheel).
+         * - Se useSnap è true, aspetta il delay prima di permettere altri snap.
+         * - Se useSnap è false, resetta comunque la velocity accumulata.
          */
         this.#scheduleSnapReset();
     }
@@ -964,40 +962,18 @@ export class MobSmoothScroller {
             FreezeMobPageScroll();
 
             /**
-             * DEBOUNCE:
+             * Gestisce il lifecycle dello snap:
              *
-             * - Se l'utente scorre, cancella il reset pending.
-             * - Questo permette di accumulare "inertia" senza resettare.
-             */
-            if (this.#snapResetDebounce) {
-                clearTimeout(this.#snapResetDebounce);
-                this.#snapResetDebounce = null;
-            }
-
-            /**
-             * - Se siamo in uno snap ma l'utente scorre di nuovo,
-             * - Interrompi immediatamente lo snap per fluidità.
-             * - Il motion (lerp/spring) gestirà il cambio target.
-             */
-            if (this.#freezeSnap) {
-                this.#freezeSnap = false;
-                // Non resettare velocity qui: il nuovo wheel la aggiornerà
-            }
-
-            /**
-             * Check next span on wheel.
+             * 1. Interrompe eventuali snap in corso (freezeSnap = false)
+             * 2. Aggiorna/Cancella il timer di debounce
+             * 3. Valuta se attivare un nuovo snap (velocity > 5, direzione, etc.)
              *
-             * - Ora freezeSnap è false se eravamo in uno snap interrotto.
-             * - Quindi possiamo valutare un nuovo snap.
+             * Se uno snap viene attivato, il flusso corrente termina qui
+             *
+             * - Lo motion gestirà l'animazione verso il punto di snap.
              */
-            const useSnap = !this.#dragEnable && this.#goToNextSnap();
-            if (useSnap) {
-                /**
-                 * Schedula il reset solo quando l'utente smette davvero di scorrere
-                 */
-                this.#scheduleSnapReset();
-                return;
-            }
+            const useSnap = this.#scheduleCurrentSnap();
+            if (useSnap) return;
 
             /**
              * Default mode.
@@ -1036,7 +1012,7 @@ export class MobSmoothScroller {
             /**
              * Schedula il reset:
              *
-             * - Se non arrivano altri wheel per 150ms.
+             * - Se non arrivano altri wheel per x ms.
              * - Considera l'utente fermo e resetta lo stato.
              */
             this.#scheduleSnapReset();
@@ -1063,28 +1039,45 @@ export class MobSmoothScroller {
     }
 
     /**
-     * Move scroller
-     *
-     * @example
-     *     myInstance.move(val);
-     *
-     * @param {number} percent Position in percent, from 0 to 100
-     * @returns {Promise<void>} Percent position in percent, from 0 to 100
+     * @returns {boolean | undefined}
      */
-    move(percent) {
-        if (!mq[this.#queryType](this.#breakpoint))
-            return new Promise((resolve) => resolve());
-
-        this.#percent = percent;
-        this.#endValue = (this.#percent * this.#maxValue) / 100;
+    #scheduleCurrentSnap() {
+        /**
+         * DEBOUNCE:
+         *
+         * - Se l'utente scorre, cancella il reset pending.
+         * - Questo permette di accumulare "inertia" senza resettare.
+         */
+        if (this.#snapResetDebounce) {
+            clearTimeout(this.#snapResetDebounce);
+            this.#snapResetDebounce = null;
+        }
 
         /**
-         * This.motion use spring or lerp, so goTo generic type is not the same. But we don't use props here, so skip ts
-         * error
+         * - Se siamo in uno snap ma l'utente scorre di nuovo,
+         * - Interrompi immediatamente lo snap per fluidità.
+         * - Il motion (lerp/spring) gestirà il cambio target ( toValue ).
          */
+        if (this.#freezeSnap) {
+            this.#freezeSnap = false;
+        }
 
-        // @ts-ignore
-        return this.#motion.goTo({ val: this.#endValue });
+        /**
+         * Check next snap on wheel.
+         *
+         * - Ora freezeSnap è false se eravamo in uno snap interrotto.
+         * - Quindi possiamo valutare un nuovo snap.
+         */
+        const useSnap = !this.#dragEnable && this.#goToNextSnap();
+
+        if (useSnap) {
+            /**
+             * Schedula il reset solo quando l'utente smette davvero di scorrere
+             */
+            this.#scheduleSnapReset();
+        }
+
+        return useSnap;
     }
 
     /**
@@ -1115,6 +1108,31 @@ export class MobSmoothScroller {
         this.move(percentTarget);
 
         return true;
+    }
+
+    /**
+     * Move scroller
+     *
+     * @example
+     *     myInstance.move(val);
+     *
+     * @param {number} percent Position in percent, from 0 to 100
+     * @returns {Promise<void>} Percent position in percent, from 0 to 100
+     */
+    move(percent) {
+        if (!mq[this.#queryType](this.#breakpoint))
+            return new Promise((resolve) => resolve());
+
+        this.#percent = percent;
+        this.#endValue = (this.#percent * this.#maxValue) / 100;
+
+        /**
+         * This.motion use spring or lerp, so goTo generic type is not the same. But we don't use props here, so skip ts
+         * error
+         */
+
+        // @ts-ignore
+        return this.#motion.goTo({ val: this.#endValue });
     }
 
     /**

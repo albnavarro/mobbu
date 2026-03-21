@@ -73,7 +73,7 @@ export const aboutAnimation = ({
         scroller: scrollerElement,
         direction: 'horizontal',
         drag: true,
-        easeType: 'lerp',
+        easeType: 'spring',
         breakpoint: 'small',
         useHorizontalScroll: true,
         snapPoints,
