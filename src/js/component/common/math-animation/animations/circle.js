@@ -76,7 +76,7 @@ export const mathCircle = ({ targets, container, canvas } = {}) => {
         ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        ctx.arc(centerX, centerY, Math.abs(radius), 0, 2 * Math.PI);
 
         ctx.stroke();
         // ctx.setLineDash([]);
