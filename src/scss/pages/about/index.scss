@@ -7,6 +7,11 @@
     pointer-events: none;
 
     --sreen-size: 80vw;
+    --vertical-gap: 10vh;
+
+    @media screen and (height >= 800px) {
+        --vertical-gap: #{rem(120)};
+    }
 
     &.active {
         pointer-events: all;
@@ -15,13 +20,13 @@
     &__square {
         position: absolute;
         z-index: 11;
-        top: rem(120);
+        top: var(--vertical-gap);
         left: 50%;
         width: var(--sreen-size);
         height: calc(
-            /* stylelint-disable-next-line  scss/operator-no-newline-after */
-                100vh - var(--footer-height) - var(--header-height) -
-                #{rem(120)} - #{rem(120)}
+            100vh - var(--footer-height) - var(--header-height) - var(
+                    --vertical-gap
+                ) - var(--vertical-gap)
         );
         transform: translateX(-50%);
         border: 1px rgba($black, 0.2) solid;
@@ -195,6 +200,11 @@
             max-width: rem(600);
             margin: auto;
             margin-top: rem(20);
+
+            @media screen and (height < 800px) {
+                font-size: rem(13);
+                line-height: 1.5;
+            }
         }
     }
 
@@ -278,7 +288,7 @@
     &__next {
         position: absolute;
         z-index: 12;
-        bottom: rem(122);
+        bottom: calc(var(--vertical-gap) + 1px);
         left: 50%;
         width: rem(50);
         height: rem(50);
@@ -338,7 +348,7 @@
         display: flex;
         position: absolute;
         z-index: 11;
-        bottom: rem(120);
+        bottom: var(--vertical-gap);
         left: 50%;
         margin-left: 0;
         padding-left: 0;
