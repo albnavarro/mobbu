@@ -1064,10 +1064,29 @@ export class MobSmoothScroller {
      */
     #scheduleCurrentSnap() {
         /**
-         * DEBOUNCE:
+         * GESTIONE DEL DEBOUNCE E DELLO STATO SNAP
          *
-         * - Se l'utente scorre, cancella il reset pending.
-         * - Questo permette di accumulare "inertia" senza resettare.
+         * Quando l'utente scorre (wheel/touch) durante uno snap o subito dopo:
+         *
+         * 1. CANCELLIAMO il timeout di reset pending
+         *
+         * - Senza questo, il timer scadrebbe automaticamente dopo 150ms
+         * - Resetterebbe freezeSnap=false e velocity=1 "a caso", durante l'interazione
+         * - Il clearTimeout "posticipa" il reset fino a quando l'utente è attivo
+         *
+         * 2. INTERRUMPIAMO immediatamente lo snap in corso (se c'è)
+         *
+         * - FreezeSnap = false permette a calculateValue() di riprendere
+         * - Il motion (lerp/spring) gestirà il cambio target in modo fluido
+         *
+         * 3. "ACCUMULIAMO INERTIA"
+         *
+         * - Velocity continua a crescere con gli eventi successivi
+         * - Non viene resettata a 1 dal timeout che abbiamo cancellato
+         * - Questo permette a goToNextSnap() di valutare correttamente se attivare un nuovo snap
+         *
+         * NOTA: Non stiamo "preservando" lo snap precedente, lo stiamo interrompendo per dare priorità all'input
+         * utente. Il clearTimeout evita solo che lo stato venga alterato automaticamente dal timer.
          */
         if (this.#snapResetDebounce) {
             clearTimeout(this.#snapResetDebounce);
