@@ -1002,7 +1002,7 @@ export class MobSmoothScroller {
              *
              * 1. Interrompe eventuali snap in corso (freezeSnap = false)
              * 2. Aggiorna/Cancella il timer di debounce
-             * 3. Valuta se attivare un nuovo snap (velocity > 5, direzione, etc.)
+             * 3. Valuta se attivare un nuovo snap (velocity > X, direzione, etc.)
              *
              * Se uno snap viene attivato, il flusso corrente termina qui
              *
@@ -1056,7 +1056,7 @@ export class MobSmoothScroller {
     }
 
     /**
-     * Schedula il reset di freezeSnap e velocity.
+     * Schedula il reset di velocity ( per coerenza anche di freezeSnap ).
      *
      * - Viene chiamato dopo ogni wheel, dopo uno snap o al rilascio del drag.
      * - Il reset avviene dopo 1.5 frame ( 1500ms / currentFps ),
@@ -1086,29 +1086,13 @@ export class MobSmoothScroller {
      */
     #scheduleCurrentSnap() {
         /**
-         * GESTIONE DEL DEBOUNCE E DELLO STATO SNAP
-         *
-         * Quando l'utente scorre (wheel/touch) durante uno snap o subito dopo:
-         *
          * 1. CANCELLIAMO il timeout di reset pending
          *
-         * - Senza questo, il timer scadrebbe automaticamente dopo 1.5 frame.
-         * - Resetterebbe freezeSnap=false e velocity=1 "a caso", durante l'interazione
-         * - Il clearTimeout "posticipa" il reset fino a quando l'utente è attivo
+         * - Se il timer scadesse ora, resetterebbe velocity a 1.
+         * - Con velocity = 1, il check successivo `this.#velocity < X` in goToNextSnap() fallirebbe.
+         * - Impedirebbe cosi l'attivazione dello snap nonostante l'utente stia scrollando velocemente.
          *
-         * 2. INTERRUMPIAMO immediatamente lo snap in corso (se c'è)
-         *
-         * - FreezeSnap = false permette a calculateValue() di riprendere
-         * - Il motion (lerp/spring) gestirà il cambio target in modo fluido
-         *
-         * 3. "ACCUMULIAMO INERTIA"
-         *
-         * - Velocity continua a crescere con gli eventi successivi
-         * - Non viene resettata a 1 dal timeout che abbiamo cancellato
-         * - Questo permette a goToNextSnap() di valutare correttamente se attivare un nuovo snap
-         *
-         * NOTA: Non stiamo "preservando" lo snap precedente, lo stiamo interrompendo per dare priorità all'input
-         * utente. Il clearTimeout evita solo che lo stato venga alterato automaticamente dal timer.
+         * Il clearTimeout mantiene la velocity accumulata per permettere la valutazione corretta del prossimo snap.
          */
         if (this.#snapResetDebounce) {
             clearTimeout(this.#snapResetDebounce);
@@ -1116,19 +1100,23 @@ export class MobSmoothScroller {
         }
 
         /**
-         * - Se siamo in uno snap ma l'utente scorre di nuovo,
-         * - Interrompi immediatamente lo snap per fluidità.
-         * - Il motion (lerp/spring) gestirà il cambio target ( toValue ).
+         * 2. INTERRUMPIAMO lo snap in corso (se c'è)
+         *
+         * - Se eravamo già in uno snap automatico:
+         * - Lo interrompiamo per dare priorità al nuovo input utente.
+         * - FreezeSnap = false permette a calculateValue() di riprendere e il motion gestirà il cambio target in modo
+         *   fluido.
          */
         if (this.#freezeSnap) {
             this.#freezeSnap = false;
         }
 
         /**
-         * Check next snap on wheel.
+         * 3. VALUTIAMO il nuovo snap
          *
-         * - Ora freezeSnap è false se eravamo in uno snap interrotto.
-         * - Quindi possiamo valutare un nuovo snap.
+         * - Ora che velocity è preservata (non resettata dal timer) e freezeSnap è sbloccato, possiamo valutare se
+         *   attivare uno snap.
+         * - Se attivato, freezeSnap tornerà true e il motion gestirà l'animazione.
          */
         const useSnap = !this.#dragEnable && this.#goToNextSnap();
 
@@ -1268,6 +1256,13 @@ export class MobSmoothScroller {
      * @type {() => void}
      */
     #calculateValue() {
+        /**
+         * Layer di sicurezza.
+         *
+         * - Tutti i `chiamanti` di #calculateValue devono prima eseguire `#scheduleCurrentSnap()`.
+         * - `#scheduleCurrentSnap()` modificano il valore di freezeSnap a false.
+         * - Manteniamo il controllo in caso di future modifiche.
+         */
         if (this.#freezeSnap) return;
 
         const percentValue = (this.#endValue * 100) / this.#maxValue;
