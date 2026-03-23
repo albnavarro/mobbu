@@ -828,12 +828,27 @@ export class MobSmoothScroller {
     }
 
     /**
-     * Speed variation by screensize
+     * Speed variation by screensize, frame rate and device pixel ratio.
+     *
+     * - Screen size: normalizza la velocità rispetto alla risoluzione di riferimento.
+     * - Frame rate: normalizza rispetto a 60fps come baseline. A refresh rate più alti (120Hz, 144Hz) gli eventi wheel
+     *   arrivano proporzionalmente più frequenti, senza questa compensazione lo scroll risulterebbe più veloce su
+     *   display ad alto refresh rate.
+     * - DPR: su display Retina (DPR > 1), applica una correzione per compensare la maggiore densità di pixel che rende lo
+     *   scroll percepito più veloce.
      */
     #getDelta() {
-        return this.#direction === MobScrollerConstant.DIRECTION_HORIZONTAL
-            ? this.#screenWidth / 1920
-            : this.#screenHeight / 1080;
+        const screenDelta =
+            this.#direction === MobScrollerConstant.DIRECTION_HORIZONTAL
+                ? this.#screenWidth / 1920
+                : this.#screenHeight / 1080;
+
+        const fpsDelta = 60 / MobCore.getFps();
+
+        const dpr = window.devicePixelRatio || 1;
+        const dprCorrection = dpr > 1 ? Math.sqrt(dpr) : 1;
+
+        return (screenDelta * fpsDelta) / dprCorrection;
     }
 
     /**
@@ -920,7 +935,7 @@ export class MobSmoothScroller {
         this.#dragEnable = false;
 
         /**
-         * Check next span on drag end;
+         * Check next snap on drag end;
          */
         this.#goToNextSnap();
 
@@ -1052,11 +1067,14 @@ export class MobSmoothScroller {
             clearTimeout(this.#snapResetDebounce);
         }
 
-        this.#snapResetDebounce = setTimeout(() => {
-            this.#freezeSnap = false;
-            this.#velocity = 1;
-            this.#snapResetDebounce = null;
-        }, 150); // 150ms di pausa = utente fermo
+        this.#snapResetDebounce = setTimeout(
+            () => {
+                this.#freezeSnap = false;
+                this.#velocity = 1;
+                this.#snapResetDebounce = null;
+            },
+            Math.ceil(1500 / MobCore.getFps())
+        );
     }
 
     /**
@@ -1128,7 +1146,7 @@ export class MobSmoothScroller {
     #goToNextSnap() {
         if (
             this.#snapPoints.length === 0 ||
-            this.#velocity < 5 ||
+            this.#velocity < 3 ||
             this.#freezeSnap
         )
             return;
@@ -1214,7 +1232,18 @@ export class MobSmoothScroller {
         this.#scrollDirection = Math.sign(diffEndValue);
 
         if (diffTime < 100) {
-            const vv = diffEndValue / diffTime;
+            /**
+             * Normalizza diffTime a un baseline di 60fps
+             *
+             * - Su display ad alto refresh rate (120Hz, 144Hz) gli eventi arrivano con diffTime più basso.
+             * - Gonfiando artificialmente la velocity.
+             * - Math.max porta diffTime ad almeno 16.67ms, equiparando la velocity a quella che si avrebbe a 60fps.
+             * - Per eventi meno frequenti (mouse wheel, ~80-100ms) diffTime è già maggiore del baseline, quindi non viene
+             *   alterato.
+             */
+            const baselineInterval = 1000 / 60;
+            const normalizedDiffTime = Math.max(diffTime, baselineInterval);
+            const vv = diffEndValue / normalizedDiffTime;
             this.#velocity = Math.max(
                 1,
                 Math.round((Math.abs(vv) + 1) * 10_000) / 10_000
