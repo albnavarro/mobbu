@@ -1058,7 +1058,11 @@ export class MobSmoothScroller {
     /**
      * Schedula il reset di freezeSnap e velocity.
      *
-     * - Viene chiamato dopo ogni wheel o dopo uno snap.
+     * - Viene chiamato dopo ogni wheel, dopo uno snap o al rilascio del drag.
+     * - Il reset avviene dopo 1.5 frame ( 1500ms / currentFps ),
+     * - Questo serve a gestire eventi molto ravvicinati del trackpad.
+     * - Se arrivano nuovi eventi durante questa finestra, il timer viene cancellato e rischedulato, permettendo alla
+     *   velocity di accumularsi senza reset.
      *
      * @type {() => void}
      */
@@ -1088,7 +1092,7 @@ export class MobSmoothScroller {
          *
          * 1. CANCELLIAMO il timeout di reset pending
          *
-         * - Senza questo, il timer scadrebbe automaticamente dopo 150ms
+         * - Senza questo, il timer scadrebbe automaticamente dopo 1.5 frame.
          * - Resetterebbe freezeSnap=false e velocity=1 "a caso", durante l'interazione
          * - Il clearTimeout "posticipa" il reset fino a quando l'utente è attivo
          *
