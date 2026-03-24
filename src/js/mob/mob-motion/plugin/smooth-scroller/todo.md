@@ -23,10 +23,3 @@ this.#isMoving = false;
 this.#children.forEach((element) => element.triggerScrollEnd());
 ```
 
-### test delta:
-- Provare a limitare il valore `max` per il trackpad.
-
-```javascript
-this.#endValue +=
-    clamp(spinValue, -1, 1) * this.#speed * clamp(delta, 1, 10);
-```
