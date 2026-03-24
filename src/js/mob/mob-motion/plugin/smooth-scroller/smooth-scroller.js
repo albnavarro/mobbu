@@ -188,8 +188,14 @@ export class MobSmoothScroller {
      */
     #queryType;
 
+    /**
+     * @type {string | Element | null}
+     */
     #scroller;
 
+    /**
+     * @type {string | Element | null}
+     */
     #screen;
 
     /**
@@ -291,6 +297,11 @@ export class MobSmoothScroller {
      * @type {any}
      */
     #snapResetDebounce = null;
+
+    /**
+     * @type {number}
+     */
+    #lastSnapTime = MobCore.getTime();
 
     /**
      * Create new SmoothScroller instance.
@@ -1155,6 +1166,13 @@ export class MobSmoothScroller {
         if (!percentTarget && percentTarget !== 0) return;
 
         this.#freezeSnap = true;
+
+        /**
+         * Importante. Questo é l'unico punto in cui settare lastSnapTime.
+         *
+         * - Si tratta dell' ultimo livello di sicurezza per preservare la chiamata dello snap
+         */
+        this.#lastSnapTime = MobCore.getTime();
         this.move(percentTarget);
 
         return true;
@@ -1257,7 +1275,7 @@ export class MobSmoothScroller {
      */
     #calculateValue() {
         /**
-         * Layer di sicurezza.
+         * Layer di sicurezza n1.
          *
          * - Tutti i `chiamanti` di #calculateValue devono prima eseguire `#scheduleCurrentSnap()`.
          * - `#scheduleCurrentSnap()` modificano il valore di freezeSnap a false.
@@ -1265,6 +1283,26 @@ export class MobSmoothScroller {
          */
         if (this.#freezeSnap) return;
 
+        /**
+         * Layer di sicurezza n2.
+         *
+         * - Se appena dopo uno snap ci troviamo inquesto punto del codice vuol dire che:
+         * - Sappiamo che stiamo esenguendo uno snap,e questo evento é da considerarsi involontario
+         * - Usiamo 100ms come threshold, nei primi 100ms da uno snap siamo sicuri che l'azione corrente é uno snap.
+         * - Ci blocchiamo subito.
+         * - Questo evento puó eseere causato da vari motivi, es: rotella del mouse con inerzia su monitor ad alta
+         *   frequenza.
+         * - 100ms sono un tempo ragionevole, dopo uno snap qualsiasi evento che arriva nei primi 100ms é per forza un
+         *   residuo indesiderato.
+         * - Senza questo controllo il target dello span corrente rischia di essere alterato.
+         */
+        const currentTime = MobCore.getTime();
+        const timeFromLastSnap = Math.abs(this.#lastSnapTime - currentTime);
+        if (timeFromLastSnap < 100) return;
+
+        /**
+         * Update basi value
+         */
         const percentValue = (this.#endValue * 100) / this.#maxValue;
         this.#percent = clamp(percentValue, 0, 100);
         this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
