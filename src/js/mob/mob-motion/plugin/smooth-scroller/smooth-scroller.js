@@ -1241,7 +1241,17 @@ export class MobSmoothScroller {
          */
         this.#scrollDirection = Math.sign(diffEndValue);
 
-        if (diffTime < 100) {
+        /**
+         * Indetifichiamo la pausa esplicita dell' utente ( ha smesso di scrollare )
+         *
+         * - Usiamo come valore il doppio del debounce.
+         */
+        const threshold = Math.ceil(3000 / MobCore.getFps());
+
+        /**
+         * Arriviamo da uno scorrimento continuo.
+         */
+        if (diffTime <= threshold) {
             /**
              * Normalizza diffTime a un baseline di 60fps
              *
@@ -1260,7 +1270,10 @@ export class MobSmoothScroller {
             );
         }
 
-        if (diffTime > 100) {
+        /**
+         * Dopo una pausa gestiamo la ripresa dal valore neutro di velocitá pari a 1.
+         */
+        if (diffTime > threshold) {
             this.#velocity = 1;
         }
 
