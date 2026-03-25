@@ -22,4 +22,6 @@ if (!this.#isMoving) {
 this.#isMoving = false;
 this.#children.forEach((element) => element.triggerScrollEnd());
 ```
+### Spring/Lerp
 
+- Modificare tension/lerp-config in base alla velocitá sullo snap.

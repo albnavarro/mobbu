@@ -951,11 +951,14 @@ export class MobSmoothScroller {
         this.#goToNextSnap();
 
         /**
-         * - Qui non vogliamo triggere uno snap, il movimento durante il drag é 1:1
-         * - Lo snap si triggera al rilascio del mouse.
-         * - Schedula il reset dello stato (come nel wheel).
-         * - Se useSnap è true, aspetta il delay prima di permettere altri snap.
-         * - Se useSnap è false, resetta comunque la velocity accumulata.
+         * Prepara lo stato per il prossimo input (evento) dopo uno snap da drag.
+         *
+         * - Dopo uno swipe veloce (con conseguente snap), la velocity rimane alta (es. 8.0).
+         * - Il primo wheel troverebbe velocity >= 3 e verrebbe intercettato da goToNextSnap().
+         * - Verrebbe forzato un nuovo snap (spesso verso lo stesso punto), rendendo il wheel non reattivo.
+         * - Questo metodo schedula il ripristino di velocity a 1 dopo ~25ms (1500/fps).
+         * - Così il prossimo wheel troverà velocity insufficiente per triggerare un nuovo snap e potrà scorrere
+         *   liberamente.
          */
         this.#scheduleSnapReset();
     }
@@ -1250,8 +1253,12 @@ export class MobSmoothScroller {
 
         /**
          * Arriviamo da uno scorrimento continuo.
+         *
+         * - Il check su diffEndValue ( valore attuale e precedente uguale ) é necessario perché:
+         * - 1. Drag con movimento < 0.5px (arrotontato a 0 da Math.round())
+         * - 2. Scroll oltre i limiti (clamp blocca il valore)
          */
-        if (diffTime <= threshold) {
+        if (diffTime <= threshold && diffEndValue !== 0) {
             /**
              * Normalizza diffTime a un baseline di 60fps
              *
