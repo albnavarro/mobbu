@@ -95,9 +95,20 @@ export interface MobSmoothScroller {
      */
     queryType?: MqAction;
 
+    /**
+     * Which breakpoint should use
+     */
     breakpoint?: MqValues;
 
+    /**
+     * Array of snap point in percent
+     */
     snapPoints?: number[];
+
+    /**
+     * You can adjust the speed of the wheel event. The default value is `60`.
+     */
+    velocityThreshold?: number;
 }
 
 export type MobSmoothScrollerOnMouseEvent = (

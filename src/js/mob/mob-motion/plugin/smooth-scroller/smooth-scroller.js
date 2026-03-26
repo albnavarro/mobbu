@@ -304,6 +304,11 @@ export class MobSmoothScroller {
     #lastSnapTime = MobCore.getTime();
 
     /**
+     * @type {number}
+     */
+    #velocityThreshold;
+
+    /**
      * Create new SmoothScroller instance.
      *
      *        Available methods:
@@ -475,6 +480,12 @@ export class MobSmoothScroller {
             data?.snapPoints,
             'SmoothScroller: snapPoints',
             []
+        );
+
+        this.#velocityThreshold = valueIsNumberAndReturnDefault(
+            data?.velocityThreshold,
+            'SmoothScroller: velocityThreshold',
+            3
         );
 
         this.#children = data?.children || [];
@@ -881,7 +892,9 @@ export class MobSmoothScroller {
          *
          * - Lo motion gestirà l'animazione verso il punto di snap.
          */
-        const useSnap = this.#scheduleCurrentSnap();
+        const useSnap =
+            this.#snapPoints.length > 0 ? this.#scheduleCurrentSnap() : false;
+
         if (useSnap) return;
 
         /**
@@ -896,7 +909,7 @@ export class MobSmoothScroller {
         this.#endValue += spinYParsed * this.#speed * clamp(delta, 1, 10);
         this.#calculateValue();
 
-        this.#scheduleSnapReset();
+        if (this.#snapPoints.length > 0) this.#scheduleSnapReset();
     }
 
     /**
@@ -925,7 +938,7 @@ export class MobSmoothScroller {
              * - ScheduleCurrentSnap ritorna sempre false
              * - Non abbiamo bisogno di uteriori controlli.
              */
-            this.#scheduleCurrentSnap();
+            if (this.#snapPoints.length > 0) this.#scheduleCurrentSnap();
 
             this.#prevTouchVal = this.#getMousePos({
                 x: client?.x ?? 0,
@@ -945,22 +958,24 @@ export class MobSmoothScroller {
     #onMouseUp() {
         this.#dragEnable = false;
 
-        /**
-         * Check next snap on drag end;
-         */
-        this.#goToNextSnap();
+        if (this.#snapPoints.length > 0) {
+            /**
+             * Check next snap on drag end;
+             */
+            this.#goToNextSnap();
 
-        /**
-         * Prepara lo stato per il prossimo input (evento) dopo uno snap da drag.
-         *
-         * - Dopo uno swipe veloce (con conseguente snap), la velocity rimane alta (es. 8.0).
-         * - Il primo wheel troverebbe velocity >= 3 e verrebbe intercettato da goToNextSnap().
-         * - Verrebbe forzato un nuovo snap (spesso verso lo stesso punto), rendendo il wheel non reattivo.
-         * - Questo metodo schedula il ripristino di velocity a 1 dopo ~25ms (1500/fps).
-         * - Così il prossimo wheel troverà velocity insufficiente per triggerare un nuovo snap e potrà scorrere
-         *   liberamente.
-         */
-        this.#scheduleSnapReset();
+            /**
+             * Prepara lo stato per il prossimo input (evento) dopo uno snap da drag.
+             *
+             * - Dopo uno swipe veloce (con conseguente snap), la velocity rimane alta (es. 8.0).
+             * - Il primo wheel troverebbe velocity >= 3 e verrebbe intercettato da goToNextSnap().
+             * - Verrebbe forzato un nuovo snap (spesso verso lo stesso punto), rendendo il wheel non reattivo.
+             * - Questo metodo schedula il ripristino di velocity a 1 dopo ~25ms (1500/fps).
+             * - Così il prossimo wheel troverà velocity insufficiente per triggerare un nuovo snap e potrà scorrere
+             *   liberamente.
+             */
+            this.#scheduleSnapReset();
+        }
     }
 
     /**
@@ -1022,7 +1037,11 @@ export class MobSmoothScroller {
              *
              * - Lo motion gestirà l'animazione verso il punto di snap.
              */
-            const useSnap = this.#scheduleCurrentSnap();
+            const useSnap =
+                this.#snapPoints.length > 0
+                    ? this.#scheduleCurrentSnap()
+                    : false;
+
             if (useSnap) return;
 
             /**
@@ -1065,7 +1084,7 @@ export class MobSmoothScroller {
              * - Se non arrivano altri wheel per x ms.
              * - Considera l'utente fermo e resetta lo stato.
              */
-            this.#scheduleSnapReset();
+            if (this.#snapPoints.length > 0) this.#scheduleSnapReset();
         }
     }
 
@@ -1099,16 +1118,18 @@ export class MobSmoothScroller {
      * @returns {boolean | undefined}
      */
     #scheduleCurrentSnap() {
-        /**
-         * 1. CANCELLIAMO il timeout di reset pending
-         *
-         * - Se il timer scadesse ora, resetterebbe velocity a 1.
-         * - Con velocity = 1, il check successivo `this.#velocity < X` in goToNextSnap() fallirebbe.
-         * - Impedirebbe cosi l'attivazione dello snap nonostante l'utente stia scrollando velocemente.
-         *
-         * Il clearTimeout mantiene la velocity accumulata per permettere la valutazione corretta del prossimo snap.
-         */
+        if (this.#snapPoints.length === 0) return;
+
         if (this.#snapResetDebounce) {
+            /**
+             * 1. CANCELLIAMO il timeout di reset pending
+             *
+             * - Se il timer scadesse ora, resetterebbe velocity a 1.
+             * - Con velocity = 1, il check successivo `this.#velocity < X` in goToNextSnap() fallirebbe.
+             * - Impedirebbe cosi l'attivazione dello snap nonostante l'utente stia scrollando velocemente.
+             *
+             * Il clearTimeout mantiene la velocity accumulata per permettere la valutazione corretta del prossimo snap.
+             */
             clearTimeout(this.#snapResetDebounce);
             this.#snapResetDebounce = null;
         }
@@ -1152,7 +1173,7 @@ export class MobSmoothScroller {
     #goToNextSnap() {
         if (
             this.#snapPoints.length === 0 ||
-            this.#velocity < 3 ||
+            this.#velocity < this.#velocityThreshold ||
             this.#freezeSnap
         )
             return;
@@ -1300,8 +1321,9 @@ export class MobSmoothScroller {
          * - Tutti i `chiamanti` di #calculateValue devono prima eseguire `#scheduleCurrentSnap()`.
          * - `#scheduleCurrentSnap()` modificano il valore di freezeSnap a false.
          * - Manteniamo il controllo in caso di future modifiche.
+         * - SnapPoints.length serve a proteggere per fuiture modifiche, attualamente non sarebbe necessario.
          */
-        if (this.#freezeSnap) return;
+        if (this.#snapPoints.length > 0 && this.#freezeSnap) return;
 
         /**
          * Layer di sicurezza n2.
@@ -1316,9 +1338,11 @@ export class MobSmoothScroller {
          *   residuo indesiderato.
          * - Senza questo controllo il target dello span corrente rischia di essere alterato.
          */
-        const currentTime = MobCore.getTime();
-        const timeFromLastSnap = Math.abs(this.#lastSnapTime - currentTime);
-        if (timeFromLastSnap < 100) return;
+        if (this.#snapPoints.length > 0) {
+            const currentTime = MobCore.getTime();
+            const timeFromLastSnap = Math.abs(this.#lastSnapTime - currentTime);
+            if (timeFromLastSnap < 100) return;
+        }
 
         /**
          * Update basi value
@@ -1330,7 +1354,7 @@ export class MobSmoothScroller {
         /**
          * Start velocity check.
          */
-        this.#setVelocity();
+        if (this.#snapPoints.length > 0) this.#setVelocity();
 
         /**
          * This.motion use spring or lerp, so goTo generic type is not the same. But we don't use props here, so skip ts
