@@ -1345,9 +1345,12 @@ export class MobSmoothScroller {
         }
 
         /**
-         * Update basi value
+         * Update base value
+         *
+         * - Prevent division by 0 ( NaN ).
          */
-        const percentValue = (this.#endValue * 100) / this.#maxValue;
+        const percentValue =
+            this.#maxValue > 0 ? (this.#endValue * 100) / this.#maxValue : 0;
         this.#percent = clamp(percentValue, 0, 100);
         this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
 
