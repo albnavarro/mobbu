@@ -146,7 +146,13 @@ export class MobSmoothScroller {
      * @type {() => void}
      * @returns {void}
      */
-    #subscribeDebuoceWhell;
+    #subscribeDebounceWhell;
+
+    /**
+     * @type {() => void}
+     * @returns {void}
+     */
+    #subscribeMouseLeave = () => UnFreezeMobPageScroll();
 
     /**
      * @type {MobLerp | MobSpring}
@@ -362,7 +368,7 @@ export class MobSmoothScroller {
         this.#subscribeMouseMove = NOOP;
         this.#subscribeTouchMove = NOOP;
         this.#subscribeMouseClick = NOOP;
-        this.#subscribeDebuoceWhell = NOOP;
+        this.#subscribeDebounceWhell = NOOP;
 
         /**
          * Initialize tween param.
@@ -525,7 +531,7 @@ export class MobSmoothScroller {
         /**
          * Remove wheeling class at the end of wheel.
          */
-        this.#subscribeDebuoceWhell = MobCore.useMouseWheel(
+        this.#subscribeDebounceWhell = MobCore.useMouseWheel(
             MobCore.debounce(() => {
                 this.#removeWhellingClass();
             }, 500)
@@ -671,9 +677,7 @@ export class MobSmoothScroller {
          */
         /** @type {HTMLElement} */ (this.#scroller).addEventListener(
             'mouseleave',
-            () => {
-                UnFreezeMobPageScroll();
-            }
+            this.#subscribeMouseLeave
         );
 
         if (this.#drag) {
@@ -850,30 +854,6 @@ export class MobSmoothScroller {
     }
 
     /**
-     * Speed variation by screensize, frame rate and device pixel ratio.
-     *
-     * - Screen size: normalizza la velocità rispetto alla risoluzione di riferimento.
-     * - Frame rate: normalizza rispetto a 60fps come baseline. A refresh rate più alti (120Hz, 144Hz) gli eventi wheel
-     *   arrivano proporzionalmente più frequenti, senza questa compensazione lo scroll risulterebbe più veloce su
-     *   display ad alto refresh rate.
-     * - DPR: su display Retina (DPR > 1), applica una correzione per compensare la maggiore densità di pixel che rende lo
-     *   scroll percepito più veloce.
-     */
-    #getDelta() {
-        const screenDelta =
-            this.#direction === MobScrollerConstant.DIRECTION_HORIZONTAL
-                ? this.#screenWidth / 1920
-                : this.#screenHeight / 1080;
-
-        const fpsDelta = 60 / MobCore.getFps();
-
-        const dpr = window.devicePixelRatio || 1;
-        const dprCorrection = dpr > 1 ? Math.sqrt(dpr) : 1;
-
-        return (screenDelta * fpsDelta) / dprCorrection;
-    }
-
-    /**
      * @type {(arg0: { spinY: number }) => void}
      */
     #onScopedWhell({ spinY = 0 }) {
@@ -898,15 +878,10 @@ export class MobSmoothScroller {
         if (useSnap) return;
 
         /**
-         * Speed variation by screensize
-         */
-        const delta = this.#getDelta();
-
-        /**
          * Normalize spinValue between -1 && 1.
          */
         const spinYParsed = clamp(spinY, -1, 1);
-        this.#endValue += spinYParsed * this.#speed * clamp(delta, 1, 10);
+        this.#endValue += spinYParsed * this.#speed;
         this.#calculateValue();
 
         if (this.#snapPoints.length > 0) this.#scheduleSnapReset();
@@ -1065,15 +1040,9 @@ export class MobSmoothScroller {
             if (Math.abs(spinValue) === 0) return;
 
             /**
-             * Speed variation by screensize
-             */
-            const delta = this.#getDelta();
-
-            /**
              * Normalize spinValue between -1 && 1.
              */
-            this.#endValue +=
-                clamp(spinValue, -1, 1) * this.#speed * clamp(delta, 1, 10);
+            this.#endValue += clamp(spinValue, -1, 1) * this.#speed;
             this.#calculateValue();
             this.#lastSpinY = spinY;
             this.#lastSpinX = spinX;
@@ -1469,7 +1438,7 @@ export class MobSmoothScroller {
         this.#subscribeMouseClick();
         this.#subscribeMotion();
         this.#subscribeOnComplete();
-        this.#subscribeDebuoceWhell();
+        this.#subscribeDebounceWhell();
         this.#motion?.destroy();
         // @ts-ignore
         this.#motion = null;
@@ -1486,6 +1455,13 @@ export class MobSmoothScroller {
             clearTimeout(this.#snapResetDebounce);
             this.#snapResetDebounce = null;
         }
+
+        /** @type {HTMLElement} */ (this.#scroller).removeEventListener(
+            'mouseleave',
+            this.#subscribeMouseLeave
+        );
+
+        this.#subscribeMouseLeave = NOOP;
 
         if (this.#scopedEvent) {
             /** @type {HTMLElement} */ (this.#scroller)?.removeEventListener(
