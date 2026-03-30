@@ -1,3 +1,8 @@
+### Controllo della velocitá sinamico in #goToNextSnap.
+- `#velocityThreshold` puó variare in base alla distanza trail `ora` e il punto di snap piu vicino.
+- Quando sono vicino a un punto di snap mi servirá meno velocitá per `snappare`.
+- Quando sono lontano a un punto di snap mi servirá piú velocitá.
+
 ### Velocity;
 - Calcolare la velocitá a prescindere dallo snap attivo e passarla nella callback.
 
@@ -21,6 +26,3 @@ if (!this.#isMoving) {
 this.#isMoving = false;
 this.#children.forEach((element) => element.triggerScrollEnd());
 ```
-### Spring/Lerp
-
-- Modificare tension/lerp-config in base alla velocitá sullo snap.
