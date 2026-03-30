@@ -26,6 +26,8 @@ import {
 } from '../page-scroll/page-scroller.js';
 
 export class MobSmoothScroller {
+    static #DEBOUNCE_FRAMES = 3000;
+
     /**
      * @type {boolean}
      */
@@ -1061,7 +1063,9 @@ export class MobSmoothScroller {
      * Schedula il reset di velocity ( per coerenza anche di freezeSnap ).
      *
      * - Viene chiamato dopo ogni wheel, dopo uno snap o al rilascio del drag.
-     * - Il reset avviene dopo 1.5 frame ( 1500ms / currentFps ),
+     * - Il reset avviene dopo 3 frame ( 3000ms / currentFps ),
+     * - 3000 = 3 secondi.
+     * - CurrentFps = frame per secondo
      * - Questo serve a gestire eventi molto ravvicinati del trackpad.
      * - Se arrivano nuovi eventi durante questa finestra, il timer viene cancellato e rischedulato, permettendo alla
      *   velocity di accumularsi senza reset.
@@ -1079,7 +1083,7 @@ export class MobSmoothScroller {
                 this.#velocity = 1;
                 this.#snapResetDebounce = null;
             },
-            Math.ceil(1500 / MobCore.getFps())
+            Math.ceil(MobSmoothScroller.#DEBOUNCE_FRAMES / MobCore.getFps())
         );
     }
 
@@ -1235,11 +1239,14 @@ export class MobSmoothScroller {
         this.#scrollDirection = Math.sign(diffEndValue);
 
         /**
-         * Indetifichiamo la pausa esplicita dell' utente ( ha smesso di scrollare )
+         * Identifichiamo la pausa esplicita dell'utente (ha smesso di scrollare)
          *
-         * - Usiamo come valore il doppio del debounce.
+         * - Usiamo lo stesso threshold del debounce (3 frame).
+         * - Se passano più di 3 frame senza nuovi eventi, consideriamo la pausa intenzionale.
          */
-        const threshold = Math.ceil(3000 / MobCore.getFps());
+        const threshold = Math.ceil(
+            MobSmoothScroller.#DEBOUNCE_FRAMES / MobCore.getFps()
+        );
 
         /**
          * Arriviamo da uno scorrimento continuo.
