@@ -1,6 +1,5 @@
-### VelocityTreshold
-
-- Esporre come parametro la `velocitá` minima per far scattare lo snap.
+### Velocity;
+- Calcolare la velocitá a prescindere dallo snap attivo e passarla nella callback.
 
 ### triggerScrollStart.
 

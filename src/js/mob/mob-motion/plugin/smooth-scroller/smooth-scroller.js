@@ -317,6 +317,11 @@ export class MobSmoothScroller {
     #velocityThreshold;
 
     /**
+     * @type {number}
+     */
+    #velocityEasing;
+
+    /**
      * Create new SmoothScroller instance.
      *
      *        Available methods:
@@ -494,6 +499,12 @@ export class MobSmoothScroller {
             data?.velocityThreshold,
             'SmoothScroller: velocityThreshold',
             3
+        );
+
+        this.#velocityEasing = valueIsNumberAndReturnDefault(
+            data?.velocityEasing,
+            'SmoothScroller: velocityEasing',
+            0.4
         );
 
         this.#children = data?.children || [];
@@ -1226,6 +1237,11 @@ export class MobSmoothScroller {
     #setVelocity() {
         const time = MobCore.getTime();
         const diffTime = time - this.#previousTime;
+
+        /**
+         * DiffEndValue al cambio di direzione genera un valore molto piccolo ( cambio segno ) per cui la velocitá sará
+         * 1.
+         */
         const diffEndValue = this.#endValue - this.#previousEndValue;
 
         /**
@@ -1268,9 +1284,30 @@ export class MobSmoothScroller {
             const baselineInterval = 1000 / 60;
             const normalizedDiffTime = Math.max(diffTime, baselineInterval);
             const vv = diffEndValue / normalizedDiffTime;
+
+            /**
+             * Velocitá instantanea
+             */
+            const newVelocity =
+                Math.round((Math.abs(vv) + 1) * 10_000) / 10_000;
+
+            /**
+             * Media pesata della velocitá precedente e istantanea.
+             *
+             * - Questo evitá che lo snap scatti direttamente sui picchi.
+             * - Smorziamo il picco in modo che:
+             * - Lo snap non scatti su un singolo picco
+             * - Lo snap scatterá quando abbiamo una sequenza temporale di eventi veloci.
+             *
+             * Esempio pratico:
+             *
+             * - NewVelocity: 4.6, 4.6
+             * - This.#velocity: 2.44, 3.304
+             */
             this.#velocity = Math.max(
                 1,
-                Math.round((Math.abs(vv) + 1) * 10_000) / 10_000
+                this.#velocityEasing * newVelocity +
+                    (1 - this.#velocityEasing) * this.#velocity
             );
         }
 

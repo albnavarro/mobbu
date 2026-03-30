@@ -106,9 +106,16 @@ export interface MobSmoothScroller {
     snapPoints?: number[];
 
     /**
-     * You can adjust the speed of the wheel event. The default value is `60`.
+     * Minimum velocity to trigger snap.
      */
     velocityThreshold?: number;
+
+    /**
+     * Smoothness of velocoty update, 1 is instant, below 1 velocity increase smoothly.
+     *
+     * - With < 1 value user must use more strong gesture to trigger snap.
+     */
+    velocityEasing?: number;
 }
 
 export type MobSmoothScrollerOnMouseEvent = (
