@@ -1303,6 +1303,10 @@ export class MobSmoothScroller {
              *
              * - NewVelocity: 4.6, 4.6
              * - This.#velocity: 2.44, 3.304
+             *
+             * EMA ( Exponential Moving Average ):
+             *
+             * - Media mobile che dá piu peso ai valori recenti tramite un fattore di smoothing.
              */
             this.#velocity = Math.max(
                 1,
