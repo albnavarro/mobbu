@@ -1347,6 +1347,11 @@ export class MobSmoothScroller {
      */
     #updateScrollState() {
         /**
+         * Layer di sicurezza n1.
+         */
+        if (this.#snapPoints.length > 0 && this.#freezeSnap) return;
+
+        /**
          * Layer di sicurezza n2.
          *
          * - Se appena dopo uno snap ci troviamo inquesto punto del codice vuol dire che:
