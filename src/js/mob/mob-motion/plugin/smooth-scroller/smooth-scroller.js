@@ -848,7 +848,8 @@ export class MobSmoothScroller {
                 : /** @type {HTMLElement} */ (this.#scroller).offsetWidth -
                   this.#screenWidth;
 
-        this.#calculateValue();
+        this.#updateScrollState();
+        this.#executeScroll();
     }
 
     /**
@@ -863,16 +864,28 @@ export class MobSmoothScroller {
             y: client?.y ?? 0,
         });
         this.#endValue += Math.round(this.#prevTouchVal - this.#touchVal);
-        this.#calculateValue();
+        this.#updateScrollState();
+        this.#executeScroll();
     }
 
     /**
+     * TODO: aggiungere spinX e controllo come per onWhell ( x or y ) ?
+     *
+     * - Scoped wheel ad ora tiene in cosiderazione solo l'asse delle Y.
+     *
      * @type {(arg0: { spinY: number }) => void}
      */
     #onScopedWhell({ spinY = 0 }) {
         if (!mq[this.#queryType](this.#breakpoint)) return;
 
         this.#dragEnable = false;
+
+        /**
+         * Normalize spinValue between -1 && 1.
+         */
+        const spinYParsed = clamp(spinY, -1, 1);
+        this.#endValue += spinYParsed * this.#speed;
+        this.#updateScrollState();
 
         /**
          * Gestisce il lifecycle dello snap:
@@ -890,13 +903,7 @@ export class MobSmoothScroller {
 
         if (useSnap) return;
 
-        /**
-         * Normalize spinValue between -1 && 1.
-         */
-        const spinYParsed = clamp(spinY, -1, 1);
-        this.#endValue += spinYParsed * this.#speed;
-        this.#calculateValue();
-
+        this.#executeScroll();
         if (this.#snapPoints.length > 0) this.#scheduleSnapReset();
     }
 
@@ -991,7 +998,8 @@ export class MobSmoothScroller {
             const result = Math.round(this.#prevTouchVal - this.#touchVal);
             this.#endValue += result;
 
-            this.#calculateValue();
+            this.#updateScrollState();
+            this.#executeScroll();
         }
     }
 
@@ -1013,24 +1021,6 @@ export class MobSmoothScroller {
 
             preventDefault?.();
             FreezeMobPageScroll();
-
-            /**
-             * Gestisce il lifecycle dello snap:
-             *
-             * 1. Interrompe eventuali snap in corso (freezeSnap = false)
-             * 2. Aggiorna/Cancella il timer di debounce
-             * 3. Valuta se attivare un nuovo snap (velocity > X, direzione, etc.)
-             *
-             * Se uno snap viene attivato, il flusso corrente termina qui
-             *
-             * - Lo motion gestirà l'animazione verso il punto di snap.
-             */
-            const useSnap =
-                this.#snapPoints.length > 0
-                    ? this.#scheduleCurrentSnap()
-                    : false;
-
-            if (useSnap) return;
 
             /**
              * Default mode.
@@ -1056,7 +1046,33 @@ export class MobSmoothScroller {
              * Normalize spinValue between -1 && 1.
              */
             this.#endValue += clamp(spinValue, -1, 1) * this.#speed;
-            this.#calculateValue();
+            this.#updateScrollState();
+
+            /**
+             * Gestisce il lifecycle dello snap:
+             *
+             * 1. Interrompe eventuali snap in corso (freezeSnap = false)
+             * 2. Aggiorna/Cancella il timer di debounce
+             * 3. Valuta se attivare un nuovo snap (velocity > X, direzione, etc.)
+             *
+             * Se uno snap viene attivato, il flusso corrente termina qui
+             *
+             * - Lo motion gestirà l'animazione verso il punto di snap.
+             */
+            const useSnap =
+                this.#snapPoints.length > 0
+                    ? this.#scheduleCurrentSnap()
+                    : false;
+
+            if (useSnap) return;
+
+            /**
+             * - Aggiorna:
+             * - PercentValue
+             *
+             * Lancia il tween
+             */
+            this.#executeScroll();
             this.#lastSpinY = spinY;
             this.#lastSpinX = spinX;
 
@@ -1123,7 +1139,7 @@ export class MobSmoothScroller {
          *
          * - Se eravamo già in uno snap automatico:
          * - Lo interrompiamo per dare priorità al nuovo input utente.
-         * - FreezeSnap = false permette a calculateValue() di riprendere e il motion gestirà il cambio target in modo
+         * - FreezeSnap = false permette a updateScrollState() di riprendere e il motion gestirà il cambio target in modo
          *   fluido.
          */
         if (this.#freezeSnap) {
@@ -1247,8 +1263,8 @@ export class MobSmoothScroller {
         /**
          * - Calcola la direzione dello scroll.
          * - Il risultato è sempre 1 (avanti) o -1 (indietro)
-         * - #setVelocity() viene invocata esclusivamente da #calculateValue(), che a sua volta è triggerata solo da input
-         *   utente reale (wheel, drag, touch).
+         * - #setVelocity() viene invocata esclusivamente da #updateScrollState(), che a sua volta è triggerata solo da
+         *   input utente reale (wheel, drag, touch).
          * - In tutti questi casi #endValue è già stato modificato, quindi diffEndValue non può mai essere 0 in condizioni
          *   normali.
          */
@@ -1327,21 +1343,9 @@ export class MobSmoothScroller {
     }
 
     /**
-     * Utils
-     *
-     * @type {() => void}
+     * @returns {void}
      */
-    #calculateValue() {
-        /**
-         * Layer di sicurezza n1.
-         *
-         * - Tutti i `chiamanti` di #calculateValue devono prima eseguire `#scheduleCurrentSnap()`.
-         * - `#scheduleCurrentSnap()` modificano il valore di freezeSnap a false.
-         * - Manteniamo il controllo in caso di future modifiche.
-         * - SnapPoints.length serve a proteggere per fuiture modifiche, attualamente non sarebbe necessario.
-         */
-        if (this.#snapPoints.length > 0 && this.#freezeSnap) return;
-
+    #updateScrollState() {
         /**
          * Layer di sicurezza n2.
          *
@@ -1375,6 +1379,20 @@ export class MobSmoothScroller {
          * Start velocity check.
          */
         if (this.#snapPoints.length > 0) this.#setVelocity();
+
+        return;
+    }
+
+    #executeScroll() {
+        /**
+         * Layer di sicurezza n1.
+         *
+         * - Tutti i `chiamanti` di #executeScroll devono prima eseguire `#scheduleCurrentSnap()`.
+         * - `#scheduleCurrentSnap()` modificano il valore di freezeSnap a false.
+         * - Manteniamo il controllo in caso di future modifiche.
+         * - SnapPoints.length serve a proteggere per fuiture modifiche, attualamente non sarebbe necessario.
+         */
+        if (this.#snapPoints.length > 0 && this.#freezeSnap) return;
 
         /**
          * This.motion use spring or lerp, so goTo generic type is not the same. But we don't use props here, so skip ts
