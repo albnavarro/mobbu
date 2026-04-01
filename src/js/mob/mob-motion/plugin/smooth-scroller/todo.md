@@ -1,7 +1,26 @@
-### Controllo della velocitá sinamico in #goToNextSnap.
-- `#velocityThreshold` puó variare in base alla distanza trail `ora` e il punto di snap piu vicino.
-- Quando sono vicino a un punto di snap mi servirá meno velocitá per `snappare`.
-- Quando sono lontano a un punto di snap mi servirá piú velocitá.
+## TODO:
+
+#### LastSpinY/X ( da testare )
+- Aggiornare lastSpinY/X subito dopo il loro uso
+```javascript
+const spinValue = this.#useHorizontalScroll
+    ? (() => {
+          return spinXdiff > spinYdiff ? spinX : spinY;
+      })()
+    : spinY;
+
+this.#lastSpinY = spinY;
+this.#lastSpinX = spinX;
+```
+
+#### Inertial limit: ( da testare )
+- All'interno di `onWheel`:
+    - `checkSnapOpportunity` && `scheduleSnapTimeout`
+    - Dovrebbero essere eseguite solo se `Math.abs(spinValue) > 1` `( 0.5 )` ?
+- Questo permetterebbe di non `bloccare` un nuovo scroll quando l'intertia `hardware` e troppo bassa.
+- Di fatto saltiamo il controllo degli `snap` su spin molto bassi, questo dovrebbe favorire la fase finale senza far scattare un nuovo `snap` in quanto l'inerzia é troppo bassa.
+
+## Upgrade:
 
 ### Velocity;
 - Calcolare la velocitá a prescindere dallo snap attivo e passarla nella callback.
