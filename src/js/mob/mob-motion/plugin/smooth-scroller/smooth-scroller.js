@@ -941,12 +941,9 @@ export class MobSmoothScroller {
             this.#dragEnable = true;
 
             /**
-             * - Interrompe eventuali snap in corso.
-             * - #dragEnable sará sempre true qui, per cui:
-             * - ScheduleCurrentSnap ritorna sempre false
-             * - Non abbiamo bisogno di uteriori controlli.
+             * Clear pending snap timeout.
              */
-            if (this.#snapPoints.length > 0) this.#checkSnapOpportunity();
+            if (this.#snapPoints.length > 0) this.#clearSnapTimeout();
 
             this.#prevTouchVal = this.#getMousePos({
                 x: client?.x ?? 0,
