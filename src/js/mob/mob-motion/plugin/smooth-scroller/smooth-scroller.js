@@ -914,10 +914,24 @@ export class MobSmoothScroller {
         const useSnap =
             this.#snapPoints.length > 0 ? this.#checkSnapOpportunity() : false;
 
-        if (useSnap) return;
+        if (useSnap) {
+            /**
+             * Schedula il timeout per tracciare la fine degli eventi di wheel.
+             *
+             * - Con lo snap attivo non viene eseguita executeScroll
+             */
+            this.#scheduleSnapTimeout();
+            return;
+        }
 
         this.#executeScroll();
-        if (this.#snapPoints.length > 0) this.#scheduleSnapTimeout();
+
+        /**
+         * Schedula il timeout per tracciare la fine degli eventi di wheel.
+         */
+        if (this.#snapPoints.length > 0) {
+            this.#scheduleSnapTimeout();
+        }
     }
 
     /**
@@ -1086,7 +1100,15 @@ export class MobSmoothScroller {
                     ? this.#checkSnapOpportunity()
                     : false;
 
-            if (useSnap) return;
+            if (useSnap) {
+                /**
+                 * Schedula il timeout per tracciare la fine degli eventi di wheel.
+                 *
+                 * - Con lo snap attivo non viene eseguita executeScroll
+                 */
+                this.#scheduleSnapTimeout();
+                return;
+            }
 
             /**
              * - Aggiorna:
@@ -1099,12 +1121,11 @@ export class MobSmoothScroller {
             this.#lastSpinX = spinX;
 
             /**
-             * Schedula il reset:
-             *
-             * - Se non arrivano altri wheel per x ms.
-             * - Considera l'utente fermo e resetta lo stato.
+             * Schedula il timeout per tracciare la fine degli eventi di wheel.
              */
-            if (this.#snapPoints.length > 0) this.#scheduleSnapTimeout();
+            if (this.#snapPoints.length > 0) {
+                this.#scheduleSnapTimeout();
+            }
         }
     }
 
@@ -1177,16 +1198,7 @@ export class MobSmoothScroller {
          *   attivare uno snap.
          * - Se attivato, freezeSnap tornerà true e il motion gestirà l'animazione.
          */
-        const useSnap = !this.#dragEnable && this.#goToNextSnap();
-
-        if (useSnap) {
-            /**
-             * Schedula il reset solo quando l'utente smette davvero di scorrere
-             */
-            this.#scheduleSnapTimeout();
-        }
-
-        return useSnap;
+        return !this.#dragEnable && this.#goToNextSnap();
     }
 
     /**
