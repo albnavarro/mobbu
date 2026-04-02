@@ -25,7 +25,7 @@ export const HeaderToggleFn = ({
 
     return html`
         <button
-            class="hamburger"
+            class="c-hamburger"
             type="button"
             ${delegateEvents({
                 click: () => {
@@ -55,8 +55,8 @@ export const HeaderToggleFn = ({
                 },
             ])}
         >
-            <div class="hamburger__box">
-                <div class="hamburger-inner"></div>
+            <div class="wrapper">
+                <div class="lines"></div>
             </div>
         </button>
     `;

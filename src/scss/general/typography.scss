@@ -1,164 +1,184 @@
 @use '../abstract' as *;
 
-/*
- * -- BASE STYLES --
- * Most of these are inherited from Base, but I want to change a few.
- */
-html {
-    height: 100%;
-    color: $black;
-    font-family: 'Fira Sans', sans-serif;
-    font-weight: 400;
-    line-height: 1.7em;
-    font-optical-sizing: auto;
+@layer base {
+    /*
+     * -- BASE STYLES --
+     * Most of these are inherited from Base, but I want to change a few.
+     */
+    html {
+        height: 100%;
+        color: $black;
+        font-family: 'Fira Sans', sans-serif;
+        font-weight: 400;
+        line-height: 1.7em;
+        font-optical-sizing: auto;
 
-    @include user-select-none;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-label {
-    margin: 0 0 0.5em;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-}
-
-body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-weight: 300;
-    text-rendering: optimizelegibility;
-}
-
-h1 {
-    font-size: rem(40px);
-    line-height: line-height(40, 55);
-}
-
-h2 {
-    font-size: rem(30px);
-    line-height: line-height(30, 35);
-}
-
-h3 {
-    font-size: rem(25px);
-    line-height: line-height(25, 40);
-}
-
-h4 {
-    font-size: rem(20px);
-    line-height: line-height(20, 27);
-}
-
-h5 {
-    font-size: rem(18px);
-    line-height: line-height(18, 24);
-}
-
-h6 {
-    font-size: rem(16px);
-
-    // font-size: rem(18px);
-    line-height: line-height(16, 25);
-}
-
-.title-big {
-    margin: 0;
-    font-size: rem(60);
-    line-height: 1;
-    text-transform: uppercase;
-}
-
-.title-biggest {
-    margin: 0;
-    font-size: min(calc((120 * 100) / 1920 * 1vw), rem(120));
-    line-height: 1;
-    text-transform: uppercase;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-p {
-    margin: 0 0 1em;
-    padding: 0;
-
-    a {
-        text-decoration: underline;
-    }
-}
-
-.paragraph-big {
-    font-size: rem(18);
-    line-height: line-height(18, 24);
-}
-
-.p {
-    &--boxed {
-        margin-bottom: calc(var(--gap-size) / 2);
-        padding: calc(var(--gap-size) / 2);
-        border: 2px $grey-lightteen solid;
-        border-radius: rem(10);
-        background: $grey-light;
+        @include user-select-none;
     }
 
-    &--note {
-        position: relative;
-        padding-top: calc(var(--gap-size) * 1.5);
-
-        &::after {
-            content: '!';
-            position: absolute;
-            top: rem(18);
-            left: rem(33);
-            color: $color-contrast;
-            font-weight: 700;
-        }
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: rem(20);
-            left: rem(24);
-            width: rem(22);
-            height: rem(22);
-            border: 2px $color-contrast solid;
-            border-radius: 100%;
-        }
-    }
-}
-
-.p,
-.ul {
-    &--small {
-        font-size: rem(12);
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    label {
+        margin: 0 0 0.5em;
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
     }
 
-    &--medium {
-        font-size: rem(16);
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-weight: 300;
+        text-rendering: optimizelegibility;
+    }
+
+    h1 {
+        font-size: rem(40px);
+        line-height: line-height(40, 55);
+    }
+
+    h2 {
+        font-size: rem(30px);
+        line-height: line-height(30, 35);
+    }
+
+    h3 {
+        font-size: rem(25px);
+        line-height: line-height(25, 40);
+    }
+
+    h4 {
+        font-size: rem(20px);
+        line-height: line-height(20, 27);
+    }
+
+    h5 {
+        font-size: rem(18px);
+        line-height: line-height(18, 24);
+    }
+
+    h6 {
+        font-size: rem(16px);
+
+        // font-size: rem(18px);
         line-height: line-height(16, 25);
     }
 
-    &--big {
-        font-size: rem(22);
-    }
-}
-
-ul {
-    margin-left: rem(20);
-
-    &.hide-dots {
-        margin-left: 0;
-        list-style-type: none;
+    .title-big {
+        margin: 0;
+        font-size: rem(60);
+        line-height: 1;
+        text-transform: uppercase;
     }
 
-    li::marker {
-        color: $black;
+    .title-biggest {
+        margin: 0;
+        font-size: min(calc((120 * 100) / 1920 * 1vw), rem(120));
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    p {
+        margin: 0 0 1em;
+        padding: 0;
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    .paragraph-big {
+        font-size: rem(18);
+        line-height: line-height(18, 24);
+    }
+
+    .p {
+        &--boxed {
+            margin-bottom: calc(var(--gap-size) / 2);
+            padding: calc(var(--gap-size) / 2);
+            border: 2px $grey-lightteen solid;
+            border-radius: rem(10);
+            background: $grey-light;
+        }
+
+        &--note {
+            position: relative;
+            padding-top: calc(var(--gap-size) * 1.5);
+
+            &::after {
+                content: '!';
+                position: absolute;
+                top: rem(18);
+                left: rem(33);
+                color: $color-contrast;
+                font-weight: 700;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: rem(20);
+                left: rem(24);
+                width: rem(22);
+                height: rem(22);
+                border: 2px $color-contrast solid;
+                border-radius: 100%;
+            }
+        }
+    }
+
+    .p,
+    .ul {
+        &--small {
+            font-size: rem(12);
+        }
+
+        &--medium {
+            font-size: rem(16);
+            line-height: line-height(16, 25);
+        }
+
+        &--big {
+            font-size: rem(22);
+        }
+    }
+
+    ul {
+        margin-left: rem(20);
+
+        &.hide-dots {
+            margin-left: 0;
+            list-style-type: none;
+        }
+
+        li::marker {
+            color: $black;
+        }
+    }
+
+    .quote {
+        position: relative;
+        z-index: 1;
+        margin-inline: rem(2);
+        padding: em(2) em(3);
+        font-size: 0.8em;
+
+        &::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            inset: 0 calc(#{rem(2)} * -1) 0 calc(#{rem(2)} * -1);
+            /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
+            border-radius: rem(4);
+            background: rgba($black, 0.1);
+        }
     }
 }

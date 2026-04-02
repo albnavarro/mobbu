@@ -1,88 +1,60 @@
 @use '../abstract' as *;
 
-.component {
-    transition: opacity 0.55s;
-    opacity: 0;
+@layer base {
+    .component {
+        transition: opacity 0.55s;
+        opacity: 0;
 
-    &.active {
-        opacity: 1;
+        &.active {
+            opacity: 1;
+        }
     }
-}
 
-.is-highlight {
-    color: $color-contrast;
-}
-
-.is-white {
-    color: $white;
-}
-
-.is-black {
-    color: $black;
-}
-
-.is-bold {
-    font-weight: 600;
-}
-
-.is-grey {
-    color: $grey-medium;
-
-    span {
+    .is-white {
         color: $white;
     }
-}
 
-.is-mobile {
-    @include mq('large') {
-        display: none;
+    .is-black {
+        color: $black;
     }
-}
 
-.has-overflow {
-    overflow: hidden;
-}
-
-.no-margin {
-    margin: 0;
-}
-
-.no-pointer-event {
-    pointer-events: none;
-}
-
-.quote {
-    position: relative;
-    z-index: 1;
-    margin-inline: rem(2);
-    padding: em(2) em(3);
-    font-size: 0.8em;
-
-    &::after {
-        content: '';
-        position: absolute;
-        z-index: -1;
-        inset: 0 calc(#{rem(2)} * -1) 0 calc(#{rem(2)} * -1);
-        /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
-        border-radius: rem(4);
-        background: rgba($black, 0.1);
+    .is-bold {
+        font-weight: 600;
     }
-}
 
-.match-string {
-    display: inline;
-    position: relative;
-    background: rgba($white, 0.2);
-}
+    .is-grey {
+        color: $grey-medium;
 
-.u-any-center-svg {
-    position: relative;
+        span {
+            color: $white;
+        }
+    }
 
-    svg {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        overflow: visible;
-        transform: translate(-50%, -50%);
+    .is-mobile {
+        @include mq('large') {
+            display: none;
+        }
+    }
+
+    .has-overflow {
+        overflow: hidden;
+    }
+
+    .match-string {
+        display: inline;
+        position: relative;
+        background: rgba($white, 0.2);
+    }
+
+    .u-any-center-svg {
+        position: relative;
+
+        svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            overflow: visible;
+            transform: translate(-50%, -50%);
+        }
     }
 }
