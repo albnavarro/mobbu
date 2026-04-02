@@ -1,4 +1,5 @@
 /* src/scss/style.scss */
+@layer reset, base, layout, component;
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -304,7 +305,6 @@ code.hljs {
   src: url("../PlayfairDisplay-Bold-XZW4QAT4.woff2") format("woff2"), url("../PlayfairDisplay-Bold-VYS2J2GC.woff") format("woff");
   font-display: swap;
 }
-@layer reset, base, layout, component;
 @layer base {
   @media (min-width: 22.5em) {
     html {
