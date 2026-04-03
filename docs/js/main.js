@@ -25176,18 +25176,16 @@
                 >
                     <ul class="items">
                         ${proxi.items.map((item, index) => {
-      return (
-        /* HTML */
-        `
+      return renderHtml`
                                     <li class="item">
                                         <a
                                             class="${getItemClass(index)}"
                                             href="${item.url}"
                                             ${bindEffect({
-          toggleClass: {
-            active: () => proxi.isMounted
-          }
-        })}
+        toggleClass: {
+          active: () => proxi.isMounted
+        }
+      })}
                                         >
                                             <span class="counter index-${index}"
                                                 >${getCounter(index)}</span
@@ -25197,8 +25195,7 @@
                                             >
                                         </a>
                                     </li>
-                                `
-      );
+                                `;
     }).join("")}
                     </ul>
                 </div>

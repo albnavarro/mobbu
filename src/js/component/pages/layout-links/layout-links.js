@@ -116,7 +116,7 @@ export const LayoutLinksFn = ({
                     <ul class="items">
                         ${proxi.items
                             .map((item, index) => {
-                                return /* HTML */ `
+                                return html`
                                     <li class="item">
                                         <a
                                             class="${getItemClass(index)}"
