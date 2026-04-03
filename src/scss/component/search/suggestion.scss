@@ -1,36 +1,40 @@
 @use '../../abstract' as *;
 
-.search-overlay-suggestion {
-    overflow: hidden;
+@layer component {
+    @scope (.search-suggestion) {
+        :scope {
+            overflow: hidden;
+        }
 
-    &__list {
-        min-height: 100%;
-        margin: 0;
-        padding: calc(var(--gap-size) / 2);
-        list-style-type: none;
-    }
+        .list {
+            min-height: 100%;
+            margin: 0;
+            padding: calc(var(--gap-size) / 2);
+            list-style-type: none;
+        }
 
-    &__button {
-        display: block;
-        position: relative;
-        width: 100%;
-        padding-left: rem(10);
-        border: 0;
-        background: transparent;
-        text-align: left;
+        button {
+            display: block;
+            position: relative;
+            width: 100%;
+            padding-left: rem(10);
+            border: 0;
+            background: transparent;
+            text-align: left;
 
-        &:focus {
-            outline: none;
+            &:focus {
+                outline: none;
 
-            &::after {
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 0;
-                width: 2px;
-                height: rem(15);
-                transform: translateY(-50%);
-                background: $white;
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    width: 2px;
+                    height: rem(15);
+                    transform: translateY(-50%);
+                    background: $white;
+                }
             }
         }
     }

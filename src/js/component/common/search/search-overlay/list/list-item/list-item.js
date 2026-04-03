@@ -25,7 +25,6 @@ export const SearchOverlayListItemFn = ({
 
     return html`
         <li
-            class="search-overlay-list__item"
             ${bindEffect({
                 toggleClass: {
                     current: () => proxi.active,
@@ -34,21 +33,18 @@ export const SearchOverlayListItemFn = ({
         >
             <button
                 type="button"
-                class="search-overlay-list__button"
                 ${delegateEvents({
                     click: () => {
                         loadPage({ uri: proxi.uri });
                     },
                 })}
             >
-                <div class="search-overlay-list__section">
+                <div class="item-section">
                     <p>
                         ${bindObject`<strong>${() => proxi.breadCrumbs}</strong> (${() => proxi.count})`}
                     </p>
                 </div>
-                <div class="search-overlay-list__title">
-                    <h6>${bindObject`${() => proxi.title}`}</h6>
-                </div>
+                <h6>${bindObject`${() => proxi.title}`}</h6>
             </button>
         </li>
     `;

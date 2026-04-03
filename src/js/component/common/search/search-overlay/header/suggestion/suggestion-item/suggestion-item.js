@@ -28,10 +28,10 @@ export const SearchOverlaySuggestionItemFn = ({
     const proxi = getProxi();
 
     return html`
-        <li class="search-overlay-suggestion__item">
+        <li>
             <button
                 type="button"
-                class="search-overlay-suggestion__button"
+                class="button"
                 ${delegateEvents({
                     click: () => {
                         updateSearchFromSuggestion(proxi.word);

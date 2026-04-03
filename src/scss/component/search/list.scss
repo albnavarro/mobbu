@@ -1,141 +1,142 @@
 @use '../../abstract' as *;
 
-.search-overlay-list {
-    position: absolute;
-    overflow: hidden;
-    color: $white;
-    inset: 0;
-
-    &__loading {
-        display: none;
-        position: absolute;
-        z-index: 10;
-        top: 50%;
-        left: 50%;
-        padding: calc(var(--gap-size) / 2) var(--gap-size);
-        transform: translate(-50%, -50%);
-        border: 1px rgba($white, 0.5) solid;
-        background: rgba($black, 0.8);
-        pointer-events: none;
-
-        &.active {
-            display: block;
-        }
-    }
-
-    &__ul {
-        min-height: 100%;
-        margin: 0;
-        padding: var(--gap-size);
-        padding-right: calc(var(--gap-size) * 2);
-    }
-
-    &__item {
-        position: relative;
-        margin-bottom: calc(var(--gap-size) / 2);
-        padding-bottom: calc(var(--gap-size) / 2);
-        transition: opacity 0.35s;
-        border-bottom: 1px rgba($white, 0.4) solid;
-
-        &:hover {
-            opacity: 0.5;
+@layer component {
+    @scope (.search-list) {
+        :scope {
+            position: absolute;
+            overflow: hidden;
+            color: $white;
+            inset: 0;
         }
 
-        // Performance on scroll
-        @include when-inside('.is-whelling') {
+        .loader {
+            display: none;
+            position: absolute;
+            z-index: 10;
+            top: 50%;
+            left: 50%;
+            padding: calc(var(--gap-size) / 2) var(--gap-size);
+            transform: translate(-50%, -50%);
+            border: 1px rgba($white, 0.5) solid;
+            background: rgba($black, 0.8);
             pointer-events: none;
-        }
 
-        &.current {
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                bottom: calc(var(--gap-size) / 2);
-                left: calc(#{rem(10)} * -1);
-                width: rem(2);
-                background: $white;
+            &.active {
+                display: block;
             }
         }
-    }
 
-    &__button {
-        width: 100%;
-        border: 0;
-        background: transparent;
-        text-align: left;
-    }
+        .scrollbar {
+            position: absolute;
+            z-index: 14;
+            top: 1vh;
+            left: calc(100% - (var(--gap-size) / 2));
+            width: 47vh;
+            transform: rotate(90deg);
+            transform-origin: left;
+            background: transparent;
+            cursor: pointer;
+            appearance: none;
 
-    &__section {
-        p {
-            margin-bottom: 0;
+            --thumb-width: #{rem(200)};
+
+            &.hide-scrollbar {
+                opacity: 0;
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &::-webkit-slider-runnable-track {
+                width: var(--thumb-width);
+                height: rem(10);
+                border-radius: 0;
+                background-color: rgba($grey, 0.3);
+            }
+
+            &::-webkit-slider-thumb {
+                width: var(--thumb-width);
+                height: rem(10);
+                background-color: $white;
+                appearance: none;
+            }
+
+            &:focus::-webkit-slider-thumb {
+                outline-offset: 0;
+            }
+
+            &::-moz-range-track {
+                height: rem(10);
+                border-radius: 0;
+                background-color: rgba($grey, 0.3);
+            }
+
+            &::-moz-range-thumb {
+                width: var(--thumb-width);
+                height: rem(10);
+                border: none; /* Removes extra border that FF applies */
+                border-radius: 0; /* Removes default border-radius that FF applies */
+                background-color: $white;
+            }
+
+            &:focus::-moz-range-thumb {
+                outline-offset: 0;
+            }
         }
-    }
 
-    &__title {
-        h5,
+        ul {
+            min-height: 100%;
+            margin: 0;
+            padding: var(--gap-size);
+            padding-right: calc(var(--gap-size) * 2);
+        }
+
+        li {
+            position: relative;
+            margin-bottom: calc(var(--gap-size) / 2);
+            padding-bottom: calc(var(--gap-size) / 2);
+            transition: opacity 0.35s;
+            border-bottom: 1px rgba($white, 0.4) solid;
+
+            &:hover {
+                opacity: 0.5;
+            }
+
+            // Performance on scroll
+            @include when-inside('.is-whelling') {
+                pointer-events: none;
+            }
+
+            &.current {
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    bottom: calc(var(--gap-size) / 2);
+                    left: calc(#{rem(10)} * -1);
+                    width: rem(2);
+                    background: $white;
+                }
+            }
+        }
+
+        button {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            text-align: left;
+        }
+
+        .item-section {
+            p {
+                margin-bottom: 0;
+            }
+        }
+
         h6 {
             display: inline-block;
             margin-bottom: 0;
-        }
-    }
-
-    &__scrollbar {
-        position: absolute;
-        z-index: 14;
-        top: 1vh;
-        left: calc(100% - (var(--gap-size) / 2));
-        width: 47vh;
-        transform: rotate(90deg);
-        transform-origin: left;
-        background: transparent;
-        cursor: pointer;
-        appearance: none;
-
-        --thumb-width: #{rem(200)};
-
-        &.hide-scrollbar {
-            opacity: 0;
-        }
-
-        &:focus {
-            outline: none;
-        }
-
-        &::-webkit-slider-runnable-track {
-            width: var(--thumb-width);
-            height: rem(10);
-            border-radius: 0;
-            background-color: rgba($grey, 0.3);
-        }
-
-        &::-webkit-slider-thumb {
-            width: var(--thumb-width);
-            height: rem(10);
-            background-color: $white;
-            appearance: none;
-        }
-
-        &:focus::-webkit-slider-thumb {
-            outline-offset: 0;
-        }
-
-        &::-moz-range-track {
-            height: rem(10);
-            border-radius: 0;
-            background-color: rgba($grey, 0.3);
-        }
-
-        &::-moz-range-thumb {
-            width: var(--thumb-width);
-            height: rem(10);
-            border: none; /* Removes extra border that FF applies */
-            border-radius: 0; /* Removes default border-radius that FF applies */
-            background-color: $white;
-        }
-
-        &:focus::-moz-range-thumb {
-            outline-offset: 0;
         }
     }
 }

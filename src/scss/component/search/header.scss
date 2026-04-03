@@ -1,61 +1,63 @@
 @use '../../abstract' as *;
 
-.search-overlay-header {
-    &__input {
-        width: rem(400);
-        min-height: rem(36);
-        margin-right: rem(5);
-        padding-left: rem(10);
-        border: 1px $white solid;
-        background: transparent;
-    }
-
-    &__button {
-        display: inline-block;
-        min-height: rem(36);
-        margin: 0;
-        margin-right: rem(5);
-        padding-top: 0;
-        padding-bottom: 0;
-        padding-inline: calc(var(--gap-size) / 2);
-        transition:
-            background 0.35s,
-            color 0.35s;
-        border: 1px $white solid;
-        background: transparent;
-        line-height: 1.7;
-
-        @include on-event {
-            background: $white;
-            color: $black;
+@layer component {
+    @scope (.search-header) {
+        .search-wrap {
+            display: inline-block;
+            position: relative;
         }
-    }
 
-    &__input-container {
-        display: inline-block;
-        position: relative;
-    }
+        .serach-input {
+            width: rem(400);
+            min-height: rem(36);
+            margin-right: rem(5);
+            padding-left: rem(10);
+            border: 1px $white solid;
+            background: transparent;
+        }
 
-    &__suggestion-container {
-        visibility: hidden;
-        position: absolute;
-        z-index: 23;
-        top: var(--gap-size);
-        right: 0;
-        left: 0;
-        margin-left: 0;
-        transition:
-            opacity 0.35s,
-            visibility 0.35s;
-        border: 1px $white solid;
-        opacity: 0;
-        background: $black;
-        pointer-events: none;
+        .suggestion-wrap {
+            visibility: hidden;
+            position: absolute;
+            z-index: 23;
+            top: var(--gap-size);
+            right: 0;
+            left: 0;
+            margin-left: 0;
+            transition:
+                opacity 0.35s,
+                visibility 0.35s;
+            border: 1px $white solid;
+            opacity: 0;
+            background: $black;
+            pointer-events: none;
 
-        &.active {
-            visibility: visible;
-            opacity: 1;
-            pointer-events: all;
+            &.active {
+                visibility: visible;
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+
+        .search-button {
+            display: inline-block;
+            min-height: rem(36);
+            margin: 0;
+            margin-right: rem(5);
+            padding-top: 0;
+            padding-bottom: 0;
+            padding-inline: calc(var(--gap-size) / 2);
+            transition:
+                background 0.35s,
+                color 0.35s;
+            border: 1px $white solid;
+            background: transparent;
+            line-height: 1.7;
+
+            @include on-event {
+                background: $white;
+                color: $black;
+            }
         }
     }
 }

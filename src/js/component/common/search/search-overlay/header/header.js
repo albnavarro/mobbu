@@ -200,11 +200,12 @@ export const SearchOverlayHeaderFn = ({
         });
     });
 
-    return html`<div class="search-overlay-header">
-        <div class="search-overlay-header__input-container">
+    return html`<div class="search-header">
+        <div class="search-wrap">
             <input
                 type="text"
-                class="search-overlay-header__input"
+                class="serach-input"
+                name="search_input"
                 ${setRef('search_input')}
                 ${delegateEvents({
                     keyup: MobCore.useDebounce(
@@ -236,7 +237,7 @@ export const SearchOverlayHeaderFn = ({
                 })}
             />
             <div
-                class="search-overlay-header__suggestion-container"
+                class="suggestion-wrap"
                 ${setRef('suggestionElement')}
                 ${bindEffect({
                     toggleClass: {
@@ -258,7 +259,7 @@ export const SearchOverlayHeaderFn = ({
         <!-- Submit -->
         <button
             type="button"
-            class="search-overlay-header__button"
+            class="search-button"
             ${delegateEvents({
                 click: () => {
                     sendToList({ getRef, proxi });
@@ -276,7 +277,7 @@ export const SearchOverlayHeaderFn = ({
         <!-- Reset -->
         <button
             type="button"
-            class="search-overlay-header__button"
+            class="search-button"
             ${delegateEvents({
                 click: () => {
                     sendReset({ getRef, proxi });

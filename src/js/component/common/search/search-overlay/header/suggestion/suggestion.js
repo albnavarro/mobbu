@@ -13,8 +13,8 @@ export const SearchOverlaySuggestionFn = ({ getProxi, repeat, bindProps }) => {
     const proxi = getProxi();
 
     return html`<div>
-        <div class="search-overlay-suggestion">
-            <ul class="search-overlay-suggestion__list">
+        <div class="search-suggestion">
+            <ul class="list">
                 ${repeat({
                     observe: () => proxi.list,
                     key: 'word',

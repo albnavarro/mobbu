@@ -41225,7 +41225,7 @@
     })}
     >
         <button
-            class="search-overlay__background"
+            class="background"
             type="button"
             ${delegateEvents({
       click: () => {
@@ -41235,7 +41235,7 @@
         ></button>
         <button
             type="button"
-            class="search-overlay__close"
+            class="close-button"
             ${delegateEvents({
       click: () => {
         closeOverlay({ proxi });
@@ -41245,7 +41245,7 @@
 
         <!-- Main content -->
         <div
-            class="search-overlay__grid"
+            class="grid"
             ${delegateEvents({
       click: (event) => {
         shouldCloseSuggestion({
@@ -41258,22 +41258,22 @@
     })}
         >
             <!-- Title -->
-            <h2 class="search-overlay__title">Search</h2>
+            <h2 class="title">Search</h2>
 
             <!-- Header -->
-            <div class="search-overlay__header">
+            <div class="header">
                 <search-overlay-header
                     name="${searchOverlayHeader}"
                 ></search-overlay-header>
             </div>
-            <div class="search-overlay__current-search">
+            <div class="result-query">
                 <p>
                     ${bindObject`search for: <strong>${() => proxi.currentSearch}</strong>`}
                 </p>
             </div>
 
             <!-- List -->
-            <div class="search-overlay__list">
+            <div class="content">
                 <search-overlay-list
                     ${staticProps2(
       /** @type {import('./list/type').SearchOverlayList['props']} */
@@ -41397,11 +41397,12 @@
         }, 300);
       });
     });
-    return renderHtml`<div class="search-overlay-header">
-        <div class="search-overlay-header__input-container">
+    return renderHtml`<div class="search-header">
+        <div class="search-wrap">
             <input
                 type="text"
-                class="search-overlay-header__input"
+                class="serach-input"
+                name="search_input"
                 ${setRef("search_input")}
                 ${delegateEvents({
       keyup: modules_exports.useDebounce(
@@ -41428,7 +41429,7 @@
     })}
             />
             <div
-                class="search-overlay-header__suggestion-container"
+                class="suggestion-wrap"
                 ${setRef("suggestionElement")}
                 ${bindEffect({
       toggleClass: {
@@ -41450,7 +41451,7 @@
         <!-- Submit -->
         <button
             type="button"
-            class="search-overlay-header__button"
+            class="search-button"
             ${delegateEvents({
       click: () => {
         sendToList({ getRef, proxi });
@@ -41468,7 +41469,7 @@
         <!-- Reset -->
         <button
             type="button"
-            class="search-overlay-header__button"
+            class="search-button"
             ${delegateEvents({
       click: () => {
         sendReset({ getRef, proxi });
@@ -41489,8 +41490,8 @@
   var SearchOverlaySuggestionFn = ({ getProxi, repeat, bindProps }) => {
     const proxi = getProxi();
     return renderHtml`<div>
-        <div class="search-overlay-suggestion">
-            <ul class="search-overlay-suggestion__list">
+        <div class="search-suggestion">
+            <ul class="list">
                 ${repeat({
       observe: () => proxi.list,
       key: "word",
@@ -41534,10 +41535,10 @@
   }) => {
     const proxi = getProxi();
     return renderHtml`
-        <li class="search-overlay-suggestion__item">
+        <li>
             <button
                 type="button"
-                class="search-overlay-suggestion__button"
+                class="button"
                 ${delegateEvents({
       click: () => {
         updateSearchFromSuggestion(proxi.word);
@@ -41801,9 +41802,9 @@
         destroy3?.();
       };
     });
-    return renderHtml`<div class="search-overlay-list" ${setRef("screen")}>
+    return renderHtml`<div class="search-list" ${setRef("screen")}>
         <span
-            class="search-overlay-list__loading"
+            class="loader"
             ${bindEffect({
       toggleClass: {
         active: () => proxi.loading
@@ -41820,7 +41821,7 @@
             value="0"
             step=".5"
             ${setRef("scrollbar")}
-            class="search-overlay-list__scrollbar"
+            class="scrollbar"
         />
 
         <!-- no result -->
@@ -41829,9 +41830,9 @@
       observe: () => proxi.noResult,
       render: () => {
         return proxi.noResult ? renderHtml`
-                              <ul class="search-overlay-list__ul">
-                                  <li class="search-overlay-list__item">
-                                      <div class="search-overlay-list__section">
+                              <ul>
+                                  <li>
+                                      <div class="section">
                                           <p><strong>no result</strong></p>
                                       </div>
                                   </li>
@@ -41842,7 +41843,7 @@
         </div>
 
         <!-- result list -->
-        <ul class="search-overlay-list__ul" ${setRef("scroller")}>
+        <ul ${setRef("scroller")}>
             ${repeat({
       observe: () => proxi.list,
       render: ({ current }) => {
@@ -41887,7 +41888,6 @@
     const proxi = getProxi();
     return renderHtml`
         <li
-            class="search-overlay-list__item"
             ${bindEffect({
       toggleClass: {
         current: () => proxi.active
@@ -41896,21 +41896,18 @@
         >
             <button
                 type="button"
-                class="search-overlay-list__button"
                 ${delegateEvents({
       click: () => {
         loadPage2({ uri: proxi.uri });
       }
     })}
             >
-                <div class="search-overlay-list__section">
+                <div class="item-section">
                     <p>
                         ${bindObject`<strong>${() => proxi.breadCrumbs}</strong> (${() => proxi.count})`}
                     </p>
                 </div>
-                <div class="search-overlay-list__title">
-                    <h6>${bindObject`${() => proxi.title}`}</h6>
-                </div>
+                <h6>${bindObject`${() => proxi.title}`}</h6>
             </button>
         </li>
     `;

@@ -51,7 +51,7 @@ export const SearchOverlayFn = ({
         })}
     >
         <button
-            class="search-overlay__background"
+            class="background"
             type="button"
             ${delegateEvents({
                 click: () => {
@@ -61,7 +61,7 @@ export const SearchOverlayFn = ({
         ></button>
         <button
             type="button"
-            class="search-overlay__close"
+            class="close-button"
             ${delegateEvents({
                 click: () => {
                     closeOverlay({ proxi });
@@ -71,7 +71,7 @@ export const SearchOverlayFn = ({
 
         <!-- Main content -->
         <div
-            class="search-overlay__grid"
+            class="grid"
             ${delegateEvents({
                 click: (/** @type {Event} */ event) => {
                     shouldCloseSuggestion({
@@ -81,22 +81,22 @@ export const SearchOverlayFn = ({
             })}
         >
             <!-- Title -->
-            <h2 class="search-overlay__title">Search</h2>
+            <h2 class="title">Search</h2>
 
             <!-- Header -->
-            <div class="search-overlay__header">
+            <div class="header">
                 <search-overlay-header
                     name="${searchOverlayHeader}"
                 ></search-overlay-header>
             </div>
-            <div class="search-overlay__current-search">
+            <div class="result-query">
                 <p>
                     ${bindObject`search for: <strong>${() => proxi.currentSearch}</strong>`}
                 </p>
             </div>
 
             <!-- List -->
-            <div class="search-overlay__list">
+            <div class="content">
                 <search-overlay-list
                     ${staticProps(
                         /** @type {import('./list/type').SearchOverlayList['props']} */

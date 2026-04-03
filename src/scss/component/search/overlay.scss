@@ -1,116 +1,120 @@
 @use '../../abstract' as *;
 
-.search-overlay {
-    display: flex;
-    visibility: hidden;
-    position: fixed;
-    z-index: 20;
-    top: 0;
-    left: 0;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    transition:
-        opacity 0.35s,
-        visibility 0.35s;
-    opacity: 0;
-    color: $white;
-    font-size: rem(12);
-    pointer-events: none;
+@layer component {
+    @scope (.search-overlay) {
+        :scope {
+            display: flex;
+            visibility: hidden;
+            position: fixed;
+            z-index: 20;
+            top: 0;
+            left: 0;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            transition:
+                opacity 0.35s,
+                visibility 0.35s;
+            opacity: 0;
+            color: $white;
+            font-size: rem(12);
+            pointer-events: none;
 
-    &.active {
-        visibility: visible;
-        opacity: 1;
-        pointer-events: all;
-    }
+            &.active {
+                visibility: visible;
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
 
-    &__background {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
-        background: rgba($black, 0.98);
-    }
-
-    &__close {
-        position: absolute;
-        z-index: 10;
-        top: rem(20);
-        right: rem(10);
-        width: rem(40);
-        height: rem(40);
-        border: 0;
-        background: transparent;
-
-        &::after,
-        &::before {
-            content: '';
+        .background {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: rem(20);
-            height: 2px;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            background: rgba($black, 0.98);
+        }
+
+        .close-button {
+            position: absolute;
+            z-index: 10;
+            top: rem(20);
+            right: rem(10);
+            width: rem(40);
+            height: rem(40);
+            border: 0;
+            background: transparent;
+
+            &::after,
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: rem(20);
+                height: 2px;
+                background: $white;
+            }
+
+            &::before {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+
+            &::after {
+                transform: translate(-50%, -50%) rotate(135deg);
+            }
+        }
+
+        .grid {
+            display: grid;
+            position: relative;
+            grid-template-areas:
+                'head'
+                'current'
+                'list';
+            grid-template-rows: rem(100) rem(50) 50vh;
+            width: 100%;
+            max-width: 80%;
+            border: 1px $white solid;
+        }
+
+        .title {
+            position: absolute;
+            bottom: calc(100% - #{rem(3)});
+            left: var(--gap-size);
+            margin-bottom: 0;
+            color: $white;
+            font-size: var(--gap-size);
+            line-height: 1;
+        }
+
+        .header {
+            grid-area: head;
+            align-content: center;
+            padding-left: var(--gap-size);
+            border-bottom: 1px $white solid;
+        }
+
+        .result-query {
+            grid-area: current;
+            align-content: center;
+            padding-left: var(--gap-size);
+            border-bottom: 1px $white solid;
             background: $white;
+            color: $black;
         }
 
-        &::before {
-            transform: translate(-50%, -50%) rotate(45deg);
+        .content {
+            position: relative;
+            grid-area: list;
         }
-
-        &::after {
-            transform: translate(-50%, -50%) rotate(135deg);
-        }
-    }
-
-    &__title {
-        position: absolute;
-        bottom: calc(100% - #{rem(3)});
-        left: var(--gap-size);
-        margin-bottom: 0;
-        color: $white;
-        font-size: var(--gap-size);
-        line-height: 1;
-    }
-
-    &__grid {
-        display: grid;
-        position: relative;
-        grid-template-areas:
-            'head'
-            'current'
-            'list';
-        grid-template-rows: rem(100) rem(50) 50vh;
-        width: 100%;
-        max-width: 80%;
-        border: 1px $white solid;
-    }
-
-    &__header {
-        grid-area: head;
-        align-content: center;
-        padding-left: var(--gap-size);
-        border-bottom: 1px $white solid;
-    }
-
-    &__current-search {
-        grid-area: current;
-        align-content: center;
-        padding-left: var(--gap-size);
-        border-bottom: 1px $white solid;
-        background: $white;
-        color: $black;
 
         p {
             margin-bottom: 0;
         }
-    }
-
-    &__list {
-        position: relative;
-        grid-area: list;
     }
 }

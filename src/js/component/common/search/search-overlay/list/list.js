@@ -112,9 +112,9 @@ export const SearchOverlayListFn = ({
         };
     });
 
-    return html`<div class="search-overlay-list" ${setRef('screen')}>
+    return html`<div class="search-list" ${setRef('screen')}>
         <span
-            class="search-overlay-list__loading"
+            class="loader"
             ${bindEffect({
                 toggleClass: {
                     active: () => proxi.loading,
@@ -131,7 +131,7 @@ export const SearchOverlayListFn = ({
             value="0"
             step=".5"
             ${setRef('scrollbar')}
-            class="search-overlay-list__scrollbar"
+            class="scrollbar"
         />
 
         <!-- no result -->
@@ -141,9 +141,9 @@ export const SearchOverlayListFn = ({
                 render: () => {
                     return proxi.noResult
                         ? html`
-                              <ul class="search-overlay-list__ul">
-                                  <li class="search-overlay-list__item">
-                                      <div class="search-overlay-list__section">
+                              <ul>
+                                  <li>
+                                      <div class="section">
                                           <p><strong>no result</strong></p>
                                       </div>
                                   </li>
@@ -155,7 +155,7 @@ export const SearchOverlayListFn = ({
         </div>
 
         <!-- result list -->
-        <ul class="search-overlay-list__ul" ${setRef('scroller')}>
+        <ul ${setRef('scroller')}>
             ${repeat({
                 observe: () => proxi.list,
                 render: ({ current }) => {
