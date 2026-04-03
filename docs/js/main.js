@@ -32372,7 +32372,7 @@
       };
     });
     return renderHtml`<div class="l-index">
-        <div class="l-index__logo">
+        <div class="logo">
             ${svg.map((item) => {
       return renderHtml`${item}`;
     }).join("")}

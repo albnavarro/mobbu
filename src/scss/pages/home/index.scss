@@ -2,22 +2,26 @@
 
 $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
 
-.l-index {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    align-items: start;
-    justify-content: start;
-    height: calc(100vh);
-    overflow: hidden;
+@layer layout {
+    @scope (.l-index) {
+        :scope {
+            display: flex;
+            position: relative;
+            flex-direction: column;
+            align-items: start;
+            justify-content: start;
+            height: calc(100vh);
+            overflow: hidden;
+        }
 
-    &__logo {
-        display: grid;
-        position: absolute;
-        z-index: 1;
-        inset: 0;
-        grid-template-areas: 'svg';
-        place-content: center center;
+        .logo {
+            display: grid;
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            grid-template-areas: 'svg';
+            place-content: center center;
+        }
 
         svg {
             position: relative;
@@ -40,10 +44,5 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
                 height: calc(((800 * 100) / 1240) * 1vw);
             }
         }
-    }
-
-    &__stagger {
-        translate: 0 100%;
-        margin: 0;
     }
 }

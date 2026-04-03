@@ -41,7 +41,7 @@ export const HomeComponentFn = ({ onMount, getProxi }) => {
     });
 
     return html`<div class="l-index">
-        <div class="l-index__logo">
+        <div class="logo">
             ${svg
                 .map((item) => {
                     return html`${item}`;

@@ -1305,48 +1305,48 @@ code.hljs {
     }
   }
 }
-.l-index {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: start;
-  justify-content: start;
-  height: 100vh;
-  overflow: hidden;
-}
-.l-index__logo {
-  display: grid;
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  grid-template-areas: "svg";
-  place-content: center center;
-}
-.l-index__logo svg {
-  position: relative;
-  grid-area: svg;
-  overflow: visible;
-  transform-origin: center;
-  scale: 0;
-}
-.is-firefox .l-index__logo svg {
-  transform: translateZ(0.5px);
-}
-@media (aspect-ratio >= 3/2) {
-  .l-index__logo svg {
-    width: min(1920px, 88.5416666667vw);
-    height: min(978.3439490446px, 41.6666666667vw);
+@layer layout {
+  @scope (.l-index) {
+    :scope {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      align-items: start;
+      justify-content: start;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .logo {
+      display: grid;
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      grid-template-areas: "svg";
+      place-content: center center;
+    }
+    svg {
+      position: relative;
+      grid-area: svg;
+      overflow: visible;
+      transform-origin: center;
+      scale: 0;
+    }
+    .is-firefox svg {
+      transform: translateZ(0.5px);
+    }
+    @media (aspect-ratio >= 3/2) {
+      svg {
+        width: min(1920px, 88.5416666667vw);
+        height: min(978.3439490446px, 41.6666666667vw);
+      }
+    }
+    @media (aspect-ratio < 3/2) {
+      svg {
+        width: 137.0967741935vw;
+        height: 64.5161290323vw;
+      }
+    }
   }
-}
-@media (aspect-ratio < 3/2) {
-  .l-index__logo svg {
-    width: 137.0967741935vw;
-    height: 64.5161290323vw;
-  }
-}
-.l-index__stagger {
-  translate: 0 100%;
-  margin: 0;
 }
 .l-about {
   position: relative;
