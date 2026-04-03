@@ -1,56 +1,60 @@
 @use '../../abstract' as *;
 
-.matrioska-item {
-    position: relative;
-    z-index: 1;
-    margin: rem(12);
-    overflow: hidden;
-    border-radius: rem(20);
+@layer component {
+    @scope (.matrioska-item) {
+        :scope {
+            position: relative;
+            z-index: 1;
+            margin: rem(12);
+            overflow: hidden;
+            border-radius: rem(20);
 
-    h4 {
-        font-size: rem(14);
-    }
+            &.is-1,
+            &.is-2 {
+                margin-bottom: calc(var(--gap-size) / 2);
+                padding-bottom: calc(var(--gap-size) / 2);
+            }
 
-    h6 {
-        font-size: rem(14);
-    }
+            &.is-2 {
+                background: $grey-light;
+            }
 
-    &--1,
-    &--2 {
-        margin-bottom: calc(var(--gap-size) / 2);
-        padding-bottom: calc(var(--gap-size) / 2);
-    }
+            &.is-3 {
+                background: $white;
+                cursor: pointer;
 
-    &--2 {
-        background: $grey-light;
-    }
-
-    &--3 {
-        background: $white;
-        cursor: pointer;
-
-        &.active {
-            background: $black;
-            color: $white;
+                &.active {
+                    background: $black;
+                    color: $white;
+                }
+            }
         }
-    }
 
-    &__info {
-        margin-bottom: rem(20);
-    }
+        h4 {
+            font-size: rem(14);
+        }
 
-    &__level {
-        margin-bottom: 0;
-        padding: calc(var(--gap-size) / 2);
-    }
+        h6 {
+            font-size: rem(14);
+        }
 
-    &__key,
-    &__value {
-        margin-bottom: 0;
-        padding: 0 calc(var(--gap-size) / 2);
+        .info {
+            margin-bottom: rem(20);
+        }
 
-        span {
-            font-weight: 400;
+        .item-level {
+            margin-bottom: 0;
+            padding: calc(var(--gap-size) / 2);
+        }
+
+        .key,
+        .value {
+            margin-bottom: 0;
+            padding: 0 calc(var(--gap-size) / 2);
+
+            span {
+                font-weight: 400;
+            }
         }
     }
 }

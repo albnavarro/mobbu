@@ -23,8 +23,8 @@ export const MatrioskaRepeatFn = ({
 }) => {
     const proxi = getProxi();
 
-    return html`<div class="matrioska">
-        <div class="matrioska__head">
+    return html`<div class="l-matrioska">
+        <div class="header">
             ${getButtons({
                 delegateEvents,
                 updateState,
@@ -32,50 +32,46 @@ export const MatrioskaRepeatFn = ({
                 proxi,
             })}
         </div>
-        <h4 class="matrioska__head__title">
+        <h4 class="legend">
             Nested repater like matrioska in same component.
             <span> First/Second/third level repeater without key. </span>
             <span> Third level use shuffle order. </span>
         </h4>
-        <div class="matrioska__body">
-            <div class="matrioska__level matrioska__level--1">
-                ${repeat({
-                    observe: () => proxi.level1,
-                    render: ({ current }) => {
-                        return html`
-                            <div
-                                class="matrioska__item-wrap matrioska__item-wrap--1"
+        <div class="level level--1">
+            ${repeat({
+                observe: () => proxi.level1,
+                render: ({ current }) => {
+                    return html`
+                        <div class="level-wrap level-wrap--1">
+                            <matrioska-item
+                                class="is-1"
+                                ${staticProps(
+                                    /** @type {MatrioskaItem['props']} */ ({
+                                        level: 'level 1',
+                                    })
+                                )}
+                                ${bindProps(
+                                    /** @returns {ReturnBindProps<MatrioskaItem>} */
+                                    () => ({
+                                        key: `${current.value.key}`,
+                                        value: `${current.value.value}`,
+                                        index: current.index,
+                                        counter: proxi.counter,
+                                    })
+                                )}
                             >
-                                <matrioska-item
-                                    class="matrioska-item--1"
-                                    ${staticProps(
-                                        /** @type {MatrioskaItem['props']} */ ({
-                                            level: 'level 1',
-                                        })
-                                    )}
-                                    ${bindProps(
-                                        /** @returns {ReturnBindProps<MatrioskaItem>} */
-                                        () => ({
-                                            key: `${current.value.key}`,
-                                            value: `${current.value.value}`,
-                                            index: current.index,
-                                            counter: proxi.counter,
-                                        })
-                                    )}
-                                >
-                                    ${getSecondLevel({
-                                        repeat,
-                                        staticProps,
-                                        bindProps,
-                                        delegateEvents,
-                                        proxi,
-                                    })}
-                                </matrioska-item>
-                            </div>
-                        `;
-                    },
-                })}
-            </div>
+                                ${getSecondLevel({
+                                    repeat,
+                                    staticProps,
+                                    bindProps,
+                                    delegateEvents,
+                                    proxi,
+                                })}
+                            </matrioska-item>
+                        </div>
+                    `;
+                },
+            })}
         </div>
     </div>`;
 };

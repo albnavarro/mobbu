@@ -29,7 +29,7 @@ export const getThirdLevel = ({
     bindProps,
     proxi,
 }) => {
-    return html` <div class="matrioska__level matrioska__level--3">
+    return html` <div class="level level--3">
         ${invalidate({
             observe: 'level3',
             render: () => {
@@ -39,11 +39,9 @@ export const getThirdLevel = ({
                         const name2 = MobCore.getUnivoqueId();
 
                         return html`
-                            <div
-                                class="matrioska__item-wrap matrioska__item-wrap--3"
-                            >
+                            <div class="level-wrap level-wrap--3">
                                 <matrioska-item
-                                    class="matrioska-item--3"
+                                    class="is-3"
                                     name="${name}"
                                     ${staticProps(
                                         /** @type {MatrioskaItem['props']} */ ({
@@ -66,7 +64,7 @@ export const getThirdLevel = ({
                                 >
                                 </matrioska-item>
                                 <matrioska-item
-                                    class="matrioska-item--3"
+                                    class="is-3"
                                     name="${name2}"
                                     ${staticProps(
                                         /** @type {MatrioskaItem['props']} */ ({

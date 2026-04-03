@@ -33,9 +33,9 @@ export const getButtons = ({
     return html`
         ${buttons
             .map((button) => {
-                return html` <div class="matrioska__head__item">
+                return html` <div class="header-col">
                     <dynamic-list-button
-                        class="matrioska__button"
+                        class="header-button"
                         ${delegateEvents({
                             click: async () => {
                                 updateState(
@@ -51,7 +51,7 @@ export const getButtons = ({
                         >${button.label_minus}</dynamic-list-button
                     >
                     <dynamic-list-button
-                        class="matrioska__button"
+                        class="header-button"
                         ${delegateEvents({
                             click: async () => {
                                 updateState(
@@ -72,7 +72,7 @@ export const getButtons = ({
                         })}
                         >${button.label_plus}</dynamic-list-button
                     >
-                    <div class="matrioska__head__counter">
+                    <div class="header-counter">
                         ${invalidate({
                             observe:
                                 /** @type {'level1' | 'level2' | 'level3'} */ (
@@ -96,9 +96,10 @@ export const getButtons = ({
                 </div>`;
             })
             .join('')}
-        <div class="matrioska__head__cta-counter">
+
+        <div class="header-col">
             <dynamic-list-button
-                class="matrioska__button"
+                class="header-button"
                 ${delegateEvents({
                     click: () => {
                         updateState('counter', (val) => val + 1);

@@ -32485,9 +32485,9 @@
   }) => {
     return renderHtml`
         ${buttons3.map((button) => {
-      return renderHtml` <div class="matrioska__head__item">
+      return renderHtml` <div class="header-col">
                     <dynamic-list-button
-                        class="matrioska__button"
+                        class="header-button"
                         ${delegateEvents({
         click: async () => {
           updateState(
@@ -32502,7 +32502,7 @@
                         >${button.label_minus}</dynamic-list-button
                     >
                     <dynamic-list-button
-                        class="matrioska__button"
+                        class="header-button"
                         ${delegateEvents({
         click: async () => {
           updateState(
@@ -32522,7 +32522,7 @@
       })}
                         >${button.label_plus}</dynamic-list-button
                     >
-                    <div class="matrioska__head__counter">
+                    <div class="header-counter">
                         ${invalidate({
         observe: (
           /** @type {'level1' | 'level2' | 'level3'} */
@@ -32542,9 +32542,10 @@
                     </div>
                 </div>`;
     }).join("")}
-        <div class="matrioska__head__cta-counter">
+
+        <div class="header-col">
             <dynamic-list-button
-                class="matrioska__button"
+                class="header-button"
                 ${delegateEvents({
       click: () => {
         updateState("counter", (val) => val + 1);
@@ -32571,18 +32572,16 @@
     proxi
   }) => {
     return renderHtml`
-        <div class="matrioska__level matrioska__level--3">
+        <div class="level level--3">
             ${repeat({
       observe: () => proxi.level3,
       render: ({ current }) => {
         const name = modules_exports.getUnivoqueId();
         const name2 = modules_exports.getUnivoqueId();
         return renderHtml`
-                        <div
-                            class="matrioska__item-wrap matrioska__item-wrap--3"
-                        >
+                        <div class="level-wrap level-wrap--3">
                             <matrioska-item
-                                class="matrioska-item--3"
+                                class="is-3"
                                 name="${name}"
                                 ${staticProps2(
           /** @type {MatrioskaItem['props']} */
@@ -32604,7 +32603,7 @@
                             >
                             </matrioska-item>
                             <matrioska-item
-                                class="matrioska-item--3"
+                                class="is-3"
                                 name="${name2}"
                                 ${staticProps2(
           /** @type {MatrioskaItem['props']} */
@@ -32647,16 +32646,14 @@
     proxi
   }) => {
     return renderHtml`
-        <div class="matrioska__level matrioska__level--2">
+        <div class="level level--2">
             ${repeat({
       observe: () => proxi.level2,
       render: ({ current }) => {
         return renderHtml`
-                        <div
-                            class="matrioska__item-wrap matrioska__item-wrap--2"
-                        >
+                        <div class="level-wrap level-wrap--2">
                             <matrioska-item
-                                class="matrioska-item--2"
+                                class="is-2"
                                 ${staticProps2(
           /** @type {MatrioskaItem['props']} */
           {
@@ -32697,8 +32694,8 @@
     getProxi
   }) => {
     const proxi = getProxi();
-    return renderHtml`<div class="matrioska">
-        <div class="matrioska__head">
+    return renderHtml`<div class="l-matrioska">
+        <div class="header">
             ${getButtons2({
       delegateEvents,
       updateState,
@@ -32706,29 +32703,26 @@
       proxi
     })}
         </div>
-        <h4 class="matrioska__head__title">
+        <h4 class="legend">
             Nested repater like matrioska in same component.
             <span> First/Second/third level repeater without key. </span>
             <span> Third level use shuffle order. </span>
         </h4>
-        <div class="matrioska__body">
-            <div class="matrioska__level matrioska__level--1">
-                ${repeat({
+        <div class="level level--1">
+            ${repeat({
       observe: () => proxi.level1,
       render: ({ current }) => {
         return renderHtml`
-                            <div
-                                class="matrioska__item-wrap matrioska__item-wrap--1"
-                            >
-                                <matrioska-item
-                                    class="matrioska-item--1"
-                                    ${staticProps2(
+                        <div class="level-wrap level-wrap--1">
+                            <matrioska-item
+                                class="is-1"
+                                ${staticProps2(
           /** @type {MatrioskaItem['props']} */
           {
             level: "level 1"
           }
         )}
-                                    ${bindProps(
+                                ${bindProps(
           /** @returns {ReturnBindProps<MatrioskaItem>} */
           () => ({
             key: `${current.value.key}`,
@@ -32737,20 +32731,19 @@
             counter: proxi.counter
           })
         )}
-                                >
-                                    ${getSecondLevel({
+                            >
+                                ${getSecondLevel({
           repeat,
           staticProps: staticProps2,
           bindProps,
           delegateEvents,
           proxi
         })}
-                                </matrioska-item>
-                            </div>
-                        `;
+                            </matrioska-item>
+                        </div>
+                    `;
       }
     })}
-            </div>
         </div>
     </div>`;
   };
@@ -32773,25 +32766,17 @@
       toggleClass: { active: () => proxi.active }
     })}
     >
-        <div class="matrioska-item__info">
-            <h4 class="matrioska-item__level">${proxi.level}:</h4>
-            <h6 class="matrioska-item__key">
-                ${bindText`key: <span>${"key"}</span>`}
-            </h6>
-            <h6 class="matrioska-item__key">
-                ${bindText`index: <span>${"index"}</span>`}
-            </h6>
-            <h6 class="matrioska-item__value">
-                ${bindText`Value: <span>${"value"}</span>`}
-            </h6>
-            <h6 class="matrioska-item__value">
+        <div class="info">
+            <h4 class="item-level">${proxi.level}:</h4>
+            <h6 class="key">${bindText`key: <span>${"key"}</span>`}</h6>
+            <h6 class="key">${bindText`index: <span>${"index"}</span>`}</h6>
+            <h6 class="value">${bindText`Value: <span>${"value"}</span>`}</h6>
+            <h6 class="value">
                 ${bindText`counter: <span>${"counter"}</span>`}
             </h6>
-            <h6 class="matrioska-item__value">
-                Component id: <span>${id}</span>
-            </h6>
+            <h6 class="value">Component id: <span>${id}</span></h6>
         </div>
-        <div class="matrioska-item__child">
+        <div class="child">
             <mobjs-slot></mobjs-slot>
         </div>
     </matrioska-item>`;
@@ -32851,7 +32836,7 @@
     bindProps,
     proxi
   }) => {
-    return renderHtml` <div class="matrioska__level matrioska__level--3">
+    return renderHtml` <div class="level level--3">
         ${invalidate({
       observe: "level3",
       render: () => {
@@ -32859,11 +32844,9 @@
           const name = modules_exports.getUnivoqueId();
           const name2 = modules_exports.getUnivoqueId();
           return renderHtml`
-                            <div
-                                class="matrioska__item-wrap matrioska__item-wrap--3"
-                            >
+                            <div class="level-wrap level-wrap--3">
                                 <matrioska-item
-                                    class="matrioska-item--3"
+                                    class="is-3"
                                     name="${name}"
                                     ${staticProps2(
             /** @type {MatrioskaItem['props']} */
@@ -32887,7 +32870,7 @@
                                 >
                                 </matrioska-item>
                                 <matrioska-item
-                                    class="matrioska-item--3"
+                                    class="is-3"
                                     name="${name2}"
                                     ${staticProps2(
             /** @type {MatrioskaItem['props']} */
@@ -32927,17 +32910,15 @@
     proxi
   }) => {
     return renderHtml`
-        <div class="matrioska__level matrioska__level--2">
+        <div class="level level--2">
             ${invalidate({
       observe: () => proxi.level2,
       render: () => {
         return proxi.level2.map((item, index) => {
           return renderHtml`
-                                <div
-                                    class="matrioska__item-wrap matrioska__item-wrap--2"
-                                >
+                                <div class="level-wrap level-wrap--2">
                                     <matrioska-item
-                                        class="matrioska-item--2"
+                                        class="is-2"
                                         ${staticProps2(
             /** @type {MatrioskaItem['props']} */
             {
@@ -32978,8 +32959,8 @@
     getProxi
   }) => {
     const proxi = getProxi();
-    return renderHtml`<div class="matrioska">
-        <div class="matrioska__head">
+    return renderHtml`<div class="l-matrioska">
+        <div class="header">
             ${getButtons2({
       delegateEvents,
       updateState,
@@ -32987,22 +32968,19 @@
       proxi
     })}
         </div>
-        <h4 class="matrioska__head__title">
+        <h4 class="legend">
             Nested invalidate like matrioska in same component.
         </h4>
-        <div class="matrioska__body">
-            <div class="matrioska__level matrioska__level--1">
-                ${invalidate({
+        <div class="level level--1">
+            ${invalidate({
       observe: "level1",
       render: () => {
         return proxi.level1.map((item, index) => {
           return renderHtml`
-                                    <div
-                                        class="matrioska__item-wrap matrioska__item-wrap--1"
-                                    >
-                                        <matrioska-item
-                                            class="matrioska-item--1"
-                                            ${staticProps2(
+                                <div class="level-wrap level-wrap--1">
+                                    <matrioska-item
+                                        class="is-1"
+                                        ${staticProps2(
             /** @type {Partial<MatrioskaItem['props']>} */
             {
               level: "level 1",
@@ -33011,24 +32989,23 @@
               value: `${item.value}`
             }
           )}
-                                            ${bindProps(() => ({
+                                        ${bindProps(() => ({
             counter: proxi.counter
           }))}
-                                        >
-                                            ${getSecondLevel2({
+                                    >
+                                        ${getSecondLevel2({
             staticProps: staticProps2,
             bindProps,
             delegateEvents,
             invalidate,
             proxi
           })}
-                                        </matrioska-item>
-                                    </div>
-                                `;
+                                    </matrioska-item>
+                                </div>
+                            `;
         }).join("");
       }
     })}
-            </div>
         </div>
     </div>`;
   };

@@ -1,26 +1,35 @@
 @use '../../abstract' as *;
 
-.matrioska {
-    box-sizing: border-box;
-    padding-bottom: var(--footer-height);
-    border: 0;
+@layer layout {
+    @scope (.l-matrioska) {
+        :scope {
+            box-sizing: border-box;
+            padding-bottom: var(--footer-height);
+            border: 0;
 
-    // Increase scrolling performance on smooth scroll.
-    @include when-inside('.is-whelling') {
-        pointer-events: none;
-    }
+            @include when-inside('.is-whelling') {
+                pointer-events: none;
+            }
+        }
 
-    &__head {
-        display: flex;
-        position: sticky;
-        z-index: 10;
-        top: var(--header-height);
-        flex-wrap: wrap;
-        padding: calc(var(--gap-size) / 4);
-        border-bottom: 1px $black solid;
-        background: rgba($white, 0.8);
+        .header {
+            display: flex;
+            position: sticky;
+            z-index: 10;
+            top: var(--header-height);
+            flex-wrap: wrap;
+            padding: calc(var(--gap-size) / 4);
+            border-bottom: 1px $black solid;
+            background: rgba($white, 0.8);
+        }
 
-        &__item {
+        .header-button {
+            width: 100%;
+            max-width: rem(200);
+            margin: rem(4) 0;
+        }
+
+        .header-col {
             flex: calc((100 / 4) * 1%);
             padding-inline: calc(var(--gap-size) / 2);
             color: $black;
@@ -28,7 +37,14 @@
             text-align: center;
         }
 
-        &__title {
+        .header-counter {
+            flex: calc((100 / 4) * 1%);
+            padding: 0;
+            font-size: rem(12);
+            text-align: center;
+        }
+
+        .legend {
             margin-right: rem(12);
             padding: calc(var(--gap-size) / 2) var(--gap-size);
             border-bottom: 1px $black solid;
@@ -41,64 +57,45 @@
             }
         }
 
-        &__cta-counter {
-            flex: calc((100 / 4) * 1%);
-            padding: 0;
-            text-align: center;
-        }
+        .level {
+            &--2 {
+                padding-bottom: calc(var(--gap-size) / 2);
+                border-bottom: 1px $black solid;
+            }
 
-        &__counter {
-            font-size: rem(12);
-        }
-    }
+            &--2,
+            &--3 {
+                display: flex;
+                flex-wrap: wrap;
+            }
 
-    &__button {
-        width: 100%;
-        max-width: rem(200);
-        margin: rem(4) 0;
-        border: 0;
-    }
-
-    &__level {
-        flex: 33%;
-
-        &--2 {
-            padding-bottom: calc(var(--gap-size) / 2);
-            border-bottom: 1px $black solid;
-        }
-
-        &--2,
-        &--3 {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        &--3 {
-            margin: calc(var(--gap-size) / 2);
-        }
-    }
-
-    &__item-wrap {
-        &--2 {
-            flex: 0 0 100%;
-
-            @include mq(xlarge) {
-                flex: 0 0 50%;
+            &--3 {
+                margin: calc(var(--gap-size) / 2);
             }
         }
 
-        &--3 {
-            position: relative;
-            flex: 0 0 50%;
-            padding: calc(var(--gap-size) / 2);
+        .level-wrap {
+            &--2 {
+                flex: 0 0 100%;
 
-            &::after {
-                content: '';
-                position: absolute;
-                z-index: 0;
-                border-radius: rem(20);
-                background: $grey-lightteen;
-                inset: rem(10);
+                @include mq(xlarge) {
+                    flex: 0 0 50%;
+                }
+            }
+
+            &--3 {
+                position: relative;
+                flex: 0 0 50%;
+                padding: calc(var(--gap-size) / 2);
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    z-index: 0;
+                    border-radius: rem(20);
+                    background: $grey-lightteen;
+                    inset: rem(10);
+                }
             }
         }
     }
