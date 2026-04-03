@@ -26,13 +26,13 @@ function getSubmenu({ proxi, staticProps }) {
             const { label, url, scrollToSection, activeId } = child;
 
             return html`
-                <li class="l-navigation__submenu__item">
+                <li class="submenu-item">
                     <mob-navigation-button
                         ${staticProps(
                             /** @type {NavigationButton['props']} */ ({
                                 label,
                                 url,
-                                subMenuClass: 'l-navigation__link--submenu',
+                                subMenuClass: 'is-submenu',
                                 scrollToSection,
                                 activeId: activeId ?? -1,
                                 callback: () => {
@@ -103,13 +103,13 @@ export const NavigationSubmenuFn = ({
     });
 
     return html`
-        <li class="l-navigation__item has-child">
+        <li>
             <mob-navigation-button
                 ${staticProps(
                     /** @type {NavigationButton['props']} */ ({
                         label,
                         url,
-                        arrowClass: 'l-navigation__link--arrow',
+                        arrowClass: 'has-arrow',
                         fireRoute: false,
                         activeId: activeId ?? -1,
                         callback: () => {
@@ -127,7 +127,7 @@ export const NavigationSubmenuFn = ({
                     })
                 )}
             ></mob-navigation-button>
-            <ul class="l-navigation__submenu" ${setRef('content')}>
+            <ul class="submenu" ${setRef('content')}>
                 ${getSubmenu({ proxi, staticProps })}
             </ul>
         </li>

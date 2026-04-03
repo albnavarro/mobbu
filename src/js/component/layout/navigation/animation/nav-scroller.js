@@ -11,14 +11,14 @@ let currentPercent = 0;
  */
 export const initNavigationScoller = ({ root }) => {
     const screenEl = /** @type {HTMLElement} */ (
-        root.querySelector('.l-navcontainer__wrap')
+        root.querySelector('.js-nav-col')
     );
     const scrollerEl = /** @type {HTMLElement} */ (
-        root.querySelector('.l-navcontainer__scroll')
+        root.querySelector('.js-nav-scroll')
     );
     const percentEl =
         /** @type {HTMLElement} */
-        (root.querySelector('.l-navcontainer__percent'));
+        (root.querySelector('.js-nav-percent'));
     const setDelay = 200;
 
     /**

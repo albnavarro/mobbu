@@ -19,7 +19,6 @@ export const HeaderMainMenuButtonFn = ({ getProxi, bindEffect, computed }) => {
     return html`
         <button
             type="button"
-            class="header-main-menu__button"
             ${bindEffect({
                 toggleClass: { current: () => proxi.active },
             })}

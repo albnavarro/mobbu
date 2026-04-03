@@ -1,6 +1,9 @@
 @use '../../abstract' as *;
 
-.search-cta {
-    border: 0;
-    background: transparent;
+@layer component {
+    @scope (.search-cta) {
+        :scope {
+            margin: 0;
+        }
+    }
 }

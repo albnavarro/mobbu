@@ -1,63 +1,67 @@
 @use '../../abstract' as *;
 
-.header-main-menu {
-    display: block;
-    margin: 0;
-    padding: 0;
-    transition: opacity 1s 0.55s;
-    opacity: 0;
-    place-self: center start;
+@layer layout {
+    @scope (.l-header-menu) {
+        :scope {
+            display: block;
+            margin: 0;
+            padding: 0;
+            transition: opacity 1s 0.55s;
+            opacity: 0;
+            place-self: center start;
 
-    &.is-visible {
-        opacity: 1;
-    }
+            &.is-visible {
+                opacity: 1;
+            }
 
-    @include mq(xlarge) {
-        place-self: center center;
-    }
-
-    &__item {
-        display: inline-block;
-    }
-
-    &__button {
-        position: relative;
-        height: var(--header-height);
-        margin: 0;
-        padding-inline: rem(15);
-        transition: opacity 0.55s;
-        transition:
-            background 0.35s,
-            color 0.35s;
-        border: 0;
-        background: transparent;
-        color: $black;
-        font-size: rem(14);
-
-        &::after {
-            content: '';
-            position: absolute;
-            z-index: -1;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            height: 100%;
-            transform: scaleY(0);
-            transform-origin: bottom;
-            transition: transform 0.55s;
-            background: $black;
+            @include mq(xlarge) {
+                place-self: center center;
+            }
         }
 
-        @include mq(xlarge) {
-            padding-inline: rem(25);
+        li {
+            display: inline-block;
         }
 
-        &:hover,
-        &.current {
-            color: $white;
+        button {
+            position: relative;
+            height: var(--header-height);
+            margin: 0;
+            padding-inline: rem(15);
+            transition: opacity 0.55s;
+            transition:
+                background 0.35s,
+                color 0.35s;
+            border: 0;
+            background: transparent;
+            color: $black;
+            font-size: rem(14);
 
             &::after {
-                transform: scaleY(1);
+                content: '';
+                position: absolute;
+                z-index: -1;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                height: 100%;
+                transform: scaleY(0);
+                transform-origin: bottom;
+                transition: transform 0.55s;
+                background: $black;
+            }
+
+            @include mq(xlarge) {
+                padding-inline: rem(25);
+            }
+
+            &:hover,
+            &.current {
+                color: $white;
+
+                &::after {
+                    transform: scaleY(1);
+                }
             }
         }
     }

@@ -1,121 +1,130 @@
 @use '../../abstract' as *;
 
-[data-component='header'] {
-    position: fixed;
-    z-index: 10;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: var(--header-height);
-}
+@layer layout {
+    @scope (.l-header) {
+        :scope {
+            display: none;
+            position: fixed;
+            z-index: 14;
+            top: 0;
+            right: 0;
+            left: 0;
+            transition: background 0.35s;
+            background: $white;
 
-.l-header {
-    display: none;
-    position: fixed;
-    z-index: 14;
-    top: 0;
-    right: 0;
-    left: 0;
-    transition: background 0.35s;
-    background: $white;
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                transform: scaleX(0);
+                transform-origin: top left;
+                background: $black;
+            }
 
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        transform: scaleX(0);
-        transform-origin: top left;
-        background: $black;
-    }
+            &.is-visible {
+                &::after {
+                    transform: scaleX(100%);
+                }
+            }
 
-    &.is-visible {
-        &::after {
-            transform: scaleX(100%);
-        }
-    }
+            @include mq(desktop) {
+                display: block;
+            }
 
-    @include mq(desktop) {
-        display: block;
-    }
+            @include when-inside('[data-template="home"]') {
+                background: transparent;
 
-    @include when-inside('[data-template="home"]') {
-        background: transparent;
+                &::after {
+                    transition: transform 1s 0.2s;
+                }
+            }
 
-        &::after {
-            transition: transform 1s 0.2s;
-        }
-    }
+            @include when-inside('[data-template="about"]') {
+                background: transparent;
 
-    @include when-inside('[data-template="about"]') {
-        background: transparent;
+                &::after {
+                    transition: transform 1s 0.2s;
+                }
+            }
 
-        &::after {
-            transition: transform 1s 0.2s;
-        }
-    }
+            @include when-inside('[data-template="template-listing"]') {
+                background: transparent;
 
-    @include when-inside('[data-template="template-listing"]') {
-        background: transparent;
+                &::after {
+                    transition: transform 1s 0.2s;
+                }
+            }
 
-        &::after {
-            transition: transform 1s 0.2s;
-        }
-    }
+            @include when-inside('[data-template="template-animation"]') {
+                background: transparent;
 
-    @include when-inside('[data-template="template-animation"]') {
-        background: transparent;
-
-        &::after {
-            transition: transform 1s 0.2s;
-        }
-    }
-
-    &__grid {
-        display: grid;
-        grid-template-areas: 'toggle title menu utils';
-        grid-template-columns: calc(var(--header-height) * 2) 1fr calc(
-                var(--header-height) * 2
-            );
-        align-items: center;
-        height: var(--header-height);
-
-        @include mq(large) {
-            grid-template-columns: var(--header-height) auto 1fr auto;
-        }
-    }
-
-    &__toggle {
-        position: relative;
-        grid-area: toggle;
-        transition: opacity 0.35s;
-        border: 0;
-    }
-
-    &__title-container {
-        display: block;
-        overflow: hidden;
-    }
-
-    &__title {
-        display: none;
-        grid-area: title;
-        width: auto;
-        padding-left: rem(20);
-        transition: transform 0.35s;
-        border: 0;
-        background: transparent;
-        color: $black;
-        text-align: left;
-
-        @include mq(large) {
-            display: inline-block;
+                &::after {
+                    transition: transform 1s 0.2s;
+                }
+            }
         }
 
-        &:hover {
-            transform: translateX(rem(10));
+        .grid {
+            display: grid;
+            grid-template-areas: 'toggle title menu utils';
+            grid-template-columns: calc(var(--header-height) * 2) 1fr calc(
+                    var(--header-height) * 2
+                );
+            align-items: center;
+            height: var(--header-height);
+
+            @include mq(large) {
+                grid-template-columns: var(--header-height) auto 1fr auto;
+            }
+        }
+
+        .toggle-cell {
+            position: relative;
+            grid-area: toggle;
+            transition: opacity 0.35s;
+            border: 0;
+        }
+
+        .logo-cell {
+            display: none;
+            grid-area: title;
+            width: auto;
+            padding-left: rem(20);
+            transition: transform 0.35s;
+            border: 0;
+            background: transparent;
+            color: $black;
+            text-align: left;
+
+            @include mq(large) {
+                display: inline-block;
+            }
+
+            &:hover {
+                transform: translateX(rem(10));
+            }
+        }
+
+        .menu-cell {
+            justify-self: center;
+
+            @include mq(large) {
+                justify-self: end;
+            }
+        }
+
+        .utils-cell {
+            padding-right: rem(20);
+            transition: opacity 1s 0.55s;
+            opacity: 0;
+            text-align: right;
+
+            &.is-visible {
+                opacity: 1;
+            }
         }
 
         h3 {
@@ -143,59 +152,6 @@
                 transform: translateY(0);
                 pointer-events: all;
             }
-        }
-    }
-
-    &__main-menu {
-        justify-self: center;
-
-        @include mq(large) {
-            justify-self: end;
-        }
-    }
-
-    &__utils {
-        padding-right: rem(20);
-        transition: opacity 1s 0.55s;
-        opacity: 0;
-        text-align: right;
-
-        &.is-visible {
-            opacity: 1;
-        }
-    }
-
-    &__sidenav {
-        display: flex;
-        padding: 0;
-        list-style-type: none;
-
-        --sidebar-item-size: #{rem(24)};
-
-        &__item {
-            height: var(--sidebar-item-size);
-
-            &:hover {
-                svg {
-                    opacity: 0.2;
-                }
-            }
-        }
-
-        &__link {
-            margin: 0 rem(10);
-            border: 0;
-            background: transparent;
-            color: $white;
-        }
-
-        /* stylelint-disable-next-line no-descending-specificity */
-        svg {
-            width: var(--sidebar-item-size);
-            height: var(--sidebar-item-size);
-            height: 100%;
-            transition: opacity 0.55s;
-            fill: $black;
         }
     }
 }

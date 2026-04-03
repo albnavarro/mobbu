@@ -42181,54 +42181,52 @@
       }
     })}
         >
-            <div class="l-header__container">
-                <div class="l-header__grid">
-                    <div class="l-header__toggle">
-                        <mob-header-toggle></mob-header-toggle>
-                    </div>
-                    <button
-                        type="button"
-                        class="l-header__title"
-                        ${delegateEvents({
+            <div class="grid">
+                <div class="toggle-cell">
+                    <mob-header-toggle></mob-header-toggle>
+                </div>
+                <button
+                    class="logo-cell"
+                    type="button"
+                    ${delegateEvents({
       click: () => {
         titleHandler();
       }
     })}
-                    >
-                        <div class="l-header__title-container">
-                            <h3
-                                ${bindEffect({
+                >
+                    <div class="has-overflow">
+                        <h3
+                            ${bindEffect({
       toggleClass: {
         "is-visible": () => proxi.isMounted
       }
     })}
-                            >
-                                <span>Mob</span>Project
-                            </h3>
-                            <h5
-                                ${bindEffect({
+                        >
+                            <span>Mob</span>Project
+                        </h3>
+                        <h5
+                            ${bindEffect({
       toggleClass: {
         "is-visible": () => proxi.isMounted
       }
     })}
-                            >
-                                v 1.0
-                            </h5>
-                        </div>
-                    </button>
-                    <div class="l-header__main-menu">
-                        <header-main-menu></header-main-menu>
+                        >
+                            v 1.0
+                        </h5>
                     </div>
-                    <div
-                        class="l-header__utils"
-                        ${bindEffect({
+                </button>
+                <div class="menu-cell">
+                    <header-main-menu></header-main-menu>
+                </div>
+                <div
+                    class="utils-cell"
+                    ${bindEffect({
       toggleClass: {
         "is-visible": () => proxi.isMounted
       }
     })}
-                    >
-                        <mob-header-utils></mob-header-utils>
-                    </div>
+                >
+                    <mob-header-utils></mob-header-utils>
                 </div>
             </div>
         </header>
@@ -42318,12 +42316,11 @@
     };
     return links.map((link) => {
       const { svg, url, internal } = link;
-      return renderHtml`<li class="l-header__sidenav__item">
+      return renderHtml`<li>
                 ${internal ? renderHtml`
                           <button
                               type="button"
                               data-url="${url}"
-                              class="l-header__sidenav__link"
                               ${delegateEvents({
         click: (event) => {
           onClick({ event });
@@ -42333,21 +42330,15 @@
                               ${icon[svg]}
                           </button>
                       ` : renderHtml`
-                          <a
-                              href="${url}"
-                              target="_blank"
-                              class="l-header__sidenav__link"
-                          >
-                              ${icon[svg]}
-                          </a>
+                          <a href="${url}" target="_blank"> ${icon[svg]} </a>
                       `}
             </li>`;
     }).join("");
   }
   var HeaderUtilsFn = ({ delegateEvents }) => {
     return renderHtml`
-        <ul class="l-header__sidenav">
-            <li class="l-header__sidenav__item">
+        <ul class="l-header-utils">
+            <li>
                 <search-cta></search-cta>
             </li>
             ${additems({ delegateEvents })}
@@ -42395,7 +42386,7 @@
   var getItems2 = ({ delegateEvents, staticProps: staticProps2 }) => {
     const data = getCommonData();
     return data.footer.nav.map(({ label, url, section }) => {
-      return renderHtml`<li class="header-main-menu__item">
+      return renderHtml`<li>
                 <header-main-menu-button
                     ${delegateEvents({
         click: () => {
@@ -42430,7 +42421,7 @@
     });
     return renderHtml`
         <ul
-            class="header-main-menu"
+            class="l-header-menu"
             ${bindEffect({
       toggleClass: {
         "is-visible": () => proxi.isMounted
@@ -42454,7 +42445,6 @@
     return renderHtml`
         <button
             type="button"
-            class="header-main-menu__button"
             ${bindEffect({
       toggleClass: { current: () => proxi.active }
     })}
@@ -42527,15 +42517,15 @@
   var initNavigationScoller = ({ root: root2 }) => {
     const screenEl = (
       /** @type {HTMLElement} */
-      root2.querySelector(".l-navcontainer__wrap")
+      root2.querySelector(".js-nav-col")
     );
     const scrollerEl = (
       /** @type {HTMLElement} */
-      root2.querySelector(".l-navcontainer__scroll")
+      root2.querySelector(".js-nav-scroll")
     );
     const percentEl = (
       /** @type {HTMLElement} */
-      root2.querySelector(".l-navcontainer__percent")
+      root2.querySelector(".js-nav-percent")
     );
     const setDelay = 200;
     const navScroller = new MobSmoothScroller({
@@ -42665,28 +42655,28 @@
       toggleClass: { active: () => proxi.isOpen }
     })}
         >
+            <div class="nav-col js-nav-col">
+                <div class="scroll-element js-nav-scroll">
+                    <mob-navigation
+                        name="${mobNavigationName}"
+                    ></mob-navigation>
+                </div>
+            </div>
             <div
-                class="l-navcontainer__side"
+                class="side-col"
                 ${bindEffect({
       toggleClass: { "is-visible": () => proxi.isMounted }
     })}
             >
-                <div class="l-navcontainer__percent"></div>
+                <div class="percent js-nav-percent"></div>
                 <button
-                    class="l-navcontainer__totop"
+                    class="totop"
                     ${delegateEvents({
       click: () => {
         toTopBtnHandler();
       }
     })}
                 ></button>
-            </div>
-            <div class="l-navcontainer__wrap">
-                <div class="l-navcontainer__scroll">
-                    <mob-navigation
-                        name="${mobNavigationName}"
-                    ></mob-navigation>
-                </div>
             </div>
         </div>
     `;
@@ -42749,7 +42739,7 @@
                       >
                       </mob-navigation-submenu>
                   ` : renderHtml`
-                      <li class="l-navigation__item">
+                      <li>
                           <mob-navigation-button
                               ${staticProps2(
         /** @type {NavigationButton['props']} */
@@ -42780,7 +42770,7 @@
     });
     return renderHtml`
         <nav class="l-navigation">
-            <ul class="l-navigation__list">
+            <ul class="list">
                 ${getItems3({
       data,
       staticProps: staticProps2,
@@ -42797,7 +42787,7 @@
     const proxi = getProxi();
     return renderHtml`
         <div
-            class="l-navigation__label"
+            class="label"
             data-sectionname="${proxi.sectioName}"
             ${bindEffect({
       toggleClass: {
@@ -42840,14 +42830,14 @@
     return proxi.children.map((child) => {
       const { label, url, scrollToSection, activeId } = child;
       return renderHtml`
-                <li class="l-navigation__submenu__item">
+                <li class="submenu-item">
                     <mob-navigation-button
                         ${staticProps2(
         /** @type {NavigationButton['props']} */
         {
           label,
           url,
-          subMenuClass: "l-navigation__link--submenu",
+          subMenuClass: "is-submenu",
           scrollToSection,
           activeId: activeId ?? -1,
           callback: () => {
@@ -42894,14 +42884,14 @@
       };
     });
     return renderHtml`
-        <li class="l-navigation__item has-child">
+        <li>
             <mob-navigation-button
                 ${staticProps2(
       /** @type {NavigationButton['props']} */
       {
         label,
         url,
-        arrowClass: "l-navigation__link--arrow",
+        arrowClass: "has-arrow",
         fireRoute: false,
         activeId: activeId ?? -1,
         callback: () => {
@@ -42916,7 +42906,7 @@
       })
     )}
             ></mob-navigation-button>
-            <ul class="l-navigation__submenu" ${setRef("content")}>
+            <ul class="submenu" ${setRef("content")}>
                 ${getSubmenu({ proxi, staticProps: staticProps2 })}
             </ul>
         </li>
@@ -42959,7 +42949,7 @@
     return renderHtml`
         <button
             type="button"
-            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
+            class="link ${arrowClass} ${subMenuClass}"
             ${delegateEvents({
       click: () => {
         callback2();

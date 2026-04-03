@@ -1,159 +1,137 @@
 @use '../../abstract' as *;
 
-[data-component='navigation_container'] {
-    position: fixed;
-    top: var(--header-height);
-    left: 0;
-    width: rem(50);
-    height: calc(100vh - var(--footer-height) - var(--header-height));
-}
+@layer layout {
+    @scope (.l-navcontainer) {
+        :scope {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            top: var(--header-height);
+            transform: translateX(-101%);
+            transition:
+                transform 0.55s,
+                background 0.55s;
+            border-right: 1px $black solid;
+            background: $white;
 
-.l-navcontainer {
-    display: none;
-    position: fixed;
-    z-index: 10;
-    top: var(--header-height);
-    transform: translateX(-101%);
-    transition:
-        transform 0.55s,
-        background 0.55s;
-    border-right: 1px $black solid;
-    background: $white;
+            @include mq(desktop) {
+                display: block;
+            }
+        }
 
-    @include mq(desktop) {
-        display: block;
-    }
-
-    /*
-    @include when-inside('[data-template="home"]') {
-        background: rgba($white, 0.5);
-    }
-
-    @include when-inside('[data-template="about"]') {
-        background: rgba($white, 0.5);
-    }
-
-    @include when-inside('[data-template="template-listing"]') {
-        background: rgba($white, 0.5);
-    }
-
-    @include when-inside('[data-template="template-animation"]') {
-        background: rgba($white, 0.5);
-    }
-    */
-
-    &.active {
-        transform: translateX(0);
-    }
-
-    &__wrap {
-        left: 0;
-        width: var(--nav-width);
-        max-width: none;
-        height: calc(100vh - var(--footer-height) - var(--header-height));
-        overflow: hidden;
-    }
-
-    &__scroll {
-        padding-bottom: 70vh;
-    }
-
-    &__side {
-        position: absolute;
-        top: 0;
-        left: 101%;
-        width: calc(var(--header-height) / 2);
-        height: calc(100vh - var(--footer-height) - var(--header-height));
-        transition: background 0.35s;
-        background: transparent;
-
-        &::after {
-            content: '';
+        .side-col {
             position: absolute;
             top: 0;
+            left: 101%;
+            width: calc(var(--header-height) / 2);
+            height: calc(100vh - var(--footer-height) - var(--header-height));
+            transition: background 0.35s;
+            background: transparent;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 1px;
+                height: 100%;
+                transform: scaleY(0);
+                transform-origin: top right;
+                transition: transform 1s 0.5s;
+                background: $black;
+            }
+
+            &.is-visible {
+                &::after {
+                    transform: scaleY(100%);
+                }
+            }
+
+            @include when-inside('[data-template="template-doc-default"]') {
+                background: rgba($black, 0.05);
+
+                &::after {
+                    display: none;
+                }
+            }
+
+            @include when-inside('[data-template="template-mobJs-component"]') {
+                background: rgba($black, 0.05);
+
+                &::after {
+                    display: none;
+                }
+            }
+        }
+
+        .nav-col {
+            left: 0;
+            width: var(--nav-width);
+            max-width: none;
+            height: calc(100vh - var(--footer-height) - var(--header-height));
+            overflow: hidden;
+        }
+
+        .totop {
+            visibility: hidden;
+            position: absolute;
             right: 0;
-            width: 1px;
-            height: 100%;
-            transform: scaleY(0);
-            transform-origin: top right;
-            transition: transform 1s 0.5s;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: rem(40);
+            margin: 0;
+            padding: 0;
+            transform: translateY(100%);
+            transition:
+                transform 0.55s,
+                opacity 0.35s,
+                visibility 0.35s;
+            border: 0;
+            opacity: 0;
+            background: $black;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: rem(5);
+                height: rem(5);
+                transform: translate(-50%, -50%) rotate(-45deg);
+                border-top: 1px $white solid;
+                border-right: 1px $white solid;
+            }
+        }
+
+        .percent {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: calc(100vw - var(--nav-width));
+            height: rem(10);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.55s;
             background: $black;
         }
 
-        &.is-visible {
-            &::after {
-                transform: scaleY(100%);
+        .scroll-element {
+            padding-bottom: 70vh;
+        }
+
+        :scope.active {
+            transform: translateX(0);
+
+            .side-col {
+                left: 100%;
+            }
+
+            .totop {
+                visibility: visible;
+                transform: translateY(0);
+                opacity: 1;
             }
         }
-
-        @include when-inside('[data-template="template-doc-default"]') {
-            background: rgba($black, 0.05);
-
-            &::after {
-                display: none;
-            }
-        }
-
-        @include when-inside('[data-template="template-mobJs-component"]') {
-            background: rgba($black, 0.05);
-
-            &::after {
-                display: none;
-            }
-        }
-
-        @include when-inside('.active') {
-            left: 100%;
-        }
-    }
-
-    &__totop {
-        visibility: hidden;
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: rem(40);
-        margin: 0;
-        padding: 0;
-        transform: translateY(100%);
-        transition:
-            transform 0.55s,
-            opacity 0.35s,
-            visibility 0.35s;
-        border: 0;
-        opacity: 0;
-        background: $black;
-
-        @include when-inside('.active') {
-            visibility: visible;
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: rem(5);
-            height: rem(5);
-            transform: translate(-50%, -50%) rotate(-45deg);
-            border-top: 1px $white solid;
-            border-right: 1px $white solid;
-        }
-    }
-
-    &__percent {
-        position: absolute;
-        top: 0;
-        left: 100%;
-        width: calc(100vw - var(--nav-width));
-        height: rem(10);
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.55s;
-        background: $black;
     }
 }

@@ -43,13 +43,12 @@ function additems({ delegateEvents }) {
         .map((link) => {
             const { svg, url, internal } = link;
 
-            return html`<li class="l-header__sidenav__item">
+            return html`<li>
                 ${internal
                     ? html`
                           <button
                               type="button"
                               data-url="${url}"
-                              class="l-header__sidenav__link"
                               ${delegateEvents({
                                   click: (/** @type {Event} */ event) => {
                                       onClick({ event });
@@ -60,13 +59,7 @@ function additems({ delegateEvents }) {
                           </button>
                       `
                     : html`
-                          <a
-                              href="${url}"
-                              target="_blank"
-                              class="l-header__sidenav__link"
-                          >
-                              ${icon[svg]}
-                          </a>
+                          <a href="${url}" target="_blank"> ${icon[svg]} </a>
                       `}
             </li>`;
         })
@@ -76,8 +69,8 @@ function additems({ delegateEvents }) {
 /** @type {MobComponent} */
 export const HeaderUtilsFn = ({ delegateEvents }) => {
     return html`
-        <ul class="l-header__sidenav">
-            <li class="l-header__sidenav__item">
+        <ul class="l-header-utils">
+            <li>
                 <search-cta></search-cta>
             </li>
             ${additems({ delegateEvents })}

@@ -21,7 +21,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
 
     return data.footer.nav
         .map(({ label, url, section }) => {
-            return html`<li class="header-main-menu__item">
+            return html`<li>
                 <header-main-menu-button
                     ${delegateEvents({
                         click: () => {
@@ -64,7 +64,7 @@ export const headerMainMenuFn = ({
 
     return html`
         <ul
-            class="header-main-menu"
+            class="l-header-menu"
             ${bindEffect({
                 toggleClass: {
                     'is-visible': () => proxi.isMounted,

@@ -1,153 +1,149 @@
 @use '../../abstract' as *;
 
-[data-component='navigation'] {
-    width: 100%;
-    height: calc(100vh - var(--header-height) - var(--footer-height) - rem(40));
-}
-
-.l-navigation {
-    width: 100%;
-    margin: auto;
-
-    $self: &;
-
-    &__list {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-    }
-
-    &__label {
-        padding: rem(10) rem(20);
-        transition: background 0.35s;
-        background: $grey;
-        color: $black;
-
-        &.hide {
-            display: none;
+@layer layout {
+    @scope (.l-navigation) {
+        :scope {
+            width: 100%;
+            margin: auto;
         }
 
-        @include when-inside('[data-template="home"]') {
-            background: rgba($black, 0.1);
+        .list {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
         }
 
-        @include when-inside('[data-template="about"]') {
-            background: rgba($black, 0.1);
-        }
+        .label {
+            padding: rem(10) rem(20);
+            transition: background 0.35s;
+            background: $grey;
+            color: $black;
 
-        @include when-inside('[data-template="template-listing"]') {
-            background: rgba($black, 0.1);
-        }
-
-        @include when-inside('[data-template="template-animation"]') {
-            background: rgba($black, 0.1);
-        }
-
-        &.active {
-            font-weight: 800;
-        }
-    }
-
-    &__link {
-        display: block;
-        position: relative;
-        width: 100%;
-        padding: rem(10) rem(20);
-        transition:
-            background 0.35s,
-            color 0.35s,
-            border-color 0.35s,
-            opacity 0.35s;
-        transition: opacity 0.35s;
-        border: 0;
-        background: transparent;
-        color: rgba($black, 0.7);
-        text-align: left;
-        text-decoration: none;
-
-        &:not(#{$self}__link--arrow) {
-            &::after {
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: rem(8);
-                width: rem(5);
-                height: rem(5);
-                transform: translateY(-50%) rotate(45deg);
-                transition: opacity 0.35s;
-                border-top: 2px $black solid;
-                border-right: 2px $black solid;
-                opacity: 0;
+            &.hide {
+                display: none;
             }
 
-            &:hover {
-                &::after {
-                    opacity: 1;
-                }
+            @include when-inside('[data-template="home"]') {
+                background: rgba($black, 0.1);
             }
-        }
 
-        // Performance on scroll
-        @include when-inside('.is-whelling') {
-            pointer-events: none;
-        }
+            @include when-inside('[data-template="about"]') {
+                background: rgba($black, 0.1);
+            }
 
-        span {
-            font-size: rem(12);
-        }
+            @include when-inside('[data-template="template-listing"]') {
+                background: rgba($black, 0.1);
+            }
 
-        &--arrow {
-            &::after {
-                content: '';
-                position: absolute;
-                top: 50%;
-                right: rem(20);
-                width: rem(7);
-                height: rem(7);
-                transform: translateY(-50%) rotate(45deg);
-                transition:
-                    border-color 0.55s,
-                    transform 0.35s opacity 0.35s;
-                border-right: 2px $black solid;
-                border-bottom: 2px $black solid;
+            @include when-inside('[data-template="template-animation"]') {
+                background: rgba($black, 0.1);
             }
 
             &.active {
+                font-weight: 800;
+            }
+        }
+
+        .link {
+            display: block;
+            position: relative;
+            width: 100%;
+            padding: rem(10) rem(20);
+            transition:
+                background 0.35s,
+                color 0.35s,
+                border-color 0.35s,
+                opacity 0.35s;
+            transition: opacity 0.35s;
+            border: 0;
+            background: transparent;
+            color: rgba($black, 0.7);
+            text-align: left;
+            text-decoration: none;
+
+            &:not(.has-arrow) {
                 &::after {
-                    transform: translateY(-50%) rotate(-135deg);
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: rem(8);
+                    width: rem(5);
+                    height: rem(5);
+                    transform: translateY(-50%) rotate(45deg);
+                    transition: opacity 0.35s;
+                    border-top: 2px $black solid;
+                    border-right: 2px $black solid;
+                    opacity: 0;
                 }
+
+                &:hover {
+                    &::after {
+                        opacity: 1;
+                    }
+                }
+            }
+
+            &.has-arrow {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    right: rem(20);
+                    width: rem(7);
+                    height: rem(7);
+                    transform: translateY(-50%) rotate(45deg);
+                    transition:
+                        border-color 0.55s,
+                        transform 0.35s opacity 0.35s;
+                    border-right: 2px $black solid;
+                    border-bottom: 2px $black solid;
+                }
+
+                &.active {
+                    &::after {
+                        transform: translateY(-50%) rotate(-135deg);
+                    }
+
+                    &::before {
+                        transform: scaleX(25%);
+                    }
+                }
+
+                &:hover {
+                    opacity: 0.5;
+                }
+            }
+
+            &.current {
+                font-weight: 600;
 
                 &::before {
-                    transform: scaleX(25%);
+                    transform: scaleX(100%);
                 }
             }
 
-            &:hover {
-                opacity: 0.5;
+            &.is-submenu {
+                position: relative;
+                padding-left: rem(20);
+            }
+
+            span {
+                font-size: rem(12);
+            }
+
+            @include when-inside('.is-whelling') {
+                pointer-events: none;
             }
         }
 
-        &.current {
-            font-weight: 600;
-
-            &::before {
-                transform: scaleX(100%);
-            }
+        .submenu {
+            margin-bottom: 0;
+            padding: 0;
+            padding-bottom: 0;
+            list-style-type: none;
         }
 
-        &--submenu {
-            position: relative;
-            padding-left: rem(20);
-        }
-    }
-
-    &__submenu {
-        margin-bottom: 0;
-        padding: 0;
-        padding-bottom: 0;
-        list-style-type: none;
-
-        &__item {
+        .submenu-item {
             position: relative;
 
             &:last-child {

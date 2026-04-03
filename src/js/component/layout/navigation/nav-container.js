@@ -115,28 +115,28 @@ export const NavigationContainerFn = ({
                 toggleClass: { active: () => proxi.isOpen },
             })}
         >
+            <div class="nav-col js-nav-col">
+                <div class="scroll-element js-nav-scroll">
+                    <mob-navigation
+                        name="${mobNavigationName}"
+                    ></mob-navigation>
+                </div>
+            </div>
             <div
-                class="l-navcontainer__side"
+                class="side-col"
                 ${bindEffect({
                     toggleClass: { 'is-visible': () => proxi.isMounted },
                 })}
             >
-                <div class="l-navcontainer__percent"></div>
+                <div class="percent js-nav-percent"></div>
                 <button
-                    class="l-navcontainer__totop"
+                    class="totop"
                     ${delegateEvents({
                         click: () => {
                             toTopBtnHandler();
                         },
                     })}
                 ></button>
-            </div>
-            <div class="l-navcontainer__wrap">
-                <div class="l-navcontainer__scroll">
-                    <mob-navigation
-                        name="${mobNavigationName}"
-                    ></mob-navigation>
-                </div>
             </div>
         </div>
     `;

@@ -46,54 +46,52 @@ export const HeaderFn = ({
                 },
             })}
         >
-            <div class="l-header__container">
-                <div class="l-header__grid">
-                    <div class="l-header__toggle">
-                        <mob-header-toggle></mob-header-toggle>
+            <div class="grid">
+                <div class="toggle-cell">
+                    <mob-header-toggle></mob-header-toggle>
+                </div>
+                <button
+                    class="logo-cell"
+                    type="button"
+                    ${delegateEvents({
+                        click: () => {
+                            titleHandler();
+                        },
+                    })}
+                >
+                    <div class="has-overflow">
+                        <h3
+                            ${bindEffect({
+                                toggleClass: {
+                                    'is-visible': () => proxi.isMounted,
+                                },
+                            })}
+                        >
+                            <span>Mob</span>Project
+                        </h3>
+                        <h5
+                            ${bindEffect({
+                                toggleClass: {
+                                    'is-visible': () => proxi.isMounted,
+                                },
+                            })}
+                        >
+                            v 1.0
+                        </h5>
                     </div>
-                    <button
-                        type="button"
-                        class="l-header__title"
-                        ${delegateEvents({
-                            click: () => {
-                                titleHandler();
-                            },
-                        })}
-                    >
-                        <div class="l-header__title-container">
-                            <h3
-                                ${bindEffect({
-                                    toggleClass: {
-                                        'is-visible': () => proxi.isMounted,
-                                    },
-                                })}
-                            >
-                                <span>Mob</span>Project
-                            </h3>
-                            <h5
-                                ${bindEffect({
-                                    toggleClass: {
-                                        'is-visible': () => proxi.isMounted,
-                                    },
-                                })}
-                            >
-                                v 1.0
-                            </h5>
-                        </div>
-                    </button>
-                    <div class="l-header__main-menu">
-                        <header-main-menu></header-main-menu>
-                    </div>
-                    <div
-                        class="l-header__utils"
-                        ${bindEffect({
-                            toggleClass: {
-                                'is-visible': () => proxi.isMounted,
-                            },
-                        })}
-                    >
-                        <mob-header-utils></mob-header-utils>
-                    </div>
+                </button>
+                <div class="menu-cell">
+                    <header-main-menu></header-main-menu>
+                </div>
+                <div
+                    class="utils-cell"
+                    ${bindEffect({
+                        toggleClass: {
+                            'is-visible': () => proxi.isMounted,
+                        },
+                    })}
+                >
+                    <mob-header-utils></mob-header-utils>
                 </div>
             </div>
         </header>

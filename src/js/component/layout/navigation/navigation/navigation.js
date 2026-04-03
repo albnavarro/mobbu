@@ -83,7 +83,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                       </mob-navigation-submenu>
                   `
                 : html`
-                      <li class="l-navigation__item">
+                      <li>
                           <mob-navigation-button
                               ${staticProps(
                                   /** @type {NavigationButton['props']} */ ({
@@ -122,7 +122,7 @@ export const NavigationFn = ({
 
     return html`
         <nav class="l-navigation">
-            <ul class="l-navigation__list">
+            <ul class="list">
                 ${getItems({
                     data,
                     staticProps,

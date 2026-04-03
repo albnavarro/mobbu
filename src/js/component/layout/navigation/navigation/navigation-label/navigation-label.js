@@ -6,7 +6,7 @@ export const NavigationLabelFn = ({ bindEffect, getProxi }) => {
 
     return html`
         <div
-            class="l-navigation__label"
+            class="label"
             data-sectionname="${proxi.sectioName}"
             ${bindEffect({
                 toggleClass: {

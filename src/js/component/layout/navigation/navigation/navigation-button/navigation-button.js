@@ -69,7 +69,7 @@ export const NavigationButtonFn = ({
     return html`
         <button
             type="button"
-            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
+            class="link ${arrowClass} ${subMenuClass}"
             ${delegateEvents({
                 click: () => {
                     /**
