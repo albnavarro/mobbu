@@ -1,66 +1,62 @@
 @use '../../abstract' as *;
 
-.c-dynamic-list {
-    box-sizing: border-box;
-    padding-bottom: var(--footer-height);
-    border: 0;
+@layer layout {
+    @scope (.c-dynamic-list) to (.c-dynamic-list-repeater) {
+        :scope {
+            padding-bottom: var(--footer-height);
+            border: 0;
 
-    // Increase scrolling performance on smooth scroll.
-    @include when-inside('.is-whelling') {
-        pointer-events: none;
-    }
+            @include when-inside('.is-whelling') {
+                pointer-events: none;
+            }
+        }
 
-    &__header {
-        position: sticky;
-        z-index: 10;
-        top: var(--header-height);
-        padding: calc(var(--gap-size) / 2) var(--gap-size);
-        border-bottom: 1px $black solid;
-        background: rgba($white, 0.8);
-    }
+        .header {
+            position: sticky;
+            z-index: 10;
+            top: var(--header-height);
+            padding: calc(var(--gap-size) / 2) var(--gap-size);
+            border-bottom: 1px $black solid;
+            background: rgba($white, 0.8);
+        }
 
-    &__counter {
-        padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
-        color: $black;
-    }
-
-    &__container {
-        box-sizing: border-box;
-        width: 100%;
-        padding: var(--gap-size);
-    }
-
-    &__grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--gap-size);
-    }
-
-    &__label {
-        padding: calc(var(--gap-size) / 2);
-        color: $black;
-    }
-
-    &__top {
-        gap: rem(10);
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-
-        &__button {
+        .dynamic-list-button {
             flex: 1;
             max-width: rem(200);
-            border: 0;
         }
-    }
 
-    &__invalidate {
-        display: flex;
-        padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
-        border-bottom: 1px $black solid;
+        .header-top {
+            gap: rem(10);
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
 
-        &__title {
+        .invalidate {
+            display: flex;
+            padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
+            border-bottom: 1px $black solid;
+        }
+
+        .invalidate-title {
             margin-right: calc(var(--gap-size) / 2);
+        }
+
+        .counter {
+            padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
+            color: $black;
+        }
+
+        .repeaters-container {
+            box-sizing: border-box;
+            width: 100%;
+            padding: var(--gap-size);
+        }
+
+        .repeaters-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--gap-size);
         }
     }
 }

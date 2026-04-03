@@ -1,83 +1,83 @@
 @use '../../abstract' as *;
 
-.c-dynamic-card {
-    $self: &;
+@layer component {
+    @scope (.c-dynamic-card) {
+        :scope {
+            flex: 0 0 100%;
+            transition:
+                opacity 1.55s,
+                transform 0.35s;
+            border: 0;
+            opacity: 0;
+            background: transparent;
+            color: $black;
+            font-size: rem(14);
+            line-height: 1.4;
+            text-align: left;
 
-    box-sizing: border-box;
-    flex: 0 0 100%;
-    padding: calc(var(--gap-size) / 4);
-    transition:
-        opacity 1.55s,
-        transform 0.35s;
-    border: 0;
-    opacity: 0;
-    background: transparent;
-    color: $black;
-    font-size: rem(14);
-    line-height: 1.4;
-    text-align: left;
+            &.active {
+                opacity: 1;
+            }
 
-    &.active {
-        opacity: 1;
-    }
-
-    &.is-full {
-        width: 100%;
-    }
-
-    &__title {
-        margin-bottom: rem(10);
-        color: $black;
-        font-weight: 600;
-    }
-
-    &__container {
-        padding: calc(var(--gap-size) / 2);
-        transition:
-            background 0.55s,
-            color 0.55s;
-        border-radius: rem(30);
-        background: $grey-light;
-    }
-
-    &.is-selected {
-        #{$self}__container {
-            background: $black;
-            color: $white;
+            &.is-full {
+                width: 100%;
+            }
         }
 
-        #{$self}__title {
-            color: $white;
+        .card-container {
+            padding: calc(var(--gap-size) / 2);
+            transition:
+                background 0.55s,
+                color 0.55s;
+            border-radius: rem(30);
+            background: $grey-light;
         }
-    }
 
-    &__repeater-container,
-    &__invalidate {
-        margin-top: calc(var(--gap-size) / 2);
-    }
+        .card-title {
+            margin-bottom: rem(10);
+            color: $black;
+            font-weight: 600;
+        }
 
-    &__invalidate {
-        &__wrap {
+        .repeater-card-button {
+            width: 100%;
+            margin-bottom: calc(var(--gap-size) / 4);
+            padding: rem(12);
+        }
+
+        .card-repeater-wrap {
+            margin-top: calc(var(--gap-size) / 2);
+        }
+
+        .card-repeater {
+            margin-bottom: calc(var(--gap-size) / 4);
+            padding-bottom: calc(var(--gap-size) / 4);
+            border-bottom: 1px rgba($black, 0.1) solid;
+        }
+
+        .card-invalidate-wrap {
             display: flex;
             flex-wrap: wrap;
         }
-    }
 
-    &__repeater {
-        margin-bottom: calc(var(--gap-size) / 4);
-        padding-bottom: calc(var(--gap-size) / 4);
-        border-bottom: 1px rgba($black, 0.1) solid;
-        font-size: 0;
+        :scope.is-selected {
+            .card-container {
+                background: $black;
+                color: $white;
+            }
 
-        @include when-inside('.is-selected') {
-            border-bottom: 1px rgba($white, 0.1) solid;
+            .card-title {
+                color: $white;
+            }
+
+            .card-repeater {
+                border-bottom: 1px rgba($white, 0.1) solid;
+            }
+
+            .repeater-card-button {
+                background: $white;
+                color: $black;
+            }
         }
-    }
-
-    &__button {
-        width: 100%;
-        margin-bottom: calc(var(--gap-size) / 4);
-        padding: rem(12);
-        border: 1px $white solid;
     }
 }

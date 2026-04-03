@@ -33,7 +33,7 @@ function getRepeaterCard({
     proxi,
 }) {
     return html`
-        <div class="c-dynamic-list-repeater__item">
+        <div>
             <dynamic-list-card
                 ${staticProps(
                     /** @type {DynamicListCard['props']} */ ({
@@ -82,8 +82,8 @@ export const DynamicListRepeaterFn = ({
 
     return html`
         <div class="c-dynamic-list-repeater">
-            <h4 class="c-dynamic-list-repeater__title">${proxi.label}</h4>
-            <div class="c-dynamic-list-repeater__list">
+            <h4 class="repeater-title">${proxi.label}</h4>
+            <div class="repeater-list">
                 ${repeat({
                     observe: () => proxi.data,
                     clean: proxi.clean,

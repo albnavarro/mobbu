@@ -1,21 +1,25 @@
 @use '../../abstract' as *;
 
-.dynamic-list-card-inner {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    width: rem(20);
-    height: rem(20);
-    margin: rem(1);
-    padding: 0;
-    border-radius: rem(4);
-    background: $black;
-    color: $white;
-    font-size: rem(12);
-    text-align: center;
+@layer component {
+    @scope (.dynamic-list-card-inner) {
+        :scope {
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            width: rem(20);
+            height: rem(20);
+            margin: rem(1);
+            padding: 0;
+            border-radius: rem(4);
+            background: $black;
+            color: $white;
+            font-size: rem(12);
+            text-align: center;
 
-    @include when-inside('.is-selected') {
-        background: $white;
-        color: $black;
+            @include when-inside('.is-selected') {
+                background: $white;
+                color: $black;
+            }
+        }
     }
 }

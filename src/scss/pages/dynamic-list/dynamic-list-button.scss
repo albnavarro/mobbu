@@ -1,20 +1,25 @@
 @use '../../abstract' as *;
 
-.c-dynamic-list-button {
-    transition:
-        opacity 0.55s,
-        background 0.55s;
-    border: 1px $black solid;
-    border-radius: rem(30);
-    background: $black;
-    color: $white;
+@layer component {
+    @scope (.c-dynamic-list-button) {
+        :scope {
+            transition:
+                opacity 0.55s,
+                background 0.55s;
+            border: 0;
+            border: 1px $black solid;
+            border-radius: rem(30);
+            background: $black;
+            color: $white;
 
-    &:hover {
-        opacity: 0.5;
-    }
+            &:hover {
+                opacity: 0.5;
+            }
 
-    &.active {
-        background: $white;
-        color: $black;
+            &.active {
+                background: $white;
+                color: $black;
+            }
+        }
     }
 }

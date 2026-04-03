@@ -68,7 +68,7 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
 
             return html`
                 <dynamic-list-button
-                    class="c-dynamic-list__top__button"
+                    class="dynamic-list-button"
                     ${staticProps(
                         /** @type {DynamicListButton['props']} */ ({
                             label: buttonLabel,
@@ -140,8 +140,8 @@ export const DynamicListFn = ({
 
     return html`
         <div class="c-dynamic-list">
-            <div class="c-dynamic-list__header">
-                <div class="c-dynamic-list__top">
+            <div class="header">
+                <div class="header-top">
                     ${getButton({
                         delegateEvents,
                         staticProps,
@@ -149,7 +149,7 @@ export const DynamicListFn = ({
                         proxi,
                     })}
                     <dynamic-list-button
-                        class="c-dynamic-list__top__button"
+                        class="dynamic-list-button"
                         ${staticProps(
                             /** @type {DynamicListButton['props']} */ ({
                                 label: '+ counter ( max: 10 )',
@@ -164,7 +164,7 @@ export const DynamicListFn = ({
                         })}
                     ></dynamic-list-button>
                     <dynamic-list-button
-                        class="c-dynamic-list__top__button"
+                        class="dynamic-list-button"
                         ${staticProps(
                             /** @type {DynamicListButton['props']} */ ({
                                 label: '- counter: ( min 0 )',
@@ -183,15 +183,15 @@ export const DynamicListFn = ({
             </div>
 
             <!-- Invalidate -->
-            <div class="c-dynamic-list__invalidate">
-                <h4 class="c-dynamic-list__invalidate__title">
+            <div class="invalidate">
+                <h4 class="invalidate-title">
                     Invalidate component on counter mutation:
                 </h4>
-                <div class="c-dynamic-list__invalidate__wrap">
+                <div>
                     ${invalidate({
                         observe: () => proxi.counter,
                         render: () => {
-                            return html`<div class="validate-test-wrapper">
+                            return html`<div>
                                 <dynamic-list-card-inner
                                     ${bindProps(
                                         /** @returns {ReturnBindProps<DynamicListCardInner>} */
@@ -206,14 +206,14 @@ export const DynamicListFn = ({
                 </div>
             </div>
 
-            <div class="c-dynamic-list__counter">
+            <div class="counter">
                 <h4>List counter</h4>
                 <span>${bindText`${'counter'}`}</span>
             </div>
 
             <!-- Repeaters -->
-            <div class="c-dynamic-list__container">
-                <div class="c-dynamic-list__grid">
+            <div class="repeaters-container">
+                <div class="repeaters-grid">
                     ${getRepeaters({ bindProps, staticProps, proxi })}
                 </div>
             </div>

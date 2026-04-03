@@ -6,10 +6,10 @@ import { html } from '@mobJs';
 export const DynamicListCounterFn = ({ getState, bindText }) => {
     const { parentListId } = getState();
 
-    return html`<div class="dynamic-counter">
-        <p class="c-dynamic-counter__title">Nested:</p>
-        <p class="c-dynamic-counter__subtitle">(slotted)</p>
-        <p class="c-dynamic-counter__list">list index: ${parentListId}</p>
+    return html`<div class="c-dynamic-counter">
+        <p class="title">Nested:</p>
+        <p class="subtitle">(slotted)</p>
+        <p class="list">list index: ${parentListId}</p>
         <span>${bindText`${'counter'}`}</span>
     </div>`;
 };

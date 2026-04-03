@@ -31612,7 +31612,7 @@
       const { data, buttonLabel } = column;
       return renderHtml`
                 <dynamic-list-button
-                    class="c-dynamic-list__top__button"
+                    class="dynamic-list-button"
                     ${staticProps2(
         /** @type {DynamicListButton['props']} */
         {
@@ -31672,8 +31672,8 @@
     const proxi = getProxi();
     return renderHtml`
         <div class="c-dynamic-list">
-            <div class="c-dynamic-list__header">
-                <div class="c-dynamic-list__top">
+            <div class="header">
+                <div class="header-top">
                     ${getButton({
       delegateEvents,
       staticProps: staticProps2,
@@ -31681,7 +31681,7 @@
       proxi
     })}
                     <dynamic-list-button
-                        class="c-dynamic-list__top__button"
+                        class="dynamic-list-button"
                         ${staticProps2(
       /** @type {DynamicListButton['props']} */
       {
@@ -31697,7 +31697,7 @@
     })}
                     ></dynamic-list-button>
                     <dynamic-list-button
-                        class="c-dynamic-list__top__button"
+                        class="dynamic-list-button"
                         ${staticProps2(
       /** @type {DynamicListButton['props']} */
       {
@@ -31717,15 +31717,15 @@
             </div>
 
             <!-- Invalidate -->
-            <div class="c-dynamic-list__invalidate">
-                <h4 class="c-dynamic-list__invalidate__title">
+            <div class="invalidate">
+                <h4 class="invalidate-title">
                     Invalidate component on counter mutation:
                 </h4>
-                <div class="c-dynamic-list__invalidate__wrap">
+                <div>
                     ${invalidate({
       observe: () => proxi.counter,
       render: () => {
-        return renderHtml`<div class="validate-test-wrapper">
+        return renderHtml`<div>
                                 <dynamic-list-card-inner
                                     ${bindProps(
           /** @returns {ReturnBindProps<DynamicListCardInner>} */
@@ -31740,14 +31740,14 @@
                 </div>
             </div>
 
-            <div class="c-dynamic-list__counter">
+            <div class="counter">
                 <h4>List counter</h4>
                 <span>${bindText`${"counter"}`}</span>
             </div>
 
             <!-- Repeaters -->
-            <div class="c-dynamic-list__container">
-                <div class="c-dynamic-list__grid">
+            <div class="repeaters-container">
+                <div class="repeaters-grid">
                     ${getRepeaters({ bindProps, staticProps: staticProps2, proxi })}
                 </div>
             </div>
@@ -31764,7 +31764,7 @@
     proxi
   }) {
     return renderHtml`
-        <div class="c-dynamic-list-repeater__item">
+        <div>
             <dynamic-list-card
                 ${staticProps2(
       /** @type {DynamicListCard['props']} */
@@ -31811,8 +31811,8 @@
     const keyParsed = proxi.key.length > 0 ? proxi.key : void 0;
     return renderHtml`
         <div class="c-dynamic-list-repeater">
-            <h4 class="c-dynamic-list-repeater__title">${proxi.label}</h4>
-            <div class="c-dynamic-list-repeater__list">
+            <h4 class="repeater-title">${proxi.label}</h4>
+            <div class="repeater-list">
                 ${repeat({
       observe: () => proxi.data,
       clean: proxi.clean,
@@ -31841,26 +31841,23 @@
   }
   var getInvalidateRender = ({ staticProps: staticProps2, delegateEvents, proxi }) => {
     return renderHtml`
+        <!-- component -->
         ${createArray(proxi.counter).map((item) => {
       return renderHtml`
-                    <div class="validate-test-wrapper">
-                        <dynamic-list-card-inner
-                            ${staticProps2(
+                    <dynamic-list-card-inner
+                        ${staticProps2(
         /** @type {DynamicListCardInner['props']} */
         {
           key: `${item}`
         }
       )}
-                            ${delegateEvents({
+                        ${delegateEvents({
         click: () => {
-          console.log(
-            "invalidate inside reepater click"
-          );
+          console.log("invalidate inside reepater click");
         }
       })}
-                        >
-                        </dynamic-list-card-inner>
-                    </div>
+                    >
+                    </dynamic-list-card-inner>
                 `;
     }).join("")}
     `;
@@ -31896,10 +31893,9 @@
       return () => {
       };
     });
-    const isFullClass = proxi.isFull ? "is-full" : "";
     return renderHtml`
         <div
-            class="c-dynamic-card ${isFullClass}"
+            class="c-dynamic-card"
             ${bindEffect({
       toggleClass: {
         active: () => proxi.isMounted,
@@ -31907,10 +31903,12 @@
       }
     })}
         >
-            <div class="c-dynamic-card__container">
-                <p class="c-dynamic-card__title">card content</p>
+            <div class="card-container">
+                <p class="card-title">card content</p>
+
+                <!-- component -->
                 <dynamic-list-button
-                    class="c-dynamic-card__button"
+                    class="repeater-card-button"
                     ${delegateEvents({
       click: () => {
         proxi.isSelected = !proxi.isSelected;
@@ -31925,13 +31923,17 @@
                 >
                     Select
                 </dynamic-list-button>
-                <div class="id">id: ${id}</div>
-                <div class="parentId">list index: ${proxi.parentListId}</div>
-                <div class="index">${bindText`index: ${"index"}`}</div>
-                <div class="label">${bindText`label: ${"label"}`}</div>
-                <div class="counter">${bindText`counter: ${"counter"}`}</div>
-                <div class="key">key: ${key.length > 0 ? key : "no-key"}</div>
+                <div>id: ${id}</div>
+                <div>list index: ${proxi.parentListId}</div>
+                <div>${bindText`index: ${"index"}`}</div>
+                <div>${bindText`label: ${"label"}`}</div>
+                <div>${bindText`counter: ${"counter"}`}</div>
+                <div>key: ${key.length > 0 ? key : "no-key"}</div>
+
+                <!-- component -->
                 <mobjs-slot name="card-label-slot"></mobjs-slot>
+
+                <!-- component -->
                 <dynamic-list-empty>
                     <dynamic-list-counter
                         slot="empty-slot"
@@ -31950,11 +31952,12 @@
                     />
                 </dynamic-list-empty>
 
-                <!-- Inner repeater -->
-                <div class="c-dynamic-card__repeater-container">
+                <div class="card-repeater-wrap">
                     <p><strong>Inner repeater:</strong></p>
+
+                    <!-- component -->
                     <dynamic-list-button
-                        class="c-dynamic-card__button"
+                        class="repeater-card-button"
                         ${delegateEvents({
       click: async () => {
         repeaterIndex = repeaterIndex < innerData.length - 1 ? repeaterIndex + 1 : 0;
@@ -31966,13 +31969,13 @@
                         Update:
                     </dynamic-list-button>
 
-                    <!-- repeater by key -->
-                    <div class="c-dynamic-card__repeater">
+                    <div class="card-repeater">
+                        <!-- component -->
                         ${repeat({
       observe: () => proxi.innerDataUnivoque,
       key: "key",
       render: ({ current }) => {
-        return renderHtml`<dynamic-list-card-inner
+        return renderHtml` <dynamic-list-card-inner
                                     ${bindProps(
           /** @returns {ReturnBindProps<DynamicListCardInner>} */
           () => ({
@@ -31984,8 +31987,8 @@
     })}
                     </div>
 
-                    <!-- repeater no key -->
-                    <div class="c-dynamic-card__repeater">
+                    <!-- component -->
+                    <div class="card-repeater">
                         ${repeat({
       observe: () => proxi.innerData,
       render: ({ current }) => {
@@ -32002,15 +32005,14 @@
                     </div>
                 </div>
 
-                <!-- Invalidate -->
-                <div class="c-dynamic-card__invalidate">
+                <div class="card-invalidate">
                     <p>
                         <strong
                             >Inner invalidate<br />
                             on counter mutation:</strong
                         >
                     </p>
-                    <div class="c-dynamic-card__invalidate__wrap">
+                    <div>
                         ${invalidate({
       observe: () => proxi.counter,
       render: () => {
@@ -32053,10 +32055,10 @@
   // src/js/component/pages/dynamic-list/repeaters/card/counter/dynamic-list-counter.js
   var DynamicListCounterFn = ({ getState, bindText }) => {
     const { parentListId } = getState();
-    return renderHtml`<div class="dynamic-counter">
-        <p class="c-dynamic-counter__title">Nested:</p>
-        <p class="c-dynamic-counter__subtitle">(slotted)</p>
-        <p class="c-dynamic-counter__list">list index: ${parentListId}</p>
+    return renderHtml`<div class="c-dynamic-counter">
+        <p class="title">Nested:</p>
+        <p class="subtitle">(slotted)</p>
+        <p class="list">list index: ${parentListId}</p>
         <span>${bindText`${"counter"}`}</span>
     </div>`;
   };
@@ -32108,10 +32110,6 @@
           value: -1,
           type: Number
         }),
-        isFull: () => ({
-          value: false,
-          type: Boolean
-        }),
         label: () => ({
           value: "-",
           type: String
@@ -32155,7 +32153,7 @@
   // src/js/component/pages/dynamic-list/repeaters/slotted-label/dynamic-list-slotted-label.js
   var DynamicListSlottedLabelFn = ({ bindText }) => {
     return renderHtml`<div class="c-dynamic-list-slotted-label">
-        <p class="content">${bindText`slotted: ${"label"}`}</p>
+        <p>${bindText`slotted: ${"label"}`}</p>
     </div>`;
   };
 

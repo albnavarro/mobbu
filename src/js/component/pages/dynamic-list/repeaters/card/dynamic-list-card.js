@@ -30,26 +30,23 @@ function createArray(numberOfItem) {
  */
 const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
     return html`
+        <!-- component -->
         ${createArray(proxi.counter)
             .map((item) => {
                 return html`
-                    <div class="validate-test-wrapper">
-                        <dynamic-list-card-inner
-                            ${staticProps(
-                                /** @type {DynamicListCardInner['props']} */ ({
-                                    key: `${item}`,
-                                })
-                            )}
-                            ${delegateEvents({
-                                click: () => {
-                                    console.log(
-                                        'invalidate inside reepater click'
-                                    );
-                                },
-                            })}
-                        >
-                        </dynamic-list-card-inner>
-                    </div>
+                    <dynamic-list-card-inner
+                        ${staticProps(
+                            /** @type {DynamicListCardInner['props']} */ ({
+                                key: `${item}`,
+                            })
+                        )}
+                        ${delegateEvents({
+                            click: () => {
+                                console.log('invalidate inside reepater click');
+                            },
+                        })}
+                    >
+                    </dynamic-list-card-inner>
                 `;
             })
             .join('')}
@@ -99,11 +96,9 @@ export const DynamicListCardFn = ({
         return () => {};
     });
 
-    const isFullClass = proxi.isFull ? 'is-full' : '';
-
     return html`
         <div
-            class="c-dynamic-card ${isFullClass}"
+            class="c-dynamic-card"
             ${bindEffect({
                 toggleClass: {
                     active: () => proxi.isMounted,
@@ -111,10 +106,12 @@ export const DynamicListCardFn = ({
                 },
             })}
         >
-            <div class="c-dynamic-card__container">
-                <p class="c-dynamic-card__title">card content</p>
+            <div class="card-container">
+                <p class="card-title">card content</p>
+
+                <!-- component -->
                 <dynamic-list-button
-                    class="c-dynamic-card__button"
+                    class="repeater-card-button"
                     ${delegateEvents({
                         click: () => {
                             proxi.isSelected = !proxi.isSelected;
@@ -129,13 +126,17 @@ export const DynamicListCardFn = ({
                 >
                     Select
                 </dynamic-list-button>
-                <div class="id">id: ${id}</div>
-                <div class="parentId">list index: ${proxi.parentListId}</div>
-                <div class="index">${bindText`index: ${'index'}`}</div>
-                <div class="label">${bindText`label: ${'label'}`}</div>
-                <div class="counter">${bindText`counter: ${'counter'}`}</div>
-                <div class="key">key: ${key.length > 0 ? key : 'no-key'}</div>
+                <div>id: ${id}</div>
+                <div>list index: ${proxi.parentListId}</div>
+                <div>${bindText`index: ${'index'}`}</div>
+                <div>${bindText`label: ${'label'}`}</div>
+                <div>${bindText`counter: ${'counter'}`}</div>
+                <div>key: ${key.length > 0 ? key : 'no-key'}</div>
+
+                <!-- component -->
                 <mobjs-slot name="card-label-slot"></mobjs-slot>
+
+                <!-- component -->
                 <dynamic-list-empty>
                     <dynamic-list-counter
                         slot="empty-slot"
@@ -153,11 +154,12 @@ export const DynamicListCardFn = ({
                     />
                 </dynamic-list-empty>
 
-                <!-- Inner repeater -->
-                <div class="c-dynamic-card__repeater-container">
+                <div class="card-repeater-wrap">
                     <p><strong>Inner repeater:</strong></p>
+
+                    <!-- component -->
                     <dynamic-list-button
-                        class="c-dynamic-card__button"
+                        class="repeater-card-button"
                         ${delegateEvents({
                             click: async () => {
                                 repeaterIndex =
@@ -173,13 +175,13 @@ export const DynamicListCardFn = ({
                         Update:
                     </dynamic-list-button>
 
-                    <!-- repeater by key -->
-                    <div class="c-dynamic-card__repeater">
+                    <div class="card-repeater">
+                        <!-- component -->
                         ${repeat({
                             observe: () => proxi.innerDataUnivoque,
                             key: 'key',
                             render: ({ current }) => {
-                                return html`<dynamic-list-card-inner
+                                return html` <dynamic-list-card-inner
                                     ${bindProps(
                                         /** @returns {ReturnBindProps<DynamicListCardInner>} */
                                         () => ({
@@ -191,8 +193,8 @@ export const DynamicListCardFn = ({
                         })}
                     </div>
 
-                    <!-- repeater no key -->
-                    <div class="c-dynamic-card__repeater">
+                    <!-- component -->
+                    <div class="card-repeater">
                         ${repeat({
                             observe: () => proxi.innerData,
                             render: ({ current }) => {
@@ -209,15 +211,14 @@ export const DynamicListCardFn = ({
                     </div>
                 </div>
 
-                <!-- Invalidate -->
-                <div class="c-dynamic-card__invalidate">
+                <div class="card-invalidate">
                     <p>
                         <strong
                             >Inner invalidate<br />
                             on counter mutation:</strong
                         >
                     </p>
-                    <div class="c-dynamic-card__invalidate__wrap">
+                    <div>
                         ${invalidate({
                             observe: () => proxi.counter,
                             render: () => {

@@ -1,11 +1,15 @@
 @use '../../abstract' as *;
 
-.c-dynamic-list-empty {
-    margin-top: rem(10);
-    padding: rem(5);
-    border: 1px rgba($black, 0.1) solid;
+@layer component {
+    @scope (.c-dynamic-list-empty) {
+        :scope {
+            margin-top: rem(10);
+            padding: rem(5);
+            border: 1px rgba($black, 0.1) solid;
 
-    @include when-inside('.is-selected') {
-        border-color: rgba($white, 0.3);
+            @include when-inside('.is-selected') {
+                border-color: rgba($white, 0.3);
+            }
+        }
     }
 }

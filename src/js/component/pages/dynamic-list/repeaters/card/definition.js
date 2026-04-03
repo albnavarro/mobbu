@@ -22,10 +22,6 @@ export const DynamicListCard = MobJs.createComponent(
                 value: -1,
                 type: Number,
             }),
-            isFull: () => ({
-                value: false,
-                type: Boolean,
-            }),
             label: () => ({
                 value: '-',
                 type: String,

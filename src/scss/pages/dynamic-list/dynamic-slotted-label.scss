@@ -1,11 +1,15 @@
 @use '../../abstract' as *;
 
-.c-dynamic-list-slotted-label {
-    margin-top: calc(var(--gap-size) / 4);
-    padding: rem(5);
-    border: 1px rgba($black, 0.1) solid;
+@layer component {
+    @scope (.c-dynamic-list-slotted-label) {
+        :scope {
+            margin-top: calc(var(--gap-size) / 4);
+            padding: rem(5);
+            border: 1px rgba($black, 0.1) solid;
 
-    @include when-inside('.is-selected') {
-        border-color: rgba($white, 0.3);
+            @include when-inside('.is-selected') {
+                border-color: rgba($white, 0.3);
+            }
+        }
     }
 }
