@@ -20,10 +20,10 @@ const bioInfo = [
  */
 const getBio = () => {
     return html`
-        <ul class="l-footer__bio">
+        <ul class="bio-cell">
             ${bioInfo
                 .map((item) => {
-                    return html` <li class="l-footer__bio__item">${item}</li> `;
+                    return html` <li class="bio-item">${item}</li> `;
                 })
                 .join('')}
         </ul>
@@ -42,16 +42,16 @@ export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
 
     return html`
         <footer
-            class="l-footer"
+            class="js-footer"
             ${bindEffect({
                 toggleClass: {
                     'is-visible': () => proxi.isMounted,
                 },
             })}
         >
-            <div class="l-footer__container">
+            <div class="grid">
                 ${getBio()}
-                <div class="l-footer__debug">
+                <div class="debug-cell">
                     <debug-button
                         class="c-button-debug"
                         ${delegateEvents({

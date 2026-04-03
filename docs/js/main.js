@@ -42045,9 +42045,9 @@
   ];
   var getBio = () => {
     return renderHtml`
-        <ul class="l-footer__bio">
+        <ul class="bio-cell">
             ${bioInfo.map((item) => {
-      return renderHtml` <li class="l-footer__bio__item">${item}</li> `;
+      return renderHtml` <li class="bio-item">${item}</li> `;
     }).join("")}
         </ul>
     `;
@@ -42061,16 +42061,16 @@
     });
     return renderHtml`
         <footer
-            class="l-footer"
+            class="js-footer"
             ${bindEffect({
       toggleClass: {
         "is-visible": () => proxi.isMounted
       }
     })}
         >
-            <div class="l-footer__container">
+            <div class="grid">
                 ${getBio()}
-                <div class="l-footer__debug">
+                <div class="debug-cell">
                     <debug-button
                         class="c-button-debug"
                         ${delegateEvents({
@@ -42174,7 +42174,7 @@
     });
     return renderHtml`
         <header
-            class="l-header"
+            class="js-header"
             ${bindEffect({
       toggleClass: {
         "is-visible": () => proxi.isMounted
@@ -42550,11 +42550,11 @@
       if (!currentSection) return;
       const header = (
         /** @type {HTMLElement} */
-        document.querySelector(".l-header")
+        document.querySelector(".js-header")
       );
       const footer = (
         /** @type {HTMLElement} */
-        document.querySelector(".l-footer")
+        document.querySelector(".js-footer")
       );
       const navHeight = outerHeight(scrollerEl);
       const headerHeight = outerHeight(header);

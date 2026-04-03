@@ -1,44 +1,47 @@
 @use '../../abstract' as *;
 
-[data-component='footer'] {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: var(--footer-height);
-}
+@layer layout {
+    @scope (footer) {
+        :scope {
+            display: none;
+            position: fixed;
+            z-index: 12;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: var(--footer-height);
+            transition: background 0.35s;
+            background: black;
+            text-align: center;
 
-.l-footer {
-    display: none;
-    position: fixed;
-    z-index: 12;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: var(--footer-height);
-    transition: background 0.35s;
-    background: black;
-    text-align: center;
+            @include mq(desktop) {
+                display: block;
+            }
+        }
 
-    @include mq(desktop) {
-        display: block;
-    }
+        .grid {
+            display: grid;
+            grid-template-areas: 'bio action';
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            height: 100%;
+            padding: 0 var(--gap-size);
+        }
 
-    &__container {
-        display: grid;
-        grid-template-areas: 'bio action';
-        grid-template-columns: 1fr auto;
-        align-items: center;
-        height: 100%;
-        padding: 0 var(--gap-size);
-    }
+        .debug-cell {
+            display: flex;
+            grid-area: action;
+            transition: opacity 1s 0.2s;
+            opacity: 0;
+        }
 
-    &__bio {
-        grid-area: bio;
-        padding-left: 0;
-        text-align: left;
+        .bio-cell {
+            grid-area: bio;
+            padding-left: 0;
+            text-align: left;
+        }
 
-        &__item {
+        .bio-item {
             display: inline-block;
             margin-inline: rem(5);
             color: $white;
@@ -52,16 +55,11 @@
                 opacity: 0.5;
             }
         }
-    }
 
-    &__debug {
-        display: flex;
-        grid-area: action;
-        transition: opacity 1s 0.2s;
-        opacity: 0;
-
-        @include when-inside('.is-visible') {
-            opacity: 1;
+        :scope.is-visible {
+            .debug-cell {
+                opacity: 1;
+            }
         }
     }
 }

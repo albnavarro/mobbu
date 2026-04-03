@@ -664,63 +664,60 @@ code.hljs {
     transform: translate(-50%, -50%);
   }
 }
-[data-component=footer] {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: var(--footer-height);
-}
-.l-footer {
-  display: none;
-  position: fixed;
-  z-index: 12;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: var(--footer-height);
-  transition: background 0.35s;
-  background: black;
-  text-align: center;
-}
-@media (min-width: 62em) {
-  .l-footer {
-    display: block;
+@layer layout {
+  @scope (footer) {
+    :scope {
+      display: none;
+      position: fixed;
+      z-index: 12;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: var(--footer-height);
+      transition: background 0.35s;
+      background: black;
+      text-align: center;
+    }
+    @media (min-width: 62em) {
+      :scope {
+        display: block;
+      }
+    }
+    .grid {
+      display: grid;
+      grid-template-areas: "bio action";
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      height: 100%;
+      padding: 0 var(--gap-size);
+    }
+    .debug-cell {
+      display: flex;
+      grid-area: action;
+      transition: opacity 1s 0.2s;
+      opacity: 0;
+    }
+    .bio-cell {
+      grid-area: bio;
+      padding-left: 0;
+      text-align: left;
+    }
+    .bio-item {
+      display: inline-block;
+      margin-inline: 0.3333333333rem;
+      color: #fff;
+      font-size: 0.8666666667rem;
+    }
+    a {
+      transition: opacity 0.35s;
+    }
+    a:hover {
+      opacity: 0.5;
+    }
+    :scope.is-visible .debug-cell {
+      opacity: 1;
+    }
   }
-}
-.l-footer__container {
-  display: grid;
-  grid-template-areas: "bio action";
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  height: 100%;
-  padding: 0 var(--gap-size);
-}
-.l-footer__bio {
-  grid-area: bio;
-  padding-left: 0;
-  text-align: left;
-}
-.l-footer__bio__item {
-  display: inline-block;
-  margin-inline: 0.3333333333rem;
-  color: #fff;
-  font-size: 0.8666666667rem;
-}
-.l-footer__bio a {
-  transition: opacity 0.35s;
-}
-.l-footer__bio a:hover {
-  opacity: 0.5;
-}
-.l-footer__debug {
-  display: flex;
-  grid-area: action;
-  transition: opacity 1s 0.2s;
-  opacity: 0;
-}
-.is-visible .l-footer__debug {
-  opacity: 1;
 }
 @layer component {
   @scope (.c-hamburger) {
@@ -817,7 +814,7 @@ code.hljs {
   }
 }
 @layer layout {
-  @scope (.l-header) {
+  @scope (header) {
     :scope {
       display: none;
       position: fixed;

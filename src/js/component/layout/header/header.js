@@ -39,7 +39,7 @@ export const HeaderFn = ({
 
     return html`
         <header
-            class="l-header"
+            class="js-header"
             ${bindEffect({
                 toggleClass: {
                     'is-visible': () => proxi.isMounted,

@@ -52,10 +52,10 @@ export const initNavigationScoller = ({ root }) => {
         if (!currentSection) return;
 
         const header = /** @type {HTMLElement} */ (
-            document.querySelector('.l-header')
+            document.querySelector('.js-header')
         );
         const footer = /** @type {HTMLElement} */ (
-            document.querySelector('.l-footer')
+            document.querySelector('.js-footer')
         );
         const navHeight = outerHeight(scrollerEl);
         const headerHeight = outerHeight(header);
