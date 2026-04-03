@@ -31923,36 +31923,43 @@
                 >
                     Select
                 </dynamic-list-button>
-                <div>id: ${id}</div>
-                <div>list index: ${proxi.parentListId}</div>
-                <div>${bindText`index: ${"index"}`}</div>
-                <div>${bindText`label: ${"label"}`}</div>
-                <div>${bindText`counter: ${"counter"}`}</div>
-                <div>key: ${key.length > 0 ? key : "no-key"}</div>
+
+                <div class="card-info">
+                    <p>id: ${id}</p>
+                    <p>list index: ${proxi.parentListId}</p>
+                    <p>${bindText`index: ${"index"}`}</p>
+                    <p>${bindText`label: ${"label"}`}</p>
+                    <p>${bindText`counter: ${"counter"}`}</p>
+                    <p>key: ${key.length > 0 ? key : "no-key"}</p>
+                </div>
 
                 <!-- component -->
-                <mobjs-slot name="card-label-slot"></mobjs-slot>
+                <div class="card-slot">
+                    <mobjs-slot name="card-label-slot"></mobjs-slot>
+                </div>
 
                 <!-- component -->
-                <dynamic-list-empty>
-                    <dynamic-list-counter
-                        slot="empty-slot"
-                        ${staticProps2(
+                <div class="card-nested-child">
+                    <dynamic-list-empty>
+                        <dynamic-list-counter
+                            slot="empty-slot"
+                            ${staticProps2(
       /** @type {DynamicCounter['props']} */
       {
         parentListId: proxi.parentListId
       }
     )}
-                        ${bindProps(
+                            ${bindProps(
       /** @returns {ReturnBindProps<DynamicCounter>} */
       () => ({
         counter: proxi.counter
       })
     )}
-                    />
-                </dynamic-list-empty>
+                        />
+                    </dynamic-list-empty>
+                </div>
 
-                <div class="card-repeater-wrap">
+                <div class="card-repeaters-wrap">
                     <p><strong>Inner repeater:</strong></p>
 
                     <!-- component -->
