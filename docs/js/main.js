@@ -27356,13 +27356,11 @@
   var block01 = ({ setRef, getState }) => {
     const { titleTop, titleBottom } = getState().block_1;
     return renderHtml`
-        <section
-            class="l-about__section l-about__section l-about__section--first "
-        >
-            <div class="l-about__section__top has-overflow">
+        <section class="section section--first ">
+            <div class="section-top has-overflow">
                 <h1 class="title-big" ${setRef("title_1")}>${titleTop}</h1>
             </div>
-            <div class="l-about__section__bottom has-overflow">
+            <div class="section-bottom has-overflow">
                 <h1 class="title-biggest" ${setRef("title_2")}>
                     ${titleBottom}
                 </h1>
@@ -27373,18 +27371,18 @@
   var block02 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_2;
     return renderHtml`
-        <section class="l-about__section">
-            <div class="l-about__section__top has-overflow">
-                <div class="l-about__section__left"></div>
-                <div class="l-about__section__right">
+        <section class="section">
+            <div class="section-top has-overflow">
+                <div class="section-left"></div>
+                <div class="section-right">
                     <h1 class="title-biggest" ${setRef("section2_title")}>
                         ${title}
                     </h1>
                 </div>
             </div>
-            <div class="l-about__section__bottom has-overflow">
-                <div class="l-about__section__right">
-                    <p class="l-about__section__copy">${copy}</p>
+            <div class="section-bottom has-overflow">
+                <div class="section-right">
+                    <p class="section-copy">${copy}</p>
                 </div>
             </div>
         </section>
@@ -27393,18 +27391,18 @@
   var block03 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_3;
     return renderHtml`
-        <section class="l-about__section">
-            <div class="l-about__section__top has-overflow">
-                <div class="l-about__section__left"></div>
-                <div class="l-about__section__right">
+        <section class="section">
+            <div class="section-top has-overflow">
+                <div class="section-left"></div>
+                <div class="section-right">
                     <h1 class="title-biggest" ${setRef("section3_title")}>
                         ${title}
                     </h1>
                 </div>
             </div>
-            <div class="l-about__section__bottom has-overflow">
-                <div class="l-about__section__right">
-                    <p class="l-about__section__copy">${copy}</p>
+            <div class="section-bottom has-overflow">
+                <div class="section-right">
+                    <p class="section-copy">${copy}</p>
                 </div>
             </div>
         </section>
@@ -27413,16 +27411,18 @@
   var block04 = ({ setRef, getState }) => {
     const { title, items } = getState().block_4;
     return renderHtml`
-        <section class="l-about__section l-about__section--last">
-            <div class="l-about__section__top">
+        <section class="section section--last">
+            <div class="section-top has-overflow">
                 <h1 class="title-biggest" ${setRef("section4_title")}>
                     ${title}
                 </h1>
             </div>
-            <div class="l-about__section__bottom">
-                <ul class="l-about__list">
+            <div class="section-bottom has-overflow">
+                <ul class="section-list">
                     ${items.map((item) => {
-      return renderHtml` <li>[ ${item} ]</li> `;
+      return renderHtml`
+                                <li class="section-list-item">[ ${item} ]</li>
+                            `;
     }).join("")}
                 </ul>
             </div>
@@ -27431,12 +27431,12 @@
   };
   var navigation = ({ proxi, delegateEvents, bindEffect }) => {
     return renderHtml`
-        <ul class="l-about__nav">
+        <ul class="nav">
             ${proxi.navItem.map(({ index, label }) => {
       return renderHtml`
-                        <li class="l-about__nav__item">
+                        <li class="nav-item">
                             <button
-                                class="l-about__nav__button"
+                                class="nav-button"
                                 ${delegateEvents({
         click: () => {
           _goTo(goToPercentage[index]);
@@ -27459,12 +27459,12 @@
   };
   var getSquare = () => {
     return renderHtml`
-        <div class="l-about__square">
-            <div class="l-about__square__legend"><h4>Scroll or Drag</h4></div>
-            <span class="l-about__square__angle top-left"></span>
-            <span class="l-about__square__angle top-right"></span>
-            <span class="l-about__square__angle bottom-left"></span>
-            <span class="l-about__square__angle bottom-right"></span>
+        <div class="square">
+            <div class="square-legend"><h4>Scroll or Drag</h4></div>
+            <span class="square-angle top-left"></span>
+            <span class="square-angle top-right"></span>
+            <span class="square-angle bottom-left"></span>
+            <span class="square-angle bottom-right"></span>
         </div>
     `;
   };
@@ -27567,32 +27567,23 @@
       }
     })}
     >
-        <div class="l-about__sqaure-container">${getSquare()}</div>
-        <span class="l-about__background">
-            <div
-                class="l-about__about-svg l-about__about-svg--bottom"
-                ${setRef("svg")}
-            >
+        <div>${getSquare()}</div>
+        <span class="background">
+            <div class="svg-container svg-container--bottom" ${setRef("svg")}>
                 ${proxi.aboutSvg}
             </div>
         </span>
-        <div
-            class="l-about__about-svg l-about__about-svg--back"
-            ${setRef("svg")}
-        >
+        <div class="svg-container svg-container--back" ${setRef("svg")}>
             ${proxi.aboutSvg}
         </div>
-        <div
-            class="l-about__shape l-about__shape--front"
-            ${setRef("pathElement")}
-        >
-            <div class="l-about__about-svg l-about__about-svg--front">
+        <div class="shape" ${setRef("pathElement")}>
+            <div class="svg-container svg-container--front">
                 ${proxi.aboutSvg}
             </div>
         </div>
-        <div class="l-about__screen" ${setRef("screenElement")}>
-            <div class="l-about__scroller" ${setRef("scrollerElement")}>
-                <div class="l-about__wrap" ${setRef("wrapElement")}>
+        <div class="screen" ${setRef("screenElement")}>
+            <div class="scrollable-element" ${setRef("scrollerElement")}>
+                <div class="scollable-container" ${setRef("wrapElement")}>
                     ${block01({ setRef, getState })}
                     ${block02({ setRef, getState })}
                     ${block03({ setRef, getState })}
@@ -27602,7 +27593,7 @@
         </div>
         <button
             type="button"
-            class="l-about__prev"
+            class="prev"
             ${bindEffect({
       toggleAttribute: {
         disabled: () => proxi.activenavItem == 1
@@ -27620,7 +27611,7 @@
         ${navigation({ bindEffect, delegateEvents, proxi })}
         <button
             type="button"
-            class="l-about__next"
+            class="next"
             ${bindEffect({
       toggleAttribute: {
         disabled: () => proxi.activenavItem == 4
