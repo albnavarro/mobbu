@@ -25093,6 +25093,9 @@
 
   // src/js/component/pages/layout-links/layout-links.js
   var getCounter = (index) => index < 10 ? `0${index}` : `${index}`;
+  var getItemClass = (index) => {
+    return `link index-${index} ${index % 2 ? "is-odd" : "is-even"} `;
+  };
   var LayoutLinksFn = ({
     setRef,
     getRef,
@@ -25130,9 +25133,9 @@
       };
     });
     return renderHtml`<div class="l-links">
-        <div class="l-links__under-container">
+        <div class="top">
             <div
-                class="l-links__under is-white"
+                class="top-title is-white"
                 ${bindEffect({
       toggleClass: {
         "is-visible": () => proxi.isMounted
@@ -25142,20 +25145,18 @@
                 ${proxi.title}
             </div>
         </div>
-        <div class="l-links__grid">
-            <div class="l-links__row l-links__row" ${setRef("screenElement")}>
+        <div class="grid">
+            <div class="grid-item" ${setRef("screenElement")}>
                 <div
-                    class="l-links__row__white"
+                    class="grid-bottom"
                     ${bindEffect({
       toggleClass: {
         active: () => proxi.isMounted
       }
     })}
-                >
-                    <h6 class="l-links__over is-black">${proxi.title}</h6>
-                </div>
+                ></div>
                 <div
-                    class="l-links__title"
+                    class="title"
                     ${bindEffect({
       toggleClass: {
         "is-visible": () => proxi.isMounted
@@ -25165,7 +25166,7 @@
                     <h1 class="title-big">${proxi.title}</h1>
                 </div>
                 <div
-                    class="l-links__scroller"
+                    class="scrollable-element"
                     ${setRef("scrollerElement")}
                     ${bindEffect({
       toggleClass: {
@@ -25173,14 +25174,14 @@
       }
     })}
                 >
-                    <ul class="l-links__list">
+                    <ul class="items">
                         ${proxi.items.map((item, index) => {
       return (
         /* HTML */
         `
-                                    <li class="l-links__list__item">
+                                    <li class="item">
                                         <a
-                                            class="l-links__list__link index-${index} ${index % 2 ? "is-odd" : "is-even"}"
+                                            class="${getItemClass(index)}"
                                             href="${item.url}"
                                             ${bindEffect({
           toggleClass: {
@@ -25188,8 +25189,7 @@
           }
         })}
                                         >
-                                            <span
-                                                class="l-links__list__counter index-${index}"
+                                            <span class="counter index-${index}"
                                                 >${getCounter(index)}</span
                                             >
                                             <span class="index-${index}"
@@ -25204,7 +25204,7 @@
                 </div>
             </div>
             <h6
-                class="l-links__scroll"
+                class="scroll-label"
                 ${bindEffect({
       toggleClass: {
         active: () => proxi.showControls
@@ -25251,7 +25251,7 @@
   var layoutLinksPage = async ({ props }) => {
     const { source } = props;
     const { data } = await loadJsonContent({ source });
-    return renderHtml` <div class="l-links">
+    return renderHtml`
         <layout-links
             ${modules_exports2.staticProps(
       /** @type {import('@pagesComponent/layout-links/type').LayoutLinks['props']} */
@@ -25261,7 +25261,7 @@
       }
     )}
         ></layout-links>
-    </div>`;
+    `;
   };
 
   // src/js/component/common/doc-container/doc-container.js

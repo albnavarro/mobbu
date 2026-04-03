@@ -9,7 +9,7 @@ export const layoutLinksPage = async ({ props }) => {
     const { source } = props;
     const { data } = await loadJsonContent({ source });
 
-    return html` <div class="l-links">
+    return html`
         <layout-links
             ${MobJs.staticProps(
                 /** @type {import('@pagesComponent/layout-links/type').LayoutLinks['props']} */
@@ -19,5 +19,5 @@ export const layoutLinksPage = async ({ props }) => {
                 })
             )}
         ></layout-links>
-    </div>`;
+    `;
 };

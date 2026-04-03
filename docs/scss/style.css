@@ -1622,346 +1622,332 @@ code.hljs {
     }
   }
 }
-.l-links {
-  position: relative;
-  overflow: hidden;
-  --scroller-height: calc( 100vh - var(--header-height) - var(--footer-height) );
-}
-.l-links__under-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(var(--scroller-height) / 2);
-  overflow: hidden;
-}
-.l-links__under {
-  display: inline-block;
-  position: relative;
-  bottom: 0;
-  height: 100%;
-  transform: translateY(100%);
-  transition: transform 1.5s, opacity 0.55s;
-  opacity: 0;
-  font-size: 20rem;
-  font-weight: 800;
-  line-height: calc(var(--scroller-height) / 2);
-  text-transform: uppercase;
-  text-wrap: nowrap;
-}
-.l-links__under.is-visible {
-  transform: translateY(30%);
-  opacity: 0.1;
-}
-.l-links__over {
-  position: absolute;
-  top: calc(7.3333333333rem * -1);
-  left: calc(6.6666666667rem * -1);
-  margin: 0;
-  transform: rotateX(180deg);
-  opacity: 0.025;
-  font-size: 20rem;
-  font-weight: 800;
-  line-height: 1;
-  text-transform: uppercase;
-  text-wrap: nowrap;
-  mask-image:
-    linear-gradient(
-      to bottom,
-      transparent 0%,
-      black 100%);
-}
-.l-links__title {
-  position: absolute;
-  top: 50%;
-  padding-left: calc(var(--header-height) / 2);
-  transform: translate(-10%, -120%);
-  transition: opacity 1s, transform 1s;
-  opacity: 0;
-}
-.l-links__title.is-visible {
-  transform: translate(0, -120%);
-  opacity: 1;
-}
-.l-links__grid {
-  display: grid;
-  height: var(--scroller-height);
-}
-.l-links__row {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-.l-links__row__white {
-  position: absolute;
-  inset: 50% 0 0;
-  z-index: 1;
-  overflow: hidden;
-}
-.l-links__row__white::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  transform: scaleX(0);
-  transform-origin: top left;
-  transition: transform 0.55s;
-  background: #2e3440;
-}
-.l-links__row__white.active::before {
-  transform: scaleX(100%);
-}
-.l-links__scroller {
-  display: flex;
-  position: absolute;
-  z-index: 2;
-  width: auto;
-  max-width: none;
-  padding-top: calc(var(--scroller-height) * 0.5);
-}
-.l-links__scroller.use-drag-cursor {
-  cursor: grabbing;
-}
-.l-links__scroll {
-  position: absolute;
-  z-index: 2;
-  bottom: calc(var(--scroller-height) * 0.5 + 4.6666666667rem);
-  left: 2.6666666667rem;
-  transform: translateX(20%);
-  transition: opacity 1.5s, transform 1.5s;
-  opacity: 0;
-  pointer-events: none;
-}
-.l-links__scroll.active {
-  transform: translateX(0);
-  opacity: 1;
-}
-.l-links__list {
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: repeat(2, 1fr);
-  justify-content: start;
-  min-width: calc(100vw - var(--footer-height) / 2);
-  height: calc(var(--scroller-height) * 0.5 + 1px);
-  margin: 0;
-  padding-left: 0;
-  list-style-type: none;
-}
-.l-links__list__item {
-  width: 26.6666666667rem;
-}
-.l-links__list__item:nth-child(odd) {
-  grid-row: 1/span 1;
-}
-.l-links__list__item:nth-child(even) {
-  grid-row: 2/span 1;
-}
-.l-links__list__counter {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  font-size: 0.7333333333rem;
-}
-.l-links__list__link {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  transition: background 0.55s, color 0.55s;
-  color: #2e3440;
-  text-transform: capitalize;
-}
-.l-links__list__link::after,
-.l-links__list__link::before {
-  content: "";
-  position: absolute;
-  transition: transform 0.55s;
-  background: #2e3440;
-}
-.l-links__list__link::after {
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 100%;
-  transform: scaleY(0);
-}
-.l-links__list__link::before {
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  transform: scaleX(0);
-  transform-origin: bottom left;
-}
-.l-links__list__link.is-odd::after {
-  transform-origin: bottom right;
-}
-.l-links__list__link.is-even::after {
-  transform-origin: top right;
-}
-.l-links__list__link span {
-  opacity: 0;
-}
-.l-links__list__link.index-1::after,
-.l-links__list__link.index-1::before {
-  transition: transform 0.25s 0.05s ease-out;
-}
-.l-links__list__link span.index-1 {
-  transition: opacity 0.25s 0.05s;
-}
-.l-links__list__link.index-2::after,
-.l-links__list__link.index-2::before {
-  transition: transform 0.25s 0.1s ease-out;
-}
-.l-links__list__link span.index-2 {
-  transition: opacity 0.25s 0.1s;
-}
-.l-links__list__link.index-3::after,
-.l-links__list__link.index-3::before {
-  transition: transform 0.25s 0.15s ease-out;
-}
-.l-links__list__link span.index-3 {
-  transition: opacity 0.25s 0.15s;
-}
-.l-links__list__link.index-4::after,
-.l-links__list__link.index-4::before {
-  transition: transform 0.25s 0.2s ease-out;
-}
-.l-links__list__link span.index-4 {
-  transition: opacity 0.25s 0.2s;
-}
-.l-links__list__link.index-5::after,
-.l-links__list__link.index-5::before {
-  transition: transform 0.25s 0.25s ease-out;
-}
-.l-links__list__link span.index-5 {
-  transition: opacity 0.25s 0.25s;
-}
-.l-links__list__link.index-6::after,
-.l-links__list__link.index-6::before {
-  transition: transform 0.25s 0.3s ease-out;
-}
-.l-links__list__link span.index-6 {
-  transition: opacity 0.25s 0.3s;
-}
-.l-links__list__link.index-7::after,
-.l-links__list__link.index-7::before {
-  transition: transform 0.25s 0.35s ease-out;
-}
-.l-links__list__link span.index-7 {
-  transition: opacity 0.25s 0.35s;
-}
-.l-links__list__link.index-8::after,
-.l-links__list__link.index-8::before {
-  transition: transform 0.25s 0.4s ease-out;
-}
-.l-links__list__link span.index-8 {
-  transition: opacity 0.25s 0.4s;
-}
-.l-links__list__link.index-9::after,
-.l-links__list__link.index-9::before {
-  transition: transform 0.25s 0.45s ease-out;
-}
-.l-links__list__link span.index-9 {
-  transition: opacity 0.25s 0.45s;
-}
-.l-links__list__link.index-10::after,
-.l-links__list__link.index-10::before {
-  transition: transform 0.25s 0.5s ease-out;
-}
-.l-links__list__link span.index-10 {
-  transition: opacity 0.25s 0.5s;
-}
-.l-links__list__link.index-11::after,
-.l-links__list__link.index-11::before {
-  transition: transform 0.25s 0.55s ease-out;
-}
-.l-links__list__link span.index-11 {
-  transition: opacity 0.25s 0.55s;
-}
-.l-links__list__link.index-12::after,
-.l-links__list__link.index-12::before {
-  transition: transform 0.25s 0.6s ease-out;
-}
-.l-links__list__link span.index-12 {
-  transition: opacity 0.25s 0.6s;
-}
-.l-links__list__link.index-13::after,
-.l-links__list__link.index-13::before {
-  transition: transform 0.25s 0.65s ease-out;
-}
-.l-links__list__link span.index-13 {
-  transition: opacity 0.25s 0.65s;
-}
-.l-links__list__link.index-14::after,
-.l-links__list__link.index-14::before {
-  transition: transform 0.25s 0.7s ease-out;
-}
-.l-links__list__link span.index-14 {
-  transition: opacity 0.25s 0.7s;
-}
-.l-links__list__link.index-15::after,
-.l-links__list__link.index-15::before {
-  transition: transform 0.25s 0.75s ease-out;
-}
-.l-links__list__link span.index-15 {
-  transition: opacity 0.25s 0.75s;
-}
-.l-links__list__link.index-16::after,
-.l-links__list__link.index-16::before {
-  transition: transform 0.25s 0.8s ease-out;
-}
-.l-links__list__link span.index-16 {
-  transition: opacity 0.25s 0.8s;
-}
-.l-links__list__link.index-17::after,
-.l-links__list__link.index-17::before {
-  transition: transform 0.25s 0.85s ease-out;
-}
-.l-links__list__link span.index-17 {
-  transition: opacity 0.25s 0.85s;
-}
-.l-links__list__link.index-18::after,
-.l-links__list__link.index-18::before {
-  transition: transform 0.25s 0.9s ease-out;
-}
-.l-links__list__link span.index-18 {
-  transition: opacity 0.25s 0.9s;
-}
-.l-links__list__link.index-19::after,
-.l-links__list__link.index-19::before {
-  transition: transform 0.25s 0.95s ease-out;
-}
-.l-links__list__link span.index-19 {
-  transition: opacity 0.25s 0.95s;
-}
-.l-links__list__link.index-20::after,
-.l-links__list__link.index-20::before {
-  transition: transform 0.25s 1s ease-out;
-}
-.l-links__list__link span.index-20 {
-  transition: opacity 0.25s 1s;
-}
-.l-links__list__link.active::after {
-  transform: scaleY(100%);
-}
-.l-links__list__link.active::before {
-  transform: scaleX(100%);
-}
-.l-links__list__link.active span {
-  opacity: 1;
-}
-.l-links__list__link:hover {
-  background: #2e3440;
-  color: #fff;
-}
-.l-links__list__link h6 {
-  margin: 0;
-  pointer-events: none;
+@layer layout {
+  @scope (.l-links) {
+    :scope {
+      position: relative;
+      overflow: hidden;
+      --scroller-height: calc( 100vh - var(--header-height) - var(--footer-height) );
+    }
+    .top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: calc(var(--scroller-height) / 2);
+      overflow: hidden;
+    }
+    .top-title {
+      display: inline-block;
+      position: relative;
+      bottom: 0;
+      height: 100%;
+      transform: translateY(100%);
+      transition: transform 1.5s, opacity 0.55s;
+      opacity: 0;
+      font-size: 20rem;
+      font-weight: 800;
+      line-height: calc(var(--scroller-height) / 2);
+      text-transform: uppercase;
+      text-wrap: nowrap;
+    }
+    .top-title.is-visible {
+      transform: translateY(30%);
+      opacity: 0.1;
+    }
+    .grid {
+      display: grid;
+      height: var(--scroller-height);
+    }
+    .grid-item {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    .title {
+      position: absolute;
+      top: 50%;
+      padding-left: calc(var(--header-height) / 2);
+      transform: translate(-10%, -120%);
+      transition: opacity 1s, transform 1s;
+      opacity: 0;
+    }
+    .title.is-visible {
+      transform: translate(0, -120%);
+      opacity: 1;
+    }
+    .grid-bottom {
+      position: absolute;
+      inset: 50% 0 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .grid-bottom::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      transform: scaleX(0);
+      transform-origin: top left;
+      transition: transform 0.55s;
+      background: #2e3440;
+    }
+    .grid-bottom.active::before {
+      transform: scaleX(100%);
+    }
+    .scrollable-element {
+      display: flex;
+      position: absolute;
+      z-index: 2;
+      width: auto;
+      max-width: none;
+      padding-top: calc(var(--scroller-height) * 0.5);
+    }
+    .scrollable-element.use-drag-cursor {
+      cursor: grabbing;
+    }
+    .items {
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: repeat(2, 1fr);
+      justify-content: start;
+      min-width: calc(100vw - var(--footer-height) / 2);
+      height: calc(var(--scroller-height) * 0.5 + 1px);
+      margin: 0;
+      padding-left: 0;
+      list-style-type: none;
+    }
+    .item {
+      width: 26.6666666667rem;
+    }
+    .item:nth-child(odd) {
+      grid-row: 1/span 1;
+    }
+    .item:nth-child(even) {
+      grid-row: 2/span 1;
+    }
+    .counter {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 0.7333333333rem;
+    }
+    h6 {
+      margin: 0;
+      pointer-events: none;
+    }
+    .link {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      transition: background 0.55s, color 0.55s;
+      color: #2e3440;
+      text-transform: capitalize;
+    }
+    .link::after,
+    .link::before {
+      content: "";
+      position: absolute;
+      transition: transform 0.55s;
+      background: #2e3440;
+    }
+    .link::after {
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 100%;
+      transform: scaleY(0);
+    }
+    .link::before {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      transform: scaleX(0);
+      transform-origin: bottom left;
+    }
+    .link.is-odd::after {
+      transform-origin: bottom right;
+    }
+    .link.is-even::after {
+      transform-origin: top right;
+    }
+    .link span {
+      opacity: 0;
+    }
+    .link.index-1::after,
+    .link.index-1::before {
+      transition: transform 0.25s 0.05s ease-out;
+    }
+    .link span.index-1 {
+      transition: opacity 0.25s 0.05s;
+    }
+    .link.index-2::after,
+    .link.index-2::before {
+      transition: transform 0.25s 0.1s ease-out;
+    }
+    .link span.index-2 {
+      transition: opacity 0.25s 0.1s;
+    }
+    .link.index-3::after,
+    .link.index-3::before {
+      transition: transform 0.25s 0.15s ease-out;
+    }
+    .link span.index-3 {
+      transition: opacity 0.25s 0.15s;
+    }
+    .link.index-4::after,
+    .link.index-4::before {
+      transition: transform 0.25s 0.2s ease-out;
+    }
+    .link span.index-4 {
+      transition: opacity 0.25s 0.2s;
+    }
+    .link.index-5::after,
+    .link.index-5::before {
+      transition: transform 0.25s 0.25s ease-out;
+    }
+    .link span.index-5 {
+      transition: opacity 0.25s 0.25s;
+    }
+    .link.index-6::after,
+    .link.index-6::before {
+      transition: transform 0.25s 0.3s ease-out;
+    }
+    .link span.index-6 {
+      transition: opacity 0.25s 0.3s;
+    }
+    .link.index-7::after,
+    .link.index-7::before {
+      transition: transform 0.25s 0.35s ease-out;
+    }
+    .link span.index-7 {
+      transition: opacity 0.25s 0.35s;
+    }
+    .link.index-8::after,
+    .link.index-8::before {
+      transition: transform 0.25s 0.4s ease-out;
+    }
+    .link span.index-8 {
+      transition: opacity 0.25s 0.4s;
+    }
+    .link.index-9::after,
+    .link.index-9::before {
+      transition: transform 0.25s 0.45s ease-out;
+    }
+    .link span.index-9 {
+      transition: opacity 0.25s 0.45s;
+    }
+    .link.index-10::after,
+    .link.index-10::before {
+      transition: transform 0.25s 0.5s ease-out;
+    }
+    .link span.index-10 {
+      transition: opacity 0.25s 0.5s;
+    }
+    .link.index-11::after,
+    .link.index-11::before {
+      transition: transform 0.25s 0.55s ease-out;
+    }
+    .link span.index-11 {
+      transition: opacity 0.25s 0.55s;
+    }
+    .link.index-12::after,
+    .link.index-12::before {
+      transition: transform 0.25s 0.6s ease-out;
+    }
+    .link span.index-12 {
+      transition: opacity 0.25s 0.6s;
+    }
+    .link.index-13::after,
+    .link.index-13::before {
+      transition: transform 0.25s 0.65s ease-out;
+    }
+    .link span.index-13 {
+      transition: opacity 0.25s 0.65s;
+    }
+    .link.index-14::after,
+    .link.index-14::before {
+      transition: transform 0.25s 0.7s ease-out;
+    }
+    .link span.index-14 {
+      transition: opacity 0.25s 0.7s;
+    }
+    .link.index-15::after,
+    .link.index-15::before {
+      transition: transform 0.25s 0.75s ease-out;
+    }
+    .link span.index-15 {
+      transition: opacity 0.25s 0.75s;
+    }
+    .link.index-16::after,
+    .link.index-16::before {
+      transition: transform 0.25s 0.8s ease-out;
+    }
+    .link span.index-16 {
+      transition: opacity 0.25s 0.8s;
+    }
+    .link.index-17::after,
+    .link.index-17::before {
+      transition: transform 0.25s 0.85s ease-out;
+    }
+    .link span.index-17 {
+      transition: opacity 0.25s 0.85s;
+    }
+    .link.index-18::after,
+    .link.index-18::before {
+      transition: transform 0.25s 0.9s ease-out;
+    }
+    .link span.index-18 {
+      transition: opacity 0.25s 0.9s;
+    }
+    .link.index-19::after,
+    .link.index-19::before {
+      transition: transform 0.25s 0.95s ease-out;
+    }
+    .link span.index-19 {
+      transition: opacity 0.25s 0.95s;
+    }
+    .link.index-20::after,
+    .link.index-20::before {
+      transition: transform 0.25s 1s ease-out;
+    }
+    .link span.index-20 {
+      transition: opacity 0.25s 1s;
+    }
+    .link.active::after {
+      transform: scaleY(100%);
+    }
+    .link.active::before {
+      transform: scaleX(100%);
+    }
+    .link.active span {
+      opacity: 1;
+    }
+    .link:hover {
+      background: #2e3440;
+      color: #fff;
+    }
+    .scroll-label {
+      position: absolute;
+      z-index: 2;
+      bottom: calc(var(--scroller-height) * 0.5 + 4.6666666667rem);
+      left: 2.6666666667rem;
+      transform: translateX(20%);
+      transition: opacity 1.5s, transform 1.5s;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .scroll-label.active {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
 }
 .c-canvas {
   display: flex;
