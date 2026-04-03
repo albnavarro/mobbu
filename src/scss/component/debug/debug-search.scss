@@ -1,44 +1,48 @@
 @use '../../abstract' as *;
 
-.c-debug-search {
-    color: $white;
-
-    &__label {
-        display: inline-block;
-        min-width: rem(200);
-    }
-
-    &__input {
-        width: rem(100);
-        height: rem(22);
-        margin-right: rem(5);
-        border: 1px $white solid;
-        background: transparent;
-        vertical-align: middle;
-
-        @include mq(large) {
-            width: rem(150);
+@layer component {
+    @scope (.c-debug-search) {
+        :scope {
+            color: $white;
         }
-    }
 
-    &__button {
-        display: inline-block;
-        height: rem(22);
-        margin: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-        padding-inline: calc(var(--gap-size) / 2);
-        transition:
-            background 0.35s,
-            color 0.35s;
-        border: 1px $white solid;
-        background: transparent;
-        line-height: 1.7;
-        vertical-align: middle;
+        .label {
+            display: inline-block;
+            min-width: rem(200);
+        }
 
-        @include on-event {
-            background: $white;
-            color: $black;
+        input {
+            width: rem(100);
+            height: rem(22);
+            margin-right: rem(5);
+            border: 1px $white solid;
+            background: transparent;
+            vertical-align: middle;
+
+            @include mq(large) {
+                width: rem(150);
+            }
+        }
+
+        button {
+            display: inline-block;
+            height: rem(22);
+            margin: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            padding-inline: calc(var(--gap-size) / 2);
+            transition:
+                background 0.35s,
+                color 0.35s;
+            border: 1px $white solid;
+            background: transparent;
+            line-height: 1.7;
+            vertical-align: middle;
+
+            @include on-event {
+                background: $white;
+                color: $black;
+            }
         }
     }
 }

@@ -93,7 +93,7 @@ export const DebugTreeItemFn = ({
 
     return html`<div class="c-debug-tree-item">
         <div
-            class="c-debug-tree-item__head ${hasChildrenClass}"
+            class="tree-header ${hasChildrenClass}"
             ${delegateEvents({
                 click: () => {
                     proxi.isOpen = !proxi.isOpen;
@@ -110,18 +110,13 @@ export const DebugTreeItemFn = ({
                 },
             ])}
         >
-            <span class="c-debug-tree-item__id">${proxi.id}</span> |
-            <span class="c-debug-tree-item__component"
-                >${proxi.componentName}</span
-            >
-            |
-            <span class="c-debug-tree-item__instance"
-                >${proxi.instanceName}</span
-            >
+            <span class="tree-id">${proxi.id}</span> |
+            <span class="tree-component">${proxi.componentName}</span> |
+            <span class="tree-instance">${proxi.instanceName}</span>
             <span>${getCounter(proxi.children.length)}</span>
             <button
                 type="button"
-                class="c-debug-tree-item__expand"
+                class="tree-expand"
                 ${delegateEvents({
                     click: () => {
                         updateDebugComponentById(proxi.id);
@@ -131,13 +126,13 @@ export const DebugTreeItemFn = ({
                 [ > ]
             </button>
             <span
-                class="c-debug-tree-item__selected"
+                class="tree-selected"
                 ${bindEffect({
                     toggleClass: { active: () => proxi.isActive },
                 })}
             ></span>
         </div>
-        <div class="c-debug-tree-item__content" ${setRef('content')}>
+        <div class="tree-content" ${setRef('content')}>
             ${generateTreeComponents({ data: proxi.children, staticProps })}
         </div>
     </div>`;

@@ -1,22 +1,26 @@
 @use '../../abstract' as *;
 
-.c-debug-head {
-    display: flex;
-    padding-top: calc(var(--gap-size) / 2);
-    color: $white;
-    font-size: rem(12);
+@layer component {
+    @scope (.c-debug-head) {
+        :scope {
+            display: flex;
+            padding-top: calc(var(--gap-size) / 2);
+            color: $white;
+            font-size: rem(12);
+        }
 
-    &__general,
-    &__search {
-        flex: 0 0 50%;
-    }
+        .general,
+        .search {
+            flex: 0 0 50%;
+        }
 
-    &__general {
-        padding-left: var(--gap-size);
-        border-right: 1px $black solid;
-    }
+        .general {
+            padding-left: var(--gap-size);
+            border-right: 1px $black solid;
+        }
 
-    &__search {
-        padding-left: calc(var(--gap-size) / 2);
+        .search {
+            padding-left: calc(var(--gap-size) / 2);
+        }
     }
 }

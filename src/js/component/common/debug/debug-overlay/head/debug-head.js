@@ -9,7 +9,7 @@ export const DebugHeadFn = ({ invalidate, getProxi }) => {
     const proxi = getProxi();
 
     return html`<div class="c-debug-head">
-        <div class="c-debug-head__general">
+        <div class="general">
             ${invalidate({
                 observe: () => proxi.active,
                 render: () => {
@@ -20,16 +20,16 @@ export const DebugHeadFn = ({ invalidate, getProxi }) => {
                             <strong> Debug activated: </strong>
                             ${MobJs.getDebugMode()}
                         </div>
-                        <div class="c-debug-head__total">
+                        <div>
                             <strong>Number of component</strong>:
                             ${MobJs.componentMap.size} ( excluded generated
                             debug )
                         </div>
-                        <div class="c-debug-head__repeater">
+                        <div>
                             <strong>Active repeater: </strong>:
                             ${MobJs.getNumberOfActiveRepeater()}
                         </div>
-                        <div class="c-debug-head__invalidate">
+                        <div>
                             <strong>Active invalidate: </strong>:
                             ${MobJs.getNumberOfActiveInvalidate()}
                         </div>
@@ -37,7 +37,7 @@ export const DebugHeadFn = ({ invalidate, getProxi }) => {
                 },
             })}
         </div>
-        <div class="c-debug-head__search">
+        <div class="search">
             <div>
                 <debug-search></debug-search>
             </div>

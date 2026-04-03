@@ -39445,11 +39445,11 @@
         <div><strong>persistent:</strong>: ${item.persistent}</div>
 
         <!-- Children -->
-        <h3 class="c-debug-component__section-title">Children:</h3>
+        <h3 class="section-title">Children:</h3>
         <div>${getChild(item?.child ?? {})}</div>
 
         <!-- Repeater -->
-        <h3 class="c-debug-component__section-title">Repeater props:</h3>
+        <h3 class="section-title">Repeater props:</h3>
         <div>
             <strong>component repeater id</strong>: ${item.componentRepeatId}
         </div>
@@ -39471,21 +39471,17 @@
         </div>
 
         <!-- State -->
-        <h3 class="c-debug-component__section-title">State:</h3>
+        <h3 class="section-title">State:</h3>
         <div>
             <strong>Freezed prop:</strong>
             ${getFreezeProp(item?.freezedPros)}
         </div>
         <div>
-            <h4 class="c-debug-component__section-subtitle">
-                States current values:
-            </h4>
+            <h4 class="section-subtitle">States current values:</h4>
             ${getStateProps(item.state.get())}
         </div>
         <div>
-            <h4 class="c-debug-component__section-subtitle">
-                States current validation:
-            </h4>
+            <h4 class="section-subtitle">States current validation:</h4>
             ${getStateProps(item.state.getValidation())}
         </div>
     </div>`;
@@ -39568,9 +39564,9 @@
             value="0"
             step=".5"
             ${setRef("scrollbar")}
-            class="c-debug-component__scrollbar"
+            class="scrollbar"
         />
-        <div class="c-debug-component__container" ${setRef("scroller")}>
+        <div class="container" ${setRef("scroller")}>
             ${invalidate({
       observe: () => proxi.id,
       render: () => {
@@ -39621,11 +39617,11 @@
       };
     });
     return renderHtml`<div class="c-debug-filter-head">
-        <span class="c-debug-filter-head__title">Filter by tag</span>
+        <span class="title">Filter by tag</span>
         <input
             type="text"
-            class="c-debug-filter-head__input"
             value=""
+            name="debug-filter"
             ${setRef("input")}
             ${delegateEvents({
       keydown: (event) => {
@@ -39641,7 +39637,6 @@
     })}
         />
         <button
-            class="c-debug-filter-head__button"
             type="button"
             ${delegateEvents({
       click: () => {
@@ -39786,7 +39781,7 @@
     });
     return renderHtml`
         <div class="c-debug-filter-list">
-            <div class="c-debug-filter-list__list" ${setRef("screen")}>
+            <div class="list" ${setRef("screen")}>
                 <input
                     type="range"
                     id="test"
@@ -39796,26 +39791,23 @@
                     value="0"
                     step=".5"
                     ${setRef("scrollbar")}
-                    class="c-debug-filter-list__scrollbar"
+                    class="scrollbar"
                 />
                 <span
-                    class="c-debug-filter-list__status"
+                    class="status"
                     ${bindEffect({
       toggleClass: { visible: () => proxi.isLoading }
     })}
                     >Generate list</span
                 >
                 <span
-                    class="c-debug-filter-list__status"
+                    class="status"
                     ${bindEffect({
       toggleClass: { visible: () => proxi.noResult }
     })}
                     >no result</span
                 >
-                <div
-                    class="c-debug-filter-list__scroller"
-                    ${setRef("scroller")}
-                >
+                <div class="scrollable-element" ${setRef("scroller")}>
                     ${repeat({
       observe: () => proxi.data,
       key: "id",
@@ -39872,15 +39864,12 @@
     );
     return renderHtml`
         <div class="c-debug-filter-list-item">
-            <span class="c-debug-filter-list-item__id">${proxi.id}</span> |
-            <span class="c-debug-filter-list-item__tag"
-                >${bindText`${"tag"}`}</span
-            >
-            |
-            <span class="c-debug-filter-list-item__name">${proxi.name}</span>
+            <span class="id">${proxi.id}</span> |
+            <span class="tag">${bindText`${"tag"}`}</span> |
+            <span class="name">${proxi.name}</span>
             <button
                 type="button"
-                class="c-debug-filter-list-item__expand"
+                class="expand"
                 ${delegateEvents({
       click: () => {
         updateDebugComponentById(proxi.id);
@@ -39890,7 +39879,7 @@
                 [ > ]
             </button>
             <span
-                class="c-debug-tree-item__selected"
+                class="selected"
                 ${bindEffect({
       toggleClass: { active: () => proxi.active }
     })}
@@ -39957,7 +39946,7 @@
   var DebugHeadFn = ({ invalidate, getProxi }) => {
     const proxi = getProxi();
     return renderHtml`<div class="c-debug-head">
-        <div class="c-debug-head__general">
+        <div class="general">
             ${invalidate({
       observe: () => proxi.active,
       render: () => {
@@ -39967,16 +39956,16 @@
                             <strong> Debug activated: </strong>
                             ${modules_exports2.getDebugMode()}
                         </div>
-                        <div class="c-debug-head__total">
+                        <div>
                             <strong>Number of component</strong>:
                             ${modules_exports2.componentMap.size} ( excluded generated
                             debug )
                         </div>
-                        <div class="c-debug-head__repeater">
+                        <div>
                             <strong>Active repeater: </strong>:
                             ${modules_exports2.getNumberOfActiveRepeater()}
                         </div>
-                        <div class="c-debug-head__invalidate">
+                        <div>
                             <strong>Active invalidate: </strong>:
                             ${modules_exports2.getNumberOfActiveInvalidate()}
                         </div>
@@ -39984,7 +39973,7 @@
       }
     })}
         </div>
-        <div class="c-debug-head__search">
+        <div class="search">
             <div>
                 <debug-search></debug-search>
             </div>
@@ -39996,12 +39985,12 @@
   var DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
     return renderHtml`<div class="c-debug-search">
         <div>
-            <span class="c-debug-search__label">
+            <span class="label">
                 <strong>Search by ID:</strong>
             </span>
             <input
-                class="c-debug-search__input"
                 type="text"
+                name="id"
                 ${setRef("id_input")}
                 ${delegateEvents({
       keydown: (event) => {
@@ -40017,7 +40006,6 @@
     })}
             />
             <button
-                class="c-debug-search__button"
                 type="button"
                 ${delegateEvents({
       click: () => {
@@ -40034,13 +40022,13 @@
             </button>
         </div>
         <div>
-            <span class="c-debug-search__label">
+            <span class="label">
                 <strong>Search by InstanceName:</strong>
             </span>
             <input
-                class="c-debug-search__input"
                 type="text"
                 ${setRef("instance_input")}
+                name="instance"
                 ${delegateEvents({
       keydown: (event) => {
         if (event.code.toLowerCase() === "enter") {
@@ -40056,7 +40044,6 @@
     })}
             />
             <button
-                class="c-debug-search__button"
                 type="button"
                 ${delegateEvents({
       click: () => {
@@ -40070,11 +40057,10 @@
                 find
             </button>
             <div>
-                <span class="c-debug-search__label">
+                <span class="label">
                     <strong>Clear:</strong>
                 </span>
                 <button
-                    class="c-debug-search__button"
                     type="button"
                     ${delegateEvents({
       click: () => {
@@ -40089,11 +40075,10 @@
                 </button>
             </div>
             <div>
-                <span class="c-debug-search__label">
+                <span class="label">
                     <strong>Refresh:</strong>
                 </span>
                 <button
-                    class="c-debug-search__button"
                     type="button"
                     ${delegateEvents({
       click: () => {
@@ -40195,7 +40180,7 @@
     })}
     >
         <button
-            class="c-debug-overlay__background"
+            class="background"
             type="button"
             ${delegateEvents({
       click: () => {
@@ -40206,7 +40191,7 @@
         ></button>
         <button
             type="button"
-            class="c-debug-overlay__close"
+            class="close"
             ${delegateEvents({
       click: () => {
         proxi.active = false;
@@ -40214,10 +40199,10 @@
       }
     })}
         ></button>
-        <div class="c-debug-overlay__grid">
+        <div class="grid">
             <button
                 type="button"
-                class="c-debug-overlay__log"
+                class="log"
                 ${delegateEvents({
       click: () => {
         consoleLogDebug();
@@ -40227,7 +40212,7 @@
                 console log
             </button>
 
-            <div class="c-debug-overlay__head">
+            <div class="header">
                 <debug-head
                     ${bindProps(
       /** @returns {ReturnBindProps<DebugHead>} */
@@ -40237,16 +40222,14 @@
     )}
                 ></debug-head>
             </div>
-            <div class="c-debug-overlay__list">
-                <div class="c-debug-overlay__list__header">
+            <div class="list">
+                <div class="list-header">
                     <div>
                         ${invalidate({
       observe: [() => proxi.listType, () => proxi.active],
       render: () => {
         if (proxi.listType === DEBUG_USE_TREE && proxi.active)
-          return renderHtml`<div
-                                        class="c-debug-overlay__list__title"
-                                    >
+          return renderHtml`<div class="list-title">
                                         Tree structure
                                     </div>`;
         if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
@@ -40256,10 +40239,10 @@
     })}
                     </div>
 
-                    <div class="c-debug-overlay__list__ctas">
+                    <div>
                         <button
                             type="button"
-                            class="c-debug-overlay__list__toggle"
+                            class="list-toggle"
                             ${delegateEvents({
       click: () => {
         proxi.listType = DEBUG_USE_TREE;
@@ -40275,7 +40258,7 @@
                         </button>
                         <button
                             type="button"
-                            class="c-debug-overlay__list__toggle"
+                            class="list-toggle"
                             ${delegateEvents({
       click: () => {
         proxi.listType = DEBUG_USE_FILTER_COMPONENT;
@@ -40312,7 +40295,7 @@
     })}
                 </div>
             </div>
-            <div class="c-debug-overlay__component">
+            <div class="single-component">
                 <debug-component name="${debugComponentName}"></debug-component>
             </div>
         </div>
@@ -40411,7 +40394,7 @@
     });
     return renderHtml`
         <div class="c-debug-tree">
-            <div class="c-debug-tree__list" ${setRef("screen")}>
+            <div class="tree-list" ${setRef("screen")}>
                 <input
                     type="range"
                     id="test"
@@ -40421,16 +40404,16 @@
                     value="0"
                     step=".5"
                     ${setRef("scrollbar")}
-                    class="c-debug-tree__scrollbar"
+                    class="scrollbar"
                 />
                 <span
-                    class="c-debug-tree__status"
+                    class="status"
                     ${bindEffect({
       toggleClass: { visible: () => proxi.isLoading }
     })}
                     >Generate tree</span
                 >
-                <div class="c-debug-tree__scroller" ${setRef("scroller")}>
+                <div class="scollable-element" ${setRef("scroller")}>
                     ${invalidate({
       observe: () => proxi.data,
       render: () => {
@@ -40507,7 +40490,7 @@
     });
     return renderHtml`<div class="c-debug-tree-item">
         <div
-            class="c-debug-tree-item__head ${hasChildrenClass}"
+            class="tree-header ${hasChildrenClass}"
             ${delegateEvents({
       click: () => {
         proxi.isOpen = !proxi.isOpen;
@@ -40524,18 +40507,13 @@
       }
     ])}
         >
-            <span class="c-debug-tree-item__id">${proxi.id}</span> |
-            <span class="c-debug-tree-item__component"
-                >${proxi.componentName}</span
-            >
-            |
-            <span class="c-debug-tree-item__instance"
-                >${proxi.instanceName}</span
-            >
+            <span class="tree-id">${proxi.id}</span> |
+            <span class="tree-component">${proxi.componentName}</span> |
+            <span class="tree-instance">${proxi.instanceName}</span>
             <span>${getCounter2(proxi.children.length)}</span>
             <button
                 type="button"
-                class="c-debug-tree-item__expand"
+                class="tree-expand"
                 ${delegateEvents({
       click: () => {
         updateDebugComponentById(proxi.id);
@@ -40545,13 +40523,13 @@
                 [ > ]
             </button>
             <span
-                class="c-debug-tree-item__selected"
+                class="tree-selected"
                 ${bindEffect({
       toggleClass: { active: () => proxi.isActive }
     })}
             ></span>
         </div>
-        <div class="c-debug-tree-item__content" ${setRef("content")}>
+        <div class="tree-content" ${setRef("content")}>
             ${generateTreeComponents({ data: proxi.children, staticProps: staticProps2 })}
         </div>
     </div>`;

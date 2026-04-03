@@ -1,27 +1,24 @@
 @use '../../abstract' as *;
 
-.c-btn-debug {
-    display: block;
-    margin: 0;
-    margin-right: rem(10);
-    padding: 0 rem(30);
-    transition: background 0.35s;
-    border: 1px $grey-medium-2 solid;
-    background: transparent;
-    color: $grey-medium-2;
-    font-size: rem(14);
-    text-align: center;
-    text-decoration: none;
+@layer component {
+    @scope (.c-btn-debug) {
+        :scope {
+            display: block;
+            margin: 0;
+            margin-right: rem(10);
+            padding: 0 rem(30);
+            transition: background 0.35s;
+            border: 1px $grey-medium-2 solid;
+            background: transparent;
+            color: $grey-medium-2;
+            font-size: rem(14);
+            text-align: center;
+            text-decoration: none;
 
-    /*
-    @include when-inside('[data-template="about"]') {
-        border: 1px $white solid;
-        color: $white;
-    }
-    */
-
-    &:hover {
-        background: $white;
-        color: $black;
+            &:hover {
+                background: $white;
+                color: $black;
+            }
+        }
     }
 }

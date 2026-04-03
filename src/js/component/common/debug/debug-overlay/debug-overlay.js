@@ -55,7 +55,7 @@ export const DebugOverlayFn = ({
         })}
     >
         <button
-            class="c-debug-overlay__background"
+            class="background"
             type="button"
             ${delegateEvents({
                 click: () => {
@@ -66,7 +66,7 @@ export const DebugOverlayFn = ({
         ></button>
         <button
             type="button"
-            class="c-debug-overlay__close"
+            class="close"
             ${delegateEvents({
                 click: () => {
                     proxi.active = false;
@@ -74,10 +74,10 @@ export const DebugOverlayFn = ({
                 },
             })}
         ></button>
-        <div class="c-debug-overlay__grid">
+        <div class="grid">
             <button
                 type="button"
-                class="c-debug-overlay__log"
+                class="log"
                 ${delegateEvents({
                     click: () => {
                         consoleLogDebug();
@@ -87,7 +87,7 @@ export const DebugOverlayFn = ({
                 console log
             </button>
 
-            <div class="c-debug-overlay__head">
+            <div class="header">
                 <debug-head
                     ${bindProps(
                         /** @returns {ReturnBindProps<DebugHead>} */
@@ -97,8 +97,8 @@ export const DebugOverlayFn = ({
                     )}
                 ></debug-head>
             </div>
-            <div class="c-debug-overlay__list">
-                <div class="c-debug-overlay__list__header">
+            <div class="list">
+                <div class="list-header">
                     <div>
                         ${invalidate({
                             observe: [() => proxi.listType, () => proxi.active],
@@ -107,9 +107,7 @@ export const DebugOverlayFn = ({
                                     proxi.listType === DEBUG_USE_TREE &&
                                     proxi.active
                                 )
-                                    return html`<div
-                                        class="c-debug-overlay__list__title"
-                                    >
+                                    return html`<div class="list-title">
                                         Tree structure
                                     </div>`;
 
@@ -126,10 +124,10 @@ export const DebugOverlayFn = ({
                         })}
                     </div>
 
-                    <div class="c-debug-overlay__list__ctas">
+                    <div>
                         <button
                             type="button"
-                            class="c-debug-overlay__list__toggle"
+                            class="list-toggle"
                             ${delegateEvents({
                                 click: () => {
                                     proxi.listType = DEBUG_USE_TREE;
@@ -146,7 +144,7 @@ export const DebugOverlayFn = ({
                         </button>
                         <button
                             type="button"
-                            class="c-debug-overlay__list__toggle"
+                            class="list-toggle"
                             ${delegateEvents({
                                 click: () => {
                                     proxi.listType = DEBUG_USE_FILTER_COMPONENT;
@@ -193,7 +191,7 @@ export const DebugOverlayFn = ({
                     })}
                 </div>
             </div>
-            <div class="c-debug-overlay__component">
+            <div class="single-component">
                 <debug-component name="${debugComponentName}"></debug-component>
             </div>
         </div>

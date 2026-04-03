@@ -101,11 +101,11 @@ const getContent = ({ getState }) => {
         <div><strong>persistent:</strong>: ${item.persistent}</div>
 
         <!-- Children -->
-        <h3 class="c-debug-component__section-title">Children:</h3>
+        <h3 class="section-title">Children:</h3>
         <div>${getChild(item?.child ?? {})}</div>
 
         <!-- Repeater -->
-        <h3 class="c-debug-component__section-title">Repeater props:</h3>
+        <h3 class="section-title">Repeater props:</h3>
         <div>
             <strong>component repeater id</strong>: ${item.componentRepeatId}
         </div>
@@ -127,21 +127,17 @@ const getContent = ({ getState }) => {
         </div>
 
         <!-- State -->
-        <h3 class="c-debug-component__section-title">State:</h3>
+        <h3 class="section-title">State:</h3>
         <div>
             <strong>Freezed prop:</strong>
             ${getFreezeProp(item?.freezedPros)}
         </div>
         <div>
-            <h4 class="c-debug-component__section-subtitle">
-                States current values:
-            </h4>
+            <h4 class="section-subtitle">States current values:</h4>
             ${getStateProps(item.state.get())}
         </div>
         <div>
-            <h4 class="c-debug-component__section-subtitle">
-                States current validation:
-            </h4>
+            <h4 class="section-subtitle">States current validation:</h4>
             ${getStateProps(item.state.getValidation())}
         </div>
     </div>`;
@@ -249,9 +245,9 @@ export const DebugComponentFn = ({
             value="0"
             step=".5"
             ${setRef('scrollbar')}
-            class="c-debug-component__scrollbar"
+            class="scrollbar"
         />
-        <div class="c-debug-component__container" ${setRef('scroller')}>
+        <div class="container" ${setRef('scroller')}>
             ${invalidate({
                 observe: () => proxi.id,
                 render: () => {

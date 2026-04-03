@@ -97,7 +97,7 @@ export const DebugTreeFn = ({
 
     return html`
         <div class="c-debug-tree">
-            <div class="c-debug-tree__list" ${setRef('screen')}>
+            <div class="tree-list" ${setRef('screen')}>
                 <input
                     type="range"
                     id="test"
@@ -107,16 +107,16 @@ export const DebugTreeFn = ({
                     value="0"
                     step=".5"
                     ${setRef('scrollbar')}
-                    class="c-debug-tree__scrollbar"
+                    class="scrollbar"
                 />
                 <span
-                    class="c-debug-tree__status"
+                    class="status"
                     ${bindEffect({
                         toggleClass: { visible: () => proxi.isLoading },
                     })}
                     >Generate tree</span
                 >
-                <div class="c-debug-tree__scroller" ${setRef('scroller')}>
+                <div class="scollable-element" ${setRef('scroller')}>
                     ${invalidate({
                         observe: () => proxi.data,
                         render: () => {

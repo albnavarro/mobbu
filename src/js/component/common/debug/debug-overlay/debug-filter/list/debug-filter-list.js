@@ -200,7 +200,7 @@ export const DebugFilterListFn = ({
 
     return html`
         <div class="c-debug-filter-list">
-            <div class="c-debug-filter-list__list" ${setRef('screen')}>
+            <div class="list" ${setRef('screen')}>
                 <input
                     type="range"
                     id="test"
@@ -210,26 +210,23 @@ export const DebugFilterListFn = ({
                     value="0"
                     step=".5"
                     ${setRef('scrollbar')}
-                    class="c-debug-filter-list__scrollbar"
+                    class="scrollbar"
                 />
                 <span
-                    class="c-debug-filter-list__status"
+                    class="status"
                     ${bindEffect({
                         toggleClass: { visible: () => proxi.isLoading },
                     })}
                     >Generate list</span
                 >
                 <span
-                    class="c-debug-filter-list__status"
+                    class="status"
                     ${bindEffect({
                         toggleClass: { visible: () => proxi.noResult },
                     })}
                     >no result</span
                 >
-                <div
-                    class="c-debug-filter-list__scroller"
-                    ${setRef('scroller')}
-                >
+                <div class="scrollable-element" ${setRef('scroller')}>
                     ${repeat({
                         observe: () => proxi.data,
                         key: 'id',

@@ -31,11 +31,11 @@ export const DebugFilterHeadFn = ({
     });
 
     return html`<div class="c-debug-filter-head">
-        <span class="c-debug-filter-head__title">Filter by tag</span>
+        <span class="title">Filter by tag</span>
         <input
             type="text"
-            class="c-debug-filter-head__input"
             value=""
+            name="debug-filter"
             ${setRef('input')}
             ${delegateEvents({
                 keydown: (/** @type {KeyboardEvent} */ event) => {
@@ -51,7 +51,6 @@ export const DebugFilterHeadFn = ({
             })}
         />
         <button
-            class="c-debug-filter-head__button"
             type="button"
             ${delegateEvents({
                 click: () => {

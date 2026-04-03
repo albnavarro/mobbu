@@ -1,77 +1,80 @@
 @use '../../abstract' as *;
 
-.c-debug-tree-item {
-    position: relative;
-    padding-left: rem(40);
-    color: $white;
-    font-size: rem(12);
-
-    // Performance on scroll
-    @include when-inside('.is-whelling') {
-        pointer-events: none;
-    }
-
-    &__head {
-        &.has-children {
+@layer component {
+    @scope (.c-debug-tree-item) {
+        :scope {
             position: relative;
-            cursor: pointer;
+            padding-left: rem(40);
+            color: $white;
+            font-size: rem(12);
 
-            &::before {
-                content: '[ + ]';
-                position: absolute;
-                top: 50%;
-                left: calc(#{rem(30)} * -1);
-                transform: translateY(-50%);
-                font-size: rem(10);
+            @include when-inside('.is-whelling') {
+                pointer-events: none;
             }
+        }
 
-            &.has-children-selected {
+        .tree-header {
+            &.has-children {
+                position: relative;
+                cursor: pointer;
+
                 &::before {
-                    font-weight: 800;
+                    content: '[ + ]';
+                    position: absolute;
+                    top: 50%;
+                    left: calc(#{rem(30)} * -1);
+                    transform: translateY(-50%);
+                    font-size: rem(10);
+                }
+
+                &.has-children-selected {
+                    &::before {
+                        font-weight: 800;
+                    }
+                }
+
+                &.open {
+                    &::before {
+                        content: '[ - ]';
+                    }
                 }
             }
+        }
 
-            &.open {
-                &::before {
-                    content: '[ - ]';
-                }
+        .tree-id {
+            opacity: 0.8;
+            font-weight: 600;
+        }
+
+        .tree-expand {
+            transition: opacity 0.35s;
+            border: 0;
+            background: transparent;
+            font-size: rem(10);
+
+            &:focus {
+                outline: none;
+            }
+
+            @include on-event {
+                opacity: 0.3;
             }
         }
-    }
 
-    &__id {
-        opacity: 0.8;
-        font-weight: 600;
-    }
-
-    &__expand {
-        transition: opacity 0.35s;
-        border: 0;
-        background: transparent;
-        font-size: rem(10);
-
-        &:focus {
-            outline: none;
+        .tree-instance {
+            margin-right: rem(5);
         }
 
-        @include on-event {
-            opacity: 0.3;
-        }
-    }
+        .tree-selected {
+            display: none;
+            width: rem(10);
+            height: rem(10);
+            border-radius: 100%;
+            background: $white;
 
-    &__instance {
-        margin-right: rem(5);
-    }
-
-    &__selected {
-        display: none;
-        width: rem(10);
-        height: rem(10);
-        border-radius: 100%;
-        background: $white;
-
-        &.active {
-            display: inline-block;
+            &.active {
+                display: inline-block;
+            }
         }
     }
 }

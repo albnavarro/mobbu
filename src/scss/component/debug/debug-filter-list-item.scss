@@ -1,62 +1,59 @@
 @use '../../abstract' as *;
 
-.c-debug-filter-list-item {
-    position: relative;
-    padding-left: calc(var(--gap-size) / 2);
-    color: $white;
-    font-size: rem(12);
+@layer component {
+    @scope (.c-debug-filter-list-item) {
+        :scope {
+            position: relative;
+            padding-left: calc(var(--gap-size) / 2);
+            color: $white;
+            font-size: rem(12);
 
-    // Performance on scroll
-    @include when-inside('.is-whelling') {
-        pointer-events: none;
-    }
+            @include when-inside('.is-whelling') {
+                pointer-events: none;
+            }
 
-    &::after {
-        content: '';
-        display: none;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: rem(5);
-        background: $white;
-    }
-
-    &.selected {
-        &::after {
-            display: block;
-        }
-    }
-
-    &__id {
-        opacity: 0.8;
-        font-weight: 600;
-    }
-
-    &__expand {
-        transition: opacity 0.35s;
-        border: 0;
-        background: transparent;
-        font-size: rem(10);
-
-        &:focus {
-            outline: none;
+            &::after {
+                content: '';
+                display: none;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                width: rem(5);
+                background: $white;
+            }
         }
 
-        @include on-event {
-            opacity: 0.3;
+        .id {
+            opacity: 0.8;
+            font-weight: 600;
         }
-    }
 
-    &__selected {
-        display: none;
-        width: rem(10);
-        height: rem(10);
-        border-radius: 100%;
-        background: $white;
+        .expand {
+            transition: opacity 0.35s;
+            border: 0;
+            background: transparent;
+            font-size: rem(10);
 
-        &.active {
-            display: inline-block;
+            &:focus {
+                outline: none;
+            }
+
+            @include on-event {
+                opacity: 0.3;
+            }
+        }
+
+        .selected {
+            display: none;
+            width: rem(10);
+            height: rem(10);
+            border-radius: 100%;
+            background: $white;
+
+            &.active {
+                display: inline-block;
+            }
         }
     }
 }

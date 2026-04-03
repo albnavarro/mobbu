@@ -13,12 +13,12 @@ import {
 export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
     return html`<div class="c-debug-search">
         <div>
-            <span class="c-debug-search__label">
+            <span class="label">
                 <strong>Search by ID:</strong>
             </span>
             <input
-                class="c-debug-search__input"
                 type="text"
+                name="id"
                 ${setRef('id_input')}
                 ${delegateEvents({
                     keydown: (/** @type {KeyboardEvent} */ event) => {
@@ -35,7 +35,6 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                 })}
             />
             <button
-                class="c-debug-search__button"
                 type="button"
                 ${delegateEvents({
                     click: () => {
@@ -51,13 +50,13 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
             </button>
         </div>
         <div>
-            <span class="c-debug-search__label">
+            <span class="label">
                 <strong>Search by InstanceName:</strong>
             </span>
             <input
-                class="c-debug-search__input"
                 type="text"
                 ${setRef('instance_input')}
+                name="instance"
                 ${delegateEvents({
                     keydown: (/** @type {KeyboardEvent} */ event) => {
                         if (event.code.toLowerCase() === 'enter') {
@@ -75,7 +74,6 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                 })}
             />
             <button
-                class="c-debug-search__button"
                 type="button"
                 ${delegateEvents({
                     click: () => {
@@ -89,11 +87,10 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                 find
             </button>
             <div>
-                <span class="c-debug-search__label">
+                <span class="label">
                     <strong>Clear:</strong>
                 </span>
                 <button
-                    class="c-debug-search__button"
                     type="button"
                     ${delegateEvents({
                         click: () => {
@@ -108,11 +105,10 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
                 </button>
             </div>
             <div>
-                <span class="c-debug-search__label">
+                <span class="label">
                     <strong>Refresh:</strong>
                 </span>
                 <button
-                    class="c-debug-search__button"
                     type="button"
                     ${delegateEvents({
                         click: () => {

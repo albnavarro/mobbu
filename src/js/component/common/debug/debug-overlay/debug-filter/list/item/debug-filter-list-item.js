@@ -22,15 +22,12 @@ export const DebugFilterListItemFn = ({
 
     return html`
         <div class="c-debug-filter-list-item">
-            <span class="c-debug-filter-list-item__id">${proxi.id}</span> |
-            <span class="c-debug-filter-list-item__tag"
-                >${bindText`${'tag'}`}</span
-            >
-            |
-            <span class="c-debug-filter-list-item__name">${proxi.name}</span>
+            <span class="id">${proxi.id}</span> |
+            <span class="tag">${bindText`${'tag'}`}</span> |
+            <span class="name">${proxi.name}</span>
             <button
                 type="button"
-                class="c-debug-filter-list-item__expand"
+                class="expand"
                 ${delegateEvents({
                     click: () => {
                         updateDebugComponentById(proxi.id);
@@ -40,7 +37,7 @@ export const DebugFilterListItemFn = ({
                 [ > ]
             </button>
             <span
-                class="c-debug-tree-item__selected"
+                class="selected"
                 ${bindEffect({
                     toggleClass: { active: () => proxi.active },
                 })}
