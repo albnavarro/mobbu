@@ -30,14 +30,10 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
         };
     });
 
-    return html`<div class="benchmark">
-        <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">
-                Repeat no component ( with key ):
-            </h3>
-            <h2 class="benchmark__head__title">
-                Generate vanilla html performance
-            </h2>
+    return html`<div class="l-benchmark">
+        <div class="header">
+            <h3>Repeat no component ( with key ):</h3>
+            <h2>Generate vanilla html performance</h2>
             ${benchMarkVanillaGarbagePartial(1000)}
             ${benchMarkListPartial({
                 setRef,
@@ -47,11 +43,11 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
                 proxi,
             })}
 
-            <div class="benchmark__head__time">
+            <div class="time">
                 ${bindText`components generate in <strong>${'time'}ms</strong>`}
             </div>
         </div>
-        <div class="benchmark__list">
+        <div class="list">
             ${repeat({
                 observe: () => proxi.data,
                 key: 'label',
@@ -73,18 +69,17 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
                                 },
                             })}
                         >
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 ${bindObject`<strong>index:</strong><br/> ${() => current.index}`}
                             </div>
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 ${bindObject`<strong>label:</strong><br/> ${() => current.value.label}`}
                             </div>
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`}
                             </div>
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 <button
-                                    class="benchmark-fake__button"
                                     type="button"
                                     ${delegateEvents({
                                         click: () => {

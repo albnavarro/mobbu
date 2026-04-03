@@ -35,12 +35,10 @@ export const BenchMarkRepeatNoKyFn = ({
         };
     });
 
-    return html`<div class="benchmark">
-        <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">Repeat ( without key ):</h3>
-            <h2 class="benchmark__head__title">
-                Generate components performance
-            </h2>
+    return html`<div class="l-benchmark">
+        <div class="header">
+            <h3>Repeat ( without key ):</h3>
+            <h2>Generate components performance</h2>
             ${benchMarkGarbagePartial()}
             ${benchMarkListPartial({
                 setRef,
@@ -50,11 +48,11 @@ export const BenchMarkRepeatNoKyFn = ({
                 proxi,
             })}
 
-            <div class="benchmark__head__time">
+            <div class="time">
                 ${bindText`components generate in <strong>${'time'}ms</strong>`}
             </div>
         </div>
-        <div class="benchmark__list">
+        <div class="list">
             ${repeat({
                 observe: () => proxi.data,
                 useSync: true,

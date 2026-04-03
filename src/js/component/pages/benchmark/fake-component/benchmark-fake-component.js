@@ -28,22 +28,21 @@ export const BenchMarkFakeComponentFn = ({
             toggleClass: { selected: () => proxiState.isSelected },
         })}
     >
-        <div class="benchmark-fake__row">
+        <div class="row">
             <strong>id:</strong><br />
             ${id}
         </div>
-        <div class="benchmark-fake__row">
+        <div class="row">
             ${bindObject`<strong>index:</strong><br/> ${() => proxiState.index}`}
         </div>
-        <div class="benchmark-fake__row">
+        <div class="row">
             ${bindObject`<strong>label:</strong><br/> ${() => proxiState.label}`}
         </div>
-        <div class="benchmark-fake__row">
+        <div class="row">
             ${bindObject`<strong>counter: </strong><br/> ${() => proxiState.counter}`}
         </div>
-        <div class="benchmark-fake__row">
+        <div class="row">
             <button
-                class="benchmark-fake__button"
                 type="button"
                 ${delegateEvents({
                     click: () => {

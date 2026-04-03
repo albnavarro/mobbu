@@ -34,12 +34,10 @@ export const BenchMarkRepeatWithKyFnNested = ({
         };
     });
 
-    return html`<div class="benchmark">
-        <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">
-                Repeat ( nested with key ):
-            </h3>
-            <p class="benchmark__head__title">
+    return html`<div class="l-benchmark">
+        <div class="header">
+            <h3>Repeat ( nested with key ):</h3>
+            <p>
                 Repater without component with the same repeater with component
                 inside<br />
                 ( max value <strong>10</strong> ).
@@ -52,18 +50,18 @@ export const BenchMarkRepeatWithKyFnNested = ({
                 proxi,
             })}
 
-            <div class="benchmark__head__time">
+            <div class="time">
                 ${bindText`components generate in <strong>${'time'}ms</strong>`}
             </div>
         </div>
-        <div class="benchmark__list">
+        <div class="list">
             ${repeat({
                 observe: () => proxi.data,
                 key: 'label',
                 useSync: true,
                 render: ({ current }) => {
-                    return html`<div class="benchmark__static-item">
-                        <div class="benchmark__static-item__inner">
+                    return html`<div>
+                        <div class="static-item-inner">
                             ${bindObject`label: ${() => current.value.label}`}
                         </div>
                         <div>

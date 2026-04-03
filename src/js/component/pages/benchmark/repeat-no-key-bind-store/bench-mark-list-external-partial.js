@@ -79,7 +79,7 @@ export const benchMarkListExternalPartial = ({
 }) => {
     return html`
         <div
-            class="benchmark__loading"
+            class="loader"
             ${bindEffect({
                 observe: 'isLoading',
                 toggleClass: { active: () => getState().isLoading },
@@ -87,10 +87,10 @@ export const benchMarkListExternalPartial = ({
         >
             generate components
         </div>
-        <div class="benchmark__head__controls">
+        <div class="controls">
             <input
-                class="benchmark__head__input"
                 type="text"
+                name="numer-of-component"
                 placeholder="Number of component"
                 ${setRef('input')}
                 ${delegateEvents({
@@ -111,7 +111,6 @@ export const benchMarkListExternalPartial = ({
             />
             <button
                 type="button"
-                class="benchmark__head__button"
                 ${delegateEvents({
                     click: () => {
                         const { input } = getRef();
@@ -127,7 +126,6 @@ export const benchMarkListExternalPartial = ({
             </button>
             <button
                 type="button"
-                class="benchmark__head__button"
                 ${delegateEvents({
                     click: () => {
                         const { data } = getState();
@@ -142,7 +140,6 @@ export const benchMarkListExternalPartial = ({
             </button>
             <button
                 type="button"
-                class="benchmark__head__button"
                 ${delegateEvents({
                     click: () => {
                         externalBenchmarkStore.update(

@@ -1,41 +1,30 @@
 @use '../../abstract' as *;
 
-.benchmark {
-    position: relative;
-    padding: rem(40);
+@layer layout {
+    @scope (.l-benchmark) {
+        :scope {
+            position: relative;
+            padding: rem(40);
 
-    // Increase scrolling performance on smooth scroll.
-    @include when-inside('.is-whelling') {
-        pointer-events: none;
-    }
-
-    &__loading {
-        display: none;
-        position: fixed;
-        top: rem(200);
-        left: 50%;
-        padding: rem(20);
-        transform: translateX(-50%);
-        border: 1px $black solid;
-        background: $grey;
-
-        &.active {
-            display: block;
+            @include when-inside('.is-whelling') {
+                pointer-events: none;
+            }
         }
-    }
 
-    &__head {
-        margin-bottom: rem(30);
+        .header {
+            margin-bottom: rem(30);
+        }
 
-        &__subtitle {
+        h3 {
             margin-bottom: 0;
         }
 
-        &__title {
+        h2,
+        p {
             margin-bottom: calc(var(--gap-size) / 2);
         }
 
-        &__input {
+        input {
             width: rem(300);
             margin-right: rem(5);
             padding-top: 0;
@@ -46,7 +35,7 @@
             line-height: 1.7;
         }
 
-        &__button {
+        button {
             display: inline-block;
             grid-area: submit;
             margin: 0;
@@ -68,32 +57,45 @@
             }
         }
 
-        &__controls {
+        .controls {
             margin-top: calc(var(--gap-size) / 2);
         }
 
-        &__time {
+        .time {
             margin-top: calc(var(--gap-size) / 2);
         }
-    }
 
-    &__list {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        margin-bottom: rem(100);
-        column-gap: calc(var(--gap-size) / 2);
+        .loader {
+            display: none;
+            position: fixed;
+            top: rem(200);
+            left: 50%;
+            padding: rem(20);
+            transform: translateX(-50%);
+            border: 1px $black solid;
+            background: $grey;
 
-        @include mq(large) {
-            grid-template-columns: repeat(4, 1fr);
+            &.active {
+                display: block;
+            }
         }
 
-        @include mq(xlarge) {
-            grid-template-columns: repeat(6, 1fr);
-        }
-    }
+        .list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            margin-bottom: rem(100);
+            column-gap: calc(var(--gap-size) / 2);
 
-    &__static-item {
-        &__inner {
+            @include mq(large) {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            @include mq(xlarge) {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+        .static-item-inner {
             margin-bottom: calc(var(--gap-size) / 2);
             font-weight: 600;
         }

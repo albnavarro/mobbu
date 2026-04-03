@@ -99,7 +99,7 @@ export const benchMarkListPartial = ({
 }) => {
     return html`
         <div
-            class="benchmark__loading"
+            class="loader"
             ${bindEffect({
                 observe: 'isLoading',
                 toggleClass: { active: () => proxi.isLoading },
@@ -107,10 +107,10 @@ export const benchMarkListPartial = ({
         >
             generate components
         </div>
-        <div class="benchmark__head__controls">
+        <div class="controls">
             <input
-                class="benchmark__head__input"
                 type="text"
+                name="numer-of-component"
                 placeholder="Number of component"
                 ${setRef('input')}
                 ${delegateEvents({
@@ -132,7 +132,6 @@ export const benchMarkListPartial = ({
             />
             <button
                 type="button"
-                class="benchmark__head__button"
                 ${delegateEvents({
                     click: () => {
                         const { input } = getRef();
@@ -148,7 +147,6 @@ export const benchMarkListPartial = ({
             </button>
             <button
                 type="button"
-                class="benchmark__head__button"
                 ${delegateEvents({
                     click: () => {
                         setData({
@@ -163,7 +161,6 @@ export const benchMarkListPartial = ({
             </button>
             <button
                 type="button"
-                class="benchmark__head__button"
                 ${delegateEvents({
                     click: () => {
                         proxi.counter = proxi.counter + 1;

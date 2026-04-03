@@ -38,15 +38,11 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
         };
     });
 
-    return html`<div class="benchmark">
-        <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">
-                Repeat bind external store ( without key ):
-            </h3>
-            <h2 class="benchmark__head__title">
-                Generate components performance
-            </h2>
-            <p class="benchmark__head__title">
+    return html`<div class="l-benchmark">
+        <div class="header">
+            <h3>Repeat bind external store ( without key ):</h3>
+            <h2>Generate components performance</h2>
+            <p>
                 Use extrernal store as state ( bindStore module ).<br />
                 ( max value <strong>1000</strong> ).
             </p>
@@ -58,11 +54,11 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
                 bindEffect,
             })}
 
-            <div class="benchmark__head__time">
+            <div class="time">
                 ${bindText`components generate in <strong>${'time'}ms</strong>`}
             </div>
         </div>
-        <div class="benchmark__list">
+        <div class="list">
             ${repeat({
                 observe: () => proxi.data,
                 useSync: true,

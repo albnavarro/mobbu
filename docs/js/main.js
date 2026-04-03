@@ -27746,22 +27746,21 @@
       toggleClass: { selected: () => proxiState.isSelected }
     })}
     >
-        <div class="benchmark-fake__row">
+        <div class="row">
             <strong>id:</strong><br />
             ${id}
         </div>
-        <div class="benchmark-fake__row">
+        <div class="row">
             ${bindObject`<strong>index:</strong><br/> ${() => proxiState.index}`}
         </div>
-        <div class="benchmark-fake__row">
+        <div class="row">
             ${bindObject`<strong>label:</strong><br/> ${() => proxiState.label}`}
         </div>
-        <div class="benchmark-fake__row">
+        <div class="row">
             ${bindObject`<strong>counter: </strong><br/> ${() => proxiState.counter}`}
         </div>
-        <div class="benchmark-fake__row">
+        <div class="row">
             <button
-                class="benchmark-fake__button"
                 type="button"
                 ${delegateEvents({
       click: () => {
@@ -27861,7 +27860,7 @@
   }) => {
     return renderHtml`
         <div
-            class="benchmark__loading"
+            class="loader"
             ${bindEffect({
       observe: "isLoading",
       toggleClass: { active: () => proxi.isLoading }
@@ -27869,10 +27868,10 @@
         >
             generate components
         </div>
-        <div class="benchmark__head__controls">
+        <div class="controls">
             <input
-                class="benchmark__head__input"
                 type="text"
+                name="numer-of-component"
                 placeholder="Number of component"
                 ${setRef("input")}
                 ${delegateEvents({
@@ -27890,7 +27889,6 @@
             />
             <button
                 type="button"
-                class="benchmark__head__button"
                 ${delegateEvents({
       click: () => {
         const { input } = getRef();
@@ -27906,7 +27904,6 @@
             </button>
             <button
                 type="button"
-                class="benchmark__head__button"
                 ${delegateEvents({
       click: () => {
         setData({
@@ -27921,7 +27918,6 @@
             </button>
             <button
                 type="button"
-                class="benchmark__head__button"
                 ${delegateEvents({
       click: () => {
         proxi.counter = proxi.counter + 1;
@@ -27954,12 +27950,10 @@
         getRef()?.input.remove();
       };
     });
-    return renderHtml`<div class="benchmark">
-        <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">Invalidate:</h3>
-            <h2 class="benchmark__head__title">
-                Generate components performance
-            </h2>
+    return renderHtml`<div class="l-benchmark">
+        <div class="header">
+            <h3>Invalidate:</h3>
+            <h2>Generate components performance</h2>
             <p>
                 Invalidate a large list of components with 5 reactive elements
                 inside.<br />
@@ -27973,11 +27967,11 @@
       bindEffect
     })}
 
-            <div class="benchmark__head__time">
+            <div class="time">
                 ${bindText`components generate in <strong>${"time"}ms</strong>`}
             </div>
         </div>
-        <div class="benchmark__list">
+        <div class="list">
             ${invalidate({
       observe: () => proxi.data,
       render: () => {
@@ -28055,12 +28049,10 @@
         getRef()?.input.remove();
       };
     });
-    return renderHtml`<div class="benchmark">
-        <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">Repeat ( with key ):</h3>
-            <h2 class="benchmark__head__title">
-                Generate components performance
-            </h2>
+    return renderHtml`<div class="l-benchmark">
+        <div class="header">
+            <h3>Repeat ( with key ):</h3>
+            <h2>Generate components performance</h2>
             ${benchMarkGarbagePartial()}
             ${benchMarkListPartial({
       setRef,
@@ -28070,11 +28062,11 @@
       proxi
     })}
 
-            <div class="benchmark__head__time">
+            <div class="time">
                 ${bindObject`components generate in <strong>${() => proxi.time}ms</strong>`}
             </div>
         </div>
-        <div class="benchmark__list">
+        <div class="list">
             ${repeat({
       observe: () => proxi.data,
       useSync: true,
@@ -28143,12 +28135,10 @@
         getRef()?.input.remove();
       };
     });
-    return renderHtml`<div class="benchmark">
-        <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">
-                Repeat ( nested with key ):
-            </h3>
-            <p class="benchmark__head__title">
+    return renderHtml`<div class="l-benchmark">
+        <div class="header">
+            <h3>Repeat ( nested with key ):</h3>
+            <p>
                 Repater without component with the same repeater with component
                 inside<br />
                 ( max value <strong>10</strong> ).
@@ -28161,18 +28151,18 @@
       proxi
     })}
 
-            <div class="benchmark__head__time">
+            <div class="time">
                 ${bindText`components generate in <strong>${"time"}ms</strong>`}
             </div>
         </div>
-        <div class="benchmark__list">
+        <div class="list">
             ${repeat({
       observe: () => proxi.data,
       key: "label",
       useSync: true,
       render: ({ current }) => {
-        return renderHtml`<div class="benchmark__static-item">
-                        <div class="benchmark__static-item__inner">
+        return renderHtml`<div>
+                        <div class="static-item-inner">
                             ${bindObject`label: ${() => current.value.label}`}
                         </div>
                         <div>
@@ -28233,12 +28223,10 @@
         getRef()?.input.remove();
       };
     });
-    return renderHtml`<div class="benchmark">
-        <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">Repeat ( without key ):</h3>
-            <h2 class="benchmark__head__title">
-                Generate components performance
-            </h2>
+    return renderHtml`<div class="l-benchmark">
+        <div class="header">
+            <h3>Repeat ( without key ):</h3>
+            <h2>Generate components performance</h2>
             ${benchMarkGarbagePartial()}
             ${benchMarkListPartial({
       setRef,
@@ -28248,11 +28236,11 @@
       proxi
     })}
 
-            <div class="benchmark__head__time">
+            <div class="time">
                 ${bindText`components generate in <strong>${"time"}ms</strong>`}
             </div>
         </div>
-        <div class="benchmark__list">
+        <div class="list">
             ${repeat({
       observe: () => proxi.data,
       useSync: true,
@@ -28356,7 +28344,7 @@
   }) => {
     return renderHtml`
         <div
-            class="benchmark__loading"
+            class="loader"
             ${bindEffect({
       observe: "isLoading",
       toggleClass: { active: () => getState().isLoading }
@@ -28364,10 +28352,10 @@
         >
             generate components
         </div>
-        <div class="benchmark__head__controls">
+        <div class="controls">
             <input
-                class="benchmark__head__input"
                 type="text"
+                name="numer-of-component"
                 placeholder="Number of component"
                 ${setRef("input")}
                 ${delegateEvents({
@@ -28385,7 +28373,6 @@
             />
             <button
                 type="button"
-                class="benchmark__head__button"
                 ${delegateEvents({
       click: () => {
         const { input } = getRef();
@@ -28401,7 +28388,6 @@
             </button>
             <button
                 type="button"
-                class="benchmark__head__button"
                 ${delegateEvents({
       click: () => {
         const { data } = getState();
@@ -28416,7 +28402,6 @@
             </button>
             <button
                 type="button"
-                class="benchmark__head__button"
                 ${delegateEvents({
       click: () => {
         externalBenchmarkStore.update(
@@ -28454,15 +28439,11 @@
         externalBenchmarkStore.set("counter", 0);
       };
     });
-    return renderHtml`<div class="benchmark">
-        <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">
-                Repeat bind external store ( without key ):
-            </h3>
-            <h2 class="benchmark__head__title">
-                Generate components performance
-            </h2>
-            <p class="benchmark__head__title">
+    return renderHtml`<div class="l-benchmark">
+        <div class="header">
+            <h3>Repeat bind external store ( without key ):</h3>
+            <h2>Generate components performance</h2>
+            <p>
                 Use extrernal store as state ( bindStore module ).<br />
                 ( max value <strong>1000</strong> ).
             </p>
@@ -28474,11 +28455,11 @@
       bindEffect
     })}
 
-            <div class="benchmark__head__time">
+            <div class="time">
                 ${bindText`components generate in <strong>${"time"}ms</strong>`}
             </div>
         </div>
-        <div class="benchmark__list">
+        <div class="list">
             ${repeat({
       observe: () => proxi.data,
       useSync: true,
@@ -28547,12 +28528,10 @@
         getRef()?.input.remove();
       };
     });
-    return renderHtml`<div class="benchmark">
-        <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">
-                Repeat ( nested without key ):
-            </h3>
-            <p class="benchmark__head__title">
+    return renderHtml`<div class="l-benchmark">
+        <div class="header">
+            <h3>Repeat ( nested without key ):</h3>
+            <p>
                 Repater without component with the same repeater with component
                 inside<br />
                 ( max value <strong>10</strong> ).
@@ -28565,17 +28544,17 @@
       proxi
     })}
 
-            <div class="benchmark__head__time">
+            <div class="time">
                 ${bindText`components generate in <strong>${"time"}ms</strong>`}
             </div>
         </div>
-        <div class="benchmark__list">
+        <div class="list">
             ${repeat({
       observe: () => proxi.data,
       useSync: true,
       render: ({ current }) => {
-        return renderHtml`<div class="benchmark__static-item">
-                        <div class="benchmark__static-item__inner">
+        return renderHtml`<div>
+                        <div class="static-item-inner">
                             ${bindObject`label: ${() => current.value.label}`}
                         </div>
                         <div>
@@ -28646,14 +28625,10 @@
         getRef()?.input.remove();
       };
     });
-    return renderHtml`<div class="benchmark">
-        <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">
-                Repeat no component ( without key ):
-            </h3>
-            <h2 class="benchmark__head__title">
-                Generate vanilla html performance
-            </h2>
+    return renderHtml`<div class="l-benchmark">
+        <div class="header">
+            <h3>Repeat no component ( without key ):</h3>
+            <h2>Generate vanilla html performance</h2>
             ${benchMarkVanillaGarbagePartial(1e3)}
             ${benchMarkListPartial({
       setRef,
@@ -28663,11 +28638,11 @@
       proxi
     })}
 
-            <div class="benchmark__head__time">
+            <div class="time">
                 ${bindText`components generate in <strong>${"time"}ms</strong>`}
             </div>
         </div>
-        <div class="benchmark__list">
+        <div class="list">
             ${repeat({
       observe: () => proxi.data,
       render: ({ current }) => {
@@ -28687,18 +28662,17 @@
           }
         })}
                         >
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 ${bindObject`<strong>index:</strong><br/> ${() => current.index}`}
                             </div>
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 ${bindObject`<strong>label:</strong><br/> ${() => current.value.label}`}
                             </div>
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`}
                             </div>
                             <div class="benchmark-fake__row">
                                 <button
-                                    class="benchmark-fake__button"
                                     type="button"
                                     ${delegateEvents({
           click: () => {
@@ -28745,14 +28719,10 @@
         getRef()?.input.remove();
       };
     });
-    return renderHtml`<div class="benchmark">
-        <div class="benchmark__head">
-            <h3 class="benchmark__head__subtitle">
-                Repeat no component ( with key ):
-            </h3>
-            <h2 class="benchmark__head__title">
-                Generate vanilla html performance
-            </h2>
+    return renderHtml`<div class="l-benchmark">
+        <div class="header">
+            <h3>Repeat no component ( with key ):</h3>
+            <h2>Generate vanilla html performance</h2>
             ${benchMarkVanillaGarbagePartial(1e3)}
             ${benchMarkListPartial({
       setRef,
@@ -28762,11 +28732,11 @@
       proxi
     })}
 
-            <div class="benchmark__head__time">
+            <div class="time">
                 ${bindText`components generate in <strong>${"time"}ms</strong>`}
             </div>
         </div>
-        <div class="benchmark__list">
+        <div class="list">
             ${repeat({
       observe: () => proxi.data,
       key: "label",
@@ -28787,18 +28757,17 @@
           }
         })}
                         >
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 ${bindObject`<strong>index:</strong><br/> ${() => current.index}`}
                             </div>
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 ${bindObject`<strong>label:</strong><br/> ${() => current.value.label}`}
                             </div>
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`}
                             </div>
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 <button
-                                    class="benchmark-fake__button"
                                     type="button"
                                     ${delegateEvents({
           click: () => {
@@ -28840,7 +28809,7 @@
   ]);
   var benchMark = async ({ props }) => {
     const { rootComponent } = props;
-    return renderHtml`<div class="l-benchMark"><${rootComponent}></${rootComponent}></div>`;
+    return renderHtml`<${rootComponent}></${rootComponent}>`;
   };
 
   // src/js/component/common/quick-nav/utils.js

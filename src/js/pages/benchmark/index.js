@@ -23,5 +23,5 @@ MobJs.useComponent([
 export const benchMark = async ({ props }) => {
     const { rootComponent } = props;
 
-    return html`<div class="l-benchMark"><${rootComponent}></${rootComponent}></div>`;
+    return html`<${rootComponent}></${rootComponent}>`;
 };

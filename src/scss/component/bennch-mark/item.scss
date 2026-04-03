@@ -1,40 +1,42 @@
 @use '../../abstract' as *;
 
-.benchmark-fake {
-    margin-bottom: calc(var(--gap-size) / 2);
-    padding: calc(var(--gap-size) / 2);
-    border: 1px $black solid;
-
-    $self: &;
-
-    &.selected {
-        background: $black;
-        color: $white;
-
-        #{$self}__button {
-            background: $white;
-            color: $black;
+@layer component {
+    @scope (.benchmark-fake) {
+        :scope {
+            margin-bottom: calc(var(--gap-size) / 2);
+            padding: calc(var(--gap-size) / 2);
+            border: 1px $black solid;
         }
-    }
 
-    &__row {
-        margin-bottom: calc(var(--gap-size) / 2);
+        .row {
+            margin-bottom: calc(var(--gap-size) / 2);
 
-        &:last-child {
-            margin-bottom: 0;
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
-    }
 
-    &__button {
-        display: block;
-        width: 100%;
-        border: 1px $black solid;
-        background: $black;
-        color: $white;
+        button {
+            display: block;
+            width: 100%;
+            border: 1px $black solid;
+            background: $black;
+            color: $white;
 
-        &:hover {
-            background: $white;
-            color: $black;
+            &:hover {
+                background: $white;
+                color: $black;
+            }
+        }
+
+        :scope.selected {
+            background: $black;
+            color: $white;
+
+            button {
+                background: $white;
+                color: $black;
+            }
         }
     }
 }
