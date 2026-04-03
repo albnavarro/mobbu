@@ -18,7 +18,7 @@ export const SearchCtaFn = ({ delegateEvents }) => {
 
     return html`<button
         type="button"
-        class="search-cta"
+        class="c-search-cta"
         ${delegateEvents({
             click: () => {
                 onClick();

@@ -13,7 +13,7 @@ const getComponent = (component) => {
     }
 
     return html`
-        <div class="c-move3d-item__component ${component?.className}">
+        <div class="component ${component?.className}">
             <${component.tagName} ${MobJs.staticProps(component?.props ?? {})}>
             </${component.tagName}>
         </div>`;
@@ -134,7 +134,7 @@ export const Move3DItemfn = ({ getState, addMethod, onMount }) => {
         class="c-move3d-item ${rootClass} anchor-${anchorPoint}"
         style="${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}"
     >
-        <div class="c-move3d-item__content ${classList}"></div>
+        <div class=".content ${classList}"></div>
         ${getComponent({
             tagName: component?.tagName ?? '',
             className: component?.className ?? '',

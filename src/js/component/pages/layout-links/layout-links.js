@@ -74,7 +74,7 @@ export const LayoutLinksFn = ({
     return html`<div class="l-links">
         <div class="top">
             <div
-                class="top-title is-white"
+                class="top-title"
                 ${bindEffect({
                     toggleClass: {
                         'is-visible': () => proxi.isMounted,

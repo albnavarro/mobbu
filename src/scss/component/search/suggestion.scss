@@ -1,7 +1,7 @@
 @use '../../abstract' as *;
 
 @layer component {
-    @scope (.search-suggestion) {
+    @scope (.c-search-suggestion) {
         :scope {
             overflow: hidden;
         }

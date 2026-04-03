@@ -47,7 +47,7 @@ export const home = async () => {
 
     return html`
         <div>
-            <div class="background-shape">${bg}</div>
+            <div class="l-background-shape">${bg}</div>
             <home-component
                 ${MobJs.staticProps(
                     /** @type {import('@pagesComponent/homepage/type').HomeComponent['props']} */

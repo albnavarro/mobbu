@@ -59,7 +59,7 @@ export const HeaderFn = ({
                         },
                     })}
                 >
-                    <div class="has-overflow">
+                    <div class="u-has-overflow">
                         <h3
                             ${bindEffect({
                                 toggleClass: {

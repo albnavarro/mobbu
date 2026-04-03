@@ -112,7 +112,7 @@ export const SearchOverlayListFn = ({
         };
     });
 
-    return html`<div class="search-list" ${setRef('screen')}>
+    return html`<div class="c-search-list" ${setRef('screen')}>
         <span
             class="loader"
             ${bindEffect({

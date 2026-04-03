@@ -56,7 +56,7 @@ export const DraggerRoute = async () => {
     </div>`;
 
     return html`<div class="l-dragger">
-        <div class="background-shape">${bg}</div>
+        <div class="l-background-shape">${bg}</div>
         <c-dragger
             ${MobJs.staticProps(
                 /** @type {import('@commonComponent/dragger/type').Dragger['props']} */

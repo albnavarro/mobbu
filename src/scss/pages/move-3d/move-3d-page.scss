@@ -1,23 +1,8 @@
 @use '../../abstract' as *;
 
-.c-move3d-page {
-    &__controls {
-        position: fixed;
-        z-index: 10;
-        top: var(--header-height);
-        right: 0;
-        min-width: rem(250);
-        height: calc(100vh - var(--header-height) - var(--footer-height));
-        padding: rem(60) rem(20) rem(20);
-        transform: translateX(100%);
-        transition: transform 0.35s;
-        background: $black;
-
-        &.active {
-            transform: translateX(0);
-        }
-
-        &__open {
+@layer layout {
+    @scope (.l-move3d-page) {
+        .show-controls {
             display: block;
             position: fixed;
             z-index: 10;
@@ -40,43 +25,30 @@
             }
         }
 
-        &__close {
-            position: absolute;
+        .controls {
+            position: fixed;
             z-index: 10;
-            top: rem(10);
-            right: rem(10);
-            width: rem(40);
-            height: rem(40);
-            border: 0;
-            background: transparent;
+            top: var(--header-height);
+            right: 0;
+            min-width: rem(250);
+            height: calc(100vh - var(--header-height) - var(--footer-height));
+            padding: rem(60) rem(20) rem(20);
+            transform: translateX(100%);
+            transition: transform 0.35s;
+            background: $black;
 
-            &::after,
-            &::before {
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: rem(20);
-                height: 2px;
-                background: $white;
-            }
-
-            &::before {
-                transform: translate(-50%, -50%) rotate(45deg);
-            }
-
-            &::after {
-                transform: translate(-50%, -50%) rotate(135deg);
+            &.active {
+                transform: translateX(0);
             }
         }
 
-        &__block {
+        .controls-block {
             margin-bottom: calc(var(--gap-size) / 3);
             padding: calc(var(--gap-size) / 3);
             color: $white;
         }
 
-        &__range {
+        .controls-range {
             position: relative;
             margin-bottom: rem(5);
             pointer-events: none;
@@ -124,7 +96,7 @@
             }
         }
 
-        &__button {
+        .controls-button {
             display: block;
             width: 100%;
             margin-top: 0;
@@ -143,35 +115,54 @@
                 color: $black;
             }
         }
+
+        .close-controls {
+            position: absolute;
+            z-index: 10;
+            top: rem(10);
+            right: rem(10);
+            width: rem(40);
+            height: rem(40);
+            border: 0;
+            background: transparent;
+
+            &::after,
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: rem(20);
+                height: 2px;
+                background: $white;
+            }
+
+            &::before {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+
+            &::after {
+                transform: translate(-50%, -50%) rotate(135deg);
+            }
+        }
     }
 }
 
-.move3d-square {
-    width: var(--item-width);
-    height: var(--item-height);
-    background: $black;
+@layer component {
+    @scope (.c-move3d-square) {
+        :scope {
+            width: var(--item-width);
+            height: var(--item-height);
+            background: $black;
 
-    &.is-white {
-        background: $white;
-    }
+            &.is-small {
+                width: calc(var(--item-width) * 0.5);
+                height: calc(var(--item-height) * 0.5);
+            }
 
-    &.is-grey {
-        background: $grey-medium-2;
-    }
-
-    &.is-small {
-        width: calc(var(--item-width) * 0.5);
-        height: calc(var(--item-height) * 0.5);
-    }
-
-    &.has-star {
-        opacity: 0;
-    }
-
-    &__star {
-        svg {
-            width: 100%;
-            height: 100%;
+            &.has-star {
+                opacity: 0;
+            }
         }
     }
 }

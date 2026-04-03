@@ -114,7 +114,7 @@ const filterSuggestion = ({ currentSearch, proxi }) => {
                 return stringParsed.reduce((previous, current, index) => {
                     return previous.replaceAll(
                         `${getFakeReplacement(index)}`,
-                        `<span class="match-string">${current}</span>`
+                        `<span class="u-match-string">${current}</span>`
                     );
                 }, stringParseWithPlaceholder);
             })(),
@@ -200,7 +200,7 @@ export const SearchOverlayHeaderFn = ({
         });
     });
 
-    return html`<div class="search-header">
+    return html`<div class="c-search-header">
         <div class="search-wrap">
             <input
                 type="text"

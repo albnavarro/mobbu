@@ -165,7 +165,7 @@ export const ScrollerN0Fn = ({
                         getRef,
                     })}
                 </ul>
-                <div class="background-shape">${proxi.background}</div>
+                <div class="l-background-shape">${proxi.background}</div>
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({

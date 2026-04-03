@@ -100,7 +100,7 @@ const getDataFiltered = ({ testString }) => {
             return stringParsed.reduce((previous, current, index) => {
                 return previous.replaceAll(
                     `${getFakeReplacement(index)}`,
-                    `<span class="match-string">${current}</span>`
+                    `<span class="u-match-string">${current}</span>`
                 );
             }, stringParseWithPlaceholder);
         })(),

@@ -54,7 +54,7 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
                 render: ({ current }) => {
                     return html`
                         <div
-                            class="benchmark-fake"
+                            class="c-benchmark-fake"
                             ${bindEffect({
                                 /**
                                  * Update only when buttonClick. Otherwise every data update selected state back to same

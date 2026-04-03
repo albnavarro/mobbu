@@ -15,7 +15,7 @@ export const TitleFn = ({ getProxi }) => {
     const proxi = getProxi();
 
     const colorClass = proxi.color === 'inherit' ? '' : `is-${proxi.color}`;
-    const boldClass = proxi.isBold ? `is-bold` : '';
+    const boldClass = proxi.isBold ? `u-weight-bold` : '';
     const isSectionClass = proxi.isSection ? `is-section` : '';
 
     return html`<${proxi.tag} class="${colorClass} ${boldClass} ${isSectionClass}">

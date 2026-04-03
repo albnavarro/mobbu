@@ -30,6 +30,7 @@
                 transform 1.5s,
                 opacity 0.55s;
             opacity: 0;
+            color: $white;
             font-size: rem(300);
             font-weight: 800;
             line-height: calc(var(--scroller-height) / 2);

@@ -1,5 +1,5 @@
 /* src/scss/style.scss */
-@layer reset, base, layout, component;
+@layer reset, base, layout, component, utilities;
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -617,38 +617,20 @@ code.hljs {
     background: rgba(46, 52, 64, 0.1);
   }
 }
-@layer base {
-  .component {
-    transition: opacity 0.55s;
-    opacity: 0;
-  }
-  .component.active {
-    opacity: 1;
-  }
-  .is-white {
-    color: #fff;
-  }
-  .is-black {
-    color: #2e3440;
-  }
-  .is-bold {
+@layer utilities {
+  .u-weight-bold {
     font-weight: 600;
   }
-  .is-grey {
-    color: #a4a4b3;
+  .u-bg-white {
+    background: #fff;
   }
-  .is-grey span {
-    color: #fff;
+  .u-bg-grey {
+    background: #ccc;
   }
-  @media (min-width: 75em) {
-    .is-mobile {
-      display: none;
-    }
-  }
-  .has-overflow {
+  .u-has-overflow {
     overflow: hidden;
   }
-  .match-string {
+  .u-match-string {
     display: inline;
     position: relative;
     background: rgba(255, 255, 255, 0.2);
@@ -1275,7 +1257,7 @@ code.hljs {
   }
 }
 @layer layout {
-  @scope (.background-shape) {
+  @scope (.l-background-shape) {
     :scope {
       position: absolute;
       z-index: -1;
@@ -1645,6 +1627,7 @@ code.hljs {
       transform: translateY(100%);
       transition: transform 1.5s, opacity 0.55s;
       opacity: 0;
+      color: #fff;
       font-size: 20rem;
       font-weight: 800;
       line-height: calc(var(--scroller-height) / 2);
@@ -2816,151 +2799,149 @@ code.hljs {
 .l-h-scroller__indicator:hover {
   background: #2e3440;
 }
-.c-move3d-page__controls {
-  position: fixed;
-  z-index: 10;
-  top: var(--header-height);
-  right: 0;
-  min-width: 16.6666666667rem;
-  height: calc(100vh - var(--header-height) - var(--footer-height));
-  padding: 4rem 1.3333333333rem 1.3333333333rem;
-  transform: translateX(100%);
-  transition: transform 0.35s;
-  background: #2e3440;
+@layer layout {
+  @scope (.l-move3d-page) {
+    .show-controls {
+      display: block;
+      position: fixed;
+      z-index: 10;
+      top: calc(var(--header-height) + 1.3333333333rem);
+      right: 1.3333333333rem;
+      margin-top: 0;
+      padding: 0.3333333333rem 1.3333333333rem;
+      transition: background 0.35s, color 0.35s;
+      border: 0;
+      background: #2e3440;
+      color: #fff;
+      font-size: 0.9333333333rem;
+      text-align: right;
+    }
+    .show-controls:hover {
+      background: #fff;
+      color: #2e3440;
+    }
+    .controls {
+      position: fixed;
+      z-index: 10;
+      top: var(--header-height);
+      right: 0;
+      min-width: 16.6666666667rem;
+      height: calc(100vh - var(--header-height) - var(--footer-height));
+      padding: 4rem 1.3333333333rem 1.3333333333rem;
+      transform: translateX(100%);
+      transition: transform 0.35s;
+      background: #2e3440;
+    }
+    .controls.active {
+      transform: translateX(0);
+    }
+    .controls-block {
+      margin-bottom: calc(var(--gap-size) / 3);
+      padding: calc(var(--gap-size) / 3);
+      color: #fff;
+    }
+    .controls-range {
+      position: relative;
+      margin-bottom: 0.3333333333rem;
+      pointer-events: none;
+    }
+    .controls-range::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #eee;
+    }
+    .controls-range input {
+      display: block;
+      position: relative;
+      width: 100%;
+      margin: auto;
+      background: transparent;
+      cursor: pointer;
+      pointer-events: all;
+      appearance: none;
+    }
+    .controls-range input::-webkit-slider-thumb {
+      width: 1rem;
+      height: 1rem;
+      border: 0;
+      border-radius: 100%;
+      background: #eee;
+      cursor: pointer;
+      appearance: none;
+    }
+    .controls-range input::-moz-range-thumb {
+      width: 1rem;
+      height: 1rem;
+      border: 0;
+      border-radius: 100%;
+      background: #eee;
+      cursor: pointer;
+      appearance: none;
+    }
+    .controls-button {
+      display: block;
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: calc(var(--gap-size) / 5);
+      padding: 0.3333333333rem 0.6666666667rem;
+      transition: background 0.35s, color 0.35s;
+      border: 1px rgba(255, 255, 255, 0.3) solid;
+      background: transparent;
+      color: #fff;
+      font-size: 0.9333333333rem;
+    }
+    .controls-button:hover {
+      background: #fff;
+      color: #2e3440;
+    }
+    .close-controls {
+      position: absolute;
+      z-index: 10;
+      top: 0.6666666667rem;
+      right: 0.6666666667rem;
+      width: 2.6666666667rem;
+      height: 2.6666666667rem;
+      border: 0;
+      background: transparent;
+    }
+    .close-controls::after,
+    .close-controls::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1.3333333333rem;
+      height: 2px;
+      background: #fff;
+    }
+    .close-controls::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    .close-controls::after {
+      transform: translate(-50%, -50%) rotate(135deg);
+    }
+  }
 }
-.c-move3d-page__controls.active {
-  transform: translateX(0);
-}
-.c-move3d-page__controls__open {
-  display: block;
-  position: fixed;
-  z-index: 10;
-  top: calc(var(--header-height) + 1.3333333333rem);
-  right: 1.3333333333rem;
-  margin-top: 0;
-  padding: 0.3333333333rem 1.3333333333rem;
-  transition: background 0.35s, color 0.35s;
-  border: 0;
-  background: #2e3440;
-  color: #fff;
-  font-size: 0.9333333333rem;
-  text-align: right;
-}
-.c-move3d-page__controls__open:hover {
-  background: #fff;
-  color: #2e3440;
-}
-.c-move3d-page__controls__close {
-  position: absolute;
-  z-index: 10;
-  top: 0.6666666667rem;
-  right: 0.6666666667rem;
-  width: 2.6666666667rem;
-  height: 2.6666666667rem;
-  border: 0;
-  background: transparent;
-}
-.c-move3d-page__controls__close::after,
-.c-move3d-page__controls__close::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1.3333333333rem;
-  height: 2px;
-  background: #fff;
-}
-.c-move3d-page__controls__close::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-.c-move3d-page__controls__close::after {
-  transform: translate(-50%, -50%) rotate(135deg);
-}
-.c-move3d-page__controls__block {
-  margin-bottom: calc(var(--gap-size) / 3);
-  padding: calc(var(--gap-size) / 3);
-  color: #fff;
-}
-.c-move3d-page__controls__range {
-  position: relative;
-  margin-bottom: 0.3333333333rem;
-  pointer-events: none;
-}
-.c-move3d-page__controls__range::after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: #eee;
-}
-.c-move3d-page__controls__range input {
-  display: block;
-  position: relative;
-  width: 100%;
-  margin: auto;
-  background: transparent;
-  cursor: pointer;
-  pointer-events: all;
-  appearance: none;
-}
-.c-move3d-page__controls__range input::-webkit-slider-thumb {
-  width: 1rem;
-  height: 1rem;
-  border: 0;
-  border-radius: 100%;
-  background: #eee;
-  cursor: pointer;
-  appearance: none;
-}
-.c-move3d-page__controls__range input::-moz-range-thumb {
-  width: 1rem;
-  height: 1rem;
-  border: 0;
-  border-radius: 100%;
-  background: #eee;
-  cursor: pointer;
-  appearance: none;
-}
-.c-move3d-page__controls__button {
-  display: block;
-  width: 100%;
-  margin-top: 0;
-  margin-bottom: calc(var(--gap-size) / 5);
-  padding: 0.3333333333rem 0.6666666667rem;
-  transition: background 0.35s, color 0.35s;
-  border: 1px rgba(255, 255, 255, 0.3) solid;
-  background: transparent;
-  color: #fff;
-  font-size: 0.9333333333rem;
-}
-.c-move3d-page__controls__button:hover {
-  background: #fff;
-  color: #2e3440;
-}
-.move3d-square {
-  width: var(--item-width);
-  height: var(--item-height);
-  background: #2e3440;
-}
-.move3d-square.is-white {
-  background: #fff;
-}
-.move3d-square.is-grey {
-  background: #ccc;
-}
-.move3d-square.is-small {
-  width: calc(var(--item-width) * 0.5);
-  height: calc(var(--item-height) * 0.5);
-}
-.move3d-square.has-star {
-  opacity: 0;
-}
-.move3d-square__star svg {
-  width: 100%;
-  height: 100%;
+@layer component {
+  @scope (.c-move3d-square) {
+    :scope {
+      width: var(--item-width);
+      height: var(--item-height);
+      background: #2e3440;
+    }
+    :scope.is-small {
+      width: calc(var(--item-width) * 0.5);
+      height: calc(var(--item-height) * 0.5);
+    }
+    :scope.has-star {
+      opacity: 0;
+    }
+  }
 }
 .l-dragger {
   display: flex;
@@ -5167,7 +5148,7 @@ code.hljs {
   border-bottom: 2px #2e3440 solid;
 }
 @layer component {
-  @scope (.benchmark-fake) {
+  @scope (.c-benchmark-fake) {
     :scope {
       margin-bottom: calc(var(--gap-size) / 2);
       padding: calc(var(--gap-size) / 2);
@@ -5306,76 +5287,80 @@ code.hljs {
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
-.c-move3d-item {
-  position: relative;
-  width: var(--item-width);
-  height: var(--item-height);
-  transform-style: preserve-3d;
-}
-.c-move3d-item.is-root {
-  position: relative;
-}
-.c-move3d-item.is-children {
-  display: grid;
-  position: absolute;
-  grid-template-areas: "content";
-  align-items: center;
-  justify-content: center;
-}
-.c-move3d-item.is-children.anchor-left {
-  bottom: var(--offset-y);
-  left: calc(100% + var(--offset-x));
-  transform-origin: left;
-}
-.c-move3d-item.is-children.anchor-right {
-  right: calc(100% + var(--offset-x));
-  bottom: var(--offset-y);
-  transform-origin: right;
-}
-.c-move3d-item.is-children.anchor-bottom {
-  bottom: calc(100% + var(--offset-y));
-  left: var(--offset-x);
-  transform-origin: bottom;
-}
-.c-move3d-item.is-children.anchor-top {
-  top: calc(100% + var(--offset-y));
-  left: var(--offset-x);
-  transform-origin: top;
-}
-.c-move3d-item.is-children.anchor-bottom-left {
-  bottom: calc(100% + var(--offset-y));
-  left: calc(100% + var(--offset-x));
-  transform-origin: bottom left;
-}
-.c-move3d-item.is-children.anchor-bottom-right {
-  right: calc(100% + var(--offset-x));
-  bottom: calc(100% + var(--offset-y));
-  transform-origin: bottom right;
-}
-.c-move3d-item.is-children.anchor-top-left {
-  top: calc(100% + var(--offset-y));
-  left: calc(100% + var(--offset-x));
-  transform-origin: top left;
-}
-.c-move3d-item.is-children.anchor-top-right {
-  top: calc(100% + var(--offset-y));
-  right: calc(100% + var(--offset-x));
-  transform-origin: top right;
-}
-.c-move3d-item.is-children.anchor-center {
-  top: var(--offset-y);
-  left: var(--offset-x);
-  transform-origin: center center;
-}
-.c-move3d-item__content,
-.c-move3d-item__component {
-  grid-area: content;
-}
-.c-move3d-item__debug {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: red;
+@layer component {
+  @scope (.c-move3d-item) {
+    :scope {
+      position: relative;
+      width: var(--item-width);
+      height: var(--item-height);
+      transform-style: preserve-3d;
+    }
+    :scope.is-root {
+      position: relative;
+    }
+    :scope.is-children {
+      display: grid;
+      position: absolute;
+      grid-template-areas: "content";
+      align-items: center;
+      justify-content: center;
+    }
+    :scope.is-children.anchor-left {
+      bottom: var(--offset-y);
+      left: calc(100% + var(--offset-x));
+      transform-origin: left;
+    }
+    :scope.is-children.anchor-right {
+      right: calc(100% + var(--offset-x));
+      bottom: var(--offset-y);
+      transform-origin: right;
+    }
+    :scope.is-children.anchor-bottom {
+      bottom: calc(100% + var(--offset-y));
+      left: var(--offset-x);
+      transform-origin: bottom;
+    }
+    :scope.is-children.anchor-top {
+      top: calc(100% + var(--offset-y));
+      left: var(--offset-x);
+      transform-origin: top;
+    }
+    :scope.is-children.anchor-bottom-left {
+      bottom: calc(100% + var(--offset-y));
+      left: calc(100% + var(--offset-x));
+      transform-origin: bottom left;
+    }
+    :scope.is-children.anchor-bottom-right {
+      right: calc(100% + var(--offset-x));
+      bottom: calc(100% + var(--offset-y));
+      transform-origin: bottom right;
+    }
+    :scope.is-children.anchor-top-left {
+      top: calc(100% + var(--offset-y));
+      left: calc(100% + var(--offset-x));
+      transform-origin: top left;
+    }
+    :scope.is-children.anchor-top-right {
+      top: calc(100% + var(--offset-y));
+      right: calc(100% + var(--offset-x));
+      transform-origin: top right;
+    }
+    :scope.is-children.anchor-center {
+      top: var(--offset-y);
+      left: var(--offset-x);
+      transform-origin: center center;
+    }
+    .content,
+    .component {
+      grid-area: content;
+    }
+    .debug {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: red;
+    }
+  }
 }
 .c-dragger {
   position: relative;
@@ -5387,14 +5372,14 @@ code.hljs {
   transform: translate(-50%, -50%);
 }
 @layer component {
-  @scope (.search-cta) {
+  @scope (.c-search-cta) {
     :scope {
       margin: 0;
     }
   }
 }
 @layer component {
-  @scope (.search-overlay) {
+  @scope (.c-search-overlay) {
     :scope {
       display: flex;
       visibility: hidden;
@@ -5495,7 +5480,7 @@ code.hljs {
   }
 }
 @layer component {
-  @scope (.search-list) {
+  @scope (.c-search-list) {
     :scope {
       position: absolute;
       overflow: hidden;
@@ -5610,7 +5595,7 @@ code.hljs {
   }
 }
 @layer component {
-  @scope (.search-header) {
+  @scope (.c-search-header) {
     .search-wrap {
       display: inline-block;
       position: relative;
@@ -5664,7 +5649,7 @@ code.hljs {
   }
 }
 @layer component {
-  @scope (.search-suggestion) {
+  @scope (.c-search-suggestion) {
     :scope {
       overflow: hidden;
     }

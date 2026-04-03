@@ -42,10 +42,10 @@ const block01 = ({ setRef, getState }) => {
 
     return html`
         <section class="section section--first ">
-            <div class="section-top has-overflow">
+            <div class="section-top u-has-overflow">
                 <h1 class="title-big" ${setRef('title_1')}>${titleTop}</h1>
             </div>
-            <div class="section-bottom has-overflow">
+            <div class="section-bottom u-has-overflow">
                 <h1 class="title-biggest" ${setRef('title_2')}>
                     ${titleBottom}
                 </h1>
@@ -64,7 +64,7 @@ const block02 = ({ setRef, getState }) => {
 
     return html`
         <section class="section">
-            <div class="section-top has-overflow">
+            <div class="section-top u-has-overflow">
                 <div class="section-left"></div>
                 <div class="section-right">
                     <h1 class="title-biggest" ${setRef('section2_title')}>
@@ -72,7 +72,7 @@ const block02 = ({ setRef, getState }) => {
                     </h1>
                 </div>
             </div>
-            <div class="section-bottom has-overflow">
+            <div class="section-bottom u-has-overflow">
                 <div class="section-right">
                     <p class="section-copy">${copy}</p>
                 </div>
@@ -91,7 +91,7 @@ const block03 = ({ setRef, getState }) => {
 
     return html`
         <section class="section">
-            <div class="section-top has-overflow">
+            <div class="section-top u-has-overflow">
                 <div class="section-left"></div>
                 <div class="section-right">
                     <h1 class="title-biggest" ${setRef('section3_title')}>
@@ -99,7 +99,7 @@ const block03 = ({ setRef, getState }) => {
                     </h1>
                 </div>
             </div>
-            <div class="section-bottom has-overflow">
+            <div class="section-bottom u-has-overflow">
                 <div class="section-right">
                     <p class="section-copy">${copy}</p>
                 </div>
@@ -118,12 +118,12 @@ const block04 = ({ setRef, getState }) => {
 
     return html`
         <section class="section section--last">
-            <div class="section-top has-overflow">
+            <div class="section-top u-has-overflow">
                 <h1 class="title-biggest" ${setRef('section4_title')}>
                     ${title}
                 </h1>
             </div>
-            <div class="section-bottom has-overflow">
+            <div class="section-bottom u-has-overflow">
                 <ul class="section-list">
                     ${items
                         .map((item) => {

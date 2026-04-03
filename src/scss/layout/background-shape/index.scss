@@ -1,7 +1,7 @@
 @use '../../abstract' as *;
 
 @layer layout {
-    @scope (.background-shape) {
+    @scope (.l-background-shape) {
         :scope {
             position: absolute;
             z-index: -1;

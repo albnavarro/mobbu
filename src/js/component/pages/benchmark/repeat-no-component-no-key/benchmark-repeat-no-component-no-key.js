@@ -53,7 +53,7 @@ export const BenchMarkRepeatNoComponentNoKeyFn = ({
                 render: ({ current }) => {
                     return html`
                         <div
-                            class="benchmark-fake"
+                            class="c-benchmark-fake"
                             ${bindEffect({
                                 /**
                                  * Update only when buttonClick. Otherwise every data update selected state back to same
@@ -77,7 +77,7 @@ export const BenchMarkRepeatNoComponentNoKeyFn = ({
                             <div class="row">
                                 ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`}
                             </div>
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 <button
                                     type="button"
                                     ${delegateEvents({

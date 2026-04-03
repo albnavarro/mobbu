@@ -23,7 +23,7 @@ export const move3DRoute = async ({ props }) => {
     });
 
     return html` <div>
-        <div class="background-shape">${bg}</div>
+        <div class="l-background-shape">${bg}</div>
         <move-3d-page
             ${MobJs.staticProps(
                 /** @type {import('@pagesComponent/move-3d/type').Move3DPage['props']} */

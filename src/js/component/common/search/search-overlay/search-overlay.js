@@ -43,7 +43,7 @@ export const SearchOverlayFn = ({
     });
 
     return html`<div
-        class="search-overlay"
+        class="c-search-overlay"
         ${bindEffect({
             toggleClass: {
                 active: () => proxi.active,

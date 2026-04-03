@@ -1,86 +1,90 @@
 @use '../../abstract' as *;
 
-.c-move3d-item {
-    position: relative;
-    width: var(--item-width);
-    height: var(--item-height);
-    transform-style: preserve-3d;
+@layer component {
+    @scope (.c-move3d-item) {
+        :scope {
+            position: relative;
+            width: var(--item-width);
+            height: var(--item-height);
+            transform-style: preserve-3d;
 
-    &.is-root {
-        position: relative;
-    }
+            &.is-root {
+                position: relative;
+            }
 
-    &.is-children {
-        display: grid;
-        position: absolute;
-        grid-template-areas: 'content';
-        align-items: center;
-        justify-content: center;
+            &.is-children {
+                display: grid;
+                position: absolute;
+                grid-template-areas: 'content';
+                align-items: center;
+                justify-content: center;
 
-        &.anchor-left {
-            bottom: var(--offset-y);
-            left: calc(100% + var(--offset-x));
-            transform-origin: left;
+                &.anchor-left {
+                    bottom: var(--offset-y);
+                    left: calc(100% + var(--offset-x));
+                    transform-origin: left;
+                }
+
+                &.anchor-right {
+                    right: calc(100% + var(--offset-x));
+                    bottom: var(--offset-y);
+                    transform-origin: right;
+                }
+
+                &.anchor-bottom {
+                    bottom: calc(100% + var(--offset-y));
+                    left: var(--offset-x);
+                    transform-origin: bottom;
+                }
+
+                &.anchor-top {
+                    top: calc(100% + var(--offset-y));
+                    left: var(--offset-x);
+                    transform-origin: top;
+                }
+
+                &.anchor-bottom-left {
+                    bottom: calc(100% + var(--offset-y));
+                    left: calc(100% + var(--offset-x));
+                    transform-origin: bottom left;
+                }
+
+                &.anchor-bottom-right {
+                    right: calc(100% + var(--offset-x));
+                    bottom: calc(100% + var(--offset-y));
+                    transform-origin: bottom right;
+                }
+
+                &.anchor-top-left {
+                    top: calc(100% + var(--offset-y));
+                    left: calc(100% + var(--offset-x));
+                    transform-origin: top left;
+                }
+
+                &.anchor-top-right {
+                    top: calc(100% + var(--offset-y));
+                    right: calc(100% + var(--offset-x));
+                    transform-origin: top right;
+                }
+
+                &.anchor-center {
+                    top: var(--offset-y);
+                    left: var(--offset-x);
+                    transform-origin: center center;
+                }
+            }
         }
 
-        &.anchor-right {
-            right: calc(100% + var(--offset-x));
-            bottom: var(--offset-y);
-            transform-origin: right;
+        .content,
+        .component {
+            grid-area: content;
         }
 
-        &.anchor-bottom {
-            bottom: calc(100% + var(--offset-y));
-            left: var(--offset-x);
-            transform-origin: bottom;
+        .debug {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: red;
         }
-
-        &.anchor-top {
-            top: calc(100% + var(--offset-y));
-            left: var(--offset-x);
-            transform-origin: top;
-        }
-
-        &.anchor-bottom-left {
-            bottom: calc(100% + var(--offset-y));
-            left: calc(100% + var(--offset-x));
-            transform-origin: bottom left;
-        }
-
-        &.anchor-bottom-right {
-            right: calc(100% + var(--offset-x));
-            bottom: calc(100% + var(--offset-y));
-            transform-origin: bottom right;
-        }
-
-        &.anchor-top-left {
-            top: calc(100% + var(--offset-y));
-            left: calc(100% + var(--offset-x));
-            transform-origin: top left;
-        }
-
-        &.anchor-top-right {
-            top: calc(100% + var(--offset-y));
-            right: calc(100% + var(--offset-x));
-            transform-origin: top right;
-        }
-
-        &.anchor-center {
-            top: var(--offset-y);
-            left: var(--offset-x);
-            transform-origin: center center;
-        }
-    }
-
-    &__content,
-    &__component {
-        grid-area: content;
-    }
-
-    &__debug {
-        position: absolute;
-        top: 0;
-        left: 0;
-        color: red;
     }
 }

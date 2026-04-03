@@ -100,7 +100,9 @@ export const CaterpillarN2Fn = ({
     return html`
         <div>
             <div class="c-canvas">
-                <div class="background-shape is-light">${proxi.background}</div>
+                <div class="l-background-shape is-light">
+                    ${proxi.background}
+                </div>
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({

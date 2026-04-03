@@ -17,7 +17,7 @@ export const onlyDesktop = async () => {
     return html`
         <div class="l-only-desktop">
             <div class="l-only-desktop__content">
-                <div class="background-shape">${bg}</div>
+                <div class="l-background-shape">${bg}</div>
                 <h1 class="l-only-desktop__title">MobProject v0.1</h1>
                 <h2 class="l-only-desktop__subtitle">ops...<br /></h2>
                 <p>

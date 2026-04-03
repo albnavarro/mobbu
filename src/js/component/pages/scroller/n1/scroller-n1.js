@@ -128,7 +128,7 @@ export const ScrollerN1Fn = ({
     return html`
         <div>
             <div class="c-canvas c-canvas--fixed ">
-                <div class="background-shape">${proxi.background}</div>
+                <div class="l-background-shape">${proxi.background}</div>
                 <button
                     type="button"
                     class="c-canvas__controls__open"

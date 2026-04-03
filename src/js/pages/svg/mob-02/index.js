@@ -32,7 +32,7 @@ export const mob_02 = async () => {
     });
 
     return html`<div class="l-mob-02">
-        <div class="background-shape">${bg}</div>
+        <div class="l-background-shape">${bg}</div>
         <h3 class="l-mob-02__title">Scroll or Drag</h3>
         <mobbu-2025
             ${staticProps(

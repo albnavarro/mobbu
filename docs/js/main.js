@@ -25135,7 +25135,7 @@
     return renderHtml`<div class="l-links">
         <div class="top">
             <div
-                class="top-title is-white"
+                class="top-title"
                 ${bindEffect({
       toggleClass: {
         "is-visible": () => proxi.isMounted
@@ -26401,7 +26401,7 @@
   var TitleFn = ({ getProxi }) => {
     const proxi = getProxi();
     const colorClass = proxi.color === "inherit" ? "" : `is-${proxi.color}`;
-    const boldClass = proxi.isBold ? `is-bold` : "";
+    const boldClass = proxi.isBold ? `u-weight-bold` : "";
     const isSectionClass = proxi.isSection ? `is-section` : "";
     return renderHtml`<${proxi.tag} class="${colorClass} ${boldClass} ${isSectionClass}">
             ${getIndex2(proxi.index)}
@@ -27354,10 +27354,10 @@
     const { titleTop, titleBottom } = getState().block_1;
     return renderHtml`
         <section class="section section--first ">
-            <div class="section-top has-overflow">
+            <div class="section-top u-has-overflow">
                 <h1 class="title-big" ${setRef("title_1")}>${titleTop}</h1>
             </div>
-            <div class="section-bottom has-overflow">
+            <div class="section-bottom u-has-overflow">
                 <h1 class="title-biggest" ${setRef("title_2")}>
                     ${titleBottom}
                 </h1>
@@ -27369,7 +27369,7 @@
     const { title, copy } = getState().block_2;
     return renderHtml`
         <section class="section">
-            <div class="section-top has-overflow">
+            <div class="section-top u-has-overflow">
                 <div class="section-left"></div>
                 <div class="section-right">
                     <h1 class="title-biggest" ${setRef("section2_title")}>
@@ -27377,7 +27377,7 @@
                     </h1>
                 </div>
             </div>
-            <div class="section-bottom has-overflow">
+            <div class="section-bottom u-has-overflow">
                 <div class="section-right">
                     <p class="section-copy">${copy}</p>
                 </div>
@@ -27389,7 +27389,7 @@
     const { title, copy } = getState().block_3;
     return renderHtml`
         <section class="section">
-            <div class="section-top has-overflow">
+            <div class="section-top u-has-overflow">
                 <div class="section-left"></div>
                 <div class="section-right">
                     <h1 class="title-biggest" ${setRef("section3_title")}>
@@ -27397,7 +27397,7 @@
                     </h1>
                 </div>
             </div>
-            <div class="section-bottom has-overflow">
+            <div class="section-bottom u-has-overflow">
                 <div class="section-right">
                     <p class="section-copy">${copy}</p>
                 </div>
@@ -27409,12 +27409,12 @@
     const { title, items } = getState().block_4;
     return renderHtml`
         <section class="section section--last">
-            <div class="section-top has-overflow">
+            <div class="section-top u-has-overflow">
                 <h1 class="title-biggest" ${setRef("section4_title")}>
                     ${title}
                 </h1>
             </div>
-            <div class="section-bottom has-overflow">
+            <div class="section-bottom u-has-overflow">
                 <ul class="section-list">
                     ${items.map((item) => {
       return renderHtml`
@@ -27729,7 +27729,7 @@
       };
     });
     return renderHtml`<div
-        class="benchmark-fake"
+        class="c-benchmark-fake"
         ${bindEffect({
       toggleClass: { selected: () => proxiState.isSelected }
     })}
@@ -28636,7 +28636,7 @@
       render: ({ current }) => {
         return renderHtml`
                         <div
-                            class="benchmark-fake"
+                            class="c-benchmark-fake"
                             ${bindEffect({
           /**
            * Update only when buttonClick. Otherwise every data update selected state back to same
@@ -28659,7 +28659,7 @@
                             <div class="row">
                                 ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`}
                             </div>
-                            <div class="benchmark-fake__row">
+                            <div class="row">
                                 <button
                                     type="button"
                                     ${delegateEvents({
@@ -28731,7 +28731,7 @@
       render: ({ current }) => {
         return renderHtml`
                         <div
-                            class="benchmark-fake"
+                            class="c-benchmark-fake"
                             ${bindEffect({
           /**
            * Update only when buttonClick. Otherwise every data update selected state back to same
@@ -29290,7 +29290,7 @@
       getRef
     })}
                 </ul>
-                <div class="background-shape">${proxi.background}</div>
+                <div class="l-background-shape">${proxi.background}</div>
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({
@@ -29656,7 +29656,7 @@
     return renderHtml`
         <div>
             <div class="c-canvas">
-                <div class="background-shape">${proxi.background}</div>
+                <div class="l-background-shape">${proxi.background}</div>
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({
@@ -30013,7 +30013,7 @@
     return renderHtml`
         <div>
             <div class="c-canvas">
-                <div class="background-shape">${proxi.background}</div>
+                <div class="l-background-shape">${proxi.background}</div>
 
                 <button
                     type="button"
@@ -30374,7 +30374,9 @@
     return renderHtml`
         <div>
             <div class="c-canvas">
-                <div class="background-shape is-light">${proxi.background}</div>
+                <div class="l-background-shape is-light">
+                    ${proxi.background}
+                </div>
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({
@@ -30922,7 +30924,7 @@
       getRef
     })}
                 </ul>
-                <div class="background-shape">${proxi.background}</div>
+                <div class="l-background-shape">${proxi.background}</div>
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({
@@ -31264,7 +31266,7 @@
     return renderHtml`
         <div>
             <div class="c-canvas c-canvas--fixed ">
-                <div class="background-shape">${proxi.background}</div>
+                <div class="l-background-shape">${proxi.background}</div>
                 <button
                     type="button"
                     class="c-canvas__controls__open"
@@ -32420,7 +32422,7 @@
     });
     return renderHtml`
         <div>
-            <div class="background-shape">${bg}</div>
+            <div class="l-background-shape">${bg}</div>
             <home-component
                 ${modules_exports2.staticProps(
       /** @type {import('@pagesComponent/homepage/type').HomeComponent['props']} */
@@ -33496,7 +33498,7 @@
   // src/js/component/pages/move-3d/move-3d-page.js
   var getControls6 = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
     return renderHtml`<div
-        class="c-move3d-page__controls"
+        class="controls"
         ${bindEffect({
       toggleClass: {
         active: () => proxi.controlsActive
@@ -33505,15 +33507,15 @@
     >
         <button
             type="button"
-            class="c-canvas__controls__close"
+            class="close-controls"
             ${delegateEvents({
       click: () => {
         proxi.controlsActive = false;
       }
     })}
         ></button>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
+        <div class="controls-block">
+            <div class="controls-range">
                 <input
                     type="range"
                     value=${proxi.factor}
@@ -33530,8 +33532,8 @@
             </div>
             <div>${bindObject`factor: ${() => proxi.factor}`}</div>
         </div>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
+        <div class="controls-block">
+            <div class="controls-range">
                 <input
                     type="range"
                     value=${proxi.xDepth}
@@ -33548,8 +33550,8 @@
             </div>
             <div>${bindObject`xDepth: ${() => proxi.xDepth}`}</div>
         </div>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
+        <div class="controls-block">
+            <div class="controls-range">
                 <input
                     type="range"
                     value=${proxi.xLimit}
@@ -33567,8 +33569,8 @@
             </div>
             <div>${bindObject`xLimit: ${() => proxi.xLimit}`}</div>
         </div>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
+        <div class="controls-block">
+            <div class="controls-range">
                 <input
                     type="range"
                     value=${proxi.yDepth}
@@ -33585,8 +33587,8 @@
             </div>
             <div>${bindObject`yDepth: ${() => proxi.yDepth}`}</div>
         </div>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
+        <div class="controls-block">
+            <div class="controls-range">
                 <input
                     type="range"
                     value=${proxi.yLimit}
@@ -33604,10 +33606,10 @@
             </div>
             <div>${bindObject`yLimit: ${() => proxi.yLimit}`}</div>
         </div>
-        <div class="c-move3d-page__controls__block">
+        <div class="controls-block">
             <button
                 type="button"
-                class="c-move3d-page__controls__button"
+                class="controls-button"
                 ${delegateEvents({
       click: () => {
         proxi.debug = !proxi.debug;
@@ -33627,10 +33629,10 @@
     bindEffect
   }) => {
     const proxi = getProxi();
-    return renderHtml`<div>
+    return renderHtml`<div class="l-move3d-page">
         <button
             type="button"
-            class="c-move3d-page__controls__open"
+            class="show-controls"
             ${delegateEvents({
       click: () => {
         proxi.controlsActive = true;
@@ -33660,7 +33662,7 @@
 
   // src/js/component/common/move-3d/partials/recursive-3d-shape.js
   var getDebug = ({ debug, id }) => {
-    return debug ? renderHtml`<span class="c-move3d-item__debug">${id}</span>` : "";
+    return debug ? renderHtml`<span class="debug">${id}</span>` : "";
   };
   var Recursive3Dshape = ({ data, root: root2, childrenId, debug }) => {
     return data.map(({ children, props }) => {
@@ -34086,7 +34088,7 @@
       return "";
     }
     return renderHtml`
-        <div class="c-move3d-item__component ${component?.className}">
+        <div class="component ${component?.className}">
             <${component.tagName} ${modules_exports2.staticProps(component?.props ?? {})}>
             </${component.tagName}>
         </div>`;
@@ -34187,7 +34189,7 @@
         class="c-move3d-item ${rootClass} anchor-${anchorPoint}"
         style="${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}"
     >
-        <div class="c-move3d-item__content ${classList}"></div>
+        <div class=".content ${classList}"></div>
         ${getComponent({
       tagName: component?.tagName ?? "",
       className: component?.className ?? "",
@@ -34432,7 +34434,7 @@
       backRoute: "#plugin-overview"
     });
     return renderHtml` <div>
-        <div class="background-shape">${bg}</div>
+        <div class="l-background-shape">${bg}</div>
         <move-3d-page
             ${modules_exports2.staticProps(
       /** @type {import('@pagesComponent/move-3d/type').Move3DPage['props']} */
@@ -34450,7 +34452,7 @@
         id: 0,
         depth: 0,
         anchorPoint: "center",
-        classList: "move3d-square",
+        classList: "c-move3d-square",
         animate: true,
         width: get3dItemUnit(150),
         height: get3dItemUnit(150)
@@ -34465,10 +34467,9 @@
             rotate: "",
             anchorPoint: "center",
             initialDepth: 100,
-            classList: "move3d-square has-star pippo",
+            classList: "c-move3d-square has-star",
             component: {
               tagName: "svg-star",
-              className: "move3d-square__star",
               props: {
                 fill: "#f28f3b"
               }
@@ -34488,7 +34489,7 @@
             rotate: "",
             initialDepth: 200,
             anchorPoint: "center",
-            classList: "move3d-square is-small is-white is-center",
+            classList: "c-move3d-square is-small u-bg-white",
             animate: true
           },
           children: []
@@ -34504,7 +34505,7 @@
             rotate: "",
             initialDepth: 50,
             anchorPoint: "center",
-            classList: "move3d-square is-small is-white is-center",
+            classList: "c-move3d-square is-small u-bg-white",
             animate: true
           },
           children: []
@@ -34520,7 +34521,7 @@
             rotate: "",
             initialDepth: 50,
             anchorPoint: "center",
-            classList: "move3d-square is-small is-white is-center",
+            classList: "c-move3d-square is-small u-bg-white",
             animate: true
           },
           children: []
@@ -34536,7 +34537,7 @@
             rotate: "",
             initialDepth: 50,
             anchorPoint: "center",
-            classList: "move3d-square is-small is-white is-center",
+            classList: "c-move3d-square is-small u-bg-white",
             animate: true
           },
           children: []
@@ -34552,7 +34553,7 @@
             rotate: "",
             initialDepth: 50,
             anchorPoint: "center",
-            classList: "move3d-square is-small is-white is-center",
+            classList: "c-move3d-square is-small u-bg-white",
             animate: true
           },
           children: []
@@ -34566,7 +34567,7 @@
             rotate: "x",
             range: 20,
             anchorPoint: "bottom",
-            classList: "move3d-square",
+            classList: "c-move3d-square",
             animate: true
           },
           children: [
@@ -34579,7 +34580,7 @@
                 rotate: "x",
                 range: 30,
                 anchorPoint: "bottom",
-                classList: "move3d-square",
+                classList: "c-move3d-square",
                 animate: true
               },
               children: []
@@ -34595,7 +34596,7 @@
             rotate: "x",
             range: 20,
             anchorPoint: "top",
-            classList: "move3d-square",
+            classList: "c-move3d-square",
             animate: true
           },
           children: [
@@ -34608,7 +34609,7 @@
                 rotate: "x",
                 range: 20,
                 anchorPoint: "top",
-                classList: "move3d-square",
+                classList: "c-move3d-square",
                 animate: true
               },
               children: []
@@ -34624,7 +34625,7 @@
             rotate: "y",
             range: 20,
             anchorPoint: "left",
-            classList: "move3d-square",
+            classList: "c-move3d-square",
             animate: true
           },
           children: [
@@ -34637,7 +34638,7 @@
                 rotate: "y",
                 range: 30,
                 anchorPoint: "left",
-                classList: "move3d-square",
+                classList: "c-move3d-square",
                 animate: true
               },
               children: [
@@ -34650,7 +34651,7 @@
                     rotate: "y",
                     range: 40,
                     anchorPoint: "left",
-                    classList: "move3d-square",
+                    classList: "c-move3d-square",
                     animate: true
                   },
                   children: []
@@ -34668,7 +34669,7 @@
             rotate: "y",
             range: 20,
             anchorPoint: "right",
-            classList: "move3d-square",
+            classList: "c-move3d-square",
             animate: true
           },
           children: [
@@ -34681,7 +34682,7 @@
                 rotate: "y",
                 range: 30,
                 anchorPoint: "right",
-                classList: "move3d-square",
+                classList: "c-move3d-square",
                 animate: true
               },
               children: [
@@ -34694,7 +34695,7 @@
                     rotate: "y",
                     range: 40,
                     anchorPoint: "right",
-                    classList: "move3d-square",
+                    classList: "c-move3d-square",
                     animate: true
                   },
                   children: []
@@ -34714,7 +34715,7 @@
             offsetY: get3dItemUnit(20),
             range: 20,
             anchorPoint: "bottom-left",
-            classList: "move3d-square",
+            classList: "c-move3d-square",
             animate: true
           },
           children: [
@@ -34727,7 +34728,7 @@
                 height: get3dItemUnit(150),
                 range: 100,
                 anchorPoint: "center",
-                classList: "move3d-square is-small is-white is-center",
+                classList: "c-move3d-square is-small u-bg-white",
                 animate: true
               },
               children: []
@@ -34745,7 +34746,7 @@
             offsetY: get3dItemUnit(20),
             range: 20,
             anchorPoint: "bottom-right",
-            classList: "move3d-square",
+            classList: "c-move3d-square",
             animate: true
           },
           children: [
@@ -34758,7 +34759,7 @@
                 height: get3dItemUnit(150),
                 range: 100,
                 anchorPoint: "center",
-                classList: "move3d-square is-small is-white is-center",
+                classList: "c-move3d-square is-small u-bg-white",
                 animate: true
               },
               children: []
@@ -34776,7 +34777,7 @@
             offsetY: get3dItemUnit(20),
             range: 20,
             anchorPoint: "top-left",
-            classList: "move3d-square",
+            classList: "c-move3d-square",
             animate: true
           },
           children: [
@@ -34789,7 +34790,7 @@
                 height: get3dItemUnit(150),
                 range: 100,
                 anchorPoint: "center",
-                classList: "move3d-square is-small is-white is-center",
+                classList: "c-move3d-square is-small u-bg-white",
                 animate: true
               },
               children: []
@@ -34807,7 +34808,7 @@
             offsetY: get3dItemUnit(20),
             range: 20,
             anchorPoint: "top-right",
-            classList: "move3d-square",
+            classList: "c-move3d-square",
             animate: true
           },
           children: [
@@ -34820,7 +34821,7 @@
                 height: get3dItemUnit(150),
                 range: 100,
                 anchorPoint: "center",
-                classList: "move3d-square is-small is-white is-center",
+                classList: "c-move3d-square is-small u-bg-white",
                 animate: true
               },
               children: []
@@ -35403,7 +35404,7 @@
       backRoute: "#svg-overview"
     });
     return renderHtml`<div class="l-mob-01">
-        <div class="background-shape">${bg}</div>
+        <div class="l-background-shape">${bg}</div>
         <mouse-trail></mouse-trail>
         <move-3d
             ${modules_exports2.staticProps(
@@ -35523,7 +35524,7 @@
     return renderHtml`
         <div class="l-only-desktop">
             <div class="l-only-desktop__content">
-                <div class="background-shape">${bg}</div>
+                <div class="l-background-shape">${bg}</div>
                 <h1 class="l-only-desktop__title">MobProject v0.1</h1>
                 <h2 class="l-only-desktop__subtitle">ops...<br /></h2>
                 <p>
@@ -35965,7 +35966,7 @@
     return renderHtml`
         <div>
             <div class="c-canvas">
-                <div class="background-shape">${proxi.background}</div>
+                <div class="l-background-shape">${proxi.background}</div>
                 <div
                     class="c-canvas__wrap"
                     ${bindEffect({
@@ -36389,7 +36390,7 @@
       backRoute: "#svg-overview"
     });
     return renderHtml`<div class="l-rdp-01">
-        <div class="background-shape">${bg}</div>
+        <div class="l-background-shape">${bg}</div>
         <mouse-trail></mouse-trail>
         <move-3d
             ${modules_exports2.staticProps(
@@ -36524,7 +36525,7 @@
       backRoute: "#svg-overview"
     });
     return renderHtml`<div class="l-mob-02">
-        <div class="background-shape">${bg}</div>
+        <div class="l-background-shape">${bg}</div>
         <h3 class="l-mob-02__title">Scroll or Drag</h3>
         <mobbu-2025
             ${staticProps(
@@ -36984,7 +36985,7 @@
         <div class="dragger-child dragger-child--svg">${svg}</div>
     </div>`;
     return renderHtml`<div class="l-dragger">
-        <div class="background-shape">${bg}</div>
+        <div class="l-background-shape">${bg}</div>
         <c-dragger
             ${modules_exports2.staticProps(
       /** @type {import('@commonComponent/dragger/type').Dragger['props']} */
@@ -39651,7 +39652,7 @@
         return stringParsed.reduce((previous, current, index) => {
           return previous.replaceAll(
             `${getFakeReplacement(index)}`,
-            `<span class="match-string">${current}</span>`
+            `<span class="u-match-string">${current}</span>`
           );
         }, stringParseWithPlaceholder);
       })(),
@@ -41134,7 +41135,7 @@
       proxi.active = !proxi.active;
     });
     return renderHtml`<div
-        class="search-overlay"
+        class="c-search-overlay"
         ${bindEffect({
       toggleClass: {
         active: () => proxi.active
@@ -41265,7 +41266,7 @@
           return stringParsed.reduce((previous, current, index) => {
             return previous.replaceAll(
               `${getFakeReplacement2(index)}`,
-              `<span class="match-string">${current}</span>`
+              `<span class="u-match-string">${current}</span>`
             );
           }, stringParseWithPlaceholder);
         })()
@@ -41314,7 +41315,7 @@
         }, 300);
       });
     });
-    return renderHtml`<div class="search-header">
+    return renderHtml`<div class="c-search-header">
         <div class="search-wrap">
             <input
                 type="text"
@@ -41407,7 +41408,7 @@
   var SearchOverlaySuggestionFn = ({ getProxi, repeat, bindProps }) => {
     const proxi = getProxi();
     return renderHtml`<div>
-        <div class="search-suggestion">
+        <div class="c-search-suggestion">
             <ul class="list">
                 ${repeat({
       observe: () => proxi.list,
@@ -41719,7 +41720,7 @@
         destroy3?.();
       };
     });
-    return renderHtml`<div class="search-list" ${setRef("screen")}>
+    return renderHtml`<div class="c-search-list" ${setRef("screen")}>
         <span
             class="loader"
             ${bindEffect({
@@ -42106,7 +42107,7 @@
       }
     })}
                 >
-                    <div class="has-overflow">
+                    <div class="u-has-overflow">
                         <h3
                             ${bindEffect({
       toggleClass: {
@@ -42267,7 +42268,7 @@
     const searchSvg = getIcons()["searchIcons"];
     return renderHtml`<button
         type="button"
-        class="search-cta"
+        class="c-search-cta"
         ${delegateEvents({
       click: () => {
         onClick2();

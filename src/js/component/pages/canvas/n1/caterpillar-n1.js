@@ -105,7 +105,7 @@ export const CaterpillarN1Fn = ({
     return html`
         <div>
             <div class="c-canvas">
-                <div class="background-shape">${proxi.background}</div>
+                <div class="l-background-shape">${proxi.background}</div>
 
                 <button
                     type="button"

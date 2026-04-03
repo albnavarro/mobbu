@@ -74,7 +74,7 @@ export const lettering01 = async () => {
     });
 
     return html`<div class="l-mob-01">
-        <div class="background-shape">${bg}</div>
+        <div class="l-background-shape">${bg}</div>
         <mouse-trail></mouse-trail>
         <move-3d
             ${MobJs.staticProps(

@@ -7,7 +7,7 @@ import { html, MobJs } from '@mobJs';
  * @returns {string}
  */
 const getDebug = ({ debug, id }) => {
-    return debug ? html`<span class="c-move3d-item__debug">${id}</span>` : '';
+    return debug ? html`<span class="debug">${id}</span>` : '';
 };
 
 /** @type{(arg0: {data: import("../type").Move3DChildren[], root: boolean, childrenId: string, debug: boolean} ) => string} */

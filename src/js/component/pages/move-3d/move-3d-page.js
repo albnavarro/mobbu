@@ -22,7 +22,7 @@ import { html } from '@mobJs';
  */
 const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
     return html`<div
-        class="c-move3d-page__controls"
+        class="controls"
         ${bindEffect({
             toggleClass: {
                 active: () => proxi.controlsActive,
@@ -31,15 +31,15 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
     >
         <button
             type="button"
-            class="c-canvas__controls__close"
+            class="close-controls"
             ${delegateEvents({
                 click: () => {
                     proxi.controlsActive = false;
                 },
             })}
         ></button>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
+        <div class="controls-block">
+            <div class="controls-range">
                 <input
                     type="range"
                     value=${proxi.factor}
@@ -56,8 +56,8 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
             </div>
             <div>${bindObject`factor: ${() => proxi.factor}`}</div>
         </div>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
+        <div class="controls-block">
+            <div class="controls-range">
                 <input
                     type="range"
                     value=${proxi.xDepth}
@@ -74,8 +74,8 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
             </div>
             <div>${bindObject`xDepth: ${() => proxi.xDepth}`}</div>
         </div>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
+        <div class="controls-block">
+            <div class="controls-range">
                 <input
                     type="range"
                     value=${proxi.xLimit}
@@ -93,8 +93,8 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
             </div>
             <div>${bindObject`xLimit: ${() => proxi.xLimit}`}</div>
         </div>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
+        <div class="controls-block">
+            <div class="controls-range">
                 <input
                     type="range"
                     value=${proxi.yDepth}
@@ -111,8 +111,8 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
             </div>
             <div>${bindObject`yDepth: ${() => proxi.yDepth}`}</div>
         </div>
-        <div class="c-move3d-page__controls__block">
-            <div class="c-move3d-page__controls__range">
+        <div class="controls-block">
+            <div class="controls-range">
                 <input
                     type="range"
                     value=${proxi.yLimit}
@@ -130,10 +130,10 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
             </div>
             <div>${bindObject`yLimit: ${() => proxi.yLimit}`}</div>
         </div>
-        <div class="c-move3d-page__controls__block">
+        <div class="controls-block">
             <button
                 type="button"
-                class="c-move3d-page__controls__button"
+                class="controls-button"
                 ${delegateEvents({
                     click: () => {
                         proxi.debug = !proxi.debug;
@@ -156,10 +156,10 @@ export const Move3DPagefn = ({
 }) => {
     const proxi = getProxi();
 
-    return html`<div>
+    return html`<div class="l-move3d-page">
         <button
             type="button"
-            class="c-move3d-page__controls__open"
+            class="show-controls"
             ${delegateEvents({
                 click: () => {
                     proxi.controlsActive = true;

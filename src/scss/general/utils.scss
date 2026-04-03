@@ -1,46 +1,23 @@
 @use '../abstract' as *;
 
-@layer base {
-    .component {
-        transition: opacity 0.55s;
-        opacity: 0;
-
-        &.active {
-            opacity: 1;
-        }
-    }
-
-    .is-white {
-        color: $white;
-    }
-
-    .is-black {
-        color: $black;
-    }
-
-    .is-bold {
+@layer utilities {
+    .u-weight-bold {
         font-weight: 600;
     }
 
-    .is-grey {
-        color: $grey-medium;
-
-        span {
-            color: $white;
-        }
+    .u-bg-white {
+        background: $white;
     }
 
-    .is-mobile {
-        @include mq('large') {
-            display: none;
-        }
+    .u-bg-grey {
+        background: $grey-medium-2;
     }
 
-    .has-overflow {
+    .u-has-overflow {
         overflow: hidden;
     }
 
-    .match-string {
+    .u-match-string {
         display: inline;
         position: relative;
         background: rgba($white, 0.2);
