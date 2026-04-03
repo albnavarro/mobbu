@@ -2614,7 +2614,6 @@ code.hljs {
       text-align: center;
     }
     .legend {
-      margin-right: 0.8rem;
       padding: calc(var(--gap-size) / 2) var(--gap-size);
       border-bottom: 1px #2e3440 solid;
     }
