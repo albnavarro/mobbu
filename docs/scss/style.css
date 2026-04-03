@@ -3762,7 +3762,7 @@ code.hljs {
       font-size: 0.8rem;
       inset: 0;
     }
-    .container {
+    .debug-container {
       min-height: 100%;
       padding: 1.3333333333rem;
     }

@@ -247,7 +247,7 @@ export const DebugComponentFn = ({
             ${setRef('scrollbar')}
             class="scrollbar"
         />
-        <div class="container" ${setRef('scroller')}>
+        <div class="debug-container" ${setRef('scroller')}>
             ${invalidate({
                 observe: () => proxi.id,
                 render: () => {
