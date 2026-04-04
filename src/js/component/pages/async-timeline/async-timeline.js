@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @import {MobComponent} from "@mobJsType"
  * @import {
@@ -22,11 +20,8 @@ function getControls({ buttons }) {
         .map(([className, value]) => {
             const { label } = value;
 
-            return html` <li class="c-canvas__controls__item">
-                <button
-                    type="button"
-                    class="c-canvas__controls__btn ${className}"
-                >
+            return html` <li class="controls-item">
+                <button type="button" class="controls-button ${className}">
                     ${label}
                 </button>
             </li>`;
@@ -116,43 +111,44 @@ export const AsyncTimelineFn = ({
     return html`
         <div>
             <div class="c-canvas">
-                <div class="l-background-shape">${proxi.background}</div>
-                <div
-                    class="c-canvas__wrap"
+                <button
+                    type="button"
+                    class="controls-open"
+                    ${delegateEvents({
+                        click: () => {
+                            proxi.controlsActive = true;
+                        },
+                    })}
+                >
+                    show controls
+                </button>
+                <ul
+                    class="controls"
                     ${bindEffect({
-                        toggleClass: { active: () => proxi.isMounted },
+                        toggleClass: {
+                            active: () => proxi.controlsActive,
+                        },
                     })}
                 >
                     <button
                         type="button"
-                        class="c-canvas__controls__open"
+                        class="controls-close"
                         ${delegateEvents({
                             click: () => {
-                                proxi.controlsActive = true;
+                                proxi.controlsActive = false;
                             },
                         })}
-                    >
-                        show controls
-                    </button>
-                    <ul
-                        class="c-canvas__controls"
-                        ${bindEffect({
-                            toggleClass: {
-                                active: () => proxi.controlsActive,
-                            },
-                        })}
-                    >
-                        <button
-                            type="button"
-                            class="c-canvas__controls__close"
-                            ${delegateEvents({
-                                click: () => {
-                                    proxi.controlsActive = false;
-                                },
-                            })}
-                        ></button>
-                        ${getControls({ buttons: proxi.buttons })}
-                    </ul>
+                    ></button>
+                    ${getControls({ buttons: proxi.buttons })}
+                </ul>
+
+                <div class="l-background-shape">${proxi.background}</div>
+                <div
+                    class="canvas-container"
+                    ${bindEffect({
+                        toggleClass: { active: () => proxi.isMounted },
+                    })}
+                >
                     <canvas ${setRef('canvas')}></canvas>
                 </div>
             </div>

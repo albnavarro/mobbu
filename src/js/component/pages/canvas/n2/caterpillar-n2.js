@@ -22,11 +22,8 @@ function getControls({ buttons }) {
         .map(([className, value]) => {
             const { label } = value;
 
-            return html` <li class="c-canvas__controls__item">
-                <button
-                    type="button"
-                    class="c-canvas__controls__btn ${className}"
-                >
+            return html` <li class="controls-item">
+                <button type="button" class="controls-button ${className}">
                     ${label}
                 </button>
             </li>`;
@@ -100,92 +97,90 @@ export const CaterpillarN2Fn = ({
     return html`
         <div>
             <div class="c-canvas">
-                <div class="l-background-shape is-light">
-                    ${proxi.background}
-                </div>
-                <div
-                    class="c-canvas__wrap"
+                <button
+                    type="button"
+                    class="controls-open"
+                    ${delegateEvents({
+                        click: () => {
+                            proxi.controlsActive = true;
+                        },
+                    })}
+                >
+                    show controls
+                </button>
+                <ul
+                    class="controls"
                     ${bindEffect({
-                        toggleClass: { active: () => proxi.isMounted },
+                        toggleClass: {
+                            active: () => proxi.controlsActive,
+                        },
                     })}
                 >
                     <button
                         type="button"
-                        class="c-canvas__controls__open"
+                        class="controls-close"
                         ${delegateEvents({
                             click: () => {
-                                proxi.controlsActive = true;
+                                proxi.controlsActive = false;
                             },
                         })}
-                    >
-                        show controls
-                    </button>
-                    <ul
-                        class="c-canvas__controls"
-                        ${bindEffect({
-                            toggleClass: {
-                                active: () => proxi.controlsActive,
-                            },
-                        })}
-                    >
-                        <button
-                            type="button"
-                            class="c-canvas__controls__close"
-                            ${delegateEvents({
-                                click: () => {
-                                    proxi.controlsActive = false;
-                                },
-                            })}
-                        ></button>
-                        ${getControls({ buttons: proxi.buttons })}
-                        <li class="c-canvas__controls__item">
-                            <div class="c-canvas__controls__range">
-                                <input
-                                    type="range"
-                                    min="0"
-                                    max="720"
-                                    value="${proxi.rotation}"
-                                    step="1"
-                                    id=${inputId}
-                                    ${delegateEvents({
-                                        'change:force': (
-                                            /** @type {InputEvent} */ event
-                                        ) => {
-                                            const currentTarget =
-                                                /** @type {HTMLInputElement} */ (
-                                                    event.currentTarget
-                                                );
-
-                                            if (!currentTarget) return;
-                                            proxi.rotation = Number(
-                                                currentTarget.value
+                    ></button>
+                    ${getControls({ buttons: proxi.buttons })}
+                    <li class="controls-item">
+                        <div class="controls-range">
+                            <input
+                                type="range"
+                                min="0"
+                                max="720"
+                                value="${proxi.rotation}"
+                                step="1"
+                                id=${inputId}
+                                ${delegateEvents({
+                                    'change:force': (
+                                        /** @type {InputEvent} */ event
+                                    ) => {
+                                        const currentTarget =
+                                            /** @type {HTMLInputElement} */ (
+                                                event.currentTarget
                                             );
-                                        },
-                                        input: (
-                                            /** @type {InputEvent} */ event
-                                        ) => {
-                                            const currentTarget =
-                                                /** @type {HTMLInputElement} */ (
-                                                    event.currentTarget
-                                                );
 
-                                            if (!currentTarget) return;
-
-                                            proxi.rotationlabel = Number(
-                                                currentTarget.value
+                                        if (!currentTarget) return;
+                                        proxi.rotation = Number(
+                                            currentTarget.value
+                                        );
+                                    },
+                                    input: (
+                                        /** @type {InputEvent} */ event
+                                    ) => {
+                                        const currentTarget =
+                                            /** @type {HTMLInputElement} */ (
+                                                event.currentTarget
                                             );
-                                        },
-                                    })}
-                                />
-                            </div>
-                            <label
-                                for=${inputId}
-                                class="c-canvas__controls__range-value"
-                            >
-                                ${bindObject`deg: ${() => proxi.rotationlabel}`}
-                            </label>
-                        </li>
-                    </ul>
+
+                                        if (!currentTarget) return;
+
+                                        proxi.rotationlabel = Number(
+                                            currentTarget.value
+                                        );
+                                    },
+                                })}
+                            />
+                        </div>
+                        <label for=${inputId} class="controls-range-value">
+                            ${bindObject`deg: ${() => proxi.rotationlabel}`}
+                        </label>
+                    </li>
+                </ul>
+
+                <div class="l-background-shape is-light">
+                    ${proxi.background}
+                </div>
+                <div
+                    class="canvas-container"
+                    ${bindEffect({
+                        toggleClass: { active: () => proxi.isMounted },
+                    })}
+                >
                     <canvas ${setRef('canvas')}></canvas>
                 </div>
             </div>

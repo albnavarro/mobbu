@@ -29194,10 +29194,10 @@
   };
   function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     return params.map(({ label }, index) => {
-      return renderHtml` <li class="c-canvas__controls__item">
+      return renderHtml` <li class="controls-item">
                 <button
                     type="button"
-                    class="c-canvas__controls__btn"
+                    class="controls-button"
                     ${delegateEvents({
         click: () => {
           proxi.currentParamsId = index;
@@ -29249,7 +29249,7 @@
             <div class="c-canvas">
                 <button
                     type="button"
-                    class="c-canvas__controls__open"
+                    class="controls-open"
                     ${delegateEvents({
       click: () => {
         proxi.controlsActive = true;
@@ -29259,7 +29259,7 @@
                     variations
                 </button>
                 <ul
-                    class="c-canvas__controls"
+                    class="controls"
                     ${bindEffect({
       toggleClass: {
         active: () => proxi.controlsActive
@@ -29268,7 +29268,7 @@
                 >
                     <button
                         type="button"
-                        class="c-canvas__controls__close"
+                        class="controls-close"
                         ${delegateEvents({
       click: () => {
         proxi.controlsActive = false;
@@ -29284,7 +29284,7 @@
                 </ul>
                 <div class="l-background-shape">${proxi.background}</div>
                 <div
-                    class="c-canvas__wrap"
+                    class="canvas-container"
                     ${bindEffect({
       toggleClass: { active: () => proxi.isMounted }
     })}
@@ -29650,7 +29650,7 @@
             <div class="c-canvas">
                 <div class="l-background-shape">${proxi.background}</div>
                 <div
-                    class="c-canvas__wrap"
+                    class="canvas-container"
                     ${bindEffect({
       toggleClass: { active: () => proxi.isMounted }
     })}
@@ -29937,10 +29937,10 @@
 
   // src/js/component/pages/canvas/n1/caterpillar-n1.js
   function getControls2({ delegateEvents, bindEffect, bindObject, proxi }) {
-    return renderHtml` <li class="c-canvas__controls__item">
+    return renderHtml` <li class="controls-item">
         <button
             type="button"
-            class="c-canvas__controls__btn"
+            class="controls-button"
             ${delegateEvents({
       click: () => {
         proxi.stopBlackOne();
@@ -29955,7 +29955,7 @@
         >
             Stop black one rotation
         </button>
-        <p class="c-canvas__controls__status">
+        <p class="controls-status">
             ${bindObject`${() => proxi.blackOneIsStopped ? "Black one rotation is off" : ""}`}
         </p>
     </li>`;
@@ -30009,7 +30009,7 @@
 
                 <button
                     type="button"
-                    class="c-canvas__controls__open"
+                    class="controls-open"
                     ${delegateEvents({
       click: () => {
         proxi.controlsActive = true;
@@ -30019,7 +30019,7 @@
                     show controls
                 </button>
                 <ul
-                    class="c-canvas__controls"
+                    class="controls"
                     ${bindEffect({
       toggleClass: {
         active: () => proxi.controlsActive
@@ -30028,7 +30028,7 @@
                 >
                     <button
                         type="button"
-                        class="c-canvas__controls__close"
+                        class="controls-close"
                         ${delegateEvents({
       click: () => {
         proxi.controlsActive = false;
@@ -30043,7 +30043,7 @@
     })}
                 </ul>
                 <div
-                    class="c-canvas__wrap"
+                    class="canvas-container"
                     ${bindEffect({
       toggleClass: { active: () => proxi.isMounted }
     })}
@@ -30315,11 +30315,8 @@
   function getControls3({ buttons: buttons5 }) {
     return Object.entries(buttons5).map(([className, value]) => {
       const { label } = value;
-      return renderHtml` <li class="c-canvas__controls__item">
-                <button
-                    type="button"
-                    class="c-canvas__controls__btn ${className}"
-                >
+      return renderHtml` <li class="controls-item">
+                <button type="button" class="controls-button ${className}">
                     ${label}
                 </button>
             </li>`;
@@ -30366,54 +30363,45 @@
     return renderHtml`
         <div>
             <div class="c-canvas">
-                <div class="l-background-shape is-light">
-                    ${proxi.background}
-                </div>
-                <div
-                    class="c-canvas__wrap"
-                    ${bindEffect({
-      toggleClass: { active: () => proxi.isMounted }
-    })}
-                >
-                    <button
-                        type="button"
-                        class="c-canvas__controls__open"
-                        ${delegateEvents({
+                <button
+                    type="button"
+                    class="controls-open"
+                    ${delegateEvents({
       click: () => {
         proxi.controlsActive = true;
       }
     })}
-                    >
-                        show controls
-                    </button>
-                    <ul
-                        class="c-canvas__controls"
-                        ${bindEffect({
+                >
+                    show controls
+                </button>
+                <ul
+                    class="controls"
+                    ${bindEffect({
       toggleClass: {
         active: () => proxi.controlsActive
       }
     })}
-                    >
-                        <button
-                            type="button"
-                            class="c-canvas__controls__close"
-                            ${delegateEvents({
+                >
+                    <button
+                        type="button"
+                        class="controls-close"
+                        ${delegateEvents({
       click: () => {
         proxi.controlsActive = false;
       }
     })}
-                        ></button>
-                        ${getControls3({ buttons: proxi.buttons })}
-                        <li class="c-canvas__controls__item">
-                            <div class="c-canvas__controls__range">
-                                <input
-                                    type="range"
-                                    min="0"
-                                    max="720"
-                                    value="${proxi.rotation}"
-                                    step="1"
-                                    id=${inputId}
-                                    ${delegateEvents({
+                    ></button>
+                    ${getControls3({ buttons: proxi.buttons })}
+                    <li class="controls-item">
+                        <div class="controls-range">
+                            <input
+                                type="range"
+                                min="0"
+                                max="720"
+                                value="${proxi.rotation}"
+                                step="1"
+                                id=${inputId}
+                                ${delegateEvents({
       "change:force": (event) => {
         const currentTarget = (
           /** @type {HTMLInputElement} */
@@ -30435,16 +30423,23 @@
         );
       }
     })}
-                                />
-                            </div>
-                            <label
-                                for=${inputId}
-                                class="c-canvas__controls__range-value"
-                            >
-                                ${bindObject`deg: ${() => proxi.rotationlabel}`}
-                            </label>
-                        </li>
-                    </ul>
+                            />
+                        </div>
+                        <label for=${inputId} class="controls-range-value">
+                            ${bindObject`deg: ${() => proxi.rotationlabel}`}
+                        </label>
+                    </li>
+                </ul>
+
+                <div class="l-background-shape is-light">
+                    ${proxi.background}
+                </div>
+                <div
+                    class="canvas-container"
+                    ${bindEffect({
+      toggleClass: { active: () => proxi.isMounted }
+    })}
+                >
                     <canvas ${setRef("canvas")}></canvas>
                 </div>
             </div>
@@ -30826,10 +30821,10 @@
   };
   function getControls4({ delegateEvents, bindEffect, proxi, getRef }) {
     return params2.map(({ label }, index) => {
-      return renderHtml` <li class="c-canvas__controls__item">
+      return renderHtml` <li class="controls-item">
                 <button
                     type="button"
-                    class="c-canvas__controls__btn"
+                    class="controls-button"
                     ${delegateEvents({
         click: () => {
           proxi.currentParamsId = index;
@@ -30880,10 +30875,10 @@
     });
     return renderHtml`
         <div>
-            <div class="c-canvas c-canvas--fixed ">
+            <div class="c-canvas is-fixed">
                 <button
                     type="button"
-                    class="c-canvas__controls__open"
+                    class="controls-open"
                     ${delegateEvents({
       click: () => {
         proxi.controlsActive = true;
@@ -30893,7 +30888,7 @@
                     variations
                 </button>
                 <ul
-                    class="c-canvas__controls"
+                    class="controls"
                     ${bindEffect({
       toggleClass: {
         active: () => proxi.controlsActive
@@ -30902,7 +30897,7 @@
                 >
                     <button
                         type="button"
-                        class="c-canvas__controls__close"
+                        class="controls-close"
                         ${delegateEvents({
       click: () => {
         proxi.controlsActive = false;
@@ -30918,7 +30913,7 @@
                 </ul>
                 <div class="l-background-shape">${proxi.background}</div>
                 <div
-                    class="c-canvas__wrap"
+                    class="canvas-container"
                     ${bindEffect({
       toggleClass: { active: () => proxi.isMounted }
     })}
@@ -31185,8 +31180,8 @@
   // src/js/component/pages/scroller/n1/scroller-n1.js
   function getControls5({ proxi, delegateEvents, bindObject }) {
     const inputId = modules_exports.getUnivoqueId();
-    return renderHtml` <li class="c-canvas__controls__item">
-        <div class="c-canvas__controls__range">
+    return renderHtml` <li class="controls-item">
+        <div class="controls-range">
             <input
                 type="range"
                 min="360"
@@ -31214,7 +31209,7 @@
     })}
             />
         </div>
-        <label for=${inputId} class="c-canvas__controls__range-value">
+        <label for=${inputId} class="controls-range-value">
             ${bindObject`rotationValue: ${() => proxi.rotationlabel}`}
         </label>
     </li>`;
@@ -31257,11 +31252,11 @@
     });
     return renderHtml`
         <div>
-            <div class="c-canvas c-canvas--fixed ">
+            <div class="c-canvas is-fixed ">
                 <div class="l-background-shape">${proxi.background}</div>
                 <button
                     type="button"
-                    class="c-canvas__controls__open"
+                    class="controls-open"
                     ${delegateEvents({
       click: () => {
         proxi.controlsActive = true;
@@ -31271,7 +31266,7 @@
                     show controls
                 </button>
                 <ul
-                    class="c-canvas__controls"
+                    class="controls"
                     ${bindEffect({
       toggleClass: {
         active: () => proxi.controlsActive
@@ -31280,7 +31275,7 @@
                 >
                     <button
                         type="button"
-                        class="c-canvas__controls__close"
+                        class="controls-close"
                         ${delegateEvents({
       click: () => {
         proxi.controlsActive = false;
@@ -31294,7 +31289,7 @@
     })}
                 </ul>
                 <div
-                    class="c-canvas__wrap"
+                    class="canvas-container"
                     ${bindEffect({
       toggleClass: { active: () => proxi.isMounted }
     })}
@@ -35896,11 +35891,8 @@
   function getControls7({ buttons: buttons5 }) {
     return Object.entries(buttons5).map(([className, value]) => {
       const { label } = value;
-      return renderHtml` <li class="c-canvas__controls__item">
-                <button
-                    type="button"
-                    class="c-canvas__controls__btn ${className}"
-                >
+      return renderHtml` <li class="controls-item">
+                <button type="button" class="controls-button ${className}">
                     ${label}
                 </button>
             </li>`;
@@ -35958,43 +35950,44 @@
     return renderHtml`
         <div>
             <div class="c-canvas">
-                <div class="l-background-shape">${proxi.background}</div>
-                <div
-                    class="c-canvas__wrap"
-                    ${bindEffect({
-      toggleClass: { active: () => proxi.isMounted }
-    })}
-                >
-                    <button
-                        type="button"
-                        class="c-canvas__controls__open"
-                        ${delegateEvents({
+                <button
+                    type="button"
+                    class="controls-open"
+                    ${delegateEvents({
       click: () => {
         proxi.controlsActive = true;
       }
     })}
-                    >
-                        show controls
-                    </button>
-                    <ul
-                        class="c-canvas__controls"
-                        ${bindEffect({
+                >
+                    show controls
+                </button>
+                <ul
+                    class="controls"
+                    ${bindEffect({
       toggleClass: {
         active: () => proxi.controlsActive
       }
     })}
-                    >
-                        <button
-                            type="button"
-                            class="c-canvas__controls__close"
-                            ${delegateEvents({
+                >
+                    <button
+                        type="button"
+                        class="controls-close"
+                        ${delegateEvents({
       click: () => {
         proxi.controlsActive = false;
       }
     })}
-                        ></button>
-                        ${getControls7({ buttons: proxi.buttons })}
-                    </ul>
+                    ></button>
+                    ${getControls7({ buttons: proxi.buttons })}
+                </ul>
+
+                <div class="l-background-shape">${proxi.background}</div>
+                <div
+                    class="canvas-container"
+                    ${bindEffect({
+      toggleClass: { active: () => proxi.isMounted }
+    })}
+                >
                     <canvas ${setRef("canvas")}></canvas>
                 </div>
             </div>

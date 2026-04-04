@@ -28,8 +28,8 @@ import { scrollerN1Animation } from './animation/animation';
 function getControls({ proxi, delegateEvents, bindObject }) {
     const inputId = MobCore.getUnivoqueId();
 
-    return html` <li class="c-canvas__controls__item">
-        <div class="c-canvas__controls__range">
+    return html` <li class="controls-item">
+        <div class="controls-range">
             <input
                 type="range"
                 min="360"
@@ -58,7 +58,7 @@ function getControls({ proxi, delegateEvents, bindObject }) {
                 })}
             />
         </div>
-        <label for=${inputId} class="c-canvas__controls__range-value">
+        <label for=${inputId} class="controls-range-value">
             ${bindObject`rotationValue: ${() => proxi.rotationlabel}`}
         </label>
     </li>`;
@@ -127,11 +127,11 @@ export const ScrollerN1Fn = ({
      */
     return html`
         <div>
-            <div class="c-canvas c-canvas--fixed ">
+            <div class="c-canvas is-fixed ">
                 <div class="l-background-shape">${proxi.background}</div>
                 <button
                     type="button"
-                    class="c-canvas__controls__open"
+                    class="controls-open"
                     ${delegateEvents({
                         click: () => {
                             proxi.controlsActive = true;
@@ -141,7 +141,7 @@ export const ScrollerN1Fn = ({
                     show controls
                 </button>
                 <ul
-                    class="c-canvas__controls"
+                    class="controls"
                     ${bindEffect({
                         toggleClass: {
                             active: () => proxi.controlsActive,
@@ -150,7 +150,7 @@ export const ScrollerN1Fn = ({
                 >
                     <button
                         type="button"
-                        class="c-canvas__controls__close"
+                        class="controls-close"
                         ${delegateEvents({
                             click: () => {
                                 proxi.controlsActive = false;
@@ -164,7 +164,7 @@ export const ScrollerN1Fn = ({
                     })}
                 </ul>
                 <div
-                    class="c-canvas__wrap"
+                    class="canvas-container"
                     ${bindEffect({
                         toggleClass: { active: () => proxi.isMounted },
                     })}

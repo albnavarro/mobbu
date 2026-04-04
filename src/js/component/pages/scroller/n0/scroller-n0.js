@@ -54,10 +54,10 @@ const createAnimation = ({ proxi, getRef, resetScroll = true }) => {
 function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     return params
         .map(({ label }, index) => {
-            return html` <li class="c-canvas__controls__item">
+            return html` <li class="controls-item">
                 <button
                     type="button"
-                    class="c-canvas__controls__btn"
+                    class="controls-button"
                     ${delegateEvents({
                         click: () => {
                             proxi.currentParamsId = index;
@@ -129,10 +129,10 @@ export const ScrollerN0Fn = ({
      */
     return html`
         <div>
-            <div class="c-canvas c-canvas--fixed ">
+            <div class="c-canvas is-fixed">
                 <button
                     type="button"
-                    class="c-canvas__controls__open"
+                    class="controls-open"
                     ${delegateEvents({
                         click: () => {
                             proxi.controlsActive = true;
@@ -142,7 +142,7 @@ export const ScrollerN0Fn = ({
                     variations
                 </button>
                 <ul
-                    class="c-canvas__controls"
+                    class="controls"
                     ${bindEffect({
                         toggleClass: {
                             active: () => proxi.controlsActive,
@@ -151,7 +151,7 @@ export const ScrollerN0Fn = ({
                 >
                     <button
                         type="button"
-                        class="c-canvas__controls__close"
+                        class="controls-close"
                         ${delegateEvents({
                             click: () => {
                                 proxi.controlsActive = false;
@@ -167,7 +167,7 @@ export const ScrollerN0Fn = ({
                 </ul>
                 <div class="l-background-shape">${proxi.background}</div>
                 <div
-                    class="c-canvas__wrap"
+                    class="canvas-container"
                     ${bindEffect({
                         toggleClass: { active: () => proxi.isMounted },
                     })}

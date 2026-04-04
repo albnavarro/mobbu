@@ -24,10 +24,10 @@ import { caterpillarN1Animation } from './animation/animation';
  * @returns {string}
  */
 function getControls({ delegateEvents, bindEffect, bindObject, proxi }) {
-    return html` <li class="c-canvas__controls__item">
+    return html` <li class="controls-item">
         <button
             type="button"
-            class="c-canvas__controls__btn"
+            class="controls-button"
             ${delegateEvents({
                 click: () => {
                     proxi.stopBlackOne();
@@ -42,7 +42,7 @@ function getControls({ delegateEvents, bindEffect, bindObject, proxi }) {
         >
             Stop black one rotation
         </button>
-        <p class="c-canvas__controls__status">
+        <p class="controls-status">
             ${bindObject`${() => (proxi.blackOneIsStopped ? 'Black one rotation is off' : '')}`}
         </p>
     </li>`;
@@ -109,7 +109,7 @@ export const CaterpillarN1Fn = ({
 
                 <button
                     type="button"
-                    class="c-canvas__controls__open"
+                    class="controls-open"
                     ${delegateEvents({
                         click: () => {
                             proxi.controlsActive = true;
@@ -119,7 +119,7 @@ export const CaterpillarN1Fn = ({
                     show controls
                 </button>
                 <ul
-                    class="c-canvas__controls"
+                    class="controls"
                     ${bindEffect({
                         toggleClass: {
                             active: () => proxi.controlsActive,
@@ -128,7 +128,7 @@ export const CaterpillarN1Fn = ({
                 >
                     <button
                         type="button"
-                        class="c-canvas__controls__close"
+                        class="controls-close"
                         ${delegateEvents({
                             click: () => {
                                 proxi.controlsActive = false;
@@ -143,7 +143,7 @@ export const CaterpillarN1Fn = ({
                     })}
                 </ul>
                 <div
-                    class="c-canvas__wrap"
+                    class="canvas-container"
                     ${bindEffect({
                         toggleClass: { active: () => proxi.isMounted },
                     })}

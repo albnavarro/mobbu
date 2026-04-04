@@ -1,55 +1,59 @@
 @use '../../../abstract' as *;
 
-.c-canvas {
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100vh;
+@layer layout {
+    @scope (.c-canvas) {
+        :scope {
+            display: flex;
+            position: absolute;
+            top: 0;
+            left: 0;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
 
-    &--fixed {
-        position: fixed;
-        top: 0;
-    }
-
-    &__wrap {
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-        transition: opacity 0.55s;
-        opacity: 0;
-
-        &.active {
-            opacity: 1;
-        }
-    }
-
-    &__controls {
-        display: flex;
-        position: absolute;
-        z-index: 0;
-        top: var(--header-height);
-        right: 0;
-        flex-direction: column;
-        align-items: flex-end;
-        width: rem(250);
-        height: calc(100vh - var(--header-height) - var(--footer-height));
-        margin: 0;
-        padding: rem(60) rem(20) rem(20);
-        transform: translateX(100%);
-        transition: transform 0.35s;
-        background: $black;
-        list-style: none;
-
-        &.active {
-            transform: translateX(0);
+            &.is-fixed {
+                position: fixed;
+                top: 0;
+            }
         }
 
-        &__open {
+        .canvas-container {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            transition: opacity 0.55s;
+            opacity: 0;
+
+            &.active {
+                opacity: 1;
+            }
+        }
+
+        .controls {
+            display: flex;
+            position: absolute;
+            z-index: 0;
+            top: var(--header-height);
+            right: 0;
+            flex-direction: column;
+            align-items: flex-end;
+            width: rem(250);
+            height: calc(100vh - var(--header-height) - var(--footer-height));
+            margin: 0;
+            padding: rem(60) rem(20) rem(20);
+            transform: translateX(100%);
+            transition: transform 0.35s;
+            background: $black;
+            list-style: none;
+
+            &.active {
+                transform: translateX(0);
+            }
+        }
+
+        .controls-open {
             display: block;
             position: absolute;
             top: calc(var(--header-height) + rem(20));
@@ -71,7 +75,7 @@
             }
         }
 
-        &__close {
+        .controls-close {
             position: absolute;
             z-index: 10;
             top: rem(10);
@@ -101,7 +105,7 @@
             }
         }
 
-        &__item {
+        .controls-item {
             display: block;
             flex: 0 0 auto;
             width: 100%;
@@ -112,7 +116,7 @@
             }
         }
 
-        &__btn {
+        .controls-button {
             display: block;
             width: 100%;
             margin-top: 0;
@@ -139,19 +143,19 @@
             }
         }
 
-        &__label {
+        .controls-label {
             margin-bottom: 0;
             color: $white;
             font-size: rem(14);
             font-weight: 400;
         }
 
-        &__status {
+        .controls-status {
             color: $white;
             text-align: right;
         }
 
-        &__range {
+        .controls-range {
             position: relative;
             margin: rem(16) auto 0;
             pointer-events: none;
@@ -199,17 +203,17 @@
             }
         }
 
-        &__range-value {
+        .controls-range-value {
             display: block;
             margin-top: rem(16);
             color: $white;
             text-align: left;
         }
-    }
 
-    canvas {
-        width: 100%;
-        height: 100%;
-        transition: opacity 2.55s;
+        canvas {
+            width: 100%;
+            height: 100%;
+            transition: opacity 2.55s;
+        }
     }
 }

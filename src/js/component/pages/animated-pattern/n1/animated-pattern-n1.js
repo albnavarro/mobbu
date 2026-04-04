@@ -72,7 +72,7 @@ export const AnimatedPatternN1Fn = ({
             <div class="c-canvas">
                 <div class="l-background-shape">${proxi.background}</div>
                 <div
-                    class="c-canvas__wrap"
+                    class="canvas-container"
                     ${bindEffect({
                         toggleClass: { active: () => proxi.isMounted },
                     })}
