@@ -1,5 +1,5 @@
 import { DebugOverlay } from '@commonComponent/debug/debug-overlay/definition';
-import { LinksMobJs } from '@commonComponent/links-mob-js/definition';
+import { SideBarLinks } from '@commonComponent/side-bar-links/definition';
 import { QuickNav } from '@commonComponent/quick-nav/definition';
 import { LeftSidebar } from '@commonComponent/left-sidebar/definition';
 import { RouteLoader } from '@commonComponent/route-loader/definition';
@@ -28,7 +28,7 @@ MobJs.useComponent([
     QuickNav,
     RouteLoader,
     ScrollDownLabel,
-    LinksMobJs,
+    SideBarLinks,
     DebugOverlay,
     TestScssGrid,
     SearchOverlay,
@@ -56,7 +56,7 @@ export const wrapper = async () => {
         <quick-nav name="${quickNavName}"></quick-nav>
         <route-loader name="${routeLoader}"></route-loader>
         <scroll-down-label name="${scrollDownLabelName}"></scroll-down-label>
-        <links-mobjs></links-mobjs>
+        <side-bar-links></side-bar-links>
         <left-sidebar name="${leftSidebarName}"></left-sidebar>
         <search-overlay name="${searchOverlay}"></search-overlay>
     `;

@@ -1,17 +1,17 @@
 import { MobJs } from '@mobJs';
-import { LinksMobJsFn } from './links-mobjs';
-import { LinksMobJsButton } from './links-mobjs-button/definition';
+import { SideBarLinksFn } from './side-bar-links';
+import { SideBarLinksButton } from './side-bar-links-button/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
  */
 
-export const LinksMobJs = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').LinksMobJs>} */
+export const SideBarLinks = MobJs.createComponent(
+    /** @type {CreateComponentParams<import('./type').SideBarLinks>} */
     ({
-        tag: 'links-mobjs',
-        component: LinksMobJsFn,
-        child: [LinksMobJsButton],
+        tag: 'side-bar-links',
+        component: SideBarLinksFn,
+        child: [SideBarLinksButton],
         state: {
             data: () => ({
                 value: [],

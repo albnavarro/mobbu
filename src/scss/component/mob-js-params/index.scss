@@ -1,176 +1,186 @@
 @use '../../abstract' as *;
 
-.c-params-mobjs {
-    --links-height: 54vh;
+@layer layout {
+    @scope (.c-sidebar-links) {
+        :scope {
+            --links-height: 54vh;
 
-    visibility: visible;
-    position: fixed;
-    z-index: 14;
-    top: calc(var(--header-height) + var(--gap-size) * 2);
-    left: calc(var(--doc-width) + (var(--gap-size) / 2));
-    width: rem(250);
-    height: var(--links-height);
-    overflow: hidden;
-    transition:
-        transform 0.55s,
-        opacity 0.55s,
-        visibility 0.55s;
-    opacity: 1;
-    pointer-events: all;
-    mask-image: linear-gradient(rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 100%) rem(20));
+            visibility: visible;
+            position: fixed;
+            z-index: 14;
+            top: calc(var(--header-height) + var(--gap-size) * 2);
+            left: calc(var(--doc-width) + (var(--gap-size) / 2));
+            width: rem(250);
+            height: var(--links-height);
+            overflow: hidden;
+            transition:
+                transform 0.55s,
+                opacity 0.55s,
+                visibility 0.55s;
+            opacity: 1;
+            pointer-events: all;
+            mask-image: linear-gradient(
+                rgb(0 0 0 / 0%) 0%,
+                rgb(0 0 0 / 100%) rem(20)
+            );
 
-    @include mq(large) {
-        left: calc(
-            var(--doc-width) + var(--left-sidebar) + (var(--gap-size) / 2)
-        );
-    }
+            @include mq(large) {
+                left: calc(
+                    /* stylelint-disable-next-line  scss/operator-no-newline-after */
+                        /* stylelint-disable-next-line  scss/operator-no-newline-after */
+                        var(--doc-width) + var(--left-sidebar) +
+                        (var(--gap-size) / 2)
+                );
+            }
 
-    &.hide {
-        visibility: hidden;
-        opacity: 0;
-        pointer-events: none;
-    }
+            &.hide {
+                visibility: hidden;
+                opacity: 0;
+                pointer-events: none;
+            }
 
-    &.shift {
-        opacity: 0.1;
-        pointer-events: none;
-    }
-
-    ul {
-        min-height: var(--links-height);
-        margin: 0;
-        padding-bottom: rem(100);
-        list-style: none;
-
-        @media screen and (height <= 825px) {
-            margin-top: calc(#{rem(10)} * -1);
-        }
-
-        // Performance on scroll
-        &.is-whelling {
-            li,
-            p {
+            &.shift {
+                opacity: 0.1;
                 pointer-events: none;
             }
         }
-    }
 
-    a {
-        display: block;
-        position: relative;
-        transition: color 0.35s;
-        font-size: rem(12);
-        line-height: 1.6;
-        text-transform: capitalize;
+        ul {
+            min-height: var(--links-height);
+            margin: 0;
+            padding-bottom: rem(100);
+            list-style: none;
 
-        @include mq(large) {
-            font-size: rem(13);
+            @media screen and (height <= 825px) {
+                margin-top: calc(#{rem(10)} * -1);
+            }
+
+            // Performance on scroll
+            &.is-whelling {
+                li,
+                p {
+                    pointer-events: none;
+                }
+            }
         }
 
-        &::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: calc(#{rem(20)} * -1);
-            width: rem(4);
-            height: em(15);
-            transform: translateY(-50%);
-            transition: opacity 0.35s;
-            opacity: 0;
-            background: $black;
+        a {
+            display: block;
+            position: relative;
+            transition: color 0.35s;
+            font-size: rem(12);
+            line-height: 1.6;
+            text-transform: capitalize;
+
+            @include mq(large) {
+                font-size: rem(13);
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: calc(#{rem(20)} * -1);
+                width: rem(4);
+                height: em(15);
+                transform: translateY(-50%);
+                transition: opacity 0.35s;
+                opacity: 0;
+                background: $black;
+            }
+
+            @media screen and (height >= 200px) and (height <= 750px) {
+                font-size: rem(11);
+            }
+
+            &:hover {
+                &::after {
+                    opacity: 1;
+                }
+            }
         }
 
-        @media screen and (height >= 200px) and (height <= 750px) {
-            font-size: rem(11);
-        }
+        .current {
+            font-weight: 600;
 
-        &:hover {
             &::after {
                 opacity: 1;
             }
         }
-    }
 
-    .current {
-        font-weight: 600;
-
-        &::after {
-            opacity: 1;
-        }
-    }
-
-    &__label {
-        margin-top: calc(var(--gap-size) / 2);
-        margin-bottom: rem(5);
-        font-size: rem(13);
-        font-weight: 600;
-        line-height: 1.2;
-        text-transform: uppercase;
-
-        @media screen and (height >= 200px) and (height <= 750px) {
-            font-size: rem(11);
-        }
-    }
-
-    &__scrollbar {
-        position: absolute;
-        z-index: 11;
-        top: rem(25);
-        left: rem(240);
-        width: calc(var(--links-height) - #{rem(30)});
-        transform: rotate(90deg);
-        transform-origin: left;
-        background: transparent;
-        cursor: pointer;
-        appearance: none;
-
-        --thumb-width: #{rem(200)};
-
-        &.hide-scrollbar {
-            opacity: 0;
-        }
-
-        &:focus {
-            outline: none;
-        }
-
-        &::-webkit-slider-runnable-track {
-            width: var(--thumb-width);
-            height: rem(10);
-            border-radius: rem(10);
-            background-color: $grey-light;
-        }
-
-        &::-webkit-slider-thumb {
-            width: var(--thumb-width);
-            height: rem(10);
-            border-radius: rem(10);
-            background-color: $black;
+        .scrollbar {
+            position: absolute;
+            z-index: 11;
+            top: rem(25);
+            left: rem(240);
+            width: calc(var(--links-height) - #{rem(30)});
+            transform: rotate(90deg);
+            transform-origin: left;
+            background: transparent;
+            cursor: pointer;
             appearance: none;
+
+            --thumb-width: #{rem(200)};
+
+            &.hide-scrollbar {
+                opacity: 0;
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &::-webkit-slider-runnable-track {
+                width: var(--thumb-width);
+                height: rem(10);
+                border-radius: rem(10);
+                background-color: $grey-light;
+            }
+
+            &::-webkit-slider-thumb {
+                width: var(--thumb-width);
+                height: rem(10);
+                border-radius: rem(10);
+                background-color: $black;
+                appearance: none;
+            }
+
+            &:focus::-webkit-slider-thumb {
+                border-radius: rem(10);
+                outline-offset: 0;
+            }
+
+            &::-moz-range-track {
+                height: rem(10);
+                border-radius: rem(10);
+                background-color: $grey-light;
+            }
+
+            &::-moz-range-thumb {
+                width: var(--thumb-width);
+                height: rem(10);
+                border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
+                border-radius: rem(10);
+                background-color: $black;
+            }
+
+            &:focus::-moz-range-thumb {
+                border-radius: rem(10);
+                outline-offset: 0;
+            }
         }
 
-        &:focus::-webkit-slider-thumb {
-            border-radius: rem(10);
-            outline-offset: 0;
-        }
+        .label {
+            margin-top: calc(var(--gap-size) / 2);
+            margin-bottom: rem(5);
+            font-size: rem(13);
+            font-weight: 600;
+            line-height: 1.2;
+            text-transform: uppercase;
 
-        &::-moz-range-track {
-            height: rem(10);
-            border-radius: rem(10);
-            background-color: $grey-light;
-        }
-
-        &::-moz-range-thumb {
-            width: var(--thumb-width);
-            height: rem(10);
-            border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
-            border-radius: rem(10);
-            background-color: $black;
-        }
-
-        &:focus::-moz-range-thumb {
-            border-radius: rem(10);
-            outline-offset: 0;
+            @media screen and (height >= 200px) and (height <= 750px) {
+                font-size: rem(11);
+            }
         }
     }
 }

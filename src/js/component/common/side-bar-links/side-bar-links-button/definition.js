@@ -1,15 +1,15 @@
 import { MobJs } from '@mobJs';
-import { LinksMobJsButtonFn } from './links-mobjs-button';
+import { SideBarLinksButtonFn } from './side-bar-links-button';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
  */
 
-export const LinksMobJsButton = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').LinksMobJsButton>} */
+export const SideBarLinksButton = MobJs.createComponent(
+    /** @type {CreateComponentParams<import('./type').SideBarLinksButton>} */
     ({
-        tag: 'links-mobjs-button',
-        component: LinksMobJsButtonFn,
+        tag: 'sidebar-links-button',
+        component: SideBarLinksButtonFn,
         props: {
             label: () => ({
                 value: '',

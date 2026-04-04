@@ -4,8 +4,8 @@
  *   MobComponent,
  *   StaticProps
  * } from "@mobJsType"
- * @import {LinksMobJsButton} from "./links-mobjs-button/type"
- * @import {LinksMobJs} from "./type"
+ * @import {SideBarLinksButton} from "./side-bar-links-button/type"
+ * @import {SideBarLinks} from "./type"
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
@@ -25,8 +25,8 @@ let updateScroller = () => {};
 /**
  * @param {object} param
  * @param {StaticProps} param.staticProps
- * @param {BindProps<LinksMobJs, LinksMobJsButton>} param.bindProps
- * @param {LinksMobJs['state']} param.proxi
+ * @param {BindProps<SideBarLinks, SideBarLinksButton>} param.bindProps
+ * @param {SideBarLinks['state']} param.proxi
  */
 const getItems = ({ staticProps, bindProps, proxi }) => {
     return proxi.data
@@ -34,11 +34,11 @@ const getItems = ({ staticProps, bindProps, proxi }) => {
             const { label, url, isLabel } = item;
 
             return isLabel
-                ? html`<p class="c-params-mobjs__label">${label}</p>`
+                ? html`<p class="label">${label}</p>`
                 : html`<li>
-                      <links-mobjs-button
+                      <sidebar-links-button
                           ${staticProps(
-                              /** @type {LinksMobJsButton['props']} */ ({
+                              /** @type {SideBarLinksButton['props']} */ ({
                                   label,
                                   url,
                               })
@@ -46,14 +46,14 @@ const getItems = ({ staticProps, bindProps, proxi }) => {
                           ${bindProps(() => ({
                               active: proxi.activeSection === url,
                           }))}
-                      ></links-mobjs-button>
+                      ></sidebar-links-button>
                   </li>`;
         })
         .join('');
 };
 
-/** @type {MobComponent<LinksMobJs>} */
-export const LinksMobJsFn = ({
+/** @type {MobComponent<SideBarLinks>} */
+export const SideBarLinksFn = ({
     staticProps,
     setRef,
     getRef,
@@ -148,7 +148,7 @@ export const LinksMobJsFn = ({
     });
 
     return html`<div
-        class="c-params-mobjs"
+        class="c-sidebar-links"
         ${setRef('screenEl')}
         ${bindEffect({
             toggleClass: {
@@ -166,7 +166,7 @@ export const LinksMobJsFn = ({
             value="0"
             step=".5"
             ${setRef('scrollbar')}
-            class="c-params-mobjs__scrollbar hide-scrollbar"
+            class="scrollbar hide-scrollbar"
         />
         <ul ${setRef('scrollerEl')}>
             ${invalidate({

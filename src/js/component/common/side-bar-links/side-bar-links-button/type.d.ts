@@ -1,4 +1,4 @@
-export interface LinksMobJsButton {
+export interface SideBarLinksButton {
     props: {
         label: string;
         url: string;

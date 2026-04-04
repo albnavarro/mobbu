@@ -2,13 +2,13 @@ import { html } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
- * @import {LinksMobJsButton} from "./type"
+ * @import {SideBarLinksButton} from "./type"
  */
 
 /**
- * @type {MobComponent<LinksMobJsButton>}
+ * @type {MobComponent<SideBarLinksButton>}
  */
-export const LinksMobJsButtonFn = ({ getProxi, bindEffect }) => {
+export const SideBarLinksButtonFn = ({ getProxi, bindEffect }) => {
     const proxi = getProxi();
 
     return html` <a

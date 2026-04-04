@@ -40557,7 +40557,7 @@
     }
   );
 
-  // src/js/component/common/links-mob-js/links-mobjs.js
+  // src/js/component/common/side-bar-links/side-bar-links.js
   var init8 = () => {
   };
   var destroy2 = () => {
@@ -40569,10 +40569,10 @@
   var getItems = ({ staticProps: staticProps2, bindProps, proxi }) => {
     return proxi.data.map((item) => {
       const { label, url, isLabel } = item;
-      return isLabel ? renderHtml`<p class="c-params-mobjs__label">${label}</p>` : renderHtml`<li>
-                      <links-mobjs-button
+      return isLabel ? renderHtml`<p class="label">${label}</p>` : renderHtml`<li>
+                      <sidebar-links-button
                           ${staticProps2(
-        /** @type {LinksMobJsButton['props']} */
+        /** @type {SideBarLinksButton['props']} */
         {
           label,
           url
@@ -40581,11 +40581,11 @@
                           ${bindProps(() => ({
         active: proxi.activeSection === url
       }))}
-                      ></links-mobjs-button>
+                      ></sidebar-links-button>
                   </li>`;
     }).join("");
   };
-  var LinksMobJsFn = ({
+  var SideBarLinksFn = ({
     staticProps: staticProps2,
     setRef,
     getRef,
@@ -40656,7 +40656,7 @@
       };
     });
     return renderHtml`<div
-        class="c-params-mobjs"
+        class="c-sidebar-links"
         ${setRef("screenEl")}
         ${bindEffect({
       toggleClass: {
@@ -40674,7 +40674,7 @@
             value="0"
             step=".5"
             ${setRef("scrollbar")}
-            class="c-params-mobjs__scrollbar hide-scrollbar"
+            class="scrollbar hide-scrollbar"
         />
         <ul ${setRef("scrollerEl")}>
             ${invalidate({
@@ -40691,8 +40691,8 @@
     </div>`;
   };
 
-  // src/js/component/common/links-mob-js/links-mobjs-button/links-mobjs-button.js
-  var LinksMobJsButtonFn = ({ getProxi, bindEffect }) => {
+  // src/js/component/common/side-bar-links/side-bar-links-button/side-bar-links-button.js
+  var SideBarLinksButtonFn = ({ getProxi, bindEffect }) => {
     const proxi = getProxi();
     return renderHtml` <a
         href="./#${proxi.url}"
@@ -40703,12 +40703,12 @@
     >`;
   };
 
-  // src/js/component/common/links-mob-js/links-mobjs-button/definition.js
-  var LinksMobJsButton = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').LinksMobJsButton>} */
+  // src/js/component/common/side-bar-links/side-bar-links-button/definition.js
+  var SideBarLinksButton = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').SideBarLinksButton>} */
     {
-      tag: "links-mobjs-button",
-      component: LinksMobJsButtonFn,
+      tag: "sidebar-links-button",
+      component: SideBarLinksButtonFn,
       props: {
         label: () => ({
           value: "",
@@ -40726,13 +40726,13 @@
     }
   );
 
-  // src/js/component/common/links-mob-js/definition.js
-  var LinksMobJs = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').LinksMobJs>} */
+  // src/js/component/common/side-bar-links/definition.js
+  var SideBarLinks = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').SideBarLinks>} */
     {
-      tag: "links-mobjs",
-      component: LinksMobJsFn,
-      child: [LinksMobJsButton],
+      tag: "side-bar-links",
+      component: SideBarLinksFn,
+      child: [SideBarLinksButton],
       state: {
         data: () => ({
           value: [],
@@ -43009,7 +43009,7 @@
     QuickNav,
     RouteLoader,
     ScrollDownLabel,
-    LinksMobJs,
+    SideBarLinks,
     DebugOverlay,
     TestScssGrid,
     SearchOverlay,
@@ -43035,7 +43035,7 @@
         <quick-nav name="${quickNavName}"></quick-nav>
         <route-loader name="${routeLoader}"></route-loader>
         <scroll-down-label name="${scrollDownLabelName}"></scroll-down-label>
-        <links-mobjs></links-mobjs>
+        <side-bar-links></side-bar-links>
         <left-sidebar name="${leftSidebarName}"></left-sidebar>
         <search-overlay name="${searchOverlay}"></search-overlay>
     `;

@@ -1,4 +1,4 @@
-export interface LinksMobJs {
+export interface SideBarLinks {
     state: {
         data: { label: string; url: string; isLabel: boolean }[];
         activeSection: string;
