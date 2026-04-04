@@ -5042,39 +5042,6 @@ code.hljs {
     }
   }
 }
-.m-logo-1 {
-  display: none;
-  pointer-events: none;
-}
-@media (min-width: 75em) {
-  .m-logo-1 {
-    display: block;
-    visibility: hidden;
-    transition: opacity 1s, visibility 1s;
-    opacity: 0;
-  }
-  .m-logo-1.active {
-    visibility: visible;
-    opacity: 1;
-  }
-}
-.m-logo-1 svg {
-  position: fixed;
-  z-index: 10;
-  right: 0;
-  bottom: 1.3333333333rem;
-  width: 46.6666666667rem;
-  height: 26.6666666667rem;
-  overflow: visible;
-  transform: translateX(40%);
-}
-@media (min-width: 100em) {
-  .m-logo-1 svg {
-    width: 66.6666666667rem;
-    height: 33.3333333333rem;
-    transform: translateX(30%);
-  }
-}
 @layer layout {
   @scope (.c-scroller-down-label) {
     :scope {
