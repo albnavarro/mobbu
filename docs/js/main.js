@@ -25051,9 +25051,9 @@
   var pageNotFound2 = () => {
     return renderHtml`
         <div class="error-page">
-            <div class="error-page__content">
-                <h1 class="error-page__title title-big">Page not found</h1>
-                <a class="error-page__link" href="./#home">back to home</a>
+            <div>
+                <h1 class="title title-big">Page not found</h1>
+                <a class="link" href="./#home">back to home</a>
             </div>
         </div>
     `;
