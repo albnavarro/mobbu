@@ -59,7 +59,7 @@ export const DraggerFn = ({
 
         <!-- Child -->
         <div
-            class="c-dragger__wrapper"
+            class="wrapper"
             ${setRef('child')}
             ${bindEffect({
                 toggleStyle: {

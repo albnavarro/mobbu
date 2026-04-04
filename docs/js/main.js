@@ -36853,7 +36853,7 @@
 
         <!-- Child -->
         <div
-            class="c-dragger__wrapper"
+            class="wrapper"
             ${setRef("child")}
             ${bindEffect({
       toggleStyle: {
@@ -36955,26 +36955,26 @@
       backRoute: "#plugin-overview"
     });
     const rootContent = renderHtml`
-        <div class="dragger-border">
-            <h3 class="dragger-border__title">Drag and zoom</h3>
-            <div class="dragger-border__top-left"></div>
-            <div class="dragger-border__top-right"></div>
-            <div class="dragger-border__bottom-left"></div>
-            <div class="dragger-border__bottom-right"></div>
+        <div class="borders">
+            <h3 class="title">Drag and zoom</h3>
+            <div class="top-left"></div>
+            <div class="top-right"></div>
+            <div class="bottom-left"></div>
+            <div class="bottom-right"></div>
         </div>
     `;
-    const childContent = renderHtml`<div class="dragger-child-container">
-        <div class="dragger-child dragger-child--1"></div>
-        <div class="dragger-child dragger-child--2"></div>
-        <div class="dragger-child dragger-child--3"></div>
-        <div class="dragger-child dragger-child--4"></div>
-        <div class="dragger-child dragger-child--5"></div>
-        <div class="dragger-child dragger-child--6"></div>
-        <div class="dragger-child dragger-child--7"></div>
-        <div class="dragger-child dragger-child--8"></div>
-        <div class="dragger-child dragger-child--9"></div>
-        <div class="dragger-child dragger-child--10"></div>
-        <div class="dragger-child dragger-child--svg">${svg}</div>
+    const childContent = renderHtml`<div class="child-container">
+        <div class="child is-1"></div>
+        <div class="child is-2"></div>
+        <div class="child is-3"></div>
+        <div class="child is-4"></div>
+        <div class="child is-5"></div>
+        <div class="child is-6"></div>
+        <div class="child is-7"></div>
+        <div class="child is-8"></div>
+        <div class="child is-9"></div>
+        <div class="child is-10"></div>
+        <div class="child is-svg">${svg}</div>
     </div>`;
     return renderHtml`<div class="l-dragger">
         <div class="l-background-shape">${bg}</div>
@@ -36984,7 +36984,7 @@
       {
         rootClass: "dragger-component",
         containerClass: ".l-dragger",
-        childrenClass: ".dragger-child",
+        childrenClass: ".child",
         align: "CENTER",
         maxHightDepth: 140,
         maxLowDepth: -200,
