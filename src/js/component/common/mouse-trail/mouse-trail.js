@@ -13,7 +13,7 @@ export const MouseTrailFn = ({ onMount, getRefs, setRef }) => {
     const { starOutline } = getIcons();
     const stars = [...Array.from({ length: numberOfStar }).keys()]
         .map(() => {
-            return `<span class='mouse-trail__item' ${setRef('star')}>${starOutline}</span>`;
+            return `<span class='child' ${setRef('star')}>${starOutline}</span>`;
         })
         .join('');
 

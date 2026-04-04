@@ -34925,7 +34925,7 @@
   var MouseTrailFn = ({ onMount, getRefs, setRef }) => {
     const { starOutline } = getIcons();
     const stars = [...Array.from({ length: numberOfStar }).keys()].map(() => {
-      return `<span class='mouse-trail__item' ${setRef("star")}>${starOutline}</span>`;
+      return `<span class='child' ${setRef("star")}>${starOutline}</span>`;
     }).join("");
     onMount(() => {
       const { star } = getRefs();
@@ -37669,11 +37669,11 @@
       };
     });
     return renderHtml`<div class="c-math">
-        <canvas class="c-math__canvas" ${setRef("canvas")}></canvas>
-        <div class="c-math__nav ${showNavigationClass}">
+        <canvas ${setRef("canvas")}></canvas>
+        <div class="nav ${showNavigationClass}">
             <button
                 type="button"
-                class="c-math__play"
+                class="play"
                 ${delegateEvents({
       click: () => {
         resume2();
@@ -37682,7 +37682,7 @@
             ></button>
             <button
                 type="button"
-                class="c-math__stop"
+                class="stop"
                 ${delegateEvents({
       click: () => {
         stop2();
@@ -37690,13 +37690,13 @@
     })}
             ></button>
         </div>
-        <div class="c-math__circle-container">
+        <div class="trails">
             ${staggers.map(({ size, opacity }) => {
       return renderHtml`<span
-                        class="c-math__circle"
+                        class="trail-item"
                         ${setRef("target")}
                         style="width:${size}rem;height:${size}rem;opacity:${opacity}"
-                        ><span class="c-math__circle__inner"></span
+                        ><span class="trail-item-inner"></span
                     ></span>`;
     }).join("")}
         </div>
@@ -37746,11 +37746,11 @@
     });
     return renderHtml`<div class="l-math">
         ${names.map((name) => {
-      return renderHtml`<div class="l-math__item">
+      return renderHtml`
                     <math-animation
                         ${modules_exports2.staticProps({ name })}
                     ></math-animation>
-                </div>`;
+                `;
     }).join("")}
     </div>`;
   };

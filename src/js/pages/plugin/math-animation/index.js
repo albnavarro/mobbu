@@ -20,11 +20,11 @@ export const mathAnimationRoute = async ({ props }) => {
     return html`<div class="l-math">
         ${names
             .map((name) => {
-                return html`<div class="l-math__item">
+                return html`
                     <math-animation
                         ${MobJs.staticProps({ name })}
                     ></math-animation>
-                </div>`;
+                `;
             })
             .join('')}
     </div>`;

@@ -1,39 +1,43 @@
 @use '../../abstract' as *;
 
-.mouse-trail {
-    position: fixed;
-    inset: 0;
-    z-index: 5;
-
-    &__item {
-        display: block;
-        position: absolute;
-        top: calc(50% - var(--size) / 2);
-        left: calc(50% - var(--size) / 2);
-        width: var(--size);
-        height: var(--size);
-
-        --size: #{rem(250)};
-
-        svg {
-            width: 100%;
-            height: 100%;
+@layer layout {
+    @scope (.mouse-trail) {
+        :scope {
+            position: fixed;
+            inset: 0;
+            z-index: 5;
         }
 
-        &:nth-of-type(2) {
-            opacity: 0.8;
-        }
+        .child {
+            display: block;
+            position: absolute;
+            top: calc(50% - var(--size) / 2);
+            left: calc(50% - var(--size) / 2);
+            width: var(--size);
+            height: var(--size);
 
-        &:nth-of-type(3) {
-            opacity: 0.6;
-        }
+            --size: #{rem(250)};
 
-        &:nth-of-type(4) {
-            opacity: 0.4;
-        }
+            svg {
+                width: 100%;
+                height: 100%;
+            }
 
-        &:nth-of-type(5) {
-            opacity: 0.2;
+            &:nth-of-type(2) {
+                opacity: 0.8;
+            }
+
+            &:nth-of-type(3) {
+                opacity: 0.6;
+            }
+
+            &:nth-of-type(4) {
+                opacity: 0.4;
+            }
+
+            &:nth-of-type(5) {
+                opacity: 0.2;
+            }
         }
     }
 }

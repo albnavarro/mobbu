@@ -91,11 +91,11 @@ export const MathAnimationFn = ({
     });
 
     return html`<div class="c-math">
-        <canvas class="c-math__canvas" ${setRef('canvas')}></canvas>
-        <div class="c-math__nav ${showNavigationClass}">
+        <canvas ${setRef('canvas')}></canvas>
+        <div class="nav ${showNavigationClass}">
             <button
                 type="button"
-                class="c-math__play"
+                class="play"
                 ${delegateEvents({
                     click: () => {
                         resume();
@@ -104,7 +104,7 @@ export const MathAnimationFn = ({
             ></button>
             <button
                 type="button"
-                class="c-math__stop"
+                class="stop"
                 ${delegateEvents({
                     click: () => {
                         stop();
@@ -112,14 +112,14 @@ export const MathAnimationFn = ({
                 })}
             ></button>
         </div>
-        <div class="c-math__circle-container">
+        <div class="trails">
             ${staggers
                 .map(({ size, opacity }) => {
                     return html`<span
-                        class="c-math__circle"
+                        class="trail-item"
                         ${setRef('target')}
                         style="width:${size}rem;height:${size}rem;opacity:${opacity}"
-                        ><span class="c-math__circle__inner"></span
+                        ><span class="trail-item-inner"></span
                     ></span>`;
                 })
                 .join('')}
