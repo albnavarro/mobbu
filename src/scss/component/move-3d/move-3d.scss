@@ -1,23 +1,27 @@
 @use '../../abstract' as *;
 
-.c-move-3d {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    overflow: hidden;
+@layer component {
+    @scope (.c-move-3d) {
+        :scope {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
 
-    &--drag {
-        cursor: move;
-    }
+            &.use-drag {
+                cursor: move;
+            }
+        }
 
-    &__scene {
-        position: relative;
-        transform-style: preserve-3d;
-    }
+        .scene {
+            position: relative;
+            transform-style: preserve-3d;
+        }
 
-    &__container {
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
+        .scene-container {
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
     }
 }

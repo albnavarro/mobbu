@@ -19,9 +19,9 @@ export const asyncTimeline = async () => {
         backRoute: '#canvas-overview',
     });
 
-    return html`<div class="l-padding">
+    return html`
         <async-timeline
             ${MobJs.staticProps({ background: bg })}
         ></async-timeline>
-    </div>`;
+    `;
 };

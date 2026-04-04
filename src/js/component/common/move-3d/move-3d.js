@@ -349,18 +349,18 @@ export const Move3Dfn = ({
     return html`<div
         class="c-move-3d"
         ${bindEffect({
-            toggleClass: { 'move3D--drag': () => proxi.drag },
+            toggleClass: { 'use-drag': () => proxi.drag },
         })}
     >
         <div
-            class="c-move-3d__scene"
+            class="scene"
             ${bindEffect({
                 toggleStyle: {
                     perspective: () => `${proxi.perspective}px`,
                 },
             })}
         >
-            <div class="c-move-3d__container" ${setRef('container')}>
+            <div class="scene-container" ${setRef('container')}>
                 ${invalidate({
                     observe: [() => proxi.shape, () => proxi.debug],
                     afterUpdate: () => {

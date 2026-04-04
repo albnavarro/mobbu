@@ -462,9 +462,6 @@ code.hljs {
   [data-template=template-animation] .container {
     padding-left: 0;
   }
-  .l-padding {
-    padding: var(--gap-size);
-  }
 }
 @layer base {
   html {
@@ -2523,7 +2520,7 @@ code.hljs {
   }
 }
 @layer component {
-  @scope (.dynamic-list-card-inner) {
+  @scope (.c-dynamic-list-card-inner) {
     :scope {
       display: inline-flex;
       flex-direction: column;
@@ -2628,7 +2625,7 @@ code.hljs {
   }
 }
 @layer component {
-  @scope (.matrioska-item) {
+  @scope (.c-matrioska-item) {
     :scope {
       position: relative;
       z-index: 1;
@@ -4566,87 +4563,98 @@ code.hljs {
   white-space: nowrap;
   pointer-events: none;
 }
-.c-doc-title-small {
-  position: relative;
-  z-index: 1;
-  margin-top: var(--gap-size);
-  margin-bottom: calc(var(--gap-size) / 2);
-  padding-left: var(--gap-size);
-  color: #2e3440;
-  font-size: 0.7333333333rem;
-  font-weight: 400;
-}
-@media (min-width: 75em) {
-  .c-doc-title-small {
-    font-size: 0.8rem;
+@layer component {
+  @scope (.l-doc-breadcrumbs) {
+    :scope {
+      position: relative;
+      z-index: 1;
+      margin-top: var(--gap-size);
+      margin-bottom: calc(var(--gap-size) / 2);
+      padding-left: var(--gap-size);
+      color: #2e3440;
+      font-size: 0.7333333333rem;
+      font-weight: 400;
+    }
+    @media (min-width: 75em) {
+      :scope {
+        font-size: 0.8rem;
+      }
+    }
+    @media (min-width: 100em) {
+      :scope {
+        font-size: 0.875rem;
+      }
+    }
+    span {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      padding: 0.1333333333em 0.6666666667em;
+      overflow: clip;
+      transition: opacity 0.35s;
+      border-radius: 1.3333333333em;
+      background: #2e3440;
+      color: #fff;
+      text-align: center;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+      white-space: nowrap;
+    }
   }
 }
-@media (min-width: 100em) {
-  .c-doc-title-small {
-    font-size: 0.875rem;
+@layer component {
+  @scope (.c-breadcrumbs) {
+    :scope {
+      display: inline-block;
+    }
+    .link {
+      display: inline-block;
+      position: relative;
+      margin-right: 0.3333333333rem;
+      padding: 0.1333333333em 0.6666666667em;
+      transition: background 0.35s, color 0.35s;
+      border-radius: 1.3333333333em;
+      background: #eee;
+      color: #2e3440;
+      text-transform: capitalize;
+    }
+    .link:hover {
+      background: #2e3440;
+      color: #fff;
+    }
+    .link:hover::after {
+      opacity: 1;
+    }
+    .arrows {
+      display: block;
+      position: absolute;
+      top: calc(0.1333333333rem * -1);
+      left: 0.6666666667rem;
+      width: 2rem;
+      height: 2rem;
+    }
+    .arrow-start {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 0.6666666667rem;
+      transform: translate(-50%, -50%) rotate(90deg);
+      transition: background 0.35s;
+      background: #2e3440;
+    }
+    .arrow-end {
+      position: absolute;
+      top: 50%;
+      left: calc(50% + 0.1333333333rem * -1);
+      width: 0.4666666667rem;
+      height: 0.4666666667rem;
+      transform: translate(-50%, -50%) rotate(135deg);
+      transition: border-color 0.35s;
+      border-right: 2px #2e3440 solid;
+      border-bottom: 2px #2e3440 solid;
+    }
   }
-}
-.c-doc-title-small span {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  padding: 0.1333333333em 0.6666666667em;
-  overflow: clip;
-  transition: opacity 0.35s;
-  border-radius: 1.3333333333em;
-  background: #2e3440;
-  color: #fff;
-  text-align: center;
-  text-overflow: ellipsis;
-  text-transform: capitalize;
-  white-space: nowrap;
-}
-.breadcrumbs__link {
-  display: inline-block;
-  position: relative;
-  margin-right: 0.3333333333rem;
-  padding: 0.1333333333em 0.6666666667em;
-  transition: background 0.35s, color 0.35s;
-  border-radius: 1.3333333333em;
-  background: #eee;
-  color: #2e3440;
-  text-transform: capitalize;
-}
-.breadcrumbs__link:hover {
-  background: #2e3440;
-  color: #fff;
-}
-.breadcrumbs__link:hover::after {
-  opacity: 1;
-}
-.breadcrumbs__arrow {
-  display: block;
-  position: absolute;
-  top: calc(0.1333333333rem * -1);
-  left: 0.6666666667rem;
-  width: 2rem;
-  height: 2rem;
-}
-.breadcrumbs__arrow__start {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 2px;
-  height: 0.6666666667rem;
-  transform: translate(-50%, -50%) rotate(90deg);
-  transition: background 0.35s;
-  background: #2e3440;
-}
-.breadcrumbs__arrow__end {
-  position: absolute;
-  top: 50%;
-  left: calc(50% + 0.1333333333rem * -1);
-  width: 0.4666666667rem;
-  height: 0.4666666667rem;
-  transform: translate(-50%, -50%) rotate(135deg);
-  transition: border-color 0.35s;
-  border-right: 2px #2e3440 solid;
-  border-bottom: 2px #2e3440 solid;
 }
 .c-doc-scroll {
   position: absolute;
@@ -5269,23 +5277,27 @@ code.hljs {
     }
   }
 }
-.c-move-3d {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  overflow: hidden;
-}
-.c-move-3d--drag {
-  cursor: move;
-}
-.c-move-3d__scene {
-  position: relative;
-  transform-style: preserve-3d;
-}
-.c-move-3d__container {
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
+@layer component {
+  @scope (.c-move-3d) {
+    :scope {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    :scope.use-drag {
+      cursor: move;
+    }
+    .scene {
+      position: relative;
+      transform-style: preserve-3d;
+    }
+    .scene-container {
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
+  }
 }
 @layer component {
   @scope (.c-move3d-item) {

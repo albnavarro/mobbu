@@ -18,8 +18,8 @@ export const caterpillarN1 = async () => {
         backRoute: '#canvas-overview',
     });
 
-    return html`<div class="l-padding">
+    return html`
         <caterpillar-n1 ${MobJs.staticProps({ background: bg })}>
         </caterpillar-n1>
-    </div>`;
+    `;
 };

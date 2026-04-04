@@ -18,7 +18,7 @@ export const scrollerN1 = async () => {
         backRoute: '#canvas-overview',
     });
 
-    return html`<div class="l-padding">
+    return html`
         <scroller-n1 ${MobJs.staticProps({ background: bg })}></scroller-n1>
-    </div>`;
+    `;
 };

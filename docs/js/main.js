@@ -25309,7 +25309,7 @@
   // src/js/component/common/doc-title-small/doc-title-small.js
   var DocTitleSmallFn = () => {
     return renderHtml`
-        <div class="c-doc-title-small">
+        <div class="l-doc-breadcrumbs">
             <mobjs-slot></mobjs-slot>
         </div>
     `;
@@ -26802,17 +26802,16 @@
   );
 
   // src/js/pages/layout/utils.js
-  var getBreadCrumbs = ({ breadCrumbs }) => breadCrumbs.map(
-    (item, index) => index === breadCrumbs.length - 1 ? renderHtml`<a href="${item.url}" class="breadcrumbs__arrow">
-                          <div class="breadcrumbs__arrow__start"></div>
-                          <div class="breadcrumbs__arrow__end"></div>
+  var getBreadCrumbs = ({ breadCrumbs }) => {
+    const items = breadCrumbs.map(
+      (item, index) => index === breadCrumbs.length - 1 ? renderHtml`<a href="${item.url}" class="arrows">
+                          <div class="arrow-start"></div>
+                          <div class="arrow-end"></div>
                       </a>
-                      <a class="breadcrumbs__link" href="${item.url}"
-                          >${item.title}</a
-                      >` : renderHtml`<a class="breadcrumbs__link" href="${item.url}"
-                      >${item.title}</a
-                  >`
-  ).join("");
+                      <a class="link" href="${item.url}">${item.title}</a>` : renderHtml`<a class="link" href="${item.url}">${item.title}</a>`
+    ).join("");
+    return `<div class="c-breadcrumbs">${items}</div>`;
+  };
 
   // src/js/component/common/right-sidebar/utils.js
   var updateRightSidebarList = (data) => {
@@ -29350,7 +29349,7 @@
       nextRoute: "#animatedPatternN1",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`<div class="l-padding">
+    return renderHtml`
         <animatedpattern-n0
             ${modules_exports2.staticProps(
       /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
@@ -29359,7 +29358,7 @@
       }
     )}
         ></animatedpattern-n0>
-    </div>`;
+    `;
   };
 
   // src/js/component/pages/animated-pattern/n1/animation/animation.js
@@ -29705,11 +29704,11 @@
       nextRoute: "#scrollerN0",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`<div class="l-padding">
+    return renderHtml`
         <animatedpattern-n1
             ${modules_exports2.staticProps({ background: bg })}
         ></animatedpattern-n1>
-    </div>`;
+    `;
   };
 
   // src/js/component/pages/canvas/n1/animation/animation.js
@@ -30116,10 +30115,10 @@
       nextRoute: "#scrollerN1",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`<div class="l-padding">
+    return renderHtml`
         <caterpillar-n1 ${modules_exports2.staticProps({ background: bg })}>
         </caterpillar-n1>
-    </div>`;
+    `;
   };
 
   // src/js/component/pages/canvas/n2/animation/animation.js
@@ -30553,11 +30552,11 @@
       nextRoute: "#async-timeline",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`<div class="l-padding">
+    return renderHtml`
         <caterpillar-n2
             ${modules_exports2.staticProps({ background: bg })}
         ></caterpillar-n2>
-    </div>`;
+    `;
   };
 
   // src/js/component/common/scroll-down-label/utils.js
@@ -31362,9 +31361,9 @@
       nextRoute: "#caterpillarN2",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`<div class="l-padding">
+    return renderHtml`
         <scroller-n1 ${modules_exports2.staticProps({ background: bg })}></scroller-n1>
-    </div>`;
+    `;
   };
 
   // src/js/component/pages/dynamic-list/button/dynamic-list-button.js
@@ -32038,7 +32037,7 @@
 
   // src/js/component/pages/dynamic-list/repeaters/card/innerCard/dynamic-list-card-inner.js
   var DynamicListCardInnerFn = ({ bindText }) => {
-    return renderHtml`<span class="dynamic-list-card-inner">
+    return renderHtml`<span class="c-dynamic-list-card-inner">
         <span>${bindText`${"key"}`}</span>
     </span>`;
   };
@@ -32760,7 +32759,7 @@
       proxi.active = !proxi.active;
     });
     return renderHtml`<matrioska-item
-        class="matrioska-item"
+        class="c-matrioska-item"
         ${bindEffect({
       toggleClass: { active: () => proxi.active }
     })}
@@ -33938,18 +33937,18 @@
     return renderHtml`<div
         class="c-move-3d"
         ${bindEffect({
-      toggleClass: { "move3D--drag": () => proxi.drag }
+      toggleClass: { "use-drag": () => proxi.drag }
     })}
     >
         <div
-            class="c-move-3d__scene"
+            class="scene"
             ${bindEffect({
       toggleStyle: {
         perspective: () => `${proxi.perspective}px`
       }
     })}
         >
-            <div class="c-move-3d__container" ${setRef("container")}>
+            <div class="scene-container" ${setRef("container")}>
                 ${invalidate({
       observe: [() => proxi.shape, () => proxi.debug],
       afterUpdate: () => {
@@ -34189,7 +34188,7 @@
         class="c-move3d-item ${rootClass} anchor-${anchorPoint}"
         style="${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}"
     >
-        <div class=".content ${classList}"></div>
+        <div class="${classList}"></div>
         ${getComponent({
       tagName: component?.tagName ?? "",
       className: component?.className ?? "",
@@ -36084,11 +36083,11 @@
       nextRoute: "#animatedPatternN0?version=0&activeId=0",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`<div class="l-padding">
+    return renderHtml`
         <async-timeline
             ${modules_exports2.staticProps({ background: bg })}
         ></async-timeline>
-    </div>`;
+    `;
   };
 
   // src/js/pages/svg/rdp/data.js

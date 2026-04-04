@@ -134,7 +134,7 @@ export const Move3DItemfn = ({ getState, addMethod, onMount }) => {
         class="c-move3d-item ${rootClass} anchor-${anchorPoint}"
         style="${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}"
     >
-        <div class=".content ${classList}"></div>
+        <div class="${classList}"></div>
         ${getComponent({
             tagName: component?.tagName ?? '',
             className: component?.className ?? '',

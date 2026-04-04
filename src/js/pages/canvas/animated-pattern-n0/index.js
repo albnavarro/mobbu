@@ -19,7 +19,7 @@ export const animatedPatternN0 = async () => {
         backRoute: '#canvas-overview',
     });
 
-    return html`<div class="l-padding">
+    return html`
         <animatedpattern-n0
             ${MobJs.staticProps(
                 /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
@@ -28,5 +28,5 @@ export const animatedPatternN0 = async () => {
                 })
             )}
         ></animatedpattern-n0>
-    </div>`;
+    `;
 };

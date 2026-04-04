@@ -1,73 +1,83 @@
 @use '../../abstract' as *;
 
-.c-doc-title-small {
-    position: relative;
-    z-index: 1;
-    margin-top: var(--gap-size);
-    margin-bottom: calc(var(--gap-size) / 2);
-    padding-left: var(--gap-size);
-    color: $black;
-    font-size: rem(11);
-    font-weight: 400;
+@layer component {
+    @scope (.l-doc-breadcrumbs) {
+        :scope {
+            position: relative;
+            z-index: 1;
+            margin-top: var(--gap-size);
+            margin-bottom: calc(var(--gap-size) / 2);
+            padding-left: var(--gap-size);
+            color: $black;
+            font-size: rem(11);
+            font-weight: 400;
 
-    @include mq(large) {
-        font-size: rem(12);
-    }
+            @include mq(large) {
+                font-size: rem(12);
+            }
 
-    @include mq(xlarge) {
-        font-size: rem(14, xlarge);
-    }
+            @include mq(xlarge) {
+                font-size: rem(14, xlarge);
+            }
+        }
 
-    span {
-        display: inline-block;
-        position: relative;
-        width: 80px;
-        padding: em(2) em(10);
-        overflow: clip;
-        transition: opacity 0.35s;
-        border-radius: em(20);
-        background: $black;
-        color: $white;
-        text-align: center;
-        text-overflow: ellipsis;
-        text-transform: capitalize;
-        white-space: nowrap;
+        span {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            padding: em(2) em(10);
+            overflow: clip;
+            transition: opacity 0.35s;
+            border-radius: em(20);
+            background: $black;
+            color: $white;
+            text-align: center;
+            text-overflow: ellipsis;
+            text-transform: capitalize;
+            white-space: nowrap;
+        }
     }
 }
 
-.breadcrumbs {
-    &__link {
-        display: inline-block;
-        position: relative;
-        margin-right: rem(5);
-        padding: em(2) em(10);
-        transition:
-            background 0.35s,
-            color 0.35s;
-        border-radius: em(20);
-        background: $grey;
-        color: $black;
-        text-transform: capitalize;
+@layer component {
+    @scope (.c-breadcrumbs) {
+        :scope {
+            display: inline-block;
+        }
 
-        &:hover {
-            background: $black;
-            color: $white;
+        .link {
+            display: inline-block;
+            position: relative;
+            margin-right: rem(5);
+            padding: em(2) em(10);
+            transition:
+                background 0.35s,
+                color 0.35s;
+            border-radius: em(20);
+            background: $grey;
+            color: $black;
+            text-transform: capitalize;
 
-            &::after {
-                opacity: 1;
+            &:hover {
+                background: $black;
+                color: $white;
+
+                &::after {
+                    opacity: 1;
+                }
             }
         }
-    }
 
-    &__arrow {
-        display: block;
-        position: absolute;
-        top: calc(#{rem(2)} * -1);
-        left: rem(10);
-        width: rem(30);
-        height: rem(30);
+        .arrows {
+            display: block;
+            position: absolute;
+            top: calc(#{rem(2)} * -1);
+            left: rem(10);
+            width: rem(30);
+            height: rem(30);
+        }
 
-        &__start {
+        .arrow-start {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -78,7 +88,7 @@
             background: $black;
         }
 
-        &__end {
+        .arrow-end {
             position: absolute;
             top: 50%;
             left: calc(50% + #{rem(2)} * -1);

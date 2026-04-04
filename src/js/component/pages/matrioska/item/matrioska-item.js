@@ -22,7 +22,7 @@ export const MatrioskaItemFn = ({
     });
 
     return html`<matrioska-item
-        class="matrioska-item"
+        class="c-matrioska-item"
         ${bindEffect({
             toggleClass: { active: () => proxi.active },
         })}
