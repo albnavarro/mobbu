@@ -96,7 +96,7 @@ export const QuickNavFn = ({
         ])}
     >
         <a
-            class="c-quick-nav c-quick-nav--prev"
+            class="c-quick-nav is-prev"
             ${setRef('previous')}
             ${bindEffect({
                 toggleClass: { 'is-disable': () => !proxi.prevRoute },
@@ -110,7 +110,7 @@ export const QuickNavFn = ({
         >
         </a>
         <a
-            class="c-quick-nav c-quick-nav--back"
+            class="c-quick-nav is-back"
             ${setRef('back')}
             ${bindEffect({
                 toggleClass: { 'is-disable': () => !proxi.backRoute },
@@ -124,7 +124,7 @@ export const QuickNavFn = ({
         >
         </a>
         <a
-            class="c-quick-nav c-quick-nav--next"
+            class="c-quick-nav is-next"
             ${setRef('next')}
             ${bindEffect({
                 toggleClass: { 'is-disable': () => !proxi.nextRoute },
@@ -137,15 +137,12 @@ export const QuickNavFn = ({
             })}
         >
         </a>
-        <div class="c-quick-nav__label-container">
-            <div class="c-quick-nav__label" ${setRef('labels')}>
-                <div
-                    class="c-quick-nav__label__container"
-                    ${setRef('labelList')}
-                >
-                    <span class="c-quick-nav__label__item">previous item</span>
-                    <span class="c-quick-nav__label__item">all items</span>
-                    <span class="c-quick-nav__label__item">next item</span>
+        <div class="quick-nav-labels">
+            <div class="labels" ${setRef('labels')}>
+                <div class="labels-container" ${setRef('labelList')}>
+                    <span>previous item</span>
+                    <span>all items</span>
+                    <span>next item</span>
                 </div>
             </div>
         </div>

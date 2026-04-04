@@ -4930,110 +4930,122 @@ code.hljs {
     }
   }
 }
-.c-quick-nav-container {
-  display: flex;
-  visibility: hidden;
-  position: fixed;
-  z-index: 12;
-  bottom: 2px;
-  left: 50%;
-  height: calc(var(--footer-height) - var(--gap));
-  transform: translateX(-50%);
-  transition: opacity 0.35s, visibility 0.35s;
-  opacity: 0;
-  gap: var(--gap);
-  --gap: 0.5333333333rem;
-}
-.c-quick-nav-container.active {
-  visibility: visible;
-  opacity: 1;
-  pointer-events: all;
-}
-.c-quick-nav {
-  position: relative;
-  z-index: 15;
-  width: calc(var(--footer-height) - var(--gap));
-  height: 100%;
-  transition: opacity 0.55s, background 0.55s;
-  border: 1px #fff solid;
-  background: transparent;
-}
-.c-quick-nav::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1rem;
-  height: 1rem;
-  transition: border-color 0.55s;
-  border-top: 1px #fff solid;
-  border-right: 1px #fff solid;
-}
-.c-quick-nav--next::after {
-  transform: translate(-75%, -50%) rotate(45deg);
-}
-.c-quick-nav--prev::after {
-  transform: translate(-25%, -50%) rotate(-135deg);
-}
-.c-quick-nav--back::after {
-  transform: translate(-50%, -75%) rotate(135deg);
-}
-.c-quick-nav.is-disable {
-  opacity: 0.2;
-  pointer-events: none;
-}
-.c-quick-nav:hover {
-  background: #fff;
-}
-.c-quick-nav:hover::after {
-  border-color: #2e3440;
-}
-.c-quick-nav:hover .c-quick-nav__label {
-  visibility: visible;
-  opacity: 1;
-}
-.c-quick-nav__label-container {
-  position: absolute;
-  top: calc(2.3333333333rem * -1);
-  width: var(--item-width);
-  height: var(--item-height);
-  overflow: hidden;
-  --item-width: 11.4666666667rem;
-  --item-height: 2rem;
-}
-@media screen and (height <= 700px) {
-  .c-quick-nav__label-container {
-    --item-width: 9.4666666667rem;
+@layer layout {
+  @scope (.c-quick-nav-container) {
+    :scope {
+      display: flex;
+      visibility: hidden;
+      position: fixed;
+      z-index: 12;
+      bottom: 2px;
+      left: 50%;
+      height: calc(var(--footer-height) - var(--gap));
+      transform: translateX(-50%);
+      transition: opacity 0.35s, visibility 0.35s;
+      opacity: 0;
+      gap: var(--gap);
+      --gap: 0.5333333333rem;
+    }
+    :scope.active {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: all;
+    }
   }
 }
-.c-quick-nav__label {
-  display: inline-block;
-  z-index: -1;
-  width: var(--item-width);
-  height: var(--item-height);
-  overflow: hidden;
-  transform: translateY(100%);
-  transition: opacity 0.35s, visibility 0.35s;
-  border: 1px black solid;
-  color: black;
-  font-size: 0.8666666667rem;
-  line-height: 1;
-  text-align: center;
+@layer layout {
+  @scope (.c-quick-nav) {
+    :scope {
+      position: relative;
+      z-index: 15;
+      width: calc(var(--footer-height) - var(--gap));
+      height: 100%;
+      transition: opacity 0.55s, background 0.55s;
+      border: 1px #fff solid;
+      background: transparent;
+    }
+    :scope::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1rem;
+      height: 1rem;
+      transition: border-color 0.55s;
+      border-top: 1px #fff solid;
+      border-right: 1px #fff solid;
+    }
+    :scope.is-next::after {
+      transform: translate(-75%, -50%) rotate(45deg);
+    }
+    :scope.is-prev::after {
+      transform: translate(-25%, -50%) rotate(-135deg);
+    }
+    :scope.is-back::after {
+      transform: translate(-50%, -75%) rotate(135deg);
+    }
+    :scope.is-disable {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    :scope:hover {
+      background: #fff;
+    }
+    :scope:hover::after {
+      border-color: #2e3440;
+    }
+    :scope:hover .labels {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
 }
-.c-quick-nav__label__container {
-  position: relative;
-  height: calc(var(--item-height) * 3);
-}
-.c-quick-nav__label span {
-  display: block;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: var(--item-width);
-  height: var(--item-height);
-  padding-top: 0.2666666667rem;
-  font-weight: 600;
-  text-transform: uppercase;
+@layer layout {
+  @scope (.quick-nav-labels) {
+    :scope {
+      position: absolute;
+      top: calc(2.3333333333rem * -1);
+      width: var(--item-width);
+      height: var(--item-height);
+      overflow: hidden;
+      --item-width: 11.4666666667rem;
+      --item-height: 2rem;
+    }
+    @media screen and (height <= 700px) {
+      :scope {
+        --item-width: 9.4666666667rem;
+      }
+    }
+    .labels {
+      display: inline-block;
+      z-index: -1;
+      width: var(--item-width);
+      height: var(--item-height);
+      overflow: hidden;
+      transform: translateY(100%);
+      transition: opacity 0.35s, visibility 0.35s;
+      border: 1px black solid;
+      color: black;
+      font-size: 0.8666666667rem;
+      line-height: 1;
+      text-align: center;
+    }
+    .labels span {
+      display: block;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: var(--item-width);
+      height: var(--item-height);
+      padding-top: 0.2666666667rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .labels-container {
+      position: relative;
+      height: calc(var(--item-height) * 3);
+    }
+  }
 }
 .m-logo-1 {
   display: none;
@@ -5068,31 +5080,35 @@ code.hljs {
     transform: translateX(30%);
   }
 }
-.c-scroller-down-label {
-  visibility: hidden;
-  position: fixed;
-  z-index: 15;
-  top: calc(var(--header-height) + 1.3333333333rem);
-  left: 50%;
-  padding: 0.4rem 1.3333333333rem 0.6666666667rem;
-  transform: translateX(-50%);
-  transition: opacity 0.35s, visibility 0.35s;
-  border: 0;
-  border: 1px #2e3440 solid;
-  opacity: 0;
-  color: #2e3440;
-  line-height: 1;
-  text-align: center;
-}
-@media screen and (height <= 700px) {
-  .c-scroller-down-label {
-    top: calc(var(--header-height) - 1px);
-    font-size: 1.0666666667rem;
+@layer layout {
+  @scope (.c-scroller-down-label) {
+    :scope {
+      visibility: hidden;
+      position: fixed;
+      z-index: 15;
+      top: calc(var(--header-height) + 1.3333333333rem);
+      left: 50%;
+      padding: 0.4rem 1.3333333333rem 0.6666666667rem;
+      transform: translateX(-50%);
+      transition: opacity 0.35s, visibility 0.35s;
+      border: 0;
+      border: 1px #2e3440 solid;
+      opacity: 0;
+      color: #2e3440;
+      line-height: 1;
+      text-align: center;
+    }
+    @media screen and (height <= 700px) {
+      :scope {
+        top: calc(var(--header-height) - 1px);
+        font-size: 1.0666666667rem;
+      }
+    }
+    :scope.active {
+      visibility: visible;
+      opacity: 1;
+    }
   }
-}
-.c-scroller-down-label.active {
-  visibility: visible;
-  opacity: 1;
 }
 @layer layout {
   @scope (.anchor-button) {

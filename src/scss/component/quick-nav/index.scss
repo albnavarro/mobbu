@@ -1,136 +1,146 @@
 @use '../../abstract' as *;
 
-.c-quick-nav-container {
-    display: flex;
-    visibility: hidden;
-    position: fixed;
-    z-index: 12;
-    bottom: 2px;
-    left: 50%;
-    height: calc(var(--footer-height) - var(--gap));
-    transform: translateX(-50%);
-    transition:
-        opacity 0.35s,
-        visibility 0.35s;
-    opacity: 0;
-    gap: var(--gap);
+@layer layout {
+    @scope (.c-quick-nav-container) {
+        :scope {
+            display: flex;
+            visibility: hidden;
+            position: fixed;
+            z-index: 12;
+            bottom: 2px;
+            left: 50%;
+            height: calc(var(--footer-height) - var(--gap));
+            transform: translateX(-50%);
+            transition:
+                opacity 0.35s,
+                visibility 0.35s;
+            opacity: 0;
+            gap: var(--gap);
 
-    --gap: #{rem(8px)};
+            --gap: #{rem(8px)};
 
-    &.active {
-        visibility: visible;
-        opacity: 1;
-        pointer-events: all;
+            &.active {
+                visibility: visible;
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
     }
 }
 
-.c-quick-nav {
-    position: relative;
-    z-index: 15;
-    width: calc(var(--footer-height) - var(--gap));
-    height: 100%;
-    transition:
-        opacity 0.55s,
-        background 0.55s;
-    border: 1px $white solid;
-    background: transparent;
-
-    $self: &;
-
-    &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: rem(15);
-        height: rem(15);
-        transition: border-color 0.55s;
-        border-top: 1px $white solid;
-        border-right: 1px $white solid;
-    }
-
-    &--next {
-        &::after {
-            transform: translate(-75%, -50%) rotate(45deg);
-        }
-    }
-
-    &--prev {
-        &::after {
-            transform: translate(-25%, -50%) rotate(-135deg);
-        }
-    }
-
-    &--back {
-        &::after {
-            transform: translate(-50%, -75%) rotate(135deg);
-        }
-    }
-
-    &.is-disable {
-        opacity: 0.2;
-        pointer-events: none;
-    }
-
-    &:hover {
-        background: $white;
-
-        &::after {
-            border-color: $black;
-        }
-
-        #{$self}__label {
-            visibility: visible;
-            opacity: 1;
-        }
-    }
-
-    &__label-container {
-        position: absolute;
-        top: calc(#{rem(35)} * -1);
-        width: var(--item-width);
-        height: var(--item-height);
-        overflow: hidden;
-
-        --item-width: #{rem(172)};
-        --item-height: #{rem(30)};
-
-        @media screen and (height <= 700px) {
-            --item-width: #{rem(142)};
-        }
-    }
-
-    &__label {
-        display: inline-block;
-        z-index: -1;
-        width: var(--item-width);
-        height: var(--item-height);
-        overflow: hidden;
-        transform: translateY(100%);
-        transition:
-            opacity 0.35s,
-            visibility 0.35s;
-        border: 1px black solid;
-        color: black;
-        font-size: rem(13);
-        line-height: 1;
-        text-align: center;
-
-        &__container {
+@layer layout {
+    @scope (.c-quick-nav) {
+        :scope {
             position: relative;
-            height: calc(var(--item-height) * 3);
+            z-index: 15;
+            width: calc(var(--footer-height) - var(--gap));
+            height: 100%;
+            transition:
+                opacity 0.55s,
+                background 0.55s;
+            border: 1px $white solid;
+            background: transparent;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: rem(15);
+                height: rem(15);
+                transition: border-color 0.55s;
+                border-top: 1px $white solid;
+                border-right: 1px $white solid;
+            }
+
+            &.is-next {
+                &::after {
+                    transform: translate(-75%, -50%) rotate(45deg);
+                }
+            }
+
+            &.is-prev {
+                &::after {
+                    transform: translate(-25%, -50%) rotate(-135deg);
+                }
+            }
+
+            &.is-back {
+                &::after {
+                    transform: translate(-50%, -75%) rotate(135deg);
+                }
+            }
+
+            &.is-disable {
+                opacity: 0.2;
+                pointer-events: none;
+            }
         }
 
-        span {
-            display: block;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        :scope:hover {
+            background: $white;
+
+            &::after {
+                border-color: $black;
+            }
+
+            .labels {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+@layer layout {
+    @scope (.quick-nav-labels) {
+        :scope {
+            position: absolute;
+            top: calc(#{rem(35)} * -1);
             width: var(--item-width);
             height: var(--item-height);
-            padding-top: rem(4);
-            font-weight: 600;
-            text-transform: uppercase;
+            overflow: hidden;
+
+            --item-width: #{rem(172)};
+            --item-height: #{rem(30)};
+
+            @media screen and (height <= 700px) {
+                --item-width: #{rem(142)};
+            }
+        }
+
+        .labels {
+            display: inline-block;
+            z-index: -1;
+            width: var(--item-width);
+            height: var(--item-height);
+            overflow: hidden;
+            transform: translateY(100%);
+            transition:
+                opacity 0.35s,
+                visibility 0.35s;
+            border: 1px black solid;
+            color: black;
+            font-size: rem(13);
+            line-height: 1;
+            text-align: center;
+
+            span {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: var(--item-width);
+                height: var(--item-height);
+                padding-top: rem(4);
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+        }
+
+        .labels-container {
+            position: relative;
+            height: calc(var(--item-height) * 3);
         }
     }
 }
