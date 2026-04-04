@@ -23,14 +23,15 @@ import { html, MobJs } from '@mobJs';
  */
 const getControls = ({ proxi, delegateEvents, bindObject }) => {
     return html`
-        <li class="l-rosa__controls__item">
-            <span for="numerators" class="l-rosa__controls__label">
+        <li class="controls-item">
+            <span for="numerators" class="controls-label">
                 ${bindObject`numerators: <strong>${() => proxi.numeratorsLabel}</strong>`}
             </span>
-            <div class="l-rosa__controls__range">
+            <div class="controls-range">
                 <input
                     id="numerators"
                     type="range"
+                    class="controls-input"
                     min="0"
                     max="10"
                     value="${proxi.numerators}"
@@ -56,14 +57,15 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
                 />
             </div>
         </li>
-        <li class="l-rosa__controls__item">
-            <span for="denominator" class="l-rosa__controls__label">
+        <li class="controls-item">
+            <span for="denominator" class="controls-label">
                 ${bindObject`denominator: <strong>${() => proxi.denominatorLabel}</strong>`}
             </span>
-            <div class="l-rosa__controls__range">
+            <div class="controls-range">
                 <input
                     type="range"
                     id="denominator"
+                    class="controls-input"
                     min="0"
                     max="10"
                     value="${proxi.denominator}"
@@ -107,7 +109,7 @@ export const RosaDiGrandiPageFn = ({
     return html`<div class="l-rosa">
         <button
             type="button"
-            class="l-rosa__controls__open"
+            class="controls-open"
             ${delegateEvents({
                 click: () => {
                     proxi.controlsActive = true;
@@ -117,7 +119,7 @@ export const RosaDiGrandiPageFn = ({
             show controls
         </button>
         <ul
-            class="l-rosa__controls"
+            class="controls"
             ${bindEffect({
                 toggleClass: {
                     active: () => proxi.controlsActive,
@@ -126,7 +128,7 @@ export const RosaDiGrandiPageFn = ({
         >
             <button
                 type="button"
-                class="l-rosa__controls__close"
+                class="controls-close"
                 ${delegateEvents({
                     click: () => {
                         proxi.controlsActive = false;
@@ -141,7 +143,7 @@ export const RosaDiGrandiPageFn = ({
                 bindObject,
             })}
         </ul>
-        <div class="l-rosa__wrap">
+        <div class="animation-container">
             ${invalidate({
                 observe: [() => proxi.numerators, () => proxi.denominator],
                 render: () => {

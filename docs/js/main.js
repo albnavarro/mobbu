@@ -37738,14 +37738,15 @@
   // src/js/component/pages/rosa-di-grandi/rosa-di-grandi-page.js
   var getControls8 = ({ proxi, delegateEvents, bindObject }) => {
     return renderHtml`
-        <li class="l-rosa__controls__item">
-            <span for="numerators" class="l-rosa__controls__label">
+        <li class="controls-item">
+            <span for="numerators" class="controls-label">
                 ${bindObject`numerators: <strong>${() => proxi.numeratorsLabel}</strong>`}
             </span>
-            <div class="l-rosa__controls__range">
+            <div class="controls-range">
                 <input
                     id="numerators"
                     type="range"
+                    class="controls-input"
                     min="0"
                     max="10"
                     value="${proxi.numerators}"
@@ -37767,14 +37768,15 @@
                 />
             </div>
         </li>
-        <li class="l-rosa__controls__item">
-            <span for="denominator" class="l-rosa__controls__label">
+        <li class="controls-item">
+            <span for="denominator" class="controls-label">
                 ${bindObject`denominator: <strong>${() => proxi.denominatorLabel}</strong>`}
             </span>
-            <div class="l-rosa__controls__range">
+            <div class="controls-range">
                 <input
                     type="range"
                     id="denominator"
+                    class="controls-input"
                     min="0"
                     max="10"
                     value="${proxi.denominator}"
@@ -37811,7 +37813,7 @@
     return renderHtml`<div class="l-rosa">
         <button
             type="button"
-            class="l-rosa__controls__open"
+            class="controls-open"
             ${delegateEvents({
       click: () => {
         proxi.controlsActive = true;
@@ -37821,7 +37823,7 @@
             show controls
         </button>
         <ul
-            class="l-rosa__controls"
+            class="controls"
             ${bindEffect({
       toggleClass: {
         active: () => proxi.controlsActive
@@ -37830,7 +37832,7 @@
         >
             <button
                 type="button"
-                class="l-rosa__controls__close"
+                class="controls-close"
                 ${delegateEvents({
       click: () => {
         proxi.controlsActive = false;
@@ -37845,7 +37847,7 @@
       bindObject
     })}
         </ul>
-        <div class="l-rosa__wrap">
+        <div class="animation-container">
             ${invalidate({
       observe: [() => proxi.numerators, () => proxi.denominator],
       render: () => {
