@@ -3304,16 +3304,6 @@ code.hljs {
   line-height: 1;
   pointer-events: none;
 }
-.c-page-transiotion {
-  position: fixed;
-  z-index: 16;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #2e3440;
-  clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
-}
 @layer layout {
   @scope (.c-loader) {
     :scope {
