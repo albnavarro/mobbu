@@ -1,6 +1,6 @@
 @use '../../abstract' as *;
 
-@layer component {
+@layer layout {
     @scope (.c-dynamic-list-slotted-label) {
         :scope {
             margin-top: calc(var(--gap-size) / 4);

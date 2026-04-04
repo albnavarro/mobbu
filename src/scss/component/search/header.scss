@@ -1,6 +1,6 @@
 @use '../../abstract' as *;
 
-@layer component {
+@layer layout {
     @scope (.c-search-header) {
         .search-wrap {
             display: inline-block;

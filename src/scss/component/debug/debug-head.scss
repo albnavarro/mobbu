@@ -1,6 +1,6 @@
 @use '../../abstract' as *;
 
-@layer component {
+@layer layout {
     @scope (.c-debug-head) {
         :scope {
             display: flex;

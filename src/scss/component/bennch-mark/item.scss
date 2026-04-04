@@ -1,6 +1,6 @@
 @use '../../abstract' as *;
 
-@layer component {
+@layer layout {
     @scope (.c-benchmark-fake) {
         :scope {
             margin-bottom: calc(var(--gap-size) / 2);

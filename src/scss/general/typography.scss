@@ -1,6 +1,11 @@
 @use '../abstract' as *;
 
-@layer base {
+@layer typography {
+    /**
+     * HTML font size map.
+     */
+    @include font-size-map;
+
     /*
      * -- BASE STYLES --
      * Most of these are inherited from Base, but I want to change a few.
@@ -93,11 +98,6 @@
         a {
             text-decoration: underline;
         }
-    }
-
-    .paragraph-big {
-        font-size: rem(18);
-        line-height: line-height(18, 24);
     }
 
     .p {

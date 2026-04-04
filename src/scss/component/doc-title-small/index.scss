@@ -1,6 +1,6 @@
 @use '../../abstract' as *;
 
-@layer component {
+@layer layout {
     @scope (.l-doc-breadcrumbs) {
         :scope {
             position: relative;
@@ -39,7 +39,7 @@
     }
 }
 
-@layer component {
+@layer layout {
     @scope (.c-breadcrumbs) {
         :scope {
             display: inline-block;

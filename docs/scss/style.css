@@ -1,5 +1,5 @@
 /* src/scss/style.scss */
-@layer reset, base, layout, component, utilities;
+@layer reset, base, typography, layout, utilities;
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -306,31 +306,6 @@ code.hljs {
   font-display: swap;
 }
 @layer base {
-  @media (min-width: 22.5em) {
-    html {
-      font-size: 12px;
-    }
-  }
-  @media (min-width: 37.5em) {
-    html {
-      font-size: 14px;
-    }
-  }
-  @media (min-width: 62em) {
-    html {
-      font-size: 15px;
-    }
-  }
-  @media (min-width: 100em) {
-    html {
-      font-size: 16px;
-    }
-  }
-  @media (min-width: 123.75em) {
-    html {
-      font-size: 0.8080808081vw;
-    }
-  }
   :root {
     --gap-size: 2.6666666667rem;
     --col-size: 9%;
@@ -463,7 +438,32 @@ code.hljs {
     padding-left: 0;
   }
 }
-@layer base {
+@layer typography {
+  @media (min-width: 22.5em) {
+    html {
+      font-size: 12px;
+    }
+  }
+  @media (min-width: 37.5em) {
+    html {
+      font-size: 14px;
+    }
+  }
+  @media (min-width: 62em) {
+    html {
+      font-size: 15px;
+    }
+  }
+  @media (min-width: 100em) {
+    html {
+      font-size: 16px;
+    }
+  }
+  @media (min-width: 123.75em) {
+    html {
+      font-size: 0.8080808081vw;
+    }
+  }
   html {
     height: 100%;
     color: #2e3440;
@@ -541,10 +541,6 @@ code.hljs {
   }
   p a {
     text-decoration: underline;
-  }
-  .paragraph-big {
-    font-size: 1.2rem;
-    line-height: 1.3333333333em;
   }
   .p--boxed {
     margin-bottom: calc(var(--gap-size) / 2);
@@ -698,7 +694,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-hamburger) {
     :scope {
       display: inline-block;
@@ -1153,6 +1149,18 @@ code.hljs {
         display: block;
       }
     }
+    [data-template=template-doc-default] :scope .side-col {
+      background: rgba(46, 52, 64, 0.05);
+    }
+    [data-template=template-doc-default] :scope .side-col::after {
+      display: none;
+    }
+    [data-template=template-mobJs-component] :scope .side-col {
+      background: rgba(46, 52, 64, 0.05);
+    }
+    [data-template=template-mobJs-component] :scope .side-col::after {
+      display: none;
+    }
     .side-col {
       position: absolute;
       top: 0;
@@ -1176,18 +1184,6 @@ code.hljs {
     }
     .side-col.is-visible::after {
       transform: scaleY(100%);
-    }
-    [data-template=template-doc-default] .side-col {
-      background: rgba(46, 52, 64, 0.05);
-    }
-    [data-template=template-doc-default] .side-col::after {
-      display: none;
-    }
-    [data-template=template-mobJs-component] .side-col {
-      background: rgba(46, 52, 64, 0.05);
-    }
-    [data-template=template-mobJs-component] .side-col::after {
-      display: none;
     }
     .nav-col {
       left: 0;
@@ -2375,7 +2371,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-dynamic-card) {
     :scope {
       flex: 0 0 100%;
@@ -2443,7 +2439,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-dynamic-counter) {
     span {
       font-size: 0.9333333333rem;
@@ -2459,7 +2455,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-dynamic-list-empty) {
     :scope {
       margin-top: 0.6666666667rem;
@@ -2471,7 +2467,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-dynamic-list-slotted-label) {
     :scope {
       margin-top: calc(var(--gap-size) / 4);
@@ -2501,7 +2497,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-dynamic-list-button) {
     :scope {
       transition: opacity 0.55s, background 0.55s;
@@ -2519,7 +2515,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-dynamic-list-card-inner) {
     :scope {
       display: inline-flex;
@@ -2624,7 +2620,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-matrioska-item) {
     :scope {
       position: relative;
@@ -2924,7 +2920,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-move3d-square) {
     :scope {
       width: var(--item-width);
@@ -3416,7 +3412,7 @@ code.hljs {
   transform-origin: left;
   background: #fff;
 }
-@layer component {
+@layer layout {
   @scope (.c-btn-debug) {
     :scope {
       display: block;
@@ -3437,7 +3433,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-debug-overlay) {
     :scope {
       display: flex;
@@ -3579,7 +3575,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-debug-tree) {
     .tree-list {
       position: absolute;
@@ -3657,7 +3653,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-debug-head) {
     :scope {
       display: flex;
@@ -3678,7 +3674,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-debug-search) {
     :scope {
       color: #fff;
@@ -3721,7 +3717,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-debug-component) {
     :scope {
       position: absolute;
@@ -3800,7 +3796,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-debug-filter-head) {
     :scope {
       display: grid;
@@ -3841,7 +3837,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-debug-filter-list) {
     .list {
       position: absolute;
@@ -3919,7 +3915,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-debug-filter-list-item) {
     :scope {
       position: relative;
@@ -3970,7 +3966,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-debug-tree-item) {
     :scope {
       position: relative;
@@ -4032,275 +4028,256 @@ code.hljs {
     }
   }
 }
-.html-content {
-  position: relative;
-}
-.html-content p,
-.html-content a,
-.html-content pre,
-.html-content li,
-.html-content h1,
-.html-content h2,
-.html-content h3,
-.html-content h4,
-.html-content h5 {
-  user-select: text;
-  -webkit-touch-callout: text;
-  -webkit-user-select: text;
-  -khtml-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-}
-.html-content.use-padding {
-  padding: var(--gap-size) var(--gap-size) var(--col-size);
-}
-.html-content.is-min-100 {
-  min-height: calc(100vh - var(--header-height) - 5.3333333333rem);
-}
-.html-content__triangle {
-  position: absolute;
-  top: calc(0.6666666667rem * -1);
-  left: 0;
-  width: 13.3333333333rem;
-  height: 13.3333333333rem;
-  fill: #fff;
-}
-.html-content .title-content {
-  position: relative;
-  z-index: 1;
-}
-.html-content ul {
-  margin-top: 0;
-  padding: 0;
-  list-style-type: none;
-}
-.html-content ul li {
-  position: relative;
-}
-.html-content ul li::after {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  top: 0.6666666667rem;
-  left: calc(var(--gap-size) / 2 * -1);
-  width: 5px;
-  height: 5px;
-  border-radius: 100%;
-  background: #a4a4b3;
-}
-.html-content ul.use-links {
-  margin-left: 0;
-  list-style-type: none;
-}
-.html-content ul.use-button {
-  margin-left: 0;
-  list-style-type: none;
-}
-.html-content ul.use-button li > a {
-  display: inline-block;
-  position: relative;
-  min-width: 16.6666666667rem;
-  margin-right: 0.6666666667rem;
-  margin-bottom: 0.6666666667rem;
-  padding: 0.3333333333rem 0.6666666667rem;
-  transition: background 0.35s;
-  border: 0;
-  border: 1px #a4a4b3 solid;
-  color: #2e3440;
-  font-size: 0.9333333333rem;
-  text-align: center;
-  text-decoration: none;
-}
-.html-content ul.use-button li > a:hover {
-  background: #2e3440;
-  color: #fff;
-}
-.html-content ul.use-links li::after,
-.html-content ul.use-button li::after {
-  display: none;
-}
-.html-content ul.use-default a {
-  text-decoration: underline;
-}
-.html-content h1,
-.html-content h2,
-.html-content h3,
-.html-content h4,
-.html-content h5,
-.html-content h6 {
-  text-transform: capitalize;
-}
-.html-content h1 {
-  position: relative;
-  margin-bottom: 0;
-  padding: calc(var(--gap-size) / 2);
-  overflow: hidden;
-  border: 2px #e8e8e8 solid;
-  border-radius: 0.6666666667rem;
-  background: #f6f6f6;
-}
-.html-content h1 .title-content span {
-  font-size: 1.6666666667rem;
-}
-.html-content h1 .triangle-left {
-  position: absolute;
-  z-index: -1;
-  top: calc(0.3333333333rem * -1);
-  left: 0;
-}
-.html-content h1 .triangle-left svg {
-  width: 6.6666666667rem;
-  height: 6.6666666667rem;
-  fill: #fff;
-}
-.html-content h1 .triangle-right svg {
-  position: absolute;
-  z-index: -1;
-  top: 1rem;
-  right: calc(var(--gap-size) / 2 * -1);
-  width: 6.6666666667rem;
-  height: 6.6666666667rem;
-  transform: rotateY(180deg) rotateX(180deg);
-  fill: #fff;
-}
-.html-content h2 {
-  margin: var(--gap-size) calc(var(--gap-size) * -1) calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
-  padding-left: var(--gap-size);
-}
-.html-content h2.is-section {
-  position: relative;
-  height: 4rem;
-  overflow: hidden;
-  transition: transform 0.35s;
-  border-bottom: 1px #2e3440 solid;
-  color: #2e3440;
-  text-transform: capitalize;
-}
-.html-content h2.is-section.pinned {
-  box-shadow: 0 calc(2rem * -1) 0 #2e3440;
-}
-.html-content h2.is-section.hide.pinned {
-  transform: translateY(-100%);
-}
-.html-content h2.is-section .title-content {
-  position: absolute;
-  bottom: calc(0.1333333333rem * -1);
-  left: 2.6666666667rem;
-  font-size: 2.6666666667rem;
-}
-@media (min-width: 75em) {
-  .html-content h2.is-section .title-content {
-    bottom: 0.2666666667rem;
-    font-size: 4rem;
+@layer layout {
+  @scope (.html-content) {
+    :scope {
+      position: relative;
+    }
+    :scope.use-padding {
+      padding: var(--gap-size) var(--gap-size) var(--col-size);
+    }
+    :scope.is-min-100 {
+      min-height: calc(100vh - var(--header-height) - 5.3333333333rem);
+    }
+    p,
+    a,
+    pre,
+    li,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      user-select: text;
+      -webkit-touch-callout: text;
+      -webkit-user-select: text;
+      -khtml-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-transform: capitalize;
+    }
+    pre,
+    code {
+      font-family: "Fira Code", monospace;
+      font-optical-sizing: auto;
+      font-size: 0.8rem;
+    }
+    ul {
+      margin-top: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+    ul.use-links {
+      margin-left: 0;
+    }
+    ul.use-button {
+      margin-left: 0;
+    }
+    ul.use-button li > a {
+      display: inline-block;
+      position: relative;
+      min-width: 16.6666666667rem;
+      margin-right: 0.6666666667rem;
+      margin-bottom: 0.6666666667rem;
+      padding: 0.3333333333rem 0.6666666667rem;
+      transition: background 0.35s;
+      border: 0;
+      border: 1px #a4a4b3 solid;
+      color: #2e3440;
+      font-size: 0.9333333333rem;
+      text-align: center;
+      text-decoration: none;
+    }
+    ul.use-button li > a:hover {
+      background: #2e3440;
+      color: #fff;
+    }
+    ul.use-default a {
+      text-decoration: underline;
+    }
+    li {
+      position: relative;
+    }
+    li::after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      top: 0.6666666667rem;
+      left: calc(var(--gap-size) / 2 * -1);
+      width: 5px;
+      height: 5px;
+      border-radius: 100%;
+      background: #a4a4b3;
+    }
+    ul.use-links li::after,
+    ul.use-button li::after {
+      display: none;
+    }
+    @scope (h1) {
+      :scope {
+        position: relative;
+        margin-bottom: 0;
+        padding: calc(var(--gap-size) / 2);
+        overflow: hidden;
+        border: 2px #e8e8e8 solid;
+        border-radius: 0.6666666667rem;
+        background: #f6f6f6;
+      }
+      .title-content {
+        position: relative;
+        z-index: 1;
+      }
+      .title-content span {
+        font-size: 1.6666666667rem;
+      }
+    }
+    h2 {
+      margin: var(--gap-size) calc(var(--gap-size) * -1) calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
+      padding-left: var(--gap-size);
+    }
+    @scope (h2.is-section) {
+      :scope {
+        position: relative;
+        height: 4rem;
+        overflow: hidden;
+        transition: transform 0.35s;
+        border-bottom: 1px #2e3440 solid;
+        color: #2e3440;
+        text-transform: capitalize;
+      }
+      :scope.pinned {
+        box-shadow: 0 calc(2rem * -1) 0 #2e3440;
+      }
+      :scope.hide.pinned {
+        transform: translateY(-100%);
+      }
+      .title-content {
+        position: absolute;
+        bottom: calc(0.1333333333rem * -1);
+        left: 2.6666666667rem;
+        font-size: 2.6666666667rem;
+      }
+      @media (min-width: 75em) {
+        .title-content {
+          bottom: 0.2666666667rem;
+          font-size: 4rem;
+        }
+      }
+      @media (min-width: 100em) {
+        .title-content {
+          bottom: 0.5333333333rem;
+          font-size: 4.3333333333rem;
+        }
+      }
+      .title-index {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        right: 2.6666666667rem;
+        bottom: calc(0.8666666667rem * -1);
+        color: #2e3440;
+        font-size: 0.9333333333rem;
+      }
+      @media (min-width: 75em) {
+        .title-index {
+          display: block;
+        }
+      }
+    }
+    h3 {
+      position: relative;
+      margin-top: calc(var(--gap-size) / 4);
+      margin-bottom: 0;
+      margin-left: calc(var(--gap-size) / 2 * -1);
+      padding-bottom: calc(var(--gap-size) / 4);
+      padding-left: calc(var(--gap-size) / 2);
+      font-size: 1.7333333333rem;
+    }
+    h3::after {
+      content: "*";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      color: #2e3440;
+      font-size: 2rem;
+    }
   }
 }
-@media (min-width: 100em) {
-  .html-content h2.is-section .title-content {
-    bottom: 0.5333333333rem;
-    font-size: 4.3333333333rem;
+@layer layout {
+  @scope (.list-links) {
+    :scope {
+      display: inline-block;
+      position: relative;
+      min-width: 16.6666666667rem;
+      margin-right: 0.6666666667rem;
+      margin-bottom: 0.6666666667rem;
+      padding: 0.3333333333rem 0.6666666667rem;
+      transition: background 0.35s;
+      border: 0;
+      border: 1px #a4a4b3 solid;
+      color: #2e3440;
+      font-size: 0.9333333333rem;
+      text-align: center;
+      text-decoration: none;
+    }
+    :scope:hover {
+      background: #2e3440;
+      color: #fff;
+    }
+    :scope {
+      display: inline-block;
+      position: relative;
+      min-width: 16.6666666667rem;
+      padding-right: var(--gap-size);
+      padding-left: calc(var(--gap-size) / 2);
+      text-align: left;
+      text-transform: capitalize;
+    }
+    .arrow-container {
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 0.3333333333rem;
+      width: calc(var(--gap-size) / 2);
+      height: calc(var(--gap-size) / 2);
+    }
+    .arrow-start {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 0.6666666667rem;
+      transform: translate(-50%, -50%) rotate(45deg);
+      transition: background 0.35s;
+      background: #2e3440;
+    }
+    .arrow-end {
+      position: absolute;
+      top: -1px;
+      left: 1px;
+      width: 0.4666666667rem;
+      height: 0.4666666667rem;
+      transform: translate(-50%, -50%) rotate(275deg);
+      transition: border-color 0.35s;
+      border-right: 2px #2e3440 solid;
+      border-bottom: 2px #2e3440 solid;
+    }
+    :scope:hover .arrow-start {
+      background: #fff;
+    }
+    :scope:hover .arrow-end {
+      border-right: 2px #fff solid;
+      border-bottom: 2px #fff solid;
+    }
   }
-}
-.html-content h2.is-section .title-index {
-  display: none;
-  position: absolute;
-  z-index: 1;
-  right: 2.6666666667rem;
-  bottom: calc(0.8666666667rem * -1);
-  color: #2e3440;
-  font-size: 0.9333333333rem;
-}
-@media (min-width: 75em) {
-  .html-content h2.is-section .title-index {
-    display: block;
-  }
-}
-.html-content h3 {
-  position: relative;
-  margin-top: calc(var(--gap-size) / 4);
-  margin-bottom: 0;
-  margin-left: calc(var(--gap-size) / 2 * -1);
-  padding-bottom: calc(var(--gap-size) / 4);
-  padding-left: calc(var(--gap-size) / 2);
-  font-size: 1.7333333333rem;
-}
-.html-content h3::after {
-  content: "*";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  color: #2e3440;
-  font-size: 2rem;
-}
-.html-content pre,
-.html-content code {
-  font-family: "Fira Code", monospace;
-  font-optical-sizing: auto;
-  font-size: 0.8rem;
-}
-.list-links {
-  display: inline-block;
-  position: relative;
-  min-width: 16.6666666667rem;
-  margin-right: 0.6666666667rem;
-  margin-bottom: 0.6666666667rem;
-  padding: 0.3333333333rem 0.6666666667rem;
-  transition: background 0.35s;
-  border: 0;
-  border: 1px #a4a4b3 solid;
-  color: #2e3440;
-  font-size: 0.9333333333rem;
-  text-align: center;
-  text-decoration: none;
-}
-.list-links:hover {
-  background: #2e3440;
-  color: #fff;
-}
-.list-links {
-  display: inline-block;
-  position: relative;
-  min-width: 16.6666666667rem;
-  padding-right: var(--gap-size);
-  padding-left: calc(var(--gap-size) / 2);
-  text-align: left;
-  text-transform: capitalize;
-}
-.list-links:hover .list-links__arrow__start {
-  background: #fff;
-}
-.list-links:hover .list-links__arrow__end {
-  border-right: 2px #fff solid;
-  border-bottom: 2px #fff solid;
-}
-.list-links__arrow {
-  display: block;
-  position: absolute;
-  top: 50%;
-  right: 0.3333333333rem;
-  width: calc(var(--gap-size) / 2);
-  height: calc(var(--gap-size) / 2);
-}
-.list-links__arrow__start {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 2px;
-  height: 0.6666666667rem;
-  transform: translate(-50%, -50%) rotate(45deg);
-  transition: background 0.35s;
-  background: #2e3440;
-}
-.list-links__arrow__end {
-  position: absolute;
-  top: -1px;
-  left: 1px;
-  width: 0.4666666667rem;
-  height: 0.4666666667rem;
-  transform: translate(-50%, -50%) rotate(275deg);
-  transition: border-color 0.35s;
-  border-right: 2px #2e3440 solid;
-  border-bottom: 2px #2e3440 solid;
 }
 .snippet {
   position: relative;
@@ -4563,7 +4540,7 @@ code.hljs {
   white-space: nowrap;
   pointer-events: none;
 }
-@layer component {
+@layer layout {
   @scope (.l-doc-breadcrumbs) {
     :scope {
       position: relative;
@@ -4602,7 +4579,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-breadcrumbs) {
     :scope {
       display: inline-block;
@@ -5155,7 +5132,7 @@ code.hljs {
   border-right: 2px #2e3440 solid;
   border-bottom: 2px #2e3440 solid;
 }
-@layer component {
+@layer layout {
   @scope (.c-benchmark-fake) {
     :scope {
       margin-bottom: calc(var(--gap-size) / 2);
@@ -5277,7 +5254,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-move-3d) {
     :scope {
       display: flex;
@@ -5299,7 +5276,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-move3d-item) {
     :scope {
       position: relative;
@@ -5383,14 +5360,14 @@ code.hljs {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-@layer component {
+@layer layout {
   @scope (.c-search-cta) {
     :scope {
       margin: 0;
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-search-overlay) {
     :scope {
       display: flex;
@@ -5491,7 +5468,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-search-list) {
     :scope {
       position: absolute;
@@ -5606,7 +5583,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-search-header) {
     .search-wrap {
       display: inline-block;
@@ -5660,7 +5637,7 @@ code.hljs {
     }
   }
 }
-@layer component {
+@layer layout {
   @scope (.c-search-suggestion) {
     :scope {
       overflow: hidden;

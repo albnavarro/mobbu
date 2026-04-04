@@ -17,6 +17,26 @@
             @include mq(desktop) {
                 display: block;
             }
+
+            @include when-inside('[data-template="template-doc-default"]') {
+                .side-col {
+                    background: rgba($black, 0.05);
+
+                    &::after {
+                        display: none;
+                    }
+                }
+            }
+
+            @include when-inside('[data-template="template-mobJs-component"]') {
+                .side-col {
+                    background: rgba($black, 0.05);
+
+                    &::after {
+                        display: none;
+                    }
+                }
+            }
         }
 
         .side-col {
@@ -44,22 +64,6 @@
             &.is-visible {
                 &::after {
                     transform: scaleY(100%);
-                }
-            }
-
-            @include when-inside('[data-template="template-doc-default"]') {
-                background: rgba($black, 0.05);
-
-                &::after {
-                    display: none;
-                }
-            }
-
-            @include when-inside('[data-template="template-mobJs-component"]') {
-                background: rgba($black, 0.05);
-
-                &::after {
-                    display: none;
                 }
             }
         }

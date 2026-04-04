@@ -1,46 +1,70 @@
 @use '../../abstract' as *;
 
-.html-content {
-    position: relative;
+@layer layout {
+    @scope (.html-content) {
+        :scope {
+            position: relative;
 
-    p,
-    a,
-    pre,
-    li,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-        @include user-select-text;
-    }
+            &.use-padding {
+                padding: var(--gap-size) var(--gap-size) var(--col-size);
+            }
 
-    &.use-padding {
-        padding: var(--gap-size) var(--gap-size) var(--col-size);
-    }
+            &.is-min-100 {
+                min-height: calc(100vh - var(--header-height) - #{rem(80)});
+            }
+        }
 
-    &.is-min-100 {
-        min-height: calc(100vh - var(--header-height) - #{rem(80)});
-    }
+        p,
+        a,
+        pre,
+        li,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            @include user-select-text;
+        }
 
-    &__triangle {
-        position: absolute;
-        top: calc(#{rem(10)} * -1);
-        left: 0;
-        width: rem(200);
-        height: rem(200);
-        fill: $white;
-    }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            text-transform: capitalize;
+        }
 
-    .title-content {
-        position: relative;
-        z-index: 1;
-    }
+        pre,
+        code {
+            font-family: 'Fira Code', monospace;
+            font-optical-sizing: auto;
+            font-size: rem(12);
+        }
 
-    ul {
-        margin-top: 0;
-        padding: 0;
-        list-style-type: none;
+        ul {
+            margin-top: 0;
+            padding: 0;
+            list-style-type: none;
+
+            &.use-links {
+                margin-left: 0;
+            }
+
+            &.use-button {
+                margin-left: 0;
+
+                li > a {
+                    @include button;
+                }
+            }
+
+            &.use-default {
+                a {
+                    text-decoration: underline;
+                }
+            }
+        }
 
         li {
             position: relative;
@@ -58,23 +82,8 @@
             }
         }
 
-        &.use-links {
-            margin-left: 0;
-            list-style-type: none;
-        }
-
-        &.use-button {
-            margin-left: 0;
-            list-style-type: none;
-
-            /* stylelint-disable-next-line no-descending-specificity */
-            li > a {
-                @include button;
-            }
-        }
-
-        &.use-links,
-        &.use-button {
+        ul.use-links,
+        ul.use-button {
             li {
                 &::after {
                     display: none;
@@ -82,84 +91,50 @@
             }
         }
 
-        &.use-default {
-            a {
-                text-decoration: underline;
+        @scope ( h1 ) {
+            :scope {
+                position: relative;
+                margin-bottom: 0;
+                padding: calc(var(--gap-size) / 2);
+                overflow: hidden;
+                border: 2px $grey-lightteen solid;
+                border-radius: rem(10);
+                background: $grey-light;
             }
-        }
-    }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        text-transform: capitalize;
-    }
+            .title-content {
+                position: relative;
+                z-index: 1;
 
-    h1 {
-        position: relative;
-        margin-bottom: 0;
-        padding: calc(var(--gap-size) / 2);
-        overflow: hidden;
-        border: 2px $grey-lightteen solid;
-        border-radius: rem(10);
-        background: $grey-light;
-
-        .title-content {
-            span {
-                font-size: rem(25);
+                span {
+                    font-size: rem(25);
+                }
             }
         }
 
-        .triangle-left {
-            position: absolute;
-            z-index: -1;
-            top: calc(#{rem(5)} * -1);
-            left: 0;
-
-            svg {
-                width: rem(100);
-                height: rem(100);
-                fill: $white;
-            }
+        h2 {
+            margin: var(--gap-size) calc(var(--gap-size) * -1)
+                calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
+            padding-left: var(--gap-size);
         }
 
-        .triangle-right {
-            svg {
-                position: absolute;
-                z-index: -1;
-                top: rem(15);
-                right: calc(var(--gap-size) / 2 * -1);
-                width: rem(100);
-                height: rem(100);
-                transform: rotateY(180deg) rotateX(180deg);
-                fill: $white;
-            }
-        }
-    }
+        @scope (h2.is-section) {
+            :scope {
+                position: relative;
+                height: rem(60);
+                overflow: hidden;
+                transition: transform 0.35s;
+                border-bottom: 1px $black solid;
+                color: $black;
+                text-transform: capitalize;
 
-    h2 {
-        margin: var(--gap-size) calc(var(--gap-size) * -1)
-            calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
-        padding-left: var(--gap-size);
+                &.pinned {
+                    box-shadow: 0 calc(#{rem(30)} * -1) 0 $black;
+                }
 
-        &.is-section {
-            position: relative;
-            height: rem(60);
-            overflow: hidden;
-            transition: transform 0.35s;
-            border-bottom: 1px $black solid;
-            color: $black;
-            text-transform: capitalize;
-
-            &.pinned {
-                box-shadow: 0 calc(#{rem(30)} * -1) 0 $black;
-            }
-
-            &.hide.pinned {
-                transform: translateY(-100%);
+                &.hide.pinned {
+                    transform: translateY(-100%);
+                }
             }
 
             .title-content {
@@ -193,73 +168,53 @@
                 }
             }
         }
-    }
 
-    h3 {
-        position: relative;
-        margin-top: calc(var(--gap-size) / 4);
-        margin-bottom: 0;
-        margin-left: calc(calc(var(--gap-size) / 2) * -1);
-        padding-bottom: calc(var(--gap-size) / 4);
-        padding-left: calc(var(--gap-size) / 2);
-        font-size: rem(26);
+        h3 {
+            position: relative;
+            margin-top: calc(var(--gap-size) / 4);
+            margin-bottom: 0;
+            margin-left: calc(calc(var(--gap-size) / 2) * -1);
+            padding-bottom: calc(var(--gap-size) / 4);
+            padding-left: calc(var(--gap-size) / 2);
+            font-size: rem(26);
 
-        &::after {
-            content: '*';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            color: $nord-bg;
-            font-size: rem(30);
+            &::after {
+                content: '*';
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                color: $nord-bg;
+                font-size: rem(30);
+            }
         }
-    }
-
-    pre,
-    code {
-        font-family: 'Fira Code', monospace;
-        font-optical-sizing: auto;
-        font-size: rem(12);
     }
 }
 
-.list-links {
-    @include button;
+@layer layout {
+    @scope (.list-links) {
+        :scope {
+            @include button;
 
-    display: inline-block;
-    position: relative;
-    min-width: rem(250);
-    padding-right: var(--gap-size);
-    padding-left: calc(var(--gap-size) / 2);
-    text-align: left;
-    text-transform: capitalize;
-
-    $self: &;
-
-    &:hover {
-        // color: $white;
-
-        #{$self}__arrow {
-            &__start {
-                background: $white;
-            }
-
-            &__end {
-                border-right: 2px $white solid;
-                border-bottom: 2px $white solid;
-            }
+            display: inline-block;
+            position: relative;
+            min-width: rem(250);
+            padding-right: var(--gap-size);
+            padding-left: calc(var(--gap-size) / 2);
+            text-align: left;
+            text-transform: capitalize;
         }
-    }
 
-    &__arrow {
-        display: block;
-        position: absolute;
-        top: 50%;
-        right: rem(5);
-        width: calc(var(--gap-size) / 2);
-        height: calc(var(--gap-size) / 2);
+        .arrow-container {
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: rem(5);
+            width: calc(var(--gap-size) / 2);
+            height: calc(var(--gap-size) / 2);
+        }
 
-        &__start {
+        .arrow-start {
             position: absolute;
             top: 0;
             left: 0;
@@ -270,7 +225,7 @@
             background: $black;
         }
 
-        &__end {
+        .arrow-end {
             position: absolute;
             top: -1px;
             left: 1px;
@@ -280,6 +235,17 @@
             transition: border-color 0.35s;
             border-right: 2px $black solid;
             border-bottom: 2px $black solid;
+        }
+
+        :scope:hover {
+            .arrow-start {
+                background: $white;
+            }
+
+            .arrow-end {
+                border-right: 2px $white solid;
+                border-bottom: 2px $white solid;
+            }
         }
     }
 }

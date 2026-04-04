@@ -19,9 +19,9 @@ const getList = ({ items, links }) => {
                       html`<li>
                           <a href="${url}" class="list-links">
                               ${label}
-                              <span class="list-links__arrow">
-                                  <span class="list-links__arrow__start"></span>
-                                  <span class="list-links__arrow__end"></span>
+                              <span class="arrow-container">
+                                  <span class="arrow-start"></span>
+                                  <span class="arrow-end"></span>
                               </span>
                           </a>
                       </li>`
