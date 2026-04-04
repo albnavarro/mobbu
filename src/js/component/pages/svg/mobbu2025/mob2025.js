@@ -31,12 +31,10 @@ export const Mobbu2025fn = ({ getState, onMount, setRef, getRef }) => {
      * Desktop
      */
     return html`<div class="mobbu2025">
-        <div class="mobbu2025__screen" ${setRef('screen')}>
-            <div class="mobbu2025__scroller" ${setRef('scroller')}>
-                <div class="mobbu2025__layer">${layer03}</div>
-                <div class="mobbu2025__layer" ${setRef('layer02')}>
-                    ${layer02}
-                </div>
+        <div class="screen" ${setRef('screen')}>
+            <div class="scroller-element" ${setRef('scroller')}>
+                <div class="layer">${layer03}</div>
+                <div class="layer" ${setRef('layer02')}>${layer02}</div>
             </div>
         </div>
     </div>`;

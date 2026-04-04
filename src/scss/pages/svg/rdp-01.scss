@@ -1,8 +1,10 @@
 @use '../../abstract' as *;
 
-.l-rdp-01 {
-    &__block {
-        transform: translate(rem(20), 0);
+@layer layout {
+    @scope (.l-rdp-01) {
+        .animation-block {
+            transform: translate(rem(20), 0);
+        }
 
         svg {
             @media (aspect-ratio >= 3/2) {

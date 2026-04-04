@@ -39,7 +39,7 @@ export const rdp_01_schema = ({
                         animate: true,
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
+                            className: 'u-any-center-svg animation-block',
                             props: {
                                 content: u0,
                             },
@@ -56,7 +56,7 @@ export const rdp_01_schema = ({
                         animate: true,
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
+                            className: 'u-any-center-svg animation-block',
                             props: {
                                 content: u1,
                             },
@@ -74,7 +74,7 @@ export const rdp_01_schema = ({
                         animate: true,
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg l-mob-01__block',
+                            className: 'u-any-center-svg animation-block',
                             props: {
                                 content: o,
                             },
@@ -92,7 +92,7 @@ export const rdp_01_schema = ({
                                 component: {
                                     tagName: 'any-component',
                                     className:
-                                        'u-any-center-svg l-mob-01__block',
+                                        'u-any-center-svg animation-block',
                                     props: {
                                         content: o_b,
                                     },
@@ -111,7 +111,7 @@ export const rdp_01_schema = ({
                                 component: {
                                     tagName: 'any-component',
                                     className:
-                                        'u-any-center-svg l-mob-01__block',
+                                        'u-any-center-svg animation-block',
                                     props: {
                                         content: m1,
                                     },
@@ -129,7 +129,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: m1_b,
                                             },
@@ -149,7 +149,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: m4,
                                             },
@@ -169,7 +169,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: m4_b,
                                             },
@@ -189,7 +189,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: m1_stone,
                                             },
@@ -209,7 +209,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: m2,
                                             },
@@ -229,7 +229,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: sign,
                                             },
@@ -248,7 +248,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: m3,
                                             },
@@ -267,7 +267,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: m3_b,
                                             },
@@ -289,7 +289,7 @@ export const rdp_01_schema = ({
                                 component: {
                                     tagName: 'any-component',
                                     className:
-                                        'u-any-center-svg l-mob-01__block',
+                                        'u-any-center-svg animation-block',
                                     props: {
                                         content: b1_b,
                                     },
@@ -308,7 +308,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: b1,
                                             },
@@ -328,7 +328,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: b1_stone,
                                             },
@@ -348,7 +348,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: b3,
                                             },
@@ -368,7 +368,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: b4,
                                             },
@@ -388,7 +388,7 @@ export const rdp_01_schema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg l-mob-01__block',
+                                                'u-any-center-svg animation-block',
                                             props: {
                                                 content: b5,
                                             },
