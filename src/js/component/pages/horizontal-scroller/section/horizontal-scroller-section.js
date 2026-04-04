@@ -7,15 +7,12 @@ export const HorizontalScrollerSectionFn = ({ getState }) => {
     const { id, pinClass } = getState();
 
     return html`
-        <section
-            class="l-h-scroller__column js-column"
-            data-shadow="section-${id}"
-        >
-            <div class="l-h-scroller__wrap">
-                <span class="l-h-scroller__indicator js-indicator ${pinClass}">
+        <section class="column js-column" data-shadow="section-${id}">
+            <div class="wrap">
+                <span class="h-scroller-indicator js-indicator ${pinClass}">
                     <span></span>
                 </span>
-                <div class="l-h-scroller__title js-title">
+                <div class="title js-title">
                     <h1>${id}</h1>
                 </div>
             </div>

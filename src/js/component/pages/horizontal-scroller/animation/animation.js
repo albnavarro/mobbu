@@ -120,7 +120,7 @@ export const horizontalScrollerAnimation = ({
     let pins = createPins({ indicators, proxi });
     let titlesParallax = createParallax({ titles });
 
-    const side = document.querySelector('.l-navcontainer__side');
+    const side = document.querySelector('.js-side-col');
     // @ts-ignore
     sideWidth = outerWidth(side) / 2;
 

@@ -7,12 +7,8 @@ export const HorizontalScrollerButtonFn = ({ getProxi }) => {
     const proxi = getProxi();
 
     return html`
-        <li>
-            <button
-                type="button"
-                data-id="${proxi.id}"
-                class="l-h-scroller__nav__btn"
-            >
+        <li class="nav-item">
+            <button type="button" data-id="${proxi.id}" class="nav-button">
                 ${proxi.id}
             </button>
         </li>

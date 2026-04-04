@@ -183,8 +183,8 @@ export const HorizontalScrollerFn = ({
      */
     return html`<div class="l-h-scroller">
         <only-desktop></only-desktop>
-        <div class="l-h-scroller__top">scroll down</div>
-        <ul class="l-h-scroller__nav js-nav" ${setRef('js_nav')}>
+        <div class="top">scroll down</div>
+        <ul class="nav js-nav" ${setRef('js_nav')}>
             ${getNav({
                 numOfCol: 10,
                 proxi,
@@ -192,24 +192,18 @@ export const HorizontalScrollerFn = ({
                 delegateEvents,
             })}
         </ul>
-        <div class="l-h-scroller__root js-root" ${setRef('js_root')}>
-            <div
-                class="l-h-scroller__container js-container"
-                ${setRef('js_container')}
-            >
-                <div class="l-h-scroller__row js-row" ${setRef('js_root')}>
+        <div class="js-root" ${setRef('js_root')}>
+            <div class="wrapper js-container" ${setRef('js_container')}>
+                <div class="js-row" ${setRef('js_root')}>
                     ${getColumns({
                         numOfCol: 10,
                         pinIsVisible: !proxi.animatePin,
                         staticProps,
                     })}
                 </div>
-                <div
-                    class="l-h-scroller__trigger js-trigger"
-                    ${setRef('js_trigger')}
-                ></div>
+                <div class="js-trigger" ${setRef('js_trigger')}></div>
             </div>
         </div>
-        <div class="l-h-scroller__bottom">scroll up</div>
+        <div>scroll up</div>
     </div>`;
 };

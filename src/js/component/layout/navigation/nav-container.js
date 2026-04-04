@@ -123,7 +123,7 @@ export const NavigationContainerFn = ({
                 </div>
             </div>
             <div
-                class="side-col"
+                class="side-col js-side-col"
                 ${bindEffect({
                     toggleClass: { 'is-visible': () => proxi.isMounted },
                 })}

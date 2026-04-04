@@ -1,76 +1,79 @@
 @use '../../abstract' as *;
 
-.l-h-scroller {
-    margin-top: calc(var(--header-height) * -1);
+@layer layout {
+    @scope (.l-h-scroller) {
+        :scope {
+            margin-top: calc(var(--header-height) * -1);
 
-    // Performance on scroll
-    @include when-inside('.is-whelling') {
-        pointer-events: none;
-    }
-
-    &__top,
-    &__bottom {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        transition: background 0.55s;
-        color: $black;
-        font-size: rem(25);
-        font-weight: 600;
-        text-transform: capitalize;
-    }
-
-    &__top {
-        margin-top: var(--header-height);
-    }
-
-    &__bottom {
-        position: relative;
-    }
-
-    &__container {
-        pointer-events: none;
-    }
-
-    &__column {
-        padding: calc(var(--header-height) * 0.5);
-        pointer-events: all;
-
-        &--last {
-            width: rem(100) !important;
+            @include when-inside('.is-whelling') {
+                pointer-events: none;
+            }
         }
 
-        &:last-of-type {
-            margin-right: 1px;
-        }
-    }
-
-    &__wrap {
-        position: relative;
-        height: 100%;
-        border: 1px $black solid;
-    }
-
-    &__nav {
-        position: fixed;
-        z-index: 9;
-        top: calc(15% + var(--header-height) * 0.5 + 5px);
-        left: calc(var(--header-height) * 0.5);
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        transform: translateY(-100%);
-        transition: opacity 0.15s;
-        opacity: 0;
-        font-size: 0;
-
-        &.active {
-            opacity: 1;
+        .top,
+        .bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            transition: background 0.55s;
+            color: $black;
+            font-size: rem(25);
+            font-weight: 600;
+            text-transform: capitalize;
         }
 
-        li {
+        .top {
+            margin-top: var(--header-height);
+        }
+
+        .bottom {
+            position: relative;
+        }
+
+        .wrapper {
+            pointer-events: none;
+        }
+
+        .column {
+            padding: calc(var(--header-height) * 0.5);
+            pointer-events: all;
+
+            &--last {
+                width: rem(100) !important;
+            }
+
+            &:last-of-type {
+                margin-right: 1px;
+            }
+        }
+
+        .wrap {
+            position: relative;
+            height: 100%;
+            border: 1px $black solid;
+        }
+
+        .nav {
+            position: fixed;
+            z-index: 9;
+            top: calc(15% + var(--header-height) * 0.5 + 5px);
+            left: calc(var(--header-height) * 0.5);
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            transform: translateY(-100%);
+            transition: opacity 0.15s;
+            opacity: 0;
+            font-size: 0;
+
+            &.active {
+                opacity: 1;
+            }
+        }
+
+        .nav-item {
             display: inline-block;
             cursor: pointer;
 
@@ -81,7 +84,7 @@
             }
         }
 
-        &__btn {
+        .nav-button {
             position: relative;
             width: rem(60);
             height: rem(60);
@@ -95,43 +98,55 @@
             background: transparent;
             font-size: rem(16);
         }
-    }
 
-    &__title {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: rem(200);
-        transform: translate(-50%, -50%);
-        border: rem(10px) rgba($black, 0.15) solid;
-        text-align: center;
+        .title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: rem(200);
+            transform: translate(-50%, -50%);
+            border: rem(10px) rgba($black, 0.15) solid;
+            text-align: center;
 
-        h1 {
-            color: $black;
-            font-size: rem(200);
-            font-weight: 600;
+            h1 {
+                color: $black;
+                font-size: rem(200);
+                font-weight: 600;
+            }
         }
     }
+}
 
-    &__indicator {
-        display: block;
-        z-index: 8;
-        width: rem(60);
-        height: 0;
-        margin: 0;
-        padding: 0;
-        transition:
-            background 0.15s,
-            opacity 0.15s;
-        border: 0;
-        border-right: 1px $black solid;
-        opacity: 0;
-        color: $black;
-        font-size: rem(16);
-        pointer-events: none;
+@layer layout {
+    @scope (.h-scroller-indicator) {
+        :scope {
+            display: block;
+            z-index: 8;
+            width: rem(60);
+            height: 0;
+            margin: 0;
+            padding: 0;
+            transition:
+                background 0.15s,
+                opacity 0.15s;
+            border: 0;
+            border-right: 1px $black solid;
+            opacity: 0;
+            color: $black;
+            font-size: rem(16);
+            pointer-events: none;
 
-        &.hidden {
-            visibility: hidden;
+            &.hidden {
+                visibility: hidden;
+            }
+
+            &.active {
+                opacity: 1;
+            }
+
+            &:hover {
+                background: $black;
+            }
         }
 
         span {
@@ -139,14 +154,6 @@
             width: rem(60);
             height: rem(10);
             transform: translateY(-100%);
-            background: $black;
-        }
-
-        &.active {
-            opacity: 1;
-        }
-
-        &:hover {
             background: $black;
         }
     }

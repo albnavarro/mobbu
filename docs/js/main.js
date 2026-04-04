@@ -33136,7 +33136,7 @@
   }) => {
     let pins = createPins({ indicators, proxi });
     let titlesParallax = createParallax2({ titles });
-    const side = document.querySelector(".l-navcontainer__side");
+    const side = document.querySelector(".js-side-col");
     sideWidth = outerWidth(side) / 2;
     const unsubscribeResize = modules_exports.useResize(() => {
       sideWidth = outerWidth(side) / 2;
@@ -33298,8 +33298,8 @@
       return renderHtml`<div><only-desktop></only-desktop></div>`;
     return renderHtml`<div class="l-h-scroller">
         <only-desktop></only-desktop>
-        <div class="l-h-scroller__top">scroll down</div>
-        <ul class="l-h-scroller__nav js-nav" ${setRef("js_nav")}>
+        <div class="top">scroll down</div>
+        <ul class="nav js-nav" ${setRef("js_nav")}>
             ${getNav({
       numOfCol: 10,
       proxi,
@@ -33307,25 +33307,19 @@
       delegateEvents
     })}
         </ul>
-        <div class="l-h-scroller__root js-root" ${setRef("js_root")}>
-            <div
-                class="l-h-scroller__container js-container"
-                ${setRef("js_container")}
-            >
-                <div class="l-h-scroller__row js-row" ${setRef("js_root")}>
+        <div class="js-root" ${setRef("js_root")}>
+            <div class="wrapper js-container" ${setRef("js_container")}>
+                <div class="js-row" ${setRef("js_root")}>
                     ${getColumns({
       numOfCol: 10,
       pinIsVisible: !proxi.animatePin,
       staticProps: staticProps2
     })}
                 </div>
-                <div
-                    class="l-h-scroller__trigger js-trigger"
-                    ${setRef("js_trigger")}
-                ></div>
+                <div class="js-trigger" ${setRef("js_trigger")}></div>
             </div>
         </div>
-        <div class="l-h-scroller__bottom">scroll up</div>
+        <div>scroll up</div>
     </div>`;
   };
 
@@ -33333,12 +33327,8 @@
   var HorizontalScrollerButtonFn = ({ getProxi }) => {
     const proxi = getProxi();
     return renderHtml`
-        <li>
-            <button
-                type="button"
-                data-id="${proxi.id}"
-                class="l-h-scroller__nav__btn"
-            >
+        <li class="nav-item">
+            <button type="button" data-id="${proxi.id}" class="nav-button">
                 ${proxi.id}
             </button>
         </li>
@@ -33364,15 +33354,12 @@
   var HorizontalScrollerSectionFn = ({ getState }) => {
     const { id, pinClass } = getState();
     return renderHtml`
-        <section
-            class="l-h-scroller__column js-column"
-            data-shadow="section-${id}"
-        >
-            <div class="l-h-scroller__wrap">
-                <span class="l-h-scroller__indicator js-indicator ${pinClass}">
+        <section class="column js-column" data-shadow="section-${id}">
+            <div class="wrap">
+                <span class="h-scroller-indicator js-indicator ${pinClass}">
                     <span></span>
                 </span>
-                <div class="l-h-scroller__title js-title">
+                <div class="title js-title">
                     <h1>${id}</h1>
                 </div>
             </div>
@@ -42556,7 +42543,7 @@
                 </div>
             </div>
             <div
-                class="side-col"
+                class="side-col js-side-col"
                 ${bindEffect({
       toggleClass: { "is-visible": () => proxi.isMounted }
     })}
