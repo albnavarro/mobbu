@@ -114,7 +114,7 @@ export const SnippetFn = ({
             >
         </code>
         <button
-            class="snippet__expand ${expandClass}"
+            class="expand ${expandClass}"
             ${!useExpand && 'disabled'}
             ${delegateEvents({
                 click: () => {

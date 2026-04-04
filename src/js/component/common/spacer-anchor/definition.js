@@ -18,10 +18,6 @@ export const SpacerAnchor = MobJs.createComponent(
                     ['x-small', 'small', 'medium', 'big'].includes(val),
                 strict: true,
             }),
-            line: () => ({
-                value: false,
-                type: Boolean,
-            }),
             id: () => ({
                 value: '',
                 type: String,

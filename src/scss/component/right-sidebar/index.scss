@@ -1,83 +1,86 @@
 @use '../../abstract' as *;
 
-.right-sidebar {
-    display: none;
-    visibility: hidden;
-    position: fixed;
-    z-index: 9;
-    top: calc(var(--gap-size) + var(--header-height));
-    left: var(--header-height);
-    transition:
-        opacity 0.35s,
-        visibility 0.35s;
-    opacity: 0;
-
-    // Performance on scroll
-    @include when-inside('.is-whelling') {
-        pointer-events: none;
-    }
-
-    &.visible {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    @include mq(large) {
-        display: block;
-    }
-
-    &__list {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-    }
-
-    &__title {
-        margin-bottom: calc(var(--gap-size) / 4);
-        font-size: rem(12);
-        font-weight: 600;
-        text-transform: uppercase;
-
-        @include mq(large) {
-            font-size: rem(13);
-        }
-    }
-
-    &__item {
-        font-size: rem(12);
-        text-transform: capitalize;
-
-        @include mq(large) {
-            font-size: rem(13);
-        }
-    }
-
-    &__link {
-        position: relative;
-        transition: opacity 0.35s;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: calc(100% + #{rem(5)});
-            width: rem(5);
-            height: rem(5);
-            transform: translateY(-50%) rotate(45deg);
-            transition: opacity 0.35s;
-            border-top: 2px $black solid;
-            border-right: 2px $black solid;
+@layer layout {
+    @scope (.left-sidebar) {
+        :scope {
+            display: none;
+            visibility: hidden;
+            position: fixed;
+            z-index: 9;
+            top: calc(var(--gap-size) + var(--header-height));
+            left: var(--header-height);
+            transition:
+                opacity 0.35s,
+                visibility 0.35s;
             opacity: 0;
-        }
 
-        &.active {
-            font-weight: 600;
-        }
+            @include when-inside('.is-whelling') {
+                pointer-events: none;
+            }
 
-        &:hover,
-        &.active {
-            &::before {
+            &.visible {
+                visibility: visible;
                 opacity: 1;
+            }
+
+            @include mq(large) {
+                display: block;
+            }
+        }
+
+        .list {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .title {
+            margin-bottom: calc(var(--gap-size) / 4);
+            font-size: rem(12);
+            font-weight: 600;
+            text-transform: uppercase;
+
+            @include mq(large) {
+                font-size: rem(13);
+            }
+        }
+
+        .item {
+            font-size: rem(12);
+            text-transform: capitalize;
+
+            @include mq(large) {
+                font-size: rem(13);
+            }
+        }
+
+        .link {
+            position: relative;
+            transition: opacity 0.35s;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: calc(100% + #{rem(5)});
+                width: rem(5);
+                height: rem(5);
+                transform: translateY(-50%) rotate(45deg);
+                transition: opacity 0.35s;
+                border-top: 2px $black solid;
+                border-right: 2px $black solid;
+                opacity: 0;
+            }
+
+            &.active {
+                font-weight: 600;
+            }
+
+            &:hover,
+            &.active {
+                &::before {
+                    opacity: 1;
+                }
             }
         }
     }

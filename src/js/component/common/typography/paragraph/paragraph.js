@@ -4,11 +4,11 @@ import { html } from '@mobJs';
 export const ParagraphFn = ({ getState }) => {
     const { style, color, boxed, note } = getState();
     const colorClass = color === 'inherit' ? '' : `is-${color}`;
-    const boxedClass = boxed ? `p--boxed` : '';
-    const noteClass = note ? `p--note` : '';
+    const boxedClass = boxed ? `p-boxed` : '';
+    const noteClass = note ? `p-note` : '';
 
     return html`<p
-        class="p p--${style} ${boxedClass} ${noteClass} ${colorClass}"
+        class="p p-${style} ${boxedClass} ${noteClass} ${colorClass}"
     >
         <mobjs-slot></mobjs-slot>
     </p>`;

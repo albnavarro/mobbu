@@ -1,38 +1,27 @@
 @use '../../abstract' as *;
 
-.anchor-button {
-    @include button;
+@layer layout {
+    @scope (.anchor-button) {
+        :scope {
+            @include button;
 
-    position: relative;
-    padding-right: var(--gap-size);
-    padding-left: calc(var(--gap-size) / 2);
-    background: transparent;
-    text-align: left;
-
-    $self: &;
-
-    &:hover {
-        #{$self}__arrow {
-            &__start {
-                background: $white;
-            }
-
-            &__end {
-                border-right: 2px $white solid;
-                border-bottom: 2px $white solid;
-            }
+            position: relative;
+            padding-right: var(--gap-size);
+            padding-left: calc(var(--gap-size) / 2);
+            background: transparent;
+            text-align: left;
         }
-    }
 
-    &__arrow {
-        display: block;
-        position: absolute;
-        top: 50%;
-        right: rem(5);
-        width: rem(20);
-        height: rem(20);
+        .arrows {
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: rem(5);
+            width: rem(20);
+            height: rem(20);
+        }
 
-        &__start {
+        .arrow-start {
             position: absolute;
             top: 0;
             left: 0;
@@ -43,7 +32,7 @@
             background: $black;
         }
 
-        &__end {
+        .arrow-end {
             position: absolute;
             top: calc(#{rem(2)} * 1);
             left: 0;
@@ -53,6 +42,17 @@
             transition: border-color 0.35s;
             border-right: 2px $black solid;
             border-bottom: 2px $black solid;
+        }
+
+        :scope:hover {
+            .arrow-start {
+                background: $white;
+            }
+
+            .arrow-end {
+                border-right: 2px $white solid;
+                border-bottom: 2px $white solid;
+            }
         }
     }
 }

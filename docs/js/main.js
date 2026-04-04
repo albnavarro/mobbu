@@ -25265,11 +25265,11 @@
   var DocContainerFn = () => {
     return renderHtml`
         <div class="c-doc-container">
-            <div class="c-doc-container__left-sidebar"></div>
-            <div class="c-doc-container__content">
+            <div class="left"></div>
+            <div class="content">
                 <mobjs-slot name="docs"></mobjs-slot>
             </div>
-            <div class="c-doc-container__right-sidebar">
+            <div class="right">
                 <mobjs-slot name="section-title-small"></mobjs-slot>
                 <mobjs-slot name="section-title"></mobjs-slot>
                 <mobjs-slot name="section-links"></mobjs-slot>
@@ -26093,7 +26093,7 @@
             >
         </code>
         <button
-            class="snippet__expand ${expandClass}"
+            class="expand ${expandClass}"
             ${!useExpand && "disabled"}
             ${delegateEvents({
       click: () => {
@@ -26153,7 +26153,7 @@
   var searchOverlay = "search_overlay";
   var searchOverlayList = "search_overlay_list";
   var searchOverlayHeader = "search_overlay_header";
-  var rightSidebarName = "right-sidebar";
+  var leftSidebarName = "right-sidebar";
   var routeLoader = "route-loader";
 
   // src/js/component/common/scroll-to/utils.js
@@ -26190,14 +26190,13 @@
     }
   };
   var SpacerAnchorFn = ({ getState, onMount }) => {
-    const { style, line, id, label, isSection, isNote } = getState();
-    const lineClass = line ? "spacer--line" : "";
+    const { style, id, label, isSection, isNote } = getState();
     onMount(({ element }) => {
       const shouldAddToAnchor = hasAnchor({ label });
       if (!shouldAddToAnchor) return;
       addItemToScrollComponent({ id, label, element, isSection, isNote });
     });
-    return renderHtml`<div id="${id}" class="spacer spacer--${style} ${lineClass}">
+    return renderHtml`<div id="${id}" class="spacer is-${style}">
         <span></span>
     </div>`;
   };
@@ -26214,10 +26213,6 @@
           type: String,
           validate: (val) => ["x-small", "small", "medium", "big"].includes(val),
           strict: true
-        }),
-        line: () => ({
-          value: false,
-          type: Boolean
         }),
         id: () => ({
           value: "",
@@ -26256,9 +26251,9 @@
     })}
         >
             ${content}
-            <span class="anchor-button__arrow">
-                <span class="anchor-button__arrow__start"></span>
-                <span class="anchor-button__arrow__end"></span>
+            <span class="arrows">
+                <span class="arrow-start"></span>
+                <span class="arrow-end"></span>
             </span>
         </button>
     </div>`;
@@ -26304,7 +26299,7 @@
     const { style, color, items, links } = getState();
     const colorClass = `is-${color}`;
     const linksClass = links ? "use-links" : "use-default";
-    return renderHtml`<ul class="ul ul--${style} ${colorClass} ${linksClass}">
+    return renderHtml`<ul class="ul ul-${style} ${colorClass} ${linksClass}">
         ${getList({ items, links })}
     </ul>`;
   };
@@ -26351,10 +26346,10 @@
   var ParagraphFn = ({ getState }) => {
     const { style, color, boxed, note } = getState();
     const colorClass = color === "inherit" ? "" : `is-${color}`;
-    const boxedClass = boxed ? `p--boxed` : "";
-    const noteClass = note ? `p--note` : "";
+    const boxedClass = boxed ? `p-boxed` : "";
+    const noteClass = note ? `p-note` : "";
     return renderHtml`<p
-        class="p p--${style} ${boxedClass} ${noteClass} ${colorClass}"
+        class="p p-${style} ${boxedClass} ${noteClass} ${colorClass}"
     >
         <mobjs-slot></mobjs-slot>
     </p>`;
@@ -26813,9 +26808,9 @@
     return `<div class="c-breadcrumbs">${items}</div>`;
   };
 
-  // src/js/component/common/right-sidebar/utils.js
-  var updateRightSidebarList = (data) => {
-    const navContainerMethods = modules_exports2.useMethodByName(rightSidebarName);
+  // src/js/component/common/left-sidebar/utils.js
+  var updateLeftSidebarList = (data) => {
+    const navContainerMethods = modules_exports2.useMethodByName(leftSidebarName);
     navContainerMethods?.updateList(data ?? []);
   };
 
@@ -26830,7 +26825,7 @@
   var layoutSidebarAnchor = async ({ props }) => {
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
-    updateRightSidebarList(rightSidebar ?? []);
+    updateLeftSidebarList(rightSidebar ?? []);
     return renderHtml` <doc-container>
         <div>
             <html-content
@@ -26861,7 +26856,7 @@
   var layoutSidebarLinks = async ({ props }) => {
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
-    updateRightSidebarList(rightSidebar ?? []);
+    updateLeftSidebarList(rightSidebar ?? []);
     return renderHtml`<doc-container>
         <div>
             <html-content
@@ -40912,15 +40907,15 @@
     }
   );
 
-  // src/js/component/common/right-sidebar/right-sidebar.js
+  // src/js/component/common/left-sidebar/left-sidebar.js
   var getList2 = ({ proxi, bindEffect }) => {
     return proxi.data.map(({ label, url }) => {
       const urlParsed = url.replaceAll("#", "");
       return renderHtml`
-                <li class="right-sidebar__item">
+                <li class="item">
                     <a
                         href="${url}"
-                        class="right-sidebar__link"
+                        class="link"
                         ${bindEffect({
         toggleClass: {
           active: () => proxi.activeRoute.route === urlParsed
@@ -40932,7 +40927,7 @@
             `;
     }).join("");
   };
-  var RightSidebarFn = ({
+  var LightSidebarFn = ({
     getProxi,
     invalidate,
     addMethod,
@@ -40951,15 +40946,15 @@
       () => proxi.data.length > 0
     );
     return renderHtml`<div
-        class="right-sidebar"
+        class="left-sidebar"
         ${bindEffect({
       toggleClass: {
         visible: () => proxi.isVisible
       }
     })}
     >
-        <div class="right-sidebar__title">Sections:</div>
-        <ul class="right-sidebar__list">
+        <div class="title">Sections:</div>
+        <ul class="list">
             ${invalidate({
       observe: () => proxi.data,
       render: () => {
@@ -40970,12 +40965,12 @@
     </div>`;
   };
 
-  // src/js/component/common/right-sidebar/definition.js
-  var RightSidebar = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').RightSidebar>} */
+  // src/js/component/common/left-sidebar/definition.js
+  var LeftSidebar = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').LeftSidebar>} */
     {
-      tag: "right-sidebar",
-      component: RightSidebarFn,
+      tag: "left-sidebar",
+      component: LightSidebarFn,
       bindStore: [modules_exports2.mainStore],
       state: {
         data: () => ({
@@ -43018,7 +43013,7 @@
     DebugOverlay,
     TestScssGrid,
     SearchOverlay,
-    RightSidebar
+    LeftSidebar
   ]);
   var wrapper = async () => {
     const useScssTestGrid = false;
@@ -43041,7 +43036,7 @@
         <route-loader name="${routeLoader}"></route-loader>
         <scroll-down-label name="${scrollDownLabelName}"></scroll-down-label>
         <links-mobjs></links-mobjs>
-        <right-sidebar name="${rightSidebarName}"></right-sidebar>
+        <left-sidebar name="${leftSidebarName}"></left-sidebar>
         <search-overlay name="${searchOverlay}"></search-overlay>
     `;
   };

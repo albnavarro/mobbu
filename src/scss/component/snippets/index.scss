@@ -1,86 +1,90 @@
 @use '../../abstract' as *;
 
-.snippet {
-    position: relative;
-
-    &__expand {
-        display: inline-block;
-        position: absolute;
-        top: rem(10);
-        right: 0;
-        margin-right: rem(10);
-        margin-bottom: rem(10);
-        padding: rem(2) rem(10);
-        transition: background 0.35s;
-        border: 0;
-        border-radius: rem(10);
-        background: $black;
-        color: $white;
-        font-size: rem(12);
-        text-align: center;
-        text-decoration: none;
-
-        &:hover {
-            background: $grey;
-            color: $black;
+@layer layout {
+    @scope (.snippet) {
+        :scope {
+            position: relative;
         }
 
-        &:disabled {
-            opacity: 0.4;
-            pointer-events: none;
-        }
-    }
-
-    code {
-        display: block;
-        position: relative;
-        box-sizing: content-box;
-        width: 100%;
-        min-width: auto;
-        padding: 0;
-        overflow: hidden;
-        transition: height 0.35s;
-        border: 2px $grey solid;
-        border-radius: rem(10);
-        font-size: calc(var(--snippet-rem-value) * 1rem);
-        line-height: calc(var(--snippet-line-height-value) * 1rem);
-
-        --padding-pre: var(--gap-size);
-
-        &::after {
-            content: '';
+        .expand {
+            display: inline-block;
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: rem(150);
-            transition: opacity 0.35s;
-            opacity: 0;
-            background: linear-gradient(
-                360deg,
-                rgba($white, 1) 0%,
-                rgba($white, 0) 100%
-            );
-            pointer-events: none;
-        }
+            top: rem(10);
+            right: 0;
+            margin-right: rem(10);
+            margin-bottom: rem(10);
+            padding: rem(2) rem(10);
+            transition: background 0.35s;
+            border: 0;
+            border-radius: rem(10);
+            background: $black;
+            color: $white;
+            font-size: rem(12);
+            text-align: center;
+            text-decoration: none;
 
-        &.open {
-            height: calc(var(--snippet-height) + (var(--padding-pre) * 2));
-        }
+            &:hover {
+                background: $grey;
+                color: $black;
+            }
 
-        &.close {
-            height: var(--closed-height);
-
-            &::after {
-                opacity: 1;
+            &:disabled {
+                opacity: 0.4;
+                pointer-events: none;
             }
         }
-    }
 
-    pre {
-        box-sizing: inherit;
-        margin: 0;
-        padding: var(--padding-pre);
-        overflow: hidden;
+        code {
+            display: block;
+            position: relative;
+            box-sizing: content-box;
+            width: 100%;
+            min-width: auto;
+            padding: 0;
+            overflow: hidden;
+            transition: height 0.35s;
+            border: 2px $grey solid;
+            border-radius: rem(10);
+            font-size: calc(var(--snippet-rem-value) * 1rem);
+            line-height: calc(var(--snippet-line-height-value) * 1rem);
+
+            --padding-pre: var(--gap-size);
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: rem(150);
+                transition: opacity 0.35s;
+                opacity: 0;
+                background: linear-gradient(
+                    360deg,
+                    rgba($white, 1) 0%,
+                    rgba($white, 0) 100%
+                );
+                pointer-events: none;
+            }
+
+            &.open {
+                height: calc(var(--snippet-height) + (var(--padding-pre) * 2));
+            }
+
+            &.close {
+                height: var(--closed-height);
+
+                &::after {
+                    opacity: 1;
+                }
+            }
+        }
+
+        pre {
+            box-sizing: inherit;
+            margin: 0;
+            padding: var(--padding-pre);
+            overflow: hidden;
+        }
     }
 }

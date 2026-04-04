@@ -3,7 +3,7 @@
  *   BindEffect,
  *   MobComponent
  * } from "@mobJsType"
- * @import {RightSidebar} from "./type"
+ * @import {LeftSidebar} from "./type"
  */
 
 import { html, MobJs } from '@mobJs';
@@ -11,8 +11,8 @@ import { docsTemplate } from '@pages/index';
 
 /**
  * @param {object} params
- * @param {RightSidebar['state']} params.proxi
- * @param {BindEffect<RightSidebar>} params.bindEffect
+ * @param {LeftSidebar['state']} params.proxi
+ * @param {BindEffect<LeftSidebar>} params.bindEffect
  * @returns {string}
  */
 const getList = ({ proxi, bindEffect }) => {
@@ -21,10 +21,10 @@ const getList = ({ proxi, bindEffect }) => {
             const urlParsed = url.replaceAll('#', '');
 
             return html`
-                <li class="right-sidebar__item">
+                <li class="item">
                     <a
                         href="${url}"
-                        class="right-sidebar__link"
+                        class="link"
                         ${bindEffect({
                             toggleClass: {
                                 active: () =>
@@ -39,8 +39,8 @@ const getList = ({ proxi, bindEffect }) => {
         .join('');
 };
 
-/** @type {MobComponent<RightSidebar>} */
-export const RightSidebarFn = ({
+/** @type {MobComponent<LeftSidebar>} */
+export const LightSidebarFn = ({
     getProxi,
     invalidate,
     addMethod,
@@ -69,15 +69,15 @@ export const RightSidebarFn = ({
     );
 
     return html`<div
-        class="right-sidebar"
+        class="left-sidebar"
         ${bindEffect({
             toggleClass: {
                 visible: () => proxi.isVisible,
             },
         })}
     >
-        <div class="right-sidebar__title">Sections:</div>
-        <ul class="right-sidebar__list">
+        <div class="title">Sections:</div>
+        <ul class="list">
             ${invalidate({
                 observe: () => proxi.data,
                 render: () => {

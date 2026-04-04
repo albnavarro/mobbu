@@ -1,112 +1,110 @@
 @use '../../abstract' as *;
 
-.c-scroll-to {
-    margin-top: calc(var(--gap-size) / 2);
-    margin-left: var(--gap-size);
-    color: $black;
-
-    ul {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-
-        @media screen and (height <= 825px) {
-            margin-top: calc(#{rem(10)} * -1);
-        }
-    }
-
-    li {
-        margin-bottom: 0;
-    }
-
-    button {
-        display: block;
-        position: relative;
-        margin-left: rem(10);
-        padding: 0;
-        transition: opacity 0.55s;
-        border: 0;
-        background: transparent;
-        font-size: rem(12);
-        line-height: 1.5;
-
-        @include mq(large) {
-            font-size: rem(13);
+@layer layout {
+    @scope (.c-scroll-to) {
+        :scope {
+            margin-top: calc(var(--gap-size) / 2);
+            margin-left: var(--gap-size);
+            color: $black;
         }
 
-        span {
-            display: block;
-            transition:
-                transform 0.55s,
-                opacity 0.55s;
-            text-transform: capitalize;
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
 
-            @media screen and (height >= 200px) and (height <= 900px) {
-                font-size: rem(11);
+            @media screen and (height <= 825px) {
+                margin-top: calc(#{rem(10)} * -1);
             }
         }
 
-        &.is-section {
-            margin-top: calc(var(--gap-size) / 4);
-            margin-left: 0;
-            font-weight: 600;
+        li {
+            margin-bottom: 0;
+        }
+
+        button {
+            display: block;
+            position: relative;
+            margin-left: rem(10);
+            padding: 0;
+            transition: opacity 0.55s;
+            border: 0;
+            background: transparent;
+            font-size: rem(12);
+            line-height: 1.5;
+
+            @include mq(large) {
+                font-size: rem(13);
+            }
 
             span {
-                text-transform: uppercase;
-            }
-        }
+                display: block;
+                transition:
+                    transform 0.55s,
+                    opacity 0.55s;
+                text-transform: capitalize;
 
-        &::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: calc(100% + #{rem(5)});
-            width: rem(4);
-            height: rem(4);
-            transform: translateY(-50%) rotate(45deg);
-            transition: transform 0.35s;
-            border-top: 1px rgba($black, 0.5) solid;
-            border-right: 1px rgba($black, 0.5) solid;
-        }
-
-        &:not(.active):hover {
-            &::before {
-                transform: translateY(-50%)
-                    translateX(calc(-50% + #{rem(2)} * -1)) rotate(45deg);
-            }
-        }
-
-        &.active {
-            font-weight: 600;
-        }
-
-        &.is-section,
-        &.is-note {
-            pointer-events: none;
-
-            &::before {
-                content: none;
-            }
-
-            &:hover,
-            &.active {
-                &::after {
-                    content: none;
+                @media screen and (height >= 200px) and (height <= 900px) {
+                    font-size: rem(11);
                 }
             }
 
-            // &:hover {
-            //     span {
-            //         opacity: 1;
-            //     }
-            // }
-        }
+            &.is-section {
+                margin-top: calc(var(--gap-size) / 4);
+                margin-left: 0;
+                font-weight: 600;
 
-        &.is-note {
-            margin-left: 0;
-            opacity: 0.5;
-            font-size: rem(12);
-            cursor: auto;
+                span {
+                    text-transform: uppercase;
+                }
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: calc(100% + #{rem(5)});
+                width: rem(4);
+                height: rem(4);
+                transform: translateY(-50%) rotate(45deg);
+                transition: transform 0.35s;
+                border-top: 1px rgba($black, 0.5) solid;
+                border-right: 1px rgba($black, 0.5) solid;
+            }
+
+            &:not(.active):hover {
+                &::before {
+                    transform: translateY(-50%)
+                        translateX(calc(-50% + #{rem(2)} * -1)) rotate(45deg);
+                }
+            }
+
+            &.active {
+                font-weight: 600;
+            }
+
+            &.is-section,
+            &.is-note {
+                pointer-events: none;
+
+                &::before {
+                    content: none;
+                }
+
+                &:hover,
+                &.active {
+                    &::after {
+                        content: none;
+                    }
+                }
+            }
+
+            &.is-note {
+                margin-left: 0;
+                opacity: 0.5;
+                font-size: rem(12);
+                cursor: auto;
+            }
         }
     }
 }

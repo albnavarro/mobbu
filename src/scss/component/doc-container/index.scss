@@ -1,79 +1,82 @@
 @use '../../abstract' as *;
 
-.c-doc-container {
-    display: grid;
-    position: relative;
-    grid-template-columns: var(--doc-width) 1fr;
-    padding-bottom: var(--footer-height);
+@layer layout {
+    @scope (.c-doc-container) {
+        :scope {
+            display: grid;
+            position: relative;
+            grid-template-columns: var(--doc-width) 1fr;
+            padding-bottom: var(--footer-height);
 
-    @include mq(large) {
-        grid-template-columns: var(--left-sidebar) var(--doc-width) 1fr;
-    }
+            @include mq(large) {
+                grid-template-columns: var(--left-sidebar) var(--doc-width) 1fr;
+            }
 
-    // Increase scrolling performance on smooth scroll.
-    @include when-inside('.is-whelling') {
-        pointer-events: none;
-    }
+            @include when-inside('.is-whelling') {
+                pointer-events: none;
+            }
+        }
 
-    &__left-sidebar {
-        display: none;
-        position: sticky;
-        z-index: 14;
-        top: var(--header-height);
-        align-self: start;
-        height: calc(100vh - var(--header-height) - var(--footer-height));
-        padding: var(--gap-size);
-        overflow: hidden;
+        .left {
+            display: none;
+            position: sticky;
+            z-index: 14;
+            top: var(--header-height);
+            align-self: start;
+            height: calc(100vh - var(--header-height) - var(--footer-height));
+            padding: var(--gap-size);
+            overflow: hidden;
 
-        @include mq('large') {
-            display: block;
+            @include mq('large') {
+                display: block;
+                grid-column: 1 / span 1;
+            }
+        }
+
+        .content {
+            position: relative;
             grid-column: 1 / span 1;
+            min-height: 100vh;
+            background: rgba($white, 0.4);
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 1px;
+                background: $black;
+            }
+
+            @include mq('large') {
+                width: auto;
+            }
+
+            @include mq(large) {
+                grid-column: 2 / span 1;
+                border-left: 1px $black solid;
+            }
         }
-    }
 
-    &__content {
-        position: relative;
-        grid-column: 1 / span 1;
-        min-height: 100vh;
-        background: rgba($white, 0.4);
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 1px;
-            background: $black;
-        }
-
-        @include mq('large') {
-            width: auto;
-        }
-
-        @include mq(large) {
+        .right {
+            display: none;
+            position: sticky;
+            z-index: 14;
+            top: var(--header-height);
             grid-column: 2 / span 1;
-            border-left: 1px $black solid;
-        }
-    }
+            align-self: start;
+            min-width: rem(250);
+            height: calc(100vh - var(--header-height) - var(--footer-height));
+            overflow: hidden;
 
-    &__right-sidebar {
-        display: none;
-        position: sticky;
-        z-index: 14;
-        top: var(--header-height);
-        grid-column: 2 / span 1;
-        align-self: start;
-        min-width: rem(250);
-        height: calc(100vh - var(--header-height) - var(--footer-height));
-        overflow: hidden;
+            @include mq('desktop') {
+                display: block;
+            }
 
-        @include mq('desktop') {
-            display: block;
-        }
-
-        @include mq(large) {
-            grid-column: 3 / span 1;
+            @include mq(large) {
+                grid-column: 3 / span 1;
+            }
         }
     }
 }

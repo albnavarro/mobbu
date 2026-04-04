@@ -51,8 +51,7 @@ const addItemToScrollComponent = async ({
 
 /** @type {MobComponent<SpacerAnchor>} */
 export const SpacerAnchorFn = ({ getState, onMount }) => {
-    const { style, line, id, label, isSection, isNote } = getState();
-    const lineClass = line ? 'spacer--line' : '';
+    const { style, id, label, isSection, isNote } = getState();
 
     onMount(({ element }) => {
         const shouldAddToAnchor = hasAnchor({ label });
@@ -61,7 +60,7 @@ export const SpacerAnchorFn = ({ getState, onMount }) => {
         addItemToScrollComponent({ id, label, element, isSection, isNote });
     });
 
-    return html`<div id="${id}" class="spacer spacer--${style} ${lineClass}">
+    return html`<div id="${id}" class="spacer is-${style}">
         <span></span>
     </div>`;
 };

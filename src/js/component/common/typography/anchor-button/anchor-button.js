@@ -27,9 +27,9 @@ export const AnchorButtonFn = ({ getState, delegateEvents }) => {
             })}
         >
             ${content}
-            <span class="anchor-button__arrow">
-                <span class="anchor-button__arrow__start"></span>
-                <span class="anchor-button__arrow__end"></span>
+            <span class="arrows">
+                <span class="arrow-start"></span>
+                <span class="arrow-end"></span>
             </span>
         </button>
     </div>`;

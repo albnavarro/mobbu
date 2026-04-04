@@ -1,15 +1,15 @@
 import { MobJs } from '@mobJs';
-import { RightSidebarFn } from './right-sidebar';
+import { LightSidebarFn } from './left-sidebar';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
  */
 
-export const RightSidebar = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').RightSidebar>} */
+export const LeftSidebar = MobJs.createComponent(
+    /** @type {CreateComponentParams<import('./type').LeftSidebar>} */
     ({
-        tag: 'right-sidebar',
-        component: RightSidebarFn,
+        tag: 'left-sidebar',
+        component: LightSidebarFn,
         bindStore: [MobJs.mainStore],
         state: {
             data: () => ({

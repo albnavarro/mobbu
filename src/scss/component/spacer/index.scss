@@ -1,33 +1,37 @@
 @use '../../abstract' as *;
 
-.spacer {
-    position: relative;
+@layer layout {
+    @scope (.spacer) {
+        :scope {
+            position: relative;
 
-    &--x-small {
-        height: 1px;
-    }
+            &.is-x-small {
+                height: 1px;
+            }
 
-    &--small {
-        height: calc(var(--gap-size) / 2);
-    }
+            &.is-small {
+                height: calc(var(--gap-size) / 2);
+            }
 
-    &--medium {
-        height: var(--gap-size);
-    }
+            &.is-medium {
+                height: var(--gap-size);
+            }
 
-    &--big {
-        height: calc(var(--gap-size) * 2);
-    }
+            &.is-big {
+                height: calc(var(--gap-size) * 2);
+            }
 
-    &--line {
-        &::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: 0;
-            left: 0;
-            height: 1px;
-            background: rgba($white, 0.1);
+            &.is-line {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    left: 0;
+                    height: 1px;
+                    background: rgba($white, 0.1);
+                }
+            }
         }
     }
 }

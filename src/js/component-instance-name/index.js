@@ -12,5 +12,5 @@ export const mobNavigationContainerName = 'mob_navigation_container';
 export const searchOverlay = 'search_overlay';
 export const searchOverlayList = 'search_overlay_list';
 export const searchOverlayHeader = 'search_overlay_header';
-export const rightSidebarName = 'right-sidebar';
+export const leftSidebarName = 'right-sidebar';
 export const routeLoader = 'route-loader';

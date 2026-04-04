@@ -1,7 +1,7 @@
 import { DebugOverlay } from '@commonComponent/debug/debug-overlay/definition';
 import { LinksMobJs } from '@commonComponent/links-mob-js/definition';
 import { QuickNav } from '@commonComponent/quick-nav/definition';
-import { RightSidebar } from '@commonComponent/right-sidebar/definition';
+import { LeftSidebar } from '@commonComponent/left-sidebar/definition';
 import { RouteLoader } from '@commonComponent/route-loader/definition';
 import { ScrollDownLabel } from '@commonComponent/scroll-down-label/definition';
 import { SearchOverlay } from '@commonComponent/search/search-overlay/definition';
@@ -11,7 +11,7 @@ import {
     headerName,
     mobNavigationContainerName,
     quickNavName,
-    rightSidebarName,
+    leftSidebarName,
     routeLoader,
     scrollDownLabelName,
     searchOverlay,
@@ -32,7 +32,7 @@ MobJs.useComponent([
     DebugOverlay,
     TestScssGrid,
     SearchOverlay,
-    RightSidebar,
+    LeftSidebar,
 ]);
 
 export const wrapper = async () => {
@@ -57,7 +57,7 @@ export const wrapper = async () => {
         <route-loader name="${routeLoader}"></route-loader>
         <scroll-down-label name="${scrollDownLabelName}"></scroll-down-label>
         <links-mobjs></links-mobjs>
-        <right-sidebar name="${rightSidebarName}"></right-sidebar>
+        <left-sidebar name="${leftSidebarName}"></left-sidebar>
         <search-overlay name="${searchOverlay}"></search-overlay>
     `;
 };

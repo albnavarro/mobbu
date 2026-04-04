@@ -6,7 +6,7 @@ import { ScrollTo } from '@commonComponent/scroll-to/definition';
 import { html, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
-import { updateRightSidebarList } from '@commonComponent/right-sidebar/utils';
+import { updateLeftSidebarList } from '@commonComponent/left-sidebar/utils';
 import { scrollToName } from '@instanceName';
 
 MobJs.useComponent([
@@ -21,7 +21,7 @@ MobJs.useComponent([
 export const layoutSidebarAnchor = async ({ props }) => {
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
-    updateRightSidebarList(rightSidebar ?? []);
+    updateLeftSidebarList(rightSidebar ?? []);
 
     return html` <doc-container>
         <div>

@@ -5,7 +5,7 @@ import { HtmlContent } from '@commonComponent/html-content/definition';
 import { html, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
-import { updateRightSidebarList } from '@commonComponent/right-sidebar/utils';
+import { updateLeftSidebarList } from '@commonComponent/left-sidebar/utils';
 
 MobJs.useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);
 
@@ -13,7 +13,7 @@ MobJs.useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);
 export const layoutSidebarLinks = async ({ props }) => {
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
-    updateRightSidebarList(rightSidebar ?? []);
+    updateLeftSidebarList(rightSidebar ?? []);
 
     return html`<doc-container>
         <div>

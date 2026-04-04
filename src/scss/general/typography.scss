@@ -101,7 +101,7 @@
     }
 
     .p {
-        &--boxed {
+        &-boxed {
             margin-bottom: calc(var(--gap-size) / 2);
             padding: calc(var(--gap-size) / 2);
             border: 2px $grey-lightteen solid;
@@ -109,7 +109,7 @@
             background: $grey-light;
         }
 
-        &--note {
+        &-note {
             position: relative;
             padding-top: calc(var(--gap-size) * 1.5);
 
@@ -137,16 +137,16 @@
 
     .p,
     .ul {
-        &--small {
+        &-small {
             font-size: rem(12);
         }
 
-        &--medium {
+        &-medium {
             font-size: rem(16);
             line-height: line-height(16, 25);
         }
 
-        &--big {
+        &-big {
             font-size: rem(22);
         }
     }
