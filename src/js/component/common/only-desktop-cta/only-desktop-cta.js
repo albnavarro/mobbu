@@ -58,7 +58,7 @@ export const OnlyDesktopFnCta = ({ onMount, getProxi, bindEffect, watch }) => {
     return html`
         <a
             href="#home"
-            class="l-only-desktop__link"
+            class="link"
             ${bindEffect({
                 toggleClass: {
                     active: () => proxi.active,

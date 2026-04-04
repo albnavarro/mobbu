@@ -33,7 +33,7 @@ export const mob_02 = async () => {
 
     return html`<div class="l-mob-02">
         <div class="l-background-shape">${bg}</div>
-        <h3 class="l-mob-02__title">Scroll or Drag</h3>
+        <h3 class="title">Scroll or Drag</h3>
         <mobbu-2025
             ${staticProps(
                 /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['props']} */

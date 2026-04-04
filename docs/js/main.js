@@ -35458,7 +35458,7 @@
     return renderHtml`
         <a
             href="#home"
-            class="l-only-desktop__link"
+            class="link"
             ${bindEffect({
       toggleClass: {
         active: () => proxi.active
@@ -35497,10 +35497,10 @@
     });
     return renderHtml`
         <div class="l-only-desktop">
-            <div class="l-only-desktop__content">
+            <div class="content">
                 <div class="l-background-shape">${bg}</div>
-                <h1 class="l-only-desktop__title">MobProject v0.1</h1>
-                <h2 class="l-only-desktop__subtitle">ops...<br /></h2>
+                <h1>MobProject v0.1</h1>
+                <h2>ops...<br /></h2>
                 <p>
                     This site is designed<br />
                     for a desktop experience,<br />
@@ -35511,11 +35511,11 @@
                         or use a different device.
                     </strong>
                 </p>
-                <h3 class="l-only-desktop__subtitle">My apologies ...</h3>
+                <h3>My apologies ...</h3>
                 <div>
                     <only-desktop-cta></only-desktop-cta>
                 </div>
-                <div class="l-only-desktop__svg">${letteringMob}</div>
+                <div class="svg">${letteringMob}</div>
             </div>
         </div>
     `;
@@ -36498,7 +36498,7 @@
     });
     return renderHtml`<div class="l-mob-02">
         <div class="l-background-shape">${bg}</div>
-        <h3 class="l-mob-02__title">Scroll or Drag</h3>
+        <h3 class="title">Scroll or Drag</h3>
         <mobbu-2025
             ${staticProps(
       /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['props']} */

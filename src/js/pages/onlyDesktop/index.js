@@ -16,10 +16,10 @@ export const onlyDesktop = async () => {
 
     return html`
         <div class="l-only-desktop">
-            <div class="l-only-desktop__content">
+            <div class="content">
                 <div class="l-background-shape">${bg}</div>
-                <h1 class="l-only-desktop__title">MobProject v0.1</h1>
-                <h2 class="l-only-desktop__subtitle">ops...<br /></h2>
+                <h1>MobProject v0.1</h1>
+                <h2>ops...<br /></h2>
                 <p>
                     This site is designed<br />
                     for a desktop experience,<br />
@@ -30,11 +30,11 @@ export const onlyDesktop = async () => {
                         or use a different device.
                     </strong>
                 </p>
-                <h3 class="l-only-desktop__subtitle">My apologies ...</h3>
+                <h3>My apologies ...</h3>
                 <div>
                     <only-desktop-cta></only-desktop-cta>
                 </div>
-                <div class="l-only-desktop__svg">${letteringMob}</div>
+                <div class="svg">${letteringMob}</div>
             </div>
         </div>
     `;
