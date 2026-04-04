@@ -3314,103 +3314,111 @@ code.hljs {
   background: #2e3440;
   clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
 }
-.c-loader {
-  display: inline-block;
-  z-index: 16;
-  left: calc(50% - 1.6rem);
-  box-sizing: border-box;
-  width: 3.2rem;
-  height: 3.2rem;
-  transform: translate(-50%, -50%);
-  animation: rotation 1s linear infinite;
-  border-top: 4px solid #fff;
-  border-right: 4px solid transparent;
-  border-radius: 50%;
-  pointer-events: none;
-}
-.c-loader.disable {
-  display: none;
-  animation: none;
-}
-.c-loader.center-viewport {
-  position: fixed;
-  top: calc(50vh - 1.6rem);
-}
-.c-loader.center-component {
-  position: absolute;
-  top: calc(50% - 1.6rem);
-}
-.c-loader::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  box-sizing: border-box;
-  width: 3.2rem;
-  height: 3.2rem;
-  animation: rotation 0.5s linear infinite reverse;
-  border-bottom: 4px solid transparent;
-  border-left: 4px solid #2e3440;
-  border-radius: 50%;
-}
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
+@layer layout {
+  @scope (.c-loader) {
+    :scope {
+      display: inline-block;
+      z-index: 16;
+      left: calc(50% - 1.6rem);
+      box-sizing: border-box;
+      width: 3.2rem;
+      height: 3.2rem;
+      transform: translate(-50%, -50%);
+      animation: rotation 1s linear infinite;
+      border-top: 4px solid #fff;
+      border-right: 4px solid transparent;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    :scope.disable {
+      display: none;
+      animation: none;
+    }
+    :scope.center-viewport {
+      position: fixed;
+      top: calc(50vh - 1.6rem);
+    }
+    :scope.center-component {
+      position: absolute;
+      top: calc(50% - 1.6rem);
+    }
+    :scope::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      box-sizing: border-box;
+      width: 3.2rem;
+      height: 3.2rem;
+      animation: rotation 0.5s linear infinite reverse;
+      border-bottom: 4px solid transparent;
+      border-left: 4px solid #2e3440;
+      border-radius: 50%;
+    }
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   }
-  100% {
-    transform: rotate(360deg);
+}
+@layer layout {
+  @scope (.c-main-loader) {
+    :scope {
+      position: fixed;
+      z-index: 15;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      line-height: 1.4;
+    }
+    .title,
+    .message {
+      position: absolute;
+      left: 50%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+      color: #2e3440;
+      text-align: center;
+    }
+    .title {
+      top: calc(50% - 6.6666666667rem);
+      font-family: "Playfair Display", serif;
+      font-size: 1.8666666667rem;
+      font-weight: 600;
+    }
+    .message {
+      top: calc(50% - 4rem);
+      font-size: 1.4666666667rem;
+    }
+    .track {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 13.3333333333rem;
+      height: 0.5333333333rem;
+      transform: translate(-50%, -50%);
+      border: 1px #2e3440 solid;
+      background: #2e3440;
+      color: #2e3440;
+    }
+    .track-inner {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: scaleX(0);
+      transform-origin: left;
+      background: #fff;
+    }
   }
-}
-.c-loader-background {
-  position: fixed;
-  z-index: 15;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  line-height: 1.4;
-}
-.c-loader-background__title,
-.c-loader-background__message {
-  position: absolute;
-  left: 50%;
-  width: 100%;
-  transform: translate(-50%, -50%);
-  color: #2e3440;
-  text-align: center;
-}
-.c-loader-background__title {
-  top: calc(50% - 6.6666666667rem);
-  font-family: "Playfair Display", serif;
-  font-size: 1.8666666667rem;
-  font-weight: 600;
-}
-.c-loader-background__message {
-  top: calc(50% - 4rem);
-  font-size: 1.4666666667rem;
-}
-.c-loader-background__track {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 13.3333333333rem;
-  height: 0.5333333333rem;
-  transform: translate(-50%, -50%);
-  border: 1px #2e3440 solid;
-  background: #2e3440;
-  color: #2e3440;
-}
-.c-loader-background__track-inner {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform: scaleX(0);
-  transform-origin: left;
-  background: #fff;
 }
 @layer layout {
   @scope (.c-btn-debug) {

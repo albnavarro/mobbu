@@ -58,8 +58,6 @@ export const RouteLoaderFn = ({ onMount, getProxi, bindEffect, addMethod }) => {
             ${bindEffect({
                 toggleClass: { disable: () => proxi.isDisable },
             })}
-        >
-            <span class="c-loader__inner"></span>
-        </div>
+        ></div>
     `;
 };
