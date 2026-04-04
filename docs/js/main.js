@@ -26514,9 +26514,7 @@
       },
       state: {
         source: () => ({
-          value: renderHtml`<span class="c-doc-svg__loading">
-                    loading image ...
-                </span>`,
+          value: renderHtml`<span class="loading"> loading image ... </span>`,
           type: String
         })
       }

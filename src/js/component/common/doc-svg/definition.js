@@ -22,9 +22,7 @@ export const DocSvg = MobJs.createComponent(
         },
         state: {
             source: () => ({
-                value: html`<span class="c-doc-svg__loading">
-                    loading image ...
-                </span>`,
+                value: html`<span class="loading"> loading image ... </span>`,
                 type: String,
             }),
         },
