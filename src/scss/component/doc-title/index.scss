@@ -1,20 +1,22 @@
 @use '../../abstract' as *;
 
-.c-doc-title {
-    h2 {
-        display: inline-block;
-        position: absolute;
-        top: 0;
-        overflow: hidden;
-        transform: translate(calc(rem(50) * -1), calc(rem(320) * -1))
-            rotate(90deg);
-        transform-origin: left bottom;
-        opacity: 0.025;
-        color: $black;
-        font-size: rem(300);
-        font-weight: 800;
-        line-height: 1;
-        white-space: nowrap;
-        pointer-events: none;
+@layer layout {
+    @scope (.c-doc-title) {
+        h2 {
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            overflow: hidden;
+            transform: translate(calc(rem(50) * -1), calc(rem(320) * -1))
+                rotate(90deg);
+            transform-origin: left bottom;
+            opacity: 0.025;
+            color: $black;
+            font-size: rem(300);
+            font-weight: 800;
+            line-height: 1;
+            white-space: nowrap;
+            pointer-events: none;
+        }
     }
 }

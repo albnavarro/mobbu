@@ -4549,20 +4549,24 @@ code.hljs {
     }
   }
 }
-.c-doc-title h2 {
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  overflow: hidden;
-  transform: translate(-3.3333333333rem, -21.3333333333rem) rotate(90deg);
-  transform-origin: left bottom;
-  opacity: 0.025;
-  color: #2e3440;
-  font-size: 20rem;
-  font-weight: 800;
-  line-height: 1;
-  white-space: nowrap;
-  pointer-events: none;
+@layer layout {
+  @scope (.c-doc-title) {
+    h2 {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      overflow: hidden;
+      transform: translate(-3.3333333333rem, -21.3333333333rem) rotate(90deg);
+      transform-origin: left bottom;
+      opacity: 0.025;
+      color: #2e3440;
+      font-size: 20rem;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+  }
 }
 @layer layout {
   @scope (.l-doc-breadcrumbs) {
