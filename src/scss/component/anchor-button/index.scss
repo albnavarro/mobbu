@@ -5,7 +5,6 @@
         :scope {
             @include button;
 
-            position: relative;
             padding-right: var(--gap-size);
             padding-left: calc(var(--gap-size) / 2);
             background: transparent;

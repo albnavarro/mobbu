@@ -196,9 +196,6 @@
         :scope {
             @include button;
 
-            display: inline-block;
-            position: relative;
-            min-width: rem(250);
             padding-right: var(--gap-size);
             padding-left: calc(var(--gap-size) / 2);
             text-align: left;
