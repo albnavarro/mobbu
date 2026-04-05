@@ -77,16 +77,6 @@
         }
     }
 
-    /**
-     * Esplcit box-sizing ( no inherit ).
-     * Solve web component box-sizing problem.
-     */
-    *,
-    *::after,
-    *::before {
-        box-sizing: border-box;
-    }
-
     body {
         position: relative;
         overflow-x: hidden;

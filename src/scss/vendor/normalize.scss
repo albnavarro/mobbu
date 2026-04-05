@@ -15,9 +15,19 @@
     /**
      * Remove default margin.
      */
-
-    body {
+    * {
         margin: 0;
+        padding: 0;
+    }
+
+    /**
+     * Esplcit box-sizing ( no inherit ).
+     * Solve web component box-sizing problem.
+     */
+    *,
+    *::after,
+    *::before {
+        box-sizing: border-box;
     }
 
     /* HTML5 display definitions

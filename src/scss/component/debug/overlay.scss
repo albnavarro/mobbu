@@ -145,6 +145,7 @@
 
         .list-toggle {
             display: inline-block;
+            padding-inline: rem(10);
             border: 1px $white solid;
             background: transparent;
             font-size: rem(12);

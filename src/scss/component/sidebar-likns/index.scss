@@ -50,6 +50,7 @@
             margin: 0;
             padding-bottom: rem(100);
             list-style: none;
+            padding-left: rem(40);
 
             @media screen and (height <= 825px) {
                 margin-top: calc(#{rem(10)} * -1);
