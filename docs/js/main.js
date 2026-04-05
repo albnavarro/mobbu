@@ -34966,7 +34966,7 @@
               animate: true,
               component: {
                 tagName: "any-component",
-                className: "u-any-center-svg animation-block",
+                className: "u-center-inner-svg svg-animation-block-01",
                 props: {
                   content: u0
                 }
@@ -34983,7 +34983,7 @@
               animate: true,
               component: {
                 tagName: "any-component",
-                className: "u-any-center-svg animation-block",
+                className: "u-center-inner-svg svg-animation-block-01",
                 props: {
                   content: u1
                 }
@@ -35001,7 +35001,7 @@
               animate: true,
               component: {
                 tagName: "any-component",
-                className: "u-any-center-svg animation-block",
+                className: "u-center-inner-svg svg-animation-block-01",
                 props: {
                   content: o
                 }
@@ -35018,7 +35018,7 @@
                   animate: true,
                   component: {
                     tagName: "any-component",
-                    className: "u-any-center-svg animation-block",
+                    className: "u-center-inner-svg svg-animation-block-01",
                     props: {
                       content: o_b
                     }
@@ -35036,7 +35036,7 @@
                   rotate: "y",
                   component: {
                     tagName: "any-component",
-                    className: "u-any-center-svg animation-block",
+                    className: "u-center-inner-svg svg-animation-block-01",
                     props: {
                       content: m1
                     }
@@ -35053,7 +35053,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: m1_b
                         }
@@ -35072,7 +35072,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: m4
                         }
@@ -35091,7 +35091,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: m4_b
                         }
@@ -35110,7 +35110,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: m1_stone
                         }
@@ -35129,7 +35129,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: m2
                         }
@@ -35148,7 +35148,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: sign
                         }
@@ -35166,7 +35166,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: m3
                         }
@@ -35184,7 +35184,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: m3_b
                         }
@@ -35205,7 +35205,7 @@
                   rotate: "y",
                   component: {
                     tagName: "any-component",
-                    className: "u-any-center-svg animation-block",
+                    className: "u-center-inner-svg svg-animation-block-01",
                     props: {
                       content: b1_b
                     }
@@ -35223,7 +35223,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: b1
                         }
@@ -35242,7 +35242,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: b1_stone
                         }
@@ -35261,7 +35261,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: b3
                         }
@@ -35280,7 +35280,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: b4
                         }
@@ -35299,7 +35299,7 @@
                       rotate: "y",
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: b5
                         }
@@ -36099,7 +36099,7 @@
               animate: true,
               component: {
                 tagName: "any-component",
-                className: "u-any-center-svg animation-block",
+                className: "u-center-inner-svg svg-animation-block-01",
                 props: {
                   content: letter_d
                 }
@@ -36116,7 +36116,7 @@
                   animate: true,
                   component: {
                     tagName: "any-component",
-                    className: "u-any-center-svg animation-block",
+                    className: "u-center-inner-svg svg-animation-block-01",
                     props: {
                       content: letter_d_shadow
                     }
@@ -36133,7 +36133,7 @@
                   animate: true,
                   component: {
                     tagName: "any-component",
-                    className: "u-any-center-svg animation-block",
+                    className: "u-center-inner-svg svg-animation-block-01",
                     props: {
                       content: letter_d_pieces
                     }
@@ -36150,7 +36150,7 @@
                   animate: true,
                   component: {
                     tagName: "any-component",
-                    className: "u-any-center-svg animation-block",
+                    className: "u-center-inner-svg svg-animation-block-01",
                     props: {
                       content: letter_d_fill
                     }
@@ -36170,7 +36170,7 @@
                   animate: true,
                   component: {
                     tagName: "any-component",
-                    className: "u-any-center-svg animation-block",
+                    className: "u-center-inner-svg svg-animation-block-01",
                     props: {
                       content: letter_r
                     }
@@ -36188,7 +36188,7 @@
                       animate: true,
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: letter_r_shadow
                         }
@@ -36205,7 +36205,7 @@
                       animate: true,
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: letter_r_pieces
                         }
@@ -36223,7 +36223,7 @@
                       animate: true,
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: letter_r_fill
                         }
@@ -36244,7 +36244,7 @@
                   rotate: "y",
                   component: {
                     tagName: "any-component",
-                    className: "u-any-center-svg animation-block",
+                    className: "u-center-inner-svg svg-animation-block-01",
                     props: {
                       content: letter_p
                     }
@@ -36262,7 +36262,7 @@
                       animate: true,
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: letter_p_shadow
                         }
@@ -36279,7 +36279,7 @@
                       animate: true,
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: letter_p_pieces
                         }
@@ -36297,7 +36297,7 @@
                       animate: true,
                       component: {
                         tagName: "any-component",
-                        className: "u-any-center-svg animation-block",
+                        className: "u-center-inner-svg svg-animation-block-01",
                         props: {
                           content: letter_p_fill
                         }

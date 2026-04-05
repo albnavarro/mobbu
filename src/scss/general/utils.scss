@@ -9,10 +9,6 @@
         background: $white;
     }
 
-    .u-bg-grey {
-        background: $grey-medium-2;
-    }
-
     .u-has-overflow {
         overflow: hidden;
     }
@@ -23,7 +19,7 @@
         background: rgba($white, 0.2);
     }
 
-    .u-any-center-svg {
+    .u-center-inner-svg {
         position: relative;
 
         svg {

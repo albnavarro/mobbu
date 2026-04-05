@@ -148,7 +148,7 @@
     }
 }
 
-@layer layout {
+@layer user {
     @scope (.c-move3d-square) {
         :scope {
             width: var(--item-width);

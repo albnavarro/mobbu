@@ -34,7 +34,8 @@ export const rdp_01_scehema = ({
                         animate: true,
                         component: {
                             tagName: 'any-component',
-                            className: 'u-any-center-svg animation-block',
+                            className:
+                                'u-center-inner-svg svg-animation-block-01',
                             props: {
                                 content: letter_d,
                             },
@@ -52,7 +53,7 @@ export const rdp_01_scehema = ({
                                 component: {
                                     tagName: 'any-component',
                                     className:
-                                        'u-any-center-svg animation-block',
+                                        'u-center-inner-svg svg-animation-block-01',
                                     props: {
                                         content: letter_d_shadow,
                                     },
@@ -70,7 +71,7 @@ export const rdp_01_scehema = ({
                                 component: {
                                     tagName: 'any-component',
                                     className:
-                                        'u-any-center-svg animation-block',
+                                        'u-center-inner-svg svg-animation-block-01',
                                     props: {
                                         content: letter_d_pieces,
                                     },
@@ -88,7 +89,7 @@ export const rdp_01_scehema = ({
                                 component: {
                                     tagName: 'any-component',
                                     className:
-                                        'u-any-center-svg animation-block',
+                                        'u-center-inner-svg svg-animation-block-01',
                                     props: {
                                         content: letter_d_fill,
                                     },
@@ -109,7 +110,7 @@ export const rdp_01_scehema = ({
                                 component: {
                                     tagName: 'any-component',
                                     className:
-                                        'u-any-center-svg animation-block',
+                                        'u-center-inner-svg svg-animation-block-01',
                                     props: {
                                         content: letter_r,
                                     },
@@ -128,7 +129,7 @@ export const rdp_01_scehema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg animation-block',
+                                                'u-center-inner-svg svg-animation-block-01',
                                             props: {
                                                 content: letter_r_shadow,
                                             },
@@ -146,7 +147,7 @@ export const rdp_01_scehema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg animation-block',
+                                                'u-center-inner-svg svg-animation-block-01',
                                             props: {
                                                 content: letter_r_pieces,
                                             },
@@ -165,7 +166,7 @@ export const rdp_01_scehema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg animation-block',
+                                                'u-center-inner-svg svg-animation-block-01',
                                             props: {
                                                 content: letter_r_fill,
                                             },
@@ -187,7 +188,7 @@ export const rdp_01_scehema = ({
                                 component: {
                                     tagName: 'any-component',
                                     className:
-                                        'u-any-center-svg animation-block',
+                                        'u-center-inner-svg svg-animation-block-01',
                                     props: {
                                         content: letter_p,
                                     },
@@ -206,7 +207,7 @@ export const rdp_01_scehema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg animation-block',
+                                                'u-center-inner-svg svg-animation-block-01',
                                             props: {
                                                 content: letter_p_shadow,
                                             },
@@ -224,7 +225,7 @@ export const rdp_01_scehema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg animation-block',
+                                                'u-center-inner-svg svg-animation-block-01',
                                             props: {
                                                 content: letter_p_pieces,
                                             },
@@ -243,7 +244,7 @@ export const rdp_01_scehema = ({
                                         component: {
                                             tagName: 'any-component',
                                             className:
-                                                'u-any-center-svg animation-block',
+                                                'u-center-inner-svg svg-animation-block-01',
                                             props: {
                                                 content: letter_p_fill,
                                             },

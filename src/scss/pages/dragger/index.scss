@@ -13,7 +13,7 @@
     }
 }
 
-@layer layout {
+@layer user {
     @scope (.dragger-component) {
         :scope {
             width: calc(100% - var(--header-height) * 2);

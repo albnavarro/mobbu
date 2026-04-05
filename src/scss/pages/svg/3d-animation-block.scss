@@ -1,8 +1,8 @@
 @use '../../abstract' as *;
 
-@layer layout {
-    @scope (.l-mob-01) {
-        .animation-block {
+@layer user {
+    @scope (.svg-animation-block-01) {
+        :scope {
             transform: translate(rem(20), 0);
         }
 

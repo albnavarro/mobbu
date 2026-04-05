@@ -1,5 +1,5 @@
 /* src/scss/style.scss */
-@layer reset, base, typography, layout, utilities;
+@layer reset, base, typography, layout, user, utilities;
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -617,9 +617,6 @@ code.hljs {
   .u-bg-white {
     background: #fff;
   }
-  .u-bg-grey {
-    background: #ccc;
-  }
   .u-has-overflow {
     overflow: hidden;
   }
@@ -628,10 +625,10 @@ code.hljs {
     position: relative;
     background: rgba(255, 255, 255, 0.2);
   }
-  .u-any-center-svg {
+  .u-center-inner-svg {
     position: relative;
   }
-  .u-any-center-svg svg {
+  .u-center-inner-svg svg {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -2275,44 +2272,6 @@ code.hljs {
   }
 }
 @layer layout {
-  @scope (.l-rdp-01) {
-    .animation-block {
-      transform: translate(1.3333333333rem, 0);
-    }
-    @media (aspect-ratio >= 3/2) {
-      svg {
-        width: 78.4285714286vw;
-        height: 33.2857142857vw;
-      }
-    }
-    @media (aspect-ratio < 3/2) {
-      svg {
-        width: 88.5483870968vw;
-        height: 37.5806451613vw;
-      }
-    }
-  }
-}
-@layer layout {
-  @scope (.l-mob-01) {
-    .animation-block {
-      transform: translate(1.3333333333rem, 0);
-    }
-    @media (aspect-ratio >= 3/2) {
-      svg {
-        width: 68.625vw;
-        height: 29.125vw;
-      }
-    }
-    @media (aspect-ratio < 3/2) {
-      svg {
-        width: 88.5483870968vw;
-        height: 37.5806451613vw;
-      }
-    }
-  }
-}
-@layer layout {
   @scope (.mobbu2025) {
     :scope {
       position: relative;
@@ -2350,6 +2309,25 @@ code.hljs {
     }
     g#white-block {
       fill: #fff;
+    }
+  }
+}
+@layer user {
+  @scope (.svg-animation-block-01) {
+    :scope {
+      transform: translate(1.3333333333rem, 0);
+    }
+    @media (aspect-ratio >= 3/2) {
+      svg {
+        width: 68.625vw;
+        height: 29.125vw;
+      }
+    }
+    @media (aspect-ratio < 3/2) {
+      svg {
+        width: 88.5483870968vw;
+        height: 37.5806451613vw;
+      }
     }
   }
 }
@@ -2961,7 +2939,7 @@ code.hljs {
     }
   }
 }
-@layer layout {
+@layer user {
   @scope (.c-move3d-square) {
     :scope {
       width: var(--item-width);
@@ -2989,7 +2967,7 @@ code.hljs {
     }
   }
 }
-@layer layout {
+@layer user {
   @scope (.dragger-component) {
     :scope {
       width: calc(100% - var(--header-height) * 2);
