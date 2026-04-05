@@ -5,7 +5,7 @@ esbuild.build({
     entryPoints: ['src/scss/style.scss', 'src/js/main.js'],
     bundle: true,
     minify: true,
-    sourcemap: true,
+    sourcemap: false,
     outdir: 'docs',
     loader: { '.svg': 'text', '.woff2': 'copy', '.woff': 'copy' },
     plugins: [
