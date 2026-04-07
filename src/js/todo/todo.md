@@ -8,6 +8,14 @@
 - `strings` diventerá qualcosa tipo `value` che puó essere `string` o `array/object`.
 - se `string` é come ora.
 - se `array/object` scrivere una funzione che trasforma `value` in un elemento DOM.
+- se esce un elemento DOM andrá gestito in maniera diversa da una stringa.
+- Si puó ipotizzare che html torni un oggetto del tipo:
+```javascript
+{
+    type: DOM,
+    value: ....
+}
+```
 
 ### Repat proxi
 - il `proxi` repeater potrebbe tornare un oggetto `frezzed` per evutare accidentali mutazioni.
