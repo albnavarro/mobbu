@@ -1,51 +1,10 @@
-# App
-## Passare il css a `@scope`
-
-
-# Mobmotion
-
-### Smooth-scroll
-
-#### Snap:
-##### Aggiungere:
-   - `snap point`: percentiali sotto forma di array: [10, 30, 50];
-   - `velocitá`: tracciare la velocitá dirante il movimento, ci basta la velocitá grezza, `x` o `x + y` ?
-   - `direzione del movimento`.
-
-##### Wheel :
-   - Controllo sul `singolo wheel` la velocitá
-       - `goTo`: next snap per `direzione`.
-
-##### Drag:
-   - Se `drag` controllo la velocitá sull'evento la `pointerUp`.
-       - `goTo`: next snap per `direzione`.
-
-<hr/>
-
-### MobScroller
-
-##### Gap:
-- Il valore `gap` ( detectViewPortInterception() ), deve essere regolabile dall' esterno.
-
-<hr/>
-
-### Docs: AsyncTimeline
-- Breve riassunto con lista puntata delle feature.
-
-<hr/>
-
-
-### SetTween.
-- Se chiamato durante un add / addAsync puó generare un errore, ( da verificare che questa condizione sia giusta ) ???
-
-<hr/>
-
-# MobCore
-
-### Store - watcher structure:
-- `unsubscribeBindInstance` portare la logica a O(1).
-
 # MobJs
+
+### html
+- Poter passare alla funzione un array/oggetto .
+- `strings` diventerá qualcosa tipo `value` che puó essere `string` o `array/object`.
+- se `string` é come ora.
+- se `array/object` scrivere una funzione che trasforma `value` in un elemento DOM.
 
 ### Repat proxi
 - il `proxi` repeater potrebbe tornare un oggetto `frezzed` per evutare accidentali mutazioni.
@@ -72,4 +31,23 @@
 
 ### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
+
+# Mobmotion
+
+### MobScroller
+
+##### Gap:
+- Il valore `gap` ( detectViewPortInterception() ), deve essere regolabile dall' esterno.
+
+<hr/>
+
+### Docs: AsyncTimeline
+- Breve riassunto con lista puntata delle feature.
+
+<hr/>
+
+### SetTween.
+- Se chiamato durante un add / addAsync puó generare un errore, ( da verificare che questa condizione sia giusta ) ???
+
+<hr/>
 
