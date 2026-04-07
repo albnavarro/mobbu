@@ -2188,7 +2188,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),F=E,V=R),B===void 0&&(
                 class="serach-input"
                 name="search_input"
                 ${r("search_input")}
-                ${e({keyup:u.useDebounce(p=>{if(p.code.toLowerCase()==="enter"){p.preventDefault(),Pp({getRef:t,proxi:l}),l.suggestionListData=[];return}if(p.code.toLowerCase()==="escape"){p.preventDefault(),l.suggestionListData=[];return}let h=p.currentTarget.value;eP({currentSearch:h,proxi:l})},60)})}
+                ${e({keyup:u.useDebounce(p=>{if(p?.code?.toLowerCase?.()==="enter"){p.preventDefault(),Pp({getRef:t,proxi:l}),l.suggestionListData=[];return}if(p?.code?.toLowerCase?.()==="escape"){p.preventDefault(),l.suggestionListData=[];return}let h=p.currentTarget.value;eP({currentSearch:h,proxi:l})},60)})}
             />
             <div
                 class="suggestion-wrap"

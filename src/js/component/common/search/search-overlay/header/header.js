@@ -210,16 +210,14 @@ export const SearchOverlayHeaderFn = ({
                 ${delegateEvents({
                     keyup: MobCore.useDebounce(
                         (/** @type {KeyboardEvent} */ event) => {
-                            // send on enter press
-
-                            if (event.code.toLowerCase() === 'enter') {
+                            if (event?.code?.toLowerCase?.() === 'enter') {
                                 event.preventDefault();
                                 sendToList({ getRef, proxi });
                                 proxi.suggestionListData = [];
                                 return;
                             }
 
-                            if (event.code.toLowerCase() === 'escape') {
+                            if (event?.code?.toLowerCase?.() === 'escape') {
                                 event.preventDefault();
                                 proxi.suggestionListData = [];
                                 return;
