@@ -11,19 +11,6 @@
             min-width: rem(200);
         }
 
-        input {
-            width: rem(100);
-            height: rem(22);
-            margin-right: rem(5);
-            border: 1px $white solid;
-            background: transparent;
-            vertical-align: middle;
-
-            @include mq(large) {
-                width: rem(150);
-            }
-        }
-
         button {
             display: inline-block;
             height: rem(22);
@@ -44,5 +31,19 @@
                 color: $black;
             }
         }
+    }
+}
+
+// Safari issue
+.c-debug-search input {
+    width: rem(100);
+    height: rem(22);
+    margin-right: rem(5);
+    border: 1px $white solid;
+    background: transparent;
+    vertical-align: middle;
+
+    @include mq(large) {
+        width: rem(150);
     }
 }

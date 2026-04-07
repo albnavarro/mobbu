@@ -24,17 +24,6 @@
             margin-bottom: calc(var(--gap-size) / 2);
         }
 
-        input {
-            width: rem(300);
-            margin-right: rem(5);
-            padding-top: 0;
-            padding-bottom: 0;
-            padding-inline: rem(10);
-            border: 1px $black solid;
-            background: transparent;
-            line-height: 1.7;
-        }
-
         button {
             display: inline-block;
             grid-area: submit;
@@ -100,4 +89,16 @@
             font-weight: 600;
         }
     }
+}
+
+// Safari issue
+.l-benchmark input {
+    width: rem(300);
+    margin-right: rem(5);
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-inline: rem(10);
+    border: 1px $black solid;
+    background: transparent;
+    line-height: 1.7;
 }

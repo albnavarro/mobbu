@@ -26,65 +26,6 @@
             }
         }
 
-        .scrollbar {
-            position: absolute;
-            z-index: 14;
-            top: 1vh;
-            left: calc(100% - (var(--gap-size) / 2));
-            width: 47vh;
-            transform: rotate(90deg);
-            transform-origin: left;
-            background: transparent;
-            cursor: pointer;
-            appearance: none;
-
-            --thumb-width: #{rem(200)};
-
-            &.hide-scrollbar {
-                opacity: 0;
-            }
-
-            &:focus {
-                outline: none;
-            }
-
-            &::-webkit-slider-runnable-track {
-                width: var(--thumb-width);
-                height: rem(10);
-                border-radius: 0;
-                background-color: rgba($grey, 0.3);
-            }
-
-            &::-webkit-slider-thumb {
-                width: var(--thumb-width);
-                height: rem(10);
-                background-color: $white;
-                appearance: none;
-            }
-
-            &:focus::-webkit-slider-thumb {
-                outline-offset: 0;
-            }
-
-            &::-moz-range-track {
-                height: rem(10);
-                border-radius: 0;
-                background-color: rgba($grey, 0.3);
-            }
-
-            &::-moz-range-thumb {
-                width: var(--thumb-width);
-                height: rem(10);
-                border: none; /* Removes extra border that FF applies */
-                border-radius: 0; /* Removes default border-radius that FF applies */
-                background-color: $white;
-            }
-
-            &:focus::-moz-range-thumb {
-                outline-offset: 0;
-            }
-        }
-
         ul {
             min-height: 100%;
             margin: 0;
@@ -138,5 +79,65 @@
             display: inline-block;
             margin-bottom: 0;
         }
+    }
+}
+
+// Safari issue
+.c-search-list .scrollbar {
+    position: absolute;
+    z-index: 14;
+    top: 1vh;
+    left: calc(100% - (var(--gap-size) / 2));
+    width: 47vh;
+    transform: rotate(90deg);
+    transform-origin: left;
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+
+    --thumb-width: #{rem(200)};
+
+    &.hide-scrollbar {
+        opacity: 0;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &::-webkit-slider-runnable-track {
+        width: var(--thumb-width);
+        height: rem(10);
+        border-radius: 0;
+        background-color: rgba($grey, 0.3);
+    }
+
+    &::-webkit-slider-thumb {
+        width: var(--thumb-width);
+        height: rem(10);
+        background-color: $white;
+        appearance: none;
+    }
+
+    &:focus::-webkit-slider-thumb {
+        outline-offset: 0;
+    }
+
+    &::-moz-range-track {
+        height: rem(10);
+        border-radius: 0;
+        background-color: rgba($grey, 0.3);
+    }
+
+    &::-moz-range-thumb {
+        width: var(--thumb-width);
+        height: rem(10);
+        border: none; /* Removes extra border that FF applies */
+        border-radius: 0; /* Removes default border-radius that FF applies */
+        background-color: $white;
+    }
+
+    &:focus::-moz-range-thumb {
+        outline-offset: 0;
     }
 }

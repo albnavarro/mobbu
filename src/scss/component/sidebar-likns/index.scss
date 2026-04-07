@@ -109,68 +109,6 @@
             }
         }
 
-        .scrollbar {
-            position: absolute;
-            z-index: 11;
-            top: rem(25);
-            left: rem(240);
-            width: calc(var(--links-height) - #{rem(30)});
-            transform: rotate(90deg);
-            transform-origin: left;
-            background: transparent;
-            cursor: pointer;
-            appearance: none;
-
-            --thumb-width: #{rem(200)};
-
-            &.hide-scrollbar {
-                opacity: 0;
-            }
-
-            &:focus {
-                outline: none;
-            }
-
-            &::-webkit-slider-runnable-track {
-                width: var(--thumb-width);
-                height: rem(10);
-                border-radius: rem(10);
-                background-color: $grey-light;
-            }
-
-            &::-webkit-slider-thumb {
-                width: var(--thumb-width);
-                height: rem(10);
-                border-radius: rem(10);
-                background-color: $black;
-                appearance: none;
-            }
-
-            &:focus::-webkit-slider-thumb {
-                border-radius: rem(10);
-                outline-offset: 0;
-            }
-
-            &::-moz-range-track {
-                height: rem(10);
-                border-radius: rem(10);
-                background-color: $grey-light;
-            }
-
-            &::-moz-range-thumb {
-                width: var(--thumb-width);
-                height: rem(10);
-                border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
-                border-radius: rem(10);
-                background-color: $black;
-            }
-
-            &:focus::-moz-range-thumb {
-                border-radius: rem(10);
-                outline-offset: 0;
-            }
-        }
-
         .label {
             margin-top: calc(var(--gap-size) / 2);
             margin-bottom: rem(5);
@@ -183,5 +121,68 @@
                 font-size: rem(11);
             }
         }
+    }
+}
+
+// Safari issue
+.c-sidebar-links .scrollbar {
+    position: absolute;
+    z-index: 11;
+    top: rem(25);
+    left: rem(240);
+    width: calc(var(--links-height) - #{rem(30)});
+    transform: rotate(90deg);
+    transform-origin: left;
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+
+    --thumb-width: #{rem(200)};
+
+    &.hide-scrollbar {
+        opacity: 0;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &::-webkit-slider-runnable-track {
+        width: var(--thumb-width);
+        height: rem(10);
+        border-radius: rem(10);
+        background-color: $grey-light;
+    }
+
+    &::-webkit-slider-thumb {
+        width: var(--thumb-width);
+        height: rem(10);
+        border-radius: rem(10);
+        background-color: $black;
+        appearance: none;
+    }
+
+    &:focus::-webkit-slider-thumb {
+        border-radius: rem(10);
+        outline-offset: 0;
+    }
+
+    &::-moz-range-track {
+        height: rem(10);
+        border-radius: rem(10);
+        background-color: $grey-light;
+    }
+
+    &::-moz-range-thumb {
+        width: var(--thumb-width);
+        height: rem(10);
+        border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
+        border-radius: rem(10);
+        background-color: $black;
+    }
+
+    &:focus::-moz-range-thumb {
+        border-radius: rem(10);
+        outline-offset: 0;
     }
 }

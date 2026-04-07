@@ -7,15 +7,6 @@
             position: relative;
         }
 
-        .serach-input {
-            width: rem(400);
-            min-height: rem(36);
-            margin-right: rem(5);
-            padding-left: rem(10);
-            border: 1px $white solid;
-            background: transparent;
-        }
-
         .suggestion-wrap {
             visibility: hidden;
             position: absolute;
@@ -60,4 +51,14 @@
             }
         }
     }
+}
+
+// Safari issue
+.c-search-header .serach-input {
+    width: rem(400);
+    min-height: rem(36);
+    margin-right: rem(5);
+    padding-left: rem(10);
+    border: 1px $white solid;
+    background: transparent;
 }

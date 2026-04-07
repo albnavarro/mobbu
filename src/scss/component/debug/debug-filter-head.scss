@@ -14,15 +14,6 @@
             font-weight: 600;
         }
 
-        input {
-            grid-area: input;
-            width: rem(150);
-            margin-right: rem(5);
-            border: 1px $white solid;
-            background: transparent;
-            font-size: rem(12);
-        }
-
         button {
             display: inline-block;
             grid-area: submit;
@@ -44,4 +35,14 @@
             }
         }
     }
+}
+
+// Safari issue
+.c-debug-filter-head input {
+    grid-area: input;
+    width: rem(150);
+    margin-right: rem(5);
+    border: 1px $white solid;
+    background: transparent;
+    font-size: rem(12);
 }

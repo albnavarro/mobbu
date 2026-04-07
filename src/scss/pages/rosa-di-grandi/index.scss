@@ -77,37 +77,6 @@
             }
         }
 
-        .controls-input {
-            display: block;
-            position: relative;
-            width: 100%;
-            margin: auto;
-            background: transparent;
-            cursor: pointer;
-            pointer-events: all;
-            appearance: none;
-
-            &::-webkit-slider-thumb {
-                width: rem(15);
-                height: rem(15);
-                border: 0;
-                border-radius: 100%;
-                background: $white;
-                cursor: pointer;
-                appearance: none;
-            }
-
-            &::-moz-range-thumb {
-                width: rem(15);
-                height: rem(15);
-                border: 0;
-                border-radius: 100%;
-                background: $white;
-                cursor: pointer;
-                appearance: none;
-            }
-        }
-
         .controls-open {
             display: block;
             position: absolute;
@@ -160,5 +129,37 @@
                 transform: translate(-50%, -50%) rotate(135deg);
             }
         }
+    }
+}
+
+// Safari issue
+.l-rosa .controls-input {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin: auto;
+    background: transparent;
+    cursor: pointer;
+    pointer-events: all;
+    appearance: none;
+
+    &::-webkit-slider-thumb {
+        width: rem(15);
+        height: rem(15);
+        border: 0;
+        border-radius: 100%;
+        background: $white;
+        cursor: pointer;
+        appearance: none;
+    }
+
+    &::-moz-range-thumb {
+        width: rem(15);
+        height: rem(15);
+        border: 0;
+        border-radius: 100%;
+        background: $white;
+        cursor: pointer;
+        appearance: none;
     }
 }
