@@ -1,3 +1,6 @@
+# App
+- Usare per i colori le variabili css.
+
 # MobJs
 
 ### html
