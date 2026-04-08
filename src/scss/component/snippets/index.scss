@@ -17,15 +17,15 @@
             transition: background 0.35s;
             border: 0;
             border-radius: rem(10);
-            background: $black;
-            color: $white;
+            background: var(--dark);
+            color: var(--white);
             font-size: rem(12);
             text-align: center;
             text-decoration: none;
 
             &:hover {
-                background: $grey;
-                color: $black;
+                background: var(--grey-200);
+                color: var(--dark);
             }
 
             &:disabled {
@@ -43,7 +43,7 @@
             padding: 0;
             overflow: hidden;
             transition: height 0.35s;
-            border: 2px $grey solid;
+            border: 2px var(--grey-200) solid;
             border-radius: rem(10);
             font-size: calc(var(--snippet-rem-value) * 1rem);
             line-height: calc(var(--snippet-line-height-value) * 1rem);
@@ -61,8 +61,8 @@
                 opacity: 0;
                 background: linear-gradient(
                     360deg,
-                    rgba($white, 1) 0%,
-                    rgba($white, 0) 100%
+                    rgba(var(--white-rgb), 1) 0%,
+                    rgba(var(--white-rgb), 0) 100%
                 );
                 pointer-events: none;
             }

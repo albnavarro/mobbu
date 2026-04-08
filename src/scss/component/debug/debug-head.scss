@@ -5,7 +5,7 @@
         :scope {
             display: flex;
             padding-top: calc(var(--gap-size) / 2);
-            color: $white;
+            color: var(--white);
             font-size: rem(12);
         }
 
@@ -16,7 +16,7 @@
 
         .general {
             padding-left: var(--gap-size);
-            border-right: 1px $black solid;
+            border-right: 1px var(--dark) solid;
         }
 
         .search {

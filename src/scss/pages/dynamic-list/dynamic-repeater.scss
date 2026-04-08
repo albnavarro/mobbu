@@ -4,7 +4,7 @@
     @scope (.c-dynamic-list-repeater) to (.c-dynamic-card) {
         .repeater-title {
             padding: rem(20);
-            color: $black;
+            color: var(--dark);
         }
 
         .repeater-list {

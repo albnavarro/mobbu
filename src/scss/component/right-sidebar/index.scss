@@ -67,8 +67,8 @@
                 height: rem(5);
                 transform: translateY(-50%) rotate(45deg);
                 transition: opacity 0.35s;
-                border-top: 2px $black solid;
-                border-right: 2px $black solid;
+                border-top: 2px var(--dark) solid;
+                border-right: 2px var(--dark) solid;
                 opacity: 0;
             }
 

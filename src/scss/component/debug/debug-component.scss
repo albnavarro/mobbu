@@ -5,7 +5,7 @@
         :scope {
             position: absolute;
             overflow: hidden;
-            color: $white;
+            color: var(--white);
             font-size: rem(12);
             inset: 0;
         }
@@ -20,7 +20,7 @@
             margin-right: rem(20);
             margin-bottom: rem(10);
             padding-top: rem(10);
-            border-top: 1px rgba($white, 0.2) solid;
+            border-top: 1px rgba(var(--white-rgb), 0.2) solid;
             font-size: rem(14);
         }
 
@@ -61,13 +61,13 @@
         width: var(--thumb-width);
         height: rem(10);
         border-radius: 0;
-        background-color: rgba($grey, 0.3);
+        background-color: rgba(var(--grey-200-rgb), 0.3);
     }
 
     &::-webkit-slider-thumb {
         width: var(--thumb-width);
         height: rem(10);
-        background-color: $white;
+        background-color: var(--white);
         appearance: none;
     }
 
@@ -78,7 +78,7 @@
     &::-moz-range-track {
         height: rem(10);
         border-radius: 0;
-        background-color: rgba($grey, 0.3);
+        background-color: rgba(var(--grey-200-rgb), 0.3);
     }
 
     &::-moz-range-thumb {
@@ -86,7 +86,7 @@
         height: rem(10);
         border: none; /* Removes extra border that FF applies */
         border-radius: 0; /* Removes default border-radius that FF applies */
-        background-color: $white;
+        background-color: var(--white);
     }
 
     &:focus::-moz-range-thumb {

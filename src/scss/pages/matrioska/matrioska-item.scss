@@ -16,16 +16,16 @@
             }
 
             &.is-2 {
-                background: $grey-light;
+                background: var(--grey-100);
             }
 
             &.is-3 {
-                background: $white;
+                background: var(--white);
                 cursor: pointer;
 
                 &.active {
-                    background: $black;
-                    color: $white;
+                    background: var(--dark);
+                    color: var(--white);
                 }
             }
         }

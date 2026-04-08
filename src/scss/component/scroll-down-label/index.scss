@@ -14,9 +14,9 @@
                 opacity 0.35s,
                 visibility 0.35s;
             border: 0;
-            border: 1px $black solid;
+            border: 1px var(--dark) solid;
             opacity: 0;
-            color: $black;
+            color: var(--dark);
             line-height: 1;
             text-align: center;
 

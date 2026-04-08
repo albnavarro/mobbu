@@ -34,7 +34,7 @@
                 color 0.35s;
             border: 0;
             background: transparent;
-            color: $black;
+            color: var(--dark);
             font-size: rem(14);
 
             &::after {
@@ -48,7 +48,7 @@
                 transform: scaleY(0);
                 transform-origin: bottom;
                 transition: transform 0.55s;
-                background: $black;
+                background: var(--dark);
             }
 
             @include mq(xlarge) {
@@ -57,7 +57,7 @@
 
             &:hover,
             &.current {
-                color: $white;
+                color: var(--white);
 
                 &::after {
                     transform: scaleY(1);

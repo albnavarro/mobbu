@@ -19,8 +19,8 @@
             top: var(--header-height);
             flex-wrap: wrap;
             padding: calc(var(--gap-size) / 4);
-            border-bottom: 1px $black solid;
-            background: rgba($white, 0.8);
+            border-bottom: 1px var(--dark) solid;
+            background: rgba(var(--white-rgb), 0.8);
         }
 
         .header-button {
@@ -32,7 +32,7 @@
         .header-col {
             flex: calc((100 / 4) * 1%);
             padding-inline: calc(var(--gap-size) / 2);
-            color: $black;
+            color: var(--dark);
             font-size: rem(14);
             text-align: center;
         }
@@ -46,7 +46,7 @@
 
         .legend {
             padding: calc(var(--gap-size) / 2) var(--gap-size);
-            border-bottom: 1px $black solid;
+            border-bottom: 1px var(--dark) solid;
 
             span {
                 display: block;
@@ -59,7 +59,7 @@
         .level {
             &--2 {
                 padding-bottom: calc(var(--gap-size) / 2);
-                border-bottom: 1px $black solid;
+                border-bottom: 1px var(--dark) solid;
             }
 
             &--2,
@@ -92,7 +92,7 @@
                     position: absolute;
                     z-index: 0;
                     border-radius: rem(20);
-                    background: $grey-lightteen;
+                    background: var(--grey-300);
                     inset: rem(10);
                 }
             }

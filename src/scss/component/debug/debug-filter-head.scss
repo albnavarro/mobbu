@@ -24,14 +24,14 @@
             transition:
                 background 0.35s,
                 color 0.35s;
-            border: 1px $white solid;
+            border: 1px var(--white) solid;
             background: transparent;
             font-size: rem(12);
             line-height: 1.7;
 
             @include on-event {
-                background: $white;
-                color: $black;
+                background: var(--white);
+                color: var(--dark);
             }
         }
     }
@@ -42,7 +42,7 @@
     grid-area: input;
     width: rem(150);
     margin-right: rem(5);
-    border: 1px $white solid;
+    border: 1px var(--white) solid;
     background: transparent;
     font-size: rem(12);
 }

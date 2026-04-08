@@ -18,7 +18,7 @@
             justify-content: center;
             height: 100vh;
             transition: background 0.55s;
-            color: $black;
+            color: var(--dark);
             font-size: rem(25);
             font-weight: 600;
             text-transform: capitalize;
@@ -52,7 +52,7 @@
         .wrap {
             position: relative;
             height: 100%;
-            border: 1px $black solid;
+            border: 1px var(--dark) solid;
         }
 
         .nav {
@@ -79,7 +79,7 @@
 
             &:hover {
                 button {
-                    border-bottom: rem(5) $black solid;
+                    border-bottom: rem(5) var(--dark) solid;
                 }
             }
         }
@@ -105,11 +105,11 @@
             left: 50%;
             width: rem(200);
             transform: translate(-50%, -50%);
-            border: rem(10px) rgba($black, 0.15) solid;
+            border: rem(10px) rgba(var(--dark-rgb), 0.15) solid;
             text-align: center;
 
             h1 {
-                color: $black;
+                color: var(--dark);
                 font-size: rem(200);
                 font-weight: 600;
             }
@@ -130,9 +130,9 @@
                 background 0.15s,
                 opacity 0.15s;
             border: 0;
-            border-right: 1px $black solid;
+            border-right: 1px var(--dark) solid;
             opacity: 0;
-            color: $black;
+            color: var(--dark);
             font-size: rem(16);
             pointer-events: none;
 
@@ -145,7 +145,7 @@
             }
 
             &:hover {
-                background: $black;
+                background: var(--dark);
             }
         }
 
@@ -154,7 +154,7 @@
             width: rem(60);
             height: rem(10);
             transform: translateY(-100%);
-            background: $black;
+            background: var(--dark);
         }
     }
 }

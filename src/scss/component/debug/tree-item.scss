@@ -5,7 +5,7 @@
         :scope {
             position: relative;
             padding-left: rem(40);
-            color: $white;
+            color: var(--white);
             font-size: rem(12);
 
             @include when-inside('.is-whelling') {
@@ -72,7 +72,7 @@
             height: rem(10);
             margin-left: rem(5);
             border-radius: 100%;
-            background: $white;
+            background: var(--white);
 
             &.active {
                 display: inline-block;

@@ -16,27 +16,27 @@
         .label {
             padding: rem(10) rem(20);
             transition: background 0.35s;
-            background: $grey;
-            color: $black;
+            background: var(--grey-200);
+            color: var(--dark);
 
             &.hide {
                 display: none;
             }
 
             @include when-inside('[data-template="home"]') {
-                background: rgba($black, 0.1);
+                background: rgba(var(--dark-rgb), 0.1);
             }
 
             @include when-inside('[data-template="about"]') {
-                background: rgba($black, 0.1);
+                background: rgba(var(--dark-rgb), 0.1);
             }
 
             @include when-inside('[data-template="template-listing"]') {
-                background: rgba($black, 0.1);
+                background: rgba(var(--dark-rgb), 0.1);
             }
 
             @include when-inside('[data-template="template-animation"]') {
-                background: rgba($black, 0.1);
+                background: rgba(var(--dark-rgb), 0.1);
             }
 
             &.active {
@@ -57,7 +57,7 @@
             transition: opacity 0.35s;
             border: 0;
             background: transparent;
-            color: rgba($black, 0.7);
+            color: rgba(var(--dark-rgb), 0.7);
             text-align: left;
             text-decoration: none;
 
@@ -71,8 +71,8 @@
                     height: rem(5);
                     transform: translateY(-50%) rotate(45deg);
                     transition: opacity 0.35s;
-                    border-top: 2px $black solid;
-                    border-right: 2px $black solid;
+                    border-top: 2px var(--dark) solid;
+                    border-right: 2px var(--dark) solid;
                     opacity: 0;
                 }
 
@@ -95,8 +95,8 @@
                     transition:
                         border-color 0.55s,
                         transform 0.35s opacity 0.35s;
-                    border-right: 2px $black solid;
-                    border-bottom: 2px $black solid;
+                    border-right: 2px var(--dark) solid;
+                    border-bottom: 2px var(--dark) solid;
                 }
 
                 &.active {

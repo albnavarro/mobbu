@@ -11,7 +11,7 @@
             height: rem(48);
             transform: translate(-50%, -50%);
             animation: rotation 1s linear infinite;
-            border-top: 4px solid $white;
+            border-top: 4px solid var(--white);
             border-right: 4px solid transparent;
             border-radius: 50%;
             pointer-events: none;
@@ -41,7 +41,7 @@
                 height: rem(48);
                 animation: rotation 0.5s linear infinite reverse;
                 border-bottom: 4px solid transparent;
-                border-left: 4px solid $black;
+                border-left: 4px solid var(--dark);
                 border-radius: 50%;
             }
 
@@ -67,7 +67,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: $white;
+            background: var(--white);
             line-height: 1.4;
         }
 
@@ -77,7 +77,7 @@
             left: 50%;
             width: 100%;
             transform: translate(-50%, -50%);
-            color: $black;
+            color: var(--dark);
             text-align: center;
         }
 
@@ -100,9 +100,9 @@
             width: rem(200);
             height: rem(8);
             transform: translate(-50%, -50%);
-            border: 1px $black solid;
-            background: $black;
-            color: $black;
+            border: 1px var(--dark) solid;
+            background: var(--dark);
+            color: var(--dark);
         }
 
         .track-inner {
@@ -114,7 +114,7 @@
             height: 100%;
             transform: scaleX(0);
             transform-origin: left;
-            background: $white;
+            background: var(--white);
         }
     }
 }

@@ -87,7 +87,7 @@
                 transform: translateY(-50%);
                 transition: opacity 0.35s;
                 opacity: 0;
-                background: $black;
+                background: var(--dark);
             }
 
             @media screen and (height >= 200px) and (height <= 750px) {
@@ -151,14 +151,14 @@
         width: var(--thumb-width);
         height: rem(10);
         border-radius: rem(10);
-        background-color: $grey-light;
+        background-color: var(--grey-100);
     }
 
     &::-webkit-slider-thumb {
         width: var(--thumb-width);
         height: rem(10);
         border-radius: rem(10);
-        background-color: $black;
+        background-color: var(--dark);
         appearance: none;
     }
 
@@ -170,7 +170,7 @@
     &::-moz-range-track {
         height: rem(10);
         border-radius: rem(10);
-        background-color: $grey-light;
+        background-color: var(--grey-100);
     }
 
     &::-moz-range-thumb {
@@ -178,7 +178,7 @@
         height: rem(10);
         border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
         border-radius: rem(10);
-        background-color: $black;
+        background-color: var(--dark);
     }
 
     &:focus::-moz-range-thumb {

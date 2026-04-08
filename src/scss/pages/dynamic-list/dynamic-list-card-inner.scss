@@ -11,14 +11,14 @@
             margin: rem(1);
             padding: 0;
             border-radius: rem(4);
-            background: $black;
-            color: $white;
+            background: var(--dark);
+            color: var(--white);
             font-size: rem(12);
             text-align: center;
 
             @include when-inside('.is-selected') {
-                background: $white;
-                color: $black;
+                background: var(--white);
+                color: var(--dark);
             }
         }
     }

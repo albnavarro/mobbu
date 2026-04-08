@@ -16,8 +16,8 @@
             z-index: 10;
             top: var(--header-height);
             padding: calc(var(--gap-size) / 2) var(--gap-size);
-            border-bottom: 1px $black solid;
-            background: rgba($white, 0.8);
+            border-bottom: 1px var(--dark) solid;
+            background: rgba(var(--white-rgb), 0.8);
         }
 
         .dynamic-list-button {
@@ -35,7 +35,7 @@
         .invalidate {
             display: flex;
             padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
-            border-bottom: 1px $black solid;
+            border-bottom: 1px var(--dark) solid;
         }
 
         .invalidate-title {
@@ -44,7 +44,7 @@
 
         .counter {
             padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
-            color: $black;
+            color: var(--dark);
         }
 
         .repeaters-container {

@@ -8,16 +8,16 @@
             margin-right: rem(10);
             padding: 0 rem(30);
             transition: background 0.35s;
-            border: 1px $grey-medium-2 solid;
+            border: 1px var(--grey-400) solid;
             background: transparent;
-            color: $grey-medium-2;
+            color: var(--grey-400);
             font-size: rem(14);
             text-align: center;
             text-decoration: none;
 
             &:hover {
-                background: $white;
-                color: $black;
+                background: var(--white);
+                color: var(--dark);
             }
         }
     }

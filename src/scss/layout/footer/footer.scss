@@ -45,7 +45,7 @@
         .bio-item {
             display: inline-block;
             margin-inline: rem(5);
-            color: $white;
+            color: var(--white);
             font-size: rem(13);
         }
 

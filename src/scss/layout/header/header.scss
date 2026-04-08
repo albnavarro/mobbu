@@ -10,7 +10,7 @@
             right: 0;
             left: 0;
             transition: background 0.35s;
-            background: $white;
+            background: var(--white);
 
             &::after {
                 content: '';
@@ -21,7 +21,7 @@
                 height: 1px;
                 transform: scaleX(0);
                 transform-origin: top left;
-                background: $black;
+                background: var(--dark);
             }
 
             &.is-visible {
@@ -96,7 +96,7 @@
             transition: transform 0.35s;
             border: 0;
             background: transparent;
-            color: $black;
+            color: var(--dark);
             text-align: left;
 
             @include mq(large) {

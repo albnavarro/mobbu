@@ -3,7 +3,7 @@
 @layer layout {
     @scope (.c-debug-search) {
         :scope {
-            color: $white;
+            color: var(--white);
         }
 
         .label {
@@ -21,14 +21,14 @@
             transition:
                 background 0.35s,
                 color 0.35s;
-            border: 1px $white solid;
+            border: 1px var(--white) solid;
             background: transparent;
             line-height: 1.7;
             vertical-align: middle;
 
             @include on-event {
-                background: $white;
-                color: $black;
+                background: var(--white);
+                color: var(--dark);
             }
         }
     }
@@ -39,7 +39,7 @@
     width: rem(100);
     height: rem(22);
     margin-right: rem(5);
-    border: 1px $white solid;
+    border: 1px var(--white) solid;
     background: transparent;
     vertical-align: middle;
 

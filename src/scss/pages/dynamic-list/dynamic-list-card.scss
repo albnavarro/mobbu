@@ -10,7 +10,7 @@
             border: 0;
             opacity: 0;
             background: transparent;
-            color: $black;
+            color: var(--dark);
             font-size: rem(14);
             line-height: 1.4;
             text-align: left;
@@ -36,12 +36,12 @@
                 background 0.55s,
                 color 0.55s;
             border-radius: rem(30);
-            background: $grey-light;
+            background: var(--grey-100);
         }
 
         .card-title {
             margin-bottom: rem(10);
-            color: $black;
+            color: var(--dark);
             font-weight: 600;
         }
 
@@ -58,7 +58,7 @@
         .card-repeater {
             margin-bottom: calc(var(--gap-size) / 4);
             padding-bottom: calc(var(--gap-size) / 4);
-            border-bottom: 1px rgba($black, 0.1) solid;
+            border-bottom: 1px rgba(var(--dark-rgb), 0.1) solid;
         }
 
         .card-invalidate-wrap {
@@ -68,21 +68,21 @@
 
         :scope.is-selected {
             .card-container {
-                background: $black;
-                color: $white;
+                background: var(--dark);
+                color: var(--white);
             }
 
             .card-title {
-                color: $white;
+                color: var(--white);
             }
 
             .card-repeater {
-                border-bottom: 1px rgba($white, 0.1) solid;
+                border-bottom: 1px rgba(var(--white-rgb), 0.1) solid;
             }
 
             .repeater-card-button {
-                background: $white;
-                color: $black;
+                background: var(--white);
+                color: var(--dark);
             }
         }
     }

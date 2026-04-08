@@ -5,6 +5,6 @@ export default {
         'stylelint-config-property-sort-order-smacss',
     ],
     rules: {
-        // 'at-rule-no-unknown': null,
+        'color-function-alias-notation': null,
     },
 };

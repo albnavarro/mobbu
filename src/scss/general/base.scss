@@ -11,6 +11,19 @@
      * Set up a decent box model on the root element
      */
     :root {
+        --white: #fff;
+        --white-rgb: 255, 255, 255;
+        --dark: #2e3440;
+        --dark-rgb: 46, 52, 64;
+        --red: #a86464;
+        --grey-100: #f6f6f6;
+        --grey-100-rgb: 246, 246, 246;
+        --grey-200: #eee;
+        --grey-200-rgb: 238, 238, 238;
+        --grey-300: #e8e8e8;
+        --grey-400: #ccc;
+        --grey-500: #a4a4b3;
+
         // Instead grid-context
         --gap-size: #{rem(40)};
         --col-size: 9%;
@@ -80,7 +93,7 @@
     body {
         position: relative;
         overflow-x: hidden;
-        background: $white;
+        background: var(--white);
 
         &::after {
             content: '';
@@ -113,7 +126,7 @@
         }
 
         &[data-template='about'] {
-            background: $grey;
+            background: var(--grey-200);
 
             &::after {
                 visibility: visible;

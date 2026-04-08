@@ -6,7 +6,7 @@
             position: relative;
             padding: rem(40);
             overflow: hidden;
-            border: 2px $white solid;
+            border: 2px var(--white) solid;
             border-radius: rem(10);
 
             &.start-end-svg {

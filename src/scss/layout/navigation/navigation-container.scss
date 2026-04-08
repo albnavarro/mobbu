@@ -11,8 +11,8 @@
             transition:
                 transform 0.55s,
                 background 0.55s;
-            border-right: 1px $black solid;
-            background: $white;
+            border-right: 1px var(--dark) solid;
+            background: var(--white);
 
             @include mq(desktop) {
                 display: block;
@@ -20,7 +20,7 @@
 
             @include when-inside('[data-template="template-doc-default"]') {
                 .side-col {
-                    background: rgba($black, 0.05);
+                    background: rgba(var(--dark-rgb), 0.05);
 
                     &::after {
                         display: none;
@@ -30,7 +30,7 @@
 
             @include when-inside('[data-template="template-mobJs-component"]') {
                 .side-col {
-                    background: rgba($black, 0.05);
+                    background: rgba(var(--dark-rgb), 0.05);
 
                     &::after {
                         display: none;
@@ -58,7 +58,7 @@
                 transform: scaleY(0);
                 transform-origin: top right;
                 transition: transform 1s 0.5s;
-                background: $black;
+                background: var(--dark);
             }
 
             &.is-visible {
@@ -93,7 +93,7 @@
                 visibility 0.35s;
             border: 0;
             opacity: 0;
-            background: $black;
+            background: var(--dark);
 
             &::after {
                 content: '';
@@ -103,8 +103,8 @@
                 width: rem(5);
                 height: rem(5);
                 transform: translate(-50%, -50%) rotate(-45deg);
-                border-top: 1px $white solid;
-                border-right: 1px $white solid;
+                border-top: 1px var(--white) solid;
+                border-right: 1px var(--white) solid;
             }
         }
 
@@ -117,7 +117,7 @@
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.55s;
-            background: $black;
+            background: var(--dark);
         }
 
         .scroll-element {

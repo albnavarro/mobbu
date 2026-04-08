@@ -5,10 +5,10 @@
         :scope {
             margin-top: rem(10);
             padding: rem(5);
-            border: 1px rgba($black, 0.1) solid;
+            border: 1px rgba(var(--dark-rgb), 0.1) solid;
 
             @include when-inside('.is-selected') {
-                border-color: rgba($white, 0.3);
+                border-color: rgba(var(--white-rgb), 0.3);
             }
         }
     }

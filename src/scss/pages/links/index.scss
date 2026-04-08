@@ -30,7 +30,7 @@
                 transform 1.5s,
                 opacity 0.55s;
             opacity: 0;
-            color: $white;
+            color: var(--white);
             font-size: rem(300);
             font-weight: 800;
             line-height: calc(var(--scroller-height) / 2);
@@ -86,7 +86,7 @@
                 transform: scaleX(0);
                 transform-origin: top left;
                 transition: transform 0.55s;
-                background: $black;
+                background: var(--dark);
             }
 
             &.active {
@@ -155,7 +155,7 @@
             transition:
                 background 0.55s,
                 color 0.55s;
-            color: $black;
+            color: var(--dark);
             text-transform: capitalize;
 
             &::after,
@@ -163,7 +163,7 @@
                 content: '';
                 position: absolute;
                 transition: transform 0.55s;
-                background: $black;
+                background: var(--dark);
             }
 
             &::after {
@@ -229,8 +229,8 @@
             }
 
             &:hover {
-                background: $black;
-                color: $white;
+                background: var(--dark);
+                color: var(--white);
             }
         }
 

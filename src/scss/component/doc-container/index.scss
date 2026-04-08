@@ -37,7 +37,7 @@
             position: relative;
             grid-column: 1 / span 1;
             min-height: 100vh;
-            background: rgba($white, 0.4);
+            background: rgba(var(--white-rgb), 0.4);
 
             &::after {
                 content: '';
@@ -46,7 +46,7 @@
                 right: 0;
                 bottom: 0;
                 width: 1px;
-                background: $black;
+                background: var(--dark);
             }
 
             @include mq('large') {
@@ -55,7 +55,7 @@
 
             @include mq(large) {
                 grid-column: 2 / span 1;
-                border-left: 1px $black solid;
+                border-left: 1px var(--dark) solid;
             }
         }
 

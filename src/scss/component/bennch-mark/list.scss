@@ -35,14 +35,14 @@
             transition:
                 background 0.35s,
                 color 0.35s;
-            border: 1px $black solid;
-            background: $black;
-            color: $white;
+            border: 1px var(--dark) solid;
+            background: var(--dark);
+            color: var(--white);
             line-height: 1.7;
 
             &:hover {
-                background: $white;
-                color: $black;
+                background: var(--white);
+                color: var(--dark);
             }
         }
 
@@ -61,8 +61,8 @@
             left: 50%;
             padding: rem(20);
             transform: translateX(-50%);
-            border: 1px $black solid;
-            background: $grey;
+            border: 1px var(--dark) solid;
+            background: var(--grey-200);
 
             &.active {
                 display: block;
@@ -98,7 +98,7 @@
     padding-top: 0;
     padding-bottom: 0;
     padding-inline: rem(10);
-    border: 1px $black solid;
+    border: 1px var(--dark) solid;
     background: transparent;
     line-height: 1.7;
 }

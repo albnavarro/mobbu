@@ -27,7 +27,7 @@
             margin: 0 rem(10);
             border: 0;
             background: transparent;
-            color: $white;
+            color: var(--white);
         }
 
         /* stylelint-disable-next-line no-descending-specificity */
@@ -36,7 +36,7 @@
             height: var(--sidebar-item-size);
             height: 100%;
             transition: opacity 0.55s;
-            fill: $black;
+            fill: var(--dark);
         }
     }
 }

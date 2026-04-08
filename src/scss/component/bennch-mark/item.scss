@@ -5,7 +5,7 @@
         :scope {
             margin-bottom: calc(var(--gap-size) / 2);
             padding: calc(var(--gap-size) / 2);
-            border: 1px $black solid;
+            border: 1px var(--dark) solid;
         }
 
         .row {
@@ -19,23 +19,23 @@
         button {
             display: block;
             width: 100%;
-            border: 1px $black solid;
-            background: $black;
-            color: $white;
+            border: 1px var(--dark) solid;
+            background: var(--dark);
+            color: var(--white);
 
             &:hover {
-                background: $white;
-                color: $black;
+                background: var(--white);
+                color: var(--dark);
             }
         }
 
         :scope.selected {
-            background: $black;
-            color: $white;
+            background: var(--dark);
+            color: var(--white);
 
             button {
-                background: $white;
-                color: $black;
+                background: var(--white);
+                color: var(--dark);
             }
         }
     }

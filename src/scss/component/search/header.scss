@@ -18,9 +18,9 @@
             transition:
                 opacity 0.35s,
                 visibility 0.35s;
-            border: 1px $white solid;
+            border: 1px var(--white) solid;
             opacity: 0;
-            background: $black;
+            background: var(--dark);
             pointer-events: none;
 
             &.active {
@@ -41,13 +41,13 @@
             transition:
                 background 0.35s,
                 color 0.35s;
-            border: 1px $white solid;
+            border: 1px var(--white) solid;
             background: transparent;
             line-height: 1.7;
 
             @include on-event {
-                background: $white;
-                color: $black;
+                background: var(--white);
+                color: var(--dark);
             }
         }
     }
@@ -59,6 +59,6 @@
     min-height: rem(36);
     margin-right: rem(5);
     padding-left: rem(10);
-    border: 1px $white solid;
+    border: 1px var(--white) solid;
     background: transparent;
 }
