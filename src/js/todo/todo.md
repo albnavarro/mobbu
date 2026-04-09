@@ -3,18 +3,142 @@
 
 # MobJs
 
-### html
+## fromObject
+#### Struttura:
 - Poter passare alla funzione un array/oggetto .
-- `strings` diventerá qualcosa tipo `value` che puó essere `string` o `array/object`.
-- se `string` é come ora.
-- se `array/object` scrivere una funzione che trasforma `value` in un elemento DOM.
-- se esce un elemento DOM andrá gestito in maniera diversa da una stringa.
-- Si puó ipotizzare che html torni un oggetto del tipo:
+- trasforma un oggetto in stringa per essere compatibile con il sistema esistente.
+- funzione ricorsiva che un oggetto come il seguente restituisce una stringa compattata.
+- Propietá necessarie:
+    - `tag` : stringa
+    - `className` : stringa
+    - `style` : stringa
+    - `dataAttributes` : oggetto di attributi
+    - `attributes` : oggetto di attributi
+    - `modules` : array le funzioni modules torneranno sempre stringhe.
+    - `content` : singola stringa|elemento ( ricorsivitá ) o un array degli stessi.
+
+#### Gestire i tag senza chiusura:
 ```javascript
-{
-    type: DOM,
-    value: ....
+const VOID_ELEMENTS = new Set([
+    'area', 'base', 'br', 'col', 'embed', 'hr',
+    'img', 'input', 'link', 'meta', 'param',
+    'source', 'track', 'wbr'
+]);
+
+const isVoid = VOID_ELEMENTS.has(tag.toLowerCase());
+
+if (isVoid) {
+    return `<${tag} />`;
 }
+```
+
+#### API example:
+```javascript
+return fromObject({
+    tag: 'div',
+    className: 'my-div relative',
+    style: 'background: #000;',
+    dataAttributes: { id: 'my id' },
+    attributes: { slot: 'my-slot' },
+    modules: [
+        setRef('canvas'),
+        delegateEvents({
+            click: () => {
+                proxi.controlsActive = true;
+            },
+        }),
+        bindEffect({
+            toggleClass: {
+                active: () => proxi.controlsActive,
+            },
+        }),
+    ],
+    content: [
+        {
+            tag: 'div',
+            content: {
+                tag: 'span',
+                content: 'my span',
+            },
+        },
+        'text content',
+        {
+            tag: 'div',
+            className: 'my-repeater-container',
+            content: repeat({
+                observe: () => proxi.isMounted,
+                render: ({ current }) => {
+                    return fromObject({
+                        tag: 'my-component',
+                        modules: [
+                            bindProps(() => ({
+                                key: `${current.value.key}`,
+                                value: `${current.value.value}`,
+                                index: current.index,
+                            })),
+                        ],
+                    });
+                },
+            }),
+        },
+    ],
+});
+```
+
+#### Esempio tipi:
+```typescript
+export type ModuleFunction = () => string;
+
+/**
+ * Tipo ricorsivo per il contenuto.
+ */
+export type NodeContent =
+    | string
+    | NodeDescriptor
+    | Array<string | NodeDescriptor>;
+
+/**
+ * Tipo per il nodo del DOM.
+ */
+export interface NodeDescriptor {
+    tag: keyof HTMLElementTagNameMap | (string & {});
+    className?: string;
+    style?: string;
+    dataAttributes?: Record<string, string | number | boolean>;
+
+    /**
+     * Attributi HTML standard.
+     * Exclude 'class' e 'style'.
+     */
+    attributes?: Omit<Record<string, string | number | boolean>, 'class' | 'style'>;
+    modules?: ModuleFunction[];
+    content?: NodeContent;
+}
+
+export type FromObject = (data: NodeDescriptor) => string;
+```
+
+```javascript
+/**
+ * @type {FromObject}
+ */
+export const fromObject = (data) => {
+    ....
+    return htmlString;
+};
+```
+
+```javascript
+/**
+ * @type {FromObject}
+ * @param {NodeDescriptor} data - Descrittore del nodo
+ * @returns {string} HTML string
+ */
+export const fromObject = (data) => {
+    const { tag, className, content, modules } = data;
+    ....
+    return htmlString;
+};
 ```
 
 ### Repat proxi
