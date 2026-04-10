@@ -1,5 +1,3 @@
-//@ts-check
-
 import { MobCore } from '@mobCore';
 import { fromObject, MobJs } from '@mobJs';
 

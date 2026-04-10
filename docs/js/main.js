@@ -28217,7 +28217,6 @@
   var BenchMarkRepeatWithKyFnNested = ({
     onMount,
     delegateEvents,
-    bindText,
     setRef,
     getRef,
     bindProps,
@@ -28232,64 +28231,82 @@
         getRef()?.input.remove();
       };
     });
-    return renderHtml`<div class="l-benchmark">
-        <div class="header">
-            <h3>Repeat ( nested with key ):</h3>
-            <p>
-                Repater without component with the same repeater with component
-                inside<br />
-                ( max value <strong>10</strong> ).
-            </p>
-            ${benchMarkListPartial({
-      setRef,
-      getRef,
-      delegateEvents,
-      bindEffect,
-      proxi
-    })}
-
-            <div class="time">
-                ${bindText`components generate in <strong>${"time"}ms</strong>`}
-            </div>
-        </div>
-        <div class="list">
-            ${repeat({
-      observe: () => proxi.data,
-      key: "label",
-      useSync: true,
-      render: ({ current }) => {
-        return renderHtml`<div>
-                        <div class="static-item-inner">
-                            ${bindObject`label: ${() => current.value.label}`}
-                        </div>
-                        <div>
-                            ${repeat({
-          observe: () => proxi.data,
-          useSync: true,
-          key: "label",
-          render: ({ sync, current: current2 }) => {
-            return renderHtml`
-                                        <benchmark-fake-component
-                                            ${bindProps(
-              /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-              () => ({
-                index: current2.index,
-                label: current2.value.label,
-                counter: proxi.counter
-              })
-            )}
-                                            ${sync()}
-                                        >
-                                        </benchmark-fake-component>
-                                    `;
-          }
-        })}
-                        </div>
-                    </div>`;
-      }
-    })}
-        </div>
-    </div>`;
+    return fromObject({
+      className: "l-benchmark",
+      content: [
+        {
+          className: "header",
+          content: [
+            {
+              tag: "h3",
+              content: "Repeat ( nested with key ):"
+            },
+            {
+              tag: "p",
+              content: renderHtml`
+                            Repater without component with the same repeater
+                            with component inside<br />
+                            ( max value <strong>10</strong> ).
+                        `
+            },
+            benchMarkListPartial({
+              setRef,
+              getRef,
+              delegateEvents,
+              bindEffect,
+              proxi
+            }),
+            {
+              className: "time",
+              content: bindObject`components generate in <strong>${() => proxi.time}ms</strong>`
+            }
+          ]
+        },
+        {
+          className: "list",
+          content: repeat({
+            observe: () => proxi.data,
+            key: "label",
+            useSync: true,
+            render: ({ current }) => {
+              return fromObject({
+                tag: "div",
+                content: [
+                  {
+                    className: "static-item-inner",
+                    content: bindObject`label: ${() => current.value.label}`
+                  },
+                  {
+                    tag: "div",
+                    content: repeat({
+                      observe: () => proxi.data,
+                      useSync: true,
+                      key: "label",
+                      render: ({ sync, current: current2 }) => {
+                        return fromObject({
+                          tag: "benchmark-fake-component",
+                          modules: [
+                            bindProps(
+                              /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                              () => ({
+                                index: current2.index,
+                                label: current2.value.label,
+                                counter: proxi.counter
+                              })
+                            ),
+                            sync()
+                          ]
+                        });
+                      }
+                    })
+                  }
+                ]
+              });
+            }
+          })
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/benchmark/repeat-key-nested/definition.js
@@ -28623,7 +28640,6 @@
   var BenchMarkRepeatWithNoKeyFnNested = ({
     onMount,
     delegateEvents,
-    bindText,
     setRef,
     getRef,
     bindProps,
@@ -28638,62 +28654,80 @@
         getRef()?.input.remove();
       };
     });
-    return renderHtml`<div class="l-benchmark">
-        <div class="header">
-            <h3>Repeat ( nested without key ):</h3>
-            <p>
-                Repater without component with the same repeater with component
-                inside<br />
-                ( max value <strong>10</strong> ).
-            </p>
-            ${benchMarkListPartial({
-      setRef,
-      getRef,
-      delegateEvents,
-      bindEffect,
-      proxi
-    })}
-
-            <div class="time">
-                ${bindText`components generate in <strong>${"time"}ms</strong>`}
-            </div>
-        </div>
-        <div class="list">
-            ${repeat({
-      observe: () => proxi.data,
-      useSync: true,
-      render: ({ current }) => {
-        return renderHtml`<div>
-                        <div class="static-item-inner">
-                            ${bindObject`label: ${() => current.value.label}`}
-                        </div>
-                        <div>
-                            ${repeat({
-          observe: () => proxi.data,
-          useSync: true,
-          render: ({ sync, current: current2 }) => {
-            return renderHtml`
-                                        <benchmark-fake-component
-                                            ${bindProps(
-              /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-              () => ({
-                index: current2.index,
-                label: current2.value.label,
-                counter: proxi.counter
-              })
-            )}
-                                            ${sync()}
-                                        >
-                                        </benchmark-fake-component>
-                                    `;
-          }
-        })}
-                        </div>
-                    </div>`;
-      }
-    })}
-        </div>
-    </div>`;
+    return fromObject({
+      className: "l-benchmark",
+      content: [
+        {
+          className: "header",
+          content: [
+            {
+              tag: "h3",
+              content: "Repeat ( nested without key ):"
+            },
+            {
+              tag: "p",
+              content: renderHtml`
+                            Repater without component with the same repeater
+                            with component inside<br />
+                            ( max value <strong>10</strong> ).
+                        `
+            },
+            benchMarkListPartial({
+              setRef,
+              getRef,
+              delegateEvents,
+              bindEffect,
+              proxi
+            }),
+            {
+              className: "time",
+              content: bindObject`components generate in <strong>${() => proxi.time}ms</strong>`
+            }
+          ]
+        },
+        {
+          className: "list",
+          content: repeat({
+            observe: () => proxi.data,
+            useSync: true,
+            render: ({ current }) => {
+              return fromObject({
+                tag: "div",
+                content: [
+                  {
+                    className: "static-item-inner",
+                    content: bindObject`label: ${() => current.value.label}`
+                  },
+                  {
+                    tag: "div",
+                    content: repeat({
+                      observe: () => proxi.data,
+                      useSync: true,
+                      render: ({ sync, current: current2 }) => {
+                        return fromObject({
+                          tag: "benchmark-fake-component",
+                          modules: [
+                            bindProps(
+                              /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                              () => ({
+                                index: current2.index,
+                                label: current2.value.label,
+                                counter: proxi.counter
+                              })
+                            ),
+                            sync()
+                          ]
+                        });
+                      }
+                    })
+                  }
+                ]
+              });
+            }
+          })
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/benchmark/repeat-no-key-nested/definition.js
@@ -28722,7 +28756,6 @@
   var BenchMarkRepeatNoComponentNoKeyFn = ({
     onMount,
     delegateEvents,
-    bindText,
     setRef,
     getRef,
     repeat,
@@ -28736,70 +28769,90 @@
         getRef()?.input.remove();
       };
     });
-    return renderHtml`<div class="l-benchmark">
-        <div class="header">
-            <h3>Repeat no component ( without key ):</h3>
-            <h2>Generate vanilla html performance</h2>
-            ${benchMarkVanillaGarbagePartial(1e3)}
-            ${benchMarkListPartial({
-      setRef,
-      getRef,
-      delegateEvents,
-      bindEffect,
-      proxi
-    })}
-
-            <div class="time">
-                ${bindText`components generate in <strong>${"time"}ms</strong>`}
-            </div>
-        </div>
-        <div class="list">
-            ${repeat({
-      observe: () => proxi.data,
-      render: ({ current }) => {
-        return renderHtml`
-                        <div
-                            class="c-benchmark-fake"
-                            ${bindEffect({
-          /**
-           * Update only when buttonClick. Otherwise every data update selected state back to same
-           * item.
-           *
-           * - Current trigger update on each data mutation.
-           */
-          observe: [() => proxi.currentIndex],
-          toggleClass: {
-            selected: () => current.index === proxi.currentIndex
-          }
-        })}
-                        >
-                            <div class="row">
-                                ${bindObject`<strong>index:</strong><br/> ${() => current.index}`}
-                            </div>
-                            <div class="row">
-                                ${bindObject`<strong>label:</strong><br/> ${() => current.value.label}`}
-                            </div>
-                            <div class="row">
-                                ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`}
-                            </div>
-                            <div class="row">
-                                <button
-                                    type="button"
-                                    ${delegateEvents({
-          click: () => {
-            proxi.currentIndex = proxi.currentIndex === current.index ? -1 : current.index;
-          }
-        })}
-                                >
-                                    Select
-                                </button>
-                            </div>
-                        </div>
-                    `;
-      }
-    })}
-        </div>
-    </div>`;
+    return fromObject({
+      className: "l-benchmark",
+      content: [
+        {
+          className: "header",
+          content: [
+            {
+              tag: "h3",
+              content: "Repeat no component ( without key ):"
+            },
+            {
+              tag: "h2",
+              content: "Generate vanilla html performance"
+            },
+            benchMarkVanillaGarbagePartial(1e3),
+            benchMarkListPartial({
+              setRef,
+              getRef,
+              delegateEvents,
+              bindEffect,
+              proxi
+            }),
+            {
+              className: "time",
+              content: bindObject`components generate in <strong>${() => proxi.time}ms</strong>`
+            }
+          ]
+        },
+        {
+          className: "list",
+          content: [
+            repeat({
+              observe: () => proxi.data,
+              render: ({ current }) => {
+                return fromObject({
+                  className: "c-benchmark-fake",
+                  modules: [
+                    bindEffect({
+                      /**
+                       * Update only when buttonClick. Otherwise every data update selected state back
+                       * to same item.
+                       *
+                       * - Current trigger update on each data mutation.
+                       */
+                      observe: [() => proxi.currentIndex],
+                      toggleClass: {
+                        selected: () => current.index === proxi.currentIndex
+                      }
+                    })
+                  ],
+                  content: [
+                    {
+                      className: "row",
+                      content: bindObject`<strong>index:</strong><br/> ${() => current.index}`
+                    },
+                    {
+                      className: "row",
+                      content: bindObject`<strong>label:</strong><br/> ${() => current.value.label}`
+                    },
+                    {
+                      className: "row",
+                      content: bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`
+                    },
+                    {
+                      className: "row",
+                      content: {
+                        tag: "button",
+                        attributes: { type: "button" },
+                        modules: delegateEvents({
+                          click: () => {
+                            proxi.currentIndex = proxi.currentIndex === current.index ? -1 : current.index;
+                          }
+                        }),
+                        content: "Select"
+                      }
+                    }
+                  ]
+                });
+              }
+            })
+          ]
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/benchmark/repeat-no-component-no-key/definition.js
@@ -28816,7 +28869,6 @@
   var BenchMarkRepeatNoComponentWithKeyFn = ({
     onMount,
     delegateEvents,
-    bindText,
     setRef,
     getRef,
     repeat,
@@ -28830,71 +28882,91 @@
         getRef()?.input.remove();
       };
     });
-    return renderHtml`<div class="l-benchmark">
-        <div class="header">
-            <h3>Repeat no component ( with key ):</h3>
-            <h2>Generate vanilla html performance</h2>
-            ${benchMarkVanillaGarbagePartial(1e3)}
-            ${benchMarkListPartial({
-      setRef,
-      getRef,
-      delegateEvents,
-      bindEffect,
-      proxi
-    })}
-
-            <div class="time">
-                ${bindText`components generate in <strong>${"time"}ms</strong>`}
-            </div>
-        </div>
-        <div class="list">
-            ${repeat({
-      observe: () => proxi.data,
-      key: "label",
-      render: ({ current }) => {
-        return renderHtml`
-                        <div
-                            class="c-benchmark-fake"
-                            ${bindEffect({
-          /**
-           * Update only when buttonClick. Otherwise every data update selected state back to same
-           * item.
-           *
-           * - Current trigger update on each data mutation.
-           */
-          observe: [() => proxi.currentIndex],
-          toggleClass: {
-            selected: () => current.index === proxi.currentIndex
-          }
-        })}
-                        >
-                            <div class="row">
-                                ${bindObject`<strong>index:</strong><br/> ${() => current.index}`}
-                            </div>
-                            <div class="row">
-                                ${bindObject`<strong>label:</strong><br/> ${() => current.value.label}`}
-                            </div>
-                            <div class="row">
-                                ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`}
-                            </div>
-                            <div class="row">
-                                <button
-                                    type="button"
-                                    ${delegateEvents({
-          click: () => {
-            proxi.currentIndex = proxi.currentIndex === current.index ? -1 : current.index;
-          }
-        })}
-                                >
-                                    Select
-                                </button>
-                            </div>
-                        </div>
-                    `;
-      }
-    })}
-        </div>
-    </div>`;
+    return fromObject({
+      className: "l-benchmark",
+      content: [
+        {
+          className: "header",
+          content: [
+            {
+              tag: "h3",
+              content: "Repeat no component ( with key ):"
+            },
+            {
+              tag: "h2",
+              content: "Generate vanilla html performance"
+            },
+            benchMarkVanillaGarbagePartial(1e3),
+            benchMarkListPartial({
+              setRef,
+              getRef,
+              delegateEvents,
+              bindEffect,
+              proxi
+            }),
+            {
+              className: "time",
+              content: bindObject`components generate in <strong>${() => proxi.time}ms</strong>`
+            }
+          ]
+        },
+        {
+          className: "list",
+          content: [
+            repeat({
+              observe: () => proxi.data,
+              key: "label",
+              render: ({ current }) => {
+                return fromObject({
+                  className: "c-benchmark-fake",
+                  modules: [
+                    bindEffect({
+                      /**
+                       * Update only when buttonClick. Otherwise every data update selected state back
+                       * to same item.
+                       *
+                       * - Current trigger update on each data mutation.
+                       */
+                      observe: [() => proxi.currentIndex],
+                      toggleClass: {
+                        selected: () => current.index === proxi.currentIndex
+                      }
+                    })
+                  ],
+                  content: [
+                    {
+                      className: "row",
+                      content: bindObject`<strong>index:</strong><br/> ${() => current.index}`
+                    },
+                    {
+                      className: "row",
+                      content: bindObject`<strong>label:</strong><br/> ${() => current.value.label}`
+                    },
+                    {
+                      className: "row",
+                      content: bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`
+                    },
+                    {
+                      className: "row",
+                      content: {
+                        tag: "button",
+                        attributes: { type: "button" },
+                        modules: delegateEvents({
+                          click: () => {
+                            proxi.currentIndex = proxi.currentIndex === current.index ? -1 : current.index;
+                          }
+                        }),
+                        content: "Select"
+                      }
+                    }
+                  ]
+                });
+              }
+            })
+          ]
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/benchmark/repeat-no-component-key/definition.js

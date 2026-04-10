@@ -1,5 +1,3 @@
-//@ts-check
-
 import { fromObject } from '@mobJs';
 import { benchMarkGarbagePartial } from '../partials/bench-mark-garbage-partial';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';

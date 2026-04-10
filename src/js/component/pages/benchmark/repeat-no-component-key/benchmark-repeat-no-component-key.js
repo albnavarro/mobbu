@@ -1,6 +1,4 @@
-//@ts-check
-
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { benchMarkVanillaGarbagePartial } from '../partials/bench-mark-vanilla-garbage-partial';
 
@@ -12,7 +10,6 @@ import { benchMarkVanillaGarbagePartial } from '../partials/bench-mark-vanilla-g
 export const BenchMarkRepeatNoComponentWithKeyFn = ({
     onMount,
     delegateEvents,
-    bindText,
     setRef,
     getRef,
     repeat,
@@ -30,74 +27,95 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
         };
     });
 
-    return html`<div class="l-benchmark">
-        <div class="header">
-            <h3>Repeat no component ( with key ):</h3>
-            <h2>Generate vanilla html performance</h2>
-            ${benchMarkVanillaGarbagePartial(1000)}
-            ${benchMarkListPartial({
-                setRef,
-                getRef,
-                delegateEvents,
-                bindEffect,
-                proxi,
-            })}
-
-            <div class="time">
-                ${bindText`components generate in <strong>${'time'}ms</strong>`}
-            </div>
-        </div>
-        <div class="list">
-            ${repeat({
-                observe: () => proxi.data,
-                key: 'label',
-                render: ({ current }) => {
-                    return html`
-                        <div
-                            class="c-benchmark-fake"
-                            ${bindEffect({
-                                /**
-                                 * Update only when buttonClick. Otherwise every data update selected state back to same
-                                 * item.
-                                 *
-                                 * - Current trigger update on each data mutation.
-                                 */
-                                observe: [() => proxi.currentIndex],
-                                toggleClass: {
-                                    selected: () =>
-                                        current.index === proxi.currentIndex,
-                                },
-                            })}
-                        >
-                            <div class="row">
-                                ${bindObject`<strong>index:</strong><br/> ${() => current.index}`}
-                            </div>
-                            <div class="row">
-                                ${bindObject`<strong>label:</strong><br/> ${() => current.value.label}`}
-                            </div>
-                            <div class="row">
-                                ${bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`}
-                            </div>
-                            <div class="row">
-                                <button
-                                    type="button"
-                                    ${delegateEvents({
-                                        click: () => {
-                                            proxi.currentIndex =
-                                                proxi.currentIndex ===
-                                                current.index
-                                                    ? -1
-                                                    : current.index;
+    return fromObject({
+        className: 'l-benchmark',
+        content: [
+            {
+                className: 'header',
+                content: [
+                    {
+                        tag: 'h3',
+                        content: 'Repeat no component ( with key ):',
+                    },
+                    {
+                        tag: 'h2',
+                        content: 'Generate vanilla html performance',
+                    },
+                    benchMarkVanillaGarbagePartial(1000),
+                    benchMarkListPartial({
+                        setRef,
+                        getRef,
+                        delegateEvents,
+                        bindEffect,
+                        proxi,
+                    }),
+                    {
+                        className: 'time',
+                        content: bindObject`components generate in <strong>${() => proxi.time}ms</strong>`,
+                    },
+                ],
+            },
+            {
+                className: 'list',
+                content: [
+                    repeat({
+                        observe: () => proxi.data,
+                        key: 'label',
+                        render: ({ current }) => {
+                            return fromObject({
+                                className: 'c-benchmark-fake',
+                                modules: [
+                                    bindEffect({
+                                        /**
+                                         * Update only when buttonClick. Otherwise every data update selected state back
+                                         * to same item.
+                                         *
+                                         * - Current trigger update on each data mutation.
+                                         */
+                                        observe: [() => proxi.currentIndex],
+                                        toggleClass: {
+                                            selected: () =>
+                                                current.index ===
+                                                proxi.currentIndex,
                                         },
-                                    })}
-                                >
-                                    Select
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                },
-            })}
-        </div>
-    </div>`;
+                                    }),
+                                ],
+                                content: [
+                                    {
+                                        className: 'row',
+                                        content: bindObject`<strong>index:</strong><br/> ${() => current.index}`,
+                                    },
+                                    {
+                                        className: 'row',
+                                        content: bindObject`<strong>label:</strong><br/> ${() => current.value.label}`,
+                                    },
+                                    {
+                                        className: 'row',
+                                        content: bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`,
+                                    },
+                                    {
+                                        className: 'row',
+                                        content: {
+                                            tag: 'button',
+                                            attributes: { type: 'button' },
+                                            modules: delegateEvents({
+                                                click: () => {
+                                                    proxi.currentIndex =
+                                                        proxi.currentIndex ===
+                                                        current.index
+                                                            ? -1
+                                                            : current.index;
+                                                },
+                                            }),
+                                            content: 'Select',
+                                        },
+                                    },
+                                ],
+                            });
+                        },
+                    }),
+                ],
+            },
+        ],
+    });
 };
