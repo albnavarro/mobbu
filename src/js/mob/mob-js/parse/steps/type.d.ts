@@ -60,3 +60,36 @@ export type NodeOrTextMix = (
     | { node: ChildNode; type: string }
     | { node: undefined; type: string }
 )[];
+
+/**
+ * Tipo ricorsivo per il contenuto.
+ */
+export type FromObjectNodeContent =
+    | string
+    | FromObjectNodeDescriptor
+    | (string | FromObjectNodeDescriptor)[];
+
+/**
+ * Tipo per il nodo del DOM.
+ */
+export interface FromObjectNodeDescriptor {
+    tag?: keyof HTMLElementTagNameMap | (string & {});
+    className?: string | string[];
+    style?: string;
+    dataAttributes?: Record<
+        string,
+        string | number | boolean | null | undefined
+    >;
+
+    /**
+     * Attributi HTML standard. Exclude 'class' e 'style'.
+     */
+    attributes?: Omit<
+        Record<string, string | number | boolean | null | undefined>,
+        'class' | 'style'
+    >;
+    modules?: string | string[];
+    content?: FromObjectNodeContent;
+}
+
+export type FromObject = (data: FromObjectNodeDescriptor) => string;

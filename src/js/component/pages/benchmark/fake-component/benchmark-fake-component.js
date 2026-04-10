@@ -1,6 +1,6 @@
 //@ts-check
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -22,36 +22,41 @@ export const BenchMarkFakeComponentFn = ({
         return () => {};
     });
 
-    return html`<div
-        class="c-benchmark-fake"
-        ${bindEffect({
+    return fromObject({
+        className: 'c-benchmark-fake',
+        modules: bindEffect({
             toggleClass: { selected: () => proxiState.isSelected },
-        })}
-    >
-        <div class="row">
-            <strong>id:</strong><br />
-            ${id}
-        </div>
-        <div class="row">
-            ${bindObject`<strong>index:</strong><br/> ${() => proxiState.index}`}
-        </div>
-        <div class="row">
-            ${bindObject`<strong>label:</strong><br/> ${() => proxiState.label}`}
-        </div>
-        <div class="row">
-            ${bindObject`<strong>counter: </strong><br/> ${() => proxiState.counter}`}
-        </div>
-        <div class="row">
-            <button
-                type="button"
-                ${delegateEvents({
-                    click: () => {
-                        proxiState.isSelected = !proxiState.isSelected;
-                    },
-                })}
-            >
-                Select
-            </button>
-        </div>
-    </div> `;
+        }),
+        content: [
+            {
+                className: 'row',
+                content: `<strong>id:</strong><br /> ${id}`,
+            },
+            {
+                className: 'row',
+                content: bindObject`<strong>index:</strong><br/> ${() => proxiState.index}`,
+            },
+            {
+                className: 'row',
+                content: bindObject`<strong>label:</strong><br/> ${() => proxiState.label}`,
+            },
+            {
+                className: 'row',
+                content: bindObject`<strong>counter: </strong><br/> ${() => proxiState.counter}`,
+            },
+            {
+                className: 'row',
+                content: {
+                    tag: 'button',
+                    attributes: { type: 'button' },
+                    modules: delegateEvents({
+                        click: () => {
+                            proxiState.isSelected = !proxiState.isSelected;
+                        },
+                    }),
+                    content: 'select',
+                },
+            },
+        ],
+    });
 };

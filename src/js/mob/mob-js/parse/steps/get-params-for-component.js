@@ -246,7 +246,7 @@ export const getParamsForComponentFunction = ({
              */
             const observeParsed = parseObserveInvalidate(observe);
             const invalidateId = MobCore.getUnivoqueId();
-            const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
+            const sync = `${ATTR_INVALIDATE}='${invalidateId}'`;
             const invalidateRender = () => render();
 
             /**

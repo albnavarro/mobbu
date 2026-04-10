@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobCore } from '@mobCore';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 
 /**
  * @import {
@@ -97,78 +97,88 @@ export const benchMarkListPartial = ({
     bindEffect,
     proxi,
 }) => {
-    return html`
-        <div
-            class="loader"
-            ${bindEffect({
-                observe: 'isLoading',
-                toggleClass: { active: () => proxi.isLoading },
-            })}
-        >
-            generate components
-        </div>
-        <div class="controls">
-            <input
-                type="text"
-                name="numer-of-component"
-                placeholder="Number of component"
-                ${setRef('input')}
-                ${delegateEvents({
-                    keydown: (/** @type {Event} */ event) => {
-                        // @ts-ignore
-                        if (event.keyCode === 13) {
-                            event.preventDefault();
+    return fromObject({
+        content: [
+            {
+                className: 'loader',
+                modules: bindEffect({
+                    observe: 'isLoading',
+                    toggleClass: { active: () => proxi.isLoading },
+                }),
+                content: 'generate components',
+            },
+            {
+                className: 'controls',
+                content: [
+                    {
+                        tag: 'input',
+                        attributes: {
+                            type: 'text',
+                            name: 'numer-of-component',
+                            placeholder: 'Number of component',
+                        },
+                        modules: [
+                            setRef('input'),
+                            delegateEvents({
+                                keydown: (/** @type {Event} */ event) => {
+                                    // @ts-ignore
+                                    if (event.keyCode === 13) {
+                                        event.preventDefault();
 
-                            const value = Number(
-                                /** @type {HTMLInputElement} */ (
-                                    event.currentTarget
-                                )?.value ?? 0
-                            );
+                                        const value = Number(
+                                            /** @type {HTMLInputElement} */ (
+                                                event.currentTarget
+                                            )?.value ?? 0
+                                        );
 
-                            setData({ proxi, value });
-                        }
+                                        setData({ proxi, value });
+                                    }
+                                },
+                            }),
+                        ],
                     },
-                })}
-            />
-            <button
-                type="button"
-                ${delegateEvents({
-                    click: () => {
-                        const { input } = getRef();
-                        const value = Number(
-                            /** @type {HTMLInputElement} */ (input)?.value ?? 0
-                        );
+                    {
+                        tag: 'button',
+                        attributes: { type: 'button' },
+                        modules: delegateEvents({
+                            click: () => {
+                                const { input } = getRef();
+                                const value = Number(
+                                    /** @type {HTMLInputElement} */ (input)
+                                        ?.value ?? 0
+                                );
 
-                        setData({ proxi, value });
+                                setData({ proxi, value });
+                            },
+                        }),
+                        content: 'Generate components',
                     },
-                })}
-            >
-                Generate components
-            </button>
-            <button
-                type="button"
-                ${delegateEvents({
-                    click: () => {
-                        setData({
-                            proxi,
-                            value: proxi.data.length,
-                            useShuffle: true,
-                        });
+                    {
+                        tag: 'button',
+                        attributes: { type: 'button' },
+                        modules: delegateEvents({
+                            click: () => {
+                                setData({
+                                    proxi,
+                                    value: proxi.data.length,
+                                    useShuffle: true,
+                                });
+                            },
+                        }),
+                        content: 'Shuffle array',
                     },
-                })}
-            >
-                Shuffle array
-            </button>
-            <button
-                type="button"
-                ${delegateEvents({
-                    click: () => {
-                        proxi.counter = proxi.counter + 1;
+                    {
+                        tag: 'button',
+                        attributes: { type: 'button' },
+                        modules: delegateEvents({
+                            click: () => {
+                                proxi.counter = proxi.counter + 1;
+                            },
+                        }),
+                        content: 'Update counter',
                     },
-                })}
-            >
-                Update counter
-            </button>
-        </div>
-    `;
+                ],
+            },
+        ],
+    });
 };

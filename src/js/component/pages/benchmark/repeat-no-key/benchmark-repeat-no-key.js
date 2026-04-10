@@ -1,6 +1,6 @@
 //@ts-check
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { benchMarkGarbagePartial } from '../partials/bench-mark-garbage-partial';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { benchMarkUseProxi } from '../strategy';
@@ -17,13 +17,13 @@ import { benchMarkUseProxi } from '../strategy';
 export const BenchMarkRepeatNoKyFn = ({
     onMount,
     delegateEvents,
-    bindText,
     setRef,
     getRef,
     bindProps,
     repeat,
     bindEffect,
     getProxi,
+    bindObject,
 }) => {
     const proxi = getProxi();
 
@@ -35,60 +35,77 @@ export const BenchMarkRepeatNoKyFn = ({
         };
     });
 
-    return html`<div class="l-benchmark">
-        <div class="header">
-            <h3>Repeat ( without key ):</h3>
-            <h2>Generate components performance</h2>
-            ${benchMarkGarbagePartial()}
-            ${benchMarkListPartial({
-                setRef,
-                getRef,
-                delegateEvents,
-                bindEffect,
-                proxi,
-            })}
-
-            <div class="time">
-                ${bindText`components generate in <strong>${'time'}ms</strong>`}
-            </div>
-        </div>
-        <div class="list">
-            ${repeat({
-                observe: () => proxi.data,
-                useSync: true,
-                render: ({ sync, current }) => {
-                    return benchMarkUseProxi
-                        ? html`
-                              <benchmark-fake-component
-                                  ${bindProps(
-                                      /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                                      () => ({
-                                          index: current.index,
-                                          label: current.value.label,
-                                          counter: proxi.counter,
-                                      })
-                                  )}
-                                  ${sync()}
-                              >
-                              </benchmark-fake-component>
-                          `
-                        : html`
-                              <benchmark-fake-component
-                                  ${bindProps({
-                                      observe: ['counter'],
-                                      /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                                      props: ({ counter }, value, index) => ({
-                                          index: index,
-                                          label: value['label'],
-                                          counter: counter,
+    return fromObject({
+        className: 'l-benchmark',
+        content: [
+            {
+                className: 'header',
+                content: [
+                    {
+                        tag: 'h3',
+                        content: 'Repeat ( without key ):',
+                    },
+                    {
+                        tag: 'h2',
+                        content: 'Generate components performance',
+                    },
+                    benchMarkGarbagePartial(),
+                    benchMarkListPartial({
+                        setRef,
+                        getRef,
+                        delegateEvents,
+                        bindEffect,
+                        proxi,
+                    }),
+                    {
+                        className: 'time',
+                        content: bindObject`components generate in <strong>${() => proxi.time}ms</strong>`,
+                    },
+                ],
+            },
+            {
+                className: 'list',
+                content: repeat({
+                    observe: () => proxi.data,
+                    useSync: true,
+                    render: ({ sync, current }) => {
+                        return benchMarkUseProxi
+                            ? fromObject({
+                                  tag: 'benchmark-fake-component',
+                                  modules: [
+                                      bindProps(
+                                          /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                                          () => ({
+                                              index: current.index,
+                                              label: current.value.label,
+                                              counter: proxi.counter,
+                                          })
+                                      ),
+                                      sync(),
+                                  ],
+                              })
+                            : fromObject({
+                                  tag: 'benchmark-fake-component',
+                                  modules: [
+                                      bindProps({
+                                          observe: ['counter'],
+                                          /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                                          props: (
+                                              { counter },
+                                              value,
+                                              index
+                                          ) => ({
+                                              index: index,
+                                              label: value['label'],
+                                              counter: counter,
+                                          }),
                                       }),
-                                  })}
-                                  ${sync()}
-                              >
-                              </benchmark-fake-component>
-                          `;
-                },
-            })}
-        </div>
-    </div>`;
+                                      sync(),
+                                  ],
+                              });
+                    },
+                }),
+            },
+        ],
+    });
 };

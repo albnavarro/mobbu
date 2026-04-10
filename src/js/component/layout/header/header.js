@@ -3,7 +3,7 @@
  */
 
 import { outerHeight } from '@mobCoreUtils';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { navigationStore } from '@stores/navigation';
 import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
@@ -37,63 +37,82 @@ export const HeaderFn = ({
         }, getFrameDelay());
     });
 
-    return html`
-        <header
-            class="js-header"
-            ${bindEffect({
-                toggleClass: {
-                    'is-visible': () => proxi.isMounted,
-                },
-            })}
-        >
-            <div class="grid">
-                <div class="toggle-cell">
-                    <mob-header-toggle></mob-header-toggle>
-                </div>
-                <button
-                    class="logo-cell"
-                    type="button"
-                    ${delegateEvents({
-                        click: () => {
-                            titleHandler();
+    return fromObject({
+        tag: 'header',
+        className: 'js-header',
+        modules: bindEffect({
+            toggleClass: {
+                'is-visible': () => proxi.isMounted,
+            },
+        }),
+        content: [
+            {
+                className: 'grid',
+                content: [
+                    {
+                        className: 'toggle-cell',
+                        content: {
+                            tag: 'mob-header-toggle',
                         },
-                    })}
-                >
-                    <div class="u-has-overflow">
-                        <h3
-                            ${bindEffect({
-                                toggleClass: {
-                                    'is-visible': () => proxi.isMounted,
-                                },
-                            })}
-                        >
-                            <span>Mob</span>Project
-                        </h3>
-                        <h5
-                            ${bindEffect({
-                                toggleClass: {
-                                    'is-visible': () => proxi.isMounted,
-                                },
-                            })}
-                        >
-                            v 1.0
-                        </h5>
-                    </div>
-                </button>
-                <div class="menu-cell">
-                    <header-main-menu></header-main-menu>
-                </div>
-                <div
-                    class="utils-cell"
-                    ${bindEffect({
-                        toggleClass: {
-                            'is-visible': () => proxi.isMounted,
+                    },
+                    {
+                        tag: 'button',
+                        className: 'logo-cell',
+                        attributes: { type: 'button' },
+                        modules: delegateEvents({
+                            click: () => {
+                                titleHandler();
+                            },
+                        }),
+                        content: [
+                            {
+                                className: 'u-has-overflow',
+                                content: [
+                                    {
+                                        tag: 'h3',
+                                        modules: [
+                                            bindEffect({
+                                                toggleClass: {
+                                                    'is-visible': () =>
+                                                        proxi.isMounted,
+                                                },
+                                            }),
+                                        ],
+                                        content: '<span>Mob</span>Project',
+                                    },
+                                    {
+                                        tag: 'h5',
+                                        modules: bindEffect({
+                                            toggleClass: {
+                                                'is-visible': () =>
+                                                    proxi.isMounted,
+                                            },
+                                        }),
+                                        content: 'v 1.0',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        className: 'menu-cell',
+                        content: {
+                            tag: 'header-main-menu',
                         },
-                    })}
-                >
-                    <mob-header-utils></mob-header-utils>
-                </div>
-            </div>
-        </header>
-    `;
+                    },
+                    {
+                        className: 'utils-cell',
+                        modules: bindEffect({
+                            toggleClass: {
+                                'is-visible': () => proxi.isMounted,
+                            },
+                        }),
+                        content: {
+                            tag: 'mob-header-utils',
+                        },
+                    },
+                ],
+            },
+        ],
+    });
 };
