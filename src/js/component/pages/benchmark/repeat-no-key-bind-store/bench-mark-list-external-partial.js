@@ -1,7 +1,5 @@
-//@ts-check
-
 import { MobCore } from '@mobCore';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import {
     createBenchMarkArray,
     shuffle,
@@ -77,80 +75,92 @@ export const benchMarkListExternalPartial = ({
     getState,
     bindEffect,
 }) => {
-    return html`
-        <div
-            class="loader"
-            ${bindEffect({
-                observe: 'isLoading',
-                toggleClass: { active: () => getState().isLoading },
-            })}
-        >
-            generate components
-        </div>
-        <div class="controls">
-            <input
-                type="text"
-                name="numer-of-component"
-                placeholder="Number of component"
-                ${setRef('input')}
-                ${delegateEvents({
-                    keydown: (/** @type {KeyboardEvent} */ event) => {
-                        if (event.code.toLowerCase() === 'enter') {
-                            event.preventDefault();
+    return fromObject({
+        content: [
+            {
+                className: 'loader',
+                modules: bindEffect({
+                    observe: 'isLoading',
+                    toggleClass: { active: () => getState().isLoading },
+                }),
+                content: 'generate components',
+            },
+            {
+                className: 'controls',
+                content: [
+                    {
+                        tag: 'input',
+                        attributes: {
+                            type: 'text',
+                            name: 'numer-of-component',
+                            placeholder: 'Number of component',
+                        },
+                        modules: [
+                            setRef('input'),
+                            delegateEvents({
+                                keydown: (
+                                    /** @type {KeyboardEvent} */ event
+                                ) => {
+                                    if (event.code.toLowerCase() === 'enter') {
+                                        event.preventDefault();
 
-                            const value = Number(
-                                /** @type {HTMLInputElement} */ (
-                                    event.currentTarget
-                                )?.value ?? 0
-                            );
+                                        const value = Number(
+                                            /** @type {HTMLInputElement} */ (
+                                                event.currentTarget
+                                            )?.value ?? 0
+                                        );
 
-                            setData({ value });
-                        }
+                                        setData({ value });
+                                    }
+                                },
+                            }),
+                        ],
                     },
-                })}
-            />
-            <button
-                type="button"
-                ${delegateEvents({
-                    click: () => {
-                        const { input } = getRef();
-                        const value = Number(
-                            /** @type {HTMLInputElement} */ (input)?.value ?? 0
-                        );
+                    {
+                        tag: 'button',
+                        attributes: { type: 'button' },
+                        modules: delegateEvents({
+                            click: () => {
+                                const { input } = getRef();
+                                const value = Number(
+                                    /** @type {HTMLInputElement} */ (input)
+                                        ?.value ?? 0
+                                );
 
-                        setData({ value });
+                                setData({ value });
+                            },
+                        }),
+                        content: 'Generate components',
                     },
-                })}
-            >
-                Generate components
-            </button>
-            <button
-                type="button"
-                ${delegateEvents({
-                    click: () => {
-                        const { data } = getState();
-                        setData({
-                            value: data.length,
-                            useShuffle: true,
-                        });
+                    {
+                        tag: 'button',
+                        attributes: { type: 'button' },
+                        modules: delegateEvents({
+                            click: () => {
+                                const { data } = getState();
+                                setData({
+                                    value: data.length,
+                                    useShuffle: true,
+                                });
+                            },
+                        }),
+                        content: 'Shuffle array',
                     },
-                })}
-            >
-                Shuffle array
-            </button>
-            <button
-                type="button"
-                ${delegateEvents({
-                    click: () => {
-                        externalBenchmarkStore.update(
-                            'counter',
-                            (value) => value + 1
-                        );
+                    {
+                        tag: 'button',
+                        attributes: { type: 'button' },
+                        modules: delegateEvents({
+                            click: () => {
+                                externalBenchmarkStore.update(
+                                    'counter',
+                                    (value) => value + 1
+                                );
+                            },
+                        }),
+                        content: 'Update counter',
                     },
-                })}
-            >
-                Update counter
-            </button>
-        </div>
-    `;
+                ],
+            },
+        ],
+    });
 };

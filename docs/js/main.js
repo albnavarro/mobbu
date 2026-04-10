@@ -28469,86 +28469,95 @@
     getState,
     bindEffect
   }) => {
-    return renderHtml`
-        <div
-            class="loader"
-            ${bindEffect({
-      observe: "isLoading",
-      toggleClass: { active: () => getState().isLoading }
-    })}
-        >
-            generate components
-        </div>
-        <div class="controls">
-            <input
-                type="text"
-                name="numer-of-component"
-                placeholder="Number of component"
-                ${setRef("input")}
-                ${delegateEvents({
-      keydown: (event) => {
-        if (event.code.toLowerCase() === "enter") {
-          event.preventDefault();
-          const value = Number(
-            /** @type {HTMLInputElement} */
-            event.currentTarget?.value ?? 0
-          );
-          setData2({ value });
+    return fromObject({
+      content: [
+        {
+          className: "loader",
+          modules: bindEffect({
+            observe: "isLoading",
+            toggleClass: { active: () => getState().isLoading }
+          }),
+          content: "generate components"
+        },
+        {
+          className: "controls",
+          content: [
+            {
+              tag: "input",
+              attributes: {
+                type: "text",
+                name: "numer-of-component",
+                placeholder: "Number of component"
+              },
+              modules: [
+                setRef("input"),
+                delegateEvents({
+                  keydown: (event) => {
+                    if (event.code.toLowerCase() === "enter") {
+                      event.preventDefault();
+                      const value = Number(
+                        /** @type {HTMLInputElement} */
+                        event.currentTarget?.value ?? 0
+                      );
+                      setData2({ value });
+                    }
+                  }
+                })
+              ]
+            },
+            {
+              tag: "button",
+              attributes: { type: "button" },
+              modules: delegateEvents({
+                click: () => {
+                  const { input } = getRef();
+                  const value = Number(
+                    /** @type {HTMLInputElement} */
+                    input?.value ?? 0
+                  );
+                  setData2({ value });
+                }
+              }),
+              content: "Generate components"
+            },
+            {
+              tag: "button",
+              attributes: { type: "button" },
+              modules: delegateEvents({
+                click: () => {
+                  const { data } = getState();
+                  setData2({
+                    value: data.length,
+                    useShuffle: true
+                  });
+                }
+              }),
+              content: "Shuffle array"
+            },
+            {
+              tag: "button",
+              attributes: { type: "button" },
+              modules: delegateEvents({
+                click: () => {
+                  externalBenchmarkStore.update(
+                    "counter",
+                    (value) => value + 1
+                  );
+                }
+              }),
+              content: "Update counter"
+            }
+          ]
         }
-      }
-    })}
-            />
-            <button
-                type="button"
-                ${delegateEvents({
-      click: () => {
-        const { input } = getRef();
-        const value = Number(
-          /** @type {HTMLInputElement} */
-          input?.value ?? 0
-        );
-        setData2({ value });
-      }
-    })}
-            >
-                Generate components
-            </button>
-            <button
-                type="button"
-                ${delegateEvents({
-      click: () => {
-        const { data } = getState();
-        setData2({
-          value: data.length,
-          useShuffle: true
-        });
-      }
-    })}
-            >
-                Shuffle array
-            </button>
-            <button
-                type="button"
-                ${delegateEvents({
-      click: () => {
-        externalBenchmarkStore.update(
-          "counter",
-          (value) => value + 1
-        );
-      }
-    })}
-            >
-                Update counter
-            </button>
-        </div>
-    `;
+      ]
+    });
   };
 
   // src/js/component/pages/benchmark/repeat-no-key-bind-store/benchmark-repeat-no-key-bind-store.js
   var BenchMarkRepeatNoKyBindStoreFn = ({
     onMount,
     delegateEvents,
-    bindText,
+    bindObject,
     setRef,
     getRef,
     getState,
@@ -28566,63 +28575,76 @@
         externalBenchmarkStore.set("counter", 0);
       };
     });
-    return renderHtml`<div class="l-benchmark">
-        <div class="header">
-            <h3>Repeat bind external store ( without key ):</h3>
-            <h2>Generate components performance</h2>
-            <p>
-                Use extrernal store as state ( bindStore module ).<br />
-                ( max value <strong>1000</strong> ).
-            </p>
-            ${benchMarkListExternalPartial({
-      setRef,
-      getRef,
-      delegateEvents,
-      getState,
-      bindEffect
-    })}
-
-            <div class="time">
-                ${bindText`components generate in <strong>${"time"}ms</strong>`}
-            </div>
-        </div>
-        <div class="list">
-            ${repeat({
-      observe: () => proxi.data,
-      useSync: true,
-      render: ({ sync, current }) => {
-        return benchMarkUseProxi ? renderHtml`
-                              <benchmark-fake-component
-                                  ${bindProps(
-          /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-          () => ({
-            index: current.index,
-            label: current.value.label,
-            counter: proxi.counter
+    return fromObject({
+      className: "l-benchmark",
+      content: [
+        {
+          className: "header",
+          content: [
+            {
+              tag: "h3",
+              content: "Repeat bind external store ( without key ):"
+            },
+            {
+              tag: "p",
+              content: renderHtml`
+                            Use extrernal store as state ( bindStore module
+                            ).<br />
+                            ( max value <strong>1000</strong> ).
+                        `
+            },
+            benchMarkListExternalPartial({
+              setRef,
+              getRef,
+              delegateEvents,
+              getState,
+              bindEffect
+            }),
+            {
+              className: "time",
+              content: bindObject`components generate in <strong>${() => proxi.time}ms</strong>`
+            }
+          ]
+        },
+        {
+          className: "list",
+          content: repeat({
+            observe: () => proxi.data,
+            useSync: true,
+            render: ({ sync, current }) => {
+              return benchMarkUseProxi ? fromObject({
+                tag: "benchmark-fake-component",
+                modules: [
+                  bindProps(
+                    /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                    () => ({
+                      index: current.index,
+                      label: current.value.label,
+                      counter: proxi.counter
+                    })
+                  ),
+                  sync()
+                ]
+              }) : fromObject({
+                tag: "benchmark-fake-component",
+                modules: [
+                  bindProps({
+                    observe: ["counter"],
+                    /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                    props: ({ counter: counter2 }, value, index) => ({
+                      index,
+                      label: value["label"],
+                      counter: counter2
+                    })
+                  }),
+                  sync()
+                ]
+              });
+            }
           })
-        )}
-                                  ${sync()}
-                              >
-                              </benchmark-fake-component>
-                          ` : renderHtml`
-                              <benchmark-fake-component
-                                  ${bindProps({
-          observe: ["counter"],
-          /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-          props: ({ counter: counter2 }, value, index) => ({
-            index,
-            label: value["label"],
-            counter: counter2
-          })
-        })}
-                                  ${sync()}
-                              >
-                              </benchmark-fake-component>
-                          `;
-      }
-    })}
-        </div>
-    </div>`;
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/benchmark/repeat-no-key-bind-store/definition.js

@@ -1,6 +1,4 @@
-//@ts-check
-
-import { html } from '@mobJs';
+import { fromObject, html } from '@mobJs';
 import { benchMarkListExternalPartial } from './bench-mark-list-external-partial';
 import { externalBenchmarkStore } from '@stores/benchmark';
 import { benchMarkUseProxi } from '../strategy';
@@ -17,7 +15,7 @@ import { benchMarkUseProxi } from '../strategy';
 export const BenchMarkRepeatNoKyBindStoreFn = ({
     onMount,
     delegateEvents,
-    bindText,
+    bindObject,
     setRef,
     getRef,
     getState,
@@ -38,63 +36,80 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
         };
     });
 
-    return html`<div class="l-benchmark">
-        <div class="header">
-            <h3>Repeat bind external store ( without key ):</h3>
-            <h2>Generate components performance</h2>
-            <p>
-                Use extrernal store as state ( bindStore module ).<br />
-                ( max value <strong>1000</strong> ).
-            </p>
-            ${benchMarkListExternalPartial({
-                setRef,
-                getRef,
-                delegateEvents,
-                getState,
-                bindEffect,
-            })}
-
-            <div class="time">
-                ${bindText`components generate in <strong>${'time'}ms</strong>`}
-            </div>
-        </div>
-        <div class="list">
-            ${repeat({
-                observe: () => proxi.data,
-                useSync: true,
-                render: ({ sync, current }) => {
-                    return benchMarkUseProxi
-                        ? html`
-                              <benchmark-fake-component
-                                  ${bindProps(
-                                      /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                                      () => ({
-                                          index: current.index,
-                                          label: current.value.label,
-                                          counter: proxi.counter,
-                                      })
-                                  )}
-                                  ${sync()}
-                              >
-                              </benchmark-fake-component>
-                          `
-                        : html`
-                              <benchmark-fake-component
-                                  ${bindProps({
-                                      observe: ['counter'],
-                                      /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                                      props: ({ counter }, value, index) => ({
-                                          index: index,
-                                          label: value['label'],
-                                          counter: counter,
+    return fromObject({
+        className: 'l-benchmark',
+        content: [
+            {
+                className: 'header',
+                content: [
+                    {
+                        tag: 'h3',
+                        content: 'Repeat bind external store ( without key ):',
+                    },
+                    {
+                        tag: 'p',
+                        content: html`
+                            Use extrernal store as state ( bindStore module
+                            ).<br />
+                            ( max value <strong>1000</strong> ).
+                        `,
+                    },
+                    benchMarkListExternalPartial({
+                        setRef,
+                        getRef,
+                        delegateEvents,
+                        getState,
+                        bindEffect,
+                    }),
+                    {
+                        className: 'time',
+                        content: bindObject`components generate in <strong>${() => proxi.time}ms</strong>`,
+                    },
+                ],
+            },
+            {
+                className: 'list',
+                content: repeat({
+                    observe: () => proxi.data,
+                    useSync: true,
+                    render: ({ sync, current }) => {
+                        return benchMarkUseProxi
+                            ? fromObject({
+                                  tag: 'benchmark-fake-component',
+                                  modules: [
+                                      bindProps(
+                                          /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                                          () => ({
+                                              index: current.index,
+                                              label: current.value.label,
+                                              counter: proxi.counter,
+                                          })
+                                      ),
+                                      sync(),
+                                  ],
+                              })
+                            : fromObject({
+                                  tag: 'benchmark-fake-component',
+                                  modules: [
+                                      bindProps({
+                                          observe: ['counter'],
+                                          /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                                          props: (
+                                              { counter },
+                                              value,
+                                              index
+                                          ) => ({
+                                              index: index,
+                                              label: value['label'],
+                                              counter: counter,
+                                          }),
                                       }),
-                                  })}
-                                  ${sync()}
-                              >
-                              </benchmark-fake-component>
-                          `;
-                },
-            })}
-        </div>
-    </div>`;
+                                      sync(),
+                                  ],
+                              });
+                    },
+                }),
+            },
+        ],
+    });
 };
