@@ -12,7 +12,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import {
     activateScrollDownArrow,
     deactivateScrollDownArrow,
@@ -54,25 +54,28 @@ const createAnimation = ({ proxi, getRef, resetScroll = true }) => {
 function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     return params
         .map(({ label }, index) => {
-            return html` <li class="controls-item">
-                <button
-                    type="button"
-                    class="controls-button"
-                    ${delegateEvents({
-                        click: () => {
-                            proxi.currentParamsId = index;
-                            createAnimation({ proxi, getRef });
-                        },
-                    })}
-                    ${bindEffect({
-                        toggleClass: {
-                            active: () => proxi.currentParamsId === index,
-                        },
-                    })}
-                >
-                    ${label}
-                </button>
-            </li>`;
+            return fromObject({
+                tag: 'li',
+                className: 'controls-item',
+                content: {
+                    tag: 'button',
+                    className: 'controls-button',
+                    modules: [
+                        delegateEvents({
+                            click: () => {
+                                proxi.currentParamsId = index;
+                                createAnimation({ proxi, getRef });
+                            },
+                        }),
+                        bindEffect({
+                            toggleClass: {
+                                active: () => proxi.currentParamsId === index,
+                            },
+                        }),
+                    ],
+                    content: label,
+                },
+            });
         })
         .join('');
 }
@@ -124,58 +127,69 @@ export const ScrollerN0Fn = ({
         };
     });
 
-    /**
-     * Desktop
-     */
-    return html`
-        <div>
-            <div class="c-canvas is-fixed">
-                <button
-                    type="button"
-                    class="controls-open"
-                    ${delegateEvents({
-                        click: () => {
-                            proxi.controlsActive = true;
-                        },
-                    })}
-                >
-                    variations
-                </button>
-                <ul
-                    class="controls"
-                    ${bindEffect({
-                        toggleClass: {
-                            active: () => proxi.controlsActive,
-                        },
-                    })}
-                >
-                    <button
-                        type="button"
-                        class="controls-close"
-                        ${delegateEvents({
+    return fromObject({
+        content: [
+            {
+                className: 'c-canvas is-fixed',
+                content: [
+                    {
+                        className: 'l-background-shape',
+                        content: proxi.background,
+                    },
+                    {
+                        tag: 'button',
+                        className: 'controls-open',
+                        attributes: { type: 'button' },
+                        modules: delegateEvents({
                             click: () => {
-                                proxi.controlsActive = false;
+                                proxi.controlsActive = true;
                             },
-                        })}
-                    ></button>
-                    ${getControls({
-                        delegateEvents,
-                        bindEffect,
-                        proxi,
-                        getRef,
-                    })}
-                </ul>
-                <div class="l-background-shape">${proxi.background}</div>
-                <div
-                    class="canvas-container"
-                    ${bindEffect({
-                        toggleClass: { active: () => proxi.isMounted },
-                    })}
-                >
-                    <canvas ${setRef('canvas')}></canvas>
-                </div>
-            </div>
-            <div class="c-canvas-scroller" ${setRef('canvasScroller')}></div>
-        </div>
-    `;
+                        }),
+                        content: 'variations',
+                    },
+                    {
+                        tag: 'ul',
+                        className: 'controls',
+                        modules: bindEffect({
+                            toggleClass: {
+                                active: () => proxi.controlsActive,
+                            },
+                        }),
+                        content: [
+                            {
+                                tag: 'button',
+                                className: 'controls-close',
+                                attributes: { type: 'button' },
+                                modules: delegateEvents({
+                                    click: () => {
+                                        proxi.controlsActive = false;
+                                    },
+                                }),
+                            },
+                            getControls({
+                                delegateEvents,
+                                bindEffect,
+                                proxi,
+                                getRef,
+                            }),
+                        ],
+                    },
+                    {
+                        className: 'canvas-container',
+                        modules: bindEffect({
+                            toggleClass: { active: () => proxi.isMounted },
+                        }),
+                        content: {
+                            tag: 'canvas',
+                            modules: setRef('canvas'),
+                        },
+                    },
+                ],
+            },
+            {
+                className: 'c-canvas-scroller',
+                modules: setRef('canvasScroller'),
+            },
+        ],
+    });
 };
