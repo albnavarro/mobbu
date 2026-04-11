@@ -119,6 +119,7 @@ export const CaterpillarN1Fn = ({
                     {
                         tag: 'button',
                         className: 'controls-open',
+                        attributes: { type: 'button' },
                         modules: delegateEvents({
                             click: () => {
                                 proxi.controlsActive = true;
@@ -138,6 +139,7 @@ export const CaterpillarN1Fn = ({
                             {
                                 tag: 'button',
                                 className: 'controls-close',
+                                attributes: { type: 'button' },
                                 modules: delegateEvents({
                                     click: () => {
                                         proxi.controlsActive = false;

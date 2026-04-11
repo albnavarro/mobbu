@@ -30268,6 +30268,7 @@
             {
               tag: "button",
               className: "controls-open",
+              attributes: { type: "button" },
               modules: delegateEvents({
                 click: () => {
                   proxi.controlsActive = true;
@@ -30287,6 +30288,7 @@
                 {
                   tag: "button",
                   className: "controls-close",
+                  attributes: { type: "button" },
                   modules: delegateEvents({
                     click: () => {
                       proxi.controlsActive = false;
@@ -36441,11 +36443,16 @@
   function getControls7({ buttons: buttons5 }) {
     return Object.entries(buttons5).map(([className, value]) => {
       const { label } = value;
-      return renderHtml` <li class="controls-item">
-                <button type="button" class="controls-button ${className}">
-                    ${label}
-                </button>
-            </li>`;
+      return fromObject({
+        tag: "li",
+        className: "controls-item",
+        content: {
+          tag: "button",
+          attributes: { type: "button" },
+          className: `controls-button ${className}`,
+          content: label
+        }
+      });
     }).join("");
   }
   var AsyncTimelineFn = ({
@@ -36497,52 +36504,59 @@
         destroy3();
       };
     });
-    return renderHtml`
-        <div>
-            <div class="c-canvas">
-                <button
-                    type="button"
-                    class="controls-open"
-                    ${delegateEvents({
-      click: () => {
-        proxi.controlsActive = true;
+    return fromObject({
+      content: {
+        className: "c-canvas",
+        content: [
+          {
+            tag: "button",
+            className: "controls-open",
+            modules: delegateEvents({
+              click: () => {
+                proxi.controlsActive = true;
+              }
+            }),
+            content: "show controls"
+          },
+          {
+            tag: "ul",
+            className: "controls",
+            modules: bindEffect({
+              toggleClass: {
+                active: () => proxi.controlsActive
+              }
+            }),
+            content: [
+              {
+                tag: "button",
+                attributes: { type: "button" },
+                className: "controls-close",
+                modules: delegateEvents({
+                  click: () => {
+                    proxi.controlsActive = false;
+                  }
+                })
+              },
+              getControls7({ buttons: proxi.buttons })
+            ]
+          },
+          {
+            className: "l-background-shape",
+            content: proxi.background
+          },
+          {
+            className: "canvas-container",
+            modules: bindEffect({
+              toggleClass: { active: () => proxi.isMounted }
+            }),
+            content: {
+              tag: "canvas",
+              modules: setRef("canvas")
+            }
+          }
+        ]
       }
-    })}
-                >
-                    show controls
-                </button>
-                <ul
-                    class="controls"
-                    ${bindEffect({
-      toggleClass: {
-        active: () => proxi.controlsActive
-      }
-    })}
-                >
-                    <button
-                        type="button"
-                        class="controls-close"
-                        ${delegateEvents({
-      click: () => {
-        proxi.controlsActive = false;
-      }
-    })}
-                    ></button>
-                    ${getControls7({ buttons: proxi.buttons })}
-                </ul>
-
-                <div class="l-background-shape">${proxi.background}</div>
-                <div
-                    class="canvas-container"
-                    ${bindEffect({
-      toggleClass: { active: () => proxi.isMounted }
-    })}
-                >
-                    <canvas ${setRef("canvas")}></canvas>
-                </div>
-            </div>
-        </div>
-    `;
+    });
   };
 
   // src/js/component/pages/async-timeline/definition.js

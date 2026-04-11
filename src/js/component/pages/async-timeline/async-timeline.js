@@ -7,7 +7,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { asyncTimelineanimation } from './animation/animation';
 
 /**
@@ -20,11 +20,16 @@ function getControls({ buttons }) {
         .map(([className, value]) => {
             const { label } = value;
 
-            return html` <li class="controls-item">
-                <button type="button" class="controls-button ${className}">
-                    ${label}
-                </button>
-            </li>`;
+            return fromObject({
+                tag: 'li',
+                className: 'controls-item',
+                content: {
+                    tag: 'button',
+                    attributes: { type: 'button' },
+                    className: `controls-button ${className}`,
+                    content: label,
+                },
+            });
         })
         .join('');
 }
@@ -108,50 +113,57 @@ export const AsyncTimelineFn = ({
         };
     });
 
-    return html`
-        <div>
-            <div class="c-canvas">
-                <button
-                    type="button"
-                    class="controls-open"
-                    ${delegateEvents({
+    return fromObject({
+        content: {
+            className: 'c-canvas',
+            content: [
+                {
+                    tag: 'button',
+                    className: 'controls-open',
+                    modules: delegateEvents({
                         click: () => {
                             proxi.controlsActive = true;
                         },
-                    })}
-                >
-                    show controls
-                </button>
-                <ul
-                    class="controls"
-                    ${bindEffect({
+                    }),
+                    content: 'show controls',
+                },
+                {
+                    tag: 'ul',
+                    className: 'controls',
+                    modules: bindEffect({
                         toggleClass: {
                             active: () => proxi.controlsActive,
                         },
-                    })}
-                >
-                    <button
-                        type="button"
-                        class="controls-close"
-                        ${delegateEvents({
-                            click: () => {
-                                proxi.controlsActive = false;
-                            },
-                        })}
-                    ></button>
-                    ${getControls({ buttons: proxi.buttons })}
-                </ul>
-
-                <div class="l-background-shape">${proxi.background}</div>
-                <div
-                    class="canvas-container"
-                    ${bindEffect({
+                    }),
+                    content: [
+                        {
+                            tag: 'button',
+                            attributes: { type: 'button' },
+                            className: 'controls-close',
+                            modules: delegateEvents({
+                                click: () => {
+                                    proxi.controlsActive = false;
+                                },
+                            }),
+                        },
+                        getControls({ buttons: proxi.buttons }),
+                    ],
+                },
+                {
+                    className: 'l-background-shape',
+                    content: proxi.background,
+                },
+                {
+                    className: 'canvas-container',
+                    modules: bindEffect({
                         toggleClass: { active: () => proxi.isMounted },
-                    })}
-                >
-                    <canvas ${setRef('canvas')}></canvas>
-                </div>
-            </div>
-        </div>
-    `;
+                    }),
+                    content: {
+                        tag: 'canvas',
+                        modules: setRef('canvas'),
+                    },
+                },
+            ],
+        },
+    });
 };
