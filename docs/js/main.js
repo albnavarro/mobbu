@@ -27444,118 +27444,193 @@
   };
   var block01 = ({ setRef, getState }) => {
     const { titleTop, titleBottom } = getState().block_1;
-    return renderHtml`
-        <section class="section section--first ">
-            <div class="section-top u-has-overflow">
-                <h1 class="title-big" ${setRef("title_1")}>${titleTop}</h1>
-            </div>
-            <div class="section-bottom u-has-overflow">
-                <h1 class="title-biggest" ${setRef("title_2")}>
-                    ${titleBottom}
-                </h1>
-            </div>
-        </section>
-    `;
+    return fromObject({
+      className: "section section--first ",
+      content: [
+        {
+          className: "section-top u-has-overflow",
+          content: {
+            tag: "h1",
+            className: "title-big",
+            modules: setRef("title_1"),
+            content: titleTop
+          }
+        },
+        {
+          className: "section-bottom u-has-overflow",
+          content: {
+            tag: "h1",
+            className: "title-biggest",
+            modules: setRef("title_2"),
+            content: titleBottom
+          }
+        }
+      ]
+    });
   };
   var block02 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_2;
-    return renderHtml`
-        <section class="section">
-            <div class="section-top u-has-overflow">
-                <div class="section-left"></div>
-                <div class="section-right">
-                    <h1 class="title-biggest" ${setRef("section2_title")}>
-                        ${title}
-                    </h1>
-                </div>
-            </div>
-            <div class="section-bottom u-has-overflow">
-                <div class="section-right">
-                    <p class="section-copy">${copy}</p>
-                </div>
-            </div>
-        </section>
-    `;
+    return fromObject({
+      className: "section",
+      content: [
+        {
+          className: "section-top u-has-overflow",
+          content: [
+            {
+              className: "section-left"
+            },
+            {
+              className: "section-right",
+              content: {
+                tag: "h1",
+                className: "title-biggest",
+                modules: setRef("section2_title"),
+                content: title
+              }
+            }
+          ]
+        },
+        {
+          className: "section-bottom u-has-overflow",
+          content: {
+            className: "section-right",
+            content: {
+              tag: "p",
+              className: "section-copy",
+              content: copy
+            }
+          }
+        }
+      ]
+    });
   };
   var block03 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_3;
-    return renderHtml`
-        <section class="section">
-            <div class="section-top u-has-overflow">
-                <div class="section-left"></div>
-                <div class="section-right">
-                    <h1 class="title-biggest" ${setRef("section3_title")}>
-                        ${title}
-                    </h1>
-                </div>
-            </div>
-            <div class="section-bottom u-has-overflow">
-                <div class="section-right">
-                    <p class="section-copy">${copy}</p>
-                </div>
-            </div>
-        </section>
-    `;
+    return fromObject({
+      className: "section",
+      content: [
+        {
+          className: "section-top u-has-overflow",
+          content: [
+            {
+              className: "section-left"
+            },
+            {
+              className: "section-right",
+              content: {
+                tag: "h1",
+                className: "title-biggest",
+                modules: setRef("section3_title"),
+                content: title
+              }
+            }
+          ]
+        },
+        {
+          className: "section-bottom u-has-overflow",
+          content: {
+            className: "section-right",
+            content: {
+              tag: "p",
+              className: "section-copy",
+              content: copy
+            }
+          }
+        }
+      ]
+    });
   };
   var block04 = ({ setRef, getState }) => {
     const { title, items } = getState().block_4;
-    return renderHtml`
-        <section class="section section--last">
-            <div class="section-top u-has-overflow">
-                <h1 class="title-biggest" ${setRef("section4_title")}>
-                    ${title}
-                </h1>
-            </div>
-            <div class="section-bottom u-has-overflow">
-                <ul class="section-list">
-                    ${items.map((item) => {
-      return renderHtml`
-                                <li class="section-list-item">[ ${item} ]</li>
-                            `;
-    }).join("")}
-                </ul>
-            </div>
-        </section>
-    `;
+    return fromObject({
+      className: "section section--last",
+      content: [
+        {
+          className: "section-top u-has-overflow",
+          content: {
+            tag: "h1",
+            className: "title-biggest",
+            modules: setRef("section4_title"),
+            content: title
+          }
+        },
+        {
+          className: "section-bottom u-has-overflow",
+          content: {
+            tag: "ul",
+            className: "section-list",
+            content: items.map((item) => {
+              return fromObject({
+                tag: "li",
+                className: "section-list-item",
+                content: `[ ${item} ]`
+              });
+            }).join("")
+          }
+        }
+      ]
+    });
   };
   var navigation = ({ proxi, delegateEvents, bindEffect }) => {
-    return renderHtml`
-        <ul class="nav">
-            ${proxi.navItem.map(({ index, label }) => {
-      return renderHtml`
-                        <li class="nav-item">
-                            <button
-                                class="nav-button"
-                                ${delegateEvents({
-        click: () => {
-          _goTo(goToPercentage[index]);
-          moveSvgFromNav();
-        }
-      })}
-                                ${bindEffect({
-        toggleClass: {
-          active: () => proxi.activenavItem === index
-        }
-      })}
-                            >
-                                ${label}
-                            </button>
-                        </li>
-                    `;
-    }).join("")}
-        </ul>
-    `;
+    return fromObject({
+      tag: "ul",
+      className: "nav",
+      content: proxi.navItem.map(({ index, label }) => {
+        return fromObject({
+          tag: "li",
+          className: "nav-item",
+          content: {
+            tag: "button",
+            className: "nav-button",
+            modules: [
+              delegateEvents({
+                click: () => {
+                  _goTo(goToPercentage[index]);
+                  moveSvgFromNav();
+                }
+              }),
+              bindEffect({
+                toggleClass: {
+                  active: () => proxi.activenavItem === index
+                }
+              })
+            ],
+            content: label
+          }
+        });
+      }).join("")
+    });
   };
   var getSquare = () => {
-    return renderHtml`
-        <div class="square">
-            <div class="square-legend"><h4>Scroll or Drag</h4></div>
-            <span class="square-angle top-left"></span>
-            <span class="square-angle top-right"></span>
-            <span class="square-angle bottom-left"></span>
-            <span class="square-angle bottom-right"></span>
-        </div>
-    `;
+    return fromObject({
+      className: "square",
+      content: [
+        {
+          tag: "div",
+          className: "square-legend",
+          content: {
+            tag: "h4",
+            content: "Scroll or Drag"
+          }
+        },
+        {
+          tag: "span",
+          className: "square-angle top-left"
+        },
+        {
+          tag: "span",
+          className: "square-angle top-right"
+        },
+        {
+          tag: "span",
+          className: "square-angle bottom-left"
+        },
+        {
+          tag: "span",
+          className: "square-angle bottom-right"
+        }
+      ]
+    });
   };
   var AboutComponentFn = ({
     onMount,
@@ -27647,75 +27722,100 @@
         destroySvgSpring();
       };
     });
-    return renderHtml`<div
-        class="l-about"
-        style="--number-of-section:${numberOfSection}"
-        ${bindEffect({
-      toggleClass: {
-        active: () => proxi.isMounted
-      }
-    })}
-    >
-        <div>${getSquare()}</div>
-        <span class="background">
-            <div class="svg-container svg-container--bottom" ${setRef("svg")}>
-                ${proxi.aboutSvg}
-            </div>
-        </span>
-        <div class="svg-container svg-container--back" ${setRef("svg")}>
-            ${proxi.aboutSvg}
-        </div>
-        <div class="shape" ${setRef("pathElement")}>
-            <div class="svg-container svg-container--front">
-                ${proxi.aboutSvg}
-            </div>
-        </div>
-        <div class="screen" ${setRef("screenElement")}>
-            <div class="scrollable-element" ${setRef("scrollerElement")}>
-                <div class="scollable-container" ${setRef("wrapElement")}>
-                    ${block01({ setRef, getState })}
-                    ${block02({ setRef, getState })}
-                    ${block03({ setRef, getState })}
-                    ${block04({ setRef, getState })}
-                </div>
-            </div>
-        </div>
-        <button
-            type="button"
-            class="prev"
-            ${bindEffect({
-      toggleAttribute: {
-        disabled: () => proxi.activenavItem == 1
-      }
-    })}
-            ${delegateEvents({
-      click: () => {
-        _goTo(
-          goToPercentage[core_exports.clamp(proxi.activenavItem - 1, 1, 4)]
-        );
-        moveSvgFromNav();
-      }
-    })}
-        ></button>
-        ${navigation({ bindEffect, delegateEvents, proxi })}
-        <button
-            type="button"
-            class="next"
-            ${bindEffect({
-      toggleAttribute: {
-        disabled: () => proxi.activenavItem == 4
-      }
-    })}
-            ${delegateEvents({
-      click: () => {
-        _goTo(
-          goToPercentage[core_exports.clamp(proxi.activenavItem + 1, 1, 4)]
-        );
-        moveSvgFromNav();
-      }
-    })}
-        ></button>
-    </div>`;
+    const prevModules = [
+      bindEffect({
+        toggleAttribute: {
+          disabled: () => proxi.activenavItem == 1
+        }
+      }),
+      delegateEvents({
+        click: () => {
+          _goTo(
+            goToPercentage[core_exports.clamp(proxi.activenavItem - 1, 1, 4)]
+          );
+          moveSvgFromNav();
+        }
+      })
+    ];
+    const nextModules = [
+      bindEffect({
+        toggleAttribute: {
+          disabled: () => proxi.activenavItem == 4
+        }
+      }),
+      delegateEvents({
+        click: () => {
+          _goTo(
+            goToPercentage[core_exports.clamp(proxi.activenavItem + 1, 1, 4)]
+          );
+          moveSvgFromNav();
+        }
+      })
+    ];
+    return fromObject({
+      className: "l-about",
+      style: `--number-of-section:${numberOfSection}`,
+      modules: bindEffect({
+        toggleClass: {
+          active: () => proxi.isMounted
+        }
+      }),
+      content: [
+        {
+          content: getSquare()
+        },
+        {
+          className: "background",
+          content: {
+            className: "svg-container svg-container--bottom",
+            modules: setRef("svg"),
+            content: proxi.aboutSvg
+          }
+        },
+        {
+          className: "svg-container svg-container--back",
+          modules: setRef("svg"),
+          content: proxi.aboutSvg
+        },
+        {
+          className: "shape",
+          modules: setRef("pathElement"),
+          content: {
+            className: "svg-container svg-container--front",
+            content: proxi.aboutSvg
+          }
+        },
+        {
+          className: "screen",
+          modules: setRef("screenElement"),
+          content: {
+            className: "scrollable-element",
+            modules: setRef("scrollerElement"),
+            content: {
+              className: "scollable-container",
+              modules: setRef("wrapElement"),
+              content: [
+                block01({ setRef, getState }),
+                block02({ setRef, getState }),
+                block03({ setRef, getState }),
+                block04({ setRef, getState })
+              ]
+            }
+          }
+        },
+        {
+          tag: "button",
+          className: "prev",
+          modules: prevModules
+        },
+        navigation({ bindEffect, delegateEvents, proxi }),
+        {
+          tag: "button",
+          className: "next",
+          modules: nextModules
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/about/definition.js
