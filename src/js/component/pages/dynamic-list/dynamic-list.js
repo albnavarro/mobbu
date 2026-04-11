@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @import {
  *   BindProps,
@@ -14,7 +12,7 @@
  * @import {DynamicList} from "./type"
  */
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
@@ -66,28 +64,29 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
         .map((column, index) => {
             const { data, buttonLabel } = column;
 
-            return html`
-                <dynamic-list-button
-                    class="dynamic-list-button"
-                    ${staticProps(
+            return fromObject({
+                tag: 'dynamic-list-button',
+                className: 'dynamic-list-button',
+                modules: [
+                    staticProps(
                         /** @type {DynamicListButton['props']} */ ({
                             label: buttonLabel,
                         })
-                    )}
-                    ${delegateEvents({
+                    ),
+                    delegateEvents({
                         click: async () => {
                             proxi.data = data;
                             proxi.activeSample = index;
                         },
-                    })}
-                    ${bindProps(
+                    }),
+                    bindProps(
                         /** @returns {ReturnBindProps<DynamicListButton>} */
                         () => ({
                             active: index === proxi.activeSample,
                         })
-                    )}
-                ></dynamic-list-button>
-            `;
+                    ),
+                ],
+            });
         })
         .join('');
 }
@@ -103,25 +102,26 @@ function getRepeaters({ bindProps, staticProps, proxi }) {
         .map((item, index) => {
             const { key, clean, label } = item;
 
-            return html`
-                <dynamic-list-repeater
-                    ${staticProps(
+            return fromObject({
+                tag: 'dynamic-list-repeater',
+                modules: [
+                    staticProps(
                         /** @type {DynamicListRepeater['props']} */ ({
                             listId: index,
                             key,
                             clean,
                             label,
                         })
-                    )}
-                    ${bindProps(
+                    ),
+                    bindProps(
                         /** @returns {ReturnBindProps<DynamicListRepeater>} */
                         () => ({
                             data: proxi.data,
                             counter: proxi.counter,
                         })
-                    )}
-                ></dynamic-list-repeater>
-            `;
+                    ),
+                ],
+            });
         })
         .join('');
 }
@@ -138,85 +138,123 @@ export const DynamicListFn = ({
 }) => {
     const proxi = getProxi();
 
-    return html`
-        <div class="c-dynamic-list">
-            <div class="header">
-                <div class="header-top">
-                    ${getButton({
-                        delegateEvents,
-                        staticProps,
-                        bindProps,
-                        proxi,
-                    })}
-                    <dynamic-list-button
-                        class="dynamic-list-button"
-                        ${staticProps(
-                            /** @type {DynamicListButton['props']} */ ({
-                                label: '+ counter ( max: 10 )',
-                            })
-                        )}
-                        ${delegateEvents({
-                            click: async () => {
-                                updateState('counter', (prev) => {
-                                    return prev + 1;
-                                });
-                            },
-                        })}
-                    ></dynamic-list-button>
-                    <dynamic-list-button
-                        class="dynamic-list-button"
-                        ${staticProps(
-                            /** @type {DynamicListButton['props']} */ ({
-                                label: '- counter: ( min 0 )',
-                            })
-                        )}
-                        ${delegateEvents({
-                            click: async () => {
-                                updateState('counter', (prev) => {
-                                    if (prev > 0) return (prev -= 1);
-                                    return prev;
-                                });
-                            },
-                        })}
-                    ></dynamic-list-button>
-                </div>
-            </div>
-
-            <!-- Invalidate -->
-            <div class="invalidate">
-                <h4 class="invalidate-title">
-                    Invalidate component on counter mutation:
-                </h4>
-                <div>
-                    ${invalidate({
-                        observe: () => proxi.counter,
-                        render: () => {
-                            return html`<div>
-                                <dynamic-list-card-inner
-                                    ${bindProps(
-                                        /** @returns {ReturnBindProps<DynamicListCardInner>} */
-                                        () => ({
-                                            key: `${proxi.counter}`,
+    return fromObject({
+        className: 'c-dynamic-list',
+        content: [
+            {
+                className: 'header',
+                content: [
+                    {
+                        className: 'header-top',
+                        content: [
+                            getButton({
+                                delegateEvents,
+                                staticProps,
+                                bindProps,
+                                proxi,
+                            }),
+                            {
+                                tag: 'dynamic-list-button',
+                                className: 'dynamic-list-button',
+                                modules: [
+                                    staticProps(
+                                        /** @type {DynamicListButton['props']} */ ({
+                                            label: '+ counter ( max: 10 )',
                                         })
-                                    )}
-                                ></dynamic-list-card-inner>
-                            </div>`;
-                        },
-                    })}
-                </div>
-            </div>
+                                    ),
+                                    delegateEvents({
+                                        click: async () => {
+                                            updateState('counter', (prev) => {
+                                                return prev + 1;
+                                            });
+                                        },
+                                    }),
+                                ],
+                            },
+                            {
+                                tag: 'dynamic-list-button',
+                                className: 'dynamic-list-button',
+                                modules: [
+                                    staticProps(
+                                        /** @type {DynamicListButton['props']} */ ({
+                                            label: '- counter: ( min 0 )',
+                                        })
+                                    ),
+                                    delegateEvents({
+                                        click: async () => {
+                                            updateState('counter', (prev) => {
+                                                if (prev > 0)
+                                                    return (prev -= 1);
+                                                return prev;
+                                            });
+                                        },
+                                    }),
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            },
 
-            <div class="counter">
-                <h4>List counter</h4>
-                <span>${bindText`${'counter'}`}</span>
-            </div>
+            /**
+             * Invalidate
+             */
+            {
+                className: 'invalidate',
+                content: [
+                    {
+                        tag: 'h4',
+                        className: 'invalidate-title',
+                        content: 'Invalidate component on counter mutation:',
+                    },
+                    {
+                        content: invalidate({
+                            observe: () => proxi.counter,
+                            render: () => {
+                                return fromObject({
+                                    content: {
+                                        tag: 'dynamic-list-card-inner',
+                                        modules: bindProps(
+                                            /** @returns {ReturnBindProps<DynamicListCardInner>} */
+                                            () => ({
+                                                key: `${proxi.counter}`,
+                                            })
+                                        ),
+                                    },
+                                });
+                            },
+                        }),
+                    },
+                ],
+            },
 
-            <!-- Repeaters -->
-            <div class="repeaters-container">
-                <div class="repeaters-grid">
-                    ${getRepeaters({ bindProps, staticProps, proxi })}
-                </div>
-            </div>
-        </div>
-    `;
+            /**
+             * Counter
+             */
+            {
+                className: 'counter',
+                content: [
+                    {
+                        tag: 'h4',
+                        content: 'List counter',
+                    },
+                    {
+                        tag: 'span',
+                        content: bindText`${'counter'}`,
+                    },
+                ],
+            },
+
+            /**
+             * Repeaters
+             */
+            {
+                className: 'repeaters-container',
+                content: {
+                    className: 'repeaters-grid',
+                    content: getRepeaters({ bindProps, staticProps, proxi }),
+                },
+            },
+        ],
+    });
 };

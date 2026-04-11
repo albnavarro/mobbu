@@ -1,10 +1,13 @@
-//@ts-check
-
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').DynamicListCardInner>} */
 export const DynamicListCardInnerFn = ({ bindText }) => {
-    return html`<span class="c-dynamic-list-card-inner">
-        <span>${bindText`${'key'}`}</span>
-    </span>`;
+    return fromObject({
+        tag: 'span',
+        className: 'c-dynamic-list-card-inner',
+        content: {
+            tag: 'span',
+            content: bindText`${'key'}`,
+        },
+    });
 };

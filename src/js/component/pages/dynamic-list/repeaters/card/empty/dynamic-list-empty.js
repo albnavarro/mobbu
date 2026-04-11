@@ -1,11 +1,18 @@
-//@ts-check
-
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent} */
 export const DynamicListEmptyFn = () => {
-    return html`<div class="c-dynamic-list-empty">
-        <p>empty comp</p>
-        <mobjs-slot name="empty-slot"></mobjs-slot>
-    </div>`;
+    return fromObject({
+        className: 'c-dynamic-list-empty',
+        content: [
+            {
+                tag: 'p',
+                content: 'empty comp',
+            },
+            {
+                tag: 'mobjs-slot',
+                attributes: { name: 'empty-slot' },
+            },
+        ],
+    });
 };

@@ -1,6 +1,4 @@
-//@ts-check
-
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -9,7 +7,11 @@ import { html } from '@mobJs';
 
 /** @type {MobComponent<DynamicListSlottedLabel>} * */
 export const DynamicListSlottedLabelFn = ({ bindText }) => {
-    return html`<div class="c-dynamic-list-slotted-label">
-        <p>${bindText`slotted: ${'label'}`}</p>
-    </div>`;
+    return fromObject({
+        className: 'c-dynamic-list-slotted-label',
+        content: {
+            tag: 'p',
+            content: bindText`slotted: ${'label'}`,
+        },
+    });
 };

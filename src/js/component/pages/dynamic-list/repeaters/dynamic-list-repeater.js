@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @import {
  *   BindProps,
@@ -15,7 +13,7 @@
  * @import {DynamicListRepeater} from "./type"
  */
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /**
  * @param {object} param
@@ -32,41 +30,43 @@ function getRepeaterCard({
     current,
     proxi,
 }) {
-    return html`
-        <div>
-            <dynamic-list-card
-                ${staticProps(
-                    /** @type {DynamicListCard['props']} */ ({
-                        parentListId: proxi.listId,
-                    })
-                )}
-                ${bindProps(
-                    /** @returns {ReturnBindProps<DynamicListCard>} */
-                    () => ({
-                        counter: proxi.counter,
-                        label: current.value.label,
-                        index: current.index,
-                    })
-                )}
-                ${delegateEvents({
-                    click: () => {
-                        console.log(current.value?.label, current.index);
-                    },
-                })}
-            >
-                <dynamic-slotted-label
-                    slot="card-label-slot"
-                    ${bindProps(
+    return fromObject({
+        content: [
+            {
+                tag: 'dynamic-list-card',
+                modules: [
+                    staticProps(
+                        /** @type {DynamicListCard['props']} */ ({
+                            parentListId: proxi.listId,
+                        })
+                    ),
+                    bindProps(
+                        /** @returns {ReturnBindProps<DynamicListCard>} */
+                        () => ({
+                            counter: proxi.counter,
+                            label: current.value.label,
+                            index: current.index,
+                        })
+                    ),
+                    delegateEvents({
+                        click: () => {
+                            console.log(current.value?.label, current.index);
+                        },
+                    }),
+                ],
+                content: {
+                    tag: 'dynamic-slotted-label',
+                    attributes: { slot: 'card-label-slot' },
+                    modules: bindProps(
                         /** @returns {ReturnBindProps<DynamicListSlottedLabel>} */
                         () => ({
                             label: `label: ${current.value.label} <br/> counter: ${proxi.counter}`,
                         })
-                    )}
-                >
-                </dynamic-slotted-label>
-            </dynamic-list-card>
-        </div>
-    `;
+                    ),
+                },
+            },
+        ],
+    });
 }
 
 /** @type {MobComponent<DynamicListRepeater>} */
@@ -80,11 +80,17 @@ export const DynamicListRepeaterFn = ({
     const proxi = getProxi();
     const keyParsed = proxi.key.length > 0 ? proxi.key : undefined;
 
-    return html`
-        <div class="c-dynamic-list-repeater">
-            <h4 class="repeater-title">${proxi.label}</h4>
-            <div class="repeater-list">
-                ${repeat({
+    return fromObject({
+        className: 'c-dynamic-list-repeater',
+        content: [
+            {
+                tag: 'h4',
+                className: 'repeater-title',
+                content: proxi.label,
+            },
+            {
+                className: 'repeater-list',
+                content: repeat({
                     observe: () => proxi.data,
                     clean: proxi.clean,
                     key: keyParsed,
@@ -100,8 +106,8 @@ export const DynamicListRepeaterFn = ({
                             proxi,
                         });
                     },
-                })}
-            </div>
-        </div>
-    `;
+                }),
+            },
+        ],
+    });
 };
