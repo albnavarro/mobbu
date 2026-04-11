@@ -33872,34 +33872,34 @@
   var getColumns = ({ numOfCol, pinIsVisible, staticProps: staticProps2 }) => {
     const pinClass = pinIsVisible ? "" : "hidden";
     return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
-      return renderHtml`
-                <horizontal-scroller-section
-                    ${staticProps2(
-        /** @type {import('./section/type').HorizontalScrollerSection['props']} */
-        {
-          id: i,
-          pinClass
-        }
-      )}
-                ></horizontal-scroller-section>
-            `;
+      return fromObject({
+        tag: "horizontal-scroller-section",
+        modules: staticProps2(
+          /** @type {import('./section/type').HorizontalScrollerSection['props']} */
+          {
+            id: i,
+            pinClass
+          }
+        )
+      });
     }).join("");
   };
   var getNav = ({ numOfCol, proxi, staticProps: staticProps2, delegateEvents }) => {
     return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
-      return renderHtml`
-                <horizontal-scroller-button
-                    ${staticProps2(
-        /** @type {HorizontalScrollerButton['props']} */
-        {
-          id: i
-        }
-      )}
-                    ${delegateEvents({
-        click: () => proxi.currentId = i
-      })}
-                ></horizontal-scroller-button>
-            `;
+      return fromObject({
+        tag: "horizontal-scroller-button",
+        modules: [
+          staticProps2(
+            /** @type {HorizontalScrollerButton['props']} */
+            {
+              id: i
+            }
+          ),
+          delegateEvents({
+            click: () => proxi.currentId = i
+          })
+        ]
+      });
     }).join("");
   };
   var HorizontalScrollerFn = ({
@@ -33961,33 +33961,55 @@
         destroy3();
       };
     });
-    if (core_exports.mq("max", "desktop"))
-      return renderHtml`<div><only-desktop></only-desktop></div>`;
-    return renderHtml`<div class="l-h-scroller">
-        <only-desktop></only-desktop>
-        <div class="top">scroll down</div>
-        <ul class="nav js-nav" ${setRef("js_nav")}>
-            ${getNav({
-      numOfCol: 10,
-      proxi,
-      staticProps: staticProps2,
-      delegateEvents
-    })}
-        </ul>
-        <div class="js-root" ${setRef("js_root")}>
-            <div class="wrapper js-container" ${setRef("js_container")}>
-                <div class="js-row" ${setRef("js_root")}>
-                    ${getColumns({
-      numOfCol: 10,
-      pinIsVisible: !proxi.animatePin,
-      staticProps: staticProps2
-    })}
-                </div>
-                <div class="js-trigger" ${setRef("js_trigger")}></div>
-            </div>
-        </div>
-        <div>scroll up</div>
-    </div>`;
+    return fromObject({
+      className: "l-h-scroller",
+      content: [
+        {
+          tag: "only-desktop"
+        },
+        {
+          className: "top",
+          content: "scroll down"
+        },
+        {
+          tag: "ul",
+          className: "nav js-nav",
+          modules: setRef("js_nav"),
+          content: getNav({
+            numOfCol: 10,
+            proxi,
+            staticProps: staticProps2,
+            delegateEvents
+          })
+        },
+        {
+          className: "js-row",
+          modules: setRef("js_root"),
+          content: {
+            className: "wrapper js-container",
+            modules: setRef("js_container"),
+            content: [
+              {
+                className: "js-row",
+                modules: setRef("js_root"),
+                content: getColumns({
+                  numOfCol: 10,
+                  pinIsVisible: !proxi.animatePin,
+                  staticProps: staticProps2
+                })
+              },
+              {
+                className: "js-trigger",
+                modules: setRef("js_trigger")
+              }
+            ]
+          }
+        },
+        {
+          content: "scroll up"
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/horizontal-scroller/button/horizontal-scroller-button.js

@@ -12,7 +12,7 @@
  */
 
 import { offset, outerHeight } from '@mobCoreUtils';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 import { MobBodyScroll } from '@mobMotionPlugin';
 import { horizontalScrollerAnimation } from './animation/animation';
@@ -40,16 +40,15 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
 
     return [...Array.from({ length: numOfCol }).keys()]
         .map((_col, i) => {
-            return html`
-                <horizontal-scroller-section
-                    ${staticProps(
-                        /** @type {import('./section/type').HorizontalScrollerSection['props']} */ ({
-                            id: i,
-                            pinClass,
-                        })
-                    )}
-                ></horizontal-scroller-section>
-            `;
+            return fromObject({
+                tag: 'horizontal-scroller-section',
+                modules: staticProps(
+                    /** @type {import('./section/type').HorizontalScrollerSection['props']} */ ({
+                        id: i,
+                        pinClass,
+                    })
+                ),
+            });
         })
         .join('');
 };
@@ -64,18 +63,19 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
 const getNav = ({ numOfCol, proxi, staticProps, delegateEvents }) => {
     return [...Array.from({ length: numOfCol }).keys()]
         .map((_col, i) => {
-            return html`
-                <horizontal-scroller-button
-                    ${staticProps(
+            return fromObject({
+                tag: 'horizontal-scroller-button',
+                modules: [
+                    staticProps(
                         /** @type {HorizontalScrollerButton['props']} */ ({
                             id: i,
                         })
-                    )}
-                    ${delegateEvents({
+                    ),
+                    delegateEvents({
                         click: () => (proxi.currentId = i),
-                    })}
-                ></horizontal-scroller-button>
-            `;
+                    }),
+                ],
+            });
         })
         .join('');
 };
@@ -172,38 +172,53 @@ export const HorizontalScrollerFn = ({
         };
     });
 
-    /**
-     * Skip mobile.
-     */
-    if (MobMotionCore.mq('max', 'desktop'))
-        return html`<div><only-desktop></only-desktop></div>`;
-
-    /**
-     * Desktop
-     */
-    return html`<div class="l-h-scroller">
-        <only-desktop></only-desktop>
-        <div class="top">scroll down</div>
-        <ul class="nav js-nav" ${setRef('js_nav')}>
-            ${getNav({
-                numOfCol: 10,
-                proxi,
-                staticProps,
-                delegateEvents,
-            })}
-        </ul>
-        <div class="js-root" ${setRef('js_root')}>
-            <div class="wrapper js-container" ${setRef('js_container')}>
-                <div class="js-row" ${setRef('js_root')}>
-                    ${getColumns({
-                        numOfCol: 10,
-                        pinIsVisible: !proxi.animatePin,
-                        staticProps,
-                    })}
-                </div>
-                <div class="js-trigger" ${setRef('js_trigger')}></div>
-            </div>
-        </div>
-        <div>scroll up</div>
-    </div>`;
+    return fromObject({
+        className: 'l-h-scroller',
+        content: [
+            {
+                tag: 'only-desktop',
+            },
+            {
+                className: 'top',
+                content: 'scroll down',
+            },
+            {
+                tag: 'ul',
+                className: 'nav js-nav',
+                modules: setRef('js_nav'),
+                content: getNav({
+                    numOfCol: 10,
+                    proxi,
+                    staticProps,
+                    delegateEvents,
+                }),
+            },
+            {
+                className: 'js-row',
+                modules: setRef('js_root'),
+                content: {
+                    className: 'wrapper js-container',
+                    modules: setRef('js_container'),
+                    content: [
+                        {
+                            className: 'js-row',
+                            modules: setRef('js_root'),
+                            content: getColumns({
+                                numOfCol: 10,
+                                pinIsVisible: !proxi.animatePin,
+                                staticProps,
+                            }),
+                        },
+                        {
+                            className: 'js-trigger',
+                            modules: setRef('js_trigger'),
+                        },
+                    ],
+                },
+            },
+            {
+                content: 'scroll up',
+            },
+        ],
+    });
 };
