@@ -1,6 +1,6 @@
 //@ts-check
 
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 
 /**
  * @import {
@@ -22,21 +22,30 @@ import { html, MobJs } from '@mobJs';
  * @param {BindObject} params.bindObject
  */
 const getControls = ({ proxi, delegateEvents, bindObject }) => {
-    return html`
-        <li class="controls-item">
-            <span for="numerators" class="controls-label">
-                ${bindObject`numerators: <strong>${() => proxi.numeratorsLabel}</strong>`}
-            </span>
-            <div class="controls-range">
-                <input
-                    id="numerators"
-                    type="range"
-                    class="controls-input"
-                    min="0"
-                    max="10"
-                    value="${proxi.numerators}"
-                    step="1"
-                    ${delegateEvents({
+    const numerators = fromObject({
+        tag: 'li',
+        className: 'controls-item',
+        content: [
+            {
+                tag: 'span',
+                className: 'controls-label',
+                attributes: { for: 'numerators' },
+                content: bindObject`numerators: <strong>${() => proxi.numeratorsLabel}</strong>`,
+            },
+            {
+                className: 'controls-range',
+                content: {
+                    tag: 'input',
+                    className: 'controls-input',
+                    attributes: {
+                        id: 'numerators',
+                        type: 'range',
+                        min: 0,
+                        max: 10,
+                        step: 1,
+                        value: proxi.numerators,
+                    },
+                    modules: delegateEvents({
                         input: (/** @type {InputEvent} */ event) => {
                             const { currentTarget } = event;
                             if (!currentTarget) return;
@@ -53,24 +62,36 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
                             const value = currentTarget.value;
                             proxi.numerators = Number(value);
                         },
-                    })}
-                />
-            </div>
-        </li>
-        <li class="controls-item">
-            <span for="denominator" class="controls-label">
-                ${bindObject`denominator: <strong>${() => proxi.denominatorLabel}</strong>`}
-            </span>
-            <div class="controls-range">
-                <input
-                    type="range"
-                    id="denominator"
-                    class="controls-input"
-                    min="0"
-                    max="10"
-                    value="${proxi.denominator}"
-                    step="1"
-                    ${delegateEvents({
+                    }),
+                },
+            },
+        ],
+    });
+
+    const denominator = fromObject({
+        tag: 'li',
+        className: 'controls-item',
+        content: [
+            {
+                tag: 'span',
+                className: 'controls-label',
+                attributes: { for: 'denominator' },
+                content: bindObject`denominator: <strong>${() => proxi.denominatorLabel}</strong>`,
+            },
+            {
+                className: 'controls-range',
+                content: {
+                    tag: 'input',
+                    className: 'controls-input',
+                    attributes: {
+                        id: 'denominator',
+                        type: 'range',
+                        min: 0,
+                        max: 10,
+                        step: 1,
+                        value: proxi.denominator,
+                    },
+                    modules: delegateEvents({
                         input: (/** @type {InputEvent} */ event) => {
                             const { target } = event;
                             if (!target) return;
@@ -87,11 +108,13 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
                             const value = target.value;
                             proxi.denominator = Number(value);
                         },
-                    })}
-                />
-            </div>
-        </li>
-    `;
+                    }),
+                },
+            },
+        ],
+    });
+
+    return [numerators, denominator].join('');
 };
 
 /** @type {MobComponent<import('./type').RosaDiGrandiPage>} */
@@ -106,50 +129,54 @@ export const RosaDiGrandiPageFn = ({
 }) => {
     const proxi = getProxi();
 
-    return html`<div class="l-rosa">
-        <button
-            type="button"
-            class="controls-open"
-            ${delegateEvents({
-                click: () => {
-                    proxi.controlsActive = true;
-                },
-            })}
-        >
-            show controls
-        </button>
-        <ul
-            class="controls"
-            ${bindEffect({
-                toggleClass: {
-                    active: () => proxi.controlsActive,
-                },
-            })}
-        >
-            <button
-                type="button"
-                class="controls-close"
-                ${delegateEvents({
+    return fromObject({
+        className: 'l-rosa',
+        content: [
+            {
+                tag: 'button',
+                className: 'controls-open',
+                modules: delegateEvents({
                     click: () => {
-                        proxi.controlsActive = false;
+                        proxi.controlsActive = true;
                     },
-                })}
-            ></button>
-            ${getControls({
-                proxi,
-                getRef,
-                setRef,
-                delegateEvents,
-                bindObject,
-            })}
-        </ul>
-        <div class="animation-container">
-            ${invalidate({
-                observe: [() => proxi.numerators, () => proxi.denominator],
-                render: () => {
-                    return html`
-                        <math-animation
-                            ${MobJs.staticProps({
+                }),
+                content: 'show controls',
+            },
+            {
+                tag: 'ul',
+                className: 'controls',
+                modules: bindEffect({
+                    toggleClass: {
+                        active: () => proxi.controlsActive,
+                    },
+                }),
+                content: [
+                    {
+                        tag: 'button',
+                        className: 'controls-close',
+                        modules: delegateEvents({
+                            click: () => {
+                                proxi.controlsActive = false;
+                            },
+                        }),
+                    },
+                    getControls({
+                        proxi,
+                        getRef,
+                        setRef,
+                        delegateEvents,
+                        bindObject,
+                    }),
+                ],
+            },
+            {
+                className: 'animation-container',
+                content: invalidate({
+                    observe: [() => proxi.numerators, () => proxi.denominator],
+                    render: () => {
+                        return fromObject({
+                            tag: 'math-animation',
+                            modules: MobJs.staticProps({
                                 name: 'rosaDiGrandi',
                                 showNavigation: false,
                                 numberOfStaggers: 10,
@@ -159,11 +186,11 @@ export const RosaDiGrandiPageFn = ({
                                     proxi.duration,
                                     proxi.staggerEach,
                                 ],
-                            })}
-                        ></math-animation>
-                    `;
-                },
-            })}
-        </div>
-    </div>`;
+                            }),
+                        });
+                    },
+                }),
+            },
+        ],
+    });
 };
