@@ -30574,15 +30574,72 @@
   };
 
   // src/js/component/pages/canvas/n2/caterpillar-n2.js
-  function getControls3({ buttons: buttons5 }) {
-    return Object.entries(buttons5).map(([className, value]) => {
+  function getControls3({ proxi, delegateEvents, bindObject }) {
+    const buttons5 = Object.entries(proxi.buttons).map(([className, value]) => {
       const { label } = value;
-      return renderHtml` <li class="controls-item">
-                <button type="button" class="controls-button ${className}">
-                    ${label}
-                </button>
-            </li>`;
+      return fromObject({
+        tag: "li",
+        className: "controls-item",
+        content: {
+          tag: "button",
+          attributes: { type: "button" },
+          className: `controls-button ${className}`,
+          content: label
+        }
+      });
     }).join("");
+    const inputId = modules_exports.getUnivoqueId();
+    const delegate = delegateEvents({
+      "change:force": (event) => {
+        const currentTarget = (
+          /** @type {HTMLInputElement} */
+          event.currentTarget
+        );
+        if (!currentTarget) return;
+        proxi.rotation = Number(currentTarget.value);
+      },
+      input: (event) => {
+        const currentTarget = (
+          /** @type {HTMLInputElement} */
+          event.currentTarget
+        );
+        if (!currentTarget) return;
+        proxi.rotationlabel = Number(currentTarget.value);
+      }
+    });
+    const range = fromObject({
+      className: "controls-item",
+      content: {
+        tag: "li",
+        className: "controls-item",
+        content: [
+          {
+            className: "controls-range",
+            content: [
+              {
+                tag: "input",
+                attributes: {
+                  id: inputId,
+                  type: "range",
+                  min: "0",
+                  max: "720",
+                  value: proxi.rotation,
+                  step: 1
+                },
+                modules: delegate
+              }
+            ]
+          },
+          {
+            tag: "label",
+            attributes: { for: inputId },
+            className: "controls-range-value",
+            content: bindObject`deg: ${() => proxi.rotationlabel}`
+          }
+        ]
+      }
+    });
+    return [buttons5, range].join("");
   }
   var CaterpillarN2Fn = ({
     onMount,
@@ -30594,7 +30651,6 @@
     bindObject
   }) => {
     const proxi = getProxi();
-    const inputId = modules_exports.getUnivoqueId();
     onMount(({ element }) => {
       const { canvas } = getRef();
       let destroy3 = () => {
@@ -30622,91 +30678,60 @@
         destroy3 = null;
       };
     });
-    return renderHtml`
-        <div>
-            <div class="c-canvas">
-                <button
-                    type="button"
-                    class="controls-open"
-                    ${delegateEvents({
-      click: () => {
-        proxi.controlsActive = true;
-      }
-    })}
-                >
-                    show controls
-                </button>
-                <ul
-                    class="controls"
-                    ${bindEffect({
-      toggleClass: {
-        active: () => proxi.controlsActive
-      }
-    })}
-                >
-                    <button
-                        type="button"
-                        class="controls-close"
-                        ${delegateEvents({
-      click: () => {
-        proxi.controlsActive = false;
-      }
-    })}
-                    ></button>
-                    ${getControls3({ buttons: proxi.buttons })}
-                    <li class="controls-item">
-                        <div class="controls-range">
-                            <input
-                                type="range"
-                                min="0"
-                                max="720"
-                                value="${proxi.rotation}"
-                                step="1"
-                                id=${inputId}
-                                ${delegateEvents({
-      "change:force": (event) => {
-        const currentTarget = (
-          /** @type {HTMLInputElement} */
-          event.currentTarget
-        );
-        if (!currentTarget) return;
-        proxi.rotation = Number(
-          currentTarget.value
-        );
-      },
-      input: (event) => {
-        const currentTarget = (
-          /** @type {HTMLInputElement} */
-          event.currentTarget
-        );
-        if (!currentTarget) return;
-        proxi.rotationlabel = Number(
-          currentTarget.value
-        );
-      }
-    })}
-                            />
-                        </div>
-                        <label for=${inputId} class="controls-range-value">
-                            ${bindObject`deg: ${() => proxi.rotationlabel}`}
-                        </label>
-                    </li>
-                </ul>
-
-                <div class="l-background-shape is-light">
-                    ${proxi.background}
-                </div>
-                <div
-                    class="canvas-container"
-                    ${bindEffect({
-      toggleClass: { active: () => proxi.isMounted }
-    })}
-                >
-                    <canvas ${setRef("canvas")}></canvas>
-                </div>
-            </div>
-        </div>
-    `;
+    return fromObject({
+      content: [
+        {
+          className: "c-canvas",
+          content: [
+            {
+              className: "l-background-shape is-light",
+              content: proxi.background
+            },
+            {
+              tag: "button",
+              className: "controls-open",
+              modules: delegateEvents({
+                click: () => {
+                  proxi.controlsActive = true;
+                }
+              }),
+              content: "show controls"
+            },
+            {
+              tag: "ul",
+              className: "controls",
+              modules: bindEffect({
+                toggleClass: {
+                  active: () => proxi.controlsActive
+                }
+              }),
+              content: [
+                {
+                  tag: "button",
+                  className: "controls-close",
+                  modules: delegateEvents({
+                    click: () => {
+                      proxi.controlsActive = false;
+                    }
+                  })
+                },
+                getControls3({ proxi, delegateEvents, bindObject })
+              ]
+            },
+            {
+              className: "canvas-container",
+              modules: bindEffect({
+                toggleClass: { active: () => proxi.isMounted }
+              }),
+              content: {
+                tag: "canvas",
+                modules: setRef("canvas")
+              }
+            }
+          ]
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/canvas/n2/definition.js
