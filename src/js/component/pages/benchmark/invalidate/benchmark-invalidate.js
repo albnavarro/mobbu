@@ -8,6 +8,7 @@ import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
  *   MobComponent,
  *   ReturnBindProps
  * } from "@mobJsType"
+ * @import {BenchMarkFakeComponent} from "../fake-component/type"
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */
@@ -88,11 +89,7 @@ export const BenchMarkInvalidateFn = ({
                                             })
                                         ),
                                         bindProps(
-                                            /**
-                                             * @returns {ReturnBindProps<
-                                             *     import('../fake-component/type').BenchMarkFakeComponent
-                                             * >}
-                                             */
+                                            /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
                                             () => ({
                                                 counter: proxi.counter,
                                             })

@@ -28071,11 +28071,7 @@
                       }
                     ),
                     bindProps(
-                      /**
-                       * @returns {ReturnBindProps<
-                       *     import('../fake-component/type').BenchMarkFakeComponent
-                       * >}
-                       */
+                      /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
                       () => ({
                         counter: proxi.counter
                       })
