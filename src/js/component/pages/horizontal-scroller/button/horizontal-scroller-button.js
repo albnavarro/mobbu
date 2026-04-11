@@ -1,16 +1,20 @@
 //@ts-check
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').HorizontalScrollerButton>} */
 export const HorizontalScrollerButtonFn = ({ getProxi }) => {
     const proxi = getProxi();
 
-    return html`
-        <li class="nav-item">
-            <button type="button" data-id="${proxi.id}" class="nav-button">
-                ${proxi.id}
-            </button>
-        </li>
-    `;
+    return fromObject({
+        tag: 'li',
+        className: 'nav-item',
+        content: {
+            tag: 'button',
+            attributes: { type: 'button' },
+            dataAttributes: { id: proxi.id },
+            className: 'nav-button',
+            content: `${proxi.id}`,
+        },
+    });
 };

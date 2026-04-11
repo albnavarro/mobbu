@@ -34015,13 +34015,17 @@
   // src/js/component/pages/horizontal-scroller/button/horizontal-scroller-button.js
   var HorizontalScrollerButtonFn = ({ getProxi }) => {
     const proxi = getProxi();
-    return renderHtml`
-        <li class="nav-item">
-            <button type="button" data-id="${proxi.id}" class="nav-button">
-                ${proxi.id}
-            </button>
-        </li>
-    `;
+    return fromObject({
+      tag: "li",
+      className: "nav-item",
+      content: {
+        tag: "button",
+        attributes: { type: "button" },
+        dataAttributes: { id: proxi.id },
+        className: "nav-button",
+        content: `${proxi.id}`
+      }
+    });
   };
 
   // src/js/component/pages/horizontal-scroller/button/definition.js
@@ -34042,18 +34046,29 @@
   // src/js/component/pages/horizontal-scroller/section/horizontal-scroller-section.js
   var HorizontalScrollerSectionFn = ({ getState }) => {
     const { id, pinClass } = getState();
-    return renderHtml`
-        <section class="column js-column" data-shadow="section-${id}">
-            <div class="wrap">
-                <span class="h-scroller-indicator js-indicator ${pinClass}">
-                    <span></span>
-                </span>
-                <div class="title js-title">
-                    <h1>${id}</h1>
-                </div>
-            </div>
-        </section>
-    `;
+    return fromObject({
+      className: "column js-column",
+      dataAttributes: { shadow: `section-${id}` },
+      content: {
+        className: "wrap",
+        content: [
+          {
+            tag: "span",
+            className: `h-scroller-indicator js-indicator ${pinClass}`,
+            content: {
+              tag: "span"
+            }
+          },
+          {
+            className: "title js-title",
+            content: {
+              tag: "h1",
+              content: `${id}`
+            }
+          }
+        ]
+      }
+    });
   };
 
   // src/js/component/pages/horizontal-scroller/section/definition.js
