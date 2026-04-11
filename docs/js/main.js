@@ -42740,13 +42740,17 @@
     '<a href="https://www.linkedin.com/in/alberto-navarro74/" target="_blank">[ linkedin ]</a>'
   ];
   var getBio = () => {
-    return renderHtml`
-        <ul class="bio-cell">
-            ${bioInfo.map((item) => {
-      return renderHtml` <li class="bio-item">${item}</li> `;
-    }).join("")}
-        </ul>
-    `;
+    return fromObject({
+      tag: "ul",
+      className: "bio-cell",
+      content: bioInfo.map((item) => {
+        return fromObject({
+          tag: "li",
+          className: "bio-item",
+          content: item
+        });
+      }).join("")
+    });
   };
   var FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
     const proxi = getProxi();
@@ -42755,42 +42759,48 @@
         proxi.isMounted = true;
       }, getFrameDelay());
     });
-    return renderHtml`
-        <footer
-            class="js-footer"
-            ${bindEffect({
-      toggleClass: {
-        "is-visible": () => proxi.isMounted
+    return fromObject({
+      tag: "footer",
+      className: "js-footer",
+      modules: bindEffect({
+        toggleClass: {
+          "is-visible": () => proxi.isMounted
+        }
+      }),
+      content: {
+        className: "grid",
+        content: [
+          getBio(),
+          {
+            className: "debug-cell",
+            content: [
+              {
+                tag: "debug-button",
+                attributes: { type: "button" },
+                className: "c-button-debug",
+                modules: delegateEvents({
+                  click: () => {
+                    toggleDebugOverlay();
+                  }
+                }),
+                content: "Debug App"
+              },
+              {
+                tag: "debug-button",
+                attributes: { type: "button" },
+                className: "c-button-console",
+                modules: delegateEvents({
+                  click: () => {
+                    consoleLogDebug();
+                  }
+                }),
+                content: "Log"
+              }
+            ]
+          }
+        ]
       }
-    })}
-        >
-            <div class="grid">
-                ${getBio()}
-                <div class="debug-cell">
-                    <debug-button
-                        class="c-button-debug"
-                        ${delegateEvents({
-      click: () => {
-        toggleDebugOverlay();
-      }
-    })}
-                    >
-                        Debug App</debug-button
-                    >
-                    <debug-button
-                        class="c-button-console"
-                        ${delegateEvents({
-      click: () => {
-        consoleLogDebug();
-      }
-    })}
-                    >
-                        Log
-                    </debug-button>
-                </div>
-            </div>
-        </footer>
-    `;
+    });
   };
 
   // src/js/component/common/debug/debug-button.js

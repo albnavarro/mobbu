@@ -1,5 +1,5 @@
 import { consoleLogDebug } from '@commonComponent/debug/console-log';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 import { toggleDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
@@ -19,15 +19,19 @@ const bioInfo = [
  * @returns {string}
  */
 const getBio = () => {
-    return html`
-        <ul class="bio-cell">
-            ${bioInfo
-                .map((item) => {
-                    return html` <li class="bio-item">${item}</li> `;
-                })
-                .join('')}
-        </ul>
-    `;
+    return fromObject({
+        tag: 'ul',
+        className: 'bio-cell',
+        content: bioInfo
+            .map((item) => {
+                return fromObject({
+                    tag: 'li',
+                    className: 'bio-item',
+                    content: item,
+                });
+            })
+            .join(''),
+    });
 };
 
 /** @type {MobComponent<import('./type').Footer>} */
@@ -40,40 +44,46 @@ export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
         }, getFrameDelay());
     });
 
-    return html`
-        <footer
-            class="js-footer"
-            ${bindEffect({
-                toggleClass: {
-                    'is-visible': () => proxi.isMounted,
+    return fromObject({
+        tag: 'footer',
+        className: 'js-footer',
+        modules: bindEffect({
+            toggleClass: {
+                'is-visible': () => proxi.isMounted,
+            },
+        }),
+        content: {
+            className: 'grid',
+            content: [
+                getBio(),
+                {
+                    className: 'debug-cell',
+                    content: [
+                        {
+                            tag: 'debug-button',
+                            attributes: { type: 'button' },
+                            className: 'c-button-debug',
+                            modules: delegateEvents({
+                                click: () => {
+                                    toggleDebugOverlay();
+                                },
+                            }),
+                            content: 'Debug App',
+                        },
+                        {
+                            tag: 'debug-button',
+                            attributes: { type: 'button' },
+                            className: 'c-button-console',
+                            modules: delegateEvents({
+                                click: () => {
+                                    consoleLogDebug();
+                                },
+                            }),
+                            content: 'Log',
+                        },
+                    ],
                 },
-            })}
-        >
-            <div class="grid">
-                ${getBio()}
-                <div class="debug-cell">
-                    <debug-button
-                        class="c-button-debug"
-                        ${delegateEvents({
-                            click: () => {
-                                toggleDebugOverlay();
-                            },
-                        })}
-                    >
-                        Debug App</debug-button
-                    >
-                    <debug-button
-                        class="c-button-console"
-                        ${delegateEvents({
-                            click: () => {
-                                consoleLogDebug();
-                            },
-                        })}
-                    >
-                        Log
-                    </debug-button>
-                </div>
-            </div>
-        </footer>
-    `;
+            ],
+        },
+    });
 };
