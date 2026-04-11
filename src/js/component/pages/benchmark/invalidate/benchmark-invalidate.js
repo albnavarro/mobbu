@@ -83,7 +83,8 @@ export const BenchMarkInvalidateFn = ({
                                     tag: 'benchmark-fake-component',
                                     modules: [
                                         staticProps(
-                                            /** @type {import('../fake-component/type').BenchMarkFakeComponent['props']} */ ({
+                                            /** @type {import('../fake-component/type').BenchMarkFakeComponent['props']} */
+                                            ({
                                                 label,
                                                 index,
                                             })
