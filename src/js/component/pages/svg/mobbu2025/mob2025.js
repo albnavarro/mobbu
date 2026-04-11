@@ -4,7 +4,7 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { mobbu2025Scroller } from './animation';
 
 /** @type {MobComponent<import('./type').Mobbu2025>} */
@@ -25,17 +25,26 @@ export const Mobbu2025fn = ({ getState, onMount, setRef, getRef }) => {
         };
     });
 
-    // 690 x 117
-
-    /**
-     * Desktop
-     */
-    return html`<div class="mobbu2025">
-        <div class="screen" ${setRef('screen')}>
-            <div class="scroller-element" ${setRef('scroller')}>
-                <div class="layer">${layer03}</div>
-                <div class="layer" ${setRef('layer02')}>${layer02}</div>
-            </div>
-        </div>
-    </div>`;
+    return fromObject({
+        className: 'mobbu2025',
+        content: {
+            className: 'screen',
+            modules: setRef('screen'),
+            content: {
+                className: 'scroller-element',
+                modules: setRef('scroller'),
+                content: [
+                    {
+                        className: 'layer',
+                        content: layer03,
+                    },
+                    {
+                        className: 'layer',
+                        modules: setRef('layer02'),
+                        content: layer02,
+                    },
+                ],
+            },
+        },
+    });
 };

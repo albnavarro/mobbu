@@ -37084,14 +37084,28 @@
         destroy3();
       };
     });
-    return renderHtml`<div class="mobbu2025">
-        <div class="screen" ${setRef("screen")}>
-            <div class="scroller-element" ${setRef("scroller")}>
-                <div class="layer">${layer03}</div>
-                <div class="layer" ${setRef("layer02")}>${layer02}</div>
-            </div>
-        </div>
-    </div>`;
+    return fromObject({
+      className: "mobbu2025",
+      content: {
+        className: "screen",
+        modules: setRef("screen"),
+        content: {
+          className: "scroller-element",
+          modules: setRef("scroller"),
+          content: [
+            {
+              className: "layer",
+              content: layer03
+            },
+            {
+              className: "layer",
+              modules: setRef("layer02"),
+              content: layer02
+            }
+          ]
+        }
+      }
+    });
   };
 
   // src/js/component/pages/svg/mobbu2025/definition.js
