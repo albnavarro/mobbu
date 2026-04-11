@@ -42969,39 +42969,40 @@
         proxi.isMounted = true;
       }, getFrameDelay());
     });
-    return renderHtml`
-        <button
-            class="c-hamburger"
-            type="button"
-            ${delegateEvents({
-      click: () => {
-        navigationStore.update(
-          "navigationIsOpen",
-          (state) => !state
-        );
-        if (!proxi.navigationIsOpen) {
-          UnFreezeMobPageScroll();
+    const modules = [
+      delegateEvents({
+        click: () => {
+          navigationStore.update("navigationIsOpen", (state) => !state);
+          if (!proxi.navigationIsOpen) {
+            UnFreezeMobPageScroll();
+          }
+        }
+      }),
+      bindEffect([
+        {
+          toggleClass: {
+            "is-open": () => proxi.navigationIsOpen
+          }
+        },
+        {
+          toggleClass: {
+            "is-mounted": () => proxi.isMounted
+          }
+        }
+      ])
+    ];
+    return fromObject({
+      tag: "button",
+      className: "c-hamburger",
+      attributes: { type: "button" },
+      modules,
+      content: {
+        className: "wrapper",
+        content: {
+          className: "lines"
         }
       }
-    })}
-            ${bindEffect([
-      {
-        toggleClass: {
-          "is-open": () => proxi.navigationIsOpen
-        }
-      },
-      {
-        toggleClass: {
-          "is-mounted": () => proxi.isMounted
-        }
-      }
-    ])}
-        >
-            <div class="wrapper">
-                <div class="lines"></div>
-            </div>
-        </button>
-    `;
+    });
   };
 
   // src/js/component/layout/header/nav-toggle/definition.js
@@ -43039,34 +43040,39 @@
     };
     return links.map((link) => {
       const { svg, url, internal } = link;
-      return renderHtml`<li>
-                ${internal ? renderHtml`
-                          <button
-                              type="button"
-                              data-url="${url}"
-                              ${delegateEvents({
-        click: (event) => {
-          onClick({ event });
-        }
-      })}
-                          >
-                              ${icon[svg]}
-                          </button>
-                      ` : renderHtml`
-                          <a href="${url}" target="_blank"> ${icon[svg]} </a>
-                      `}
-            </li>`;
+      return fromObject({
+        tag: "li",
+        content: internal ? fromObject({
+          tag: "button",
+          dataAttributes: { url },
+          modules: delegateEvents({
+            click: (event) => {
+              onClick({ event });
+            }
+          }),
+          content: icon[svg]
+        }) : fromObject({
+          tag: "a",
+          attributes: { href: url, target: "_blank" },
+          content: icon[svg]
+        })
+      });
     }).join("");
   }
   var HeaderUtilsFn = ({ delegateEvents }) => {
-    return renderHtml`
-        <ul class="l-header-utils">
-            <li>
-                <search-cta></search-cta>
-            </li>
-            ${additems({ delegateEvents })}
-        </ul>
-    `;
+    return fromObject({
+      tag: "ul",
+      className: "l-header-utils",
+      content: [
+        {
+          tag: "li",
+          content: {
+            tag: "search-cta"
+          }
+        },
+        additems({ delegateEvents })
+      ]
+    });
   };
 
   // src/js/component/common/search/cta-search/search-cta.js
@@ -43109,23 +43115,27 @@
   var getItems2 = ({ delegateEvents, staticProps: staticProps2 }) => {
     const data = getCommonData();
     return data.footer.nav.map(({ label, url, section }) => {
-      return renderHtml`<li>
-                <header-main-menu-button
-                    ${delegateEvents({
-        click: () => {
-          modules_exports2.loadUrl({ url });
-          navigationStore.set("navigationIsOpen", false);
+      return fromObject({
+        tag: "li",
+        content: {
+          tag: "header-main-menu-button",
+          modules: [
+            delegateEvents({
+              click: () => {
+                modules_exports2.loadUrl({ url });
+                navigationStore.set("navigationIsOpen", false);
+              }
+            }),
+            staticProps2(
+              /** @type {import('./main-menu-button/type').HeaderMainMenuButton['props']} */
+              {
+                label,
+                section
+              }
+            )
+          ]
         }
-      })}
-                    ${staticProps2(
-        /** @type {import('./main-menu-button/type').HeaderMainMenuButton['props']} */
-        {
-          label,
-          section
-        }
-      )}
-                ></header-main-menu-button>
-            </li> `;
+      });
     }).join("");
   };
   var headerMainMenuFn = ({
@@ -43142,18 +43152,16 @@
         proxi.isMounted = true;
       }, 10);
     });
-    return renderHtml`
-        <ul
-            class="l-header-menu"
-            ${bindEffect({
-      toggleClass: {
-        "is-visible": () => proxi.isMounted
-      }
-    })}
-        >
-            ${getItems2({ delegateEvents, staticProps: staticProps2 })}
-        </ul>
-    `;
+    return fromObject({
+      tag: "ul",
+      className: "l-header-menu",
+      modules: bindEffect({
+        toggleClass: {
+          "is-visible": () => proxi.isMounted
+        }
+      }),
+      content: getItems2({ delegateEvents, staticProps: staticProps2 })
+    });
   };
 
   // src/js/component/layout/header/header-main-menu/main-menu-button/header-main-menu-button.js
@@ -43165,16 +43173,14 @@
         return proxi.section === proxi.activeNavigationSection;
       }
     );
-    return renderHtml`
-        <button
-            type="button"
-            ${bindEffect({
-      toggleClass: { current: () => proxi.active }
-    })}
-        >
-            ${proxi.label}
-        </button>
-    `;
+    return fromObject({
+      tag: "button",
+      attributes: { type: "button" },
+      modules: bindEffect({
+        toggleClass: { current: () => proxi.active }
+      }),
+      content: proxi.label
+    });
   };
 
   // src/js/component/layout/header/header-main-menu/main-menu-button/definition.js

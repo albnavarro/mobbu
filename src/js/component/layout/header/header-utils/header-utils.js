@@ -5,7 +5,7 @@
  * } from "@mobJsType"
  */
 
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 
 // @ts-ignore
 import { getCommonData, getIcons } from '@data/index';
@@ -43,37 +43,42 @@ function additems({ delegateEvents }) {
         .map((link) => {
             const { svg, url, internal } = link;
 
-            return html`<li>
-                ${internal
-                    ? html`
-                          <button
-                              type="button"
-                              data-url="${url}"
-                              ${delegateEvents({
-                                  click: (/** @type {Event} */ event) => {
-                                      onClick({ event });
-                                  },
-                              })}
-                          >
-                              ${icon[svg]}
-                          </button>
-                      `
-                    : html`
-                          <a href="${url}" target="_blank"> ${icon[svg]} </a>
-                      `}
-            </li>`;
+            return fromObject({
+                tag: 'li',
+                content: internal
+                    ? fromObject({
+                          tag: 'button',
+                          dataAttributes: { url },
+                          modules: delegateEvents({
+                              click: (/** @type {Event} */ event) => {
+                                  onClick({ event });
+                              },
+                          }),
+                          content: icon[svg],
+                      })
+                    : fromObject({
+                          tag: 'a',
+                          attributes: { href: url, target: '_blank' },
+                          content: icon[svg],
+                      }),
+            });
         })
         .join('');
 }
 
 /** @type {MobComponent} */
 export const HeaderUtilsFn = ({ delegateEvents }) => {
-    return html`
-        <ul class="l-header-utils">
-            <li>
-                <search-cta></search-cta>
-            </li>
-            ${additems({ delegateEvents })}
-        </ul>
-    `;
+    return fromObject({
+        tag: 'ul',
+        className: 'l-header-utils',
+        content: [
+            {
+                tag: 'li',
+                content: {
+                    tag: 'search-cta',
+                },
+            },
+            additems({ delegateEvents }),
+        ],
+    });
 };

@@ -3,7 +3,7 @@
  * @import {HeaderMainMenuButton} from "./type"
  */
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /** @type {MobComponent<HeaderMainMenuButton>} */
 export const HeaderMainMenuButtonFn = ({ getProxi, bindEffect, computed }) => {
@@ -16,14 +16,12 @@ export const HeaderMainMenuButtonFn = ({ getProxi, bindEffect, computed }) => {
         }
     );
 
-    return html`
-        <button
-            type="button"
-            ${bindEffect({
-                toggleClass: { current: () => proxi.active },
-            })}
-        >
-            ${proxi.label}
-        </button>
-    `;
+    return fromObject({
+        tag: 'button',
+        attributes: { type: 'button' },
+        modules: bindEffect({
+            toggleClass: { current: () => proxi.active },
+        }),
+        content: proxi.label,
+    });
 };

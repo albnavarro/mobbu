@@ -4,7 +4,7 @@
 
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 import { MobCore } from '@mobCore';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { UnFreezeMobPageScroll } from '@mobMotionPlugin';
 import { navigationStore } from '@stores/navigation';
 
@@ -23,41 +23,43 @@ export const HeaderToggleFn = ({
         }, getFrameDelay());
     });
 
-    return html`
-        <button
-            class="c-hamburger"
-            type="button"
-            ${delegateEvents({
-                click: () => {
-                    navigationStore.update(
-                        'navigationIsOpen',
-                        (state) => !state
-                    );
+    const modules = [
+        delegateEvents({
+            click: () => {
+                navigationStore.update('navigationIsOpen', (state) => !state);
 
-                    /**
-                     * Secure check. Mouse loave on SmoothScroll trigger Unfrezze too.
-                     */
-                    if (!proxi.navigationIsOpen) {
-                        UnFreezeMobPageScroll();
-                    }
+                /**
+                 * Secure check. Mouse loave on SmoothScroll trigger Unfrezze too.
+                 */
+                if (!proxi.navigationIsOpen) {
+                    UnFreezeMobPageScroll();
+                }
+            },
+        }),
+        bindEffect([
+            {
+                toggleClass: {
+                    'is-open': () => proxi.navigationIsOpen,
                 },
-            })}
-            ${bindEffect([
-                {
-                    toggleClass: {
-                        'is-open': () => proxi.navigationIsOpen,
-                    },
+            },
+            {
+                toggleClass: {
+                    'is-mounted': () => proxi.isMounted,
                 },
-                {
-                    toggleClass: {
-                        'is-mounted': () => proxi.isMounted,
-                    },
-                },
-            ])}
-        >
-            <div class="wrapper">
-                <div class="lines"></div>
-            </div>
-        </button>
-    `;
+            },
+        ]),
+    ];
+
+    return fromObject({
+        tag: 'button',
+        className: 'c-hamburger',
+        attributes: { type: 'button' },
+        modules,
+        content: {
+            className: 'wrapper',
+            content: {
+                className: 'lines',
+            },
+        },
+    });
 };

@@ -6,7 +6,7 @@
  * } from "@mobJsType"
  */
 
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { getCommonData } from '@data/index';
 import { navigationStore } from '@stores/navigation';
 import { MobCore } from '@mobCore';
@@ -21,22 +21,26 @@ const getItems = ({ delegateEvents, staticProps }) => {
 
     return data.footer.nav
         .map(({ label, url, section }) => {
-            return html`<li>
-                <header-main-menu-button
-                    ${delegateEvents({
-                        click: () => {
-                            MobJs.loadUrl({ url });
-                            navigationStore.set('navigationIsOpen', false);
-                        },
-                    })}
-                    ${staticProps(
-                        /** @type {import('./main-menu-button/type').HeaderMainMenuButton['props']} */ ({
-                            label,
-                            section,
-                        })
-                    )}
-                ></header-main-menu-button>
-            </li> `;
+            return fromObject({
+                tag: 'li',
+                content: {
+                    tag: 'header-main-menu-button',
+                    modules: [
+                        delegateEvents({
+                            click: () => {
+                                MobJs.loadUrl({ url });
+                                navigationStore.set('navigationIsOpen', false);
+                            },
+                        }),
+                        staticProps(
+                            /** @type {import('./main-menu-button/type').HeaderMainMenuButton['props']} */ ({
+                                label,
+                                section,
+                            })
+                        ),
+                    ],
+                },
+            });
         })
         .join('');
 };
@@ -62,16 +66,14 @@ export const headerMainMenuFn = ({
         }, 10);
     });
 
-    return html`
-        <ul
-            class="l-header-menu"
-            ${bindEffect({
-                toggleClass: {
-                    'is-visible': () => proxi.isMounted,
-                },
-            })}
-        >
-            ${getItems({ delegateEvents, staticProps })}
-        </ul>
-    `;
+    return fromObject({
+        tag: 'ul',
+        className: 'l-header-menu',
+        modules: bindEffect({
+            toggleClass: {
+                'is-visible': () => proxi.isMounted,
+            },
+        }),
+        content: getItems({ delegateEvents, staticProps }),
+    });
 };
