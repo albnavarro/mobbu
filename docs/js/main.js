@@ -32822,78 +32822,70 @@
     invalidate,
     proxi
   }) => {
-    return renderHtml`
-        ${buttons3.map((button) => {
-      return renderHtml` <div class="header-col">
-                    <dynamic-list-button
-                        class="header-button"
-                        ${delegateEvents({
-        click: async () => {
-          updateState(
-            /** @type {'level1' | 'level2' | 'level3'} */
-            button.state,
-            (val) => {
-              return val.slice(0, -1);
-            }
-          );
-        }
-      })}
-                        >${button.label_minus}</dynamic-list-button
-                    >
-                    <dynamic-list-button
-                        class="header-button"
-                        ${delegateEvents({
-        click: async () => {
-          updateState(
-            /** @type {'level1' | 'level2' | 'level3'} */
-            button.state,
-            (val) => {
-              return [
-                ...val,
-                {
-                  key: getRandomInt2(1e3),
-                  value: modules_exports.getUnivoqueId()
-                }
-              ];
-            }
-          );
-        }
-      })}
-                        >${button.label_plus}</dynamic-list-button
-                    >
-                    <div class="header-counter">
-                        ${invalidate({
-        observe: (
-          /** @type {'level1' | 'level2' | 'level3'} */
-          button.state
-        ),
-        render: () => {
-          const data = proxi?.[
-            /** @type {'level1' | 'level2' | 'level3'} */
-            button.state
-          ];
-          return renderHtml`
+    return buttons3.map((button) => {
+      return fromObject({
+        className: "header-col",
+        content: [
+          {
+            tag: "dynamic-list-button",
+            className: "header-button",
+            modules: delegateEvents({
+              click: async () => {
+                updateState(
+                  /** @type {'level1' | 'level2' | 'level3'} */
+                  button.state,
+                  (val) => {
+                    return val.slice(0, -1);
+                  }
+                );
+              }
+            }),
+            content: button.label_minus
+          },
+          {
+            tag: "dynamic-list-button",
+            className: "header-button",
+            modules: delegateEvents({
+              click: async () => {
+                updateState(
+                  /** @type {'level1' | 'level2' | 'level3'} */
+                  button.state,
+                  (val) => {
+                    return [
+                      ...val,
+                      {
+                        key: getRandomInt2(1e3),
+                        value: modules_exports.getUnivoqueId()
+                      }
+                    ];
+                  }
+                );
+              }
+            }),
+            content: button.label_plus
+          },
+          {
+            className: "header-counter",
+            content: invalidate({
+              observe: (
+                /** @type {'level1' | 'level2' | 'level3'} */
+                button.state
+              ),
+              render: () => {
+                const data = proxi?.[
+                  /** @type {'level1' | 'level2' | 'level3'} */
+                  button.state
+                ];
+                return renderHtml`
                                     Number of items: ${data.length} ( max
                                     ${button.maxItem} )
                                 `;
-        }
-      })}
-                    </div>
-                </div>`;
-    }).join("")}
-
-        <div class="header-col">
-            <dynamic-list-button
-                class="header-button"
-                ${delegateEvents({
-      click: () => {
-        updateState("counter", (val) => val + 1);
-      }
-    })}
-                >Increment counter</dynamic-list-button
-            >
-        </div>
-    `;
+              }
+            })
+          }
+        ]
+      });
+    }).join("");
   };
 
   // src/js/component/pages/matrioska/item/utils.js
@@ -32910,70 +32902,69 @@
     delegateEvents,
     proxi
   }) => {
-    return renderHtml`
-        <div class="level level--3">
-            ${repeat({
-      observe: () => proxi.level3,
-      render: ({ current }) => {
-        const name = modules_exports.getUnivoqueId();
-        const name2 = modules_exports.getUnivoqueId();
-        return renderHtml`
-                        <div class="level-wrap level-wrap--3">
-                            <matrioska-item
-                                class="is-3"
-                                name="${name}"
-                                ${staticProps2(
-          /** @type {MatrioskaItem['props']} */
-          {
-            level: "level 3"
-          }
-        )}
-                                ${bindProps(() => ({
-          key: `${current.value.key}`,
-          value: `${current.value.value}`,
-          index: current.index,
-          counter: proxi.counter
-        }))}
-                                ${delegateEvents({
-          click: () => {
-            toggleMatrioskaItemActive(name);
-          }
-        })}
-                            >
-                            </matrioska-item>
-                            <matrioska-item
-                                class="is-3"
-                                name="${name2}"
-                                ${staticProps2(
-          /** @type {MatrioskaItem['props']} */
-          {
-            level: "level 3"
-          }
-        )}
-                                ${bindProps(
-          /** @returns {ReturnBindProps<MatrioskaItem>} */
-          () => {
-            return {
-              key: `${current.value.key}`,
-              value: `${current.value.value}`,
-              index: current.index,
-              counter: proxi.counter
-            };
-          }
-        )}
-                                ${delegateEvents({
-          click: () => {
-            toggleMatrioskaItemActive(name2);
-          }
-        })}
-                            >
-                            </matrioska-item>
-                        </div>
-                    `;
-      }
-    })}
-        </div>
-    `;
+    return fromObject({
+      className: "level level--3",
+      content: repeat({
+        observe: () => proxi.level3,
+        render: ({ current }) => {
+          const name = modules_exports.getUnivoqueId();
+          const name2 = modules_exports.getUnivoqueId();
+          return fromObject({
+            className: "level-wrap level-wrap--3",
+            content: [
+              {
+                tag: "matrioska-item",
+                className: "is-3",
+                attributes: { name },
+                modules: [
+                  staticProps2(
+                    /** @type {MatrioskaItem['props']} */
+                    {
+                      level: "level 3"
+                    }
+                  ),
+                  bindProps(() => ({
+                    key: `${current.value.key}`,
+                    value: `${current.value.value}`,
+                    index: current.index,
+                    counter: proxi.counter
+                  })),
+                  delegateEvents({
+                    click: () => {
+                      toggleMatrioskaItemActive(name);
+                    }
+                  })
+                ]
+              },
+              {
+                tag: "matrioska-item",
+                className: "is-3",
+                attributes: { name: name2 },
+                modules: [
+                  staticProps2(
+                    /** @type {MatrioskaItem['props']} */
+                    {
+                      level: "level 3"
+                    }
+                  ),
+                  bindProps(() => ({
+                    key: `${current.value.key}`,
+                    value: `${current.value.value}`,
+                    index: current.index,
+                    counter: proxi.counter
+                  })),
+                  delegateEvents({
+                    click: () => {
+                      toggleMatrioskaItemActive(name);
+                    }
+                  })
+                ]
+              }
+            ]
+          });
+        }
+      })
+    });
   };
 
   // src/js/component/pages/matrioska/repeat-partial/second-level.js
@@ -32984,42 +32975,42 @@
     delegateEvents,
     proxi
   }) => {
-    return renderHtml`
-        <div class="level level--2">
-            ${repeat({
-      observe: () => proxi.level2,
-      render: ({ current }) => {
-        return renderHtml`
-                        <div class="level-wrap level-wrap--2">
-                            <matrioska-item
-                                class="is-2"
-                                ${staticProps2(
-          /** @type {MatrioskaItem['props']} */
-          {
-            level: "level 2"
-          }
-        )}
-                                ${bindProps(() => ({
-          key: `${current.value.key}`,
-          value: `${current.value.value}`,
-          index: current.index,
-          counter: proxi.counter
-        }))}
-                            >
-                                ${getThirdLevel({
-          repeat,
-          staticProps: staticProps2,
-          delegateEvents,
-          bindProps,
-          proxi
-        })}
-                            </matrioska-item>
-                        </div>
-                    `;
-      }
-    })}
-        </div>
-    `;
+    return fromObject({
+      className: "level level--2",
+      content: repeat({
+        observe: () => proxi.level2,
+        render: ({ current }) => {
+          return fromObject({
+            className: "level-wrap level-wrap--2",
+            content: {
+              tag: "matrioska-item",
+              className: "is-2",
+              modules: [
+                staticProps2(
+                  /** @type {MatrioskaItem['props']} */
+                  {
+                    level: "level 2"
+                  }
+                ),
+                bindProps(() => ({
+                  key: `${current.value.key}`,
+                  value: `${current.value.value}`,
+                  index: current.index,
+                  counter: proxi.counter
+                }))
+              ],
+              content: getThirdLevel({
+                repeat,
+                staticProps: staticProps2,
+                delegateEvents,
+                bindProps,
+                proxi
+              })
+            }
+          });
+        }
+      })
+    });
   };
 
   // src/js/component/pages/matrioska/matrioska-repeat.js
@@ -33033,58 +33024,91 @@
     getProxi
   }) => {
     const proxi = getProxi();
-    return renderHtml`<div class="l-matrioska">
-        <div class="header">
-            ${getButtons2({
-      delegateEvents,
-      updateState,
-      invalidate,
-      proxi
-    })}
-        </div>
-        <h4 class="legend">
-            Nested repater like matrioska in same component.
-            <span> First/Second/third level repeater without key. </span>
-            <span> Third level use shuffle order. </span>
-        </h4>
-        <div class="level level--1">
-            ${repeat({
-      observe: () => proxi.level1,
-      render: ({ current }) => {
-        return renderHtml`
-                        <div class="level-wrap level-wrap--1">
-                            <matrioska-item
-                                class="is-1"
-                                ${staticProps2(
-          /** @type {MatrioskaItem['props']} */
-          {
-            level: "level 1"
-          }
-        )}
-                                ${bindProps(
-          /** @returns {ReturnBindProps<MatrioskaItem>} */
-          () => ({
-            key: `${current.value.key}`,
-            value: `${current.value.value}`,
-            index: current.index,
-            counter: proxi.counter
+    return fromObject({
+      className: "l-matrioska",
+      content: [
+        {
+          className: "header",
+          content: [
+            getButtons2({
+              delegateEvents,
+              updateState,
+              invalidate,
+              proxi
+            }),
+            {
+              className: "header-col",
+              content: {
+                tag: "dynamic-list-button",
+                className: "header-button",
+                modules: delegateEvents({
+                  click: () => {
+                    updateState("counter", (val) => val + 1);
+                  }
+                }),
+                content: "Increment counter"
+              }
+            }
+          ]
+        },
+        {
+          tag: "h4",
+          className: "legend",
+          content: [
+            "Nested repater like matrioska in same component.",
+            {
+              tag: "span",
+              content: "First/Second/third level repeater without key."
+            },
+            {
+              tag: "span",
+              content: "Third level use shuffle order."
+            }
+          ]
+        },
+        {
+          className: "level level--1",
+          content: repeat({
+            observe: () => proxi.level1,
+            render: ({ current }) => {
+              return fromObject({
+                className: "level-wrap level-wrap--1",
+                content: [
+                  {
+                    tag: "matrioska-item",
+                    className: "is-1",
+                    modules: [
+                      staticProps2(
+                        /** @type {MatrioskaItem['props']} */
+                        {
+                          level: "level 1"
+                        }
+                      ),
+                      bindProps(
+                        /** @returns {ReturnBindProps<MatrioskaItem>} */
+                        () => ({
+                          key: `${current.value.key}`,
+                          value: `${current.value.value}`,
+                          index: current.index,
+                          counter: proxi.counter
+                        })
+                      )
+                    ],
+                    content: getSecondLevel({
+                      repeat,
+                      staticProps: staticProps2,
+                      bindProps,
+                      delegateEvents,
+                      proxi
+                    })
+                  }
+                ]
+              });
+            }
           })
-        )}
-                            >
-                                ${getSecondLevel({
-          repeat,
-          staticProps: staticProps2,
-          bindProps,
-          delegateEvents,
-          proxi
-        })}
-                            </matrioska-item>
-                        </div>
-                    `;
-      }
-    })}
-        </div>
-    </div>`;
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/matrioska/item/matrioska-item.js
@@ -33099,26 +33123,56 @@
     addMethod("toggleActive", () => {
       proxi.active = !proxi.active;
     });
-    return renderHtml`<matrioska-item
-        class="c-matrioska-item"
-        ${bindEffect({
-      toggleClass: { active: () => proxi.active }
-    })}
-    >
-        <div class="info">
-            <h4 class="item-level">${proxi.level}:</h4>
-            <h6 class="key">${bindText`key: <span>${"key"}</span>`}</h6>
-            <h6 class="key">${bindText`index: <span>${"index"}</span>`}</h6>
-            <h6 class="value">${bindText`Value: <span>${"value"}</span>`}</h6>
-            <h6 class="value">
-                ${bindText`counter: <span>${"counter"}</span>`}
-            </h6>
-            <h6 class="value">Component id: <span>${id}</span></h6>
-        </div>
-        <div class="child">
-            <mobjs-slot></mobjs-slot>
-        </div>
-    </matrioska-item>`;
+    return fromObject({
+      tag: "matrioska-item",
+      className: "c-matrioska-item",
+      modules: bindEffect({
+        toggleClass: { active: () => proxi.active }
+      }),
+      content: [
+        {
+          className: "info",
+          content: [
+            {
+              tag: "h4",
+              className: "item-level",
+              content: proxi.level
+            },
+            {
+              tag: "h6",
+              className: "key",
+              content: bindText`key: <span>${"key"}</span>`
+            },
+            {
+              tag: "h6",
+              className: "key",
+              content: bindText`index: <span>${"index"}</span>`
+            },
+            {
+              tag: "h6",
+              className: "value",
+              content: bindText`Value: <span>${"value"}</span>`
+            },
+            {
+              tag: "h6",
+              className: "value",
+              content: bindText`counter: <span>${"counter"}</span>`
+            },
+            {
+              tag: "h6",
+              className: "value",
+              content: `Component id: <span>${id}</span>`
+            }
+          ]
+        },
+        {
+          className: "child",
+          content: {
+            tag: "mobjs-slot"
+          }
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/matrioska/item/definition.js
@@ -33175,69 +33229,75 @@
     bindProps,
     proxi
   }) => {
-    return renderHtml` <div class="level level--3">
-        ${invalidate({
-      observe: "level3",
-      render: () => {
-        return proxi.level3.map((item, index) => {
-          const name = modules_exports.getUnivoqueId();
-          const name2 = modules_exports.getUnivoqueId();
-          return renderHtml`
-                            <div class="level-wrap level-wrap--3">
-                                <matrioska-item
-                                    class="is-3"
-                                    name="${name}"
-                                    ${staticProps2(
-            /** @type {MatrioskaItem['props']} */
-            {
-              level: "level 3",
-              value: item.value,
-              index,
-              key: `${item.key}`
-            }
-          )}
-                                    ${bindProps(() => {
-            return {
-              counter: proxi.counter
-            };
-          })}
-                                    ${delegateEvents({
-            click: () => {
-              toggleMatrioskaItemActive(name);
-            }
-          })}
-                                >
-                                </matrioska-item>
-                                <matrioska-item
-                                    class="is-3"
-                                    name="${name2}"
-                                    ${staticProps2(
-            /** @type {MatrioskaItem['props']} */
-            {
-              level: "level 3",
-              index,
-              value: item.value,
-              key: `${item.key}`
-            }
-          )}
-                                    ${bindProps(() => {
-            return {
-              counter: proxi.counter
-            };
-          })}
-                                    ${delegateEvents({
-            click: () => {
-              toggleMatrioskaItemActive(name2);
-            }
-          })}
-                                >
-                                </matrioska-item>
-                            </div>
-                        `;
-        }).join("");
-      }
-    })}
-    </div>`;
+    return fromObject({
+      className: "level level--3",
+      content: invalidate({
+        observe: "level3",
+        render: () => {
+          return proxi.level3.map((item, index) => {
+            const name = modules_exports.getUnivoqueId();
+            const name2 = modules_exports.getUnivoqueId();
+            return fromObject({
+              className: "level-wrap level-wrap--3",
+              content: [
+                {
+                  tag: "matrioska-item",
+                  className: "is-3",
+                  attributes: { name },
+                  modules: [
+                    staticProps2(
+                      /** @type {MatrioskaItem['props']} */
+                      {
+                        level: "level 3",
+                        value: item.value,
+                        index,
+                        key: `${item.key}`
+                      }
+                    ),
+                    bindProps(() => {
+                      return {
+                        counter: proxi.counter
+                      };
+                    }),
+                    delegateEvents({
+                      click: () => {
+                        toggleMatrioskaItemActive(name);
+                      }
+                    })
+                  ]
+                },
+                {
+                  tag: "matrioska-item",
+                  className: "is-3",
+                  attributes: { name: name2 },
+                  modules: [
+                    staticProps2(
+                      /** @type {MatrioskaItem['props']} */
+                      {
+                        level: "level 3",
+                        value: item.value,
+                        index,
+                        key: `${item.key}`
+                      }
+                    ),
+                    bindProps(() => {
+                      return {
+                        counter: proxi.counter
+                      };
+                    }),
+                    delegateEvents({
+                      click: () => {
+                        toggleMatrioskaItemActive(name);
+                      }
+                    })
+                  ]
+                }
+              ]
+            });
+          }).join("");
+        }
+      })
+    });
   };
 
   // src/js/component/pages/matrioska/invalidate-partial/second-level.js
@@ -33248,44 +33308,44 @@
     invalidate,
     proxi
   }) => {
-    return renderHtml`
-        <div class="level level--2">
-            ${invalidate({
-      observe: () => proxi.level2,
-      render: () => {
-        return proxi.level2.map((item, index) => {
-          return renderHtml`
-                                <div class="level-wrap level-wrap--2">
-                                    <matrioska-item
-                                        class="is-2"
-                                        ${staticProps2(
-            /** @type {MatrioskaItem['props']} */
-            {
-              level: "level 2",
-              index,
-              key: `${item.key}`,
-              value: `${item.value}`
-            }
-          )}
-                                        ${bindProps(() => ({
-            counter: proxi.counter
-          }))}
-                                    >
-                                        ${getThirdLevel2({
-            staticProps: staticProps2,
-            delegateEvents,
-            invalidate,
-            bindProps,
-            proxi
-          })}
-                                    </matrioska-item>
-                                </div>
-                            `;
-        }).join("");
-      }
-    })}
-        </div>
-    `;
+    return fromObject({
+      className: "level level--2",
+      content: invalidate({
+        observe: () => proxi.level2,
+        render: () => {
+          return proxi.level2.map((item, index) => {
+            return fromObject({
+              className: "level-wrap level-wrap--2",
+              content: {
+                tag: "matrioska-item",
+                className: "is-2",
+                modules: [
+                  staticProps2(
+                    /** @type {MatrioskaItem['props']} */
+                    {
+                      level: "level 2",
+                      index,
+                      key: `${item.key}`,
+                      value: `${item.value}`
+                    }
+                  ),
+                  bindProps(() => ({
+                    counter: proxi.counter
+                  }))
+                ],
+                content: getThirdLevel2({
+                  staticProps: staticProps2,
+                  delegateEvents,
+                  invalidate,
+                  bindProps,
+                  proxi
+                })
+              }
+            });
+          }).join("");
+        }
+      })
+    });
   };
 
   // src/js/component/pages/matrioska/matrioska-invalidate.js
@@ -33298,55 +33358,78 @@
     getProxi
   }) => {
     const proxi = getProxi();
-    return renderHtml`<div class="l-matrioska">
-        <div class="header">
-            ${getButtons2({
-      delegateEvents,
-      updateState,
-      invalidate,
-      proxi
-    })}
-        </div>
-        <h4 class="legend">
-            Nested invalidate like matrioska in same component.
-        </h4>
-        <div class="level level--1">
-            ${invalidate({
-      observe: "level1",
-      render: () => {
-        return proxi.level1.map((item, index) => {
-          return renderHtml`
-                                <div class="level-wrap level-wrap--1">
-                                    <matrioska-item
-                                        class="is-1"
-                                        ${staticProps2(
-            /** @type {Partial<MatrioskaItem['props']>} */
+    return fromObject({
+      className: "l-matrioska",
+      content: [
+        {
+          className: "header",
+          content: [
+            getButtons2({
+              delegateEvents,
+              updateState,
+              invalidate,
+              proxi
+            }),
             {
-              level: "level 1",
-              key: `${item.key}`,
-              index,
-              value: `${item.value}`
+              className: "header-col",
+              content: {
+                tag: "dynamic-list-button",
+                className: "header-button",
+                modules: delegateEvents({
+                  click: () => {
+                    updateState("counter", (val) => val + 1);
+                  }
+                }),
+                content: "Increment counter"
+              }
             }
-          )}
-                                        ${bindProps(() => ({
-            counter: proxi.counter
-          }))}
-                                    >
-                                        ${getSecondLevel2({
-            staticProps: staticProps2,
-            bindProps,
-            delegateEvents,
-            invalidate,
-            proxi
-          })}
-                                    </matrioska-item>
-                                </div>
-                            `;
-        }).join("");
-      }
-    })}
-        </div>
-    </div>`;
+          ]
+        },
+        {
+          tag: "h4",
+          className: "legend",
+          content: "Nested repater like matrioska in same component."
+        },
+        {
+          className: "level level--1",
+          content: invalidate({
+            observe: "level1",
+            render: () => {
+              return proxi.level1.map((item, index) => {
+                return fromObject({
+                  className: "level-wrap level-wrap--1",
+                  content: {
+                    tag: "matrioska-item",
+                    className: "is-1",
+                    modules: [
+                      staticProps2(
+                        /** @type {Partial<MatrioskaItem['props']>} */
+                        {
+                          level: "level 1",
+                          key: `${item.key}`,
+                          index,
+                          value: `${item.value}`
+                        }
+                      ),
+                      bindProps(() => ({
+                        counter: proxi.counter
+                      }))
+                    ],
+                    content: getSecondLevel2({
+                      staticProps: staticProps2,
+                      bindProps,
+                      delegateEvents,
+                      invalidate,
+                      proxi
+                    })
+                  }
+                });
+              }).join("");
+            }
+          })
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/matrioska/definition.js

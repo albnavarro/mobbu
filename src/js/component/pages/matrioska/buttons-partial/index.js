@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { fromObject, html } from '@mobJs';
 import { buttons } from './utils';
 import { MobCore } from '@mobCore';
 
@@ -30,13 +30,15 @@ export const getButtons = ({
     invalidate,
     proxi,
 }) => {
-    return html`
-        ${buttons
-            .map((button) => {
-                return html` <div class="header-col">
-                    <dynamic-list-button
-                        class="header-button"
-                        ${delegateEvents({
+    return buttons
+        .map((button) => {
+            return fromObject({
+                className: 'header-col',
+                content: [
+                    {
+                        tag: 'dynamic-list-button',
+                        className: 'header-button',
+                        modules: delegateEvents({
                             click: async () => {
                                 updateState(
                                     /** @type {'level1' | 'level2' | 'level3'} */ (
@@ -47,12 +49,13 @@ export const getButtons = ({
                                     }
                                 );
                             },
-                        })}
-                        >${button.label_minus}</dynamic-list-button
-                    >
-                    <dynamic-list-button
-                        class="header-button"
-                        ${delegateEvents({
+                        }),
+                        content: button.label_minus,
+                    },
+                    {
+                        tag: 'dynamic-list-button',
+                        className: 'header-button',
+                        modules: delegateEvents({
                             click: async () => {
                                 updateState(
                                     /** @type {'level1' | 'level2' | 'level3'} */ (
@@ -69,11 +72,12 @@ export const getButtons = ({
                                     }
                                 );
                             },
-                        })}
-                        >${button.label_plus}</dynamic-list-button
-                    >
-                    <div class="header-counter">
-                        ${invalidate({
+                        }),
+                        content: button.label_plus,
+                    },
+                    {
+                        className: 'header-counter',
+                        content: invalidate({
                             observe:
                                 /** @type {'level1' | 'level2' | 'level3'} */ (
                                     button.state
@@ -91,22 +95,10 @@ export const getButtons = ({
                                     ${button.maxItem} )
                                 `;
                             },
-                        })}
-                    </div>
-                </div>`;
-            })
-            .join('')}
-
-        <div class="header-col">
-            <dynamic-list-button
-                class="header-button"
-                ${delegateEvents({
-                    click: () => {
-                        updateState('counter', (val) => val + 1);
+                        }),
                     },
-                })}
-                >Increment counter</dynamic-list-button
-            >
-        </div>
-    `;
+                ],
+            });
+        })
+        .join('');
 };

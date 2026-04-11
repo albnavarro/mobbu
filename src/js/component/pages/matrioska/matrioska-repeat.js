@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { getButtons } from './buttons-partial';
 import { getSecondLevel } from './repeat-partial/second-level';
 
@@ -23,55 +23,89 @@ export const MatrioskaRepeatFn = ({
 }) => {
     const proxi = getProxi();
 
-    return html`<div class="l-matrioska">
-        <div class="header">
-            ${getButtons({
-                delegateEvents,
-                updateState,
-                invalidate,
-                proxi,
-            })}
-        </div>
-        <h4 class="legend">
-            Nested repater like matrioska in same component.
-            <span> First/Second/third level repeater without key. </span>
-            <span> Third level use shuffle order. </span>
-        </h4>
-        <div class="level level--1">
-            ${repeat({
-                observe: () => proxi.level1,
-                render: ({ current }) => {
-                    return html`
-                        <div class="level-wrap level-wrap--1">
-                            <matrioska-item
-                                class="is-1"
-                                ${staticProps(
-                                    /** @type {MatrioskaItem['props']} */ ({
-                                        level: 'level 1',
-                                    })
-                                )}
-                                ${bindProps(
-                                    /** @returns {ReturnBindProps<MatrioskaItem>} */
-                                    () => ({
-                                        key: `${current.value.key}`,
-                                        value: `${current.value.value}`,
-                                        index: current.index,
-                                        counter: proxi.counter,
-                                    })
-                                )}
-                            >
-                                ${getSecondLevel({
-                                    repeat,
-                                    staticProps,
-                                    bindProps,
-                                    delegateEvents,
-                                    proxi,
-                                })}
-                            </matrioska-item>
-                        </div>
-                    `;
-                },
-            })}
-        </div>
-    </div>`;
+    return fromObject({
+        className: 'l-matrioska',
+        content: [
+            {
+                className: 'header',
+                content: [
+                    getButtons({
+                        delegateEvents,
+                        updateState,
+                        invalidate,
+                        proxi,
+                    }),
+                    {
+                        className: 'header-col',
+                        content: {
+                            tag: 'dynamic-list-button',
+                            className: 'header-button',
+                            modules: delegateEvents({
+                                click: () => {
+                                    updateState('counter', (val) => val + 1);
+                                },
+                            }),
+                            content: 'Increment counter',
+                        },
+                    },
+                ],
+            },
+            {
+                tag: 'h4',
+                className: 'legend',
+                content: [
+                    'Nested repater like matrioska in same component.',
+                    {
+                        tag: 'span',
+                        content:
+                            'First/Second/third level repeater without key.',
+                    },
+                    {
+                        tag: 'span',
+                        content: 'Third level use shuffle order.',
+                    },
+                ],
+            },
+            {
+                className: 'level level--1',
+                content: repeat({
+                    observe: () => proxi.level1,
+                    render: ({ current }) => {
+                        return fromObject({
+                            className: 'level-wrap level-wrap--1',
+                            content: [
+                                {
+                                    tag: 'matrioska-item',
+                                    className: 'is-1',
+                                    modules: [
+                                        staticProps(
+                                            /** @type {MatrioskaItem['props']} */ ({
+                                                level: 'level 1',
+                                            })
+                                        ),
+                                        bindProps(
+                                            /** @returns {ReturnBindProps<MatrioskaItem>} */
+                                            () => ({
+                                                key: `${current.value.key}`,
+                                                value: `${current.value.value}`,
+                                                index: current.index,
+                                                counter: proxi.counter,
+                                            })
+                                        ),
+                                    ],
+                                    content: getSecondLevel({
+                                        repeat,
+                                        staticProps,
+                                        bindProps,
+                                        delegateEvents,
+                                        proxi,
+                                    }),
+                                },
+                            ],
+                        });
+                    },
+                }),
+            },
+        ],
+    });
 };

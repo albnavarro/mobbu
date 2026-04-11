@@ -1,6 +1,4 @@
-//@ts-check
-
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -21,24 +19,54 @@ export const MatrioskaItemFn = ({
         proxi.active = !proxi.active;
     });
 
-    return html`<matrioska-item
-        class="c-matrioska-item"
-        ${bindEffect({
+    return fromObject({
+        tag: 'matrioska-item',
+        className: 'c-matrioska-item',
+        modules: bindEffect({
             toggleClass: { active: () => proxi.active },
-        })}
-    >
-        <div class="info">
-            <h4 class="item-level">${proxi.level}:</h4>
-            <h6 class="key">${bindText`key: <span>${'key'}</span>`}</h6>
-            <h6 class="key">${bindText`index: <span>${'index'}</span>`}</h6>
-            <h6 class="value">${bindText`Value: <span>${'value'}</span>`}</h6>
-            <h6 class="value">
-                ${bindText`counter: <span>${'counter'}</span>`}
-            </h6>
-            <h6 class="value">Component id: <span>${id}</span></h6>
-        </div>
-        <div class="child">
-            <mobjs-slot></mobjs-slot>
-        </div>
-    </matrioska-item>`;
+        }),
+        content: [
+            {
+                className: 'info',
+                content: [
+                    {
+                        tag: 'h4',
+                        className: 'item-level',
+                        content: proxi.level,
+                    },
+                    {
+                        tag: 'h6',
+                        className: 'key',
+                        content: bindText`key: <span>${'key'}</span>`,
+                    },
+                    {
+                        tag: 'h6',
+                        className: 'key',
+                        content: bindText`index: <span>${'index'}</span>`,
+                    },
+                    {
+                        tag: 'h6',
+                        className: 'value',
+                        content: bindText`Value: <span>${'value'}</span>`,
+                    },
+                    {
+                        tag: 'h6',
+                        className: 'value',
+                        content: bindText`counter: <span>${'counter'}</span>`,
+                    },
+                    {
+                        tag: 'h6',
+                        className: 'value',
+                        content: `Component id: <span>${id}</span>`,
+                    },
+                ],
+            },
+            {
+                className: 'child',
+                content: {
+                    tag: 'mobjs-slot',
+                },
+            },
+        ],
+    });
 };

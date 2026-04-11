@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { getThirdLevel } from './third-level';
 
 /**
@@ -28,43 +28,43 @@ export const getSecondLevel = ({
     invalidate,
     proxi,
 }) => {
-    return html`
-        <div class="level level--2">
-            ${invalidate({
-                observe: () => proxi.level2,
-                render: () => {
-                    return proxi.level2
-                        .map((item, index) => {
-                            return html`
-                                <div class="level-wrap level-wrap--2">
-                                    <matrioska-item
-                                        class="is-2"
-                                        ${staticProps(
-                                            /** @type {MatrioskaItem['props']} */ ({
-                                                level: 'level 2',
-                                                index: index,
-                                                key: `${item.key}`,
-                                                value: `${item.value}`,
-                                            })
-                                        )}
-                                        ${bindProps(() => ({
-                                            counter: proxi.counter,
-                                        }))}
-                                    >
-                                        ${getThirdLevel({
-                                            staticProps,
-                                            delegateEvents,
-                                            invalidate,
-                                            bindProps,
-                                            proxi,
-                                        })}
-                                    </matrioska-item>
-                                </div>
-                            `;
-                        })
-                        .join('');
-                },
-            })}
-        </div>
-    `;
+    return fromObject({
+        className: 'level level--2',
+        content: invalidate({
+            observe: () => proxi.level2,
+            render: () => {
+                return proxi.level2
+                    .map((item, index) => {
+                        return fromObject({
+                            className: 'level-wrap level-wrap--2',
+                            content: {
+                                tag: 'matrioska-item',
+                                className: 'is-2',
+                                modules: [
+                                    staticProps(
+                                        /** @type {MatrioskaItem['props']} */ ({
+                                            level: 'level 2',
+                                            index: index,
+                                            key: `${item.key}`,
+                                            value: `${item.value}`,
+                                        })
+                                    ),
+                                    bindProps(() => ({
+                                        counter: proxi.counter,
+                                    })),
+                                ],
+                                content: getThirdLevel({
+                                    staticProps,
+                                    delegateEvents,
+                                    invalidate,
+                                    bindProps,
+                                    proxi,
+                                }),
+                            },
+                        });
+                    })
+                    .join('');
+            },
+        }),
+    });
 };

@@ -1,5 +1,5 @@
 import { MobCore } from '@mobCore';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { toggleMatrioskaItemActive } from '../item/utils';
 
 /**
@@ -8,7 +8,6 @@ import { toggleMatrioskaItemActive } from '../item/utils';
  *   DelegateEvents,
  *   ProxiState,
  *   Repeat,
- *   ReturnBindProps,
  *   StaticProps
  * } from "@mobJsType"
  * @import {MatrioskaItem} from "../item/type"
@@ -30,70 +29,70 @@ export const getThirdLevel = ({
     delegateEvents,
     proxi,
 }) => {
-    return html`
-        <div class="level level--3">
-            ${repeat({
-                observe: () => proxi.level3,
-                render: ({ current }) => {
-                    const name = MobCore.getUnivoqueId();
-                    const name2 = MobCore.getUnivoqueId();
+    return fromObject({
+        className: 'level level--3',
+        content: repeat({
+            observe: () => proxi.level3,
+            render: ({ current }) => {
+                const name = MobCore.getUnivoqueId();
+                const name2 = MobCore.getUnivoqueId();
 
-                    /**
-                     * With key bind props is unnecessary here
-                     */
-                    return html`
-                        <div class="level-wrap level-wrap--3">
-                            <matrioska-item
-                                class="is-3"
-                                name="${name}"
-                                ${staticProps(
+                /**
+                 * With key bind props is unnecessary here
+                 */
+
+                return fromObject({
+                    className: 'level-wrap level-wrap--3',
+                    content: [
+                        {
+                            tag: 'matrioska-item',
+                            className: 'is-3',
+                            attributes: { name },
+                            modules: [
+                                staticProps(
                                     /** @type {MatrioskaItem['props']} */ ({
                                         level: 'level 3',
                                     })
-                                )}
-                                ${bindProps(() => ({
+                                ),
+                                bindProps(() => ({
                                     key: `${current.value.key}`,
                                     value: `${current.value.value}`,
                                     index: current.index,
                                     counter: proxi.counter,
-                                }))}
-                                ${delegateEvents({
+                                })),
+                                delegateEvents({
                                     click: () => {
                                         toggleMatrioskaItemActive(name);
                                     },
-                                })}
-                            >
-                            </matrioska-item>
-                            <matrioska-item
-                                class="is-3"
-                                name="${name2}"
-                                ${staticProps(
+                                }),
+                            ],
+                        },
+                        {
+                            tag: 'matrioska-item',
+                            className: 'is-3',
+                            attributes: { name: name2 },
+                            modules: [
+                                staticProps(
                                     /** @type {MatrioskaItem['props']} */ ({
                                         level: 'level 3',
                                     })
-                                )}
-                                ${bindProps(
-                                    /** @returns {ReturnBindProps<MatrioskaItem>} */
-                                    () => {
-                                        return {
-                                            key: `${current.value.key}`,
-                                            value: `${current.value.value}`,
-                                            index: current.index,
-                                            counter: proxi.counter,
-                                        };
-                                    }
-                                )}
-                                ${delegateEvents({
+                                ),
+                                bindProps(() => ({
+                                    key: `${current.value.key}`,
+                                    value: `${current.value.value}`,
+                                    index: current.index,
+                                    counter: proxi.counter,
+                                })),
+                                delegateEvents({
                                     click: () => {
-                                        toggleMatrioskaItemActive(name2);
+                                        toggleMatrioskaItemActive(name);
                                     },
-                                })}
-                            >
-                            </matrioska-item>
-                        </div>
-                    `;
-                },
-            })}
-        </div>
-    `;
+                                }),
+                            ],
+                        },
+                    ],
+                });
+            },
+        }),
+    });
 };

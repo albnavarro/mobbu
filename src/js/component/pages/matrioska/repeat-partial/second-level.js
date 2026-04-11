@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { getThirdLevel } from './third-level';
 
 /**
@@ -28,39 +28,39 @@ export const getSecondLevel = ({
     delegateEvents,
     proxi,
 }) => {
-    return html`
-        <div class="level level--2">
-            ${repeat({
-                observe: () => proxi.level2,
-                render: ({ current }) => {
-                    return html`
-                        <div class="level-wrap level-wrap--2">
-                            <matrioska-item
-                                class="is-2"
-                                ${staticProps(
-                                    /** @type {MatrioskaItem['props']} */ ({
-                                        level: 'level 2',
-                                    })
-                                )}
-                                ${bindProps(() => ({
-                                    key: `${current.value.key}`,
-                                    value: `${current.value.value}`,
-                                    index: current.index,
-                                    counter: proxi.counter,
-                                }))}
-                            >
-                                ${getThirdLevel({
-                                    repeat,
-                                    staticProps,
-                                    delegateEvents,
-                                    bindProps,
-                                    proxi,
-                                })}
-                            </matrioska-item>
-                        </div>
-                    `;
-                },
-            })}
-        </div>
-    `;
+    return fromObject({
+        className: 'level level--2',
+        content: repeat({
+            observe: () => proxi.level2,
+            render: ({ current }) => {
+                return fromObject({
+                    className: 'level-wrap level-wrap--2',
+                    content: {
+                        tag: 'matrioska-item',
+                        className: 'is-2',
+                        modules: [
+                            staticProps(
+                                /** @type {MatrioskaItem['props']} */ ({
+                                    level: 'level 2',
+                                })
+                            ),
+                            bindProps(() => ({
+                                key: `${current.value.key}`,
+                                value: `${current.value.value}`,
+                                index: current.index,
+                                counter: proxi.counter,
+                            })),
+                        ],
+                        content: getThirdLevel({
+                            repeat,
+                            staticProps,
+                            delegateEvents,
+                            bindProps,
+                            proxi,
+                        }),
+                    },
+                });
+            },
+        }),
+    });
 };
