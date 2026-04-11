@@ -29441,25 +29441,29 @@
   };
   function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     return params.map(({ label }, index) => {
-      return renderHtml` <li class="controls-item">
-                <button
-                    type="button"
-                    class="controls-button"
-                    ${delegateEvents({
-        click: () => {
-          proxi.currentParamsId = index;
-          createAnimation({ proxi, getRef });
+      return fromObject({
+        tag: "li",
+        className: "controls-item",
+        content: {
+          tag: "button",
+          attributes: { type: "button" },
+          className: "controls-button",
+          modules: [
+            delegateEvents({
+              click: () => {
+                proxi.currentParamsId = index;
+                createAnimation({ proxi, getRef });
+              }
+            }),
+            bindEffect({
+              toggleClass: {
+                active: () => proxi.currentParamsId === index
+              }
+            })
+          ],
+          content: label
         }
-      })}
-                    ${bindEffect({
-        toggleClass: {
-          active: () => proxi.currentParamsId === index
-        }
-      })}
-                >
-                    ${label}
-                </button>
-            </li>`;
+      });
     }).join("");
   }
   var AnimatedPatternN0Fn = ({
@@ -29491,56 +29495,67 @@
         unsubscribeResize();
       };
     });
-    return renderHtml`
-        <div>
-            <div class="c-canvas">
-                <button
-                    type="button"
-                    class="controls-open"
-                    ${delegateEvents({
-      click: () => {
-        proxi.controlsActive = true;
-      }
-    })}
-                >
-                    variations
-                </button>
-                <ul
-                    class="controls"
-                    ${bindEffect({
-      toggleClass: {
-        active: () => proxi.controlsActive
-      }
-    })}
-                >
-                    <button
-                        type="button"
-                        class="controls-close"
-                        ${delegateEvents({
-      click: () => {
-        proxi.controlsActive = false;
-      }
-    })}
-                    ></button>
-                    ${getControls({
-      delegateEvents,
-      bindEffect,
-      proxi,
-      getRef
-    })}
-                </ul>
-                <div class="l-background-shape">${proxi.background}</div>
-                <div
-                    class="canvas-container"
-                    ${bindEffect({
-      toggleClass: { active: () => proxi.isMounted }
-    })}
-                >
-                    <canvas ${setRef("canvas")}></canvas>
-                </div>
-            </div>
-        </div>
-    `;
+    return fromObject({
+      content: [
+        {
+          className: "c-canvas",
+          content: [
+            {
+              className: "l-background-shape",
+              content: proxi.background
+            },
+            {
+              tag: "button",
+              className: "controls-open",
+              attributes: { type: "button" },
+              modules: delegateEvents({
+                click: () => {
+                  proxi.controlsActive = true;
+                }
+              }),
+              content: "variations"
+            },
+            {
+              tag: "ul",
+              className: "controls",
+              modules: bindEffect({
+                toggleClass: {
+                  active: () => proxi.controlsActive
+                }
+              }),
+              content: [
+                {
+                  tag: "button",
+                  className: "controls-close",
+                  attributes: { type: "button" },
+                  modules: delegateEvents({
+                    click: () => {
+                      proxi.controlsActive = false;
+                    }
+                  })
+                },
+                getControls({
+                  delegateEvents,
+                  bindEffect,
+                  proxi,
+                  getRef
+                })
+              ]
+            },
+            {
+              className: "canvas-container",
+              modules: bindEffect({
+                toggleClass: { active: () => proxi.isMounted }
+              }),
+              content: {
+                tag: "canvas",
+                modules: setRef("canvas")
+              }
+            }
+          ]
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/animated-pattern/n0/definition.js
@@ -29892,21 +29907,27 @@
         destroy3 = null;
       };
     });
-    return renderHtml`
-        <div>
-            <div class="c-canvas">
-                <div class="l-background-shape">${proxi.background}</div>
-                <div
-                    class="canvas-container"
-                    ${bindEffect({
-      toggleClass: { active: () => proxi.isMounted }
-    })}
-                >
-                    <canvas ${setRef("canvas")}></canvas>
-                </div>
-            </div>
-        </div>
-    `;
+    return fromObject({
+      content: {
+        className: "c-canvas",
+        content: [
+          {
+            className: "l-background-shape",
+            content: proxi.background
+          },
+          {
+            className: "canvas-container",
+            modules: bindEffect({
+              toggleClass: { active: () => proxi.isMounted }
+            }),
+            content: {
+              tag: "canvas",
+              modules: setRef("canvas")
+            }
+          }
+        ]
+      }
+    });
   };
 
   // src/js/component/pages/animated-pattern/n1/definition.js

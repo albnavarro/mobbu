@@ -6,7 +6,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { animatedPatternN1Animation } from './animation/animation';
 
 /** @type {MobComponent<AnimatedPatternN1>} */
@@ -67,19 +67,25 @@ export const AnimatedPatternN1Fn = ({
         };
     });
 
-    return html`
-        <div>
-            <div class="c-canvas">
-                <div class="l-background-shape">${proxi.background}</div>
-                <div
-                    class="canvas-container"
-                    ${bindEffect({
+    return fromObject({
+        content: {
+            className: 'c-canvas',
+            content: [
+                {
+                    className: 'l-background-shape',
+                    content: proxi.background,
+                },
+                {
+                    className: 'canvas-container',
+                    modules: bindEffect({
                         toggleClass: { active: () => proxi.isMounted },
-                    })}
-                >
-                    <canvas ${setRef('canvas')}></canvas>
-                </div>
-            </div>
-        </div>
-    `;
+                    }),
+                    content: {
+                        tag: 'canvas',
+                        modules: setRef('canvas'),
+                    },
+                },
+            ],
+        },
+    });
 };
