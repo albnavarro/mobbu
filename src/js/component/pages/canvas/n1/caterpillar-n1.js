@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @import {
  *   BindEffect,
@@ -12,7 +10,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { caterpillarN1Animation } from './animation/animation';
 
 /**
@@ -24,28 +22,35 @@ import { caterpillarN1Animation } from './animation/animation';
  * @returns {string}
  */
 function getControls({ delegateEvents, bindEffect, bindObject, proxi }) {
-    return html` <li class="controls-item">
-        <button
-            type="button"
-            class="controls-button"
-            ${delegateEvents({
-                click: () => {
-                    proxi.stopBlackOne();
-                    proxi.blackOneIsStopped = true;
-                },
-            })}
-            ${bindEffect({
-                toggleAttribute: {
-                    disabled: () => proxi.blackOneIsStopped,
-                },
-            })}
-        >
-            Stop black one rotation
-        </button>
-        <p class="controls-status">
-            ${bindObject`${() => (proxi.blackOneIsStopped ? 'Black one rotation is off' : '')}`}
-        </p>
-    </li>`;
+    return fromObject({
+        tag: 'li',
+        className: 'controls-item',
+        content: [
+            {
+                tag: 'button',
+                className: 'controls-button',
+                modules: [
+                    delegateEvents({
+                        click: () => {
+                            proxi.stopBlackOne();
+                            proxi.blackOneIsStopped = true;
+                        },
+                    }),
+                    bindEffect({
+                        toggleAttribute: {
+                            disabled: () => proxi.blackOneIsStopped,
+                        },
+                    }),
+                ],
+                content: 'Stop black one rotation',
+            },
+            {
+                tag: 'p',
+                className: 'controls-status',
+                content: bindObject`${() => (proxi.blackOneIsStopped ? 'Black one rotation is off' : '')}`,
+            },
+        ],
+    });
 }
 
 /** @type {MobComponent<CaterpillarN1>} */
@@ -102,55 +107,63 @@ export const CaterpillarN1Fn = ({
         };
     });
 
-    return html`
-        <div>
-            <div class="c-canvas">
-                <div class="l-background-shape">${proxi.background}</div>
-
-                <button
-                    type="button"
-                    class="controls-open"
-                    ${delegateEvents({
-                        click: () => {
-                            proxi.controlsActive = true;
-                        },
-                    })}
-                >
-                    show controls
-                </button>
-                <ul
-                    class="controls"
-                    ${bindEffect({
-                        toggleClass: {
-                            active: () => proxi.controlsActive,
-                        },
-                    })}
-                >
-                    <button
-                        type="button"
-                        class="controls-close"
-                        ${delegateEvents({
+    return fromObject({
+        content: [
+            {
+                className: 'c-canvas',
+                content: [
+                    {
+                        className: 'l-background-shape',
+                        content: proxi.background,
+                    },
+                    {
+                        tag: 'button',
+                        className: 'controls-open',
+                        modules: delegateEvents({
                             click: () => {
-                                proxi.controlsActive = false;
+                                proxi.controlsActive = true;
                             },
-                        })}
-                    ></button>
-                    ${getControls({
-                        delegateEvents,
-                        bindEffect,
-                        bindObject,
-                        proxi,
-                    })}
-                </ul>
-                <div
-                    class="canvas-container"
-                    ${bindEffect({
-                        toggleClass: { active: () => proxi.isMounted },
-                    })}
-                >
-                    <canvas ${setRef('canvas')}></canvas>
-                </div>
-            </div>
-        </div>
-    `;
+                        }),
+                        content: 'show controls',
+                    },
+                    {
+                        tag: 'ul',
+                        className: 'controls',
+                        modules: bindEffect({
+                            toggleClass: {
+                                active: () => proxi.controlsActive,
+                            },
+                        }),
+                        content: [
+                            {
+                                tag: 'button',
+                                className: 'controls-close',
+                                modules: delegateEvents({
+                                    click: () => {
+                                        proxi.controlsActive = false;
+                                    },
+                                }),
+                            },
+                            getControls({
+                                delegateEvents,
+                                bindEffect,
+                                bindObject,
+                                proxi,
+                            }),
+                        ],
+                    },
+                    {
+                        className: 'canvas-container',
+                        modules: bindEffect({
+                            toggleClass: { active: () => proxi.isMounted },
+                        }),
+                        content: {
+                            tag: 'canvas',
+                            modules: setRef('canvas'),
+                        },
+                    },
+                ],
+            },
+        ],
+    });
 };

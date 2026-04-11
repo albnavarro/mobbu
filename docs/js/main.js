@@ -30184,28 +30184,35 @@
 
   // src/js/component/pages/canvas/n1/caterpillar-n1.js
   function getControls2({ delegateEvents, bindEffect, bindObject, proxi }) {
-    return renderHtml` <li class="controls-item">
-        <button
-            type="button"
-            class="controls-button"
-            ${delegateEvents({
-      click: () => {
-        proxi.stopBlackOne();
-        proxi.blackOneIsStopped = true;
-      }
-    })}
-            ${bindEffect({
-      toggleAttribute: {
-        disabled: () => proxi.blackOneIsStopped
-      }
-    })}
-        >
-            Stop black one rotation
-        </button>
-        <p class="controls-status">
-            ${bindObject`${() => proxi.blackOneIsStopped ? "Black one rotation is off" : ""}`}
-        </p>
-    </li>`;
+    return fromObject({
+      tag: "li",
+      className: "controls-item",
+      content: [
+        {
+          tag: "button",
+          className: "controls-button",
+          modules: [
+            delegateEvents({
+              click: () => {
+                proxi.stopBlackOne();
+                proxi.blackOneIsStopped = true;
+              }
+            }),
+            bindEffect({
+              toggleAttribute: {
+                disabled: () => proxi.blackOneIsStopped
+              }
+            })
+          ],
+          content: "Stop black one rotation"
+        },
+        {
+          tag: "p",
+          className: "controls-status",
+          content: bindObject`${() => proxi.blackOneIsStopped ? "Black one rotation is off" : ""}`
+        }
+      ]
+    });
   }
   var CaterpillarN1Fn = ({
     onMount,
@@ -30249,57 +30256,65 @@
         methods = null;
       };
     });
-    return renderHtml`
-        <div>
-            <div class="c-canvas">
-                <div class="l-background-shape">${proxi.background}</div>
-
-                <button
-                    type="button"
-                    class="controls-open"
-                    ${delegateEvents({
-      click: () => {
-        proxi.controlsActive = true;
-      }
-    })}
-                >
-                    show controls
-                </button>
-                <ul
-                    class="controls"
-                    ${bindEffect({
-      toggleClass: {
-        active: () => proxi.controlsActive
-      }
-    })}
-                >
-                    <button
-                        type="button"
-                        class="controls-close"
-                        ${delegateEvents({
-      click: () => {
-        proxi.controlsActive = false;
-      }
-    })}
-                    ></button>
-                    ${getControls2({
-      delegateEvents,
-      bindEffect,
-      bindObject,
-      proxi
-    })}
-                </ul>
-                <div
-                    class="canvas-container"
-                    ${bindEffect({
-      toggleClass: { active: () => proxi.isMounted }
-    })}
-                >
-                    <canvas ${setRef("canvas")}></canvas>
-                </div>
-            </div>
-        </div>
-    `;
+    return fromObject({
+      content: [
+        {
+          className: "c-canvas",
+          content: [
+            {
+              className: "l-background-shape",
+              content: proxi.background
+            },
+            {
+              tag: "button",
+              className: "controls-open",
+              modules: delegateEvents({
+                click: () => {
+                  proxi.controlsActive = true;
+                }
+              }),
+              content: "show controls"
+            },
+            {
+              tag: "ul",
+              className: "controls",
+              modules: bindEffect({
+                toggleClass: {
+                  active: () => proxi.controlsActive
+                }
+              }),
+              content: [
+                {
+                  tag: "button",
+                  className: "controls-close",
+                  modules: delegateEvents({
+                    click: () => {
+                      proxi.controlsActive = false;
+                    }
+                  })
+                },
+                getControls2({
+                  delegateEvents,
+                  bindEffect,
+                  bindObject,
+                  proxi
+                })
+              ]
+            },
+            {
+              className: "canvas-container",
+              modules: bindEffect({
+                toggleClass: { active: () => proxi.isMounted }
+              }),
+              content: {
+                tag: "canvas",
+                modules: setRef("canvas")
+              }
+            }
+          ]
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/canvas/n1/definition.js
