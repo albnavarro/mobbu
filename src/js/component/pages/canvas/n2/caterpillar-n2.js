@@ -19,28 +19,26 @@ import { caterpillarN2Animation } from './animation/animation';
  * @param {ProxiState<CaterpillarN2>} params.proxi
  * @param {DelegateEvents} params.delegateEvents
  * @param {BindObject} params.bindObject
- * @returns {string}
+ * @returns {string[]}
  */
 function getControls({ proxi, delegateEvents, bindObject }) {
     /**
      * Generic buttons
      */
-    const buttons = Object.entries(proxi.buttons)
-        .map(([className, value]) => {
-            const { label } = value;
+    const buttons = Object.entries(proxi.buttons).map(([className, value]) => {
+        const { label } = value;
 
-            return fromObject({
-                tag: 'li',
-                className: 'controls-item',
-                content: {
-                    tag: 'button',
-                    attributes: { type: 'button' },
-                    className: `controls-button ${className}`,
-                    content: label,
-                },
-            });
-        })
-        .join('');
+        return fromObject({
+            tag: 'li',
+            className: 'controls-item',
+            content: {
+                tag: 'button',
+                attributes: { type: 'button' },
+                className: `controls-button ${className}`,
+                content: label,
+            },
+        });
+    });
 
     const inputId = MobCore.getUnivoqueId();
 
@@ -100,7 +98,7 @@ function getControls({ proxi, delegateEvents, bindObject }) {
         },
     });
 
-    return [buttons, range].join('');
+    return [...buttons, range];
 }
 
 /** @type {MobComponent<CaterpillarN2>} */
@@ -202,7 +200,11 @@ export const CaterpillarN2Fn = ({
                                     },
                                 }),
                             },
-                            getControls({ proxi, delegateEvents, bindObject }),
+                            ...getControls({
+                                proxi,
+                                delegateEvents,
+                                bindObject,
+                            }),
                         ],
                     },
                     {

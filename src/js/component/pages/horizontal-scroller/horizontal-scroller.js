@@ -33,24 +33,22 @@ const getScrollAdjustment = (id, total) => {
  * @param {number} params.numOfCol
  * @param {boolean} params.pinIsVisible
  * @param {StaticProps<import('./section/type').HorizontalScrollerSection>} params.staticProps
- * @returns {string}
+ * @returns {string[]}
  */
 const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
     const pinClass = pinIsVisible ? '' : 'hidden';
 
-    return [...Array.from({ length: numOfCol }).keys()]
-        .map((_col, i) => {
-            return fromObject({
-                tag: 'horizontal-scroller-section',
-                modules: staticProps(
-                    /** @type {import('./section/type').HorizontalScrollerSection['props']} */ ({
-                        id: i,
-                        pinClass,
-                    })
-                ),
-            });
-        })
-        .join('');
+    return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
+        return fromObject({
+            tag: 'horizontal-scroller-section',
+            modules: staticProps(
+                /** @type {import('./section/type').HorizontalScrollerSection['props']} */ ({
+                    id: i,
+                    pinClass,
+                })
+            ),
+        });
+    });
 };
 
 /**
@@ -61,23 +59,21 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
  * @param {DelegateEvents} param.delegateEvents
  */
 const getNav = ({ numOfCol, proxi, staticProps, delegateEvents }) => {
-    return [...Array.from({ length: numOfCol }).keys()]
-        .map((_col, i) => {
-            return fromObject({
-                tag: 'horizontal-scroller-button',
-                modules: [
-                    staticProps(
-                        /** @type {HorizontalScrollerButton['props']} */ ({
-                            id: i,
-                        })
-                    ),
-                    delegateEvents({
-                        click: () => (proxi.currentId = i),
-                    }),
-                ],
-            });
-        })
-        .join('');
+    return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
+        return fromObject({
+            tag: 'horizontal-scroller-button',
+            modules: [
+                staticProps(
+                    /** @type {HorizontalScrollerButton['props']} */ ({
+                        id: i,
+                    })
+                ),
+                delegateEvents({
+                    click: () => (proxi.currentId = i),
+                }),
+            ],
+        });
+    });
 };
 
 /** @type {MobComponent<HorizontalScroller>} */

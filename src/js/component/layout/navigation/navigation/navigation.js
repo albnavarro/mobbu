@@ -24,82 +24,79 @@ import { getCommonData } from '@data/index';
  * @param {Navigation['state']} param.proxi
  */
 function getItems({ data, staticProps, bindProps, proxi }) {
-    return data
-        .map((item, index) => {
-            const {
-                label,
-                url,
-                activeId,
-                children,
-                section,
-                sectioName,
-                scrollToSection,
-                forceChildren,
-                hide,
-            } = item;
+    return data.map((item, index) => {
+        const {
+            label,
+            url,
+            activeId,
+            children,
+            section,
+            sectioName,
+            scrollToSection,
+            forceChildren,
+            hide,
+        } = item;
 
-            if (section) {
-                return fromObject({
-                    tag: 'mob-navigation-label',
-                    modules: staticProps(
-                        /** @type {NavigationLabel['props']} */ ({
-                            label,
-                            sectioName,
-                            hide: !!hide,
-                        })
-                    ),
-                });
-            }
+        if (section) {
+            return fromObject({
+                tag: 'mob-navigation-label',
+                modules: staticProps(
+                    /** @type {NavigationLabel['props']} */ ({
+                        label,
+                        sectioName,
+                        hide: !!hide,
+                    })
+                ),
+            });
+        }
 
-            return children
-                ? fromObject({
-                      tag: 'mob-navigation-submenu',
-                      modules: [
-                          staticProps(
-                              /** @type {NavigationSubmenu['state']} */
-                              {
-                                  headerButton: {
-                                      label,
-                                      url,
-                                      id: index,
-                                  },
-                                  children,
-                                  callback: ({ forceClose = false }) => {
-                                      if (forceClose) {
-                                          proxi.currentAccordionId = -1;
-                                          return;
-                                      }
-
-                                      proxi.currentAccordionId = index;
-                                  },
-                              }
-                          ),
-                          bindProps(
-                              /** @returns {ReturnBindProps<NavigationSubmenu>} */
-                              () => ({
-                                  isOpen: proxi.currentAccordionId === index,
-                              })
-                          ),
-                      ],
-                  })
-                : fromObject({
-                      tag: 'li',
-                      content: {
-                          tag: 'mob-navigation-button',
-                          modules: staticProps(
-                              /** @type {NavigationButton['props']} */ ({
+        return children
+            ? fromObject({
+                  tag: 'mob-navigation-submenu',
+                  modules: [
+                      staticProps(
+                          /** @type {NavigationSubmenu['state']} */
+                          {
+                              headerButton: {
                                   label,
                                   url,
-                                  scrollToSection:
-                                      scrollToSection ?? 'no-scroll',
-                                  activeId: activeId ?? -1,
-                                  forceChildren: forceChildren ?? [],
-                              })
-                          ),
-                      },
-                  });
-        })
-        .join('');
+                                  id: index,
+                              },
+                              children,
+                              callback: ({ forceClose = false }) => {
+                                  if (forceClose) {
+                                      proxi.currentAccordionId = -1;
+                                      return;
+                                  }
+
+                                  proxi.currentAccordionId = index;
+                              },
+                          }
+                      ),
+                      bindProps(
+                          /** @returns {ReturnBindProps<NavigationSubmenu>} */
+                          () => ({
+                              isOpen: proxi.currentAccordionId === index,
+                          })
+                      ),
+                  ],
+              })
+            : fromObject({
+                  tag: 'li',
+                  content: {
+                      tag: 'mob-navigation-button',
+                      modules: staticProps(
+                          /** @type {NavigationButton['props']} */ ({
+                              label,
+                              url,
+                              scrollToSection: scrollToSection ?? 'no-scroll',
+                              activeId: activeId ?? -1,
+                              forceChildren: forceChildren ?? [],
+                          })
+                      ),
+                  },
+              });
+    });
 }
 
 /** @type {MobComponent<Navigation>} */

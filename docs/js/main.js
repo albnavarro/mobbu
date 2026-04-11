@@ -10309,6 +10309,9 @@
     return valueToArray.reduce(
       (previous, current) => {
         if (!current) return previous;
+        if (modules_exports.checkType(Array, current)) {
+          return getContent(current);
+        }
         if (modules_exports.checkType(String, current)) {
           return `${previous} ${current}`;
         }
@@ -25281,9 +25284,7 @@
                             {
                               tag: "span",
                               className: `counter index-${index}`,
-                              content: getCounter(
-                                index
-                              )
+                              content: getCounter(index)
                             },
                             {
                               tag: "span",
@@ -25293,7 +25294,7 @@
                           ]
                         }
                       });
-                    }).join("")
+                    })
                   }
                 }
               ]
@@ -27565,7 +27566,7 @@
                 className: "section-list-item",
                 content: `[ ${item} ]`
               });
-            }).join("")
+            })
           }
         }
       ]
@@ -27598,7 +27599,7 @@
             content: label
           }
         });
-      }).join("")
+      })
     });
   };
   var getSquare = () => {
@@ -28180,31 +28181,33 @@
           ]
         },
         {
-          className: "list",
           content: invalidate({
             observe: () => proxi.data,
             render: () => {
               const { data } = getState();
-              return data.map(({ label }, index) => {
-                return fromObject({
-                  tag: "benchmark-fake-component",
-                  modules: [
-                    staticProps2(
-                      /** @type {import('../fake-component/type').BenchMarkFakeComponent['props']} */
-                      {
-                        label,
-                        index
-                      }
-                    ),
-                    bindProps(
-                      /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                      () => ({
-                        counter: proxi.counter
-                      })
-                    )
-                  ]
-                });
-              }).join("");
+              return fromObject({
+                className: "list",
+                content: data.map(({ label }, index) => {
+                  return fromObject({
+                    tag: "benchmark-fake-component",
+                    modules: [
+                      staticProps2(
+                        /** @type {import('../fake-component/type').BenchMarkFakeComponent['props']} */
+                        {
+                          label,
+                          index
+                        }
+                      ),
+                      bindProps(
+                        /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                        () => ({
+                          counter: proxi.counter
+                        })
+                      )
+                    ]
+                  });
+                })
+              });
             }
           })
         }
@@ -29564,7 +29567,7 @@
           content: label
         }
       });
-    }).join("");
+    });
   }
   var AnimatedPatternN0Fn = ({
     onMount,
@@ -29634,7 +29637,7 @@
                     }
                   })
                 },
-                getControls({
+                ...getControls({
                   delegateEvents,
                   bindEffect,
                   proxi,
@@ -30710,7 +30713,7 @@
           content: label
         }
       });
-    }).join("");
+    });
     const inputId = modules_exports.getUnivoqueId();
     const delegate = delegateEvents({
       "change:force": (event) => {
@@ -30762,7 +30765,7 @@
         ]
       }
     });
-    return [buttons5, range].join("");
+    return [...buttons5, range];
   }
   var CaterpillarN2Fn = ({
     onMount,
@@ -30838,7 +30841,11 @@
                     }
                   })
                 },
-                getControls3({ proxi, delegateEvents, bindObject })
+                ...getControls3({
+                  proxi,
+                  delegateEvents,
+                  bindObject
+                })
               ]
             },
             {
@@ -31253,7 +31260,7 @@
           content: label
         }
       });
-    }).join("");
+    });
   }
   var ScrollerN0Fn = ({
     onMount,
@@ -31325,7 +31332,7 @@
                     }
                   })
                 },
-                getControls4({
+                ...getControls4({
                   delegateEvents,
                   bindEffect,
                   proxi,
@@ -32070,7 +32077,7 @@
           )
         ]
       });
-    }).join("");
+    });
   }
   function getRepeaters({ bindProps, staticProps: staticProps2, proxi }) {
     return repeaters.map((item, index) => {
@@ -32096,7 +32103,7 @@
           )
         ]
       });
-    }).join("");
+    });
   }
   var DynamicListFn = ({
     updateState,
@@ -32117,7 +32124,7 @@
             {
               className: "header-top",
               content: [
-                getButton({
+                ...getButton({
                   delegateEvents,
                   staticProps: staticProps2,
                   bindProps,
@@ -32338,7 +32345,7 @@
           })
         ]
       });
-    }).join("");
+    });
   };
   var DynamicListCardFn = ({
     onMount,
@@ -32553,10 +32560,12 @@
                   content: invalidate({
                     observe: () => proxi.counter,
                     render: () => {
-                      return getInvalidateRender({
-                        delegateEvents,
-                        staticProps: staticProps2,
-                        proxi
+                      return fromObject({
+                        content: getInvalidateRender({
+                          delegateEvents,
+                          staticProps: staticProps2,
+                          proxi
+                        })
                       });
                     }
                   })
@@ -32910,7 +32919,7 @@
         className: "logo",
         content: svg.map((item) => {
           return item;
-        }).join("")
+        })
       }
     });
   };
@@ -33108,15 +33117,15 @@
                   button.state
                 ];
                 return renderHtml`
-                                    Number of items: ${data.length} ( max
-                                    ${button.maxItem} )
-                                `;
+                                Number of items: ${data.length} ( max
+                                ${button.maxItem} )
+                            `;
               }
             })
           }
         ]
       });
-    }).join("");
+    });
   };
 
   // src/js/component/pages/matrioska/item/utils.js
@@ -33261,7 +33270,7 @@
         {
           className: "header",
           content: [
-            getButtons2({
+            ...getButtons2({
               delegateEvents,
               updateState,
               invalidate,
@@ -33461,71 +33470,73 @@
     proxi
   }) => {
     return fromObject({
-      className: "level level--3",
       content: invalidate({
         observe: "level3",
         render: () => {
-          return proxi.level3.map((item, index) => {
-            const name = modules_exports.getUnivoqueId();
-            const name2 = modules_exports.getUnivoqueId();
-            return fromObject({
-              className: "level-wrap level-wrap--3",
-              content: [
-                {
-                  tag: "matrioska-item",
-                  className: "is-3",
-                  attributes: { name },
-                  modules: [
-                    staticProps2(
-                      /** @type {MatrioskaItem['props']} */
-                      {
-                        level: "level 3",
-                        value: item.value,
-                        index,
-                        key: `${item.key}`
-                      }
-                    ),
-                    bindProps(() => {
-                      return {
-                        counter: proxi.counter
-                      };
-                    }),
-                    delegateEvents({
-                      click: () => {
-                        toggleMatrioskaItemActive(name);
-                      }
-                    })
-                  ]
-                },
-                {
-                  tag: "matrioska-item",
-                  className: "is-3",
-                  attributes: { name: name2 },
-                  modules: [
-                    staticProps2(
-                      /** @type {MatrioskaItem['props']} */
-                      {
-                        level: "level 3",
-                        value: item.value,
-                        index,
-                        key: `${item.key}`
-                      }
-                    ),
-                    bindProps(() => {
-                      return {
-                        counter: proxi.counter
-                      };
-                    }),
-                    delegateEvents({
-                      click: () => {
-                        toggleMatrioskaItemActive(name);
-                      }
-                    })
-                  ]
-                }
-              ]
-            });
-          }).join("");
+          return fromObject({
+            className: "level level--3",
+            content: proxi.level3.map((item, index) => {
+              const name = modules_exports.getUnivoqueId();
+              const name2 = modules_exports.getUnivoqueId();
+              return fromObject({
+                className: "level-wrap level-wrap--3",
+                content: [
+                  {
+                    tag: "matrioska-item",
+                    className: "is-3",
+                    attributes: { name },
+                    modules: [
+                      staticProps2(
+                        /** @type {MatrioskaItem['props']} */
+                        {
+                          level: "level 3",
+                          value: item.value,
+                          index,
+                          key: `${item.key}`
+                        }
+                      ),
+                      bindProps(() => {
+                        return {
+                          counter: proxi.counter
+                        };
+                      }),
+                      delegateEvents({
+                        click: () => {
+                          toggleMatrioskaItemActive(name);
+                        }
+                      })
+                    ]
+                  },
+                  {
+                    tag: "matrioska-item",
+                    className: "is-3",
+                    attributes: { name: name2 },
+                    modules: [
+                      staticProps2(
+                        /** @type {MatrioskaItem['props']} */
+                        {
+                          level: "level 3",
+                          value: item.value,
+                          index,
+                          key: `${item.key}`
+                        }
+                      ),
+                      bindProps(() => {
+                        return {
+                          counter: proxi.counter
+                        };
+                      }),
+                      delegateEvents({
+                        click: () => {
+                          toggleMatrioskaItemActive(name);
+                        }
+                      })
+                    ]
+                  }
+                ]
+              });
+            })
+          });
         }
       })
     });
@@ -33540,40 +33551,42 @@
     proxi
   }) => {
     return fromObject({
-      className: "level level--2",
       content: invalidate({
         observe: () => proxi.level2,
         render: () => {
-          return proxi.level2.map((item, index) => {
-            return fromObject({
-              className: "level-wrap level-wrap--2",
-              content: {
-                tag: "matrioska-item",
-                className: "is-2",
-                modules: [
-                  staticProps2(
-                    /** @type {MatrioskaItem['props']} */
-                    {
-                      level: "level 2",
-                      index,
-                      key: `${item.key}`,
-                      value: `${item.value}`
-                    }
-                  ),
-                  bindProps(() => ({
-                    counter: proxi.counter
-                  }))
-                ],
-                content: getThirdLevel2({
-                  staticProps: staticProps2,
-                  delegateEvents,
-                  invalidate,
-                  bindProps,
-                  proxi
-                })
-              }
-            });
-          }).join("");
+          return fromObject({
+            className: "level level--2",
+            content: proxi.level2.map((item, index) => {
+              return fromObject({
+                className: "level-wrap level-wrap--2",
+                content: {
+                  tag: "matrioska-item",
+                  className: "is-2",
+                  modules: [
+                    staticProps2(
+                      /** @type {MatrioskaItem['props']} */
+                      {
+                        level: "level 2",
+                        index,
+                        key: `${item.key}`,
+                        value: `${item.value}`
+                      }
+                    ),
+                    bindProps(() => ({
+                      counter: proxi.counter
+                    }))
+                  ],
+                  content: getThirdLevel2({
+                    staticProps: staticProps2,
+                    delegateEvents,
+                    invalidate,
+                    bindProps,
+                    proxi
+                  })
+                }
+              });
+            })
+          });
         }
       })
     });
@@ -33595,7 +33608,7 @@
         {
           className: "header",
           content: [
-            getButtons2({
+            ...getButtons2({
               delegateEvents,
               updateState,
               invalidate,
@@ -33622,40 +33635,42 @@
           content: "Nested repater like matrioska in same component."
         },
         {
-          className: "level level--1",
           content: invalidate({
             observe: "level1",
             render: () => {
-              return proxi.level1.map((item, index) => {
-                return fromObject({
-                  className: "level-wrap level-wrap--1",
-                  content: {
-                    tag: "matrioska-item",
-                    className: "is-1",
-                    modules: [
-                      staticProps2(
-                        /** @type {Partial<MatrioskaItem['props']>} */
-                        {
-                          level: "level 1",
-                          key: `${item.key}`,
-                          index,
-                          value: `${item.value}`
-                        }
-                      ),
-                      bindProps(() => ({
-                        counter: proxi.counter
-                      }))
-                    ],
-                    content: getSecondLevel2({
-                      staticProps: staticProps2,
-                      bindProps,
-                      delegateEvents,
-                      invalidate,
-                      proxi
-                    })
-                  }
-                });
-              }).join("");
+              return fromObject({
+                className: "level level--1",
+                content: proxi.level1.map((item, index) => {
+                  return fromObject({
+                    className: "level-wrap level-wrap--1",
+                    content: {
+                      tag: "matrioska-item",
+                      className: "is-1",
+                      modules: [
+                        staticProps2(
+                          /** @type {Partial<MatrioskaItem['props']>} */
+                          {
+                            level: "level 1",
+                            key: `${item.key}`,
+                            index,
+                            value: `${item.value}`
+                          }
+                        ),
+                        bindProps(() => ({
+                          counter: proxi.counter
+                        }))
+                      ],
+                      content: getSecondLevel2({
+                        staticProps: staticProps2,
+                        bindProps,
+                        delegateEvents,
+                        invalidate,
+                        proxi
+                      })
+                    }
+                  });
+                })
+              });
             }
           })
         }
@@ -33882,7 +33897,7 @@
           }
         )
       });
-    }).join("");
+    });
   };
   var getNav = ({ numOfCol, proxi, staticProps: staticProps2, delegateEvents }) => {
     return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
@@ -33900,7 +33915,7 @@
           })
         ]
       });
-    }).join("");
+    });
   };
   var HorizontalScrollerFn = ({
     onMount,
@@ -36653,7 +36668,7 @@
           content: label
         }
       });
-    }).join("");
+    });
   }
   var AsyncTimelineFn = ({
     onMount,
@@ -36737,7 +36752,7 @@
                   }
                 })
               },
-              getControls7({ buttons: proxi.buttons })
+              ...getControls7({ buttons: proxi.buttons })
             ]
           },
           {
@@ -38608,7 +38623,7 @@
         }
       ]
     });
-    return [numerators, denominator].join("");
+    return [numerators, denominator];
   };
   var RosaDiGrandiPageFn = ({
     getProxi,
@@ -38651,7 +38666,7 @@
                 }
               })
             },
-            getControls8({
+            ...getControls8({
               proxi,
               getRef,
               setRef,
@@ -42749,7 +42764,7 @@
           className: "bio-item",
           content: item
         });
-      }).join("")
+      })
     });
   };
   var FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
@@ -43057,7 +43072,7 @@
           content: icon[svg]
         })
       });
-    }).join("");
+    });
   }
   var HeaderUtilsFn = ({ delegateEvents }) => {
     return fromObject({
@@ -43070,7 +43085,7 @@
             tag: "search-cta"
           }
         },
-        additems({ delegateEvents })
+        ...additems({ delegateEvents })
       ]
     });
   };
@@ -43136,7 +43151,7 @@
           ]
         }
       });
-    }).join("");
+    });
   };
   var headerMainMenuFn = ({
     delegateEvents,
@@ -43488,7 +43503,7 @@
           )
         }
       });
-    }).join("");
+    });
   }
   var NavigationFn = ({
     staticProps: staticProps2,
@@ -43582,7 +43597,7 @@
           )
         }
       });
-    }).join("");
+    });
   }
   var NavigationSubmenuFn = ({
     onMount,

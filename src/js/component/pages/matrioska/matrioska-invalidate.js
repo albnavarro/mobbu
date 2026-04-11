@@ -25,7 +25,7 @@ export const MatrioskaInvalidateFn = ({
             {
                 className: 'header',
                 content: [
-                    getButtons({
+                    ...getButtons({
                         delegateEvents,
                         updateState,
                         invalidate,
@@ -52,12 +52,12 @@ export const MatrioskaInvalidateFn = ({
                 content: 'Nested repater like matrioska in same component.',
             },
             {
-                className: 'level level--1',
                 content: invalidate({
                     observe: 'level1',
                     render: () => {
-                        return proxi.level1
-                            .map((item, index) => {
+                        return fromObject({
+                            className: 'level level--1',
+                            content: proxi.level1.map((item, index) => {
                                 return fromObject({
                                     className: 'level-wrap level-wrap--1',
                                     content: {
@@ -85,8 +85,8 @@ export const MatrioskaInvalidateFn = ({
                                         }),
                                     },
                                 });
-                            })
-                            .join('');
+                            }),
+                        });
                     },
                 }),
             },

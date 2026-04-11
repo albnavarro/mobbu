@@ -18,42 +18,40 @@ import { closeAllNavAccordion } from '../utils';
  * @param {object} params
  * @param {ProxiState<NavigationSubmenu>} params.proxi
  * @param {StaticProps<NavigationButton>} params.staticProps
- * @returns {string}
+ * @returns {string[]}
  */
 function getSubmenu({ proxi, staticProps }) {
-    return proxi.children
-        .map((child) => {
-            const { label, url, scrollToSection, activeId } = child;
+    return proxi.children.map((child) => {
+        const { label, url, scrollToSection, activeId } = child;
 
-            return fromObject({
-                tag: 'li',
-                content: {
-                    tag: 'mob-navigation-button',
-                    modules: staticProps(
-                        /** @type {NavigationButton['props']} */
-                        ({
-                            label,
-                            url,
-                            subMenuClass: 'is-submenu',
-                            scrollToSection,
-                            activeId: activeId ?? -1,
-                            callback: () => {
-                                /**
-                                 * When navigate inside submenu submenu should not toggle
-                                 *
-                                 * - Callback is fired if current route match with active id.
-                                 * - Callback is used for open submenu on route load.
-                                 */
-                                proxi.callback({
-                                    forceClose: false,
-                                });
-                            },
-                        })
-                    ),
-                },
-            });
-        })
-        .join('');
+        return fromObject({
+            tag: 'li',
+            content: {
+                tag: 'mob-navigation-button',
+                modules: staticProps(
+                    /** @type {NavigationButton['props']} */
+                    ({
+                        label,
+                        url,
+                        subMenuClass: 'is-submenu',
+                        scrollToSection,
+                        activeId: activeId ?? -1,
+                        callback: () => {
+                            /**
+                             * When navigate inside submenu submenu should not toggle
+                             *
+                             * - Callback is fired if current route match with active id.
+                             * - Callback is used for open submenu on route load.
+                             */
+                            proxi.callback({
+                                forceClose: false,
+                            });
+                        },
+                    })
+                ),
+            },
+        });
+    });
 }
 
 /**

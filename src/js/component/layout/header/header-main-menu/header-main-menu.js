@@ -19,30 +19,28 @@ import { MobCore } from '@mobCore';
 const getItems = ({ delegateEvents, staticProps }) => {
     const data = getCommonData();
 
-    return data.footer.nav
-        .map(({ label, url, section }) => {
-            return fromObject({
-                tag: 'li',
-                content: {
-                    tag: 'header-main-menu-button',
-                    modules: [
-                        delegateEvents({
-                            click: () => {
-                                MobJs.loadUrl({ url });
-                                navigationStore.set('navigationIsOpen', false);
-                            },
-                        }),
-                        staticProps(
-                            /** @type {import('./main-menu-button/type').HeaderMainMenuButton['props']} */ ({
-                                label,
-                                section,
-                            })
-                        ),
-                    ],
-                },
-            });
-        })
-        .join('');
+    return data.footer.nav.map(({ label, url, section }) => {
+        return fromObject({
+            tag: 'li',
+            content: {
+                tag: 'header-main-menu-button',
+                modules: [
+                    delegateEvents({
+                        click: () => {
+                            MobJs.loadUrl({ url });
+                            navigationStore.set('navigationIsOpen', false);
+                        },
+                    }),
+                    staticProps(
+                        /** @type {import('./main-menu-button/type').HeaderMainMenuButton['props']} */ ({
+                            label,
+                            section,
+                        })
+                    ),
+                ],
+            },
+        });
+    });
 };
 
 /** @type {MobComponent} */

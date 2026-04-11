@@ -114,7 +114,7 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
         ],
     });
 
-    return [numerators, denominator].join('');
+    return [numerators, denominator];
 };
 
 /** @type {MobComponent<import('./type').RosaDiGrandiPage>} */
@@ -160,7 +160,7 @@ export const RosaDiGrandiPageFn = ({
                             },
                         }),
                     },
-                    getControls({
+                    ...getControls({
                         proxi,
                         getRef,
                         setRef,

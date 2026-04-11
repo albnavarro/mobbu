@@ -60,35 +60,33 @@ const repeaters = [
  * @param {DynamicList['state']} param.proxi
  */
 function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
-    return buttons
-        .map((column, index) => {
-            const { data, buttonLabel } = column;
+    return buttons.map((column, index) => {
+        const { data, buttonLabel } = column;
 
-            return fromObject({
-                tag: 'dynamic-list-button',
-                className: 'dynamic-list-button',
-                modules: [
-                    staticProps(
-                        /** @type {DynamicListButton['props']} */ ({
-                            label: buttonLabel,
-                        })
-                    ),
-                    delegateEvents({
-                        click: async () => {
-                            proxi.data = data;
-                            proxi.activeSample = index;
-                        },
-                    }),
-                    bindProps(
-                        /** @returns {ReturnBindProps<DynamicListButton>} */
-                        () => ({
-                            active: index === proxi.activeSample,
-                        })
-                    ),
-                ],
-            });
-        })
-        .join('');
+        return fromObject({
+            tag: 'dynamic-list-button',
+            className: 'dynamic-list-button',
+            modules: [
+                staticProps(
+                    /** @type {DynamicListButton['props']} */ ({
+                        label: buttonLabel,
+                    })
+                ),
+                delegateEvents({
+                    click: async () => {
+                        proxi.data = data;
+                        proxi.activeSample = index;
+                    },
+                }),
+                bindProps(
+                    /** @returns {ReturnBindProps<DynamicListButton>} */
+                    () => ({
+                        active: index === proxi.activeSample,
+                    })
+                ),
+            ],
+        });
+    });
 }
 
 /**
@@ -98,32 +96,30 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
  * @param {DynamicList['state']} param.proxi
  */
 function getRepeaters({ bindProps, staticProps, proxi }) {
-    return repeaters
-        .map((item, index) => {
-            const { key, clean, label } = item;
+    return repeaters.map((item, index) => {
+        const { key, clean, label } = item;
 
-            return fromObject({
-                tag: 'dynamic-list-repeater',
-                modules: [
-                    staticProps(
-                        /** @type {DynamicListRepeater['props']} */ ({
-                            listId: index,
-                            key,
-                            clean,
-                            label,
-                        })
-                    ),
-                    bindProps(
-                        /** @returns {ReturnBindProps<DynamicListRepeater>} */
-                        () => ({
-                            data: proxi.data,
-                            counter: proxi.counter,
-                        })
-                    ),
-                ],
-            });
-        })
-        .join('');
+        return fromObject({
+            tag: 'dynamic-list-repeater',
+            modules: [
+                staticProps(
+                    /** @type {DynamicListRepeater['props']} */ ({
+                        listId: index,
+                        key,
+                        clean,
+                        label,
+                    })
+                ),
+                bindProps(
+                    /** @returns {ReturnBindProps<DynamicListRepeater>} */
+                    () => ({
+                        data: proxi.data,
+                        counter: proxi.counter,
+                    })
+                ),
+            ],
+        });
+    });
 }
 
 /** @type {MobComponent<DynamicList>} */
@@ -147,7 +143,7 @@ export const DynamicListFn = ({
                     {
                         className: 'header-top',
                         content: [
-                            getButton({
+                            ...getButton({
                                 delegateEvents,
                                 staticProps,
                                 bindProps,

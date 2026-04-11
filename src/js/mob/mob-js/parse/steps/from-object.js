@@ -128,6 +128,13 @@ const getContent = (value) => {
             if (!current) return previous;
 
             /**
+             * Array
+             */
+            if (MobCore.checkType(Array, current)) {
+                return getContent(current);
+            }
+
+            /**
              * TextContent
              */
             if (MobCore.checkType(String, current)) {

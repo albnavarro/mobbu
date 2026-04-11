@@ -13,25 +13,23 @@ import { asyncTimelineanimation } from './animation/animation';
 /**
  * @param {object} params
  * @param {AsyncTimelineControls} params.buttons
- * @returns {string}
+ * @returns {string[]}
  */
 function getControls({ buttons }) {
-    return Object.entries(buttons)
-        .map(([className, value]) => {
-            const { label } = value;
+    return Object.entries(buttons).map(([className, value]) => {
+        const { label } = value;
 
-            return fromObject({
-                tag: 'li',
-                className: 'controls-item',
-                content: {
-                    tag: 'button',
-                    attributes: { type: 'button' },
-                    className: `controls-button ${className}`,
-                    content: label,
-                },
-            });
-        })
-        .join('');
+        return fromObject({
+            tag: 'li',
+            className: 'controls-item',
+            content: {
+                tag: 'button',
+                attributes: { type: 'button' },
+                className: `controls-button ${className}`,
+                content: label,
+            },
+        });
+    });
 }
 
 /** @type {MobComponent<AsyncTimeline>} */
@@ -146,7 +144,7 @@ export const AsyncTimelineFn = ({
                                 },
                             }),
                         },
-                        getControls({ buttons: proxi.buttons }),
+                        ...getControls({ buttons: proxi.buttons }),
                     ],
                 },
                 {

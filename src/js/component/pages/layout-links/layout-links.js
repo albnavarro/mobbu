@@ -128,43 +128,38 @@ export const LayoutLinksFn = ({
                                 content: {
                                     tag: 'ul',
                                     className: 'items',
-                                    content: proxi.items
-                                        .map((item, index) => {
-                                            return fromObject({
-                                                tag: 'li',
-                                                className: 'item',
-                                                content: {
-                                                    tag: 'a',
-                                                    className:
-                                                        getItemClass(index),
-                                                    attributes: {
-                                                        href: item.url,
-                                                    },
-                                                    modules: bindEffect({
-                                                        toggleClass: {
-                                                            active: () =>
-                                                                proxi.isMounted,
-                                                        },
-                                                    }),
-                                                    content: [
-                                                        {
-                                                            tag: 'span',
-                                                            className: `counter index-${index}`,
-                                                            content:
-                                                                getCounter(
-                                                                    index
-                                                                ),
-                                                        },
-                                                        {
-                                                            tag: 'span',
-                                                            className: `index-${index}`,
-                                                            content: item.title,
-                                                        },
-                                                    ],
+                                    content: proxi.items.map((item, index) => {
+                                        return fromObject({
+                                            tag: 'li',
+                                            className: 'item',
+                                            content: {
+                                                tag: 'a',
+                                                className: getItemClass(index),
+                                                attributes: {
+                                                    href: item.url,
                                                 },
-                                            });
-                                        })
-                                        .join(''),
+                                                modules: bindEffect({
+                                                    toggleClass: {
+                                                        active: () =>
+                                                            proxi.isMounted,
+                                                    },
+                                                }),
+                                                content: [
+                                                    {
+                                                        tag: 'span',
+                                                        className: `counter index-${index}`,
+                                                        content:
+                                                            getCounter(index),
+                                                    },
+                                                    {
+                                                        tag: 'span',
+                                                        className: `index-${index}`,
+                                                        content: item.title,
+                                                    },
+                                                ],
+                                            },
+                                        });
+                                    }),
                                 },
                             },
                         ],

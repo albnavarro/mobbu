@@ -27,7 +27,7 @@ const onClick = ({ event }) => {
 /**
  * @param {object} params
  * @param {DelegateEvents} params.delegateEvents
- * @returns {string}
+ * @returns {string[]}
  */
 function additems({ delegateEvents }) {
     /** @type {import('./type').HeaderUtils} */
@@ -39,31 +39,29 @@ function additems({ delegateEvents }) {
         github: getIcons()['gitHubIcon'],
     };
 
-    return links
-        .map((link) => {
-            const { svg, url, internal } = link;
+    return links.map((link) => {
+        const { svg, url, internal } = link;
 
-            return fromObject({
-                tag: 'li',
-                content: internal
-                    ? fromObject({
-                          tag: 'button',
-                          dataAttributes: { url },
-                          modules: delegateEvents({
-                              click: (/** @type {Event} */ event) => {
-                                  onClick({ event });
-                              },
-                          }),
-                          content: icon[svg],
-                      })
-                    : fromObject({
-                          tag: 'a',
-                          attributes: { href: url, target: '_blank' },
-                          content: icon[svg],
+        return fromObject({
+            tag: 'li',
+            content: internal
+                ? fromObject({
+                      tag: 'button',
+                      dataAttributes: { url },
+                      modules: delegateEvents({
+                          click: (/** @type {Event} */ event) => {
+                              onClick({ event });
+                          },
                       }),
-            });
-        })
-        .join('');
+                      content: icon[svg],
+                  })
+                : fromObject({
+                      tag: 'a',
+                      attributes: { href: url, target: '_blank' },
+                      content: icon[svg],
+                  }),
+        });
+    });
 }
 
 /** @type {MobComponent} */
@@ -78,7 +76,7 @@ export const HeaderUtilsFn = ({ delegateEvents }) => {
                     tag: 'search-cta',
                 },
             },
-            additems({ delegateEvents }),
+            ...additems({ delegateEvents }),
         ],
     });
 };

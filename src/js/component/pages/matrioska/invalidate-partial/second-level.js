@@ -29,12 +29,12 @@ export const getSecondLevel = ({
     proxi,
 }) => {
     return fromObject({
-        className: 'level level--2',
         content: invalidate({
             observe: () => proxi.level2,
             render: () => {
-                return proxi.level2
-                    .map((item, index) => {
+                return fromObject({
+                    className: 'level level--2',
+                    content: proxi.level2.map((item, index) => {
                         return fromObject({
                             className: 'level-wrap level-wrap--2',
                             content: {
@@ -62,8 +62,8 @@ export const getSecondLevel = ({
                                 }),
                             },
                         });
-                    })
-                    .join('');
+                    }),
+                });
             },
         }),
     });

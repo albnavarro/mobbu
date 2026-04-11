@@ -49,35 +49,33 @@ const createAnimation = ({ proxi, getRef, resetScroll = true }) => {
  * @param {ProxiState<ScrollerN0>} params.proxi
  * @param {GetRef<ScrollerN0>} params.getRef
  * @param {BindEffect<ScrollerN0>} params.bindEffect
- * @returns {string}
+ * @returns {string[]}
  */
 function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
-    return params
-        .map(({ label }, index) => {
-            return fromObject({
-                tag: 'li',
-                className: 'controls-item',
-                content: {
-                    tag: 'button',
-                    className: 'controls-button',
-                    modules: [
-                        delegateEvents({
-                            click: () => {
-                                proxi.currentParamsId = index;
-                                createAnimation({ proxi, getRef });
-                            },
-                        }),
-                        bindEffect({
-                            toggleClass: {
-                                active: () => proxi.currentParamsId === index,
-                            },
-                        }),
-                    ],
-                    content: label,
-                },
-            });
-        })
-        .join('');
+    return params.map(({ label }, index) => {
+        return fromObject({
+            tag: 'li',
+            className: 'controls-item',
+            content: {
+                tag: 'button',
+                className: 'controls-button',
+                modules: [
+                    delegateEvents({
+                        click: () => {
+                            proxi.currentParamsId = index;
+                            createAnimation({ proxi, getRef });
+                        },
+                    }),
+                    bindEffect({
+                        toggleClass: {
+                            active: () => proxi.currentParamsId === index,
+                        },
+                    }),
+                ],
+                content: label,
+            },
+        });
+    });
 }
 
 /** @type {MobComponent<ScrollerN0>} */
@@ -166,7 +164,7 @@ export const ScrollerN0Fn = ({
                                     },
                                 }),
                             },
-                            getControls({
+                            ...getControls({
                                 delegateEvents,
                                 bindEffect,
                                 proxi,

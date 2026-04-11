@@ -39,36 +39,34 @@ const createAnimation = ({ proxi, getRef }) => {
  * @param {ProxiState<AnimatedPatternN0>} params.proxi
  * @param {GetRef<AnimatedPatternN0>} params.getRef
  * @param {BindEffect<AnimatedPatternN0>} params.bindEffect
- * @returns {string}
+ * @returns {string[]}
  */
 function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
-    return params
-        .map(({ label }, index) => {
-            return fromObject({
-                tag: 'li',
-                className: 'controls-item',
-                content: {
-                    tag: 'button',
-                    attributes: { type: 'button' },
-                    className: 'controls-button',
-                    modules: [
-                        delegateEvents({
-                            click: () => {
-                                proxi.currentParamsId = index;
-                                createAnimation({ proxi, getRef });
-                            },
-                        }),
-                        bindEffect({
-                            toggleClass: {
-                                active: () => proxi.currentParamsId === index,
-                            },
-                        }),
-                    ],
-                    content: label,
-                },
-            });
-        })
-        .join('');
+    return params.map(({ label }, index) => {
+        return fromObject({
+            tag: 'li',
+            className: 'controls-item',
+            content: {
+                tag: 'button',
+                attributes: { type: 'button' },
+                className: 'controls-button',
+                modules: [
+                    delegateEvents({
+                        click: () => {
+                            proxi.currentParamsId = index;
+                            createAnimation({ proxi, getRef });
+                        },
+                    }),
+                    bindEffect({
+                        toggleClass: {
+                            active: () => proxi.currentParamsId === index,
+                        },
+                    }),
+                ],
+                content: label,
+            },
+        });
+    });
 }
 
 /** @type {MobComponent<AnimatedPatternN0>} */
@@ -153,7 +151,7 @@ export const AnimatedPatternN0Fn = ({
                                     },
                                 }),
                             },
-                            getControls({
+                            ...getControls({
                                 delegateEvents,
                                 bindEffect,
                                 proxi,

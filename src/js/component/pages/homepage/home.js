@@ -44,11 +44,9 @@ export const HomeComponentFn = ({ onMount, getProxi }) => {
         className: 'l-index',
         content: {
             className: 'logo',
-            content: svg
-                .map((item) => {
-                    return item;
-                })
-                .join(''),
+            content: svg.map((item) => {
+                return item;
+            }),
         },
     });
 };

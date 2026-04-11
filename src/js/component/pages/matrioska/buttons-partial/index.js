@@ -30,75 +30,72 @@ export const getButtons = ({
     invalidate,
     proxi,
 }) => {
-    return buttons
-        .map((button) => {
-            return fromObject({
-                className: 'header-col',
-                content: [
-                    {
-                        tag: 'dynamic-list-button',
-                        className: 'header-button',
-                        modules: delegateEvents({
-                            click: async () => {
-                                updateState(
-                                    /** @type {'level1' | 'level2' | 'level3'} */ (
-                                        button.state
-                                    ),
-                                    (val) => {
-                                        return val.slice(0, -1);
-                                    }
-                                );
-                            },
-                        }),
-                        content: button.label_minus,
-                    },
-                    {
-                        tag: 'dynamic-list-button',
-                        className: 'header-button',
-                        modules: delegateEvents({
-                            click: async () => {
-                                updateState(
-                                    /** @type {'level1' | 'level2' | 'level3'} */ (
-                                        button.state
-                                    ),
-                                    (val) => {
-                                        return [
-                                            ...val,
-                                            {
-                                                key: getRandomInt(1000),
-                                                value: MobCore.getUnivoqueId(),
-                                            },
-                                        ];
-                                    }
-                                );
-                            },
-                        }),
-                        content: button.label_plus,
-                    },
-                    {
-                        className: 'header-counter',
-                        content: invalidate({
-                            observe:
+    return buttons.map((button) => {
+        return fromObject({
+            className: 'header-col',
+            content: [
+                {
+                    tag: 'dynamic-list-button',
+                    className: 'header-button',
+                    modules: delegateEvents({
+                        click: async () => {
+                            updateState(
                                 /** @type {'level1' | 'level2' | 'level3'} */ (
                                     button.state
                                 ),
-                            render: () => {
-                                const data =
-                                    proxi?.[
-                                        /** @type {'level1' | 'level2' | 'level3'} */ (
-                                            button.state
-                                        )
+                                (val) => {
+                                    return val.slice(0, -1);
+                                }
+                            );
+                        },
+                    }),
+                    content: button.label_minus,
+                },
+                {
+                    tag: 'dynamic-list-button',
+                    className: 'header-button',
+                    modules: delegateEvents({
+                        click: async () => {
+                            updateState(
+                                /** @type {'level1' | 'level2' | 'level3'} */ (
+                                    button.state
+                                ),
+                                (val) => {
+                                    return [
+                                        ...val,
+                                        {
+                                            key: getRandomInt(1000),
+                                            value: MobCore.getUnivoqueId(),
+                                        },
                                     ];
+                                }
+                            );
+                        },
+                    }),
+                    content: button.label_plus,
+                },
+                {
+                    className: 'header-counter',
+                    content: invalidate({
+                        observe: /** @type {'level1' | 'level2' | 'level3'} */ (
+                            button.state
+                        ),
+                        render: () => {
+                            const data =
+                                proxi?.[
+                                    /** @type {'level1' | 'level2' | 'level3'} */ (
+                                        button.state
+                                    )
+                                ];
 
-                                return html`
-                                    Number of items: ${data.length} ( max
-                                    ${button.maxItem} )
-                                `;
-                            },
-                        }),
-                    },
-                ],
-            });
-        })
-        .join('');
+                            return html`
+                                Number of items: ${data.length} ( max
+                                ${button.maxItem} )
+                            `;
+                        },
+                    }),
+                },
+            ],
+        });
+    });
 };

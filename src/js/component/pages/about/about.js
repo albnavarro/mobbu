@@ -176,15 +176,13 @@ const block04 = ({ setRef, getState }) => {
                 content: {
                     tag: 'ul',
                     className: 'section-list',
-                    content: items
-                        .map((item) => {
-                            return fromObject({
-                                tag: 'li',
-                                className: 'section-list-item',
-                                content: `[ ${item} ]`,
-                            });
-                        })
-                        .join(''),
+                    content: items.map((item) => {
+                        return fromObject({
+                            tag: 'li',
+                            className: 'section-list-item',
+                            content: `[ ${item} ]`,
+                        });
+                    }),
                 },
             },
         ],
@@ -201,32 +199,30 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
     return fromObject({
         tag: 'ul',
         className: 'nav',
-        content: proxi.navItem
-            .map(({ index, label }) => {
-                return fromObject({
-                    tag: 'li',
-                    className: 'nav-item',
-                    content: {
-                        tag: 'button',
-                        className: 'nav-button',
-                        modules: [
-                            delegateEvents({
-                                click: () => {
-                                    _goTo(goToPercentage[index]);
-                                    moveSvgFromNav();
-                                },
-                            }),
-                            bindEffect({
-                                toggleClass: {
-                                    active: () => proxi.activenavItem === index,
-                                },
-                            }),
-                        ],
-                        content: label,
-                    },
-                });
-            })
-            .join(''),
+        content: proxi.navItem.map(({ index, label }) => {
+            return fromObject({
+                tag: 'li',
+                className: 'nav-item',
+                content: {
+                    tag: 'button',
+                    className: 'nav-button',
+                    modules: [
+                        delegateEvents({
+                            click: () => {
+                                _goTo(goToPercentage[index]);
+                                moveSvgFromNav();
+                            },
+                        }),
+                        bindEffect({
+                            toggleClass: {
+                                active: () => proxi.activenavItem === index,
+                            },
+                        }),
+                    ],
+                    content: label,
+                },
+            });
+        }),
     });
 };
 

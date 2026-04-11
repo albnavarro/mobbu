@@ -29,7 +29,7 @@ export const MatrioskaRepeatFn = ({
             {
                 className: 'header',
                 content: [
-                    getButtons({
+                    ...getButtons({
                         delegateEvents,
                         updateState,
                         invalidate,

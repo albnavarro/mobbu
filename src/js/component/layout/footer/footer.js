@@ -22,15 +22,13 @@ const getBio = () => {
     return fromObject({
         tag: 'ul',
         className: 'bio-cell',
-        content: bioInfo
-            .map((item) => {
-                return fromObject({
-                    tag: 'li',
-                    className: 'bio-item',
-                    content: item,
-                });
-            })
-            .join(''),
+        content: bioInfo.map((item) => {
+            return fromObject({
+                tag: 'li',
+                className: 'bio-item',
+                content: item,
+            });
+        }),
     });
 };
 
