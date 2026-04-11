@@ -31507,16 +31507,7 @@
   // src/js/component/pages/scroller/n1/scroller-n1.js
   function getControls5({ proxi, delegateEvents, bindObject }) {
     const inputId = modules_exports.getUnivoqueId();
-    return renderHtml` <li class="controls-item">
-        <div class="controls-range">
-            <input
-                type="range"
-                min="360"
-                max="2220"
-                value="${proxi.rotation}"
-                step="10"
-                id=${inputId}
-                ${delegateEvents({
+    const delegate = delegateEvents({
       "change:force": (event) => {
         const currentTarget = (
           /** @type {HTMLInputElement} */
@@ -31533,13 +31524,33 @@
         if (!currentTarget) return;
         proxi.rotationlabel = Number(currentTarget.value);
       }
-    })}
-            />
-        </div>
-        <label for=${inputId} class="controls-range-value">
-            ${bindObject`rotationValue: ${() => proxi.rotationlabel}`}
-        </label>
-    </li>`;
+    });
+    return fromObject({
+      className: "controls-item",
+      content: [
+        {
+          className: "controls-range",
+          content: {
+            tag: "input",
+            attributes: {
+              type: "range",
+              id: inputId,
+              step: 10,
+              value: proxi.rotation,
+              min: 360,
+              max: 2220
+            },
+            modules: delegate
+          }
+        },
+        {
+          tag: "label",
+          className: "controls-range-value",
+          attributes: { for: inputId },
+          content: bindObject`rotationValue: ${() => proxi.rotationlabel}`
+        }
+      ]
+    });
   }
   var ScrollerN1Fn = ({
     onMount,
@@ -31577,56 +31588,70 @@
         destroy3 = null;
       };
     });
-    return renderHtml`
-        <div>
-            <div class="c-canvas is-fixed ">
-                <div class="l-background-shape">${proxi.background}</div>
-                <button
-                    type="button"
-                    class="controls-open"
-                    ${delegateEvents({
-      click: () => {
-        proxi.controlsActive = true;
-      }
-    })}
-                >
-                    show controls
-                </button>
-                <ul
-                    class="controls"
-                    ${bindEffect({
-      toggleClass: {
-        active: () => proxi.controlsActive
-      }
-    })}
-                >
-                    <button
-                        type="button"
-                        class="controls-close"
-                        ${delegateEvents({
-      click: () => {
-        proxi.controlsActive = false;
-      }
-    })}
-                    ></button>
-                    ${getControls5({
-      proxi,
-      delegateEvents,
-      bindObject
-    })}
-                </ul>
-                <div
-                    class="canvas-container"
-                    ${bindEffect({
-      toggleClass: { active: () => proxi.isMounted }
-    })}
-                >
-                    <canvas ${setRef("canvas")}></canvas>
-                </div>
-            </div>
-            <div class="c-canvas-scroller" ${setRef("canvasScroller")}></div>
-        </div>
-    `;
+    return fromObject({
+      content: [
+        {
+          className: "c-canvas is-fixed",
+          content: [
+            {
+              className: "l-background-shape",
+              content: proxi.background
+            },
+            {
+              tag: "button",
+              className: "controls-open",
+              attributes: { type: "button" },
+              modules: delegateEvents({
+                click: () => {
+                  proxi.controlsActive = true;
+                }
+              }),
+              content: "variations"
+            },
+            {
+              tag: "ul",
+              className: "controls",
+              modules: bindEffect({
+                toggleClass: {
+                  active: () => proxi.controlsActive
+                }
+              }),
+              content: [
+                {
+                  tag: "button",
+                  className: "controls-close",
+                  attributes: { type: "button" },
+                  modules: delegateEvents({
+                    click: () => {
+                      proxi.controlsActive = false;
+                    }
+                  })
+                },
+                getControls5({
+                  proxi,
+                  delegateEvents,
+                  bindObject
+                })
+              ]
+            },
+            {
+              className: "canvas-container",
+              modules: bindEffect({
+                toggleClass: { active: () => proxi.isMounted }
+              }),
+              content: {
+                tag: "canvas",
+                modules: setRef("canvas")
+              }
+            }
+          ]
+        },
+        {
+          className: "c-canvas-scroller",
+          modules: setRef("canvasScroller")
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/scroller/n1/definition.js

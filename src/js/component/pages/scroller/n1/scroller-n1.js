@@ -11,7 +11,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import {
     activateScrollDownArrow,
     deactivateScrollDownArrow,
@@ -28,40 +28,55 @@ import { scrollerN1Animation } from './animation/animation';
 function getControls({ proxi, delegateEvents, bindObject }) {
     const inputId = MobCore.getUnivoqueId();
 
-    return html` <li class="controls-item">
-        <div class="controls-range">
-            <input
-                type="range"
-                min="360"
-                max="2220"
-                value="${proxi.rotation}"
-                step="10"
-                id=${inputId}
-                ${delegateEvents({
-                    'change:force': (/** @type {InputEvent} */ event) => {
-                        const currentTarget = /** @type {HTMLInputElement} */ (
-                            event.currentTarget
-                        );
+    /**
+     * Range controls
+     */
+    const delegate = delegateEvents({
+        'change:force': (/** @type {InputEvent} */ event) => {
+            const currentTarget = /** @type {HTMLInputElement} */ (
+                event.currentTarget
+            );
 
-                        if (!currentTarget) return;
-                        proxi.rotation = Number(currentTarget.value);
+            if (!currentTarget) return;
+            proxi.rotation = Number(currentTarget.value);
+        },
+        input: (/** @type {InputEvent} */ event) => {
+            const currentTarget = /** @type {HTMLInputElement} */ (
+                event.currentTarget
+            );
+
+            if (!currentTarget) return;
+
+            proxi.rotationlabel = Number(currentTarget.value);
+        },
+    });
+
+    return fromObject({
+        className: 'controls-item',
+        content: [
+            {
+                className: 'controls-range',
+                content: {
+                    tag: 'input',
+                    attributes: {
+                        type: 'range',
+                        id: inputId,
+                        step: 10,
+                        value: proxi.rotation,
+                        min: 360,
+                        max: 2220,
                     },
-                    input: (/** @type {InputEvent} */ event) => {
-                        const currentTarget = /** @type {HTMLInputElement} */ (
-                            event.currentTarget
-                        );
-
-                        if (!currentTarget) return;
-
-                        proxi.rotationlabel = Number(currentTarget.value);
-                    },
-                })}
-            />
-        </div>
-        <label for=${inputId} class="controls-range-value">
-            ${bindObject`rotationValue: ${() => proxi.rotationlabel}`}
-        </label>
-    </li>`;
+                    modules: delegate,
+                },
+            },
+            {
+                tag: 'label',
+                className: 'controls-range-value',
+                attributes: { for: inputId },
+                content: bindObject`rotationValue: ${() => proxi.rotationlabel}`,
+            },
+        ],
+    });
 }
 
 /** @type {MobComponent<ScrollerN1>} */
@@ -122,57 +137,68 @@ export const ScrollerN1Fn = ({
         };
     });
 
-    /**
-     * Desktop
-     */
-    return html`
-        <div>
-            <div class="c-canvas is-fixed ">
-                <div class="l-background-shape">${proxi.background}</div>
-                <button
-                    type="button"
-                    class="controls-open"
-                    ${delegateEvents({
-                        click: () => {
-                            proxi.controlsActive = true;
-                        },
-                    })}
-                >
-                    show controls
-                </button>
-                <ul
-                    class="controls"
-                    ${bindEffect({
-                        toggleClass: {
-                            active: () => proxi.controlsActive,
-                        },
-                    })}
-                >
-                    <button
-                        type="button"
-                        class="controls-close"
-                        ${delegateEvents({
+    return fromObject({
+        content: [
+            {
+                className: 'c-canvas is-fixed',
+                content: [
+                    {
+                        className: 'l-background-shape',
+                        content: proxi.background,
+                    },
+                    {
+                        tag: 'button',
+                        className: 'controls-open',
+                        attributes: { type: 'button' },
+                        modules: delegateEvents({
                             click: () => {
-                                proxi.controlsActive = false;
+                                proxi.controlsActive = true;
                             },
-                        })}
-                    ></button>
-                    ${getControls({
-                        proxi,
-                        delegateEvents,
-                        bindObject,
-                    })}
-                </ul>
-                <div
-                    class="canvas-container"
-                    ${bindEffect({
-                        toggleClass: { active: () => proxi.isMounted },
-                    })}
-                >
-                    <canvas ${setRef('canvas')}></canvas>
-                </div>
-            </div>
-            <div class="c-canvas-scroller" ${setRef('canvasScroller')}></div>
-        </div>
-    `;
+                        }),
+                        content: 'variations',
+                    },
+                    {
+                        tag: 'ul',
+                        className: 'controls',
+                        modules: bindEffect({
+                            toggleClass: {
+                                active: () => proxi.controlsActive,
+                            },
+                        }),
+                        content: [
+                            {
+                                tag: 'button',
+                                className: 'controls-close',
+                                attributes: { type: 'button' },
+                                modules: delegateEvents({
+                                    click: () => {
+                                        proxi.controlsActive = false;
+                                    },
+                                }),
+                            },
+                            getControls({
+                                proxi,
+                                delegateEvents,
+                                bindObject,
+                            }),
+                        ],
+                    },
+                    {
+                        className: 'canvas-container',
+                        modules: bindEffect({
+                            toggleClass: { active: () => proxi.isMounted },
+                        }),
+                        content: {
+                            tag: 'canvas',
+                            modules: setRef('canvas'),
+                        },
+                    },
+                ],
+            },
+            {
+                className: 'c-canvas-scroller',
+                modules: setRef('canvasScroller'),
+            },
+        ],
+    });
 };
