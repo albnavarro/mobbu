@@ -11,7 +11,7 @@
  * @import {Navigation} from "./type"
  */
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { getCommonData } from '@data/index';
 
 /**
@@ -39,24 +39,25 @@ function getItems({ data, staticProps, bindProps, proxi }) {
             } = item;
 
             if (section) {
-                return html`
-                    <mob-navigation-label
-                        ${staticProps(
-                            /** @type {NavigationLabel['props']} */ ({
-                                label,
-                                sectioName,
-                                hide: !!hide,
-                            })
-                        )}
-                    ></mob-navigation-label>
-                `;
+                return fromObject({
+                    tag: 'mob-navigation-label',
+                    modules: staticProps(
+                        /** @type {NavigationLabel['props']} */ ({
+                            label,
+                            sectioName,
+                            hide: !!hide,
+                        })
+                    ),
+                });
             }
 
             return children
-                ? html`
-                      <mob-navigation-submenu
-                          ${staticProps(
-                              /** @type {NavigationSubmenu['state']} */ {
+                ? fromObject({
+                      tag: 'mob-navigation-submenu',
+                      modules: [
+                          staticProps(
+                              /** @type {NavigationSubmenu['state']} */
+                              {
                                   headerButton: {
                                       label,
                                       url,
@@ -72,32 +73,31 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                                       proxi.currentAccordionId = index;
                                   },
                               }
-                          )}
-                          ${bindProps(
+                          ),
+                          bindProps(
                               /** @returns {ReturnBindProps<NavigationSubmenu>} */
                               () => ({
                                   isOpen: proxi.currentAccordionId === index,
                               })
-                          )}
-                      >
-                      </mob-navigation-submenu>
-                  `
-                : html`
-                      <li>
-                          <mob-navigation-button
-                              ${staticProps(
-                                  /** @type {NavigationButton['props']} */ ({
-                                      label,
-                                      url,
-                                      scrollToSection:
-                                          scrollToSection ?? 'no-scroll',
-                                      activeId: activeId ?? -1,
-                                      forceChildren: forceChildren ?? [],
-                                  })
-                              )}
-                          ></mob-navigation-button>
-                      </li>
-                  `;
+                          ),
+                      ],
+                  })
+                : fromObject({
+                      tag: 'li',
+                      content: {
+                          tag: 'mob-navigation-button',
+                          modules: staticProps(
+                              /** @type {NavigationButton['props']} */ ({
+                                  label,
+                                  url,
+                                  scrollToSection:
+                                      scrollToSection ?? 'no-scroll',
+                                  activeId: activeId ?? -1,
+                                  forceChildren: forceChildren ?? [],
+                              })
+                          ),
+                      },
+                  });
         })
         .join('');
 }
@@ -120,16 +120,17 @@ export const NavigationFn = ({
         setState(() => proxi.currentAccordionId, -1, { emit: fireCallback });
     });
 
-    return html`
-        <nav class="l-navigation">
-            <ul class="list">
-                ${getItems({
-                    data,
-                    staticProps,
-                    bindProps,
-                    proxi,
-                })}
-            </ul>
-        </nav>
-    `;
+    return fromObject({
+        className: 'l-navigation',
+        content: {
+            tag: 'ul',
+            className: 'list',
+            content: getItems({
+                data,
+                staticProps,
+                bindProps,
+                proxi,
+            }),
+        },
+    });
 };

@@ -9,7 +9,7 @@
  * @import {NavigationSubmenu} from "./type"
  */
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
 import { refreshNavigationScroller } from '../../utils';
 import { closeAllNavAccordion } from '../utils';
@@ -25,32 +25,33 @@ function getSubmenu({ proxi, staticProps }) {
         .map((child) => {
             const { label, url, scrollToSection, activeId } = child;
 
-            return html`
-                <li class="submenu-item">
-                    <mob-navigation-button
-                        ${staticProps(
-                            /** @type {NavigationButton['props']} */ ({
-                                label,
-                                url,
-                                subMenuClass: 'is-submenu',
-                                scrollToSection,
-                                activeId: activeId ?? -1,
-                                callback: () => {
-                                    /**
-                                     * When navigate inside submenu submenu should not toggle
-                                     *
-                                     * - Callback is fired if current route match with active id.
-                                     * - Callback is used for open submenu on route load.
-                                     */
-                                    proxi.callback({
-                                        forceClose: false,
-                                    });
-                                },
-                            })
-                        )}
-                    ></mob-navigation-button>
-                </li>
-            `;
+            return fromObject({
+                tag: 'li',
+                content: {
+                    tag: 'mob-navigation-button',
+                    modules: staticProps(
+                        /** @type {NavigationButton['props']} */
+                        ({
+                            label,
+                            url,
+                            subMenuClass: 'is-submenu',
+                            scrollToSection,
+                            activeId: activeId ?? -1,
+                            callback: () => {
+                                /**
+                                 * When navigate inside submenu submenu should not toggle
+                                 *
+                                 * - Callback is fired if current route match with active id.
+                                 * - Callback is used for open submenu on route load.
+                                 */
+                                proxi.callback({
+                                    forceClose: false,
+                                });
+                            },
+                        })
+                    ),
+                },
+            });
         })
         .join('');
 }
@@ -102,34 +103,42 @@ export const NavigationSubmenuFn = ({
         return () => {};
     });
 
-    return html`
-        <li>
-            <mob-navigation-button
-                ${staticProps(
-                    /** @type {NavigationButton['props']} */ ({
-                        label,
-                        url,
-                        arrowClass: 'has-arrow',
-                        fireRoute: false,
-                        activeId: activeId ?? -1,
-                        callback: () => {
-                            /**
-                             * Trigger close current accordion if is open
-                             */
-                            proxi.callback({ forceClose: proxi.isOpen });
-                        },
-                    })
-                )}
-                ${bindProps(
-                    /** @returns {ReturnBindProps<NavigationButton>} */
-                    () => ({
-                        isOpen: proxi.isOpen,
-                    })
-                )}
-            ></mob-navigation-button>
-            <ul class="submenu" ${setRef('content')}>
-                ${getSubmenu({ proxi, staticProps })}
-            </ul>
-        </li>
-    `;
+    return fromObject({
+        tag: 'li',
+        content: [
+            {
+                tag: 'mob-navigation-button',
+                modules: [
+                    staticProps(
+                        /** @type {NavigationButton['props']} */
+                        ({
+                            label,
+                            url,
+                            arrowClass: 'has-arrow',
+                            fireRoute: false,
+                            activeId: activeId ?? -1,
+                            callback: () => {
+                                /**
+                                 * Trigger close current accordion if is open
+                                 */
+                                proxi.callback({ forceClose: proxi.isOpen });
+                            },
+                        })
+                    ),
+                    bindProps(
+                        /** @returns {ReturnBindProps<NavigationButton>} */
+                        () => ({
+                            isOpen: proxi.isOpen,
+                        })
+                    ),
+                ],
+            },
+            {
+                tag: 'ul',
+                className: 'submenu',
+                modules: setRef('content'),
+                content: getSubmenu({ proxi, staticProps }),
+            },
+        ],
+    });
 };

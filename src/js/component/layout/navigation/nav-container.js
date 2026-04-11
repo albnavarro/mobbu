@@ -1,5 +1,5 @@
 import { MobCore } from '@mobCore';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { MobBodyScroll, UnFreezeMobPageScroll } from '@mobMotionPlugin';
 import { initNavigationScoller } from './animation/nav-scroller';
 import { navigationStore } from '@stores/navigation';
@@ -108,36 +108,42 @@ export const NavigationContainerFn = ({
         return () => {};
     });
 
-    return html`
-        <div
-            class="l-navcontainer"
-            ${bindEffect({
-                toggleClass: { active: () => proxi.isOpen },
-            })}
-        >
-            <div class="nav-col js-nav-col">
-                <div class="scroll-element js-nav-scroll">
-                    <mob-navigation
-                        name="${mobNavigationName}"
-                    ></mob-navigation>
-                </div>
-            </div>
-            <div
-                class="side-col js-side-col"
-                ${bindEffect({
+    return fromObject({
+        className: 'l-navcontainer',
+        modules: bindEffect({
+            toggleClass: { active: () => proxi.isOpen },
+        }),
+        content: [
+            {
+                className: 'nav-col js-nav-col',
+                content: {
+                    className: 'scroll-element js-nav-scroll',
+                    content: {
+                        tag: 'mob-navigation',
+                        attributes: { name: mobNavigationName },
+                    },
+                },
+            },
+            {
+                className: 'side-col js-side-col',
+                modules: bindEffect({
                     toggleClass: { 'is-visible': () => proxi.isMounted },
-                })}
-            >
-                <div class="percent js-nav-percent"></div>
-                <button
-                    class="totop"
-                    ${delegateEvents({
-                        click: () => {
-                            toTopBtnHandler();
-                        },
-                    })}
-                ></button>
-            </div>
-        </div>
-    `;
+                }),
+                content: [
+                    {
+                        className: 'percent js-nav-percent',
+                    },
+                    {
+                        tag: 'button',
+                        className: 'totop',
+                        modules: delegateEvents({
+                            click: () => {
+                                toTopBtnHandler();
+                            },
+                        }),
+                    },
+                ],
+            },
+        ],
+    });
 };

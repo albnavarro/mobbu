@@ -4,7 +4,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { navigationStore } from '@stores/navigation';
 
 /** @type {MobComponent<NavigationButton>} */
@@ -66,11 +66,12 @@ export const NavigationButtonFn = ({
         });
     });
 
-    return html`
-        <button
-            type="button"
-            class="link ${arrowClass} ${subMenuClass}"
-            ${delegateEvents({
+    return fromObject({
+        tag: 'button',
+        attributes: { type: 'button' },
+        className: ['link', arrowClass, subMenuClass],
+        modules: [
+            delegateEvents({
                 click: () => {
                     /**
                      * Set current accordion menu open state. On Submenu label click.
@@ -84,15 +85,14 @@ export const NavigationButtonFn = ({
                     MobJs.loadUrl({ url });
                     navigationStore.set('navigationIsOpen', false);
                 },
-            })}
-            ${bindEffect({
+            }),
+            bindEffect({
                 toggleClass: {
                     active: () => proxi.isOpen,
                     current: () => proxi.isCurrent,
                 },
-            })}
-        >
-            ${label}
-        </button>
-    `;
+            }),
+        ],
+        content: label,
+    });
 };

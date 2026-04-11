@@ -43377,38 +43377,44 @@
       return () => {
       };
     });
-    return renderHtml`
-        <div
-            class="l-navcontainer"
-            ${bindEffect({
-      toggleClass: { active: () => proxi.isOpen }
-    })}
-        >
-            <div class="nav-col js-nav-col">
-                <div class="scroll-element js-nav-scroll">
-                    <mob-navigation
-                        name="${mobNavigationName}"
-                    ></mob-navigation>
-                </div>
-            </div>
-            <div
-                class="side-col js-side-col"
-                ${bindEffect({
-      toggleClass: { "is-visible": () => proxi.isMounted }
-    })}
-            >
-                <div class="percent js-nav-percent"></div>
-                <button
-                    class="totop"
-                    ${delegateEvents({
-      click: () => {
-        toTopBtnHandler();
-      }
-    })}
-                ></button>
-            </div>
-        </div>
-    `;
+    return fromObject({
+      className: "l-navcontainer",
+      modules: bindEffect({
+        toggleClass: { active: () => proxi.isOpen }
+      }),
+      content: [
+        {
+          className: "nav-col js-nav-col",
+          content: {
+            className: "scroll-element js-nav-scroll",
+            content: {
+              tag: "mob-navigation",
+              attributes: { name: mobNavigationName }
+            }
+          }
+        },
+        {
+          className: "side-col js-side-col",
+          modules: bindEffect({
+            toggleClass: { "is-visible": () => proxi.isMounted }
+          }),
+          content: [
+            {
+              className: "percent js-nav-percent"
+            },
+            {
+              tag: "button",
+              className: "totop",
+              modules: delegateEvents({
+                click: () => {
+                  toTopBtnHandler();
+                }
+              })
+            }
+          ]
+        }
+      ]
+    });
   };
 
   // src/js/component/layout/navigation/navigation/navigation.js
@@ -43426,63 +43432,62 @@
         hide
       } = item;
       if (section) {
-        return renderHtml`
-                    <mob-navigation-label
-                        ${staticProps2(
-          /** @type {NavigationLabel['props']} */
-          {
-            label,
-            sectioName,
-            hide: !!hide
-          }
-        )}
-                    ></mob-navigation-label>
-                `;
-      }
-      return children ? renderHtml`
-                      <mob-navigation-submenu
-                          ${staticProps2(
-        /** @type {NavigationSubmenu['state']} */
-        {
-          headerButton: {
-            label,
-            url,
-            id: index
-          },
-          children,
-          callback: ({ forceClose = false }) => {
-            if (forceClose) {
-              proxi.currentAccordionId = -1;
-              return;
+        return fromObject({
+          tag: "mob-navigation-label",
+          modules: staticProps2(
+            /** @type {NavigationLabel['props']} */
+            {
+              label,
+              sectioName,
+              hide: !!hide
             }
-            proxi.currentAccordionId = index;
-          }
+          )
+        });
+      }
+      return children ? fromObject({
+        tag: "mob-navigation-submenu",
+        modules: [
+          staticProps2(
+            /** @type {NavigationSubmenu['state']} */
+            {
+              headerButton: {
+                label,
+                url,
+                id: index
+              },
+              children,
+              callback: ({ forceClose = false }) => {
+                if (forceClose) {
+                  proxi.currentAccordionId = -1;
+                  return;
+                }
+                proxi.currentAccordionId = index;
+              }
+            }
+          ),
+          bindProps(
+            /** @returns {ReturnBindProps<NavigationSubmenu>} */
+            () => ({
+              isOpen: proxi.currentAccordionId === index
+            })
+          )
+        ]
+      }) : fromObject({
+        tag: "li",
+        content: {
+          tag: "mob-navigation-button",
+          modules: staticProps2(
+            /** @type {NavigationButton['props']} */
+            {
+              label,
+              url,
+              scrollToSection: scrollToSection ?? "no-scroll",
+              activeId: activeId ?? -1,
+              forceChildren: forceChildren ?? []
+            }
+          )
         }
-      )}
-                          ${bindProps(
-        /** @returns {ReturnBindProps<NavigationSubmenu>} */
-        () => ({
-          isOpen: proxi.currentAccordionId === index
-        })
-      )}
-                      >
-                      </mob-navigation-submenu>
-                  ` : renderHtml`
-                      <li>
-                          <mob-navigation-button
-                              ${staticProps2(
-        /** @type {NavigationButton['props']} */
-        {
-          label,
-          url,
-          scrollToSection: scrollToSection ?? "no-scroll",
-          activeId: activeId ?? -1,
-          forceChildren: forceChildren ?? []
-        }
-      )}
-                          ></mob-navigation-button>
-                      </li>
-                  `;
+      });
     }).join("");
   }
   var NavigationFn = ({
@@ -43497,37 +43502,35 @@
     addMethod("closeAllAccordion", ({ fireCallback = true } = {}) => {
       setState(() => proxi.currentAccordionId, -1, { emit: fireCallback });
     });
-    return renderHtml`
-        <nav class="l-navigation">
-            <ul class="list">
-                ${getItems3({
-      data,
-      staticProps: staticProps2,
-      bindProps,
-      proxi
-    })}
-            </ul>
-        </nav>
-    `;
+    return fromObject({
+      className: "l-navigation",
+      content: {
+        tag: "ul",
+        className: "list",
+        content: getItems3({
+          data,
+          staticProps: staticProps2,
+          bindProps,
+          proxi
+        })
+      }
+    });
   };
 
   // src/js/component/layout/navigation/navigation/navigation-label/navigation-label.js
   var NavigationLabelFn = ({ bindEffect, getProxi }) => {
     const proxi = getProxi();
-    return renderHtml`
-        <div
-            class="label"
-            data-sectionname="${proxi.sectioName}"
-            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.sectioName === proxi.activeNavigationSection,
-        hide: () => !!proxi.hide
-      }
-    })}
-        >
-            ${proxi.label}
-        </div>
-    `;
+    return fromObject({
+      className: "label",
+      dataAttributes: { sectionname: proxi.sectioName },
+      modules: bindEffect({
+        toggleClass: {
+          active: () => proxi.sectioName === proxi.activeNavigationSection,
+          hide: () => !!proxi.hide
+        }
+      }),
+      content: proxi.label
+    });
   };
 
   // src/js/component/layout/navigation/navigation/navigation-label/definition.js
@@ -43558,27 +43561,27 @@
   function getSubmenu({ proxi, staticProps: staticProps2 }) {
     return proxi.children.map((child) => {
       const { label, url, scrollToSection, activeId } = child;
-      return renderHtml`
-                <li class="submenu-item">
-                    <mob-navigation-button
-                        ${staticProps2(
-        /** @type {NavigationButton['props']} */
-        {
-          label,
-          url,
-          subMenuClass: "is-submenu",
-          scrollToSection,
-          activeId: activeId ?? -1,
-          callback: () => {
-            proxi.callback({
-              forceClose: false
-            });
-          }
+      return fromObject({
+        tag: "li",
+        content: {
+          tag: "mob-navigation-button",
+          modules: staticProps2(
+            /** @type {NavigationButton['props']} */
+            {
+              label,
+              url,
+              subMenuClass: "is-submenu",
+              scrollToSection,
+              activeId: activeId ?? -1,
+              callback: () => {
+                proxi.callback({
+                  forceClose: false
+                });
+              }
+            }
+          )
         }
-      )}
-                    ></mob-navigation-button>
-                </li>
-            `;
+      });
     }).join("");
   }
   var NavigationSubmenuFn = ({
@@ -43612,34 +43615,41 @@
       return () => {
       };
     });
-    return renderHtml`
-        <li>
-            <mob-navigation-button
-                ${staticProps2(
-      /** @type {NavigationButton['props']} */
-      {
-        label,
-        url,
-        arrowClass: "has-arrow",
-        fireRoute: false,
-        activeId: activeId ?? -1,
-        callback: () => {
-          proxi.callback({ forceClose: proxi.isOpen });
+    return fromObject({
+      tag: "li",
+      content: [
+        {
+          tag: "mob-navigation-button",
+          modules: [
+            staticProps2(
+              /** @type {NavigationButton['props']} */
+              {
+                label,
+                url,
+                arrowClass: "has-arrow",
+                fireRoute: false,
+                activeId: activeId ?? -1,
+                callback: () => {
+                  proxi.callback({ forceClose: proxi.isOpen });
+                }
+              }
+            ),
+            bindProps(
+              /** @returns {ReturnBindProps<NavigationButton>} */
+              () => ({
+                isOpen: proxi.isOpen
+              })
+            )
+          ]
+        },
+        {
+          tag: "ul",
+          className: "submenu",
+          modules: setRef("content"),
+          content: getSubmenu({ proxi, staticProps: staticProps2 })
         }
-      }
-    )}
-                ${bindProps(
-      /** @returns {ReturnBindProps<NavigationButton>} */
-      () => ({
-        isOpen: proxi.isOpen
-      })
-    )}
-            ></mob-navigation-button>
-            <ul class="submenu" ${setRef("content")}>
-                ${getSubmenu({ proxi, staticProps: staticProps2 })}
-            </ul>
-        </li>
-    `;
+      ]
+    });
   };
 
   // src/js/component/layout/navigation/navigation/navigation-button/navigation-button.js
@@ -43675,28 +43685,28 @@
         }
       });
     });
-    return renderHtml`
-        <button
-            type="button"
-            class="link ${arrowClass} ${subMenuClass}"
-            ${delegateEvents({
-      click: () => {
-        callback2();
-        if (!fireRoute) return;
-        modules_exports2.loadUrl({ url });
-        navigationStore.set("navigationIsOpen", false);
-      }
-    })}
-            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.isOpen,
-        current: () => proxi.isCurrent
-      }
-    })}
-        >
-            ${label}
-        </button>
-    `;
+    return fromObject({
+      tag: "button",
+      attributes: { type: "button" },
+      className: ["link", arrowClass, subMenuClass],
+      modules: [
+        delegateEvents({
+          click: () => {
+            callback2();
+            if (!fireRoute) return;
+            modules_exports2.loadUrl({ url });
+            navigationStore.set("navigationIsOpen", false);
+          }
+        }),
+        bindEffect({
+          toggleClass: {
+            active: () => proxi.isOpen,
+            current: () => proxi.isCurrent
+          }
+        })
+      ],
+      content: label
+    });
   };
 
   // src/js/component/layout/navigation/navigation/navigation-button/definition.js
