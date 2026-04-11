@@ -32673,13 +32673,15 @@
         destroy3();
       };
     });
-    return renderHtml`<div class="l-index">
-        <div class="logo">
-            ${svg.map((item) => {
-      return renderHtml`${item}`;
-    }).join("")}
-        </div>
-    </div>`;
+    return fromObject({
+      className: "l-index",
+      content: {
+        className: "logo",
+        content: svg.map((item) => {
+          return item;
+        }).join("")
+      }
+    });
   };
 
   // src/js/component/pages/homepage/definition.js

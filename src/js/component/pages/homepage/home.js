@@ -6,7 +6,7 @@
  */
 
 import { simpleIntroAnimation } from '@componentLibs/animation/simple-intro';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /**
  * @param {object} params
@@ -40,13 +40,15 @@ export const HomeComponentFn = ({ onMount, getProxi }) => {
         };
     });
 
-    return html`<div class="l-index">
-        <div class="logo">
-            ${svg
+    return fromObject({
+        className: 'l-index',
+        content: {
+            className: 'logo',
+            content: svg
                 .map((item) => {
-                    return html`${item}`;
+                    return item;
                 })
-                .join('')}
-        </div>
-    </div>`;
+                .join(''),
+        },
+    });
 };
