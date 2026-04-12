@@ -3,6 +3,10 @@
 
 # MobJs
 
+## FromObject step 0 - DOC.
+- Specificare che per semplicitá gli esempi usano il rendering HTML, ma `fromObject` sarebbe la scelta migliore.
+- Aggiungere pagina dedicata `structured rendering`. ( left sidebar ).
+
 ## FromObject step 1.
 Con l' introduzione di `component` non ci dovrebbe piu essere bisogno di definirli come `child`.
 - Nel caso di :
