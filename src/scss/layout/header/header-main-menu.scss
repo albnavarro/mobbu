@@ -9,6 +9,7 @@
             transition: opacity 1s 0.55s;
             opacity: 0;
             place-self: center start;
+            font-size: 0;
 
             &.is-visible {
                 opacity: 1;
