@@ -1,12 +1,22 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 export const pageNotFound = () => {
-    return html`
-        <div class="error-page">
-            <div>
-                <h1 class="title title-big">Page not found</h1>
-                <a class="link" href="./#home">back to home</a>
-            </div>
-        </div>
-    `;
+    return fromObject({
+        className: 'error-page',
+        content: {
+            content: [
+                {
+                    tag: 'h1',
+                    className: 'title title-big',
+                    content: 'Page not found',
+                },
+                {
+                    tag: 'a',
+                    className: 'link',
+                    attributes: { href: './#home' },
+                    content: 'back to home',
+                },
+            ],
+        },
+    });
 };

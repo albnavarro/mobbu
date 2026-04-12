@@ -1,7 +1,7 @@
 import { AnyComponent } from '@commonComponent/any-component/definition';
 import { Move3D } from '@commonComponent/move-3d/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_scehema } from './data';
@@ -59,35 +59,44 @@ export const rdp = async () => {
         backRoute: '#svg-overview',
     });
 
-    return html`<div class="l-rdp-01">
-        <div class="l-background-shape">${bg}</div>
-        <mouse-trail></mouse-trail>
-        <move-3d
-            ${MobJs.staticProps(
-                /** @type {import('@commonComponent/move-3d/type').Move3DType['props']} */ ({
-                    shape: rdp_01_scehema({
-                        letter_d,
-                        letter_r,
-                        letter_p,
-                        letter_r_shadow,
-                        letter_d_shadow,
-                        letter_p_shadow,
-                        letter_r_pieces,
-                        letter_d_pieces,
-                        letter_p_pieces,
-                        letter_r_fill,
-                        letter_d_fill,
-                        letter_p_fill,
-                    }),
-                    xDepth: 100,
-                    yDepth: 30,
-                    factor: 20,
-                    xLimit: 10,
-                    yLimit: 20,
-                    drag: true,
-                    perspective: 1000,
-                })
-            )}
-        ></move-3d>
-    </div>`;
+    return fromObject({
+        className: 'l-rdp-01',
+        content: [
+            {
+                className: 'l-background-shape',
+                content: bg,
+            },
+            {
+                component: MouseTrail,
+            },
+            {
+                component: Move3D,
+                modules: MobJs.staticProps(
+                    /** @type {import('@commonComponent/move-3d/type').Move3DType['props']} */ ({
+                        shape: rdp_01_scehema({
+                            letter_d,
+                            letter_r,
+                            letter_p,
+                            letter_r_shadow,
+                            letter_d_shadow,
+                            letter_p_shadow,
+                            letter_r_pieces,
+                            letter_d_pieces,
+                            letter_p_pieces,
+                            letter_r_fill,
+                            letter_d_fill,
+                            letter_p_fill,
+                        }),
+                        xDepth: 100,
+                        yDepth: 30,
+                        factor: 20,
+                        xLimit: 10,
+                        yLimit: 20,
+                        drag: true,
+                        perspective: 1000,
+                    })
+                ),
+            },
+        ],
+    });
 };

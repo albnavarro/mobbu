@@ -1,5 +1,5 @@
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { HorizontalScroller } from '@pagesComponent/horizontal-scroller/definition';
 
 MobJs.useComponent([HorizontalScroller]);
@@ -14,14 +14,15 @@ export const horizontalScroller = async () => {
         backRoute: '',
     });
 
-    return html`<div>
-        <horizontal-scroller
-            ${MobJs.staticProps(
+    return fromObject({
+        content: {
+            component: HorizontalScroller,
+            modules: MobJs.staticProps(
                 /** @type {import('@pagesComponent/horizontal-scroller/type').HorizontalScroller['props']} */
                 ({
                     animatePin: false,
                 })
-            )}
-        ></horizontal-scroller>
-    </div>`;
+            ),
+        },
+    });
 };

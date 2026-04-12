@@ -2,7 +2,7 @@ import { AnyComponent } from '@commonComponent/any-component/definition';
 import { MouseTrail } from '@commonComponent/mouse-trail/definition';
 import { Move3D } from '@commonComponent/move-3d/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_schema } from './data';
@@ -73,42 +73,51 @@ export const lettering01 = async () => {
         backRoute: '#svg-overview',
     });
 
-    return html`<div class="l-mob-01">
-        <div class="l-background-shape">${bg}</div>
-        <mouse-trail></mouse-trail>
-        <move-3d
-            ${MobJs.staticProps(
-                /** @type {import('@commonComponent/move-3d/type').Move3DType['props']} */ ({
-                    shape: rdp_01_schema({
-                        u0,
-                        u1,
-                        o,
-                        o_b,
-                        m1,
-                        m2,
-                        m3,
-                        m4,
-                        b1,
-                        b1_b,
-                        b3,
-                        b4,
-                        b5,
-                        sign,
-                        m1_b,
-                        m3_b,
-                        m4_b,
-                        b1_stone,
-                        m1_stone,
-                    }),
-                    xDepth: 100,
-                    yDepth: 30,
-                    factor: 20,
-                    xLimit: 10,
-                    yLimit: 20,
-                    drag: true,
-                    perspective: 1000,
-                })
-            )}
-        ></move-3d>
-    </div>`;
+    return fromObject({
+        className: 'l-mob-01',
+        content: [
+            {
+                className: 'l-background-shape',
+                content: bg,
+            },
+            {
+                component: MouseTrail,
+            },
+            {
+                component: Move3D,
+                modules: MobJs.staticProps(
+                    /** @type {import('@commonComponent/move-3d/type').Move3DType['props']} */ ({
+                        shape: rdp_01_schema({
+                            u0,
+                            u1,
+                            o,
+                            o_b,
+                            m1,
+                            m2,
+                            m3,
+                            m4,
+                            b1,
+                            b1_b,
+                            b3,
+                            b4,
+                            b5,
+                            sign,
+                            m1_b,
+                            m3_b,
+                            m4_b,
+                            b1_stone,
+                            m1_stone,
+                        }),
+                        xDepth: 100,
+                        yDepth: 30,
+                        factor: 20,
+                        xLimit: 10,
+                        yLimit: 20,
+                        drag: true,
+                        perspective: 1000,
+                    })
+                ),
+            },
+        ],
+    });
 };

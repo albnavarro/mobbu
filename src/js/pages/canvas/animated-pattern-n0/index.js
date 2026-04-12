@@ -1,5 +1,5 @@
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { AnimatedPatternN0 } from '@pagesComponent/animated-pattern/n0/definition';
 import { loadTextContent } from '@utils/utils';
 
@@ -19,14 +19,13 @@ export const animatedPatternN0 = async () => {
         backRoute: '#canvas-overview',
     });
 
-    return html`
-        <animatedpattern-n0
-            ${MobJs.staticProps(
-                /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
-                ({
-                    background: bg,
-                })
-            )}
-        ></animatedpattern-n0>
-    `;
+    return fromObject({
+        component: AnimatedPatternN0,
+        modules: MobJs.staticProps(
+            /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
+            ({
+                background: bg,
+            })
+        ),
+    });
 };

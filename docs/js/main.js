@@ -25128,14 +25128,24 @@
 
   // src/js/pages/404/index.js
   var pageNotFound2 = () => {
-    return renderHtml`
-        <div class="error-page">
-            <div>
-                <h1 class="title title-big">Page not found</h1>
-                <a class="link" href="./#home">back to home</a>
-            </div>
-        </div>
-    `;
+    return fromObject({
+      className: "error-page",
+      content: {
+        content: [
+          {
+            tag: "h1",
+            className: "title title-big",
+            content: "Page not found"
+          },
+          {
+            tag: "a",
+            className: "link",
+            attributes: { href: "./#home" },
+            content: "back to home"
+          }
+        ]
+      }
+    });
   };
 
   // src/js/component/pages/layout-links/animation/links-scroller.js
@@ -25351,17 +25361,16 @@
   var layoutLinksPage = async ({ props }) => {
     const { source } = props;
     const { data } = await loadJsonContent({ source });
-    return renderHtml`
-        <layout-links
-            ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/layout-links/type').LayoutLinks['props']} */
-      {
-        title: data.title,
-        items: data.items
-      }
-    )}
-        ></layout-links>
-    `;
+    return fromObject({
+      component: LayoutLinks,
+      modules: modules_exports2.staticProps(
+        /** @type {import('@pagesComponent/layout-links/type').LayoutLinks['props']} */
+        {
+          title: data.title,
+          items: data.items
+        }
+      )
+    });
   };
 
   // src/js/component/common/doc-container/doc-container.js
@@ -26927,29 +26936,44 @@
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
     updateLeftSidebarList(rightSidebar ?? []);
-    return renderHtml` <doc-container>
-        <div>
-            <html-content
-                slot="docs"
-                ${modules_exports2.staticProps(
-      /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
-      {
-        data: data.data,
-        useMaxWidth: true
-      }
-    )}
-            ></html-content>
-            <doc-title-small slot="section-title-small"
-                ><div>
-                    ${getBreadCrumbs({
-      breadCrumbs
-    })}<span>${title}</span>
-                </div></doc-title-small
-            >
-            <scroll-to name="${scrollToName}" slot="section-links"></scroll-to>
-            <doc-title slot="section-title">${title}</doc-title>
-        </div>
-    </doc-container>`;
+    return fromObject({
+      component: DocContainer,
+      content: [
+        {
+          component: HtmlContent,
+          attributes: { slot: "docs" },
+          modules: modules_exports2.staticProps(
+            /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
+            {
+              data: data.data,
+              useMaxWidth: true
+            }
+          )
+        },
+        {
+          component: DocsTitleSmall,
+          attributes: { slot: "section-title-small" },
+          content: [
+            getBreadCrumbs({
+              breadCrumbs
+            }),
+            {
+              tag: "span",
+              content: title
+            }
+          ]
+        },
+        {
+          component: ScrollTo,
+          attributes: { name: scrollToName, slot: "section-links" }
+        },
+        {
+          component: DocTitle,
+          attributes: { slot: "section-title" },
+          content: title
+        }
+      ]
+    });
   };
 
   // src/js/pages/layout/layout-sidebar-links.js
@@ -26958,28 +26982,40 @@
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
     updateLeftSidebarList(rightSidebar ?? []);
-    return renderHtml`<doc-container>
-        <div>
-            <html-content
-                slot="docs"
-                ${modules_exports2.staticProps(
-      /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
-      {
-        data: data.data,
-        useMaxWidth: true
-      }
-    )}
-            ></html-content>
-            <doc-title-small slot="section-title-small"
-                ><div>
-                    ${getBreadCrumbs({
-      breadCrumbs
-    })}<span>${title}</span>
-                </div></doc-title-small
-            >
-            <doc-title slot="section-title">${title}</doc-title>
-        </div>
-    </doc-container>`;
+    return fromObject({
+      component: DocContainer,
+      content: [
+        {
+          component: HtmlContent,
+          attributes: { slot: "docs" },
+          modules: modules_exports2.staticProps(
+            /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
+            {
+              data: data.data,
+              useMaxWidth: true
+            }
+          )
+        },
+        {
+          component: DocsTitleSmall,
+          attributes: { slot: "section-title-small" },
+          content: [
+            getBreadCrumbs({
+              breadCrumbs
+            }),
+            {
+              tag: "span",
+              content: title
+            }
+          ]
+        },
+        {
+          component: DocTitle,
+          attributes: { slot: "section-title" },
+          content: title
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/about/animation/path-animation.js
@@ -27895,18 +27931,19 @@
     const { data: aboutSvg } = await loadTextContent({
       source: "./asset/svg/about.svg?v=0.1"
     });
-    return renderHtml`<about-component
-        ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/about/type').About['props']} */
-      {
-        block_1: data.block_1,
-        block_2: data.block_2,
-        block_3: data.block_3,
-        block_4: data.block_4,
-        aboutSvg
-      }
-    )}
-    ></about-component> `;
+    return fromObject({
+      component: AboutComponent,
+      modules: modules_exports2.staticProps(
+        /** @type {import('@pagesComponent/about/type').About['props']} */
+        {
+          block_1: data.block_1,
+          block_2: data.block_2,
+          block_3: data.block_3,
+          block_4: data.block_4,
+          aboutSvg
+        }
+      )
+    });
   };
 
   // src/js/component/pages/benchmark/fake-component/benchmark-fake-component.js
@@ -29145,7 +29182,9 @@
   ]);
   var benchMark = async ({ props }) => {
     const { rootComponent } = props;
-    return renderHtml`<${rootComponent}></${rootComponent}>`;
+    return fromObject({
+      tag: rootComponent
+    });
   };
 
   // src/js/component/common/quick-nav/utils.js
@@ -29713,16 +29752,15 @@
       nextRoute: "#animatedPatternN1",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`
-        <animatedpattern-n0
-            ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
-      {
-        background: bg
-      }
-    )}
-        ></animatedpattern-n0>
-    `;
+    return fromObject({
+      component: AnimatedPatternN0,
+      modules: modules_exports2.staticProps(
+        /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
+        {
+          background: bg
+        }
+      )
+    });
   };
 
   // src/js/component/pages/animated-pattern/n1/animation/animation.js
@@ -30074,11 +30112,10 @@
       nextRoute: "#scrollerN0",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`
-        <animatedpattern-n1
-            ${modules_exports2.staticProps({ background: bg })}
-        ></animatedpattern-n1>
-    `;
+    return fromObject({
+      component: AnimatedPatternN1,
+      modules: modules_exports2.staticProps({ background: bg })
+    });
   };
 
   // src/js/component/pages/canvas/n1/animation/animation.js
@@ -30502,10 +30539,10 @@
       nextRoute: "#scrollerN1",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`
-        <caterpillar-n1 ${modules_exports2.staticProps({ background: bg })}>
-        </caterpillar-n1>
-    `;
+    return fromObject({
+      component: CaterpillarN1,
+      modules: modules_exports2.staticProps({ background: bg })
+    });
   };
 
   // src/js/component/pages/canvas/n2/animation/animation.js
@@ -30963,11 +31000,10 @@
       nextRoute: "#async-timeline",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`
-        <caterpillar-n2
-            ${modules_exports2.staticProps({ background: bg })}
-        ></caterpillar-n2>
-    `;
+    return fromObject({
+      component: CaterpillarN2,
+      modules: modules_exports2.staticProps({ background: bg })
+    });
   };
 
   // src/js/component/common/scroll-down-label/utils.js
@@ -31412,16 +31448,17 @@
       nextRoute: "",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`<div>
-        <scroller-n0
-            ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
-      {
-        background: bg
+    return fromObject({
+      content: {
+        component: ScrollerN0,
+        modules: modules_exports2.staticProps(
+          /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
+          {
+            background: bg
+          }
+        )
       }
-    )}
-        ></scroller-n0>
-    </div>`;
+    });
   };
 
   // src/js/component/pages/scroller/n1/animation/animation.js
@@ -31814,9 +31851,10 @@
       nextRoute: "#caterpillarN2",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`
-        <scroller-n1 ${modules_exports2.staticProps({ background: bg })}></scroller-n1>
-    `;
+    return fromObject({
+      component: ScrollerN1,
+      modules: modules_exports2.staticProps({ background: bg })
+    });
   };
 
   // src/js/component/pages/dynamic-list/button/dynamic-list-button.js
@@ -32839,7 +32877,9 @@
   // src/js/pages/dynamic-list/index.js
   modules_exports2.useComponent([DynamicList]);
   var dynamic_list = () => {
-    return renderHtml` <dynamic-list> </dynamic-list> `;
+    return fromObject({
+      component: DynamicList
+    });
   };
 
   // src/js/component/lib/animation/simple-intro.js
@@ -33018,31 +33058,35 @@
         id
       });
     });
-    return renderHtml`
-        <div>
-            <div class="l-background-shape">${bg}</div>
-            <home-component
-                ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/homepage/type').HomeComponent['props']} */
-      {
-        svg: [
-          due,
-          tre,
-          quattro,
-          cinque,
-          sei,
-          sette,
-          otto,
-          nove,
-          dieci,
-          undici,
-          dodici
-        ]
-      }
-    )}
-            ></home-component>
-        </div>
-    `;
+    return fromObject({
+      content: [
+        {
+          className: "l-background-shape",
+          content: bg
+        },
+        {
+          component: HomeComponent,
+          modules: modules_exports2.staticProps(
+            /** @type {import('@pagesComponent/homepage/type').HomeComponent['props']} */
+            {
+              svg: [
+                due,
+                tre,
+                quattro,
+                cinque,
+                sei,
+                sette,
+                otto,
+                nove,
+                dieci,
+                undici,
+                dodici
+              ]
+            }
+          )
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/matrioska/buttons-partial/utils.js
@@ -33756,10 +33800,14 @@
   // src/js/pages/matrioska/index.js
   modules_exports2.useComponent([MatrioskaRepeat, MatrioskaInvalidate]);
   var matrioska_repeat_page = () => {
-    return renderHtml` <page-matrioska-repeat> </page-matrioska-repeat> `;
+    return fromObject({
+      component: MatrioskaRepeat
+    });
   };
   var matrioska_invalidate_page = () => {
-    return renderHtml` <page-matrioska-invalidate> </page-matrioska-invalidate> `;
+    return fromObject({
+      component: MatrioskaInvalidate
+    });
   };
 
   // src/js/component/pages/horizontal-scroller/animation/animation.js
@@ -34151,16 +34199,17 @@
       nextRoute: "",
       backRoute: ""
     });
-    return renderHtml`<div>
-        <horizontal-scroller
-            ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/horizontal-scroller/type').HorizontalScroller['props']} */
-      {
-        animatePin: false
+    return fromObject({
+      content: {
+        component: HorizontalScroller,
+        modules: modules_exports2.staticProps(
+          /** @type {import('@pagesComponent/horizontal-scroller/type').HorizontalScroller['props']} */
+          {
+            animatePin: false
+          }
+        )
       }
-    )}
-        ></horizontal-scroller>
-    </div>`;
+    });
   };
 
   // src/js/component/common/svg-shape/star/star-svg.js
@@ -35197,15 +35246,21 @@
       nextRoute,
       backRoute: "#plugin-overview"
     });
-    return renderHtml` <div>
-        <div class="l-background-shape">${bg}</div>
-        <move-3d-page
-            ${modules_exports2.staticProps(
-      /** @type {import('@pagesComponent/move-3d/type').Move3DPage['props']} */
-      { data, drag }
-    )}
-        ></move-3d-page>
-    </div>`;
+    return fromObject({
+      content: [
+        {
+          className: "l-background-shape",
+          content: bg
+        },
+        {
+          component: Move3DPage,
+          modules: modules_exports2.staticProps(
+            /** @type {import('@pagesComponent/move-3d/type').Move3DPage['props']} */
+            { data, drag }
+          )
+        }
+      ]
+    });
   };
 
   // src/js/component/common/move-3d/shape/shape1.js
@@ -36167,45 +36222,54 @@
       nextRoute: "#mob-02",
       backRoute: "#svg-overview"
     });
-    return renderHtml`<div class="l-mob-01">
-        <div class="l-background-shape">${bg}</div>
-        <mouse-trail></mouse-trail>
-        <move-3d
-            ${modules_exports2.staticProps(
-      /** @type {import('@commonComponent/move-3d/type').Move3DType['props']} */
-      {
-        shape: rdp_01_schema({
-          u0,
-          u1,
-          o,
-          o_b,
-          m1,
-          m2,
-          m3,
-          m4,
-          b1,
-          b1_b,
-          b3,
-          b4,
-          b5,
-          sign,
-          m1_b,
-          m3_b,
-          m4_b,
-          b1_stone,
-          m1_stone
-        }),
-        xDepth: 100,
-        yDepth: 30,
-        factor: 20,
-        xLimit: 10,
-        yLimit: 20,
-        drag: true,
-        perspective: 1e3
-      }
-    )}
-        ></move-3d>
-    </div>`;
+    return fromObject({
+      className: "l-mob-01",
+      content: [
+        {
+          className: "l-background-shape",
+          content: bg
+        },
+        {
+          component: MouseTrail
+        },
+        {
+          component: Move3D,
+          modules: modules_exports2.staticProps(
+            /** @type {import('@commonComponent/move-3d/type').Move3DType['props']} */
+            {
+              shape: rdp_01_schema({
+                u0,
+                u1,
+                o,
+                o_b,
+                m1,
+                m2,
+                m3,
+                m4,
+                b1,
+                b1_b,
+                b3,
+                b4,
+                b5,
+                sign,
+                m1_b,
+                m3_b,
+                m4_b,
+                b1_stone,
+                m1_stone
+              }),
+              xDepth: 100,
+              yDepth: 30,
+              factor: 20,
+              xLimit: 10,
+              yLimit: 20,
+              drag: true,
+              perspective: 1e3
+            }
+          )
+        }
+      ]
+    });
   };
 
   // src/js/component/common/only-desktop-cta/only-desktop-cta.js
@@ -36285,30 +36349,50 @@
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
     });
-    return renderHtml`
-        <div class="l-only-desktop">
-            <div class="content">
-                <div class="l-background-shape">${bg}</div>
-                <h1>MobProject v0.1</h1>
-                <h2>ops...<br /></h2>
-                <p>
-                    This site is designed<br />
-                    for a desktop experience,<br />
-                    the minimum resolution is
-                    <strong>992px</strong>.<br /><br />
-                    <strong>
-                        Please resize your browser<br />
-                        or use a different device.
-                    </strong>
-                </p>
-                <h3>My apologies ...</h3>
-                <div>
-                    <only-desktop-cta></only-desktop-cta>
-                </div>
-                <div class="svg">${letteringMob}</div>
-            </div>
-        </div>
-    `;
+    return fromObject({
+      className: "l-only-desktop",
+      content: {
+        className: "content",
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            tag: "h1",
+            content: "MobProject v0.1"
+          },
+          {
+            tag: "h2",
+            content: "ops...<br />"
+          },
+          {
+            tag: "p",
+            content: renderHtml`This site is designed<br />
+                        for a desktop experience,<br />
+                        the minimum resolution is
+                        <strong>992px</strong>.<br /><br />
+                        <strong>
+                            Please resize your browser<br />
+                            or use a different device.
+                        </strong> `
+          },
+          {
+            tag: "h3",
+            content: "My apologies ..."
+          },
+          {
+            content: {
+              component: OnlyDesktopCta
+            }
+          },
+          {
+            className: "svg",
+            content: letteringMob
+          }
+        ]
+      }
+    });
   };
 
   // src/js/component/pages/async-timeline/animation/animation.js
@@ -36858,11 +36942,10 @@
       nextRoute: "#animatedPatternN0?version=0&activeId=0",
       backRoute: "#canvas-overview"
     });
-    return renderHtml`
-        <async-timeline
-            ${modules_exports2.staticProps({ background: bg })}
-        ></async-timeline>
-    `;
+    return fromObject({
+      component: AsyncTimeline,
+      modules: modules_exports2.staticProps({ background: bg })
+    });
   };
 
   // src/js/pages/svg/rdp/data.js
@@ -37163,38 +37246,47 @@
       nextRoute: "#mob-01",
       backRoute: "#svg-overview"
     });
-    return renderHtml`<div class="l-rdp-01">
-        <div class="l-background-shape">${bg}</div>
-        <mouse-trail></mouse-trail>
-        <move-3d
-            ${modules_exports2.staticProps(
-      /** @type {import('@commonComponent/move-3d/type').Move3DType['props']} */
-      {
-        shape: rdp_01_scehema({
-          letter_d,
-          letter_r,
-          letter_p,
-          letter_r_shadow,
-          letter_d_shadow,
-          letter_p_shadow,
-          letter_r_pieces,
-          letter_d_pieces,
-          letter_p_pieces,
-          letter_r_fill,
-          letter_d_fill,
-          letter_p_fill
-        }),
-        xDepth: 100,
-        yDepth: 30,
-        factor: 20,
-        xLimit: 10,
-        yLimit: 20,
-        drag: true,
-        perspective: 1e3
-      }
-    )}
-        ></move-3d>
-    </div>`;
+    return fromObject({
+      className: "l-rdp-01",
+      content: [
+        {
+          className: "l-background-shape",
+          content: bg
+        },
+        {
+          component: MouseTrail
+        },
+        {
+          component: Move3D,
+          modules: modules_exports2.staticProps(
+            /** @type {import('@commonComponent/move-3d/type').Move3DType['props']} */
+            {
+              shape: rdp_01_scehema({
+                letter_d,
+                letter_r,
+                letter_p,
+                letter_r_shadow,
+                letter_d_shadow,
+                letter_p_shadow,
+                letter_r_pieces,
+                letter_d_pieces,
+                letter_p_pieces,
+                letter_r_fill,
+                letter_d_fill,
+                letter_p_fill
+              }),
+              xDepth: 100,
+              yDepth: 30,
+              factor: 20,
+              xLimit: 10,
+              yLimit: 20,
+              drag: true,
+              perspective: 1e3
+            }
+          )
+        }
+      ]
+    });
   };
 
   // src/js/component/pages/svg/mobbu2025/animation/index.js
@@ -37271,7 +37363,7 @@
   };
 
   // src/js/component/pages/svg/mobbu2025/definition.js
-  var mobbbu2025 = modules_exports2.createComponent(
+  var Mobbu2025 = modules_exports2.createComponent(
     /** @type {CreateComponentParams<import('./type').Mobbu2025>} */
     {
       tag: "mobbu-2025",
@@ -37290,7 +37382,7 @@
   );
 
   // src/js/pages/svg/mob-02/index.js
-  modules_exports2.useComponent([mobbbu2025]);
+  modules_exports2.useComponent([Mobbu2025]);
   var mob_02 = async () => {
     const { data: letteringMob } = await loadTextContent({
       source: "./asset/svg/lettering-mob-2025-pure-optimized.svg?v=0.3"
@@ -37310,19 +37402,30 @@
       nextRoute: "",
       backRoute: "#svg-overview"
     });
-    return renderHtml`<div class="l-mob-02">
-        <div class="l-background-shape">${bg}</div>
-        <h3 class="title">Scroll or Drag</h3>
-        <mobbu-2025
-            ${staticProps(
-      /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['props']} */
-      {
-        layer02,
-        layer03
-      }
-    )}
-        ></mobbu-2025>
-    </div>`;
+    return fromObject({
+      className: "l-mob-02",
+      content: [
+        {
+          className: "l-background-shape",
+          content: bg
+        },
+        {
+          tag: "h3",
+          className: "title",
+          content: "Scroll or Drag"
+        },
+        {
+          component: Mobbu2025,
+          modules: staticProps(
+            /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['props']} */
+            {
+              layer02,
+              layer03
+            }
+          )
+        }
+      ]
+    });
   };
 
   // src/js/component/common/dragger/constant.js
@@ -37770,42 +37873,55 @@
         <div class="child is-10"></div>
         <div class="child is-svg">${svg}</div>
     </div>`;
-    return renderHtml`<div class="l-dragger">
-        <div class="l-background-shape">${bg}</div>
-        <c-dragger
-            ${modules_exports2.staticProps(
-      /** @type {import('@commonComponent/dragger/type').Dragger['props']} */
-      {
-        rootClass: "dragger-component",
-        containerClass: ".l-dragger",
-        childrenClass: ".child",
-        align: "CENTER",
-        maxHightDepth: 140,
-        maxLowDepth: -200,
-        perspective: 300,
-        hideThreshold: 10,
-        afterInit: ({ root: root2 }) => {
-          if (useLog) console.log(root2);
+    return fromObject({
+      className: "l-dragger",
+      content: [
+        {
+          className: "l-background-shape",
+          content: bg
         },
-        onDepthChange: ({ depth }) => {
-          if (useLog) console.log(depth);
+        {
+          component: Dragger,
+          modules: modules_exports2.staticProps(
+            /** @type {import('@commonComponent/dragger/type').Dragger['props']} */
+            {
+              rootClass: "dragger-component",
+              containerClass: ".l-dragger",
+              childrenClass: ".child",
+              align: "CENTER",
+              maxHightDepth: 140,
+              maxLowDepth: -200,
+              perspective: 300,
+              hideThreshold: 10,
+              afterInit: ({ root: root2 }) => {
+                if (useLog) console.log(root2);
+              },
+              onDepthChange: ({ depth }) => {
+                if (useLog) console.log(depth);
+              }
+            }
+          ),
+          content: [
+            /**
+             * Root border
+             */
+            {
+              component: AnyComponent,
+              attributes: { slot: "root-slot" },
+              modules: modules_exports2.staticProps({ content: rootContent })
+            },
+            /**
+             * Child
+             */
+            {
+              component: AnyComponent,
+              attributes: { slot: "child-slot" },
+              modules: modules_exports2.staticProps({ content: childContent })
+            }
+          ]
         }
-      }
-    )}
-        >
-            <!-- Root border -->
-            <any-component
-                slot="root-slot"
-                ${modules_exports2.staticProps({ content: rootContent })}
-            ></any-component>
-
-            <!-- Child -->
-            <any-component
-                slot="child-slot"
-                ${modules_exports2.staticProps({ content: childContent })}
-            ></any-component>
-        </c-dragger>
-    </div>`;
+      ]
+    });
   };
 
   // src/js/component/common/math-animation/animations/archimede-animation.js
@@ -38538,15 +38654,15 @@
       nextRoute: "#rosa-di-grandi",
       backRoute: "#plugin-overview"
     });
-    return renderHtml`<div class="l-math">
-        ${names.map((name) => {
-      return renderHtml`
-                    <math-animation
-                        ${modules_exports2.staticProps({ name })}
-                    ></math-animation>
-                `;
-    }).join("")}
-    </div>`;
+    return fromObject({
+      className: "l-math",
+      content: names.map((name) => {
+        return fromObject({
+          component: MathAnimation,
+          modules: modules_exports2.staticProps({ name })
+        });
+      })
+    });
   };
 
   // src/js/component/pages/rosa-di-grandi/rosa-di-grandi-page.js
@@ -38760,7 +38876,9 @@
       nextRoute: "",
       backRoute: "#plugin-overview"
     });
-    return renderHtml`<rosa-di-grandi-page></rosa-di-grandi-page>`;
+    return fromObject({
+      component: RosaDiGrandiPage
+    });
   };
 
   // src/js/pages/index.js
@@ -44274,28 +44392,62 @@
   ]);
   var wrapper = async () => {
     const useScssTestGrid = false;
-    return renderHtml`
-        ${useScssTestGrid ? "<test-scss-grid></test-scss-grid>" : ""}
-        <debug-overlay name="${debugOverlayName}"></debug-overlay>
-        <mob-header name="${headerName}"></mob-header>
-        <mob-navigation-container
-            name="${mobNavigationContainerName}"
-        ></mob-navigation-container>
-        <main class="main">
-            <div class="container">
-                <div class="inner-wrap">
-                    <div id="content"></div>
-                </div>
-            </div>
-        </main>
-        <mob-footer> </mob-footer>
-        <quick-nav name="${quickNavName}"></quick-nav>
-        <route-loader name="${routeLoader}"></route-loader>
-        <scroll-down-label name="${scrollDownLabelName}"></scroll-down-label>
-        <side-bar-links></side-bar-links>
-        <left-sidebar name="${leftSidebarName}"></left-sidebar>
-        <search-overlay name="${searchOverlay}"></search-overlay>
-    `;
+    return fromObject({
+      content: [
+        useScssTestGrid ? "<test-scss-grid></test-scss-grid>" : "",
+        {
+          component: DebugOverlay,
+          attributes: { name: debugOverlayName }
+        },
+        {
+          component: Header,
+          attributes: { name: headerName }
+        },
+        {
+          component: NavigationContainer,
+          attributes: { name: mobNavigationContainerName }
+        },
+        {
+          tag: "main",
+          className: "main",
+          content: {
+            className: "container",
+            content: {
+              className: "inner-wrap",
+              content: {
+                attributes: { id: "content" }
+              }
+            }
+          }
+        },
+        {
+          component: Footer
+        },
+        {
+          component: QuickNav,
+          attributes: { name: quickNavName }
+        },
+        {
+          component: RouteLoader,
+          attributes: { name: routeLoader }
+        },
+        {
+          component: ScrollDownLabel,
+          attributes: { name: scrollDownLabelName }
+        },
+        {
+          component: SideBarLinks
+        },
+        {
+          component: LeftSidebar,
+          attributes: { name: leftSidebarName }
+        },
+        {
+          component: SearchOverlay,
+          attributes: { name: searchOverlay }
+        }
+      ]
+    });
   };
 
   // src/js/main-loader/index.js

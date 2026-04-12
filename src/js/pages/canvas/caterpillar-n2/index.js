@@ -1,5 +1,5 @@
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { CaterpillarN2 } from '@pagesComponent/canvas/n2/definition';
 import { loadTextContent } from '@utils/utils';
 
@@ -18,9 +18,8 @@ export const caterpillarN2 = async () => {
         backRoute: '#canvas-overview',
     });
 
-    return html`
-        <caterpillar-n2
-            ${MobJs.staticProps({ background: bg })}
-        ></caterpillar-n2>
-    `;
+    return fromObject({
+        component: CaterpillarN2,
+        modules: MobJs.staticProps({ background: bg }),
+    });
 };

@@ -1,4 +1,4 @@
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { HomeComponent } from '@pagesComponent/homepage/definition';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
@@ -45,11 +45,15 @@ export const home = async () => {
         });
     });
 
-    return html`
-        <div>
-            <div class="l-background-shape">${bg}</div>
-            <home-component
-                ${MobJs.staticProps(
+    return fromObject({
+        content: [
+            {
+                className: 'l-background-shape',
+                content: bg,
+            },
+            {
+                component: HomeComponent,
+                modules: MobJs.staticProps(
                     /** @type {import('@pagesComponent/homepage/type').HomeComponent['props']} */
                     ({
                         svg: [
@@ -66,8 +70,8 @@ export const home = async () => {
                             dodici,
                         ],
                     })
-                )}
-            ></home-component>
-        </div>
-    `;
+                ),
+            },
+        ],
+    });
 };

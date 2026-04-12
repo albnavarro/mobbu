@@ -1,5 +1,5 @@
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { ScrollerN0 } from '@pagesComponent/scroller/n0/definition';
 import { loadTextContent } from '@utils/utils';
 
@@ -19,14 +19,15 @@ export const scrollerN0 = async () => {
         backRoute: '#canvas-overview',
     });
 
-    return html`<div>
-        <scroller-n0
-            ${MobJs.staticProps(
+    return fromObject({
+        content: {
+            component: ScrollerN0,
+            modules: MobJs.staticProps(
                 /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
                 ({
                     background: bg,
                 })
-            )}
-        ></scroller-n0>
-    </div>`;
+            ),
+        },
+    });
 };

@@ -1,6 +1,6 @@
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { StarSvg } from '@commonComponent/svg-shape/star/definition';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { Move3DPage } from '@pagesComponent/move-3d/definition';
 import { loadTextContent } from '@utils/utils';
 
@@ -22,13 +22,19 @@ export const move3DRoute = async ({ props }) => {
         backRoute: '#plugin-overview',
     });
 
-    return html` <div>
-        <div class="l-background-shape">${bg}</div>
-        <move-3d-page
-            ${MobJs.staticProps(
-                /** @type {import('@pagesComponent/move-3d/type').Move3DPage['props']} */
-                ({ data, drag })
-            )}
-        ></move-3d-page>
-    </div>`;
+    return fromObject({
+        content: [
+            {
+                className: 'l-background-shape',
+                content: bg,
+            },
+            {
+                component: Move3DPage,
+                modules: MobJs.staticProps(
+                    /** @type {import('@pagesComponent/move-3d/type').Move3DPage['props']} */
+                    ({ data, drag })
+                ),
+            },
+        ],
+    });
 };

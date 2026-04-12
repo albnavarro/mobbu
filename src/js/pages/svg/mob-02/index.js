@@ -1,11 +1,11 @@
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
-import { mobbbu2025 } from '@pagesComponent/svg/mobbu2025/definition';
+import { Mobbu2025 } from '@pagesComponent/svg/mobbu2025/definition';
 import { staticProps } from 'src/js/mob/mob-js/utils';
 
-MobJs.useComponent([mobbbu2025]);
+MobJs.useComponent([Mobbu2025]);
 
 export const mob_02 = async () => {
     const { data: letteringMob } = await loadTextContent({
@@ -31,17 +31,28 @@ export const mob_02 = async () => {
         backRoute: '#svg-overview',
     });
 
-    return html`<div class="l-mob-02">
-        <div class="l-background-shape">${bg}</div>
-        <h3 class="title">Scroll or Drag</h3>
-        <mobbu-2025
-            ${staticProps(
-                /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['props']} */
-                ({
-                    layer02,
-                    layer03,
-                })
-            )}
-        ></mobbu-2025>
-    </div>`;
+    return fromObject({
+        className: 'l-mob-02',
+        content: [
+            {
+                className: 'l-background-shape',
+                content: bg,
+            },
+            {
+                tag: 'h3',
+                className: 'title',
+                content: 'Scroll or Drag',
+            },
+            {
+                component: Mobbu2025,
+                modules: staticProps(
+                    /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['props']} */
+                    ({
+                        layer02,
+                        layer03,
+                    })
+                ),
+            },
+        ],
+    });
 };

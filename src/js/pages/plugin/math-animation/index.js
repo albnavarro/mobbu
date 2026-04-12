@@ -1,6 +1,6 @@
 import { MathAnimation } from '@commonComponent/math-animation/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 
 MobJs.useComponent([MathAnimation]);
 
@@ -17,15 +17,13 @@ export const mathAnimationRoute = async ({ props }) => {
         backRoute: '#plugin-overview',
     });
 
-    return html`<div class="l-math">
-        ${names
-            .map((name) => {
-                return html`
-                    <math-animation
-                        ${MobJs.staticProps({ name })}
-                    ></math-animation>
-                `;
-            })
-            .join('')}
-    </div>`;
+    return fromObject({
+        className: 'l-math',
+        content: names.map((name) => {
+            return fromObject({
+                component: MathAnimation,
+                modules: MobJs.staticProps({ name }),
+            });
+        }),
+    });
 };

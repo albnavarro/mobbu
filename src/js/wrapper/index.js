@@ -19,7 +19,7 @@ import {
 import { Footer } from '@layoutComponent/footer/definition';
 import { Header } from '@layoutComponent/header/definition';
 import { NavigationContainer } from '@layoutComponent/navigation/definition';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 
 MobJs.useComponent([
     Header,
@@ -38,26 +38,60 @@ MobJs.useComponent([
 export const wrapper = async () => {
     const useScssTestGrid = false;
 
-    return html`
-        ${useScssTestGrid ? '<test-scss-grid></test-scss-grid>' : ''}
-        <debug-overlay name="${debugOverlayName}"></debug-overlay>
-        <mob-header name="${headerName}"></mob-header>
-        <mob-navigation-container
-            name="${mobNavigationContainerName}"
-        ></mob-navigation-container>
-        <main class="main">
-            <div class="container">
-                <div class="inner-wrap">
-                    <div id="content"></div>
-                </div>
-            </div>
-        </main>
-        <mob-footer> </mob-footer>
-        <quick-nav name="${quickNavName}"></quick-nav>
-        <route-loader name="${routeLoader}"></route-loader>
-        <scroll-down-label name="${scrollDownLabelName}"></scroll-down-label>
-        <side-bar-links></side-bar-links>
-        <left-sidebar name="${leftSidebarName}"></left-sidebar>
-        <search-overlay name="${searchOverlay}"></search-overlay>
-    `;
+    return fromObject({
+        content: [
+            useScssTestGrid ? '<test-scss-grid></test-scss-grid>' : '',
+            {
+                component: DebugOverlay,
+                attributes: { name: debugOverlayName },
+            },
+            {
+                component: Header,
+                attributes: { name: headerName },
+            },
+            {
+                component: NavigationContainer,
+                attributes: { name: mobNavigationContainerName },
+            },
+            {
+                tag: 'main',
+                className: 'main',
+                content: {
+                    className: 'container',
+                    content: {
+                        className: 'inner-wrap',
+                        content: {
+                            attributes: { id: 'content' },
+                        },
+                    },
+                },
+            },
+            {
+                component: Footer,
+            },
+            {
+                component: QuickNav,
+                attributes: { name: quickNavName },
+            },
+            {
+                component: RouteLoader,
+                attributes: { name: routeLoader },
+            },
+            {
+                component: ScrollDownLabel,
+                attributes: { name: scrollDownLabelName },
+            },
+            {
+                component: SideBarLinks,
+            },
+            {
+                component: LeftSidebar,
+                attributes: { name: leftSidebarName },
+            },
+            {
+                component: SearchOverlay,
+                attributes: { name: searchOverlay },
+            },
+        ],
+    });
 };

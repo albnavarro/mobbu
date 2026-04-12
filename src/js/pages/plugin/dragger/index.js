@@ -1,7 +1,7 @@
 import { AnyComponent } from '@commonComponent/any-component/definition';
 import { Dragger } from '@commonComponent/dragger/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { html, MobJs } from '@mobJs';
+import { fromObject, html, MobJs } from '@mobJs';
 import { loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([Dragger, AnyComponent]);
@@ -55,40 +55,54 @@ export const DraggerRoute = async () => {
         <div class="child is-svg">${svg}</div>
     </div>`;
 
-    return html`<div class="l-dragger">
-        <div class="l-background-shape">${bg}</div>
-        <c-dragger
-            ${MobJs.staticProps(
-                /** @type {import('@commonComponent/dragger/type').Dragger['props']} */
-                ({
-                    rootClass: 'dragger-component',
-                    containerClass: '.l-dragger',
-                    childrenClass: '.child',
-                    align: 'CENTER',
-                    maxHightDepth: 140,
-                    maxLowDepth: -200,
-                    perspective: 300,
-                    hideThreshold: 10,
-                    afterInit: ({ root }) => {
-                        if (useLog) console.log(root);
+    return fromObject({
+        className: 'l-dragger',
+        content: [
+            {
+                className: 'l-background-shape',
+                content: bg,
+            },
+            {
+                component: Dragger,
+                modules: MobJs.staticProps(
+                    /** @type {import('@commonComponent/dragger/type').Dragger['props']} */
+                    ({
+                        rootClass: 'dragger-component',
+                        containerClass: '.l-dragger',
+                        childrenClass: '.child',
+                        align: 'CENTER',
+                        maxHightDepth: 140,
+                        maxLowDepth: -200,
+                        perspective: 300,
+                        hideThreshold: 10,
+                        afterInit: ({ root }) => {
+                            if (useLog) console.log(root);
+                        },
+                        onDepthChange: ({ depth }) => {
+                            if (useLog) console.log(depth);
+                        },
+                    })
+                ),
+                content: [
+                    /**
+                     * Root border
+                     */
+                    {
+                        component: AnyComponent,
+                        attributes: { slot: 'root-slot' },
+                        modules: MobJs.staticProps({ content: rootContent }),
                     },
-                    onDepthChange: ({ depth }) => {
-                        if (useLog) console.log(depth);
-                    },
-                })
-            )}
-        >
-            <!-- Root border -->
-            <any-component
-                slot="root-slot"
-                ${MobJs.staticProps({ content: rootContent })}
-            ></any-component>
 
-            <!-- Child -->
-            <any-component
-                slot="child-slot"
-                ${MobJs.staticProps({ content: childContent })}
-            ></any-component>
-        </c-dragger>
-    </div>`;
+                    /**
+                     * Child
+                     */
+                    {
+                        component: AnyComponent,
+                        attributes: { slot: 'child-slot' },
+                        modules: MobJs.staticProps({ content: childContent }),
+                    },
+                ],
+            },
+        ],
+    });
 };

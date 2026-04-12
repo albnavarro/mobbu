@@ -7,7 +7,7 @@ import { Mobbu2025fn } from './mob2025';
  * @import {CreateComponentParams} from "@mobJsType"
  */
 
-export const mobbbu2025 = MobJs.createComponent(
+export const Mobbu2025 = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Mobbu2025>} */
     ({
         tag: 'mobbu-2025',

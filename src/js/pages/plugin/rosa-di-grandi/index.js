@@ -1,5 +1,5 @@
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { RosaDiGrandiPage } from '@pagesComponent/rosa-di-grandi/definition';
 
 MobJs.useComponent([RosaDiGrandiPage]);
@@ -14,5 +14,7 @@ export const rosaDiGrandiRoute = async () => {
         backRoute: '#plugin-overview',
     });
 
-    return html`<rosa-di-grandi-page></rosa-di-grandi-page>`;
+    return fromObject({
+        component: RosaDiGrandiPage,
+    });
 };

@@ -1,4 +1,4 @@
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import {
     MatrioskaInvalidate,
     MatrioskaRepeat,
@@ -7,9 +7,13 @@ import {
 MobJs.useComponent([MatrioskaRepeat, MatrioskaInvalidate]);
 
 export const matrioska_repeat_page = () => {
-    return html` <page-matrioska-repeat> </page-matrioska-repeat> `;
+    return fromObject({
+        component: MatrioskaRepeat,
+    });
 };
 
 export const matrioska_invalidate_page = () => {
-    return html` <page-matrioska-invalidate> </page-matrioska-invalidate> `;
+    return fromObject({
+        component: MatrioskaInvalidate,
+    });
 };

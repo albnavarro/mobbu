@@ -2,7 +2,7 @@ import { DocContainer } from '@commonComponent/doc-container/definition';
 import { DocTitle } from '@commonComponent/doc-title/definition';
 import { DocsTitleSmall } from '@commonComponent/doc-title-small/definition';
 import { HtmlContent } from '@commonComponent/html-content/definition';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
 import { updateLeftSidebarList } from '@commonComponent/left-sidebar/utils';
@@ -15,26 +15,38 @@ export const layoutSidebarLinks = async ({ props }) => {
     const { data } = await loadJsonContent({ source });
     updateLeftSidebarList(rightSidebar ?? []);
 
-    return html`<doc-container>
-        <div>
-            <html-content
-                slot="docs"
-                ${MobJs.staticProps(
+    return fromObject({
+        component: DocContainer,
+        content: [
+            {
+                component: HtmlContent,
+                attributes: { slot: 'docs' },
+                modules: MobJs.staticProps(
                     /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
                     ({
                         data: data.data,
                         useMaxWidth: true,
                     })
-                )}
-            ></html-content>
-            <doc-title-small slot="section-title-small"
-                ><div>
-                    ${getBreadCrumbs({
+                ),
+            },
+            {
+                component: DocsTitleSmall,
+                attributes: { slot: 'section-title-small' },
+                content: [
+                    getBreadCrumbs({
                         breadCrumbs,
-                    })}<span>${title}</span>
-                </div></doc-title-small
-            >
-            <doc-title slot="section-title">${title}</doc-title>
-        </div>
-    </doc-container>`;
+                    }),
+                    {
+                        tag: 'span',
+                        content: title,
+                    },
+                ],
+            },
+            {
+                component: DocTitle,
+                attributes: { slot: 'section-title' },
+                content: title,
+            },
+        ],
+    });
 };
