@@ -3,6 +3,15 @@
 
 # MobJs
 
+## FromObject step 1.
+Con l' introduzione di `component` non ci dovrebbe piu essere bisogno di definirli come `child`.
+- Nel caso di :
+- `src/js/component/pages/dynamic-list/definition.js`
+- `DynamicListRepeater`
+- Senza l'import esplicito nella definizione fallisce.
+- Indagare alla fine dell' allineamanto.
+
+
 ## fromObject step 2. ?? valutare se é il caso di eseguirlo.
 ### 1 Dopo aver converito tutto con fromOject.
 
