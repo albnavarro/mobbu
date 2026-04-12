@@ -137,95 +137,100 @@ export const DynamicListFn = ({
 }) => {
     const proxi = getProxi();
 
-    return fromObject({
-        className: 'c-dynamic-list',
+    /**
+     * Header
+     */
+    const headerBlock = {
+        className: 'header',
         content: [
             {
-                className: 'header',
+                className: 'header-top',
                 content: [
+                    ...getButton({
+                        delegateEvents,
+                        staticProps,
+                        bindProps,
+                        proxi,
+                    }),
                     {
-                        className: 'header-top',
-                        content: [
-                            ...getButton({
-                                delegateEvents,
-                                staticProps,
-                                bindProps,
-                                proxi,
+                        component: DynamicListButton,
+                        className: 'dynamic-list-button',
+                        modules: [
+                            staticProps(
+                                /** @type {DynamicListButtonType['props']} */ ({
+                                    label: '+ counter ( max: 10 )',
+                                })
+                            ),
+                            delegateEvents({
+                                click: async () => {
+                                    updateState('counter', (prev) => {
+                                        return prev + 1;
+                                    });
+                                },
                             }),
-                            {
-                                component: DynamicListButton,
-                                className: 'dynamic-list-button',
-                                modules: [
-                                    staticProps(
-                                        /** @type {DynamicListButtonType['props']} */ ({
-                                            label: '+ counter ( max: 10 )',
-                                        })
-                                    ),
-                                    delegateEvents({
-                                        click: async () => {
-                                            updateState('counter', (prev) => {
-                                                return prev + 1;
-                                            });
-                                        },
-                                    }),
-                                ],
-                            },
-                            {
-                                component: DynamicListButton,
-                                className: 'dynamic-list-button',
-                                modules: [
-                                    staticProps(
-                                        /** @type {DynamicListButtonType['props']} */ ({
-                                            label: '- counter: ( min 0 )',
-                                        })
-                                    ),
-                                    delegateEvents({
-                                        click: async () => {
-                                            updateState('counter', (prev) => {
-                                                if (prev > 0)
-                                                    return (prev -= 1);
-                                                return prev;
-                                            });
-                                        },
-                                    }),
-                                ],
-                            },
+                        ],
+                    },
+                    {
+                        component: DynamicListButton,
+                        className: 'dynamic-list-button',
+                        modules: [
+                            staticProps(
+                                /** @type {DynamicListButtonType['props']} */ ({
+                                    label: '- counter: ( min 0 )',
+                                })
+                            ),
+                            delegateEvents({
+                                click: async () => {
+                                    updateState('counter', (prev) => {
+                                        if (prev > 0) return (prev -= 1);
+                                        return prev;
+                                    });
+                                },
+                            }),
                         ],
                     },
                 ],
             },
+        ],
+    };
 
-            /**
-             * Invalidate
-             */
+    /**
+     * InvalidateBlock counter
+     */
+    const invalidateBlock = {
+        className: 'invalidate',
+        content: [
             {
-                className: 'invalidate',
-                content: [
-                    {
-                        tag: 'h4',
-                        className: 'invalidate-title',
-                        content: 'Invalidate component on counter mutation:',
-                    },
-                    {
-                        content: invalidate({
-                            observe: () => proxi.counter,
-                            render: () => {
-                                return fromObject({
-                                    content: {
-                                        component: DynamicListCardInner,
-                                        modules: bindProps(
-                                            /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
-                                            () => ({
-                                                key: `${proxi.counter}`,
-                                            })
-                                        ),
-                                    },
-                                });
-                            },
-                        }),
-                    },
-                ],
+                tag: 'h4',
+                className: 'invalidate-title',
+                content: 'Invalidate component on counter mutation:',
             },
+            {
+                content: invalidate({
+                    observe: () => proxi.counter,
+                    render: () => {
+                        return fromObject({
+                            content: {
+                                component: DynamicListCardInner,
+                                modules: bindProps(
+                                    /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
+                                    () => ({
+                                        key: `${proxi.counter}`,
+                                    })
+                                ),
+                            },
+                        });
+                    },
+                }),
+            },
+        ],
+    };
+
+    return fromObject({
+        className: 'c-dynamic-list',
+        content: [
+            headerBlock,
+            invalidateBlock,
 
             /**
              * Counter

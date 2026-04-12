@@ -32176,6 +32176,148 @@
       return () => {
       };
     });
+    const infoBlock = {
+      className: "card-info",
+      content: [
+        {
+          tag: "p",
+          content: `id: ${id}`
+        },
+        {
+          tag: "p",
+          content: `list index: ${proxi.parentListId}`
+        },
+        {
+          tag: "p",
+          content: bindText`index: ${"index"}`
+        },
+        {
+          tag: "p",
+          content: bindText`label: ${"label"}`
+        },
+        {
+          tag: "p",
+          content: bindText`counter: ${"counter"}`
+        },
+        {
+          tag: "p",
+          content: `key: ${key.length > 0 ? key : "no-key"}`
+        }
+      ]
+    };
+    const nestedBlock = {
+      className: "card-nested-child",
+      /**
+       * Component
+       */
+      content: {
+        component: DynamicListEmpty,
+        /**
+         * Component
+         */
+        content: {
+          component: DynamicCounter,
+          attributes: { slot: "empty-slot" },
+          modules: [
+            staticProps2(
+              /** @type {DynamicCounterType['props']} */
+              {
+                parentListId: proxi.parentListId
+              }
+            ),
+            bindProps(
+              /** @returns {ReturnBindProps<DynamicCounterType>} */
+              () => ({
+                counter: proxi.counter
+              })
+            )
+          ]
+        }
+      }
+    };
+    const repeatersBlock = {
+      className: "card-repeaters-wrap",
+      content: [
+        {
+          tag: "p",
+          content: "<strong>Inner repeater:</strong>"
+        },
+        /**
+         * Component
+         */
+        {
+          component: DynamicListButton,
+          className: "repeater-card-button",
+          modules: delegateEvents({
+            click: async () => {
+              repeaterIndex = repeaterIndex < innerData.length - 1 ? repeaterIndex + 1 : 0;
+              proxi.innerData = innerData[repeaterIndex];
+              await modules_exports2.tick();
+            }
+          }),
+          content: "Update:"
+        },
+        {
+          className: "card-repeater",
+          content: repeat({
+            observe: () => proxi.innerData,
+            key: "key",
+            render: ({ current }) => {
+              return fromObject({
+                tag: "dynamic-list-card-inner",
+                modules: bindProps(
+                  /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
+                  () => ({
+                    key: `${current.value.key}`
+                  })
+                )
+              });
+            }
+          })
+        },
+        {
+          className: "card-repeater",
+          content: repeat({
+            observe: () => proxi.innerData,
+            render: ({ current }) => {
+              return fromObject({
+                tag: "dynamic-list-card-inner",
+                modules: bindProps(
+                  /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
+                  () => ({
+                    key: `${current.value.key}`
+                  })
+                )
+              });
+            }
+          })
+        }
+      ]
+    };
+    const invalidateBlock = {
+      className: "card-invalidate",
+      content: [
+        {
+          tag: "p",
+          content: {
+            tag: "strong",
+            content: "Inner invalidate<br /> on counter mutation:"
+          }
+        },
+        {
+          content: invalidate({
+            observe: () => proxi.counter,
+            render: () => {
+              return getInvalidateRender({
+                delegateEvents,
+                staticProps: staticProps2,
+                proxi
+              });
+            }
+          })
+        }
+      ]
+    };
     return fromObject({
       className: "c-dynamic-card",
       modules: [
@@ -32216,35 +32358,10 @@
               ],
               content: "Select"
             },
-            {
-              className: "card-info",
-              content: [
-                {
-                  tag: "p",
-                  content: `id: ${id}`
-                },
-                {
-                  tag: "p",
-                  content: `list index: ${proxi.parentListId}`
-                },
-                {
-                  tag: "p",
-                  content: bindText`index: ${"index"}`
-                },
-                {
-                  tag: "p",
-                  content: bindText`label: ${"label"}`
-                },
-                {
-                  tag: "p",
-                  content: bindText`counter: ${"counter"}`
-                },
-                {
-                  tag: "p",
-                  content: `key: ${key.length > 0 ? key : "no-key"}`
-                }
-              ]
-            },
+            /**
+             * Info block
+             */
+            infoBlock,
             /**
              * Component
              */
@@ -32255,119 +32372,18 @@
                 attributes: { name: "card-label-slot" }
               }
             },
-            {
-              className: "card-nested-child",
-              /**
-               * Component
-               */
-              content: {
-                component: DynamicListEmpty,
-                /**
-                 * Component
-                 */
-                content: {
-                  component: DynamicCounter,
-                  attributes: { slot: "empty-slot" },
-                  modules: [
-                    staticProps2(
-                      /** @type {DynamicCounterType['props']} */
-                      {
-                        parentListId: proxi.parentListId
-                      }
-                    ),
-                    bindProps(
-                      /** @returns {ReturnBindProps<DynamicCounterType>} */
-                      () => ({
-                        counter: proxi.counter
-                      })
-                    )
-                  ]
-                }
-              }
-            },
-            {
-              className: "card-repeaters-wrap",
-              content: [
-                {
-                  tag: "p",
-                  content: "<strong>Inner repeater:</strong>"
-                },
-                /**
-                 * Component
-                 */
-                {
-                  component: DynamicListButton,
-                  className: "repeater-card-button",
-                  modules: delegateEvents({
-                    click: async () => {
-                      repeaterIndex = repeaterIndex < innerData.length - 1 ? repeaterIndex + 1 : 0;
-                      proxi.innerData = innerData[repeaterIndex];
-                      await modules_exports2.tick();
-                    }
-                  }),
-                  content: "Update:"
-                },
-                {
-                  className: "card-repeater",
-                  content: repeat({
-                    observe: () => proxi.innerData,
-                    key: "key",
-                    render: ({ current }) => {
-                      return fromObject({
-                        tag: "dynamic-list-card-inner",
-                        modules: bindProps(
-                          /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
-                          () => ({
-                            key: `${current.value.key}`
-                          })
-                        )
-                      });
-                    }
-                  })
-                },
-                {
-                  className: "card-repeater",
-                  content: repeat({
-                    observe: () => proxi.innerData,
-                    render: ({ current }) => {
-                      return fromObject({
-                        tag: "dynamic-list-card-inner",
-                        modules: bindProps(
-                          /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
-                          () => ({
-                            key: `${current.value.key}`
-                          })
-                        )
-                      });
-                    }
-                  })
-                }
-              ]
-            },
-            {
-              className: "card-invalidate",
-              content: [
-                {
-                  tag: "p",
-                  content: {
-                    tag: "strong",
-                    content: "Inner invalidate<br /> on counter mutation:"
-                  }
-                },
-                {
-                  content: invalidate({
-                    observe: () => proxi.counter,
-                    render: () => {
-                      return getInvalidateRender({
-                        delegateEvents,
-                        staticProps: staticProps2,
-                        proxi
-                      });
-                    }
-                  })
-                }
-              ]
-            }
+            /**
+             * Nested block
+             */
+            nestedBlock,
+            /**
+             * Repeaters block
+             */
+            repeatersBlock,
+            /**
+             * Invalidate block
+             */
+            invalidateBlock
           ]
         }
       ]
@@ -32676,96 +32692,94 @@
     getProxi
   }) => {
     const proxi = getProxi();
-    return fromObject({
-      className: "c-dynamic-list",
+    const headerBlock = {
+      className: "header",
       content: [
         {
-          className: "header",
+          className: "header-top",
           content: [
+            ...getButton({
+              delegateEvents,
+              staticProps: staticProps2,
+              bindProps,
+              proxi
+            }),
             {
-              className: "header-top",
-              content: [
-                ...getButton({
-                  delegateEvents,
-                  staticProps: staticProps2,
-                  bindProps,
-                  proxi
-                }),
-                {
-                  component: DynamicListButton,
-                  className: "dynamic-list-button",
-                  modules: [
-                    staticProps2(
-                      /** @type {DynamicListButtonType['props']} */
-                      {
-                        label: "+ counter ( max: 10 )"
-                      }
-                    ),
-                    delegateEvents({
-                      click: async () => {
-                        updateState("counter", (prev) => {
-                          return prev + 1;
-                        });
-                      }
-                    })
-                  ]
-                },
-                {
-                  component: DynamicListButton,
-                  className: "dynamic-list-button",
-                  modules: [
-                    staticProps2(
-                      /** @type {DynamicListButtonType['props']} */
-                      {
-                        label: "- counter: ( min 0 )"
-                      }
-                    ),
-                    delegateEvents({
-                      click: async () => {
-                        updateState("counter", (prev) => {
-                          if (prev > 0)
-                            return prev -= 1;
-                          return prev;
-                        });
-                      }
-                    })
-                  ]
-                }
+              component: DynamicListButton,
+              className: "dynamic-list-button",
+              modules: [
+                staticProps2(
+                  /** @type {DynamicListButtonType['props']} */
+                  {
+                    label: "+ counter ( max: 10 )"
+                  }
+                ),
+                delegateEvents({
+                  click: async () => {
+                    updateState("counter", (prev) => {
+                      return prev + 1;
+                    });
+                  }
+                })
+              ]
+            },
+            {
+              component: DynamicListButton,
+              className: "dynamic-list-button",
+              modules: [
+                staticProps2(
+                  /** @type {DynamicListButtonType['props']} */
+                  {
+                    label: "- counter: ( min 0 )"
+                  }
+                ),
+                delegateEvents({
+                  click: async () => {
+                    updateState("counter", (prev) => {
+                      if (prev > 0) return prev -= 1;
+                      return prev;
+                    });
+                  }
+                })
               ]
             }
           ]
-        },
-        /**
-         * Invalidate
-         */
+        }
+      ]
+    };
+    const invalidateBlock = {
+      className: "invalidate",
+      content: [
         {
-          className: "invalidate",
-          content: [
-            {
-              tag: "h4",
-              className: "invalidate-title",
-              content: "Invalidate component on counter mutation:"
-            },
-            {
-              content: invalidate({
-                observe: () => proxi.counter,
-                render: () => {
-                  return fromObject({
-                    content: {
-                      component: DynamicListCardInner,
-                      modules: bindProps(
-                        /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
-                        () => ({
-                          key: `${proxi.counter}`
-                        })
-                      )
-                    }
-                  });
-                }
-              })
-            }
-          ]
+          tag: "h4",
+          className: "invalidate-title",
+          content: "Invalidate component on counter mutation:"
         },
+        {
+          content: invalidate({
+            observe: () => proxi.counter,
+            render: () => {
+              return fromObject({
+                content: {
+                  component: DynamicListCardInner,
+                  modules: bindProps(
+                    /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
+                    () => ({
+                      key: `${proxi.counter}`
+                    })
+                  )
+                }
+              });
+            }
+          })
+        }
+      ]
+    };
+    return fromObject({
+      className: "c-dynamic-list",
+      content: [
+        headerBlock,
+        invalidateBlock,
         /**
          * Counter
          */
