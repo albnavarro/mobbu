@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /**
  * @param {string} index
@@ -6,7 +6,11 @@ import { html } from '@mobJs';
  */
 const getIndex = (index) => {
     return index.length > 0
-        ? html`<span class="title-index">${index}</span>`
+        ? fromObject({
+              tag: 'span',
+              className: 'title-index',
+              content: index,
+          })
         : ``;
 };
 
@@ -18,10 +22,18 @@ export const TitleFn = ({ getProxi }) => {
     const boldClass = proxi.isBold ? `u-weight-bold` : '';
     const isSectionClass = proxi.isSection ? `is-section` : '';
 
-    return html`<${proxi.tag} class="${colorClass} ${boldClass} ${isSectionClass}">
-            ${getIndex(proxi.index)}
-            <span class="title-content">
-                <mobjs-slot></mobjs-slot>
-            </span>
-        </${proxi.tag}>`;
+    return fromObject({
+        tag: proxi.tag,
+        className: [colorClass, boldClass, isSectionClass],
+        content: [
+            getIndex(proxi.index),
+            {
+                tag: 'span',
+                className: 'title-content',
+                content: {
+                    tag: 'mobjs-slot',
+                },
+            },
+        ],
+    });
 };

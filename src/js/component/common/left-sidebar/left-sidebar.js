@@ -6,7 +6,7 @@
  * @import {LeftSidebar} from "./type"
  */
 
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { docsTemplate } from '@pages/index';
 
 /**
@@ -20,21 +20,21 @@ const getList = ({ proxi, bindEffect }) => {
         .map(({ label, url }) => {
             const urlParsed = url.replaceAll('#', '');
 
-            return html`
-                <li class="item">
-                    <a
-                        href="${url}"
-                        class="link"
-                        ${bindEffect({
-                            toggleClass: {
-                                active: () =>
-                                    proxi.activeRoute.route === urlParsed,
-                            },
-                        })}
-                        >${label}</a
-                    >
-                </li>
-            `;
+            return fromObject({
+                className: 'item',
+                tag: 'li',
+                content: {
+                    tag: 'a',
+                    className: 'link',
+                    attributes: { href: url },
+                    modules: bindEffect({
+                        toggleClass: {
+                            active: () => proxi.activeRoute.route === urlParsed,
+                        },
+                    }),
+                    content: label,
+                },
+            });
         })
         .join('');
 };
@@ -68,22 +68,28 @@ export const LightSidebarFn = ({
         () => proxi.data.length > 0
     );
 
-    return html`<div
-        class="left-sidebar"
-        ${bindEffect({
+    return fromObject({
+        className: 'left-sidebar',
+        modules: bindEffect({
             toggleClass: {
                 visible: () => proxi.isVisible,
             },
-        })}
-    >
-        <div class="title">Sections:</div>
-        <ul class="list">
-            ${invalidate({
-                observe: () => proxi.data,
-                render: () => {
-                    return getList({ proxi, bindEffect });
-                },
-            })}
-        </ul>
-    </div>`;
+        }),
+        content: [
+            {
+                className: 'title',
+                content: 'Sections:',
+            },
+            {
+                tag: 'ul',
+                className: 'list',
+                content: invalidate({
+                    observe: () => proxi.data,
+                    render: () => {
+                        return getList({ proxi, bindEffect });
+                    },
+                }),
+            },
+        ],
+    });
 };

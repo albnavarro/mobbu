@@ -3,7 +3,7 @@
  * @import {RouteLoader} from "./type"
  */
 
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
 
 /** @type {MobComponent<RouteLoader>} */
@@ -52,12 +52,10 @@ export const RouteLoaderFn = ({ onMount, getProxi, bindEffect, addMethod }) => {
         };
     });
 
-    return html`
-        <div
-            class="c-loader center-viewport"
-            ${bindEffect({
-                toggleClass: { disable: () => proxi.isDisable },
-            })}
-        ></div>
-    `;
+    return fromObject({
+        className: 'c-loader center-viewport',
+        modules: bindEffect({
+            toggleClass: { disable: () => proxi.isDisable },
+        }),
+    });
 };

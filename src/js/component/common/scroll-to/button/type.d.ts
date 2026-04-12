@@ -1,4 +1,4 @@
-export interface ScrollToButton {
+export interface ScrollToButtonType {
     props: {
         label: string;
         active: boolean;

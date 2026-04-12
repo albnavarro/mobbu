@@ -1,21 +1,22 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
- * @import {SideBarLinksButton} from "./type"
+ * @import {SideBarLinksButtonType} from "./type"
  */
 
 /**
- * @type {MobComponent<SideBarLinksButton>}
+ * @type {MobComponent<SideBarLinksButtonType>}
  */
 export const SideBarLinksButtonFn = ({ getProxi, bindEffect }) => {
     const proxi = getProxi();
 
-    return html` <a
-        href="./#${proxi.url}"
-        ${bindEffect({
+    return fromObject({
+        tag: 'a',
+        attributes: { href: `./#${proxi.url}` },
+        modules: bindEffect({
             toggleClass: { current: () => proxi.active },
-        })}
-        ><span>${proxi.label}</span></a
-    >`;
+        }),
+        content: proxi.label,
+    });
 };

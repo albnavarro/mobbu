@@ -1,4 +1,4 @@
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
 import { getRotate, getRotateFromPosition } from './utils';
 
@@ -12,11 +12,13 @@ const getComponent = (component) => {
         return '';
     }
 
-    return html`
-        <div class="component ${component?.className}">
-            <${component.tagName} ${MobJs.staticProps(component?.props ?? {})}>
-            </${component.tagName}>
-        </div>`;
+    return fromObject({
+        className: ['component', component?.className],
+        content: {
+            tag: component.tagName,
+            modules: MobJs.staticProps(component?.props ?? {}),
+        },
+    });
 };
 
 /** @type {import('./type').Move3DItemMove} */
@@ -130,16 +132,21 @@ export const Move3DItemfn = ({ getState, addMethod, onMount }) => {
         };
     });
 
-    return html`<div
-        class="c-move3d-item ${rootClass} anchor-${anchorPoint}"
-        style="${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}"
-    >
-        <div class="${classList}"></div>
-        ${getComponent({
-            tagName: component?.tagName ?? '',
-            className: component?.className ?? '',
-            props: component?.props ?? {},
-        })}
-        <mobjs-slot></mobjs-slot>
-    </div>`;
+    return fromObject({
+        className: ['c-move3d-item', rootClass, `anchor-${anchorPoint}`],
+        style: `${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}`,
+        content: [
+            {
+                className: classList,
+            },
+            getComponent({
+                tagName: component?.tagName ?? '',
+                className: component?.className ?? '',
+                props: component?.props ?? {},
+            }),
+            {
+                tag: 'mobjs-slot',
+            },
+        ],
+    });
 };

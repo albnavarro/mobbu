@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -9,25 +9,43 @@ import { html } from '@mobJs';
  * @param {object} params
  * @param {Record<'label' | 'url', string>[] | string[]} params.items
  * @param {boolean} [params.links]
- * @returns {string}
+ * @returns {string[]}
  */
 const getList = ({ items, links }) => {
     return links
-        ? /** @type{Record<'label' | 'url', string>[]} */ (items)
-              .map(
-                  ({ label, url }) =>
-                      html`<li>
-                          <a href="${url}" class="list-links">
-                              ${label}
-                              <span class="arrow-container">
-                                  <span class="arrow-start"></span>
-                                  <span class="arrow-end"></span>
-                              </span>
-                          </a>
-                      </li>`
-              )
-              .join('')
-        : items.map((item) => html` <li>${item}</li> `).join('');
+        ? /** @type{Record<'label' | 'url', string>[]} */ (items).map(
+              ({ label, url }) =>
+                  fromObject({
+                      tag: 'li',
+                      content: {
+                          tag: 'a',
+                          attributes: { href: url },
+                          className: 'list-links',
+                          content: [
+                              label,
+                              {
+                                  className: 'arrow-container',
+                                  content: [
+                                      {
+                                          tag: 'span',
+                                          className: 'arrow-start',
+                                      },
+                                      {
+                                          tag: 'span',
+                                          className: 'arrow-end',
+                                      },
+                                  ],
+                              },
+                          ],
+                      },
+                  })
+          )
+        : items.map((item) =>
+              fromObject({
+                  tag: 'li',
+                  content: `${item}`,
+              })
+          );
 };
 
 /** @type {MobComponent<List>} */
@@ -37,7 +55,9 @@ export const ListFn = ({ getState }) => {
     const colorClass = `is-${color}`;
     const linksClass = links ? 'use-links' : 'use-default';
 
-    return html`<ul class="ul ul-${style} ${colorClass} ${linksClass}">
-        ${getList({ items, links })}
-    </ul>`;
+    return fromObject({
+        tag: 'ul',
+        className: ['ul', `ul-${style}`, colorClass, linksClass],
+        content: getList({ items, links }),
+    });
 };

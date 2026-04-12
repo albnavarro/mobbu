@@ -2,7 +2,7 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { mathPairAnimation } from './pair-animation';
 import { fakeAnimation } from './animations/fake-animation';
 import { MobCore } from '@mobCore';
@@ -90,39 +90,56 @@ export const MathAnimationFn = ({
         };
     });
 
-    return html`<div class="c-math">
-        <canvas ${setRef('canvas')}></canvas>
-        <div class="nav ${showNavigationClass}">
-            <button
-                type="button"
-                class="play"
-                ${delegateEvents({
-                    click: () => {
-                        resume();
+    /**
+     * STagger item
+     */
+    const staggersBlock = staggers.map(({ size, opacity }) => {
+        return fromObject({
+            tag: 'span',
+            className: 'trail-item',
+            style: `width:${size}rem;height:${size}rem;opacity:${opacity}`,
+            modules: setRef('target'),
+            content: {
+                tag: 'span',
+                className: 'trail-item-inner',
+            },
+        });
+    });
+
+    return fromObject({
+        className: 'c-math',
+        content: [
+            {
+                tag: 'canvas',
+                modules: setRef('canvas'),
+            },
+            {
+                className: ['nav', showNavigationClass],
+                content: [
+                    {
+                        tag: 'button',
+                        className: 'play',
+                        modules: delegateEvents({
+                            click: () => {
+                                resume();
+                            },
+                        }),
                     },
-                })}
-            ></button>
-            <button
-                type="button"
-                class="stop"
-                ${delegateEvents({
-                    click: () => {
-                        stop();
+                    {
+                        tag: 'button',
+                        className: 'stop',
+                        modules: delegateEvents({
+                            click: () => {
+                                stop();
+                            },
+                        }),
                     },
-                })}
-            ></button>
-        </div>
-        <div class="trails">
-            ${staggers
-                .map(({ size, opacity }) => {
-                    return html`<span
-                        class="trail-item"
-                        ${setRef('target')}
-                        style="width:${size}rem;height:${size}rem;opacity:${opacity}"
-                        ><span class="trail-item-inner"></span
-                    ></span>`;
-                })
-                .join('')}
-        </div>
-    </div>`;
+                ],
+            },
+            {
+                className: 'trails',
+                content: staggersBlock,
+            },
+        ],
+    });
 };

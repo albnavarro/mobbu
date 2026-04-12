@@ -108,7 +108,7 @@ export const DebugTreeFn = ({
                         type: 'range',
                         id: 'test',
                         min: 0,
-                        max: 0,
+                        max: 100,
                         value: 0,
                         step: 0.5,
                     },

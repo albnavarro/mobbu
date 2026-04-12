@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { loadTextContent } from '@utils/utils';
 
 /**
@@ -22,12 +22,11 @@ export const DocSvgFn = ({ getProxi, invalidate, onMount }) => {
         loadSvg({ proxi });
     });
 
-    return html`
-        <div class="c-doc-svg ${proxi.className}">
-            ${invalidate({
-                observe: () => proxi.source,
-                render: () => proxi.source,
-            })}
-        </div>
-    `;
+    return fromObject({
+        className: ['c-doc-svg', proxi.className ?? ''],
+        content: invalidate({
+            observe: () => proxi.source,
+            render: () => proxi.source,
+        }),
+    });
 };

@@ -3,7 +3,7 @@
  */
 
 import { getIcons } from '@data/index';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { mouseTrailAnimation } from './animation/mouse-trail';
 
 const numberOfStar = 5;
@@ -11,11 +11,14 @@ const numberOfStar = 5;
 /** @type {MobComponent<import('./type').MouseRotate>} */
 export const MouseTrailFn = ({ onMount, getRefs, setRef }) => {
     const { starOutline } = getIcons();
-    const stars = [...Array.from({ length: numberOfStar }).keys()]
-        .map(() => {
-            return `<span class='child' ${setRef('star')}>${starOutline}</span>`;
-        })
-        .join('');
+    const stars = [...Array.from({ length: numberOfStar }).keys()].map(() => {
+        return fromObject({
+            tag: 'span',
+            className: 'child',
+            modules: setRef('star'),
+            content: starOutline,
+        });
+    });
 
     onMount(() => {
         const { star } = getRefs();
@@ -26,5 +29,8 @@ export const MouseTrailFn = ({ onMount, getRefs, setRef }) => {
         };
     });
 
-    return html`<div class="mouse-trail">${stars}</div>`;
+    return fromObject({
+        className: 'mouse-trail',
+        content: stars,
+    });
 };

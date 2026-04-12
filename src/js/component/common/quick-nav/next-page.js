@@ -3,7 +3,7 @@
  * @import {QuickNav} from "./type"
  */
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { MobTween } from '@mobMotion';
 
 /** @type {MobComponent<QuickNav>} */
@@ -87,64 +87,87 @@ export const QuickNavFn = ({
         };
     });
 
-    return html`<div
-        class="c-quick-nav-container"
-        ${bindEffect([
+    return fromObject({
+        className: 'c-quick-nav-container',
+        modules: bindEffect([
             {
                 toggleClass: { active: () => proxi.active },
             },
-        ])}
-    >
-        <a
-            class="c-quick-nav is-prev"
-            ${setRef('previous')}
-            ${bindEffect({
-                toggleClass: { 'is-disable': () => !proxi.prevRoute },
-                toggleAttribute: {
-                    href: () => {
-                        const route = proxi.prevRoute;
-                        return route.length > 0 ? route : null;
+        ]),
+        content: [
+            {
+                tag: 'a',
+                className: 'c-quick-nav is-prev',
+                modules: [
+                    setRef('previous'),
+                    bindEffect({
+                        toggleClass: { 'is-disable': () => !proxi.prevRoute },
+                        toggleAttribute: {
+                            href: () => {
+                                const route = proxi.prevRoute;
+                                return route.length > 0 ? route : null;
+                            },
+                        },
+                    }),
+                ],
+            },
+            {
+                tag: 'a',
+                className: 'c-quick-nav is-back',
+                modules: [
+                    setRef('back'),
+                    bindEffect({
+                        toggleClass: { 'is-disable': () => !proxi.backRoute },
+                        toggleAttribute: {
+                            href: () => {
+                                const route = proxi.backRoute;
+                                return route.length > 0 ? route : null;
+                            },
+                        },
+                    }),
+                ],
+            },
+            {
+                tag: 'a',
+                className: 'c-quick-nav is-next',
+                modules: [
+                    setRef('next'),
+                    bindEffect({
+                        toggleClass: { 'is-disable': () => !proxi.nextRoute },
+                        toggleAttribute: {
+                            href: () => {
+                                const route = proxi.nextRoute;
+                                return route && route.length > 0 ? route : null;
+                            },
+                        },
+                    }),
+                ],
+            },
+            {
+                className: 'quick-nav-labels',
+                content: {
+                    className: 'labels',
+                    modules: setRef('labels'),
+                    content: {
+                        className: 'labels-container',
+                        modules: setRef('labelList'),
+                        content: [
+                            {
+                                tag: 'span',
+                                content: 'previous item',
+                            },
+                            {
+                                tag: 'span',
+                                content: 'all items',
+                            },
+                            {
+                                tag: 'span',
+                                content: 'next item',
+                            },
+                        ],
                     },
                 },
-            })}
-        >
-        </a>
-        <a
-            class="c-quick-nav is-back"
-            ${setRef('back')}
-            ${bindEffect({
-                toggleClass: { 'is-disable': () => !proxi.backRoute },
-                toggleAttribute: {
-                    href: () => {
-                        const route = proxi.backRoute;
-                        return route.length > 0 ? route : null;
-                    },
-                },
-            })}
-        >
-        </a>
-        <a
-            class="c-quick-nav is-next"
-            ${setRef('next')}
-            ${bindEffect({
-                toggleClass: { 'is-disable': () => !proxi.nextRoute },
-                toggleAttribute: {
-                    href: () => {
-                        const route = proxi.nextRoute;
-                        return route && route.length > 0 ? route : null;
-                    },
-                },
-            })}
-        >
-        </a>
-        <div class="quick-nav-labels">
-            <div class="labels" ${setRef('labels')}>
-                <div class="labels-container" ${setRef('labelList')}>
-                    <span>previous item</span>
-                    <span>all items</span>
-                    <span>next item</span>
-                </div>
-            </div>
-        </div>
-    </div>`;
+            },
+        ],
+    });
 };

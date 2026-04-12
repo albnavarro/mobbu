@@ -1,5 +1,5 @@
 import { offset } from '@mobCoreUtils';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { MobBodyScroll } from '@mobMotionPlugin';
 
 /**
@@ -9,13 +9,14 @@ import { MobBodyScroll } from '@mobMotionPlugin';
 
 /** @type {MobComponent<AnchorBUtton>} */
 export const AnchorButtonFn = ({ getState, delegateEvents }) => {
-    const { content, anchor } = getState();
+    const { content: label, anchor } = getState();
 
-    return html`<div>
-        <button
-            type="button"
-            class="anchor-button"
-            ${delegateEvents({
+    return fromObject({
+        content: {
+            tag: 'button',
+            className: 'anchor-button',
+            attributes: { type: 'button' },
+            modules: delegateEvents({
                 click: () => {
                     const target = document.querySelector(anchor);
                     if (!target) return;
@@ -24,13 +25,24 @@ export const AnchorButtonFn = ({ getState, delegateEvents }) => {
                     const offsetTop = offset(target).top - 50;
                     MobBodyScroll.to(offsetTop);
                 },
-            })}
-        >
-            ${content}
-            <span class="arrows">
-                <span class="arrow-start"></span>
-                <span class="arrow-end"></span>
-            </span>
-        </button>
-    </div>`;
+            }),
+            content: [
+                label,
+                {
+                    tag: 'span',
+                    className: 'arrows',
+                    content: [
+                        {
+                            tag: 'span',
+                            className: 'arrow-start',
+                        },
+                        {
+                            tag: 'span',
+                            className: 'arrow-end',
+                        },
+                    ],
+                },
+            ],
+        },
+    });
 };

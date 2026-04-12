@@ -4,7 +4,7 @@
  */
 
 // @ts-ignore
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /** @type {MobComponent<ScrollDownLabel>} */
 export const ScrollDownLabelFn = ({ getProxi, bindEffect, addMethod }) => {
@@ -14,14 +14,12 @@ export const ScrollDownLabelFn = ({ getProxi, bindEffect, addMethod }) => {
         proxi.active = value;
     });
 
-    return html`
-        <h3
-            class="c-scroller-down-label"
-            ${bindEffect({
-                toggleClass: { active: () => proxi.active },
-            })}
-        >
-            Scroll down
-        </h3>
-    `;
+    return fromObject({
+        tag: 'h3',
+        className: 'c-scroller-down-label',
+        modules: bindEffect({
+            toggleClass: { active: () => proxi.active },
+        }),
+        content: 'Scroll down',
+    });
 };

@@ -1,18 +1,19 @@
+import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
+import { getCommonData } from '@data/index';
+import { fromObject, MobJs } from '@mobJs';
+import { PAGE_TEMPLATE_COMPONENT_MOBJS } from '../../../pages';
+import { navigationStore } from '@stores/navigation';
+import { SideBarLinksButton } from './side-bar-links-button/definition';
+
 /**
  * @import {
  *   BindProps,
  *   MobComponent,
  *   StaticProps
  * } from "@mobJsType"
- * @import {SideBarLinksButton} from "./side-bar-links-button/type"
+ * @import {SideBarLinksButtonType} from "./side-bar-links-button/type"
  * @import {SideBarLinks} from "./type"
  */
-
-import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
-import { getCommonData } from '@data/index';
-import { html, MobJs } from '@mobJs';
-import { PAGE_TEMPLATE_COMPONENT_MOBJS } from '../../../pages';
-import { navigationStore } from '@stores/navigation';
 
 /**
  * This component is a singleton so use module scope.
@@ -25,7 +26,7 @@ let updateScroller = () => {};
 /**
  * @param {object} param
  * @param {StaticProps} param.staticProps
- * @param {BindProps<SideBarLinks, SideBarLinksButton>} param.bindProps
+ * @param {BindProps<SideBarLinks, SideBarLinksButtonType>} param.bindProps
  * @param {SideBarLinks['state']} param.proxi
  */
 const getItems = ({ staticProps, bindProps, proxi }) => {
@@ -34,20 +35,28 @@ const getItems = ({ staticProps, bindProps, proxi }) => {
             const { label, url, isLabel } = item;
 
             return isLabel
-                ? html`<p class="label">${label}</p>`
-                : html`<li>
-                      <sidebar-links-button
-                          ${staticProps(
-                              /** @type {SideBarLinksButton['props']} */ ({
-                                  label,
-                                  url,
-                              })
-                          )}
-                          ${bindProps(() => ({
-                              active: proxi.activeSection === url,
-                          }))}
-                      ></sidebar-links-button>
-                  </li>`;
+                ? fromObject({
+                      tag: 'p',
+                      className: 'label',
+                      content: label,
+                  })
+                : fromObject({
+                      tag: 'li',
+                      content: {
+                          component: SideBarLinksButton,
+                          modules: [
+                              staticProps(
+                                  /** @type {SideBarLinksButtonType['props']} */ ({
+                                      label,
+                                      url,
+                                  })
+                              ),
+                              bindProps(() => ({
+                                  active: proxi.activeSection === url,
+                              })),
+                          ],
+                      },
+                  });
         })
         .join('');
 };
@@ -147,38 +156,46 @@ export const SideBarLinksFn = ({
         };
     });
 
-    return html`<div
-        class="c-sidebar-links"
-        ${setRef('screenEl')}
-        ${bindEffect({
-            toggleClass: {
-                hide: () => proxi.hide,
-                shift: () => proxi.shift,
-            },
-        })}
-    >
-        <input
-            type="range"
-            id="test"
-            name="test"
-            min="0"
-            max="100"
-            value="0"
-            step=".5"
-            ${setRef('scrollbar')}
-            class="scrollbar hide-scrollbar"
-        />
-        <ul ${setRef('scrollerEl')}>
-            ${invalidate({
-                observe: () => proxi.data,
-                render: () => {
-                    return getItems({
-                        staticProps,
-                        bindProps,
-                        proxi,
-                    });
+    return fromObject({
+        className: 'c-sidebar-links',
+        modules: [
+            setRef('screenEl'),
+            bindEffect({
+                toggleClass: {
+                    hide: () => proxi.hide,
+                    shift: () => proxi.shift,
                 },
-            })}
-        </ul>
-    </div>`;
+            }),
+        ],
+        content: [
+            {
+                tag: 'input',
+                className: 'scrollbar hide-scrollbar',
+                attributes: {
+                    type: 'range',
+                    id: 'test',
+                    name: 'test',
+                    min: 0,
+                    max: 100,
+                    value: 0,
+                    step: 0.5,
+                },
+                modules: setRef('scrollbar'),
+            },
+            {
+                tag: 'ul',
+                modules: setRef('scrollerEl'),
+                content: invalidate({
+                    observe: () => proxi.data,
+                    render: () => {
+                        return getItems({
+                            staticProps,
+                            bindProps,
+                            proxi,
+                        });
+                    },
+                }),
+            },
+        ],
+    });
 };

@@ -1,10 +1,11 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent} */
 export const DocTitleSmallFn = () => {
-    return html`
-        <div class="l-doc-breadcrumbs">
-            <mobjs-slot></mobjs-slot>
-        </div>
-    `;
+    return fromObject({
+        className: 'l-doc-breadcrumbs',
+        content: {
+            tag: 'mobjs-slot',
+        },
+    });
 };

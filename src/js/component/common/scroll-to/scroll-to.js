@@ -1,3 +1,10 @@
+import { MobCore } from '@mobCore';
+import { offset } from '@mobCoreUtils';
+import { fromObject, MobJs } from '@mobJs';
+import { MobMotionCore } from '@mobMotion';
+import { MobBodyScroll } from '@mobMotionPlugin';
+import { ScrollToButton } from './button/definition';
+
 /**
  * @import {
  *   BindProps,
@@ -5,22 +12,16 @@
  *   MobComponent,
  *   ReturnBindProps
  * } from "@mobJsType"
- * @import {ScrollToButton} from "./button/type"
+ * @import {ScrollToButtonType} from "./button/type"
  * @import {ScrollTo} from "./type"
  */
-
-import { MobCore } from '@mobCore';
-import { offset } from '@mobCoreUtils';
-import { html, MobJs } from '@mobJs';
-import { MobMotionCore } from '@mobMotion';
-import { MobBodyScroll } from '@mobMotionPlugin';
 
 let disableObservereffect = false;
 
 /**
  * @param {Object} param
  * @param {DelegateEvents} param.delegateEvents
- * @param {BindProps<ScrollTo, ScrollToButton>} param.bindProps
+ * @param {BindProps<ScrollTo, ScrollToButtonType>} param.bindProps
  * @param {ScrollTo['state']} param.proxi
  * @returns {string}
  */
@@ -59,23 +60,24 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
                           },
                       });
 
-            return html`
-                <li>
-                    <scroll-to-button
-                        ${delegateEventsFn}
-                        ${bindProps(
-                            /** @returns {ReturnBindProps<ScrollToButton>} */
+            return fromObject({
+                tag: 'li',
+                content: {
+                    component: ScrollToButton,
+                    modules: [
+                        delegateEventsFn,
+                        bindProps(
+                            /** @returns {ReturnBindProps<ScrollToButtonType>} */
                             () => ({
                                 active: proxi.activeLabel === item.label,
                                 label: item.label,
                                 isSection: item.isSection ?? false,
                                 isNote: item.isNote ?? false,
                             })
-                        )}
-                    >
-                    </scroll-to-button>
-                </li>
-            `;
+                        ),
+                    ],
+                },
+            });
         })
         .join('');
 }
@@ -231,20 +233,20 @@ export const ScrollToFn = ({
         };
     });
 
-    return html`
-        <div class="c-scroll-to">
-            <ul>
-                ${invalidate({
-                    observe: () => proxi.anchorItems,
-                    render: () => {
-                        return getButtons({
-                            delegateEvents,
-                            bindProps,
-                            proxi,
-                        });
-                    },
-                })}
-            </ul>
-        </div>
-    `;
+    return fromObject({
+        className: 'c-scroll-to',
+        content: {
+            tag: 'ul',
+            content: invalidate({
+                observe: () => proxi.anchorItems,
+                render: () => {
+                    return getButtons({
+                        delegateEvents,
+                        bindProps,
+                        proxi,
+                    });
+                },
+            }),
+        },
+    });
 };

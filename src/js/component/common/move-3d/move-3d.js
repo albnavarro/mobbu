@@ -1,5 +1,5 @@
 import { MobCore } from '@mobCore';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { MobMotionCore, MobTween } from '@mobMotion';
 import { Recursive3Dshape } from './partials/recursive-3d-shape';
 import { getChildrenMethod, getMove3DDimension } from './utils';
@@ -346,22 +346,22 @@ export const Move3Dfn = ({
         };
     });
 
-    return html`<div
-        class="c-move-3d"
-        ${bindEffect({
+    return fromObject({
+        className: 'c-move-3d',
+        modules: bindEffect({
             toggleClass: { 'use-drag': () => proxi.drag },
-        })}
-    >
-        <div
-            class="scene"
-            ${bindEffect({
+        }),
+        content: {
+            className: 'scene',
+            modules: bindEffect({
                 toggleStyle: {
                     perspective: () => `${proxi.perspective}px`,
                 },
-            })}
-        >
-            <div class="scene-container" ${setRef('container')}>
-                ${invalidate({
+            }),
+            content: {
+                className: 'scene-container',
+                modules: setRef('container'),
+                content: invalidate({
                     observe: [() => proxi.shape, () => proxi.debug],
                     afterUpdate: () => {
                         /**
@@ -379,8 +379,8 @@ export const Move3Dfn = ({
                             debug: proxi.debug,
                         });
                     },
-                })}
-            </div>
-        </div>
-    </div>`;
+                }),
+            },
+        },
+    });
 };

@@ -6,7 +6,7 @@
  * @import {HtmlContent} from "./type"
  */
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 
 /**
@@ -14,20 +14,18 @@ import { loadJsonContent } from '@utils/utils';
  * @param {HtmlContent['props']['data']} params.data
  * @param {StaticProps<any>} params.staticProps
  * @param {boolean} params.awaitLoadSnippet
- * @returns {string}
+ * @returns {string[]}
  */
 const getComponents = ({ data, staticProps, awaitLoadSnippet }) => {
-    return data
-        .map((item) => {
-            const { component, props, content } = item;
+    return data.map((item) => {
+        const { component, props, content } = item;
 
-            return html`
-                <${component} ${staticProps({ ...props, awaitLoad: awaitLoadSnippet })}>
-                    ${content ?? ''}
-                </${component}>
-            `;
-        })
-        .join('');
+        return fromObject({
+            tag: component,
+            modules: staticProps({ ...props, awaitLoad: awaitLoadSnippet }),
+            content: content ?? '',
+        });
+    });
 };
 
 /**
@@ -54,13 +52,13 @@ export const HtmlContentFn = async ({ getState, staticProps }) => {
     const { awaitLoadSnippet, usePadding } = getState();
     const usePaddingClass = usePadding ? 'use-padding' : '';
 
-    return html`
-        <section class="html-content ${usePaddingClass}">
-            ${getComponents({
-                data: currentData,
-                staticProps,
-                awaitLoadSnippet,
-            })}
-        </section>
-    `;
+    return fromObject({
+        tag: 'section',
+        className: ['html-content', usePaddingClass],
+        content: getComponents({
+            data: currentData,
+            staticProps,
+            awaitLoadSnippet,
+        }),
+    });
 };

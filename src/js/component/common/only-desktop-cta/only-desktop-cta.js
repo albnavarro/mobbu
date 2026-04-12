@@ -3,7 +3,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 
 const shouldActivateCta = () => {
@@ -55,17 +55,15 @@ export const OnlyDesktopFnCta = ({ onMount, getProxi, bindEffect, watch }) => {
         };
     });
 
-    return html`
-        <a
-            href="#home"
-            class="link"
-            ${bindEffect({
-                toggleClass: {
-                    active: () => proxi.active,
-                },
-            })}
-        >
-            home page
-        </a>
-    `;
+    return fromObject({
+        tag: 'a',
+        attributes: { href: '#home' },
+        className: 'link',
+        modules: bindEffect({
+            toggleClass: {
+                active: () => proxi.active,
+            },
+        }),
+        content: 'home page',
+    });
 };

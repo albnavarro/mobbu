@@ -25375,19 +25375,38 @@
 
   // src/js/component/common/doc-container/doc-container.js
   var DocContainerFn = () => {
-    return renderHtml`
-        <div class="c-doc-container">
-            <div class="left"></div>
-            <div class="content">
-                <mobjs-slot name="docs"></mobjs-slot>
-            </div>
-            <div class="right">
-                <mobjs-slot name="section-title-small"></mobjs-slot>
-                <mobjs-slot name="section-title"></mobjs-slot>
-                <mobjs-slot name="section-links"></mobjs-slot>
-            </div>
-        </div>
-    `;
+    return fromObject({
+      className: "c-doc-container",
+      content: [
+        {
+          className: "left"
+        },
+        {
+          className: "content",
+          content: {
+            tag: "mobjs-slot",
+            attributes: { name: "docs" }
+          }
+        },
+        {
+          className: "right",
+          content: [
+            {
+              tag: "mobjs-slot",
+              attributes: { name: "section-title-small" }
+            },
+            {
+              tag: "mobjs-slot",
+              attributes: { name: "section-title" }
+            },
+            {
+              tag: "mobjs-slot",
+              attributes: { name: "section-links" }
+            }
+          ]
+        }
+      ]
+    });
   };
 
   // src/js/component/common/doc-container/definition.js
@@ -25401,11 +25420,15 @@
 
   // src/js/component/common/doc-title/doc-side.js
   var DocTitleFn = () => {
-    return renderHtml`
-        <div class="c-doc-title">
-            <h2><mobjs-slot></mobjs-slot></h2>
-        </div>
-    `;
+    return fromObject({
+      className: "c-doc-title",
+      content: {
+        tag: "h2",
+        content: {
+          tag: "mobjs-slot"
+        }
+      }
+    });
   };
 
   // src/js/component/common/doc-title/definition.js
@@ -25420,11 +25443,12 @@
 
   // src/js/component/common/doc-title-small/doc-title-small.js
   var DocTitleSmallFn = () => {
-    return renderHtml`
-        <div class="l-doc-breadcrumbs">
-            <mobjs-slot></mobjs-slot>
-        </div>
-    `;
+    return fromObject({
+      className: "l-doc-breadcrumbs",
+      content: {
+        tag: "mobjs-slot"
+      }
+    });
   };
 
   // src/js/component/common/doc-title-small/definition.js
@@ -26185,37 +26209,37 @@
       return () => {
       };
     });
-    return renderHtml`<div
-        class="snippet"
-        style="--snippet-height:${snippetHeight};--closed-height:${closedHeight}"
-    >
-        <code
-            ${bindEffect({
-      toggleClass: {
-        close: () => useExpand && !proxi.isExpanded,
-        open: () => useExpand && proxi.isExpanded
-      }
-    })}
-        >
-            <pre
-                ${setRef("codeEl")}
-                style="height:${useExpand ? closedHeight : snippetHeight}"
-            >
-                 Loading snippet ...</pre
-            >
-        </code>
-        <button
-            class="expand ${expandClass}"
-            ${!useExpand && "disabled"}
-            ${delegateEvents({
-      click: () => {
-        proxi.isExpanded = !proxi.isExpanded;
-      }
-    })}
-        >
-            ${bindObject`${() => proxi.isExpanded ? "close" : "expand"}`}
-        </button>
-    </div>`;
+    return fromObject({
+      className: "snippet",
+      style: `--snippet-height:${snippetHeight};--closed-height:${closedHeight}`,
+      content: [
+        {
+          tag: "code",
+          modules: bindEffect({
+            toggleClass: {
+              close: () => useExpand && !proxi.isExpanded,
+              open: () => useExpand && proxi.isExpanded
+            }
+          }),
+          content: {
+            tag: "pre",
+            modules: setRef("codeEl"),
+            content: "Loading snippet ..."
+          }
+        },
+        {
+          tag: "button",
+          className: ["expand", expandClass],
+          attributes: { disabled: !useExpand },
+          modules: delegateEvents({
+            click: () => {
+              proxi.isExpanded = !proxi.isExpanded;
+            }
+          }),
+          content: bindObject`${() => proxi.isExpanded ? "close" : "expand"}`
+        }
+      ]
+    });
   };
 
   // src/js/component/common/snippet/definition.js
@@ -26308,9 +26332,13 @@
       if (!shouldAddToAnchor) return;
       addItemToScrollComponent({ id, label, element, isSection, isNote });
     });
-    return renderHtml`<div id="${id}" class="spacer is-${style}">
-        <span></span>
-    </div>`;
+    return fromObject({
+      className: ["spacer", `is-${style}`],
+      attributes: { id },
+      content: {
+        tag: "span"
+      }
+    });
   };
 
   // src/js/component/common/spacer-anchor/definition.js
@@ -26348,27 +26376,39 @@
 
   // src/js/component/common/typography/anchor-button/anchor-button.js
   var AnchorButtonFn = ({ getState, delegateEvents }) => {
-    const { content, anchor } = getState();
-    return renderHtml`<div>
-        <button
-            type="button"
-            class="anchor-button"
-            ${delegateEvents({
-      click: () => {
-        const target = document.querySelector(anchor);
-        if (!target) return;
-        const offsetTop = offset(target).top - 50;
-        MobBodyScroll.to(offsetTop);
+    const { content: label, anchor } = getState();
+    return fromObject({
+      content: {
+        tag: "button",
+        className: "anchor-button",
+        attributes: { type: "button" },
+        modules: delegateEvents({
+          click: () => {
+            const target = document.querySelector(anchor);
+            if (!target) return;
+            const offsetTop = offset(target).top - 50;
+            MobBodyScroll.to(offsetTop);
+          }
+        }),
+        content: [
+          label,
+          {
+            tag: "span",
+            className: "arrows",
+            content: [
+              {
+                tag: "span",
+                className: "arrow-start"
+              },
+              {
+                tag: "span",
+                className: "arrow-end"
+              }
+            ]
+          }
+        ]
       }
-    })}
-        >
-            ${content}
-            <span class="arrows">
-                <span class="arrow-start"></span>
-                <span class="arrow-end"></span>
-            </span>
-        </button>
-    </div>`;
+    });
   };
 
   // src/js/component/common/typography/anchor-button/definition.js
@@ -26395,25 +26435,47 @@
     return links ? (
       /** @type{Record<'label' | 'url', string>[]} */
       items.map(
-        ({ label, url }) => renderHtml`<li>
-                          <a href="${url}" class="list-links">
-                              ${label}
-                              <span class="arrow-container">
-                                  <span class="arrow-start"></span>
-                                  <span class="arrow-end"></span>
-                              </span>
-                          </a>
-                      </li>`
-      ).join("")
-    ) : items.map((item) => renderHtml` <li>${item}</li> `).join("");
+        ({ label, url }) => fromObject({
+          tag: "li",
+          content: {
+            tag: "a",
+            attributes: { href: url },
+            className: "list-links",
+            content: [
+              label,
+              {
+                className: "arrow-container",
+                content: [
+                  {
+                    tag: "span",
+                    className: "arrow-start"
+                  },
+                  {
+                    tag: "span",
+                    className: "arrow-end"
+                  }
+                ]
+              }
+            ]
+          }
+        })
+      )
+    ) : items.map(
+      (item) => fromObject({
+        tag: "li",
+        content: `${item}`
+      })
+    );
   };
   var ListFn = ({ getState }) => {
     const { style, color, items, links } = getState();
     const colorClass = `is-${color}`;
     const linksClass = links ? "use-links" : "use-default";
-    return renderHtml`<ul class="ul ul-${style} ${colorClass} ${linksClass}">
-        ${getList({ items, links })}
-    </ul>`;
+    return fromObject({
+      tag: "ul",
+      className: ["ul", `ul-${style}`, colorClass, linksClass],
+      content: getList({ items, links })
+    });
   };
 
   // src/js/component/common/typography/list/definition.js
@@ -26460,11 +26522,13 @@
     const colorClass = color === "inherit" ? "" : `is-${color}`;
     const boxedClass = boxed ? `p-boxed` : "";
     const noteClass = note ? `p-note` : "";
-    return renderHtml`<p
-        class="p p-${style} ${boxedClass} ${noteClass} ${colorClass}"
-    >
-        <mobjs-slot></mobjs-slot>
-    </p>`;
+    return fromObject({
+      tag: "p",
+      className: ["p", `p-${style}`, boxedClass, noteClass, colorClass],
+      content: {
+        tag: "mobjs-slot"
+      }
+    });
   };
 
   // src/js/component/common/typography/paragraph/definition.js
@@ -26503,19 +26567,31 @@
 
   // src/js/component/common/typography/titles/title.js
   var getIndex2 = (index) => {
-    return index.length > 0 ? renderHtml`<span class="title-index">${index}</span>` : ``;
+    return index.length > 0 ? fromObject({
+      tag: "span",
+      className: "title-index",
+      content: index
+    }) : ``;
   };
   var TitleFn = ({ getProxi }) => {
     const proxi = getProxi();
     const colorClass = proxi.color === "inherit" ? "" : `is-${proxi.color}`;
     const boldClass = proxi.isBold ? `u-weight-bold` : "";
     const isSectionClass = proxi.isSection ? `is-section` : "";
-    return renderHtml`<${proxi.tag} class="${colorClass} ${boldClass} ${isSectionClass}">
-            ${getIndex2(proxi.index)}
-            <span class="title-content">
-                <mobjs-slot></mobjs-slot>
-            </span>
-        </${proxi.tag}>`;
+    return fromObject({
+      tag: proxi.tag,
+      className: [colorClass, boldClass, isSectionClass],
+      content: [
+        getIndex2(proxi.index),
+        {
+          tag: "span",
+          className: "title-content",
+          content: {
+            tag: "mobjs-slot"
+          }
+        }
+      ]
+    });
   };
 
   // src/js/component/common/typography/titles/definition.js
@@ -26556,12 +26632,12 @@
   var getComponents = ({ data, staticProps: staticProps2, awaitLoadSnippet }) => {
     return data.map((item) => {
       const { component, props, content } = item;
-      return renderHtml`
-                <${component} ${staticProps2({ ...props, awaitLoad: awaitLoadSnippet })}>
-                    ${content ?? ""}
-                </${component}>
-            `;
-    }).join("");
+      return fromObject({
+        tag: component,
+        modules: staticProps2({ ...props, awaitLoad: awaitLoadSnippet }),
+        content: content ?? ""
+      });
+    });
   };
   var getData2 = async ({ source, data }) => {
     if (data && data.length > 0) return data;
@@ -26574,15 +26650,15 @@
     const currentData = await getData2({ source, data });
     const { awaitLoadSnippet, usePadding } = getState();
     const usePaddingClass = usePadding ? "use-padding" : "";
-    return renderHtml`
-        <section class="html-content ${usePaddingClass}">
-            ${getComponents({
-      data: currentData,
-      staticProps: staticProps2,
-      awaitLoadSnippet
-    })}
-        </section>
-    `;
+    return fromObject({
+      tag: "section",
+      className: ["html-content", usePaddingClass],
+      content: getComponents({
+        data: currentData,
+        staticProps: staticProps2,
+        awaitLoadSnippet
+      })
+    });
   };
 
   // src/js/component/common/doc-svg/doc-svg.js
@@ -26598,14 +26674,13 @@
     onMount(() => {
       loadSvg({ proxi });
     });
-    return renderHtml`
-        <div class="c-doc-svg ${proxi.className}">
-            ${invalidate({
-      observe: () => proxi.source,
-      render: () => proxi.source
-    })}
-        </div>
-    `;
+    return fromObject({
+      className: ["c-doc-svg", proxi.className ?? ""],
+      content: invalidate({
+        observe: () => proxi.source,
+        render: () => proxi.source
+      })
+    });
   };
 
   // src/js/component/common/doc-svg/definition.js
@@ -26678,22 +26753,23 @@
     const proxi = getProxi();
     const isSectionClass = proxi.isSection ? "is-section" : "";
     const isNoteClass = proxi.isNote ? "is-note" : "";
-    return renderHtml`
-        <button
-            type="button"
-            class="${isSectionClass} ${isNoteClass}"
-            ${bindEffect({
-      toggleClass: { active: () => proxi.active }
-    })}
-        >
-            <span>${proxi.label}</span>
-        </button>
-    `;
+    return fromObject({
+      tag: "button",
+      attributes: { type: "button" },
+      className: [isSectionClass, isNoteClass],
+      modules: bindEffect({
+        toggleClass: { active: () => proxi.active }
+      }),
+      content: {
+        tag: "span",
+        content: proxi.label
+      }
+    });
   };
 
   // src/js/component/common/scroll-to/button/definition.js
   var ScrollToButton = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').ScrollToButton>} */
+    /** @type {CreateComponentParams<import('./type').ScrollToButtonType>} */
     {
       tag: "scroll-to-button",
       component: ScrollToButtonFn,
@@ -26734,23 +26810,24 @@
           }, 1e3);
         }
       });
-      return renderHtml`
-                <li>
-                    <scroll-to-button
-                        ${delegateEventsFn}
-                        ${bindProps(
-        /** @returns {ReturnBindProps<ScrollToButton>} */
-        () => ({
-          active: proxi.activeLabel === item.label,
-          label: item.label,
-          isSection: item.isSection ?? false,
-          isNote: item.isNote ?? false
-        })
-      )}
-                    >
-                    </scroll-to-button>
-                </li>
-            `;
+      return fromObject({
+        tag: "li",
+        content: {
+          component: ScrollToButton,
+          modules: [
+            delegateEventsFn,
+            bindProps(
+              /** @returns {ReturnBindProps<ScrollToButtonType>} */
+              () => ({
+                active: proxi.activeLabel === item.label,
+                label: item.label,
+                isSection: item.isSection ?? false,
+                isNote: item.isNote ?? false
+              })
+            )
+          ]
+        }
+      });
     }).join("");
   }
   var setActiveLabelOnScroll = ({ proxi, direction: direction2, winHeight }) => {
@@ -26846,22 +26923,22 @@
         resizeObserver = null;
       };
     });
-    return renderHtml`
-        <div class="c-scroll-to">
-            <ul>
-                ${invalidate({
-      observe: () => proxi.anchorItems,
-      render: () => {
-        return getButtons({
-          delegateEvents,
-          bindProps,
-          proxi
-        });
+    return fromObject({
+      className: "c-scroll-to",
+      content: {
+        tag: "ul",
+        content: invalidate({
+          observe: () => proxi.anchorItems,
+          render: () => {
+            return getButtons({
+              delegateEvents,
+              bindProps,
+              proxi
+            });
+          }
+        })
       }
-    })}
-            </ul>
-        </div>
-    `;
+    });
   };
 
   // src/js/component/common/scroll-to/definition.js
@@ -34247,30 +34324,354 @@
     }
   );
 
+  // src/js/component/common/move-3d/move-3d-item/utils.js
+  var getRotate = ({ startRotation, range, delta, limit }) => {
+    return Number.parseFloat(
+      (range * delta / limit - startRotation).toFixed(2)
+    );
+  };
+  var getRotateFromPosition = ({
+    rotate,
+    anchorPoint,
+    baseRotateX,
+    baseRotateY
+  }) => {
+    if (!rotate || !anchorPoint)
+      return {
+        rotateX: 0,
+        rotateY: 0
+      };
+    switch (rotate.toUpperCase()) {
+      case "X": {
+        return (() => {
+          switch (anchorPoint.toUpperCase()) {
+            case "BOTTOM": {
+              return {
+                rotateX: baseRotateX,
+                rotateY: 0
+              };
+            }
+            case "TOP": {
+              return {
+                rotateX: -baseRotateX,
+                rotateY: 0
+              };
+            }
+            default: {
+              return {
+                rotateX: 0,
+                rotateY: 0
+              };
+            }
+          }
+        })();
+      }
+      case "Y": {
+        return (() => {
+          switch (anchorPoint.toUpperCase()) {
+            case "LEFT": {
+              return {
+                rotateX: 0,
+                rotateY: baseRotateY
+              };
+            }
+            case "RIGHT": {
+              return {
+                rotateX: 0,
+                rotateY: -baseRotateY
+              };
+            }
+            default: {
+              return {
+                rotateX: 0,
+                rotateY: 0
+              };
+            }
+          }
+        })();
+      }
+      case "XY": {
+        return (() => {
+          switch (anchorPoint.toUpperCase()) {
+            case "TOP-LEFT": {
+              return {
+                rotateX: -baseRotateX,
+                rotateY: baseRotateY
+              };
+            }
+            case "TOP-RIGHT": {
+              return {
+                rotateX: -baseRotateX,
+                rotateY: -baseRotateY
+              };
+            }
+            case "BOTTOM-LEFT": {
+              return {
+                rotateX: baseRotateX,
+                rotateY: baseRotateY
+              };
+            }
+            case "BOTTOM-RIGHT": {
+              return {
+                rotateX: baseRotateX,
+                rotateY: -baseRotateY
+              };
+            }
+            default: {
+              return {
+                rotateX: 0,
+                rotateY: 0
+              };
+            }
+          }
+        })();
+      }
+      default: {
+        return {
+          rotateX: 0,
+          rotateY: 0
+        };
+      }
+    }
+  };
+
+  // src/js/component/common/move-3d/move-3d-item/move-3d-item.js
+  var getComponent = (component) => {
+    if (component?.tagName.length === 0) {
+      return "";
+    }
+    return fromObject({
+      className: ["component", component?.className],
+      content: {
+        tag: component.tagName,
+        modules: modules_exports2.staticProps(component?.props ?? {})
+      }
+    });
+  };
+  var move = ({
+    delta: currentDelta,
+    factor,
+    initialRotate,
+    depth,
+    range,
+    rotate,
+    anchorPoint,
+    lerp: lerp2
+  }) => {
+    const currentDepth = Math.round(depth * currentDelta / factor);
+    const getRotateData = {
+      startRotation: initialRotate ?? 0,
+      range: range ?? 20,
+      delta: currentDelta,
+      limit: factor
+    };
+    const baseRotateX = getRotate(getRotateData);
+    const baseRotateY = getRotate(getRotateData);
+    const getRotateFromPositionData = {
+      rotate: rotate ?? "center",
+      anchorPoint,
+      baseRotateX,
+      baseRotateY
+    };
+    const { rotateX, rotateY } = getRotateFromPosition(
+      getRotateFromPositionData
+    );
+    lerp2.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {
+    });
+  };
+  var Move3DItemfn = ({ getState, addMethod, onMount }) => {
+    const {
+      root: root2,
+      anchorPoint,
+      animate,
+      depth,
+      rotate,
+      width,
+      height,
+      offsetX,
+      offsetY,
+      range,
+      initialRotate,
+      initialDepth,
+      classList,
+      component
+    } = getState();
+    const rootClass = root2 ? "is-root" : "is-children";
+    const widthCssVar = `--item-width:${width};`;
+    const heightCssVar = `--item-height:${height};`;
+    const offsetXCssVar = `--offset-x:${offsetX};`;
+    const offsetYCssVar = `--offset-y:${offsetY};`;
+    let lerp2 = tween_exports.createLerp({
+      data: { depth: 0, rotateX: 0, rotateY: 0 }
+    });
+    addMethod("move", ({ delta, factor }) => {
+      if (animate) {
+        move({
+          delta,
+          factor,
+          initialRotate,
+          depth,
+          range,
+          rotate,
+          anchorPoint,
+          lerp: lerp2
+        });
+      }
+    });
+    onMount(({ element }) => {
+      const unsubscribelerp = lerp2.subscribe(
+        ({ depth: depth2, rotateX, rotateY }) => {
+          const currentDepth2 = depth2 + initialDepth;
+          element.style.transform = `translate3D(0,0,${currentDepth2}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+      );
+      const unsubscribeOnComplete = lerp2.onComplete(
+        ({ depth: depth2, rotateX, rotateY }) => {
+          const currentDepth2 = depth2 + initialDepth;
+          element.style.transform = `translateZ(${currentDepth2}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+      );
+      const currentDepth = initialDepth;
+      element.style.transform = `translateZ(${currentDepth}px)`;
+      return () => {
+        unsubscribelerp();
+        unsubscribeOnComplete();
+        lerp2.destroy();
+        lerp2 = null;
+      };
+    });
+    return fromObject({
+      className: ["c-move3d-item", rootClass, `anchor-${anchorPoint}`],
+      style: `${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}`,
+      content: [
+        {
+          className: classList
+        },
+        getComponent({
+          tagName: component?.tagName ?? "",
+          className: component?.className ?? "",
+          props: component?.props ?? {}
+        }),
+        {
+          tag: "mobjs-slot"
+        }
+      ]
+    });
+  };
+
+  // src/js/component/common/move-3d/move-3d-item/definition.js
+  var Move3DItem = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').Move3DItem>} */
+    {
+      tag: "move-3d-item",
+      component: Move3DItemfn,
+      props: {
+        root: () => ({
+          value: true,
+          type: Boolean
+        }),
+        depth: () => ({
+          value: 0,
+          type: Number
+        }),
+        rotate: () => ({
+          value: "x",
+          type: String
+        }),
+        width: () => ({
+          value: "0px",
+          type: String
+        }),
+        height: () => ({
+          value: "0px",
+          type: String
+        }),
+        offsetX: () => ({
+          value: "0px",
+          type: String
+        }),
+        offsetY: () => ({
+          value: "0px",
+          type: String
+        }),
+        range: () => ({
+          value: 20,
+          type: Number
+        }),
+        anchorPoint: () => ({
+          value: "center",
+          type: String
+        }),
+        animate: () => ({
+          value: true,
+          type: Boolean
+        }),
+        initialRotate: () => ({
+          value: 0,
+          type: Number
+        }),
+        initialDepth: () => ({
+          value: 0,
+          type: Number
+        }),
+        classList: () => ({
+          value: "",
+          type: String
+        }),
+        component: {
+          tagName: () => ({
+            value: "",
+            type: String
+          }),
+          className: () => ({
+            value: "",
+            type: String
+          }),
+          props: () => ({
+            value: "",
+            type: "any"
+          })
+        }
+      },
+      state: {
+        id: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
+
   // src/js/component/common/move-3d/partials/recursive-3d-shape.js
   var getDebug = ({ debug, id }) => {
-    return debug ? renderHtml`<span class="debug">${id}</span>` : "";
+    return debug ? fromObject({
+      tag: "span",
+      className: "debug",
+      content: `${id}`
+    }) : "";
   };
   var Recursive3Dshape = ({ data, root: root2, childrenId, debug }) => {
     return data.map(({ children, props }) => {
-      return renderHtml`<move-3d-item
-                name="${childrenId}"
-                ${modules_exports2.staticProps(
-        /** @type {import('../move-3d-item/type').Move3DItem['state']} */
-        {
-          root: root2,
-          ...props
-        }
-      )}
-            >
-                ${getDebug({ debug, id: props.id })}
-                ${Recursive3Dshape({
-        data: children ?? [],
-        root: false,
-        childrenId,
-        debug
-      })}
-            </move-3d-item>`;
+      return fromObject({
+        component: Move3DItem,
+        attributes: { name: childrenId },
+        modules: modules_exports2.staticProps(
+          /** @type {import('../move-3d-item/type').Move3DItem['state']} */
+          {
+            root: root2,
+            ...props
+          }
+        ),
+        content: [
+          getDebug({ debug, id: props.id }),
+          Recursive3Dshape({
+            data: children ?? [],
+            root: false,
+            childrenId,
+            debug
+          })
+        ]
+      });
     }).join("");
   };
 
@@ -34522,352 +34923,41 @@
         lastScrolledTop = null;
       };
     });
-    return renderHtml`<div
-        class="c-move-3d"
-        ${bindEffect({
-      toggleClass: { "use-drag": () => proxi.drag }
-    })}
-    >
-        <div
-            class="scene"
-            ${bindEffect({
-      toggleStyle: {
-        perspective: () => `${proxi.perspective}px`
-      }
-    })}
-        >
-            <div class="scene-container" ${setRef("container")}>
-                ${invalidate({
-      observe: [() => proxi.shape, () => proxi.debug],
-      afterUpdate: () => {
-        childrenMethods = getChildrenMethod({
-          childrenId
-        });
-      },
-      render: () => {
-        return Recursive3Dshape({
-          data: proxi.shape,
-          root: true,
-          childrenId,
-          debug: proxi.debug
-        });
-      }
-    })}
-            </div>
-        </div>
-    </div>`;
-  };
-
-  // src/js/component/common/move-3d/move-3d-item/utils.js
-  var getRotate = ({ startRotation, range, delta, limit }) => {
-    return Number.parseFloat(
-      (range * delta / limit - startRotation).toFixed(2)
-    );
-  };
-  var getRotateFromPosition = ({
-    rotate,
-    anchorPoint,
-    baseRotateX,
-    baseRotateY
-  }) => {
-    if (!rotate || !anchorPoint)
-      return {
-        rotateX: 0,
-        rotateY: 0
-      };
-    switch (rotate.toUpperCase()) {
-      case "X": {
-        return (() => {
-          switch (anchorPoint.toUpperCase()) {
-            case "BOTTOM": {
-              return {
-                rotateX: baseRotateX,
-                rotateY: 0
-              };
-            }
-            case "TOP": {
-              return {
-                rotateX: -baseRotateX,
-                rotateY: 0
-              };
-            }
-            default: {
-              return {
-                rotateX: 0,
-                rotateY: 0
-              };
-            }
+    return fromObject({
+      className: "c-move-3d",
+      modules: bindEffect({
+        toggleClass: { "use-drag": () => proxi.drag }
+      }),
+      content: {
+        className: "scene",
+        modules: bindEffect({
+          toggleStyle: {
+            perspective: () => `${proxi.perspective}px`
           }
-        })();
-      }
-      case "Y": {
-        return (() => {
-          switch (anchorPoint.toUpperCase()) {
-            case "LEFT": {
-              return {
-                rotateX: 0,
-                rotateY: baseRotateY
-              };
+        }),
+        content: {
+          className: "scene-container",
+          modules: setRef("container"),
+          content: invalidate({
+            observe: [() => proxi.shape, () => proxi.debug],
+            afterUpdate: () => {
+              childrenMethods = getChildrenMethod({
+                childrenId
+              });
+            },
+            render: () => {
+              return Recursive3Dshape({
+                data: proxi.shape,
+                root: true,
+                childrenId,
+                debug: proxi.debug
+              });
             }
-            case "RIGHT": {
-              return {
-                rotateX: 0,
-                rotateY: -baseRotateY
-              };
-            }
-            default: {
-              return {
-                rotateX: 0,
-                rotateY: 0
-              };
-            }
-          }
-        })();
-      }
-      case "XY": {
-        return (() => {
-          switch (anchorPoint.toUpperCase()) {
-            case "TOP-LEFT": {
-              return {
-                rotateX: -baseRotateX,
-                rotateY: baseRotateY
-              };
-            }
-            case "TOP-RIGHT": {
-              return {
-                rotateX: -baseRotateX,
-                rotateY: -baseRotateY
-              };
-            }
-            case "BOTTOM-LEFT": {
-              return {
-                rotateX: baseRotateX,
-                rotateY: baseRotateY
-              };
-            }
-            case "BOTTOM-RIGHT": {
-              return {
-                rotateX: baseRotateX,
-                rotateY: -baseRotateY
-              };
-            }
-            default: {
-              return {
-                rotateX: 0,
-                rotateY: 0
-              };
-            }
-          }
-        })();
-      }
-      default: {
-        return {
-          rotateX: 0,
-          rotateY: 0
-        };
-      }
-    }
-  };
-
-  // src/js/component/common/move-3d/move-3d-item/move-3d-item.js
-  var getComponent = (component) => {
-    if (component?.tagName.length === 0) {
-      return "";
-    }
-    return renderHtml`
-        <div class="component ${component?.className}">
-            <${component.tagName} ${modules_exports2.staticProps(component?.props ?? {})}>
-            </${component.tagName}>
-        </div>`;
-  };
-  var move = ({
-    delta: currentDelta,
-    factor,
-    initialRotate,
-    depth,
-    range,
-    rotate,
-    anchorPoint,
-    lerp: lerp2
-  }) => {
-    const currentDepth = Math.round(depth * currentDelta / factor);
-    const getRotateData = {
-      startRotation: initialRotate ?? 0,
-      range: range ?? 20,
-      delta: currentDelta,
-      limit: factor
-    };
-    const baseRotateX = getRotate(getRotateData);
-    const baseRotateY = getRotate(getRotateData);
-    const getRotateFromPositionData = {
-      rotate: rotate ?? "center",
-      anchorPoint,
-      baseRotateX,
-      baseRotateY
-    };
-    const { rotateX, rotateY } = getRotateFromPosition(
-      getRotateFromPositionData
-    );
-    lerp2.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {
-    });
-  };
-  var Move3DItemfn = ({ getState, addMethod, onMount }) => {
-    const {
-      root: root2,
-      anchorPoint,
-      animate,
-      depth,
-      rotate,
-      width,
-      height,
-      offsetX,
-      offsetY,
-      range,
-      initialRotate,
-      initialDepth,
-      classList,
-      component
-    } = getState();
-    const rootClass = root2 ? "is-root" : "is-children";
-    const widthCssVar = `--item-width:${width};`;
-    const heightCssVar = `--item-height:${height};`;
-    const offsetXCssVar = `--offset-x:${offsetX};`;
-    const offsetYCssVar = `--offset-y:${offsetY};`;
-    let lerp2 = tween_exports.createLerp({
-      data: { depth: 0, rotateX: 0, rotateY: 0 }
-    });
-    addMethod("move", ({ delta, factor }) => {
-      if (animate) {
-        move({
-          delta,
-          factor,
-          initialRotate,
-          depth,
-          range,
-          rotate,
-          anchorPoint,
-          lerp: lerp2
-        });
-      }
-    });
-    onMount(({ element }) => {
-      const unsubscribelerp = lerp2.subscribe(
-        ({ depth: depth2, rotateX, rotateY }) => {
-          const currentDepth2 = depth2 + initialDepth;
-          element.style.transform = `translate3D(0,0,${currentDepth2}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        }
-      );
-      const unsubscribeOnComplete = lerp2.onComplete(
-        ({ depth: depth2, rotateX, rotateY }) => {
-          const currentDepth2 = depth2 + initialDepth;
-          element.style.transform = `translateZ(${currentDepth2}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        }
-      );
-      const currentDepth = initialDepth;
-      element.style.transform = `translateZ(${currentDepth}px)`;
-      return () => {
-        unsubscribelerp();
-        unsubscribeOnComplete();
-        lerp2.destroy();
-        lerp2 = null;
-      };
-    });
-    return renderHtml`<div
-        class="c-move3d-item ${rootClass} anchor-${anchorPoint}"
-        style="${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}"
-    >
-        <div class="${classList}"></div>
-        ${getComponent({
-      tagName: component?.tagName ?? "",
-      className: component?.className ?? "",
-      props: component?.props ?? {}
-    })}
-        <mobjs-slot></mobjs-slot>
-    </div>`;
-  };
-
-  // src/js/component/common/move-3d/move-3d-item/definition.js
-  var Move3DItem = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').Move3DItem>} */
-    {
-      tag: "move-3d-item",
-      component: Move3DItemfn,
-      props: {
-        root: () => ({
-          value: true,
-          type: Boolean
-        }),
-        depth: () => ({
-          value: 0,
-          type: Number
-        }),
-        rotate: () => ({
-          value: "x",
-          type: String
-        }),
-        width: () => ({
-          value: "0px",
-          type: String
-        }),
-        height: () => ({
-          value: "0px",
-          type: String
-        }),
-        offsetX: () => ({
-          value: "0px",
-          type: String
-        }),
-        offsetY: () => ({
-          value: "0px",
-          type: String
-        }),
-        range: () => ({
-          value: 20,
-          type: Number
-        }),
-        anchorPoint: () => ({
-          value: "center",
-          type: String
-        }),
-        animate: () => ({
-          value: true,
-          type: Boolean
-        }),
-        initialRotate: () => ({
-          value: 0,
-          type: Number
-        }),
-        initialDepth: () => ({
-          value: 0,
-          type: Number
-        }),
-        classList: () => ({
-          value: "",
-          type: String
-        }),
-        component: {
-          tagName: () => ({
-            value: "",
-            type: String
-          }),
-          className: () => ({
-            value: "",
-            type: String
-          }),
-          props: () => ({
-            value: "",
-            type: "any"
           })
         }
-      },
-      state: {
-        id: () => ({
-          value: "",
-          type: String
-        })
       }
-    }
-  );
+    });
+  };
 
   // src/js/component/common/move-3d/definition.js
   var Move3D = modules_exports2.createComponent(
@@ -35752,8 +35842,13 @@
   var MouseTrailFn = ({ onMount, getRefs, setRef }) => {
     const { starOutline } = getIcons();
     const stars = [...Array.from({ length: numberOfStar }).keys()].map(() => {
-      return `<span class='child' ${setRef("star")}>${starOutline}</span>`;
-    }).join("");
+      return fromObject({
+        tag: "span",
+        className: "child",
+        modules: setRef("star"),
+        content: starOutline
+      });
+    });
     onMount(() => {
       const { star } = getRefs();
       const { destroy: destroy3 } = mouseTrailAnimation({ elements: star });
@@ -35761,7 +35856,10 @@
         destroy3();
       };
     });
-    return renderHtml`<div class="mouse-trail">${stars}</div>`;
+    return fromObject({
+      className: "mouse-trail",
+      content: stars
+    });
   };
 
   // src/js/component/common/mouse-trail/definition.js
@@ -36309,19 +36407,17 @@
         lastValidParams = null;
       };
     });
-    return renderHtml`
-        <a
-            href="#home"
-            class="link"
-            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.active
-      }
-    })}
-        >
-            home page
-        </a>
-    `;
+    return fromObject({
+      tag: "a",
+      attributes: { href: "#home" },
+      className: "link",
+      modules: bindEffect({
+        toggleClass: {
+          active: () => proxi.active
+        }
+      }),
+      content: "home page"
+    });
   };
 
   // src/js/component/common/only-desktop-cta/definition.js
@@ -37744,23 +37840,36 @@
         element = null;
       };
     });
-    return renderHtml`<div class="c-dragger ${proxi.rootClass}">
-        <!-- Root border -->
-        <mobjs-slot name="root-slot"></mobjs-slot>
-
-        <!-- Child -->
-        <div
-            class="wrapper"
-            ${setRef("child")}
-            ${bindEffect({
-      toggleStyle: {
-        perspective: () => `${proxi.perspective}px`
-      }
-    })}
-        >
-            <mobjs-slot name="child-slot"></mobjs-slot>
-        </div>
-    </div>`;
+    return fromObject({
+      className: ["c-dragger", proxi.rootClass ?? ""],
+      content: [
+        /**
+         * Root border
+         */
+        {
+          tag: "mobjs-slot",
+          attributes: { name: "root-slot" }
+        },
+        /**
+         * Root border
+         */
+        {
+          className: "wrapper",
+          modules: [
+            setRef("child"),
+            bindEffect({
+              toggleStyle: {
+                perspective: () => `${proxi.perspective}px`
+              }
+            })
+          ],
+          content: {
+            tag: "mobjs-slot",
+            attributes: { name: "child-slot" }
+          }
+        }
+      ]
+    });
   };
 
   // src/js/component/common/dragger/definition.js
@@ -38578,39 +38687,54 @@
         resume2 = null;
       };
     });
-    return renderHtml`<div class="c-math">
-        <canvas ${setRef("canvas")}></canvas>
-        <div class="nav ${showNavigationClass}">
-            <button
-                type="button"
-                class="play"
-                ${delegateEvents({
-      click: () => {
-        resume2();
-      }
-    })}
-            ></button>
-            <button
-                type="button"
-                class="stop"
-                ${delegateEvents({
-      click: () => {
-        stop2();
-      }
-    })}
-            ></button>
-        </div>
-        <div class="trails">
-            ${staggers.map(({ size, opacity }) => {
-      return renderHtml`<span
-                        class="trail-item"
-                        ${setRef("target")}
-                        style="width:${size}rem;height:${size}rem;opacity:${opacity}"
-                        ><span class="trail-item-inner"></span
-                    ></span>`;
-    }).join("")}
-        </div>
-    </div>`;
+    const staggersBlock = staggers.map(({ size, opacity }) => {
+      return fromObject({
+        tag: "span",
+        className: "trail-item",
+        style: `width:${size}rem;height:${size}rem;opacity:${opacity}`,
+        modules: setRef("target"),
+        content: {
+          tag: "span",
+          className: "trail-item-inner"
+        }
+      });
+    });
+    return fromObject({
+      className: "c-math",
+      content: [
+        {
+          tag: "canvas",
+          modules: setRef("canvas")
+        },
+        {
+          className: ["nav", showNavigationClass],
+          content: [
+            {
+              tag: "button",
+              className: "play",
+              modules: delegateEvents({
+                click: () => {
+                  resume2();
+                }
+              })
+            },
+            {
+              tag: "button",
+              className: "stop",
+              modules: delegateEvents({
+                click: () => {
+                  stop2();
+                }
+              })
+            }
+          ]
+        },
+        {
+          className: "trails",
+          content: staggersBlock
+        }
+      ]
+    });
   };
 
   // src/js/component/common/math-animation/definition.js
@@ -41417,7 +41541,7 @@
               type: "range",
               id: "test",
               min: 0,
-              max: 0,
+              max: 100,
               value: 0,
               step: 0.5
             },
@@ -41855,6 +41979,42 @@
     }
   );
 
+  // src/js/component/common/side-bar-links/side-bar-links-button/side-bar-links-button.js
+  var SideBarLinksButtonFn = ({ getProxi, bindEffect }) => {
+    const proxi = getProxi();
+    return fromObject({
+      tag: "a",
+      attributes: { href: `./#${proxi.url}` },
+      modules: bindEffect({
+        toggleClass: { current: () => proxi.active }
+      }),
+      content: proxi.label
+    });
+  };
+
+  // src/js/component/common/side-bar-links/side-bar-links-button/definition.js
+  var SideBarLinksButton = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').SideBarLinksButtonType>} */
+    {
+      tag: "sidebar-links-button",
+      component: SideBarLinksButtonFn,
+      props: {
+        label: () => ({
+          value: "",
+          type: String
+        }),
+        url: () => ({
+          value: "",
+          type: String
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
   // src/js/component/common/side-bar-links/side-bar-links.js
   var init8 = () => {
   };
@@ -41867,20 +42027,28 @@
   var getItems = ({ staticProps: staticProps2, bindProps, proxi }) => {
     return proxi.data.map((item) => {
       const { label, url, isLabel } = item;
-      return isLabel ? renderHtml`<p class="label">${label}</p>` : renderHtml`<li>
-                      <sidebar-links-button
-                          ${staticProps2(
-        /** @type {SideBarLinksButton['props']} */
-        {
-          label,
-          url
+      return isLabel ? fromObject({
+        tag: "p",
+        className: "label",
+        content: label
+      }) : fromObject({
+        tag: "li",
+        content: {
+          component: SideBarLinksButton,
+          modules: [
+            staticProps2(
+              /** @type {SideBarLinksButtonType['props']} */
+              {
+                label,
+                url
+              }
+            ),
+            bindProps(() => ({
+              active: proxi.activeSection === url
+            }))
+          ]
         }
-      )}
-                          ${bindProps(() => ({
-        active: proxi.activeSection === url
-      }))}
-                      ></sidebar-links-button>
-                  </li>`;
+      });
     }).join("");
   };
   var SideBarLinksFn = ({
@@ -41953,76 +42121,49 @@
         };
       };
     });
-    return renderHtml`<div
-        class="c-sidebar-links"
-        ${setRef("screenEl")}
-        ${bindEffect({
-      toggleClass: {
-        hide: () => proxi.hide,
-        shift: () => proxi.shift
-      }
-    })}
-    >
-        <input
-            type="range"
-            id="test"
-            name="test"
-            min="0"
-            max="100"
-            value="0"
-            step=".5"
-            ${setRef("scrollbar")}
-            class="scrollbar hide-scrollbar"
-        />
-        <ul ${setRef("scrollerEl")}>
-            ${invalidate({
-      observe: () => proxi.data,
-      render: () => {
-        return getItems({
-          staticProps: staticProps2,
-          bindProps,
-          proxi
-        });
-      }
-    })}
-        </ul>
-    </div>`;
-  };
-
-  // src/js/component/common/side-bar-links/side-bar-links-button/side-bar-links-button.js
-  var SideBarLinksButtonFn = ({ getProxi, bindEffect }) => {
-    const proxi = getProxi();
-    return renderHtml` <a
-        href="./#${proxi.url}"
-        ${bindEffect({
-      toggleClass: { current: () => proxi.active }
-    })}
-        ><span>${proxi.label}</span></a
-    >`;
-  };
-
-  // src/js/component/common/side-bar-links/side-bar-links-button/definition.js
-  var SideBarLinksButton = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').SideBarLinksButton>} */
-    {
-      tag: "sidebar-links-button",
-      component: SideBarLinksButtonFn,
-      props: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        url: () => ({
-          value: "",
-          type: String
-        }),
-        active: () => ({
-          value: false,
-          type: Boolean
+    return fromObject({
+      className: "c-sidebar-links",
+      modules: [
+        setRef("screenEl"),
+        bindEffect({
+          toggleClass: {
+            hide: () => proxi.hide,
+            shift: () => proxi.shift
+          }
         })
-      }
-    }
-  );
+      ],
+      content: [
+        {
+          tag: "input",
+          className: "scrollbar hide-scrollbar",
+          attributes: {
+            type: "range",
+            id: "test",
+            name: "test",
+            min: 0,
+            max: 100,
+            value: 0,
+            step: 0.5
+          },
+          modules: setRef("scrollbar")
+        },
+        {
+          tag: "ul",
+          modules: setRef("scrollerEl"),
+          content: invalidate({
+            observe: () => proxi.data,
+            render: () => {
+              return getItems({
+                staticProps: staticProps2,
+                bindProps,
+                proxi
+              });
+            }
+          })
+        }
+      ]
+    });
+  };
 
   // src/js/component/common/side-bar-links/definition.js
   var SideBarLinks = modules_exports2.createComponent(
@@ -42109,66 +42250,89 @@
         labels = null;
       };
     });
-    return renderHtml`<div
-        class="c-quick-nav-container"
-        ${bindEffect([
-      {
-        toggleClass: { active: () => proxi.active }
-      }
-    ])}
-    >
-        <a
-            class="c-quick-nav is-prev"
-            ${setRef("previous")}
-            ${bindEffect({
-      toggleClass: { "is-disable": () => !proxi.prevRoute },
-      toggleAttribute: {
-        href: () => {
-          const route = proxi.prevRoute;
-          return route.length > 0 ? route : null;
+    return fromObject({
+      className: "c-quick-nav-container",
+      modules: bindEffect([
+        {
+          toggleClass: { active: () => proxi.active }
         }
-      }
-    })}
-        >
-        </a>
-        <a
-            class="c-quick-nav is-back"
-            ${setRef("back")}
-            ${bindEffect({
-      toggleClass: { "is-disable": () => !proxi.backRoute },
-      toggleAttribute: {
-        href: () => {
-          const route = proxi.backRoute;
-          return route.length > 0 ? route : null;
+      ]),
+      content: [
+        {
+          tag: "a",
+          className: "c-quick-nav is-prev",
+          modules: [
+            setRef("previous"),
+            bindEffect({
+              toggleClass: { "is-disable": () => !proxi.prevRoute },
+              toggleAttribute: {
+                href: () => {
+                  const route = proxi.prevRoute;
+                  return route.length > 0 ? route : null;
+                }
+              }
+            })
+          ]
+        },
+        {
+          tag: "a",
+          className: "c-quick-nav is-back",
+          modules: [
+            setRef("back"),
+            bindEffect({
+              toggleClass: { "is-disable": () => !proxi.backRoute },
+              toggleAttribute: {
+                href: () => {
+                  const route = proxi.backRoute;
+                  return route.length > 0 ? route : null;
+                }
+              }
+            })
+          ]
+        },
+        {
+          tag: "a",
+          className: "c-quick-nav is-next",
+          modules: [
+            setRef("next"),
+            bindEffect({
+              toggleClass: { "is-disable": () => !proxi.nextRoute },
+              toggleAttribute: {
+                href: () => {
+                  const route = proxi.nextRoute;
+                  return route && route.length > 0 ? route : null;
+                }
+              }
+            })
+          ]
+        },
+        {
+          className: "quick-nav-labels",
+          content: {
+            className: "labels",
+            modules: setRef("labels"),
+            content: {
+              className: "labels-container",
+              modules: setRef("labelList"),
+              content: [
+                {
+                  tag: "span",
+                  content: "previous item"
+                },
+                {
+                  tag: "span",
+                  content: "all items"
+                },
+                {
+                  tag: "span",
+                  content: "next item"
+                }
+              ]
+            }
+          }
         }
-      }
-    })}
-        >
-        </a>
-        <a
-            class="c-quick-nav is-next"
-            ${setRef("next")}
-            ${bindEffect({
-      toggleClass: { "is-disable": () => !proxi.nextRoute },
-      toggleAttribute: {
-        href: () => {
-          const route = proxi.nextRoute;
-          return route && route.length > 0 ? route : null;
-        }
-      }
-    })}
-        >
-        </a>
-        <div class="quick-nav-labels">
-            <div class="labels" ${setRef("labels")}>
-                <div class="labels-container" ${setRef("labelList")}>
-                    <span>previous item</span>
-                    <span>all items</span>
-                    <span>next item</span>
-                </div>
-            </div>
-        </div>
-    </div>`;
+      ]
+    });
   };
 
   // src/js/component/common/quick-nav/definition.js
@@ -42206,20 +42370,21 @@
   var getList2 = ({ proxi, bindEffect }) => {
     return proxi.data.map(({ label, url }) => {
       const urlParsed = url.replaceAll("#", "");
-      return renderHtml`
-                <li class="item">
-                    <a
-                        href="${url}"
-                        class="link"
-                        ${bindEffect({
-        toggleClass: {
-          active: () => proxi.activeRoute.route === urlParsed
+      return fromObject({
+        className: "item",
+        tag: "li",
+        content: {
+          tag: "a",
+          className: "link",
+          attributes: { href: url },
+          modules: bindEffect({
+            toggleClass: {
+              active: () => proxi.activeRoute.route === urlParsed
+            }
+          }),
+          content: label
         }
-      })}
-                        >${label}</a
-                    >
-                </li>
-            `;
+      });
     }).join("");
   };
   var LightSidebarFn = ({
@@ -42240,24 +42405,30 @@
       () => proxi.isVisible,
       () => proxi.data.length > 0
     );
-    return renderHtml`<div
-        class="left-sidebar"
-        ${bindEffect({
-      toggleClass: {
-        visible: () => proxi.isVisible
-      }
-    })}
-    >
-        <div class="title">Sections:</div>
-        <ul class="list">
-            ${invalidate({
-      observe: () => proxi.data,
-      render: () => {
-        return getList2({ proxi, bindEffect });
-      }
-    })}
-        </ul>
-    </div>`;
+    return fromObject({
+      className: "left-sidebar",
+      modules: bindEffect({
+        toggleClass: {
+          visible: () => proxi.isVisible
+        }
+      }),
+      content: [
+        {
+          className: "title",
+          content: "Sections:"
+        },
+        {
+          tag: "ul",
+          className: "list",
+          content: invalidate({
+            observe: () => proxi.data,
+            render: () => {
+              return getList2({ proxi, bindEffect });
+            }
+          })
+        }
+      ]
+    });
   };
 
   // src/js/component/common/left-sidebar/definition.js
@@ -42316,14 +42487,12 @@
         unsubScribeAfterRouteChange();
       };
     });
-    return renderHtml`
-        <div
-            class="c-loader center-viewport"
-            ${bindEffect({
-      toggleClass: { disable: () => proxi.isDisable }
-    })}
-        ></div>
-    `;
+    return fromObject({
+      className: "c-loader center-viewport",
+      modules: bindEffect({
+        toggleClass: { disable: () => proxi.isDisable }
+      })
+    });
   };
 
   // src/js/component/common/route-loader/definition.js
@@ -42355,16 +42524,14 @@
     addMethod("update", (value) => {
       proxi.active = value;
     });
-    return renderHtml`
-        <h3
-            class="c-scroller-down-label"
-            ${bindEffect({
-      toggleClass: { active: () => proxi.active }
-    })}
-        >
-            Scroll down
-        </h3>
-    `;
+    return fromObject({
+      tag: "h3",
+      className: "c-scroller-down-label",
+      modules: bindEffect({
+        toggleClass: { active: () => proxi.active }
+      }),
+      content: "Scroll down"
+    });
   };
 
   // src/js/component/common/scroll-down-label/definition.js

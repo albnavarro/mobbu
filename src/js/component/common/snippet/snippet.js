@@ -3,7 +3,7 @@
  * @import {Snippet} from "./type"
  */
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { loadTextContent } from '@utils/utils';
@@ -94,35 +94,35 @@ export const SnippetFn = ({
         return () => {};
     });
 
-    return html`<div
-        class="snippet"
-        style="--snippet-height:${snippetHeight};--closed-height:${closedHeight}"
-    >
-        <code
-            ${bindEffect({
-                toggleClass: {
-                    close: () => useExpand && !proxi.isExpanded,
-                    open: () => useExpand && proxi.isExpanded,
+    return fromObject({
+        className: 'snippet',
+        style: `--snippet-height:${snippetHeight};--closed-height:${closedHeight}`,
+        content: [
+            {
+                tag: 'code',
+                modules: bindEffect({
+                    toggleClass: {
+                        close: () => useExpand && !proxi.isExpanded,
+                        open: () => useExpand && proxi.isExpanded,
+                    },
+                }),
+                content: {
+                    tag: 'pre',
+                    modules: setRef('codeEl'),
+                    content: 'Loading snippet ...',
                 },
-            })}
-        >
-            <pre
-                ${setRef('codeEl')}
-                style="height:${useExpand ? closedHeight : snippetHeight}"
-            >
-                 Loading snippet ...</pre
-            >
-        </code>
-        <button
-            class="expand ${expandClass}"
-            ${!useExpand && 'disabled'}
-            ${delegateEvents({
-                click: () => {
-                    proxi.isExpanded = !proxi.isExpanded;
-                },
-            })}
-        >
-            ${bindObject`${() => (proxi.isExpanded ? 'close' : 'expand')}`}
-        </button>
-    </div>`;
+            },
+            {
+                tag: 'button',
+                className: ['expand', expandClass],
+                attributes: { disabled: !useExpand },
+                modules: delegateEvents({
+                    click: () => {
+                        proxi.isExpanded = !proxi.isExpanded;
+                    },
+                }),
+                content: bindObject`${() => (proxi.isExpanded ? 'close' : 'expand')}`,
+            },
+        ],
+    });
 };

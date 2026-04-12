@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { draggerAnimation } from './animation';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Dragger>} */
@@ -53,21 +53,35 @@ export const DraggerFn = ({
         };
     });
 
-    return html`<div class="c-dragger ${proxi.rootClass}">
-        <!-- Root border -->
-        <mobjs-slot name="root-slot"></mobjs-slot>
+    return fromObject({
+        className: ['c-dragger', proxi.rootClass ?? ''],
+        content: [
+            /**
+             * Root border
+             */
+            {
+                tag: 'mobjs-slot',
+                attributes: { name: 'root-slot' },
+            },
 
-        <!-- Child -->
-        <div
-            class="wrapper"
-            ${setRef('child')}
-            ${bindEffect({
-                toggleStyle: {
-                    perspective: () => `${proxi.perspective}px`,
+            /**
+             * Root border
+             */
+            {
+                className: 'wrapper',
+                modules: [
+                    setRef('child'),
+                    bindEffect({
+                        toggleStyle: {
+                            perspective: () => `${proxi.perspective}px`,
+                        },
+                    }),
+                ],
+                content: {
+                    tag: 'mobjs-slot',
+                    attributes: { name: 'child-slot' },
                 },
-            })}
-        >
-            <mobjs-slot name="child-slot"></mobjs-slot>
-        </div>
-    </div>`;
+            },
+        ],
+    });
 };

@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -6,17 +6,36 @@ import { html } from '@mobJs';
 
 /** @type {MobComponent} */
 export const DocContainerFn = () => {
-    return html`
-        <div class="c-doc-container">
-            <div class="left"></div>
-            <div class="content">
-                <mobjs-slot name="docs"></mobjs-slot>
-            </div>
-            <div class="right">
-                <mobjs-slot name="section-title-small"></mobjs-slot>
-                <mobjs-slot name="section-title"></mobjs-slot>
-                <mobjs-slot name="section-links"></mobjs-slot>
-            </div>
-        </div>
-    `;
+    return fromObject({
+        className: 'c-doc-container',
+        content: [
+            {
+                className: 'left',
+            },
+            {
+                className: 'content',
+                content: {
+                    tag: 'mobjs-slot',
+                    attributes: { name: 'docs' },
+                },
+            },
+            {
+                className: 'right',
+                content: [
+                    {
+                        tag: 'mobjs-slot',
+                        attributes: { name: 'section-title-small' },
+                    },
+                    {
+                        tag: 'mobjs-slot',
+                        attributes: { name: 'section-title' },
+                    },
+                    {
+                        tag: 'mobjs-slot',
+                        attributes: { name: 'section-links' },
+                    },
+                ],
+            },
+        ],
+    });
 };
