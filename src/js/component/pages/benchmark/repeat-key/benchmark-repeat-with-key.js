@@ -2,13 +2,14 @@ import { fromObject } from '@mobJs';
 import { benchMarkGarbagePartial } from '../partials/bench-mark-garbage-partial';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { benchMarkUseProxi } from '../strategy';
+import { BenchMarkFakeComponent } from '../fake-component/definition';
 
 /**
  * @import {
  *   MobComponent,
  *   ReturnBindProps
  * } from "@mobJsType"
- * @import {BenchMarkFakeComponent} from "../fake-component/type"
+ * @import {BenchMarkFakeComponentType} from "../fake-component/type"
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */
@@ -32,6 +33,47 @@ export const BenchMarkRepeatWithKyFn = ({
             getRef()?.input.remove();
         };
     });
+
+    const contentList = {
+        className: 'list',
+        content: repeat({
+            observe: () => proxi.data,
+            useSync: true,
+            key: 'label',
+            render: ({ sync, current }) => {
+                return benchMarkUseProxi
+                    ? fromObject({
+                          component: BenchMarkFakeComponent,
+                          modules: [
+                              bindProps(
+                                  /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                                  () => ({
+                                      index: current.index,
+                                      label: current.value.label,
+                                      counter: proxi.counter,
+                                  })
+                              ),
+                              sync(),
+                          ],
+                      })
+                    : fromObject({
+                          component: BenchMarkFakeComponent,
+                          modules: [
+                              bindProps({
+                                  observe: ['counter'],
+                                  /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                                  props: ({ counter }, value, index) => ({
+                                      index: index,
+                                      label: value['label'],
+                                      counter: counter,
+                                  }),
+                              }),
+                              sync(),
+                          ],
+                      });
+            },
+        }),
+    };
 
     return fromObject({
         className: 'l-benchmark',
@@ -61,50 +103,7 @@ export const BenchMarkRepeatWithKyFn = ({
                     },
                 ],
             },
-            {
-                className: 'list',
-                content: repeat({
-                    observe: () => proxi.data,
-                    useSync: true,
-                    key: 'label',
-                    render: ({ sync, current }) => {
-                        return benchMarkUseProxi
-                            ? fromObject({
-                                  tag: 'benchmark-fake-component',
-                                  modules: [
-                                      bindProps(
-                                          /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                                          () => ({
-                                              index: current.index,
-                                              label: current.value.label,
-                                              counter: proxi.counter,
-                                          })
-                                      ),
-                                      sync(),
-                                  ],
-                              })
-                            : fromObject({
-                                  tag: 'benchmark-fake-component',
-                                  modules: [
-                                      bindProps({
-                                          observe: ['counter'],
-                                          /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                                          props: (
-                                              { counter },
-                                              value,
-                                              index
-                                          ) => ({
-                                              index: index,
-                                              label: value['label'],
-                                              counter: counter,
-                                          }),
-                                      }),
-                                      sync(),
-                                  ],
-                              });
-                    },
-                }),
-            },
+            contentList,
         ],
     });
 };

@@ -5,13 +5,13 @@ import { MobJs } from '@mobJs';
  * @param {string} id
  */
 export const updateDebugComponentById = (id) => {
-    /** @type {import('@mobJsType').UseMethodByName<import('./type').DebugComponent>} */
+    /** @type {import('@mobJsType').UseMethodByName<import('./type').DebugComponentType>} */
     const methods = MobJs.useMethodByName(debugComponentName);
     methods?.updateId(id);
 };
 
 export const refreshDebugComponentById = () => {
-    /** @type {import('@mobJsType').UseMethodByName<import('./type').DebugComponent>} */
+    /** @type {import('@mobJsType').UseMethodByName<import('./type').DebugComponentType>} */
     const methods = MobJs.useMethodByName(debugComponentName);
     methods?.refreshId();
 };

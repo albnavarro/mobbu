@@ -6,7 +6,7 @@ import { fromObject } from '@mobJs';
  * @import {MobComponent} from "@mobJsType"
  */
 
-/** @type {MobComponent<import('./type').BenchMarkFakeComponent>} */
+/** @type {MobComponent<import('./type').BenchMarkFakeComponentType>} */
 export const BenchMarkFakeComponentFn = ({
     getProxi,
     bindObject,

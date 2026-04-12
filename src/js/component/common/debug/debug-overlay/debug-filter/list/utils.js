@@ -5,7 +5,7 @@ import { MobJs } from '@mobJs';
  * @param {string} testString
  */
 export const refreshFilterList = (testString) => {
-    /** @type {import('@mobJsType').UseMethodByName<import('./type').DebugFilterList>} */
+    /** @type {import('@mobJsType').UseMethodByName<import('./type').DebugFilterListType>} */
     const methods = MobJs.useMethodByName(debugFilterListName);
     methods?.refreshList?.({ testString });
 };

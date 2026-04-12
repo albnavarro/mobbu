@@ -1,12 +1,13 @@
 import { fromObject, html } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
+import { BenchMarkFakeComponent } from '../fake-component/definition';
 
 /**
  * @import {
  *   MobComponent,
  *   ReturnBindProps
  * } from "@mobJsType"
- * @import {BenchMarkFakeComponent} from "../fake-component/type"
+ * @import {BenchMarkFakeComponentType} from "../fake-component/type"
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */
@@ -30,6 +31,50 @@ export const BenchMarkRepeatWithKyFnNested = ({
             getRef()?.input.remove();
         };
     });
+
+    const contentList = {
+        className: 'list',
+        content: repeat({
+            observe: () => proxi.data,
+            key: 'label',
+            useSync: true,
+            render: ({ current }) => {
+                return fromObject({
+                    tag: 'div',
+                    content: [
+                        {
+                            className: 'static-item-inner',
+                            content: bindObject`label: ${() => current.value.label}`,
+                        },
+                        {
+                            tag: 'div',
+                            content: repeat({
+                                observe: () => proxi.data,
+                                useSync: true,
+                                key: 'label',
+                                render: ({ sync, current }) => {
+                                    return fromObject({
+                                        component: BenchMarkFakeComponent,
+                                        modules: [
+                                            bindProps(
+                                                /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                                                () => ({
+                                                    index: current.index,
+                                                    label: current.value.label,
+                                                    counter: proxi.counter,
+                                                })
+                                            ),
+                                            sync(),
+                                        ],
+                                    });
+                                },
+                            }),
+                        },
+                    ],
+                });
+            },
+        }),
+    };
 
     return fromObject({
         className: 'l-benchmark',
@@ -62,51 +107,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
                     },
                 ],
             },
-            {
-                className: 'list',
-                content: repeat({
-                    observe: () => proxi.data,
-                    key: 'label',
-                    useSync: true,
-                    render: ({ current }) => {
-                        return fromObject({
-                            tag: 'div',
-                            content: [
-                                {
-                                    className: 'static-item-inner',
-                                    content: bindObject`label: ${() => current.value.label}`,
-                                },
-                                {
-                                    tag: 'div',
-                                    content: repeat({
-                                        observe: () => proxi.data,
-                                        useSync: true,
-                                        key: 'label',
-                                        render: ({ sync, current }) => {
-                                            return fromObject({
-                                                tag: 'benchmark-fake-component',
-                                                modules: [
-                                                    bindProps(
-                                                        /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                                                        () => ({
-                                                            index: current.index,
-                                                            label: current.value
-                                                                .label,
-                                                            counter:
-                                                                proxi.counter,
-                                                        })
-                                                    ),
-                                                    sync(),
-                                                ],
-                                            });
-                                        },
-                                    }),
-                                },
-                            ],
-                        });
-                    },
-                }),
-            },
+            contentList,
         ],
     });
 };

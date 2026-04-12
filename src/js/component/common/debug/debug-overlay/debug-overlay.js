@@ -8,16 +8,20 @@ import {
     debugFilterListName,
     debugTreeName,
 } from '@instanceName';
+import { DebugTree } from './tree/definition';
+import { DebugFilterList } from './debug-filter/list/definition';
+import { DebugComponent } from './debug-component/definition';
+import { DebugHead } from './head/definition';
 
 /**
  * @import {
  *   MobComponent,
  *   ReturnBindProps
  * } from "@mobJsType"
- * @import {DebugHead} from "./head/type"
+ * @import {DebugHeadType} from "./head/type"
  */
 
-/** @type {MobComponent<import('./type').DebugOverlay>} */
+/** @type {MobComponent<import('./type').DebugOverlayType>} */
 export const DebugOverlayFn = ({
     delegateEvents,
     addMethod,
@@ -134,7 +138,7 @@ export const DebugOverlayFn = ({
             render: () => {
                 if (proxi.listType === DEBUG_USE_TREE && proxi.active)
                     return fromObject({
-                        tag: 'debug-tree',
+                        component: DebugTree,
                         attributes: { name: debugTreeName },
                     });
 
@@ -143,7 +147,7 @@ export const DebugOverlayFn = ({
                     proxi.active
                 )
                     return fromObject({
-                        tag: 'debug-filter-list',
+                        component: DebugFilterList,
                         attributes: { name: debugFilterListName },
                     });
 
@@ -199,9 +203,9 @@ export const DebugOverlayFn = ({
                     {
                         className: 'header',
                         content: {
-                            tag: 'debug-head',
+                            component: DebugHead,
                             modules: bindProps(
-                                /** @returns {ReturnBindProps<DebugHead>} */
+                                /** @returns {ReturnBindProps<DebugHeadType>} */
                                 () => ({
                                     active: proxi.active,
                                 })
@@ -221,7 +225,7 @@ export const DebugOverlayFn = ({
                     {
                         className: 'single-component',
                         content: {
-                            tag: 'debug-component',
+                            component: DebugComponent,
                             attributes: { name: debugComponentName },
                         },
                     },

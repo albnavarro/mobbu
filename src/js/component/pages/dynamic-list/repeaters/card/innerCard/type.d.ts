@@ -1,4 +1,4 @@
-export interface DynamicListCardInner {
+export interface DynamicListCardInnerType {
     props: {
         key: string;
     };

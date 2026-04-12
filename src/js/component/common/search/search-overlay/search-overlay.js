@@ -2,12 +2,14 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import {
     closeSearchSuggestion,
     shouldCloseSearchSuggestion,
 } from './header/utils';
 import { searchOverlayHeader, searchOverlayList } from '@instanceName';
+import { SearchOverlayList } from './list/definition';
+import { SearchOverlayHeader } from './header/definition';
 
 /**
  * @param {object} params
@@ -42,73 +44,88 @@ export const SearchOverlayFn = ({
         proxi.active = !proxi.active;
     });
 
-    return html`<div
-        class="c-search-overlay"
-        ${bindEffect({
+    /**
+     * Main content
+     */
+    const gridContent = [
+        {
+            tag: 'h2',
+            className: 'title',
+        },
+        {
+            className: 'header',
+            content: {
+                component: SearchOverlayHeader,
+                attributes: { name: searchOverlayHeader },
+            },
+        },
+        {
+            className: 'result-query',
+            content: {
+                tag: 'p',
+                content: bindObject`search for: <strong>${() => proxi.currentSearch}</strong>`,
+            },
+        },
+        {
+            className: 'content',
+            content: {
+                component: SearchOverlayList,
+                attributes: { name: searchOverlayList },
+                modules: staticProps(
+                    /** @type {import('./list/type').SearchOverlayList['props']} */
+                    ({
+                        updatePrentSearchKey: (value) => {
+                            proxi.currentSearch = value;
+                        },
+                    })
+                ),
+            },
+        },
+    ];
+
+    return fromObject({
+        className: 'c-search-overlay',
+        modules: bindEffect({
             toggleClass: {
                 active: () => proxi.active,
             },
-        })}
-    >
-        <button
-            class="background"
-            type="button"
-            ${delegateEvents({
-                click: () => {
-                    closeOverlay({ proxi });
-                },
-            })}
-        ></button>
-        <button
-            type="button"
-            class="close-button"
-            ${delegateEvents({
-                click: () => {
-                    closeOverlay({ proxi });
-                },
-            })}
-        ></button>
+        }),
+        content: [
+            {
+                tag: 'button',
+                className: 'background',
+                attributes: { type: 'button' },
+                modules: delegateEvents({
+                    click: () => {
+                        closeOverlay({ proxi });
+                    },
+                }),
+            },
+            {
+                tag: 'button',
+                className: 'close-button',
+                attributes: { type: 'button' },
+                modules: delegateEvents({
+                    click: () => {
+                        closeOverlay({ proxi });
+                    },
+                }),
+            },
 
-        <!-- Main content -->
-        <div
-            class="grid"
-            ${delegateEvents({
-                click: (/** @type {Event} */ event) => {
-                    shouldCloseSuggestion({
-                        target: /** @type {HTMLElement} */ (event.target),
-                    });
-                },
-            })}
-        >
-            <!-- Title -->
-            <h2 class="title">Search</h2>
-
-            <!-- Header -->
-            <div class="header">
-                <search-overlay-header
-                    name="${searchOverlayHeader}"
-                ></search-overlay-header>
-            </div>
-            <div class="result-query">
-                <p>
-                    ${bindObject`search for: <strong>${() => proxi.currentSearch}</strong>`}
-                </p>
-            </div>
-
-            <!-- List -->
-            <div class="content">
-                <search-overlay-list
-                    ${staticProps(
-                        /** @type {import('./list/type').SearchOverlayList['props']} */
-                        ({
-                            updatePrentSearchKey: (value) => {
-                                proxi.currentSearch = value;
-                            },
-                        })
-                    )}
-                    name="${searchOverlayList}"
-                ></search-overlay-list>
-            </div>
-        </div>
-    </div>`;
+            /**
+             * Main content
+             */
+            {
+                className: 'grid',
+                modules: delegateEvents({
+                    click: (/** @type {Event} */ event) => {
+                        shouldCloseSuggestion({
+                            target: /** @type {HTMLElement} */ (event.target),
+                        });
+                    },
+                }),
+                content: gridContent,
+            },
+        ],
+    });
 };

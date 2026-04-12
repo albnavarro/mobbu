@@ -1,6 +1,7 @@
 import { MobCore } from '@mobCore';
 import { fromObject } from '@mobJs';
 import { toggleMatrioskaItemActive } from '../item/utils';
+import { MatrioskaItem } from '../item/definition';
 
 /**
  * @import {
@@ -10,15 +11,15 @@ import { toggleMatrioskaItemActive } from '../item/utils';
  *   Repeat,
  *   StaticProps
  * } from "@mobJsType"
- * @import {MatrioskaItem} from "../item/type"
+ * @import {MatrioskaItemType} from "../item/type"
  * @import {Matrioska} from "../type"
  */
 
 /**
  * @param {object} params
  * @param {Repeat<Matrioska>} params.repeat
- * @param {StaticProps<MatrioskaItem>} params.staticProps
- * @param {BindProps<Matrioska, MatrioskaItem>} params.bindProps
+ * @param {StaticProps<MatrioskaItemType>} params.staticProps
+ * @param {BindProps<Matrioska, MatrioskaItemType>} params.bindProps
  * @param {DelegateEvents} params.delegateEvents
  * @param {ProxiState<Matrioska>} params.proxi
  */
@@ -45,12 +46,12 @@ export const getThirdLevel = ({
                     className: 'level-wrap level-wrap--3',
                     content: [
                         {
-                            tag: 'matrioska-item',
+                            component: MatrioskaItem,
                             className: 'is-3',
                             attributes: { name },
                             modules: [
                                 staticProps(
-                                    /** @type {MatrioskaItem['props']} */ ({
+                                    /** @type {MatrioskaItemType['props']} */ ({
                                         level: 'level 3',
                                     })
                                 ),
@@ -68,12 +69,12 @@ export const getThirdLevel = ({
                             ],
                         },
                         {
-                            tag: 'matrioska-item',
+                            component: MatrioskaItem,
                             className: 'is-3',
                             attributes: { name: name2 },
                             modules: [
                                 staticProps(
-                                    /** @type {MatrioskaItem['props']} */ ({
+                                    /** @type {MatrioskaItemType['props']} */ ({
                                         level: 'level 3',
                                     })
                                 ),

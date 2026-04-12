@@ -9,6 +9,9 @@ import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 import { scrollToTopNav } from '@layoutComponent/navigation/utils';
 import { closeAllNavAccordion } from '@layoutComponent/navigation/navigation/utils';
+import { HeaderMainMenu } from './header-main-menu/definition';
+import { HeaderUtils } from './header-utils/definition';
+import { HeaderToggle } from './nav-toggle/definition';
 
 function titleHandler() {
     MobJs.loadUrl({ url: 'home' });
@@ -37,6 +40,32 @@ export const HeaderFn = ({
         }, getFrameDelay());
     });
 
+    const logoContent = {
+        className: 'u-has-overflow',
+        content: [
+            {
+                tag: 'h3',
+                modules: [
+                    bindEffect({
+                        toggleClass: {
+                            'is-visible': () => proxi.isMounted,
+                        },
+                    }),
+                ],
+                content: '<span>Mob</span>Project',
+            },
+            {
+                tag: 'h5',
+                modules: bindEffect({
+                    toggleClass: {
+                        'is-visible': () => proxi.isMounted,
+                    },
+                }),
+                content: 'v 1.0',
+            },
+        ],
+    };
+
     return fromObject({
         tag: 'header',
         className: 'js-header',
@@ -52,7 +81,7 @@ export const HeaderFn = ({
                     {
                         className: 'toggle-cell',
                         content: {
-                            tag: 'mob-header-toggle',
+                            component: HeaderToggle,
                         },
                     },
                     {
@@ -64,40 +93,12 @@ export const HeaderFn = ({
                                 titleHandler();
                             },
                         }),
-                        content: [
-                            {
-                                className: 'u-has-overflow',
-                                content: [
-                                    {
-                                        tag: 'h3',
-                                        modules: [
-                                            bindEffect({
-                                                toggleClass: {
-                                                    'is-visible': () =>
-                                                        proxi.isMounted,
-                                                },
-                                            }),
-                                        ],
-                                        content: '<span>Mob</span>Project',
-                                    },
-                                    {
-                                        tag: 'h5',
-                                        modules: bindEffect({
-                                            toggleClass: {
-                                                'is-visible': () =>
-                                                    proxi.isMounted,
-                                            },
-                                        }),
-                                        content: 'v 1.0',
-                                    },
-                                ],
-                            },
-                        ],
+                        content: [logoContent],
                     },
                     {
                         className: 'menu-cell',
                         content: {
-                            tag: 'header-main-menu',
+                            component: HeaderMainMenu,
                         },
                     },
                     {
@@ -108,7 +109,7 @@ export const HeaderFn = ({
                             },
                         }),
                         content: {
-                            tag: 'mob-header-utils',
+                            component: HeaderUtils,
                         },
                     },
                 ],

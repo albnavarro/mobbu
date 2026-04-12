@@ -1,4 +1,4 @@
-export interface DebugOverlay {
+export interface DebugOverlayType {
     state: {
         active: boolean;
         listType: string;

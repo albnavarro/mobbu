@@ -1,4 +1,4 @@
-export interface DynamicListRepeater {
+export interface DynamicListRepeaterType {
     props: {
         data: { key: string; label: string }[];
         key: string;

@@ -6,7 +6,7 @@ import { DebugSearchFn } from './debug-search';
  */
 
 export const DebugSearch = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugSearch>} */
+    /** @type {CreateComponentParams<import('./type').DebugSearchType>} */
     ({
         tag: 'debug-search',
         component: DebugSearchFn,

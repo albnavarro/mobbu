@@ -8,7 +8,7 @@ import { DynamicListCardInnerFn } from './dynamic-list-card-inner';
  */
 
 export const DynamicListCardInner = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicListCardInner>} */
+    /** @type {CreateComponentParams<import('./type').DynamicListCardInnerType>} */
     ({
         tag: 'dynamic-list-card-inner',
         component: DynamicListCardInnerFn,

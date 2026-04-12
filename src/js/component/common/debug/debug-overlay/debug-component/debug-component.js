@@ -87,7 +87,7 @@ const getStateProps = (states) => {
 
 /**
  * @param {object} params
- * @param {GetState<import('./type').DebugComponent>} params.getState
+ * @param {GetState<import('./type').DebugComponentType>} params.getState
  */
 const getContent = ({ getState }) => {
     const { id } = getState();
@@ -328,7 +328,7 @@ const getContent = ({ getState }) => {
 
 /**
  * @param {object} params
- * @param {GetRef<import('./type').DebugComponent>} params.getRef
+ * @param {GetRef<import('./type').DebugComponentType>} params.getRef
  */
 const initScroller = ({ getRef }) => {
     const { screen, scroller, scrollbar } = getRef();
@@ -361,7 +361,7 @@ const initScroller = ({ getRef }) => {
     };
 };
 
-/** @type {MobComponent<import('./type').DebugComponent>} */
+/** @type {MobComponent<import('./type').DebugComponentType>} */
 export const DebugComponentFn = ({
     onMount,
     addMethod,

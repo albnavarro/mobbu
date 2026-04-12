@@ -1,4 +1,4 @@
-export interface NavigationButton {
+export interface NavigationButtonType {
     props: {
         label: string;
         url: string;

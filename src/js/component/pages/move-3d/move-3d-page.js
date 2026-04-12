@@ -1,3 +1,4 @@
+import { Move3D } from '@commonComponent/move-3d/definition';
 import { fromObject } from '@mobJs';
 
 /**
@@ -238,9 +239,9 @@ export const Move3DPagefn = ({
             },
             getControls({ delegateEvents, bindEffect, bindObject, proxi }),
             {
-                tag: 'move-3d',
+                component: Move3D,
                 modules: bindProps(
-                    /** @returns {ReturnBindProps<import('../../common/move-3d/type').Move3D>} */
+                    /** @returns {ReturnBindProps<import('../../common/move-3d/type').Move3DType>} */
                     () => ({
                         shape: proxi.data,
                         xDepth: proxi.xDepth,

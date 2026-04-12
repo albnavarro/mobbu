@@ -1,13 +1,14 @@
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { MobCore } from '@mobCore';
 import { fromObject, MobJs } from '@mobJs';
+import { DebugFilterListItem } from './item/definition';
 
 /**
  * @import {
  *   MobComponent,
  *   ReturnBindProps
  * } from "@mobJsType"
- * @import {DebugFilterListItem} from "./item/type"
+ * @import {DebugFilterListItemType} from "./item/type"
  */
 
 /** @type {import('./type').DebugInitScroller} */
@@ -45,7 +46,7 @@ const getFakeReplacement = (/** @type {number} */ index) => `~${index}`;
 /**
  * @param {object} params
  * @param {string} params.testString
- * @returns {Omit<DebugFilterListItem['props'], 'currentId'>[]} Params
+ * @returns {Omit<DebugFilterListItemType['props'], 'currentId'>[]} Params
  */
 const getDataFiltered = ({ testString }) => {
     /**
@@ -108,7 +109,7 @@ const getDataFiltered = ({ testString }) => {
     }));
 };
 
-/** @type {MobComponent<import('./type').DebugFilterList>} */
+/** @type {MobComponent<import('./type').DebugFilterListType>} */
 export const DebugFilterListFn = ({
     onMount,
     setRef,
@@ -204,16 +205,16 @@ export const DebugFilterListFn = ({
         useSync: true,
         render: ({ sync, current }) => {
             return fromObject({
-                tag: 'debug-filter-list-item',
+                component: DebugFilterListItem,
                 modules: [
                     staticProps(
-                        /** @type {DebugFilterListItem['props']} */ ({
+                        /** @type {DebugFilterListItemType['props']} */ ({
                             id: current.value.id,
                             name: current.value.name,
                         })
                     ),
                     bindProps(
-                        /** @returns {ReturnBindProps<DebugFilterListItem>} */
+                        /** @returns {ReturnBindProps<DebugFilterListItemType>} */
                         () => ({
                             tag: current.value.tag,
                         })

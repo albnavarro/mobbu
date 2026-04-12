@@ -5,19 +5,20 @@
  *   ReturnBindProps,
  *   StaticProps
  * } from "@mobJsType"
- * @import {NavigationButton} from "../navigation-button/type"
- * @import {NavigationSubmenu} from "./type"
+ * @import {NavigationButtonType} from "../navigation-button/type"
+ * @import {NavigationSubmenuType} from "./type"
  */
 
 import { fromObject } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
 import { refreshNavigationScroller } from '../../utils';
 import { closeAllNavAccordion } from '../utils';
+import { NavigationButton } from '../navigation-button/definition';
 
 /**
  * @param {object} params
- * @param {ProxiState<NavigationSubmenu>} params.proxi
- * @param {StaticProps<NavigationButton>} params.staticProps
+ * @param {ProxiState<NavigationSubmenuType>} params.proxi
+ * @param {StaticProps<NavigationButtonType>} params.staticProps
  * @returns {string[]}
  */
 function getSubmenu({ proxi, staticProps }) {
@@ -27,9 +28,9 @@ function getSubmenu({ proxi, staticProps }) {
         return fromObject({
             tag: 'li',
             content: {
-                tag: 'mob-navigation-button',
+                component: NavigationButton,
                 modules: staticProps(
-                    /** @type {NavigationButton['props']} */
+                    /** @type {NavigationButtonType['props']} */
                     ({
                         label,
                         url,
@@ -55,7 +56,7 @@ function getSubmenu({ proxi, staticProps }) {
 }
 
 /**
- * @type {MobComponent<NavigationSubmenu>}
+ * @type {MobComponent<NavigationSubmenuType>}
  */
 export const NavigationSubmenuFn = ({
     onMount,
@@ -105,10 +106,10 @@ export const NavigationSubmenuFn = ({
         tag: 'li',
         content: [
             {
-                tag: 'mob-navigation-button',
+                component: NavigationButton,
                 modules: [
                     staticProps(
-                        /** @type {NavigationButton['props']} */
+                        /** @type {NavigationButtonType['props']} */
                         ({
                             label,
                             url,
@@ -124,7 +125,7 @@ export const NavigationSubmenuFn = ({
                         })
                     ),
                     bindProps(
-                        /** @returns {ReturnBindProps<NavigationButton>} */
+                        /** @returns {ReturnBindProps<NavigationButtonType>} */
                         () => ({
                             isOpen: proxi.isOpen,
                         })

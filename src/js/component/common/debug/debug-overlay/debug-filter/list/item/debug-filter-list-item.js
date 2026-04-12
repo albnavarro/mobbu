@@ -5,7 +5,7 @@
 import { updateDebugComponentById } from '@commonComponent/debug/debug-overlay/debug-component/utils';
 import { fromObject } from '@mobJs';
 
-/** @type {MobComponent<import('./type').DebugFilterListItem>} */
+/** @type {MobComponent<import('./type').DebugFilterListItemType>} */
 export const DebugFilterListItemFn = ({
     delegateEvents,
     bindText,

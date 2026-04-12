@@ -1,4 +1,4 @@
-export interface DynamicCounter {
+export interface DynamicCounterType {
     props: {
         parentListId: number;
         counter: number;

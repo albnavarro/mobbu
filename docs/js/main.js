@@ -10285,7 +10285,9 @@
     return `${previous} data-${key}="${value2}"`;
   }, "");
   var fromObject = (data) => {
-    const tag = data?.tag ?? `div`;
+    const component = data?.component ?? null;
+    const componentKey = component && Object.keys(component)?.[0];
+    const tag = componentKey ?? data?.tag ?? `div`;
     const className = getStringOrArrayOfString(data?.className ?? []);
     const classAttr = className.trim() ? ` class="${className}"` : "";
     const style = data?.style ?? "";
@@ -27962,7 +27964,7 @@
 
   // src/js/component/pages/benchmark/fake-component/definition.js
   var BenchMarkFakeComponent = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').BenchMarkFakeComponent>} */
+    /** @type {CreateComponentParams<import('./type').BenchMarkFakeComponentType>} */
     {
       tag: "benchmark-fake-component",
       component: BenchMarkFakeComponentFn,
@@ -28145,6 +28147,35 @@
         getRef()?.input.remove();
       };
     });
+    const contentList = {
+      className: "list",
+      content: invalidate({
+        observe: () => proxi.data,
+        render: () => {
+          const { data } = getState();
+          return data.map(({ label }, index) => {
+            return fromObject({
+              component: BenchMarkFakeComponent,
+              modules: [
+                staticProps2(
+                  /** @type {import('../fake-component/type').BenchMarkFakeComponentType['props']} */
+                  {
+                    label,
+                    index
+                  }
+                ),
+                bindProps(
+                  /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                  () => ({
+                    counter: proxi.counter
+                  })
+                )
+              ]
+            });
+          }).join("");
+        }
+      })
+    };
     return fromObject({
       className: "l-benchmark",
       content: [
@@ -28180,35 +28211,7 @@
             }
           ]
         },
-        {
-          className: "list",
-          content: invalidate({
-            observe: () => proxi.data,
-            render: () => {
-              const { data } = getState();
-              return data.map(({ label }, index) => {
-                return fromObject({
-                  tag: "benchmark-fake-component",
-                  modules: [
-                    staticProps2(
-                      /** @type {import('../fake-component/type').BenchMarkFakeComponent['props']} */
-                      {
-                        label,
-                        index
-                      }
-                    ),
-                    bindProps(
-                      /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                      () => ({
-                        counter: proxi.counter
-                      })
-                    )
-                  ]
-                });
-              }).join("");
-            }
-          })
-        }
+        contentList
       ]
     });
   };
@@ -28256,6 +28259,44 @@
         getRef()?.input.remove();
       };
     });
+    const contentList = {
+      className: "list",
+      content: repeat({
+        observe: () => proxi.data,
+        useSync: true,
+        key: "label",
+        render: ({ sync, current }) => {
+          return benchMarkUseProxi ? fromObject({
+            component: BenchMarkFakeComponent,
+            modules: [
+              bindProps(
+                /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                () => ({
+                  index: current.index,
+                  label: current.value.label,
+                  counter: proxi.counter
+                })
+              ),
+              sync()
+            ]
+          }) : fromObject({
+            component: BenchMarkFakeComponent,
+            modules: [
+              bindProps({
+                observe: ["counter"],
+                /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                props: ({ counter: counter2 }, value, index) => ({
+                  index,
+                  label: value["label"],
+                  counter: counter2
+                })
+              }),
+              sync()
+            ]
+          });
+        }
+      })
+    };
     return fromObject({
       className: "l-benchmark",
       content: [
@@ -28284,44 +28325,7 @@
             }
           ]
         },
-        {
-          className: "list",
-          content: repeat({
-            observe: () => proxi.data,
-            useSync: true,
-            key: "label",
-            render: ({ sync, current }) => {
-              return benchMarkUseProxi ? fromObject({
-                tag: "benchmark-fake-component",
-                modules: [
-                  bindProps(
-                    /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                    () => ({
-                      index: current.index,
-                      label: current.value.label,
-                      counter: proxi.counter
-                    })
-                  ),
-                  sync()
-                ]
-              }) : fromObject({
-                tag: "benchmark-fake-component",
-                modules: [
-                  bindProps({
-                    observe: ["counter"],
-                    /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                    props: ({ counter: counter2 }, value, index) => ({
-                      index,
-                      label: value["label"],
-                      counter: counter2
-                    })
-                  }),
-                  sync()
-                ]
-              });
-            }
-          })
-        }
+        contentList
       ]
     });
   };
@@ -28354,6 +28358,49 @@
         getRef()?.input.remove();
       };
     });
+    const contentList = {
+      className: "list",
+      content: repeat({
+        observe: () => proxi.data,
+        key: "label",
+        useSync: true,
+        render: ({ current }) => {
+          return fromObject({
+            tag: "div",
+            content: [
+              {
+                className: "static-item-inner",
+                content: bindObject`label: ${() => current.value.label}`
+              },
+              {
+                tag: "div",
+                content: repeat({
+                  observe: () => proxi.data,
+                  useSync: true,
+                  key: "label",
+                  render: ({ sync, current: current2 }) => {
+                    return fromObject({
+                      component: BenchMarkFakeComponent,
+                      modules: [
+                        bindProps(
+                          /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                          () => ({
+                            index: current2.index,
+                            label: current2.value.label,
+                            counter: proxi.counter
+                          })
+                        ),
+                        sync()
+                      ]
+                    });
+                  }
+                })
+              }
+            ]
+          });
+        }
+      })
+    };
     return fromObject({
       className: "l-benchmark",
       content: [
@@ -28385,49 +28432,7 @@
             }
           ]
         },
-        {
-          className: "list",
-          content: repeat({
-            observe: () => proxi.data,
-            key: "label",
-            useSync: true,
-            render: ({ current }) => {
-              return fromObject({
-                tag: "div",
-                content: [
-                  {
-                    className: "static-item-inner",
-                    content: bindObject`label: ${() => current.value.label}`
-                  },
-                  {
-                    tag: "div",
-                    content: repeat({
-                      observe: () => proxi.data,
-                      useSync: true,
-                      key: "label",
-                      render: ({ sync, current: current2 }) => {
-                        return fromObject({
-                          tag: "benchmark-fake-component",
-                          modules: [
-                            bindProps(
-                              /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                              () => ({
-                                index: current2.index,
-                                label: current2.value.label,
-                                counter: proxi.counter
-                              })
-                            ),
-                            sync()
-                          ]
-                        });
-                      }
-                    })
-                  }
-                ]
-              });
-            }
-          })
-        }
+        contentList
       ]
     });
   };
@@ -28495,10 +28500,10 @@
             useSync: true,
             render: ({ sync, current }) => {
               return benchMarkUseProxi ? fromObject({
-                tag: "benchmark-fake-component",
+                component: BenchMarkFakeComponent,
                 modules: [
                   bindProps(
-                    /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                    /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
                     () => ({
                       index: current.index,
                       label: current.value.label,
@@ -28508,11 +28513,11 @@
                   sync()
                 ]
               }) : fromObject({
-                tag: "benchmark-fake-component",
+                component: BenchMarkFakeComponent,
                 modules: [
                   bindProps({
                     observe: ["counter"],
-                    /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                    /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
                     props: ({ counter: counter2 }, value, index) => ({
                       index,
                       label: value["label"],
@@ -28736,10 +28741,10 @@
             useSync: true,
             render: ({ sync, current }) => {
               return benchMarkUseProxi ? fromObject({
-                tag: "benchmark-fake-component",
+                component: BenchMarkFakeComponent,
                 modules: [
                   bindProps(
-                    /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                    /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
                     () => ({
                       index: current.index,
                       label: current.value.label,
@@ -28749,11 +28754,11 @@
                   sync()
                 ]
               }) : fromObject({
-                tag: "benchmark-fake-component",
+                component: BenchMarkFakeComponent,
                 modules: [
                   bindProps({
                     observe: ["counter"],
-                    /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                    /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
                     props: ({ counter: counter2 }, value, index) => ({
                       index,
                       label: value["label"],
@@ -28799,6 +28804,47 @@
         getRef()?.input.remove();
       };
     });
+    const contentList = {
+      className: "list",
+      content: repeat({
+        observe: () => proxi.data,
+        useSync: true,
+        render: ({ current }) => {
+          return fromObject({
+            tag: "div",
+            content: [
+              {
+                className: "static-item-inner",
+                content: bindObject`label: ${() => current.value.label}`
+              },
+              {
+                tag: "div",
+                content: repeat({
+                  observe: () => proxi.data,
+                  useSync: true,
+                  render: ({ sync, current: current2 }) => {
+                    return fromObject({
+                      component: BenchMarkFakeComponent,
+                      modules: [
+                        bindProps(
+                          /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                          () => ({
+                            index: current2.index,
+                            label: current2.value.label,
+                            counter: proxi.counter
+                          })
+                        ),
+                        sync()
+                      ]
+                    });
+                  }
+                })
+              }
+            ]
+          });
+        }
+      })
+    };
     return fromObject({
       className: "l-benchmark",
       content: [
@@ -28830,47 +28876,7 @@
             }
           ]
         },
-        {
-          className: "list",
-          content: repeat({
-            observe: () => proxi.data,
-            useSync: true,
-            render: ({ current }) => {
-              return fromObject({
-                tag: "div",
-                content: [
-                  {
-                    className: "static-item-inner",
-                    content: bindObject`label: ${() => current.value.label}`
-                  },
-                  {
-                    tag: "div",
-                    content: repeat({
-                      observe: () => proxi.data,
-                      useSync: true,
-                      render: ({ sync, current: current2 }) => {
-                        return fromObject({
-                          tag: "benchmark-fake-component",
-                          modules: [
-                            bindProps(
-                              /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                              () => ({
-                                index: current2.index,
-                                label: current2.value.label,
-                                counter: proxi.counter
-                              })
-                            ),
-                            sync()
-                          ]
-                        });
-                      }
-                    })
-                  }
-                ]
-              });
-            }
-          })
-        }
+        contentList
       ]
     });
   };
@@ -28914,6 +28920,60 @@
         getRef()?.input.remove();
       };
     });
+    const contentList = {
+      className: "list",
+      content: [
+        repeat({
+          observe: () => proxi.data,
+          render: ({ current }) => {
+            return fromObject({
+              className: "c-benchmark-fake",
+              modules: [
+                bindEffect({
+                  /**
+                   * Update only when buttonClick. Otherwise every data update selected state back to same
+                   * item.
+                   *
+                   * - Current trigger update on each data mutation.
+                   */
+                  observe: [() => proxi.currentIndex],
+                  toggleClass: {
+                    selected: () => current.index === proxi.currentIndex
+                  }
+                })
+              ],
+              content: [
+                {
+                  className: "row",
+                  content: bindObject`<strong>index:</strong><br/> ${() => current.index}`
+                },
+                {
+                  className: "row",
+                  content: bindObject`<strong>label:</strong><br/> ${() => current.value.label}`
+                },
+                {
+                  className: "row",
+                  content: bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`
+                },
+                {
+                  className: "row",
+                  content: {
+                    tag: "button",
+                    attributes: { type: "button" },
+                    modules: delegateEvents({
+                      click: () => {
+                        proxi.currentIndex = proxi.currentIndex === current.index ? -1 : current.index;
+                      }
+                    }),
+                    content: "Select"
+                  }
+                }
+              ]
+            });
+          }
+        })
+      ]
+    };
     return fromObject({
       className: "l-benchmark",
       content: [
@@ -28942,60 +29002,7 @@
             }
           ]
         },
-        {
-          className: "list",
-          content: [
-            repeat({
-              observe: () => proxi.data,
-              render: ({ current }) => {
-                return fromObject({
-                  className: "c-benchmark-fake",
-                  modules: [
-                    bindEffect({
-                      /**
-                       * Update only when buttonClick. Otherwise every data update selected state back
-                       * to same item.
-                       *
-                       * - Current trigger update on each data mutation.
-                       */
-                      observe: [() => proxi.currentIndex],
-                      toggleClass: {
-                        selected: () => current.index === proxi.currentIndex
-                      }
-                    })
-                  ],
-                  content: [
-                    {
-                      className: "row",
-                      content: bindObject`<strong>index:</strong><br/> ${() => current.index}`
-                    },
-                    {
-                      className: "row",
-                      content: bindObject`<strong>label:</strong><br/> ${() => current.value.label}`
-                    },
-                    {
-                      className: "row",
-                      content: bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`
-                    },
-                    {
-                      className: "row",
-                      content: {
-                        tag: "button",
-                        attributes: { type: "button" },
-                        modules: delegateEvents({
-                          click: () => {
-                            proxi.currentIndex = proxi.currentIndex === current.index ? -1 : current.index;
-                          }
-                        }),
-                        content: "Select"
-                      }
-                    }
-                  ]
-                });
-              }
-            })
-          ]
-        }
+        contentList
       ]
     });
   };
@@ -29027,6 +29034,61 @@
         getRef()?.input.remove();
       };
     });
+    const contentList = {
+      className: "list",
+      content: [
+        repeat({
+          observe: () => proxi.data,
+          key: "label",
+          render: ({ current }) => {
+            return fromObject({
+              className: "c-benchmark-fake",
+              modules: [
+                bindEffect({
+                  /**
+                   * Update only when buttonClick. Otherwise every data update selected state back to same
+                   * item.
+                   *
+                   * - Current trigger update on each data mutation.
+                   */
+                  observe: [() => proxi.currentIndex],
+                  toggleClass: {
+                    selected: () => current.index === proxi.currentIndex
+                  }
+                })
+              ],
+              content: [
+                {
+                  className: "row",
+                  content: bindObject`<strong>index:</strong><br/> ${() => current.index}`
+                },
+                {
+                  className: "row",
+                  content: bindObject`<strong>label:</strong><br/> ${() => current.value.label}`
+                },
+                {
+                  className: "row",
+                  content: bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`
+                },
+                {
+                  className: "row",
+                  content: {
+                    tag: "button",
+                    attributes: { type: "button" },
+                    modules: delegateEvents({
+                      click: () => {
+                        proxi.currentIndex = proxi.currentIndex === current.index ? -1 : current.index;
+                      }
+                    }),
+                    content: "Select"
+                  }
+                }
+              ]
+            });
+          }
+        })
+      ]
+    };
     return fromObject({
       className: "l-benchmark",
       content: [
@@ -29055,61 +29117,7 @@
             }
           ]
         },
-        {
-          className: "list",
-          content: [
-            repeat({
-              observe: () => proxi.data,
-              key: "label",
-              render: ({ current }) => {
-                return fromObject({
-                  className: "c-benchmark-fake",
-                  modules: [
-                    bindEffect({
-                      /**
-                       * Update only when buttonClick. Otherwise every data update selected state back
-                       * to same item.
-                       *
-                       * - Current trigger update on each data mutation.
-                       */
-                      observe: [() => proxi.currentIndex],
-                      toggleClass: {
-                        selected: () => current.index === proxi.currentIndex
-                      }
-                    })
-                  ],
-                  content: [
-                    {
-                      className: "row",
-                      content: bindObject`<strong>index:</strong><br/> ${() => current.index}`
-                    },
-                    {
-                      className: "row",
-                      content: bindObject`<strong>label:</strong><br/> ${() => current.value.label}`
-                    },
-                    {
-                      className: "row",
-                      content: bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`
-                    },
-                    {
-                      className: "row",
-                      content: {
-                        tag: "button",
-                        attributes: { type: "button" },
-                        modules: delegateEvents({
-                          click: () => {
-                            proxi.currentIndex = proxi.currentIndex === current.index ? -1 : current.index;
-                          }
-                        }),
-                        content: "Select"
-                      }
-                    }
-                  ]
-                });
-              }
-            })
-          ]
-        }
+        contentList
       ]
     });
   };
@@ -31828,7 +31836,7 @@
 
   // src/js/component/pages/dynamic-list/button/definition.js
   var DynamicListButton = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicListButton>} */
+    /** @type {CreateComponentParams<import('./type').DynamicListButtonType>} */
     {
       tag: "dynamic-list-button",
       component: DynamicListButtonFn,
@@ -32012,314 +32020,106 @@
     ]
   ];
 
-  // src/js/component/pages/dynamic-list/dynamic-list.js
-  var buttons2 = [
-    {
-      buttonLabel: "sample1",
-      data: state1
-    },
-    {
-      buttonLabel: "salmple2",
-      data: state2
-    },
-    {
-      buttonLabel: "sample3",
-      data: state3
-    },
-    {
-      buttonLabel: "Initial",
-      data: startData
-    }
-  ];
-  var repeaters = [
-    {
-      label: "repeater with key",
-      key: "key",
-      clean: false
-    },
-    {
-      label: "repeater without key",
-      key: "",
-      clean: false
-    },
-    {
-      label: "repeater clear",
-      key: "",
-      clean: true
-    }
-  ];
-  function getButton({ staticProps: staticProps2, delegateEvents, bindProps, proxi }) {
-    return buttons2.map((column, index) => {
-      const { data, buttonLabel } = column;
-      return fromObject({
-        tag: "dynamic-list-button",
-        className: "dynamic-list-button",
-        modules: [
-          staticProps2(
-            /** @type {DynamicListButton['props']} */
-            {
-              label: buttonLabel
-            }
-          ),
-          delegateEvents({
-            click: async () => {
-              proxi.data = data;
-              proxi.activeSample = index;
-            }
-          }),
-          bindProps(
-            /** @returns {ReturnBindProps<DynamicListButton>} */
-            () => ({
-              active: index === proxi.activeSample
-            })
-          )
-        ]
-      });
-    });
-  }
-  function getRepeaters({ bindProps, staticProps: staticProps2, proxi }) {
-    return repeaters.map((item, index) => {
-      const { key, clean: clean2, label } = item;
-      return fromObject({
-        tag: "dynamic-list-repeater",
-        modules: [
-          staticProps2(
-            /** @type {DynamicListRepeater['props']} */
-            {
-              listId: index,
-              key,
-              clean: clean2,
-              label
-            }
-          ),
-          bindProps(
-            /** @returns {ReturnBindProps<DynamicListRepeater>} */
-            () => ({
-              data: proxi.data,
-              counter: proxi.counter
-            })
-          )
-        ]
-      });
-    });
-  }
-  var DynamicListFn = ({
-    updateState,
-    staticProps: staticProps2,
-    bindProps,
-    delegateEvents,
-    invalidate,
-    bindText,
-    getProxi
-  }) => {
-    const proxi = getProxi();
+  // src/js/component/pages/dynamic-list/repeaters/card/innerCard/dynamic-list-card-inner.js
+  var DynamicListCardInnerFn = ({ bindText }) => {
     return fromObject({
-      className: "c-dynamic-list",
+      tag: "span",
+      className: "c-dynamic-list-card-inner",
+      content: {
+        tag: "span",
+        content: bindText`${"key"}`
+      }
+    });
+  };
+
+  // src/js/component/pages/dynamic-list/repeaters/card/innerCard/definition.js
+  var DynamicListCardInner = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').DynamicListCardInnerType>} */
+    {
+      tag: "dynamic-list-card-inner",
+      component: DynamicListCardInnerFn,
+      props: {
+        key: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
+
+  // src/js/component/pages/dynamic-list/repeaters/card/empty/dynamic-list-empty.js
+  var DynamicListEmptyFn = () => {
+    return fromObject({
+      className: "c-dynamic-list-empty",
       content: [
         {
-          className: "header",
-          content: [
-            {
-              className: "header-top",
-              content: [
-                ...getButton({
-                  delegateEvents,
-                  staticProps: staticProps2,
-                  bindProps,
-                  proxi
-                }),
-                {
-                  tag: "dynamic-list-button",
-                  className: "dynamic-list-button",
-                  modules: [
-                    staticProps2(
-                      /** @type {DynamicListButton['props']} */
-                      {
-                        label: "+ counter ( max: 10 )"
-                      }
-                    ),
-                    delegateEvents({
-                      click: async () => {
-                        updateState("counter", (prev) => {
-                          return prev + 1;
-                        });
-                      }
-                    })
-                  ]
-                },
-                {
-                  tag: "dynamic-list-button",
-                  className: "dynamic-list-button",
-                  modules: [
-                    staticProps2(
-                      /** @type {DynamicListButton['props']} */
-                      {
-                        label: "- counter: ( min 0 )"
-                      }
-                    ),
-                    delegateEvents({
-                      click: async () => {
-                        updateState("counter", (prev) => {
-                          if (prev > 0)
-                            return prev -= 1;
-                          return prev;
-                        });
-                      }
-                    })
-                  ]
-                }
-              ]
-            }
-          ]
+          tag: "p",
+          content: "empty comp"
         },
-        /**
-         * Invalidate
-         */
         {
-          className: "invalidate",
-          content: [
-            {
-              tag: "h4",
-              className: "invalidate-title",
-              content: "Invalidate component on counter mutation:"
-            },
-            {
-              content: invalidate({
-                observe: () => proxi.counter,
-                render: () => {
-                  return fromObject({
-                    content: {
-                      tag: "dynamic-list-card-inner",
-                      modules: bindProps(
-                        /** @returns {ReturnBindProps<DynamicListCardInner>} */
-                        () => ({
-                          key: `${proxi.counter}`
-                        })
-                      )
-                    }
-                  });
-                }
-              })
-            }
-          ]
-        },
-        /**
-         * Counter
-         */
-        {
-          className: "counter",
-          content: [
-            {
-              tag: "h4",
-              content: "List counter"
-            },
-            {
-              tag: "span",
-              content: bindText`${"counter"}`
-            }
-          ]
-        },
-        /**
-         * Repeaters
-         */
-        {
-          className: "repeaters-container",
-          content: {
-            className: "repeaters-grid",
-            content: getRepeaters({ bindProps, staticProps: staticProps2, proxi })
-          }
+          tag: "mobjs-slot",
+          attributes: { name: "empty-slot" }
         }
       ]
     });
   };
 
-  // src/js/component/pages/dynamic-list/repeaters/dynamic-list-repeater.js
-  function getRepeaterCard({
-    staticProps: staticProps2,
-    bindProps,
-    delegateEvents,
-    current,
-    proxi
-  }) {
+  // src/js/component/pages/dynamic-list/repeaters/card/empty/definition.js
+  var DynamicListEmpty = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<any>} */
+    {
+      tag: "dynamic-list-empty",
+      component: DynamicListEmptyFn
+    }
+  );
+
+  // src/js/component/pages/dynamic-list/repeaters/card/counter/dynamic-list-counter.js
+  var DynamicListCounterFn = ({ getState, bindText }) => {
+    const { parentListId } = getState();
     return fromObject({
+      className: "c-dynamic-counter",
       content: [
         {
-          tag: "dynamic-list-card",
-          modules: [
-            staticProps2(
-              /** @type {DynamicListCard['props']} */
-              {
-                parentListId: proxi.listId
-              }
-            ),
-            bindProps(
-              /** @returns {ReturnBindProps<DynamicListCard>} */
-              () => ({
-                counter: proxi.counter,
-                label: current.value.label,
-                index: current.index
-              })
-            ),
-            delegateEvents({
-              click: () => {
-                console.log(current.value?.label, current.index);
-              }
-            })
-          ],
-          content: {
-            tag: "dynamic-slotted-label",
-            attributes: { slot: "card-label-slot" },
-            modules: bindProps(
-              /** @returns {ReturnBindProps<DynamicListSlottedLabel>} */
-              () => ({
-                label: `label: ${current.value.label} <br/> counter: ${proxi.counter}`
-              })
-            )
-          }
-        }
-      ]
-    });
-  }
-  var DynamicListRepeaterFn = ({
-    staticProps: staticProps2,
-    bindProps,
-    delegateEvents,
-    repeat,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    const keyParsed = proxi.key.length > 0 ? proxi.key : void 0;
-    return fromObject({
-      className: "c-dynamic-list-repeater",
-      content: [
-        {
-          tag: "h4",
-          className: "repeater-title",
-          content: proxi.label
+          tag: "p",
+          className: "title",
+          content: "Nested:"
         },
         {
-          className: "repeater-list",
-          content: repeat({
-            observe: () => proxi.data,
-            clean: proxi.clean,
-            key: keyParsed,
-            afterUpdate: () => {
-              console.log("repeater updated");
-            },
-            render: ({ current }) => {
-              return getRepeaterCard({
-                staticProps: staticProps2,
-                bindProps,
-                delegateEvents,
-                current,
-                proxi
-              });
-            }
-          })
+          tag: "p",
+          className: "subtitle",
+          content: "(slotted)"
+        },
+        {
+          tag: "p",
+          className: "list",
+          content: `list index: ${parentListId}`
+        },
+        {
+          tag: "span",
+          content: bindText`${"counter"}`
         }
       ]
     });
   };
+
+  // src/js/component/pages/dynamic-list/repeaters/card/counter/definition.js
+  var DynamicCounter = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').DynamicCounterType>} */
+    {
+      tag: "dynamic-list-counter",
+      component: DynamicListCounterFn,
+      props: {
+        parentListId: () => ({
+          value: -1,
+          type: Number
+        }),
+        counter: () => ({
+          value: 0,
+          type: Number
+        })
+      }
+    }
+  );
 
   // src/js/component/pages/dynamic-list/repeaters/card/dynamic-list-card.js
   function createArray(numberOfItem) {
@@ -32328,10 +32128,10 @@
   var getInvalidateRender = ({ staticProps: staticProps2, delegateEvents, proxi }) => {
     return createArray(proxi.counter).map((item) => {
       return fromObject({
-        tag: "dynamic-list-card-inner",
+        component: DynamicListCardInner,
         modules: [
           staticProps2(
-            /** @type {DynamicListCardInner['props']} */
+            /** @type {DynamicListCardInnerType['props']} */
             {
               key: `${item}`
             }
@@ -32399,7 +32199,7 @@
              * Component
              */
             {
-              tag: "dynamic-list-button",
+              component: DynamicListButton,
               className: "repeater-card-button",
               modules: [
                 delegateEvents({
@@ -32408,7 +32208,7 @@
                   }
                 }),
                 bindProps(
-                  /** @returns {ReturnBindProps<DynamicListButton>} */
+                  /** @returns {ReturnBindProps<DynamicListButtonType>} */
                   () => ({
                     active: proxi.isSelected
                   })
@@ -32461,22 +32261,22 @@
                * Component
                */
               content: {
-                tag: "dynamic-list-empty",
+                component: DynamicListEmpty,
                 /**
                  * Component
                  */
                 content: {
-                  tag: "dynamic-list-counter",
+                  component: DynamicCounter,
                   attributes: { slot: "empty-slot" },
                   modules: [
                     staticProps2(
-                      /** @type {DynamicCounter['props']} */
+                      /** @type {DynamicCounterType['props']} */
                       {
                         parentListId: proxi.parentListId
                       }
                     ),
                     bindProps(
-                      /** @returns {ReturnBindProps<DynamicCounter>} */
+                      /** @returns {ReturnBindProps<DynamicCounterType>} */
                       () => ({
                         counter: proxi.counter
                       })
@@ -32496,7 +32296,7 @@
                  * Component
                  */
                 {
-                  tag: "dynamic-list-button",
+                  component: DynamicListButton,
                   className: "repeater-card-button",
                   modules: delegateEvents({
                     click: async () => {
@@ -32516,7 +32316,7 @@
                       return fromObject({
                         tag: "dynamic-list-card-inner",
                         modules: bindProps(
-                          /** @returns {ReturnBindProps<DynamicListCardInner>} */
+                          /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
                           () => ({
                             key: `${current.value.key}`
                           })
@@ -32533,7 +32333,7 @@
                       return fromObject({
                         tag: "dynamic-list-card-inner",
                         modules: bindProps(
-                          /** @returns {ReturnBindProps<DynamicListCardInner>} */
+                          /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
                           () => ({
                             key: `${current.value.key}`
                           })
@@ -32574,110 +32374,9 @@
     });
   };
 
-  // src/js/component/pages/dynamic-list/repeaters/card/innerCard/dynamic-list-card-inner.js
-  var DynamicListCardInnerFn = ({ bindText }) => {
-    return fromObject({
-      tag: "span",
-      className: "c-dynamic-list-card-inner",
-      content: {
-        tag: "span",
-        content: bindText`${"key"}`
-      }
-    });
-  };
-
-  // src/js/component/pages/dynamic-list/repeaters/card/innerCard/definition.js
-  var DynamicListCardInner = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicListCardInner>} */
-    {
-      tag: "dynamic-list-card-inner",
-      component: DynamicListCardInnerFn,
-      props: {
-        key: () => ({
-          value: "",
-          type: String
-        })
-      }
-    }
-  );
-
-  // src/js/component/pages/dynamic-list/repeaters/card/counter/dynamic-list-counter.js
-  var DynamicListCounterFn = ({ getState, bindText }) => {
-    const { parentListId } = getState();
-    return fromObject({
-      className: "c-dynamic-counter",
-      content: [
-        {
-          tag: "p",
-          className: "title",
-          content: "Nested:"
-        },
-        {
-          tag: "p",
-          className: "subtitle",
-          content: "(slotted)"
-        },
-        {
-          tag: "p",
-          className: "list",
-          content: `list index: ${parentListId}`
-        },
-        {
-          tag: "span",
-          content: bindText`${"counter"}`
-        }
-      ]
-    });
-  };
-
-  // src/js/component/pages/dynamic-list/repeaters/card/counter/definition.js
-  var DynamicCounter = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicCounter>} */
-    {
-      tag: "dynamic-list-counter",
-      component: DynamicListCounterFn,
-      props: {
-        parentListId: () => ({
-          value: -1,
-          type: Number
-        }),
-        counter: () => ({
-          value: 0,
-          type: Number
-        })
-      }
-    }
-  );
-
-  // src/js/component/pages/dynamic-list/repeaters/card/empty/dynamic-list-empty.js
-  var DynamicListEmptyFn = () => {
-    return fromObject({
-      className: "c-dynamic-list-empty",
-      content: [
-        {
-          tag: "p",
-          content: "empty comp"
-        },
-        {
-          tag: "mobjs-slot",
-          attributes: { name: "empty-slot" }
-        }
-      ]
-    });
-  };
-
-  // src/js/component/pages/dynamic-list/repeaters/card/empty/definition.js
-  var DynamicListEmpty = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<any>} */
-    {
-      tag: "dynamic-list-empty",
-      component: DynamicListEmptyFn
-    }
-  );
-
   // src/js/component/pages/dynamic-list/repeaters/card/definition.js
   var DynamicListCard = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicListCard>} */
+    /** @type {CreateComponentParams<import('./type').DynamicListCardType>} */
     {
       tag: "dynamic-list-card",
       component: DynamicListCardFn,
@@ -32739,7 +32438,7 @@
 
   // src/js/component/pages/dynamic-list/repeaters/slotted-label/definition.js
   var DynamicListSlottedLabel = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicListSlottedLabel>} */
+    /** @type {CreateComponentParams<import('./type').DynamicListSlottedLabelType>} */
     {
       tag: "dynamic-slotted-label",
       component: DynamicListSlottedLabelFn,
@@ -32752,9 +32451,97 @@
     }
   );
 
+  // src/js/component/pages/dynamic-list/repeaters/dynamic-list-repeater.js
+  function getRepeaterCard({
+    staticProps: staticProps2,
+    bindProps,
+    delegateEvents,
+    current,
+    proxi
+  }) {
+    return fromObject({
+      content: [
+        {
+          component: DynamicListCard,
+          modules: [
+            staticProps2(
+              /** @type {DynamicListCardType['props']} */
+              {
+                parentListId: proxi.listId
+              }
+            ),
+            bindProps(
+              /** @returns {ReturnBindProps<DynamicListCardType>} */
+              () => ({
+                counter: proxi.counter,
+                label: current.value.label,
+                index: current.index
+              })
+            ),
+            delegateEvents({
+              click: () => {
+                console.log(current.value?.label, current.index);
+              }
+            })
+          ],
+          content: {
+            component: DynamicListSlottedLabel,
+            attributes: { slot: "card-label-slot" },
+            modules: bindProps(
+              /** @returns {ReturnBindProps<DynamicListSlottedLabelType>} */
+              () => ({
+                label: `label: ${current.value.label} <br/> counter: ${proxi.counter}`
+              })
+            )
+          }
+        }
+      ]
+    });
+  }
+  var DynamicListRepeaterFn = ({
+    staticProps: staticProps2,
+    bindProps,
+    delegateEvents,
+    repeat,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    const keyParsed = proxi.key.length > 0 ? proxi.key : void 0;
+    return fromObject({
+      className: "c-dynamic-list-repeater",
+      content: [
+        {
+          tag: "h4",
+          className: "repeater-title",
+          content: proxi.label
+        },
+        {
+          className: "repeater-list",
+          content: repeat({
+            observe: () => proxi.data,
+            clean: proxi.clean,
+            key: keyParsed,
+            afterUpdate: () => {
+              console.log("repeater updated");
+            },
+            render: ({ current }) => {
+              return getRepeaterCard({
+                staticProps: staticProps2,
+                bindProps,
+                delegateEvents,
+                current,
+                proxi
+              });
+            }
+          })
+        }
+      ]
+    });
+  };
+
   // src/js/component/pages/dynamic-list/repeaters/definition.js
   var DynamicListRepeater = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicListRepeater>} */
+    /** @type {CreateComponentParams<import('./type').DynamicListRepeaterType>} */
     {
       tag: "dynamic-list-repeater",
       component: DynamicListRepeaterFn,
@@ -32787,6 +32574,227 @@
       child: [DynamicListCard, DynamicListSlottedLabel]
     }
   );
+
+  // src/js/component/pages/dynamic-list/dynamic-list.js
+  var buttons2 = [
+    {
+      buttonLabel: "sample1",
+      data: state1
+    },
+    {
+      buttonLabel: "salmple2",
+      data: state2
+    },
+    {
+      buttonLabel: "sample3",
+      data: state3
+    },
+    {
+      buttonLabel: "Initial",
+      data: startData
+    }
+  ];
+  var repeaters = [
+    {
+      label: "repeater with key",
+      key: "key",
+      clean: false
+    },
+    {
+      label: "repeater without key",
+      key: "",
+      clean: false
+    },
+    {
+      label: "repeater clear",
+      key: "",
+      clean: true
+    }
+  ];
+  function getButton({ staticProps: staticProps2, delegateEvents, bindProps, proxi }) {
+    return buttons2.map((column, index) => {
+      const { data, buttonLabel } = column;
+      return fromObject({
+        component: DynamicListButton,
+        className: "dynamic-list-button",
+        modules: [
+          staticProps2(
+            /** @type {DynamicListButtonType['props']} */
+            {
+              label: buttonLabel
+            }
+          ),
+          delegateEvents({
+            click: async () => {
+              proxi.data = data;
+              proxi.activeSample = index;
+            }
+          }),
+          bindProps(
+            /** @returns {ReturnBindProps<DynamicListButtonType>} */
+            () => ({
+              active: index === proxi.activeSample
+            })
+          )
+        ]
+      });
+    });
+  }
+  function getRepeaters({ bindProps, staticProps: staticProps2, proxi }) {
+    return repeaters.map((item, index) => {
+      const { key, clean: clean2, label } = item;
+      return fromObject({
+        component: DynamicListRepeater,
+        modules: [
+          staticProps2(
+            /** @type {DynamicListRepeaterType['props']} */
+            {
+              listId: index,
+              key,
+              clean: clean2,
+              label
+            }
+          ),
+          bindProps(
+            /** @returns {ReturnBindProps<DynamicListRepeaterType>} */
+            () => ({
+              data: proxi.data,
+              counter: proxi.counter
+            })
+          )
+        ]
+      });
+    });
+  }
+  var DynamicListFn = ({
+    updateState,
+    staticProps: staticProps2,
+    bindProps,
+    delegateEvents,
+    invalidate,
+    bindText,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    return fromObject({
+      className: "c-dynamic-list",
+      content: [
+        {
+          className: "header",
+          content: [
+            {
+              className: "header-top",
+              content: [
+                ...getButton({
+                  delegateEvents,
+                  staticProps: staticProps2,
+                  bindProps,
+                  proxi
+                }),
+                {
+                  component: DynamicListButton,
+                  className: "dynamic-list-button",
+                  modules: [
+                    staticProps2(
+                      /** @type {DynamicListButtonType['props']} */
+                      {
+                        label: "+ counter ( max: 10 )"
+                      }
+                    ),
+                    delegateEvents({
+                      click: async () => {
+                        updateState("counter", (prev) => {
+                          return prev + 1;
+                        });
+                      }
+                    })
+                  ]
+                },
+                {
+                  component: DynamicListButton,
+                  className: "dynamic-list-button",
+                  modules: [
+                    staticProps2(
+                      /** @type {DynamicListButtonType['props']} */
+                      {
+                        label: "- counter: ( min 0 )"
+                      }
+                    ),
+                    delegateEvents({
+                      click: async () => {
+                        updateState("counter", (prev) => {
+                          if (prev > 0)
+                            return prev -= 1;
+                          return prev;
+                        });
+                      }
+                    })
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        /**
+         * Invalidate
+         */
+        {
+          className: "invalidate",
+          content: [
+            {
+              tag: "h4",
+              className: "invalidate-title",
+              content: "Invalidate component on counter mutation:"
+            },
+            {
+              content: invalidate({
+                observe: () => proxi.counter,
+                render: () => {
+                  return fromObject({
+                    content: {
+                      component: DynamicListCardInner,
+                      modules: bindProps(
+                        /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
+                        () => ({
+                          key: `${proxi.counter}`
+                        })
+                      )
+                    }
+                  });
+                }
+              })
+            }
+          ]
+        },
+        /**
+         * Counter
+         */
+        {
+          className: "counter",
+          content: [
+            {
+              tag: "h4",
+              content: "List counter"
+            },
+            {
+              tag: "span",
+              content: bindText`${"counter"}`
+            }
+          ]
+        },
+        /**
+         * Repeaters
+         */
+        {
+          className: "repeaters-container",
+          content: {
+            className: "repeaters-grid",
+            content: getRepeaters({ bindProps, staticProps: staticProps2, proxi })
+          }
+        }
+      ]
+    });
+  };
 
   // src/js/component/pages/dynamic-list/definition.js
   var DynamicList = modules_exports2.createComponent(
@@ -33063,7 +33071,7 @@
         className: "header-col",
         content: [
           {
-            tag: "dynamic-list-button",
+            component: DynamicListButton,
             className: "header-button",
             modules: delegateEvents({
               click: async () => {
@@ -33079,7 +33087,7 @@
             content: button.label_minus
           },
           {
-            tag: "dynamic-list-button",
+            component: DynamicListButton,
             className: "header-button",
             modules: delegateEvents({
               click: async () => {
@@ -33128,223 +33136,6 @@
   var toggleMatrioskaItemActive = (name) => {
     const methods = modules_exports2.useMethodByName(name);
     methods.toggleActive();
-  };
-
-  // src/js/component/pages/matrioska/repeat-partial/third-level.js
-  var getThirdLevel = ({
-    repeat,
-    staticProps: staticProps2,
-    bindProps,
-    delegateEvents,
-    proxi
-  }) => {
-    return fromObject({
-      className: "level level--3",
-      content: repeat({
-        observe: () => proxi.level3,
-        render: ({ current }) => {
-          const name = modules_exports.getUnivoqueId();
-          const name2 = modules_exports.getUnivoqueId();
-          return fromObject({
-            className: "level-wrap level-wrap--3",
-            content: [
-              {
-                tag: "matrioska-item",
-                className: "is-3",
-                attributes: { name },
-                modules: [
-                  staticProps2(
-                    /** @type {MatrioskaItem['props']} */
-                    {
-                      level: "level 3"
-                    }
-                  ),
-                  bindProps(() => ({
-                    key: `${current.value.key}`,
-                    value: `${current.value.value}`,
-                    index: current.index,
-                    counter: proxi.counter
-                  })),
-                  delegateEvents({
-                    click: () => {
-                      toggleMatrioskaItemActive(name);
-                    }
-                  })
-                ]
-              },
-              {
-                tag: "matrioska-item",
-                className: "is-3",
-                attributes: { name: name2 },
-                modules: [
-                  staticProps2(
-                    /** @type {MatrioskaItem['props']} */
-                    {
-                      level: "level 3"
-                    }
-                  ),
-                  bindProps(() => ({
-                    key: `${current.value.key}`,
-                    value: `${current.value.value}`,
-                    index: current.index,
-                    counter: proxi.counter
-                  })),
-                  delegateEvents({
-                    click: () => {
-                      toggleMatrioskaItemActive(name);
-                    }
-                  })
-                ]
-              }
-            ]
-          });
-        }
-      })
-    });
-  };
-
-  // src/js/component/pages/matrioska/repeat-partial/second-level.js
-  var getSecondLevel = ({
-    repeat,
-    staticProps: staticProps2,
-    bindProps,
-    delegateEvents,
-    proxi
-  }) => {
-    return fromObject({
-      className: "level level--2",
-      content: repeat({
-        observe: () => proxi.level2,
-        render: ({ current }) => {
-          return fromObject({
-            className: "level-wrap level-wrap--2",
-            content: {
-              tag: "matrioska-item",
-              className: "is-2",
-              modules: [
-                staticProps2(
-                  /** @type {MatrioskaItem['props']} */
-                  {
-                    level: "level 2"
-                  }
-                ),
-                bindProps(() => ({
-                  key: `${current.value.key}`,
-                  value: `${current.value.value}`,
-                  index: current.index,
-                  counter: proxi.counter
-                }))
-              ],
-              content: getThirdLevel({
-                repeat,
-                staticProps: staticProps2,
-                delegateEvents,
-                bindProps,
-                proxi
-              })
-            }
-          });
-        }
-      })
-    });
-  };
-
-  // src/js/component/pages/matrioska/matrioska-repeat.js
-  var MatrioskaRepeatFn = ({
-    delegateEvents,
-    updateState,
-    repeat,
-    staticProps: staticProps2,
-    bindProps,
-    invalidate,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    return fromObject({
-      className: "l-matrioska",
-      content: [
-        {
-          className: "header",
-          content: [
-            ...getButtons2({
-              delegateEvents,
-              updateState,
-              invalidate,
-              proxi
-            }),
-            {
-              className: "header-col",
-              content: {
-                tag: "dynamic-list-button",
-                className: "header-button",
-                modules: delegateEvents({
-                  click: () => {
-                    updateState("counter", (val) => val + 1);
-                  }
-                }),
-                content: "Increment counter"
-              }
-            }
-          ]
-        },
-        {
-          tag: "h4",
-          className: "legend",
-          content: [
-            "Nested repater like matrioska in same component.",
-            {
-              tag: "span",
-              content: "First/Second/third level repeater without key."
-            },
-            {
-              tag: "span",
-              content: "Third level use shuffle order."
-            }
-          ]
-        },
-        {
-          className: "level level--1",
-          content: repeat({
-            observe: () => proxi.level1,
-            render: ({ current }) => {
-              return fromObject({
-                className: "level-wrap level-wrap--1",
-                content: [
-                  {
-                    tag: "matrioska-item",
-                    className: "is-1",
-                    modules: [
-                      staticProps2(
-                        /** @type {MatrioskaItem['props']} */
-                        {
-                          level: "level 1"
-                        }
-                      ),
-                      bindProps(
-                        /** @returns {ReturnBindProps<MatrioskaItem>} */
-                        () => ({
-                          key: `${current.value.key}`,
-                          value: `${current.value.value}`,
-                          index: current.index,
-                          counter: proxi.counter
-                        })
-                      )
-                    ],
-                    content: getSecondLevel({
-                      repeat,
-                      staticProps: staticProps2,
-                      bindProps,
-                      delegateEvents,
-                      proxi
-                    })
-                  }
-                ]
-              });
-            }
-          })
-        }
-      ]
-    });
   };
 
   // src/js/component/pages/matrioska/item/matrioska-item.js
@@ -33413,7 +33204,7 @@
 
   // src/js/component/pages/matrioska/item/definition.js
   var MatrioskaItem = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').MatrioskaItem>} */
+    /** @type {CreateComponentParams<import('./type').MatrioskaItemType>} */
     {
       tag: "matrioska-item",
       component: MatrioskaItemFn,
@@ -33457,6 +33248,224 @@
     }
   );
 
+  // src/js/component/pages/matrioska/repeat-partial/third-level.js
+  var getThirdLevel = ({
+    repeat,
+    staticProps: staticProps2,
+    bindProps,
+    delegateEvents,
+    proxi
+  }) => {
+    return fromObject({
+      className: "level level--3",
+      content: repeat({
+        observe: () => proxi.level3,
+        render: ({ current }) => {
+          const name = modules_exports.getUnivoqueId();
+          const name2 = modules_exports.getUnivoqueId();
+          return fromObject({
+            className: "level-wrap level-wrap--3",
+            content: [
+              {
+                component: MatrioskaItem,
+                className: "is-3",
+                attributes: { name },
+                modules: [
+                  staticProps2(
+                    /** @type {MatrioskaItemType['props']} */
+                    {
+                      level: "level 3"
+                    }
+                  ),
+                  bindProps(() => ({
+                    key: `${current.value.key}`,
+                    value: `${current.value.value}`,
+                    index: current.index,
+                    counter: proxi.counter
+                  })),
+                  delegateEvents({
+                    click: () => {
+                      toggleMatrioskaItemActive(name);
+                    }
+                  })
+                ]
+              },
+              {
+                component: MatrioskaItem,
+                className: "is-3",
+                attributes: { name: name2 },
+                modules: [
+                  staticProps2(
+                    /** @type {MatrioskaItemType['props']} */
+                    {
+                      level: "level 3"
+                    }
+                  ),
+                  bindProps(() => ({
+                    key: `${current.value.key}`,
+                    value: `${current.value.value}`,
+                    index: current.index,
+                    counter: proxi.counter
+                  })),
+                  delegateEvents({
+                    click: () => {
+                      toggleMatrioskaItemActive(name);
+                    }
+                  })
+                ]
+              }
+            ]
+          });
+        }
+      })
+    });
+  };
+
+  // src/js/component/pages/matrioska/repeat-partial/second-level.js
+  var getSecondLevel = ({
+    repeat,
+    staticProps: staticProps2,
+    bindProps,
+    delegateEvents,
+    proxi
+  }) => {
+    return fromObject({
+      className: "level level--2",
+      content: repeat({
+        observe: () => proxi.level2,
+        render: ({ current }) => {
+          return fromObject({
+            className: "level-wrap level-wrap--2",
+            content: {
+              component: MatrioskaItem,
+              className: "is-2",
+              modules: [
+                staticProps2(
+                  /** @type {MatrioskaItemType['props']} */
+                  {
+                    level: "level 2"
+                  }
+                ),
+                bindProps(() => ({
+                  key: `${current.value.key}`,
+                  value: `${current.value.value}`,
+                  index: current.index,
+                  counter: proxi.counter
+                }))
+              ],
+              content: getThirdLevel({
+                repeat,
+                staticProps: staticProps2,
+                delegateEvents,
+                bindProps,
+                proxi
+              })
+            }
+          });
+        }
+      })
+    });
+  };
+
+  // src/js/component/pages/matrioska/matrioska-repeat.js
+  var MatrioskaRepeatFn = ({
+    delegateEvents,
+    updateState,
+    repeat,
+    staticProps: staticProps2,
+    bindProps,
+    invalidate,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    const levelOneBlock = {
+      className: "level level--1",
+      content: repeat({
+        observe: () => proxi.level1,
+        render: ({ current }) => {
+          return fromObject({
+            className: "level-wrap level-wrap--1",
+            content: [
+              {
+                component: MatrioskaItem,
+                className: "is-1",
+                modules: [
+                  staticProps2(
+                    /** @type {MatrioskaItemType['props']} */
+                    {
+                      level: "level 1"
+                    }
+                  ),
+                  bindProps(
+                    /** @returns {ReturnBindProps<MatrioskaItemType>} */
+                    () => ({
+                      key: `${current.value.key}`,
+                      value: `${current.value.value}`,
+                      index: current.index,
+                      counter: proxi.counter
+                    })
+                  )
+                ],
+                content: getSecondLevel({
+                  repeat,
+                  staticProps: staticProps2,
+                  bindProps,
+                  delegateEvents,
+                  proxi
+                })
+              }
+            ]
+          });
+        }
+      })
+    };
+    return fromObject({
+      className: "l-matrioska",
+      content: [
+        {
+          className: "header",
+          content: [
+            ...getButtons2({
+              delegateEvents,
+              updateState,
+              invalidate,
+              proxi
+            }),
+            {
+              className: "header-col",
+              content: {
+                component: DynamicListButton,
+                className: "header-button",
+                modules: delegateEvents({
+                  click: () => {
+                    updateState("counter", (val) => val + 1);
+                  }
+                }),
+                content: "Increment counter"
+              }
+            }
+          ]
+        },
+        {
+          tag: "h4",
+          className: "legend",
+          content: [
+            "Nested repater like matrioska in same component.",
+            {
+              tag: "span",
+              content: "First/Second/third level repeater without key."
+            },
+            {
+              tag: "span",
+              content: "Third level use shuffle order."
+            }
+          ]
+        },
+        levelOneBlock
+      ]
+    });
+  };
+
   // src/js/component/pages/matrioska/invalidate-partial/third-level.js
   var getThirdLevel2 = ({
     staticProps: staticProps2,
@@ -33477,12 +33486,12 @@
               className: "level-wrap level-wrap--3",
               content: [
                 {
-                  tag: "matrioska-item",
+                  component: MatrioskaItem,
                   className: "is-3",
                   attributes: { name },
                   modules: [
                     staticProps2(
-                      /** @type {MatrioskaItem['props']} */
+                      /** @type {MatrioskaItemType['props']} */
                       {
                         level: "level 3",
                         value: item.value,
@@ -33503,12 +33512,12 @@
                   ]
                 },
                 {
-                  tag: "matrioska-item",
+                  component: MatrioskaItem,
                   className: "is-3",
                   attributes: { name: name2 },
                   modules: [
                     staticProps2(
-                      /** @type {MatrioskaItem['props']} */
+                      /** @type {MatrioskaItemType['props']} */
                       {
                         level: "level 3",
                         value: item.value,
@@ -33553,11 +33562,11 @@
             return fromObject({
               className: "level-wrap level-wrap--2",
               content: {
-                tag: "matrioska-item",
+                component: MatrioskaItem,
                 className: "is-2",
                 modules: [
                   staticProps2(
-                    /** @type {MatrioskaItem['props']} */
+                    /** @type {MatrioskaItemType['props']} */
                     {
                       level: "level 2",
                       index,
@@ -33594,6 +33603,44 @@
     getProxi
   }) => {
     const proxi = getProxi();
+    const levelOneBlock = {
+      className: "level level--1",
+      content: invalidate({
+        observe: "level1",
+        render: () => {
+          return proxi.level1.map((item, index) => {
+            return fromObject({
+              className: "level-wrap level-wrap--1",
+              content: {
+                component: MatrioskaItem,
+                className: "is-1",
+                modules: [
+                  staticProps2(
+                    /** @type {Partial<MatrioskaItemType['props']>} */
+                    {
+                      level: "level 1",
+                      key: `${item.key}`,
+                      index,
+                      value: `${item.value}`
+                    }
+                  ),
+                  bindProps(() => ({
+                    counter: proxi.counter
+                  }))
+                ],
+                content: getSecondLevel2({
+                  staticProps: staticProps2,
+                  bindProps,
+                  delegateEvents,
+                  invalidate,
+                  proxi
+                })
+              }
+            });
+          }).join("");
+        }
+      })
+    };
     return fromObject({
       className: "l-matrioska",
       content: [
@@ -33609,7 +33656,7 @@
             {
               className: "header-col",
               content: {
-                tag: "dynamic-list-button",
+                component: DynamicListButton,
                 className: "header-button",
                 modules: delegateEvents({
                   click: () => {
@@ -33626,44 +33673,7 @@
           className: "legend",
           content: "Nested repater like matrioska in same component."
         },
-        {
-          className: "level level--1",
-          content: invalidate({
-            observe: "level1",
-            render: () => {
-              return proxi.level1.map((item, index) => {
-                return fromObject({
-                  className: "level-wrap level-wrap--1",
-                  content: {
-                    tag: "matrioska-item",
-                    className: "is-1",
-                    modules: [
-                      staticProps2(
-                        /** @type {Partial<MatrioskaItem['props']>} */
-                        {
-                          level: "level 1",
-                          key: `${item.key}`,
-                          index,
-                          value: `${item.value}`
-                        }
-                      ),
-                      bindProps(() => ({
-                        counter: proxi.counter
-                      }))
-                    ],
-                    content: getSecondLevel2({
-                      staticProps: staticProps2,
-                      bindProps,
-                      delegateEvents,
-                      invalidate,
-                      proxi
-                    })
-                  }
-                });
-              }).join("");
-            }
-          })
-        }
+        levelOneBlock
       ]
     });
   };
@@ -33868,6 +33878,84 @@
     };
   };
 
+  // src/js/component/pages/horizontal-scroller/section/horizontal-scroller-section.js
+  var HorizontalScrollerSectionFn = ({ getState }) => {
+    const { id, pinClass } = getState();
+    return fromObject({
+      className: "column js-column",
+      dataAttributes: { shadow: `section-${id}` },
+      content: {
+        className: "wrap",
+        content: [
+          {
+            tag: "span",
+            className: `h-scroller-indicator js-indicator ${pinClass}`,
+            content: {
+              tag: "span"
+            }
+          },
+          {
+            className: "title js-title",
+            content: {
+              tag: "h1",
+              content: `${id}`
+            }
+          }
+        ]
+      }
+    });
+  };
+
+  // src/js/component/pages/horizontal-scroller/section/definition.js
+  var HorizontalScrollerSection = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').HorizontalScrollerSectionType>} */
+    {
+      tag: "horizontal-scroller-section",
+      component: HorizontalScrollerSectionFn,
+      props: {
+        id: () => ({
+          value: -1,
+          type: Number
+        }),
+        pinClass: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
+
+  // src/js/component/pages/horizontal-scroller/button/horizontal-scroller-button.js
+  var HorizontalScrollerButtonFn = ({ getProxi }) => {
+    const proxi = getProxi();
+    return fromObject({
+      tag: "li",
+      className: "nav-item",
+      content: {
+        tag: "button",
+        attributes: { type: "button" },
+        dataAttributes: { id: proxi.id },
+        className: "nav-button",
+        content: `${proxi.id}`
+      }
+    });
+  };
+
+  // src/js/component/pages/horizontal-scroller/button/definition.js
+  var HorizontalScrollerButton = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').HorizontalScrollerButtonType>} */
+    {
+      tag: "horizontal-scroller-button",
+      component: HorizontalScrollerButtonFn,
+      props: {
+        id: () => ({
+          value: -1,
+          type: Number
+        })
+      }
+    }
+  );
+
   // src/js/component/pages/horizontal-scroller/horizontal-scroller.js
   var getScrollAdjustment = (id, total) => {
     if (id === 0) return 1;
@@ -33878,9 +33966,9 @@
     const pinClass = pinIsVisible ? "" : "hidden";
     return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
       return fromObject({
-        tag: "horizontal-scroller-section",
+        component: HorizontalScrollerSection,
         modules: staticProps2(
-          /** @type {import('./section/type').HorizontalScrollerSection['props']} */
+          /** @type {import('./section/type').HorizontalScrollerSectionType['props']} */
           {
             id: i,
             pinClass
@@ -33892,10 +33980,10 @@
   var getNav = ({ numOfCol, proxi, staticProps: staticProps2, delegateEvents }) => {
     return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
       return fromObject({
-        tag: "horizontal-scroller-button",
+        component: HorizontalScrollerButton,
         modules: [
           staticProps2(
-            /** @type {HorizontalScrollerButton['props']} */
+            /** @type {HorizontalScrollerButtonType['props']} */
             {
               id: i
             }
@@ -33918,7 +34006,6 @@
   }) => {
     const proxi = getProxi();
     onMount(({ element }) => {
-      if (core_exports.mq("max", "desktop")) return;
       const numberOfColumns = 10;
       const indicators = [...element.querySelectorAll(".js-indicator")];
       const nav = element.querySelector(".js-nav");
@@ -33970,9 +34057,6 @@
       className: "l-h-scroller",
       content: [
         {
-          tag: "only-desktop"
-        },
-        {
           className: "top",
           content: "scroll down"
         },
@@ -34016,84 +34100,6 @@
       ]
     });
   };
-
-  // src/js/component/pages/horizontal-scroller/button/horizontal-scroller-button.js
-  var HorizontalScrollerButtonFn = ({ getProxi }) => {
-    const proxi = getProxi();
-    return fromObject({
-      tag: "li",
-      className: "nav-item",
-      content: {
-        tag: "button",
-        attributes: { type: "button" },
-        dataAttributes: { id: proxi.id },
-        className: "nav-button",
-        content: `${proxi.id}`
-      }
-    });
-  };
-
-  // src/js/component/pages/horizontal-scroller/button/definition.js
-  var HorizontalScrollerButton = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').HorizontalScrollerButton>} */
-    {
-      tag: "horizontal-scroller-button",
-      component: HorizontalScrollerButtonFn,
-      props: {
-        id: () => ({
-          value: -1,
-          type: Number
-        })
-      }
-    }
-  );
-
-  // src/js/component/pages/horizontal-scroller/section/horizontal-scroller-section.js
-  var HorizontalScrollerSectionFn = ({ getState }) => {
-    const { id, pinClass } = getState();
-    return fromObject({
-      className: "column js-column",
-      dataAttributes: { shadow: `section-${id}` },
-      content: {
-        className: "wrap",
-        content: [
-          {
-            tag: "span",
-            className: `h-scroller-indicator js-indicator ${pinClass}`,
-            content: {
-              tag: "span"
-            }
-          },
-          {
-            className: "title js-title",
-            content: {
-              tag: "h1",
-              content: `${id}`
-            }
-          }
-        ]
-      }
-    });
-  };
-
-  // src/js/component/pages/horizontal-scroller/section/definition.js
-  var HorizontalScrollerSection = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').HorizontalScrollerSection>} */
-    {
-      tag: "horizontal-scroller-section",
-      component: HorizontalScrollerSectionFn,
-      props: {
-        id: () => ({
-          value: -1,
-          type: Number
-        }),
-        pinClass: () => ({
-          value: "",
-          type: String
-        })
-      }
-    }
-  );
 
   // src/js/component/pages/horizontal-scroller/definition.js
   var HorizontalScroller = modules_exports2.createComponent(
@@ -34177,232 +34183,6 @@
       }
     }
   );
-
-  // src/js/component/pages/move-3d/move-3d-page.js
-  var getControls6 = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
-    return fromObject({
-      className: "controls",
-      modules: bindEffect({
-        toggleClass: {
-          active: () => proxi.controlsActive
-        }
-      }),
-      content: [
-        {
-          tag: "button",
-          className: "close-controls",
-          modules: delegateEvents({
-            click: () => {
-              proxi.controlsActive = false;
-            }
-          })
-        },
-        {
-          className: "controls-block",
-          content: [
-            {
-              className: "controls-range",
-              content: [
-                {
-                  tag: "input",
-                  attributes: {
-                    type: "range",
-                    value: proxi.factor
-                  },
-                  modules: delegateEvents({
-                    input: (event) => {
-                      const value = (
-                        /** @type {HTMLInputElement} */
-                        event.currentTarget.value ?? 0
-                      );
-                      proxi.factor = Number(value);
-                    }
-                  })
-                }
-              ]
-            },
-            {
-              content: bindObject`factor: ${() => proxi.factor}`
-            }
-          ]
-        },
-        {
-          className: "controls-block",
-          content: [
-            {
-              className: "controls-range",
-              content: [
-                {
-                  tag: "input",
-                  attributes: {
-                    type: "range",
-                    value: proxi.xDepth
-                  },
-                  modules: delegateEvents({
-                    input: (event) => {
-                      const value = (
-                        /** @type {HTMLInputElement} */
-                        event.currentTarget.value ?? 0
-                      );
-                      proxi.xDepth = Number(value);
-                    }
-                  })
-                }
-              ]
-            },
-            {
-              content: bindObject`xDepth: ${() => proxi.xDepth}`
-            }
-          ]
-        },
-        {
-          className: "controls-block",
-          content: [
-            {
-              className: "controls-range",
-              content: [
-                {
-                  tag: "input",
-                  attributes: {
-                    type: "range",
-                    value: proxi.xLimit,
-                    max: proxi.xLimit
-                  },
-                  modules: delegateEvents({
-                    input: (event) => {
-                      const value = (
-                        /** @type {HTMLInputElement} */
-                        event.currentTarget.value ?? 0
-                      );
-                      proxi.xLimit = Number(value);
-                    }
-                  })
-                }
-              ]
-            },
-            {
-              content: bindObject`xLimit: ${() => proxi.xLimit}`
-            }
-          ]
-        },
-        {
-          className: "controls-block",
-          content: [
-            {
-              className: "controls-range",
-              content: [
-                {
-                  tag: "input",
-                  attributes: {
-                    type: "range",
-                    value: proxi.yDepth
-                  },
-                  modules: delegateEvents({
-                    input: (event) => {
-                      const value = (
-                        /** @type {HTMLInputElement} */
-                        event.currentTarget.value ?? 0
-                      );
-                      proxi.yDepth = Number(value);
-                    }
-                  })
-                }
-              ]
-            },
-            {
-              content: bindObject`yDepth: ${() => proxi.yDepth}`
-            }
-          ]
-        },
-        {
-          className: "controls-block",
-          content: [
-            {
-              className: "controls-range",
-              content: [
-                {
-                  tag: "input",
-                  attributes: {
-                    type: "range",
-                    value: proxi.yLimit,
-                    max: proxi.yLimit
-                  },
-                  modules: delegateEvents({
-                    input: (event) => {
-                      const value = (
-                        /** @type {HTMLInputElement} */
-                        event.currentTarget.value ?? 0
-                      );
-                      proxi.yLimit = Number(value);
-                    }
-                  })
-                }
-              ]
-            },
-            {
-              content: bindObject`yLimit: ${() => proxi.yLimit}`
-            }
-          ]
-        },
-        {
-          className: "controls-block",
-          content: {
-            tag: "button",
-            attributes: { type: "button" },
-            className: "controls-button",
-            modules: delegateEvents({
-              click: () => {
-                proxi.debug = !proxi.debug;
-              }
-            }),
-            content: "Toggle Debug"
-          }
-        }
-      ]
-    });
-  };
-  var Move3DPagefn = ({
-    bindProps,
-    delegateEvents,
-    bindObject,
-    getProxi,
-    bindEffect
-  }) => {
-    const proxi = getProxi();
-    return fromObject({
-      className: "l-move3d-page",
-      content: [
-        {
-          tag: "button",
-          attributes: { type: "button" },
-          className: "show-controls",
-          modules: delegateEvents({
-            click: () => {
-              proxi.controlsActive = true;
-            }
-          }),
-          content: "show controls"
-        },
-        getControls6({ delegateEvents, bindEffect, bindObject, proxi }),
-        {
-          tag: "move-3d",
-          modules: bindProps(
-            /** @returns {ReturnBindProps<import('../../common/move-3d/type').Move3D>} */
-            () => ({
-              shape: proxi.data,
-              xDepth: proxi.xDepth,
-              yDepth: proxi.yDepth,
-              xLimit: proxi.xLimit,
-              yLimit: proxi.yLimit,
-              factor: proxi.factor,
-              debug: proxi.debug,
-              drag: proxi.drag
-            })
-          )
-        }
-      ]
-    });
-  };
 
   // src/js/component/common/move-3d/partials/recursive-3d-shape.js
   var getDebug = ({ debug, id }) => {
@@ -35028,7 +34808,7 @@
 
   // src/js/component/common/move-3d/definition.js
   var Move3D = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').Move3D>} */
+    /** @type {CreateComponentParams<import('./type').Move3DType>} */
     {
       tag: "move-3d",
       component: Move3Dfn,
@@ -35105,6 +34885,232 @@
       child: [Move3DItem]
     }
   );
+
+  // src/js/component/pages/move-3d/move-3d-page.js
+  var getControls6 = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
+    return fromObject({
+      className: "controls",
+      modules: bindEffect({
+        toggleClass: {
+          active: () => proxi.controlsActive
+        }
+      }),
+      content: [
+        {
+          tag: "button",
+          className: "close-controls",
+          modules: delegateEvents({
+            click: () => {
+              proxi.controlsActive = false;
+            }
+          })
+        },
+        {
+          className: "controls-block",
+          content: [
+            {
+              className: "controls-range",
+              content: [
+                {
+                  tag: "input",
+                  attributes: {
+                    type: "range",
+                    value: proxi.factor
+                  },
+                  modules: delegateEvents({
+                    input: (event) => {
+                      const value = (
+                        /** @type {HTMLInputElement} */
+                        event.currentTarget.value ?? 0
+                      );
+                      proxi.factor = Number(value);
+                    }
+                  })
+                }
+              ]
+            },
+            {
+              content: bindObject`factor: ${() => proxi.factor}`
+            }
+          ]
+        },
+        {
+          className: "controls-block",
+          content: [
+            {
+              className: "controls-range",
+              content: [
+                {
+                  tag: "input",
+                  attributes: {
+                    type: "range",
+                    value: proxi.xDepth
+                  },
+                  modules: delegateEvents({
+                    input: (event) => {
+                      const value = (
+                        /** @type {HTMLInputElement} */
+                        event.currentTarget.value ?? 0
+                      );
+                      proxi.xDepth = Number(value);
+                    }
+                  })
+                }
+              ]
+            },
+            {
+              content: bindObject`xDepth: ${() => proxi.xDepth}`
+            }
+          ]
+        },
+        {
+          className: "controls-block",
+          content: [
+            {
+              className: "controls-range",
+              content: [
+                {
+                  tag: "input",
+                  attributes: {
+                    type: "range",
+                    value: proxi.xLimit,
+                    max: proxi.xLimit
+                  },
+                  modules: delegateEvents({
+                    input: (event) => {
+                      const value = (
+                        /** @type {HTMLInputElement} */
+                        event.currentTarget.value ?? 0
+                      );
+                      proxi.xLimit = Number(value);
+                    }
+                  })
+                }
+              ]
+            },
+            {
+              content: bindObject`xLimit: ${() => proxi.xLimit}`
+            }
+          ]
+        },
+        {
+          className: "controls-block",
+          content: [
+            {
+              className: "controls-range",
+              content: [
+                {
+                  tag: "input",
+                  attributes: {
+                    type: "range",
+                    value: proxi.yDepth
+                  },
+                  modules: delegateEvents({
+                    input: (event) => {
+                      const value = (
+                        /** @type {HTMLInputElement} */
+                        event.currentTarget.value ?? 0
+                      );
+                      proxi.yDepth = Number(value);
+                    }
+                  })
+                }
+              ]
+            },
+            {
+              content: bindObject`yDepth: ${() => proxi.yDepth}`
+            }
+          ]
+        },
+        {
+          className: "controls-block",
+          content: [
+            {
+              className: "controls-range",
+              content: [
+                {
+                  tag: "input",
+                  attributes: {
+                    type: "range",
+                    value: proxi.yLimit,
+                    max: proxi.yLimit
+                  },
+                  modules: delegateEvents({
+                    input: (event) => {
+                      const value = (
+                        /** @type {HTMLInputElement} */
+                        event.currentTarget.value ?? 0
+                      );
+                      proxi.yLimit = Number(value);
+                    }
+                  })
+                }
+              ]
+            },
+            {
+              content: bindObject`yLimit: ${() => proxi.yLimit}`
+            }
+          ]
+        },
+        {
+          className: "controls-block",
+          content: {
+            tag: "button",
+            attributes: { type: "button" },
+            className: "controls-button",
+            modules: delegateEvents({
+              click: () => {
+                proxi.debug = !proxi.debug;
+              }
+            }),
+            content: "Toggle Debug"
+          }
+        }
+      ]
+    });
+  };
+  var Move3DPagefn = ({
+    bindProps,
+    delegateEvents,
+    bindObject,
+    getProxi,
+    bindEffect
+  }) => {
+    const proxi = getProxi();
+    return fromObject({
+      className: "l-move3d-page",
+      content: [
+        {
+          tag: "button",
+          attributes: { type: "button" },
+          className: "show-controls",
+          modules: delegateEvents({
+            click: () => {
+              proxi.controlsActive = true;
+            }
+          }),
+          content: "show controls"
+        },
+        getControls6({ delegateEvents, bindEffect, bindObject, proxi }),
+        {
+          component: Move3D,
+          modules: bindProps(
+            /** @returns {ReturnBindProps<import('../../common/move-3d/type').Move3DType>} */
+            () => ({
+              shape: proxi.data,
+              xDepth: proxi.xDepth,
+              yDepth: proxi.yDepth,
+              xLimit: proxi.xLimit,
+              yLimit: proxi.yLimit,
+              factor: proxi.factor,
+              debug: proxi.debug,
+              drag: proxi.drag
+            })
+          )
+        }
+      ]
+    });
+  };
 
   // src/js/component/pages/move-3d/definition.js
   var Move3DPage = modules_exports2.createComponent(
@@ -36152,7 +36158,7 @@
         <mouse-trail></mouse-trail>
         <move-3d
             ${modules_exports2.staticProps(
-      /** @type {import('@commonComponent/move-3d/type').Move3D['props']} */
+      /** @type {import('@commonComponent/move-3d/type').Move3DType['props']} */
       {
         shape: rdp_01_schema({
           u0,
@@ -37148,7 +37154,7 @@
         <mouse-trail></mouse-trail>
         <move-3d
             ${modules_exports2.staticProps(
-      /** @type {import('@commonComponent/move-3d/type').Move3D['props']} */
+      /** @type {import('@commonComponent/move-3d/type').Move3DType['props']} */
       {
         shape: rdp_01_scehema({
           letter_d,
@@ -38479,7 +38485,7 @@
 
   // src/js/component/common/math-animation/definition.js
   var MathAnimation = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').MathAnimation>} */
+    /** @type {CreateComponentParams<import('./type').MathAnimationType>} */
     {
       tag: "math-animation",
       component: MathAnimationFn,
@@ -38671,7 +38677,7 @@
             observe: [() => proxi.numerators, () => proxi.denominator],
             render: () => {
               return fromObject({
-                tag: "math-animation",
+                component: MathAnimation,
                 modules: modules_exports2.staticProps({
                   name: "rosaDiGrandi",
                   showNavigation: false,
@@ -40501,7 +40507,7 @@
 
   // src/js/component/common/debug/debug-overlay/debug-component/definition.js
   var DebugComponent = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugComponent>} */
+    /** @type {CreateComponentParams<import('./type').DebugComponentType>} */
     {
       tag: "debug-component",
       component: DebugComponentFn,
@@ -40587,6 +40593,101 @@
     {
       tag: "debug-filter-head",
       component: DebugFilterHeadFn
+    }
+  );
+
+  // src/js/component/common/debug/debug-overlay/debug-component/utils.js
+  var updateDebugComponentById = (id) => {
+    const methods = modules_exports2.useMethodByName(debugComponentName);
+    methods?.updateId(id);
+  };
+  var refreshDebugComponentById = () => {
+    const methods = modules_exports2.useMethodByName(debugComponentName);
+    methods?.refreshId();
+  };
+
+  // src/js/component/common/debug/debug-overlay/debug-filter/list/item/debug-filter-list-item.js
+  var DebugFilterListItemFn = ({
+    delegateEvents,
+    bindText,
+    bindEffect,
+    getProxi,
+    computed
+  }) => {
+    const proxi = getProxi();
+    computed(
+      () => proxi.active,
+      () => proxi.id === proxi.currentId
+    );
+    return fromObject({
+      className: "c-debug-filter-list-item",
+      content: [
+        {
+          tag: "span",
+          className: "id",
+          content: proxi.id
+        },
+        "|",
+        {
+          tag: "span",
+          className: "tag",
+          content: bindText`${"tag"}`
+        },
+        "|",
+        {
+          tag: "span",
+          className: "name",
+          content: proxi.name
+        },
+        {
+          tag: "button",
+          attributes: { type: "button" },
+          className: "expand",
+          modules: delegateEvents({
+            click: () => {
+              updateDebugComponentById(proxi.id);
+            }
+          }),
+          content: "[ > ]"
+        },
+        {
+          tag: "span",
+          className: "selected",
+          modules: bindEffect({
+            toggleClass: { active: () => proxi.active }
+          })
+        }
+      ]
+    });
+  };
+
+  // src/js/component/common/debug/debug-overlay/debug-filter/list/item/definition.js
+  var DebugFilterListItem = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').DebugFilterListItemType>} */
+    {
+      tag: "debug-filter-list-item",
+      component: DebugFilterListItemFn,
+      bindStore: debugActiveComponentStore,
+      props: {
+        id: () => ({
+          value: "",
+          type: String
+        }),
+        tag: () => ({
+          value: "",
+          type: String
+        }),
+        name: () => ({
+          value: "",
+          type: String
+        })
+      },
+      state: {
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
     }
   );
 
@@ -40715,17 +40816,17 @@
       useSync: true,
       render: ({ sync, current }) => {
         return fromObject({
-          tag: "debug-filter-list-item",
+          component: DebugFilterListItem,
           modules: [
             staticProps2(
-              /** @type {DebugFilterListItem['props']} */
+              /** @type {DebugFilterListItemType['props']} */
               {
                 id: current.value.id,
                 name: current.value.name
               }
             ),
             bindProps(
-              /** @returns {ReturnBindProps<DebugFilterListItem>} */
+              /** @returns {ReturnBindProps<DebugFilterListItemType>} */
               () => ({
                 tag: current.value.tag
               })
@@ -40781,104 +40882,9 @@
     });
   };
 
-  // src/js/component/common/debug/debug-overlay/debug-component/utils.js
-  var updateDebugComponentById = (id) => {
-    const methods = modules_exports2.useMethodByName(debugComponentName);
-    methods?.updateId(id);
-  };
-  var refreshDebugComponentById = () => {
-    const methods = modules_exports2.useMethodByName(debugComponentName);
-    methods?.refreshId();
-  };
-
-  // src/js/component/common/debug/debug-overlay/debug-filter/list/item/debug-filter-list-item.js
-  var DebugFilterListItemFn = ({
-    delegateEvents,
-    bindText,
-    bindEffect,
-    getProxi,
-    computed
-  }) => {
-    const proxi = getProxi();
-    computed(
-      () => proxi.active,
-      () => proxi.id === proxi.currentId
-    );
-    return fromObject({
-      className: "c-debug-filter-list-item",
-      content: [
-        {
-          tag: "span",
-          className: "id",
-          content: proxi.id
-        },
-        "|",
-        {
-          tag: "span",
-          className: "tag",
-          content: bindText`${"tag"}`
-        },
-        "|",
-        {
-          tag: "span",
-          className: "name",
-          content: proxi.name
-        },
-        {
-          tag: "button",
-          attributes: { type: "button" },
-          className: "expand",
-          modules: delegateEvents({
-            click: () => {
-              updateDebugComponentById(proxi.id);
-            }
-          }),
-          content: "[ > ]"
-        },
-        {
-          tag: "span",
-          className: "selected",
-          modules: bindEffect({
-            toggleClass: { active: () => proxi.active }
-          })
-        }
-      ]
-    });
-  };
-
-  // src/js/component/common/debug/debug-overlay/debug-filter/list/item/definition.js
-  var DebugFilterListItem = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugFilterListItem>} */
-    {
-      tag: "debug-filter-list-item",
-      component: DebugFilterListItemFn,
-      bindStore: debugActiveComponentStore,
-      props: {
-        id: () => ({
-          value: "",
-          type: String
-        }),
-        tag: () => ({
-          value: "",
-          type: String
-        }),
-        name: () => ({
-          value: "",
-          type: String
-        })
-      },
-      state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
   // src/js/component/common/debug/debug-overlay/debug-filter/list/definition.js
   var DebugFilterList = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugFilterList>} */
+    /** @type {CreateComponentParams<import('./type').DebugFilterListType>} */
     {
       tag: "debug-filter-list",
       component: DebugFilterListFn,
@@ -40899,74 +40905,6 @@
       child: [DebugFilterListItem]
     }
   );
-
-  // src/js/component/common/debug/debug-overlay/head/debug-head.js
-  var leftContent = () => [
-    {
-      content: [
-        {
-          tag: "strong",
-          content: "Debug activated:"
-        },
-        `${modules_exports2.getDebugMode()}`
-      ]
-    },
-    {
-      content: [
-        {
-          tag: "strong",
-          content: "Number of component"
-        },
-        `${modules_exports2.componentMap.size} ( excluded generated debug )`
-      ]
-    },
-    {
-      content: [
-        {
-          tag: "strong",
-          content: "Active repeater:"
-        },
-        `${modules_exports2.getNumberOfActiveRepeater()}`
-      ]
-    },
-    {
-      content: [
-        {
-          tag: "strong",
-          content: "Active invalidate:"
-        },
-        `${modules_exports2.getNumberOfActiveInvalidate()}`
-      ]
-    }
-  ];
-  var DebugHeadFn = ({ invalidate, getProxi }) => {
-    const proxi = getProxi();
-    return fromObject({
-      className: "c-debug-head",
-      content: [
-        {
-          className: "general",
-          content: invalidate({
-            observe: () => proxi.active,
-            render: () => {
-              if (!proxi.active) return "";
-              return fromObject({
-                content: leftContent()
-              });
-            }
-          })
-        },
-        {
-          className: "search",
-          content: {
-            content: {
-              tag: "debug-search"
-            }
-          }
-        }
-      ]
-    });
-  };
 
   // src/js/component/common/debug/debug-overlay/head/search/debug-search.js
   var DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
@@ -41117,16 +41055,84 @@
 
   // src/js/component/common/debug/debug-overlay/head/search/definition.js
   var DebugSearch = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugSearch>} */
+    /** @type {CreateComponentParams<import('./type').DebugSearchType>} */
     {
       tag: "debug-search",
       component: DebugSearchFn
     }
   );
 
+  // src/js/component/common/debug/debug-overlay/head/debug-head.js
+  var leftContent = () => [
+    {
+      content: [
+        {
+          tag: "strong",
+          content: "Debug activated:"
+        },
+        `${modules_exports2.getDebugMode()}`
+      ]
+    },
+    {
+      content: [
+        {
+          tag: "strong",
+          content: "Number of component"
+        },
+        `${modules_exports2.componentMap.size} ( excluded generated debug )`
+      ]
+    },
+    {
+      content: [
+        {
+          tag: "strong",
+          content: "Active repeater:"
+        },
+        `${modules_exports2.getNumberOfActiveRepeater()}`
+      ]
+    },
+    {
+      content: [
+        {
+          tag: "strong",
+          content: "Active invalidate:"
+        },
+        `${modules_exports2.getNumberOfActiveInvalidate()}`
+      ]
+    }
+  ];
+  var DebugHeadFn = ({ invalidate, getProxi }) => {
+    const proxi = getProxi();
+    return fromObject({
+      className: "c-debug-head",
+      content: [
+        {
+          className: "general",
+          content: invalidate({
+            observe: () => proxi.active,
+            render: () => {
+              if (!proxi.active) return "";
+              return fromObject({
+                content: leftContent()
+              });
+            }
+          })
+        },
+        {
+          className: "search",
+          content: {
+            content: {
+              component: DebugSearch
+            }
+          }
+        }
+      ]
+    });
+  };
+
   // src/js/component/common/debug/debug-overlay/head/definition.js
   var DebugHead = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugHead>} */
+    /** @type {CreateComponentParams<import('./type').DebugHeadType>} */
     {
       tag: "debug-head",
       component: DebugHeadFn,
@@ -41170,325 +41176,6 @@
     console.log("slotPlaceholderSize", getSlotPlaceholderSize());
     console.log("bindTextPlaceholderMapSize", getBindTextPlaceholderSize());
     console.log("instanceMap", instanceMap);
-  };
-
-  // src/js/component/common/debug/debug-overlay/debug-overlay.js
-  var DebugOverlayFn = ({
-    delegateEvents,
-    addMethod,
-    bindProps,
-    invalidate,
-    bindEffect,
-    getProxi,
-    onMount
-  }) => {
-    const proxi = getProxi();
-    addMethod("toggle", () => {
-      proxi.active = !proxi.active;
-    });
-    onMount(() => {
-      const unsubScribeBeforeRouterChange = modules_exports2.beforeRouteChange(() => {
-        proxi.active = false;
-        proxi.listType = DEBUG_USE_TREE;
-      });
-      return () => {
-        unsubScribeBeforeRouterChange();
-      };
-    });
-    const listHeader = {
-      className: "list-header",
-      content: [
-        /**
-         * Left top header switch tree/list head
-         */
-        {
-          content: invalidate({
-            observe: [() => proxi.listType, () => proxi.active],
-            render: () => {
-              if (proxi.listType === DEBUG_USE_TREE && proxi.active)
-                return fromObject({
-                  className: "list-title",
-                  content: "Tree structure"
-                });
-              if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
-                return fromObject({ tag: "debug-filter-head" });
-              return "";
-            }
-          })
-        },
-        /**
-         * Toggle List vs Tree
-         */
-        {
-          content: [
-            {
-              tag: "button",
-              className: "list-toggle",
-              modules: [
-                delegateEvents({
-                  click: () => {
-                    proxi.listType = DEBUG_USE_TREE;
-                  }
-                }),
-                bindEffect({
-                  toggleClass: {
-                    active: () => proxi.listType === DEBUG_USE_TREE
-                  }
-                })
-              ],
-              content: "Tree"
-            },
-            {
-              tag: "button",
-              className: "list-toggle",
-              modules: [
-                delegateEvents({
-                  click: () => {
-                    proxi.listType = DEBUG_USE_FILTER_COMPONENT;
-                  }
-                }),
-                bindEffect({
-                  toggleClass: {
-                    active: () => proxi.listType === DEBUG_USE_FILTER_COMPONENT
-                  }
-                })
-              ],
-              content: "Filter"
-            }
-          ]
-        }
-      ]
-    };
-    const listContent = {
-      content: invalidate({
-        observe: [() => proxi.listType, () => proxi.active],
-        render: () => {
-          if (proxi.listType === DEBUG_USE_TREE && proxi.active)
-            return fromObject({
-              tag: "debug-tree",
-              attributes: { name: debugTreeName }
-            });
-          if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
-            return fromObject({
-              tag: "debug-filter-list",
-              attributes: { name: debugFilterListName }
-            });
-          return "";
-        }
-      })
-    };
-    return fromObject({
-      className: "c-debug-overlay",
-      modules: bindEffect({
-        toggleClass: { active: () => proxi.active }
-      }),
-      content: [
-        {
-          tag: "button",
-          className: "background",
-          attributes: { type: "button" },
-          modules: delegateEvents({
-            click: () => {
-              proxi.active = false;
-              proxi.listType = DEBUG_USE_TREE;
-            }
-          })
-        },
-        {
-          tag: "button",
-          className: "close",
-          attributes: { type: "button" },
-          modules: delegateEvents({
-            click: () => {
-              proxi.active = false;
-              proxi.listType = DEBUG_USE_TREE;
-            }
-          })
-        },
-        {
-          className: "grid",
-          content: [
-            {
-              tag: "button",
-              className: "log",
-              modules: delegateEvents({
-                click: () => {
-                  consoleLogDebug();
-                }
-              }),
-              content: `console log`
-            },
-            /**
-             * Top header
-             */
-            {
-              className: "header",
-              content: {
-                tag: "debug-head",
-                modules: bindProps(
-                  /** @returns {ReturnBindProps<DebugHead>} */
-                  () => ({
-                    active: proxi.active
-                  })
-                )
-              }
-            },
-            /**
-             * Left column hider ( sitch list/tree & search in list ) & content
-             */
-            {
-              className: "list",
-              content: [listHeader, listContent]
-            },
-            /**
-             * Right column single component
-             */
-            {
-              className: "single-component",
-              content: {
-                tag: "debug-component",
-                attributes: { name: debugComponentName }
-              }
-            }
-          ]
-        }
-      ]
-    });
-  };
-
-  // src/js/component/common/debug/debug-overlay/tree/recursive-tree.js
-  var generateTreeComponents = ({ data, staticProps: staticProps2 }) => {
-    return data.map(({ id, componentName, instanceName, children }) => {
-      return fromObject({
-        tag: "debug-tree-item",
-        modules: staticProps2(
-          /** @type {import('./item/type').DebugTreeItem['props']} */
-          {
-            id,
-            componentName,
-            instanceName,
-            children
-          }
-        )
-      });
-    }).join("");
-  };
-
-  // src/js/component/common/debug/debug-overlay/tree/debug-tree.js
-  var initScroller3 = async ({ getRef }) => {
-    await modules_exports2.tick();
-    const { screen, scroller, scrollbar } = getRef();
-    const methods = verticalScroller({
-      screen,
-      scroller,
-      scrollbar
-    });
-    const destroy3 = methods.destroy;
-    const refresh = methods.refresh;
-    const move3 = methods.move;
-    const updateScroller2 = methods.updateScroller;
-    methods.init();
-    updateScroller2();
-    move3(0);
-    return {
-      destroy: destroy3,
-      refresh,
-      move: move3,
-      updateScroller: updateScroller2
-    };
-  };
-  var DebugTreeFn = ({
-    onMount,
-    invalidate,
-    staticProps: staticProps2,
-    setRef,
-    getRef,
-    addMethod,
-    bindEffect,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    let destroy3 = () => {
-    };
-    let refresh = () => {
-    };
-    let updateScroller2 = () => {
-    };
-    let move3 = () => {
-    };
-    onMount(() => {
-      const { scrollbar } = getRef();
-      scrollbar.addEventListener("input", () => {
-        move3(scrollbar.value);
-      });
-      addMethod("refresh", () => {
-        refresh?.();
-        updateScroller2?.();
-      });
-      (async () => {
-        proxi.isLoading = true;
-        await modules_exports2.tick();
-        destroy3?.();
-        proxi.data = modules_exports2.getTree();
-        ({ destroy: destroy3, move: move3, refresh, updateScroller: updateScroller2 } = await initScroller3({
-          getRef
-        }));
-        proxi.isLoading = false;
-      })();
-      return () => {
-        destroy3?.();
-        destroy3 = () => {
-        };
-        refresh = () => {
-        };
-        updateScroller2 = () => {
-        };
-        move3 = () => {
-        };
-      };
-    });
-    return fromObject({
-      className: "c-debug-tree",
-      content: {
-        className: "tree-list",
-        modules: setRef("screen"),
-        content: [
-          {
-            tag: "input",
-            className: "scrollbar",
-            attributes: {
-              type: "range",
-              id: "test",
-              min: 0,
-              max: 0,
-              value: 0,
-              step: 0.5
-            },
-            modules: setRef("scrollbar")
-          },
-          {
-            className: "status",
-            modules: bindEffect({
-              toggleClass: { visible: () => proxi.isLoading }
-            }),
-            content: "Generate tree"
-          },
-          {
-            className: "scollable-element",
-            modules: setRef("scroller"),
-            content: invalidate({
-              observe: () => proxi.data,
-              render: () => {
-                return generateTreeComponents({
-                  data: proxi.data,
-                  staticProps: staticProps2
-                });
-              }
-            })
-          }
-        ]
-      }
-    });
   };
 
   // src/js/component/common/debug/debug-overlay/tree/utils.js
@@ -41628,7 +41315,7 @@
 
   // src/js/component/common/debug/debug-overlay/tree/item/definition.js
   var DebugTreeItem = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugTreeItem>} */
+    /** @type {CreateComponentParams<import('./type').DebugTreeItemType>} */
     {
       tag: "debug-tree-item",
       component: DebugTreeItemFn,
@@ -41668,9 +41355,144 @@
     }
   );
 
+  // src/js/component/common/debug/debug-overlay/tree/recursive-tree.js
+  var generateTreeComponents = ({ data, staticProps: staticProps2 }) => {
+    return data.map(({ id, componentName, instanceName, children }) => {
+      return fromObject({
+        component: DebugTreeItem,
+        modules: staticProps2(
+          /** @type {import('./item/type').DebugTreeItemType['props']} */
+          {
+            id,
+            componentName,
+            instanceName,
+            children
+          }
+        )
+      });
+    }).join("");
+  };
+
+  // src/js/component/common/debug/debug-overlay/tree/debug-tree.js
+  var initScroller3 = async ({ getRef }) => {
+    await modules_exports2.tick();
+    const { screen, scroller, scrollbar } = getRef();
+    const methods = verticalScroller({
+      screen,
+      scroller,
+      scrollbar
+    });
+    const destroy3 = methods.destroy;
+    const refresh = methods.refresh;
+    const move3 = methods.move;
+    const updateScroller2 = methods.updateScroller;
+    methods.init();
+    updateScroller2();
+    move3(0);
+    return {
+      destroy: destroy3,
+      refresh,
+      move: move3,
+      updateScroller: updateScroller2
+    };
+  };
+  var DebugTreeFn = ({
+    onMount,
+    invalidate,
+    staticProps: staticProps2,
+    setRef,
+    getRef,
+    addMethod,
+    bindEffect,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    let destroy3 = () => {
+    };
+    let refresh = () => {
+    };
+    let updateScroller2 = () => {
+    };
+    let move3 = () => {
+    };
+    onMount(() => {
+      const { scrollbar } = getRef();
+      scrollbar.addEventListener("input", () => {
+        move3(scrollbar.value);
+      });
+      addMethod("refresh", () => {
+        refresh?.();
+        updateScroller2?.();
+      });
+      (async () => {
+        proxi.isLoading = true;
+        await modules_exports2.tick();
+        destroy3?.();
+        proxi.data = modules_exports2.getTree();
+        ({ destroy: destroy3, move: move3, refresh, updateScroller: updateScroller2 } = await initScroller3({
+          getRef
+        }));
+        proxi.isLoading = false;
+      })();
+      return () => {
+        destroy3?.();
+        destroy3 = () => {
+        };
+        refresh = () => {
+        };
+        updateScroller2 = () => {
+        };
+        move3 = () => {
+        };
+      };
+    });
+    return fromObject({
+      className: "c-debug-tree",
+      content: {
+        className: "tree-list",
+        modules: setRef("screen"),
+        content: [
+          {
+            tag: "input",
+            className: "scrollbar",
+            attributes: {
+              type: "range",
+              id: "test",
+              min: 0,
+              max: 0,
+              value: 0,
+              step: 0.5
+            },
+            modules: setRef("scrollbar")
+          },
+          {
+            className: "status",
+            modules: bindEffect({
+              toggleClass: { visible: () => proxi.isLoading }
+            }),
+            content: "Generate tree"
+          },
+          {
+            className: "scollable-element",
+            modules: setRef("scroller"),
+            content: invalidate({
+              observe: () => proxi.data,
+              render: () => {
+                return generateTreeComponents({
+                  data: proxi.data,
+                  staticProps: staticProps2
+                });
+              }
+            })
+          }
+        ]
+      }
+    });
+  };
+
   // src/js/component/common/debug/debug-overlay/tree/definition.js
   var DebugTree = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugTree>} */
+    /** @type {CreateComponentParams<import('./type').DebugTreeType>} */
     {
       tag: "debug-tree",
       component: DebugTreeFn,
@@ -41688,9 +41510,193 @@
     }
   );
 
+  // src/js/component/common/debug/debug-overlay/debug-overlay.js
+  var DebugOverlayFn = ({
+    delegateEvents,
+    addMethod,
+    bindProps,
+    invalidate,
+    bindEffect,
+    getProxi,
+    onMount
+  }) => {
+    const proxi = getProxi();
+    addMethod("toggle", () => {
+      proxi.active = !proxi.active;
+    });
+    onMount(() => {
+      const unsubScribeBeforeRouterChange = modules_exports2.beforeRouteChange(() => {
+        proxi.active = false;
+        proxi.listType = DEBUG_USE_TREE;
+      });
+      return () => {
+        unsubScribeBeforeRouterChange();
+      };
+    });
+    const listHeader = {
+      className: "list-header",
+      content: [
+        /**
+         * Left top header switch tree/list head
+         */
+        {
+          content: invalidate({
+            observe: [() => proxi.listType, () => proxi.active],
+            render: () => {
+              if (proxi.listType === DEBUG_USE_TREE && proxi.active)
+                return fromObject({
+                  className: "list-title",
+                  content: "Tree structure"
+                });
+              if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
+                return fromObject({ tag: "debug-filter-head" });
+              return "";
+            }
+          })
+        },
+        /**
+         * Toggle List vs Tree
+         */
+        {
+          content: [
+            {
+              tag: "button",
+              className: "list-toggle",
+              modules: [
+                delegateEvents({
+                  click: () => {
+                    proxi.listType = DEBUG_USE_TREE;
+                  }
+                }),
+                bindEffect({
+                  toggleClass: {
+                    active: () => proxi.listType === DEBUG_USE_TREE
+                  }
+                })
+              ],
+              content: "Tree"
+            },
+            {
+              tag: "button",
+              className: "list-toggle",
+              modules: [
+                delegateEvents({
+                  click: () => {
+                    proxi.listType = DEBUG_USE_FILTER_COMPONENT;
+                  }
+                }),
+                bindEffect({
+                  toggleClass: {
+                    active: () => proxi.listType === DEBUG_USE_FILTER_COMPONENT
+                  }
+                })
+              ],
+              content: "Filter"
+            }
+          ]
+        }
+      ]
+    };
+    const listContent = {
+      content: invalidate({
+        observe: [() => proxi.listType, () => proxi.active],
+        render: () => {
+          if (proxi.listType === DEBUG_USE_TREE && proxi.active)
+            return fromObject({
+              component: DebugTree,
+              attributes: { name: debugTreeName }
+            });
+          if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
+            return fromObject({
+              component: DebugFilterList,
+              attributes: { name: debugFilterListName }
+            });
+          return "";
+        }
+      })
+    };
+    return fromObject({
+      className: "c-debug-overlay",
+      modules: bindEffect({
+        toggleClass: { active: () => proxi.active }
+      }),
+      content: [
+        {
+          tag: "button",
+          className: "background",
+          attributes: { type: "button" },
+          modules: delegateEvents({
+            click: () => {
+              proxi.active = false;
+              proxi.listType = DEBUG_USE_TREE;
+            }
+          })
+        },
+        {
+          tag: "button",
+          className: "close",
+          attributes: { type: "button" },
+          modules: delegateEvents({
+            click: () => {
+              proxi.active = false;
+              proxi.listType = DEBUG_USE_TREE;
+            }
+          })
+        },
+        {
+          className: "grid",
+          content: [
+            {
+              tag: "button",
+              className: "log",
+              modules: delegateEvents({
+                click: () => {
+                  consoleLogDebug();
+                }
+              }),
+              content: `console log`
+            },
+            /**
+             * Top header
+             */
+            {
+              className: "header",
+              content: {
+                component: DebugHead,
+                modules: bindProps(
+                  /** @returns {ReturnBindProps<DebugHeadType>} */
+                  () => ({
+                    active: proxi.active
+                  })
+                )
+              }
+            },
+            /**
+             * Left column hider ( sitch list/tree & search in list ) & content
+             */
+            {
+              className: "list",
+              content: [listHeader, listContent]
+            },
+            /**
+             * Right column single component
+             */
+            {
+              className: "single-component",
+              content: {
+                component: DebugComponent,
+                attributes: { name: debugComponentName }
+              }
+            }
+          ]
+        }
+      ]
+    });
+  };
+
   // src/js/component/common/debug/debug-overlay/definition.js
   var DebugOverlay = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugOverlay>} */
+    /** @type {CreateComponentParams<import('./type').DebugOverlayType>} */
     {
       tag: "debug-overlay",
       component: DebugOverlayFn,
@@ -42259,424 +42265,6 @@
     headerMethods?.closeSuggestion();
   };
 
-  // src/js/component/common/search/search-overlay/search-overlay.js
-  var closeOverlay = ({ proxi }) => {
-    proxi.active = false;
-    closeSearchSuggestion();
-  };
-  var shouldCloseSuggestion = ({ target }) => {
-    if (!target) return;
-    shouldCloseSearchSuggestion(target);
-  };
-  var SearchOverlayFn = ({
-    getProxi,
-    delegateEvents,
-    bindEffect,
-    addMethod,
-    bindObject,
-    staticProps: staticProps2
-  }) => {
-    const proxi = getProxi();
-    addMethod("toggle", () => {
-      proxi.active = !proxi.active;
-    });
-    return renderHtml`<div
-        class="c-search-overlay"
-        ${bindEffect({
-      toggleClass: {
-        active: () => proxi.active
-      }
-    })}
-    >
-        <button
-            class="background"
-            type="button"
-            ${delegateEvents({
-      click: () => {
-        closeOverlay({ proxi });
-      }
-    })}
-        ></button>
-        <button
-            type="button"
-            class="close-button"
-            ${delegateEvents({
-      click: () => {
-        closeOverlay({ proxi });
-      }
-    })}
-        ></button>
-
-        <!-- Main content -->
-        <div
-            class="grid"
-            ${delegateEvents({
-      click: (event) => {
-        shouldCloseSuggestion({
-          target: (
-            /** @type {HTMLElement} */
-            event.target
-          )
-        });
-      }
-    })}
-        >
-            <!-- Title -->
-            <h2 class="title">Search</h2>
-
-            <!-- Header -->
-            <div class="header">
-                <search-overlay-header
-                    name="${searchOverlayHeader}"
-                ></search-overlay-header>
-            </div>
-            <div class="result-query">
-                <p>
-                    ${bindObject`search for: <strong>${() => proxi.currentSearch}</strong>`}
-                </p>
-            </div>
-
-            <!-- List -->
-            <div class="content">
-                <search-overlay-list
-                    ${staticProps2(
-      /** @type {import('./list/type').SearchOverlayList['props']} */
-      {
-        updatePrentSearchKey: (value) => {
-          proxi.currentSearch = value;
-        }
-      }
-    )}
-                    name="${searchOverlayList}"
-                ></search-overlay-list>
-            </div>
-        </div>
-    </div>`;
-  };
-
-  // src/js/component/common/search/search-overlay/list/utils.js
-  var updateOverlayList = (currentSearch) => {
-    const listMethods = modules_exports2.useMethodByName(searchOverlayList);
-    listMethods?.update(currentSearch);
-  };
-  var resetOverlayList = () => {
-    const listMethods = modules_exports2.useMethodByName(searchOverlayList);
-    listMethods?.reset();
-  };
-
-  // src/js/component/common/search/search-overlay/header/header.js
-  var sendSearch = async ({ currentSearch }) => {
-    updateOverlayList(currentSearch);
-  };
-  var sendToList = ({ getRef }) => {
-    const { search_input } = getRef();
-    const currentSearch = (
-      /** @type {HTMLInputElement} */
-      search_input.value
-    );
-    sendSearch({ currentSearch });
-  };
-  var sendReset = ({ getRef, proxi }) => {
-    resetOverlayList();
-    const { search_input } = getRef();
-    search_input.value = "";
-    proxi.suggestionListData = [];
-  };
-  var getFakeReplacement2 = (index) => `~${index}`;
-  var filterSuggestion = ({ currentSearch, proxi }) => {
-    const mainData = getCommonData();
-    const searchSuggestionKey = mainData.suggestion;
-    if (currentSearch.length === 0) proxi.suggestionListData = [];
-    const inputSearchLastWord = currentSearch.split(" ").slice(-1).join("");
-    const stringParsed = inputSearchLastWord.replaceAll("~", "").split(" ").filter((block) => block !== "") ?? "";
-    proxi.suggestionListData = (searchSuggestionKey.filter(({ word }) => {
-      return stringParsed.some(
-        (piece) => word.toLowerCase().includes(piece.toLowerCase())
-      );
-    }) ?? []).map(({ word }) => {
-      return {
-        word,
-        wordHiglight: (() => {
-          const stringParseWithPlaceholder = stringParsed.reduce(
-            (previous, current, index) => {
-              return previous.toLowerCase().replaceAll(
-                new RegExp(
-                  `(?<!~)${current.toLowerCase()}`,
-                  "g"
-                ),
-                `${getFakeReplacement2(index)}`
-              );
-            },
-            word
-          );
-          return stringParsed.reduce((previous, current, index) => {
-            return previous.replaceAll(
-              `${getFakeReplacement2(index)}`,
-              `<span class="u-match-string">${current}</span>`
-            );
-          }, stringParseWithPlaceholder);
-        })()
-      };
-    });
-  };
-  var SearchOverlayHeaderFn = ({
-    delegateEvents,
-    getRef,
-    setRef,
-    getProxi,
-    bindProps,
-    addMethod,
-    onMount,
-    computed,
-    bindEffect
-  }) => {
-    const proxi = getProxi();
-    computed(
-      () => proxi.suggestionListActive,
-      () => proxi.suggestionListData.length > 0
-    );
-    onMount(() => {
-      const { search_input, suggestionElement } = getRef();
-      addMethod("updateCurrentSearchFromSuggestion", (value) => {
-        const currentValue = search_input.value;
-        const currentValueSplitted = currentValue.split(" ");
-        const newSearchValue = currentValueSplitted.length === 0 ? value : (() => {
-          const currentValueLessLast = currentValueSplitted.slice(0, -1).join(" ");
-          return `${currentValueLessLast} ${value}`;
-        })();
-        search_input.value = newSearchValue.trimStart();
-        proxi.suggestionListData = [];
-        search_input.focus();
-      });
-      addMethod("shouldCloseSuggestion", (element) => {
-        if (suggestionElement !== element && !suggestionElement.contains(element))
-          proxi.suggestionListData = [];
-      });
-      addMethod("closeSuggestion", () => {
-        proxi.suggestionListData = [];
-      });
-      addMethod("setInputFocus", async () => {
-        setTimeout(() => {
-          search_input.focus();
-        }, 300);
-      });
-    });
-    return renderHtml`<div class="c-search-header">
-        <div class="search-wrap">
-            <input
-                type="text"
-                class="serach-input"
-                name="search_input"
-                ${setRef("search_input")}
-                ${delegateEvents({
-      keyup: modules_exports.useDebounce(
-        (event) => {
-          if (event?.code?.toLowerCase?.() === "enter") {
-            event.preventDefault();
-            sendToList({ getRef, proxi });
-            proxi.suggestionListData = [];
-            return;
-          }
-          if (event?.code?.toLowerCase?.() === "escape") {
-            event.preventDefault();
-            proxi.suggestionListData = [];
-            return;
-          }
-          const currentSearch = (
-            /** @type {HTMLInputElement} */
-            event.currentTarget.value
-          );
-          filterSuggestion({ currentSearch, proxi });
-        },
-        60
-      )
-    })}
-            />
-            <div
-                class="suggestion-wrap"
-                ${setRef("suggestionElement")}
-                ${bindEffect({
-      toggleClass: {
-        active: () => proxi.suggestionListActive
-      }
-    })}
-            >
-                <search-overlay-suggestion
-                    ${bindProps(
-      /** @returns {ReturnBindProps<import('./suggestion/type').SearchOverlaySuggestion>} */
-      () => ({
-        list: proxi.suggestionListData
-      })
-    )}
-                ></search-overlay-suggestion>
-            </div>
-        </div>
-
-        <!-- Submit -->
-        <button
-            type="button"
-            class="search-button"
-            ${delegateEvents({
-      click: () => {
-        sendToList({ getRef, proxi });
-      },
-      keydown: (event) => {
-        if (event.code.toLowerCase() === "enter") {
-          sendToList({ getRef, proxi });
-        }
-      }
-    })}
-        >
-            submit
-        </button>
-
-        <!-- Reset -->
-        <button
-            type="button"
-            class="search-button"
-            ${delegateEvents({
-      click: () => {
-        sendReset({ getRef, proxi });
-      },
-      keydown: (event) => {
-        if (event.code.toLowerCase() === "enter") {
-          sendReset({ getRef, proxi });
-        }
-      }
-    })}
-        >
-            reset
-        </button>
-    </div>`;
-  };
-
-  // src/js/component/common/search/search-overlay/header/suggestion/suggestion.js
-  var SearchOverlaySuggestionFn = ({ getProxi, repeat, bindProps }) => {
-    const proxi = getProxi();
-    return renderHtml`<div>
-        <div class="c-search-suggestion">
-            <ul class="list">
-                ${repeat({
-      observe: () => proxi.list,
-      key: "word",
-      render: ({ current }) => {
-        return renderHtml`
-                            <search-overlay-suggestion-item
-                                ${bindProps(
-          /**
-           * @returns {ReturnBindProps<SearchOverlaySugestionItem>}
-           */
-          () => ({
-            word: current.value.word,
-            wordHiglight: current.value.wordHiglight
-          })
-        )}
-                            >
-                            </search-overlay-suggestion-item>
-                        `;
-      }
-    })}
-            </ul>
-        </div>
-    </div>`;
-  };
-
-  // src/js/component/common/search/search-overlay/header/suggestion/suggestion-item/suggestion-item.js
-  var onKeyDown = ({ code, word }) => {
-    if (code.toLowerCase() === "enter") {
-      updateSearchFromSuggestion(word);
-      return;
-    }
-    if (code.toLowerCase() === "escape") {
-      closeSearchSuggestion();
-      return;
-    }
-  };
-  var SearchOverlaySuggestionItemFn = ({
-    getProxi,
-    delegateEvents,
-    bindObject
-  }) => {
-    const proxi = getProxi();
-    return renderHtml`
-        <li>
-            <button
-                type="button"
-                class="button"
-                ${delegateEvents({
-      click: () => {
-        updateSearchFromSuggestion(proxi.word);
-      },
-      keydown: (event) => {
-        event.preventDefault();
-        onKeyDown({
-          code: event.code,
-          word: proxi.word
-        });
-      }
-    })}
-            >
-                ${bindObject`${() => proxi.wordHiglight}`}
-            </button>
-        </li>
-    `;
-  };
-
-  // src/js/component/common/search/search-overlay/header/suggestion/suggestion-item/definition.js
-  var SearchOverlaySuggestionItem = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').SearchOverlaySugestionItem>} */
-    {
-      tag: "search-overlay-suggestion-item",
-      component: SearchOverlaySuggestionItemFn,
-      props: {
-        word: () => ({
-          value: "",
-          type: String
-        }),
-        wordHiglight: () => ({
-          value: "",
-          type: String
-        })
-      }
-    }
-  );
-
-  // src/js/component/common/search/search-overlay/header/suggestion/definition.js
-  var SearchOverlaySuggestion = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').SearchOverlaySuggestion>} */
-    {
-      tag: "search-overlay-suggestion",
-      component: SearchOverlaySuggestionFn,
-      props: {
-        list: () => ({
-          value: [],
-          type: Array
-        })
-      },
-      child: [SearchOverlaySuggestionItem]
-    }
-  );
-
-  // src/js/component/common/search/search-overlay/header/definition.js
-  var SearchOverlayHeader = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').SearchOverlayHeader>} */
-    {
-      tag: "search-overlay-header",
-      component: SearchOverlayHeaderFn,
-      state: {
-        suggestionListActive: () => ({
-          value: false,
-          type: Boolean
-        }),
-        suggestionListData: () => ({
-          value: [],
-          type: Array
-        })
-      },
-      child: [SearchOverlaySuggestion]
-    }
-  );
-
   // src/js/component/common/search/search-overlay/list/fetch-data.js
   var executeFetch = async ({
     source,
@@ -43040,6 +42628,434 @@
     }
   );
 
+  // src/js/component/common/search/search-overlay/list/utils.js
+  var updateOverlayList = (currentSearch) => {
+    const listMethods = modules_exports2.useMethodByName(searchOverlayList);
+    listMethods?.update(currentSearch);
+  };
+  var resetOverlayList = () => {
+    const listMethods = modules_exports2.useMethodByName(searchOverlayList);
+    listMethods?.reset();
+  };
+
+  // src/js/component/common/search/search-overlay/header/header.js
+  var sendSearch = async ({ currentSearch }) => {
+    updateOverlayList(currentSearch);
+  };
+  var sendToList = ({ getRef }) => {
+    const { search_input } = getRef();
+    const currentSearch = (
+      /** @type {HTMLInputElement} */
+      search_input.value
+    );
+    sendSearch({ currentSearch });
+  };
+  var sendReset = ({ getRef, proxi }) => {
+    resetOverlayList();
+    const { search_input } = getRef();
+    search_input.value = "";
+    proxi.suggestionListData = [];
+  };
+  var getFakeReplacement2 = (index) => `~${index}`;
+  var filterSuggestion = ({ currentSearch, proxi }) => {
+    const mainData = getCommonData();
+    const searchSuggestionKey = mainData.suggestion;
+    if (currentSearch.length === 0) proxi.suggestionListData = [];
+    const inputSearchLastWord = currentSearch.split(" ").slice(-1).join("");
+    const stringParsed = inputSearchLastWord.replaceAll("~", "").split(" ").filter((block) => block !== "") ?? "";
+    proxi.suggestionListData = (searchSuggestionKey.filter(({ word }) => {
+      return stringParsed.some(
+        (piece) => word.toLowerCase().includes(piece.toLowerCase())
+      );
+    }) ?? []).map(({ word }) => {
+      return {
+        word,
+        wordHiglight: (() => {
+          const stringParseWithPlaceholder = stringParsed.reduce(
+            (previous, current, index) => {
+              return previous.toLowerCase().replaceAll(
+                new RegExp(
+                  `(?<!~)${current.toLowerCase()}`,
+                  "g"
+                ),
+                `${getFakeReplacement2(index)}`
+              );
+            },
+            word
+          );
+          return stringParsed.reduce((previous, current, index) => {
+            return previous.replaceAll(
+              `${getFakeReplacement2(index)}`,
+              `<span class="u-match-string">${current}</span>`
+            );
+          }, stringParseWithPlaceholder);
+        })()
+      };
+    });
+  };
+  var SearchOverlayHeaderFn = ({
+    delegateEvents,
+    getRef,
+    setRef,
+    getProxi,
+    bindProps,
+    addMethod,
+    onMount,
+    computed,
+    bindEffect
+  }) => {
+    const proxi = getProxi();
+    computed(
+      () => proxi.suggestionListActive,
+      () => proxi.suggestionListData.length > 0
+    );
+    onMount(() => {
+      const { search_input, suggestionElement } = getRef();
+      addMethod("updateCurrentSearchFromSuggestion", (value) => {
+        const currentValue = search_input.value;
+        const currentValueSplitted = currentValue.split(" ");
+        const newSearchValue = currentValueSplitted.length === 0 ? value : (() => {
+          const currentValueLessLast = currentValueSplitted.slice(0, -1).join(" ");
+          return `${currentValueLessLast} ${value}`;
+        })();
+        search_input.value = newSearchValue.trimStart();
+        proxi.suggestionListData = [];
+        search_input.focus();
+      });
+      addMethod("shouldCloseSuggestion", (element) => {
+        if (suggestionElement !== element && !suggestionElement.contains(element))
+          proxi.suggestionListData = [];
+      });
+      addMethod("closeSuggestion", () => {
+        proxi.suggestionListData = [];
+      });
+      addMethod("setInputFocus", async () => {
+        setTimeout(() => {
+          search_input.focus();
+        }, 300);
+      });
+    });
+    return renderHtml`<div class="c-search-header">
+        <div class="search-wrap">
+            <input
+                type="text"
+                class="serach-input"
+                name="search_input"
+                ${setRef("search_input")}
+                ${delegateEvents({
+      keyup: modules_exports.useDebounce(
+        (event) => {
+          if (event?.code?.toLowerCase?.() === "enter") {
+            event.preventDefault();
+            sendToList({ getRef, proxi });
+            proxi.suggestionListData = [];
+            return;
+          }
+          if (event?.code?.toLowerCase?.() === "escape") {
+            event.preventDefault();
+            proxi.suggestionListData = [];
+            return;
+          }
+          const currentSearch = (
+            /** @type {HTMLInputElement} */
+            event.currentTarget.value
+          );
+          filterSuggestion({ currentSearch, proxi });
+        },
+        60
+      )
+    })}
+            />
+            <div
+                class="suggestion-wrap"
+                ${setRef("suggestionElement")}
+                ${bindEffect({
+      toggleClass: {
+        active: () => proxi.suggestionListActive
+      }
+    })}
+            >
+                <search-overlay-suggestion
+                    ${bindProps(
+      /** @returns {ReturnBindProps<import('./suggestion/type').SearchOverlaySuggestion>} */
+      () => ({
+        list: proxi.suggestionListData
+      })
+    )}
+                ></search-overlay-suggestion>
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <button
+            type="button"
+            class="search-button"
+            ${delegateEvents({
+      click: () => {
+        sendToList({ getRef, proxi });
+      },
+      keydown: (event) => {
+        if (event.code.toLowerCase() === "enter") {
+          sendToList({ getRef, proxi });
+        }
+      }
+    })}
+        >
+            submit
+        </button>
+
+        <!-- Reset -->
+        <button
+            type="button"
+            class="search-button"
+            ${delegateEvents({
+      click: () => {
+        sendReset({ getRef, proxi });
+      },
+      keydown: (event) => {
+        if (event.code.toLowerCase() === "enter") {
+          sendReset({ getRef, proxi });
+        }
+      }
+    })}
+        >
+            reset
+        </button>
+    </div>`;
+  };
+
+  // src/js/component/common/search/search-overlay/header/suggestion/suggestion.js
+  var SearchOverlaySuggestionFn = ({ getProxi, repeat, bindProps }) => {
+    const proxi = getProxi();
+    return renderHtml`<div>
+        <div class="c-search-suggestion">
+            <ul class="list">
+                ${repeat({
+      observe: () => proxi.list,
+      key: "word",
+      render: ({ current }) => {
+        return renderHtml`
+                            <search-overlay-suggestion-item
+                                ${bindProps(
+          /**
+           * @returns {ReturnBindProps<SearchOverlaySugestionItem>}
+           */
+          () => ({
+            word: current.value.word,
+            wordHiglight: current.value.wordHiglight
+          })
+        )}
+                            >
+                            </search-overlay-suggestion-item>
+                        `;
+      }
+    })}
+            </ul>
+        </div>
+    </div>`;
+  };
+
+  // src/js/component/common/search/search-overlay/header/suggestion/suggestion-item/suggestion-item.js
+  var onKeyDown = ({ code, word }) => {
+    if (code.toLowerCase() === "enter") {
+      updateSearchFromSuggestion(word);
+      return;
+    }
+    if (code.toLowerCase() === "escape") {
+      closeSearchSuggestion();
+      return;
+    }
+  };
+  var SearchOverlaySuggestionItemFn = ({
+    getProxi,
+    delegateEvents,
+    bindObject
+  }) => {
+    const proxi = getProxi();
+    return renderHtml`
+        <li>
+            <button
+                type="button"
+                class="button"
+                ${delegateEvents({
+      click: () => {
+        updateSearchFromSuggestion(proxi.word);
+      },
+      keydown: (event) => {
+        event.preventDefault();
+        onKeyDown({
+          code: event.code,
+          word: proxi.word
+        });
+      }
+    })}
+            >
+                ${bindObject`${() => proxi.wordHiglight}`}
+            </button>
+        </li>
+    `;
+  };
+
+  // src/js/component/common/search/search-overlay/header/suggestion/suggestion-item/definition.js
+  var SearchOverlaySuggestionItem = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').SearchOverlaySugestionItem>} */
+    {
+      tag: "search-overlay-suggestion-item",
+      component: SearchOverlaySuggestionItemFn,
+      props: {
+        word: () => ({
+          value: "",
+          type: String
+        }),
+        wordHiglight: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
+
+  // src/js/component/common/search/search-overlay/header/suggestion/definition.js
+  var SearchOverlaySuggestion = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').SearchOverlaySuggestion>} */
+    {
+      tag: "search-overlay-suggestion",
+      component: SearchOverlaySuggestionFn,
+      props: {
+        list: () => ({
+          value: [],
+          type: Array
+        })
+      },
+      child: [SearchOverlaySuggestionItem]
+    }
+  );
+
+  // src/js/component/common/search/search-overlay/header/definition.js
+  var SearchOverlayHeader = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').SearchOverlayHeader>} */
+    {
+      tag: "search-overlay-header",
+      component: SearchOverlayHeaderFn,
+      state: {
+        suggestionListActive: () => ({
+          value: false,
+          type: Boolean
+        }),
+        suggestionListData: () => ({
+          value: [],
+          type: Array
+        })
+      },
+      child: [SearchOverlaySuggestion]
+    }
+  );
+
+  // src/js/component/common/search/search-overlay/search-overlay.js
+  var closeOverlay = ({ proxi }) => {
+    proxi.active = false;
+    closeSearchSuggestion();
+  };
+  var shouldCloseSuggestion = ({ target }) => {
+    if (!target) return;
+    shouldCloseSearchSuggestion(target);
+  };
+  var SearchOverlayFn = ({
+    getProxi,
+    delegateEvents,
+    bindEffect,
+    addMethod,
+    bindObject,
+    staticProps: staticProps2
+  }) => {
+    const proxi = getProxi();
+    addMethod("toggle", () => {
+      proxi.active = !proxi.active;
+    });
+    const gridContent = [
+      {
+        tag: "h2",
+        className: "title"
+      },
+      {
+        className: "header",
+        content: {
+          component: SearchOverlayHeader,
+          attributes: { name: searchOverlayHeader }
+        }
+      },
+      {
+        className: "result-query",
+        content: {
+          tag: "p",
+          content: bindObject`search for: <strong>${() => proxi.currentSearch}</strong>`
+        }
+      },
+      {
+        className: "content",
+        content: {
+          component: SearchOverlayList,
+          attributes: { name: searchOverlayList },
+          modules: staticProps2(
+            /** @type {import('./list/type').SearchOverlayList['props']} */
+            {
+              updatePrentSearchKey: (value) => {
+                proxi.currentSearch = value;
+              }
+            }
+          )
+        }
+      }
+    ];
+    return fromObject({
+      className: "c-search-overlay",
+      modules: bindEffect({
+        toggleClass: {
+          active: () => proxi.active
+        }
+      }),
+      content: [
+        {
+          tag: "button",
+          className: "background",
+          attributes: { type: "button" },
+          modules: delegateEvents({
+            click: () => {
+              closeOverlay({ proxi });
+            }
+          })
+        },
+        {
+          tag: "button",
+          className: "close-button",
+          attributes: { type: "button" },
+          modules: delegateEvents({
+            click: () => {
+              closeOverlay({ proxi });
+            }
+          })
+        },
+        /**
+         * Main content
+         */
+        {
+          className: "grid",
+          modules: delegateEvents({
+            click: (event) => {
+              shouldCloseSuggestion({
+                target: (
+                  /** @type {HTMLElement} */
+                  event.target
+                )
+              });
+            }
+          }),
+          content: gridContent
+        }
+      ]
+    });
+  };
+
   // src/js/component/common/search/search-overlay/definition.js
   var SearchOverlay = modules_exports2.createComponent(
     /** @type {CreateComponentParams<import('./type').SearchOverlay>} */
@@ -43221,262 +43237,6 @@
     mainNavigationMethods?.closeAllAccordion({ fireCallback });
   };
 
-  // src/js/component/layout/header/header.js
-  function titleHandler() {
-    modules_exports2.loadUrl({ url: "home" });
-    closeAllNavAccordion();
-    navigationStore.set("navigationIsOpen", false);
-    scrollToTopNav();
-  }
-  var HeaderFn = ({
-    delegateEvents,
-    bindEffect,
-    getProxi,
-    onMount,
-    addMethod
-  }) => {
-    const proxi = getProxi();
-    onMount(({ element }) => {
-      addMethod("getHeaderHeight", () => {
-        return outerHeight(element);
-      });
-      modules_exports.useFrameIndex(() => {
-        proxi.isMounted = true;
-      }, getFrameDelay());
-    });
-    return fromObject({
-      tag: "header",
-      className: "js-header",
-      modules: bindEffect({
-        toggleClass: {
-          "is-visible": () => proxi.isMounted
-        }
-      }),
-      content: [
-        {
-          className: "grid",
-          content: [
-            {
-              className: "toggle-cell",
-              content: {
-                tag: "mob-header-toggle"
-              }
-            },
-            {
-              tag: "button",
-              className: "logo-cell",
-              attributes: { type: "button" },
-              modules: delegateEvents({
-                click: () => {
-                  titleHandler();
-                }
-              }),
-              content: [
-                {
-                  className: "u-has-overflow",
-                  content: [
-                    {
-                      tag: "h3",
-                      modules: [
-                        bindEffect({
-                          toggleClass: {
-                            "is-visible": () => proxi.isMounted
-                          }
-                        })
-                      ],
-                      content: "<span>Mob</span>Project"
-                    },
-                    {
-                      tag: "h5",
-                      modules: bindEffect({
-                        toggleClass: {
-                          "is-visible": () => proxi.isMounted
-                        }
-                      }),
-                      content: "v 1.0"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              className: "menu-cell",
-              content: {
-                tag: "header-main-menu"
-              }
-            },
-            {
-              className: "utils-cell",
-              modules: bindEffect({
-                toggleClass: {
-                  "is-visible": () => proxi.isMounted
-                }
-              }),
-              content: {
-                tag: "mob-header-utils"
-              }
-            }
-          ]
-        }
-      ]
-    });
-  };
-
-  // src/js/component/layout/header/nav-toggle/header-toggle.js
-  var HeaderToggleFn = ({
-    delegateEvents,
-    bindEffect,
-    getProxi,
-    onMount
-  }) => {
-    const proxi = getProxi();
-    onMount(() => {
-      modules_exports.useFrameIndex(() => {
-        proxi.isMounted = true;
-      }, getFrameDelay());
-    });
-    const modules = [
-      delegateEvents({
-        click: () => {
-          navigationStore.update("navigationIsOpen", (state) => !state);
-          if (!proxi.navigationIsOpen) {
-            UnFreezeMobPageScroll();
-          }
-        }
-      }),
-      bindEffect([
-        {
-          toggleClass: {
-            "is-open": () => proxi.navigationIsOpen
-          }
-        },
-        {
-          toggleClass: {
-            "is-mounted": () => proxi.isMounted
-          }
-        }
-      ])
-    ];
-    return fromObject({
-      tag: "button",
-      className: "c-hamburger",
-      attributes: { type: "button" },
-      modules,
-      content: {
-        className: "wrapper",
-        content: {
-          className: "lines"
-        }
-      }
-    });
-  };
-
-  // src/js/component/layout/header/nav-toggle/definition.js
-  var HeaderToggle = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').HeaderToggle>} */
-    {
-      tag: "mob-header-toggle",
-      component: HeaderToggleFn,
-      bindStore: navigationStore,
-      state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/layout/header/header-utils/header-utils.js
-  var onClick = ({ event }) => {
-    const button = event.target;
-    console.log(button);
-    const { url } = (
-      /** @type {HTMLButtonElement} */
-      button?.dataset ?? ""
-    );
-    modules_exports2.loadUrl({ url });
-    navigationStore.set("navigationIsOpen", false);
-  };
-  function additems({ delegateEvents }) {
-    const header = getCommonData().header;
-    const { links } = header;
-    const icon = {
-      github: getIcons()["gitHubIcon"]
-    };
-    return links.map((link) => {
-      const { svg, url, internal } = link;
-      return fromObject({
-        tag: "li",
-        content: internal ? fromObject({
-          tag: "button",
-          dataAttributes: { url },
-          modules: delegateEvents({
-            click: (event) => {
-              onClick({ event });
-            }
-          }),
-          content: icon[svg]
-        }) : fromObject({
-          tag: "a",
-          attributes: { href: url, target: "_blank" },
-          content: icon[svg]
-        })
-      });
-    });
-  }
-  var HeaderUtilsFn = ({ delegateEvents }) => {
-    return fromObject({
-      tag: "ul",
-      className: "l-header-utils",
-      content: [
-        {
-          tag: "li",
-          content: {
-            tag: "search-cta"
-          }
-        },
-        ...additems({ delegateEvents })
-      ]
-    });
-  };
-
-  // src/js/component/common/search/cta-search/search-cta.js
-  var onClick2 = () => {
-    toggleSearchOverlay();
-    searchOverlaySetInputFocus();
-  };
-  var SearchCtaFn = ({ delegateEvents }) => {
-    const searchSvg = getIcons()["searchIcons"];
-    return renderHtml`<button
-        type="button"
-        class="c-search-cta"
-        ${delegateEvents({
-      click: () => {
-        onClick2();
-      }
-    })}
-    >
-        ${searchSvg}
-    </button>`;
-  };
-
-  // src/js/component/common/search/cta-search/definition.js
-  var Search = modules_exports2.createComponent({
-    tag: "search-cta",
-    component: SearchCtaFn
-  });
-
-  // src/js/component/layout/header/header-utils/definition.js
-  var HeaderUtils = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<any>} */
-    {
-      tag: "mob-header-utils",
-      component: HeaderUtilsFn,
-      child: [Search]
-    }
-  );
-
   // src/js/component/layout/header/header-main-menu/header-main-menu.js
   var getItems2 = ({ delegateEvents, staticProps: staticProps2 }) => {
     const data = getCommonData();
@@ -43590,6 +43350,261 @@
       }
     }
   );
+
+  // src/js/component/common/search/cta-search/search-cta.js
+  var onClick = () => {
+    toggleSearchOverlay();
+    searchOverlaySetInputFocus();
+  };
+  var SearchCtaFn = ({ delegateEvents }) => {
+    const searchSvg = getIcons()["searchIcons"];
+    return renderHtml`<button
+        type="button"
+        class="c-search-cta"
+        ${delegateEvents({
+      click: () => {
+        onClick();
+      }
+    })}
+    >
+        ${searchSvg}
+    </button>`;
+  };
+
+  // src/js/component/common/search/cta-search/definition.js
+  var Search = modules_exports2.createComponent({
+    tag: "search-cta",
+    component: SearchCtaFn
+  });
+
+  // src/js/component/layout/header/header-utils/header-utils.js
+  var onClick2 = ({ event }) => {
+    const button = event.target;
+    console.log(button);
+    const { url } = (
+      /** @type {HTMLButtonElement} */
+      button?.dataset ?? ""
+    );
+    modules_exports2.loadUrl({ url });
+    navigationStore.set("navigationIsOpen", false);
+  };
+  function additems({ delegateEvents }) {
+    const header = getCommonData().header;
+    const { links } = header;
+    const icon = {
+      github: getIcons()["gitHubIcon"]
+    };
+    return links.map((link) => {
+      const { svg, url, internal } = link;
+      return fromObject({
+        tag: "li",
+        content: internal ? fromObject({
+          tag: "button",
+          dataAttributes: { url },
+          modules: delegateEvents({
+            click: (event) => {
+              onClick2({ event });
+            }
+          }),
+          content: icon[svg]
+        }) : fromObject({
+          tag: "a",
+          attributes: { href: url, target: "_blank" },
+          content: icon[svg]
+        })
+      });
+    });
+  }
+  var HeaderUtilsFn = ({ delegateEvents }) => {
+    return fromObject({
+      tag: "ul",
+      className: "l-header-utils",
+      content: [
+        {
+          tag: "li",
+          content: {
+            component: Search
+          }
+        },
+        ...additems({ delegateEvents })
+      ]
+    });
+  };
+
+  // src/js/component/layout/header/header-utils/definition.js
+  var HeaderUtils = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<any>} */
+    {
+      tag: "mob-header-utils",
+      component: HeaderUtilsFn,
+      child: [Search]
+    }
+  );
+
+  // src/js/component/layout/header/nav-toggle/header-toggle.js
+  var HeaderToggleFn = ({
+    delegateEvents,
+    bindEffect,
+    getProxi,
+    onMount
+  }) => {
+    const proxi = getProxi();
+    onMount(() => {
+      modules_exports.useFrameIndex(() => {
+        proxi.isMounted = true;
+      }, getFrameDelay());
+    });
+    const modules = [
+      delegateEvents({
+        click: () => {
+          navigationStore.update("navigationIsOpen", (state) => !state);
+          if (!proxi.navigationIsOpen) {
+            UnFreezeMobPageScroll();
+          }
+        }
+      }),
+      bindEffect([
+        {
+          toggleClass: {
+            "is-open": () => proxi.navigationIsOpen
+          }
+        },
+        {
+          toggleClass: {
+            "is-mounted": () => proxi.isMounted
+          }
+        }
+      ])
+    ];
+    return fromObject({
+      tag: "button",
+      className: "c-hamburger",
+      attributes: { type: "button" },
+      modules,
+      content: {
+        className: "wrapper",
+        content: {
+          className: "lines"
+        }
+      }
+    });
+  };
+
+  // src/js/component/layout/header/nav-toggle/definition.js
+  var HeaderToggle = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').HeaderToggle>} */
+    {
+      tag: "mob-header-toggle",
+      component: HeaderToggleFn,
+      bindStore: navigationStore,
+      state: {
+        isMounted: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/layout/header/header.js
+  function titleHandler() {
+    modules_exports2.loadUrl({ url: "home" });
+    closeAllNavAccordion();
+    navigationStore.set("navigationIsOpen", false);
+    scrollToTopNav();
+  }
+  var HeaderFn = ({
+    delegateEvents,
+    bindEffect,
+    getProxi,
+    onMount,
+    addMethod
+  }) => {
+    const proxi = getProxi();
+    onMount(({ element }) => {
+      addMethod("getHeaderHeight", () => {
+        return outerHeight(element);
+      });
+      modules_exports.useFrameIndex(() => {
+        proxi.isMounted = true;
+      }, getFrameDelay());
+    });
+    const logoContent = {
+      className: "u-has-overflow",
+      content: [
+        {
+          tag: "h3",
+          modules: [
+            bindEffect({
+              toggleClass: {
+                "is-visible": () => proxi.isMounted
+              }
+            })
+          ],
+          content: "<span>Mob</span>Project"
+        },
+        {
+          tag: "h5",
+          modules: bindEffect({
+            toggleClass: {
+              "is-visible": () => proxi.isMounted
+            }
+          }),
+          content: "v 1.0"
+        }
+      ]
+    };
+    return fromObject({
+      tag: "header",
+      className: "js-header",
+      modules: bindEffect({
+        toggleClass: {
+          "is-visible": () => proxi.isMounted
+        }
+      }),
+      content: [
+        {
+          className: "grid",
+          content: [
+            {
+              className: "toggle-cell",
+              content: {
+                component: HeaderToggle
+              }
+            },
+            {
+              tag: "button",
+              className: "logo-cell",
+              attributes: { type: "button" },
+              modules: delegateEvents({
+                click: () => {
+                  titleHandler();
+                }
+              }),
+              content: [logoContent]
+            },
+            {
+              className: "menu-cell",
+              content: {
+                component: HeaderMainMenu
+              }
+            },
+            {
+              className: "utils-cell",
+              modules: bindEffect({
+                toggleClass: {
+                  "is-visible": () => proxi.isMounted
+                }
+              }),
+              content: {
+                component: HeaderUtils
+              }
+            }
+          ]
+        }
+      ]
+    });
+  };
 
   // src/js/component/layout/header/definition.js
   var Header = modules_exports2.createComponent(
@@ -43783,106 +43798,6 @@
     });
   };
 
-  // src/js/component/layout/navigation/navigation/navigation.js
-  function getItems3({ data, staticProps: staticProps2, bindProps, proxi }) {
-    return data.map((item, index) => {
-      const {
-        label,
-        url,
-        activeId,
-        children,
-        section,
-        sectioName,
-        scrollToSection,
-        forceChildren,
-        hide
-      } = item;
-      if (section) {
-        return fromObject({
-          tag: "mob-navigation-label",
-          modules: staticProps2(
-            /** @type {NavigationLabel['props']} */
-            {
-              label,
-              sectioName,
-              hide: !!hide
-            }
-          )
-        });
-      }
-      return children ? fromObject({
-        tag: "mob-navigation-submenu",
-        modules: [
-          staticProps2(
-            /** @type {NavigationSubmenu['state']} */
-            {
-              headerButton: {
-                label,
-                url,
-                id: index
-              },
-              children,
-              callback: ({ forceClose = false }) => {
-                if (forceClose) {
-                  proxi.currentAccordionId = -1;
-                  return;
-                }
-                proxi.currentAccordionId = index;
-              }
-            }
-          ),
-          bindProps(
-            /** @returns {ReturnBindProps<NavigationSubmenu>} */
-            () => ({
-              isOpen: proxi.currentAccordionId === index
-            })
-          )
-        ]
-      }) : fromObject({
-        tag: "li",
-        content: {
-          tag: "mob-navigation-button",
-          modules: staticProps2(
-            /** @type {NavigationButton['props']} */
-            {
-              label,
-              url,
-              scrollToSection: scrollToSection ?? "no-scroll",
-              activeId: activeId ?? -1,
-              forceChildren: forceChildren ?? []
-            }
-          )
-        }
-      });
-    });
-  }
-  var NavigationFn = ({
-    staticProps: staticProps2,
-    setState,
-    bindProps,
-    addMethod,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    const { navigation: data } = getCommonData();
-    addMethod("closeAllAccordion", ({ fireCallback = true } = {}) => {
-      setState(() => proxi.currentAccordionId, -1, { emit: fireCallback });
-    });
-    return fromObject({
-      className: "l-navigation",
-      content: {
-        tag: "ul",
-        className: "list",
-        content: getItems3({
-          data,
-          staticProps: staticProps2,
-          bindProps,
-          proxi
-        })
-      }
-    });
-  };
-
   // src/js/component/layout/navigation/navigation/navigation-label/navigation-label.js
   var NavigationLabelFn = ({ bindEffect, getProxi }) => {
     const proxi = getProxi();
@@ -43901,7 +43816,7 @@
 
   // src/js/component/layout/navigation/navigation/navigation-label/definition.js
   var NavigationLabel = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').NavigationLabel>} */
+    /** @type {CreateComponentParams<import('./type').NavigationLabelType>} */
     {
       tag: "mob-navigation-label",
       component: NavigationLabelFn,
@@ -43922,101 +43837,6 @@
       }
     }
   );
-
-  // src/js/component/layout/navigation/navigation/navigation-submenu/navigation-submenu.js
-  function getSubmenu({ proxi, staticProps: staticProps2 }) {
-    return proxi.children.map((child) => {
-      const { label, url, scrollToSection, activeId } = child;
-      return fromObject({
-        tag: "li",
-        content: {
-          tag: "mob-navigation-button",
-          modules: staticProps2(
-            /** @type {NavigationButton['props']} */
-            {
-              label,
-              url,
-              subMenuClass: "is-submenu",
-              scrollToSection,
-              activeId: activeId ?? -1,
-              callback: () => {
-                proxi.callback({
-                  forceClose: false
-                });
-              }
-            }
-          )
-        }
-      });
-    });
-  }
-  var NavigationSubmenuFn = ({
-    onMount,
-    staticProps: staticProps2,
-    bindProps,
-    watch,
-    setRef,
-    getRef,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    const { label, url, activeId } = proxi.headerButton;
-    onMount(() => {
-      const { content } = getRef();
-      MobSlide.subscribe(content);
-      MobSlide.reset(content);
-      watch(
-        () => proxi.isOpen,
-        async (isOpen) => {
-          const action2 = isOpen ? "down" : "up";
-          await MobSlide[action2](content);
-          refreshNavigationScroller();
-          if (isOpen) return;
-          closeAllNavAccordion({
-            fireCallback: false
-          });
-        },
-        { immediate: true }
-      );
-      return () => {
-      };
-    });
-    return fromObject({
-      tag: "li",
-      content: [
-        {
-          tag: "mob-navigation-button",
-          modules: [
-            staticProps2(
-              /** @type {NavigationButton['props']} */
-              {
-                label,
-                url,
-                arrowClass: "has-arrow",
-                fireRoute: false,
-                activeId: activeId ?? -1,
-                callback: () => {
-                  proxi.callback({ forceClose: proxi.isOpen });
-                }
-              }
-            ),
-            bindProps(
-              /** @returns {ReturnBindProps<NavigationButton>} */
-              () => ({
-                isOpen: proxi.isOpen
-              })
-            )
-          ]
-        },
-        {
-          tag: "ul",
-          className: "submenu",
-          modules: setRef("content"),
-          content: getSubmenu({ proxi, staticProps: staticProps2 })
-        }
-      ]
-    });
-  };
 
   // src/js/component/layout/navigation/navigation/navigation-button/navigation-button.js
   var NavigationButtonFn = ({
@@ -44077,7 +43897,7 @@
 
   // src/js/component/layout/navigation/navigation/navigation-button/definition.js
   var NavigationButton = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').NavigationButton>} */
+    /** @type {CreateComponentParams<import('./type').NavigationButtonType>} */
     {
       tag: "mob-navigation-button",
       component: NavigationButtonFn,
@@ -44133,9 +43953,104 @@
     }
   );
 
+  // src/js/component/layout/navigation/navigation/navigation-submenu/navigation-submenu.js
+  function getSubmenu({ proxi, staticProps: staticProps2 }) {
+    return proxi.children.map((child) => {
+      const { label, url, scrollToSection, activeId } = child;
+      return fromObject({
+        tag: "li",
+        content: {
+          component: NavigationButton,
+          modules: staticProps2(
+            /** @type {NavigationButtonType['props']} */
+            {
+              label,
+              url,
+              subMenuClass: "is-submenu",
+              scrollToSection,
+              activeId: activeId ?? -1,
+              callback: () => {
+                proxi.callback({
+                  forceClose: false
+                });
+              }
+            }
+          )
+        }
+      });
+    });
+  }
+  var NavigationSubmenuFn = ({
+    onMount,
+    staticProps: staticProps2,
+    bindProps,
+    watch,
+    setRef,
+    getRef,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    const { label, url, activeId } = proxi.headerButton;
+    onMount(() => {
+      const { content } = getRef();
+      MobSlide.subscribe(content);
+      MobSlide.reset(content);
+      watch(
+        () => proxi.isOpen,
+        async (isOpen) => {
+          const action2 = isOpen ? "down" : "up";
+          await MobSlide[action2](content);
+          refreshNavigationScroller();
+          if (isOpen) return;
+          closeAllNavAccordion({
+            fireCallback: false
+          });
+        },
+        { immediate: true }
+      );
+      return () => {
+      };
+    });
+    return fromObject({
+      tag: "li",
+      content: [
+        {
+          component: NavigationButton,
+          modules: [
+            staticProps2(
+              /** @type {NavigationButtonType['props']} */
+              {
+                label,
+                url,
+                arrowClass: "has-arrow",
+                fireRoute: false,
+                activeId: activeId ?? -1,
+                callback: () => {
+                  proxi.callback({ forceClose: proxi.isOpen });
+                }
+              }
+            ),
+            bindProps(
+              /** @returns {ReturnBindProps<NavigationButtonType>} */
+              () => ({
+                isOpen: proxi.isOpen
+              })
+            )
+          ]
+        },
+        {
+          tag: "ul",
+          className: "submenu",
+          modules: setRef("content"),
+          content: getSubmenu({ proxi, staticProps: staticProps2 })
+        }
+      ]
+    });
+  };
+
   // src/js/component/layout/navigation/navigation/navigation-submenu/definition.js
   var NavigationSubmenu = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').NavigationSubmenu>} */
+    /** @type {CreateComponentParams<import('./type').NavigationSubmenuType>} */
     {
       tag: "mob-navigation-submenu",
       component: NavigationSubmenuFn,
@@ -44161,6 +44076,106 @@
       child: [NavigationButton]
     }
   );
+
+  // src/js/component/layout/navigation/navigation/navigation.js
+  function getItems3({ data, staticProps: staticProps2, bindProps, proxi }) {
+    return data.map((item, index) => {
+      const {
+        label,
+        url,
+        activeId,
+        children,
+        section,
+        sectioName,
+        scrollToSection,
+        forceChildren,
+        hide
+      } = item;
+      if (section) {
+        return fromObject({
+          component: NavigationLabel,
+          modules: staticProps2(
+            /** @type {NavigationLabelType['props']} */
+            {
+              label,
+              sectioName,
+              hide: !!hide
+            }
+          )
+        });
+      }
+      return children ? fromObject({
+        component: NavigationSubmenu,
+        modules: [
+          staticProps2(
+            /** @type {NavigationSubmenuType['state']} */
+            {
+              headerButton: {
+                label,
+                url,
+                id: index
+              },
+              children,
+              callback: ({ forceClose = false }) => {
+                if (forceClose) {
+                  proxi.currentAccordionId = -1;
+                  return;
+                }
+                proxi.currentAccordionId = index;
+              }
+            }
+          ),
+          bindProps(
+            /** @returns {ReturnBindProps<NavigationSubmenuType>} */
+            () => ({
+              isOpen: proxi.currentAccordionId === index
+            })
+          )
+        ]
+      }) : fromObject({
+        tag: "li",
+        content: {
+          component: NavigationButton,
+          modules: staticProps2(
+            /** @type {NavigationButtonType['props']} */
+            {
+              label,
+              url,
+              scrollToSection: scrollToSection ?? "no-scroll",
+              activeId: activeId ?? -1,
+              forceChildren: forceChildren ?? []
+            }
+          )
+        }
+      });
+    });
+  }
+  var NavigationFn = ({
+    staticProps: staticProps2,
+    setState,
+    bindProps,
+    addMethod,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    const { navigation: data } = getCommonData();
+    addMethod("closeAllAccordion", ({ fireCallback = true } = {}) => {
+      setState(() => proxi.currentAccordionId, -1, { emit: fireCallback });
+    });
+    return fromObject({
+      className: "l-navigation",
+      content: {
+        tag: "ul",
+        className: "list",
+        content: getItems3({
+          data,
+          staticProps: staticProps2,
+          bindProps,
+          proxi
+        })
+      }
+    });
+  };
 
   // src/js/component/layout/navigation/navigation/definition.js
   var Navigation = modules_exports2.createComponent(

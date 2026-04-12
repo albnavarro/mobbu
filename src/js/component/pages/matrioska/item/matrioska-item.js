@@ -2,10 +2,10 @@ import { fromObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
- * @import {MatrioskaItem} from "./type"
+ * @import {MatrioskaItemType} from "./type"
  */
 
-/** @type {MobComponent<MatrioskaItem>} */
+/** @type {MobComponent<MatrioskaItemType>} */
 export const MatrioskaItemFn = ({
     getProxi,
     bindText,

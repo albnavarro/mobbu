@@ -3,6 +3,7 @@
  */
 
 import { fromObject, MobJs } from '@mobJs';
+import { DebugSearch } from './search/definition';
 
 const leftContent = () => [
     {
@@ -43,7 +44,7 @@ const leftContent = () => [
     },
 ];
 
-/** @type {MobComponent<import('./type').DebugHead>} */
+/** @type {MobComponent<import('./type').DebugHeadType>} */
 export const DebugHeadFn = ({ invalidate, getProxi }) => {
     const proxi = getProxi();
 
@@ -72,7 +73,7 @@ export const DebugHeadFn = ({ invalidate, getProxi }) => {
                 className: 'search',
                 content: {
                     content: {
-                        tag: 'debug-search',
+                        component: DebugSearch,
                     },
                 },
             },

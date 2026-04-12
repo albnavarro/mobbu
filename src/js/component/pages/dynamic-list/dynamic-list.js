@@ -1,3 +1,9 @@
+import { fromObject } from '@mobJs';
+import { startData, state1, state2, state3 } from './data';
+import { DynamicListButton } from './button/definition';
+import { DynamicListRepeater } from './repeaters/definition';
+import { DynamicListCardInner } from './repeaters/card/innerCard/definition';
+
 /**
  * @import {
  *   BindProps,
@@ -6,14 +12,11 @@
  *   ReturnBindProps,
  *   StaticProps
  * } from "@mobJsType"
- * @import {DynamicListButton} from "./button/type"
- * @import {DynamicListCardInner} from "./repeaters/card/innerCard/type"
- * @import {DynamicListRepeater} from "./repeaters/type"
+ * @import {DynamicListButtonType} from "./button/type"
+ * @import {DynamicListCardInnerType} from "./repeaters/card/innerCard/type"
+ * @import {DynamicListRepeaterType} from "./repeaters/type"
  * @import {DynamicList} from "./type"
  */
-
-import { fromObject } from '@mobJs';
-import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
     {
@@ -56,7 +59,7 @@ const repeaters = [
  * @param {object} param
  * @param {StaticProps} param.staticProps
  * @param {DelegateEvents} param.delegateEvents
- * @param {BindProps<DynamicList, DynamicListButton>} param.bindProps
+ * @param {BindProps<DynamicList, DynamicListButtonType>} param.bindProps
  * @param {DynamicList['state']} param.proxi
  */
 function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
@@ -64,11 +67,11 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
         const { data, buttonLabel } = column;
 
         return fromObject({
-            tag: 'dynamic-list-button',
+            component: DynamicListButton,
             className: 'dynamic-list-button',
             modules: [
                 staticProps(
-                    /** @type {DynamicListButton['props']} */ ({
+                    /** @type {DynamicListButtonType['props']} */ ({
                         label: buttonLabel,
                     })
                 ),
@@ -79,7 +82,7 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
                     },
                 }),
                 bindProps(
-                    /** @returns {ReturnBindProps<DynamicListButton>} */
+                    /** @returns {ReturnBindProps<DynamicListButtonType>} */
                     () => ({
                         active: index === proxi.activeSample,
                     })
@@ -92,7 +95,7 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
 /**
  * @param {object} param
  * @param {StaticProps} param.staticProps
- * @param {BindProps<DynamicList, DynamicListRepeater>} param.bindProps
+ * @param {BindProps<DynamicList, DynamicListRepeaterType>} param.bindProps
  * @param {DynamicList['state']} param.proxi
  */
 function getRepeaters({ bindProps, staticProps, proxi }) {
@@ -100,10 +103,10 @@ function getRepeaters({ bindProps, staticProps, proxi }) {
         const { key, clean, label } = item;
 
         return fromObject({
-            tag: 'dynamic-list-repeater',
+            component: DynamicListRepeater,
             modules: [
                 staticProps(
-                    /** @type {DynamicListRepeater['props']} */ ({
+                    /** @type {DynamicListRepeaterType['props']} */ ({
                         listId: index,
                         key,
                         clean,
@@ -111,7 +114,7 @@ function getRepeaters({ bindProps, staticProps, proxi }) {
                     })
                 ),
                 bindProps(
-                    /** @returns {ReturnBindProps<DynamicListRepeater>} */
+                    /** @returns {ReturnBindProps<DynamicListRepeaterType>} */
                     () => ({
                         data: proxi.data,
                         counter: proxi.counter,
@@ -150,11 +153,11 @@ export const DynamicListFn = ({
                                 proxi,
                             }),
                             {
-                                tag: 'dynamic-list-button',
+                                component: DynamicListButton,
                                 className: 'dynamic-list-button',
                                 modules: [
                                     staticProps(
-                                        /** @type {DynamicListButton['props']} */ ({
+                                        /** @type {DynamicListButtonType['props']} */ ({
                                             label: '+ counter ( max: 10 )',
                                         })
                                     ),
@@ -168,11 +171,11 @@ export const DynamicListFn = ({
                                 ],
                             },
                             {
-                                tag: 'dynamic-list-button',
+                                component: DynamicListButton,
                                 className: 'dynamic-list-button',
                                 modules: [
                                     staticProps(
-                                        /** @type {DynamicListButton['props']} */ ({
+                                        /** @type {DynamicListButtonType['props']} */ ({
                                             label: '- counter: ( min 0 )',
                                         })
                                     ),
@@ -209,9 +212,9 @@ export const DynamicListFn = ({
                             render: () => {
                                 return fromObject({
                                     content: {
-                                        tag: 'dynamic-list-card-inner',
+                                        component: DynamicListCardInner,
                                         modules: bindProps(
-                                            /** @returns {ReturnBindProps<DynamicListCardInner>} */
+                                            /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
                                             () => ({
                                                 key: `${proxi.counter}`,
                                             })

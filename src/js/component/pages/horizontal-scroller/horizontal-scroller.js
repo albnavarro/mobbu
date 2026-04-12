@@ -7,15 +7,16 @@
  *   ProxiState,
  *   StaticProps
  * } from "@mobJsType"
- * @import {HorizontalScrollerButton} from "./button/type"
+ * @import {HorizontalScrollerButtonType} from "./button/type"
  * @import {HorizontalScroller} from "./type"
  */
 
 import { offset, outerHeight } from '@mobCoreUtils';
 import { fromObject } from '@mobJs';
-import { MobMotionCore } from '@mobMotion';
 import { MobBodyScroll } from '@mobMotionPlugin';
 import { horizontalScrollerAnimation } from './animation/animation';
+import { HorizontalScrollerSection } from './section/definition';
+import { HorizontalScrollerButton } from './button/definition';
 
 /**
  * @param {number} id
@@ -32,7 +33,7 @@ const getScrollAdjustment = (id, total) => {
  * @param {object} params
  * @param {number} params.numOfCol
  * @param {boolean} params.pinIsVisible
- * @param {StaticProps<import('./section/type').HorizontalScrollerSection>} params.staticProps
+ * @param {StaticProps<import('./section/type').HorizontalScrollerSectionType>} params.staticProps
  * @returns {string[]}
  */
 const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
@@ -40,9 +41,9 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
 
     return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
         return fromObject({
-            tag: 'horizontal-scroller-section',
+            component: HorizontalScrollerSection,
             modules: staticProps(
-                /** @type {import('./section/type').HorizontalScrollerSection['props']} */ ({
+                /** @type {import('./section/type').HorizontalScrollerSectionType['props']} */ ({
                     id: i,
                     pinClass,
                 })
@@ -61,10 +62,10 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
 const getNav = ({ numOfCol, proxi, staticProps, delegateEvents }) => {
     return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
         return fromObject({
-            tag: 'horizontal-scroller-button',
+            component: HorizontalScrollerButton,
             modules: [
                 staticProps(
-                    /** @type {HorizontalScrollerButton['props']} */ ({
+                    /** @type {HorizontalScrollerButtonType['props']} */ ({
                         id: i,
                     })
                 ),
@@ -89,8 +90,6 @@ export const HorizontalScrollerFn = ({
     const proxi = getProxi();
 
     onMount(({ element }) => {
-        if (MobMotionCore.mq('max', 'desktop')) return;
-
         const numberOfColumns = 10;
         const indicators = [...element.querySelectorAll('.js-indicator')];
         const nav = element.querySelector('.js-nav');
@@ -171,9 +170,6 @@ export const HorizontalScrollerFn = ({
     return fromObject({
         className: 'l-h-scroller',
         content: [
-            {
-                tag: 'only-desktop',
-            },
             {
                 className: 'top',
                 content: 'scroll down',

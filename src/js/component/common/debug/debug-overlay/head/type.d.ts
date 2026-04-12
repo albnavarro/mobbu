@@ -1,4 +1,4 @@
-export interface DebugHead {
+export interface DebugHeadType {
     props: {
         active: boolean;
     };

@@ -1,4 +1,4 @@
-export interface HorizontalScrollerButton {
+export interface HorizontalScrollerButtonType {
     props: {
         id: number;
     };

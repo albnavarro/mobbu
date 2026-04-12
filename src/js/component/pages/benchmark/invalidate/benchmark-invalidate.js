@@ -2,13 +2,14 @@
 
 import { fromObject, html } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
+import { BenchMarkFakeComponent } from '../fake-component/definition';
 
 /**
  * @import {
  *   MobComponent,
  *   ReturnBindProps
  * } from "@mobJsType"
- * @import {BenchMarkFakeComponent} from "../fake-component/type"
+ * @import {BenchMarkFakeComponentType} from "../fake-component/type"
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */
@@ -34,6 +35,39 @@ export const BenchMarkInvalidateFn = ({
             getRef()?.input.remove();
         };
     });
+
+    const contentList = {
+        className: 'list',
+        content: invalidate({
+            observe: () => proxi.data,
+            render: () => {
+                const { data } = getState();
+
+                return data
+                    .map(({ label }, index) => {
+                        return fromObject({
+                            component: BenchMarkFakeComponent,
+                            modules: [
+                                staticProps(
+                                    /** @type {import('../fake-component/type').BenchMarkFakeComponentType['props']} */
+                                    ({
+                                        label,
+                                        index,
+                                    })
+                                ),
+                                bindProps(
+                                    /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                                    () => ({
+                                        counter: proxi.counter,
+                                    })
+                                ),
+                            ],
+                        });
+                    })
+                    .join('');
+            },
+        }),
+    };
 
     return fromObject({
         className: 'l-benchmark',
@@ -70,38 +104,7 @@ export const BenchMarkInvalidateFn = ({
                     },
                 ],
             },
-            {
-                className: 'list',
-                content: invalidate({
-                    observe: () => proxi.data,
-                    render: () => {
-                        const { data } = getState();
-
-                        return data
-                            .map(({ label }, index) => {
-                                return fromObject({
-                                    tag: 'benchmark-fake-component',
-                                    modules: [
-                                        staticProps(
-                                            /** @type {import('../fake-component/type').BenchMarkFakeComponent['props']} */
-                                            ({
-                                                label,
-                                                index,
-                                            })
-                                        ),
-                                        bindProps(
-                                            /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                                            () => ({
-                                                counter: proxi.counter,
-                                            })
-                                        ),
-                                    ],
-                                });
-                            })
-                            .join('');
-                    },
-                }),
-            },
+            contentList,
         ],
     });
 };

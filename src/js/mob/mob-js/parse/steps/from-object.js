@@ -71,7 +71,13 @@ const getDataAttributes = (value) =>
  * @type {import('./type').FromObject}
  */
 export const fromObject = (data) => {
-    const tag = data?.tag ?? `div`;
+    /**
+     * Use userComponent tag or DOM generic tag
+     */
+    const component = data?.component ?? null;
+    const componentKey = component && Object.keys(component)?.[0];
+    const tag = componentKey ?? data?.tag ?? `div`;
+
     // @ts-ignore
     const className = getStringOrArrayOfString(data?.className ?? []);
     const classAttr = className.trim() ? ` class="${className}"` : '';

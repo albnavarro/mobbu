@@ -1,4 +1,4 @@
-export interface MathAnimation {
+export interface MathAnimationType {
     props: {
         name: string;
         showNavigation: boolean;

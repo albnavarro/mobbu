@@ -1,5 +1,6 @@
 //@ts-check
 
+import { MathAnimation } from '@commonComponent/math-animation/definition';
 import { fromObject, MobJs } from '@mobJs';
 
 /**
@@ -175,7 +176,7 @@ export const RosaDiGrandiPageFn = ({
                     observe: [() => proxi.numerators, () => proxi.denominator],
                     render: () => {
                         return fromObject({
-                            tag: 'math-animation',
+                            component: MathAnimation,
                             modules: MobJs.staticProps({
                                 name: 'rosaDiGrandi',
                                 showNavigation: false,

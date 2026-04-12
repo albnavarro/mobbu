@@ -1,4 +1,4 @@
-export interface BenchMarkFakeComponent {
+export interface BenchMarkFakeComponentType {
     props: {
         counter: number;
         label: string;

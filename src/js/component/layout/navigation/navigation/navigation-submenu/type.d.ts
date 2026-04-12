@@ -1,4 +1,4 @@
-export interface NavigationSubmenu {
+export interface NavigationSubmenuType {
     props: {
         callback: (arg0: { forceClose: boolean }) => void;
         headerButton: Partial<{ label: string; url: string; activeId: number }>;

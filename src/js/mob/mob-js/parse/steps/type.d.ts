@@ -1,3 +1,4 @@
+import { CreateComponentReturnType } from '@mobJsType';
 import { ComponentStoreReturn } from '../../component/type';
 
 export interface ComponentData {
@@ -73,6 +74,7 @@ export type FromObjectNodeContent =
  * Tipo per il nodo del DOM.
  */
 export interface FromObjectNodeDescriptor {
+    component?: CreateComponentReturnType;
     tag?: keyof HTMLElementTagNameMap | (string & {});
     className?: string | string[];
     style?: string;

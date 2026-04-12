@@ -8,20 +8,22 @@
  *   ReturnBindProps,
  *   StaticProps
  * } from "@mobJsType"
- * @import {DynamicListCard} from "./card/type"
- * @import {DynamicListSlottedLabel} from "./slotted-label/type"
- * @import {DynamicListRepeater} from "./type"
+ * @import {DynamicListCardType} from "./card/type"
+ * @import {DynamicListSlottedLabelType} from "./slotted-label/type"
+ * @import {DynamicListRepeaterType} from "./type"
  */
 
 import { fromObject } from '@mobJs';
+import { DynamicListCard } from './card/definition';
+import { DynamicListSlottedLabel } from './slotted-label/definition';
 
 /**
  * @param {object} param
- * @param {StaticProps<DynamicListCard>} param.staticProps
- * @param {BindProps<DynamicListRepeater>} param.bindProps
+ * @param {StaticProps<DynamicListCardType>} param.staticProps
+ * @param {BindProps<DynamicListRepeaterType>} param.bindProps
  * @param {DelegateEvents} param.delegateEvents
- * @param {Current<DynamicListRepeater, 'data'>} param.current
- * @param {ProxiState<DynamicListRepeater>} param.proxi
+ * @param {Current<DynamicListRepeaterType, 'data'>} param.current
+ * @param {ProxiState<DynamicListRepeaterType>} param.proxi
  */
 function getRepeaterCard({
     staticProps,
@@ -33,15 +35,15 @@ function getRepeaterCard({
     return fromObject({
         content: [
             {
-                tag: 'dynamic-list-card',
+                component: DynamicListCard,
                 modules: [
                     staticProps(
-                        /** @type {DynamicListCard['props']} */ ({
+                        /** @type {DynamicListCardType['props']} */ ({
                             parentListId: proxi.listId,
                         })
                     ),
                     bindProps(
-                        /** @returns {ReturnBindProps<DynamicListCard>} */
+                        /** @returns {ReturnBindProps<DynamicListCardType>} */
                         () => ({
                             counter: proxi.counter,
                             label: current.value.label,
@@ -55,10 +57,10 @@ function getRepeaterCard({
                     }),
                 ],
                 content: {
-                    tag: 'dynamic-slotted-label',
+                    component: DynamicListSlottedLabel,
                     attributes: { slot: 'card-label-slot' },
                     modules: bindProps(
-                        /** @returns {ReturnBindProps<DynamicListSlottedLabel>} */
+                        /** @returns {ReturnBindProps<DynamicListSlottedLabelType>} */
                         () => ({
                             label: `label: ${current.value.label} <br/> counter: ${proxi.counter}`,
                         })
@@ -69,7 +71,7 @@ function getRepeaterCard({
     });
 }
 
-/** @type {MobComponent<DynamicListRepeater>} */
+/** @type {MobComponent<DynamicListRepeaterType>} */
 export const DynamicListRepeaterFn = ({
     staticProps,
     bindProps,

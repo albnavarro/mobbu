@@ -4,7 +4,7 @@ interface State extends Readonly<DebugActiveComponentStore> {
     active: boolean;
 }
 
-export interface DebugFilterListItem {
+export interface DebugFilterListItemType {
     props: {
         id: string;
         tag: string;

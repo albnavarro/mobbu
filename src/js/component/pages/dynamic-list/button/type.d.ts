@@ -1,4 +1,4 @@
-export interface DynamicListButton {
+export interface DynamicListButtonType {
     props: {
         label: string;
         active: boolean;

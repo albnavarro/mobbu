@@ -8,7 +8,7 @@ import { DynamicListSlottedLabel } from './slotted-label/definition';
  */
 
 export const DynamicListRepeater = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicListRepeater>} */
+    /** @type {CreateComponentParams<import('./type').DynamicListRepeaterType>} */
     ({
         tag: 'dynamic-list-repeater',
         component: DynamicListRepeaterFn,

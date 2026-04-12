@@ -1,4 +1,4 @@
-export interface DebugComponent {
+export interface DebugComponentType {
     state: {
         id: string;
     };

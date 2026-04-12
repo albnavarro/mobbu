@@ -1,9 +1,9 @@
 import { GetRef } from '@mobJsType';
-import { DebugFilterListItem } from './item/type';
+import { DebugFilterListItemType } from './item/type';
 
-export interface DebugFilterList {
+export interface DebugFilterListType {
     state: {
-        data: Omit<DebugFilterListItem['props'], 'currentId'>[];
+        data: Omit<DebugFilterListItemType['props'], 'currentId'>[];
         isLoading: boolean;
         noResult: boolean;
     };

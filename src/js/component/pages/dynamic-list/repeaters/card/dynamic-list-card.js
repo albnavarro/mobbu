@@ -1,3 +1,10 @@
+import { fromObject, MobJs } from '@mobJs';
+import { innerData } from '@pagesComponent/dynamic-list/data';
+import { DynamicListCardInner } from './innerCard/definition';
+import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definition';
+import { DynamicListEmpty } from './empty/definition';
+import { DynamicCounter } from './counter/definition';
+
 /**
  * @import {
  *   DelegateEvents,
@@ -6,14 +13,11 @@
  *   ReturnBindProps,
  *   StaticProps
  * } from "@mobJsType"
- * @import {DynamicListButton} from "../../button/type"
- * @import {DynamicCounter} from "./counter/type"
- * @import {DynamicListCardInner} from "./innerCard/type"
- * @import {DynamicListCard} from "./type"
+ * @import {DynamicListButtonType} from "../../button/type"
+ * @import {DynamicCounterType} from "./counter/type"
+ * @import {DynamicListCardInnerType} from "./innerCard/type"
+ * @import {DynamicListCardType} from "./type"
  */
-
-import { fromObject, MobJs } from '@mobJs';
-import { innerData } from '@pagesComponent/dynamic-list/data';
 
 /** @param {number} numberOfItem */
 function createArray(numberOfItem) {
@@ -22,18 +26,18 @@ function createArray(numberOfItem) {
 
 /**
  * @param {object} params
- * @param {StaticProps<DynamicListCardInner>} params.staticProps
+ * @param {StaticProps<DynamicListCardInnerType>} params.staticProps
  * @param {DelegateEvents} params.delegateEvents
- * @param {ProxiState<DynamicListCard>} params.proxi
+ * @param {ProxiState<DynamicListCardType>} params.proxi
  */
 const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
     return createArray(proxi.counter)
         .map((item) => {
             return fromObject({
-                tag: 'dynamic-list-card-inner',
+                component: DynamicListCardInner,
                 modules: [
                     staticProps(
-                        /** @type {DynamicListCardInner['props']} */ ({
+                        /** @type {DynamicListCardInnerType['props']} */ ({
                             key: `${item}`,
                         })
                     ),
@@ -48,7 +52,7 @@ const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
         .join('');
 };
 
-/** @type {MobComponent<DynamicListCard>} */
+/** @type {MobComponent<DynamicListCardType>} */
 export const DynamicListCardFn = ({
     onMount,
     key,
@@ -114,7 +118,7 @@ export const DynamicListCardFn = ({
                      * Component
                      */
                     {
-                        tag: 'dynamic-list-button',
+                        component: DynamicListButton,
                         className: 'repeater-card-button',
                         modules: [
                             delegateEvents({
@@ -123,7 +127,7 @@ export const DynamicListCardFn = ({
                                 },
                             }),
                             bindProps(
-                                /** @returns {ReturnBindProps<DynamicListButton>} */
+                                /** @returns {ReturnBindProps<DynamicListButtonType>} */
                                 () => ({
                                     active: proxi.isSelected,
                                 })
@@ -176,21 +180,21 @@ export const DynamicListCardFn = ({
                          * Component
                          */
                         content: {
-                            tag: 'dynamic-list-empty',
+                            component: DynamicListEmpty,
                             /**
                              * Component
                              */
                             content: {
-                                tag: 'dynamic-list-counter',
+                                component: DynamicCounter,
                                 attributes: { slot: 'empty-slot' },
                                 modules: [
                                     staticProps(
-                                        /** @type {DynamicCounter['props']} */ ({
+                                        /** @type {DynamicCounterType['props']} */ ({
                                             parentListId: proxi.parentListId,
                                         })
                                     ),
                                     bindProps(
-                                        /** @returns {ReturnBindProps<DynamicCounter>} */
+                                        /** @returns {ReturnBindProps<DynamicCounterType>} */
                                         () => ({
                                             counter: proxi.counter,
                                         })
@@ -210,7 +214,7 @@ export const DynamicListCardFn = ({
                              * Component
                              */
                             {
-                                tag: 'dynamic-list-button',
+                                component: DynamicListButton,
                                 className: 'repeater-card-button',
                                 modules: delegateEvents({
                                     click: async () => {
@@ -238,7 +242,7 @@ export const DynamicListCardFn = ({
                                         return fromObject({
                                             tag: 'dynamic-list-card-inner',
                                             modules: bindProps(
-                                                /** @returns {ReturnBindProps<DynamicListCardInner>} */
+                                                /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
                                                 () => ({
                                                     key: `${current.value.key}`,
                                                 })
@@ -258,7 +262,7 @@ export const DynamicListCardFn = ({
                                         return fromObject({
                                             tag: 'dynamic-list-card-inner',
                                             modules: bindProps(
-                                                /** @returns {ReturnBindProps<DynamicListCardInner>} */
+                                                /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
                                                 () => ({
                                                     key: `${current.value.key}`,
                                                 })

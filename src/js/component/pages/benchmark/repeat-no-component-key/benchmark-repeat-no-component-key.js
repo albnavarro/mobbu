@@ -27,6 +27,67 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
         };
     });
 
+    const contentList = {
+        className: 'list',
+        content: [
+            repeat({
+                observe: () => proxi.data,
+                key: 'label',
+                render: ({ current }) => {
+                    return fromObject({
+                        className: 'c-benchmark-fake',
+                        modules: [
+                            bindEffect({
+                                /**
+                                 * Update only when buttonClick. Otherwise every data update selected state back to same
+                                 * item.
+                                 *
+                                 * - Current trigger update on each data mutation.
+                                 */
+                                observe: [() => proxi.currentIndex],
+                                toggleClass: {
+                                    selected: () =>
+                                        current.index === proxi.currentIndex,
+                                },
+                            }),
+                        ],
+                        content: [
+                            {
+                                className: 'row',
+                                content: bindObject`<strong>index:</strong><br/> ${() => current.index}`,
+                            },
+                            {
+                                className: 'row',
+                                content: bindObject`<strong>label:</strong><br/> ${() => current.value.label}`,
+                            },
+                            {
+                                className: 'row',
+                                content: bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`,
+                            },
+                            {
+                                className: 'row',
+                                content: {
+                                    tag: 'button',
+                                    attributes: { type: 'button' },
+                                    modules: delegateEvents({
+                                        click: () => {
+                                            proxi.currentIndex =
+                                                proxi.currentIndex ===
+                                                current.index
+                                                    ? -1
+                                                    : current.index;
+                                        },
+                                    }),
+                                    content: 'Select',
+                                },
+                            },
+                        ],
+                    });
+                },
+            }),
+        ],
+    };
+
     return fromObject({
         className: 'l-benchmark',
         content: [
@@ -55,67 +116,7 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
                     },
                 ],
             },
-            {
-                className: 'list',
-                content: [
-                    repeat({
-                        observe: () => proxi.data,
-                        key: 'label',
-                        render: ({ current }) => {
-                            return fromObject({
-                                className: 'c-benchmark-fake',
-                                modules: [
-                                    bindEffect({
-                                        /**
-                                         * Update only when buttonClick. Otherwise every data update selected state back
-                                         * to same item.
-                                         *
-                                         * - Current trigger update on each data mutation.
-                                         */
-                                        observe: [() => proxi.currentIndex],
-                                        toggleClass: {
-                                            selected: () =>
-                                                current.index ===
-                                                proxi.currentIndex,
-                                        },
-                                    }),
-                                ],
-                                content: [
-                                    {
-                                        className: 'row',
-                                        content: bindObject`<strong>index:</strong><br/> ${() => current.index}`,
-                                    },
-                                    {
-                                        className: 'row',
-                                        content: bindObject`<strong>label:</strong><br/> ${() => current.value.label}`,
-                                    },
-                                    {
-                                        className: 'row',
-                                        content: bindObject`<strong>counter: </strong><br/> ${() => proxi.counter}`,
-                                    },
-                                    {
-                                        className: 'row',
-                                        content: {
-                                            tag: 'button',
-                                            attributes: { type: 'button' },
-                                            modules: delegateEvents({
-                                                click: () => {
-                                                    proxi.currentIndex =
-                                                        proxi.currentIndex ===
-                                                        current.index
-                                                            ? -1
-                                                            : current.index;
-                                                },
-                                            }),
-                                            content: 'Select',
-                                        },
-                                    },
-                                ],
-                            });
-                        },
-                    }),
-                ],
-            },
+            contentList,
         ],
     });
 };

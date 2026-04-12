@@ -1,6 +1,6 @@
 import { Move3DItem } from './move-3d-item/type';
 
-export interface Move3D {
+export interface Move3DType {
     props: {
         drag: boolean;
         centerToViewoport: boolean;

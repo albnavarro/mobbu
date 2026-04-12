@@ -9,7 +9,7 @@ import {
     updateDebugComponentById,
 } from '../../debug-component/utils';
 
-/** @type {MobComponent<import('./type').DebugSearch>} */
+/** @type {MobComponent<import('./type').DebugSearchType>} */
 export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
     /**
      * Search by id

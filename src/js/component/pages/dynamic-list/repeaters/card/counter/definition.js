@@ -8,7 +8,7 @@ import { DynamicListCounterFn } from './dynamic-list-counter';
  */
 
 export const DynamicCounter = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicCounter>} */
+    /** @type {CreateComponentParams<import('./type').DynamicCounterType>} */
     ({
         tag: 'dynamic-list-counter',
         component: DynamicListCounterFn,

@@ -8,7 +8,7 @@ import { DynamicListSlottedLabelFn } from './dynamic-list-slotted-label';
  */
 
 export const DynamicListSlottedLabel = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicListSlottedLabel>} */
+    /** @type {CreateComponentParams<import('./type').DynamicListSlottedLabelType>} */
     ({
         tag: 'dynamic-slotted-label',
         component: DynamicListSlottedLabelFn,

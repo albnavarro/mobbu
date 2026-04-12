@@ -1,6 +1,6 @@
 import { NavigationStore } from '@stores/navigation/type';
 
-export interface NavigationLabel {
+export interface NavigationLabelType {
     props: {
         label: string;
         sectioName: string;

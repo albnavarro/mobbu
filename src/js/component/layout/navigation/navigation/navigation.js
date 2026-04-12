@@ -1,3 +1,9 @@
+import { fromObject } from '@mobJs';
+import { getCommonData } from '@data/index';
+import { NavigationLabel } from './navigation-label/definition';
+import { NavigationSubmenu } from './navigation-submenu/definition';
+import { NavigationButton } from './navigation-button/definition';
+
 /**
  * @import {
  *   BindProps,
@@ -5,14 +11,11 @@
  *   ReturnBindProps,
  *   StaticProps
  * } from "@mobJsType"
- * @import {NavigationButton} from "./navigation-button/type"
- * @import {NavigationLabel} from "./navigation-label/type"
- * @import {NavigationSubmenu} from "./navigation-submenu/type"
+ * @import {NavigationButtonType} from "./navigation-button/type"
+ * @import {NavigationLabelType} from "./navigation-label/type"
+ * @import {NavigationSubmenuType} from "./navigation-submenu/type"
  * @import {Navigation} from "./type"
  */
-
-import { fromObject } from '@mobJs';
-import { getCommonData } from '@data/index';
 
 /**
  * Create first level items.
@@ -20,7 +23,7 @@ import { getCommonData } from '@data/index';
  * @param {object} param
  * @param {import('../../../../data/type').CommonData['navigation']} param.data
  * @param {StaticProps} param.staticProps
- * @param {BindProps<Navigation, NavigationSubmenu>} param.bindProps
+ * @param {BindProps<Navigation, NavigationSubmenuType>} param.bindProps
  * @param {Navigation['state']} param.proxi
  */
 function getItems({ data, staticProps, bindProps, proxi }) {
@@ -39,9 +42,9 @@ function getItems({ data, staticProps, bindProps, proxi }) {
 
         if (section) {
             return fromObject({
-                tag: 'mob-navigation-label',
+                component: NavigationLabel,
                 modules: staticProps(
-                    /** @type {NavigationLabel['props']} */ ({
+                    /** @type {NavigationLabelType['props']} */ ({
                         label,
                         sectioName,
                         hide: !!hide,
@@ -52,10 +55,10 @@ function getItems({ data, staticProps, bindProps, proxi }) {
 
         return children
             ? fromObject({
-                  tag: 'mob-navigation-submenu',
+                  component: NavigationSubmenu,
                   modules: [
                       staticProps(
-                          /** @type {NavigationSubmenu['state']} */
+                          /** @type {NavigationSubmenuType['state']} */
                           {
                               headerButton: {
                                   label,
@@ -74,7 +77,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                           }
                       ),
                       bindProps(
-                          /** @returns {ReturnBindProps<NavigationSubmenu>} */
+                          /** @returns {ReturnBindProps<NavigationSubmenuType>} */
                           () => ({
                               isOpen: proxi.currentAccordionId === index,
                           })
@@ -84,9 +87,9 @@ function getItems({ data, staticProps, bindProps, proxi }) {
             : fromObject({
                   tag: 'li',
                   content: {
-                      tag: 'mob-navigation-button',
+                      component: NavigationButton,
                       modules: staticProps(
-                          /** @type {NavigationButton['props']} */ ({
+                          /** @type {NavigationButtonType['props']} */ ({
                               label,
                               url,
                               scrollToSection: scrollToSection ?? 'no-scroll',

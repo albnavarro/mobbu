@@ -2,13 +2,14 @@ import { fromObject } from '@mobJs';
 import { benchMarkGarbagePartial } from '../partials/bench-mark-garbage-partial';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { benchMarkUseProxi } from '../strategy';
+import { BenchMarkFakeComponent } from '../fake-component/definition';
 
 /**
  * @import {
  *   MobComponent,
  *   ReturnBindProps
  * } from "@mobJsType"
- * @import {BenchMarkFakeComponent} from "../fake-component/type"
+ * @import {BenchMarkFakeComponentType} from "../fake-component/type"
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */
@@ -69,10 +70,10 @@ export const BenchMarkRepeatNoKyFn = ({
                     render: ({ sync, current }) => {
                         return benchMarkUseProxi
                             ? fromObject({
-                                  tag: 'benchmark-fake-component',
+                                  component: BenchMarkFakeComponent,
                                   modules: [
                                       bindProps(
-                                          /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                                          /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
                                           () => ({
                                               index: current.index,
                                               label: current.value.label,
@@ -83,11 +84,11 @@ export const BenchMarkRepeatNoKyFn = ({
                                   ],
                               })
                             : fromObject({
-                                  tag: 'benchmark-fake-component',
+                                  component: BenchMarkFakeComponent,
                                   modules: [
                                       bindProps({
                                           observe: ['counter'],
-                                          /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                                          /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
                                           props: (
                                               { counter },
                                               value,

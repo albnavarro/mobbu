@@ -7,7 +7,7 @@ import { debugActiveComponentStore } from '@stores/debug';
  */
 
 export const DebugTreeItem = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugTreeItem>} */
+    /** @type {CreateComponentParams<import('./type').DebugTreeItemType>} */
     ({
         tag: 'debug-tree-item',
         component: DebugTreeItemFn,

@@ -1,6 +1,7 @@
 import { fromObject, html } from '@mobJs';
 import { buttons } from './utils';
 import { MobCore } from '@mobCore';
+import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definition';
 
 /**
  * @import {
@@ -35,7 +36,7 @@ export const getButtons = ({
             className: 'header-col',
             content: [
                 {
-                    tag: 'dynamic-list-button',
+                    component: DynamicListButton,
                     className: 'header-button',
                     modules: delegateEvents({
                         click: async () => {
@@ -52,7 +53,7 @@ export const getButtons = ({
                     content: button.label_minus,
                 },
                 {
-                    tag: 'dynamic-list-button',
+                    component: DynamicListButton,
                     className: 'header-button',
                     modules: delegateEvents({
                         click: async () => {

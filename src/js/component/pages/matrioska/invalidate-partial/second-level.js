@@ -1,5 +1,6 @@
 import { fromObject } from '@mobJs';
 import { getThirdLevel } from './third-level';
+import { MatrioskaItem } from '../item/definition';
 
 /**
  * @import {
@@ -9,14 +10,14 @@ import { getThirdLevel } from './third-level';
  *   ProxiState,
  *   StaticProps
  * } from "@mobJsType"
- * @import {MatrioskaItem} from "../item/type"
+ * @import {MatrioskaItemType} from "../item/type"
  * @import {Matrioska} from "../type"
  */
 
 /**
  * @param {object} params
- * @param {StaticProps<MatrioskaItem>} params.staticProps
- * @param {BindProps<Matrioska, MatrioskaItem>} params.bindProps
+ * @param {StaticProps<MatrioskaItemType>} params.staticProps
+ * @param {BindProps<Matrioska, MatrioskaItemType>} params.bindProps
  * @param {DelegateEvents} params.delegateEvents
  * @param {ProxiState<Matrioska>} params.proxi
  * @param {Invalidate<Matrioska>} params.invalidate
@@ -38,11 +39,11 @@ export const getSecondLevel = ({
                         return fromObject({
                             className: 'level-wrap level-wrap--2',
                             content: {
-                                tag: 'matrioska-item',
+                                component: MatrioskaItem,
                                 className: 'is-2',
                                 modules: [
                                     staticProps(
-                                        /** @type {MatrioskaItem['props']} */ ({
+                                        /** @type {MatrioskaItemType['props']} */ ({
                                             level: 'level 2',
                                             index: index,
                                             key: `${item.key}`,

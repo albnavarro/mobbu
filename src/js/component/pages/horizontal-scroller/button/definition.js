@@ -8,7 +8,7 @@ import { HorizontalScrollerButtonFn } from './horizontal-scroller-button';
  */
 
 export const HorizontalScrollerButton = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').HorizontalScrollerButton>} */
+    /** @type {CreateComponentParams<import('./type').HorizontalScrollerButtonType>} */
     ({
         tag: 'horizontal-scroller-button',
         component: HorizontalScrollerButtonFn,

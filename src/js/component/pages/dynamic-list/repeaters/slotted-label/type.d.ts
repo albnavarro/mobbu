@@ -1,4 +1,4 @@
-export interface DynamicListSlottedLabel {
+export interface DynamicListSlottedLabelType {
     props: {
         label: string;
     };

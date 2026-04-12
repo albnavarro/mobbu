@@ -1,6 +1,6 @@
 import { fromObject } from '@mobJs';
 
-/** @type {import('@mobJsType').MobComponent<import('./type').DynamicListButton>} */
+/** @type {import('@mobJsType').MobComponent<import('./type').DynamicListButtonType>} */
 export const DynamicListButtonFn = ({ getProxi, bindEffect }) => {
     const proxi = getProxi();
 

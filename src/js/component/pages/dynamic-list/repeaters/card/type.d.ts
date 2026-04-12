@@ -1,4 +1,4 @@
-export interface DynamicListCard {
+export interface DynamicListCardType {
     props: {
         parentListId: number;
         label: string;

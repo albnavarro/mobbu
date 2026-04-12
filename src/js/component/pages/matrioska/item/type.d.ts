@@ -1,4 +1,4 @@
-export interface MatrioskaItem {
+export interface MatrioskaItemType {
     props: {
         level: string;
         key: string;

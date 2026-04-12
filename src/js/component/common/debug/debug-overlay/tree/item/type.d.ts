@@ -6,12 +6,12 @@ interface State extends Readonly<DebugActiveComponentStore> {
     hasActiveChildren: boolean;
 }
 
-export interface DebugTreeItem {
+export interface DebugTreeItemType {
     props: {
         id: string;
         componentName: string;
         instanceName: string;
-        children: DebugTreeItem['props'][] | [];
+        children: DebugTreeItemType['props'][] | [];
     };
     state: State;
     ref: {

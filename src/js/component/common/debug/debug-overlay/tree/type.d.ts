@@ -1,4 +1,4 @@
-export interface DebugTree {
+export interface DebugTreeType {
     state: {
         data: TreeRecursive[];
         isLoading: boolean;

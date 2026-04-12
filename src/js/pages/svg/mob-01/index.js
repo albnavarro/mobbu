@@ -78,7 +78,7 @@ export const lettering01 = async () => {
         <mouse-trail></mouse-trail>
         <move-3d
             ${MobJs.staticProps(
-                /** @type {import('@commonComponent/move-3d/type').Move3D['props']} */ ({
+                /** @type {import('@commonComponent/move-3d/type').Move3DType['props']} */ ({
                     shape: rdp_01_schema({
                         u0,
                         u1,

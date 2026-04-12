@@ -1,13 +1,13 @@
 /**
  * @import {MobComponent} from "@mobJsType"
- * @import {NavigationButton} from "./type"
+ * @import {NavigationButtonType} from "./type"
  */
 
 import { MobCore } from '@mobCore';
 import { fromObject, MobJs } from '@mobJs';
 import { navigationStore } from '@stores/navigation';
 
-/** @type {MobComponent<NavigationButton>} */
+/** @type {MobComponent<NavigationButtonType>} */
 export const NavigationButtonFn = ({
     delegateEvents,
     getProxi,

@@ -13,7 +13,7 @@ import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definitio
  */
 
 export const DynamicListCard = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicListCard>} */
+    /** @type {CreateComponentParams<import('./type').DynamicListCardType>} */
     ({
         tag: 'dynamic-list-card',
         component: DynamicListCardFn,
