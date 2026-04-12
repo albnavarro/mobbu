@@ -28181,33 +28181,31 @@
           ]
         },
         {
+          className: "list",
           content: invalidate({
             observe: () => proxi.data,
             render: () => {
               const { data } = getState();
-              return fromObject({
-                className: "list",
-                content: data.map(({ label }, index) => {
-                  return fromObject({
-                    tag: "benchmark-fake-component",
-                    modules: [
-                      staticProps2(
-                        /** @type {import('../fake-component/type').BenchMarkFakeComponent['props']} */
-                        {
-                          label,
-                          index
-                        }
-                      ),
-                      bindProps(
-                        /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
-                        () => ({
-                          counter: proxi.counter
-                        })
-                      )
-                    ]
-                  });
-                })
-              });
+              return data.map(({ label }, index) => {
+                return fromObject({
+                  tag: "benchmark-fake-component",
+                  modules: [
+                    staticProps2(
+                      /** @type {import('../fake-component/type').BenchMarkFakeComponent['props']} */
+                      {
+                        label,
+                        index
+                      }
+                    ),
+                    bindProps(
+                      /** @returns {ReturnBindProps<BenchMarkFakeComponent>} */
+                      () => ({
+                        counter: proxi.counter
+                      })
+                    )
+                  ]
+                });
+              }).join("");
             }
           })
         }
@@ -32345,7 +32343,7 @@
           })
         ]
       });
-    });
+    }).join("");
   };
   var DynamicListCardFn = ({
     onMount,
@@ -32560,12 +32558,10 @@
                   content: invalidate({
                     observe: () => proxi.counter,
                     render: () => {
-                      return fromObject({
-                        content: getInvalidateRender({
-                          delegateEvents,
-                          staticProps: staticProps2,
-                          proxi
-                        })
+                      return getInvalidateRender({
+                        delegateEvents,
+                        staticProps: staticProps2,
+                        proxi
                       });
                     }
                   })
@@ -33470,73 +33466,71 @@
     proxi
   }) => {
     return fromObject({
+      className: "level level--3",
       content: invalidate({
         observe: "level3",
         render: () => {
-          return fromObject({
-            className: "level level--3",
-            content: proxi.level3.map((item, index) => {
-              const name = modules_exports.getUnivoqueId();
-              const name2 = modules_exports.getUnivoqueId();
-              return fromObject({
-                className: "level-wrap level-wrap--3",
-                content: [
-                  {
-                    tag: "matrioska-item",
-                    className: "is-3",
-                    attributes: { name },
-                    modules: [
-                      staticProps2(
-                        /** @type {MatrioskaItem['props']} */
-                        {
-                          level: "level 3",
-                          value: item.value,
-                          index,
-                          key: `${item.key}`
-                        }
-                      ),
-                      bindProps(() => {
-                        return {
-                          counter: proxi.counter
-                        };
-                      }),
-                      delegateEvents({
-                        click: () => {
-                          toggleMatrioskaItemActive(name);
-                        }
-                      })
-                    ]
-                  },
-                  {
-                    tag: "matrioska-item",
-                    className: "is-3",
-                    attributes: { name: name2 },
-                    modules: [
-                      staticProps2(
-                        /** @type {MatrioskaItem['props']} */
-                        {
-                          level: "level 3",
-                          value: item.value,
-                          index,
-                          key: `${item.key}`
-                        }
-                      ),
-                      bindProps(() => {
-                        return {
-                          counter: proxi.counter
-                        };
-                      }),
-                      delegateEvents({
-                        click: () => {
-                          toggleMatrioskaItemActive(name);
-                        }
-                      })
-                    ]
-                  }
-                ]
-              });
-            })
-          });
+          return proxi.level3.map((item, index) => {
+            const name = modules_exports.getUnivoqueId();
+            const name2 = modules_exports.getUnivoqueId();
+            return fromObject({
+              className: "level-wrap level-wrap--3",
+              content: [
+                {
+                  tag: "matrioska-item",
+                  className: "is-3",
+                  attributes: { name },
+                  modules: [
+                    staticProps2(
+                      /** @type {MatrioskaItem['props']} */
+                      {
+                        level: "level 3",
+                        value: item.value,
+                        index,
+                        key: `${item.key}`
+                      }
+                    ),
+                    bindProps(() => {
+                      return {
+                        counter: proxi.counter
+                      };
+                    }),
+                    delegateEvents({
+                      click: () => {
+                        toggleMatrioskaItemActive(name);
+                      }
+                    })
+                  ]
+                },
+                {
+                  tag: "matrioska-item",
+                  className: "is-3",
+                  attributes: { name: name2 },
+                  modules: [
+                    staticProps2(
+                      /** @type {MatrioskaItem['props']} */
+                      {
+                        level: "level 3",
+                        value: item.value,
+                        index,
+                        key: `${item.key}`
+                      }
+                    ),
+                    bindProps(() => {
+                      return {
+                        counter: proxi.counter
+                      };
+                    }),
+                    delegateEvents({
+                      click: () => {
+                        toggleMatrioskaItemActive(name);
+                      }
+                    })
+                  ]
+                }
+              ]
+            });
+          }).join("");
         }
       })
     });
@@ -33551,42 +33545,40 @@
     proxi
   }) => {
     return fromObject({
+      className: "level level--2",
       content: invalidate({
         observe: () => proxi.level2,
         render: () => {
-          return fromObject({
-            className: "level level--2",
-            content: proxi.level2.map((item, index) => {
-              return fromObject({
-                className: "level-wrap level-wrap--2",
-                content: {
-                  tag: "matrioska-item",
-                  className: "is-2",
-                  modules: [
-                    staticProps2(
-                      /** @type {MatrioskaItem['props']} */
-                      {
-                        level: "level 2",
-                        index,
-                        key: `${item.key}`,
-                        value: `${item.value}`
-                      }
-                    ),
-                    bindProps(() => ({
-                      counter: proxi.counter
-                    }))
-                  ],
-                  content: getThirdLevel2({
-                    staticProps: staticProps2,
-                    delegateEvents,
-                    invalidate,
-                    bindProps,
-                    proxi
-                  })
-                }
-              });
-            })
-          });
+          return proxi.level2.map((item, index) => {
+            return fromObject({
+              className: "level-wrap level-wrap--2",
+              content: {
+                tag: "matrioska-item",
+                className: "is-2",
+                modules: [
+                  staticProps2(
+                    /** @type {MatrioskaItem['props']} */
+                    {
+                      level: "level 2",
+                      index,
+                      key: `${item.key}`,
+                      value: `${item.value}`
+                    }
+                  ),
+                  bindProps(() => ({
+                    counter: proxi.counter
+                  }))
+                ],
+                content: getThirdLevel2({
+                  staticProps: staticProps2,
+                  delegateEvents,
+                  invalidate,
+                  bindProps,
+                  proxi
+                })
+              }
+            });
+          }).join("");
         }
       })
     });
@@ -33635,42 +33627,40 @@
           content: "Nested repater like matrioska in same component."
         },
         {
+          className: "level level--1",
           content: invalidate({
             observe: "level1",
             render: () => {
-              return fromObject({
-                className: "level level--1",
-                content: proxi.level1.map((item, index) => {
-                  return fromObject({
-                    className: "level-wrap level-wrap--1",
-                    content: {
-                      tag: "matrioska-item",
-                      className: "is-1",
-                      modules: [
-                        staticProps2(
-                          /** @type {Partial<MatrioskaItem['props']>} */
-                          {
-                            level: "level 1",
-                            key: `${item.key}`,
-                            index,
-                            value: `${item.value}`
-                          }
-                        ),
-                        bindProps(() => ({
-                          counter: proxi.counter
-                        }))
-                      ],
-                      content: getSecondLevel2({
-                        staticProps: staticProps2,
-                        bindProps,
-                        delegateEvents,
-                        invalidate,
-                        proxi
-                      })
-                    }
-                  });
-                })
-              });
+              return proxi.level1.map((item, index) => {
+                return fromObject({
+                  className: "level-wrap level-wrap--1",
+                  content: {
+                    tag: "matrioska-item",
+                    className: "is-1",
+                    modules: [
+                      staticProps2(
+                        /** @type {Partial<MatrioskaItem['props']>} */
+                        {
+                          level: "level 1",
+                          key: `${item.key}`,
+                          index,
+                          value: `${item.value}`
+                        }
+                      ),
+                      bindProps(() => ({
+                        counter: proxi.counter
+                      }))
+                    ],
+                    content: getSecondLevel2({
+                      staticProps: staticProps2,
+                      bindProps,
+                      delegateEvents,
+                      invalidate,
+                      proxi
+                    })
+                  }
+                });
+              }).join("");
             }
           })
         }

@@ -27,23 +27,25 @@ function createArray(numberOfItem) {
  * @param {ProxiState<DynamicListCard>} params.proxi
  */
 const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
-    return createArray(proxi.counter).map((item) => {
-        return fromObject({
-            tag: 'dynamic-list-card-inner',
-            modules: [
-                staticProps(
-                    /** @type {DynamicListCardInner['props']} */ ({
-                        key: `${item}`,
-                    })
-                ),
-                delegateEvents({
-                    click: () => {
-                        console.log('invalidate inside reepater click');
-                    },
-                }),
-            ],
-        });
-    });
+    return createArray(proxi.counter)
+        .map((item) => {
+            return fromObject({
+                tag: 'dynamic-list-card-inner',
+                modules: [
+                    staticProps(
+                        /** @type {DynamicListCardInner['props']} */ ({
+                            key: `${item}`,
+                        })
+                    ),
+                    delegateEvents({
+                        click: () => {
+                            console.log('invalidate inside reepater click');
+                        },
+                    }),
+                ],
+            });
+        })
+        .join('');
 };
 
 /** @type {MobComponent<DynamicListCard>} */
@@ -282,12 +284,10 @@ export const DynamicListCardFn = ({
                                 content: invalidate({
                                     observe: () => proxi.counter,
                                     render: () => {
-                                        return fromObject({
-                                            content: getInvalidateRender({
-                                                delegateEvents,
-                                                staticProps,
-                                                proxi,
-                                            }),
+                                        return getInvalidateRender({
+                                            delegateEvents,
+                                            staticProps,
+                                            proxi,
                                         });
                                     },
                                 }),

@@ -30,12 +30,12 @@ export const getThirdLevel = ({
     proxi,
 }) => {
     return fromObject({
+        className: 'level level--3',
         content: invalidate({
             observe: 'level3',
             render: () => {
-                return fromObject({
-                    className: 'level level--3',
-                    content: proxi.level3.map((item, index) => {
+                return proxi.level3
+                    .map((item, index) => {
                         const name = MobCore.getUnivoqueId();
                         const name2 = MobCore.getUnivoqueId();
 
@@ -94,8 +94,8 @@ export const getThirdLevel = ({
                                 },
                             ],
                         });
-                    }),
-                });
+                    })
+                    .join('');
             },
         }),
     });

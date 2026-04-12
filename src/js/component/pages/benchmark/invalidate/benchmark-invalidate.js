@@ -71,14 +71,14 @@ export const BenchMarkInvalidateFn = ({
                 ],
             },
             {
+                className: 'list',
                 content: invalidate({
                     observe: () => proxi.data,
                     render: () => {
                         const { data } = getState();
 
-                        return fromObject({
-                            className: 'list',
-                            content: data.map(({ label }, index) => {
+                        return data
+                            .map(({ label }, index) => {
                                 return fromObject({
                                     tag: 'benchmark-fake-component',
                                     modules: [
@@ -97,8 +97,8 @@ export const BenchMarkInvalidateFn = ({
                                         ),
                                     ],
                                 });
-                            }),
-                        });
+                            })
+                            .join('');
                     },
                 }),
             },
