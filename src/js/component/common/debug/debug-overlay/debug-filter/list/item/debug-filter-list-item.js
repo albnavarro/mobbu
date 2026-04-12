@@ -3,7 +3,7 @@
  */
 
 import { updateDebugComponentById } from '@commonComponent/debug/debug-overlay/debug-component/utils';
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /** @type {MobComponent<import('./type').DebugFilterListItem>} */
 export const DebugFilterListItemFn = ({
@@ -20,28 +20,44 @@ export const DebugFilterListItemFn = ({
         () => proxi.id === proxi.currentId
     );
 
-    return html`
-        <div class="c-debug-filter-list-item">
-            <span class="id">${proxi.id}</span> |
-            <span class="tag">${bindText`${'tag'}`}</span> |
-            <span class="name">${proxi.name}</span>
-            <button
-                type="button"
-                class="expand"
-                ${delegateEvents({
+    return fromObject({
+        className: 'c-debug-filter-list-item',
+        content: [
+            {
+                tag: 'span',
+                className: 'id',
+                content: proxi.id,
+            },
+            '|',
+            {
+                tag: 'span',
+                className: 'tag',
+                content: bindText`${'tag'}`,
+            },
+            '|',
+            {
+                tag: 'span',
+                className: 'name',
+                content: proxi.name,
+            },
+            {
+                tag: 'button',
+                attributes: { type: 'button' },
+                className: 'expand',
+                modules: delegateEvents({
                     click: () => {
                         updateDebugComponentById(proxi.id);
                     },
-                })}
-            >
-                [ > ]
-            </button>
-            <span
-                class="selected"
-                ${bindEffect({
+                }),
+                content: '[ > ]',
+            },
+            {
+                tag: 'span',
+                className: 'selected',
+                modules: bindEffect({
                     toggleClass: { active: () => proxi.active },
-                })}
-            ></span>
-        </div>
-    `;
+                }),
+            },
+        ],
+    });
 };

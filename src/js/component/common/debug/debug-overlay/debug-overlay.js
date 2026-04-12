@@ -1,6 +1,6 @@
 // @ts-check
 
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { consoleLogDebug } from '../console-log';
 import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
 import {
@@ -48,152 +48,185 @@ export const DebugOverlayFn = ({
         };
     });
 
-    return html`<div
-        class="c-debug-overlay"
-        ${bindEffect({
-            toggleClass: { active: () => proxi.active },
-        })}
-    >
-        <button
-            class="background"
-            type="button"
-            ${delegateEvents({
-                click: () => {
-                    proxi.active = false;
-                    proxi.listType = DEBUG_USE_TREE;
-                },
-            })}
-        ></button>
-        <button
-            type="button"
-            class="close"
-            ${delegateEvents({
-                click: () => {
-                    proxi.active = false;
-                    proxi.listType = DEBUG_USE_TREE;
-                },
-            })}
-        ></button>
-        <div class="grid">
-            <button
-                type="button"
-                class="log"
-                ${delegateEvents({
-                    click: () => {
-                        consoleLogDebug();
+    /**
+     * Left header partial
+     */
+    const listHeader = {
+        className: 'list-header',
+        content: [
+            /**
+             * Left top header switch tree/list head
+             */
+            {
+                content: invalidate({
+                    observe: [() => proxi.listType, () => proxi.active],
+                    render: () => {
+                        if (proxi.listType === DEBUG_USE_TREE && proxi.active)
+                            return fromObject({
+                                className: 'list-title',
+                                content: 'Tree structure',
+                            });
+
+                        if (
+                            proxi.listType === DEBUG_USE_FILTER_COMPONENT &&
+                            proxi.active
+                        )
+                            return fromObject({ tag: 'debug-filter-head' });
+
+                        // Remove component
+                        return '';
                     },
-                })}
-            >
-                console log
-            </button>
-
-            <div class="header">
-                <debug-head
-                    ${bindProps(
-                        /** @returns {ReturnBindProps<DebugHead>} */
-                        () => ({
-                            active: proxi.active,
-                        })
-                    )}
-                ></debug-head>
-            </div>
-            <div class="list">
-                <div class="list-header">
-                    <div>
-                        ${invalidate({
-                            observe: [() => proxi.listType, () => proxi.active],
-                            render: () => {
-                                if (
-                                    proxi.listType === DEBUG_USE_TREE &&
-                                    proxi.active
-                                )
-                                    return html`<div class="list-title">
-                                        Tree structure
-                                    </div>`;
-
-                                if (
-                                    proxi.listType ===
-                                        DEBUG_USE_FILTER_COMPONENT &&
-                                    proxi.active
-                                )
-                                    return html`<debug-filter-head></debug-filter-head>`;
-
-                                // Remove component
-                                return '';
-                            },
-                        })}
-                    </div>
-
-                    <div>
-                        <button
-                            type="button"
-                            class="list-toggle"
-                            ${delegateEvents({
+                }),
+            },
+            /**
+             * Toggle List vs Tree
+             */
+            {
+                content: [
+                    {
+                        tag: 'button',
+                        className: 'list-toggle',
+                        modules: [
+                            delegateEvents({
                                 click: () => {
                                     proxi.listType = DEBUG_USE_TREE;
                                 },
-                            })}
-                            ${bindEffect({
+                            }),
+                            bindEffect({
                                 toggleClass: {
                                     active: () =>
                                         proxi.listType === DEBUG_USE_TREE,
                                 },
-                            })}
-                        >
-                            Tree
-                        </button>
-                        <button
-                            type="button"
-                            class="list-toggle"
-                            ${delegateEvents({
+                            }),
+                        ],
+                        content: 'Tree',
+                    },
+                    {
+                        tag: 'button',
+                        className: 'list-toggle',
+                        modules: [
+                            delegateEvents({
                                 click: () => {
                                     proxi.listType = DEBUG_USE_FILTER_COMPONENT;
                                 },
-                            })}
-                            ${bindEffect({
+                            }),
+                            bindEffect({
                                 toggleClass: {
                                     active: () =>
                                         proxi.listType ===
                                         DEBUG_USE_FILTER_COMPONENT,
                                 },
-                            })}
-                        >
-                            Filter
-                        </button>
-                    </div>
-                </div>
-                <div>
-                    ${invalidate({
-                        observe: [() => proxi.listType, () => proxi.active],
-                        render: () => {
-                            if (
-                                proxi.listType === DEBUG_USE_TREE &&
-                                proxi.active
-                            )
-                                return html`
-                                    <debug-tree
-                                        name="${debugTreeName}"
-                                    ></debug-tree>
-                                `;
+                            }),
+                        ],
+                        content: 'Filter',
+                    },
+                ],
+            },
+        ],
+    };
 
-                            if (
-                                proxi.listType === DEBUG_USE_FILTER_COMPONENT &&
-                                proxi.active
-                            )
-                                return html`
-                                    <debug-filter-list
-                                        name="${debugFilterListName}"
-                                    ></debug-filter-list>
-                                `;
+    /**
+     * Right component partial
+     */
+    const listContent = {
+        content: invalidate({
+            observe: [() => proxi.listType, () => proxi.active],
+            render: () => {
+                if (proxi.listType === DEBUG_USE_TREE && proxi.active)
+                    return fromObject({
+                        tag: 'debug-tree',
+                        attributes: { name: debugTreeName },
+                    });
 
-                            return '';
+                if (
+                    proxi.listType === DEBUG_USE_FILTER_COMPONENT &&
+                    proxi.active
+                )
+                    return fromObject({
+                        tag: 'debug-filter-list',
+                        attributes: { name: debugFilterListName },
+                    });
+
+                return '';
+            },
+        }),
+    };
+
+    return fromObject({
+        className: 'c-debug-overlay',
+        modules: bindEffect({
+            toggleClass: { active: () => proxi.active },
+        }),
+        content: [
+            {
+                tag: 'button',
+                className: 'background',
+                attributes: { type: 'button' },
+                modules: delegateEvents({
+                    click: () => {
+                        proxi.active = false;
+                        proxi.listType = DEBUG_USE_TREE;
+                    },
+                }),
+            },
+            {
+                tag: 'button',
+                className: 'close',
+                attributes: { type: 'button' },
+                modules: delegateEvents({
+                    click: () => {
+                        proxi.active = false;
+                        proxi.listType = DEBUG_USE_TREE;
+                    },
+                }),
+            },
+            {
+                className: 'grid',
+                content: [
+                    {
+                        tag: 'button',
+                        className: 'log',
+                        modules: delegateEvents({
+                            click: () => {
+                                consoleLogDebug();
+                            },
+                        }),
+                        content: `console log`,
+                    },
+                    /**
+                     * Top header
+                     */
+                    {
+                        className: 'header',
+                        content: {
+                            tag: 'debug-head',
+                            modules: bindProps(
+                                /** @returns {ReturnBindProps<DebugHead>} */
+                                () => ({
+                                    active: proxi.active,
+                                })
+                            ),
                         },
-                    })}
-                </div>
-            </div>
-            <div class="single-component">
-                <debug-component name="${debugComponentName}"></debug-component>
-            </div>
-        </div>
-    </div>`;
+                    },
+                    /**
+                     * Left column hider ( sitch list/tree & search in list ) & content
+                     */
+                    {
+                        className: 'list',
+                        content: [listHeader, listContent],
+                    },
+                    /**
+                     * Right column single component
+                     */
+                    {
+                        className: 'single-component',
+                        content: {
+                            tag: 'debug-component',
+                            attributes: { name: debugComponentName },
+                        },
+                    },
+                ],
+            },
+        ],
+    });
 };

@@ -3,7 +3,7 @@
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { generateTreeComponents } from './recursive-tree';
 
 /** @type {import('../debug-filter/list/type').DebugInitScroller} */
@@ -95,29 +95,36 @@ export const DebugTreeFn = ({
         };
     });
 
-    return html`
-        <div class="c-debug-tree">
-            <div class="tree-list" ${setRef('screen')}>
-                <input
-                    type="range"
-                    id="test"
-                    name="test"
-                    min="0"
-                    max="100"
-                    value="0"
-                    step=".5"
-                    ${setRef('scrollbar')}
-                    class="scrollbar"
-                />
-                <span
-                    class="status"
-                    ${bindEffect({
+    return fromObject({
+        className: 'c-debug-tree',
+        content: {
+            className: 'tree-list',
+            modules: setRef('screen'),
+            content: [
+                {
+                    tag: 'input',
+                    className: 'scrollbar',
+                    attributes: {
+                        type: 'range',
+                        id: 'test',
+                        min: 0,
+                        max: 0,
+                        value: 0,
+                        step: 0.5,
+                    },
+                    modules: setRef('scrollbar'),
+                },
+                {
+                    className: 'status',
+                    modules: bindEffect({
                         toggleClass: { visible: () => proxi.isLoading },
-                    })}
-                    >Generate tree</span
-                >
-                <div class="scollable-element" ${setRef('scroller')}>
-                    ${invalidate({
+                    }),
+                    content: 'Generate tree',
+                },
+                {
+                    className: 'scollable-element',
+                    modules: setRef('scroller'),
+                    content: invalidate({
                         observe: () => proxi.data,
                         render: () => {
                             return generateTreeComponents({
@@ -125,9 +132,9 @@ export const DebugTreeFn = ({
                                 staticProps,
                             });
                         },
-                    })}
-                </div>
-            </div>
-        </div>
-    `;
+                    }),
+                },
+            ],
+        },
+    });
 };

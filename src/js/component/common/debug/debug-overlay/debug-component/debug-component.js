@@ -9,7 +9,7 @@
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
-import { html, MobJs } from '@mobJs';
+import { fromObject, html, MobJs } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../constant';
 import { debugActiveComponentStore } from '@stores/debug';
 
@@ -43,10 +43,15 @@ const getObjectKeys = (methods) => {
 const getChild = (child) => {
     return Object.entries(child)
         .map(([key, value]) => {
-            return html`<div>
-                <strong>${key}:</strong>
-                ${value.map((item) => html`${item}, `).join('.')}
-            </div>`;
+            return fromObject({
+                content: [
+                    {
+                        tag: 'strong',
+                        content: key,
+                    },
+                    value.map((item) => html`${item}, `).join('.'),
+                ],
+            });
         })
         .join('');
 };
@@ -67,10 +72,15 @@ const getFreezeProp = (props) => {
 const getStateProps = (states) => {
     return Object.entries(/** @type {any[]} */ (states))
         .map(([key, value]) => {
-            return html`<div>
-                <strong>${key}:</strong>
-                ${JSON.stringify(value)}
-            </div>`;
+            return fromObject({
+                content: [
+                    {
+                        tag: 'strong',
+                        content: key,
+                    },
+                    JSON.stringify(value),
+                ],
+            });
         })
         .join('');
 };
@@ -86,61 +96,234 @@ const getContent = ({ getState }) => {
     const item = MobJs.componentMap.get(id);
     if (!item) return `component not found`;
 
-    return html`<div>
-        <!-- Basic props -->
-        <div><strong>id</strong>: ${id}</div>
-        <div><strong>parent id</strong>: ${item.parentId}</div>
-        <div>
-            <strong>component root</strong>:
-            ${item.element.tagName}${getClassList(item.element.classList)}
-        </div>
-        <div><strong>componentName</strong>: ${item.componentName}</div>
-        <div><strong>instance name:</strong>: ${item.instanceName}</div>
-        <div><strong>methods:</strong>: ${getObjectKeys(item.methods)}</div>
-        <div><strong>refs:</strong>: ${getObjectKeys(item.refs)}</div>
-        <div><strong>persistent:</strong>: ${item.persistent}</div>
+    return fromObject({
+        content: [
+            /**
+             * Basic props
+             */
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'id',
+                        },
+                        `: ${id}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'parent id',
+                        },
+                        `: ${item.parentId}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'component root',
+                        },
+                        `: ${item.element.tagName}${getClassList(item.element.classList)}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'componentName',
+                        },
+                        `: ${item.componentName}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'instance name',
+                        },
+                        `: ${item.instanceName}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'methods',
+                        },
+                        `: ${getObjectKeys(item.methods)}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'refs',
+                        },
+                        `: ${getObjectKeys(item.refs)}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'persistent',
+                        },
+                        `: ${item.persistent}`,
+                    ],
+                },
+            },
 
-        <!-- Children -->
-        <h3 class="section-title">Children:</h3>
-        <div>${getChild(item?.child ?? {})}</div>
+            /**
+             * Children
+             */
+            {
+                tag: 'h3',
+                className: 'section-title',
+                content: 'Children:',
+            },
+            {
+                content: getChild(item?.child ?? {}),
+            },
 
-        <!-- Repeater -->
-        <h3 class="section-title">Repeater props:</h3>
-        <div>
-            <strong>component repeater id</strong>: ${item.componentRepeatId}
-        </div>
-        <div><strong>repeater state bind</strong>: ${item.repeatPropBind}</div>
-        <div>
-            <strong>repeater inner wrapper</strong>:
-            ${item?.repeaterInnerWrap?.tagName}${getClassList(
-                item?.repeaterInnerWrap?.classList
-            )}
-        </div>
-        <div><strong>repeat key</strong>: ${item.key}</div>
-        <div>
-            <strong>repeat current state</strong>:
-            ${JSON.stringify(item.currentRepeaterState?.current)}
-        </div>
-        <div>
-            <strong>repeat current index</strong>:
-            ${JSON.stringify(item.currentRepeaterState?.index)}
-        </div>
+            /**
+             * Repeater
+             */
+            {
+                tag: 'h3',
+                className: 'section-title',
+                content: 'Repeater props:',
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'component repeater id',
+                        },
+                        `: ${item.componentRepeatId}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'repeater state bind',
+                        },
+                        `: ${item.repeatPropBind}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'repeater inner wrapper',
+                        },
+                        `: ${item?.repeaterInnerWrap?.tagName}${getClassList(
+                            item?.repeaterInnerWrap?.classList
+                        )}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'repeat key',
+                        },
+                        `: ${item.key}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'repeat current state',
+                        },
+                        `: ${JSON.stringify(item.currentRepeaterState?.current)}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'repeat current index',
+                        },
+                        `: ${JSON.stringify(item.currentRepeaterState?.index)}`,
+                    ],
+                },
+            },
 
-        <!-- State -->
-        <h3 class="section-title">State:</h3>
-        <div>
-            <strong>Freezed prop:</strong>
-            ${getFreezeProp(item?.freezedPros)}
-        </div>
-        <div>
-            <h4 class="section-subtitle">States current values:</h4>
-            ${getStateProps(item.state.get())}
-        </div>
-        <div>
-            <h4 class="section-subtitle">States current validation:</h4>
-            ${getStateProps(item.state.getValidation())}
-        </div>
-    </div>`;
+            /**
+             * State
+             */
+            {
+                tag: 'h3',
+                className: 'section-title',
+                content: 'State:',
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'Freezed prop',
+                        },
+                        `: ${getFreezeProp(item?.freezedPros)}`,
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'h4',
+                            className: 'section-subtitle',
+                            content: 'States current values:',
+                        },
+                        getStateProps(item.state.get()),
+                    ],
+                },
+            },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'h4',
+                            className: 'section-subtitle',
+                            content: 'States current validation:',
+                        },
+                        getStateProps(item.state.getValidation()),
+                    ],
+                },
+            },
+        ],
+    });
 };
 
 /**
@@ -235,25 +418,34 @@ export const DebugComponentFn = ({
         };
     });
 
-    return html`<div class="c-debug-component" ${setRef('screen')}>
-        <input
-            type="range"
-            id="test"
-            name="test"
-            min="0"
-            max="100"
-            value="0"
-            step=".5"
-            ${setRef('scrollbar')}
-            class="scrollbar"
-        />
-        <div class="debug-container" ${setRef('scroller')}>
-            ${invalidate({
-                observe: () => proxi.id,
-                render: () => {
-                    return getContent({ getState });
+    return fromObject({
+        className: 'c-debug-component',
+        modules: setRef('screen'),
+        content: [
+            {
+                tag: 'input',
+                className: 'scrollbar',
+                attributes: {
+                    type: 'range',
+                    id: 'test',
+                    name: 'test',
+                    min: 0,
+                    max: 100,
+                    value: 0,
+                    step: 0.5,
                 },
-            })}
-        </div>
-    </div>`;
+                modules: setRef('scrollbar'),
+            },
+            {
+                className: 'debug-container',
+                modules: setRef('scroller'),
+                content: invalidate({
+                    observe: () => proxi.id,
+                    render: () => {
+                        return getContent({ getState });
+                    },
+                }),
+            },
+        ],
+    });
 };

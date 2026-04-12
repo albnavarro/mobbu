@@ -40137,10 +40137,15 @@
   };
   var getChild = (child) => {
     return Object.entries(child).map(([key, value]) => {
-      return renderHtml`<div>
-                <strong>${key}:</strong>
-                ${value.map((item) => renderHtml`${item}, `).join(".")}
-            </div>`;
+      return fromObject({
+        content: [
+          {
+            tag: "strong",
+            content: key
+          },
+          value.map((item) => renderHtml`${item}, `).join(".")
+        ]
+      });
     }).join("");
   };
   var getFreezeProp = (props) => {
@@ -40152,10 +40157,15 @@
       /** @type {any[]} */
       states
     ).map(([key, value]) => {
-      return renderHtml`<div>
-                <strong>${key}:</strong>
-                ${JSON.stringify(value)}
-            </div>`;
+      return fromObject({
+        content: [
+          {
+            tag: "strong",
+            content: key
+          },
+          JSON.stringify(value)
+        ]
+      });
     }).join("");
   };
   var getContent2 = ({ getState }) => {
@@ -40163,61 +40173,231 @@
     if (id === RESET_FILTER_DEBUG) return "";
     const item = modules_exports2.componentMap.get(id);
     if (!item) return `component not found`;
-    return renderHtml`<div>
-        <!-- Basic props -->
-        <div><strong>id</strong>: ${id}</div>
-        <div><strong>parent id</strong>: ${item.parentId}</div>
-        <div>
-            <strong>component root</strong>:
-            ${item.element.tagName}${getClassList(item.element.classList)}
-        </div>
-        <div><strong>componentName</strong>: ${item.componentName}</div>
-        <div><strong>instance name:</strong>: ${item.instanceName}</div>
-        <div><strong>methods:</strong>: ${getObjectKeys(item.methods)}</div>
-        <div><strong>refs:</strong>: ${getObjectKeys(item.refs)}</div>
-        <div><strong>persistent:</strong>: ${item.persistent}</div>
-
-        <!-- Children -->
-        <h3 class="section-title">Children:</h3>
-        <div>${getChild(item?.child ?? {})}</div>
-
-        <!-- Repeater -->
-        <h3 class="section-title">Repeater props:</h3>
-        <div>
-            <strong>component repeater id</strong>: ${item.componentRepeatId}
-        </div>
-        <div><strong>repeater state bind</strong>: ${item.repeatPropBind}</div>
-        <div>
-            <strong>repeater inner wrapper</strong>:
-            ${item?.repeaterInnerWrap?.tagName}${getClassList(
-      item?.repeaterInnerWrap?.classList
-    )}
-        </div>
-        <div><strong>repeat key</strong>: ${item.key}</div>
-        <div>
-            <strong>repeat current state</strong>:
-            ${JSON.stringify(item.currentRepeaterState?.current)}
-        </div>
-        <div>
-            <strong>repeat current index</strong>:
-            ${JSON.stringify(item.currentRepeaterState?.index)}
-        </div>
-
-        <!-- State -->
-        <h3 class="section-title">State:</h3>
-        <div>
-            <strong>Freezed prop:</strong>
-            ${getFreezeProp(item?.freezedPros)}
-        </div>
-        <div>
-            <h4 class="section-subtitle">States current values:</h4>
-            ${getStateProps(item.state.get())}
-        </div>
-        <div>
-            <h4 class="section-subtitle">States current validation:</h4>
-            ${getStateProps(item.state.getValidation())}
-        </div>
-    </div>`;
+    return fromObject({
+      content: [
+        /**
+         * Basic props
+         */
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "id"
+              },
+              `: ${id}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "parent id"
+              },
+              `: ${item.parentId}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "component root"
+              },
+              `: ${item.element.tagName}${getClassList(item.element.classList)}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "componentName"
+              },
+              `: ${item.componentName}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "instance name"
+              },
+              `: ${item.instanceName}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "methods"
+              },
+              `: ${getObjectKeys(item.methods)}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "refs"
+              },
+              `: ${getObjectKeys(item.refs)}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "persistent"
+              },
+              `: ${item.persistent}`
+            ]
+          }
+        },
+        /**
+         * Children
+         */
+        {
+          tag: "h3",
+          className: "section-title",
+          content: "Children:"
+        },
+        {
+          content: getChild(item?.child ?? {})
+        },
+        /**
+         * Repeater
+         */
+        {
+          tag: "h3",
+          className: "section-title",
+          content: "Repeater props:"
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "component repeater id"
+              },
+              `: ${item.componentRepeatId}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "repeater state bind"
+              },
+              `: ${item.repeatPropBind}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "repeater inner wrapper"
+              },
+              `: ${item?.repeaterInnerWrap?.tagName}${getClassList(
+                item?.repeaterInnerWrap?.classList
+              )}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "repeat key"
+              },
+              `: ${item.key}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "repeat current state"
+              },
+              `: ${JSON.stringify(item.currentRepeaterState?.current)}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "repeat current index"
+              },
+              `: ${JSON.stringify(item.currentRepeaterState?.index)}`
+            ]
+          }
+        },
+        /**
+         * State
+         */
+        {
+          tag: "h3",
+          className: "section-title",
+          content: "State:"
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "strong",
+                content: "Freezed prop"
+              },
+              `: ${getFreezeProp(item?.freezedPros)}`
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "h4",
+                className: "section-subtitle",
+                content: "States current values:"
+              },
+              getStateProps(item.state.get())
+            ]
+          }
+        },
+        {
+          content: {
+            content: [
+              {
+                tag: "h4",
+                className: "section-subtitle",
+                content: "States current validation:"
+              },
+              getStateProps(item.state.getValidation())
+            ]
+          }
+        }
+      ]
+    });
   };
   var initScroller = ({ getRef }) => {
     const { screen, scroller, scrollbar } = getRef();
@@ -40287,27 +40467,36 @@
         destroy3?.();
       };
     });
-    return renderHtml`<div class="c-debug-component" ${setRef("screen")}>
-        <input
-            type="range"
-            id="test"
-            name="test"
-            min="0"
-            max="100"
-            value="0"
-            step=".5"
-            ${setRef("scrollbar")}
-            class="scrollbar"
-        />
-        <div class="debug-container" ${setRef("scroller")}>
-            ${invalidate({
-      observe: () => proxi.id,
-      render: () => {
-        return getContent2({ getState });
-      }
-    })}
-        </div>
-    </div>`;
+    return fromObject({
+      className: "c-debug-component",
+      modules: setRef("screen"),
+      content: [
+        {
+          tag: "input",
+          className: "scrollbar",
+          attributes: {
+            type: "range",
+            id: "test",
+            name: "test",
+            min: 0,
+            max: 100,
+            value: 0,
+            step: 0.5
+          },
+          modules: setRef("scrollbar")
+        },
+        {
+          className: "debug-container",
+          modules: setRef("scroller"),
+          content: invalidate({
+            observe: () => proxi.id,
+            render: () => {
+              return getContent2({ getState });
+            }
+          })
+        }
+      ]
+    });
   };
 
   // src/js/component/common/debug/debug-overlay/debug-component/definition.js
@@ -40349,39 +40538,47 @@
         getRef()?.input.remove();
       };
     });
-    return renderHtml`<div class="c-debug-filter-head">
-        <span class="title">Filter by tag</span>
-        <input
-            type="text"
-            value=""
-            name="debug-filter"
-            ${setRef("input")}
-            ${delegateEvents({
-      keydown: (event) => {
-        if (event.code.toLowerCase() === "enter") {
-          event.preventDefault();
-          const testString = (
-            /** @type {HTMLInputElement} */
-            event.currentTarget.value
-          );
-          refreshList(testString);
+    return fromObject({
+      className: "c-debug-filter-head",
+      content: [
+        {
+          tag: "span",
+          className: "title",
+          content: "Filter by tag"
+        },
+        {
+          tag: "input",
+          attributes: { type: "text", value: "", name: "debug-filter" },
+          modules: [
+            setRef("input"),
+            delegateEvents({
+              keydown: (event) => {
+                if (event.code.toLowerCase() === "enter") {
+                  event.preventDefault();
+                  const testString = (
+                    /** @type {HTMLInputElement} */
+                    event.currentTarget.value
+                  );
+                  refreshList(testString);
+                }
+              }
+            })
+          ]
+        },
+        {
+          tag: "button",
+          attributes: { type: "button" },
+          modules: delegateEvents({
+            click: () => {
+              const { input } = getRef();
+              const testString = input.value;
+              refreshList(testString);
+            }
+          }),
+          content: "find"
         }
-      }
-    })}
-        />
-        <button
-            type="button"
-            ${delegateEvents({
-      click: () => {
-        const { input } = getRef();
-        const testString = input.value;
-        refreshList(testString);
-      }
-    })}
-        >
-            find
-        </button>
-    </div>`;
+      ]
+    });
   };
 
   // src/js/component/common/debug/debug-overlay/debug-filter/head/definition.js
@@ -40512,64 +40709,76 @@
         };
       };
     });
-    return renderHtml`
-        <div class="c-debug-filter-list">
-            <div class="list" ${setRef("screen")}>
-                <input
-                    type="range"
-                    id="test"
-                    name="test"
-                    min="0"
-                    max="100"
-                    value="0"
-                    step=".5"
-                    ${setRef("scrollbar")}
-                    class="scrollbar"
-                />
-                <span
-                    class="status"
-                    ${bindEffect({
-      toggleClass: { visible: () => proxi.isLoading }
-    })}
-                    >Generate list</span
-                >
-                <span
-                    class="status"
-                    ${bindEffect({
-      toggleClass: { visible: () => proxi.noResult }
-    })}
-                    >no result</span
-                >
-                <div class="scrollable-element" ${setRef("scroller")}>
-                    ${repeat({
+    const renderList = repeat({
       observe: () => proxi.data,
       key: "id",
       useSync: true,
       render: ({ sync, current }) => {
-        return renderHtml`
-                                <debug-filter-list-item
-                                    ${staticProps2(
-          /** @type {DebugFilterListItem['props']} */
-          {
-            id: current.value.id,
-            name: current.value.name
-          }
-        )}
-                                    ${bindProps(
-          /** @returns {ReturnBindProps<DebugFilterListItem>} */
-          () => ({
-            tag: current.value.tag
-          })
-        )}
-                                    ${sync()}
-                                ></debug-filter-list-item>
-                            `;
+        return fromObject({
+          tag: "debug-filter-list-item",
+          modules: [
+            staticProps2(
+              /** @type {DebugFilterListItem['props']} */
+              {
+                id: current.value.id,
+                name: current.value.name
+              }
+            ),
+            bindProps(
+              /** @returns {ReturnBindProps<DebugFilterListItem>} */
+              () => ({
+                tag: current.value.tag
+              })
+            ),
+            sync()
+          ]
+        });
       }
-    })}
-                </div>
-            </div>
-        </div>
-    `;
+    });
+    return fromObject({
+      className: "c-debug-filter-list",
+      content: {
+        className: "list",
+        modules: setRef("screen"),
+        content: [
+          {
+            tag: "input",
+            className: "scrollbar",
+            attributes: {
+              type: "range",
+              id: "test",
+              name: "test",
+              min: 0,
+              max: 100,
+              value: 0,
+              step: 0.5
+            },
+            modules: setRef("scrollbar")
+          },
+          {
+            tag: "span",
+            className: "status",
+            modules: bindEffect({
+              toggleClass: { visible: () => proxi.isLoading }
+            }),
+            content: "Generate list"
+          },
+          {
+            tag: "span",
+            className: "status",
+            modules: bindEffect({
+              toggleClass: { visible: () => proxi.noResult }
+            }),
+            content: "no result"
+          },
+          {
+            className: "scrollable-element",
+            modules: setRef("scroller"),
+            content: renderList
+          }
+        ]
+      }
+    });
   };
 
   // src/js/component/common/debug/debug-overlay/debug-component/utils.js
@@ -40595,30 +40804,46 @@
       () => proxi.active,
       () => proxi.id === proxi.currentId
     );
-    return renderHtml`
-        <div class="c-debug-filter-list-item">
-            <span class="id">${proxi.id}</span> |
-            <span class="tag">${bindText`${"tag"}`}</span> |
-            <span class="name">${proxi.name}</span>
-            <button
-                type="button"
-                class="expand"
-                ${delegateEvents({
-      click: () => {
-        updateDebugComponentById(proxi.id);
-      }
-    })}
-            >
-                [ > ]
-            </button>
-            <span
-                class="selected"
-                ${bindEffect({
-      toggleClass: { active: () => proxi.active }
-    })}
-            ></span>
-        </div>
-    `;
+    return fromObject({
+      className: "c-debug-filter-list-item",
+      content: [
+        {
+          tag: "span",
+          className: "id",
+          content: proxi.id
+        },
+        "|",
+        {
+          tag: "span",
+          className: "tag",
+          content: bindText`${"tag"}`
+        },
+        "|",
+        {
+          tag: "span",
+          className: "name",
+          content: proxi.name
+        },
+        {
+          tag: "button",
+          attributes: { type: "button" },
+          className: "expand",
+          modules: delegateEvents({
+            click: () => {
+              updateDebugComponentById(proxi.id);
+            }
+          }),
+          content: "[ > ]"
+        },
+        {
+          tag: "span",
+          className: "selected",
+          modules: bindEffect({
+            toggleClass: { active: () => proxi.active }
+          })
+        }
+      ]
+    });
   };
 
   // src/js/component/common/debug/debug-overlay/debug-filter/list/item/definition.js
@@ -40676,154 +40901,218 @@
   );
 
   // src/js/component/common/debug/debug-overlay/head/debug-head.js
+  var leftContent = () => [
+    {
+      content: [
+        {
+          tag: "strong",
+          content: "Debug activated:"
+        },
+        `${modules_exports2.getDebugMode()}`
+      ]
+    },
+    {
+      content: [
+        {
+          tag: "strong",
+          content: "Number of component"
+        },
+        `${modules_exports2.componentMap.size} ( excluded generated debug )`
+      ]
+    },
+    {
+      content: [
+        {
+          tag: "strong",
+          content: "Active repeater:"
+        },
+        `${modules_exports2.getNumberOfActiveRepeater()}`
+      ]
+    },
+    {
+      content: [
+        {
+          tag: "strong",
+          content: "Active invalidate:"
+        },
+        `${modules_exports2.getNumberOfActiveInvalidate()}`
+      ]
+    }
+  ];
   var DebugHeadFn = ({ invalidate, getProxi }) => {
     const proxi = getProxi();
-    return renderHtml`<div class="c-debug-head">
-        <div class="general">
-            ${invalidate({
-      observe: () => proxi.active,
-      render: () => {
-        if (!proxi.active) return "";
-        return renderHtml`
-                        <div>
-                            <strong> Debug activated: </strong>
-                            ${modules_exports2.getDebugMode()}
-                        </div>
-                        <div>
-                            <strong>Number of component</strong>:
-                            ${modules_exports2.componentMap.size} ( excluded generated
-                            debug )
-                        </div>
-                        <div>
-                            <strong>Active repeater: </strong>:
-                            ${modules_exports2.getNumberOfActiveRepeater()}
-                        </div>
-                        <div>
-                            <strong>Active invalidate: </strong>:
-                            ${modules_exports2.getNumberOfActiveInvalidate()}
-                        </div>
-                    `;
-      }
-    })}
-        </div>
-        <div class="search">
-            <div>
-                <debug-search></debug-search>
-            </div>
-        </div>
-    </div>`;
+    return fromObject({
+      className: "c-debug-head",
+      content: [
+        {
+          className: "general",
+          content: invalidate({
+            observe: () => proxi.active,
+            render: () => {
+              if (!proxi.active) return "";
+              return fromObject({
+                content: leftContent()
+              });
+            }
+          })
+        },
+        {
+          className: "search",
+          content: {
+            content: {
+              tag: "debug-search"
+            }
+          }
+        }
+      ]
+    });
   };
 
   // src/js/component/common/debug/debug-overlay/head/search/debug-search.js
   var DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
-    return renderHtml`<div class="c-debug-search">
-        <div>
-            <span class="label">
-                <strong>Search by ID:</strong>
-            </span>
-            <input
-                type="text"
-                name="id"
-                ${setRef("id_input")}
-                ${delegateEvents({
-      keydown: (event) => {
-        if (event.code.toLowerCase() === "enter") {
-          event.preventDefault();
-          const id = (
-            /** @type {HTMLInputElement} */
-            event.currentTarget.value
-          );
-          updateDebugComponentById(id ?? "");
+    const searchById = [
+      {
+        className: "label",
+        content: {
+          tag: "strong",
+          content: "Search by ID:"
         }
+      },
+      {
+        tag: "input",
+        attributes: { type: "text", name: "id" },
+        modules: [
+          setRef("id_input"),
+          delegateEvents({
+            keydown: (event) => {
+              if (event.code.toLowerCase() === "enter") {
+                event.preventDefault();
+                const id = (
+                  /** @type {HTMLInputElement} */
+                  event.currentTarget.value
+                );
+                updateDebugComponentById(id ?? "");
+              }
+            }
+          })
+        ]
+      },
+      {
+        tag: "button",
+        attributes: { type: "button" },
+        modules: delegateEvents({
+          click: () => {
+            const { id_input } = getRef();
+            const id = (
+              /** @type {HTMLInputElement} */
+              id_input.value
+            );
+            updateDebugComponentById(id ?? "");
+          }
+        }),
+        content: "find"
       }
-    })}
-            />
-            <button
-                type="button"
-                ${delegateEvents({
-      click: () => {
-        const { id_input } = getRef();
-        const id = (
-          /** @type {HTMLInputElement} */
-          id_input.value
-        );
-        updateDebugComponentById(id ?? "");
-      }
-    })}
-            >
-                find
-            </button>
-        </div>
-        <div>
-            <span class="label">
-                <strong>Search by InstanceName:</strong>
-            </span>
-            <input
-                type="text"
-                ${setRef("instance_input")}
-                name="instance"
-                ${delegateEvents({
-      keydown: (event) => {
-        if (event.code.toLowerCase() === "enter") {
-          event.preventDefault();
-          const instanceName = (
-            /** @type {HTMLInputElement} */
-            event.currentTarget.value
-          );
-          const id = modules_exports2.getIdByInstanceName(instanceName);
-          updateDebugComponentById(id ?? "");
+    ];
+    const searchByIstance = [
+      {
+        className: "label",
+        content: {
+          tag: "strong",
+          content: "Search by InstanceName:"
         }
+      },
+      {
+        tag: "input",
+        attributes: { type: "text", name: "instance" },
+        modules: [
+          setRef("instance_input"),
+          delegateEvents({
+            keydown: (event) => {
+              if (event.code.toLowerCase() === "enter") {
+                event.preventDefault();
+                const instanceName = (
+                  /** @type {HTMLInputElement} */
+                  event.currentTarget.value
+                );
+                const id = modules_exports2.getIdByInstanceName(instanceName);
+                updateDebugComponentById(id ?? "");
+              }
+            }
+          })
+        ]
+      },
+      {
+        tag: "button",
+        attributes: { type: "button" },
+        modules: delegateEvents({
+          click: () => {
+            const { instance_input } = getRef();
+            const instanceName = instance_input.value;
+            const id = modules_exports2.getIdByInstanceName(instanceName);
+            updateDebugComponentById(id ?? "");
+          }
+        }),
+        content: "find"
       }
-    })}
-            />
-            <button
-                type="button"
-                ${delegateEvents({
-      click: () => {
-        const { instance_input } = getRef();
-        const instanceName = instance_input.value;
-        const id = modules_exports2.getIdByInstanceName(instanceName);
-        updateDebugComponentById(id ?? "");
+    ];
+    const clear = [
+      {
+        className: "label",
+        content: {
+          tag: "strong",
+          content: "Clear"
+        }
+      },
+      {
+        tag: "button",
+        attributes: { type: "button" },
+        modules: delegateEvents({
+          click: () => {
+            const { instance_input, id_input } = getRef();
+            instance_input.value = "";
+            id_input.value = "";
+            updateDebugComponentById(RESET_FILTER_DEBUG);
+          }
+        }),
+        content: "clear"
       }
-    })}
-            >
-                find
-            </button>
-            <div>
-                <span class="label">
-                    <strong>Clear:</strong>
-                </span>
-                <button
-                    type="button"
-                    ${delegateEvents({
-      click: () => {
-        const { instance_input, id_input } = getRef();
-        instance_input.value = "";
-        id_input.value = "";
-        updateDebugComponentById(RESET_FILTER_DEBUG);
+    ];
+    const refresh = [
+      {
+        className: "label",
+        content: {
+          tag: "strong",
+          content: "Refresh"
+        }
+      },
+      {
+        tag: "button",
+        attributes: { type: "button" },
+        modules: delegateEvents({
+          click: () => {
+            refreshDebugComponentById();
+          }
+        }),
+        content: "refresh component"
       }
-    })}
-                >
-                    clear
-                </button>
-            </div>
-            <div>
-                <span class="label">
-                    <strong>Refresh:</strong>
-                </span>
-                <button
-                    type="button"
-                    ${delegateEvents({
-      click: () => {
-        refreshDebugComponentById();
-      }
-    })}
-                >
-                    refresh component
-                </button>
-            </div>
-        </div>
-    </div>`;
+    ];
+    return fromObject({
+      className: "c-debug-search",
+      content: [
+        {
+          content: searchById
+        },
+        {
+          content: searchByIstance
+        },
+        {
+          content: clear
+        },
+        {
+          content: refresh
+        }
+      ]
+    });
   };
 
   // src/js/component/common/debug/debug-overlay/head/search/definition.js
@@ -40906,149 +41195,182 @@
         unsubScribeBeforeRouterChange();
       };
     });
-    return renderHtml`<div
-        class="c-debug-overlay"
-        ${bindEffect({
-      toggleClass: { active: () => proxi.active }
-    })}
-    >
-        <button
-            class="background"
-            type="button"
-            ${delegateEvents({
-      click: () => {
-        proxi.active = false;
-        proxi.listType = DEBUG_USE_TREE;
-      }
-    })}
-        ></button>
-        <button
-            type="button"
-            class="close"
-            ${delegateEvents({
-      click: () => {
-        proxi.active = false;
-        proxi.listType = DEBUG_USE_TREE;
-      }
-    })}
-        ></button>
-        <div class="grid">
-            <button
-                type="button"
-                class="log"
-                ${delegateEvents({
-      click: () => {
-        consoleLogDebug();
-      }
-    })}
-            >
-                console log
-            </button>
-
-            <div class="header">
-                <debug-head
-                    ${bindProps(
-      /** @returns {ReturnBindProps<DebugHead>} */
-      () => ({
-        active: proxi.active
+    const listHeader = {
+      className: "list-header",
+      content: [
+        /**
+         * Left top header switch tree/list head
+         */
+        {
+          content: invalidate({
+            observe: [() => proxi.listType, () => proxi.active],
+            render: () => {
+              if (proxi.listType === DEBUG_USE_TREE && proxi.active)
+                return fromObject({
+                  className: "list-title",
+                  content: "Tree structure"
+                });
+              if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
+                return fromObject({ tag: "debug-filter-head" });
+              return "";
+            }
+          })
+        },
+        /**
+         * Toggle List vs Tree
+         */
+        {
+          content: [
+            {
+              tag: "button",
+              className: "list-toggle",
+              modules: [
+                delegateEvents({
+                  click: () => {
+                    proxi.listType = DEBUG_USE_TREE;
+                  }
+                }),
+                bindEffect({
+                  toggleClass: {
+                    active: () => proxi.listType === DEBUG_USE_TREE
+                  }
+                })
+              ],
+              content: "Tree"
+            },
+            {
+              tag: "button",
+              className: "list-toggle",
+              modules: [
+                delegateEvents({
+                  click: () => {
+                    proxi.listType = DEBUG_USE_FILTER_COMPONENT;
+                  }
+                }),
+                bindEffect({
+                  toggleClass: {
+                    active: () => proxi.listType === DEBUG_USE_FILTER_COMPONENT
+                  }
+                })
+              ],
+              content: "Filter"
+            }
+          ]
+        }
+      ]
+    };
+    const listContent = {
+      content: invalidate({
+        observe: [() => proxi.listType, () => proxi.active],
+        render: () => {
+          if (proxi.listType === DEBUG_USE_TREE && proxi.active)
+            return fromObject({
+              tag: "debug-tree",
+              attributes: { name: debugTreeName }
+            });
+          if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
+            return fromObject({
+              tag: "debug-filter-list",
+              attributes: { name: debugFilterListName }
+            });
+          return "";
+        }
       })
-    )}
-                ></debug-head>
-            </div>
-            <div class="list">
-                <div class="list-header">
-                    <div>
-                        ${invalidate({
-      observe: [() => proxi.listType, () => proxi.active],
-      render: () => {
-        if (proxi.listType === DEBUG_USE_TREE && proxi.active)
-          return renderHtml`<div class="list-title">
-                                        Tree structure
-                                    </div>`;
-        if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
-          return renderHtml`<debug-filter-head></debug-filter-head>`;
-        return "";
-      }
-    })}
-                    </div>
-
-                    <div>
-                        <button
-                            type="button"
-                            class="list-toggle"
-                            ${delegateEvents({
-      click: () => {
-        proxi.listType = DEBUG_USE_TREE;
-      }
-    })}
-                            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.listType === DEBUG_USE_TREE
-      }
-    })}
-                        >
-                            Tree
-                        </button>
-                        <button
-                            type="button"
-                            class="list-toggle"
-                            ${delegateEvents({
-      click: () => {
-        proxi.listType = DEBUG_USE_FILTER_COMPONENT;
-      }
-    })}
-                            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.listType === DEBUG_USE_FILTER_COMPONENT
-      }
-    })}
-                        >
-                            Filter
-                        </button>
-                    </div>
-                </div>
-                <div>
-                    ${invalidate({
-      observe: [() => proxi.listType, () => proxi.active],
-      render: () => {
-        if (proxi.listType === DEBUG_USE_TREE && proxi.active)
-          return renderHtml`
-                                    <debug-tree
-                                        name="${debugTreeName}"
-                                    ></debug-tree>
-                                `;
-        if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
-          return renderHtml`
-                                    <debug-filter-list
-                                        name="${debugFilterListName}"
-                                    ></debug-filter-list>
-                                `;
-        return "";
-      }
-    })}
-                </div>
-            </div>
-            <div class="single-component">
-                <debug-component name="${debugComponentName}"></debug-component>
-            </div>
-        </div>
-    </div>`;
+    };
+    return fromObject({
+      className: "c-debug-overlay",
+      modules: bindEffect({
+        toggleClass: { active: () => proxi.active }
+      }),
+      content: [
+        {
+          tag: "button",
+          className: "background",
+          attributes: { type: "button" },
+          modules: delegateEvents({
+            click: () => {
+              proxi.active = false;
+              proxi.listType = DEBUG_USE_TREE;
+            }
+          })
+        },
+        {
+          tag: "button",
+          className: "close",
+          attributes: { type: "button" },
+          modules: delegateEvents({
+            click: () => {
+              proxi.active = false;
+              proxi.listType = DEBUG_USE_TREE;
+            }
+          })
+        },
+        {
+          className: "grid",
+          content: [
+            {
+              tag: "button",
+              className: "log",
+              modules: delegateEvents({
+                click: () => {
+                  consoleLogDebug();
+                }
+              }),
+              content: `console log`
+            },
+            /**
+             * Top header
+             */
+            {
+              className: "header",
+              content: {
+                tag: "debug-head",
+                modules: bindProps(
+                  /** @returns {ReturnBindProps<DebugHead>} */
+                  () => ({
+                    active: proxi.active
+                  })
+                )
+              }
+            },
+            /**
+             * Left column hider ( sitch list/tree & search in list ) & content
+             */
+            {
+              className: "list",
+              content: [listHeader, listContent]
+            },
+            /**
+             * Right column single component
+             */
+            {
+              className: "single-component",
+              content: {
+                tag: "debug-component",
+                attributes: { name: debugComponentName }
+              }
+            }
+          ]
+        }
+      ]
+    });
   };
 
   // src/js/component/common/debug/debug-overlay/tree/recursive-tree.js
   var generateTreeComponents = ({ data, staticProps: staticProps2 }) => {
     return data.map(({ id, componentName, instanceName, children }) => {
-      return renderHtml`<debug-tree-item
-                ${staticProps2(
-        /** @type {import('./item/type').DebugTreeItem['props']} */
-        {
-          id,
-          componentName,
-          instanceName,
-          children
-        }
-      )}
-            ></debug-tree-item>`;
+      return fromObject({
+        tag: "debug-tree-item",
+        modules: staticProps2(
+          /** @type {import('./item/type').DebugTreeItem['props']} */
+          {
+            id,
+            componentName,
+            instanceName,
+            children
+          }
+        )
+      });
     }).join("");
   };
 
@@ -41125,41 +41447,48 @@
         };
       };
     });
-    return renderHtml`
-        <div class="c-debug-tree">
-            <div class="tree-list" ${setRef("screen")}>
-                <input
-                    type="range"
-                    id="test"
-                    name="test"
-                    min="0"
-                    max="100"
-                    value="0"
-                    step=".5"
-                    ${setRef("scrollbar")}
-                    class="scrollbar"
-                />
-                <span
-                    class="status"
-                    ${bindEffect({
-      toggleClass: { visible: () => proxi.isLoading }
-    })}
-                    >Generate tree</span
-                >
-                <div class="scollable-element" ${setRef("scroller")}>
-                    ${invalidate({
-      observe: () => proxi.data,
-      render: () => {
-        return generateTreeComponents({
-          data: proxi.data,
-          staticProps: staticProps2
-        });
+    return fromObject({
+      className: "c-debug-tree",
+      content: {
+        className: "tree-list",
+        modules: setRef("screen"),
+        content: [
+          {
+            tag: "input",
+            className: "scrollbar",
+            attributes: {
+              type: "range",
+              id: "test",
+              min: 0,
+              max: 0,
+              value: 0,
+              step: 0.5
+            },
+            modules: setRef("scrollbar")
+          },
+          {
+            className: "status",
+            modules: bindEffect({
+              toggleClass: { visible: () => proxi.isLoading }
+            }),
+            content: "Generate tree"
+          },
+          {
+            className: "scollable-element",
+            modules: setRef("scroller"),
+            content: invalidate({
+              observe: () => proxi.data,
+              render: () => {
+                return generateTreeComponents({
+                  data: proxi.data,
+                  staticProps: staticProps2
+                });
+              }
+            })
+          }
+        ]
       }
-    })}
-                </div>
-            </div>
-        </div>
-    `;
+    });
   };
 
   // src/js/component/common/debug/debug-overlay/tree/utils.js
@@ -41221,51 +41550,80 @@
         unsubscribeSlide();
       };
     });
-    return renderHtml`<div class="c-debug-tree-item">
-        <div
-            class="tree-header ${hasChildrenClass}"
-            ${delegateEvents({
-      click: () => {
-        proxi.isOpen = !proxi.isOpen;
-      }
-    })}
-            ${bindEffect([
-      {
-        toggleClass: { open: () => proxi.isOpen }
-      },
-      {
-        toggleClass: {
-          "has-children-selected": () => proxi.hasActiveChildren
+    return fromObject({
+      className: "c-debug-tree-item",
+      content: [
+        {
+          className: ["tree-header", hasChildrenClass],
+          modules: [
+            delegateEvents({
+              click: () => {
+                proxi.isOpen = !proxi.isOpen;
+              }
+            }),
+            bindEffect([
+              {
+                toggleClass: { open: () => proxi.isOpen }
+              },
+              {
+                toggleClass: {
+                  "has-children-selected": () => proxi.hasActiveChildren
+                }
+              }
+            ])
+          ],
+          content: [
+            {
+              tag: "span",
+              className: "tree-id",
+              content: proxi.id
+            },
+            "|",
+            {
+              tag: "span",
+              className: "tree-component",
+              content: proxi.componentName
+            },
+            "|",
+            {
+              tag: "span",
+              className: "tree-instance",
+              content: proxi.instanceName
+            },
+            {
+              tag: "span",
+              content: getCounter2(proxi.children.length)
+            },
+            {
+              tag: "button",
+              attributes: { type: "button" },
+              className: "tree-expand",
+              modules: delegateEvents({
+                click: () => {
+                  updateDebugComponentById(proxi.id);
+                }
+              }),
+              content: "[ > ]"
+            },
+            {
+              tag: "span",
+              className: "tree-selected",
+              modules: bindEffect({
+                toggleClass: { active: () => proxi.isActive }
+              })
+            }
+          ]
+        },
+        {
+          className: "tree-content",
+          modules: setRef("content"),
+          content: generateTreeComponents({
+            data: proxi.children,
+            staticProps: staticProps2
+          })
         }
-      }
-    ])}
-        >
-            <span class="tree-id">${proxi.id}</span> |
-            <span class="tree-component">${proxi.componentName}</span> |
-            <span class="tree-instance">${proxi.instanceName}</span>
-            <span>${getCounter2(proxi.children.length)}</span>
-            <button
-                type="button"
-                class="tree-expand"
-                ${delegateEvents({
-      click: () => {
-        updateDebugComponentById(proxi.id);
-      }
-    })}
-            >
-                [ > ]
-            </button>
-            <span
-                class="tree-selected"
-                ${bindEffect({
-      toggleClass: { active: () => proxi.isActive }
-    })}
-            ></span>
-        </div>
-        <div class="tree-content" ${setRef("content")}>
-            ${generateTreeComponents({ data: proxi.children, staticProps: staticProps2 })}
-        </div>
-    </div>`;
+      ]
+    });
   };
 
   // src/js/component/common/debug/debug-overlay/tree/item/definition.js
@@ -42810,11 +43168,14 @@
 
   // src/js/component/common/debug/debug-button.js
   var DebugButtonFn = () => {
-    return renderHtml`
-        <button type="button" class="c-btn-debug">
-            <mobjs-slot></mobjs-slot>
-        </button>
-    `;
+    return fromObject({
+      tag: "button",
+      attributes: { type: "button" },
+      className: "c-btn-debug",
+      content: {
+        tag: "mobjs-slot"
+      }
+    });
   };
 
   // src/js/component/common/debug/definition.js

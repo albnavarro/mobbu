@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 
 /**
  * @import {StaticProps} from "@mobJsType"
@@ -13,16 +13,17 @@ import { html } from '@mobJs';
 export const generateTreeComponents = ({ data, staticProps }) => {
     return data
         .map(({ id, componentName, instanceName, children }) => {
-            return html`<debug-tree-item
-                ${staticProps(
+            return fromObject({
+                tag: 'debug-tree-item',
+                modules: staticProps(
                     /** @type {import('./item/type').DebugTreeItem['props']} */ ({
                         id,
                         componentName,
                         instanceName,
                         children,
                     })
-                )}
-            ></debug-tree-item>`;
+                ),
+            });
         })
         .join('');
 };

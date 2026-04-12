@@ -2,45 +2,80 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
+
+const leftContent = () => [
+    {
+        content: [
+            {
+                tag: 'strong',
+                content: 'Debug activated:',
+            },
+            `${MobJs.getDebugMode()}`,
+        ],
+    },
+    {
+        content: [
+            {
+                tag: 'strong',
+                content: 'Number of component',
+            },
+            `${MobJs.componentMap.size} ( excluded generated debug )`,
+        ],
+    },
+    {
+        content: [
+            {
+                tag: 'strong',
+                content: 'Active repeater:',
+            },
+            `${MobJs.getNumberOfActiveRepeater()}`,
+        ],
+    },
+    {
+        content: [
+            {
+                tag: 'strong',
+                content: 'Active invalidate:',
+            },
+            `${MobJs.getNumberOfActiveInvalidate()}`,
+        ],
+    },
+];
 
 /** @type {MobComponent<import('./type').DebugHead>} */
 export const DebugHeadFn = ({ invalidate, getProxi }) => {
     const proxi = getProxi();
 
-    return html`<div class="c-debug-head">
-        <div class="general">
-            ${invalidate({
-                observe: () => proxi.active,
-                render: () => {
-                    if (!proxi.active) return '';
+    return fromObject({
+        className: 'c-debug-head',
+        content: [
+            {
+                className: 'general',
+                content: invalidate({
+                    observe: () => proxi.active,
+                    render: () => {
+                        if (!proxi.active) return '';
 
-                    return html`
-                        <div>
-                            <strong> Debug activated: </strong>
-                            ${MobJs.getDebugMode()}
-                        </div>
-                        <div>
-                            <strong>Number of component</strong>:
-                            ${MobJs.componentMap.size} ( excluded generated
-                            debug )
-                        </div>
-                        <div>
-                            <strong>Active repeater: </strong>:
-                            ${MobJs.getNumberOfActiveRepeater()}
-                        </div>
-                        <div>
-                            <strong>Active invalidate: </strong>:
-                            ${MobJs.getNumberOfActiveInvalidate()}
-                        </div>
-                    `;
+                        /**
+                         * Recompile left component every update
+                         *
+                         * - Extranl data i sused inside
+                         */
+                        return fromObject({
+                            content: leftContent(),
+                        });
+                    },
+                }),
+            },
+            {
+                className: 'search',
+                content: {
+                    content: {
+                        tag: 'debug-search',
+                    },
                 },
-            })}
-        </div>
-        <div class="search">
-            <div>
-                <debug-search></debug-search>
-            </div>
-        </div>
-    </div>`;
+            },
+        ],
+    });
 };

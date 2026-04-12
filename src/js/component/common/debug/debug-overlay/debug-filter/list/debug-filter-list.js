@@ -1,6 +1,6 @@
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { MobCore } from '@mobCore';
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 
 /**
  * @import {
@@ -198,61 +198,74 @@ export const DebugFilterListFn = ({
         };
     });
 
-    return html`
-        <div class="c-debug-filter-list">
-            <div class="list" ${setRef('screen')}>
-                <input
-                    type="range"
-                    id="test"
-                    name="test"
-                    min="0"
-                    max="100"
-                    value="0"
-                    step=".5"
-                    ${setRef('scrollbar')}
-                    class="scrollbar"
-                />
-                <span
-                    class="status"
-                    ${bindEffect({
+    const renderList = repeat({
+        observe: () => proxi.data,
+        key: 'id',
+        useSync: true,
+        render: ({ sync, current }) => {
+            return fromObject({
+                tag: 'debug-filter-list-item',
+                modules: [
+                    staticProps(
+                        /** @type {DebugFilterListItem['props']} */ ({
+                            id: current.value.id,
+                            name: current.value.name,
+                        })
+                    ),
+                    bindProps(
+                        /** @returns {ReturnBindProps<DebugFilterListItem>} */
+                        () => ({
+                            tag: current.value.tag,
+                        })
+                    ),
+                    sync(),
+                ],
+            });
+        },
+    });
+
+    return fromObject({
+        className: 'c-debug-filter-list',
+        content: {
+            className: 'list',
+            modules: setRef('screen'),
+            content: [
+                {
+                    tag: 'input',
+                    className: 'scrollbar',
+                    attributes: {
+                        type: 'range',
+                        id: 'test',
+                        name: 'test',
+                        min: 0,
+                        max: 100,
+                        value: 0,
+                        step: 0.5,
+                    },
+                    modules: setRef('scrollbar'),
+                },
+                {
+                    tag: 'span',
+                    className: 'status',
+                    modules: bindEffect({
                         toggleClass: { visible: () => proxi.isLoading },
-                    })}
-                    >Generate list</span
-                >
-                <span
-                    class="status"
-                    ${bindEffect({
+                    }),
+                    content: 'Generate list',
+                },
+                {
+                    tag: 'span',
+                    className: 'status',
+                    modules: bindEffect({
                         toggleClass: { visible: () => proxi.noResult },
-                    })}
-                    >no result</span
-                >
-                <div class="scrollable-element" ${setRef('scroller')}>
-                    ${repeat({
-                        observe: () => proxi.data,
-                        key: 'id',
-                        useSync: true,
-                        render: ({ sync, current }) => {
-                            return html`
-                                <debug-filter-list-item
-                                    ${staticProps(
-                                        /** @type {DebugFilterListItem['props']} */ ({
-                                            id: current.value.id,
-                                            name: current.value.name,
-                                        })
-                                    )}
-                                    ${bindProps(
-                                        /** @returns {ReturnBindProps<DebugFilterListItem>} */
-                                        () => ({
-                                            tag: current.value.tag,
-                                        })
-                                    )}
-                                    ${sync()}
-                                ></debug-filter-list-item>
-                            `;
-                        },
-                    })}
-                </div>
-            </div>
-        </div>
-    `;
+                    }),
+                    content: 'no result',
+                },
+                {
+                    className: 'scrollable-element',
+                    modules: setRef('scroller'),
+                    content: renderList,
+                },
+            ],
+        },
+    });
 };

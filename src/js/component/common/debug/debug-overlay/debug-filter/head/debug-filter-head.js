@@ -1,4 +1,4 @@
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { refreshFilterList } from '../list/utils';
 
 /**
@@ -30,37 +30,46 @@ export const DebugFilterHeadFn = ({
         };
     });
 
-    return html`<div class="c-debug-filter-head">
-        <span class="title">Filter by tag</span>
-        <input
-            type="text"
-            value=""
-            name="debug-filter"
-            ${setRef('input')}
-            ${delegateEvents({
-                keydown: (/** @type {KeyboardEvent} */ event) => {
-                    if (event.code.toLowerCase() === 'enter') {
-                        event.preventDefault();
+    return fromObject({
+        className: 'c-debug-filter-head',
+        content: [
+            {
+                tag: 'span',
+                className: 'title',
+                content: 'Filter by tag',
+            },
+            {
+                tag: 'input',
+                attributes: { type: 'text', value: '', name: 'debug-filter' },
+                modules: [
+                    setRef('input'),
+                    delegateEvents({
+                        keydown: (/** @type {KeyboardEvent} */ event) => {
+                            if (event.code.toLowerCase() === 'enter') {
+                                event.preventDefault();
 
-                        const testString = /** @type {HTMLInputElement} */ (
-                            event.currentTarget
-                        ).value;
+                                const testString =
+                                    /** @type {HTMLInputElement} */ (
+                                        event.currentTarget
+                                    ).value;
+                                refreshList(testString);
+                            }
+                        },
+                    }),
+                ],
+            },
+            {
+                tag: 'button',
+                attributes: { type: 'button' },
+                modules: delegateEvents({
+                    click: () => {
+                        const { input } = getRef();
+                        const testString = input.value;
                         refreshList(testString);
-                    }
-                },
-            })}
-        />
-        <button
-            type="button"
-            ${delegateEvents({
-                click: () => {
-                    const { input } = getRef();
-                    const testString = input.value;
-                    refreshList(testString);
-                },
-            })}
-        >
-            find
-        </button>
-    </div>`;
+                    },
+                }),
+                content: 'find',
+            },
+        ],
+    });
 };

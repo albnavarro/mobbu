@@ -2,7 +2,7 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
 import { generateTreeComponents } from '../recursive-tree';
 import { updateDebugComponentById } from '../../debug-component/utils';
@@ -91,49 +91,79 @@ export const DebugTreeItemFn = ({
         };
     });
 
-    return html`<div class="c-debug-tree-item">
-        <div
-            class="tree-header ${hasChildrenClass}"
-            ${delegateEvents({
-                click: () => {
-                    proxi.isOpen = !proxi.isOpen;
-                },
-            })}
-            ${bindEffect([
-                {
-                    toggleClass: { open: () => proxi.isOpen },
-                },
-                {
-                    toggleClass: {
-                        'has-children-selected': () => proxi.hasActiveChildren,
+    return fromObject({
+        className: 'c-debug-tree-item',
+        content: [
+            {
+                className: ['tree-header', hasChildrenClass],
+                modules: [
+                    delegateEvents({
+                        click: () => {
+                            proxi.isOpen = !proxi.isOpen;
+                        },
+                    }),
+                    bindEffect([
+                        {
+                            toggleClass: { open: () => proxi.isOpen },
+                        },
+                        {
+                            toggleClass: {
+                                'has-children-selected': () =>
+                                    proxi.hasActiveChildren,
+                            },
+                        },
+                    ]),
+                ],
+                content: [
+                    {
+                        tag: 'span',
+                        className: 'tree-id',
+                        content: proxi.id,
                     },
-                },
-            ])}
-        >
-            <span class="tree-id">${proxi.id}</span> |
-            <span class="tree-component">${proxi.componentName}</span> |
-            <span class="tree-instance">${proxi.instanceName}</span>
-            <span>${getCounter(proxi.children.length)}</span>
-            <button
-                type="button"
-                class="tree-expand"
-                ${delegateEvents({
-                    click: () => {
-                        updateDebugComponentById(proxi.id);
+                    '|',
+                    {
+                        tag: 'span',
+                        className: 'tree-component',
+                        content: proxi.componentName,
                     },
-                })}
-            >
-                [ > ]
-            </button>
-            <span
-                class="tree-selected"
-                ${bindEffect({
-                    toggleClass: { active: () => proxi.isActive },
-                })}
-            ></span>
-        </div>
-        <div class="tree-content" ${setRef('content')}>
-            ${generateTreeComponents({ data: proxi.children, staticProps })}
-        </div>
-    </div>`;
+                    '|',
+                    {
+                        tag: 'span',
+                        className: 'tree-instance',
+                        content: proxi.instanceName,
+                    },
+                    {
+                        tag: 'span',
+                        content: getCounter(proxi.children.length),
+                    },
+                    {
+                        tag: 'button',
+                        attributes: { type: 'button' },
+                        className: 'tree-expand',
+                        modules: delegateEvents({
+                            click: () => {
+                                updateDebugComponentById(proxi.id);
+                            },
+                        }),
+                        content: '[ > ]',
+                    },
+                    {
+                        tag: 'span',
+                        className: 'tree-selected',
+                        modules: bindEffect({
+                            toggleClass: { active: () => proxi.isActive },
+                        }),
+                    },
+                ],
+            },
+            {
+                className: 'tree-content',
+                modules: setRef('content'),
+                content: generateTreeComponents({
+                    data: proxi.children,
+                    staticProps,
+                }),
+            },
+        ],
+    });
 };
