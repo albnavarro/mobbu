@@ -20,6 +20,110 @@ import { fromObject } from '@mobJs';
  * @param {ProxiState<import('./type').Move3DPage>} params.proxi
  */
 const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
+    /**
+     * Input range element
+     */
+    const controlFactor = {
+        className: 'controls-range',
+        content: [
+            {
+                tag: 'input',
+                attributes: {
+                    type: 'range',
+                    value: proxi.factor,
+                },
+                modules: delegateEvents({
+                    input: (/** @type {KeyboardEvent} */ event) => {
+                        const value =
+                            /** @type {HTMLInputElement} */ (
+                                event.currentTarget
+                            ).value ?? 0;
+                        proxi.factor = Number(value);
+                    },
+                }),
+            },
+        ],
+    };
+
+    /**
+     * Input range element
+     */
+    const controlXDepth = {
+        tag: 'input',
+        attributes: {
+            type: 'range',
+            value: proxi.xDepth,
+        },
+        modules: delegateEvents({
+            input: (/** @type {KeyboardEvent} */ event) => {
+                const value =
+                    /** @type {HTMLInputElement} */ (event.currentTarget)
+                        .value ?? 0;
+
+                proxi.xDepth = Number(value);
+            },
+        }),
+    };
+
+    /**
+     * Input range element
+     */
+    const controlXLimit = {
+        tag: 'input',
+        attributes: {
+            type: 'range',
+            value: proxi.xLimit,
+            max: proxi.xLimit,
+        },
+        modules: delegateEvents({
+            input: (/** @type {KeyboardEvent} */ event) => {
+                const value =
+                    /** @type {HTMLInputElement} */ (event.currentTarget)
+                        .value ?? 0;
+                proxi.xLimit = Number(value);
+            },
+        }),
+    };
+
+    /**
+     * Input range element
+     */
+    const controlYDepth = {
+        tag: 'input',
+        attributes: {
+            type: 'range',
+            value: proxi.yDepth,
+        },
+        modules: delegateEvents({
+            input: (/** @type {KeyboardEvent} */ event) => {
+                const value =
+                    /** @type {HTMLInputElement} */ (event.currentTarget)
+                        .value ?? 0;
+                proxi.yDepth = Number(value);
+            },
+        }),
+    };
+
+    /**
+     * Input range element
+     */
+    const controlYLimit = {
+        tag: 'input',
+        attributes: {
+            type: 'range',
+            value: proxi.yLimit,
+            max: proxi.yLimit,
+        },
+        modules: delegateEvents({
+            input: (/** @type {KeyboardEvent} */ event) => {
+                const value =
+                    /** @type {HTMLInputElement} */ (event.currentTarget)
+                        .value ?? 0;
+                proxi.yLimit = Number(value);
+            },
+        }),
+    };
+
     return fromObject({
         className: 'controls',
         modules: bindEffect({
@@ -42,26 +146,7 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
                 content: [
                     {
                         className: 'controls-range',
-                        content: [
-                            {
-                                tag: 'input',
-                                attributes: {
-                                    type: 'range',
-                                    value: proxi.factor,
-                                },
-                                modules: delegateEvents({
-                                    input: (
-                                        /** @type {KeyboardEvent} */ event
-                                    ) => {
-                                        const value =
-                                            /** @type {HTMLInputElement} */ (
-                                                event.currentTarget
-                                            ).value ?? 0;
-                                        proxi.factor = Number(value);
-                                    },
-                                }),
-                            },
-                        ],
+                        content: controlFactor,
                     },
                     {
                         content: bindObject`factor: ${() => proxi.factor}`,
@@ -73,27 +158,7 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
                 content: [
                     {
                         className: 'controls-range',
-                        content: [
-                            {
-                                tag: 'input',
-                                attributes: {
-                                    type: 'range',
-                                    value: proxi.xDepth,
-                                },
-                                modules: delegateEvents({
-                                    input: (
-                                        /** @type {KeyboardEvent} */ event
-                                    ) => {
-                                        const value =
-                                            /** @type {HTMLInputElement} */ (
-                                                event.currentTarget
-                                            ).value ?? 0;
-
-                                        proxi.xDepth = Number(value);
-                                    },
-                                }),
-                            },
-                        ],
+                        content: controlXDepth,
                     },
                     {
                         content: bindObject`xDepth: ${() => proxi.xDepth}`,
@@ -105,27 +170,7 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
                 content: [
                     {
                         className: 'controls-range',
-                        content: [
-                            {
-                                tag: 'input',
-                                attributes: {
-                                    type: 'range',
-                                    value: proxi.xLimit,
-                                    max: proxi.xLimit,
-                                },
-                                modules: delegateEvents({
-                                    input: (
-                                        /** @type {KeyboardEvent} */ event
-                                    ) => {
-                                        const value =
-                                            /** @type {HTMLInputElement} */ (
-                                                event.currentTarget
-                                            ).value ?? 0;
-                                        proxi.xLimit = Number(value);
-                                    },
-                                }),
-                            },
-                        ],
+                        content: controlXLimit,
                     },
                     {
                         content: bindObject`xLimit: ${() => proxi.xLimit}`,
@@ -137,26 +182,7 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
                 content: [
                     {
                         className: 'controls-range',
-                        content: [
-                            {
-                                tag: 'input',
-                                attributes: {
-                                    type: 'range',
-                                    value: proxi.yDepth,
-                                },
-                                modules: delegateEvents({
-                                    input: (
-                                        /** @type {KeyboardEvent} */ event
-                                    ) => {
-                                        const value =
-                                            /** @type {HTMLInputElement} */ (
-                                                event.currentTarget
-                                            ).value ?? 0;
-                                        proxi.yDepth = Number(value);
-                                    },
-                                }),
-                            },
-                        ],
+                        content: controlYDepth,
                     },
                     {
                         content: bindObject`yDepth: ${() => proxi.yDepth}`,
@@ -168,27 +194,7 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
                 content: [
                     {
                         className: 'controls-range',
-                        content: [
-                            {
-                                tag: 'input',
-                                attributes: {
-                                    type: 'range',
-                                    value: proxi.yLimit,
-                                    max: proxi.yLimit,
-                                },
-                                modules: delegateEvents({
-                                    input: (
-                                        /** @type {KeyboardEvent} */ event
-                                    ) => {
-                                        const value =
-                                            /** @type {HTMLInputElement} */ (
-                                                event.currentTarget
-                                            ).value ?? 0;
-                                        proxi.yLimit = Number(value);
-                                    },
-                                }),
-                            },
-                        ],
+                        content: controlYLimit,
                     },
                     {
                         content: bindObject`yLimit: ${() => proxi.yLimit}`,

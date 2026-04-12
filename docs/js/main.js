@@ -25211,6 +25211,73 @@
         };
       };
     });
+    const bottonRow = {
+      className: "grid-bottom",
+      modules: bindEffect({
+        toggleClass: {
+          active: () => proxi.isMounted
+        }
+      })
+    };
+    const backgroundTitle = {
+      className: "title",
+      modules: bindEffect({
+        toggleClass: {
+          "is-visible": () => proxi.isMounted
+        }
+      }),
+      content: {
+        tag: "h1",
+        className: "title-big",
+        content: proxi.title
+      }
+    };
+    const items = proxi.items.map((item, index) => {
+      return fromObject({
+        tag: "li",
+        className: "item",
+        content: {
+          tag: "a",
+          className: getItemClass(index),
+          attributes: {
+            href: item.url
+          },
+          modules: bindEffect({
+            toggleClass: {
+              active: () => proxi.isMounted
+            }
+          }),
+          content: [
+            {
+              tag: "span",
+              className: `counter index-${index}`,
+              content: getCounter(index)
+            },
+            {
+              tag: "span",
+              className: `index-${index}`,
+              content: item.title
+            }
+          ]
+        }
+      });
+    });
+    const scrollerBlock = {
+      className: "scrollable-element",
+      modules: [
+        setRef("scrollerElement"),
+        bindEffect({
+          toggleClass: {
+            "use-drag-cursor": () => proxi.showControls
+          }
+        })
+      ],
+      content: {
+        tag: "ul",
+        className: "items",
+        content: items
+      }
+    };
     return fromObject({
       className: "l-links",
       content: [
@@ -25232,74 +25299,7 @@
             {
               className: "grid-item",
               modules: setRef("screenElement"),
-              content: [
-                {
-                  className: "grid-bottom",
-                  modules: bindEffect({
-                    toggleClass: {
-                      active: () => proxi.isMounted
-                    }
-                  })
-                },
-                {
-                  className: "title",
-                  modules: bindEffect({
-                    toggleClass: {
-                      "is-visible": () => proxi.isMounted
-                    }
-                  }),
-                  content: {
-                    tag: "h1",
-                    className: "title-big",
-                    content: proxi.title
-                  }
-                },
-                {
-                  className: "scrollable-element",
-                  modules: [
-                    setRef("scrollerElement"),
-                    bindEffect({
-                      toggleClass: {
-                        "use-drag-cursor": () => proxi.showControls
-                      }
-                    })
-                  ],
-                  content: {
-                    tag: "ul",
-                    className: "items",
-                    content: proxi.items.map((item, index) => {
-                      return fromObject({
-                        tag: "li",
-                        className: "item",
-                        content: {
-                          tag: "a",
-                          className: getItemClass(index),
-                          attributes: {
-                            href: item.url
-                          },
-                          modules: bindEffect({
-                            toggleClass: {
-                              active: () => proxi.isMounted
-                            }
-                          }),
-                          content: [
-                            {
-                              tag: "span",
-                              className: `counter index-${index}`,
-                              content: getCounter(index)
-                            },
-                            {
-                              tag: "span",
-                              className: `index-${index}`,
-                              content: item.title
-                            }
-                          ]
-                        }
-                      });
-                    })
-                  }
-                }
-              ]
+              content: [bottonRow, backgroundTitle, scrollerBlock]
             },
             {
               tag: "h6",
@@ -34902,6 +34902,93 @@
 
   // src/js/component/pages/move-3d/move-3d-page.js
   var getControls6 = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
+    const controlFactor = {
+      className: "controls-range",
+      content: [
+        {
+          tag: "input",
+          attributes: {
+            type: "range",
+            value: proxi.factor
+          },
+          modules: delegateEvents({
+            input: (event) => {
+              const value = (
+                /** @type {HTMLInputElement} */
+                event.currentTarget.value ?? 0
+              );
+              proxi.factor = Number(value);
+            }
+          })
+        }
+      ]
+    };
+    const controlXDepth = {
+      tag: "input",
+      attributes: {
+        type: "range",
+        value: proxi.xDepth
+      },
+      modules: delegateEvents({
+        input: (event) => {
+          const value = (
+            /** @type {HTMLInputElement} */
+            event.currentTarget.value ?? 0
+          );
+          proxi.xDepth = Number(value);
+        }
+      })
+    };
+    const controlXLimit = {
+      tag: "input",
+      attributes: {
+        type: "range",
+        value: proxi.xLimit,
+        max: proxi.xLimit
+      },
+      modules: delegateEvents({
+        input: (event) => {
+          const value = (
+            /** @type {HTMLInputElement} */
+            event.currentTarget.value ?? 0
+          );
+          proxi.xLimit = Number(value);
+        }
+      })
+    };
+    const controlYDepth = {
+      tag: "input",
+      attributes: {
+        type: "range",
+        value: proxi.yDepth
+      },
+      modules: delegateEvents({
+        input: (event) => {
+          const value = (
+            /** @type {HTMLInputElement} */
+            event.currentTarget.value ?? 0
+          );
+          proxi.yDepth = Number(value);
+        }
+      })
+    };
+    const controlYLimit = {
+      tag: "input",
+      attributes: {
+        type: "range",
+        value: proxi.yLimit,
+        max: proxi.yLimit
+      },
+      modules: delegateEvents({
+        input: (event) => {
+          const value = (
+            /** @type {HTMLInputElement} */
+            event.currentTarget.value ?? 0
+          );
+          proxi.yLimit = Number(value);
+        }
+      })
+    };
     return fromObject({
       className: "controls",
       modules: bindEffect({
@@ -34924,24 +35011,7 @@
           content: [
             {
               className: "controls-range",
-              content: [
-                {
-                  tag: "input",
-                  attributes: {
-                    type: "range",
-                    value: proxi.factor
-                  },
-                  modules: delegateEvents({
-                    input: (event) => {
-                      const value = (
-                        /** @type {HTMLInputElement} */
-                        event.currentTarget.value ?? 0
-                      );
-                      proxi.factor = Number(value);
-                    }
-                  })
-                }
-              ]
+              content: controlFactor
             },
             {
               content: bindObject`factor: ${() => proxi.factor}`
@@ -34953,24 +35023,7 @@
           content: [
             {
               className: "controls-range",
-              content: [
-                {
-                  tag: "input",
-                  attributes: {
-                    type: "range",
-                    value: proxi.xDepth
-                  },
-                  modules: delegateEvents({
-                    input: (event) => {
-                      const value = (
-                        /** @type {HTMLInputElement} */
-                        event.currentTarget.value ?? 0
-                      );
-                      proxi.xDepth = Number(value);
-                    }
-                  })
-                }
-              ]
+              content: controlXDepth
             },
             {
               content: bindObject`xDepth: ${() => proxi.xDepth}`
@@ -34982,25 +35035,7 @@
           content: [
             {
               className: "controls-range",
-              content: [
-                {
-                  tag: "input",
-                  attributes: {
-                    type: "range",
-                    value: proxi.xLimit,
-                    max: proxi.xLimit
-                  },
-                  modules: delegateEvents({
-                    input: (event) => {
-                      const value = (
-                        /** @type {HTMLInputElement} */
-                        event.currentTarget.value ?? 0
-                      );
-                      proxi.xLimit = Number(value);
-                    }
-                  })
-                }
-              ]
+              content: controlXLimit
             },
             {
               content: bindObject`xLimit: ${() => proxi.xLimit}`
@@ -35012,24 +35047,7 @@
           content: [
             {
               className: "controls-range",
-              content: [
-                {
-                  tag: "input",
-                  attributes: {
-                    type: "range",
-                    value: proxi.yDepth
-                  },
-                  modules: delegateEvents({
-                    input: (event) => {
-                      const value = (
-                        /** @type {HTMLInputElement} */
-                        event.currentTarget.value ?? 0
-                      );
-                      proxi.yDepth = Number(value);
-                    }
-                  })
-                }
-              ]
+              content: controlYDepth
             },
             {
               content: bindObject`yDepth: ${() => proxi.yDepth}`
@@ -35041,25 +35059,7 @@
           content: [
             {
               className: "controls-range",
-              content: [
-                {
-                  tag: "input",
-                  attributes: {
-                    type: "range",
-                    value: proxi.yLimit,
-                    max: proxi.yLimit
-                  },
-                  modules: delegateEvents({
-                    input: (event) => {
-                      const value = (
-                        /** @type {HTMLInputElement} */
-                        event.currentTarget.value ?? 0
-                      );
-                      proxi.yLimit = Number(value);
-                    }
-                  })
-                }
-              ]
+              content: controlYLimit
             },
             {
               content: bindObject`yLimit: ${() => proxi.yLimit}`

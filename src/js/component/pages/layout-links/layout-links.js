@@ -71,6 +71,89 @@ export const LayoutLinksFn = ({
         };
     });
 
+    /**
+     * Empty bottom row
+     */
+    const bottonRow = {
+        className: 'grid-bottom',
+        modules: bindEffect({
+            toggleClass: {
+                active: () => proxi.isMounted,
+            },
+        }),
+    };
+
+    /**
+     * Big title on background
+     */
+    const backgroundTitle = {
+        className: 'title',
+        modules: bindEffect({
+            toggleClass: {
+                'is-visible': () => proxi.isMounted,
+            },
+        }),
+        content: {
+            tag: 'h1',
+            className: 'title-big',
+            content: proxi.title,
+        },
+    };
+
+    /**
+     * Scroller items
+     */
+    const items = proxi.items.map((item, index) => {
+        return fromObject({
+            tag: 'li',
+            className: 'item',
+            content: {
+                tag: 'a',
+                className: getItemClass(index),
+                attributes: {
+                    href: item.url,
+                },
+                modules: bindEffect({
+                    toggleClass: {
+                        active: () => proxi.isMounted,
+                    },
+                }),
+                content: [
+                    {
+                        tag: 'span',
+                        className: `counter index-${index}`,
+                        content: getCounter(index),
+                    },
+                    {
+                        tag: 'span',
+                        className: `index-${index}`,
+                        content: item.title,
+                    },
+                ],
+            },
+        });
+    });
+
+    /**
+     * Scroller block
+     */
+    const scrollerBlock = {
+        className: 'scrollable-element',
+        modules: [
+            setRef('scrollerElement'),
+            bindEffect({
+                toggleClass: {
+                    'use-drag-cursor': () => proxi.showControls,
+                },
+            }),
+        ],
+        content: {
+            tag: 'ul',
+            className: 'items',
+            content: items,
+        },
+    };
+
     return fromObject({
         className: 'l-links',
         content: [
@@ -92,77 +175,7 @@ export const LayoutLinksFn = ({
                     {
                         className: 'grid-item',
                         modules: setRef('screenElement'),
-                        content: [
-                            {
-                                className: 'grid-bottom',
-                                modules: bindEffect({
-                                    toggleClass: {
-                                        active: () => proxi.isMounted,
-                                    },
-                                }),
-                            },
-                            {
-                                className: 'title',
-                                modules: bindEffect({
-                                    toggleClass: {
-                                        'is-visible': () => proxi.isMounted,
-                                    },
-                                }),
-                                content: {
-                                    tag: 'h1',
-                                    className: 'title-big',
-                                    content: proxi.title,
-                                },
-                            },
-                            {
-                                className: 'scrollable-element',
-                                modules: [
-                                    setRef('scrollerElement'),
-                                    bindEffect({
-                                        toggleClass: {
-                                            'use-drag-cursor': () =>
-                                                proxi.showControls,
-                                        },
-                                    }),
-                                ],
-                                content: {
-                                    tag: 'ul',
-                                    className: 'items',
-                                    content: proxi.items.map((item, index) => {
-                                        return fromObject({
-                                            tag: 'li',
-                                            className: 'item',
-                                            content: {
-                                                tag: 'a',
-                                                className: getItemClass(index),
-                                                attributes: {
-                                                    href: item.url,
-                                                },
-                                                modules: bindEffect({
-                                                    toggleClass: {
-                                                        active: () =>
-                                                            proxi.isMounted,
-                                                    },
-                                                }),
-                                                content: [
-                                                    {
-                                                        tag: 'span',
-                                                        className: `counter index-${index}`,
-                                                        content:
-                                                            getCounter(index),
-                                                    },
-                                                    {
-                                                        tag: 'span',
-                                                        className: `index-${index}`,
-                                                        content: item.title,
-                                                    },
-                                                ],
-                                            },
-                                        });
-                                    }),
-                                },
-                            },
-                        ],
+                        content: [bottonRow, backgroundTitle, scrollerBlock],
                     },
                     {
                         tag: 'h6',
