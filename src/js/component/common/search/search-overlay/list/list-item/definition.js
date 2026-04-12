@@ -6,7 +6,7 @@ import { SearchOverlayListItemFn } from './list-item';
  */
 
 export const SearchOverlayListItem = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').SearchOverlayListItem>} */
+    /** @type {CreateComponentParams<import('./type').SearchOverlayListItemType>} */
     ({
         tag: 'search-overlay-list-item',
         component: SearchOverlayListItemFn,

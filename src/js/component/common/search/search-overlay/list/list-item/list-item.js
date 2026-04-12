@@ -1,4 +1,4 @@
-import { html, MobJs } from '@mobJs';
+import { fromObject, MobJs } from '@mobJs';
 import { toggleSearchOverlay } from '../../utils';
 
 /**
@@ -14,7 +14,7 @@ const loadPage = ({ uri }) => {
  * @import {MobComponent} from "@mobJsType"
  */
 
-/** @type {MobComponent<import('./type').SearchOverlayListItem>} */
+/** @type {MobComponent<import('./type').SearchOverlayListItemType>} */
 export const SearchOverlayListItemFn = ({
     getProxi,
     bindEffect,
@@ -23,29 +23,33 @@ export const SearchOverlayListItemFn = ({
 }) => {
     const proxi = getProxi();
 
-    return html`
-        <li
-            ${bindEffect({
-                toggleClass: {
-                    current: () => proxi.active,
+    return fromObject({
+        tag: 'li',
+        modules: bindEffect({
+            toggleClass: {
+                current: () => proxi.active,
+            },
+        }),
+        content: {
+            tag: 'button',
+            modules: delegateEvents({
+                click: () => {
+                    loadPage({ uri: proxi.uri });
                 },
-            })}
-        >
-            <button
-                type="button"
-                ${delegateEvents({
-                    click: () => {
-                        loadPage({ uri: proxi.uri });
+            }),
+            content: [
+                {
+                    className: 'item-section',
+                    content: {
+                        tag: 'p',
+                        content: bindObject`<strong>${() => proxi.breadCrumbs}</strong> (${() => proxi.count})`,
                     },
-                })}
-            >
-                <div class="item-section">
-                    <p>
-                        ${bindObject`<strong>${() => proxi.breadCrumbs}</strong> (${() => proxi.count})`}
-                    </p>
-                </div>
-                <h6>${bindObject`${() => proxi.title}`}</h6>
-            </button>
-        </li>
-    `;
+                },
+                {
+                    tag: 'h6',
+                    content: bindObject`${() => proxi.title}`,
+                },
+            ],
+        },
+    });
 };

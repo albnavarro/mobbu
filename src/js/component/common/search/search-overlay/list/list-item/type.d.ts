@@ -1,4 +1,4 @@
-export interface SearchOverlayListItem {
+export interface SearchOverlayListItemType {
     props: {
         uri: string;
         breadCrumbs: string;

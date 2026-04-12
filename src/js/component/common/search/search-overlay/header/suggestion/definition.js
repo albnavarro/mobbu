@@ -7,7 +7,7 @@ import { SearchOverlaySuggestionItem } from './suggestion-item/definition';
  */
 
 export const SearchOverlaySuggestion = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').SearchOverlaySuggestion>} */
+    /** @type {CreateComponentParams<import('./type').SearchOverlaySuggestionType>} */
     ({
         tag: 'search-overlay-suggestion',
         component: SearchOverlaySuggestionFn,

@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
 import { closeSearchSuggestion, updateSearchFromSuggestion } from '../../utils';
 
 /**
@@ -19,7 +19,7 @@ const onKeyDown = ({ code, word }) => {
     }
 };
 
-/** @type {import('@mobJsType').MobComponent<import('./type').SearchOverlaySugestionItem>} */
+/** @type {import('@mobJsType').MobComponent<import('./type').SearchOverlaySugestionItemType>} */
 export const SearchOverlaySuggestionItemFn = ({
     getProxi,
     delegateEvents,
@@ -27,27 +27,25 @@ export const SearchOverlaySuggestionItemFn = ({
 }) => {
     const proxi = getProxi();
 
-    return html`
-        <li>
-            <button
-                type="button"
-                class="button"
-                ${delegateEvents({
-                    click: () => {
-                        updateSearchFromSuggestion(proxi.word);
-                    },
-                    keydown: (/** @type {KeyboardEvent} */ event) => {
-                        event.preventDefault();
+    return fromObject({
+        tag: 'li',
+        content: {
+            tag: 'button',
+            className: 'button',
+            modules: delegateEvents({
+                click: () => {
+                    updateSearchFromSuggestion(proxi.word);
+                },
+                keydown: (/** @type {KeyboardEvent} */ event) => {
+                    event.preventDefault();
 
-                        onKeyDown({
-                            code: event.code,
-                            word: proxi.word,
-                        });
-                    },
-                })}
-            >
-                ${bindObject`${() => proxi.wordHiglight}`}
-            </button>
-        </li>
-    `;
+                    onKeyDown({
+                        code: event.code,
+                        word: proxi.word,
+                    });
+                },
+            }),
+            content: bindObject`${() => proxi.wordHiglight}`,
+        },
+    });
 };

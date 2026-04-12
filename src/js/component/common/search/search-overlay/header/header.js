@@ -1,15 +1,17 @@
+import { getCommonData } from '@data/index';
+import { MobCore } from '@mobCore';
+import { fromObject } from '@mobJs';
+import { resetOverlayList, updateOverlayList } from '../list/utils';
+import { SearchOverlaySuggestion } from './suggestion/definition';
+
 /**
  * @import {
  *   GetRef,
  *   MobComponent,
  *   ReturnBindProps
  * } from "@mobJsType"
+ * @import {SearchOverlaySuggestionType} from "./suggestion/type"
  */
-
-import { getCommonData } from '@data/index';
-import { MobCore } from '@mobCore';
-import { html } from '@mobJs';
-import { resetOverlayList, updateOverlayList } from '../list/utils';
 
 /**
  * @param {object} params
@@ -200,94 +202,110 @@ export const SearchOverlayHeaderFn = ({
         });
     });
 
-    return html`<div class="c-search-header">
-        <div class="search-wrap">
-            <input
-                type="text"
-                class="serach-input"
-                name="search_input"
-                ${setRef('search_input')}
-                ${delegateEvents({
-                    keyup: MobCore.useDebounce(
-                        (/** @type {KeyboardEvent} */ event) => {
-                            if (event?.code?.toLowerCase?.() === 'enter') {
-                                event.preventDefault();
-                                sendToList({ getRef, proxi });
-                                proxi.suggestionListData = [];
-                                return;
-                            }
-
-                            if (event?.code?.toLowerCase?.() === 'escape') {
-                                event.preventDefault();
-                                proxi.suggestionListData = [];
-                                return;
-                            }
-
-                            // update suggestion
-                            const currentSearch =
-                                /** @type {HTMLInputElement} */ (
-                                    event.currentTarget
-                                ).value;
-                            filterSuggestion({ currentSearch, proxi });
-                        },
-                        60
-                    ),
-                })}
-            />
-            <div
-                class="suggestion-wrap"
-                ${setRef('suggestionElement')}
-                ${bindEffect({
-                    toggleClass: {
-                        active: () => proxi.suggestionListActive,
-                    },
-                })}
-            >
-                <search-overlay-suggestion
-                    ${bindProps(
-                        /** @returns {ReturnBindProps<import('./suggestion/type').SearchOverlaySuggestion>} */
-                        () => ({
-                            list: proxi.suggestionListData,
-                        })
-                    )}
-                ></search-overlay-suggestion>
-            </div>
-        </div>
-
-        <!-- Submit -->
-        <button
-            type="button"
-            class="search-button"
-            ${delegateEvents({
-                click: () => {
+    /**
+     * Search button handler.
+     */
+    const searchModules = [
+        setRef('search_input'),
+        delegateEvents({
+            keyup: MobCore.useDebounce((/** @type {KeyboardEvent} */ event) => {
+                if (event?.code?.toLowerCase?.() === 'enter') {
+                    event.preventDefault();
                     sendToList({ getRef, proxi });
-                },
-                keydown: (/** @type {KeyboardEvent} */ event) => {
-                    if (event.code.toLowerCase() === 'enter') {
-                        sendToList({ getRef, proxi });
-                    }
-                },
-            })}
-        >
-            submit
-        </button>
+                    proxi.suggestionListData = [];
+                    return;
+                }
 
-        <!-- Reset -->
-        <button
-            type="button"
-            class="search-button"
-            ${delegateEvents({
-                click: () => {
-                    sendReset({ getRef, proxi });
-                },
-                keydown: (/** @type {KeyboardEvent} */ event) => {
-                    if (event.code.toLowerCase() === 'enter') {
+                if (event?.code?.toLowerCase?.() === 'escape') {
+                    event.preventDefault();
+                    proxi.suggestionListData = [];
+                    return;
+                }
+
+                // update suggestion
+                const currentSearch = /** @type {HTMLInputElement} */ (
+                    event.currentTarget
+                ).value;
+                filterSuggestion({
+                    currentSearch,
+                    proxi,
+                });
+            }, 60),
+        }),
+    ];
+
+    return fromObject({
+        className: 'c-search-header',
+        content: [
+            {
+                className: 'search-wrap',
+                content: [
+                    {
+                        tag: 'input',
+                        className: 'serach-input',
+                        attributes: { name: 'search_input' },
+                        modules: searchModules,
+                    },
+                    {
+                        className: 'suggestion-wrap',
+                        modules: [
+                            setRef('suggestionElement'),
+                            bindEffect({
+                                toggleClass: {
+                                    active: () => proxi.suggestionListActive,
+                                },
+                            }),
+                        ],
+                        content: {
+                            component: SearchOverlaySuggestion,
+                            modules: bindProps(
+                                /** @returns {ReturnBindProps<SearchOverlaySuggestionType>} */
+                                () => ({
+                                    list: proxi.suggestionListData,
+                                })
+                            ),
+                        },
+                    },
+                ],
+            },
+            /**
+             * Submit
+             */
+            {
+                tag: 'button',
+                attributes: { type: 'button' },
+                className: 'search-button',
+                modules: delegateEvents({
+                    click: () => {
+                        sendToList({ getRef, proxi });
+                    },
+                    keydown: (/** @type {KeyboardEvent} */ event) => {
+                        if (event.code.toLowerCase() === 'enter') {
+                            sendToList({ getRef, proxi });
+                        }
+                    },
+                }),
+                content: 'submit',
+            },
+            /**
+             * Reset
+             */
+            {
+                tag: 'button',
+                attributes: { type: 'button' },
+                className: 'search-button',
+                modules: delegateEvents({
+                    click: () => {
                         sendReset({ getRef, proxi });
-                    }
-                },
-            })}
-        >
-            reset
-        </button>
-    </div>`;
+                    },
+                    keydown: (/** @type {KeyboardEvent} */ event) => {
+                        if (event.code.toLowerCase() === 'enter') {
+                            sendReset({ getRef, proxi });
+                        }
+                    },
+                }),
+                content: 'reset',
+            },
+        ],
+    });
 };

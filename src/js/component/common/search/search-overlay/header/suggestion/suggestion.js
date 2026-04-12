@@ -1,42 +1,45 @@
-import { html } from '@mobJs';
+import { fromObject } from '@mobJs';
+import { SearchOverlaySuggestionItem } from './suggestion-item/definition';
 
 /**
  * @import {
  *   MobComponent,
  *   ReturnBindProps
  * } from "@mobJsType"
- * @import {SearchOverlaySugestionItem} from "./suggestion-item/type"
+ * @import {SearchOverlaySugestionItemType} from "./suggestion-item/type"
  */
 
-/** @type {MobComponent<import('./type').SearchOverlaySuggestion>} */
+/** @type {MobComponent<import('./type').SearchOverlaySuggestionType>} */
 export const SearchOverlaySuggestionFn = ({ getProxi, repeat, bindProps }) => {
     const proxi = getProxi();
 
-    return html`<div>
-        <div class="c-search-suggestion">
-            <ul class="list">
-                ${repeat({
-                    observe: () => proxi.list,
-                    key: 'word',
-                    render: ({ current }) => {
-                        return html`
-                            <search-overlay-suggestion-item
-                                ${bindProps(
-                                    /**
-                                     * @returns {ReturnBindProps<SearchOverlaySugestionItem>}
-                                     */
-                                    () => ({
-                                        word: current.value.word,
-                                        wordHiglight:
-                                            current.value.wordHiglight,
-                                    })
-                                )}
-                            >
-                            </search-overlay-suggestion-item>
-                        `;
-                    },
-                })}
-            </ul>
-        </div>
-    </div>`;
+    const repeaterRender = repeat({
+        observe: () => proxi.list,
+        key: 'word',
+        render: ({ current }) => {
+            return fromObject({
+                component: SearchOverlaySuggestionItem,
+                modules: bindProps(
+                    /**
+                     * @returns {ReturnBindProps<SearchOverlaySugestionItemType>}
+                     */
+                    () => ({
+                        word: current.value.word,
+                        wordHiglight: current.value.wordHiglight,
+                    })
+                ),
+            });
+        },
+    });
+
+    return fromObject({
+        content: {
+            className: 'c-search-suggestion',
+            content: {
+                tag: 'ul',
+                className: 'list',
+                content: repeaterRender,
+            },
+        },
+    });
 };

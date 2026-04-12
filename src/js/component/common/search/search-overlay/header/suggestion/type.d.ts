@@ -3,7 +3,7 @@ export interface SuggestionItem {
     wordHiglight: string;
 }
 
-export interface SearchOverlaySuggestion {
+export interface SearchOverlaySuggestionType {
     props: {
         list: SuggestionItem[];
     };

@@ -1,5 +1,4 @@
 import { fromObject } from '@mobJs';
-import { DebugTreeItem } from './item/definition';
 
 /**
  * @import {StaticProps} from "@mobJsType"
@@ -15,7 +14,10 @@ export const generateTreeComponents = ({ data, staticProps }) => {
     return data
         .map(({ id, componentName, instanceName, children }) => {
             return fromObject({
-                component: DebugTreeItem,
+                /**
+                 * Use tag instead component to prevent dependency cycle
+                 */
+                tag: 'debug-tree-item',
                 modules: staticProps(
                     /** @type {import('./item/type').DebugTreeItemType['props']} */ ({
                         id,

@@ -1,3 +1,8 @@
+import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
+import { fromObject, html, MobJs } from '@mobJs';
+import { fetchSearchResult } from './fetch-data';
+import { SearchOverlayListItem } from './list-item/definition';
+
 /**
  * @import {
  *   GetRef,
@@ -5,10 +10,6 @@
  *   ReturnBindProps
  * } from "@mobJsType"
  */
-
-import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
-import { html, MobJs } from '@mobJs';
-import { fetchSearchResult } from './fetch-data';
 
 /**
  * @param {object} params
@@ -112,72 +113,89 @@ export const SearchOverlayListFn = ({
         };
     });
 
-    return html`<div class="c-search-list" ${setRef('screen')}>
-        <span
-            class="loader"
-            ${bindEffect({
-                toggleClass: {
-                    active: () => proxi.loading,
-                },
-            })}
-            >fetch data</span
-        >
-        <input
-            type="range"
-            id="test"
-            name="test"
-            min="0"
-            max="100"
-            value="0"
-            step=".5"
-            ${setRef('scrollbar')}
-            class="scrollbar"
-        />
+    /**
+     * Result indicator
+     */
+    const resultUI = {
+        content: invalidate({
+            observe: () => proxi.noResult,
+            render: () => {
+                return proxi.noResult
+                    ? fromObject({
+                          tag: 'ul',
+                          content: {
+                              tag: 'li',
+                              content: {
+                                  className: 'section',
+                                  content: {
+                                      tag: 'p',
+                                      content: html`<strong>no result</strong>`,
+                                  },
+                              },
+                          },
+                      })
+                    : '';
+            },
+        }),
+    };
 
-        <!-- no result -->
-        <div>
-            ${invalidate({
-                observe: () => proxi.noResult,
-                render: () => {
-                    return proxi.noResult
-                        ? html`
-                              <ul>
-                                  <li>
-                                      <div class="section">
-                                          <p><strong>no result</strong></p>
-                                      </div>
-                                  </li>
-                              </ul>
-                          `
-                        : '';
-                },
-            })}
-        </div>
+    /**
+     * Rendrer list
+     */
+    const renderList = {
+        tag: 'ul',
+        modules: setRef('scroller'),
+        content: repeat({
+            observe: () => proxi.list,
+            render: ({ current }) => {
+                return fromObject({
+                    component: SearchOverlayListItem,
+                    modules: bindProps(
+                        /** @returns {ReturnBindProps<import('./list-item/type').SearchOverlayListItemType>} */
+                        () => ({
+                            active:
+                                proxi.activeRoute.route === current.value.uri,
+                            uri: current.value.uri,
+                            breadCrumbs: current.value.breadCrumbs,
+                            count: current.value.count,
+                            title: current.value.title,
+                        })
+                    ),
+                });
+            },
+        }),
+    };
 
-        <!-- result list -->
-        <ul ${setRef('scroller')}>
-            ${repeat({
-                observe: () => proxi.list,
-                render: ({ current }) => {
-                    return html`
-                        <search-overlay-list-item
-                            ${bindProps(
-                                /** @returns {ReturnBindProps<import('./list-item/type').SearchOverlayListItem>} */
-                                () => ({
-                                    active:
-                                        proxi.activeRoute.route ===
-                                        current.value.uri,
-                                    uri: current.value.uri,
-                                    breadCrumbs: current.value.breadCrumbs,
-                                    count: current.value.count,
-                                    title: current.value.title,
-                                })
-                            )}
-                        >
-                        </search-overlay-list-item>
-                    `;
+    return fromObject({
+        className: 'c-search-list',
+        modules: setRef('screen'),
+        content: [
+            {
+                tag: 'span',
+                className: 'loader',
+                modules: bindEffect({
+                    toggleClass: {
+                        active: () => proxi.loading,
+                    },
+                }),
+                content: 'fetch data',
+            },
+            {
+                tag: 'input',
+                className: 'scrollbar',
+                attributes: {
+                    type: 'range',
+                    id: 'test',
+                    name: 'test',
+                    min: 0,
+                    max: 100,
+                    value: 0,
+                    step: 0.5,
                 },
-            })}
-        </ul>
-    </div>`;
+                modules: setRef('scrollbar'),
+            },
+            resultUI,
+            renderList,
+        ],
+    });
 };

@@ -41178,6 +41178,144 @@
     console.log("instanceMap", instanceMap);
   };
 
+  // src/js/component/common/debug/debug-overlay/tree/recursive-tree.js
+  var generateTreeComponents = ({ data, staticProps: staticProps2 }) => {
+    return data.map(({ id, componentName, instanceName, children }) => {
+      return fromObject({
+        /**
+         * Use tag instead component to prevent dependency cycle
+         */
+        tag: "debug-tree-item",
+        modules: staticProps2(
+          /** @type {import('./item/type').DebugTreeItemType['props']} */
+          {
+            id,
+            componentName,
+            instanceName,
+            children
+          }
+        )
+      });
+    }).join("");
+  };
+
+  // src/js/component/common/debug/debug-overlay/tree/debug-tree.js
+  var initScroller3 = async ({ getRef }) => {
+    await modules_exports2.tick();
+    const { screen, scroller, scrollbar } = getRef();
+    const methods = verticalScroller({
+      screen,
+      scroller,
+      scrollbar
+    });
+    const destroy3 = methods.destroy;
+    const refresh = methods.refresh;
+    const move3 = methods.move;
+    const updateScroller2 = methods.updateScroller;
+    methods.init();
+    updateScroller2();
+    move3(0);
+    return {
+      destroy: destroy3,
+      refresh,
+      move: move3,
+      updateScroller: updateScroller2
+    };
+  };
+  var DebugTreeFn = ({
+    onMount,
+    invalidate,
+    staticProps: staticProps2,
+    setRef,
+    getRef,
+    addMethod,
+    bindEffect,
+    getProxi
+  }) => {
+    const proxi = getProxi();
+    let destroy3 = () => {
+    };
+    let refresh = () => {
+    };
+    let updateScroller2 = () => {
+    };
+    let move3 = () => {
+    };
+    onMount(() => {
+      const { scrollbar } = getRef();
+      scrollbar.addEventListener("input", () => {
+        move3(scrollbar.value);
+      });
+      addMethod("refresh", () => {
+        refresh?.();
+        updateScroller2?.();
+      });
+      (async () => {
+        proxi.isLoading = true;
+        await modules_exports2.tick();
+        destroy3?.();
+        proxi.data = modules_exports2.getTree();
+        ({ destroy: destroy3, move: move3, refresh, updateScroller: updateScroller2 } = await initScroller3({
+          getRef
+        }));
+        proxi.isLoading = false;
+      })();
+      return () => {
+        destroy3?.();
+        destroy3 = () => {
+        };
+        refresh = () => {
+        };
+        updateScroller2 = () => {
+        };
+        move3 = () => {
+        };
+      };
+    });
+    return fromObject({
+      className: "c-debug-tree",
+      content: {
+        className: "tree-list",
+        modules: setRef("screen"),
+        content: [
+          {
+            tag: "input",
+            className: "scrollbar",
+            attributes: {
+              type: "range",
+              id: "test",
+              min: 0,
+              max: 0,
+              value: 0,
+              step: 0.5
+            },
+            modules: setRef("scrollbar")
+          },
+          {
+            className: "status",
+            modules: bindEffect({
+              toggleClass: { visible: () => proxi.isLoading }
+            }),
+            content: "Generate tree"
+          },
+          {
+            className: "scollable-element",
+            modules: setRef("scroller"),
+            content: invalidate({
+              observe: () => proxi.data,
+              render: () => {
+                return generateTreeComponents({
+                  data: proxi.data,
+                  staticProps: staticProps2
+                });
+              }
+            })
+          }
+        ]
+      }
+    });
+  };
+
   // src/js/component/common/debug/debug-overlay/tree/utils.js
   var refreshDebugTree = () => {
     const methods = modules_exports2.useMethodByName(debugTreeName);
@@ -41354,141 +41492,6 @@
       }
     }
   );
-
-  // src/js/component/common/debug/debug-overlay/tree/recursive-tree.js
-  var generateTreeComponents = ({ data, staticProps: staticProps2 }) => {
-    return data.map(({ id, componentName, instanceName, children }) => {
-      return fromObject({
-        component: DebugTreeItem,
-        modules: staticProps2(
-          /** @type {import('./item/type').DebugTreeItemType['props']} */
-          {
-            id,
-            componentName,
-            instanceName,
-            children
-          }
-        )
-      });
-    }).join("");
-  };
-
-  // src/js/component/common/debug/debug-overlay/tree/debug-tree.js
-  var initScroller3 = async ({ getRef }) => {
-    await modules_exports2.tick();
-    const { screen, scroller, scrollbar } = getRef();
-    const methods = verticalScroller({
-      screen,
-      scroller,
-      scrollbar
-    });
-    const destroy3 = methods.destroy;
-    const refresh = methods.refresh;
-    const move3 = methods.move;
-    const updateScroller2 = methods.updateScroller;
-    methods.init();
-    updateScroller2();
-    move3(0);
-    return {
-      destroy: destroy3,
-      refresh,
-      move: move3,
-      updateScroller: updateScroller2
-    };
-  };
-  var DebugTreeFn = ({
-    onMount,
-    invalidate,
-    staticProps: staticProps2,
-    setRef,
-    getRef,
-    addMethod,
-    bindEffect,
-    getProxi
-  }) => {
-    const proxi = getProxi();
-    let destroy3 = () => {
-    };
-    let refresh = () => {
-    };
-    let updateScroller2 = () => {
-    };
-    let move3 = () => {
-    };
-    onMount(() => {
-      const { scrollbar } = getRef();
-      scrollbar.addEventListener("input", () => {
-        move3(scrollbar.value);
-      });
-      addMethod("refresh", () => {
-        refresh?.();
-        updateScroller2?.();
-      });
-      (async () => {
-        proxi.isLoading = true;
-        await modules_exports2.tick();
-        destroy3?.();
-        proxi.data = modules_exports2.getTree();
-        ({ destroy: destroy3, move: move3, refresh, updateScroller: updateScroller2 } = await initScroller3({
-          getRef
-        }));
-        proxi.isLoading = false;
-      })();
-      return () => {
-        destroy3?.();
-        destroy3 = () => {
-        };
-        refresh = () => {
-        };
-        updateScroller2 = () => {
-        };
-        move3 = () => {
-        };
-      };
-    });
-    return fromObject({
-      className: "c-debug-tree",
-      content: {
-        className: "tree-list",
-        modules: setRef("screen"),
-        content: [
-          {
-            tag: "input",
-            className: "scrollbar",
-            attributes: {
-              type: "range",
-              id: "test",
-              min: 0,
-              max: 0,
-              value: 0,
-              step: 0.5
-            },
-            modules: setRef("scrollbar")
-          },
-          {
-            className: "status",
-            modules: bindEffect({
-              toggleClass: { visible: () => proxi.isLoading }
-            }),
-            content: "Generate tree"
-          },
-          {
-            className: "scollable-element",
-            modules: setRef("scroller"),
-            content: invalidate({
-              observe: () => proxi.data,
-              render: () => {
-                return generateTreeComponents({
-                  data: proxi.data,
-                  staticProps: staticProps2
-                });
-              }
-            })
-          }
-        ]
-      }
-    });
-  };
 
   // src/js/component/common/debug/debug-overlay/tree/definition.js
   var DebugTree = modules_exports2.createComponent(
@@ -42378,6 +42381,86 @@
     return searchResult;
   };
 
+  // src/js/component/common/search/search-overlay/utils.js
+  var toggleSearchOverlay = () => {
+    const overlayMethods = modules_exports2.useMethodByName(searchOverlay);
+    overlayMethods?.toggle();
+  };
+
+  // src/js/component/common/search/search-overlay/list/list-item/list-item.js
+  var loadPage2 = ({ uri }) => {
+    modules_exports2.loadUrl({ url: uri });
+    toggleSearchOverlay();
+  };
+  var SearchOverlayListItemFn = ({
+    getProxi,
+    bindEffect,
+    delegateEvents,
+    bindObject
+  }) => {
+    const proxi = getProxi();
+    return fromObject({
+      tag: "li",
+      modules: bindEffect({
+        toggleClass: {
+          current: () => proxi.active
+        }
+      }),
+      content: {
+        tag: "button",
+        modules: delegateEvents({
+          click: () => {
+            loadPage2({ uri: proxi.uri });
+          }
+        }),
+        content: [
+          {
+            className: "item-section",
+            content: {
+              tag: "p",
+              content: bindObject`<strong>${() => proxi.breadCrumbs}</strong> (${() => proxi.count})`
+            }
+          },
+          {
+            tag: "h6",
+            content: bindObject`${() => proxi.title}`
+          }
+        ]
+      }
+    });
+  };
+
+  // src/js/component/common/search/search-overlay/list/list-item/definition.js
+  var SearchOverlayListItem = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').SearchOverlayListItemType>} */
+    {
+      tag: "search-overlay-list-item",
+      component: SearchOverlayListItemFn,
+      props: {
+        uri: () => ({
+          value: "",
+          type: String
+        }),
+        breadCrumbs: () => ({
+          value: "",
+          type: String
+        }),
+        title: () => ({
+          value: "",
+          type: String
+        }),
+        count: () => ({
+          value: 0,
+          type: Number
+        }),
+        active: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
   // src/js/component/common/search/search-overlay/list/list.js
   var initScroller4 = ({ getRef }) => {
     const { screen, scroller, scrollbar } = getRef();
@@ -42454,147 +42537,81 @@
         destroy3?.();
       };
     });
-    return renderHtml`<div class="c-search-list" ${setRef("screen")}>
-        <span
-            class="loader"
-            ${bindEffect({
-      toggleClass: {
-        active: () => proxi.loading
-      }
-    })}
-            >fetch data</span
-        >
-        <input
-            type="range"
-            id="test"
-            name="test"
-            min="0"
-            max="100"
-            value="0"
-            step=".5"
-            ${setRef("scrollbar")}
-            class="scrollbar"
-        />
-
-        <!-- no result -->
-        <div>
-            ${invalidate({
-      observe: () => proxi.noResult,
-      render: () => {
-        return proxi.noResult ? renderHtml`
-                              <ul>
-                                  <li>
-                                      <div class="section">
-                                          <p><strong>no result</strong></p>
-                                      </div>
-                                  </li>
-                              </ul>
-                          ` : "";
-      }
-    })}
-        </div>
-
-        <!-- result list -->
-        <ul ${setRef("scroller")}>
-            ${repeat({
-      observe: () => proxi.list,
-      render: ({ current }) => {
-        return renderHtml`
-                        <search-overlay-list-item
-                            ${bindProps(
-          /** @returns {ReturnBindProps<import('./list-item/type').SearchOverlayListItem>} */
-          () => ({
-            active: proxi.activeRoute.route === current.value.uri,
-            uri: current.value.uri,
-            breadCrumbs: current.value.breadCrumbs,
-            count: current.value.count,
-            title: current.value.title
-          })
-        )}
-                        >
-                        </search-overlay-list-item>
-                    `;
-      }
-    })}
-        </ul>
-    </div>`;
+    const resultUI = {
+      content: invalidate({
+        observe: () => proxi.noResult,
+        render: () => {
+          return proxi.noResult ? fromObject({
+            tag: "ul",
+            content: {
+              tag: "li",
+              content: {
+                className: "section",
+                content: {
+                  tag: "p",
+                  content: renderHtml`<strong>no result</strong>`
+                }
+              }
+            }
+          }) : "";
+        }
+      })
+    };
+    const renderList = {
+      tag: "ul",
+      modules: setRef("scroller"),
+      content: repeat({
+        observe: () => proxi.list,
+        render: ({ current }) => {
+          return fromObject({
+            component: SearchOverlayListItem,
+            modules: bindProps(
+              /** @returns {ReturnBindProps<import('./list-item/type').SearchOverlayListItemType>} */
+              () => ({
+                active: proxi.activeRoute.route === current.value.uri,
+                uri: current.value.uri,
+                breadCrumbs: current.value.breadCrumbs,
+                count: current.value.count,
+                title: current.value.title
+              })
+            )
+          });
+        }
+      })
+    };
+    return fromObject({
+      className: "c-search-list",
+      modules: setRef("screen"),
+      content: [
+        {
+          tag: "span",
+          className: "loader",
+          modules: bindEffect({
+            toggleClass: {
+              active: () => proxi.loading
+            }
+          }),
+          content: "fetch data"
+        },
+        {
+          tag: "input",
+          className: "scrollbar",
+          attributes: {
+            type: "range",
+            id: "test",
+            name: "test",
+            min: 0,
+            max: 100,
+            value: 0,
+            step: 0.5
+          },
+          modules: setRef("scrollbar")
+        },
+        resultUI,
+        renderList
+      ]
+    });
   };
-
-  // src/js/component/common/search/search-overlay/utils.js
-  var toggleSearchOverlay = () => {
-    const overlayMethods = modules_exports2.useMethodByName(searchOverlay);
-    overlayMethods?.toggle();
-  };
-
-  // src/js/component/common/search/search-overlay/list/list-item/list-item.js
-  var loadPage2 = ({ uri }) => {
-    modules_exports2.loadUrl({ url: uri });
-    toggleSearchOverlay();
-  };
-  var SearchOverlayListItemFn = ({
-    getProxi,
-    bindEffect,
-    delegateEvents,
-    bindObject
-  }) => {
-    const proxi = getProxi();
-    return renderHtml`
-        <li
-            ${bindEffect({
-      toggleClass: {
-        current: () => proxi.active
-      }
-    })}
-        >
-            <button
-                type="button"
-                ${delegateEvents({
-      click: () => {
-        loadPage2({ uri: proxi.uri });
-      }
-    })}
-            >
-                <div class="item-section">
-                    <p>
-                        ${bindObject`<strong>${() => proxi.breadCrumbs}</strong> (${() => proxi.count})`}
-                    </p>
-                </div>
-                <h6>${bindObject`${() => proxi.title}`}</h6>
-            </button>
-        </li>
-    `;
-  };
-
-  // src/js/component/common/search/search-overlay/list/list-item/definition.js
-  var SearchOverlayListItem = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').SearchOverlayListItem>} */
-    {
-      tag: "search-overlay-list-item",
-      component: SearchOverlayListItemFn,
-      props: {
-        uri: () => ({
-          value: "",
-          type: String
-        }),
-        breadCrumbs: () => ({
-          value: "",
-          type: String
-        }),
-        title: () => ({
-          value: "",
-          type: String
-        }),
-        count: () => ({
-          value: 0,
-          type: Number
-        }),
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
 
   // src/js/component/common/search/search-overlay/list/definition.js
   var SearchOverlayList = modules_exports2.createComponent(
@@ -42637,6 +42654,113 @@
     const listMethods = modules_exports2.useMethodByName(searchOverlayList);
     listMethods?.reset();
   };
+
+  // src/js/component/common/search/search-overlay/header/suggestion/suggestion-item/suggestion-item.js
+  var onKeyDown = ({ code, word }) => {
+    if (code.toLowerCase() === "enter") {
+      updateSearchFromSuggestion(word);
+      return;
+    }
+    if (code.toLowerCase() === "escape") {
+      closeSearchSuggestion();
+      return;
+    }
+  };
+  var SearchOverlaySuggestionItemFn = ({
+    getProxi,
+    delegateEvents,
+    bindObject
+  }) => {
+    const proxi = getProxi();
+    return fromObject({
+      tag: "li",
+      content: {
+        tag: "button",
+        className: "button",
+        modules: delegateEvents({
+          click: () => {
+            updateSearchFromSuggestion(proxi.word);
+          },
+          keydown: (event) => {
+            event.preventDefault();
+            onKeyDown({
+              code: event.code,
+              word: proxi.word
+            });
+          }
+        }),
+        content: bindObject`${() => proxi.wordHiglight}`
+      }
+    });
+  };
+
+  // src/js/component/common/search/search-overlay/header/suggestion/suggestion-item/definition.js
+  var SearchOverlaySuggestionItem = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').SearchOverlaySugestionItemType>} */
+    {
+      tag: "search-overlay-suggestion-item",
+      component: SearchOverlaySuggestionItemFn,
+      props: {
+        word: () => ({
+          value: "",
+          type: String
+        }),
+        wordHiglight: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
+
+  // src/js/component/common/search/search-overlay/header/suggestion/suggestion.js
+  var SearchOverlaySuggestionFn = ({ getProxi, repeat, bindProps }) => {
+    const proxi = getProxi();
+    const repeaterRender = repeat({
+      observe: () => proxi.list,
+      key: "word",
+      render: ({ current }) => {
+        return fromObject({
+          component: SearchOverlaySuggestionItem,
+          modules: bindProps(
+            /**
+             * @returns {ReturnBindProps<SearchOverlaySugestionItemType>}
+             */
+            () => ({
+              word: current.value.word,
+              wordHiglight: current.value.wordHiglight
+            })
+          )
+        });
+      }
+    });
+    return fromObject({
+      content: {
+        className: "c-search-suggestion",
+        content: {
+          tag: "ul",
+          className: "list",
+          content: repeaterRender
+        }
+      }
+    });
+  };
+
+  // src/js/component/common/search/search-overlay/header/suggestion/definition.js
+  var SearchOverlaySuggestion = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').SearchOverlaySuggestionType>} */
+    {
+      tag: "search-overlay-suggestion",
+      component: SearchOverlaySuggestionFn,
+      props: {
+        list: () => ({
+          value: [],
+          type: Array
+        })
+      },
+      child: [SearchOverlaySuggestionItem]
+    }
+  );
 
   // src/js/component/common/search/search-overlay/header/header.js
   var sendSearch = async ({ currentSearch }) => {
@@ -42735,16 +42859,10 @@
         }, 300);
       });
     });
-    return renderHtml`<div class="c-search-header">
-        <div class="search-wrap">
-            <input
-                type="text"
-                class="serach-input"
-                name="search_input"
-                ${setRef("search_input")}
-                ${delegateEvents({
-      keyup: modules_exports.useDebounce(
-        (event) => {
+    const searchModules = [
+      setRef("search_input"),
+      delegateEvents({
+        keyup: modules_exports.useDebounce((event) => {
           if (event?.code?.toLowerCase?.() === "enter") {
             event.preventDefault();
             sendToList({ getRef, proxi });
@@ -42760,176 +42878,88 @@
             /** @type {HTMLInputElement} */
             event.currentTarget.value
           );
-          filterSuggestion({ currentSearch, proxi });
-        },
-        60
-      )
-    })}
-            />
-            <div
-                class="suggestion-wrap"
-                ${setRef("suggestionElement")}
-                ${bindEffect({
-      toggleClass: {
-        active: () => proxi.suggestionListActive
-      }
-    })}
-            >
-                <search-overlay-suggestion
-                    ${bindProps(
-      /** @returns {ReturnBindProps<import('./suggestion/type').SearchOverlaySuggestion>} */
-      () => ({
-        list: proxi.suggestionListData
+          filterSuggestion({
+            currentSearch,
+            proxi
+          });
+        }, 60)
       })
-    )}
-                ></search-overlay-suggestion>
-            </div>
-        </div>
-
-        <!-- Submit -->
-        <button
-            type="button"
-            class="search-button"
-            ${delegateEvents({
-      click: () => {
-        sendToList({ getRef, proxi });
-      },
-      keydown: (event) => {
-        if (event.code.toLowerCase() === "enter") {
-          sendToList({ getRef, proxi });
+    ];
+    return fromObject({
+      className: "c-search-header",
+      content: [
+        {
+          className: "search-wrap",
+          content: [
+            {
+              tag: "input",
+              className: "serach-input",
+              attributes: { name: "search_input" },
+              modules: searchModules
+            },
+            {
+              className: "suggestion-wrap",
+              modules: [
+                setRef("suggestionElement"),
+                bindEffect({
+                  toggleClass: {
+                    active: () => proxi.suggestionListActive
+                  }
+                })
+              ],
+              content: {
+                component: SearchOverlaySuggestion,
+                modules: bindProps(
+                  /** @returns {ReturnBindProps<SearchOverlaySuggestionType>} */
+                  () => ({
+                    list: proxi.suggestionListData
+                  })
+                )
+              }
+            }
+          ]
+        },
+        /**
+         * Submit
+         */
+        {
+          tag: "button",
+          attributes: { type: "button" },
+          className: "search-button",
+          modules: delegateEvents({
+            click: () => {
+              sendToList({ getRef, proxi });
+            },
+            keydown: (event) => {
+              if (event.code.toLowerCase() === "enter") {
+                sendToList({ getRef, proxi });
+              }
+            }
+          }),
+          content: "submit"
+        },
+        /**
+         * Reset
+         */
+        {
+          tag: "button",
+          attributes: { type: "button" },
+          className: "search-button",
+          modules: delegateEvents({
+            click: () => {
+              sendReset({ getRef, proxi });
+            },
+            keydown: (event) => {
+              if (event.code.toLowerCase() === "enter") {
+                sendReset({ getRef, proxi });
+              }
+            }
+          }),
+          content: "reset"
         }
-      }
-    })}
-        >
-            submit
-        </button>
-
-        <!-- Reset -->
-        <button
-            type="button"
-            class="search-button"
-            ${delegateEvents({
-      click: () => {
-        sendReset({ getRef, proxi });
-      },
-      keydown: (event) => {
-        if (event.code.toLowerCase() === "enter") {
-          sendReset({ getRef, proxi });
-        }
-      }
-    })}
-        >
-            reset
-        </button>
-    </div>`;
+      ]
+    });
   };
-
-  // src/js/component/common/search/search-overlay/header/suggestion/suggestion.js
-  var SearchOverlaySuggestionFn = ({ getProxi, repeat, bindProps }) => {
-    const proxi = getProxi();
-    return renderHtml`<div>
-        <div class="c-search-suggestion">
-            <ul class="list">
-                ${repeat({
-      observe: () => proxi.list,
-      key: "word",
-      render: ({ current }) => {
-        return renderHtml`
-                            <search-overlay-suggestion-item
-                                ${bindProps(
-          /**
-           * @returns {ReturnBindProps<SearchOverlaySugestionItem>}
-           */
-          () => ({
-            word: current.value.word,
-            wordHiglight: current.value.wordHiglight
-          })
-        )}
-                            >
-                            </search-overlay-suggestion-item>
-                        `;
-      }
-    })}
-            </ul>
-        </div>
-    </div>`;
-  };
-
-  // src/js/component/common/search/search-overlay/header/suggestion/suggestion-item/suggestion-item.js
-  var onKeyDown = ({ code, word }) => {
-    if (code.toLowerCase() === "enter") {
-      updateSearchFromSuggestion(word);
-      return;
-    }
-    if (code.toLowerCase() === "escape") {
-      closeSearchSuggestion();
-      return;
-    }
-  };
-  var SearchOverlaySuggestionItemFn = ({
-    getProxi,
-    delegateEvents,
-    bindObject
-  }) => {
-    const proxi = getProxi();
-    return renderHtml`
-        <li>
-            <button
-                type="button"
-                class="button"
-                ${delegateEvents({
-      click: () => {
-        updateSearchFromSuggestion(proxi.word);
-      },
-      keydown: (event) => {
-        event.preventDefault();
-        onKeyDown({
-          code: event.code,
-          word: proxi.word
-        });
-      }
-    })}
-            >
-                ${bindObject`${() => proxi.wordHiglight}`}
-            </button>
-        </li>
-    `;
-  };
-
-  // src/js/component/common/search/search-overlay/header/suggestion/suggestion-item/definition.js
-  var SearchOverlaySuggestionItem = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').SearchOverlaySugestionItem>} */
-    {
-      tag: "search-overlay-suggestion-item",
-      component: SearchOverlaySuggestionItemFn,
-      props: {
-        word: () => ({
-          value: "",
-          type: String
-        }),
-        wordHiglight: () => ({
-          value: "",
-          type: String
-        })
-      }
-    }
-  );
-
-  // src/js/component/common/search/search-overlay/header/suggestion/definition.js
-  var SearchOverlaySuggestion = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').SearchOverlaySuggestion>} */
-    {
-      tag: "search-overlay-suggestion",
-      component: SearchOverlaySuggestionFn,
-      props: {
-        list: () => ({
-          value: [],
-          type: Array
-        })
-      },
-      child: [SearchOverlaySuggestionItem]
-    }
-  );
 
   // src/js/component/common/search/search-overlay/header/definition.js
   var SearchOverlayHeader = modules_exports2.createComponent(
@@ -43358,17 +43388,17 @@
   };
   var SearchCtaFn = ({ delegateEvents }) => {
     const searchSvg = getIcons()["searchIcons"];
-    return renderHtml`<button
-        type="button"
-        class="c-search-cta"
-        ${delegateEvents({
-      click: () => {
-        onClick();
-      }
-    })}
-    >
-        ${searchSvg}
-    </button>`;
+    return fromObject({
+      tag: "button",
+      attributes: { type: "button" },
+      className: "c-search-cta",
+      modules: delegateEvents({
+        click: () => {
+          onClick();
+        }
+      }),
+      content: searchSvg
+    });
   };
 
   // src/js/component/common/search/cta-search/definition.js
