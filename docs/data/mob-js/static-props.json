@@ -41,7 +41,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/static-props.js",
-                "numLines": 23
+                "numLines": 16
             }
         },
         {

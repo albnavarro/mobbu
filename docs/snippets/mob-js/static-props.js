@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -6,14 +6,11 @@ import { html } from '@mobJs';
 export const MyComponent = ({ getState, staticProps }) => {
     const { label } = getState();
 
-    return html`
-        <div>
-            <my-child-component
-                ${staticProps({
-                    childProp1: label,
-                    childProp2: { prop: 2 },
-                })}
-            ></my-child-component>
-        </div>
-    `;
+    return htmlObject({
+        component: MyChildComponent,
+        modules: staticProps({
+            childProp1: label,
+            childProp2: { prop: 2 },
+        }),
+    });
 };

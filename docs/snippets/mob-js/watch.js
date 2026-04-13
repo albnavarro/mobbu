@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -24,9 +24,10 @@ export const MyComponent = ({ getState, watch, getPoxi }) => {
         console.log(newValue, oldValue);
     });
 
-    return html`
-        <div>
-            <h2>${label}</h2>
-        </div>
-    `;
+    return htmlObject({
+        content: {
+            tag: 'h2',
+            content: label,
+        },
+    });
 };

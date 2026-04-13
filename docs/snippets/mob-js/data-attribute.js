@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { html, htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -6,12 +6,10 @@ import { html } from '@mobJs';
 export const MyComponent = ({ getState }) => {
     const { label } = getState();
 
-    return html`
-        <div>
-            <my-child-component
-                data-label="${label}"
-                data-title="my title"
-            ></my-child-component>
-        </div>
-    `;
+    return htmlObject({
+        content: {
+            component: MyChildComponent,
+            dataAttributes: { label, title: 'my title' },
+        },
+    });
 };

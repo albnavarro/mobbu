@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { html, htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -34,11 +34,16 @@ export const MyComponent = ({
         return () => {};
     });
 
-    return html`
-        <div>
-            // Use string array as observer.
-            <my-child-component
-                ${bindProps({
+    return htmlObject({
+        tag: 'main',
+        className: 'main',
+        content: [
+            /**
+             * Use string array as observer.
+             */
+            {
+                component: MyChildComponent,
+                modules: bindProps({
                     observe: ['label', 'counter'],
                     props: ({ label, counter }) => {
                         return {
@@ -46,12 +51,15 @@ export const MyComponent = ({
                             childProp4: counter,
                         };
                     },
-                })}
-            ></my-child-component>
+                }),
+            },
 
-            // Use proxi array as observer.
-            <my-child-component
-                ${bindProps({
+            /**
+             * Use proxi array as observer.
+             */
+            {
+                component: MyChildComponent,
+                modules: bindProps({
                     observe: [() => proxi.label, () => proxi.counter],
                     props: ({ label, counter }) => {
                         return {
@@ -59,8 +67,8 @@ export const MyComponent = ({
                             childProp4: counter,
                         };
                     },
-                })}
-            ></my-child-component>
-        </div>
-    `;
+                }),
+            },
+        ],
+    });
 };

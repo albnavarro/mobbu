@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -15,13 +15,10 @@ export const MyComponent = ({ onMount, getProxi, bindProps }) => {
     });
 
     // use function
-    return html`
-        <div>
-            <my-child-component
-                ${bindProps(() => ({
-                    counter: proxiState.counter,
-                }))}
-            ></my-child-component>
-        </div>
-    `;
+    return htmlObject({
+        component: MyChildComponent,
+        modules: bindProps(() => ({
+            counter: proxiState.counter,
+        })),
+    });
 };
