@@ -1,23 +1,32 @@
-<div>
-    <button
-        ${delegateEvents({
-            click: (event, value, index) => {
-                updateState('counter', (value) => (value += 1));
-                event.preventDefault(); 
+import { htmlObject } from '@mobJs';
+
+/**
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
+ */
+export const MyComponent = ({ delegateEvents, updateState }) => {
+    return htmlObject({
+        content: [
+            {
+                tag: 'button',
+                modules: delegateEvents({
+                    click: (event, value, index) => {
+                        updateState('counter', (value) => (value += 1));
+                        event.preventDefault();
+                    },
+                }),
             },
-        })}
-    >
-        my button
-    </button>
-    <my-child-component
-        ${delegateEvents({
-            click: (event, value, index) => {
-                updateState('counter', (value) => (value += 1));
-                event.preventDefault(); 
+            {
+                tag: 'button',
+                modules: delegateEvents({
+                    click: (event, value, index) => {
+                        updateState('counter', (value) => (value += 1));
+                        event.preventDefault();
+                    },
+                    mousemove: (event, value, index) => {
+                        updateState('counter', (value) => (value += 1));
+                    },
+                }),
             },
-            mousemove: (event, value, index) => {
-                updateState('counter', (value) => (value += 1));
-            },
-        })}
-    ></my-child-component>
-</div>
+        ],
+    });
+};

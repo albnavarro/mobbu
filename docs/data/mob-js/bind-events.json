@@ -59,7 +59,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-events.js",
-                "numLines": 22
+                "numLines": 21
             }
         },
         {
@@ -102,7 +102,13 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-events-extra.js",
-                "numLines": 11
+                "numLines": 21
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         },
         {

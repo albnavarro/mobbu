@@ -144,7 +144,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/delegate-events-extra.js",
-                "numLines": 23
+                "numLines": 32
             }
         },
         {
