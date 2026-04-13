@@ -40,7 +40,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/utils-use-method-by-name.js",
-                "numLines": 29
+                "numLines": 34
             }
         },
         {

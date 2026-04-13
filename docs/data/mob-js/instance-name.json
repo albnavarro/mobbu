@@ -32,7 +32,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/instance-name.js",
-                "numLines": 17
+                "numLines": 18
             }
         },
         {

@@ -1,13 +1,17 @@
-import { html, MobJs } from '@mobjs';
+import { MobJs } from '@mobjs';
 
 /**
- * @import {MobComponent, UseMethodByName} from '@mobJsType';
+ * @import {
+ *   MobComponent,
+ *   UseMethodByName
+ * } from "@mobJsType"
  */
 
 /**
  * Use variable for lsp reference.
  */
 import { otherComponentName } from '..';
+import { htmlObject } from '@mobJs';
 
 /**
  * @type {MobComponent<import('./type').MyComponent>}
@@ -21,9 +25,10 @@ export const MyComponent = ({ onMount }) => {
         return () => {};
     });
 
-    return html`
-        <div>
-            <my-component name="${otherComponentName}"> </my-component>
-        </div>
-    `;
+    return htmlObject({
+        content: {
+            component: MyComponent,
+            attributes: { name: otherComponentName },
+        },
+    });
 };

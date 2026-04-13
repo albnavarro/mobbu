@@ -1,12 +1,14 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ addMethod }) => {
     addMethod('myMethod', (props) => {
         console.log(props);
     });
 
-    return html` <div></div> `;
+    return htmlObject({
+        className: 'main',
+    });
 };

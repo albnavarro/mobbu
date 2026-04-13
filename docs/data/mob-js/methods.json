@@ -32,7 +32,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/methods.js",
-                "numLines": 12
+                "numLines": 14
             }
         },
         {
