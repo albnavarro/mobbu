@@ -33,7 +33,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/tick.js",
-                "numLines": 29
+                "numLines": 30
             }
         }
     ]

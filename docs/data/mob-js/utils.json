@@ -103,7 +103,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/utils-use-component.js",
-                "numLines": 10
+                "numLines": 16
             }
         },
         {

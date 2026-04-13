@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 function myAsyncFunction() {
     return new Promise((resolve) => {
@@ -9,7 +9,7 @@ function myAsyncFunction() {
 }
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = async ({ onMount }) => {
     onMount(async () => {
@@ -21,9 +21,11 @@ export const MyComponent = async ({ onMount }) => {
     /**
      * Return the DOM.
      */
-    return html`
-        <div>
-            <h2>Title</h2>
-        </div>
-    `;
+    return htmlObject({
+        className: 'my-class',
+        content: {
+            tag: 'h2',
+            content: 'My title',
+        },
+    });
 };

@@ -41,7 +41,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/get-proxi.js",
-                "numLines": 47
+                "numLines": 50
             }
         },
         {

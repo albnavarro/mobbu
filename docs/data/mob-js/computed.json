@@ -46,7 +46,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/computed-auto.js",
-                "numLines": 23
+                "numLines": 28
             }
         },
         {
@@ -80,7 +80,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/computed.js",
-                "numLines": 32
+                "numLines": 37
             }
         }
     ]

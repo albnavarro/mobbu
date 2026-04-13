@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -10,8 +10,7 @@ export const MyComponentFn = ({ onMount, getState, setRef, getRef }) => {
     const { label } = getState();
 
     /**
-     * Function fired at the end of all component parse.
-     * Here all components is attached to the DOM ( if scoped params
+     * Function fired at the end of all component parse. Here all components is attached to the DOM ( if scoped params
      * is disabled ). Element: root DOM element.
      */
     onMount(({ element }) => {
@@ -29,9 +28,11 @@ export const MyComponentFn = ({ onMount, getState, setRef, getRef }) => {
     /**
      * DOM component structure.
      */
-    return html`
-        <div>
-            <h2 ${setRef('labelRef')}>${label}</h2>
-        </div>
-    `;
+    return htmlObject({
+        content: {
+            tag: 'h2',
+            modules: setRef('labelRef'),
+            content: label,
+        },
+    });
 };

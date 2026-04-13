@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { html, htmlObject } from '@mobJs';
 
 function myAsyncFunction() {
     return new Promise((resolve) => {
@@ -17,9 +17,10 @@ export const MyComponent = async () => {
     /**
      * Return the DOM.
      */
-    return html`
-        <div>
-            <h2>Title</h2>
-        </div>
-    `;
+    return htmlObject({
+        content: {
+            tag: 'h2',
+            content: 'title',
+        },
+    });
 };

@@ -129,7 +129,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-store.js",
-                "numLines": 24
+                "numLines": 26
             }
         },
         {

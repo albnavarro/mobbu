@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { html, htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -6,19 +6,21 @@ import { html } from '@mobJs';
 export const MyComponent = ({ getProxi, bindObject, invalidate }) => {
     const proxi = getProxi();
 
-    return html`
-        <div>
-            ${bindObject`route: ${() => proxi.afterRouteChange.currentRoute}.`}
-        </div>
-        <div>
-            ${invalidate({
-                observe: () => proxi.beforeRouteChange,
-                render: () => {
-                    return proxi.afterRouteChange.currentRoute === 'home'
-                        ? html`<h2>home</h2>`
-                        : '';
-                },
-            })}
-        </div>
-    `;
+    return htmlObject({
+        content: [
+            {
+                content: bindObject`route: ${() => proxi.afterRouteChange.currentRoute}.`,
+            },
+            {
+                content: invalidate({
+                    observe: () => proxi.beforeRouteChange,
+                    render: () => {
+                        return proxi.afterRouteChange.currentRoute === 'home'
+                            ? html`<h2>home</h2>`
+                            : '';
+                    },
+                }),
+            },
+        ],
+    });
 };

@@ -41,7 +41,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/set-state.js",
-                "numLines": 23
+                "numLines": 25
             }
         },
         {

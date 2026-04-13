@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { html, htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -22,26 +22,29 @@ export const MyComponent = ({
         }
     );
 
-    return html`
-        <div>
-            <button
-                ${delegateEvents({
+    return htmlObject({
+        content: [
+            {
+                tag: 'button',
+                modules: delegateEvents({
                     click: () => {
                         proxi.counter++;
                     },
-                })}
-            >
-                click me
-            </button>
-            <div>${bindObject`counter value is ${() => proxi.counter}`}</div>
-            <child-component
-                ${bindProps(
+                }),
+                content: 'click me',
+            },
+            {
+                content: bindObject`counter value is ${() => proxi.counter}`,
+            },
+            {
+                component: ChildComponent,
+                modules: bindProps(
                     /** @returns {ReturnBindProps<MyChildState>} */
                     () => ({
                         counter: proxi.counter,
                     })
-                )}
-            ></child-component>
-        </div>
-    `;
+                ),
+            },
+        ],
+    });
 };

@@ -1,7 +1,7 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ getState }) => {
     /**
@@ -12,9 +12,8 @@ export const MyComponent = ({ getState }) => {
     /**
      * DOM component structure.
      */
-    return html`
-        <div>
-            <h2>${label}</h2>
-        </div>
-    `;
+    return htmlObject({
+        tag: 'h2',
+        content: label,
+    });
 };

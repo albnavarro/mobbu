@@ -1,11 +1,11 @@
 // './routes/my_route';
 
-import { MobJs, html } from '@mobJs';
+import { MobJs, html, htmlObject } from '@mobJs';
+import { MyComponent } from './bind-effect-1';
 
 /**
- * Import components definition used in wrapper.
- * ( object returned by createComponent() function )
- * It is necessary to load the dependencies before the application.
+ * Import components definition used in wrapper. ( object returned by createComponent() function ) It is necessary to
+ * load the dependencies before the application.
  */
 MobJs.useComponent([MyComponent]);
 
@@ -19,6 +19,9 @@ export const my_route = async ({ params, props }) => {
     if (!response.ok) return html`<div>my error</div>`;
     const routeData = await response.json();
 
-    return html`<my-component ${MobJs.staticProps({ data: routeData.data })}>
-    </my-component>`;
+    return htmlObject({
+        component: MyComponent,
+        modules: MobJs.staticProps({ data: routeData.data }),
+        content: 'my content',
+    });
 };

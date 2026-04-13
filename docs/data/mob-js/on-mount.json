@@ -113,7 +113,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/on-mount.js",
-                "numLines": 28
+                "numLines": 29
             }
         },
         {
@@ -140,7 +140,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/on-mount-async.js",
-                "numLines": 29
+                "numLines": 31
             }
         },
         {
@@ -153,7 +153,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/on-mount-tips.js",
-                "numLines": 40
+                "numLines": 46
             }
         },
         {

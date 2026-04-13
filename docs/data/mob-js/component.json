@@ -459,7 +459,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/component-base.js",
-                "numLines": 37
+                "numLines": 38
             }
         },
         {
@@ -479,7 +479,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/component-async.js",
-                "numLines": 25
+                "numLines": 26
             }
         },
         {
@@ -626,7 +626,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/component-type-js-doc.js",
-                "numLines": 8
+                "numLines": 11
             }
         },
         {
@@ -646,7 +646,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/component-type-ts.ts",
-                "numLines": 3
+                "numLines": 9
             }
         },
         {

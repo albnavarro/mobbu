@@ -1,7 +1,7 @@
-import { html } from '@mobJs';
+import { html, htmlObject } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ onMount, setRef, getRef }) => {
     onMount(({ element }) => {
@@ -11,8 +11,7 @@ export const MyComponent = ({ onMount, setRef, getRef }) => {
         console.log(labelRef); // h2.
 
         /**
-         * Destroy function
-         * Optional
+         * Destroy function Optional
          */
         return () => {};
     });
@@ -20,9 +19,11 @@ export const MyComponent = ({ onMount, setRef, getRef }) => {
     /**
      * Return the DOM.
      */
-    return html`
-        <div>
-            <h2 ${setRef('labelRef')}>Title</h2>
-        </div>
-    `;
+    return htmlObject({
+        className: 'my-class',
+        content: {
+            tag: 'h2',
+            modules: setRef('labelRef'),
+        },
+    });
 };

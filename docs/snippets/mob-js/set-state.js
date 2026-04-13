@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { html, htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -19,5 +19,7 @@ export const MyComponent = ({ setState, getProxi }) => {
     /**
      * DOM component structure.
      */
-    return html` <div>my component.</div> `;
+    return htmlObject({
+        content: 'ny content',
+    });
 };

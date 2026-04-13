@@ -41,7 +41,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/update-state.js",
-                "numLines": 26
+                "numLines": 28
             }
         },
         {

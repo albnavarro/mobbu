@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { html, htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -19,5 +19,10 @@ export const MyComponent = ({ computed, getProxi, bindText }) => {
         }
     );
 
-    return html` <div><h2>${bindText`sum: ${'sum'}`}</h2></div> `;
+    return htmlObject({
+        content: {
+            tag: 'h2',
+            content: bindText`sum: ${'sum'}`,
+        },
+    });
 };
