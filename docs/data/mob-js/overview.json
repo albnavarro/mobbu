@@ -150,6 +150,42 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
+                "id": "htmlObject",
+                "label": "htmlObject"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "htmlObject"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Main function for defining the DOM structure to be <span class='quote'>rendered</span>"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "htmlObject",
+                        "url": "./#mobJs-html-object"
+                    }
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
                 "id": "routing",
                 "label": "Routing"
             }

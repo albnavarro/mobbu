@@ -532,6 +532,11 @@
             ]
         },
         {
+            "label": "htmlObject",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-html-object"
+        },
+        {
             "label": "Routing",
             "scrollToSection": "mobJs",
             "url": "mobJs-routing"
@@ -752,6 +757,7 @@
         { "word": "useMethodArrayByName" },
         { "word": "callback" },
         { "word": "memory" },
+        { "word": "htmlObject" },
 
         { "word": "store" },
         { "word": "defaults" },

@@ -39069,6 +39069,10 @@
       url: "#mobJs-component"
     },
     {
+      label: "htmlObject",
+      url: "#mobJs-html-object"
+    },
+    {
       label: "routing",
       url: "#mobJs-routing"
     },
@@ -39482,6 +39486,19 @@
       props: {
         source: "./data/mob-js/memory-management.json",
         title: "memory management",
+        breadCrumbs: mobJsOverviewBreadCrumbs,
+        section: "mobJs",
+        rightSidebar: mobJsRightSidebar
+      }
+    },
+    {
+      hash: "mobJs-html-object",
+      layout: layoutSidebarAnchor,
+      templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+      skipTransition: true,
+      props: {
+        source: "./data/mob-js/html-object.json",
+        title: "htmlObject",
         breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
         rightSidebar: mobJsRightSidebar

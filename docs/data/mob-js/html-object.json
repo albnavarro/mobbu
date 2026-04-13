@@ -1,0 +1,275 @@
+{
+    "data": [
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1",
+                "isBold": true
+            },
+            "content": "<span>mobJs</span>/htmlObject"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "start",
+                "label": "Top"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<strong>htmlObject</strong> converts a structured object into an <span class='quote'>HTML element</span>, managing tags, classes, attributes, nested elements, components, and all the essentials required to describe a <span class='quote'>DOM fragment</span>.<br/>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Example"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/html-object-1.js",
+                "numLines": 65
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "propierties list"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "<span class='quote'>component</span>",
+                    "<span class='quote'>tag</span>",
+                    "<span class='quote'>className</span>",
+                    "<span class='quote'>style</span>",
+                    "<span class='quote'>attributes</span>",
+                    "<span class='quote'>dataAttributes</span>",
+                    "<span class='quote'>modules</span>",
+                    "<span class='quote'>content</span>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "component",
+                "label": "component"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "component"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Accepts the <span class='quote'>definition</span> of a component, from which its tag will be automatically deduced; this property takes precedence over the <span class='quote'>tag</span> property."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "tag",
+                "label": "tag"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "tag"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Accepts the <span class='quote'>tag</span> associated with the node that will be created.<br/>If omitted, the <span class='quote'>div</span> tag will be used."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "className",
+                "label": "className"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "className"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Accepts a <span class='quote'>string</span> or an <span class='quote'>array</span> of strings to define the classes applied to the node"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "style",
+                "label": "style"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "style"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Accepts a string with the <span class='quote'>inline styles</span> to apply"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "attributes",
+                "label": "attributes"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "attributes"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Accepts an <span class='quote'>object</span> where the key represents the attribute to apply and the <span class='quote'>value</span> represents its value."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "dataAttributes",
+                "label": "dataAttributes"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "dataAttributes"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Accepts an <span class='quote'>object</span> where the key represents the attribute to apply and the <span class='quote'>value</span> represents its value.<br/>In this case, the <span class='quote'>data</span>- prefix will be automatically added."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "modules",
+                "label": "modules"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "modules"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Accepts module functions as a <span class='quote'>single function</span> or <span class='quote'>array of functions</span>; the accepted functions are:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "<span class='quote'>staticProps</span>",
+                    "<span class='quote'>bindProps</span>",
+                    "<span class='quote'>bindEffect</span>",
+                    "<span class='quote'>setRef</span>",
+                    "<span class='quote'>bindEvents</span>",
+                    "<span class='quote'>delegateEvents</span>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "content",
+                "label": "content"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "content"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Here the <span class='quote'>node content</span> will be inserted, whether it is a <span class='quote'>string</span> or a new <span class='quote'>htmlObject</span> (recursion); it is possible to insert a single element or an array of elements. Additionally, specific rendering functions can be inserted here, such as:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "<span class='quote'>bindText</span>",
+                    "<span class='quote'>bindObject</span>",
+                    "<span class='quote'>invalidate</span>",
+                    "<span class='quote'>bindObject</span>"
+                ]
+            }
+        }
+    ]
+}
