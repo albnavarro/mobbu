@@ -50,7 +50,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/slot-unamed.js",
-                "numLines": 25
+                "numLines": 31
             }
         },
         {
@@ -85,7 +85,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/slot-named.js",
-                "numLines": 31
+                "numLines": 45
             }
         },
         {

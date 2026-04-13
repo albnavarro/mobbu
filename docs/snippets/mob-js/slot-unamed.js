@@ -1,25 +1,31 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyLayout>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyLayout>}
  */
 export const MyLayout = () => {
-    return html`
-        <section>
-            <mobjs-slot></mobjs-slot>
-        </section>
-    `;
+    return htmlObject({
+        tag: 'section',
+        content: [
+            {
+                tag: 'h1',
+                content: 'My title'
+            }
+            {
+                tag: 'mobjs-slot',
+            },
+        ],
+    });
 };
 
-import { html } from '@mobJs';
-
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = () => {
-    return html`
-        <my-layout>
-            <my-component></my-component>
-        </my-layout>
-    `;
+    return htmlObject({
+        component: MyLayout,
+        content: {
+            component: MyChildComponent,
+        },
+    });
 };
