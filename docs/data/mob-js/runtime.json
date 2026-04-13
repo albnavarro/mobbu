@@ -59,7 +59,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/runtime.js",
-                "numLines": 63
+                "numLines": 64
             }
         }
     ]

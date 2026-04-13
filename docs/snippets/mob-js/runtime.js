@@ -1,7 +1,7 @@
-import { html } from '@mobJs';
+import { html, htmlObject } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({
     onMount,
@@ -38,11 +38,11 @@ export const MyComponent = ({
         });
     });
 
-    return html`
-        <div>
-            <button
-                type="button"
-                ${delegateEvents({
+    return htmlObject({
+        content: [
+            {
+                tag: 'button',
+                modules: delegateEvents({
                     click: () => {
                         /**
                          * Remove new component added.
@@ -53,11 +53,12 @@ export const MyComponent = ({
 
                         removeDOM(componentToRemove);
                     },
-                })}
-            >
-                Remove component
-            </button>
-            <div ${setRef('container')}></div>
-        </div>
-    `;
+                }),
+                content: 'Remove component',
+            },
+            {
+                modules: setRef('container'),
+            },
+        ],
+    });
 };
