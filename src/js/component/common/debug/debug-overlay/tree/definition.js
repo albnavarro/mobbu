@@ -1,6 +1,5 @@
 import { MobJs } from '@mobJs';
 import { DebugTreeFn } from './debug-tree';
-import { DebugTreeItem } from './item/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -21,6 +20,5 @@ export const DebugTree = MobJs.createComponent(
                 type: Boolean,
             }),
         },
-        child: [DebugTreeItem],
     })
 );

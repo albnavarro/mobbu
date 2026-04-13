@@ -1,10 +1,7 @@
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { StarSvg } from '@commonComponent/svg-shape/star/definition';
 import { htmlObject, MobJs } from '@mobJs';
 import { Move3DPage } from '@pagesComponent/move-3d/definition';
 import { loadTextContent } from '@utils/utils';
-
-MobJs.useComponent([Move3DPage, StarSvg]);
 
 /** @type {import('@mobJsType').PageAsync} */
 export const move3DRoute = async ({ props }) => {

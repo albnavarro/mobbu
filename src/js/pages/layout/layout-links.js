@@ -2,8 +2,6 @@ import { htmlObject, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { LayoutLinks } from '@pagesComponent/layout-links/definition';
 
-MobJs.useComponent([LayoutLinks]);
-
 /** @type {import('@mobJsType').PageAsync} */
 export const layoutLinksPage = async ({ props }) => {
     const { source } = props;

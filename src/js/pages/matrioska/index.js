@@ -1,10 +1,8 @@
-import { htmlObject, MobJs } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import {
     MatrioskaInvalidate,
     MatrioskaRepeat,
 } from '@pagesComponent/matrioska/definition';
-
-MobJs.useComponent([MatrioskaRepeat, MatrioskaInvalidate]);
 
 export const matrioska_repeat_page = () => {
     return htmlObject({

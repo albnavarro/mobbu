@@ -2,8 +2,6 @@
 
 import { MobJs } from '@mobJs';
 import { HorizontalScrollerFn } from './horizontal-scroller';
-import { HorizontalScrollerButton } from './button/definition';
-import { HorizontalScrollerSection } from './section/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -31,6 +29,5 @@ export const HorizontalScroller = MobJs.createComponent(
                 type: Number,
             }),
         },
-        child: [HorizontalScrollerButton, HorizontalScrollerSection],
     })
 );

@@ -10,6 +10,7 @@ import { htmlObject, MobJs } from '@mobJs';
 import { getCommonData } from '@data/index';
 import { navigationStore } from '@stores/navigation';
 import { MobCore } from '@mobCore';
+import { HeaderMainMenuButton } from './main-menu-button/definition';
 
 /**
  * @param {object} params
@@ -23,7 +24,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
         return htmlObject({
             tag: 'li',
             content: {
-                tag: 'header-main-menu-button',
+                component: HeaderMainMenuButton,
                 modules: [
                     delegateEvents({
                         click: () => {

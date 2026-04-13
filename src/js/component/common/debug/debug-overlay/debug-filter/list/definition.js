@@ -1,6 +1,5 @@
 import { MobJs } from '@mobJs';
 import { DebugFilterListFn } from './debug-filter-list';
-import { DebugFilterListItem } from './item/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -25,6 +24,5 @@ export const DebugFilterList = MobJs.createComponent(
                 type: Boolean,
             }),
         },
-        child: [DebugFilterListItem],
     })
 );

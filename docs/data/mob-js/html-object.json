@@ -94,6 +94,15 @@
             "content": "Accepts the <span class='quote'>definition</span> of a component, from which its tag will be automatically deduced; this property takes precedence over the <span class='quote'>tag</span> property."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "<strong>Components are automatically registered via the component parameter of htmlObject ( htmlObject.component )</strong>.<br/> If components are used dynamically through the <span class='quote'>tag</span> parameter, they must be manually registered as soon as possible using the <a href='#mobJs-utils'>useComponent</a> utility — the best place is in the wrapper, <a href='#mobJs-initialization'>wrapper</a>"
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/html-object-component.js",

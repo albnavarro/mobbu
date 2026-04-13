@@ -3,8 +3,6 @@ import { HomeComponent } from '@pagesComponent/homepage/definition';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 
-MobJs.useComponent([HomeComponent]);
-
 export const home = async () => {
     const { data: svg } = await loadTextContent({
         source: './asset/svg/ms_nord_type.svg?v=1.4',

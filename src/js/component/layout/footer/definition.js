@@ -1,6 +1,5 @@
 import { MobJs } from '@mobJs';
 import { FooterFn } from './footer';
-import { DebugButton } from '@commonComponent/debug/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -11,7 +10,6 @@ export const Footer = MobJs.createComponent(
     ({
         tag: 'mob-footer',
         component: FooterFn,
-        child: [DebugButton],
         state: {
             isMounted: () => ({
                 value: false,

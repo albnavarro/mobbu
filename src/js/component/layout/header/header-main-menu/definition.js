@@ -1,6 +1,5 @@
 import { MobJs } from '@mobJs';
 import { headerMainMenuFn } from './header-main-menu';
-import { HeaderMainMenuButton } from './main-menu-button/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -11,7 +10,6 @@ export const HeaderMainMenu = MobJs.createComponent(
     ({
         tag: 'header-main-menu',
         component: headerMainMenuFn,
-        child: [HeaderMainMenuButton],
         state: {
             isMounted: () => ({
                 value: false,

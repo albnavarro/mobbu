@@ -3,6 +3,7 @@ import { htmlObject } from '@mobJs';
 import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 import { toggleDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
+import { DebugButton } from '@commonComponent/debug/definition';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -58,7 +59,7 @@ export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
                     className: 'debug-cell',
                     content: [
                         {
-                            tag: 'debug-button',
+                            component: DebugButton,
                             attributes: { type: 'button' },
                             className: 'c-button-debug',
                             modules: delegateEvents({
@@ -69,7 +70,7 @@ export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
                             content: 'Debug App',
                         },
                         {
-                            tag: 'debug-button',
+                            component: DebugButton,
                             attributes: { type: 'button' },
                             className: 'c-button-console',
                             modules: delegateEvents({

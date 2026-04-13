@@ -1,11 +1,9 @@
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { htmlObject, MobJs } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { Mobbu2025 } from '@pagesComponent/svg/mobbu2025/definition';
 import { staticProps } from 'src/js/mob/mob-js/utils';
-
-MobJs.useComponent([Mobbu2025]);
 
 export const mob_02 = async () => {
     const { data: letteringMob } = await loadTextContent({

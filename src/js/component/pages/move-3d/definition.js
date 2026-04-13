@@ -2,7 +2,6 @@
 
 import { MobJs } from '@mobJs';
 import { Move3DPagefn } from './move-3d-page';
-import { Move3D } from '@commonComponent/move-3d/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -61,6 +60,5 @@ export const Move3DPage = MobJs.createComponent(
                 type: Boolean,
             }),
         },
-        child: [Move3D],
     })
 );

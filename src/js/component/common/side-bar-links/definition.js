@@ -1,6 +1,5 @@
 import { MobJs } from '@mobJs';
 import { SideBarLinksFn } from './side-bar-links';
-import { SideBarLinksButton } from './side-bar-links-button/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -11,7 +10,6 @@ export const SideBarLinks = MobJs.createComponent(
     ({
         tag: 'side-bar-links',
         component: SideBarLinksFn,
-        child: [SideBarLinksButton],
         state: {
             data: () => ({
                 value: [],

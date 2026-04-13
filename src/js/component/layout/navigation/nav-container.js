@@ -7,6 +7,7 @@ import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 import { refreshNavigationScroller, scrollToTopNav } from './utils';
 import { closeAllNavAccordion } from './navigation/utils';
 import { mobNavigationName } from '@instanceName';
+import { Navigation } from './navigation/definition';
 
 /**
  * @import {ProxiState} from "@mobJsType"
@@ -119,7 +120,7 @@ export const NavigationContainerFn = ({
                 content: {
                     className: 'scroll-element js-nav-scroll',
                     content: {
-                        tag: 'mob-navigation',
+                        component: Navigation,
                         attributes: { name: mobNavigationName },
                     },
                 },

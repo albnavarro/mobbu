@@ -2,8 +2,6 @@ import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { htmlObject, MobJs } from '@mobJs';
 import { HorizontalScroller } from '@pagesComponent/horizontal-scroller/definition';
 
-MobJs.useComponent([HorizontalScroller]);
-
 /** @type {import('@mobJsType').PageAsync} */
 export const horizontalScroller = async () => {
     /** Quicknav */

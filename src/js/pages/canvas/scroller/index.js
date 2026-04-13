@@ -3,8 +3,6 @@ import { htmlObject, MobJs } from '@mobJs';
 import { ScrollerN0 } from '@pagesComponent/scroller/n0/definition';
 import { loadTextContent } from '@utils/utils';
 
-MobJs.useComponent([ScrollerN0]);
-
 /** @type {import('@mobJsType').Page} */
 export const scrollerN0 = async () => {
     const { data: bg } = await loadTextContent({

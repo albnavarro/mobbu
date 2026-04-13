@@ -178,7 +178,6 @@ export interface ComponentParsed<T> {
     props?: Partial<MobStoreParams<ExtractProps<T>>>;
     state?: Partial<MobStoreParams<ExtractState<T>>>;
     bindStore?: BindStoreValueType;
-    child?: CreateComponentReturnType[];
 }
 
 export interface CreateComponentParams<T> extends ComponentParsed<T> {

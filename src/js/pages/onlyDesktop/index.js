@@ -1,8 +1,6 @@
 import { OnlyDesktopCta } from '@commonComponent/only-desktop-cta/definition';
-import { htmlObject, html, MobJs } from '@mobJs';
+import { htmlObject, html } from '@mobJs';
 import { loadTextContent } from '@utils/utils';
-
-MobJs.useComponent([OnlyDesktopCta]);
 
 /** @type {import('@mobJsType').Page} */
 export const onlyDesktop = async () => {

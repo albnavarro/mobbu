@@ -1,5 +1,4 @@
 import { MobJs } from '@mobJs';
-import { ScrollToButton } from './button/definition';
 import { ScrollToFn } from './scroll-to';
 
 /**
@@ -46,6 +45,5 @@ export const ScrollTo = MobJs.createComponent(
                 },
             }),
         },
-        child: [ScrollToButton],
     })
 );

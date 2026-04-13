@@ -1,4 +1,3 @@
-import { AnyComponent } from '@commonComponent/any-component/definition';
 import { Move3D } from '@commonComponent/move-3d/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { htmlObject, MobJs } from '@mobJs';
@@ -6,8 +5,6 @@ import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_scehema } from './data';
 import { MouseTrail } from '@commonComponent/mouse-trail/definition';
-
-MobJs.useComponent([Move3D, AnyComponent, MouseTrail]);
 
 export const rdp = async () => {
     const { data: lettering01 } = await loadTextContent({

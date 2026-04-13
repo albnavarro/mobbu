@@ -3,8 +3,6 @@ import { htmlObject, MobJs } from '@mobJs';
 import { ScrollerN1 } from '@pagesComponent/scroller/n1/definition';
 import { loadTextContent } from '@utils/utils';
 
-MobJs.useComponent([ScrollerN1]);
-
 export const scrollerN1 = async () => {
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',

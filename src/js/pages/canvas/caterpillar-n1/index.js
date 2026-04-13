@@ -3,8 +3,6 @@ import { htmlObject, MobJs } from '@mobJs';
 import { CaterpillarN1 } from '@pagesComponent/canvas/n1/definition';
 import { loadTextContent } from '@utils/utils';
 
-MobJs.useComponent([CaterpillarN1]);
-
 export const caterpillarN1 = async () => {
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',

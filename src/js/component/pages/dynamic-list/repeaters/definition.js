@@ -1,7 +1,5 @@
 import { MobJs } from '@mobJs';
 import { DynamicListRepeaterFn } from './dynamic-list-repeater';
-import { DynamicListCard } from './card/definition';
-import { DynamicListSlottedLabel } from './slotted-label/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -38,6 +36,5 @@ export const DynamicListRepeater = MobJs.createComponent(
                 type: String,
             }),
         },
-        child: [DynamicListCard, DynamicListSlottedLabel],
     })
 );

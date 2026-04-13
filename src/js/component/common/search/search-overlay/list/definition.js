@@ -1,6 +1,5 @@
 import { MobJs } from '@mobJs';
 import { SearchOverlayListFn } from './list';
-import { SearchOverlayListItem } from './list-item/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -32,6 +31,5 @@ export const SearchOverlayList = MobJs.createComponent(
                 type: Boolean,
             }),
         },
-        child: [SearchOverlayListItem],
     })
 );

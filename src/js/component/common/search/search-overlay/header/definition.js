@@ -1,6 +1,5 @@
 import { MobJs } from '@mobJs';
 import { SearchOverlayHeaderFn } from './header';
-import { SearchOverlaySuggestion } from './suggestion/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -21,6 +20,5 @@ export const SearchOverlayHeader = MobJs.createComponent(
                 type: Array,
             }),
         },
-        child: [SearchOverlaySuggestion],
     })
 );

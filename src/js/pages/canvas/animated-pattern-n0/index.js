@@ -3,8 +3,6 @@ import { htmlObject, MobJs } from '@mobJs';
 import { AnimatedPatternN0 } from '@pagesComponent/animated-pattern/n0/definition';
 import { loadTextContent } from '@utils/utils';
 
-MobJs.useComponent([AnimatedPatternN0]);
-
 /** @type {import('@mobJsType').Page} */
 export const animatedPatternN0 = async () => {
     const { data: bg } = await loadTextContent({

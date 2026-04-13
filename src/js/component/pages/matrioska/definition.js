@@ -2,9 +2,7 @@
 
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
-import { DynamicListButton } from '../dynamic-list/button/definition';
 import { MatrioskaRepeatFn } from './matrioska-repeat';
-import { MatrioskaItem } from './item/definition';
 import { MatrioskaInvalidateFn } from './matrioska-invalidate';
 
 /**
@@ -58,7 +56,6 @@ const commonParams = {
             type: Number,
         }),
     },
-    child: [DynamicListButton, MatrioskaItem],
 };
 
 export const MatrioskaRepeat = MobJs.createComponent(

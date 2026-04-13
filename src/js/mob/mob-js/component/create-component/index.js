@@ -42,14 +42,8 @@ export const createComponent = ({
     attributeToObserve = [],
     attributeChangedCallback = () => {},
     style = '',
-    child = [],
 }) => {
-    /**
-     * Load child component. ( launch createComponent recursvly )
-     */
-    useComponent(child);
-
-    return {
+    const comp = {
         [tag]: {
             componentFunction: component,
             componentParams: {
@@ -63,8 +57,14 @@ export const createComponent = ({
                 attributeToObserve,
                 attributeChangedCallback,
                 style,
-                child,
             },
         },
     };
+
+    /**
+     * Register component at import
+     */
+    useComponent([comp]);
+
+    return comp;
 };

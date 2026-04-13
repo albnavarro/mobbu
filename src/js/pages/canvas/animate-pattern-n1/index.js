@@ -3,8 +3,6 @@ import { htmlObject, MobJs } from '@mobJs';
 import { AnimatedPatternN1 } from '@pagesComponent/animated-pattern/n1/definition';
 import { loadTextContent } from '@utils/utils';
 
-MobJs.useComponent([AnimatedPatternN1]);
-
 export const animatedPatternN1 = async () => {
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',

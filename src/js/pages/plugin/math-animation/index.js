@@ -2,8 +2,6 @@ import { MathAnimation } from '@commonComponent/math-animation/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { htmlObject, MobJs } from '@mobJs';
 
-MobJs.useComponent([MathAnimation]);
-
 /** @type {import('@mobJsType').PageAsync} */
 export const mathAnimationRoute = async ({ props }) => {
     const { names } = /** @type{{names: string[]}} */ (props);

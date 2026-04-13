@@ -4,7 +4,6 @@ import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { htmlObject, html, MobJs } from '@mobJs';
 import { loadTextContent } from '@utils/utils';
 
-MobJs.useComponent([Dragger, AnyComponent]);
 const useLog = false;
 
 /** @type {import('@mobJsType').Page} */

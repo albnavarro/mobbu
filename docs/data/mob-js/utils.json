@@ -91,7 +91,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Component Configuration Utility: <ul> <li>Declared in wrappers and pages</li> <li>Array of child component definitions</li> <li>Dependencies must load before initialization</li> <li>Component Equivalent: Handled via createComponent()'s child parameter</li> </ul>"
+            "content": "Components using the <span class='quote'>tag</span> property of the <span class='quote'>htmlObject</span> utility instead of the <span class='quote'>component</span> property are not automatically <span class='quote'>registered</span>. The tag property can be used to register <span class='quote'>dynamic</span> components via their tag; in this case, this utility will force the registration."
         },
         {
             "component": "mob-spacer",

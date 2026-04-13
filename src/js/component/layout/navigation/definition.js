@@ -1,6 +1,5 @@
 import { MobJs } from '@mobJs';
 import { NavigationContainerFn } from './nav-container';
-import { Navigation } from './navigation/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -11,7 +10,6 @@ export const NavigationContainer = MobJs.createComponent(
     ({
         tag: 'mob-navigation-container',
         component: NavigationContainerFn,
-        child: [Navigation],
         state: {
             isOpen: () => ({
                 value: false,

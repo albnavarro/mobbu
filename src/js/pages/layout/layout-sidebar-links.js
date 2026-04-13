@@ -7,8 +7,6 @@ import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
 import { updateLeftSidebarList } from '@commonComponent/left-sidebar/utils';
 
-MobJs.useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);
-
 /** @type {import('@mobJsType').PageAsync} */
 export const layoutSidebarLinks = async ({ props }) => {
     const { source, title, breadCrumbs, rightSidebar } = props;

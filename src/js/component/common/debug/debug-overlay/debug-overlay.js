@@ -12,6 +12,7 @@ import { DebugTree } from './tree/definition';
 import { DebugFilterList } from './debug-filter/list/definition';
 import { DebugComponent } from './debug-component/definition';
 import { DebugHead } from './head/definition';
+import { DebugFilterHead } from './debug-filter/head/definition';
 
 /**
  * @import {
@@ -75,7 +76,7 @@ export const DebugOverlayFn = ({
                             proxi.listType === DEBUG_USE_FILTER_COMPONENT &&
                             proxi.active
                         )
-                            return htmlObject({ tag: 'debug-filter-head' });
+                            return htmlObject({ component: DebugFilterHead });
 
                         // Remove component
                         return '';

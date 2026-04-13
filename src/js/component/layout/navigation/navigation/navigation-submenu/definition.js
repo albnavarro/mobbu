@@ -1,6 +1,5 @@
 import { MobJs } from '@mobJs';
 import { NavigationSubmenuFn } from './navigation-submenu';
-import { NavigationButton } from '../navigation-button/definition';
 
 /**
  * @import {CreateComponentParams} from "@mobJsType"
@@ -29,6 +28,5 @@ export const NavigationSubmenu = MobJs.createComponent(
                 type: Boolean,
             }),
         },
-        child: [NavigationButton],
     })
 );

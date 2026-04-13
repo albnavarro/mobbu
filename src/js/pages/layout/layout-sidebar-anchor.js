@@ -9,14 +9,6 @@ import { getBreadCrumbs } from './utils';
 import { updateLeftSidebarList } from '@commonComponent/left-sidebar/utils';
 import { scrollToName } from '@instanceName';
 
-MobJs.useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    ScrollTo,
-    DocTitle,
-    HtmlContent,
-]);
-
 /** @type {import('@mobJsType').PageAsync<{}, import('./type').LayoutSidebarAnchor['props']>} */
 export const layoutSidebarAnchor = async ({ props }) => {
     const { source, title, breadCrumbs, rightSidebar } = props;

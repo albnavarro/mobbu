@@ -3,8 +3,6 @@ import { htmlObject, MobJs } from '@mobJs';
 import { AsyncTimeline } from '@pagesComponent/async-timeline/definition';
 import { loadTextContent } from '@utils/utils';
 
-MobJs.useComponent([AsyncTimeline]);
-
 /** @type {import('@mobJsType').Page} */
 export const asyncTimeline = async () => {
     const { data: bg } = await loadTextContent({
