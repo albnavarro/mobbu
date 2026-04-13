@@ -94,6 +94,13 @@
             "content": "Accepts the <span class='quote'>definition</span> of a component, from which its tag will be automatically deduced; this property takes precedence over the <span class='quote'>tag</span> property."
         },
         {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/html-object-component.js",
+                "numLines": 7
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
@@ -114,6 +121,13 @@
                 "style": "medium"
             },
             "content": "Accepts the <span class='quote'>tag</span> associated with the node that will be created.<br/>If omitted, the <span class='quote'>div</span> tag will be used."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/html-object-tag.js",
+                "numLines": 7
+            }
         },
         {
             "component": "mob-spacer",
@@ -138,6 +152,13 @@
             "content": "Accepts a <span class='quote'>string</span> or an <span class='quote'>array</span> of strings to define the classes applied to the node"
         },
         {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/html-object-class.js",
+                "numLines": 21
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
@@ -158,6 +179,13 @@
                 "style": "medium"
             },
             "content": "Accepts a string with the <span class='quote'>inline styles</span> to apply"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/html-object-styles.js",
+                "numLines": 13
+            }
         },
         {
             "component": "mob-spacer",
@@ -182,6 +210,13 @@
             "content": "Accepts an <span class='quote'>object</span> where the key represents the attribute to apply and the <span class='quote'>value</span> represents its value."
         },
         {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/html-object-attributes.js",
+                "numLines": 13
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
@@ -202,6 +237,13 @@
                 "style": "medium"
             },
             "content": "Accepts an <span class='quote'>object</span> where the key represents the attribute to apply and the <span class='quote'>value</span> represents its value.<br/>In this case, the <span class='quote'>data</span>- prefix will be automatically added."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/html-object-data-attributes.js",
+                "numLines": 13
+            }
         },
         {
             "component": "mob-spacer",
@@ -239,6 +281,13 @@
             }
         },
         {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/html-object-modules.js",
+                "numLines": 34
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
@@ -269,6 +318,13 @@
                     "<span class='quote'>invalidate</span>",
                     "<span class='quote'>bindObject</span>"
                 ]
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/html-object-content.js",
+                "numLines": 56
             }
         }
     ]
