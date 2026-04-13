@@ -27,7 +27,7 @@ export const MyComponent = ({ onMount }) => {
 
     return htmlObject({
         content: {
-            component: MyComponent,
+            component: MyChildComponent,
             attributes: { name: otherComponentName },
         },
     });

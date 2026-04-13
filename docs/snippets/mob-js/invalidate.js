@@ -8,7 +8,7 @@ const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
             return htmlObject({
                 className: 'wrapper',
                 content: {
-                    component: MyComponent,
+                    component: MyChildComponent,
                     modules: [
                         staticProps({
                             key: `${item}`,

@@ -34,27 +34,27 @@ export const MyComponent = ({ onMount }) => {
         className: 'main',
         content: [
             {
-                component: MyComponent,
+                component: MyChildComponent,
                 attributes: { name: otherComponentName },
             },
             {
-                component: MyComponent,
+                component: MyChildComponent,
                 attributes: { name: otherComponentName },
             },
             {
-                component: MyComponent,
+                component: MyChildComponent,
                 attributes: { name: otherComponentName },
             },
             {
-                component: MyComponent,
+                component: MyChildComponent,
                 attributes: { name: otherComponentName },
             },
             {
-                component: MyComponent,
+                component: MyChildComponent,
                 attributes: { name: otherComponentName },
             },
             {
-                component: MyComponent,
+                component: MyChildComponent,
                 attributes: { name: otherComponentName },
             },
         ],

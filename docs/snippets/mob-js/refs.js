@@ -11,12 +11,12 @@ export const MyComponent = ({
     getRefs,
 }) => {
     onMount(() => {
-        const { list, myComponent } = getRef();
+        const { list, myChildComponent } = getRef();
         const { listItem } = getRefs();
 
         console.log(list); // <ul>
         console.log(listItem); // [<li>,<li>,<li>,<li>,<li>,<li>,<li>,<li>,<li>,]
-        console.log(myComponent); // first node of <my-component>
+        console.log(myChildComponent); // first node of <my-component>
     });
 
     return htmlObject({
@@ -61,7 +61,7 @@ export const MyComponent = ({
             {
                 component: ChildComponent,
                 modules: [
-                    setRef('myComponent'),
+                    setRef('myChildComponent'),
                     staticProps({ prop: 'my-prop' }),
                 ],
                 content: 'my content',

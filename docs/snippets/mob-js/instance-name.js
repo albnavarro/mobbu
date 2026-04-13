@@ -11,7 +11,7 @@ export const childInstanceName = 'child_name';
 export const MyComponent = () => {
     return htmlObject({
         content: {
-            component: MyComponent,
+            component: MyChildComponent,
             attributes: { name: childInstanceName },
         },
     });

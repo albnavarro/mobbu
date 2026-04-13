@@ -13,7 +13,7 @@ const getInvalidateRender = ({
             return htmlObject({
                 className: 'wrapper',
                 content: {
-                    component: MyComponent,
+                    component: MyChildComponent,
                     modules: [
                         setRef('card_ref'),
                         staticProps({ key: `${item}` }),
