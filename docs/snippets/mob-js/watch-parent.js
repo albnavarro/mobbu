@@ -1,7 +1,7 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ onMount, watchParent }) => {
     onMount(() => {
@@ -9,8 +9,8 @@ export const MyComponent = ({ onMount, watchParent }) => {
             console.log(value);
         });
     });
-    /**
-     * DOM component structure.
-     */
-    return html` <div>my component.</div> `;
+
+    return htmlObject({
+        tag: 'section',
+    });
 };

@@ -1,12 +1,11 @@
-import { html } from '@mobJs';
+import { html, htmlObject } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = () => {
-    return html`
-        <div>
-            <my-child-component class="myclass1 myclass2"></my-child-component>
-        </div>
-    `;
+    return htmlObject({
+        component: MyChildComponent,
+        className: ['myclass1', 'myclass2 '],
+    });
 };

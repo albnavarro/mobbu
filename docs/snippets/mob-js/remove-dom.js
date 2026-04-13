@@ -1,7 +1,7 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ onMount, removeDOM, setRef, getRef }) => {
     onMount(() => {
@@ -12,11 +12,13 @@ export const MyComponent = ({ onMount, removeDOM, setRef, getRef }) => {
         }, 1000);
     });
 
-    return html`
-        <div>
-            <div ${setRef('myDiv')}>
-                <my-child-component></my-child-component>
-            </div>
-        </div>
-    `;
+    return htmlObject({
+        className: 'main',
+        content: {
+            modules: setRef('myDiv'),
+            content: {
+                component: MyChildComponent,
+            },
+        },
+    });
 };

@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -11,8 +11,11 @@ export const MyComponent = ({ onMount, emit }) => {
         // Use String
         emit('myState');
     });
+
     /**
      * DOM component structure.
      */
-    return html` <div>my component.</div> `;
+    return htmlObject({
+        tag: 'section',
+    });
 };

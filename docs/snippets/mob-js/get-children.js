@@ -1,7 +1,7 @@
-import { html, MobJs } from '@mobJs';
+import { html, htmlObject, MobJs } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ onMount, getChildren }) => {
     onMount(() => {
@@ -11,17 +11,25 @@ export const MyComponent = ({ onMount, getChildren }) => {
             MobJs.setStateById(childID, 'state', 'value');
         });
     });
-    /**
-     * DOM component structure.
-     */
-    return html`
-        <div>
-            <child-component></child-component>
-            <child-component></child-component>
-            <child-component></child-component>
-            <child-component></child-component>
-            <child-component></child-component>
-            <child-component></child-component>
-        </div>
-    `;
+
+    return htmlObject({
+        className: 'section',
+        content: [
+            {
+                component: MyChildComponent,
+            },
+            {
+                component: MyChildComponent,
+            },
+            {
+                component: MyChildComponent,
+            },
+            {
+                component: MyChildComponent,
+            },
+            {
+                component: MyChildComponent,
+            },
+        ],
+    });
 };

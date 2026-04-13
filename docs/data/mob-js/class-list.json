@@ -32,7 +32,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/class-list.js",
-                "numLines": 10
+                "numLines": 11
             }
         }
     ]

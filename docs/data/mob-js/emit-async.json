@@ -32,7 +32,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/emit-async.js",
-                "numLines": 20
+                "numLines": 22
             }
         }
     ]

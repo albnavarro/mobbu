@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -16,5 +16,7 @@ export const MyComponent = ({ onMount, emitAsync }) => {
     /**
      * DOM component structure.
      */
-    return html` <div>my component.</div> `;
+    return htmlObject({
+        tag: 'section',
+    });
 };
