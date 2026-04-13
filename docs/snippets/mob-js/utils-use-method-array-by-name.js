@@ -1,13 +1,14 @@
-import { html, MobJs } from '@mobjs';
+import { MobJs } from '@mobjs';
 
 /**
- * @import {UseMethodArrayByName} from '@mobJsType'
+ * @import {UseMethodArrayByName} from "@mobJsType"
  */
 
 /**
  * Use variable for lsp reference.
  */
 import { otherComponentName } from '..';
+import { htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -15,8 +16,8 @@ import { otherComponentName } from '..';
 export const MyComponent = ({ onMount }) => {
     onMount(() => {
         /**
-         * It is a good idea to use the Optional chaining to ensure that the component
-         * is mounted and the methods is available.
+         * It is a good idea to use the Optional chaining to ensure that the component is mounted and the methods is
+         * available.
          */
 
         /** @type {UseMethodArrayByName<import('./other-component/type').MyOtherComponent>} */
@@ -29,19 +30,33 @@ export const MyComponent = ({ onMount }) => {
         return () => {};
     });
 
-    return html`
-        <div>
-            <my-component name="${otherComponentName}"> </my-component>
-            <my-component name="${otherComponentName}"> </my-component>
-            <my-component name="${otherComponentName}"> </my-component>
-            <my-component name="${otherComponentName}"> </my-component>
-            <my-component name="${otherComponentName}"> </my-component>
-            <my-component name="${otherComponentName}"> </my-component>
-            <my-component name="${otherComponentName}"> </my-component>
-            <my-component name="${otherComponentName}"> </my-component>
-            <my-component name="${otherComponentName}"> </my-component>
-            <my-component name="${otherComponentName}"> </my-component>
-            <my-component name="${otherComponentName}"> </my-component>
-        </div>
-    `;
+    return htmlObject({
+        className: 'main',
+        content: [
+            {
+                component: MyComponent,
+                attributes: { name: otherComponentName },
+            },
+            {
+                component: MyComponent,
+                attributes: { name: otherComponentName },
+            },
+            {
+                component: MyComponent,
+                attributes: { name: otherComponentName },
+            },
+            {
+                component: MyComponent,
+                attributes: { name: otherComponentName },
+            },
+            {
+                component: MyComponent,
+                attributes: { name: otherComponentName },
+            },
+            {
+                component: MyComponent,
+                attributes: { name: otherComponentName },
+            },
+        ],
+    });
 };

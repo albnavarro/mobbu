@@ -40,7 +40,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/utils-use-method-array-by-name.js",
-                "numLines": 47
+                "numLines": 62
             }
         },
         {

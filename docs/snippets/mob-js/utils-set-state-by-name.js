@@ -1,4 +1,4 @@
-import { html, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 
 /**
  * Use variable for lsp reference.
@@ -20,5 +20,10 @@ export const MyComponent = ({ onMount }) => {
         return () => {};
     });
 
-    return html` <div></div> `;
+    /**
+     * DOM component structure.
+     */
+    return htmlObject({
+        content: 'ny content',
+    });
 };
