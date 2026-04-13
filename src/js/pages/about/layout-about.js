@@ -1,4 +1,4 @@
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { AboutComponent } from '@pagesComponent/about/definition';
 import { loadJsonContent, loadTextContent } from '@utils/utils';
 
@@ -14,7 +14,7 @@ export const layoutAbout = async () => {
         source: './asset/svg/about.svg?v=0.1',
     });
 
-    return fromObject({
+    return htmlObject({
         component: AboutComponent,
         modules: MobJs.staticProps(
             /** @type {import('@pagesComponent/about/type').About['props']} */

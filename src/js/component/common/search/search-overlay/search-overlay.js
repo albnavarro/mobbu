@@ -2,7 +2,7 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import {
     closeSearchSuggestion,
     shouldCloseSearchSuggestion,
@@ -83,7 +83,7 @@ export const SearchOverlayFn = ({
         },
     ];
 
-    return fromObject({
+    return htmlObject({
         className: 'c-search-overlay',
         modules: bindEffect({
             toggleClass: {

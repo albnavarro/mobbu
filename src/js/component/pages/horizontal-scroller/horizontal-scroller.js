@@ -12,7 +12,7 @@
  */
 
 import { offset, outerHeight } from '@mobCoreUtils';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { MobBodyScroll } from '@mobMotionPlugin';
 import { horizontalScrollerAnimation } from './animation/animation';
 import { HorizontalScrollerSection } from './section/definition';
@@ -40,7 +40,7 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
     const pinClass = pinIsVisible ? '' : 'hidden';
 
     return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
-        return fromObject({
+        return htmlObject({
             component: HorizontalScrollerSection,
             modules: staticProps(
                 /** @type {import('./section/type').HorizontalScrollerSectionType['props']} */ ({
@@ -61,7 +61,7 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
  */
 const getNav = ({ numOfCol, proxi, staticProps, delegateEvents }) => {
     return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
-        return fromObject({
+        return htmlObject({
             component: HorizontalScrollerButton,
             modules: [
                 staticProps(
@@ -167,7 +167,7 @@ export const HorizontalScrollerFn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'l-h-scroller',
         content: [
             {

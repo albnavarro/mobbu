@@ -1,4 +1,4 @@
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { toggleSearchOverlay } from '../../utils';
 
 /**
@@ -23,7 +23,7 @@ export const SearchOverlayListItemFn = ({
 }) => {
     const proxi = getProxi();
 
-    return fromObject({
+    return htmlObject({
         tag: 'li',
         modules: bindEffect({
             toggleClass: {

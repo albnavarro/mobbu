@@ -11,7 +11,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { caterpillarN2Animation } from './animation/animation';
 
 /**
@@ -28,7 +28,7 @@ function getControls({ proxi, delegateEvents, bindObject }) {
     const buttons = Object.entries(proxi.buttons).map(([className, value]) => {
         const { label } = value;
 
-        return fromObject({
+        return htmlObject({
             tag: 'li',
             className: 'controls-item',
             content: {
@@ -65,7 +65,7 @@ function getControls({ proxi, delegateEvents, bindObject }) {
         },
     });
 
-    const range = fromObject({
+    const range = htmlObject({
         className: 'controls-item',
         content: {
             tag: 'li',
@@ -163,7 +163,7 @@ export const CaterpillarN2Fn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         content: [
             {
                 className: 'c-canvas',

@@ -1,5 +1,5 @@
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { toggleMatrioskaItemActive } from '../item/utils';
 import { MatrioskaItem } from '../item/definition';
 
@@ -30,7 +30,7 @@ export const getThirdLevel = ({
     delegateEvents,
     proxi,
 }) => {
-    return fromObject({
+    return htmlObject({
         className: 'level level--3',
         content: repeat({
             observe: () => proxi.level3,
@@ -42,7 +42,7 @@ export const getThirdLevel = ({
                  * With key bind props is unnecessary here
                  */
 
-                return fromObject({
+                return htmlObject({
                     className: 'level-wrap level-wrap--3',
                     content: [
                         {

@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { linksScroller } from './animation/links-scroller';
 import { MobCore } from '@mobCore';
 
@@ -104,7 +104,7 @@ export const LayoutLinksFn = ({
      * Scroller items
      */
     const items = proxi.items.map((item, index) => {
-        return fromObject({
+        return htmlObject({
             tag: 'li',
             className: 'item',
             content: {
@@ -154,7 +154,7 @@ export const LayoutLinksFn = ({
         },
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'l-links',
         content: [
             {

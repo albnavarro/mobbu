@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').ScrollToButtonType>} */
 export const ScrollToButtonFn = ({ bindEffect, getProxi }) => {
@@ -6,7 +6,7 @@ export const ScrollToButtonFn = ({ bindEffect, getProxi }) => {
     const isSectionClass = proxi.isSection ? 'is-section' : '';
     const isNoteClass = proxi.isNote ? 'is-note' : '';
 
-    return fromObject({
+    return htmlObject({
         tag: 'button',
         attributes: { type: 'button' },
         className: [isSectionClass, isNoteClass],

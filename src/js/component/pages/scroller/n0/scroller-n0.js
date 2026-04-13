@@ -12,7 +12,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import {
     activateScrollDownArrow,
     deactivateScrollDownArrow,
@@ -53,7 +53,7 @@ const createAnimation = ({ proxi, getRef, resetScroll = true }) => {
  */
 function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     return params.map(({ label }, index) => {
-        return fromObject({
+        return htmlObject({
             tag: 'li',
             className: 'controls-item',
             content: {
@@ -125,7 +125,7 @@ export const ScrollerN0Fn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         content: [
             {
                 className: 'c-canvas is-fixed',

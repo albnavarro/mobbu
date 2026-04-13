@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -11,7 +11,7 @@ import { fromObject } from '@mobJs';
 export const SideBarLinksButtonFn = ({ getProxi, bindEffect }) => {
     const proxi = getProxi();
 
-    return fromObject({
+    return htmlObject({
         tag: 'a',
         attributes: { href: `./#${proxi.url}` },
         modules: bindEffect({

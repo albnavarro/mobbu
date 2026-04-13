@@ -12,7 +12,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { animatedPatternN0Animation } from './animation/animation';
 import { params } from './variations';
 
@@ -43,7 +43,7 @@ const createAnimation = ({ proxi, getRef }) => {
  */
 function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     return params.map(({ label }, index) => {
-        return fromObject({
+        return htmlObject({
             tag: 'li',
             className: 'controls-item',
             content: {
@@ -112,7 +112,7 @@ export const AnimatedPatternN0Fn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         content: [
             {
                 className: 'c-canvas',

@@ -1,4 +1,4 @@
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { innerData } from '@pagesComponent/dynamic-list/data';
 import { DynamicListCardInner } from './innerCard/definition';
 import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definition';
@@ -33,7 +33,7 @@ function createArray(numberOfItem) {
 const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
     return createArray(proxi.counter)
         .map((item) => {
-            return fromObject({
+            return htmlObject({
                 component: DynamicListCardInner,
                 modules: [
                     staticProps(
@@ -190,7 +190,7 @@ export const DynamicListCardFn = ({
                         /**
                          * Component
                          */
-                        return fromObject({
+                        return htmlObject({
                             tag: 'dynamic-list-card-inner',
                             modules: bindProps(
                                 /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
@@ -210,7 +210,7 @@ export const DynamicListCardFn = ({
                         /**
                          * Component
                          */
-                        return fromObject({
+                        return htmlObject({
                             tag: 'dynamic-list-card-inner',
                             modules: bindProps(
                                 /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
@@ -250,7 +250,7 @@ export const DynamicListCardFn = ({
         ],
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'c-dynamic-card',
         modules: [
             bindEffect({

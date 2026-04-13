@@ -5,7 +5,7 @@
  * } from "@mobJsType"
  */
 
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 
 // @ts-ignore
 import { getCommonData, getIcons } from '@data/index';
@@ -43,10 +43,10 @@ function additems({ delegateEvents }) {
     return links.map((link) => {
         const { svg, url, internal } = link;
 
-        return fromObject({
+        return htmlObject({
             tag: 'li',
             content: internal
-                ? fromObject({
+                ? htmlObject({
                       tag: 'button',
                       dataAttributes: { url },
                       modules: delegateEvents({
@@ -56,7 +56,7 @@ function additems({ delegateEvents }) {
                       }),
                       content: icon[svg],
                   })
-                : fromObject({
+                : htmlObject({
                       tag: 'a',
                       attributes: { href: url, target: '_blank' },
                       content: icon[svg],
@@ -67,7 +67,7 @@ function additems({ delegateEvents }) {
 
 /** @type {MobComponent} */
 export const HeaderUtilsFn = ({ delegateEvents }) => {
-    return fromObject({
+    return htmlObject({
         tag: 'ul',
         className: 'l-header-utils',
         content: [

@@ -1,5 +1,5 @@
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { MobMotionCore, MobTween } from '@mobMotion';
 import { Recursive3Dshape } from './partials/recursive-3d-shape';
 import { getChildrenMethod, getMove3DDimension } from './utils';
@@ -346,7 +346,7 @@ export const Move3Dfn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'c-move-3d',
         modules: bindEffect({
             toggleClass: { 'use-drag': () => proxi.drag },

@@ -1,4 +1,4 @@
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { Move3DItem } from '../move-3d-item/definition';
 
 /**
@@ -9,7 +9,7 @@ import { Move3DItem } from '../move-3d-item/definition';
  */
 const getDebug = ({ debug, id }) => {
     return debug
-        ? fromObject({
+        ? htmlObject({
               tag: 'span',
               className: 'debug',
               content: `${id}`,
@@ -21,7 +21,7 @@ const getDebug = ({ debug, id }) => {
 export const Recursive3Dshape = ({ data, root, childrenId, debug }) => {
     return data
         .map(({ children, props }) => {
-            return fromObject({
+            return htmlObject({
                 component: Move3DItem,
                 attributes: { name: childrenId },
                 modules: MobJs.staticProps(

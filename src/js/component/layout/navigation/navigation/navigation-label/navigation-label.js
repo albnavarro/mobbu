@@ -1,10 +1,10 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').NavigationLabelType>} */
 export const NavigationLabelFn = ({ bindEffect, getProxi }) => {
     const proxi = getProxi();
 
-    return fromObject({
+    return htmlObject({
         className: 'label',
         dataAttributes: { sectionname: proxi.sectioName },
         modules: bindEffect({

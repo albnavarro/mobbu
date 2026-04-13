@@ -6,7 +6,7 @@
  * @import {HtmlContent} from "./type"
  */
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 
 /**
@@ -20,7 +20,7 @@ const getComponents = ({ data, staticProps, awaitLoadSnippet }) => {
     return data.map((item) => {
         const { component, props, content } = item;
 
-        return fromObject({
+        return htmlObject({
             tag: component,
             modules: staticProps({ ...props, awaitLoad: awaitLoadSnippet }),
             content: content ?? '',
@@ -52,7 +52,7 @@ export const HtmlContentFn = async ({ getState, staticProps }) => {
     const { awaitLoadSnippet, usePadding } = getState();
     const usePaddingClass = usePadding ? 'use-padding' : '';
 
-    return fromObject({
+    return htmlObject({
         tag: 'section',
         className: ['html-content', usePaddingClass],
         content: getComponents({

@@ -9,7 +9,7 @@
  * @import {NavigationSubmenuType} from "./type"
  */
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
 import { refreshNavigationScroller } from '../../utils';
 import { closeAllNavAccordion } from '../utils';
@@ -25,7 +25,7 @@ function getSubmenu({ proxi, staticProps }) {
     return proxi.children.map((child) => {
         const { label, url, scrollToSection, activeId } = child;
 
-        return fromObject({
+        return htmlObject({
             tag: 'li',
             content: {
                 component: NavigationButton,
@@ -102,7 +102,7 @@ export const NavigationSubmenuFn = ({
         return () => {};
     });
 
-    return fromObject({
+    return htmlObject({
         tag: 'li',
         content: [
             {

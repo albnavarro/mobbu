@@ -1,5 +1,5 @@
 import { MobCore } from '@mobCore';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 
 /**
  * @import {
@@ -95,7 +95,7 @@ export const benchMarkListPartial = ({
     bindEffect,
     proxi,
 }) => {
-    return fromObject({
+    return htmlObject({
         content: [
             {
                 className: 'loader',

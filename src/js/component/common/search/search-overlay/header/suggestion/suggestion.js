@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { SearchOverlaySuggestionItem } from './suggestion-item/definition';
 
 /**
@@ -17,7 +17,7 @@ export const SearchOverlaySuggestionFn = ({ getProxi, repeat, bindProps }) => {
         observe: () => proxi.list,
         key: 'word',
         render: ({ current }) => {
-            return fromObject({
+            return htmlObject({
                 component: SearchOverlaySuggestionItem,
                 modules: bindProps(
                     /**
@@ -32,7 +32,7 @@ export const SearchOverlaySuggestionFn = ({ getProxi, repeat, bindProps }) => {
         },
     });
 
-    return fromObject({
+    return htmlObject({
         content: {
             className: 'c-search-suggestion',
             content: {

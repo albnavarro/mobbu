@@ -1,5 +1,5 @@
 import { consoleLogDebug } from '@commonComponent/debug/console-log';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 import { toggleDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
@@ -19,11 +19,11 @@ const bioInfo = [
  * @returns {string}
  */
 const getBio = () => {
-    return fromObject({
+    return htmlObject({
         tag: 'ul',
         className: 'bio-cell',
         content: bioInfo.map((item) => {
-            return fromObject({
+            return htmlObject({
                 tag: 'li',
                 className: 'bio-item',
                 content: item,
@@ -42,7 +42,7 @@ export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
         }, getFrameDelay());
     });
 
-    return fromObject({
+    return htmlObject({
         tag: 'footer',
         className: 'js-footer',
         modules: bindEffect({

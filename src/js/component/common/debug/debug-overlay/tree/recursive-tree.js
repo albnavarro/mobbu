@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @import {StaticProps} from "@mobJsType"
@@ -13,7 +13,7 @@ import { fromObject } from '@mobJs';
 export const generateTreeComponents = ({ data, staticProps }) => {
     return data
         .map(({ id, componentName, instanceName, children }) => {
-            return fromObject({
+            return htmlObject({
                 /**
                  * Use tag instead component to prevent dependency cycle
                  */

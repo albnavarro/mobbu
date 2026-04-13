@@ -1,4 +1,4 @@
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { refreshFilterList } from '../list/utils';
 
 /**
@@ -30,7 +30,7 @@ export const DebugFilterHeadFn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'c-debug-filter-head',
         content: [
             {

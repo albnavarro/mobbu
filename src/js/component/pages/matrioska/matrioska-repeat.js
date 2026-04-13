@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { getButtons } from './buttons-partial';
 import { getSecondLevel } from './repeat-partial/second-level';
 import { MatrioskaItem } from './item/definition';
@@ -30,7 +30,7 @@ export const MatrioskaRepeatFn = ({
         content: repeat({
             observe: () => proxi.level1,
             render: ({ current }) => {
-                return fromObject({
+                return htmlObject({
                     className: 'level-wrap level-wrap--1',
                     content: [
                         {
@@ -66,7 +66,7 @@ export const MatrioskaRepeatFn = ({
         }),
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'l-matrioska',
         content: [
             {

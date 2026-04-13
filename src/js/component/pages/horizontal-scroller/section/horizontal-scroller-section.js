@@ -1,12 +1,12 @@
 //@ts-check
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').HorizontalScrollerSectionType>} */
 export const HorizontalScrollerSectionFn = ({ getState }) => {
     const { id, pinClass } = getState();
 
-    return fromObject({
+    return htmlObject({
         className: 'column js-column',
         dataAttributes: { shadow: `section-${id}` },
         content: {

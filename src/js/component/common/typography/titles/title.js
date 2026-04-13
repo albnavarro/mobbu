@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @param {string} index
@@ -6,7 +6,7 @@ import { fromObject } from '@mobJs';
  */
 const getIndex = (index) => {
     return index.length > 0
-        ? fromObject({
+        ? htmlObject({
               tag: 'span',
               className: 'title-index',
               content: index,
@@ -22,7 +22,7 @@ export const TitleFn = ({ getProxi }) => {
     const boldClass = proxi.isBold ? `u-weight-bold` : '';
     const isSectionClass = proxi.isSection ? `is-section` : '';
 
-    return fromObject({
+    return htmlObject({
         tag: proxi.tag,
         className: [colorClass, boldClass, isSectionClass],
         content: [

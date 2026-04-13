@@ -1,12 +1,12 @@
 //@ts-check
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').DynamicCounterType>} */
 export const DynamicListCounterFn = ({ getState, bindText }) => {
     const { parentListId } = getState();
 
-    return fromObject({
+    return htmlObject({
         className: 'c-dynamic-counter',
         content: [
             {

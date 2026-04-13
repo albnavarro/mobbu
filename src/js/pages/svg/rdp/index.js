@@ -1,7 +1,7 @@
 import { AnyComponent } from '@commonComponent/any-component/definition';
 import { Move3D } from '@commonComponent/move-3d/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_scehema } from './data';
@@ -59,7 +59,7 @@ export const rdp = async () => {
         backRoute: '#svg-overview',
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'l-rdp-01',
         content: [
             {

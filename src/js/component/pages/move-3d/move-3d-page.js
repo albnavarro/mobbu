@@ -1,5 +1,5 @@
 import { Move3D } from '@commonComponent/move-3d/definition';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @import {
@@ -124,7 +124,7 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
         }),
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'controls',
         modules: bindEffect({
             toggleClass: {
@@ -229,7 +229,7 @@ export const Move3DPagefn = ({
 }) => {
     const proxi = getProxi();
 
-    return fromObject({
+    return htmlObject({
         className: 'l-move3d-page',
         content: [
             {

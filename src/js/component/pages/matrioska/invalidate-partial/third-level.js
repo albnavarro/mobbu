@@ -1,5 +1,5 @@
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { toggleMatrioskaItemActive } from '../item/utils';
 import { MatrioskaItem } from '../item/definition';
 
@@ -30,7 +30,7 @@ export const getThirdLevel = ({
     bindProps,
     proxi,
 }) => {
-    return fromObject({
+    return htmlObject({
         className: 'level level--3',
         content: invalidate({
             observe: 'level3',
@@ -40,7 +40,7 @@ export const getThirdLevel = ({
                         const name = MobCore.getUnivoqueId();
                         const name2 = MobCore.getUnivoqueId();
 
-                        return fromObject({
+                        return htmlObject({
                             className: 'level-wrap level-wrap--3',
                             content: [
                                 {

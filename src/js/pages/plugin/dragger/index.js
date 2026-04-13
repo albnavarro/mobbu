@@ -1,7 +1,7 @@
 import { AnyComponent } from '@commonComponent/any-component/definition';
 import { Dragger } from '@commonComponent/dragger/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { fromObject, html, MobJs } from '@mobJs';
+import { htmlObject, html, MobJs } from '@mobJs';
 import { loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([Dragger, AnyComponent]);
@@ -55,7 +55,7 @@ export const DraggerRoute = async () => {
         <div class="child is-svg">${svg}</div>
     </div>`;
 
-    return fromObject({
+    return htmlObject({
         className: 'l-dragger',
         content: [
             {

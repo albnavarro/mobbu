@@ -696,7 +696,7 @@ export default class MobSpring {
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').SpringActions>} obj To Values
      */
-    goFrom(fromObject, spacialProps = {}) {
+    goFrom(htmlObject, spacialProps = {}) {
         /**
          * Skip if is in pause
          */
@@ -711,18 +711,18 @@ export default class MobSpring {
         /**
          * Normalize data
          */
-        const fromObjectParsed = parseGoFromObject(fromObject);
+        const htmlObjectParsed = parseGoFromObject(htmlObject);
 
         /**
          * Fire action
          */
-        return this.#doAction(fromObjectParsed, fromObject, spacialProps);
+        return this.#doAction(htmlObjectParsed, htmlObject, spacialProps);
     }
 
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').SpringActions>} obj To Values
      */
-    goFromTo(fromObject, toObject, specialProps = {}) {
+    goFromTo(htmlObject, toObject, specialProps = {}) {
         /**
          * Skip if is in pause
          */
@@ -737,16 +737,16 @@ export default class MobSpring {
         /**
          * Check if keys from/to is equal.
          */
-        if (!compareKeys(fromObject, toObject)) {
-            compareKeysWarning('spring goFromTo:', fromObject, toObject);
+        if (!compareKeys(htmlObject, toObject)) {
+            compareKeysWarning('spring goFromTo:', htmlObject, toObject);
             return new Promise((resolve) => resolve);
         }
 
         /**
          * Normalize data
          */
-        const objectParsed = parseGoFromToObject(fromObject, toObject);
-        return this.#doAction(objectParsed, fromObject, specialProps);
+        const objectParsed = parseGoFromToObject(htmlObject, toObject);
+        return this.#doAction(objectParsed, htmlObject, specialProps);
     }
 
     /**

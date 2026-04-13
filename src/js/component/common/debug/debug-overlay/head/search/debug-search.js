@@ -2,7 +2,7 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../../constant';
 import {
     refreshDebugComponentById,
@@ -154,7 +154,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
         },
     ];
 
-    return fromObject({
+    return htmlObject({
         className: 'c-debug-search',
         content: [
             {

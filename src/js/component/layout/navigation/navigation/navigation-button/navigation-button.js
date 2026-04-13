@@ -4,7 +4,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { navigationStore } from '@stores/navigation';
 
 /** @type {MobComponent<NavigationButtonType>} */
@@ -66,7 +66,7 @@ export const NavigationButtonFn = ({
         });
     });
 
-    return fromObject({
+    return htmlObject({
         tag: 'button',
         attributes: { type: 'button' },
         className: ['link', arrowClass, subMenuClass],

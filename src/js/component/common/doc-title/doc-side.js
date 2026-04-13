@@ -1,8 +1,8 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent} */
 export const DocTitleFn = () => {
-    return fromObject({
+    return htmlObject({
         className: 'c-doc-title',
         content: {
             tag: 'h2',

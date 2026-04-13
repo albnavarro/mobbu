@@ -2,7 +2,7 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { mathPairAnimation } from './pair-animation';
 import { fakeAnimation } from './animations/fake-animation';
 import { MobCore } from '@mobCore';
@@ -94,7 +94,7 @@ export const MathAnimationFn = ({
      * STagger item
      */
     const staggersBlock = staggers.map(({ size, opacity }) => {
-        return fromObject({
+        return htmlObject({
             tag: 'span',
             className: 'trail-item',
             style: `width:${size}rem;height:${size}rem;opacity:${opacity}`,
@@ -106,7 +106,7 @@ export const MathAnimationFn = ({
         });
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'c-math',
         content: [
             {

@@ -11,7 +11,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import {
     activateScrollDownArrow,
     deactivateScrollDownArrow,
@@ -51,7 +51,7 @@ function getControls({ proxi, delegateEvents, bindObject }) {
         },
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'controls-item',
         content: [
             {
@@ -137,7 +137,7 @@ export const ScrollerN1Fn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         content: [
             {
                 className: 'c-canvas is-fixed',

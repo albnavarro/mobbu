@@ -6,7 +6,7 @@
  * } from "@mobJsType"
  */
 
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { getCommonData } from '@data/index';
 import { navigationStore } from '@stores/navigation';
 import { MobCore } from '@mobCore';
@@ -20,7 +20,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
     const data = getCommonData();
 
     return data.footer.nav.map(({ label, url, section }) => {
-        return fromObject({
+        return htmlObject({
             tag: 'li',
             content: {
                 tag: 'header-main-menu-button',
@@ -64,7 +64,7 @@ export const headerMainMenuFn = ({
         }, 10);
     });
 
-    return fromObject({
+    return htmlObject({
         tag: 'ul',
         className: 'l-header-menu',
         modules: bindEffect({

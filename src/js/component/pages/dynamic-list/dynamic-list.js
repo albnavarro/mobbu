@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { startData, state1, state2, state3 } from './data';
 import { DynamicListButton } from './button/definition';
 import { DynamicListRepeater } from './repeaters/definition';
@@ -66,7 +66,7 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
     return buttons.map((column, index) => {
         const { data, buttonLabel } = column;
 
-        return fromObject({
+        return htmlObject({
             component: DynamicListButton,
             className: 'dynamic-list-button',
             modules: [
@@ -102,7 +102,7 @@ function getRepeaters({ bindProps, staticProps, proxi }) {
     return repeaters.map((item, index) => {
         const { key, clean, label } = item;
 
-        return fromObject({
+        return htmlObject({
             component: DynamicListRepeater,
             modules: [
                 staticProps(
@@ -209,7 +209,7 @@ export const DynamicListFn = ({
                 content: invalidate({
                     observe: () => proxi.counter,
                     render: () => {
-                        return fromObject({
+                        return htmlObject({
                             content: {
                                 component: DynamicListCardInner,
                                 modules: bindProps(
@@ -226,7 +226,7 @@ export const DynamicListFn = ({
         ],
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'c-dynamic-list',
         content: [
             headerBlock,

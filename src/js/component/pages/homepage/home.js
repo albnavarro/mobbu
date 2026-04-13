@@ -6,7 +6,7 @@
  */
 
 import { simpleIntroAnimation } from '@componentLibs/animation/simple-intro';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @param {object} params
@@ -40,7 +40,7 @@ export const HomeComponentFn = ({ onMount, getProxi }) => {
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'l-index',
         content: {
             className: 'logo',

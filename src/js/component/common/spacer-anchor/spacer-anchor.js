@@ -3,7 +3,7 @@
  * @import {SpacerAnchor} from "./type"
  */
 
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { isVisibleInViewportSmart } from '@mobCoreUtils';
 import {
     addItemToScrollSideBar,
@@ -60,7 +60,7 @@ export const SpacerAnchorFn = ({ getState, onMount }) => {
         addItemToScrollComponent({ id, label, element, isSection, isNote });
     });
 
-    return fromObject({
+    return htmlObject({
         className: ['spacer', `is-${style}`],
         attributes: { id },
         content: {

@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -6,7 +6,7 @@ import { fromObject } from '@mobJs';
 
 /** @type {MobComponent} */
 export const DebugButtonFn = () => {
-    return fromObject({
+    return htmlObject({
         tag: 'button',
         attributes: { type: 'button' },
         className: 'c-btn-debug',

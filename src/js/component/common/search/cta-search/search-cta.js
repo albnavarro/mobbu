@@ -2,7 +2,7 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { getIcons } from '@data/index';
 import { toggleSearchOverlay } from '../search-overlay/utils';
 import { searchOverlaySetInputFocus } from '../search-overlay/header/utils';
@@ -16,7 +16,7 @@ const onClick = () => {
 export const SearchCtaFn = ({ delegateEvents }) => {
     const searchSvg = getIcons()['searchIcons'];
 
-    return fromObject({
+    return htmlObject({
         tag: 'button',
         attributes: { type: 'button' },
         className: 'c-search-cta',

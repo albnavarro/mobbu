@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -15,7 +15,7 @@ const getList = ({ items, links }) => {
     return links
         ? /** @type{Record<'label' | 'url', string>[]} */ (items).map(
               ({ label, url }) =>
-                  fromObject({
+                  htmlObject({
                       tag: 'li',
                       content: {
                           tag: 'a',
@@ -41,7 +41,7 @@ const getList = ({ items, links }) => {
                   })
           )
         : items.map((item) =>
-              fromObject({
+              htmlObject({
                   tag: 'li',
                   content: `${item}`,
               })
@@ -55,7 +55,7 @@ export const ListFn = ({ getState }) => {
     const colorClass = `is-${color}`;
     const linksClass = links ? 'use-links' : 'use-default';
 
-    return fromObject({
+    return htmlObject({
         tag: 'ul',
         className: ['ul', `ul-${style}`, colorClass, linksClass],
         content: getList({ items, links }),

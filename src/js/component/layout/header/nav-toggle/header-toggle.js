@@ -4,7 +4,7 @@
 
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { UnFreezeMobPageScroll } from '@mobMotionPlugin';
 import { navigationStore } from '@stores/navigation';
 
@@ -50,7 +50,7 @@ export const HeaderToggleFn = ({
         ]),
     ];
 
-    return fromObject({
+    return htmlObject({
         tag: 'button',
         className: 'c-hamburger',
         attributes: { type: 'button' },

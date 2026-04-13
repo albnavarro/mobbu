@@ -4,7 +4,7 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { mobbu2025Scroller } from './animation';
 
 /** @type {MobComponent<import('./type').Mobbu2025>} */
@@ -25,7 +25,7 @@ export const Mobbu2025fn = ({ getState, onMount, setRef, getRef }) => {
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'mobbu2025',
         content: {
             className: 'screen',

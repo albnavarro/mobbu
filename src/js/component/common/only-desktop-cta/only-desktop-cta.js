@@ -3,7 +3,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 
 const shouldActivateCta = () => {
@@ -55,7 +55,7 @@ export const OnlyDesktopFnCta = ({ onMount, getProxi, bindEffect, watch }) => {
         };
     });
 
-    return fromObject({
+    return htmlObject({
         tag: 'a',
         attributes: { href: '#home' },
         className: 'link',

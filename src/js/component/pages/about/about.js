@@ -9,7 +9,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 import { aboutAnimation } from './animation';
 import { aboutSvgAnimation } from './animation/svg-animation';
@@ -40,7 +40,7 @@ const goToPercentage = {
 const block01 = ({ setRef, getState }) => {
     const { titleTop, titleBottom } = getState().block_1;
 
-    return fromObject({
+    return htmlObject({
         className: 'section section--first ',
         content: [
             {
@@ -73,7 +73,7 @@ const block01 = ({ setRef, getState }) => {
 const block02 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_2;
 
-    return fromObject({
+    return htmlObject({
         className: 'section',
         content: [
             {
@@ -116,7 +116,7 @@ const block02 = ({ setRef, getState }) => {
 const block03 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_3;
 
-    return fromObject({
+    return htmlObject({
         className: 'section',
         content: [
             {
@@ -159,7 +159,7 @@ const block03 = ({ setRef, getState }) => {
 const block04 = ({ setRef, getState }) => {
     const { title, items } = getState().block_4;
 
-    return fromObject({
+    return htmlObject({
         className: 'section section--last',
         content: [
             {
@@ -177,7 +177,7 @@ const block04 = ({ setRef, getState }) => {
                     tag: 'ul',
                     className: 'section-list',
                     content: items.map((item) => {
-                        return fromObject({
+                        return htmlObject({
                             tag: 'li',
                             className: 'section-list-item',
                             content: `[ ${item} ]`,
@@ -196,11 +196,11 @@ const block04 = ({ setRef, getState }) => {
  * @param {BindEffect<import('./type').About>} params.bindEffect
  */
 const navigation = ({ proxi, delegateEvents, bindEffect }) => {
-    return fromObject({
+    return htmlObject({
         tag: 'ul',
         className: 'nav',
         content: proxi.navItem.map(({ index, label }) => {
-            return fromObject({
+            return htmlObject({
                 tag: 'li',
                 className: 'nav-item',
                 content: {
@@ -230,7 +230,7 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
  * @returns {string}
  */
 const getSquare = () => {
-    return fromObject({
+    return htmlObject({
         className: 'square',
         content: [
             {
@@ -421,7 +421,7 @@ export const AboutComponentFn = ({
         }),
     ];
 
-    return fromObject({
+    return htmlObject({
         className: 'l-about',
         style: `--number-of-section:${numberOfSection}`,
         modules: bindEffect({

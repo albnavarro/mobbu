@@ -10,7 +10,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { caterpillarN1Animation } from './animation/animation';
 
 /**
@@ -22,7 +22,7 @@ import { caterpillarN1Animation } from './animation/animation';
  * @returns {string}
  */
 function getControls({ delegateEvents, bindEffect, bindObject, proxi }) {
-    return fromObject({
+    return htmlObject({
         tag: 'li',
         className: 'controls-item',
         content: [
@@ -107,7 +107,7 @@ export const CaterpillarN1Fn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         content: [
             {
                 className: 'c-canvas',

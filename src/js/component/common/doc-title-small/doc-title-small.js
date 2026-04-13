@@ -1,8 +1,8 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent} */
 export const DocTitleSmallFn = () => {
-    return fromObject({
+    return htmlObject({
         className: 'l-doc-breadcrumbs',
         content: {
             tag: 'mobjs-slot',

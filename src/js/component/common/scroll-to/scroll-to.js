@@ -1,6 +1,6 @@
 import { MobCore } from '@mobCore';
 import { offset } from '@mobCoreUtils';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 import { MobBodyScroll } from '@mobMotionPlugin';
 import { ScrollToButton } from './button/definition';
@@ -60,7 +60,7 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
                           },
                       });
 
-            return fromObject({
+            return htmlObject({
                 tag: 'li',
                 content: {
                     component: ScrollToButton,
@@ -233,7 +233,7 @@ export const ScrollToFn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'c-scroll-to',
         content: {
             tag: 'ul',

@@ -1,5 +1,5 @@
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { Mobbu2025 } from '@pagesComponent/svg/mobbu2025/definition';
@@ -31,7 +31,7 @@ export const mob_02 = async () => {
         backRoute: '#svg-overview',
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'l-mob-02',
         content: [
             {

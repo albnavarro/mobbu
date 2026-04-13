@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { benchMarkGarbagePartial } from '../partials/bench-mark-garbage-partial';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { benchMarkUseProxi } from '../strategy';
@@ -34,7 +34,7 @@ export const BenchMarkRepeatNoKyFn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'l-benchmark',
         content: [
             {
@@ -69,7 +69,7 @@ export const BenchMarkRepeatNoKyFn = ({
                     useSync: true,
                     render: ({ sync, current }) => {
                         return benchMarkUseProxi
-                            ? fromObject({
+                            ? htmlObject({
                                   component: BenchMarkFakeComponent,
                                   modules: [
                                       bindProps(
@@ -83,7 +83,7 @@ export const BenchMarkRepeatNoKyFn = ({
                                       sync(),
                                   ],
                               })
-                            : fromObject({
+                            : htmlObject({
                                   component: BenchMarkFakeComponent,
                                   modules: [
                                       bindProps({

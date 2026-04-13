@@ -1,8 +1,8 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent} */
 export const DynamicListEmptyFn = () => {
-    return fromObject({
+    return htmlObject({
         className: 'c-dynamic-list-empty',
         content: [
             {

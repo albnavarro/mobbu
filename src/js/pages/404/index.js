@@ -1,7 +1,7 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 export const pageNotFound = () => {
-    return fromObject({
+    return htmlObject({
         className: 'error-page',
         content: {
             content: [

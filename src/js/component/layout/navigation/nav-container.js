@@ -1,5 +1,5 @@
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { MobBodyScroll, UnFreezeMobPageScroll } from '@mobMotionPlugin';
 import { initNavigationScoller } from './animation/nav-scroller';
 import { navigationStore } from '@stores/navigation';
@@ -108,7 +108,7 @@ export const NavigationContainerFn = ({
         return () => {};
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'l-navcontainer',
         modules: bindEffect({
             toggleClass: { active: () => proxi.isOpen },

@@ -10284,7 +10284,7 @@
   var getDataAttributes = (value) => Object.entries(value).reduce((previous, [key, value2]) => {
     return `${previous} data-${key}="${value2}"`;
   }, "");
-  var fromObject = (data) => {
+  var htmlObject = (data) => {
     const component = data?.component ?? null;
     const componentKey = component && Object.keys(component)?.[0];
     const tag = componentKey ?? data?.tag ?? `div`;
@@ -10301,7 +10301,7 @@
   };
   var getContent = (value) => {
     if (modules_exports.checkType(Object, value)) {
-      return fromObject(value);
+      return htmlObject(value);
     }
     if (modules_exports.checkType(String, value)) {
       return value;
@@ -10318,7 +10318,7 @@
           return `${previous} ${current}`;
         }
         if (modules_exports.checkType(Object, current)) {
-          return `${previous} ${fromObject(current)}`;
+          return `${previous} ${htmlObject(current)}`;
         }
         return `${previous} ${String(current)}`;
       },
@@ -13648,26 +13648,26 @@
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').SpringActions>} obj To Values
      */
-    goFrom(fromObject2, spacialProps = {}) {
+    goFrom(htmlObject2, spacialProps = {}) {
       if (this.#pauseStatus)
         return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
-      const fromObjectParsed = parseGoFromObject(fromObject2);
-      return this.#doAction(fromObjectParsed, fromObject2, spacialProps);
+      const htmlObjectParsed = parseGoFromObject(htmlObject2);
+      return this.#doAction(htmlObjectParsed, htmlObject2, spacialProps);
     }
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').SpringActions>} obj To Values
      */
-    goFromTo(fromObject2, toObject, specialProps = {}) {
+    goFromTo(htmlObject2, toObject, specialProps = {}) {
       if (this.#pauseStatus)
         return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
-      if (!compareKeys(fromObject2, toObject)) {
-        compareKeysWarning("spring goFromTo:", fromObject2, toObject);
+      if (!compareKeys(htmlObject2, toObject)) {
+        compareKeysWarning("spring goFromTo:", htmlObject2, toObject);
         return new Promise((resolve) => resolve);
       }
-      const objectParsed = parseGoFromToObject(fromObject2, toObject);
-      return this.#doAction(objectParsed, fromObject2, specialProps);
+      const objectParsed = parseGoFromToObject(htmlObject2, toObject);
+      return this.#doAction(objectParsed, htmlObject2, specialProps);
     }
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').SpringActions>} obj To Values
@@ -14742,26 +14742,26 @@
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').LerpActions>} obj To Values
      */
-    goFrom(fromObject2, specialProps = {}) {
+    goFrom(htmlObject2, specialProps = {}) {
       if (this.#pauseStatus)
         return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
-      const fromObjectParsed = parseGoFromObject(fromObject2);
-      return this.#doAction(fromObjectParsed, fromObject2, specialProps);
+      const htmlObjectParsed = parseGoFromObject(htmlObject2);
+      return this.#doAction(htmlObjectParsed, htmlObject2, specialProps);
     }
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').LerpActions>} obj To Values
      */
-    goFromTo(fromObject2, toObject, specialProps = {}) {
+    goFromTo(htmlObject2, toObject, specialProps = {}) {
       if (this.#pauseStatus)
         return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
       this.#useStagger = true;
-      if (!compareKeys(fromObject2, toObject)) {
-        compareKeysWarning("lerp goFromTo:", fromObject2, toObject);
+      if (!compareKeys(htmlObject2, toObject)) {
+        compareKeysWarning("lerp goFromTo:", htmlObject2, toObject);
         return new Promise((resolve) => resolve);
       }
-      const objectParsed = parseGoFromToObject(fromObject2, toObject);
-      return this.#doAction(objectParsed, fromObject2, specialProps);
+      const objectParsed = parseGoFromToObject(htmlObject2, toObject);
+      return this.#doAction(objectParsed, htmlObject2, specialProps);
     }
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').LerpActions>} obj To Values
@@ -16896,24 +16896,24 @@
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').TimeTweenAction>} obj To Values
      */
-    goFrom(fromObject2, specialProps = {}) {
+    goFrom(htmlObject2, specialProps = {}) {
       this.stop({ clearCache: false, updateValues: true });
       this.#useStagger = true;
-      const fromObjectParsed = parseGoFromObject(fromObject2);
-      return this.#doAction(fromObjectParsed, fromObject2, specialProps);
+      const htmlObjectParsed = parseGoFromObject(htmlObject2);
+      return this.#doAction(htmlObjectParsed, htmlObject2, specialProps);
     }
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').TimeTweenAction>} obj To Values
      */
-    goFromTo(fromObject2, toObject, specialProps = {}) {
+    goFromTo(htmlObject2, toObject, specialProps = {}) {
       this.stop({ clearCache: false, updateValues: true });
       this.#useStagger = true;
-      if (!compareKeys(fromObject2, toObject)) {
-        compareKeysWarning("tween goFromTo:", fromObject2, toObject);
+      if (!compareKeys(htmlObject2, toObject)) {
+        compareKeysWarning("tween goFromTo:", htmlObject2, toObject);
         return new Promise((resolve) => resolve);
       }
-      const objectParsed = parseGoFromToObject(fromObject2, toObject);
-      return this.#doAction(objectParsed, fromObject2, specialProps);
+      const objectParsed = parseGoFromToObject(htmlObject2, toObject);
+      return this.#doAction(objectParsed, htmlObject2, specialProps);
     }
     /**
      * @type {import('../../utils/type.js').Set<import('./type.js').TimeTweenAction>} obj To Values
@@ -25128,7 +25128,7 @@
 
   // src/js/pages/404/index.js
   var pageNotFound2 = () => {
-    return fromObject({
+    return htmlObject({
       className: "error-page",
       content: {
         content: [
@@ -25243,7 +25243,7 @@
       }
     };
     const items = proxi.items.map((item, index) => {
-      return fromObject({
+      return htmlObject({
         tag: "li",
         className: "item",
         content: {
@@ -25288,7 +25288,7 @@
         content: items
       }
     };
-    return fromObject({
+    return htmlObject({
       className: "l-links",
       content: [
         {
@@ -25361,7 +25361,7 @@
   var layoutLinksPage = async ({ props }) => {
     const { source } = props;
     const { data } = await loadJsonContent({ source });
-    return fromObject({
+    return htmlObject({
       component: LayoutLinks,
       modules: modules_exports2.staticProps(
         /** @type {import('@pagesComponent/layout-links/type').LayoutLinks['props']} */
@@ -25375,7 +25375,7 @@
 
   // src/js/component/common/doc-container/doc-container.js
   var DocContainerFn = () => {
-    return fromObject({
+    return htmlObject({
       className: "c-doc-container",
       content: [
         {
@@ -25420,7 +25420,7 @@
 
   // src/js/component/common/doc-title/doc-side.js
   var DocTitleFn = () => {
-    return fromObject({
+    return htmlObject({
       className: "c-doc-title",
       content: {
         tag: "h2",
@@ -25443,7 +25443,7 @@
 
   // src/js/component/common/doc-title-small/doc-title-small.js
   var DocTitleSmallFn = () => {
-    return fromObject({
+    return htmlObject({
       className: "l-doc-breadcrumbs",
       content: {
         tag: "mobjs-slot"
@@ -26209,7 +26209,7 @@
       return () => {
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "snippet",
       style: `--snippet-height:${snippetHeight};--closed-height:${closedHeight}`,
       content: [
@@ -26332,7 +26332,7 @@
       if (!shouldAddToAnchor) return;
       addItemToScrollComponent({ id, label, element, isSection, isNote });
     });
-    return fromObject({
+    return htmlObject({
       className: ["spacer", `is-${style}`],
       attributes: { id },
       content: {
@@ -26377,7 +26377,7 @@
   // src/js/component/common/typography/anchor-button/anchor-button.js
   var AnchorButtonFn = ({ getState, delegateEvents }) => {
     const { content: label, anchor } = getState();
-    return fromObject({
+    return htmlObject({
       content: {
         tag: "button",
         className: "anchor-button",
@@ -26435,7 +26435,7 @@
     return links ? (
       /** @type{Record<'label' | 'url', string>[]} */
       items.map(
-        ({ label, url }) => fromObject({
+        ({ label, url }) => htmlObject({
           tag: "li",
           content: {
             tag: "a",
@@ -26461,7 +26461,7 @@
         })
       )
     ) : items.map(
-      (item) => fromObject({
+      (item) => htmlObject({
         tag: "li",
         content: `${item}`
       })
@@ -26471,7 +26471,7 @@
     const { style, color, items, links } = getState();
     const colorClass = `is-${color}`;
     const linksClass = links ? "use-links" : "use-default";
-    return fromObject({
+    return htmlObject({
       tag: "ul",
       className: ["ul", `ul-${style}`, colorClass, linksClass],
       content: getList({ items, links })
@@ -26522,7 +26522,7 @@
     const colorClass = color === "inherit" ? "" : `is-${color}`;
     const boxedClass = boxed ? `p-boxed` : "";
     const noteClass = note ? `p-note` : "";
-    return fromObject({
+    return htmlObject({
       tag: "p",
       className: ["p", `p-${style}`, boxedClass, noteClass, colorClass],
       content: {
@@ -26567,7 +26567,7 @@
 
   // src/js/component/common/typography/titles/title.js
   var getIndex2 = (index) => {
-    return index.length > 0 ? fromObject({
+    return index.length > 0 ? htmlObject({
       tag: "span",
       className: "title-index",
       content: index
@@ -26578,7 +26578,7 @@
     const colorClass = proxi.color === "inherit" ? "" : `is-${proxi.color}`;
     const boldClass = proxi.isBold ? `u-weight-bold` : "";
     const isSectionClass = proxi.isSection ? `is-section` : "";
-    return fromObject({
+    return htmlObject({
       tag: proxi.tag,
       className: [colorClass, boldClass, isSectionClass],
       content: [
@@ -26632,7 +26632,7 @@
   var getComponents = ({ data, staticProps: staticProps2, awaitLoadSnippet }) => {
     return data.map((item) => {
       const { component, props, content } = item;
-      return fromObject({
+      return htmlObject({
         tag: component,
         modules: staticProps2({ ...props, awaitLoad: awaitLoadSnippet }),
         content: content ?? ""
@@ -26650,7 +26650,7 @@
     const currentData = await getData2({ source, data });
     const { awaitLoadSnippet, usePadding } = getState();
     const usePaddingClass = usePadding ? "use-padding" : "";
-    return fromObject({
+    return htmlObject({
       tag: "section",
       className: ["html-content", usePaddingClass],
       content: getComponents({
@@ -26674,7 +26674,7 @@
     onMount(() => {
       loadSvg({ proxi });
     });
-    return fromObject({
+    return htmlObject({
       className: ["c-doc-svg", proxi.className ?? ""],
       content: invalidate({
         observe: () => proxi.source,
@@ -26753,7 +26753,7 @@
     const proxi = getProxi();
     const isSectionClass = proxi.isSection ? "is-section" : "";
     const isNoteClass = proxi.isNote ? "is-note" : "";
-    return fromObject({
+    return htmlObject({
       tag: "button",
       attributes: { type: "button" },
       className: [isSectionClass, isNoteClass],
@@ -26810,7 +26810,7 @@
           }, 1e3);
         }
       });
-      return fromObject({
+      return htmlObject({
         tag: "li",
         content: {
           component: ScrollToButton,
@@ -26923,7 +26923,7 @@
         resizeObserver = null;
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "c-scroll-to",
       content: {
         tag: "ul",
@@ -27013,7 +27013,7 @@
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
     updateLeftSidebarList(rightSidebar ?? []);
-    return fromObject({
+    return htmlObject({
       component: DocContainer,
       content: [
         {
@@ -27059,7 +27059,7 @@
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
     updateLeftSidebarList(rightSidebar ?? []);
-    return fromObject({
+    return htmlObject({
       component: DocContainer,
       content: [
         {
@@ -27560,7 +27560,7 @@
   };
   var block01 = ({ setRef, getState }) => {
     const { titleTop, titleBottom } = getState().block_1;
-    return fromObject({
+    return htmlObject({
       className: "section section--first ",
       content: [
         {
@@ -27586,7 +27586,7 @@
   };
   var block02 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_2;
-    return fromObject({
+    return htmlObject({
       className: "section",
       content: [
         {
@@ -27622,7 +27622,7 @@
   };
   var block03 = ({ setRef, getState }) => {
     const { title, copy } = getState().block_3;
-    return fromObject({
+    return htmlObject({
       className: "section",
       content: [
         {
@@ -27658,7 +27658,7 @@
   };
   var block04 = ({ setRef, getState }) => {
     const { title, items } = getState().block_4;
-    return fromObject({
+    return htmlObject({
       className: "section section--last",
       content: [
         {
@@ -27676,7 +27676,7 @@
             tag: "ul",
             className: "section-list",
             content: items.map((item) => {
-              return fromObject({
+              return htmlObject({
                 tag: "li",
                 className: "section-list-item",
                 content: `[ ${item} ]`
@@ -27688,11 +27688,11 @@
     });
   };
   var navigation = ({ proxi, delegateEvents, bindEffect }) => {
-    return fromObject({
+    return htmlObject({
       tag: "ul",
       className: "nav",
       content: proxi.navItem.map(({ index, label }) => {
-        return fromObject({
+        return htmlObject({
           tag: "li",
           className: "nav-item",
           content: {
@@ -27718,7 +27718,7 @@
     });
   };
   var getSquare = () => {
-    return fromObject({
+    return htmlObject({
       className: "square",
       content: [
         {
@@ -27868,7 +27868,7 @@
         }
       })
     ];
-    return fromObject({
+    return htmlObject({
       className: "l-about",
       style: `--number-of-section:${numberOfSection}`,
       modules: bindEffect({
@@ -28008,7 +28008,7 @@
     const { data: aboutSvg } = await loadTextContent({
       source: "./asset/svg/about.svg?v=0.1"
     });
-    return fromObject({
+    return htmlObject({
       component: AboutComponent,
       modules: modules_exports2.staticProps(
         /** @type {import('@pagesComponent/about/type').About['props']} */
@@ -28037,7 +28037,7 @@
       return () => {
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "c-benchmark-fake",
       modules: bindEffect({
         toggleClass: { selected: () => proxiState.isSelected }
@@ -28160,7 +28160,7 @@
     bindEffect,
     proxi
   }) => {
-    return fromObject({
+    return htmlObject({
       content: [
         {
           className: "loader",
@@ -28268,7 +28268,7 @@
         render: () => {
           const { data } = getState();
           return data.map(({ label }, index) => {
-            return fromObject({
+            return htmlObject({
               component: BenchMarkFakeComponent,
               modules: [
                 staticProps2(
@@ -28290,7 +28290,7 @@
         }
       })
     };
-    return fromObject({
+    return htmlObject({
       className: "l-benchmark",
       content: [
         {
@@ -28342,7 +28342,7 @@
 
   // src/js/component/pages/benchmark/partials/bench-mark-garbage-partial.js
   var benchMarkGarbagePartial = (maxComponent = 1e3) => {
-    return fromObject({
+    return htmlObject({
       tag: "p",
       content: renderHtml`
             Generates and updates a large list of components with 5 reactive
@@ -28380,7 +28380,7 @@
         useSync: true,
         key: "label",
         render: ({ sync, current }) => {
-          return benchMarkUseProxi ? fromObject({
+          return benchMarkUseProxi ? htmlObject({
             component: BenchMarkFakeComponent,
             modules: [
               bindProps(
@@ -28393,7 +28393,7 @@
               ),
               sync()
             ]
-          }) : fromObject({
+          }) : htmlObject({
             component: BenchMarkFakeComponent,
             modules: [
               bindProps({
@@ -28411,7 +28411,7 @@
         }
       })
     };
-    return fromObject({
+    return htmlObject({
       className: "l-benchmark",
       content: [
         {
@@ -28479,7 +28479,7 @@
         key: "label",
         useSync: true,
         render: ({ current }) => {
-          return fromObject({
+          return htmlObject({
             tag: "div",
             content: [
               {
@@ -28493,7 +28493,7 @@
                   useSync: true,
                   key: "label",
                   render: ({ sync, current: current2 }) => {
-                    return fromObject({
+                    return htmlObject({
                       component: BenchMarkFakeComponent,
                       modules: [
                         bindProps(
@@ -28515,7 +28515,7 @@
         }
       })
     };
-    return fromObject({
+    return htmlObject({
       className: "l-benchmark",
       content: [
         {
@@ -28579,7 +28579,7 @@
         getRef()?.input.remove();
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "l-benchmark",
       content: [
         {
@@ -28613,7 +28613,7 @@
             observe: () => proxi.data,
             useSync: true,
             render: ({ sync, current }) => {
-              return benchMarkUseProxi ? fromObject({
+              return benchMarkUseProxi ? htmlObject({
                 component: BenchMarkFakeComponent,
                 modules: [
                   bindProps(
@@ -28626,7 +28626,7 @@
                   ),
                   sync()
                 ]
-              }) : fromObject({
+              }) : htmlObject({
                 component: BenchMarkFakeComponent,
                 modules: [
                   bindProps({
@@ -28711,7 +28711,7 @@
     getState,
     bindEffect
   }) => {
-    return fromObject({
+    return htmlObject({
       content: [
         {
           className: "loader",
@@ -28817,7 +28817,7 @@
         externalBenchmarkStore.set("counter", 0);
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "l-benchmark",
       content: [
         {
@@ -28854,7 +28854,7 @@
             observe: () => proxi.data,
             useSync: true,
             render: ({ sync, current }) => {
-              return benchMarkUseProxi ? fromObject({
+              return benchMarkUseProxi ? htmlObject({
                 component: BenchMarkFakeComponent,
                 modules: [
                   bindProps(
@@ -28867,7 +28867,7 @@
                   ),
                   sync()
                 ]
-              }) : fromObject({
+              }) : htmlObject({
                 component: BenchMarkFakeComponent,
                 modules: [
                   bindProps({
@@ -28924,7 +28924,7 @@
         observe: () => proxi.data,
         useSync: true,
         render: ({ current }) => {
-          return fromObject({
+          return htmlObject({
             tag: "div",
             content: [
               {
@@ -28937,7 +28937,7 @@
                   observe: () => proxi.data,
                   useSync: true,
                   render: ({ sync, current: current2 }) => {
-                    return fromObject({
+                    return htmlObject({
                       component: BenchMarkFakeComponent,
                       modules: [
                         bindProps(
@@ -28959,7 +28959,7 @@
         }
       })
     };
-    return fromObject({
+    return htmlObject({
       className: "l-benchmark",
       content: [
         {
@@ -29007,7 +29007,7 @@
 
   // src/js/component/pages/benchmark/partials/bench-mark-vanilla-garbage-partial.js
   var benchMarkVanillaGarbagePartial = (maxComponent = 1e3) => {
-    return fromObject({
+    return htmlObject({
       tag: "p",
       content: `
             Generates and updates a large list of vanilla HTML element with 4
@@ -29040,7 +29040,7 @@
         repeat({
           observe: () => proxi.data,
           render: ({ current }) => {
-            return fromObject({
+            return htmlObject({
               className: "c-benchmark-fake",
               modules: [
                 bindEffect({
@@ -29088,7 +29088,7 @@
         })
       ]
     };
-    return fromObject({
+    return htmlObject({
       className: "l-benchmark",
       content: [
         {
@@ -29155,7 +29155,7 @@
           observe: () => proxi.data,
           key: "label",
           render: ({ current }) => {
-            return fromObject({
+            return htmlObject({
               className: "c-benchmark-fake",
               modules: [
                 bindEffect({
@@ -29203,7 +29203,7 @@
         })
       ]
     };
-    return fromObject({
+    return htmlObject({
       className: "l-benchmark",
       content: [
         {
@@ -29259,7 +29259,7 @@
   ]);
   var benchMark = async ({ props }) => {
     const { rootComponent } = props;
-    return fromObject({
+    return htmlObject({
       tag: rootComponent
     });
   };
@@ -29666,7 +29666,7 @@
   };
   function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     return params.map(({ label }, index) => {
-      return fromObject({
+      return htmlObject({
         tag: "li",
         className: "controls-item",
         content: {
@@ -29720,7 +29720,7 @@
         unsubscribeResize();
       };
     });
-    return fromObject({
+    return htmlObject({
       content: [
         {
           className: "c-canvas",
@@ -29829,7 +29829,7 @@
       nextRoute: "#animatedPatternN1",
       backRoute: "#canvas-overview"
     });
-    return fromObject({
+    return htmlObject({
       component: AnimatedPatternN0,
       modules: modules_exports2.staticProps(
         /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
@@ -30131,7 +30131,7 @@
         destroy3 = null;
       };
     });
-    return fromObject({
+    return htmlObject({
       content: {
         className: "c-canvas",
         content: [
@@ -30189,7 +30189,7 @@
       nextRoute: "#scrollerN0",
       backRoute: "#canvas-overview"
     });
-    return fromObject({
+    return htmlObject({
       component: AnimatedPatternN1,
       modules: modules_exports2.staticProps({ background: bg })
     });
@@ -30428,7 +30428,7 @@
 
   // src/js/component/pages/canvas/n1/caterpillar-n1.js
   function getControls2({ delegateEvents, bindEffect, bindObject, proxi }) {
-    return fromObject({
+    return htmlObject({
       tag: "li",
       className: "controls-item",
       content: [
@@ -30500,7 +30500,7 @@
         methods = null;
       };
     });
-    return fromObject({
+    return htmlObject({
       content: [
         {
           className: "c-canvas",
@@ -30616,7 +30616,7 @@
       nextRoute: "#scrollerN1",
       backRoute: "#canvas-overview"
     });
-    return fromObject({
+    return htmlObject({
       component: CaterpillarN1,
       modules: modules_exports2.staticProps({ background: bg })
     });
@@ -30823,7 +30823,7 @@
   function getControls3({ proxi, delegateEvents, bindObject }) {
     const buttons5 = Object.entries(proxi.buttons).map(([className, value]) => {
       const { label } = value;
-      return fromObject({
+      return htmlObject({
         tag: "li",
         className: "controls-item",
         content: {
@@ -30853,7 +30853,7 @@
         proxi.rotationlabel = Number(currentTarget.value);
       }
     });
-    const range = fromObject({
+    const range = htmlObject({
       className: "controls-item",
       content: {
         tag: "li",
@@ -30924,7 +30924,7 @@
         destroy3 = null;
       };
     });
-    return fromObject({
+    return htmlObject({
       content: [
         {
           className: "c-canvas",
@@ -31077,7 +31077,7 @@
       nextRoute: "#async-timeline",
       backRoute: "#canvas-overview"
     });
-    return fromObject({
+    return htmlObject({
       component: CaterpillarN2,
       modules: modules_exports2.staticProps({ background: bg })
     });
@@ -31357,7 +31357,7 @@
   };
   function getControls4({ delegateEvents, bindEffect, proxi, getRef }) {
     return params2.map(({ label }, index) => {
-      return fromObject({
+      return htmlObject({
         tag: "li",
         className: "controls-item",
         content: {
@@ -31412,7 +31412,7 @@
         unsubscribeResize();
       };
     });
-    return fromObject({
+    return htmlObject({
       content: [
         {
           className: "c-canvas is-fixed",
@@ -31525,7 +31525,7 @@
       nextRoute: "",
       backRoute: "#canvas-overview"
     });
-    return fromObject({
+    return htmlObject({
       content: {
         component: ScrollerN0,
         modules: modules_exports2.staticProps(
@@ -31752,7 +31752,7 @@
         proxi.rotationlabel = Number(currentTarget.value);
       }
     });
-    return fromObject({
+    return htmlObject({
       className: "controls-item",
       content: [
         {
@@ -31815,7 +31815,7 @@
         destroy3 = null;
       };
     });
-    return fromObject({
+    return htmlObject({
       content: [
         {
           className: "c-canvas is-fixed",
@@ -31928,7 +31928,7 @@
       nextRoute: "#caterpillarN2",
       backRoute: "#canvas-overview"
     });
-    return fromObject({
+    return htmlObject({
       component: ScrollerN1,
       modules: modules_exports2.staticProps({ background: bg })
     });
@@ -31937,7 +31937,7 @@
   // src/js/component/pages/dynamic-list/button/dynamic-list-button.js
   var DynamicListButtonFn = ({ getProxi, bindEffect }) => {
     const proxi = getProxi();
-    return fromObject({
+    return htmlObject({
       tag: "button",
       attributes: { type: "button" },
       className: "c-dynamic-list-button",
@@ -32137,7 +32137,7 @@
 
   // src/js/component/pages/dynamic-list/repeaters/card/innerCard/dynamic-list-card-inner.js
   var DynamicListCardInnerFn = ({ bindText }) => {
-    return fromObject({
+    return htmlObject({
       tag: "span",
       className: "c-dynamic-list-card-inner",
       content: {
@@ -32164,7 +32164,7 @@
 
   // src/js/component/pages/dynamic-list/repeaters/card/empty/dynamic-list-empty.js
   var DynamicListEmptyFn = () => {
-    return fromObject({
+    return htmlObject({
       className: "c-dynamic-list-empty",
       content: [
         {
@@ -32191,7 +32191,7 @@
   // src/js/component/pages/dynamic-list/repeaters/card/counter/dynamic-list-counter.js
   var DynamicListCounterFn = ({ getState, bindText }) => {
     const { parentListId } = getState();
-    return fromObject({
+    return htmlObject({
       className: "c-dynamic-counter",
       content: [
         {
@@ -32242,7 +32242,7 @@
   }
   var getInvalidateRender = ({ staticProps: staticProps2, delegateEvents, proxi }) => {
     return createArray(proxi.counter).map((item) => {
-      return fromObject({
+      return htmlObject({
         component: DynamicListCardInner,
         modules: [
           staticProps2(
@@ -32378,7 +32378,7 @@
             observe: () => proxi.innerData,
             key: "key",
             render: ({ current }) => {
-              return fromObject({
+              return htmlObject({
                 tag: "dynamic-list-card-inner",
                 modules: bindProps(
                   /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
@@ -32395,7 +32395,7 @@
           content: repeat({
             observe: () => proxi.innerData,
             render: ({ current }) => {
-              return fromObject({
+              return htmlObject({
                 tag: "dynamic-list-card-inner",
                 modules: bindProps(
                   /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
@@ -32433,7 +32433,7 @@
         }
       ]
     };
-    return fromObject({
+    return htmlObject({
       className: "c-dynamic-card",
       modules: [
         bindEffect({
@@ -32558,7 +32558,7 @@
 
   // src/js/component/pages/dynamic-list/repeaters/slotted-label/dynamic-list-slotted-label.js
   var DynamicListSlottedLabelFn = ({ bindText }) => {
-    return fromObject({
+    return htmlObject({
       className: "c-dynamic-list-slotted-label",
       content: {
         tag: "p",
@@ -32590,7 +32590,7 @@
     current,
     proxi
   }) {
-    return fromObject({
+    return htmlObject({
       content: [
         {
           component: DynamicListCard,
@@ -32638,7 +32638,7 @@
   }) => {
     const proxi = getProxi();
     const keyParsed = proxi.key.length > 0 ? proxi.key : void 0;
-    return fromObject({
+    return htmlObject({
       className: "c-dynamic-list-repeater",
       content: [
         {
@@ -32745,7 +32745,7 @@
   function getButton({ staticProps: staticProps2, delegateEvents, bindProps, proxi }) {
     return buttons2.map((column, index) => {
       const { data, buttonLabel } = column;
-      return fromObject({
+      return htmlObject({
         component: DynamicListButton,
         className: "dynamic-list-button",
         modules: [
@@ -32774,7 +32774,7 @@
   function getRepeaters({ bindProps, staticProps: staticProps2, proxi }) {
     return repeaters.map((item, index) => {
       const { key, clean: clean2, label } = item;
-      return fromObject({
+      return htmlObject({
         component: DynamicListRepeater,
         modules: [
           staticProps2(
@@ -32874,7 +32874,7 @@
           content: invalidate({
             observe: () => proxi.counter,
             render: () => {
-              return fromObject({
+              return htmlObject({
                 content: {
                   component: DynamicListCardInner,
                   modules: bindProps(
@@ -32890,7 +32890,7 @@
         }
       ]
     };
-    return fromObject({
+    return htmlObject({
       className: "c-dynamic-list",
       content: [
         headerBlock,
@@ -32954,7 +32954,7 @@
   // src/js/pages/dynamic-list/index.js
   modules_exports2.useComponent([DynamicList]);
   var dynamic_list = () => {
-    return fromObject({
+    return htmlObject({
       component: DynamicList
     });
   };
@@ -33048,7 +33048,7 @@
         destroy3();
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "l-index",
       content: {
         className: "logo",
@@ -33135,7 +33135,7 @@
         id
       });
     });
-    return fromObject({
+    return htmlObject({
       content: [
         {
           className: "l-background-shape",
@@ -33202,7 +33202,7 @@
     proxi
   }) => {
     return buttons3.map((button) => {
-      return fromObject({
+      return htmlObject({
         className: "header-col",
         content: [
           {
@@ -33285,7 +33285,7 @@
     addMethod("toggleActive", () => {
       proxi.active = !proxi.active;
     });
-    return fromObject({
+    return htmlObject({
       tag: "matrioska-item",
       className: "c-matrioska-item",
       modules: bindEffect({
@@ -33391,14 +33391,14 @@
     delegateEvents,
     proxi
   }) => {
-    return fromObject({
+    return htmlObject({
       className: "level level--3",
       content: repeat({
         observe: () => proxi.level3,
         render: ({ current }) => {
           const name = modules_exports.getUnivoqueId();
           const name2 = modules_exports.getUnivoqueId();
-          return fromObject({
+          return htmlObject({
             className: "level-wrap level-wrap--3",
             content: [
               {
@@ -33464,12 +33464,12 @@
     delegateEvents,
     proxi
   }) => {
-    return fromObject({
+    return htmlObject({
       className: "level level--2",
       content: repeat({
         observe: () => proxi.level2,
         render: ({ current }) => {
-          return fromObject({
+          return htmlObject({
             className: "level-wrap level-wrap--2",
             content: {
               component: MatrioskaItem,
@@ -33518,7 +33518,7 @@
       content: repeat({
         observe: () => proxi.level1,
         render: ({ current }) => {
-          return fromObject({
+          return htmlObject({
             className: "level-wrap level-wrap--1",
             content: [
               {
@@ -33554,7 +33554,7 @@
         }
       })
     };
-    return fromObject({
+    return htmlObject({
       className: "l-matrioska",
       content: [
         {
@@ -33609,7 +33609,7 @@
     bindProps,
     proxi
   }) => {
-    return fromObject({
+    return htmlObject({
       className: "level level--3",
       content: invalidate({
         observe: "level3",
@@ -33617,7 +33617,7 @@
           return proxi.level3.map((item, index) => {
             const name = modules_exports.getUnivoqueId();
             const name2 = modules_exports.getUnivoqueId();
-            return fromObject({
+            return htmlObject({
               className: "level-wrap level-wrap--3",
               content: [
                 {
@@ -33688,13 +33688,13 @@
     invalidate,
     proxi
   }) => {
-    return fromObject({
+    return htmlObject({
       className: "level level--2",
       content: invalidate({
         observe: () => proxi.level2,
         render: () => {
           return proxi.level2.map((item, index) => {
-            return fromObject({
+            return htmlObject({
               className: "level-wrap level-wrap--2",
               content: {
                 component: MatrioskaItem,
@@ -33744,7 +33744,7 @@
         observe: "level1",
         render: () => {
           return proxi.level1.map((item, index) => {
-            return fromObject({
+            return htmlObject({
               className: "level-wrap level-wrap--1",
               content: {
                 component: MatrioskaItem,
@@ -33776,7 +33776,7 @@
         }
       })
     };
-    return fromObject({
+    return htmlObject({
       className: "l-matrioska",
       content: [
         {
@@ -33877,12 +33877,12 @@
   // src/js/pages/matrioska/index.js
   modules_exports2.useComponent([MatrioskaRepeat, MatrioskaInvalidate]);
   var matrioska_repeat_page = () => {
-    return fromObject({
+    return htmlObject({
       component: MatrioskaRepeat
     });
   };
   var matrioska_invalidate_page = () => {
-    return fromObject({
+    return htmlObject({
       component: MatrioskaInvalidate
     });
   };
@@ -34020,7 +34020,7 @@
   // src/js/component/pages/horizontal-scroller/section/horizontal-scroller-section.js
   var HorizontalScrollerSectionFn = ({ getState }) => {
     const { id, pinClass } = getState();
-    return fromObject({
+    return htmlObject({
       className: "column js-column",
       dataAttributes: { shadow: `section-${id}` },
       content: {
@@ -34067,7 +34067,7 @@
   // src/js/component/pages/horizontal-scroller/button/horizontal-scroller-button.js
   var HorizontalScrollerButtonFn = ({ getProxi }) => {
     const proxi = getProxi();
-    return fromObject({
+    return htmlObject({
       tag: "li",
       className: "nav-item",
       content: {
@@ -34104,7 +34104,7 @@
   var getColumns = ({ numOfCol, pinIsVisible, staticProps: staticProps2 }) => {
     const pinClass = pinIsVisible ? "" : "hidden";
     return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
-      return fromObject({
+      return htmlObject({
         component: HorizontalScrollerSection,
         modules: staticProps2(
           /** @type {import('./section/type').HorizontalScrollerSectionType['props']} */
@@ -34118,7 +34118,7 @@
   };
   var getNav = ({ numOfCol, proxi, staticProps: staticProps2, delegateEvents }) => {
     return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
-      return fromObject({
+      return htmlObject({
         component: HorizontalScrollerButton,
         modules: [
           staticProps2(
@@ -34192,7 +34192,7 @@
         destroy3();
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "l-h-scroller",
       content: [
         {
@@ -34276,7 +34276,7 @@
       nextRoute: "",
       backRoute: ""
     });
-    return fromObject({
+    return htmlObject({
       content: {
         component: HorizontalScroller,
         modules: modules_exports2.staticProps(
@@ -34440,7 +34440,7 @@
     if (component?.tagName.length === 0) {
       return "";
     }
-    return fromObject({
+    return htmlObject({
       className: ["component", component?.className],
       content: {
         tag: component.tagName,
@@ -34540,7 +34540,7 @@
         lerp2 = null;
       };
     });
-    return fromObject({
+    return htmlObject({
       className: ["c-move3d-item", rootClass, `anchor-${anchorPoint}`],
       style: `${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}`,
       content: [
@@ -34644,7 +34644,7 @@
 
   // src/js/component/common/move-3d/partials/recursive-3d-shape.js
   var getDebug = ({ debug, id }) => {
-    return debug ? fromObject({
+    return debug ? htmlObject({
       tag: "span",
       className: "debug",
       content: `${id}`
@@ -34652,7 +34652,7 @@
   };
   var Recursive3Dshape = ({ data, root: root2, childrenId, debug }) => {
     return data.map(({ children, props }) => {
-      return fromObject({
+      return htmlObject({
         component: Move3DItem,
         attributes: { name: childrenId },
         modules: modules_exports2.staticProps(
@@ -34923,7 +34923,7 @@
         lastScrolledTop = null;
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "c-move-3d",
       modules: bindEffect({
         toggleClass: { "use-drag": () => proxi.drag }
@@ -35128,7 +35128,7 @@
         }
       })
     };
-    return fromObject({
+    return htmlObject({
       className: "controls",
       modules: bindEffect({
         toggleClass: {
@@ -35230,7 +35230,7 @@
     bindEffect
   }) => {
     const proxi = getProxi();
-    return fromObject({
+    return htmlObject({
       className: "l-move3d-page",
       content: [
         {
@@ -35336,7 +35336,7 @@
       nextRoute,
       backRoute: "#plugin-overview"
     });
-    return fromObject({
+    return htmlObject({
       content: [
         {
           className: "l-background-shape",
@@ -35842,7 +35842,7 @@
   var MouseTrailFn = ({ onMount, getRefs, setRef }) => {
     const { starOutline } = getIcons();
     const stars = [...Array.from({ length: numberOfStar }).keys()].map(() => {
-      return fromObject({
+      return htmlObject({
         tag: "span",
         className: "child",
         modules: setRef("star"),
@@ -35856,7 +35856,7 @@
         destroy3();
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "mouse-trail",
       content: stars
     });
@@ -36320,7 +36320,7 @@
       nextRoute: "#mob-02",
       backRoute: "#svg-overview"
     });
-    return fromObject({
+    return htmlObject({
       className: "l-mob-01",
       content: [
         {
@@ -36407,7 +36407,7 @@
         lastValidParams = null;
       };
     });
-    return fromObject({
+    return htmlObject({
       tag: "a",
       attributes: { href: "#home" },
       className: "link",
@@ -36445,7 +36445,7 @@
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
     });
-    return fromObject({
+    return htmlObject({
       className: "l-only-desktop",
       content: {
         className: "content",
@@ -36848,7 +36848,7 @@
   function getControls7({ buttons: buttons5 }) {
     return Object.entries(buttons5).map(([className, value]) => {
       const { label } = value;
-      return fromObject({
+      return htmlObject({
         tag: "li",
         className: "controls-item",
         content: {
@@ -36909,7 +36909,7 @@
         destroy3();
       };
     });
-    return fromObject({
+    return htmlObject({
       content: {
         className: "c-canvas",
         content: [
@@ -37038,7 +37038,7 @@
       nextRoute: "#animatedPatternN0?version=0&activeId=0",
       backRoute: "#canvas-overview"
     });
-    return fromObject({
+    return htmlObject({
       component: AsyncTimeline,
       modules: modules_exports2.staticProps({ background: bg })
     });
@@ -37342,7 +37342,7 @@
       nextRoute: "#mob-01",
       backRoute: "#svg-overview"
     });
-    return fromObject({
+    return htmlObject({
       className: "l-rdp-01",
       content: [
         {
@@ -37434,7 +37434,7 @@
         destroy3();
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "mobbu2025",
       content: {
         className: "screen",
@@ -37498,7 +37498,7 @@
       nextRoute: "",
       backRoute: "#svg-overview"
     });
-    return fromObject({
+    return htmlObject({
       className: "l-mob-02",
       content: [
         {
@@ -37840,7 +37840,7 @@
         element = null;
       };
     });
-    return fromObject({
+    return htmlObject({
       className: ["c-dragger", proxi.rootClass ?? ""],
       content: [
         /**
@@ -37982,7 +37982,7 @@
         <div class="child is-10"></div>
         <div class="child is-svg">${svg}</div>
     </div>`;
-    return fromObject({
+    return htmlObject({
       className: "l-dragger",
       content: [
         {
@@ -38688,7 +38688,7 @@
       };
     });
     const staggersBlock = staggers.map(({ size, opacity }) => {
-      return fromObject({
+      return htmlObject({
         tag: "span",
         className: "trail-item",
         style: `width:${size}rem;height:${size}rem;opacity:${opacity}`,
@@ -38699,7 +38699,7 @@
         }
       });
     });
-    return fromObject({
+    return htmlObject({
       className: "c-math",
       content: [
         {
@@ -38778,10 +38778,10 @@
       nextRoute: "#rosa-di-grandi",
       backRoute: "#plugin-overview"
     });
-    return fromObject({
+    return htmlObject({
       className: "l-math",
       content: names.map((name) => {
-        return fromObject({
+        return htmlObject({
           component: MathAnimation,
           modules: modules_exports2.staticProps({ name })
         });
@@ -38791,7 +38791,7 @@
 
   // src/js/component/pages/rosa-di-grandi/rosa-di-grandi-page.js
   var getControls8 = ({ proxi, delegateEvents, bindObject }) => {
-    const numerators = fromObject({
+    const numerators = htmlObject({
       tag: "li",
       className: "controls-item",
       content: [
@@ -38832,7 +38832,7 @@
         }
       ]
     });
-    const denominator = fromObject({
+    const denominator = htmlObject({
       tag: "li",
       className: "controls-item",
       content: [
@@ -38885,7 +38885,7 @@
     bindObject
   }) => {
     const proxi = getProxi();
-    return fromObject({
+    return htmlObject({
       className: "l-rosa",
       content: [
         {
@@ -38930,7 +38930,7 @@
           content: invalidate({
             observe: [() => proxi.numerators, () => proxi.denominator],
             render: () => {
-              return fromObject({
+              return htmlObject({
                 component: MathAnimation,
                 modules: modules_exports2.staticProps({
                   name: "rosaDiGrandi",
@@ -39000,7 +39000,7 @@
       nextRoute: "",
       backRoute: "#plugin-overview"
     });
-    return fromObject({
+    return htmlObject({
       component: RosaDiGrandiPage
     });
   };
@@ -40399,7 +40399,7 @@
   };
   var getChild = (child) => {
     return Object.entries(child).map(([key, value]) => {
-      return fromObject({
+      return htmlObject({
         content: [
           {
             tag: "strong",
@@ -40419,7 +40419,7 @@
       /** @type {any[]} */
       states
     ).map(([key, value]) => {
-      return fromObject({
+      return htmlObject({
         content: [
           {
             tag: "strong",
@@ -40435,7 +40435,7 @@
     if (id === RESET_FILTER_DEBUG) return "";
     const item = modules_exports2.componentMap.get(id);
     if (!item) return `component not found`;
-    return fromObject({
+    return htmlObject({
       content: [
         /**
          * Basic props
@@ -40729,7 +40729,7 @@
         destroy3?.();
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "c-debug-component",
       modules: setRef("screen"),
       content: [
@@ -40800,7 +40800,7 @@
         getRef()?.input.remove();
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "c-debug-filter-head",
       content: [
         {
@@ -40875,7 +40875,7 @@
       () => proxi.active,
       () => proxi.id === proxi.currentId
     );
-    return fromObject({
+    return htmlObject({
       className: "c-debug-filter-list-item",
       content: [
         {
@@ -41071,7 +41071,7 @@
       key: "id",
       useSync: true,
       render: ({ sync, current }) => {
-        return fromObject({
+        return htmlObject({
           component: DebugFilterListItem,
           modules: [
             staticProps2(
@@ -41092,7 +41092,7 @@
         });
       }
     });
-    return fromObject({
+    return htmlObject({
       className: "c-debug-filter-list",
       content: {
         className: "list",
@@ -41290,7 +41290,7 @@
         content: "refresh component"
       }
     ];
-    return fromObject({
+    return htmlObject({
       className: "c-debug-search",
       content: [
         {
@@ -41359,7 +41359,7 @@
   ];
   var DebugHeadFn = ({ invalidate, getProxi }) => {
     const proxi = getProxi();
-    return fromObject({
+    return htmlObject({
       className: "c-debug-head",
       content: [
         {
@@ -41368,7 +41368,7 @@
             observe: () => proxi.active,
             render: () => {
               if (!proxi.active) return "";
-              return fromObject({
+              return htmlObject({
                 content: leftContent()
               });
             }
@@ -41437,7 +41437,7 @@
   // src/js/component/common/debug/debug-overlay/tree/recursive-tree.js
   var generateTreeComponents = ({ data, staticProps: staticProps2 }) => {
     return data.map(({ id, componentName, instanceName, children }) => {
-      return fromObject({
+      return htmlObject({
         /**
          * Use tag instead component to prevent dependency cycle
          */
@@ -41528,7 +41528,7 @@
         };
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "c-debug-tree",
       content: {
         className: "tree-list",
@@ -41631,7 +41631,7 @@
         unsubscribeSlide();
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "c-debug-tree-item",
       content: [
         {
@@ -41803,12 +41803,12 @@
             observe: [() => proxi.listType, () => proxi.active],
             render: () => {
               if (proxi.listType === DEBUG_USE_TREE && proxi.active)
-                return fromObject({
+                return htmlObject({
                   className: "list-title",
                   content: "Tree structure"
                 });
               if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
-                return fromObject({ tag: "debug-filter-head" });
+                return htmlObject({ tag: "debug-filter-head" });
               return "";
             }
           })
@@ -41861,12 +41861,12 @@
         observe: [() => proxi.listType, () => proxi.active],
         render: () => {
           if (proxi.listType === DEBUG_USE_TREE && proxi.active)
-            return fromObject({
+            return htmlObject({
               component: DebugTree,
               attributes: { name: debugTreeName }
             });
           if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
-            return fromObject({
+            return htmlObject({
               component: DebugFilterList,
               attributes: { name: debugFilterListName }
             });
@@ -41874,7 +41874,7 @@
         }
       })
     };
-    return fromObject({
+    return htmlObject({
       className: "c-debug-overlay",
       modules: bindEffect({
         toggleClass: { active: () => proxi.active }
@@ -41982,7 +41982,7 @@
   // src/js/component/common/side-bar-links/side-bar-links-button/side-bar-links-button.js
   var SideBarLinksButtonFn = ({ getProxi, bindEffect }) => {
     const proxi = getProxi();
-    return fromObject({
+    return htmlObject({
       tag: "a",
       attributes: { href: `./#${proxi.url}` },
       modules: bindEffect({
@@ -42027,11 +42027,11 @@
   var getItems = ({ staticProps: staticProps2, bindProps, proxi }) => {
     return proxi.data.map((item) => {
       const { label, url, isLabel } = item;
-      return isLabel ? fromObject({
+      return isLabel ? htmlObject({
         tag: "p",
         className: "label",
         content: label
-      }) : fromObject({
+      }) : htmlObject({
         tag: "li",
         content: {
           component: SideBarLinksButton,
@@ -42121,7 +42121,7 @@
         };
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "c-sidebar-links",
       modules: [
         setRef("screenEl"),
@@ -42250,7 +42250,7 @@
         labels = null;
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "c-quick-nav-container",
       modules: bindEffect([
         {
@@ -42370,7 +42370,7 @@
   var getList2 = ({ proxi, bindEffect }) => {
     return proxi.data.map(({ label, url }) => {
       const urlParsed = url.replaceAll("#", "");
-      return fromObject({
+      return htmlObject({
         className: "item",
         tag: "li",
         content: {
@@ -42405,7 +42405,7 @@
       () => proxi.isVisible,
       () => proxi.data.length > 0
     );
-    return fromObject({
+    return htmlObject({
       className: "left-sidebar",
       modules: bindEffect({
         toggleClass: {
@@ -42487,7 +42487,7 @@
         unsubScribeAfterRouteChange();
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "c-loader center-viewport",
       modules: bindEffect({
         toggleClass: { disable: () => proxi.isDisable }
@@ -42524,7 +42524,7 @@
     addMethod("update", (value) => {
       proxi.active = value;
     });
-    return fromObject({
+    return htmlObject({
       tag: "h3",
       className: "c-scroller-down-label",
       modules: bindEffect({
@@ -42698,7 +42698,7 @@
     bindObject
   }) => {
     const proxi = getProxi();
-    return fromObject({
+    return htmlObject({
       tag: "li",
       modules: bindEffect({
         toggleClass: {
@@ -42840,7 +42840,7 @@
       content: invalidate({
         observe: () => proxi.noResult,
         render: () => {
-          return proxi.noResult ? fromObject({
+          return proxi.noResult ? htmlObject({
             tag: "ul",
             content: {
               tag: "li",
@@ -42862,7 +42862,7 @@
       content: repeat({
         observe: () => proxi.list,
         render: ({ current }) => {
-          return fromObject({
+          return htmlObject({
             component: SearchOverlayListItem,
             modules: bindProps(
               /** @returns {ReturnBindProps<import('./list-item/type').SearchOverlayListItemType>} */
@@ -42878,7 +42878,7 @@
         }
       })
     };
-    return fromObject({
+    return htmlObject({
       className: "c-search-list",
       modules: setRef("screen"),
       content: [
@@ -42971,7 +42971,7 @@
     bindObject
   }) => {
     const proxi = getProxi();
-    return fromObject({
+    return htmlObject({
       tag: "li",
       content: {
         tag: "button",
@@ -43019,7 +43019,7 @@
       observe: () => proxi.list,
       key: "word",
       render: ({ current }) => {
-        return fromObject({
+        return htmlObject({
           component: SearchOverlaySuggestionItem,
           modules: bindProps(
             /**
@@ -43033,7 +43033,7 @@
         });
       }
     });
-    return fromObject({
+    return htmlObject({
       content: {
         className: "c-search-suggestion",
         content: {
@@ -43184,7 +43184,7 @@
         }, 60)
       })
     ];
-    return fromObject({
+    return htmlObject({
       className: "c-search-header",
       content: [
         {
@@ -43336,7 +43336,7 @@
         }
       }
     ];
-    return fromObject({
+    return htmlObject({
       className: "c-search-overlay",
       modules: bindEffect({
         toggleClass: {
@@ -43448,11 +43448,11 @@
     '<a href="https://www.linkedin.com/in/alberto-navarro74/" target="_blank">[ linkedin ]</a>'
   ];
   var getBio = () => {
-    return fromObject({
+    return htmlObject({
       tag: "ul",
       className: "bio-cell",
       content: bioInfo.map((item) => {
-        return fromObject({
+        return htmlObject({
           tag: "li",
           className: "bio-item",
           content: item
@@ -43467,7 +43467,7 @@
         proxi.isMounted = true;
       }, getFrameDelay());
     });
-    return fromObject({
+    return htmlObject({
       tag: "footer",
       className: "js-footer",
       modules: bindEffect({
@@ -43513,7 +43513,7 @@
 
   // src/js/component/common/debug/debug-button.js
   var DebugButtonFn = () => {
-    return fromObject({
+    return htmlObject({
       tag: "button",
       attributes: { type: "button" },
       className: "c-btn-debug",
@@ -43570,7 +43570,7 @@
   var getItems2 = ({ delegateEvents, staticProps: staticProps2 }) => {
     const data = getCommonData();
     return data.footer.nav.map(({ label, url, section }) => {
-      return fromObject({
+      return htmlObject({
         tag: "li",
         content: {
           tag: "header-main-menu-button",
@@ -43607,7 +43607,7 @@
         proxi.isMounted = true;
       }, 10);
     });
-    return fromObject({
+    return htmlObject({
       tag: "ul",
       className: "l-header-menu",
       modules: bindEffect({
@@ -43628,7 +43628,7 @@
         return proxi.section === proxi.activeNavigationSection;
       }
     );
-    return fromObject({
+    return htmlObject({
       tag: "button",
       attributes: { type: "button" },
       modules: bindEffect({
@@ -43687,7 +43687,7 @@
   };
   var SearchCtaFn = ({ delegateEvents }) => {
     const searchSvg = getIcons()["searchIcons"];
-    return fromObject({
+    return htmlObject({
       tag: "button",
       attributes: { type: "button" },
       className: "c-search-cta",
@@ -43725,9 +43725,9 @@
     };
     return links.map((link) => {
       const { svg, url, internal } = link;
-      return fromObject({
+      return htmlObject({
         tag: "li",
-        content: internal ? fromObject({
+        content: internal ? htmlObject({
           tag: "button",
           dataAttributes: { url },
           modules: delegateEvents({
@@ -43736,7 +43736,7 @@
             }
           }),
           content: icon[svg]
-        }) : fromObject({
+        }) : htmlObject({
           tag: "a",
           attributes: { href: url, target: "_blank" },
           content: icon[svg]
@@ -43745,7 +43745,7 @@
     });
   }
   var HeaderUtilsFn = ({ delegateEvents }) => {
-    return fromObject({
+    return htmlObject({
       tag: "ul",
       className: "l-header-utils",
       content: [
@@ -43805,7 +43805,7 @@
         }
       ])
     ];
-    return fromObject({
+    return htmlObject({
       tag: "button",
       className: "c-hamburger",
       attributes: { type: "button" },
@@ -43883,7 +43883,7 @@
         }
       ]
     };
-    return fromObject({
+    return htmlObject({
       tag: "header",
       className: "js-header",
       modules: bindEffect({
@@ -44087,7 +44087,7 @@
       return () => {
       };
     });
-    return fromObject({
+    return htmlObject({
       className: "l-navcontainer",
       modules: bindEffect({
         toggleClass: { active: () => proxi.isOpen }
@@ -44130,7 +44130,7 @@
   // src/js/component/layout/navigation/navigation/navigation-label/navigation-label.js
   var NavigationLabelFn = ({ bindEffect, getProxi }) => {
     const proxi = getProxi();
-    return fromObject({
+    return htmlObject({
       className: "label",
       dataAttributes: { sectionname: proxi.sectioName },
       modules: bindEffect({
@@ -44200,7 +44200,7 @@
         }
       });
     });
-    return fromObject({
+    return htmlObject({
       tag: "button",
       attributes: { type: "button" },
       className: ["link", arrowClass, subMenuClass],
@@ -44286,7 +44286,7 @@
   function getSubmenu({ proxi, staticProps: staticProps2 }) {
     return proxi.children.map((child) => {
       const { label, url, scrollToSection, activeId } = child;
-      return fromObject({
+      return htmlObject({
         tag: "li",
         content: {
           component: NavigationButton,
@@ -44340,7 +44340,7 @@
       return () => {
       };
     });
-    return fromObject({
+    return htmlObject({
       tag: "li",
       content: [
         {
@@ -44421,7 +44421,7 @@
         hide
       } = item;
       if (section) {
-        return fromObject({
+        return htmlObject({
           component: NavigationLabel,
           modules: staticProps2(
             /** @type {NavigationLabelType['props']} */
@@ -44433,7 +44433,7 @@
           )
         });
       }
-      return children ? fromObject({
+      return children ? htmlObject({
         component: NavigationSubmenu,
         modules: [
           staticProps2(
@@ -44461,7 +44461,7 @@
             })
           )
         ]
-      }) : fromObject({
+      }) : htmlObject({
         tag: "li",
         content: {
           component: NavigationButton,
@@ -44491,7 +44491,7 @@
     addMethod("closeAllAccordion", ({ fireCallback = true } = {}) => {
       setState(() => proxi.currentAccordionId, -1, { emit: fireCallback });
     });
-    return fromObject({
+    return htmlObject({
       className: "l-navigation",
       content: {
         tag: "ul",
@@ -44559,7 +44559,7 @@
   ]);
   var wrapper = async () => {
     const useScssTestGrid = false;
-    return fromObject({
+    return htmlObject({
       content: [
         useScssTestGrid ? "<test-scss-grid></test-scss-grid>" : "",
         {

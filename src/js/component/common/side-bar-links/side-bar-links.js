@@ -1,6 +1,6 @@
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { getCommonData } from '@data/index';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { PAGE_TEMPLATE_COMPONENT_MOBJS } from '../../../pages';
 import { navigationStore } from '@stores/navigation';
 import { SideBarLinksButton } from './side-bar-links-button/definition';
@@ -35,12 +35,12 @@ const getItems = ({ staticProps, bindProps, proxi }) => {
             const { label, url, isLabel } = item;
 
             return isLabel
-                ? fromObject({
+                ? htmlObject({
                       tag: 'p',
                       className: 'label',
                       content: label,
                   })
-                : fromObject({
+                : htmlObject({
                       tag: 'li',
                       content: {
                           component: SideBarLinksButton,
@@ -156,7 +156,7 @@ export const SideBarLinksFn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'c-sidebar-links',
         modules: [
             setRef('screenEl'),

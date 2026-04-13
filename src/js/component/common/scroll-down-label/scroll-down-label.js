@@ -4,7 +4,7 @@
  */
 
 // @ts-ignore
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {MobComponent<ScrollDownLabel>} */
 export const ScrollDownLabelFn = ({ getProxi, bindEffect, addMethod }) => {
@@ -14,7 +14,7 @@ export const ScrollDownLabelFn = ({ getProxi, bindEffect, addMethod }) => {
         proxi.active = value;
     });
 
-    return fromObject({
+    return htmlObject({
         tag: 'h3',
         className: 'c-scroller-down-label',
         modules: bindEffect({

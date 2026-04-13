@@ -1,6 +1,6 @@
 import { getCommonData } from '@data/index';
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { resetOverlayList, updateOverlayList } from '../list/utils';
 import { SearchOverlaySuggestion } from './suggestion/definition';
 
@@ -234,7 +234,7 @@ export const SearchOverlayHeaderFn = ({
         }),
     ];
 
-    return fromObject({
+    return htmlObject({
         className: 'c-search-header',
         content: [
             {

@@ -1,4 +1,4 @@
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { BenchMarkInvalidate } from '@pagesComponent/benchmark/invalidate/definition';
 import { BenchMarkRepeatWithKey } from '@pagesComponent/benchmark/repeat-key/definition';
 import { BenchMarkRepeatWithKeyNested } from '@pagesComponent/benchmark/repeat-key-nested/definition';
@@ -23,7 +23,7 @@ MobJs.useComponent([
 export const benchMark = async ({ props }) => {
     const { rootComponent } = props;
 
-    return fromObject({
+    return htmlObject({
         tag: rootComponent,
     });
 };

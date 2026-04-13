@@ -1,6 +1,6 @@
 //@ts-check
 
-import { fromObject, html } from '@mobJs';
+import { htmlObject, html } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { BenchMarkFakeComponent } from '../fake-component/definition';
 
@@ -45,7 +45,7 @@ export const BenchMarkInvalidateFn = ({
 
                 return data
                     .map(({ label }, index) => {
-                        return fromObject({
+                        return htmlObject({
                             component: BenchMarkFakeComponent,
                             modules: [
                                 staticProps(
@@ -69,7 +69,7 @@ export const BenchMarkInvalidateFn = ({
         }),
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'l-benchmark',
         content: [
             {

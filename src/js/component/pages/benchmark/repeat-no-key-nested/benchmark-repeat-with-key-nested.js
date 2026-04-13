@@ -1,4 +1,4 @@
-import { fromObject, html } from '@mobJs';
+import { htmlObject, html } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { BenchMarkFakeComponent } from '../fake-component/definition';
 
@@ -38,7 +38,7 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
             observe: () => proxi.data,
             useSync: true,
             render: ({ current }) => {
-                return fromObject({
+                return htmlObject({
                     tag: 'div',
                     content: [
                         {
@@ -51,7 +51,7 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
                                 observe: () => proxi.data,
                                 useSync: true,
                                 render: ({ sync, current }) => {
-                                    return fromObject({
+                                    return htmlObject({
                                         component: BenchMarkFakeComponent,
                                         modules: [
                                             bindProps(
@@ -74,7 +74,7 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
         }),
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'l-benchmark',
         content: [
             {

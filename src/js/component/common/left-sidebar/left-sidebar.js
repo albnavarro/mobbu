@@ -6,7 +6,7 @@
  * @import {LeftSidebar} from "./type"
  */
 
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { docsTemplate } from '@pages/index';
 
 /**
@@ -20,7 +20,7 @@ const getList = ({ proxi, bindEffect }) => {
         .map(({ label, url }) => {
             const urlParsed = url.replaceAll('#', '');
 
-            return fromObject({
+            return htmlObject({
                 className: 'item',
                 tag: 'li',
                 content: {
@@ -68,7 +68,7 @@ export const LightSidebarFn = ({
         () => proxi.data.length > 0
     );
 
-    return fromObject({
+    return htmlObject({
         className: 'left-sidebar',
         modules: bindEffect({
             toggleClass: {

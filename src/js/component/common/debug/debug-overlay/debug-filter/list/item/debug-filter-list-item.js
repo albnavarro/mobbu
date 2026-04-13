@@ -3,7 +3,7 @@
  */
 
 import { updateDebugComponentById } from '@commonComponent/debug/debug-overlay/debug-component/utils';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {MobComponent<import('./type').DebugFilterListItemType>} */
 export const DebugFilterListItemFn = ({
@@ -20,7 +20,7 @@ export const DebugFilterListItemFn = ({
         () => proxi.id === proxi.currentId
     );
 
-    return fromObject({
+    return htmlObject({
         className: 'c-debug-filter-list-item',
         content: [
             {

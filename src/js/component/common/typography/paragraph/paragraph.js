@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Paragraph>} */
 export const ParagraphFn = ({ getState }) => {
@@ -7,7 +7,7 @@ export const ParagraphFn = ({ getState }) => {
     const boxedClass = boxed ? `p-boxed` : '';
     const noteClass = note ? `p-note` : '';
 
-    return fromObject({
+    return htmlObject({
         tag: 'p',
         className: ['p', `p-${style}`, boxedClass, noteClass, colorClass],
         content: {

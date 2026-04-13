@@ -3,7 +3,7 @@ import { DocTitle } from '@commonComponent/doc-title/definition';
 import { DocsTitleSmall } from '@commonComponent/doc-title-small/definition';
 import { HtmlContent } from '@commonComponent/html-content/definition';
 import { ScrollTo } from '@commonComponent/scroll-to/definition';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
 import { updateLeftSidebarList } from '@commonComponent/left-sidebar/utils';
@@ -23,7 +23,7 @@ export const layoutSidebarAnchor = async ({ props }) => {
     const { data } = await loadJsonContent({ source });
     updateLeftSidebarList(rightSidebar ?? []);
 
-    return fromObject({
+    return htmlObject({
         component: DocContainer,
         content: [
             {

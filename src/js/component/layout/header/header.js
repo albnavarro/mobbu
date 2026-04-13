@@ -3,7 +3,7 @@
  */
 
 import { outerHeight } from '@mobCoreUtils';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { navigationStore } from '@stores/navigation';
 import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
@@ -66,7 +66,7 @@ export const HeaderFn = ({
         ],
     };
 
-    return fromObject({
+    return htmlObject({
         tag: 'header',
         className: 'js-header',
         modules: bindEffect({

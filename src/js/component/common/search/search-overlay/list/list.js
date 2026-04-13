@@ -1,5 +1,5 @@
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
-import { fromObject, html, MobJs } from '@mobJs';
+import { htmlObject, html, MobJs } from '@mobJs';
 import { fetchSearchResult } from './fetch-data';
 import { SearchOverlayListItem } from './list-item/definition';
 
@@ -121,7 +121,7 @@ export const SearchOverlayListFn = ({
             observe: () => proxi.noResult,
             render: () => {
                 return proxi.noResult
-                    ? fromObject({
+                    ? htmlObject({
                           tag: 'ul',
                           content: {
                               tag: 'li',
@@ -148,7 +148,7 @@ export const SearchOverlayListFn = ({
         content: repeat({
             observe: () => proxi.list,
             render: ({ current }) => {
-                return fromObject({
+                return htmlObject({
                     component: SearchOverlayListItem,
                     modules: bindProps(
                         /** @returns {ReturnBindProps<import('./list-item/type').SearchOverlayListItemType>} */
@@ -166,7 +166,7 @@ export const SearchOverlayListFn = ({
         }),
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'c-search-list',
         modules: setRef('screen'),
         content: [

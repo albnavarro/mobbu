@@ -3,7 +3,7 @@
  * @import {QuickNav} from "./type"
  */
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { MobTween } from '@mobMotion';
 
 /** @type {MobComponent<QuickNav>} */
@@ -87,7 +87,7 @@ export const QuickNavFn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'c-quick-nav-container',
         modules: bindEffect([
             {

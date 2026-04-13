@@ -7,7 +7,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { asyncTimelineanimation } from './animation/animation';
 
 /**
@@ -19,7 +19,7 @@ function getControls({ buttons }) {
     return Object.entries(buttons).map(([className, value]) => {
         const { label } = value;
 
-        return fromObject({
+        return htmlObject({
             tag: 'li',
             className: 'controls-item',
             content: {
@@ -111,7 +111,7 @@ export const AsyncTimelineFn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         content: {
             className: 'c-canvas',
             content: [

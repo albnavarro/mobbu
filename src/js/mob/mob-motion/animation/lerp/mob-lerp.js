@@ -622,7 +622,7 @@ export default class MobLerp {
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').LerpActions>} obj To Values
      */
-    goFrom(fromObject, specialProps = {}) {
+    goFrom(htmlObject, specialProps = {}) {
         /**
          * Skip if is in pause
          */
@@ -637,18 +637,18 @@ export default class MobLerp {
         /**
          * Normalize data
          */
-        const fromObjectParsed = parseGoFromObject(fromObject);
+        const htmlObjectParsed = parseGoFromObject(htmlObject);
 
         /**
          * Fire action
          */
-        return this.#doAction(fromObjectParsed, fromObject, specialProps);
+        return this.#doAction(htmlObjectParsed, htmlObject, specialProps);
     }
 
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').LerpActions>} obj To Values
      */
-    goFromTo(fromObject, toObject, specialProps = {}) {
+    goFromTo(htmlObject, toObject, specialProps = {}) {
         /**
          * Skip if is in pause
          */
@@ -663,20 +663,20 @@ export default class MobLerp {
         /**
          * Check if keys from/to is equal.
          */
-        if (!compareKeys(fromObject, toObject)) {
-            compareKeysWarning('lerp goFromTo:', fromObject, toObject);
+        if (!compareKeys(htmlObject, toObject)) {
+            compareKeysWarning('lerp goFromTo:', htmlObject, toObject);
             return new Promise((resolve) => resolve);
         }
 
         /**
          * Normalize data
          */
-        const objectParsed = parseGoFromToObject(fromObject, toObject);
+        const objectParsed = parseGoFromToObject(htmlObject, toObject);
 
         /**
          * Fire action
          */
-        return this.#doAction(objectParsed, fromObject, specialProps);
+        return this.#doAction(objectParsed, htmlObject, specialProps);
     }
 
     /**

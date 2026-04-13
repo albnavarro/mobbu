@@ -3,7 +3,7 @@
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { generateTreeComponents } from './recursive-tree';
 
 /** @type {import('../debug-filter/list/type').DebugInitScroller} */
@@ -95,7 +95,7 @@ export const DebugTreeFn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'c-debug-tree',
         content: {
             className: 'tree-list',

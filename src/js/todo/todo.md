@@ -4,7 +4,7 @@
 # MobJs
 
 ## FromObject step 0 - DOC.
-- Specificare che per semplicitá gli esempi usano il rendering HTML, ma `fromObject` sarebbe la scelta migliore.
+- Specificare che per semplicitá gli esempi usano il rendering HTML, ma `htmlObject` sarebbe la scelta migliore.
 - Aggiungere pagina dedicata `structured rendering`. ( left sidebar ).
 
 ## FromObject step 1.
@@ -16,7 +16,7 @@ Con l' introduzione di `component` non ci dovrebbe piu essere bisogno di definir
 - Indagare alla fine dell' allineamanto.
 
 
-## fromObject step 2. ?? valutare se é il caso di eseguirlo.
+## htmlObject step 2. ?? valutare se é il caso di eseguirlo.
 ### 1 Dopo aver converito tutto con fromOject.
 
 ### 2 Repeater/Invalidate

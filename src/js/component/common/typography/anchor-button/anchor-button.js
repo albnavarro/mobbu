@@ -1,5 +1,5 @@
 import { offset } from '@mobCoreUtils';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { MobBodyScroll } from '@mobMotionPlugin';
 
 /**
@@ -11,7 +11,7 @@ import { MobBodyScroll } from '@mobMotionPlugin';
 export const AnchorButtonFn = ({ getState, delegateEvents }) => {
     const { content: label, anchor } = getState();
 
-    return fromObject({
+    return htmlObject({
         content: {
             tag: 'button',
             className: 'anchor-button',

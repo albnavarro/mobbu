@@ -70,7 +70,7 @@ const getDataAttributes = (value) =>
 /**
  * @type {import('./type').FromObject}
  */
-export const fromObject = (data) => {
+export const htmlObject = (data) => {
     /**
      * Use userComponent tag or DOM generic tag
      */
@@ -106,7 +106,7 @@ const getContent = (value) => {
      * Singolo Nodo
      */
     if (MobCore.checkType(Object, value)) {
-        return fromObject(value);
+        return htmlObject(value);
     }
 
     /**
@@ -151,7 +151,7 @@ const getContent = (value) => {
              * DOM node content
              */
             if (MobCore.checkType(Object, current)) {
-                return `${previous} ${fromObject(current)}`;
+                return `${previous} ${htmlObject(current)}`;
             }
 
             /**

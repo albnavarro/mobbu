@@ -1,5 +1,5 @@
 import { OnlyDesktopCta } from '@commonComponent/only-desktop-cta/definition';
-import { fromObject, html, MobJs } from '@mobJs';
+import { htmlObject, html, MobJs } from '@mobJs';
 import { loadTextContent } from '@utils/utils';
 
 MobJs.useComponent([OnlyDesktopCta]);
@@ -14,7 +14,7 @@ export const onlyDesktop = async () => {
         source: './asset/svg/lettering-mob.svg?v=1.3',
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'l-only-desktop',
         content: {
             className: 'content',

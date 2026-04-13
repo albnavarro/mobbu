@@ -1,12 +1,12 @@
 //@ts-check
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').HorizontalScrollerButtonType>} */
 export const HorizontalScrollerButtonFn = ({ getProxi }) => {
     const proxi = getProxi();
 
-    return fromObject({
+    return htmlObject({
         tag: 'li',
         className: 'nav-item',
         content: {

@@ -1,6 +1,6 @@
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { MobCore } from '@mobCore';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { DebugFilterListItem } from './item/definition';
 
 /**
@@ -204,7 +204,7 @@ export const DebugFilterListFn = ({
         key: 'id',
         useSync: true,
         render: ({ sync, current }) => {
-            return fromObject({
+            return htmlObject({
                 component: DebugFilterListItem,
                 modules: [
                     staticProps(
@@ -225,7 +225,7 @@ export const DebugFilterListFn = ({
         },
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'c-debug-filter-list',
         content: {
             className: 'list',

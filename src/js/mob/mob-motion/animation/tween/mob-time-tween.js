@@ -652,7 +652,7 @@ export default class MobTimeTween {
     /**
      * @type {import('../../utils/type.js').GoFrom<import('./type.js').TimeTweenAction>} obj To Values
      */
-    goFrom(fromObject, specialProps = {}) {
+    goFrom(htmlObject, specialProps = {}) {
         /**
          * Timeline tween need a clean restart, is not 'reactive' like spring or lerp.
          */
@@ -666,18 +666,18 @@ export default class MobTimeTween {
         /**
          * Normalize data
          */
-        const fromObjectParsed = parseGoFromObject(fromObject);
+        const htmlObjectParsed = parseGoFromObject(htmlObject);
 
         /**
          * Fire action
          */
-        return this.#doAction(fromObjectParsed, fromObject, specialProps);
+        return this.#doAction(htmlObjectParsed, htmlObject, specialProps);
     }
 
     /**
      * @type {import('../../utils/type.js').GoFromTo<import('./type.js').TimeTweenAction>} obj To Values
      */
-    goFromTo(fromObject, toObject, specialProps = {}) {
+    goFromTo(htmlObject, toObject, specialProps = {}) {
         /**
          * Timeline tween need a clean restart, is not 'reactive' like spring or lerp.
          */
@@ -691,20 +691,20 @@ export default class MobTimeTween {
         /**
          * Check if keys from/to is equal.
          */
-        if (!compareKeys(fromObject, toObject)) {
-            compareKeysWarning('tween goFromTo:', fromObject, toObject);
+        if (!compareKeys(htmlObject, toObject)) {
+            compareKeysWarning('tween goFromTo:', htmlObject, toObject);
             return new Promise((resolve) => resolve);
         }
 
         /**
          * Normalize data
          */
-        const objectParsed = parseGoFromToObject(fromObject, toObject);
+        const objectParsed = parseGoFromToObject(htmlObject, toObject);
 
         /**
          * Fire action
          */
-        return this.#doAction(objectParsed, fromObject, specialProps);
+        return this.#doAction(objectParsed, htmlObject, specialProps);
     }
 
     /**

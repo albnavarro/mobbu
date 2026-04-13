@@ -3,7 +3,7 @@
  * @import {HeaderMainMenuButton} from "./type"
  */
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {MobComponent<HeaderMainMenuButton>} */
 export const HeaderMainMenuButtonFn = ({ getProxi, bindEffect, computed }) => {
@@ -16,7 +16,7 @@ export const HeaderMainMenuButtonFn = ({ getProxi, bindEffect, computed }) => {
         }
     );
 
-    return fromObject({
+    return htmlObject({
         tag: 'button',
         attributes: { type: 'button' },
         modules: bindEffect({

@@ -1,6 +1,6 @@
 //@ts-check
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -22,7 +22,7 @@ export const BenchMarkFakeComponentFn = ({
         return () => {};
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'c-benchmark-fake',
         modules: bindEffect({
             toggleClass: { selected: () => proxiState.isSelected },

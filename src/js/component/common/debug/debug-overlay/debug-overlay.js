@@ -1,6 +1,6 @@
 // @ts-check
 
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { consoleLogDebug } from '../console-log';
 import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
 import {
@@ -66,7 +66,7 @@ export const DebugOverlayFn = ({
                     observe: [() => proxi.listType, () => proxi.active],
                     render: () => {
                         if (proxi.listType === DEBUG_USE_TREE && proxi.active)
-                            return fromObject({
+                            return htmlObject({
                                 className: 'list-title',
                                 content: 'Tree structure',
                             });
@@ -75,7 +75,7 @@ export const DebugOverlayFn = ({
                             proxi.listType === DEBUG_USE_FILTER_COMPONENT &&
                             proxi.active
                         )
-                            return fromObject({ tag: 'debug-filter-head' });
+                            return htmlObject({ tag: 'debug-filter-head' });
 
                         // Remove component
                         return '';
@@ -137,7 +137,7 @@ export const DebugOverlayFn = ({
             observe: [() => proxi.listType, () => proxi.active],
             render: () => {
                 if (proxi.listType === DEBUG_USE_TREE && proxi.active)
-                    return fromObject({
+                    return htmlObject({
                         component: DebugTree,
                         attributes: { name: debugTreeName },
                     });
@@ -146,7 +146,7 @@ export const DebugOverlayFn = ({
                     proxi.listType === DEBUG_USE_FILTER_COMPONENT &&
                     proxi.active
                 )
-                    return fromObject({
+                    return htmlObject({
                         component: DebugFilterList,
                         attributes: { name: debugFilterListName },
                     });
@@ -156,7 +156,7 @@ export const DebugOverlayFn = ({
         }),
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'c-debug-overlay',
         modules: bindEffect({
             toggleClass: { active: () => proxi.active },

@@ -6,7 +6,7 @@
  */
 
 import { MobCore } from '@mobCore';
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { animatedPatternN1Animation } from './animation/animation';
 
 /** @type {MobComponent<AnimatedPatternN1>} */
@@ -67,7 +67,7 @@ export const AnimatedPatternN1Fn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         content: {
             className: 'c-canvas',
             content: [

@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { closeSearchSuggestion, updateSearchFromSuggestion } from '../../utils';
 
 /**
@@ -27,7 +27,7 @@ export const SearchOverlaySuggestionItemFn = ({
 }) => {
     const proxi = getProxi();
 
-    return fromObject({
+    return htmlObject({
         tag: 'li',
         content: {
             tag: 'button',

@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -6,7 +6,7 @@ import { fromObject } from '@mobJs';
 
 /** @type {MobComponent} */
 export const DocContainerFn = () => {
-    return fromObject({
+    return htmlObject({
         className: 'c-doc-container',
         content: [
             {

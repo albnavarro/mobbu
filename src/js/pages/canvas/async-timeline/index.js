@@ -1,5 +1,5 @@
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { AsyncTimeline } from '@pagesComponent/async-timeline/definition';
 import { loadTextContent } from '@utils/utils';
 
@@ -19,7 +19,7 @@ export const asyncTimeline = async () => {
         backRoute: '#canvas-overview',
     });
 
-    return fromObject({
+    return htmlObject({
         component: AsyncTimeline,
         modules: MobJs.staticProps({ background: bg }),
     });

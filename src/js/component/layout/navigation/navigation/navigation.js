@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { getCommonData } from '@data/index';
 import { NavigationLabel } from './navigation-label/definition';
 import { NavigationSubmenu } from './navigation-submenu/definition';
@@ -41,7 +41,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
         } = item;
 
         if (section) {
-            return fromObject({
+            return htmlObject({
                 component: NavigationLabel,
                 modules: staticProps(
                     /** @type {NavigationLabelType['props']} */ ({
@@ -54,7 +54,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
         }
 
         return children
-            ? fromObject({
+            ? htmlObject({
                   component: NavigationSubmenu,
                   modules: [
                       staticProps(
@@ -84,7 +84,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                       ),
                   ],
               })
-            : fromObject({
+            : htmlObject({
                   tag: 'li',
                   content: {
                       component: NavigationButton,
@@ -120,7 +120,7 @@ export const NavigationFn = ({
         setState(() => proxi.currentAccordionId, -1, { emit: fireCallback });
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'l-navigation',
         content: {
             tag: 'ul',

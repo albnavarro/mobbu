@@ -1,4 +1,4 @@
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { HomeComponent } from '@pagesComponent/homepage/definition';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
@@ -45,7 +45,7 @@ export const home = async () => {
         });
     });
 
-    return fromObject({
+    return htmlObject({
         content: [
             {
                 className: 'l-background-shape',

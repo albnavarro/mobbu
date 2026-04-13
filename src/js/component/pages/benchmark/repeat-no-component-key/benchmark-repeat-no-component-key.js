@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { benchMarkVanillaGarbagePartial } from '../partials/bench-mark-vanilla-garbage-partial';
 
@@ -34,7 +34,7 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
                 observe: () => proxi.data,
                 key: 'label',
                 render: ({ current }) => {
-                    return fromObject({
+                    return htmlObject({
                         className: 'c-benchmark-fake',
                         modules: [
                             bindEffect({
@@ -88,7 +88,7 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
         ],
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'l-benchmark',
         content: [
             {

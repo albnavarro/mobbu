@@ -1,11 +1,11 @@
-import { fromObject, html } from '@mobJs';
+import { htmlObject, html } from '@mobJs';
 
 /**
  * @param {number} maxComponent
  * @returns {string}
  */
 export const benchMarkGarbagePartial = (maxComponent = 1000) => {
-    return fromObject({
+    return htmlObject({
         tag: 'p',
         content: html`
             Generates and updates a large list of components with 5 reactive

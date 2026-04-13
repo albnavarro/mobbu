@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { draggerAnimation } from './animation';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Dragger>} */
@@ -53,7 +53,7 @@ export const DraggerFn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: ['c-dragger', proxi.rootClass ?? ''],
         content: [
             /**

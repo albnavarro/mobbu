@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MathAnimation } from '@commonComponent/math-animation/definition';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 
 /**
  * @import {
@@ -23,7 +23,7 @@ import { fromObject, MobJs } from '@mobJs';
  * @param {BindObject} params.bindObject
  */
 const getControls = ({ proxi, delegateEvents, bindObject }) => {
-    const numerators = fromObject({
+    const numerators = htmlObject({
         tag: 'li',
         className: 'controls-item',
         content: [
@@ -69,7 +69,7 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
         ],
     });
 
-    const denominator = fromObject({
+    const denominator = htmlObject({
         tag: 'li',
         className: 'controls-item',
         content: [
@@ -130,7 +130,7 @@ export const RosaDiGrandiPageFn = ({
 }) => {
     const proxi = getProxi();
 
-    return fromObject({
+    return htmlObject({
         className: 'l-rosa',
         content: [
             {
@@ -175,7 +175,7 @@ export const RosaDiGrandiPageFn = ({
                 content: invalidate({
                     observe: [() => proxi.numerators, () => proxi.denominator],
                     render: () => {
-                        return fromObject({
+                        return htmlObject({
                             component: MathAnimation,
                             modules: MobJs.staticProps({
                                 name: 'rosaDiGrandi',

@@ -2,7 +2,7 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
 import { generateTreeComponents } from '../recursive-tree';
 import { updateDebugComponentById } from '../../debug-component/utils';
@@ -91,7 +91,7 @@ export const DebugTreeItemFn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'c-debug-tree-item',
         content: [
             {

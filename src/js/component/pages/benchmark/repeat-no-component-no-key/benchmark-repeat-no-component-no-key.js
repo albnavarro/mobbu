@@ -1,6 +1,6 @@
 //@ts-check
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { benchMarkVanillaGarbagePartial } from '../partials/bench-mark-vanilla-garbage-partial';
 
@@ -35,7 +35,7 @@ export const BenchMarkRepeatNoComponentNoKeyFn = ({
             repeat({
                 observe: () => proxi.data,
                 render: ({ current }) => {
-                    return fromObject({
+                    return htmlObject({
                         className: 'c-benchmark-fake',
                         modules: [
                             bindEffect({
@@ -89,7 +89,7 @@ export const BenchMarkRepeatNoComponentNoKeyFn = ({
         ],
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'l-benchmark',
         content: [
             {

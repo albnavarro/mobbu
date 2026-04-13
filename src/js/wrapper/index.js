@@ -19,7 +19,7 @@ import {
 import { Footer } from '@layoutComponent/footer/definition';
 import { Header } from '@layoutComponent/header/definition';
 import { NavigationContainer } from '@layoutComponent/navigation/definition';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 
 MobJs.useComponent([
     Header,
@@ -38,7 +38,7 @@ MobJs.useComponent([
 export const wrapper = async () => {
     const useScssTestGrid = false;
 
-    return fromObject({
+    return htmlObject({
         content: [
             useScssTestGrid ? '<test-scss-grid></test-scss-grid>' : '',
             {

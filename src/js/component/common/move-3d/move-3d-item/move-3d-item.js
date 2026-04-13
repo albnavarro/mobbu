@@ -1,4 +1,4 @@
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
 import { getRotate, getRotateFromPosition } from './utils';
 
@@ -12,7 +12,7 @@ const getComponent = (component) => {
         return '';
     }
 
-    return fromObject({
+    return htmlObject({
         className: ['component', component?.className],
         content: {
             tag: component.tagName,
@@ -132,7 +132,7 @@ export const Move3DItemfn = ({ getState, addMethod, onMount }) => {
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: ['c-move3d-item', rootClass, `anchor-${anchorPoint}`],
         style: `${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}`,
         content: [

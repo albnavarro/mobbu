@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { getThirdLevel } from './third-level';
 import { MatrioskaItem } from '../item/definition';
 
@@ -29,12 +29,12 @@ export const getSecondLevel = ({
     delegateEvents,
     proxi,
 }) => {
-    return fromObject({
+    return htmlObject({
         className: 'level level--2',
         content: repeat({
             observe: () => proxi.level2,
             render: ({ current }) => {
-                return fromObject({
+                return htmlObject({
                     className: 'level-wrap level-wrap--2',
                     content: {
                         component: MatrioskaItem,

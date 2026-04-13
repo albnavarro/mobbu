@@ -1,4 +1,4 @@
-import { fromObject, html } from '@mobJs';
+import { htmlObject, html } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { BenchMarkFakeComponent } from '../fake-component/definition';
 
@@ -39,7 +39,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
             key: 'label',
             useSync: true,
             render: ({ current }) => {
-                return fromObject({
+                return htmlObject({
                     tag: 'div',
                     content: [
                         {
@@ -53,7 +53,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
                                 useSync: true,
                                 key: 'label',
                                 render: ({ sync, current }) => {
-                                    return fromObject({
+                                    return htmlObject({
                                         component: BenchMarkFakeComponent,
                                         modules: [
                                             bindProps(
@@ -76,7 +76,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
         }),
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'l-benchmark',
         content: [
             {

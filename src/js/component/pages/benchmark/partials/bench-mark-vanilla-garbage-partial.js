@@ -1,11 +1,11 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @param {number} maxComponent
  * @returns {string}
  */
 export const benchMarkVanillaGarbagePartial = (maxComponent = 1000) => {
-    return fromObject({
+    return htmlObject({
         tag: 'p',
         content: `
             Generates and updates a large list of vanilla HTML element with 4

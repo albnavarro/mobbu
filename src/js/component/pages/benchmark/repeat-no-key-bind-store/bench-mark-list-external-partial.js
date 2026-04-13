@@ -1,5 +1,5 @@
 import { MobCore } from '@mobCore';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import {
     createBenchMarkArray,
     shuffle,
@@ -75,7 +75,7 @@ export const benchMarkListExternalPartial = ({
     getState,
     bindEffect,
 }) => {
-    return fromObject({
+    return htmlObject({
         content: [
             {
                 className: 'loader',

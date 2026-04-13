@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { getButtons } from './buttons-partial';
 import { getSecondLevel } from './invalidate-partial/second-level';
 import { MatrioskaItem } from './item/definition';
@@ -28,7 +28,7 @@ export const MatrioskaInvalidateFn = ({
             render: () => {
                 return proxi.level1
                     .map((item, index) => {
-                        return fromObject({
+                        return htmlObject({
                             className: 'level-wrap level-wrap--1',
                             content: {
                                 component: MatrioskaItem,
@@ -61,7 +61,7 @@ export const MatrioskaInvalidateFn = ({
         }),
     };
 
-    return fromObject({
+    return htmlObject({
         className: 'l-matrioska',
         content: [
             {

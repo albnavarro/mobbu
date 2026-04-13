@@ -2,7 +2,7 @@ import { AnyComponent } from '@commonComponent/any-component/definition';
 import { MouseTrail } from '@commonComponent/mouse-trail/definition';
 import { Move3D } from '@commonComponent/move-3d/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_schema } from './data';
@@ -73,7 +73,7 @@ export const lettering01 = async () => {
         backRoute: '#svg-overview',
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'l-mob-01',
         content: [
             {

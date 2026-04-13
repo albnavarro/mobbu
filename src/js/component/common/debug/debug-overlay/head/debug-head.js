@@ -2,7 +2,7 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { DebugSearch } from './search/definition';
 
 const leftContent = () => [
@@ -48,7 +48,7 @@ const leftContent = () => [
 export const DebugHeadFn = ({ invalidate, getProxi }) => {
     const proxi = getProxi();
 
-    return fromObject({
+    return htmlObject({
         className: 'c-debug-head',
         content: [
             {
@@ -63,7 +63,7 @@ export const DebugHeadFn = ({ invalidate, getProxi }) => {
                          *
                          * - Extranl data i sused inside
                          */
-                        return fromObject({
+                        return htmlObject({
                             content: leftContent(),
                         });
                     },

@@ -3,7 +3,7 @@
  * @import {Snippet} from "./type"
  */
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { loadTextContent } from '@utils/utils';
@@ -94,7 +94,7 @@ export const SnippetFn = ({
         return () => {};
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'snippet',
         style: `--snippet-height:${snippetHeight};--closed-height:${closedHeight}`,
         content: [

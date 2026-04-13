@@ -1,5 +1,5 @@
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { ScrollerN0 } from '@pagesComponent/scroller/n0/definition';
 import { loadTextContent } from '@utils/utils';
 
@@ -19,7 +19,7 @@ export const scrollerN0 = async () => {
         backRoute: '#canvas-overview',
     });
 
-    return fromObject({
+    return htmlObject({
         content: {
             component: ScrollerN0,
             modules: MobJs.staticProps(

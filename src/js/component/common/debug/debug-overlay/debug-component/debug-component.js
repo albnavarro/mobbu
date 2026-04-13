@@ -9,7 +9,7 @@
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
-import { fromObject, html, MobJs } from '@mobJs';
+import { htmlObject, html, MobJs } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../constant';
 import { debugActiveComponentStore } from '@stores/debug';
 
@@ -43,7 +43,7 @@ const getObjectKeys = (methods) => {
 const getChild = (child) => {
     return Object.entries(child)
         .map(([key, value]) => {
-            return fromObject({
+            return htmlObject({
                 content: [
                     {
                         tag: 'strong',
@@ -72,7 +72,7 @@ const getFreezeProp = (props) => {
 const getStateProps = (states) => {
     return Object.entries(/** @type {any[]} */ (states))
         .map(([key, value]) => {
-            return fromObject({
+            return htmlObject({
                 content: [
                     {
                         tag: 'strong',
@@ -96,7 +96,7 @@ const getContent = ({ getState }) => {
     const item = MobJs.componentMap.get(id);
     if (!item) return `component not found`;
 
-    return fromObject({
+    return htmlObject({
         content: [
             /**
              * Basic props
@@ -418,7 +418,7 @@ export const DebugComponentFn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'c-debug-component',
         modules: setRef('screen'),
         content: [

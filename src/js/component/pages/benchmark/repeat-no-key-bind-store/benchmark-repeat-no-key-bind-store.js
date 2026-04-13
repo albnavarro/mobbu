@@ -1,4 +1,4 @@
-import { fromObject, html } from '@mobJs';
+import { htmlObject, html } from '@mobJs';
 import { benchMarkListExternalPartial } from './bench-mark-list-external-partial';
 import { externalBenchmarkStore } from '@stores/benchmark';
 import { benchMarkUseProxi } from '../strategy';
@@ -37,7 +37,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
         };
     });
 
-    return fromObject({
+    return htmlObject({
         className: 'l-benchmark',
         content: [
             {
@@ -75,7 +75,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
                     useSync: true,
                     render: ({ sync, current }) => {
                         return benchMarkUseProxi
-                            ? fromObject({
+                            ? htmlObject({
                                   component: BenchMarkFakeComponent,
                                   modules: [
                                       bindProps(
@@ -89,7 +89,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
                                       sync(),
                                   ],
                               })
-                            : fromObject({
+                            : htmlObject({
                                   component: BenchMarkFakeComponent,
                                   modules: [
                                       bindProps({

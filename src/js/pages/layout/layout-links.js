@@ -1,4 +1,4 @@
-import { fromObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { LayoutLinks } from '@pagesComponent/layout-links/definition';
 
@@ -9,7 +9,7 @@ export const layoutLinksPage = async ({ props }) => {
     const { source } = props;
     const { data } = await loadJsonContent({ source });
 
-    return fromObject({
+    return htmlObject({
         component: LayoutLinks,
         modules: MobJs.staticProps(
             /** @type {import('@pagesComponent/layout-links/type').LayoutLinks['props']} */

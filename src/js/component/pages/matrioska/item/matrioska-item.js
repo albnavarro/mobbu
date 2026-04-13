@@ -1,4 +1,4 @@
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -19,7 +19,7 @@ export const MatrioskaItemFn = ({
         proxi.active = !proxi.active;
     });
 
-    return fromObject({
+    return htmlObject({
         tag: 'matrioska-item',
         className: 'c-matrioska-item',
         modules: bindEffect({

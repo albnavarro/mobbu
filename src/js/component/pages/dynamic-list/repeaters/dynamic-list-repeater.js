@@ -13,7 +13,7 @@
  * @import {DynamicListRepeaterType} from "./type"
  */
 
-import { fromObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { DynamicListCard } from './card/definition';
 import { DynamicListSlottedLabel } from './slotted-label/definition';
 
@@ -32,7 +32,7 @@ function getRepeaterCard({
     current,
     proxi,
 }) {
-    return fromObject({
+    return htmlObject({
         content: [
             {
                 component: DynamicListCard,
@@ -82,7 +82,7 @@ export const DynamicListRepeaterFn = ({
     const proxi = getProxi();
     const keyParsed = proxi.key.length > 0 ? proxi.key : undefined;
 
-    return fromObject({
+    return htmlObject({
         className: 'c-dynamic-list-repeater',
         content: [
             {
