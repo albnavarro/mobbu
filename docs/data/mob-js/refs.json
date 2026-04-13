@@ -58,7 +58,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/refs.js",
-                "numLines": 43
+                "numLines": 71
             }
         },
         {
@@ -92,7 +92,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/refs-invalidate.js",
-                "numLines": 85
+                "numLines": 84
             }
         }
     ]

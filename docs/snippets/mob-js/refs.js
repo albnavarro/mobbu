@@ -1,7 +1,7 @@
-import { html } from '@mobJs';
+import { html, htmlObject } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({
     staticProps,
@@ -19,25 +19,53 @@ export const MyComponent = ({
         console.log(myComponent); // first node of <my-component>
     });
 
-    return html`
-        <div>
-            <ul ref="list">
-                <li ${setRef('listItem')}>1</li>
-                <li ${setRef('listItem')}>2</li>
-                <li ${setRef('listItem')}>3</li>
-                <li ${setRef('listItem')}>4</li>
-                <li ${setRef('listItem')}>5</li>
-                <li ${setRef('listItem')}>6</li>
-                <li ${setRef('listItem')}>7</li>
-                <li ${setRef('listItem')}>8</li>
-                <li ${setRef('listItem')}>9</li>
-            </ul>
-            <my-component
-                ${setRef('myComponent')}
-                ${staticProps({ prop: 'my-prop' })}
-            >
-                content
-            </my-component>
-        </div>
-    `;
+    return htmlObject({
+        className: 'main',
+        content: [
+            {
+                tag: 'ul',
+                modules: setRef('list'),
+                content: [
+                    {
+                        tag: 'li',
+                        modules: setRef('listItem'),
+                        content: '1',
+                    },
+                    {
+                        tag: 'li',
+                        modules: setRef('listItem'),
+                        content: '2',
+                    },
+                    {
+                        tag: 'li',
+                        modules: setRef('listItem'),
+                        content: '3',
+                    },
+                    {
+                        tag: 'li',
+                        modules: setRef('listItem'),
+                        content: '4',
+                    },
+                    {
+                        tag: 'li',
+                        modules: setRef('listItem'),
+                        content: '5',
+                    },
+                    {
+                        tag: 'li',
+                        modules: setRef('listItem'),
+                        content: '6',
+                    },
+                ],
+            },
+            {
+                component: ChildComponent,
+                modules: [
+                    setRef('myComponent'),
+                    staticProps({ prop: 'my-prop' }),
+                ],
+                content: 'my content',
+            },
+        ],
+    });
 };

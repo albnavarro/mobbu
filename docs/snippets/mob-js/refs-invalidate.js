@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 const getInvalidateRender = ({
     staticProps,
@@ -8,33 +8,29 @@ const getInvalidateRender = ({
 }) => {
     const { items } = getState();
 
-    return html`
-        ${items
-            .map((item) => {
-                return html`
-                    <div class="wrapper">
-                        <my-card
-                            ${setRef('card_ref')}
-                            ${staticProps({
-                                key: `${item}`,
-                            })}
-                            ${delegateEvents({
-                                click: () => {
-                                    console.log(
-                                        'invalidate inside invalidate click'
-                                    );
-                                },
-                            })}
-                        ></my-card>
-                    </div>
-                `;
-            })
-            .join('')}
-    `;
+    return items
+        .map((item) => {
+            return htmlObject({
+                className: 'wrapper',
+                content: {
+                    component: MyComponent,
+                    modules: [
+                        setRef('card_ref'),
+                        staticProps({ key: `${item}` }),
+                        delegateEvents({
+                            click: () => {
+                                //
+                            },
+                        }),
+                    ],
+                },
+            });
+        })
+        .join('');
 };
 
 /**
- * @type {import("@mobJsType").MobComponent<'myStateArray'|'counter'>}
+ * @type {import('@mobJsType').MobComponent<'myStateArray' | 'counter'>}
  */
 export const MyComponent = ({
     invalidate,
@@ -57,29 +53,32 @@ export const MyComponent = ({
         });
     });
 
-    return html`
-        <button
-            type="button"
-            ${delegateEvents({
-                click: () => {
-                    updateState('items', (val) => [...val, Math.random()]);
-                },
-            })}
-        >
-            myButton
-        </button>
-        <div class="invalidate-container">
-            ${invalidate({
-                observe: ['items'],
-                render: () => {
-                    return getInvalidateRender({
-                        getState,
-                        delegateEvents,
-                        staticProps,
-                        setRef,
-                    });
-                },
-            })}
-        </div>
-    `;
+    return htmlObject({
+        content: [
+            {
+                tag: 'button',
+                attributes: { type: 'button' },
+                modules: delegateEvents({
+                    click: () => {
+                        updateState('items', (val) => [...val, Math.random()]);
+                    },
+                }),
+                content: 'my button',
+            },
+            {
+                className: 'invalidate-container',
+                content: invalidate({
+                    observe: ['items'],
+                    render: () => {
+                        return getInvalidateRender({
+                            getState,
+                            delegateEvents,
+                            staticProps,
+                            setRef,
+                        });
+                    },
+                }),
+            },
+        ],
+    });
 };
