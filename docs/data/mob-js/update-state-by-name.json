@@ -40,7 +40,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/utils-update-state-by-name.js",
-                "numLines": 24
+                "numLines": 29
             }
         },
         {

@@ -20,5 +20,10 @@ export const MyComponent = ({ onMount }) => {
         return () => {};
     });
 
-    return html` <div></div> `;
+    /**
+     * DOM component structure.
+     */
+    return htmlObject({
+        content: 'ny content',
+    });
 };
