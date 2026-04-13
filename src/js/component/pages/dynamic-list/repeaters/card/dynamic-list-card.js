@@ -191,7 +191,7 @@ export const DynamicListCardFn = ({
                          * Component
                          */
                         return htmlObject({
-                            tag: 'dynamic-list-card-inner',
+                            component: DynamicListCardInner,
                             modules: bindProps(
                                 /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
                                 () => ({
@@ -211,7 +211,7 @@ export const DynamicListCardFn = ({
                          * Component
                          */
                         return htmlObject({
-                            tag: 'dynamic-list-card-inner',
+                            component: DynamicListCardInner,
                             modules: bindProps(
                                 /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
                                 () => ({
