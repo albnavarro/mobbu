@@ -1,3 +1,5 @@
+import { htmlObject } from '@mobJs';
+
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
@@ -7,24 +9,23 @@ export const MyComponent = ({
     staticProps,
     delegateEvents,
 }) => {
-    return html`
-        <div class="invalidate-container">
-            ${invalidate({
-                observe: [() => proxi.myState, () => proxi.myState2],
-                beforeUpdate: () => {
-                    //
-                },
-                afterUpdate: () => {
-                    //
-                },
-                render: () => {
-                    return getInvalidateRender({
-                        getState,
-                        delegateEvents,
-                        staticProps,
-                    });
-                },
-            })}
-        </div>
-    `;
+    return htmlObject({
+        className: 'invalidate-container',
+        content: invalidate({
+            observe: [() => proxi.myState, () => proxi.myState2],
+            beforeUpdate: () => {
+                //
+            },
+            afterUpdate: () => {
+                //
+            },
+            render: () => {
+                return getInvalidateRender({
+                    getState,
+                    delegateEvents,
+                    staticProps,
+                });
+            },
+        }),
+    });
 };

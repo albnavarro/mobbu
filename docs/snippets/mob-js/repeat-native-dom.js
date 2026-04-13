@@ -1,21 +1,22 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
- * @type {import("@mobJsType").MobComponent<import('./type').MyComponent>}
+ * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ repeat, bindObject }) => {
-    return html`
-        <div class="repeater-container">
-            ${repeat({
-                observe: 'data',
-                render: ({ current }) => {
-                    return html` <div class="item">
-                        <div>
-                            ${bindObject`label: ${() => current.value.label}`}
-                        </div>
-                    </div>`;
-                },
-            })}
-        </div>
-    `;
+    return htmlObject({
+        className: 'repeater-container',
+        content: repeat({
+            observe: 'data',
+            render: ({ current }) => {
+                return htmlObject({
+                    className: 'item',
+                    content: {
+                        className: 'item-inner',
+                        content: bindObject`label: ${() => current.value.label}`,
+                    },
+                });
+            },
+        }),
+    });
 };

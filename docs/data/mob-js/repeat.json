@@ -223,7 +223,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/repeat-proxi.js",
-                "numLines": 38
+                "numLines": 36
             }
         },
         {
@@ -249,7 +249,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/repeat-native-dom.js",
-                "numLines": 21
+                "numLines": 22
             }
         },
         {
@@ -275,7 +275,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/repeat-multiple-element.js",
-                "numLines": 20
+                "numLines": 26
             }
         },
         {
@@ -301,7 +301,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/repeat-useSync.js",
-                "numLines": 39
+                "numLines": 37
             }
         },
         {

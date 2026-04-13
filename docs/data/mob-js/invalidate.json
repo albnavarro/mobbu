@@ -148,7 +148,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/invalidate.js",
-                "numLines": 59
+                "numLines": 58
             }
         },
         {
@@ -175,7 +175,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/invalidate-proxi.js",
-                "numLines": 30
+                "numLines": 31
             }
         }
     ]
