@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -6,28 +6,35 @@ import { html } from '@mobJs';
 export const MyComponent = ({ bindEffect, getState, getProxi }) => {
     const proxi = getProxi();
 
-    return html`
-        <div>
-            <div>
-                ${bindEffect({
-                    // use string
+    return htmlObject({
+        tag: 'main',
+        content: [
+            {
+                className: 'col',
+                modules: bindEffect({
+                    /**
+                     * Use string
+                     */
                     observe: ['active', 'color'],
                     toggleClass: {
                         active: () => getState().active,
                         white: () => getState().color === 'white',
                     },
-                })}
-            </div>
-            <div>
-                ${bindEffect({
-                    // use proxi
+                }),
+            },
+            {
+                className: 'col',
+                modules: bindEffect({
+                    /**
+                     * Use proxi
+                     */
                     observe: [() => proxi.active, () => proxi.color],
                     toggleClass: {
                         active: () => getState().active,
                         white: () => getState().color === 'white',
                     },
-                })}
-            </div>
-        </div>
-    `;
+                }),
+            },
+        ],
+    });
 };

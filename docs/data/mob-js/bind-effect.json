@@ -113,7 +113,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-effect-auto.js",
-                "numLines": 19
+                "numLines": 18
             }
         },
         {
@@ -147,7 +147,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-effect-explicit.js",
-                "numLines": 33
+                "numLines": 40
             }
         },
         {
@@ -181,7 +181,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-effect-3.js",
-                "numLines": 23
+                "numLines": 25
             }
         },
         {
@@ -215,7 +215,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-effect-1.js",
-                "numLines": 27
+                "numLines": 29
             }
         },
         {

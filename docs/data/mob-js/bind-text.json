@@ -63,7 +63,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-text.js",
-                "numLines": 18
+                "numLines": 28
             }
         },
         {

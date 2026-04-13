@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -6,22 +6,24 @@ import { html } from '@mobJs';
 export const MyComponent = ({ bindObject, repeat, getProxi }) => {
     const proxi = getProxi();
 
-    return html`
-        <div>
-            ${repeat({
-                observe: 'data',
-                render: ({ current }) => {
-                    return html`<div class="item">
-                        <div class="item__inner">
-                            ${bindObject`value: ${() => current.value.label}.`}
-                        </div>
-                        <div>
-                            <!-- trigger repeater proxi for automatic cleanup -->
-                            ${bindObject`${() => (proxi.isExpanded ? 'close' : 'expand')}, ${() => current.value && ''}`}
-                        </div>
-                    </div>`;
-                },
-            })}
-        </div>
-    `;
+    return htmlObject({
+        tag: 'main',
+        content: repeat({
+            observe: 'data',
+            render: ({ current }) => {
+                return htmlObject({
+                    className: 'item',
+                    content: [
+                        {
+                            className: 'item__inner',
+                            content: bindObject`value: ${() => current.value.label}.`,
+                        },
+                        {
+                            content: bindObject`${() => (proxi.isExpanded ? 'close' : 'expand')}, ${() => current.value && ''}`,
+                        },
+                    ],
+                });
+            },
+        }),
+    });
 };

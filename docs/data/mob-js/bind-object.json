@@ -104,7 +104,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-object-auto.js",
-                "numLines": 27
+                "numLines": 29
             }
         },
         {
@@ -132,7 +132,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-object.js",
-                "numLines": 24
+                "numLines": 27
             }
         },
         {

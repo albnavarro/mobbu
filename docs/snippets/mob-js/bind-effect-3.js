@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
@@ -6,9 +6,11 @@ import { html } from '@mobJs';
 export const MyComponent = ({ bindEffect, getProxi }) => {
     const proxi = getProxi();
 
-    return html`
-        <div>
-            ${bindEffect({
+    return htmlObject({
+        tag: 'main',
+        content: {
+            className: 'item',
+            modules: bindEffect({
                 toggleClass: {
                     active: () => proxi.active,
                     white: () => proxi.color === 'white',
@@ -17,7 +19,7 @@ export const MyComponent = ({ bindEffect, getProxi }) => {
                     paddingTop: () => (proxi.active ? '30px' : ''),
                 },
                 toggleAttribute: { href: () => proxi.href },
-            })}
-        </div>
-    `;
+            }),
+        },
+    });
 };
