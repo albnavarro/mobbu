@@ -1,15 +1,19 @@
-import { html } from '@mobJs';
+import { html, htmlObject } from '@mobJs';
 
 /**
  * Default component
  */
 export const MyComponent = () => {
-    return html` <div>my component.</div> `;
+    return htmlObject({
+        tag: 'div',
+    });
 };
 
 /**
- * webComponent
+ * WebComponent
  */
 export const MyComponent = () => {
-    return html` <my-component>my component.</my-component> `;
+    return htmlObject({
+        tag: 'my-component',
+    });
 };
