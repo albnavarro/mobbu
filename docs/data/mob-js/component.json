@@ -204,7 +204,13 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<strong>Components are automatically registered via the component parameter of htmlObject ( htmlObject.component )</strong>.<br/> If components are used dynamically through the <span class='quote'>tag</span> parameter, they must be manually registered as soon as possible using the <a href='#mobJs-utils'>useComponent</a> utility — the best place is in the wrapper, <a href='#mobJs-initialization'>wrapper</a>"
+            "content": "Components are automatically registered via the <strong>component parameter of <a href='./#mobJs-html-object'>htmlObject</a> ( htmlObject.component )</strong>.<br/> If components are used dynamically through the <span class='quote'>tag</span> parameter, they must be manually registered as soon as possible using the <a href='#mobJs-utils'>useComponent</a> utility — the best place is in the wrapper, <a href='#mobJs-initialization'>wrapper</a>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",
@@ -456,6 +462,35 @@
             "props": {
                 "source": "./snippets/mob-js/component-async.js",
                 "numLines": 26
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "The function returns the <span class='quote'>DOM to be rendered</span>. For this operation, you need to use the <span class='quote'>htmlObject</span> utility, which will take care of transforming a structured data object into a DOM node."
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "links": true,
+                "items": [
+                    {
+                        "label": "htmlObject",
+                        "url": "./#mobJs-html-object"
+                    }
+                ]
             }
         },
         {
