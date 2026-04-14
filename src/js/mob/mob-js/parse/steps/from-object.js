@@ -38,8 +38,9 @@ const getStringOrArrayOfString = (value) => {
  * Parse attributes
  *
  * @param {any} value
+ * @param {boolean} [useData]
  */
-const getAttributes = (value) =>
+const getAttributes = (value, useData = false) =>
     Object.entries(value).reduce((previous, [key, value]) => {
         /**
          * Skip falsi
@@ -54,17 +55,9 @@ const getAttributes = (value) =>
         /**
          * String/number
          */
-        return `${previous} ${key}="${value}"`;
-    }, '');
-
-/**
- * Parse data attributes
- *
- * @param {any} value
- */
-const getDataAttributes = (value) =>
-    Object.entries(value).reduce((previous, [key, value]) => {
-        return `${previous} data-${key}="${value}"`;
+        return useData
+            ? `${previous} data-${key}="${value}"`
+            : `${previous} ${key}="${value}"`;
     }, '');
 
 /**
@@ -80,13 +73,13 @@ export const htmlObject = (data) => {
 
     // @ts-ignore
     const className = getStringOrArrayOfString(data?.className ?? []);
-    const classAttr = className.trim() ? ` class="${className}"` : '';
+    const classAttr = className.trim() ? `class="${className}"` : '';
 
     const style = data?.style ?? '';
-    const styleAttr = style.trim() ? ` style="${style}"` : '';
+    const styleAttr = style.trim() ? `style="${style}"` : '';
 
     const attributes = getAttributes(data?.attributes ?? {});
-    const dataAttributes = getDataAttributes(data?.dataAttributes ?? []);
+    const dataAttributes = getAttributes(data?.dataAttributes ?? [], true);
     const content = getContent(data?.content ?? []);
 
     // @ts-ignore
