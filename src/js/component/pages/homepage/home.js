@@ -51,8 +51,8 @@ export const HomeComponentFn = ({
 
     const testRender = htmlObjectNext({
         tag: 'section',
-        className: 'section-class',
-        style: 'background:#000;',
+        className: ['section-class pippo', 'pluto', ''],
+        style: { background: 'black', color: 'red' },
         attributes: { id: 2, name: 'my-name' },
         modules: [
             bindEffect({

@@ -30669,8 +30669,32 @@
   };
 
   // src/js/mob/mob-js/parse/steps/from-object-next.js
+  var getClassList = (value) => {
+    const valueToArray = (
+      /** @type {string[]} */
+      modules_exports.checkType(String, value) ? [value] : value
+    );
+    return valueToArray.flatMap(
+      (item) => item.trim().split(/\s+/).filter(Boolean)
+    );
+  };
   var htmlObjectNext = (data) => {
-    return document.createElement("div");
+    const component = data?.component ?? null;
+    const componentKey = component && Object.keys(component)?.[0];
+    const tag = componentKey ?? data?.tag ?? `div`;
+    const rootElement = document.createElement(tag);
+    const classList = getClassList(data?.className ?? []);
+    for (const classValue of classList) {
+      rootElement.classList.add(classValue);
+    }
+    const styles = data?.style ?? {};
+    for (const [key, value] of Object.entries(styles)) {
+      rootElement.style[
+        /** @type {any} */
+        key
+      ] = value;
+    }
+    return rootElement;
   };
 
   // src/js/component/pages/homepage/home.js
@@ -30704,8 +30728,8 @@
     });
     const testRender = htmlObjectNext({
       tag: "section",
-      className: "section-class",
-      style: "background:#000;",
+      className: ["section-class pippo", "pluto", ""],
+      style: { background: "black", color: "red" },
       attributes: { id: 2, name: "my-name" },
       modules: [
         bindEffect({
@@ -38533,7 +38557,7 @@
   );
 
   // src/js/component/common/debug/debug-overlay/debug-component/debug-component.js
-  var getClassList = (value) => {
+  var getClassList2 = (value) => {
     if (!value) return "";
     return [...value].reduce(
       (previous, current) => `${previous}.${current}`,
@@ -38617,7 +38641,7 @@
                 tag: "strong",
                 content: "component root"
               },
-              `: ${item.element.tagName}${getClassList(item.element.classList)}`
+              `: ${item.element.tagName}${getClassList2(item.element.classList)}`
             ]
           }
         },
@@ -38724,7 +38748,7 @@
                 tag: "strong",
                 content: "repeater inner wrapper"
               },
-              `: ${item?.repeaterInnerWrap?.tagName}${getClassList(
+              `: ${item?.repeaterInnerWrap?.tagName}${getClassList2(
                 item?.repeaterInnerWrap?.classList
               )}`
             ]
