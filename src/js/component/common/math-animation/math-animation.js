@@ -97,7 +97,11 @@ export const MathAnimationFn = ({
         return htmlObject({
             tag: 'span',
             className: 'trail-item',
-            style: `width:${size}rem;height:${size}rem;opacity:${opacity}`,
+            style: {
+                width: `${size}rem`,
+                height: `${size}rem`,
+                opacity: opacity,
+            },
             modules: setRef('target'),
             content: {
                 tag: 'span',

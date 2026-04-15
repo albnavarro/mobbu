@@ -77,10 +77,6 @@ export const Move3DItemfn = ({ getState, addMethod, onMount }) => {
     } = getState();
 
     const rootClass = root ? 'is-root' : 'is-children';
-    const widthCssVar = `--item-width:${width};`;
-    const heightCssVar = `--item-height:${height};`;
-    const offsetXCssVar = `--offset-x:${offsetX};`;
-    const offsetYCssVar = `--offset-y:${offsetY};`;
 
     let lerp = MobTween.createLerp({
         data: { depth: 0, rotateX: 0, rotateY: 0 },
@@ -134,7 +130,12 @@ export const Move3DItemfn = ({ getState, addMethod, onMount }) => {
 
     return htmlObject({
         className: ['c-move3d-item', rootClass, `anchor-${anchorPoint}`],
-        style: `${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}`,
+        style: {
+            '--item-width': width,
+            '--item-height': height,
+            '--offset-x': offsetX,
+            '--offset-y': offsetY,
+        },
         content: [
             {
                 className: classList,

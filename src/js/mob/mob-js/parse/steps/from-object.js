@@ -61,6 +61,19 @@ const getAttributes = (value, useData = false) =>
     }, '');
 
 /**
+ * Parse style
+ *
+ * @param {Record<string, string>} value
+ * @returns {string}
+ */
+const getStylesFromObject = (value) => {
+    return Object.entries(value).reduce((previous, [key, value]) => {
+        if (previous.length === 0) return `${key}:${value};`;
+        return `${previous}${key}:${value};`;
+    }, '');
+};
+
+/**
  * @type {import('./type').FromObject}
  */
 export const htmlObject = (data) => {
@@ -75,7 +88,7 @@ export const htmlObject = (data) => {
     const className = getStringOrArrayOfString(data?.className ?? []);
     const classAttr = className.trim() ? `class="${className}"` : '';
 
-    const style = data?.style ?? '';
+    const style = getStylesFromObject(data?.style ?? {});
     const styleAttr = style.trim() ? `style="${style}"` : '';
 
     const attributes = getAttributes(data?.attributes ?? {});

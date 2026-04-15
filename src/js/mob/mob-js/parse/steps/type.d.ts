@@ -77,7 +77,7 @@ export interface FromObjectNodeDescriptor {
     component?: CreateComponentReturnType;
     tag?: keyof HTMLElementTagNameMap | (string & {});
     className?: string | string[];
-    style?: string;
+    style?: Record<string, any>;
     dataAttributes?: Record<
         string,
         string | number | boolean | null | undefined

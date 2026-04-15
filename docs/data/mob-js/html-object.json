@@ -187,7 +187,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Accepts a string with the <span class='quote'>inline styles</span> to apply"
+            "content": "It accepts an object where the key represents the style property"
         },
         {
             "component": "mob-snippet",
