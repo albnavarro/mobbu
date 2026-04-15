@@ -6,7 +6,7 @@ export const MyComponent = () => {
         content: [
             {
                 tag: 'span',
-                style: 'background:#ccc;',
+                style: { background: black },
             },
         ],
     });

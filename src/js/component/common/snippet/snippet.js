@@ -96,7 +96,10 @@ export const SnippetFn = ({
 
     return htmlObject({
         className: 'snippet',
-        style: `--snippet-height:${snippetHeight};--closed-height:${closedHeight}`,
+        style: {
+            '--snippet-height': snippetHeight,
+            '--closed-height': closedHeight,
+        },
         content: [
             {
                 tag: 'code',

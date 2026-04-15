@@ -423,7 +423,7 @@ export const AboutComponentFn = ({
 
     return htmlObject({
         className: 'l-about',
-        style: `--number-of-section:${numberOfSection}`,
+        style: { '--number-of-section': numberOfSection },
         modules: bindEffect({
             toggleClass: {
                 active: () => proxi.isMounted,

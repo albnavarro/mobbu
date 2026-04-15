@@ -10280,13 +10280,19 @@
     if (value2 === true) return `${previous} ${key}`;
     return useData ? `${previous} data-${key}="${value2}"` : `${previous} ${key}="${value2}"`;
   }, "");
+  var getStylesFromObject = (value) => {
+    return Object.entries(value).reduce((previous, [key, value2]) => {
+      if (previous.length === 0) return `${key}:${value2};`;
+      return `${previous}${key}:${value2};`;
+    }, "");
+  };
   var htmlObject = (data) => {
     const component = data?.component ?? null;
     const componentKey = component && Object.keys(component)?.[0];
     const tag = componentKey ?? data?.tag ?? `div`;
     const className = getStringOrArrayOfString(data?.className ?? []);
     const classAttr = className.trim() ? `class="${className}"` : "";
-    const style = data?.style ?? "";
+    const style = getStylesFromObject(data?.style ?? {});
     const styleAttr = style.trim() ? `style="${style}"` : "";
     const attributes = getAttributes(data?.attributes ?? {});
     const dataAttributes = getAttributes(data?.dataAttributes ?? [], true);
@@ -26650,7 +26656,7 @@
     ];
     return htmlObject({
       className: "l-about",
-      style: `--number-of-section:${numberOfSection}`,
+      style: { "--number-of-section": numberOfSection },
       modules: bindEffect({
         toggleClass: {
           active: () => proxi.isMounted
@@ -32173,10 +32179,6 @@
       component
     } = getState();
     const rootClass = root2 ? "is-root" : "is-children";
-    const widthCssVar = `--item-width:${width};`;
-    const heightCssVar = `--item-height:${height};`;
-    const offsetXCssVar = `--offset-x:${offsetX};`;
-    const offsetYCssVar = `--offset-y:${offsetY};`;
     let lerp2 = tween_exports.createLerp({
       data: { depth: 0, rotateX: 0, rotateY: 0 }
     });
@@ -32218,7 +32220,12 @@
     });
     return htmlObject({
       className: ["c-move3d-item", rootClass, `anchor-${anchorPoint}`],
-      style: `${widthCssVar}${heightCssVar}${offsetXCssVar}${offsetYCssVar}`,
+      style: {
+        "--item-width": width,
+        "--item-height": height,
+        "--offset-x": offsetX,
+        "--offset-y": offsetY
+      },
       content: [
         {
           className: classList
@@ -36358,7 +36365,11 @@
       return htmlObject({
         tag: "span",
         className: "trail-item",
-        style: `width:${size}rem;height:${size}rem;opacity:${opacity}`,
+        style: {
+          width: `${size}rem`,
+          height: `${size}rem`,
+          opacity
+        },
         modules: setRef("target"),
         content: {
           tag: "span",
@@ -42964,7 +42975,10 @@
     });
     return htmlObject({
       className: "snippet",
-      style: `--snippet-height:${snippetHeight};--closed-height:${closedHeight}`,
+      style: {
+        "--snippet-height": snippetHeight,
+        "--closed-height": closedHeight
+      },
       content: [
         {
           tag: "code",
