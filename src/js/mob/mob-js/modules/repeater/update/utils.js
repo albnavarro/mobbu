@@ -457,6 +457,7 @@ export const getRenderWithSync = ({
                         index: index,
                     }),
                     [ATTR_KEY]: hasKey ? item?.[key] : '',
+                    [ATTR_REPEATER_PROP_BIND]: observe,
                     [ATTR_CHILD_REPEATID]: repeatId,
                 });
 
