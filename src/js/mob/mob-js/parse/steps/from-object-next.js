@@ -55,5 +55,35 @@ export const htmlObjectNext = (data) => {
         rootElement.style[/** @type {any} */ (key)] = value;
     }
 
+    /**
+     * Attributes
+     */
+    const attributes = data?.attributes ?? {};
+    for (const [key, value] of Object.entries(attributes)) {
+        rootElement.setAttribute(key, /** @type {any} */ (value));
+    }
+
+    /**
+     * Data attributes
+     */
+    const dataAttributes = data?.dataAttributes ?? {};
+    for (const [key, value] of Object.entries(dataAttributes)) {
+        rootElement.setAttribute(`data-${key}`, /** @type {any} */ (value));
+    }
+
+    /**
+     * Modules
+     */
+    const modules = data?.modules ?? {};
+    const modulesArray = MobCore.checkType(Array, modules)
+        ? modules
+        : [modules];
+
+    for (const item of /** @type{Record<string, any>[]} */ (modulesArray)) {
+        for (const [key, value] of Object.entries(item)) {
+            rootElement.setAttribute(key, /** @type {any} */ (value));
+        }
+    }
+
     return rootElement;
 };

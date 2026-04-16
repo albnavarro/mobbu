@@ -51,9 +51,11 @@ export const HomeComponentFn = ({
 
     const testRender = htmlObjectNext({
         tag: 'section',
+        // component: Title,
         className: ['section-class pippo', 'pluto', ''],
         style: { background: 'black', color: 'red' },
-        attributes: { id: 2, name: 'my-name' },
+        attributes: { id: 2, name: 'my-name', disabled: '' },
+        dataAttributes: { test: 'test' },
         modules: [
             bindEffect({
                 toggleClass: {

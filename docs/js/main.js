@@ -30737,6 +30737,37 @@
         key
       ] = value;
     }
+    const attributes = data?.attributes ?? {};
+    for (const [key, value] of Object.entries(attributes)) {
+      rootElement.setAttribute(
+        key,
+        /** @type {any} */
+        value
+      );
+    }
+    const dataAttributes = data?.dataAttributes ?? {};
+    for (const [key, value] of Object.entries(dataAttributes)) {
+      rootElement.setAttribute(
+        `data-${key}`,
+        /** @type {any} */
+        value
+      );
+    }
+    const modules = data?.modules ?? {};
+    const modulesArray = modules_exports.checkType(Array, modules) ? modules : [modules];
+    for (
+      const item of
+      /** @type{Record<string, any>[]} */
+      modulesArray
+    ) {
+      for (const [key, value] of Object.entries(item)) {
+        rootElement.setAttribute(
+          key,
+          /** @type {any} */
+          value
+        );
+      }
+    }
     return rootElement;
   };
 
@@ -30771,9 +30802,11 @@
     });
     const testRender = htmlObjectNext({
       tag: "section",
+      // component: Title,
       className: ["section-class pippo", "pluto", ""],
       style: { background: "black", color: "red" },
-      attributes: { id: 2, name: "my-name" },
+      attributes: { id: 2, name: "my-name", disabled: "" },
+      dataAttributes: { test: "test" },
       modules: [
         bindEffect({
           toggleClass: {

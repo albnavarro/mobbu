@@ -28,7 +28,7 @@ export interface FromObjectNextNodeDescriptor {
         Record<string, string | number | boolean | null | undefined>,
         'class' | 'style'
     >;
-    modules?: string | string[];
+    modules?: Record<string, string> | Record<string, string>[];
     content?: FromObjectNextNodeContent;
 }
 
