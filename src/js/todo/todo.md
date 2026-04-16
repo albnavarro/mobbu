@@ -6,8 +6,7 @@
 
 ## htmlObject step 1. valutare se é il caso di eseguirlo.
 ### Content:
-   - Tornera sempre un array di nodi, webcomponent + render.
-   - `[webComponent, render]`
+   - Tornera sempre un array di nodi, webcomponent + render/renders.
    - Per cui tutti i moduli `content` andranno spreddati:
      ```javascript
       content: [
@@ -18,8 +17,9 @@
       ]
       ```
    - Metre:
-      - `repeat`, `bindObject`, `bindText` avranno sempre 2 elementi.
-      - `invalidate`: avra piu elementi non essendo legato a un singolo nodo di root
+      - `bindObject` e `bindText` avranno un output del tipo: `[webComponent, string]`
+      - `repeat` avra un uotput del tipo: `[webComponent, HTMLElement]`
+      - `invalidate`: avra un output del tipo `[webComponent, ...[ HTMLElement, HTMLElement, ... ]]`
 
 **A questo punto repeat potra tornare sempre il render senza suddivisione tra string e DOM.**
   - Ora saranno solo elementi del DOM
