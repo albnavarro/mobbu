@@ -74,6 +74,36 @@ const getStylesFromObject = (value) => {
 };
 
 /**
+ * Parse modules
+ *
+ * @param {Record<string, string>} value
+ * @returns {string}
+ */
+const extractSingleModule = (value) => {
+    return Object.entries(value).reduce((previous, [key, value]) => {
+        if (previous.length === 0) return `${key}="${value}" `;
+        return `${previous} ${key}="${value}" `;
+    }, '');
+};
+
+/**
+ * Parse modules
+ *
+ * @param {Record<string, string> | Record<string, string>[]} value
+ * @returns {string}
+ */
+const getModules = (value) => {
+    const valueToArray = /** @type{Record<string, string>[]} */ (
+        MobCore.checkType(Array, value) ? value : [value]
+    );
+
+    return valueToArray.reduce((previous, current) => {
+        const currentModule = extractSingleModule(current);
+        return `${previous} ${currentModule}`;
+    }, '');
+};
+
+/**
  * @type {import('./type').FromObject}
  */
 export const htmlObject = (data) => {
@@ -88,15 +118,30 @@ export const htmlObject = (data) => {
     const className = getStringOrArrayOfString(data?.className ?? []);
     const classAttr = className.trim() ? `class="${className}"` : '';
 
-    const style = getStylesFromObject(data?.style ?? {});
+    const styleToParse = data?.style;
+    const style = styleToParse ? getStylesFromObject(data?.style ?? {}) : '';
     const styleAttr = style.trim() ? `style="${style}"` : '';
 
-    const attributes = getAttributes(data?.attributes ?? {});
-    const dataAttributes = getAttributes(data?.dataAttributes ?? [], true);
-    const content = getContent(data?.content ?? []);
+    const attributeToParse = data?.attributes;
+    const attributes = attributeToParse
+        ? getAttributes(data?.attributes ?? {})
+        : '';
+
+    const dataAttributeToParse = data?.dataAttributes;
+    const dataAttributes = dataAttributeToParse
+        ? getAttributes(data?.dataAttributes ?? [], true)
+        : '';
+
+    const contentToParse = data?.content;
+    const content = contentToParse ? getContent(data?.content ?? []) : '';
 
     // @ts-ignore
-    const modules = getStringOrArrayOfString(data?.modules ?? []);
+    const moduleToParse = data?.modules;
+    const modules = moduleToParse ? getModules(data?.modules ?? {}) : '';
+
+    /**
+     * Check for void elements
+     */
     const isVoid = VOID_ELEMENTS.has(tag.toLowerCase());
 
     return isVoid

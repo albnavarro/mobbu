@@ -16,10 +16,12 @@ import { setStaticProps } from './modules/static-props';
  *     ```
  *
  * @param {{ [key: string]: any }} props
- * @returns {string}
+ * @returns {Record<string, string>}
  */
 export const staticProps = (props = {}) => {
-    return `${ATTR_PROPS}="${setStaticProps(props)}"`;
+    return {
+        [ATTR_PROPS]: setStaticProps(props),
+    };
 };
 
 /**

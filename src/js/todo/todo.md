@@ -3,39 +3,27 @@
 
 # MobJs
 
-## FromObject step 0 - DOC.
-- Specificare che per semplicitá gli esempi usano il rendering HTML, ma `htmlObject` sarebbe la scelta migliore.
-- Aggiungere pagina dedicata `structured rendering`. ( left sidebar ).
 
-## FromObject step 1.
-Con l' introduzione di `component` non ci dovrebbe piu essere bisogno di definirli come `child`.
-- Nel caso di :
-- `src/js/component/pages/dynamic-list/definition.js`
-- `DynamicListRepeater`
-- Senza l'import esplicito nella definizione fallisce.
-- Indagare alla fine dell' allineamanto.
+## htmlObject step 1. valutare se é il caso di eseguirlo.
+### Content:
+   - Tornera sempre un array di nodi, webcomponent + render.
+   - `[webComponent, render]`
+   - Per cui tutti i moduli `content` andranno spreddati:
+     ```javascript
+      content: [
+          ...repeat(...),
+          ...invalidate(...),
+          ...bindObject(...),
+          ...bindText(...)
+      ]
+      ```
+   - Metre:
+      - `repeat`, `bindObject`, `bindText` avranno sempre 2 elementi.
+      - `invalidate`: avra piu elementi non essendo legato a un singolo nodo di root
 
+**A questo punto repeat potra tornare sempre il render senza suddivisione tra string e DOM.**
+  - Ora saranno solo elementi del DOM
 
-## htmlObject step 2. ?? valutare se é il caso di eseguirlo.
-### 1 Dopo aver converito tutto con fromOject.
-
-### 2 Repeater/Invalidate
-    - torneranno un array:
-    - `return [webcomponent, nodo1, nodo2 ]
-    - I moduli andranno spreddati all' uso
-    - ...invalidate({ ... })
-
-**Prima di convertire in DOM reale ( step 3 )**
-- eliminare `join('')` dai map ( es. invalidate benchmark ).
-- applicare fix come sopra e vedere che sia ok,
-- Invalidate accettare `string` e `string[]`
-- Invalidate potrebbe reallentare
-
-### 3 Repeater/Invalidate
-- Tornare un elemento del DOM reale e allineare mobjs.
-- Punti critici:
-    - Invalidate al momento non accetta array.
-    - Approfondimento nel prossimo punto:
 
 
 ## Repat proxi
