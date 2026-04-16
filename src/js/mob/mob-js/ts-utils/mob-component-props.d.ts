@@ -34,7 +34,7 @@ type BindPropsFunction<R> = () => Partial<ExtractProps<R>>;
  */
 export type PartialBindProps<T, R> = (
     arg0: BindPropsObject<T, R> | BindPropsFunction<R>
-) => string;
+) => Record<string, string>;
 
 /**
  * DelegateEvents
@@ -55,7 +55,7 @@ export type PartialBindEvents = (
  */
 export type PartialBindEffect<T> = (
     arg0: BindEffectObject<T> | BindEffectObject<T>[]
-) => string;
+) => Record<string, string>;
 
 /**
  * GetState
@@ -352,7 +352,7 @@ export interface PartialRepeat<T> {
          *     ```
          */
         render: (arg0: {
-            sync: () => string;
+            sync: () => Record<string, string>;
             initialIndex: number;
             initialValue: ArrayElement<ExtractPropsAndState<T>[K]>;
             current: PartialCurrent<T, K>;
@@ -426,7 +426,7 @@ export interface PartialRepeat<T> {
          *     ```
          */
         render: (arg0: {
-            sync: () => string;
+            sync: () => Record<string, string>;
             initialIndex: number;
             initialValue: ArrayElement<K>;
             current: PartialCurrentProxi<K>;
@@ -469,7 +469,9 @@ interface PartialInvalidateComponent<T> {
 /**
  * StaticProps
  */
-export type PartialStaticProps<R> = (arg0: Partial<ExtractProps<R>>) => string;
+export type PartialStaticProps<R> = (
+    arg0: Partial<ExtractProps<R>>
+) => Record<string, string>;
 
 /**
  * Methods
@@ -493,7 +495,9 @@ type RefToArray<Type> = {
 /**
  * Bind refs
  */
-export type PartialSetRef<T> = (arg0: OnlyStringKey<ExtractRef<T>>) => string;
+export type PartialSetRef<T> = (
+    arg0: OnlyStringKey<ExtractRef<T>>
+) => Record<string, string>;
 export type PartialGetRef<T> = () => ExtractRef<T>;
 export type PartialGetRefs<T> = () => RefToArray<ExtractRef<T>>;
 export type PartialBindText = (TemplateStringsArray, ...any) => string;

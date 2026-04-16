@@ -8305,7 +8305,9 @@
 
   // src/js/mob/mob-js/utils.js
   var staticProps = (props = {}) => {
-    return `${ATTR_PROPS}="${setStaticProps(props)}"`;
+    return {
+      [ATTR_PROPS]: setStaticProps(props)
+    };
   };
   var clamp2 = (num, lower, upper) => {
     return Math.min(Math.max(num, lower), upper);
@@ -8392,7 +8394,7 @@
           initialIndex,
           initialValue,
           current: proxiObject,
-          sync: () => ""
+          sync: () => ({ _no_sync: "" })
         });
         const lastSkipUserValue = getSkipAddUserComponent();
         setSkipAddUserComponent(true);
@@ -8412,14 +8414,14 @@
     return renderedDOM.filter((element) => element !== null);
   };
   var getSyncWithoutKey = ({ initialIndex, initialValue, state, repeatId }) => {
-    return (
-      /* HTML */
-      `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
+    return {
+      [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
         current: initialValue,
         index: initialIndex
-      })}"
-    ${ATTR_REPEATER_PROP_BIND}="${state}" ${ATTR_CHILD_REPEATID}="${repeatId}"`
-    );
+      }),
+      [ATTR_REPEATER_PROP_BIND]: state,
+      [ATTR_CHILD_REPEATID]: repeatId
+    };
   };
   var updateRepeaterWithoutKeyUseSync = ({
     diff,
@@ -8475,7 +8477,7 @@
         initialIndex: index,
         initialValue: currentValue,
         current: proxiObject,
-        sync: () => ""
+        sync: () => ({ _no_sync: "" })
       })
     );
     setSkipAddUserComponent(lastSkipUserValue);
@@ -8490,16 +8492,15 @@
     return fragment.firstElementChild;
   };
   var getSyncWithKey = ({ keyValue, index, currentValue, state, repeatId }) => {
-    return (
-      /* HTML */
-      ` ${ATTR_KEY}="${keyValue}"
-    ${ATTR_REPEATER_PROP_BIND}="${state}"
-    ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
+    return {
+      [ATTR_KEY]: keyValue,
+      [ATTR_REPEATER_PROP_BIND]: state,
+      [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
         current: currentValue,
         index
-      })}"
-    ${ATTR_CHILD_REPEATID}="${repeatId}"`
-    );
+      }),
+      [ATTR_CHILD_REPEATID]: repeatId
+    };
   };
   var updateRepeaterWithtKeyUseSync = ({
     currentValue,
@@ -8557,7 +8558,7 @@
           initialIndex: index,
           initialValue: item,
           current: proxiObject,
-          sync: () => ""
+          sync: () => ({ _no_sync: "" })
         })
       );
       setSkipAddUserComponent(lastSkipUserValue);
@@ -8583,18 +8584,14 @@
   }) => {
     const rawRender = () => {
       return currentUnique.map((item, index) => {
-        const sync = (
-          /* HTML */
-          () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
-            {
-              current: item,
-              index
-            }
-          )}"
-                            ${ATTR_KEY}="${hasKey ? item?.[key] : ""}"
-                            ${ATTR_REPEATER_PROP_BIND}="${observe}"
-                            ${ATTR_CHILD_REPEATID}="${repeatId}"`
-        );
+        const sync = () => ({
+          [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
+            current: item,
+            index
+          }),
+          [ATTR_KEY]: hasKey ? item?.[key] : "",
+          [ATTR_CHILD_REPEATID]: repeatId
+        });
         const proxiObject = getRepeatProxi({
           observe,
           hasKey,
@@ -9290,14 +9287,6 @@
         return unFreezePropById({ id, prop: bindParsed.toString() });
       },
       unBind: () => unBind({ id }),
-      bindProps: (data) => {
-        const dataNormalized = "props" in data ? data : { props: data };
-        return `${ATTR_BIND_PROPS}="${setBindProps({
-          ...dataNormalized,
-          parentId: id
-        })}" `;
-      },
-      staticProps: (obj) => ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
       remove: () => {
         removeAndDestroyById({ id });
       },
@@ -9312,22 +9301,8 @@
           setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
       },
       onMount: (cb) => addOnMoutCallback({ id, cb }),
-      bindEvents: (eventsData) => {
-        return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsData)}"`;
-      },
-      delegateEvents: (eventsData) => {
-        return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
-          eventsData
-        )}"`;
-      },
-      bindEffect: (effectData) => {
-        return `${ATTR_BIND_EFFECT}="${setBindEffect({ data: effectData, id })}"`;
-      },
       addMethod: (name, fn) => {
         addMethodById({ id, name, fn });
-      },
-      setRef: (value) => {
-        return `${ATTR_BIND_REFS_ID}="${id}" ${ATTR_BIND_REFS_NAME}="${value}"`;
       },
       getRef: () => {
         return getBindRefById({ id });
@@ -9335,6 +9310,47 @@
       getRefs: () => {
         return getBindRefsById({ id });
       },
+      /**
+       * Modules
+       */
+      setRef: (value) => {
+        return {
+          [ATTR_BIND_REFS_ID]: id,
+          [ATTR_BIND_REFS_NAME]: value
+        };
+      },
+      staticProps: (obj) => ({
+        [ATTR_PROPS]: setStaticProps(obj)
+      }),
+      bindProps: (data) => {
+        const dataNormalized = "props" in data ? data : { props: data };
+        const value = setBindProps({
+          ...dataNormalized,
+          parentId: id
+        });
+        if (!value) return {};
+        return {
+          [ATTR_BIND_PROPS]: value
+        };
+      },
+      bindEffect: (effectData) => {
+        return {
+          [ATTR_BIND_EFFECT]: setBindEffect({ data: effectData, id })
+        };
+      },
+      bindEvents: (eventsData) => {
+        return {
+          [ATTR_BIND_EVENTS]: setBindEvents(eventsData)
+        };
+      },
+      delegateEvents: (eventsData) => {
+        return {
+          [ATTR_WEAK_BIND_EVENTS]: setDelegateBindEvent(eventsData)
+        };
+      },
+      /**
+       * Content
+       */
       bindText: (strings, ...values) => {
         const bindTextId = modules_exports.getUnivoqueId();
         const render2 = () => renderBindText(id, strings, ...values);
@@ -10286,18 +10302,39 @@
       return `${previous}${key}:${value2};`;
     }, "");
   };
+  var extractSingleModule = (value) => {
+    return Object.entries(value).reduce((previous, [key, value2]) => {
+      if (previous.length === 0) return `${key}="${value2}" `;
+      return `${previous} ${key}="${value2}" `;
+    }, "");
+  };
+  var getModules = (value) => {
+    const valueToArray = (
+      /** @type{Record<string, string>[]} */
+      modules_exports.checkType(Array, value) ? value : [value]
+    );
+    return valueToArray.reduce((previous, current) => {
+      const currentModule = extractSingleModule(current);
+      return `${previous} ${currentModule}`;
+    }, "");
+  };
   var htmlObject = (data) => {
     const component = data?.component ?? null;
     const componentKey = component && Object.keys(component)?.[0];
     const tag = componentKey ?? data?.tag ?? `div`;
     const className = getStringOrArrayOfString(data?.className ?? []);
     const classAttr = className.trim() ? `class="${className}"` : "";
-    const style = getStylesFromObject(data?.style ?? {});
+    const styleToParse = data?.style;
+    const style = styleToParse ? getStylesFromObject(data?.style ?? {}) : "";
     const styleAttr = style.trim() ? `style="${style}"` : "";
-    const attributes = getAttributes(data?.attributes ?? {});
-    const dataAttributes = getAttributes(data?.dataAttributes ?? [], true);
-    const content = getContent(data?.content ?? []);
-    const modules = getStringOrArrayOfString(data?.modules ?? []);
+    const attributeToParse = data?.attributes;
+    const attributes = attributeToParse ? getAttributes(data?.attributes ?? {}) : "";
+    const dataAttributeToParse = data?.dataAttributes;
+    const dataAttributes = dataAttributeToParse ? getAttributes(data?.dataAttributes ?? [], true) : "";
+    const contentToParse = data?.content;
+    const content = contentToParse ? getContent(data?.content ?? []) : "";
+    const moduleToParse = data?.modules;
+    const modules = moduleToParse ? getModules(data?.modules ?? {}) : "";
     const isVoid = VOID_ELEMENTS.has(tag.toLowerCase());
     return isVoid ? `<${tag} ${classAttr} ${styleAttr} ${attributes} ${dataAttributes} ${modules}/>` : `<${tag} ${classAttr} ${styleAttr} ${attributes} ${dataAttributes} ${modules}>${content}</${tag}>`;
   };

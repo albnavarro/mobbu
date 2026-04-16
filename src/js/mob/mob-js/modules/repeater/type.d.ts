@@ -8,7 +8,7 @@ export type RepeaterRender = (arg0: {
     /**
      * Attribute for component if needed
      */
-    sync: () => string;
+    sync: () => Record<string, string>;
 
     /**
      * Initial index value ( static )

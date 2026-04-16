@@ -166,18 +166,6 @@ export const getParamsForComponentFunction = ({
             return unFreezePropById({ id, prop: bindParsed.toString() });
         },
         unBind: () => unBind({ id }),
-        bindProps: (data) => {
-            /**
-             * 'props' is required filed in explicit mode. If props is not used is in auto mode ( data is a function )
-             */
-            const dataNormalized = 'props' in data ? data : { props: data };
-
-            return `${ATTR_BIND_PROPS}="${setBindProps({
-                ...dataNormalized,
-                parentId: id,
-            })}" `;
-        },
-        staticProps: (obj) => ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
         remove: () => {
             removeAndDestroyById({ id });
         },
@@ -193,22 +181,8 @@ export const getParamsForComponentFunction = ({
                 setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
         },
         onMount: (cb) => addOnMoutCallback({ id, cb }),
-        bindEvents: (eventsData) => {
-            return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsData)}"`;
-        },
-        delegateEvents: (eventsData) => {
-            return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
-                eventsData
-            )}"`;
-        },
-        bindEffect: (effectData) => {
-            return `${ATTR_BIND_EFFECT}="${setBindEffect({ data: effectData, id })}"`;
-        },
         addMethod: (name, fn) => {
             addMethodById({ id, name, fn });
-        },
-        setRef: (value) => {
-            return `${ATTR_BIND_REFS_ID}="${id}" ${ATTR_BIND_REFS_NAME}="${value}"`;
         },
         getRef: () => {
             return getBindRefById({ id });
@@ -216,6 +190,55 @@ export const getParamsForComponentFunction = ({
         getRefs: () => {
             return getBindRefsById({ id });
         },
+
+        /**
+         * Modules
+         */
+        setRef: (value) => {
+            return {
+                [ATTR_BIND_REFS_ID]: id,
+                [ATTR_BIND_REFS_NAME]: value,
+            };
+        },
+        staticProps: (obj) => ({
+            [ATTR_PROPS]: setStaticProps(obj),
+        }),
+        bindProps: (data) => {
+            /**
+             * 'props' is required filed in explicit mode. If props is not used is in auto mode ( data is a function )
+             */
+            const dataNormalized = 'props' in data ? data : { props: data };
+
+            const value = setBindProps({
+                ...dataNormalized,
+                parentId: id,
+            });
+
+            if (!value) return {};
+
+            return {
+                [ATTR_BIND_PROPS]: value,
+            };
+        },
+        bindEffect: (effectData) => {
+            return {
+                [ATTR_BIND_EFFECT]: setBindEffect({ data: effectData, id }),
+            };
+        },
+        bindEvents: (eventsData) => {
+            return {
+                [ATTR_BIND_EVENTS]: setBindEvents(eventsData),
+            };
+        },
+        delegateEvents: (eventsData) => {
+            return {
+                [ATTR_WEAK_BIND_EVENTS]: setDelegateBindEvent(eventsData),
+            };
+        },
+
+        /**
+         * Content
+         */
         bindText: (strings, ...values) => {
             const bindTextId = MobCore.getUnivoqueId();
             const render = () => renderBindText(id, strings, ...values);

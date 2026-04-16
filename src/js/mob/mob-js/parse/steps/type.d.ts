@@ -40,7 +40,7 @@ interface RepeatInternal {
      */
     key?: string;
     render: (arg0: {
-        sync: () => string;
+        sync: () => Record<string, string>;
         initialIndex: number;
         initialValue: astring;
         current: {
@@ -90,7 +90,7 @@ export interface FromObjectNodeDescriptor {
         Record<string, string | number | boolean | null | undefined>,
         'class' | 'style'
     >;
-    modules?: string | string[];
+    modules?: Record<string, string> | Record<string, string>[];
     content?: FromObjectNodeContent;
 }
 

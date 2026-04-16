@@ -58,7 +58,7 @@ export const updateRepeaterWitoutKey = ({
                 initialIndex,
                 initialValue,
                 current: proxiObject,
-                sync: () => '',
+                sync: () => ({ _no_sync: '' }),
             });
 
             const lastSkipUserValue = getSkipAddUserComponent();
@@ -116,14 +116,17 @@ export const updateRepeaterWitoutKey = ({
  * @param {any} params.initialValue
  * @param {string} params.state
  * @param {string} params.repeatId
- * @returns {string}
+ * @returns {Record<string, string>}
  */
 const getSyncWithoutKey = ({ initialIndex, initialValue, state, repeatId }) => {
-    return /* HTML */ `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
-        current: initialValue,
-        index: initialIndex,
-    })}"
-    ${ATTR_REPEATER_PROP_BIND}="${state}" ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+    return {
+        [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
+            current: initialValue,
+            index: initialIndex,
+        }),
+        [ATTR_REPEATER_PROP_BIND]: state,
+        [ATTR_CHILD_REPEATID]: repeatId,
+    };
 };
 
 /**
@@ -236,7 +239,7 @@ export const updateRepeaterWithtKey = ({
             initialIndex: index,
             initialValue: currentValue,
             current: proxiObject,
-            sync: () => '',
+            sync: () => ({ _no_sync: '' }),
         })
     );
 
@@ -274,16 +277,18 @@ export const updateRepeaterWithtKey = ({
  * @param {any} params.currentValue
  * @param {string} params.state
  * @param {string} params.repeatId
- * @returns {string}
+ * @returns {Record<string, string>}
  */
 const getSyncWithKey = ({ keyValue, index, currentValue, state, repeatId }) => {
-    return /* HTML */ ` ${ATTR_KEY}="${keyValue}"
-    ${ATTR_REPEATER_PROP_BIND}="${state}"
-    ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
-        current: currentValue,
-        index,
-    })}"
-    ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+    return {
+        [ATTR_KEY]: keyValue,
+        [ATTR_REPEATER_PROP_BIND]: state,
+        [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
+            current: currentValue,
+            index,
+        }),
+        [ATTR_CHILD_REPEATID]: repeatId,
+    };
 };
 
 /**
@@ -385,7 +390,7 @@ export const getRenderWithoutSync = ({
                 initialIndex: index,
                 initialValue: item,
                 current: proxiObject,
-                sync: () => '',
+                sync: () => ({ _no_sync: '' }),
             })
         );
 
@@ -446,16 +451,14 @@ export const getRenderWithSync = ({
     const rawRender = () => {
         return currentUnique
             .map((item, index) => {
-                const sync =
-                    /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
-                        {
-                            current: item,
-                            index: index,
-                        }
-                    )}"
-                            ${ATTR_KEY}="${hasKey ? item?.[key] : ''}"
-                            ${ATTR_REPEATER_PROP_BIND}="${observe}"
-                            ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+                const sync = () => ({
+                    [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
+                        current: item,
+                        index: index,
+                    }),
+                    [ATTR_KEY]: hasKey ? item?.[key] : '',
+                    [ATTR_CHILD_REPEATID]: repeatId,
+                });
 
                 const proxiObject = getRepeatProxi({
                     observe,
