@@ -38930,7 +38930,7 @@
       content: [
         {
           tag: "strong",
-          content: "Debug activated:"
+          content: "Debug activated: "
         },
         `${modules_exports2.getDebugMode()}`
       ]
@@ -38939,7 +38939,7 @@
       content: [
         {
           tag: "strong",
-          content: "Number of component"
+          content: "Number of component: "
         },
         `${modules_exports2.componentMap.size} ( excluded generated debug )`
       ]
@@ -38948,7 +38948,7 @@
       content: [
         {
           tag: "strong",
-          content: "Active repeater:"
+          content: "Active repeater: "
         },
         `${modules_exports2.getNumberOfActiveRepeater()}`
       ]
@@ -38957,7 +38957,7 @@
       content: [
         {
           tag: "strong",
-          content: "Active invalidate:"
+          content: "Active invalidate: "
         },
         `${modules_exports2.getNumberOfActiveInvalidate()}`
       ]

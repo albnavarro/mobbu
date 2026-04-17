@@ -10,7 +10,7 @@ const leftContent = () => [
         content: [
             {
                 tag: 'strong',
-                content: 'Debug activated:',
+                content: 'Debug activated: ',
             },
             `${MobJs.getDebugMode()}`,
         ],
@@ -19,7 +19,7 @@ const leftContent = () => [
         content: [
             {
                 tag: 'strong',
-                content: 'Number of component',
+                content: 'Number of component: ',
             },
             `${MobJs.componentMap.size} ( excluded generated debug )`,
         ],
@@ -28,7 +28,7 @@ const leftContent = () => [
         content: [
             {
                 tag: 'strong',
-                content: 'Active repeater:',
+                content: 'Active repeater: ',
             },
             `${MobJs.getNumberOfActiveRepeater()}`,
         ],
@@ -37,7 +37,7 @@ const leftContent = () => [
         content: [
             {
                 tag: 'strong',
-                content: 'Active invalidate:',
+                content: 'Active invalidate: ',
             },
             `${MobJs.getNumberOfActiveInvalidate()}`,
         ],
