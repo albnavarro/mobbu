@@ -1,4 +1,3 @@
-import { cleanInMemorySet } from '../../component/in-memory-element-set';
 import {
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
@@ -6,7 +5,10 @@ import {
     ATTR_REPEATER_PROP_BIND,
 } from '../../constant';
 import { setComponentRepeaterState } from '../../modules/repeater/repeater-value';
-import { setSkipAddUserComponent } from '../../modules/user-component';
+import {
+    getSkipAddUserComponent,
+    setSkipAddUserComponent,
+} from '../../modules/user-component';
 import {
     ELEMENT_TYPE_MIX_NODE_TEXT,
     ELEMENT_TYPE_NODE,
@@ -231,46 +233,6 @@ export const setRepeatAttribute = ({
 };
 
 /**
- * With more repeat in same scope, we have multiple render() function nested. The first render() fired is the inneer
- * function ( deepest ). So the other override attributes. Add attributes only if there is no correspondences.
- *
- * @param {object} params
- * @param {import('../../web-component/type').UserComponent[]} params.components
- * @param {Record<string, any>} params.current
- * @param {number} params.index
- * @param {string} params.observe
- * @param {string} params.repeatId
- * @param {string | undefined} params.key
- * @returns {void}
- */
-export const setRepeatAttributeFromInMemory = ({
-    components,
-    current,
-    index,
-    observe,
-    repeatId,
-    key,
-}) => {
-    components.forEach((component) => {
-        if (component.hasAttribute(ATTR_CHILD_REPEATID)) {
-            cleanInMemorySet(component);
-            return;
-        }
-
-        component.setAttribute(
-            ATTR_CURRENT_LIST_VALUE,
-            setComponentRepeaterState({
-                current,
-                index,
-            })
-        );
-        component.setAttribute(ATTR_KEY, `${key}`);
-        component.setAttribute(ATTR_REPEATER_PROP_BIND, `${observe}`);
-        component.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
-    });
-};
-
-/**
  * @param {object} params
  * @param {string} params.stringDOM
  * @param {HTMLElement} params.parent
@@ -278,9 +240,10 @@ export const setRepeatAttributeFromInMemory = ({
  * @returns {void}
  */
 export const addDOMfromString = ({ stringDOM, parent, position }) => {
+    const lastSkipValue = getSkipAddUserComponent();
     setSkipAddUserComponent(true);
     const fragment = document.createRange().createContextualFragment(stringDOM);
-    setSkipAddUserComponent(false);
+    setSkipAddUserComponent(lastSkipValue);
 
     if (!fragment) return;
     if (position === 'afterend') parent.after(fragment);
@@ -299,12 +262,10 @@ export const addDOMfromString = ({ stringDOM, parent, position }) => {
 export const addMultipleDOMElement = ({ elements, parent, position }) => {
     const fragment = new DocumentFragment();
 
-    setSkipAddUserComponent(true);
     elements.forEach((element) => {
         if (!element) return;
         fragment.append(element);
     });
-    setSkipAddUserComponent(false);
 
     if (position === 'afterend') parent.after(fragment);
     if (position === 'beforebegin') parent.before(fragment);

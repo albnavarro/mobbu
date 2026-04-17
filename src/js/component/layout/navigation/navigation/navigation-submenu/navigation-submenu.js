@@ -19,7 +19,7 @@ import { NavigationButton } from '../navigation-button/definition';
  * @param {object} params
  * @param {ProxiState<NavigationSubmenuType>} params.proxi
  * @param {StaticProps<NavigationButtonType>} params.staticProps
- * @returns {string[]}
+ * @returns {HTMLElement[]}
  */
 function getSubmenu({ proxi, staticProps }) {
     return proxi.children.map((child) => {

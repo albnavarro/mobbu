@@ -19,7 +19,7 @@ import { caterpillarN1Animation } from './animation/animation';
  * @param {BindEffect<CaterpillarN1>} params.bindEffect
  * @param {BindObject} params.bindObject
  * @param {ProxiState<CaterpillarN1>} params.proxi
- * @returns {string}
+ * @returns {HTMLElement}
  */
 function getControls({ delegateEvents, bindEffect, bindObject, proxi }) {
     return htmlObject({

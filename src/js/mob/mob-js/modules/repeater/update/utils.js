@@ -1,15 +1,11 @@
-import { getInMemorySet } from '../../../component/in-memory-element-set';
 import {
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_KEY,
     ATTR_REPEATER_PROP_BIND,
 } from '../../../constant';
-import { setRepeatAttributeFromInMemory } from '../../../parse/steps/utils';
-import {
-    getSkipAddUserComponent,
-    setSkipAddUserComponent,
-} from '../../user-component';
+import { setRepeatAttribute } from '../../../parse/steps/utils';
+import { queryAllFutureComponent } from '../../../query/query-all-future-component';
 import { setComponentRepeaterState } from '../repeater-value';
 import { getRepeatProxi } from './get-proxi';
 
@@ -27,7 +23,7 @@ import { getRepeatProxi } from './get-proxi';
  * @param {string} params.state
  * @param {string} params.repeatId
  * @param {import('../type').RepeaterRender} params.render
- * @returns {Element[]}
+ * @returns {HTMLElement[]}
  */
 export const updateRepeaterWitoutKey = ({
     diff,
@@ -37,8 +33,6 @@ export const updateRepeaterWitoutKey = ({
     state,
     repeatId,
 }) => {
-    const range = document.createRange();
-
     /**
      * Create palcehodler component
      */
@@ -61,38 +55,23 @@ export const updateRepeaterWitoutKey = ({
                 sync: () => ({ _no_sync: '' }),
             });
 
-            const lastSkipUserValue = getSkipAddUserComponent();
-
             /**
-             * Enable inMemoryElementSet to store each host element
-             */
-            setSkipAddUserComponent(true);
-
-            /**
-             * Here each userComponent:
-             *
-             * - Fire his constructor
-             * - Add his host to inMemoryElementSet
-             * - Skip addUserPlaceholder ( so component will not render in parse-function-while )
-             * - This step is fundamantal to add repeater attribute to custom component.
-             */
-            const fragment = range.createContextualFragment(rawRender);
-
-            /**
-             * - Repeater should be nested one inside each other.
-             * - Restore last value when nested repeat is found.
-             */
-            setSkipAddUserComponent(lastSkipUserValue);
-
-            /**
-             * - UserComponent add host inMemoryElementSet ( new Set ).
              * - Get all child component once
              * - SetSkipAddUserComponent prevents the component's host from being added to the list of components to be
              *   rendered.
              * - Set manually attribute for each component inside InMemoryElementSet
              */
-            setRepeatAttributeFromInMemory({
-                components: getInMemorySet(),
+            const components = queryAllFutureComponent(rawRender, false).map(
+                (element) => {
+                    return new WeakRef(element);
+                }
+            );
+
+            /**
+             * - Set manually attribute for each component found with query.
+             */
+            setRepeatAttribute({
+                components,
                 current: initialValue,
                 index: initialIndex,
                 observe: state,
@@ -103,7 +82,7 @@ export const updateRepeaterWitoutKey = ({
             /**
              * Remove fragment as soon as possible from GC. TODO Is really necessary ?
              */
-            return fragment.firstElementChild;
+            return rawRender;
         }
     );
 
@@ -142,7 +121,7 @@ const getSyncWithoutKey = ({ initialIndex, initialValue, state, repeatId }) => {
  * @param {string} params.state
  * @param {string} params.repeatId
  * @param {import('../type').RepeaterRender} params.render
- * @returns {string}
+ * @returns {HTMLElement[]}
  */
 export const updateRepeaterWithoutKeyUseSync = ({
     diff,
@@ -152,36 +131,34 @@ export const updateRepeaterWithoutKeyUseSync = ({
     repeatId,
     render,
 }) => {
-    return [...Array.from({ length: diff }).keys()]
-        .map((_item, index) => {
-            const initialIndex = index + previousLenght;
+    return [...Array.from({ length: diff }).keys()].map((_item, index) => {
+        const initialIndex = index + previousLenght;
 
-            // use a copy to avoid problem in closure below.
-            const initialValue = current?.[initialIndex]
-                ? { ...current?.[initialIndex] }
-                : {};
+        // use a copy to avoid problem in closure below.
+        const initialValue = current?.[initialIndex]
+            ? { ...current?.[initialIndex] }
+            : {};
 
-            const proxiObject = getRepeatProxi({
-                observe: state,
-                hasKey: false,
-                index: initialIndex,
-                repeatId,
-            });
+        const proxiObject = getRepeatProxi({
+            observe: state,
+            hasKey: false,
+            index: initialIndex,
+            repeatId,
+        });
 
-            return render({
-                sync: () =>
-                    getSyncWithoutKey({
-                        initialIndex,
-                        initialValue,
-                        repeatId,
-                        state,
-                    }),
-                initialIndex,
-                initialValue,
-                current: proxiObject,
-            });
-        })
-        .join('');
+        return render({
+            sync: () =>
+                getSyncWithoutKey({
+                    initialIndex,
+                    initialValue,
+                    repeatId,
+                    state,
+                }),
+            initialIndex,
+            initialValue,
+            current: proxiObject,
+        });
+    });
 };
 
 /**
@@ -199,7 +176,7 @@ export const updateRepeaterWithoutKeyUseSync = ({
  * @param {any} params.keyValue
  * @param {string | undefined} params.key
  * @param {import('../type').RepeaterRender} params.render
- * @returns {Element | null}
+ * @returns {HTMLElement}
  */
 export const updateRepeaterWithtKey = ({
     currentValue,
@@ -219,44 +196,34 @@ export const updateRepeaterWithtKey = ({
         repeatId,
     });
 
-    const lastSkipUserValue = getSkipAddUserComponent();
-
-    /**
-     * Enable inMemoryElementSet to store each host element
-     */
-    setSkipAddUserComponent(true);
-
     /**
      * Here each userComponent:
      *
      * - Fire his constructor
-     * - Add his host to inMemoryElementSet
-     * - Skip addUserPlaceholder ( so component will not render in parse-function-while )
      * - This step is fundamantal to add repeater attribute to custom component.
      */
-    const fragment = document.createRange().createContextualFragment(
-        render({
-            initialIndex: index,
-            initialValue: currentValue,
-            current: proxiObject,
-            sync: () => ({ _no_sync: '' }),
-        })
+    const fragment = render({
+        initialIndex: index,
+        initialValue: currentValue,
+        current: proxiObject,
+        sync: () => ({ _no_sync: '' }),
+    });
+
+    /**
+     * - Get all child component once
+     * - SetSkipAddUserComponent prevents the component's host from being added to the list of components to be rendered.
+     */
+    const components = queryAllFutureComponent(fragment, false).map(
+        (element) => {
+            return new WeakRef(element);
+        }
     );
 
     /**
-     * - Repeater should be nested one inside each other.
-     * - Restore last value when nested repeat is found.
+     * - Set manually attribute for each component found with query.
      */
-    setSkipAddUserComponent(lastSkipUserValue);
-
-    /**
-     * - UserComponent add host inMemoryElementSet ( new Set ).
-     * - Get all child component once
-     * - SetSkipAddUserComponent prevents the component's host from being added to the list of components to be rendered.
-     * - Set manually attribute for each component inside InMemoryElementSet
-     */
-    setRepeatAttributeFromInMemory({
-        components: getInMemorySet(),
+    setRepeatAttribute({
+        components,
         current: currentValue,
         index,
         observe: state,
@@ -267,7 +234,7 @@ export const updateRepeaterWithtKey = ({
     /**
      * Remove fragment as soon as possible from GC. TODO Is really necessary ?
      */
-    return fragment.firstElementChild;
+    return fragment;
 };
 
 /**
@@ -305,7 +272,7 @@ const getSyncWithKey = ({ keyValue, index, currentValue, state, repeatId }) => {
  * @param {string | undefined} params.key
  * @param {any} params.keyValue
  * @param {import('../type').RepeaterRender} params.render
- * @returns {string}
+ * @returns {HTMLElement}
  */
 export const updateRepeaterWithtKeyUseSync = ({
     currentValue,
@@ -357,7 +324,7 @@ export const updateRepeaterWithtKeyUseSync = ({
  * @param {string} params.repeatId
  * @param {string | undefined} params.key
  * @param {boolean} params.hasKey
- * @returns {Element[]}
+ * @returns {HTMLElement[]}
  */
 export const getRenderWithoutSync = ({
     currentUnique,
@@ -367,8 +334,6 @@ export const getRenderWithoutSync = ({
     key = '',
     hasKey,
 }) => {
-    const range = document.createRange();
-
     /**
      * Render immediately first DOM
      */
@@ -382,33 +347,26 @@ export const getRenderWithoutSync = ({
             repeatId,
         });
 
-        const lastSkipUserValue = getSkipAddUserComponent();
-        setSkipAddUserComponent(true);
-
-        const fragment = range.createContextualFragment(
-            render({
-                initialIndex: index,
-                initialValue: item,
-                current: proxiObject,
-                sync: () => ({ _no_sync: '' }),
-            })
-        );
+        const fragment = render({
+            initialIndex: index,
+            initialValue: item,
+            current: proxiObject,
+            sync: () => ({ _no_sync: '' }),
+        });
 
         /**
-         * Nested repeater issue:
-         *
-         * - Restore last value when nested repeat is found.
-         */
-        setSkipAddUserComponent(lastSkipUserValue);
-
-        /**
-         * - UserComponent add host inMemoryElementSet ( new Set ).
          * - Get all child component once
          * - SetSkipAddUserComponent prevents the component's host from being added to the list of components to be
          *   rendered.
          */
-        setRepeatAttributeFromInMemory({
-            components: getInMemorySet(),
+        const components = queryAllFutureComponent(fragment, false).map(
+            (element) => {
+                return new WeakRef(element);
+            }
+        );
+
+        setRepeatAttribute({
+            components,
             current: item,
             index,
             observe,
@@ -419,7 +377,7 @@ export const getRenderWithoutSync = ({
         /**
          * Remove fragment as soon as possible from GC. TODO Is really necessary ?
          */
-        return fragment.firstElementChild;
+        return fragment;
     });
 
     return renderedDOM.filter((element) => element !== null);
@@ -438,7 +396,7 @@ export const getRenderWithoutSync = ({
  * @param {string} params.repeatId
  * @param {string} params.key
  * @param {boolean} params.hasKey
- * @returns {string}
+ * @returns {HTMLElement[]}
  */
 export const getRenderWithSync = ({
     currentUnique,
@@ -448,37 +406,31 @@ export const getRenderWithSync = ({
     hasKey,
     render,
 }) => {
-    const rawRender = () => {
-        return currentUnique
-            .map((item, index) => {
-                const sync = () => ({
-                    [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
-                        current: item,
-                        index: index,
-                    }),
-                    [ATTR_KEY]: hasKey ? item?.[key] : '',
-                    [ATTR_REPEATER_PROP_BIND]: observe,
-                    [ATTR_CHILD_REPEATID]: repeatId,
-                });
+    return currentUnique.map((item, index) => {
+        const sync = () => ({
+            [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
+                current: item,
+                index: index,
+            }),
+            [ATTR_KEY]: hasKey ? item?.[key] : '',
+            [ATTR_REPEATER_PROP_BIND]: observe,
+            [ATTR_CHILD_REPEATID]: repeatId,
+        });
 
-                const proxiObject = getRepeatProxi({
-                    observe,
-                    hasKey,
-                    key,
-                    keyValue: hasKey ? item?.[key] : '',
-                    index,
-                    repeatId,
-                });
+        const proxiObject = getRepeatProxi({
+            observe,
+            hasKey,
+            key,
+            keyValue: hasKey ? item?.[key] : '',
+            index,
+            repeatId,
+        });
 
-                return render({
-                    sync,
-                    initialIndex: index,
-                    initialValue: item,
-                    current: proxiObject,
-                });
-            })
-            .join('');
-    };
-
-    return rawRender();
+        return render({
+            sync,
+            initialIndex: index,
+            initialValue: item,
+            current: proxiObject,
+        });
+    });
 };

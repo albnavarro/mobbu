@@ -13,7 +13,7 @@ import { asyncTimelineanimation } from './animation/animation';
 /**
  * @param {object} params
  * @param {AsyncTimelineControls} params.buttons
- * @returns {string[]}
+ * @returns {HTMLElement[]}
  */
 function getControls({ buttons }) {
     return Object.entries(buttons).map(([className, value]) => {

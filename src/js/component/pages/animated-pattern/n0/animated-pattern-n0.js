@@ -39,7 +39,7 @@ const createAnimation = ({ proxi, getRef }) => {
  * @param {ProxiState<AnimatedPatternN0>} params.proxi
  * @param {GetRef<AnimatedPatternN0>} params.getRef
  * @param {BindEffect<AnimatedPatternN0>} params.bindEffect
- * @returns {string[]}
+ * @returns {HTMLElement[]}
  */
 function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     return params.map(({ label }, index) => {

@@ -2,7 +2,7 @@ import { htmlObject, html } from '@mobJs';
 
 /**
  * @param {number} maxComponent
- * @returns {string}
+ * @returns {HTMLElement}
  */
 export const benchMarkGarbagePartial = (maxComponent = 1000) => {
     return htmlObject({

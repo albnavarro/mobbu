@@ -134,7 +134,7 @@ export const SearchOverlayListFn = ({
                               },
                           },
                       })
-                    : '';
+                    : htmlObject({});
             },
         }),
     };

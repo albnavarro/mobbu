@@ -31,25 +31,23 @@ function createArray(numberOfItem) {
  * @param {ProxiState<DynamicListCardType>} params.proxi
  */
 const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
-    return createArray(proxi.counter)
-        .map((item) => {
-            return htmlObject({
-                component: DynamicListCardInner,
-                modules: [
-                    staticProps(
-                        /** @type {DynamicListCardInnerType['props']} */ ({
-                            key: `${item}`,
-                        })
-                    ),
-                    delegateEvents({
-                        click: () => {
-                            console.log('invalidate inside reepater click');
-                        },
-                    }),
-                ],
-            });
-        })
-        .join('');
+    return createArray(proxi.counter).map((item) => {
+        return htmlObject({
+            component: DynamicListCardInner,
+            modules: [
+                staticProps(
+                    /** @type {DynamicListCardInnerType['props']} */ ({
+                        key: `${item}`,
+                    })
+                ),
+                delegateEvents({
+                    click: () => {
+                        console.log('invalidate inside reepater click');
+                    },
+                }),
+            ],
+        });
+    });
 };
 
 /** @type {MobComponent<DynamicListCardType>} */

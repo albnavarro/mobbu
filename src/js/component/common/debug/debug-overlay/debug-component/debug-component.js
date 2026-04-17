@@ -91,10 +91,13 @@ const getStateProps = (states) => {
  */
 const getContent = ({ getState }) => {
     const { id } = getState();
-    if (id === RESET_FILTER_DEBUG) return '';
+    if (id === RESET_FILTER_DEBUG) return htmlObject({});
 
     const item = MobJs.componentMap.get(id);
-    if (!item) return `component not found`;
+    if (!item)
+        return htmlObject({
+            content: 'component not found',
+        });
 
     return htmlObject({
         content: [

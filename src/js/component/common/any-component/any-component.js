@@ -1,4 +1,4 @@
-import { html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -8,5 +8,7 @@ import { html } from '@mobJs';
 export const AnyComponentFn = ({ getState }) => {
     const { content } = getState();
 
-    return html`${content}`;
+    return htmlObject({
+        content,
+    });
 };

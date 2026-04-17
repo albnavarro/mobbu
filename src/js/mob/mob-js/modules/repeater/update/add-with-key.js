@@ -16,10 +16,6 @@ import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-ch
 import { getComponentNameByElement } from '../../../component/action/component';
 import { getDefaultComponent } from '../../../component/create-component';
 import { setRepeaterInstancesCurrentData } from '../action/set-repeat-instances-map-current-data';
-import {
-    getSkipAddUserComponent,
-    setSkipAddUserComponent,
-} from '../../user-component';
 
 /**
  * @param {object} params
@@ -224,8 +220,6 @@ export const addWithKey = ({
      * Reset parent Element
      */
     repeaterParentElement.replaceChildren();
-
-    const range = document.createRange();
     const fragment = new DocumentFragment();
 
     /**
@@ -301,26 +295,10 @@ export const addWithKey = ({
                       render,
                   });
 
-            const lastSkipUserValue = getSkipAddUserComponent();
-            setSkipAddUserComponent(true);
-
-            if (useSync) {
-                const domFragment = range.createContextualFragment(
-                    /** @type {string} */ (currentRender)
-                );
-
-                fragment.append(domFragment);
-            }
-
-            if (!useSync && currentRender) {
-                fragment.append(currentRender);
-            }
-
-            setSkipAddUserComponent(lastSkipUserValue);
+            fragment.append(currentRender);
         }
     );
 
     repeaterParentElement.append(fragment);
-
     return currentUnique;
 };

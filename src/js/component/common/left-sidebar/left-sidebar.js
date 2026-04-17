@@ -13,30 +13,28 @@ import { docsTemplate } from '@pages/index';
  * @param {object} params
  * @param {LeftSidebar['state']} params.proxi
  * @param {BindEffect<LeftSidebar>} params.bindEffect
- * @returns {string}
+ * @returns {HTMLElement[]}
  */
 const getList = ({ proxi, bindEffect }) => {
-    return proxi.data
-        .map(({ label, url }) => {
-            const urlParsed = url.replaceAll('#', '');
+    return proxi.data.map(({ label, url }) => {
+        const urlParsed = url.replaceAll('#', '');
 
-            return htmlObject({
-                className: 'item',
-                tag: 'li',
-                content: {
-                    tag: 'a',
-                    className: 'link',
-                    attributes: { href: url },
-                    modules: bindEffect({
-                        toggleClass: {
-                            active: () => proxi.activeRoute.route === urlParsed,
-                        },
-                    }),
-                    content: label,
-                },
-            });
-        })
-        .join('');
+        return htmlObject({
+            className: 'item',
+            tag: 'li',
+            content: {
+                tag: 'a',
+                className: 'link',
+                attributes: { href: url },
+                modules: bindEffect({
+                    toggleClass: {
+                        active: () => proxi.activeRoute.route === urlParsed,
+                    },
+                }),
+                content: label,
+            },
+        });
+    });
 };
 
 /** @type {MobComponent<LeftSidebar>} */

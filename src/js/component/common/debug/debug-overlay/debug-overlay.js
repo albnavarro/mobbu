@@ -79,7 +79,7 @@ export const DebugOverlayFn = ({
                             return htmlObject({ component: DebugFilterHead });
 
                         // Remove component
-                        return '';
+                        return htmlObject({});
                     },
                 }),
             },
@@ -152,7 +152,7 @@ export const DebugOverlayFn = ({
                         attributes: { name: debugFilterListName },
                     });
 
-                return '';
+                return htmlObject({});
             },
         }),
     };

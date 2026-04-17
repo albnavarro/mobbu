@@ -24,7 +24,7 @@ export type RepeaterRender = (arg0: {
      * The proxi that render function return
      */
     current: Record<string | any>;
-}) => string;
+}) => HTMLElement;
 
 /**
  * Add new repeater id and props. Tehe repeater will execute after component render.
@@ -183,11 +183,6 @@ export type RepeatInstancesMap = Map<
             value: any;
             element: HTMLElement;
         }[];
-
-        /**
-         * First render with item prerenderd with dataset added by library.
-         */
-        initialRenderWithoutSync: Element[];
 
         /**
          * Initialize function

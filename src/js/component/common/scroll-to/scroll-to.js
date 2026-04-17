@@ -23,63 +23,58 @@ let disableObservereffect = false;
  * @param {DelegateEvents} param.delegateEvents
  * @param {BindProps<ScrollTo, ScrollToButtonType>} param.bindProps
  * @param {ScrollTo['state']} param.proxi
- * @returns {string}
+ * @returns {HTMLElement[]}
  */
 function getButtons({ delegateEvents, bindProps, proxi }) {
-    return proxi.anchorItems
-        .map((item) => {
-            /**
-             * Skip click if is section title
-             */
-            const delegateEventsFn =
-                item.isSection || item.isNote
-                    ? ''
-                    : delegateEvents({
-                          click: async () => {
-                              const { id: scroll, label, element } = item;
+    return proxi.anchorItems.map((item) => {
+        /**
+         * Skip click if is section title
+         */
+        const delegateEventsFn =
+            item.isSection || item.isNote
+                ? ''
+                : delegateEvents({
+                      click: async () => {
+                          const { id: scroll, label, element } = item;
 
-                              const offsetTop =
-                                  scroll === 'start'
-                                      ? 0
-                                      : offset(element).top - 50;
+                          const offsetTop =
+                              scroll === 'start' ? 0 : offset(element).top - 50;
 
+                          /**
+                           * Disable spacerAnchor observer effect during scroll.
+                           */
+                          disableObservereffect = true;
+                          proxi.activeLabel = label;
+                          await MobBodyScroll.to(offsetTop);
+
+                          setTimeout(() => {
                               /**
-                               * Disable spacerAnchor observer effect during scroll.
+                               * Back to enable spacerAnchor observer. Wait one second to not colline with scroll end.
                                */
-                              disableObservereffect = true;
-                              proxi.activeLabel = label;
-                              await MobBodyScroll.to(offsetTop);
+                              disableObservereffect = false;
+                          }, 1000);
+                      },
+                  });
 
-                              setTimeout(() => {
-                                  /**
-                                   * Back to enable spacerAnchor observer. Wait one second to not colline with scroll
-                                   * end.
-                                   */
-                                  disableObservereffect = false;
-                              }, 1000);
-                          },
-                      });
-
-            return htmlObject({
-                tag: 'li',
-                content: {
-                    component: ScrollToButton,
-                    modules: [
-                        delegateEventsFn,
-                        bindProps(
-                            /** @returns {ReturnBindProps<ScrollToButtonType>} */
-                            () => ({
-                                active: proxi.activeLabel === item.label,
-                                label: item.label,
-                                isSection: item.isSection ?? false,
-                                isNote: item.isNote ?? false,
-                            })
-                        ),
-                    ],
-                },
-            });
-        })
-        .join('');
+        return htmlObject({
+            tag: 'li',
+            content: {
+                component: ScrollToButton,
+                modules: [
+                    delegateEventsFn,
+                    bindProps(
+                        /** @returns {ReturnBindProps<ScrollToButtonType>} */
+                        () => ({
+                            active: proxi.activeLabel === item.label,
+                            label: item.label,
+                            isSection: item.isSection ?? false,
+                            isNote: item.isNote ?? false,
+                        })
+                    ),
+                ],
+            },
+        });
+    });
 }
 
 /**

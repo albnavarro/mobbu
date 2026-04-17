@@ -28,7 +28,7 @@ const onClick = ({ event }) => {
 /**
  * @param {object} params
  * @param {DelegateEvents} params.delegateEvents
- * @returns {string[]}
+ * @returns {HTMLElement[]}
  */
 function additems({ delegateEvents }) {
     /** @type {import('./type').HeaderUtils} */

@@ -9,7 +9,7 @@ import { htmlObject } from '@mobJs';
  * @param {object} params
  * @param {Record<'label' | 'url', string>[] | string[]} params.items
  * @param {boolean} [params.links]
- * @returns {string[]}
+ * @returns {HTMLElement[]}
  */
 const getList = ({ items, links }) => {
     return links

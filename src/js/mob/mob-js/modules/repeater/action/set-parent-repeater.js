@@ -20,14 +20,10 @@ export const setParentRepeater = ({ repeatId, host }) => {
     /**
      * Add all DOM of repeater if no sync() utils is used
      */
-    item.initialRenderWithoutSync.forEach((element) => {
-        parent.append(element);
-    });
 
     repeatInstancesMap.set(repeatId, {
         ...item,
         element: parent,
-        initialRenderWithoutSync: [],
     });
 
     repeatIdHostMap.set(repeatId, host);

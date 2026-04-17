@@ -356,8 +356,8 @@ export interface PartialRepeat<T> {
             initialIndex: number;
             initialValue: ArrayElement<ExtractPropsAndState<T>[K]>;
             current: PartialCurrent<T, K>;
-        }) => string;
-    }): string;
+        }) => HTMLElement;
+    }): HTMLElement[];
     <K extends ExtractPropsAndState<T>[keyof ExtractPropsAndState<T>]>(arg0: {
         /**
          * Clean previous item.
@@ -430,8 +430,8 @@ export interface PartialRepeat<T> {
             initialIndex: number;
             initialValue: ArrayElement<K>;
             current: PartialCurrentProxi<K>;
-        }) => string;
-    }): string;
+        }) => HTMLElement;
+    }): HTMLElement[];
 }
 
 /**
@@ -439,7 +439,7 @@ export interface PartialRepeat<T> {
  */
 export type PartialRenderComponent = (arg0: {
     attachTo: HTMLElement;
-    component: string;
+    component: string | HTMLElement;
     position?: 'afterbegin' | 'beforeend';
     clean?: boolean;
 }) => Promise<any>;
@@ -454,16 +454,16 @@ interface PartialInvalidateComponent<T> {
             | OnlyStringKey<ExtractPropsAndState<T>>;
         beforeUpdate?(): Promise<void>;
         afterUpdate?(): void;
-        render: () => string;
-    }): string;
+        render: () => HTMLElement | HTMLElement[];
+    }): HTMLElement[];
     (arg0: {
         observe?:
             | (() => ExtractPropsAndState<T>[keyof ExtractPropsAndState<T>])[]
             | (() => ExtractPropsAndState<T>[keyof ExtractPropsAndState<T>]);
         beforeUpdate?(): Promise<void>;
         afterUpdate?(): void;
-        render: () => string;
-    }): string;
+        render: () => HTMLElement | HTMLElement[];
+    }): HTMLElement[];
 }
 
 /**
@@ -500,5 +500,8 @@ export type PartialSetRef<T> = (
 ) => Record<string, string>;
 export type PartialGetRef<T> = () => ExtractRef<T>;
 export type PartialGetRefs<T> = () => RefToArray<ExtractRef<T>>;
-export type PartialBindText = (TemplateStringsArray, ...any) => string;
+export type PartialBindText = (
+    TemplateStringsArray,
+    ...any
+) => (HTMLElement | string)[];
 export type PartialReturnBindProps<T> = Partial<ExtractProps<T>>;

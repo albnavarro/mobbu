@@ -18,13 +18,14 @@ import {
     getUnamedPlaceholderSlot,
 } from '../../modules/slot';
 import { addMultipleDOMElement } from './utils';
+import { MobCore } from '@mobCore';
 
 /**
  * Render component ( content ) and add to DOM.
  *
  * @param {object} params
  * @param {import('../../web-component/type').UserComponent | HTMLElement} params.element
- * @param {string} params.content
+ * @param {string | HTMLElement} params.content
  * @returns {HTMLElement | import('../../web-component/type').UserComponent | undefined}
  */
 const getNewElement = ({ element, content }) => {
@@ -34,9 +35,13 @@ const getNewElement = ({ element, content }) => {
         /**
          * Render content in real DOM element.
          */
-        const template = document.createElement('template');
-        template.innerHTML = content;
-        const node = template.content.firstElementChild;
+        const node = MobCore.checkType(String, content)
+            ? (() => {
+                  const template = document.createElement('template');
+                  template.innerHTML = /** @type {string} */ (content);
+                  return template.content.firstElementChild;
+              })()
+            : content;
 
         /**
          * Disable placeholder status of new node in case new component is a customComponent.
@@ -139,7 +144,7 @@ const addToNamedSlot = ({ element }) => {
 /**
  * @param {object} obj
  * @param {import('../../web-component/type').UserComponent | HTMLElement} obj.element - Current user component.
- * @param {string} obj.content - The return DOM from component function.
+ * @param {string | HTMLElement} obj.content - The return DOM from component function.
  * @returns {HTMLElement | import('../../web-component/type').UserComponent | undefined}
  */
 const executeConversion = ({ element, content }) => {
@@ -274,7 +279,7 @@ const executeConversion = ({ element, content }) => {
  *
  * @param {object} obj
  * @param {HTMLElement | import('../../web-component/type').UserComponent} obj.element - Current placeholder component.
- * @param {string} obj.content - The return DOM from component function.
+ * @param {HTMLElement} obj.content - The return DOM from component function.
  * @returns {{ newElement: HTMLElement | import('../../web-component/type').UserComponent | undefined }
  *     | { newElement: HTMLElement | undefined }}
  */

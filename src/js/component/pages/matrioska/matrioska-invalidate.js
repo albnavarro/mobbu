@@ -26,37 +26,35 @@ export const MatrioskaInvalidateFn = ({
         content: invalidate({
             observe: 'level1',
             render: () => {
-                return proxi.level1
-                    .map((item, index) => {
-                        return htmlObject({
-                            className: 'level-wrap level-wrap--1',
-                            content: {
-                                component: MatrioskaItem,
-                                className: 'is-1',
-                                modules: [
-                                    staticProps(
-                                        /** @type {Partial<MatrioskaItemType['props']>} */ ({
-                                            level: 'level 1',
-                                            key: `${item.key}`,
-                                            index: index,
-                                            value: `${item.value}`,
-                                        })
-                                    ),
-                                    bindProps(() => ({
-                                        counter: proxi.counter,
-                                    })),
-                                ],
-                                content: getSecondLevel({
-                                    staticProps,
-                                    bindProps,
-                                    delegateEvents,
-                                    invalidate,
-                                    proxi,
-                                }),
-                            },
-                        });
-                    })
-                    .join('');
+                return proxi.level1.map((item, index) => {
+                    return htmlObject({
+                        className: 'level-wrap level-wrap--1',
+                        content: {
+                            component: MatrioskaItem,
+                            className: 'is-1',
+                            modules: [
+                                staticProps(
+                                    /** @type {Partial<MatrioskaItemType['props']>} */ ({
+                                        level: 'level 1',
+                                        key: `${item.key}`,
+                                        index: index,
+                                        value: `${item.value}`,
+                                    })
+                                ),
+                                bindProps(() => ({
+                                    counter: proxi.counter,
+                                })),
+                            ],
+                            content: getSecondLevel({
+                                staticProps,
+                                bindProps,
+                                delegateEvents,
+                                invalidate,
+                                proxi,
+                            }),
+                        },
+                    });
+                });
             },
         }),
     };

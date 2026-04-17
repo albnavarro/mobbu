@@ -28,7 +28,6 @@ export const initializeRepeaterInstancesMap = ({
         nativeDOMChildren: [],
         componentChildren: [],
         currentData: [],
-        initialRenderWithoutSync: [],
         initializeModule: () => {},
         unsubscribe: () => {},
     });

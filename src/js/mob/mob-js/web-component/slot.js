@@ -16,14 +16,6 @@ export const defineSlotComponent = () => {
                 this.attachShadow({ mode: 'open' });
                 this.#slotName = '';
                 this.isSlot = true;
-
-                // @ts-ignore
-                const { dataset } = this.shadowRoot?.host ?? {};
-
-                if (dataset) {
-                    this.#slotName =
-                        this.shadowRoot?.host.getAttribute(ATTR_COMPONENT_NAME);
-                }
             }
 
             connectedCallback() {
@@ -32,6 +24,14 @@ export const defineSlotComponent = () => {
 
                 // @ts-ignore
                 if (!useSlotQuery) addSlotPlaceholder(host);
+
+                // @ts-ignore
+                const { dataset } = this.shadowRoot?.host ?? {};
+
+                if (dataset) {
+                    this.#slotName =
+                        this.shadowRoot?.host.getAttribute(ATTR_COMPONENT_NAME);
+                }
             }
 
             removeCustomComponent() {

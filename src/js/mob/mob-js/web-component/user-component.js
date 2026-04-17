@@ -19,10 +19,6 @@ import {
     getSkipAddUserComponent,
     removeUserPlaceholder,
 } from '../modules/user-component';
-import {
-    addElementToInMemorySet,
-    cleanInMemorySet,
-} from '../component/in-memory-element-set';
 
 /**
  * @param {{ [key: string]: import('../main-store/type').ComponentListMap }} componentList
@@ -169,10 +165,6 @@ export const defineUserComponent = (componentList) => {
                     const skip = getSkipAddUserComponent();
 
                     if (skip) {
-                        addElementToInMemorySet(
-                            /** @type {import('./type').UserComponent} */ (host)
-                        );
-
                         return;
                     }
 
@@ -409,10 +401,6 @@ export const defineUserComponent = (componentList) => {
                     const host = this.shadowRoot?.host;
 
                     removeUserPlaceholder(
-                        /** @type {import('./type').UserComponent} */ (host)
-                    );
-
-                    cleanInMemorySet(
                         /** @type {import('./type').UserComponent} */ (host)
                     );
 

@@ -34,37 +34,35 @@ export const getSecondLevel = ({
         content: invalidate({
             observe: () => proxi.level2,
             render: () => {
-                return proxi.level2
-                    .map((item, index) => {
-                        return htmlObject({
-                            className: 'level-wrap level-wrap--2',
-                            content: {
-                                component: MatrioskaItem,
-                                className: 'is-2',
-                                modules: [
-                                    staticProps(
-                                        /** @type {MatrioskaItemType['props']} */ ({
-                                            level: 'level 2',
-                                            index: index,
-                                            key: `${item.key}`,
-                                            value: `${item.value}`,
-                                        })
-                                    ),
-                                    bindProps(() => ({
-                                        counter: proxi.counter,
-                                    })),
-                                ],
-                                content: getThirdLevel({
-                                    staticProps,
-                                    delegateEvents,
-                                    invalidate,
-                                    bindProps,
-                                    proxi,
-                                }),
-                            },
-                        });
-                    })
-                    .join('');
+                return proxi.level2.map((item, index) => {
+                    return htmlObject({
+                        className: 'level-wrap level-wrap--2',
+                        content: {
+                            component: MatrioskaItem,
+                            className: 'is-2',
+                            modules: [
+                                staticProps(
+                                    /** @type {MatrioskaItemType['props']} */ ({
+                                        level: 'level 2',
+                                        index: index,
+                                        key: `${item.key}`,
+                                        value: `${item.value}`,
+                                    })
+                                ),
+                                bindProps(() => ({
+                                    counter: proxi.counter,
+                                })),
+                            ],
+                            content: getThirdLevel({
+                                staticProps,
+                                delegateEvents,
+                                invalidate,
+                                bindProps,
+                                proxi,
+                            }),
+                        },
+                    });
+                });
             },
         }),
     });

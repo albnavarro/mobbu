@@ -14,7 +14,7 @@ import { loadJsonContent } from '@utils/utils';
  * @param {HtmlContent['props']['data']} params.data
  * @param {StaticProps<any>} params.staticProps
  * @param {boolean} params.awaitLoadSnippet
- * @returns {string[]}
+ * @returns {HTMLElement[]}
  */
 const getComponents = ({ data, staticProps, awaitLoadSnippet }) => {
     return data.map((item) => {

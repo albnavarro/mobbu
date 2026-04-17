@@ -7,15 +7,18 @@
 ## htmlObject step 1. valutare se é il caso di eseguirlo.
 ### Content:
    - Tornera sempre un array di nodi, webcomponent + render/renders.
-   - Per cui tutti i moduli `content` andranno spreddati:
-     ```javascript
-      content: [
-          ...repeat(...),
-          ...invalidate(...),
-          ...bindObject(...),
-          ...bindText(...)
-      ]
-      ```
+   - **Soluzione 1** Per cui tutti i moduli `content` andranno spreddati ( come promeria ma non attuale )
+       ```javascript
+       content: [
+           ...repeat(...),
+           ...invalidate(...),
+           ...bindObject(...),
+           ...bindText(...)
+       ]
+       ```
+   - **Soluzione 2**
+       htmlObjectNext gestisce giá array annidati
+
    - Metre:
       - `bindObject` e `bindText` avranno un output del tipo: `[webComponent, string]`
       - `repeat` avra un uotput del tipo: `[webComponent, HTMLElement]`

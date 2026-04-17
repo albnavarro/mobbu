@@ -60,13 +60,6 @@ function selectAll(root, firstOccurrence) {
  * @returns {UserComponent[]}
  */
 export const queryAllFutureComponent = (node, firstOccurence = true) => {
-    /** @type {UserComponent[]} */
-    let result = [];
     const root = node || document.body;
-
-    for (const child of root.children) {
-        result = [...result, ...selectAll(child, firstOccurence)];
-    }
-
-    return result;
+    return selectAll(/** @type {Element} */ (root), firstOccurence);
 };

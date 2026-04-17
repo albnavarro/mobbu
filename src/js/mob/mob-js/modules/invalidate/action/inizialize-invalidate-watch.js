@@ -16,7 +16,7 @@ import {
     mainStore,
     resetMainStoreAsyncParser,
 } from '../../../main-store/main-store';
-import { addDOMfromString } from '../../../parse/steps/utils';
+import { addMultipleDOMElement } from '../../../parse/steps/utils';
 import { incrementTickQueuque } from '../../../queque/tick';
 import { incrementInvalidateTickQueuque } from '../../../queque/tick-invalidate';
 import { destroyNestedRepeat } from '../../repeater/action/destroy-nested-repeat';
@@ -35,7 +35,7 @@ import { inizializeNestedInvalidate } from './inizialize-nested-invalidate';
  * @param {string} params.id
  * @param {boolean | undefined} params.persistent
  * @param {string} params.invalidateId
- * @param {() => string} params.renderFunction
+ * @param {() => HTMLElement | HTMLElement[]} params.renderFunction
  * @returns {Promise<any>}
  */
 export const inizializeInvalidateWatch = async ({
@@ -128,8 +128,14 @@ export const inizializeInvalidateWatch = async ({
                  * Create new component.
                  */
                 invalidateParent.textContent = '';
-                addDOMfromString({
-                    stringDOM: renderFunction(),
+
+                const rendered = renderFunction();
+                const elements = /** @type {HTMLElement[]} */ (
+                    MobCore.checkType(Array, rendered) ? rendered : [rendered]
+                );
+
+                addMultipleDOMElement({
+                    elements,
                     parent: invalidateParent,
                     position: 'afterbegin',
                 });

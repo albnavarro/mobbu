@@ -17,7 +17,7 @@ const bioInfo = [
 ];
 
 /**
- * @returns {string}
+ * @returns {HTMLElement}
  */
 const getBio = () => {
     return htmlObject({

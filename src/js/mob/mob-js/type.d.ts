@@ -97,11 +97,11 @@ export interface componentReturnType {
 
 export type MobComponent<T = MobComponentMap, R = MobComponentMap> = (
     props: ComponentPropsType<T, R>
-) => string;
+) => HTMLElement;
 
 export type MobComponentAsync<T = MobComponentMap, R = MobComponentMap> = (
     props: ComponentPropsType<T, R>
-) => Promise<string>;
+) => Promise<HTMLElement>;
 
 export interface ComponentPropsType<T, R> {
     key: string;
@@ -232,8 +232,8 @@ export interface Route {
     hash: string;
     templateName?: string;
     layout:
-        | ((arg0: { params: any; props: any }) => Promise<string>)
-        | ((arg0: { params: any; props: any }) => string);
+        | ((arg0: { params: any; props: any }) => Promise<HTMLElement>)
+        | ((arg0: { params: any; props: any }) => HTMLElement);
     restoreScroll?: boolean;
     skipTransition?: boolean;
     props: any;
@@ -242,12 +242,12 @@ export interface Route {
 export type PageAsync<
     T = Record<string, any>,
     P = Record<string, any>,
-> = (arg0: { params: T; props: P }) => Promise<string>;
+> = (arg0: { params: T; props: P }) => Promise<HTMLElement>;
 
 export type Page<T = Record<string, any>, P = Record<string, any>> = (arg0: {
     params: T;
     props: P;
-}) => string;
+}) => HTMLElement;
 
 /**
  * Redirect function

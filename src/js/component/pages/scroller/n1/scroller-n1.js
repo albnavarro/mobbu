@@ -23,7 +23,7 @@ import { scrollerN1Animation } from './animation/animation';
  * @param {ProxiState<ScrollerN1>} params.proxi
  * @param {DelegateEvents} params.delegateEvents
  * @param {BindObject} params.bindObject
- * @returns {string}
+ * @returns {HTMLElement}
  */
 function getControls({ proxi, delegateEvents, bindObject }) {
     const inputId = MobCore.getUnivoqueId();

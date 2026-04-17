@@ -42,12 +42,12 @@ interface RepeatInternal {
     render: (arg0: {
         sync: () => Record<string, string>;
         initialIndex: number;
-        initialValue: astring;
+        initialValue: any;
         current: {
             index: number;
             value: any;
         };
-    }) => string;
+    }) => HTMLElement;
     useSync?: boolean;
 }
 
@@ -65,10 +65,17 @@ export type NodeOrTextMix = (
 /**
  * Tipo ricorsivo per il contenuto.
  */
-export type FromObjectNodeContent =
+export type FromObjectNodeContentItem =
     | string
-    | FromObjectNodeDescriptor
-    | (string | FromObjectNodeDescriptor)[];
+    | HTMLElement
+    | FromObjectNodeDescriptor;
+
+/**
+ * Tipo ricorsivo per il contenuto. Supporta singoli valori, array misti e array annidati.
+ */
+export type FromObjectNodeContent =
+    | FromObjectNodeContentItem
+    | (FromObjectNodeContentItem | FromObjectNodeContentItem[])[];
 
 /**
  * Tipo per il nodo del DOM.
@@ -77,7 +84,7 @@ export interface FromObjectNodeDescriptor {
     component?: CreateComponentReturnType;
     tag?: keyof HTMLElementTagNameMap | (string & {});
     className?: string | string[];
-    style?: Record<string, any>;
+    style?: Record<string, string>;
     dataAttributes?: Record<
         string,
         string | number | boolean | null | undefined
@@ -94,4 +101,4 @@ export interface FromObjectNodeDescriptor {
     content?: FromObjectNodeContent;
 }
 
-export type FromObject = (data: FromObjectNodeDescriptor) => string;
+export type FromObjectType = (data: FromObjectNodeDescriptor) => HTMLElement;

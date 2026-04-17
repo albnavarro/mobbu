@@ -5756,13 +5756,9 @@
       /** @type {HTMLElement} */
       host.parentNode
     );
-    item.initialRenderWithoutSync.forEach((element) => {
-      parent.append(element);
-    });
     repeatInstancesMap.set(repeatId, {
       ...item,
-      element: parent,
-      initialRenderWithoutSync: []
+      element: parent
     });
     repeatIdHostMap.set(repeatId, host);
   };
@@ -5823,9 +5819,6 @@
   };
   var getUserChildPlaceholderSize = () => {
     return userPlaceholder.size;
-  };
-  var setSkipAddUserComponent = (value) => {
-    skipAddUserComponent = value;
   };
   var getSkipAddUserComponent = () => skipAddUserComponent;
 
@@ -5952,15 +5945,15 @@
           this.attachShadow({ mode: "open" });
           this.#slotName = "";
           this.isSlot = true;
-          const { dataset } = this.shadowRoot?.host ?? {};
-          if (dataset) {
-            this.#slotName = this.shadowRoot?.host.getAttribute(ATTR_COMPONENT_NAME);
-          }
         }
         connectedCallback() {
           const host = this.shadowRoot?.host;
           if (!host) return;
           if (!useSlotQuery) addSlotPlaceholder(host);
+          const { dataset } = this.shadowRoot?.host ?? {};
+          if (dataset) {
+            this.#slotName = this.shadowRoot?.host.getAttribute(ATTR_COMPONENT_NAME);
+          }
         }
         removeCustomComponent() {
           if (!this.shadowRoot) return;
@@ -5972,16 +5965,6 @@
       }
     );
   };
-
-  // src/js/mob/mob-js/component/in-memory-element-set.js
-  var inMemoryElementSet = /* @__PURE__ */ new Set();
-  var addElementToInMemorySet = (element) => {
-    inMemoryElementSet.add(element);
-  };
-  var getInMemorySet = () => {
-    return [...inMemoryElementSet];
-  };
-  var cleanInMemorySet = (element) => inMemoryElementSet.delete(element);
 
   // src/js/mob/mob-js/web-component/user-component.js
   var defineUserComponent = (componentList) => {
@@ -6094,10 +6077,6 @@
             if (!host) return;
             const skip = getSkipAddUserComponent();
             if (skip) {
-              addElementToInMemorySet(
-                /** @type {import('./type').UserComponent} */
-                host
-              );
               return;
             }
             if (this.#slotPosition && !this.active) {
@@ -6280,10 +6259,6 @@
             if (!this.shadowRoot) return;
             const host = this.shadowRoot?.host;
             removeUserPlaceholder(
-              /** @type {import('./type').UserComponent} */
-              host
-            );
-            cleanInMemorySet(
               /** @type {import('./type').UserComponent} */
               host
             );
@@ -6832,7 +6807,7 @@
   };
   var createComponent = ({
     tag = "",
-    component = () => "",
+    component = () => document.createElement("div"),
     props = {},
     state = {},
     bindStore,
@@ -6930,9 +6905,30 @@
       yield* walkPreOrder(child);
     }
   }
+  function selectAll(root2, firstOccurrence) {
+    const result = [];
+    for (const node of walkPreOrder(root2)) {
+      if (result.length > 0 && firstOccurrence) break;
+      if (node?.getIsPlaceholder?.()) {
+        result.push(
+          /** @type {UserComponent} */
+          node
+        );
+      }
+    }
+    return result;
+  }
+  var queryAllFutureComponent = (node, firstOccurence = true) => {
+    const root2 = node || document.body;
+    return selectAll(
+      /** @type {Element} */
+      root2,
+      firstOccurence
+    );
+  };
 
   // src/js/mob/mob-js/query/query-component-use-slot.js
-  function selectAll(root2) {
+  function selectAll2(root2) {
     const result = [];
     for (const node of walkPreOrder(root2)) {
       if (node?.isUserComponent && node?.getSlotPosition?.()) {
@@ -6948,13 +6944,13 @@
     let result = [];
     const root2 = node || document.body;
     for (const child of root2.children) {
-      result = [...result, ...selectAll(child)];
+      result = [...result, ...selectAll2(child)];
     }
     return result;
   };
 
   // src/js/mob/mob-js/query/query-generic-slot.js
-  function selectAll2(root2) {
+  function selectAll3(root2) {
     const result = [];
     for (const node of walkPreOrder(root2)) {
       if (node?.isSlot && node?.getSlotName?.()) {
@@ -6970,13 +6966,13 @@
     let result = [];
     const root2 = node || document.body;
     for (const child of root2.children) {
-      result = [...result, ...selectAll2(child)];
+      result = [...result, ...selectAll3(child)];
     }
     return result;
   };
 
   // src/js/mob/mob-js/query/query-specific-slot.js
-  function selectAll3(root2, slotName) {
+  function selectAll4(root2, slotName) {
     for (const node of walkPreOrder(root2)) {
       if (node?.isSlot && node?.getSlotName?.() === slotName) {
         return (
@@ -6990,14 +6986,14 @@
   var querySecificSlot = (node, slotName) => {
     const root2 = node || document.body;
     for (const child of root2.children) {
-      const result = selectAll3(child, slotName);
+      const result = selectAll4(child, slotName);
       if (result) return result;
     }
     return null;
   };
 
   // src/js/mob/mob-js/query/query-unnamed-slot.js
-  function selectAll4(root2) {
+  function selectAll5(root2) {
     for (const node of walkPreOrder(root2)) {
       if (node?.isSlot && !node?.getSlotName?.()) {
         return (
@@ -7011,7 +7007,7 @@
   var queryUnNamedSlot = (node) => {
     const root2 = node || document.body;
     for (const child of root2.children) {
-      const result = selectAll4(child);
+      const result = selectAll5(child);
       if (result) return result;
     }
     return null;
@@ -7038,7 +7034,7 @@
       ""
     ).replaceAll(/>\s+</g, "><").trim();
   };
-  var setRepeatAttributeFromInMemory = ({
+  var setRepeatAttribute = ({
     components,
     current,
     index,
@@ -7047,40 +7043,32 @@
     key
   }) => {
     components.forEach((component) => {
-      if (component.hasAttribute(ATTR_CHILD_REPEATID)) {
-        cleanInMemorySet(component);
-        return;
+      if (!component.deref()?.hasAttribute(ATTR_CURRENT_LIST_VALUE)) {
+        component.deref()?.setAttribute(
+          ATTR_CURRENT_LIST_VALUE,
+          setComponentRepeaterState({
+            current,
+            index
+          })
+        );
       }
-      component.setAttribute(
-        ATTR_CURRENT_LIST_VALUE,
-        setComponentRepeaterState({
-          current,
-          index
-        })
-      );
-      component.setAttribute(ATTR_KEY, `${key}`);
-      component.setAttribute(ATTR_REPEATER_PROP_BIND, `${observe}`);
-      component.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
+      if (!component.deref()?.hasAttribute(ATTR_KEY)) {
+        component.deref()?.setAttribute(ATTR_KEY, `${key}`);
+      }
+      if (!component.deref()?.hasAttribute(ATTR_REPEATER_PROP_BIND)) {
+        component.deref()?.setAttribute(ATTR_REPEATER_PROP_BIND, `${observe}`);
+      }
+      if (!component.deref()?.hasAttribute(ATTR_CHILD_REPEATID)) {
+        component.deref()?.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
+      }
     });
-  };
-  var addDOMfromString = ({ stringDOM, parent, position: position2 }) => {
-    setSkipAddUserComponent(true);
-    const fragment = document.createRange().createContextualFragment(stringDOM);
-    setSkipAddUserComponent(false);
-    if (!fragment) return;
-    if (position2 === "afterend") parent.after(fragment);
-    if (position2 === "beforebegin") parent.before(fragment);
-    if (position2 === "afterbegin") parent.prepend(fragment);
-    if (position2 === "beforeend") parent.append(fragment);
   };
   var addMultipleDOMElement = ({ elements, parent, position: position2 }) => {
     const fragment = new DocumentFragment();
-    setSkipAddUserComponent(true);
     elements.forEach((element) => {
       if (!element) return;
       fragment.append(element);
     });
-    setSkipAddUserComponent(false);
     if (position2 === "afterend") parent.after(fragment);
     if (position2 === "beforebegin") parent.before(fragment);
     if (position2 === "afterbegin") parent.prepend(fragment);
@@ -7091,9 +7079,12 @@
   var getNewElement = ({ element, content }) => {
     const { debug } = getDefaultComponent();
     if (element.parentNode) {
-      const template = document.createElement("template");
-      template.innerHTML = content;
-      const node = template.content.firstElementChild;
+      const node = modules_exports.checkType(String, content) ? (() => {
+        const template = document.createElement("template");
+        template.innerHTML = /** @type {string} */
+        content;
+        return template.content.firstElementChild;
+      })() : content;
       node?.disablePlaceHolderState?.();
       if (node) element.after(node);
       if (debug)
@@ -8107,8 +8098,13 @@
             container: invalidateParent
           });
           invalidateParent.textContent = "";
-          addDOMfromString({
-            stringDOM: renderFunction(),
+          const rendered = renderFunction();
+          const elements = (
+            /** @type {HTMLElement[]} */
+            modules_exports.checkType(Array, rendered) ? rendered : [rendered]
+          );
+          addMultipleDOMElement({
+            elements,
             parent: invalidateParent,
             position: "afterbegin"
           });
@@ -8379,7 +8375,6 @@
     state,
     repeatId
   }) => {
-    const range = document.createRange();
     const renderedDOM = [...Array.from({ length: diff }).keys()].map(
       (_item, index) => {
         const initialValue = current?.[index + previousLenght];
@@ -8396,19 +8391,20 @@
           current: proxiObject,
           sync: () => ({ _no_sync: "" })
         });
-        const lastSkipUserValue = getSkipAddUserComponent();
-        setSkipAddUserComponent(true);
-        const fragment = range.createContextualFragment(rawRender);
-        setSkipAddUserComponent(lastSkipUserValue);
-        setRepeatAttributeFromInMemory({
-          components: getInMemorySet(),
+        const components = queryAllFutureComponent(rawRender, false).map(
+          (element) => {
+            return new WeakRef(element);
+          }
+        );
+        setRepeatAttribute({
+          components,
           current: initialValue,
           index: initialIndex,
           observe: state,
           repeatId,
           key: void 0
         });
-        return fragment.firstElementChild;
+        return rawRender;
       }
     );
     return renderedDOM.filter((element) => element !== null);
@@ -8451,7 +8447,7 @@
         initialValue,
         current: proxiObject
       });
-    }).join("");
+    });
   };
   var updateRepeaterWithtKey = ({
     currentValue,
@@ -8470,26 +8466,26 @@
       index,
       repeatId
     });
-    const lastSkipUserValue = getSkipAddUserComponent();
-    setSkipAddUserComponent(true);
-    const fragment = document.createRange().createContextualFragment(
-      render2({
-        initialIndex: index,
-        initialValue: currentValue,
-        current: proxiObject,
-        sync: () => ({ _no_sync: "" })
-      })
+    const fragment = render2({
+      initialIndex: index,
+      initialValue: currentValue,
+      current: proxiObject,
+      sync: () => ({ _no_sync: "" })
+    });
+    const components = queryAllFutureComponent(fragment, false).map(
+      (element) => {
+        return new WeakRef(element);
+      }
     );
-    setSkipAddUserComponent(lastSkipUserValue);
-    setRepeatAttributeFromInMemory({
-      components: getInMemorySet(),
+    setRepeatAttribute({
+      components,
       current: currentValue,
       index,
       observe: state,
       repeatId,
       key: keyValue
     });
-    return fragment.firstElementChild;
+    return fragment;
   };
   var getSyncWithKey = ({ keyValue, index, currentValue, state, repeatId }) => {
     return {
@@ -8541,7 +8537,6 @@
     key = "",
     hasKey
   }) => {
-    const range = document.createRange();
     const renderedDOM = currentUnique.map((item, index) => {
       const proxiObject = getRepeatProxi({
         observe,
@@ -8551,26 +8546,26 @@
         index,
         repeatId
       });
-      const lastSkipUserValue = getSkipAddUserComponent();
-      setSkipAddUserComponent(true);
-      const fragment = range.createContextualFragment(
-        render2({
-          initialIndex: index,
-          initialValue: item,
-          current: proxiObject,
-          sync: () => ({ _no_sync: "" })
-        })
+      const fragment = render2({
+        initialIndex: index,
+        initialValue: item,
+        current: proxiObject,
+        sync: () => ({ _no_sync: "" })
+      });
+      const components = queryAllFutureComponent(fragment, false).map(
+        (element) => {
+          return new WeakRef(element);
+        }
       );
-      setSkipAddUserComponent(lastSkipUserValue);
-      setRepeatAttributeFromInMemory({
-        components: getInMemorySet(),
+      setRepeatAttribute({
+        components,
         current: item,
         index,
         observe,
         repeatId,
         key: hasKey ? item?.[key] : ""
       });
-      return fragment.firstElementChild;
+      return fragment;
     });
     return renderedDOM.filter((element) => element !== null);
   };
@@ -8582,34 +8577,31 @@
     hasKey,
     render: render2
   }) => {
-    const rawRender = () => {
-      return currentUnique.map((item, index) => {
-        const sync = () => ({
-          [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
-            current: item,
-            index
-          }),
-          [ATTR_KEY]: hasKey ? item?.[key] : "",
-          [ATTR_REPEATER_PROP_BIND]: observe,
-          [ATTR_CHILD_REPEATID]: repeatId
-        });
-        const proxiObject = getRepeatProxi({
-          observe,
-          hasKey,
-          key,
-          keyValue: hasKey ? item?.[key] : "",
-          index,
-          repeatId
-        });
-        return render2({
-          sync,
-          initialIndex: index,
-          initialValue: item,
-          current: proxiObject
-        });
-      }).join("");
-    };
-    return rawRender();
+    return currentUnique.map((item, index) => {
+      const sync = () => ({
+        [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
+          current: item,
+          index
+        }),
+        [ATTR_KEY]: hasKey ? item?.[key] : "",
+        [ATTR_REPEATER_PROP_BIND]: observe,
+        [ATTR_CHILD_REPEATID]: repeatId
+      });
+      const proxiObject = getRepeatProxi({
+        observe,
+        hasKey,
+        key,
+        keyValue: hasKey ? item?.[key] : "",
+        index,
+        repeatId
+      });
+      return render2({
+        sync,
+        initialIndex: index,
+        initialValue: item,
+        current: proxiObject
+      });
+    });
   };
 
   // src/js/mob/mob-js/modules/repeater/action/set-repeat-native-dom-children.js
@@ -8742,7 +8734,6 @@
       };
     });
     repeaterParentElement.replaceChildren();
-    const range = document.createRange();
     const fragment = new DocumentFragment();
     newSequenceByKey.forEach(
       ({
@@ -8787,19 +8778,7 @@
           keyValue,
           render: render2
         });
-        const lastSkipUserValue = getSkipAddUserComponent();
-        setSkipAddUserComponent(true);
-        if (useSync) {
-          const domFragment = range.createContextualFragment(
-            /** @type {string} */
-            currentRender
-          );
-          fragment.append(domFragment);
-        }
-        if (!useSync && currentRender) {
-          fragment.append(currentRender);
-        }
-        setSkipAddUserComponent(lastSkipUserValue);
+        fragment.append(currentRender);
       }
     );
     repeaterParentElement.append(fragment);
@@ -8853,26 +8832,14 @@
         state,
         repeatId
       });
-      if (useSync) {
-        addDOMfromString({
-          stringDOM: (
-            /** @type {string} */
-            currentRender
-          ),
-          parent: repeaterParentElement,
-          position: "beforeend"
-        });
-      }
-      if (!useSync) {
-        addMultipleDOMElement({
-          elements: (
-            /** @type {Element[]} */
-            currentRender
-          ),
-          parent: repeaterParentElement,
-          position: "beforeend"
-        });
-      }
+      addMultipleDOMElement({
+        elements: (
+          /** @type {Element[]} */
+          currentRender
+        ),
+        parent: repeaterParentElement,
+        position: "beforeend"
+      });
     }
     if (diff < 0) {
       const childrenComponentChunkedByWrapper = chunkIdsByCurrentValue({
@@ -9172,19 +9139,6 @@
     });
   };
 
-  // src/js/mob/mob-js/modules/repeater/action/set-repeater-instances-map-initial-render.js
-  var setRepeaterInstancesDOMRender = ({
-    repeatId,
-    initialDOMRender
-  }) => {
-    const item = repeatInstancesMap.get(repeatId);
-    if (!item) return;
-    repeatInstancesMap.set(repeatId, {
-      ...item,
-      initialRenderWithoutSync: initialDOMRender
-    });
-  };
-
   // src/js/mob/mob-js/modules/repeater/action/initialize-repeater-instances-map.js
   var initializeRepeaterInstancesMap = ({
     repeatId,
@@ -9199,7 +9153,6 @@
       nativeDOMChildren: [],
       componentChildren: [],
       currentData: [],
-      initialRenderWithoutSync: [],
       initializeModule: () => {
       },
       unsubscribe: () => {
@@ -9259,7 +9212,19 @@
           destroyComponentInsideNodeById({ id, container: attachTo });
           attachTo.textContent = "";
         }
-        attachTo.insertAdjacentHTML(position2, component);
+        if (modules_exports.checkType(String, component)) {
+          attachTo.insertAdjacentHTML(
+            position2,
+            /** @type {string} */
+            component
+          );
+        } else {
+          attachTo.insertAdjacentElement(
+            position2,
+            /** @type {any} */
+            component
+          );
+        }
         mainStore.set(
           MAIN_STORE_PARSER_ASYNC,
           {
@@ -9360,14 +9325,20 @@
           render: render2,
           props: values
         });
-        return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render2()}`;
+        const webComponent = document.createElement("mobjs-bind-text");
+        webComponent.setAttribute(ATTR_COMPONENT_ID, id);
+        webComponent.setAttribute(ATTR_BIND_TEXT_ID, bindTextId);
+        return [webComponent, render2()];
       },
       bindObject: (strings, ...values) => {
         const keys = getBindObjectKeys(values);
         const bindObjectId = modules_exports.getUnivoqueId();
         const render2 = () => renderBindObject(strings, ...values);
         addBindObjectToInitialzie(bindObjectId, { id, keys, render: render2 });
-        return `<mobjs-bind-object ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_OBJECT_ID}="${bindObjectId}"></mobjs-bind-object>${render2()}`;
+        const webComponent = document.createElement("mobjs-bind-object");
+        webComponent.setAttribute(ATTR_COMPONENT_ID, id);
+        webComponent.setAttribute(ATTR_BIND_OBJECT_ID, bindObjectId);
+        return [webComponent, render2()];
       },
       invalidate: ({
         observe,
@@ -9378,7 +9349,6 @@
       }) => {
         const observeParsed = parseObserveInvalidate(observe);
         const invalidateId = modules_exports.getUnivoqueId();
-        const sync = `${ATTR_INVALIDATE}='${invalidateId}'`;
         const invalidateRender = () => render2();
         let isInizialized = false;
         initializeInvalidateIdsMap({ invalidateId, scopeId: id });
@@ -9410,7 +9380,14 @@
             });
           }
         });
-        return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
+        const webComponent = document.createElement("mobjs-invalidate");
+        webComponent.setAttribute(ATTR_INVALIDATE, invalidateId);
+        const rawRender = invalidateRender();
+        const renderArray = (
+          /** @type {HTMLElement[]} */
+          modules_exports.checkType(Array, rawRender) ? rawRender : [rawRender]
+        );
+        return [webComponent, ...renderArray];
       },
       repeat: ({
         observe,
@@ -9437,15 +9414,14 @@
           repeatId,
           currentData: currentUnique
         });
-        const initialStringRender = useSync ? getRenderWithSync({
+        const initialDOMRender = useSync ? getRenderWithSync({
           currentUnique,
           key: key2,
           observe: observeParsed,
           repeatId,
           hasKey,
           render: render2
-        }) : "";
-        const initialDOMRender = useSync ? [] : getRenderWithoutSync({
+        }) : getRenderWithoutSync({
           currentUnique,
           render: render2,
           observe: observeParsed,
@@ -9454,10 +9430,6 @@
           hasKey
         });
         let isInizialized = false;
-        setRepeaterInstancesDOMRender({
-          repeatId,
-          initialDOMRender
-        });
         setRepeatFunction({
           repeatId,
           initializeModule: () => {
@@ -9489,7 +9461,9 @@
             }
           }
         });
-        return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${initialStringRender}`;
+        const webComponent = document.createElement("mobjs-repeat");
+        webComponent.setAttribute(ATTR_MOBJS_REPEAT, repeatId);
+        return [webComponent, ...initialDOMRender];
       }
     };
   };
@@ -10016,11 +9990,7 @@
     }
     contentElement.replaceChildren();
     removeCancellableComponent();
-    addDOMfromString({
-      stringDOM: content,
-      parent: contentElement,
-      position: "afterbegin"
-    });
+    contentElement.prepend(content);
     await parseComponents({ element: contentElement });
     if (!skipTransitionParsed) contentElement.style.visibility = "";
     if (!skip)
@@ -10239,11 +10209,7 @@
     setRouteList(routes2);
     setIndex({ hash: index });
     setPageNotFound({ hash: pageNotFound3 });
-    addDOMfromString({
-      stringDOM: wrapperDOM,
-      parent: rootEl,
-      position: "afterbegin"
-    });
+    rootEl.prepend(wrapperDOM);
     setContentElement();
     parseUrlHash({ shouldLoadRoute: false });
     await parseComponents({ element: rootEl, persistent: true });
@@ -10264,106 +10230,90 @@
   };
 
   // src/js/mob/mob-js/parse/steps/from-object.js
-  var VOID_ELEMENTS = /* @__PURE__ */ new Set([
-    "area",
-    "base",
-    "br",
-    "col",
-    "embed",
-    "hr",
-    "img",
-    "input",
-    "link",
-    "meta",
-    "param",
-    "source",
-    "track",
-    "wbr"
-  ]);
-  var getStringOrArrayOfString = (value) => {
-    const valueToArray = modules_exports.checkType(String, value) ? [value] : value;
-    return (
-      /** @type {string[]} */
-      valueToArray.reduce(
-        (previous, current) => {
-          return previous.length === 0 ? current : `${previous} ${current}`;
-        },
-        ""
-      )
-    );
-  };
-  var getAttributes = (value, useData = false) => Object.entries(value).reduce((previous, [key, value2]) => {
-    if (value2 === false || value2 == null) return previous;
-    if (value2 === true) return `${previous} ${key}`;
-    return useData ? `${previous} data-${key}="${value2}"` : `${previous} ${key}="${value2}"`;
-  }, "");
-  var getStylesFromObject = (value) => {
-    return Object.entries(value).reduce((previous, [key, value2]) => {
-      if (previous.length === 0) return `${key}:${value2};`;
-      return `${previous}${key}:${value2};`;
-    }, "");
-  };
-  var extractSingleModule = (value) => {
-    return Object.entries(value).reduce((previous, [key, value2]) => {
-      if (previous.length === 0) return `${key}="${value2}" `;
-      return `${previous} ${key}="${value2}" `;
-    }, "");
-  };
-  var getModules = (value) => {
+  var getClassList = (value) => {
     const valueToArray = (
-      /** @type{Record<string, string>[]} */
-      modules_exports.checkType(Array, value) ? value : [value]
+      /** @type {string[]} */
+      modules_exports.checkType(String, value) ? [value] : value
     );
-    return valueToArray.reduce((previous, current) => {
-      const currentModule = extractSingleModule(current);
-      return `${previous} ${currentModule}`;
-    }, "");
+    return valueToArray.flatMap(
+      (item) => item.trim().split(/\s+/).filter(Boolean)
+    );
   };
   var htmlObject = (data) => {
     const component = data?.component ?? null;
     const componentKey = component && Object.keys(component)?.[0];
     const tag = componentKey ?? data?.tag ?? `div`;
-    const className = getStringOrArrayOfString(data?.className ?? []);
-    const classAttr = className.trim() ? `class="${className}"` : "";
-    const styleToParse = data?.style;
-    const style = styleToParse ? getStylesFromObject(data?.style ?? {}) : "";
-    const styleAttr = style.trim() ? `style="${style}"` : "";
-    const attributeToParse = data?.attributes;
-    const attributes = attributeToParse ? getAttributes(data?.attributes ?? {}) : "";
-    const dataAttributeToParse = data?.dataAttributes;
-    const dataAttributes = dataAttributeToParse ? getAttributes(data?.dataAttributes ?? [], true) : "";
-    const contentToParse = data?.content;
-    const content = contentToParse ? getContent(data?.content ?? []) : "";
-    const moduleToParse = data?.modules;
-    const modules = moduleToParse ? getModules(data?.modules ?? {}) : "";
-    const isVoid = VOID_ELEMENTS.has(tag.toLowerCase());
-    return isVoid ? `<${tag} ${classAttr} ${styleAttr} ${attributes} ${dataAttributes} ${modules}/>` : `<${tag} ${classAttr} ${styleAttr} ${attributes} ${dataAttributes} ${modules}>${content}</${tag}>`;
+    const rootElement = document.createElement(tag);
+    const classList = getClassList(data?.className ?? []);
+    for (const classValue of classList) {
+      rootElement.classList.add(classValue);
+    }
+    const styles = data?.style ?? {};
+    for (const [key, value] of Object.entries(styles)) {
+      rootElement.style.setProperty(key, String(value));
+    }
+    const attributes = data?.attributes ?? {};
+    for (const [key, value] of Object.entries(attributes)) {
+      if (value === false || value == null) continue;
+      rootElement.setAttribute(
+        key,
+        /** @type {any} */
+        value
+      );
+    }
+    const dataAttributes = data?.dataAttributes ?? {};
+    for (const [key, value] of Object.entries(dataAttributes)) {
+      if (value === false || value == null) continue;
+      rootElement.setAttribute(
+        `data-${key}`,
+        /** @type {any} */
+        value
+      );
+    }
+    const modules = data?.modules ?? {};
+    const modulesArray = modules_exports.checkType(Array, modules) ? modules : [modules];
+    for (
+      const item of
+      /** @type{Record<string, any>[]} */
+      modulesArray
+    ) {
+      for (const [key, value] of Object.entries(item)) {
+        rootElement.setAttribute(
+          key,
+          /** @type {any} */
+          value
+        );
+      }
+    }
+    const children = data?.content;
+    if (children) addContentChild(rootElement, children);
+    return rootElement;
   };
-  var getContent = (value) => {
-    if (modules_exports.checkType(Object, value)) {
-      return htmlObject(value);
+  var addContentChild = (rootElement, children) => {
+    const childrenToArray = modules_exports.checkType(Array, children) ? children : [children];
+    for (
+      const child of
+      /** @type {any} */
+      childrenToArray
+    ) {
+      if (modules_exports.checkType(String, child)) {
+        rootElement.insertAdjacentHTML("beforeend", child);
+        continue;
+      }
+      if (modules_exports.checkType(HTMLElement, child)) {
+        rootElement.append(child);
+        continue;
+      }
+      if (modules_exports.checkType(Array, child)) {
+        addContentChild(rootElement, child);
+        continue;
+      }
+      if (modules_exports.checkType(Object, child)) {
+        const content = htmlObject(child);
+        rootElement.append(content);
+        continue;
+      }
     }
-    if (modules_exports.checkType(String, value)) {
-      return value;
-    }
-    const valueToArray = modules_exports.checkType(String, value) ? [value] : value;
-    if (valueToArray.length === 0) return "";
-    return valueToArray.reduce(
-      (previous, current) => {
-        if (!current) return previous;
-        if (modules_exports.checkType(Array, current)) {
-          return getContent(current);
-        }
-        if (modules_exports.checkType(String, current)) {
-          return `${previous} ${current}`;
-        }
-        if (modules_exports.checkType(Object, current)) {
-          return `${previous} ${htmlObject(current)}`;
-        }
-        return `${previous} ${String(current)}`;
-      },
-      ""
-    );
   };
 
   // src/js/mob/mob-motion/core.js
@@ -25644,7 +25594,7 @@
           ]
         }
       });
-    }).join("");
+    });
   }
   var setActiveLabelOnScroll = ({ proxi, direction: direction2, winHeight }) => {
     modules_exports.useFrame(() => {
@@ -26694,7 +26644,7 @@
     ];
     return htmlObject({
       className: "l-about",
-      style: { "--number-of-section": numberOfSection },
+      style: { "--number-of-section": `${numberOfSection}` },
       modules: bindEffect({
         toggleClass: {
           active: () => proxi.isMounted
@@ -29842,7 +29792,7 @@
           })
         ]
       });
-    }).join("");
+    });
   };
   var DynamicListCardFn = ({
     onMount,
@@ -30534,118 +30484,6 @@
     });
   };
 
-  // src/js/component/common/typography/paragraph/paragraph.js
-  var ParagraphFn = ({ getState }) => {
-    const { style, color, boxed, note } = getState();
-    const colorClass = color === "inherit" ? "" : `is-${color}`;
-    const boxedClass = boxed ? `p-boxed` : "";
-    const noteClass = note ? `p-note` : "";
-    return htmlObject({
-      tag: "p",
-      className: ["p", `p-${style}`, boxedClass, noteClass, colorClass],
-      content: {
-        tag: "mobjs-slot"
-      }
-    });
-  };
-
-  // src/js/component/common/typography/paragraph/definition.js
-  var Paragraph = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').Paragraph>} */
-    {
-      tag: "mob-paragraph",
-      component: ParagraphFn,
-      props: {
-        style: () => ({
-          value: "medium",
-          type: String,
-          validate: (val) => ["small", "medium", "big"].includes(val),
-          strict: true
-        }),
-        color: () => ({
-          value: "inherit",
-          type: String,
-          validate: (val) => {
-            return ["inherit", "white", "hightlight", "black"].includes(
-              val
-            );
-          }
-        }),
-        boxed: () => ({
-          value: false,
-          type: Boolean
-        }),
-        note: () => ({
-          value: false,
-          type: Boolean
-        })
-      }
-    }
-  );
-
-  // src/js/component/common/typography/titles/title.js
-  var getIndex2 = (index) => {
-    return index.length > 0 ? htmlObject({
-      tag: "span",
-      className: "title-index",
-      content: index
-    }) : ``;
-  };
-  var TitleFn = ({ getProxi }) => {
-    const proxi = getProxi();
-    const colorClass = proxi.color === "inherit" ? "" : `is-${proxi.color}`;
-    const boldClass = proxi.isBold ? `u-weight-bold` : "";
-    const isSectionClass = proxi.isSection ? `is-section` : "";
-    return htmlObject({
-      tag: proxi.tag,
-      className: [colorClass, boldClass, isSectionClass],
-      content: [
-        getIndex2(proxi.index),
-        {
-          tag: "span",
-          className: "title-content",
-          content: {
-            tag: "mobjs-slot"
-          }
-        }
-      ]
-    });
-  };
-
-  // src/js/component/common/typography/titles/definition.js
-  var Title = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').Title>} */
-    {
-      tag: "mob-title",
-      component: TitleFn,
-      props: {
-        tag: () => ({
-          value: "h1",
-          type: String
-        }),
-        color: () => ({
-          value: "inherit",
-          type: String,
-          validate: (val) => {
-            return ["inherit", "white", "black"].includes(val);
-          }
-        }),
-        isSection: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isBold: () => ({
-          value: false,
-          type: Boolean
-        }),
-        index: () => ({
-          value: "",
-          type: String
-        })
-      }
-    }
-  );
-
   // src/js/component/lib/animation/simple-intro.js
   var simpleIntroAnimation = ({ refs }) => {
     let introTween = tween_exports.createTimeTween({
@@ -30712,78 +30550,12 @@
     };
   };
 
-  // src/js/mob/mob-js/parse/steps/from-object-next.js
-  var getClassList = (value) => {
-    const valueToArray = (
-      /** @type {string[]} */
-      modules_exports.checkType(String, value) ? [value] : value
-    );
-    return valueToArray.flatMap(
-      (item) => item.trim().split(/\s+/).filter(Boolean)
-    );
-  };
-  var htmlObjectNext = (data) => {
-    const component = data?.component ?? null;
-    const componentKey = component && Object.keys(component)?.[0];
-    const tag = componentKey ?? data?.tag ?? `div`;
-    const rootElement = document.createElement(tag);
-    const classList = getClassList(data?.className ?? []);
-    for (const classValue of classList) {
-      rootElement.classList.add(classValue);
-    }
-    const styles = data?.style ?? {};
-    for (const [key, value] of Object.entries(styles)) {
-      rootElement.style[
-        /** @type {any} */
-        key
-      ] = value;
-    }
-    const attributes = data?.attributes ?? {};
-    for (const [key, value] of Object.entries(attributes)) {
-      rootElement.setAttribute(
-        key,
-        /** @type {any} */
-        value
-      );
-    }
-    const dataAttributes = data?.dataAttributes ?? {};
-    for (const [key, value] of Object.entries(dataAttributes)) {
-      rootElement.setAttribute(
-        `data-${key}`,
-        /** @type {any} */
-        value
-      );
-    }
-    const modules = data?.modules ?? {};
-    const modulesArray = modules_exports.checkType(Array, modules) ? modules : [modules];
-    for (
-      const item of
-      /** @type{Record<string, any>[]} */
-      modulesArray
-    ) {
-      for (const [key, value] of Object.entries(item)) {
-        rootElement.setAttribute(
-          key,
-          /** @type {any} */
-          value
-        );
-      }
-    }
-    return rootElement;
-  };
-
   // src/js/component/pages/homepage/home.js
   var playAnimation = async ({ playIntro, playSvg }) => {
     await playIntro();
     playSvg();
   };
-  var HomeComponentFn = ({
-    onMount,
-    getProxi,
-    bindEffect,
-    delegateEvents,
-    invalidate
-  }) => {
+  var HomeComponentFn = ({ onMount, getProxi }) => {
     const proxi = getProxi();
     const { svg } = proxi;
     onMount(({ element }) => {
@@ -30801,46 +30573,6 @@
         destroy3();
       };
     });
-    const testRender = htmlObjectNext({
-      tag: "section",
-      // component: Title,
-      className: ["section-class pippo", "pluto", ""],
-      style: { background: "black", color: "red" },
-      attributes: { id: 2, name: "my-name", disabled: "" },
-      dataAttributes: { test: "test" },
-      modules: [
-        bindEffect({
-          toggleClass: {
-            active: () => proxi.isMounted
-          }
-        }),
-        delegateEvents({
-          click: () => {
-            console.log("click");
-          }
-        })
-      ],
-      content: [
-        {
-          tag: "ul",
-          content: invalidate({
-            observe: () => proxi.isMounted,
-            render: () => {
-              return htmlObjectNext({
-                component: Title,
-                content: "my title"
-              });
-            }
-          })
-        },
-        {
-          component: Paragraph,
-          className: ["my-paragrph-class", "my-other-class"],
-          content: "lorem ipsum"
-        }
-      ]
-    });
-    console.log(testRender);
     return htmlObject({
       className: "l-index",
       content: {
@@ -31047,10 +30779,10 @@
                   /** @type {'level1' | 'level2' | 'level3'} */
                   button.state
                 ];
-                return renderHtml`
-                                Number of items: ${data.length} ( max
-                                ${button.maxItem} )
-                            `;
+                return htmlObject({
+                  content: ` Number of items: ${data.length} ( max
+                                ${button.maxItem} )`
+                });
               }
             })
           }
@@ -31466,7 +31198,7 @@
                 }
               ]
             });
-          }).join("");
+          });
         }
       })
     });
@@ -31514,7 +31246,7 @@
                 })
               }
             });
-          }).join("");
+          });
         }
       })
     });
@@ -31564,7 +31296,7 @@
                 })
               }
             });
-          }).join("");
+          });
         }
       })
     };
@@ -32191,7 +31923,7 @@
   // src/js/component/common/move-3d/move-3d-item/move-3d-item.js
   var getComponent = (component) => {
     if (component?.tagName.length === 0) {
-      return "";
+      return htmlObject({});
     }
     return htmlObject({
       className: ["component", component?.className],
@@ -32402,7 +32134,7 @@
       tag: "span",
       className: "debug",
       content: `${id}`
-    }) : "";
+    }) : htmlObject({});
   };
   var Recursive3Dshape = ({ data, root: root2, childrenId, debug }) => {
     return data.map(({ children, props }) => {
@@ -32426,7 +32158,7 @@
           })
         ]
       });
-    }).join("");
+    });
   };
 
   // src/js/component/common/move-3d/utils.js
@@ -35252,7 +34984,9 @@
   // src/js/component/common/any-component/any-component.js
   var AnyComponentFn = ({ getState }) => {
     const { content } = getState();
-    return renderHtml`${content}`;
+    return htmlObject({
+      content
+    });
   };
 
   // src/js/component/common/any-component/definition.js
@@ -36439,7 +36173,7 @@
         style: {
           width: `${size}rem`,
           height: `${size}rem`,
-          opacity
+          opacity: `${opacity}`
         },
         modules: setRef("target"),
         content: {
@@ -38179,7 +37913,7 @@
           }
         )
       });
-    }).join("");
+    });
   };
 
   // src/js/component/common/debug/debug-overlay/tree/debug-tree.js
@@ -38684,11 +38418,14 @@
       });
     }).join("");
   };
-  var getContent2 = ({ getState }) => {
+  var getContent = ({ getState }) => {
     const { id } = getState();
-    if (id === RESET_FILTER_DEBUG) return "";
+    if (id === RESET_FILTER_DEBUG) return htmlObject({});
     const item = modules_exports2.componentMap.get(id);
-    if (!item) return `component not found`;
+    if (!item)
+      return htmlObject({
+        content: "component not found"
+      });
     return htmlObject({
       content: [
         /**
@@ -39007,7 +38744,7 @@
           content: invalidate({
             observe: () => proxi.id,
             render: () => {
-              return getContent2({ getState });
+              return getContent({ getState });
             }
           })
         }
@@ -39236,7 +38973,7 @@
           content: invalidate({
             observe: () => proxi.active,
             render: () => {
-              if (!proxi.active) return "";
+              if (!proxi.active) return htmlObject({});
               return htmlObject({
                 content: leftContent()
               });
@@ -39392,7 +39129,7 @@
                 });
               if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
                 return htmlObject({ component: DebugFilterHead });
-              return "";
+              return htmlObject({});
             }
           })
         },
@@ -39453,7 +39190,7 @@
               component: DebugFilterList,
               attributes: { name: debugFilterListName }
             });
-          return "";
+          return htmlObject({});
         }
       })
     };
@@ -39625,7 +39362,7 @@
           ]
         }
       });
-    }).join("");
+    });
   };
   var SideBarLinksFn = ({
     staticProps: staticProps2,
@@ -39960,7 +39697,7 @@
           content: label
         }
       });
-    }).join("");
+    });
   };
   var LightSidebarFn = ({
     getProxi,
@@ -40427,7 +40164,7 @@
                 }
               }
             }
-          }) : "";
+          }) : htmlObject({});
         }
       })
     };
@@ -42087,21 +41824,23 @@
   // src/js/component/common/svg-shape/star/star-svg.js
   var StarSvgFn = ({ getState }) => {
     const { fill } = getState();
-    return renderHtml`
-        <svg
-            viewBox="0 0 105.83333 105.83334"
-            version="1.1"
-            id="svg1713"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:svg="http://www.w3.org/2000/svg"
-            fill=${fill}
-        >
-            <path
-                d="M 314.66331,372.25958 93.889916,264.46734 -120.06656,385.22612 -85.772782,141.94851 -266.73739,-24.219674 -24.76928,-66.781266 77.344916,-290.23763 192.59565,-73.264538 436.67031,-45.199981 265.93107,131.45836 Z"
-                transform="matrix(0.13816225,0,0,0.13816225,41.19189,46.490067)"
-            />
-        </svg>
-    `;
+    return htmlObject({
+      content: renderHtml`
+            <svg
+                viewBox="0 0 105.83333 105.83334"
+                version="1.1"
+                id="svg1713"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:svg="http://www.w3.org/2000/svg"
+                fill=${fill}
+            >
+                <path
+                    d="M 314.66331,372.25958 93.889916,264.46734 -120.06656,385.22612 -85.772782,141.94851 -266.73739,-24.219674 -24.76928,-66.781266 77.344916,-290.23763 192.59565,-73.264538 436.67031,-45.199981 265.93107,131.45836 Z"
+                    transform="matrix(0.13816225,0,0,0.13816225,41.19189,46.490067)"
+                />
+            </svg>
+        `
+    });
   };
 
   // src/js/component/common/svg-shape/star/definition.js
@@ -43337,6 +43076,118 @@
     }
   );
 
+  // src/js/component/common/typography/paragraph/paragraph.js
+  var ParagraphFn = ({ getState }) => {
+    const { style, color, boxed, note } = getState();
+    const colorClass = color === "inherit" ? "" : `is-${color}`;
+    const boxedClass = boxed ? `p-boxed` : "";
+    const noteClass = note ? `p-note` : "";
+    return htmlObject({
+      tag: "p",
+      className: ["p", `p-${style}`, boxedClass, noteClass, colorClass],
+      content: {
+        tag: "mobjs-slot"
+      }
+    });
+  };
+
+  // src/js/component/common/typography/paragraph/definition.js
+  var Paragraph = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').Paragraph>} */
+    {
+      tag: "mob-paragraph",
+      component: ParagraphFn,
+      props: {
+        style: () => ({
+          value: "medium",
+          type: String,
+          validate: (val) => ["small", "medium", "big"].includes(val),
+          strict: true
+        }),
+        color: () => ({
+          value: "inherit",
+          type: String,
+          validate: (val) => {
+            return ["inherit", "white", "hightlight", "black"].includes(
+              val
+            );
+          }
+        }),
+        boxed: () => ({
+          value: false,
+          type: Boolean
+        }),
+        note: () => ({
+          value: false,
+          type: Boolean
+        })
+      }
+    }
+  );
+
+  // src/js/component/common/typography/titles/title.js
+  var getIndex2 = (index) => {
+    return index.length > 0 ? htmlObject({
+      tag: "span",
+      className: "title-index",
+      content: index
+    }) : htmlObject({});
+  };
+  var TitleFn = ({ getProxi }) => {
+    const proxi = getProxi();
+    const colorClass = proxi.color === "inherit" ? "" : `is-${proxi.color}`;
+    const boldClass = proxi.isBold ? `u-weight-bold` : "";
+    const isSectionClass = proxi.isSection ? `is-section` : "";
+    return htmlObject({
+      tag: proxi.tag,
+      className: [colorClass, boldClass, isSectionClass],
+      content: [
+        getIndex2(proxi.index),
+        {
+          tag: "span",
+          className: "title-content",
+          content: {
+            tag: "mobjs-slot"
+          }
+        }
+      ]
+    });
+  };
+
+  // src/js/component/common/typography/titles/definition.js
+  var Title = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').Title>} */
+    {
+      tag: "mob-title",
+      component: TitleFn,
+      props: {
+        tag: () => ({
+          value: "h1",
+          type: String
+        }),
+        color: () => ({
+          value: "inherit",
+          type: String,
+          validate: (val) => {
+            return ["inherit", "white", "black"].includes(val);
+          }
+        }),
+        isSection: () => ({
+          value: false,
+          type: Boolean
+        }),
+        isBold: () => ({
+          value: false,
+          type: Boolean
+        }),
+        index: () => ({
+          value: "",
+          type: String
+        })
+      }
+    }
+  );
+
   // src/js/component/common/doc-svg/doc-svg.js
   var loadSvg = async ({ proxi }) => {
     const { success, data } = await loadTextContent({ source: proxi.url });
@@ -43354,7 +43205,9 @@
       className: ["c-doc-svg", proxi.className ?? ""],
       content: invalidate({
         observe: () => proxi.source,
-        render: () => proxi.source
+        render: () => htmlObject({
+          content: proxi.source
+        })
       })
     });
   };
@@ -43462,7 +43315,7 @@
         type: Number
       }),
       data: () => ({
-        value: [],
+        value: [{ label: "comp-1" }, { label: "comp-2" }],
         type: Array,
         validate: (value) => value.length < maxItem,
         strict: true,
@@ -43647,7 +43500,7 @@
                 )
               ]
             });
-          }).join("");
+          });
         }
       })
     };

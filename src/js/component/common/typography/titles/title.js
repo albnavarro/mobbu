@@ -2,7 +2,7 @@ import { htmlObject } from '@mobJs';
 
 /**
  * @param {string} index
- * @returns {string}
+ * @returns {HTMLElement}
  */
 const getIndex = (index) => {
     return index.length > 0
@@ -11,7 +11,7 @@ const getIndex = (index) => {
               className: 'title-index',
               content: index,
           })
-        : ``;
+        : htmlObject({});
 };
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Title>} */

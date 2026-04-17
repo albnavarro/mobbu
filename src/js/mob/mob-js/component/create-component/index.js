@@ -31,7 +31,7 @@ export const getDebugMode = () => {
  */
 export const createComponent = ({
     tag = '',
-    component = () => '',
+    component = () => document.createElement('div'),
     props = {},
     state = {},
     bindStore,
@@ -65,6 +65,5 @@ export const createComponent = ({
      * Register component at import
      */
     useComponent([comp]);
-
     return comp;
 };

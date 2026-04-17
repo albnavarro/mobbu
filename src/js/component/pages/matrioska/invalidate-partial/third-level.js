@@ -35,68 +35,66 @@ export const getThirdLevel = ({
         content: invalidate({
             observe: 'level3',
             render: () => {
-                return proxi.level3
-                    .map((item, index) => {
-                        const name = MobCore.getUnivoqueId();
-                        const name2 = MobCore.getUnivoqueId();
+                return proxi.level3.map((item, index) => {
+                    const name = MobCore.getUnivoqueId();
+                    const name2 = MobCore.getUnivoqueId();
 
-                        return htmlObject({
-                            className: 'level-wrap level-wrap--3',
-                            content: [
-                                {
-                                    component: MatrioskaItem,
-                                    className: 'is-3',
-                                    attributes: { name },
-                                    modules: [
-                                        staticProps(
-                                            /** @type {MatrioskaItemType['props']} */ ({
-                                                level: 'level 3',
-                                                value: item.value,
-                                                index: index,
-                                                key: `${item.key}`,
-                                            })
-                                        ),
-                                        bindProps(() => {
-                                            return {
-                                                counter: proxi.counter,
-                                            };
-                                        }),
-                                        delegateEvents({
-                                            click: () => {
-                                                toggleMatrioskaItemActive(name);
-                                            },
-                                        }),
-                                    ],
-                                },
-                                {
-                                    component: MatrioskaItem,
-                                    className: 'is-3',
-                                    attributes: { name: name2 },
-                                    modules: [
-                                        staticProps(
-                                            /** @type {MatrioskaItemType['props']} */ ({
-                                                level: 'level 3',
-                                                value: item.value,
-                                                index: index,
-                                                key: `${item.key}`,
-                                            })
-                                        ),
-                                        bindProps(() => {
-                                            return {
-                                                counter: proxi.counter,
-                                            };
-                                        }),
-                                        delegateEvents({
-                                            click: () => {
-                                                toggleMatrioskaItemActive(name);
-                                            },
-                                        }),
-                                    ],
-                                },
-                            ],
-                        });
-                    })
-                    .join('');
+                    return htmlObject({
+                        className: 'level-wrap level-wrap--3',
+                        content: [
+                            {
+                                component: MatrioskaItem,
+                                className: 'is-3',
+                                attributes: { name },
+                                modules: [
+                                    staticProps(
+                                        /** @type {MatrioskaItemType['props']} */ ({
+                                            level: 'level 3',
+                                            value: item.value,
+                                            index: index,
+                                            key: `${item.key}`,
+                                        })
+                                    ),
+                                    bindProps(() => {
+                                        return {
+                                            counter: proxi.counter,
+                                        };
+                                    }),
+                                    delegateEvents({
+                                        click: () => {
+                                            toggleMatrioskaItemActive(name);
+                                        },
+                                    }),
+                                ],
+                            },
+                            {
+                                component: MatrioskaItem,
+                                className: 'is-3',
+                                attributes: { name: name2 },
+                                modules: [
+                                    staticProps(
+                                        /** @type {MatrioskaItemType['props']} */ ({
+                                            level: 'level 3',
+                                            value: item.value,
+                                            index: index,
+                                            key: `${item.key}`,
+                                        })
+                                    ),
+                                    bindProps(() => {
+                                        return {
+                                            counter: proxi.counter,
+                                        };
+                                    }),
+                                    delegateEvents({
+                                        click: () => {
+                                            toggleMatrioskaItemActive(name);
+                                        },
+                                    }),
+                                ],
+                            },
+                        ],
+                    });
+                });
             },
         }),
     });

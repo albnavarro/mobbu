@@ -57,7 +57,6 @@ import { inizializeRepeatWatch } from '../../modules/repeater/action/inizialize-
 import { setRepeaterNativeDOMChildren } from '../../modules/repeater/action/set-repeat-native-dom-children';
 import { setRepeatFunction } from '../../modules/repeater/action/set-repeat-function';
 import { setRepeaterInstancesMapInitialized } from '../../modules/repeater/action/set-repeater-instances-map-initialized';
-import { setRepeaterInstancesDOMRender } from '../../modules/repeater/action/set-repeater-instances-map-initial-render';
 import {
     getRenderWithoutSync,
     getRenderWithSync,
@@ -131,7 +130,17 @@ export const getParamsForComponentFunction = ({
             /**
              * Attach new component
              */
-            attachTo.insertAdjacentHTML(position, component);
+            if (MobCore.checkType(String, component)) {
+                attachTo.insertAdjacentHTML(
+                    position,
+                    /** @type {string} */ (component)
+                );
+            } else {
+                attachTo.insertAdjacentElement(
+                    position,
+                    /** @type {any} */ (component)
+                );
+            }
 
             /**
              * Render
@@ -248,7 +257,10 @@ export const getParamsForComponentFunction = ({
                 props: values,
             });
 
-            return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render()}`;
+            const webComponent = document.createElement('mobjs-bind-text');
+            webComponent.setAttribute(ATTR_COMPONENT_ID, id);
+            webComponent.setAttribute(ATTR_BIND_TEXT_ID, bindTextId);
+            return [webComponent, render()];
         },
         bindObject: (strings, ...values) => {
             const keys = getBindObjectKeys(values);
@@ -256,7 +268,10 @@ export const getParamsForComponentFunction = ({
             const render = () => renderBindObject(strings, ...values);
             addBindObjectToInitialzie(bindObjectId, { id, keys, render });
 
-            return `<mobjs-bind-object ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_OBJECT_ID}="${bindObjectId}"></mobjs-bind-object>${render()}`;
+            const webComponent = document.createElement('mobjs-bind-object');
+            webComponent.setAttribute(ATTR_COMPONENT_ID, id);
+            webComponent.setAttribute(ATTR_BIND_OBJECT_ID, bindObjectId);
+            return [webComponent, render()];
         },
         invalidate: ({
             observe,
@@ -269,7 +284,6 @@ export const getParamsForComponentFunction = ({
              */
             const observeParsed = parseObserveInvalidate(observe);
             const invalidateId = MobCore.getUnivoqueId();
-            const sync = `${ATTR_INVALIDATE}='${invalidateId}'`;
             const invalidateRender = () => render();
 
             /**
@@ -334,7 +348,15 @@ export const getParamsForComponentFunction = ({
                 },
             });
 
-            return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
+            const webComponent = document.createElement('mobjs-invalidate');
+            webComponent.setAttribute(ATTR_INVALIDATE, invalidateId);
+
+            const rawRender = invalidateRender();
+            const renderArray = /** @type {HTMLElement[]} */ (
+                MobCore.checkType(Array, rawRender) ? rawRender : [rawRender]
+            );
+
+            return [webComponent, ...renderArray];
         },
         repeat: (
             /** @type {import('./type').RepeatInternal} */ {
@@ -393,13 +415,13 @@ export const getParamsForComponentFunction = ({
             });
 
             /**
-             * Get first render if user use sync utils, fallback to empty string if not.
+             * Get first render if user do not use sync utils, fallback to empty array if not.
              *
-             * - User add repeater attribute manually.
-             * - Sync utils contains repeater attribute.
-             * - Get first render in string format.
+             * - Here we need to add repeater attribute manually.
+             * - Sync utils contains repeater attribute .
+             * - Get first render in real DOM format
              */
-            const initialStringRender = useSync
+            const initialDOMRender = useSync
                 ? getRenderWithSync({
                       currentUnique,
                       key,
@@ -408,17 +430,6 @@ export const getParamsForComponentFunction = ({
                       hasKey,
                       render,
                   })
-                : '';
-
-            /**
-             * Get first render if user do not use sync utils, fallback to empty array if not.
-             *
-             * - Here we need to add repeater attribute manually.
-             * - Sync utils contains repeater attribute .
-             * - Get first render in real DOM format
-             */
-            const initialDOMRender = useSync
-                ? []
                 : getRenderWithoutSync({
                       currentUnique,
                       render,
@@ -432,25 +443,6 @@ export const getParamsForComponentFunction = ({
              * Flag to ensure that initialize function is fired once.
              */
             let isInizialized = false;
-
-            /**
-             * Set first render in repeatInstancesMap.
-             *
-             * Render is a string:
-             *
-             * - Add empty array.
-             * - Dom is added in return function as string and will render normally.
-             *
-             * Render is a DOM collection:
-             *
-             * - Add all element to initialRenderWithoutSync prop in repeatInstancesMap.
-             * - Will be added to DOM in setParentRepeater() function.
-             * - SetParentRepeater is fired when `mobjs-repeat` customComponent is added to the DOM.
-             */
-            setRepeaterInstancesDOMRender({
-                repeatId,
-                initialDOMRender,
-            });
 
             /**
              * Initialize module.
@@ -504,7 +496,9 @@ export const getParamsForComponentFunction = ({
                 },
             });
 
-            return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${initialStringRender}`;
+            const webComponent = document.createElement('mobjs-repeat');
+            webComponent.setAttribute(ATTR_MOBJS_REPEAT, repeatId);
+            return [webComponent, ...initialDOMRender];
         },
     };
 };

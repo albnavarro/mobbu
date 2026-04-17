@@ -13,7 +13,6 @@ import {
 import { setRestoreScroll } from '../route/scroll-store';
 import { setRedirectFunction } from '../route/redirect';
 import { setDefaultComponent } from '../component/create-component';
-import { addDOMfromString } from '../parse/steps/utils';
 
 /**
  * Inizializa default route.
@@ -84,12 +83,7 @@ export const inizializeApp = async ({
     /**
      * Add wrapper to root node.
      */
-    addDOMfromString({
-        stringDOM: wrapperDOM,
-        parent: rootEl,
-        position: 'afterbegin',
-    });
-
+    rootEl.prepend(wrapperDOM);
     setContentElement();
 
     /**

@@ -26,7 +26,10 @@ export const DocSvgFn = ({ getProxi, invalidate, onMount }) => {
         className: ['c-doc-svg', proxi.className ?? ''],
         content: invalidate({
             observe: () => proxi.source,
-            render: () => proxi.source,
+            render: () =>
+                htmlObject({
+                    content: proxi.source,
+                }),
         }),
     });
 };

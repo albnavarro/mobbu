@@ -56,7 +56,7 @@ export const DebugHeadFn = ({ invalidate, getProxi }) => {
                 content: invalidate({
                     observe: () => proxi.active,
                     render: () => {
-                        if (!proxi.active) return '';
+                        if (!proxi.active) return htmlObject({});
 
                         /**
                          * Recompile left component every update

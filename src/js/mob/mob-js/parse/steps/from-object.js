@@ -1,215 +1,147 @@
 import { MobCore } from '@mobCore';
 
-const VOID_ELEMENTS = new Set([
-    'area',
-    'base',
-    'br',
-    'col',
-    'embed',
-    'hr',
-    'img',
-    'input',
-    'link',
-    'meta',
-    'param',
-    'source',
-    'track',
-    'wbr',
-]);
-
 /**
- * Compact classes from array
+ * Get array of classes.
  *
- * @param {string[]} value
- * @returns {string}
+ * - ['section-class pippo', 'pluto'] array of string
+ * - 'section-class pippo' // multiple classes in string
+ * - 'section-class' // string
+ *
+ * @param {string | string[]} value
+ * @returns {string[]}
  */
-const getStringOrArrayOfString = (value) => {
-    const valueToArray = MobCore.checkType(String, value) ? [value] : value;
+const getClassList = (value) => {
+    const valueToArray = /** @type {string[]} */ (
+        MobCore.checkType(String, value) ? [value] : value
+    );
 
-    return /** @type {string[]} */ (valueToArray).reduce(
-        (previous, current) => {
-            return previous.length === 0 ? current : `${previous} ${current}`;
-        },
-        ''
+    /**
+     * - Usiamo filter(Boolean) per saltare stringhe vuote es spazi bianchi
+     * - /\s+/ divisiamo per spazi anche miltipli
+     */
+    return valueToArray.flatMap((item) =>
+        item.trim().split(/\s+/).filter(Boolean)
     );
 };
 
 /**
- * Parse attributes
- *
- * @param {any} value
- * @param {boolean} [useData]
- */
-const getAttributes = (value, useData = false) =>
-    Object.entries(value).reduce((previous, [key, value]) => {
-        /**
-         * Skip falsi
-         */
-        if (value === false || value == null) return previous;
-
-        /**
-         * Boolean
-         */
-        if (value === true) return `${previous} ${key}`;
-
-        /**
-         * String/number
-         */
-        return useData
-            ? `${previous} data-${key}="${value}"`
-            : `${previous} ${key}="${value}"`;
-    }, '');
-
-/**
- * Parse style
- *
- * @param {Record<string, string>} value
- * @returns {string}
- */
-const getStylesFromObject = (value) => {
-    return Object.entries(value).reduce((previous, [key, value]) => {
-        if (previous.length === 0) return `${key}:${value};`;
-        return `${previous}${key}:${value};`;
-    }, '');
-};
-
-/**
- * Parse modules
- *
- * @param {Record<string, string>} value
- * @returns {string}
- */
-const extractSingleModule = (value) => {
-    return Object.entries(value).reduce((previous, [key, value]) => {
-        if (previous.length === 0) return `${key}="${value}" `;
-        return `${previous} ${key}="${value}" `;
-    }, '');
-};
-
-/**
- * Parse modules
- *
- * @param {Record<string, string> | Record<string, string>[]} value
- * @returns {string}
- */
-const getModules = (value) => {
-    const valueToArray = /** @type{Record<string, string>[]} */ (
-        MobCore.checkType(Array, value) ? value : [value]
-    );
-
-    return valueToArray.reduce((previous, current) => {
-        const currentModule = extractSingleModule(current);
-        return `${previous} ${currentModule}`;
-    }, '');
-};
-
-/**
- * @type {import('./type').FromObject}
+ * @type {import('./type').FromObjectType}
  */
 export const htmlObject = (data) => {
-    /**
-     * Use userComponent tag or DOM generic tag
-     */
     const component = data?.component ?? null;
     const componentKey = component && Object.keys(component)?.[0];
     const tag = componentKey ?? data?.tag ?? `div`;
 
-    // @ts-ignore
-    const className = getStringOrArrayOfString(data?.className ?? []);
-    const classAttr = className.trim() ? `class="${className}"` : '';
-
-    const styleToParse = data?.style;
-    const style = styleToParse ? getStylesFromObject(data?.style ?? {}) : '';
-    const styleAttr = style.trim() ? `style="${style}"` : '';
-
-    const attributeToParse = data?.attributes;
-    const attributes = attributeToParse
-        ? getAttributes(data?.attributes ?? {})
-        : '';
-
-    const dataAttributeToParse = data?.dataAttributes;
-    const dataAttributes = dataAttributeToParse
-        ? getAttributes(data?.dataAttributes ?? [], true)
-        : '';
-
-    const contentToParse = data?.content;
-    const content = contentToParse ? getContent(data?.content ?? []) : '';
-
-    // @ts-ignore
-    const moduleToParse = data?.modules;
-    const modules = moduleToParse ? getModules(data?.modules ?? {}) : '';
+    const rootElement = document.createElement(tag);
 
     /**
-     * Check for void elements
+     * ClassList
      */
-    const isVoid = VOID_ELEMENTS.has(tag.toLowerCase());
+    // @ts-ignore
+    const classList = getClassList(data?.className ?? []);
+    for (const classValue of classList) {
+        rootElement.classList.add(classValue);
+    }
 
-    return isVoid
-        ? `<${tag} ${classAttr} ${styleAttr} ${attributes} ${dataAttributes} ${modules}/>`
-        : `<${tag} ${classAttr} ${styleAttr} ${attributes} ${dataAttributes} ${modules}>${content}</${tag}>`;
+    /**
+     * Style
+     */
+    const styles = data?.style ?? {};
+    for (const [key, value] of Object.entries(styles)) {
+        rootElement.style.setProperty(key, String(value));
+    }
+
+    /**
+     * Attributes
+     */
+    const attributes = data?.attributes ?? {};
+    for (const [key, value] of Object.entries(attributes)) {
+        /**
+         * I valori false e null non devono aggiungere l' attributo
+         */
+        if (value === false || value == null) continue;
+
+        rootElement.setAttribute(key, /** @type {any} */ (value));
+    }
+
+    /**
+     * Data attributes
+     */
+    const dataAttributes = data?.dataAttributes ?? {};
+    for (const [key, value] of Object.entries(dataAttributes)) {
+        /**
+         * I valori false e null non devono aggiungere l' attributo
+         */
+        if (value === false || value == null) continue;
+
+        rootElement.setAttribute(`data-${key}`, /** @type {any} */ (value));
+    }
+
+    /**
+     * Modules
+     */
+    const modules = data?.modules ?? {};
+    const modulesArray = MobCore.checkType(Array, modules)
+        ? modules
+        : [modules];
+
+    for (const item of /** @type{Record<string, any>[]} */ (modulesArray)) {
+        for (const [key, value] of Object.entries(item)) {
+            rootElement.setAttribute(key, /** @type {any} */ (value));
+        }
+    }
+
+    const children = data?.content;
+    if (children) addContentChild(rootElement, children);
+
+    return rootElement;
 };
 
 /**
- * @param {any} value
+ * @param {HTMLElement} rootElement
+ * @param {import('./type').FromObjectNodeContent} children
  */
-const getContent = (value) => {
-    /**
-     * Singolo Nodo
-     */
-    if (MobCore.checkType(Object, value)) {
-        return htmlObject(value);
+const addContentChild = (rootElement, children) => {
+    const childrenToArray = MobCore.checkType(Array, children)
+        ? children
+        : [children];
+
+    for (const child of /** @type {any} */ (childrenToArray)) {
+        /**
+         * Simple string
+         */
+        if (MobCore.checkType(String, child)) {
+            rootElement.insertAdjacentHTML('beforeend', child);
+            continue;
+        }
+
+        /**
+         * HTML Node element
+         */
+        if (MobCore.checkType(HTMLElement, child)) {
+            rootElement.append(child);
+            continue;
+        }
+
+        /**
+         * Nestes array.
+         *
+         * - Nested array should is flatted in main array.
+         * - Repeat/Invalidate/BindObject/BindText return an array of element.
+         * - So flat all element in main conente array.
+         */
+        if (MobCore.checkType(Array, child)) {
+            addContentChild(rootElement, child);
+            continue;
+        }
+
+        /**
+         * Library component
+         */
+        if (MobCore.checkType(Object, child)) {
+            const content = htmlObject(child);
+            rootElement.append(content);
+            continue;
+        }
     }
-
-    /**
-     * Singolo textContent
-     */
-    if (MobCore.checkType(String, value)) {
-        return value;
-    }
-
-    /**
-     * Check for multiple content
-     */
-    const valueToArray = MobCore.checkType(String, value) ? [value] : value;
-
-    /**
-     * No content
-     */
-    if (valueToArray.length === 0) return '';
-
-    return valueToArray.reduce(
-        (
-            /** @type {any} */ previous,
-            /** @type {import('./type').FromObjectNodeDescriptor} */ current
-        ) => {
-            if (!current) return previous;
-
-            /**
-             * Array
-             */
-            if (MobCore.checkType(Array, current)) {
-                return getContent(current);
-            }
-
-            /**
-             * TextContent
-             */
-            if (MobCore.checkType(String, current)) {
-                return `${previous} ${current}`;
-            }
-
-            /**
-             * DOM node content
-             */
-            if (MobCore.checkType(Object, current)) {
-                return `${previous} ${htmlObject(current)}`;
-            }
-
-            /**
-             * Fallback per numeri e altri tipi
-             */
-            return `${previous} ${String(current)}`;
-        },
-        ''
-    );
 };

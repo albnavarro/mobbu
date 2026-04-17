@@ -7,7 +7,7 @@ export const benchMarkDefinitionPartial = (maxItem = 1001) => ({
             type: Number,
         }),
         data: () => ({
-            value: [],
+            value: [{ label: 'comp-1' }, { label: 'comp-2' }],
             type: Array,
             validate: (/** @type {any[]} */ value) => value.length < maxItem,
             strict: true,

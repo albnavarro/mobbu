@@ -49,7 +49,7 @@ const createAnimation = ({ proxi, getRef, resetScroll = true }) => {
  * @param {ProxiState<ScrollerN0>} params.proxi
  * @param {GetRef<ScrollerN0>} params.getRef
  * @param {BindEffect<ScrollerN0>} params.bindEffect
- * @returns {string[]}
+ * @returns {HTMLElement[]}
  */
 function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     return params.map(({ label }, index) => {

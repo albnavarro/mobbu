@@ -14,7 +14,6 @@ import { parseComponents } from '../parse';
 import { getRestoreScroll } from './scroll-store';
 import { tick } from '../queque/tick';
 import { removeCancellableComponent } from '../component/action/remove-and-destroy/cancellable-component/destroy-all-non-persisitent-component';
-import { addDOMfromString } from '../parse/steps/utils';
 
 /**
  * @type {Map<string, number>}
@@ -175,11 +174,7 @@ export const loadPage = async ({
     contentElement.replaceChildren();
 
     removeCancellableComponent();
-    addDOMfromString({
-        stringDOM: content,
-        parent: contentElement,
-        position: 'afterbegin',
-    });
+    contentElement.prepend(content);
 
     /**
      * Wait for all render.

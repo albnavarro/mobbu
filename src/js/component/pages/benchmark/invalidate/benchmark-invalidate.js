@@ -43,28 +43,26 @@ export const BenchMarkInvalidateFn = ({
             render: () => {
                 const { data } = getState();
 
-                return data
-                    .map(({ label }, index) => {
-                        return htmlObject({
-                            component: BenchMarkFakeComponent,
-                            modules: [
-                                staticProps(
-                                    /** @type {import('../fake-component/type').BenchMarkFakeComponentType['props']} */
-                                    ({
-                                        label,
-                                        index,
-                                    })
-                                ),
-                                bindProps(
-                                    /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
-                                    () => ({
-                                        counter: proxi.counter,
-                                    })
-                                ),
-                            ],
-                        });
-                    })
-                    .join('');
+                return data.map(({ label }, index) => {
+                    return htmlObject({
+                        component: BenchMarkFakeComponent,
+                        modules: [
+                            staticProps(
+                                /** @type {import('../fake-component/type').BenchMarkFakeComponentType['props']} */
+                                ({
+                                    label,
+                                    index,
+                                })
+                            ),
+                            bindProps(
+                                /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                                () => ({
+                                    counter: proxi.counter,
+                                })
+                            ),
+                        ],
+                    });
+                });
             },
         }),
     };

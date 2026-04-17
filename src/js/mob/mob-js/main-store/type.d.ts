@@ -2,7 +2,7 @@ import { ComponentParsed, ComponentPropsType } from '../type';
 
 export type ComponentFunction = (
     arg0: ComponentPropsType
-) => Promise<string> | string;
+) => Promise<HTMLElement> | HTMLElement;
 
 export interface ComponentListMap {
     componentFunction: ComponentFunction;

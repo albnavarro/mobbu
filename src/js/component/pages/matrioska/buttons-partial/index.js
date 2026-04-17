@@ -1,4 +1,4 @@
-import { htmlObject, html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { buttons } from './utils';
 import { MobCore } from '@mobCore';
 import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definition';
@@ -89,10 +89,10 @@ export const getButtons = ({
                                     )
                                 ];
 
-                            return html`
-                                Number of items: ${data.length} ( max
-                                ${button.maxItem} )
-                            `;
+                            return htmlObject({
+                                content: ` Number of items: ${data.length} ( max
+                                ${button.maxItem} )`,
+                            });
                         },
                     }),
                 },

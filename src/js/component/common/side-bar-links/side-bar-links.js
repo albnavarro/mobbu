@@ -30,35 +30,33 @@ let updateScroller = () => {};
  * @param {SideBarLinks['state']} param.proxi
  */
 const getItems = ({ staticProps, bindProps, proxi }) => {
-    return proxi.data
-        .map((item) => {
-            const { label, url, isLabel } = item;
+    return proxi.data.map((item) => {
+        const { label, url, isLabel } = item;
 
-            return isLabel
-                ? htmlObject({
-                      tag: 'p',
-                      className: 'label',
-                      content: label,
-                  })
-                : htmlObject({
-                      tag: 'li',
-                      content: {
-                          component: SideBarLinksButton,
-                          modules: [
-                              staticProps(
-                                  /** @type {SideBarLinksButtonType['props']} */ ({
-                                      label,
-                                      url,
-                                  })
-                              ),
-                              bindProps(() => ({
-                                  active: proxi.activeSection === url,
-                              })),
-                          ],
-                      },
-                  });
-        })
-        .join('');
+        return isLabel
+            ? htmlObject({
+                  tag: 'p',
+                  className: 'label',
+                  content: label,
+              })
+            : htmlObject({
+                  tag: 'li',
+                  content: {
+                      component: SideBarLinksButton,
+                      modules: [
+                          staticProps(
+                              /** @type {SideBarLinksButtonType['props']} */ ({
+                                  label,
+                                  url,
+                              })
+                          ),
+                          bindProps(() => ({
+                              active: proxi.activeSection === url,
+                          })),
+                      ],
+                  },
+              });
+    });
 };
 
 /** @type {MobComponent<SideBarLinks>} */

@@ -34,7 +34,7 @@ const getScrollAdjustment = (id, total) => {
  * @param {number} params.numOfCol
  * @param {boolean} params.pinIsVisible
  * @param {StaticProps<import('./section/type').HorizontalScrollerSectionType>} params.staticProps
- * @returns {string[]}
+ * @returns {HTMLElement[]}
  */
 const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
     const pinClass = pinIsVisible ? '' : 'hidden';
