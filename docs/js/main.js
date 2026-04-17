@@ -10315,6 +10315,14 @@
       }
     }
   };
+  var htmlString = (value) => {
+    const template = document.createElement("template");
+    template.innerHTML = value.trim();
+    return (
+      /** @type {HTMLElement | null} */
+      template.content.firstElementChild ?? document.createElement("div")
+    );
+  };
 
   // src/js/mob/mob-motion/core.js
   var core_exports = {};
@@ -34984,9 +34992,7 @@
   // src/js/component/common/any-component/any-component.js
   var AnyComponentFn = ({ getState }) => {
     const { content } = getState();
-    return htmlObject({
-      content
-    });
+    return htmlString(content);
   };
 
   // src/js/component/common/any-component/definition.js

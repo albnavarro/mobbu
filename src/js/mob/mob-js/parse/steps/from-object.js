@@ -145,3 +145,18 @@ const addContentChild = (rootElement, children) => {
         }
     }
 };
+
+/**
+ * @param {string} value
+ * @returns {HTMLElement}
+ */
+export const htmlString = (value) => {
+    const template = document.createElement('template');
+    template.innerHTML = value.trim();
+
+    return (
+        /** @type {HTMLElement | null} */ (
+            template.content.firstElementChild
+        ) ?? document.createElement('div')
+    );
+};
