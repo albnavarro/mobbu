@@ -37,7 +37,6 @@ export const BenchMarkRepeatWithKyFnNested = ({
         content: repeat({
             observe: () => proxi.data,
             key: 'label',
-            useSync: true,
             render: ({ current }) => {
                 return htmlObject({
                     tag: 'div',
@@ -50,9 +49,8 @@ export const BenchMarkRepeatWithKyFnNested = ({
                             tag: 'div',
                             content: repeat({
                                 observe: () => proxi.data,
-                                useSync: true,
                                 key: 'label',
-                                render: ({ sync, current }) => {
+                                render: ({ current }) => {
                                     return htmlObject({
                                         component: BenchMarkFakeComponent,
                                         modules: [
@@ -64,7 +62,6 @@ export const BenchMarkRepeatWithKyFnNested = ({
                                                     counter: proxi.counter,
                                                 })
                                             ),
-                                            sync(),
                                         ],
                                     });
                                 },

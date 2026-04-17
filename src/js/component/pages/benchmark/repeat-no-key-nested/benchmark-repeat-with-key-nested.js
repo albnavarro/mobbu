@@ -36,7 +36,6 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
         className: 'list',
         content: repeat({
             observe: () => proxi.data,
-            useSync: true,
             render: ({ current }) => {
                 return htmlObject({
                     tag: 'div',
@@ -49,8 +48,7 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
                             tag: 'div',
                             content: repeat({
                                 observe: () => proxi.data,
-                                useSync: true,
-                                render: ({ sync, current }) => {
+                                render: ({ current }) => {
                                     return htmlObject({
                                         component: BenchMarkFakeComponent,
                                         modules: [
@@ -62,7 +60,6 @@ export const BenchMarkRepeatWithNoKeyFnNested = ({
                                                     counter: proxi.counter,
                                                 })
                                             ),
-                                            sync(),
                                         ],
                                     });
                                 },

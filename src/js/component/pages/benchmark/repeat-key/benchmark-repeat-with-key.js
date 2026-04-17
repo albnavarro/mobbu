@@ -38,9 +38,8 @@ export const BenchMarkRepeatWithKyFn = ({
         className: 'list',
         content: repeat({
             observe: () => proxi.data,
-            useSync: true,
             key: 'label',
-            render: ({ sync, current }) => {
+            render: ({ current }) => {
                 return benchMarkUseProxi
                     ? htmlObject({
                           component: BenchMarkFakeComponent,
@@ -53,7 +52,6 @@ export const BenchMarkRepeatWithKyFn = ({
                                       counter: proxi.counter,
                                   })
                               ),
-                              sync(),
                           ],
                       })
                     : htmlObject({
@@ -68,7 +66,6 @@ export const BenchMarkRepeatWithKyFn = ({
                                       counter: counter,
                                   }),
                               }),
-                              sync(),
                           ],
                       });
             },

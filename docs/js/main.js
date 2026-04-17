@@ -38286,8 +38286,7 @@
     const renderList = repeat({
       observe: () => proxi.data,
       key: "id",
-      useSync: true,
-      render: ({ sync, current }) => {
+      render: ({ current }) => {
         return htmlObject({
           component: DebugFilterListItem,
           modules: [
@@ -38303,8 +38302,7 @@
               () => ({
                 tag: current.value.tag
               })
-            ),
-            sync()
+            )
           ]
         });
       }
@@ -43636,8 +43634,7 @@
           className: "list",
           content: repeat({
             observe: () => proxi.data,
-            useSync: true,
-            render: ({ sync, current }) => {
+            render: ({ current }) => {
               return benchMarkUseProxi ? htmlObject({
                 component: BenchMarkFakeComponent,
                 modules: [
@@ -43648,8 +43645,7 @@
                       label: current.value.label,
                       counter: proxi.counter
                     })
-                  ),
-                  sync()
+                  )
                 ]
               }) : htmlObject({
                 component: BenchMarkFakeComponent,
@@ -43662,8 +43658,7 @@
                       label: value["label"],
                       counter: counter2
                     })
-                  }),
-                  sync()
+                  })
                 ]
               });
             }
@@ -43705,9 +43700,8 @@
       className: "list",
       content: repeat({
         observe: () => proxi.data,
-        useSync: true,
         key: "label",
-        render: ({ sync, current }) => {
+        render: ({ current }) => {
           return benchMarkUseProxi ? htmlObject({
             component: BenchMarkFakeComponent,
             modules: [
@@ -43718,8 +43712,7 @@
                   label: current.value.label,
                   counter: proxi.counter
                 })
-              ),
-              sync()
+              )
             ]
           }) : htmlObject({
             component: BenchMarkFakeComponent,
@@ -43732,8 +43725,7 @@
                   label: value["label"],
                   counter: counter2
                 })
-              }),
-              sync()
+              })
             ]
           });
         }
@@ -43805,7 +43797,6 @@
       content: repeat({
         observe: () => proxi.data,
         key: "label",
-        useSync: true,
         render: ({ current }) => {
           return htmlObject({
             tag: "div",
@@ -43818,9 +43809,8 @@
                 tag: "div",
                 content: repeat({
                   observe: () => proxi.data,
-                  useSync: true,
                   key: "label",
-                  render: ({ sync, current: current2 }) => {
+                  render: ({ current: current2 }) => {
                     return htmlObject({
                       component: BenchMarkFakeComponent,
                       modules: [
@@ -43831,8 +43821,7 @@
                             label: current2.value.label,
                             counter: proxi.counter
                           })
-                        ),
-                        sync()
+                        )
                       ]
                     });
                   }
@@ -43911,7 +43900,6 @@
       className: "list",
       content: repeat({
         observe: () => proxi.data,
-        useSync: true,
         render: ({ current }) => {
           return htmlObject({
             tag: "div",
@@ -43924,8 +43912,7 @@
                 tag: "div",
                 content: repeat({
                   observe: () => proxi.data,
-                  useSync: true,
-                  render: ({ sync, current: current2 }) => {
+                  render: ({ current: current2 }) => {
                     return htmlObject({
                       component: BenchMarkFakeComponent,
                       modules: [
@@ -43936,8 +43923,7 @@
                             label: current2.value.label,
                             counter: proxi.counter
                           })
-                        ),
-                        sync()
+                        )
                       ]
                     });
                   }
@@ -44188,8 +44174,7 @@
           className: "list",
           content: repeat({
             observe: () => proxi.data,
-            useSync: true,
-            render: ({ sync, current }) => {
+            render: ({ current }) => {
               return benchMarkUseProxi ? htmlObject({
                 component: BenchMarkFakeComponent,
                 modules: [
@@ -44200,8 +44185,7 @@
                       label: current.value.label,
                       counter: proxi.counter
                     })
-                  ),
-                  sync()
+                  )
                 ]
               }) : htmlObject({
                 component: BenchMarkFakeComponent,
@@ -44214,8 +44198,7 @@
                       label: value["label"],
                       counter: counter2
                     })
-                  }),
-                  sync()
+                  })
                 ]
               });
             }

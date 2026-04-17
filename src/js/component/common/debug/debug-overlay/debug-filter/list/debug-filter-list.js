@@ -202,8 +202,7 @@ export const DebugFilterListFn = ({
     const renderList = repeat({
         observe: () => proxi.data,
         key: 'id',
-        useSync: true,
-        render: ({ sync, current }) => {
+        render: ({ current }) => {
             return htmlObject({
                 component: DebugFilterListItem,
                 modules: [
@@ -219,7 +218,6 @@ export const DebugFilterListFn = ({
                             tag: current.value.tag,
                         })
                     ),
-                    sync(),
                 ],
             });
         },

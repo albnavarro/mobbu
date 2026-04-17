@@ -72,8 +72,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
                 className: 'list',
                 content: repeat({
                     observe: () => proxi.data,
-                    useSync: true,
-                    render: ({ sync, current }) => {
+                    render: ({ current }) => {
                         return benchMarkUseProxi
                             ? htmlObject({
                                   component: BenchMarkFakeComponent,
@@ -86,7 +85,6 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
                                               counter: proxi.counter,
                                           })
                                       ),
-                                      sync(),
                                   ],
                               })
                             : htmlObject({
@@ -105,7 +103,6 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
                                               counter: counter,
                                           }),
                                       }),
-                                      sync(),
                                   ],
                               });
                     },
