@@ -30,11 +30,33 @@
             }
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "To render a single static node from a string, you can use the <span class='quote'>htmlString</span> utility."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mob-js/html-string.js",
+                "numLines": 5
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h3"
             },
-            "content": "Example"
+            "content": "htmlObject Example"
         },
         {
             "component": "mob-snippet",
