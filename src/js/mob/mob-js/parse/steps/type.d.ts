@@ -67,7 +67,12 @@ export type NodeOrTextMix = (
  */
 export type FromObjectNodeContentItem =
     | string
-    | HTMLElement
+    /**
+     * Generiamo un tipo vuoto privo di propietá propie mantendo la compatibilitá strutturale con HTMLElement
+     *
+     * - Questo per avere un autocmpletamanto pius tretto senza usare i metodo di HTMLElement che sono troppi.
+     */
+    | Pick<HTMLElement, never>
     | FromObjectNodeDescriptor;
 
 /**
