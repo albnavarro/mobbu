@@ -43321,7 +43321,18 @@
         type: Number
       }),
       data: () => ({
-        value: [{ label: "comp-1" }, { label: "comp-2" }],
+        value: [
+          { label: "comp-1" },
+          { label: "comp-2" },
+          { label: "comp-3" },
+          { label: "comp-4" },
+          { label: "comp-5" },
+          { label: "comp-6" },
+          { label: "comp-7" },
+          { label: "comp-8" },
+          { label: "comp-9" },
+          { label: "comp-10" }
+        ],
         type: Array,
         validate: (value) => value.length < maxItem,
         strict: true,
