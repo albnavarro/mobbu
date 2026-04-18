@@ -8,7 +8,6 @@
             padding-left: calc(var(--gap-size) / 2);
             color: var(--white);
             font-size: rem(12);
-            cursor: pointer;
 
             @include when-inside('.is-whelling') {
                 pointer-events: none;
@@ -41,6 +40,7 @@
             font-size: rem(10);
             line-height: 1.8;
             vertical-align: middle;
+            cursor: pointer;
 
             &:focus {
                 outline: none;
