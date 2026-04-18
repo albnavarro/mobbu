@@ -116,43 +116,55 @@ export const DebugTreeItemFn = ({
                 ],
                 content: [
                     {
-                        tag: 'span',
-                        className: 'tree-id',
-                        content: proxi.id,
-                    },
-                    '|',
-                    {
-                        tag: 'span',
-                        className: 'tree-component',
-                        content: proxi.componentName,
-                    },
-                    '|',
-                    {
-                        tag: 'span',
-                        className: 'tree-instance',
-                        content: proxi.instanceName,
-                    },
-                    {
-                        tag: 'span',
-                        content: getCounter(proxi.children.length),
-                    },
-                    {
-                        tag: 'button',
-                        attributes: { type: 'button' },
-                        className: 'tree-expand',
-                        modules: delegateEvents({
-                            click: () => {
-                                updateDebugComponentById(proxi.id);
+                        className: 'c-debug-tree-item-left',
+                        content: [
+                            {
+                                tag: 'span',
+                                className: 'tree-id',
+                                content: proxi.id,
                             },
-                        }),
-                        content: 'detail',
+                            '|',
+                            {
+                                tag: 'span',
+                                className: 'tree-component',
+                                content: proxi.componentName,
+                            },
+                            '|',
+                            {
+                                tag: 'span',
+                                className: 'tree-instance',
+                                content: proxi.instanceName,
+                            },
+                            {
+                                tag: 'span',
+                                content: getCounter(proxi.children.length),
+                            },
+                        ],
                     },
                     {
-                        tag: 'span',
-                        className: 'tree-selected',
-                        modules: bindEffect({
-                            toggleClass: { active: () => proxi.isActive },
-                        }),
+                        className: 'c-debug-tree-item-right',
+                        content: [
+                            {
+                                tag: 'button',
+                                attributes: { type: 'button' },
+                                className: 'tree-expand',
+                                modules: delegateEvents({
+                                    click: () => {
+                                        updateDebugComponentById(proxi.id);
+                                    },
+                                }),
+                                content: 'detail',
+                            },
+                            {
+                                tag: 'span',
+                                className: 'tree-selected',
+                                modules: bindEffect({
+                                    toggleClass: {
+                                        active: () => proxi.isActive,
+                                    },
+                                }),
+                            },
+                        ],
                     },
                 ],
             },

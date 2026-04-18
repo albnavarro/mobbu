@@ -24,39 +24,49 @@ export const DebugFilterListItemFn = ({
         className: 'c-debug-filter-list-item',
         content: [
             {
-                tag: 'span',
-                className: 'id',
-                content: proxi.id,
-            },
-            '|',
-            {
-                tag: 'span',
-                className: 'tag',
-                content: bindText`${'tag'}`,
-            },
-            '|',
-            {
-                tag: 'span',
-                className: 'name',
-                content: proxi.name,
-            },
-            {
-                tag: 'button',
-                attributes: { type: 'button' },
-                className: 'expand',
-                modules: delegateEvents({
-                    click: () => {
-                        updateDebugComponentById(proxi.id);
+                className: 'c-debug-filter-list-left',
+                content: [
+                    {
+                        tag: 'span',
+                        className: 'id',
+                        content: proxi.id,
                     },
-                }),
-                content: 'detail',
+                    '|',
+                    {
+                        tag: 'span',
+                        className: 'tag',
+                        content: bindText`${'tag'}`,
+                    },
+                    '|',
+                    {
+                        tag: 'span',
+                        className: 'name',
+                        content: proxi.name,
+                    },
+                ],
             },
             {
-                tag: 'span',
-                className: 'selected',
-                modules: bindEffect({
-                    toggleClass: { active: () => proxi.active },
-                }),
+                className: 'c-debug-filter-list-right',
+                content: [
+                    {
+                        tag: 'button',
+                        attributes: { type: 'button' },
+                        className: 'expand',
+                        modules: delegateEvents({
+                            click: () => {
+                                updateDebugComponentById(proxi.id);
+                            },
+                        }),
+                        content: 'detail',
+                    },
+                    {
+                        tag: 'span',
+                        className: 'selected',
+                        modules: bindEffect({
+                            toggleClass: { active: () => proxi.active },
+                        }),
+                    },
+                ],
             },
         ],
     });
