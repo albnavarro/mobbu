@@ -87,7 +87,7 @@ export const getThirdLevel = ({
                                     }),
                                     delegateEvents({
                                         click: () => {
-                                            toggleMatrioskaItemActive(name);
+                                            toggleMatrioskaItemActive(name2);
                                         },
                                     }),
                                 ],
