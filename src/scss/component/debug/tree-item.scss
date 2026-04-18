@@ -18,7 +18,6 @@
 
             &.has-children {
                 position: relative;
-                cursor: pointer;
 
                 &::before {
                     content: '[ + ]';
@@ -48,8 +47,16 @@
             font-weight: 600;
         }
 
-        .c-debug-tree-item-left {
+        .left {
             transition: opacity 0.35s;
+
+            &.has-children {
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 0.5;
+                }
+            }
         }
 
         .tree-expand {
@@ -93,12 +100,6 @@
 
             &.active {
                 display: inline-block;
-            }
-        }
-
-        .tree-header.has-children:hover {
-            .c-debug-tree-item-left {
-                opacity: 0.5;
             }
         }
     }

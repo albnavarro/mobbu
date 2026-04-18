@@ -116,7 +116,7 @@ export const DebugTreeItemFn = ({
                 ],
                 content: [
                     {
-                        className: 'c-debug-tree-item-left',
+                        className: ['left', hasChildrenClass],
                         content: [
                             {
                                 tag: 'span',
@@ -142,7 +142,7 @@ export const DebugTreeItemFn = ({
                         ],
                     },
                     {
-                        className: 'c-debug-tree-item-right',
+                        className: 'right',
                         content: [
                             {
                                 tag: 'button',

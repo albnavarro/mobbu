@@ -24,7 +24,7 @@ export const DebugFilterListItemFn = ({
         className: 'c-debug-filter-list-item',
         content: [
             {
-                className: 'c-debug-filter-list-left',
+                className: 'left',
                 content: [
                     {
                         tag: 'span',
@@ -46,7 +46,7 @@ export const DebugFilterListItemFn = ({
                 ],
             },
             {
-                className: 'c-debug-filter-list-right',
+                className: 'right',
                 content: [
                     {
                         tag: 'button',
