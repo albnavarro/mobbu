@@ -11,7 +11,7 @@ import { destroyNestedInvalidate } from '../../invalidate/action/destroy-nested-
 import { destroyNestedRepeat } from '../action/destroy-nested-repeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
-import { updateRepeaterWithtKey, updateRepeaterWithtKeyUseSync } from './utils';
+import { updateRepeaterWithtKey } from './utils';
 import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { getComponentNameByElement } from '../../../component/action/component';
 import { getDefaultComponent } from '../../../component/create-component';
@@ -39,7 +39,6 @@ const addDebugToComponent = ({ element, container }) => {
  * @param {string} params.id - Component id where repeater is contained.
  * @param {import('../type').RepeaterRender} params.render - The render function that return repeater item.
  * @param {string} params.repeatId - Id of repeater
- * @param {boolean} params.useSync - If true dataset is add manually by user.
  * @returns {any[]}
  */
 export const addWithKey = ({
@@ -51,7 +50,6 @@ export const addWithKey = ({
     id = '',
     render,
     repeatId,
-    useSync,
 }) => {
     /**
      * Get unique data array by key
@@ -275,25 +273,15 @@ export const addWithKey = ({
 
             const currentValue = currentUnique?.[index];
 
-            const currentRender = useSync
-                ? updateRepeaterWithtKeyUseSync({
-                      currentValue,
-                      index,
-                      state,
-                      repeatId,
-                      key,
-                      keyValue,
-                      render,
-                  })
-                : updateRepeaterWithtKey({
-                      currentValue,
-                      index,
-                      state,
-                      repeatId,
-                      key,
-                      keyValue,
-                      render,
-                  });
+            const currentRender = updateRepeaterWithtKey({
+                currentValue,
+                index,
+                state,
+                repeatId,
+                key,
+                keyValue,
+                render,
+            });
 
             if (currentRender) fragment.append(currentRender);
         }

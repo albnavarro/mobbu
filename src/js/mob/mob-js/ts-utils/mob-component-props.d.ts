@@ -301,11 +301,6 @@ export interface PartialRepeat<T> {
         key?: string | undefined;
 
         /**
-         * Add manually sync attributes to repeater child.
-         */
-        useSync?: boolean;
-
-        /**
          * Function fired before update
          *
          * @example
@@ -352,7 +347,6 @@ export interface PartialRepeat<T> {
          *     ```
          */
         render: (arg0: {
-            sync: () => Record<string, string>;
             initialIndex: number;
             initialValue: ArrayElement<ExtractPropsAndState<T>[K]>;
             current: PartialCurrent<T, K>;
@@ -375,11 +369,6 @@ export interface PartialRepeat<T> {
         key?: string | undefined;
 
         /**
-         * Add manually sync attributes to repeater child.
-         */
-        useSync?: boolean;
-
-        /**
          * Function fired before update
          *
          * @example
@@ -426,7 +415,6 @@ export interface PartialRepeat<T> {
          *     ```
          */
         render: (arg0: {
-            sync: () => Record<string, string>;
             initialIndex: number;
             initialValue: ArrayElement<K>;
             current: PartialCurrentProxi<K>;

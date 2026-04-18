@@ -46,7 +46,6 @@ export const watchRepeat = ({
     id = '',
     repeatId = '',
     render,
-    useSync = false,
 }) => {
     const mainComponent = getElementById({ id });
 
@@ -184,7 +183,6 @@ export const watchRepeat = ({
                 id,
                 render,
                 repeatId,
-                useSync,
                 currentChildren: clean ? [] : childrenBeforeUdateByRepeatId,
             });
 

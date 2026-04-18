@@ -1,21 +1,10 @@
-import {
-    ATTR_CHILD_REPEATID,
-    ATTR_CURRENT_LIST_VALUE,
-    ATTR_KEY,
-    ATTR_REPEATER_PROP_BIND,
-} from '../../../constant';
 import { setRepeatAttribute } from '../../../parse/steps/utils';
 import { queryAllFutureComponent } from '../../../query/query-all-future-component';
-import { setComponentRepeaterState } from '../repeater-value';
 import { REPATE_PROXI_FAIL } from './constant';
 import { getRepeatProxi } from './get-proxi';
 
 /**
  * - Add without key ( update step ).
- * - UseSync === false
- * - Means user do not add manually repeater attribute.
- * - Manually add repeater attribute to web component.
- * - Then return real DOM element
  *
  * @param {object} params
  * @param {number} params.diff
@@ -60,7 +49,6 @@ export const updateRepeaterWitoutKey = ({
                 initialIndex,
                 initialValue,
                 current: proxiObject,
-                sync: () => ({ _no_sync: '' }),
             });
 
             /**
@@ -100,96 +88,7 @@ export const updateRepeaterWitoutKey = ({
 };
 
 /**
- * @param {object} params
- * @param {number} params.initialIndex
- * @param {any} params.initialValue
- * @param {string} params.state
- * @param {string} params.repeatId
- * @returns {Record<string, string>}
- */
-const getSyncWithoutKey = ({ initialIndex, initialValue, state, repeatId }) => {
-    return {
-        [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
-            current: initialValue,
-            index: initialIndex,
-        }),
-        [ATTR_REPEATER_PROP_BIND]: state,
-        [ATTR_CHILD_REPEATID]: repeatId,
-    };
-};
-
-/**
- * - Add without key ( update step ).
- * - UseSync === true
- * - Means user add manually repeater attribute.
- * - Then return DOM in string format.
- *
- * @param {object} params
- * @param {number} params.diff
- * @param {any} params.current
- * @param {number} params.previousLenght
- * @param {string} params.state
- * @param {string} params.repeatId
- * @param {import('../type').RepeaterRender} params.render
- * @returns {HTMLElement[]}
- */
-export const updateRepeaterWithoutKeyUseSync = ({
-    diff,
-    previousLenght,
-    current,
-    state,
-    repeatId,
-    render,
-}) => {
-    const renderedDOM = [...Array.from({ length: diff }).keys()].map(
-        (_item, index) => {
-            const initialIndex = index + previousLenght;
-
-            // use a copy to avoid problem in closure below.
-            const initialValue = current?.[initialIndex]
-                ? { ...current?.[initialIndex] }
-                : {};
-
-            const proxiObject = getRepeatProxi({
-                observe: state,
-                hasKey: false,
-                index: initialIndex,
-                repeatId,
-            });
-
-            /**
-             * If proxi return false repeater is destroyed before proxi creation
-             *
-             * - Should skip item render
-             */
-            if (proxiObject?.['value'] === REPATE_PROXI_FAIL) return;
-
-            return render({
-                sync: () =>
-                    getSyncWithoutKey({
-                        initialIndex,
-                        initialValue,
-                        repeatId,
-                        state,
-                    }),
-                initialIndex,
-                initialValue,
-                current: proxiObject,
-            });
-        }
-    );
-
-    return renderedDOM.filter(
-        (element) => element !== null && element !== undefined
-    );
-};
-
-/**
  * - Add with key ( update step ).
- * - UseSync === false
- * - Means user do not add manually repeater attribute.
- * - Manually add repeater attribute to web component.
- * - Then return real DOM element
  *
  * @param {object} params
  * @param {Record<string, any>} params.currentValue
@@ -236,7 +135,6 @@ export const updateRepeaterWithtKey = ({
         initialIndex: index,
         initialValue: currentValue,
         current: proxiObject,
-        sync: () => ({ _no_sync: '' }),
     });
 
     /**
@@ -268,91 +166,7 @@ export const updateRepeaterWithtKey = ({
 };
 
 /**
- * @param {object} params
- * @param {string} params.keyValue
- * @param {number} params.index
- * @param {any} params.currentValue
- * @param {string} params.state
- * @param {string} params.repeatId
- * @returns {Record<string, string>}
- */
-const getSyncWithKey = ({ keyValue, index, currentValue, state, repeatId }) => {
-    return {
-        [ATTR_KEY]: keyValue,
-        [ATTR_REPEATER_PROP_BIND]: state,
-        [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
-            current: currentValue,
-            index,
-        }),
-        [ATTR_CHILD_REPEATID]: repeatId,
-    };
-};
-
-/**
- * - Add with key ( update step ).
- * - UseSync === true
- * - Means user add manually repeater attribute.
- * - Then return DOM in string format.
- *
- * @param {object} params
- * @param {Record<string, any>} params.currentValue
- * @param {number} params.index
- * @param {string} params.state
- * @param {string} params.repeatId
- * @param {string | undefined} params.key
- * @param {any} params.keyValue
- * @param {import('../type').RepeaterRender} params.render
- * @returns {HTMLElement | undefined}
- */
-export const updateRepeaterWithtKeyUseSync = ({
-    currentValue,
-    index,
-    state,
-    repeatId,
-    key,
-    keyValue,
-    render,
-}) => {
-    // use a copy to avoid problem in closure below.
-    const currentValueCopy = { ...currentValue };
-
-    const proxiObject = getRepeatProxi({
-        observe: state,
-        hasKey: true,
-        key,
-        keyValue,
-        index,
-        repeatId,
-    });
-
-    /**
-     * If proxi return false repeater is destroyed before proxi creation
-     *
-     * - Should skip item render
-     */
-    if (proxiObject?.['value'] === REPATE_PROXI_FAIL) return;
-
-    return render({
-        initialIndex: index,
-        initialValue: currentValueCopy,
-        current: proxiObject,
-        sync: () =>
-            getSyncWithKey({
-                currentValue: currentValueCopy,
-                index,
-                keyValue,
-                repeatId,
-                state,
-            }),
-    });
-};
-
-/**
  * - First render step, ( directly from get-params-for-component.js )
- * - UseSync === false
- * - Means user do not add manually repeater attribute.
- * - Manually add repeater attribute to web component.
- * - Then return real DOM element
  *
  * @param {object} params
  * @param {Record<string, any>[]} params.currentUnique
@@ -363,7 +177,7 @@ export const updateRepeaterWithtKeyUseSync = ({
  * @param {boolean} params.hasKey
  * @returns {HTMLElement[]}
  */
-export const getRenderWithoutSync = ({
+export const getRepeatIntialRender = ({
     currentUnique,
     render,
     observe,
@@ -395,7 +209,6 @@ export const getRenderWithoutSync = ({
             initialIndex: index,
             initialValue: item,
             current: proxiObject,
-            sync: () => ({ _no_sync: '' }),
         });
 
         /**
@@ -422,69 +235,6 @@ export const getRenderWithoutSync = ({
          * Remove fragment as soon as possible from GC. TODO Is really necessary ?
          */
         return fragment;
-    });
-
-    return renderedDOM.filter(
-        (element) => element !== null && element !== undefined
-    );
-};
-
-/**
- * - First render step, ( directly from get-params-for-component.js )
- * - UseSync === true
- * - Means user add manually repeater attribute.
- * - Then return DOM in string format.
- *
- * @param {object} params
- * @param {Record<string, any>[]} params.currentUnique
- * @param {import('../type').RepeaterRender} params.render
- * @param {string} params.observe
- * @param {string} params.repeatId
- * @param {string} params.key
- * @param {boolean} params.hasKey
- * @returns {HTMLElement[]}
- */
-export const getRenderWithSync = ({
-    currentUnique,
-    key = '',
-    observe,
-    repeatId,
-    hasKey,
-    render,
-}) => {
-    const renderedDOM = currentUnique.map((item, index) => {
-        const sync = () => ({
-            [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
-                current: item,
-                index: index,
-            }),
-            [ATTR_KEY]: hasKey ? item?.[key] : '',
-            [ATTR_REPEATER_PROP_BIND]: observe,
-            [ATTR_CHILD_REPEATID]: repeatId,
-        });
-
-        const proxiObject = getRepeatProxi({
-            observe,
-            hasKey,
-            key,
-            keyValue: hasKey ? item?.[key] : '',
-            index,
-            repeatId,
-        });
-
-        /**
-         * If proxi return false repeater is destroyed before proxi creation
-         *
-         * - Should skip item render
-         */
-        if (proxiObject?.['value'] === REPATE_PROXI_FAIL) return;
-
-        return render({
-            sync,
-            initialIndex: index,
-            initialValue: item,
-            current: proxiObject,
-        });
     });
 
     return renderedDOM.filter(

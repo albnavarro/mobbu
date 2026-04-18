@@ -3,30 +3,9 @@
 
 # MobJs
 
-
-## htmlObject step 1. valutare se é il caso di eseguirlo.
-### Content:
-   - Tornera sempre un array di nodi, webcomponent + render/renders.
-   - **Soluzione 1** Per cui tutti i moduli `content` andranno spreddati ( come promeria ma non attuale )
-       ```javascript
-       content: [
-           ...repeat(...),
-           ...invalidate(...),
-           ...bindObject(...),
-           ...bindText(...)
-       ]
-       ```
-   - **Soluzione 2**
-       htmlObjectNext gestisce giá array annidati
-
-   - Metre:
-      - `bindObject` e `bindText` avranno un output del tipo: `[webComponent, string]`
-      - `repeat` avra un uotput del tipo: `[webComponent, HTMLElement]`
-      - `invalidate`: avra un output del tipo `[webComponent, ...[ HTMLElement, HTMLElement, ... ]]`
-
-**A questo punto repeat potra tornare sempre il render senza suddivisione tra string e DOM.**
-  - Ora saranno solo elementi del DOM
-
+## I moduli come bindEffect non possono essere applicati direttamante alla creazione del componente.
+- Se si abilita `bindEffetct` per copiare gli attributi in `convert-to-real-element` ( aggiungendoli in `user-component` )
+- Si rischia di sovrascrivere i moduli applicati nella root del componente se usati.
 
 
 ## Repat proxi
@@ -37,9 +16,6 @@
 
 ## Routing:
 - Rendere opzionale il blocco sul caricamento della stessa rotta.
-
-## Sanitize
-- Aggiungere una `callBack` per fare un parsing dell' `html` prima di appenderlo al `DOM` con librerie esterne.
 
 ## attributeChangedCallback
 - In riferimento agli `stati esportabili`, `attributeChangedCallback` puo intereccettare se l'atributo é uno stato e automaticamante eseguire un `this.#params.setState(state, <val>)`.

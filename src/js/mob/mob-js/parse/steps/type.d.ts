@@ -40,7 +40,6 @@ interface RepeatInternal {
      */
     key?: string;
     render: (arg0: {
-        sync: () => Record<string, string>;
         initialIndex: number;
         initialValue: any;
         current: {
@@ -48,7 +47,6 @@ interface RepeatInternal {
             value: any;
         };
     }) => HTMLElement;
-    useSync?: boolean;
 }
 
 export interface NodeOrText {

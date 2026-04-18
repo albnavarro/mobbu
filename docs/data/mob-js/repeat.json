@@ -172,7 +172,6 @@
                 "style": "medium",
                 "items": [
                     "<p>The current object is a proxy that always stays in sync - it automatically updates its index and value properties whenever the observed array changes.</p>",
-                    "<p>The sync function (optional) should be used only when enabling the useSync feature.</p>",
                     "<p>The initialValue (optional) represents the static value of an array element at component creation time - it remains fixed regardless of subsequent updates.</p>",
                     "<p>The initialIndex (optional) captures the array position frozen in time when the component was first created - this index value won't change even if the array later shifts or updates.</p>"
                 ]

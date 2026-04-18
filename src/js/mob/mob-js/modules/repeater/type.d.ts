@@ -6,11 +6,6 @@ import {
 
 export type RepeaterRender = (arg0: {
     /**
-     * Attribute for component if needed
-     */
-    sync: () => Record<string, string>;
-
-    /**
      * Initial index value ( static )
      */
     initialIndex: number;
@@ -77,11 +72,6 @@ export interface Repeater {
      * The render function that return repeater item.
      */
     render: RepeaterRender;
-
-    /**
-     * If true dataset is add manually by user.
-     */
-    useSync: boolean;
 }
 
 export interface WatchList extends Repeater {

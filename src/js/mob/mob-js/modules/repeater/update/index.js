@@ -25,7 +25,6 @@ import { listKeyExist } from '../utils';
  * @param {string} params.id - Component id where repeater is contained.
  * @param {string} params.repeatId - Id of repeater
  * @param {import('../type').RepeaterRender} params.render - The render function that return repeater item.
- * @param {boolean} params.useSync - If true dataset is add manually by user.
  * @param {string[]} params.currentChildren - Previous childre id inside repeater.
  * @returns {Promise<any[]>} - The array parsed ( if key is used has unique element )
  */
@@ -39,7 +38,6 @@ export const updateRepeater = async ({
     id,
     render,
     repeatId,
-    useSync,
     currentChildren = [],
 }) => {
     /**
@@ -64,7 +62,6 @@ export const updateRepeater = async ({
         id,
         render,
         repeatId,
-        useSync,
         currentChildren,
     });
 

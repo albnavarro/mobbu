@@ -7,10 +7,7 @@ import { destroyNestedRepeat } from '../action/destroy-nested-repeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { chunkIdsByCurrentValue } from '../utils';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
-import {
-    updateRepeaterWitoutKey,
-    updateRepeaterWithoutKeyUseSync,
-} from './utils';
+import { updateRepeaterWitoutKey } from './utils';
 import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { getDefaultComponent } from '../../../component/create-component';
 import { setRepeaterInstancesCurrentData } from '../action/set-repeat-instances-map-current-data';
@@ -46,7 +43,6 @@ const removeMissedDebugComment = (container) => {
  * @param {import('../type').RepeaterRender} params.render - The render function that return repeater item.
  * @param {string} params.id - Component id where repeater is contained.
  * @param {string} params.repeatId - Id of repeater
- * @param {boolean} params.useSync - If true dataset is add manually by user.
  * @param {string[]} params.currentChildren - Previous childre id inside repeater.
  * @returns {any[]}
  */
@@ -58,7 +54,6 @@ export const addWithoutKey = ({
     render,
     repeatId,
     id,
-    useSync,
     currentChildren,
 }) => {
     /**
@@ -88,23 +83,14 @@ export const addWithoutKey = ({
      * Add
      */
     if (diff > 0) {
-        const currentRender = useSync
-            ? updateRepeaterWithoutKeyUseSync({
-                  diff,
-                  previousLenght,
-                  current,
-                  state,
-                  repeatId,
-                  render,
-              })
-            : updateRepeaterWitoutKey({
-                  diff,
-                  current,
-                  previousLenght,
-                  render,
-                  state,
-                  repeatId,
-              });
+        const currentRender = updateRepeaterWitoutKey({
+            diff,
+            current,
+            previousLenght,
+            render,
+            state,
+            repeatId,
+        });
 
         addMultipleDOMElement({
             elements: /** @type {Element[]} */ (currentRender),

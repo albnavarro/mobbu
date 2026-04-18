@@ -57,10 +57,7 @@ import { inizializeRepeatWatch } from '../../modules/repeater/action/inizialize-
 import { setRepeaterNativeDOMChildren } from '../../modules/repeater/action/set-repeat-native-dom-children';
 import { setRepeatFunction } from '../../modules/repeater/action/set-repeat-function';
 import { setRepeaterInstancesMapInitialized } from '../../modules/repeater/action/set-repeater-instances-map-initialized';
-import {
-    getRenderWithoutSync,
-    getRenderWithSync,
-} from '../../modules/repeater/update/utils';
+import { getRepeatIntialRender } from '../../modules/repeater/update/utils';
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { setStaticProps } from '../../modules/static-props';
 import { repeaterhasComponentChildren } from '../../modules/repeater/action/set-repeat-component-children';
@@ -366,7 +363,6 @@ export const getParamsForComponentFunction = ({
                 afterUpdate = () => {},
                 key = '',
                 render,
-                useSync = false,
             }
         ) => {
             /**
@@ -421,23 +417,14 @@ export const getParamsForComponentFunction = ({
              * - Sync utils contains repeater attribute .
              * - Get first render in real DOM format
              */
-            const initialDOMRender = useSync
-                ? getRenderWithSync({
-                      currentUnique,
-                      key,
-                      observe: observeParsed,
-                      repeatId,
-                      hasKey,
-                      render,
-                  })
-                : getRenderWithoutSync({
-                      currentUnique,
-                      render,
-                      observe: observeParsed,
-                      repeatId,
-                      key,
-                      hasKey,
-                  });
+            const initialDOMRender = getRepeatIntialRender({
+                currentUnique,
+                render,
+                observe: observeParsed,
+                repeatId,
+                key,
+                hasKey,
+            });
 
             /**
              * Flag to ensure that initialize function is fired once.
@@ -471,7 +458,6 @@ export const getParamsForComponentFunction = ({
                         key,
                         id,
                         render,
-                        useSync,
                     });
 
                     isInizialized = true;
