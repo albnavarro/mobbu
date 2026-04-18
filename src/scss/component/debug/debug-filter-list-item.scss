@@ -5,8 +5,10 @@
         :scope {
             position: relative;
             padding-left: calc(var(--gap-size) / 2);
+            transition: opacity 0.35s;
             color: var(--white);
             font-size: rem(12);
+            cursor: pointer;
 
             @include when-inside('.is-whelling') {
                 pointer-events: none;
@@ -22,6 +24,12 @@
                 width: rem(5);
                 background: var(--white);
             }
+
+            &:hover {
+                > span {
+                    opacity: 0.5;
+                }
+            }
         }
 
         .id {
@@ -31,10 +39,13 @@
 
         .expand {
             margin-left: rem(5);
+            padding: 0 rem(6);
             transition: opacity 0.35s;
             border: 0;
-            background: transparent;
+            border-radius: rem(4);
+            background: rgba(var(--white-rgb), 0.1);
             font-size: rem(10);
+            line-height: 1.8;
             vertical-align: middle;
 
             &:focus {

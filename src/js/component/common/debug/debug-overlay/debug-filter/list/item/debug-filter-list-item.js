@@ -49,7 +49,7 @@ export const DebugFilterListItemFn = ({
                         updateDebugComponentById(proxi.id);
                     },
                 }),
-                content: '[ > ]',
+                content: 'detail',
             },
             {
                 tag: 'span',

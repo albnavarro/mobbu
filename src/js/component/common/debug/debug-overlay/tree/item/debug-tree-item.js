@@ -145,7 +145,7 @@ export const DebugTreeItemFn = ({
                                 updateDebugComponentById(proxi.id);
                             },
                         }),
-                        content: '[ > ]',
+                        content: 'detail',
                     },
                     {
                         tag: 'span',
