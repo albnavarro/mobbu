@@ -52,19 +52,17 @@ export const DebugFilterListItemFn = ({
                         tag: 'button',
                         attributes: { type: 'button' },
                         className: 'expand',
-                        modules: delegateEvents({
-                            click: () => {
-                                updateDebugComponentById(proxi.id);
-                            },
-                        }),
+                        modules: [
+                            delegateEvents({
+                                click: () => {
+                                    updateDebugComponentById(proxi.id);
+                                },
+                            }),
+                            bindEffect({
+                                toggleClass: { active: () => proxi.active },
+                            }),
+                        ],
                         content: 'detail',
-                    },
-                    {
-                        tag: 'span',
-                        className: 'selected',
-                        modules: bindEffect({
-                            toggleClass: { active: () => proxi.active },
-                        }),
                     },
                 ],
             },

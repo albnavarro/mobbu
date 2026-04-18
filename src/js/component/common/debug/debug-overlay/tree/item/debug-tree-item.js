@@ -148,21 +148,19 @@ export const DebugTreeItemFn = ({
                                 tag: 'button',
                                 attributes: { type: 'button' },
                                 className: 'tree-expand',
-                                modules: delegateEvents({
-                                    click: () => {
-                                        updateDebugComponentById(proxi.id);
-                                    },
-                                }),
+                                modules: [
+                                    delegateEvents({
+                                        click: () => {
+                                            updateDebugComponentById(proxi.id);
+                                        },
+                                    }),
+                                    bindEffect({
+                                        toggleClass: {
+                                            active: () => proxi.isActive,
+                                        },
+                                    }),
+                                ],
                                 content: 'detail',
-                            },
-                            {
-                                tag: 'span',
-                                className: 'tree-selected',
-                                modules: bindEffect({
-                                    toggleClass: {
-                                        active: () => proxi.isActive,
-                                    },
-                                }),
                             },
                         ],
                     },

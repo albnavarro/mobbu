@@ -113,9 +113,13 @@ const getContent = ({ getState }) => {
                     content: [
                         {
                             tag: 'strong',
-                            content: 'id',
+                            content: 'id:',
                         },
-                        `: ${id}`,
+                        {
+                            tag: 'span',
+                            className: 'id-code',
+                            content: id,
+                        },
                     ],
                 },
             },
@@ -124,9 +128,15 @@ const getContent = ({ getState }) => {
                     content: [
                         {
                             tag: 'strong',
-                            content: 'parent id',
+                            content: 'parent id:',
                         },
-                        `: ${item.parentId}`,
+                        item?.parentId?.length && item.parentId.length > 0
+                            ? {
+                                  tag: 'span',
+                                  className: 'parent-id-code',
+                                  content: item.parentId,
+                              }
+                            : '',
                     ],
                 },
             },

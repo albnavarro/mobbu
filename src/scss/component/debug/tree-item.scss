@@ -81,6 +81,12 @@
             @include on-event {
                 opacity: 0.3;
             }
+
+            &.active {
+                opacity: 1;
+                background: var(--white);
+                color: var(--dark);
+            }
         }
 
         .tree-instance {
