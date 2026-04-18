@@ -9,7 +9,7 @@
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
-import { htmlObject, html, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../constant';
 import { debugActiveComponentStore } from '@stores/debug';
 
@@ -38,22 +38,28 @@ const getObjectKeys = (methods) => {
 
 /**
  * @param {{} | { [key: string]: string[] }} child
- * @returns {string}
+ * @returns {HTMLElement[]}
  */
 const getChild = (child) => {
-    return Object.entries(child)
-        .map(([key, value]) => {
-            return htmlObject({
-                content: [
-                    {
-                        tag: 'strong',
-                        content: key,
-                    },
-                    value.map((item) => html`${item}, `).join('.'),
-                ],
-            });
-        })
-        .join('');
+    return Object.entries(child).map(([key, value]) => {
+        return htmlObject({
+            content: [
+                {
+                    tag: 'strong',
+                    content: key,
+                },
+                {
+                    tag: 'ul',
+                    content: value.map((item) =>
+                        htmlObject({
+                            tag: 'li',
+                            content: item,
+                        })
+                    ),
+                },
+            ],
+        });
+    });
 };
 
 /**
@@ -67,22 +73,20 @@ const getFreezeProp = (props) => {
 
 /**
  * @param {object | undefined} states
- * @returns {string}
+ * @returns {HTMLElement[]}
  */
 const getStateProps = (states) => {
-    return Object.entries(/** @type {any[]} */ (states))
-        .map(([key, value]) => {
-            return htmlObject({
-                content: [
-                    {
-                        tag: 'strong',
-                        content: key,
-                    },
-                    JSON.stringify(value),
-                ],
-            });
-        })
-        .join('');
+    return Object.entries(/** @type {any[]} */ (states)).map(([key, value]) => {
+        return htmlObject({
+            content: [
+                {
+                    tag: 'strong',
+                    content: [key, ':&nbsp'],
+                },
+                JSON.stringify(value),
+            ],
+        });
+    });
 };
 
 /**
@@ -202,6 +206,7 @@ const getContent = ({ getState }) => {
                 content: 'Children:',
             },
             {
+                class: 'section-list',
                 content: getChild(item?.child ?? {}),
             },
 
