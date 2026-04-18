@@ -5,6 +5,7 @@ import {
     shuffle,
 } from '../partials/bench-mark-list-partial';
 import { externalBenchmarkStore } from '@stores/benchmark';
+import { defaultAmountOfCard } from '../partials/definition-partial';
 
 /**
  * @import {
@@ -94,6 +95,7 @@ export const benchMarkListExternalPartial = ({
                             type: 'text',
                             name: 'numer-of-component',
                             placeholder: 'Number of component',
+                            value: defaultAmountOfCard,
                         },
                         modules: [
                             setRef('input'),

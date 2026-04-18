@@ -295,7 +295,7 @@ export const addWithKey = ({
                       render,
                   });
 
-            fragment.append(currentRender);
+            if (currentRender) fragment.append(currentRender);
         }
     );
 

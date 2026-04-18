@@ -1,8 +1,7 @@
 import { MobDetectBindKey } from '../../../../mob-core';
 import { clamp } from '../../../utils';
 import { getRepeaterInstancesCurrentData } from '../action/get-repeat-instances-map-current-data';
-
-const REPEAT_PROXI_INDEX = 'index';
+import { REPATE_PROXI_FAIL, REPEAT_PROXI_INDEX } from './constant';
 
 /**
  * Reactive state for repeat. Note: bindObject can run after 'item' is destroyed ( wekRef issue ). So clamp index value
@@ -28,8 +27,31 @@ export const getRepeatProxi = ({
     /**
      * Initial value.
      */
-    const inistalState = getRepeaterInstancesCurrentData({ repeatId });
+    const { alive, value: inistalState } = getRepeaterInstancesCurrentData({
+        repeatId,
+    });
 
+    /**
+     * - Reference Repeat is destroyed before proxi invocation
+     * - Return message for repater, skip element creation
+     */
+    if (!alive) {
+        return new Proxy(
+            {},
+            {
+                get() {
+                    return REPATE_PROXI_FAIL;
+                },
+                set() {
+                    return false;
+                },
+            }
+        );
+    }
+
+    /**
+     * Reference Repeat exist, go on
+     */
     const startValue = hasKey
         ? inistalState?.find(
               (/** @type {{ [x: string]: any }} */ item) =>
@@ -52,7 +74,17 @@ export const getRepeatProxi = ({
                 /**
                  * Use last updated state Proxi target should be not last value.
                  */
-                const state = getRepeaterInstancesCurrentData({ repeatId });
+                const { alive, value: state } = getRepeaterInstancesCurrentData(
+                    {
+                        repeatId,
+                    }
+                );
+
+                /**
+                 * - Reference Repeat is destroyed before proxi invocation
+                 * - Return message for repater, skip element creation
+                 */
+                if (!alive) return REPATE_PROXI_FAIL;
 
                 const maxValue = Math.max(state?.length - 1, 0);
 

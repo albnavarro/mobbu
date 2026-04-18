@@ -1,4 +1,5 @@
 import { MobCore } from '@mobCore';
+import { defaultAmountOfCard } from '@pagesComponent/benchmark/partials/definition-partial';
 
 /**
  * @import {MobStoreParams} from "@mobStoreType"
@@ -8,7 +9,9 @@ export const externalBenchmarkStore = MobCore.createStore(
     /** @type {MobStoreParams<import('./type').ExternalStore>} */
     ({
         data: () => ({
-            value: [],
+            value: [...Array.from({ length: defaultAmountOfCard }).keys()].map(
+                (item) => ({ label: `comp-${item + 1}` })
+            ),
             type: Array,
             validate: (value) => value.length < 1001,
             strict: true,

@@ -10,12 +10,14 @@ import { repeatInstancesMap } from '../repeat-id-intances-map';
  *
  * @param {object} params
  * @param {string} params.repeatId
- * @returns {any[]}
+ * @returns {{ alive: boolean; value: any[] }}
  */
 
 export const getRepeaterInstancesCurrentData = ({ repeatId }) => {
     const item = repeatInstancesMap.get(repeatId);
-    if (!item) return [];
+    if (!item) {
+        return { alive: false, value: [] };
+    }
 
-    return item.currentData;
+    return { alive: true, value: item.currentData };
 };

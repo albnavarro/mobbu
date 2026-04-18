@@ -1,5 +1,6 @@
 import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
+import { defaultAmountOfCard } from './definition-partial';
 
 /**
  * @import {
@@ -114,6 +115,7 @@ export const benchMarkListPartial = ({
                             type: 'text',
                             name: 'numer-of-component',
                             placeholder: 'Number of component',
+                            value: defaultAmountOfCard,
                         },
                         modules: [
                             setRef('input'),

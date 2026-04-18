@@ -7,6 +7,7 @@ import {
 import { setRepeatAttribute } from '../../../parse/steps/utils';
 import { queryAllFutureComponent } from '../../../query/query-all-future-component';
 import { setComponentRepeaterState } from '../repeater-value';
+import { REPATE_PROXI_FAIL } from './constant';
 import { getRepeatProxi } from './get-proxi';
 
 /**
@@ -48,6 +49,13 @@ export const updateRepeaterWitoutKey = ({
                 repeatId,
             });
 
+            /**
+             * If proxi return false repeater is destroyed before proxi creation
+             *
+             * - Should skip item render
+             */
+            if (proxiObject?.['value'] === REPATE_PROXI_FAIL) return;
+
             const rawRender = render({
                 initialIndex,
                 initialValue,
@@ -86,7 +94,9 @@ export const updateRepeaterWitoutKey = ({
         }
     );
 
-    return renderedDOM.filter((element) => element !== null);
+    return renderedDOM.filter(
+        (element) => element !== null && element !== undefined
+    );
 };
 
 /**
@@ -131,34 +141,47 @@ export const updateRepeaterWithoutKeyUseSync = ({
     repeatId,
     render,
 }) => {
-    return [...Array.from({ length: diff }).keys()].map((_item, index) => {
-        const initialIndex = index + previousLenght;
+    const renderedDOM = [...Array.from({ length: diff }).keys()].map(
+        (_item, index) => {
+            const initialIndex = index + previousLenght;
 
-        // use a copy to avoid problem in closure below.
-        const initialValue = current?.[initialIndex]
-            ? { ...current?.[initialIndex] }
-            : {};
+            // use a copy to avoid problem in closure below.
+            const initialValue = current?.[initialIndex]
+                ? { ...current?.[initialIndex] }
+                : {};
 
-        const proxiObject = getRepeatProxi({
-            observe: state,
-            hasKey: false,
-            index: initialIndex,
-            repeatId,
-        });
+            const proxiObject = getRepeatProxi({
+                observe: state,
+                hasKey: false,
+                index: initialIndex,
+                repeatId,
+            });
 
-        return render({
-            sync: () =>
-                getSyncWithoutKey({
-                    initialIndex,
-                    initialValue,
-                    repeatId,
-                    state,
-                }),
-            initialIndex,
-            initialValue,
-            current: proxiObject,
-        });
-    });
+            /**
+             * If proxi return false repeater is destroyed before proxi creation
+             *
+             * - Should skip item render
+             */
+            if (proxiObject?.['value'] === REPATE_PROXI_FAIL) return;
+
+            return render({
+                sync: () =>
+                    getSyncWithoutKey({
+                        initialIndex,
+                        initialValue,
+                        repeatId,
+                        state,
+                    }),
+                initialIndex,
+                initialValue,
+                current: proxiObject,
+            });
+        }
+    );
+
+    return renderedDOM.filter(
+        (element) => element !== null && element !== undefined
+    );
 };
 
 /**
@@ -176,7 +199,7 @@ export const updateRepeaterWithoutKeyUseSync = ({
  * @param {any} params.keyValue
  * @param {string | undefined} params.key
  * @param {import('../type').RepeaterRender} params.render
- * @returns {HTMLElement}
+ * @returns {HTMLElement | undefined}
  */
 export const updateRepeaterWithtKey = ({
     currentValue,
@@ -195,6 +218,13 @@ export const updateRepeaterWithtKey = ({
         index,
         repeatId,
     });
+
+    /**
+     * If proxi return false repeater is destroyed before proxi creation
+     *
+     * - Should skip item render
+     */
+    if (proxiObject?.['value'] === REPATE_PROXI_FAIL) return;
 
     /**
      * Here each userComponent:
@@ -272,7 +302,7 @@ const getSyncWithKey = ({ keyValue, index, currentValue, state, repeatId }) => {
  * @param {string | undefined} params.key
  * @param {any} params.keyValue
  * @param {import('../type').RepeaterRender} params.render
- * @returns {HTMLElement}
+ * @returns {HTMLElement | undefined}
  */
 export const updateRepeaterWithtKeyUseSync = ({
     currentValue,
@@ -294,6 +324,13 @@ export const updateRepeaterWithtKeyUseSync = ({
         index,
         repeatId,
     });
+
+    /**
+     * If proxi return false repeater is destroyed before proxi creation
+     *
+     * - Should skip item render
+     */
+    if (proxiObject?.['value'] === REPATE_PROXI_FAIL) return;
 
     return render({
         initialIndex: index,
@@ -347,6 +384,13 @@ export const getRenderWithoutSync = ({
             repeatId,
         });
 
+        /**
+         * If proxi return false repeater is destroyed before proxi creation
+         *
+         * - Should skip item render
+         */
+        if (proxiObject?.['value'] === REPATE_PROXI_FAIL) return;
+
         const fragment = render({
             initialIndex: index,
             initialValue: item,
@@ -380,7 +424,9 @@ export const getRenderWithoutSync = ({
         return fragment;
     });
 
-    return renderedDOM.filter((element) => element !== null);
+    return renderedDOM.filter(
+        (element) => element !== null && element !== undefined
+    );
 };
 
 /**
@@ -406,7 +452,7 @@ export const getRenderWithSync = ({
     hasKey,
     render,
 }) => {
-    return currentUnique.map((item, index) => {
+    const renderedDOM = currentUnique.map((item, index) => {
         const sync = () => ({
             [ATTR_CURRENT_LIST_VALUE]: setComponentRepeaterState({
                 current: item,
@@ -426,6 +472,13 @@ export const getRenderWithSync = ({
             repeatId,
         });
 
+        /**
+         * If proxi return false repeater is destroyed before proxi creation
+         *
+         * - Should skip item render
+         */
+        if (proxiObject?.['value'] === REPATE_PROXI_FAIL) return;
+
         return render({
             sync,
             initialIndex: index,
@@ -433,4 +486,8 @@ export const getRenderWithSync = ({
             current: proxiObject,
         });
     });
+
+    return renderedDOM.filter(
+        (element) => element !== null && element !== undefined
+    );
 };
