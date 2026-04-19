@@ -29,6 +29,7 @@ import {
 import { inizializeNestedRepeat } from '../action/inizialize-nested-repeat';
 import { setRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
 import { getRepeaterComponentChildren } from '../action/set-repeat-component-children';
+import { checkRepeaterExistence } from '../action/check-repeater-existence';
 
 /**
  * @param {import('../type').WatchList} param
@@ -141,6 +142,31 @@ export const watchRepeat = ({
              */
             if (mainComponent) {
                 await beforeUpdate();
+            }
+
+            /**
+             * Waiting `beforeUpdate()` async function completed repeater maybe destroyed
+             *
+             * - Topically nested repeater issue.
+             * - Should happen with nested repeater
+             * - In this case skip all repeater update.
+             */
+
+            if (!checkRepeaterExistence({ repeatId })) {
+                /**
+                 * If repeater is destroyed unfreeze prop
+                 *
+                 * - In this case state should not be reverted.
+                 * - Here we check only repeater existence and exit if not.
+                 */
+                unFreezePropById({ id, prop: state });
+
+                /**
+                 * Remove watcher to active queuqe operation.
+                 */
+                descrementQueue();
+                descrementRepeaterQueue();
+                return;
             }
 
             /**

@@ -3,44 +3,6 @@
 
 # MobJs
 
-## Repater indagine: REPATE_PROXI_FAIL
-
-- Capire meglio il giro che porta nei repeater nested con key a:
-- Creare un item quando il suo repeater di riferimento non esiste ancora o é stato distrutto.
-- Il layer di sicurezza aggiunto sará comunque mantenuto come precauzione.
-
-#### Condizioni:
-```javascript
-// src/js/component/pages/benchmark/partials/definition-partial.js
-// Rimuovere + 1
-value: [...Array.from({ length: defaultAmountOfCard }).keys()].map(
-    (item) => ({ label: `comp-${item}` })
-),
-```
-
-```javascript
-// src/js/mob/mob-js/modules/repeater/update/get-proxi.js
-
-// rimuovere:
-if (!alive) {
-    return new Proxy(
-        {},
-        {
-            get() {
-                return REPATE_PROXI_FAIL;
-            },
-            set() {
-                return false;
-            },
-        }
-    );
-}
-
-// rimuovere:
-if (!alive) return REPATE_PROXI_FAIL;
-```
-
-
 ## IL modulo bindEffect non puó essere applicato direttamante alla creazione del componente ( nel component parente ).
 
 ##### Plan:
