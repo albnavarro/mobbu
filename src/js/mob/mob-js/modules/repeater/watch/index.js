@@ -151,7 +151,6 @@ export const watchRepeat = ({
              * - Should happen with nested repeater
              * - In this case skip all repeater update.
              */
-
             if (!checkRepeaterExistence({ repeatId })) {
                 /**
                  * If repeater is destroyed unfreeze prop

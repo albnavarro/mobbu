@@ -3,11 +3,6 @@
 
 # MobJs
 
-## Invalidate
-- Lavoro fatto per `repeat` sul check di esitenza del modulo dopo `await beforeUpdate()` andrebbe replicato anche nel modulo invalidate:
-- `src/js/mob/mob-js/modules/invalidate/action/inizialize-invalidate-watch.js`
-
-
 ## IL modulo bindEffect non puó essere applicato direttamante alla creazione del componente ( nel component parente ).
 
 ##### Plan:

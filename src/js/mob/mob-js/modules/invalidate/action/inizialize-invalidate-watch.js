@@ -22,6 +22,7 @@ import { incrementInvalidateTickQueuque } from '../../../queque/tick-invalidate'
 import { destroyNestedRepeat } from '../../repeater/action/destroy-nested-repeat';
 import { inizializeNestedRepeat } from '../../repeater/action/inizialize-nested-repeat';
 import { addInvalidateUnsubcribe } from './add-invalidate-unsubcribe';
+import { checkInvalidateExistence } from './check-invalidate-existence';
 import { destroyNestedInvalidate } from './destroy-nested-invalidate';
 import { getInvalidateParent } from './get-invalidate-parent';
 import { inizializeNestedInvalidate } from './inizialize-nested-invalidate';
@@ -109,6 +110,14 @@ export const inizializeInvalidateWatch = async ({
                 }
 
                 await beforeUpdate();
+
+                /**
+                 * Waiting `beforeUpdate()` async function completed invalidate maybe destroyed
+                 */
+                if (!checkInvalidateExistence({ invalidateId })) {
+                    unFreezePropById({ id, prop: state });
+                    return;
+                }
 
                 /**
                  * Remove child invalidate of this invalidate.
