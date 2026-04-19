@@ -61,10 +61,10 @@ function getControls({ proxi, delegateEvents, bindObject }) {
                     attributes: {
                         type: 'range',
                         id: inputId,
-                        step: 10,
-                        value: proxi.rotation,
                         min: 360,
                         max: 2220,
+                        value: proxi.rotation,
+                        step: 10,
                     },
                     modules: delegate,
                 },
