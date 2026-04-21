@@ -13,6 +13,7 @@ import {
     ATTR_REPEATER_PROP_BIND,
     ATTR_SLOT,
     ATTR_WEAK_BIND_EVENTS,
+    ATTR_BIND_EFFECT_INSTANCE,
 } from '../constant';
 import {
     addUserPlaceholder,
@@ -134,6 +135,11 @@ export const defineUserComponent = (componentList) => {
                  * @type {string | undefined | null}
                  */
                 #bindRefName;
+
+                /**
+                 * @type {string | undefined | null}
+                 */
+                #bindEffectInstance;
 
                 static get observedAttributes() {
                     return attributeToObserve;
@@ -305,6 +311,10 @@ export const defineUserComponent = (componentList) => {
                     return this.#bindRefName;
                 }
 
+                getBindEffectInstance() {
+                    return this.#bindEffectInstance;
+                }
+
                 resetParams() {
                     this.active = false;
                     this.#componentId = '';
@@ -370,6 +380,7 @@ export const defineUserComponent = (componentList) => {
                                 this.#repeatPropBind,
                                 this.#bindRefId,
                                 this.#bindRefName,
+                                this.#bindEffectInstance,
                             ] = [
                                 ATTR_INSTANCENAME,
                                 ATTR_PROPS,
@@ -384,6 +395,7 @@ export const defineUserComponent = (componentList) => {
                                 ATTR_REPEATER_PROP_BIND,
                                 ATTR_BIND_REFS_ID,
                                 ATTR_BIND_REFS_NAME,
+                                ATTR_BIND_EFFECT_INSTANCE,
                             ].map(
                                 (attribute) =>
                                     host.getAttribute(attribute) ?? ''
@@ -393,6 +405,20 @@ export const defineUserComponent = (componentList) => {
                         // @ts-ignore
                         addUserPlaceholder(host);
                         return;
+                    } else {
+                        const host = this.shadowRoot?.host;
+
+                        /**
+                         * Get special modules like bindEffectFrom Instance.
+                         */
+                        if (host) {
+                            [this.#bindEffectInstance] = [
+                                ATTR_BIND_EFFECT_INSTANCE,
+                            ].map(
+                                (attribute) =>
+                                    host.getAttribute(attribute) ?? ''
+                            );
+                        }
                     }
                 }
 

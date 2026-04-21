@@ -14,6 +14,7 @@ export interface ComponentData {
     currentRepeatValue: any;
     componentRepeatId: string | undefined;
     repeatPropBind: string | undefined;
+    bindEffectInstanceId: string | undefined;
 }
 
 export interface GetParamsForComponent extends ComponentStoreReturn {

@@ -1,4 +1,4 @@
-import { getRepeaterComponentChildren } from '../../modules/repeater/action/set-repeat-component-children';
+import { getRepeaterComponentChildren } from '../../modules/repeater/action/set/set-repeat-component-children';
 import { componentMap } from '../component-map';
 import {
     addElementToWeakElementMap,

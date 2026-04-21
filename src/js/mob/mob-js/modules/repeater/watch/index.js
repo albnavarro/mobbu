@@ -17,7 +17,7 @@ import {
     removeActiveRepeat,
 } from '../active-repeater';
 import { updateRepeater } from '../update';
-import { inizializeNestedInvalidate } from '../../invalidate/action/inizialize-nested-invalidate';
+import { inizializeNestedInvalidate } from '../../invalidate/action/initialize/inizialize-nested-invalidate';
 import {
     chunkIdsByCurrentValue,
     getOrderedChunkByCurrentRepeatValue,
@@ -25,10 +25,10 @@ import {
 import {
     getRepeatParent,
     removeRepeaterWebComponent,
-} from '../action/get-repeater-parent';
-import { inizializeNestedRepeat } from '../action/inizialize-nested-repeat';
-import { setRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
-import { getRepeaterComponentChildren } from '../action/set-repeat-component-children';
+} from '../action/get/get-repeater-parent';
+import { inizializeNestedRepeat } from '../action/initialize/inizialize-nested-repeat';
+import { setRepeaterNativeDOMChildren } from '../action/set/set-repeat-native-dom-children';
+import { getRepeaterComponentChildren } from '../action/set/set-repeat-component-children';
 import { checkRepeaterExistence } from '../action/check-repeater-existence';
 
 /**

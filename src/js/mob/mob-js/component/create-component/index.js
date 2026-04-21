@@ -1,4 +1,5 @@
 import { useComponent } from '../component-list';
+import { updateAvailableComponentTag } from '../component-tag';
 
 let defaultComponent = {
     scoped: false,
@@ -65,5 +66,6 @@ export const createComponent = ({
      * Register component at import
      */
     useComponent([comp]);
+    updateAvailableComponentTag(tag);
     return comp;
 };

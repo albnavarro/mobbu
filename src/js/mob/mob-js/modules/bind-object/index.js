@@ -2,8 +2,8 @@ import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { watchById } from '../../component/action/watch';
 import { invalidateTick } from '../../queque/tick-invalidate';
 import { repeaterTick } from '../../queque/tick-repeater';
-import { getInvalidateObservedByComponentid } from '../invalidate/action/get-invalidate-observed-by-component-id';
-import { getRepeaterObservedByComponentid } from '../repeater/action/get-repeater-observed-by-component-id';
+import { getInvalidateObservedByComponentid } from '../invalidate/action/get/get-invalidate-observed-by-component-id';
+import { getRepeaterObservedByComponentid } from '../repeater/action/get/get-repeater-observed-by-component-id';
 
 /**
  * Collect all future module to initialize at the end of parse.

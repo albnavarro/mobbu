@@ -2,15 +2,15 @@
 
 import { removeAndDestroyById } from '../../../component/action/remove-and-destroy/remove-and-destroy-by-id';
 import { getElementById } from '../../../component/action/element';
-import { destroyNestedInvalidate } from '../../invalidate/action/destroy-nested-invalidate';
-import { destroyNestedRepeat } from '../action/destroy-nested-repeat';
+import { destroyNestedInvalidate } from '../../invalidate/action/remove/remove-nested-invalidate';
+import { destroyNestedRepeat } from '../action/remove/remove-nested-repeat';
 import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { chunkIdsByCurrentValue } from '../utils';
 import { destroyComponentInsideNodeById } from '../../../component/action/remove-and-destroy/destroy-component-inside-node-by-id';
 import { updateRepeaterWitoutKey } from './utils';
-import { getRepeaterNativeDOMChildren } from '../action/set-repeat-native-dom-children';
+import { getRepeaterNativeDOMChildren } from '../action/set/set-repeat-native-dom-children';
 import { getDefaultComponent } from '../../../component/create-component';
-import { setRepeaterInstancesCurrentData } from '../action/set-repeat-instances-map-current-data';
+import { setRepeaterInstancesCurrentData } from '../action/set/set-repeat-instances-map-current-data';
 import { addMultipleDOMElement } from '../../../parse/steps/utils';
 
 /**

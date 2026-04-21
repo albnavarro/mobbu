@@ -10,7 +10,7 @@ import { getParentIdFromWeakElementMap } from '../../component/action/parent';
  * @param {import('../../web-component/type').UserComponent} obj.element
  * @returns {import('./type').ComponentData}
  */
-export const getParamsFromWebComponent = ({ element }) => {
+export const getParamsFromPlaceHolder = ({ element }) => {
     const id = element.getId();
     const instanceName = element.getInstanceName();
 
@@ -35,6 +35,7 @@ export const getParamsFromWebComponent = ({ element }) => {
     const propsFromParent = getPropsFromParent(cleanProsId);
     const baseProps = { ...element.dataset };
     const repeatPropBind = element.getRepeaterPropBind();
+    const bindEffectInstanceId = element.getBindEffectInstance();
     const currentRepeatValue = getComponentRepeaterState(
         currentRepeaterValueId
     );
@@ -57,6 +58,7 @@ export const getParamsFromWebComponent = ({ element }) => {
         key,
         dynamicPropsId,
         repeatPropBind,
+        bindEffectInstanceId,
         bindEventsId,
         currentRepeatValue,
         parentId,

@@ -47,24 +47,24 @@ import {
     renderBindText,
 } from '../../modules/bind-text';
 import { setDelegateBindEvent } from '../../modules/delegate-events';
-import { inizializeInvalidateWatch } from '../../modules/invalidate/action/inizialize-invalidate-watch';
+import { inizializeInvalidateWatch } from '../../modules/invalidate/action/initialize/inizialize-invalidate-watch';
 import { parseObserveInvalidate } from '../../modules/invalidate/action/parse-bindprop-invalidate';
-import { setInvalidateInitializeFunction } from '../../modules/invalidate/action/set-invalidate-function';
-import { setInvalidateInstancesMapInitialized } from '../../modules/invalidate/action/set-invalidate-instances-map-initialized';
-import { initializeInvalidateInstacesMap } from '../../modules/invalidate/action/set-invalidate-instances-map-scoped-id';
+import { setInvalidateInitializeFunction } from '../../modules/invalidate/action/set/set-invalidate-function';
+import { setInvalidateInstancesMapInitialized } from '../../modules/invalidate/action/set/set-invalidate-instances-map-initialized';
+import { initializeInvalidateInstacesMap } from '../../modules/invalidate/action/set/set-invalidate-instances-map-scoped-id';
 import { addOnMoutCallback } from '../../modules/on-mount';
-import { inizializeRepeatWatch } from '../../modules/repeater/action/inizialize-repeat-watch';
-import { setRepeaterNativeDOMChildren } from '../../modules/repeater/action/set-repeat-native-dom-children';
-import { setRepeatFunction } from '../../modules/repeater/action/set-repeat-function';
-import { setRepeaterInstancesMapInitialized } from '../../modules/repeater/action/set-repeater-instances-map-initialized';
+import { inizializeRepeatWatch } from '../../modules/repeater/action/initialize/inizialize-repeat-watch';
+import { setRepeaterNativeDOMChildren } from '../../modules/repeater/action/set/set-repeat-native-dom-children';
+import { setRepeatFunction } from '../../modules/repeater/action/set/set-repeat-function';
+import { setRepeaterInstancesMapInitialized } from '../../modules/repeater/action/set/set-repeater-instances-map-initialized';
 import { getRepeatIntialRender } from '../../modules/repeater/update/utils';
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { setStaticProps } from '../../modules/static-props';
-import { repeaterhasComponentChildren } from '../../modules/repeater/action/set-repeat-component-children';
-import { initializeRepeaterInstancesMap } from '../../modules/repeater/action/initialize-repeater-instances-map';
-import { setRepeaterInstancesCurrentData } from '../../modules/repeater/action/set-repeat-instances-map-current-data';
-import { initializeRepeaterIdsMap } from '../../modules/repeater/action/initialize-repeater-ids-map';
-import { initializeInvalidateIdsMap } from '../../modules/invalidate/action/initialize-invalidate-ids-map';
+import { repeaterhasComponentChildren } from '../../modules/repeater/action/set/set-repeat-component-children';
+import { initializeRepeaterInstancesMap } from '../../modules/repeater/action/initialize/initialize-repeater-instances-map';
+import { setRepeaterInstancesCurrentData } from '../../modules/repeater/action/set/set-repeat-instances-map-current-data';
+import { initializeRepeaterIdsMap } from '../../modules/repeater/action/initialize/initialize-repeater-ids-map';
+import { initializeInvalidateIdsMap } from '../../modules/invalidate/action/initialize/initialize-invalidate-ids-map';
 
 /**
  * Create component Reuturn all prosps/method for user function.

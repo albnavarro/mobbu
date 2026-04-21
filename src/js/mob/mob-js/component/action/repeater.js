@@ -1,5 +1,5 @@
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../../constant.js';
-import { getRepeatParent } from '../../modules/repeater/action/get-repeater-parent.js';
+import { getRepeatParent } from '../../modules/repeater/action/get/get-repeater-parent.js';
 import { componentMap } from '../component-map.js';
 
 /**

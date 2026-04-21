@@ -1,6 +1,6 @@
 import { MobCore, MobDetectBindKey } from '../../mob-core';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
-import { setRepeaterComponentChildren } from '../modules/repeater/action/set-repeat-component-children';
+import { setRepeaterComponentChildren } from '../modules/repeater/action/set/set-repeat-component-children';
 import { getFreezePropStatus } from './action/freeze';
 import { addNonPersisitentComponent } from './action/remove-and-destroy/cancellable-component/add-persisitent-component';
 import { getExportableState } from './action/state/check-if-state-is-exportable';

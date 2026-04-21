@@ -32,8 +32,8 @@ export {
     eventDelegationMap,
     tempDelegateEventMap,
 } from './modules/delegate-events';
-export { getNumberOfActiveInvalidate } from './modules/invalidate/action/get-number-of-active-invalidate';
-export { getNumberOfActiveRepeater } from './modules/repeater/action/get-number-of-active-repeater';
+export { getNumberOfActiveInvalidate } from './modules/invalidate/action/get/get-number-of-active-invalidate';
+export { getNumberOfActiveRepeater } from './modules/repeater/action/get/get-number-of-active-repeater';
 export { getPropsFromParent } from './modules/static-props';
 export { tick } from './queque/tick';
 export { loadUrl } from './route/router';

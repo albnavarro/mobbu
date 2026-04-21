@@ -1,9 +1,9 @@
 import { removeCurrentIdToBindProps } from '../../../modules/bind-props/remove-current-id-to-bind-props';
-import { removeInvalidateId } from '../../../modules/invalidate/action/remove-invalidate-id';
-import { removeRepeaterId } from '../../../modules/repeater/action/remove-repeater-id';
+import { removeInvalidateId } from '../../../modules/invalidate/action/remove/remove-invalidate-id';
+import { removeRepeaterId } from '../../../modules/repeater/action/remove/remove-repeater-id';
 import { componentMap } from '../../component-map';
 import { removeItselfFromParent } from './remove-itself-from-parent';
-import { removeRepeaterComponentChildren } from '../../../modules/repeater/action/set-repeat-component-children';
+import { removeRepeaterComponentChildren } from '../../../modules/repeater/action/set/set-repeat-component-children';
 import { removeIdFromInstanceMap } from '../../instance-map';
 import { removeNonPersisitentComponent } from './cancellable-component/remove-persisitent-component';
 

@@ -1,4 +1,13 @@
 import { MobCore } from '@mobCore';
+import { tagShouldBeComponent } from '../../component/component-tag';
+import { ATTR_BIND_EFFECT, ATTR_BIND_EFFECT_INSTANCE } from '../../constant';
+
+/**
+ * Attributi da cambiare per i componenti.
+ */
+const attributesComponentExeptions = new Map([
+    [ATTR_BIND_EFFECT, ATTR_BIND_EFFECT_INSTANCE],
+]);
 
 /**
  * Get array of classes.
@@ -31,8 +40,12 @@ export const htmlObject = (data) => {
     const component = data?.component ?? null;
     const componentKey = component && Object.keys(component)?.[0];
     const tag = componentKey ?? data?.tag ?? `div`;
-
     const rootElement = document.createElement(tag);
+
+    /**
+     * Check if tag is a component
+     */
+    const shouldBeComponent = tagShouldBeComponent(tag);
 
     /**
      * ClassList
@@ -85,9 +98,30 @@ export const htmlObject = (data) => {
         ? modules
         : [modules];
 
-    for (const item of /** @type{Record<string, any>[]} */ (modulesArray)) {
-        for (const [key, value] of Object.entries(item)) {
-            rootElement.setAttribute(key, /** @type {any} */ (value));
+    /**
+     * Add modules in with exceptions for component
+     */
+    if (shouldBeComponent) {
+        /**
+         * - Moduli come bindEffect efftuano una querySelectorAll su tutto i nodi figli.
+         * - I nodi componente sono placeholder o customComponent resituiti dalla funzione-componente.
+         * - Per questi nodi usiamo un alias diverso per inizializzare il modulo a livello parente.
+         * - In parse-function-while tracciremo questi moduli separatamante.
+         */
+        for (const item of /** @type{Record<string, any>[]} */ (modulesArray)) {
+            for (const [key, value] of Object.entries(item)) {
+                const keyParsed = attributesComponentExeptions?.get(key) ?? key;
+                rootElement.setAttribute(keyParsed, /** @type {any} */ (value));
+            }
+        }
+    } else {
+        /**
+         * Assegnazione di default dei moduli
+         */
+        for (const item of /** @type{Record<string, any>[]} */ (modulesArray)) {
+            for (const [key, value] of Object.entries(item)) {
+                rootElement.setAttribute(key, /** @type {any} */ (value));
+            }
         }
     }
 

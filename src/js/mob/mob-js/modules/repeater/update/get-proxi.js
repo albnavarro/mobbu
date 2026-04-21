@@ -1,6 +1,6 @@
 import { MobDetectBindKey } from '../../../../mob-core';
 import { clamp } from '../../../utils';
-import { getRepeaterInstancesCurrentData } from '../action/get-repeat-instances-map-current-data';
+import { getRepeaterInstancesCurrentData } from '../action/get/get-repeat-instances-map-current-data';
 import { REPATE_PROXI_FAIL, REPEAT_PROXI_INDEX } from './constant';
 
 /**

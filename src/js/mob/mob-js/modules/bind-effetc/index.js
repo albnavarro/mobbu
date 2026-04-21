@@ -1,10 +1,10 @@
 import { MobCore, MobDetectBindKey } from '../../../mob-core';
 import { watchById } from '../../component/action/watch';
-import { ATTR_BIND_EFFECT } from '../../constant';
+import { ATTR_BIND_EFFECT, ATTR_BIND_EFFECT_INSTANCE } from '../../constant';
 import { invalidateTick } from '../../queque/tick-invalidate';
 import { repeaterTick } from '../../queque/tick-repeater';
-import { getInvalidateObservedByComponentid } from '../invalidate/action/get-invalidate-observed-by-component-id';
-import { getRepeaterObservedByComponentid } from '../repeater/action/get-repeater-observed-by-component-id';
+import { getInvalidateObservedByComponentid } from '../invalidate/action/get/get-invalidate-observed-by-component-id';
+import { getRepeaterObservedByComponentid } from '../repeater/action/get/get-repeater-observed-by-component-id';
 
 /** @type {import('./type').BindEffectMap} */
 const bindEffectMap = new Map();
@@ -83,8 +83,8 @@ export const setBindEffect = ({ data, id }) => {
 /**
  * Get data from map at the end of parse.
  *
+ * - Is applied only in native DOM element ( no component )
  * - Is called from parseComponentsWhile.
- * - Event there is no component ( es repeater without camponent ) occurrence will found.
  *
  * @param {HTMLElement} element
  * @returns {void}
@@ -108,6 +108,26 @@ export const applyBindEffect = (element) => {
         watchBindEffect({ data, element: target });
         bindEffectMap.delete(id);
     });
+};
+
+/**
+ * Apply bindEffect from component instance
+ *
+ * - Is called from parseComponentsWhile.
+ * - When placeholder instance has ATTR_BIND_EFFECT_INSTANCE
+ *
+ * @param {object} params
+ * @param {string} params.moduleId
+ * @param {HTMLElement | import('../../web-component/type').UserComponent | undefined} params.target
+ * @returns {void}
+ */
+export const applyBindEffectFromComponent = ({ moduleId, target }) => {
+    const data = bindEffectMap.get(moduleId);
+    if (!data || !target) return;
+
+    target.removeAttribute(ATTR_BIND_EFFECT_INSTANCE);
+    watchBindEffect({ data, element: target });
+    bindEffectMap.delete(moduleId);
 };
 
 /**

@@ -11,23 +11,29 @@ import { addCurrentIdToBindProps, applyBindProps } from '../modules/bind-props';
 import { getParamsForComponentFunction } from './steps/get-params-for-component';
 import { addSelfIdToParentComponent } from '../component/action/parent';
 import { applyDelegationBindEvent } from '../modules/delegate-events';
-import { getParamsFromWebComponent } from './steps/get-params-from-web-component';
+import { getParamsFromPlaceHolder } from './steps/get-params-from-web-component';
 import { addComponentToStore } from '../component';
 import {
     setRepeaterInnerWrap,
     setRepeaterStateById,
 } from '../component/action/repeater';
-import { getInvalidateFunctions } from '../modules/invalidate/action/get-invalidate-functions';
-import { getRepeatFunctions } from '../modules/repeater/action/get-repeat-functions';
+import { getInvalidateFunctions } from '../modules/invalidate/action/get/get-invalidate-functions';
+import { getRepeatFunctions } from '../modules/repeater/action/get/get-repeat-functions';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bind-refs';
 import { clearSlotPlaceHolder } from '../modules/slot';
 import { useSlotQuery } from './strategy';
 import { switchBindTextMap } from '../modules/bind-text';
 import { switchBindObjectMap } from '../modules/bind-object';
-import { applyBindEffect } from '../modules/bind-effetc';
+import {
+    applyBindEffect,
+    applyBindEffectFromComponent,
+} from '../modules/bind-effetc';
 import { getComponentList } from '../component/component-list';
 import { PARSER_ASYNC_DEFAULT } from '../main-store/constant';
 import { getFirstUserChildPlaceHolder } from '../modules/user-component';
+import { tagShouldBeComponent } from '../component/component-tag';
+import { getParamsFromCustomComponent } from './steps/get-special-params-from-web-component';
+
 /**
  * Create all component from DOM.
  *
@@ -37,7 +43,6 @@ import { getFirstUserChildPlaceHolder } from '../modules/user-component';
  * @param {string} [obj.source]
  * @returns {Promise<void>}
  */
-
 export const parseComponentsWhile = async ({
     element,
     persistent = false,
@@ -100,7 +105,8 @@ export const parseComponentsWhile = async ({
             parentId,
             componentRepeatId,
             repeatPropBind,
-        } = getParamsFromWebComponent({
+            bindEffectInstanceId,
+        } = getParamsFromPlaceHolder({
             element: componentToParse,
         });
 
@@ -195,11 +201,6 @@ export const parseComponentsWhile = async ({
         );
 
         /**
-         * Get all classes from placeholder component
-         */
-        const classList = componentToParse.classList;
-
-        /**
          * Add custom DOM to basic component
          */
         const { newElement } = convertToRealElement({
@@ -209,6 +210,14 @@ export const parseComponentsWhile = async ({
         });
 
         /**
+         * If element wad destroyed during parse es: repat function fired with async component to fast return without
+         * render dom component.
+         */
+        if (!newElement) {
+            return;
+        }
+
+        /**
          * Clean slot map after convertToRealElement
          */
         if (!useSlotQuery) clearSlotPlaceHolder();
@@ -216,16 +225,67 @@ export const parseComponentsWhile = async ({
         /**
          * Copy all classes in new component.
          */
+        const classList = componentToParse.classList;
         if (classList.length > 0) {
             newElement?.classList.add(...classList);
         }
 
         /**
-         * If element wad destroyed during parse es: repat function fired with async component to fast return without
-         * render dom component.
+         * Controlliamo che il DOM riestituito dalla funzione-componente sia un customComponent
+         *
+         * - Servirá per applicare i moduli special ( come bindEffect ) se applicati al componente
          */
-        if (!newElement) {
-            return;
+        const shouldBeComponent = tagShouldBeComponent(newElement.tagName);
+
+        /**
+         * Una funzione-componente puó restituire un customComponent o un nodo nativo.
+         *
+         * - GetParamsFromPlaceHolder() é giá stata eseguita.
+         * - Moduli come bindEffect se applicati a un customComponent ( non placeHolder ) non vengono intercettati.
+         * - ApplyBindEffect(element) con i customComponent non funziona perché:
+         * - Si apsetta l'attributo ATTR_BIND_EFFECT
+         * - Ma un componente usa ATTR_BIND_EFFECT_INSTANCE a prescindere che sia un placeHolder o no.
+         * - Qui intercettiamo i customComponent retituiti dall funzione-componente che usano ATTR_BIND_EFFECT_INSTANCE.
+         */
+        const { bindEffectInstanceId: bindEffectInstanceIdCC } =
+            getParamsFromCustomComponent({
+                element:
+                    /** @type {import('../web-component/type').UserComponent} */ (
+                        newElement
+                    ),
+                shouldBeComponent,
+            });
+
+        /**
+         * Applichiamo i moduli `speciali` legati al nuovo DOM restituito dalla funzione
+         *
+         * - Nodi normnali
+         * - Web component
+         */
+        if (bindEffectInstanceId || bindEffectInstanceIdCC) {
+            /**
+             * Applichiamo bindEffect al nuovo nodo nativo resituito dalla funzione
+             *
+             * - L'id é tracciato in getParamsFromPlaceHolder()
+             */
+            if (bindEffectInstanceId && bindEffectInstanceId?.length > 0) {
+                applyBindEffectFromComponent({
+                    moduleId: bindEffectInstanceId,
+                    target: newElement,
+                });
+            }
+
+            /**
+             * Applichiamo bindEffect al nuovo customComponent resituito dalla funzione
+             *
+             * - L'id é tracciato in getParamsFromCustomComponent()
+             */
+            if (bindEffectInstanceIdCC && bindEffectInstanceIdCC.length > 0) {
+                applyBindEffectFromComponent({
+                    moduleId: bindEffectInstanceIdCC,
+                    target: newElement,
+                });
+            }
         }
 
         /**
@@ -239,7 +299,6 @@ export const parseComponentsWhile = async ({
         const invalidateFunctions = getInvalidateFunctions({ id });
         const repeatFunctions = getRepeatFunctions({ id });
 
-        // const bindEventsId = objectFromComponentFunction?.bindEventsId;
         if (bindEventsId) {
             applyBindEvents({
                 element: newElement,
@@ -252,7 +311,6 @@ export const parseComponentsWhile = async ({
          * Fire immediately onMount callback, scoped to current component DOM. Child is ignored.
          */
         const shoulBeScoped = scoped ?? getDefaultComponent().scoped;
-
         if (shoulBeScoped) {
             /**
              * B) Possible reflow if user use a asynchronous call inside onMount.
@@ -265,8 +323,11 @@ export const parseComponentsWhile = async ({
             });
         }
 
-        // Initialize custom component.
-        // #this.#isPlaceholder is disables in convert-to-real-element.js
+        /**
+         * Initialize custom component.
+         *
+         * #this.#isPlaceholder is disables in convert-to-real-element.js
+         */
 
         // @ts-ignore
         newElement?.inizializeCustomComponent?.(objectFromComponentFunction);
