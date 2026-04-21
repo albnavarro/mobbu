@@ -34862,7 +34862,7 @@
       direction: "horizontal",
       drag: true,
       useHorizontalScroll: true,
-      easeType: "spring",
+      easeType: "lerp",
       breakpoint: "small",
       children: [parallax2]
     });
