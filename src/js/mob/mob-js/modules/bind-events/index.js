@@ -20,10 +20,6 @@ export const bindEventMap = new Map();
  */
 export const setBindEvents = (eventsData = {}) => {
     const eventsDataParsed = Object.entries(eventsData);
-
-    /**
-     * @type {string}
-     */
     const id = MobCore.getUnivoqueId();
     bindEventMap.set(id, eventsDataParsed);
 
