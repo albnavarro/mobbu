@@ -45,10 +45,6 @@ const eventRegistered = new Set();
  */
 export const setDelegateBindEvent = (eventsData = {}) => {
     const eventsDataParsed = Object.entries(eventsData);
-
-    /**
-     * @type {string}
-     */
     const id = MobCore.getUnivoqueId();
     tempDelegateEventMap.set(id, eventsDataParsed);
 
