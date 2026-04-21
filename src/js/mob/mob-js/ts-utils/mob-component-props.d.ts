@@ -39,16 +39,12 @@ export type PartialBindProps<T, R> = (
 /**
  * DelegateEvents
  */
-export type PartialDelegateEvents = (
-    arg0: DelegateEventObject | DelegateEventObject[]
-) => any;
+export type PartialDelegateEvents = (arg0: DelegateEventObject) => any;
 
 /**
  * BindEvents
  */
-export type PartialBindEvents = (
-    arg0: BindEventsObject | BindEventsObject[]
-) => void;
+export type PartialBindEvents = (arg0: BindEventsObject) => any;
 
 /**
  * BindClass

@@ -1,7 +1,4 @@
-// @ts-check
-
 import { MobCore } from '../../../mob-core';
-import { checkType } from '../../../mob-core/store/store-type';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { tick } from '../../queque/tick';
 import {
@@ -11,26 +8,23 @@ import {
 } from '../common-event';
 
 /**
- * @type {Map<string, { [key: string]: (arg0: object, arg1: Record<string, any>, arg2: number) => {} }[]>}
+ * @type {Map<string, [string, (event: Event, value: any, index: number) => void][]>}
  */
 export const bindEventMap = new Map();
 
 /**
  * Store props and return a unique identifier
  *
- * @param {import('./type').BindEventsObject<Event> | import('./type').BindEventsObject<Event>[]} [eventsData]
+ * @param {import('./type').BindEventsObject<Event>} [eventsData]
  * @returns {string} Props id in store.
  */
-export const setBindEvents = (eventsData = []) => {
-    const eventsDataParsed = checkType(Object, eventsData)
-        ? [eventsData]
-        : eventsData;
+export const setBindEvents = (eventsData = {}) => {
+    const eventsDataParsed = Object.entries(eventsData);
 
     /**
      * @type {string}
      */
     const id = MobCore.getUnivoqueId();
-    // @ts-ignore
     bindEventMap.set(id, eventsDataParsed);
 
     return id;
@@ -49,10 +43,7 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
     const eventArray = bindEventMap.get(bindEventsId);
     if (!eventArray) return;
 
-    eventArray.forEach((event) => {
-        const [eventName] = Object.keys(event);
-        const [callback] = Object.values(event);
-
+    eventArray.forEach(([eventName, callback]) => {
         if (!eventName || !callback) return;
 
         element.addEventListener(eventName, async (e) => {

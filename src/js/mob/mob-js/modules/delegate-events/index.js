@@ -1,5 +1,4 @@
 import { MobCore } from '../../../mob-core';
-import { checkType } from '../../../mob-core/store/store-type';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { getIdByElement } from '../../component/action/element';
 import { tick } from '../../queque/tick';
@@ -19,7 +18,7 @@ import {
 const FORCE_EVENT = ':FORCE';
 
 /**
- * @type {Map<string, { [key: string]: () => void }[]>}
+ * @type {Map<string, [string, (event: Event, value: any, index: number) => void][]>}
  */
 export const tempDelegateEventMap = new Map();
 
@@ -34,26 +33,23 @@ export const eventDelegationMap = new WeakMap();
 const eventToAdd = [];
 
 /**
- * @type {string[]}
+ * @type {Set<string>}
  */
-const eventRegistered = [];
+const eventRegistered = new Set();
 
 /**
  * Store props and return a unique identifier
  *
- * @param {import('./type').DelegateEventObject<Event> | import('./type').DelegateEventObject<Event>[]} [eventsData]
+ * @param {import('./type').DelegateEventObject<Event>} [eventsData]
  * @returns {string} Props id in store.
  */
-export const setDelegateBindEvent = (eventsData = []) => {
-    const eventsDataParsed = checkType(Object, eventsData)
-        ? [eventsData]
-        : eventsData;
+export const setDelegateBindEvent = (eventsData = {}) => {
+    const eventsDataParsed = Object.entries(eventsData);
 
     /**
      * @type {string}
      */
     const id = MobCore.getUnivoqueId();
-    // @ts-ignore
     tempDelegateEventMap.set(id, eventsDataParsed);
 
     return id;
@@ -181,25 +177,29 @@ export const applyDelegationBindEvent = async (root) => {
     [...elements].forEach((element) => {
         const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS) ?? '';
         element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
-        const data = tempDelegateEventMap.get(id);
-        tempDelegateEventMap.delete(id);
+        const eventArray = tempDelegateEventMap.get(id);
+        if (!eventArray) return;
 
-        const dataParsed = data?.flatMap((item) => {
-            return Object.entries(item).map((current) => {
-                const [event, callback] = current;
-                const force = event.toUpperCase().endsWith(FORCE_EVENT);
-                const eventParsed = event
-                    .toUpperCase()
-                    .replaceAll(FORCE_EVENT, '')
-                    .toLowerCase();
+        /**
+         * Riorganizziamo gli array
+         *
+         * - Gli eventi vengono eseguito 1 per tick.
+         * - Con `force: true` forziamo l'evento a essere eseguito in un tick giá occupato.
+         * - { event: string, force: boolean, callback: function }[]
+         */
+        const eventsParsed = eventArray.map(([eventName, callback]) => {
+            const force = eventName.toUpperCase().endsWith(FORCE_EVENT);
+            const eventParsed = eventName
+                .toUpperCase()
+                .replaceAll(FORCE_EVENT, '')
+                .toLowerCase();
 
-                if (!eventToAdd.includes(eventParsed))
-                    eventToAdd.push(eventParsed);
-                return { event: eventParsed, callback, force };
-            });
+            if (!eventToAdd.includes(eventParsed)) eventToAdd.push(eventParsed);
+            return { event: eventParsed, callback, force };
         });
 
-        eventDelegationMap.set(element, dataParsed);
+        eventDelegationMap.set(element, eventsParsed);
+        tempDelegateEventMap.delete(id);
     });
 
     const rootElement = getRoot();
@@ -208,9 +208,12 @@ export const applyDelegationBindEvent = async (root) => {
      * Register event listeners on root element for all discovered event types.
      */
     eventToAdd.forEach((eventKey) => {
-        if (eventRegistered.includes(eventKey)) return;
-        eventRegistered.push(eventKey);
+        if (eventRegistered.has(eventKey)) return;
+        eventRegistered.add(eventKey);
 
+        /**
+         * Add one listener to rootElement fory type.
+         */
         rootElement.addEventListener(
             eventKey,
             handleAction.bind(null, eventKey)
