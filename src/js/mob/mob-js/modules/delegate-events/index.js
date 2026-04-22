@@ -18,21 +18,43 @@ import {
 const FORCE_EVENT = ':FORCE';
 
 /**
+ * Track data to initialize module.
+ *
  * @type {Map<string, [string, (event: Event, value: any, index: number) => void][]>}
  */
 export const tempDelegateEventMap = new Map();
 
 /**
+ * Track all target ref for fast event target detection
+ *
  * @type {WeakMap<object, import('./type').WeakBindEventsDataArray | undefined>}
  */
 export const eventDelegationMap = new WeakMap();
 
 /**
- * @type {string[]}
+ * Track all target ref When all target related to a specific event is disconnected from DOM remove event.
+ *
+ * @type {Map<string, WeakRef<Element>[]>}
  */
-const eventToAdd = [];
+const eventTargetRefs = new Map();
 
 /**
+ * Track all active hanndlers
+ *
+ * @type {Map<string, (arg0: any) => void>}
+ */
+const activeHandlers = new Map(); // eventKey -> boundHandler
+
+/**
+ * Track all event that SHOULD BE active
+ *
+ * @type {Set<string>}
+ */
+const eventToAdd = new Set();
+
+/**
+ * Track all event REGISTERED
+ *
  * @type {Set<string>}
  */
 const eventRegistered = new Set();
@@ -107,45 +129,95 @@ async function handleAction(eventKey, event) {
     /**
      * Fire one event at time on end of app tick.
      *
-     * - Set shouldFireEvent to true immediatyle after tick to restore event if callback fail.
+     * - Serialize event execution: one per app tick.
+     * - Lock is released in finally to prevent deadlock on callback exception.
      * - If route is loading skip action
      * - Force value skip tick check.
      */
     if (!getFireEvent() && !force) return;
 
     preventFireEvent();
-    await tick();
-    allowFireEvent();
 
-    /**
-     * Seconda verifica: elemento potrebbe essere stato rimosso durante tick (specialmente con :FORCE che bypassa il
-     * blocco eventi)
-     */
-    // @ts-ignore
-    if (!document.contains(targetParsed)) return;
+    try {
+        await tick();
 
-    /**
-     * Get current repeater state if target is a component.
-     */
-    // @ts-ignore
-    const componentId = getIdByElement({ element: targetParsed });
-    const currentRepeaterState = componentId
-        ? getRepeaterStateById({
-              id: componentId,
-          })
-        : DEFAULT_CURRENT_REPEATER_STATE;
+        /**
+         * Seconda verifica: elemento potrebbe essere stato rimosso durante tick (specialmente con :FORCE che bypassa il
+         * blocco eventi)
+         */
+        // @ts-ignore
+        if (!document.contains(targetParsed)) return;
 
-    /**
-     * Replace target with new target ( parent of original target if event.tatget is inside )
-     */
-    Object.defineProperty(event, 'target', { value: target });
-    Object.defineProperty(event, 'currentTarget', { value: targetParsed });
+        /**
+         * Get current repeater state if target is a component.
+         */
+        // @ts-ignore
+        const componentId = getIdByElement({ element: targetParsed });
+        const currentRepeaterState = componentId
+            ? getRepeaterStateById({
+                  id: componentId,
+              })
+            : DEFAULT_CURRENT_REPEATER_STATE;
 
-    /**
-     * Fire callback.
-     */
-    callback(event, currentRepeaterState?.current, currentRepeaterState?.index);
+        /**
+         * Replace target with new target ( parent of original target if event.tatget is inside )
+         */
+        Object.defineProperty(event, 'target', { value: target });
+        Object.defineProperty(event, 'currentTarget', { value: targetParsed });
+
+        /**
+         * Fire callback.
+         */
+        callback(
+            event,
+            currentRepeaterState?.current,
+            currentRepeaterState?.index
+        );
+    } catch (error) {
+        console.warn(error);
+    } finally {
+        /**
+         * Now other event sill be fired
+         */
+        allowFireEvent();
+    }
 }
+
+/**
+ * Clean ghost delegate event with no more target.
+ *
+ * - This function is called:
+ * - After route change
+ * - After repeat update ( reactive array.map())
+ * - After invalidate update
+ */
+export const cleanDelegateEvent = () => {
+    for (const [eventKey, refs] of eventTargetRefs) {
+        const aliveRef = refs.filter((ref) => ref.deref()?.isConnected);
+
+        if (aliveRef.length === 0) {
+            /**
+             * Event has no more refs, remove listener.
+             */
+            const rootElement = getRoot();
+            const handlerToRemove = activeHandlers.get(eventKey);
+
+            if (handlerToRemove) {
+                rootElement.removeEventListener(eventKey, handlerToRemove);
+                activeHandlers.delete(eventKey);
+                eventRegistered.delete(eventKey);
+                eventToAdd.delete(eventKey);
+            }
+
+            eventTargetRefs.delete(eventKey);
+        } else {
+            /**
+             * Update refs for event with only alive element.
+             */
+            eventTargetRefs.set(eventKey, aliveRef);
+        }
+    }
+};
 
 /**
  * Store props and return a unique identifier
@@ -190,7 +262,19 @@ export const applyDelegationBindEvent = async (root) => {
                 .replaceAll(FORCE_EVENT, '')
                 .toLowerCase();
 
-            if (!eventToAdd.includes(eventParsed)) eventToAdd.push(eventParsed);
+            if (!eventToAdd.has(eventParsed)) eventToAdd.add(eventParsed);
+
+            /**
+             * Add WeakRef element to eventTargetRefs
+             *
+             * - EventTargetRefs is used to remove listener when event ha no more subscriber.
+             */
+            if (eventTargetRefs.has(eventParsed)) {
+                eventTargetRefs.get(eventParsed)?.push(new WeakRef(element));
+            } else {
+                eventTargetRefs.set(eventParsed, [new WeakRef(element)]);
+            }
+
             return { event: eventParsed, callback, force };
         });
 
@@ -200,19 +284,20 @@ export const applyDelegationBindEvent = async (root) => {
 
     const rootElement = getRoot();
 
-    /**
-     * Register event listeners on root element for all discovered event types.
-     */
-    eventToAdd.forEach((eventKey) => {
-        if (eventRegistered.has(eventKey)) return;
+    for (const eventKey of eventToAdd) {
+        if (eventRegistered.has(eventKey)) continue;
         eventRegistered.add(eventKey);
 
         /**
          * Add one listener to rootElement fory type.
          */
-        rootElement.addEventListener(
-            eventKey,
-            handleAction.bind(null, eventKey)
-        );
-    });
+        const boundHandler = handleAction.bind(null, eventKey);
+        rootElement.addEventListener(eventKey, boundHandler);
+        activeHandlers.set(eventKey, boundHandler);
+    }
+
+    /**
+     * Clear tail of event to register.
+     */
+    eventToAdd.clear();
 };

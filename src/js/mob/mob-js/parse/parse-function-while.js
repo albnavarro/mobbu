@@ -10,7 +10,10 @@ import { applyBindEvents } from '../modules/bind-events';
 import { addCurrentIdToBindProps, applyBindProps } from '../modules/bind-props';
 import { getParamsForComponentFunction } from './steps/get-params-for-component';
 import { addSelfIdToParentComponent } from '../component/action/parent';
-import { applyDelegationBindEvent } from '../modules/delegate-events';
+import {
+    applyDelegationBindEvent,
+    cleanDelegateEvent,
+} from '../modules/delegate-events';
 import { getParamsFromPlaceHolder } from './steps/get-params-from-web-component';
 import { addComponentToStore } from '../component';
 import {
@@ -439,6 +442,7 @@ export const parseComponentsWhile = async ({
     applyBindEffect(element);
     switchBindTextMap();
     switchBindObjectMap();
+    cleanDelegateEvent();
 
     return;
 };
