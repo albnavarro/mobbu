@@ -199,19 +199,6 @@ export const addCurrentIdToBindProps = ({
 };
 
 /**
- * If slot is not used remove id reference orphans from store.
- *
- * @param {object} obj
- * @param {string} obj.propsId
- * @returns {void}
- */
-export const removeCurrentToBindPropsByPropsId = ({ propsId }) => {
-    if (!propsId) return;
-
-    bindPropsMap.delete(propsId);
-};
-
-/**
  * Update component state, if inizilizeWatcher === true add watcher to parent ( or specific component ) state.
  *
  * @param {object} obj

@@ -92,7 +92,7 @@ Ogni bug riporta: **file:linea**, **tipo**, **descrizione tecnica**, **scenario 
 - [M9 — `unFreezePropById` senza finally](#m9--unfreezepropbyid-senza-finally)
 - [M10 — `removeAndDestroyById`: eccezione in `state.destroy()` salta `element.remove()`](#m10--removeanddestroybyid-eccezione-in-statedestroy)
 - [M11 — `switchBindTextMap` su placeholder già rimosso](#m11--switchbindtextmap-su-placeholder-già-rimosso)
-- [M12 — `removeCurrentToBindPropsByPropsId` non sincronizzato con mappa inversa](#m12--removecurrenttobindpropsbypropsid-non-sincronizzato)
+- [M12 — `removeCurrentToBindPropsByPropsId` non sincronizzato con mappa inversa](#m12--removecurrenttobindpropsbypropsid-non-sincronizzato) **UNUSED FUNCTION**
 - [M13 — Queue `maxQueuqueSize` check non strict](#m13--queue-maxqueuquesize-check-non-strict)
 - [M14 — `unWatchRouteChange` senza type check](#m14--unwatchroutechange-senza-type-check)
 - [M15 — `getParamsFromWebComponent` con `propsId` undefined](#m15--getparamsfromwebcomponent-con-propsid-undefined)
@@ -1054,7 +1054,7 @@ if (!placeholder?.isConnected) {
 
 ---
 
-### M12 — `removeCurrentToBindPropsByPropsId` non sincronizzato
+### M12 — `removeCurrentToBindPropsByPropsId` non sincronizzato **UNUSED FUNCTION**
 
 **File**: `modules/bind-props/index.js:208-212`
 **Tipo**: map-desync / leak
