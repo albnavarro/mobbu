@@ -301,7 +301,7 @@ withAliveRef(ref, (el) => {
 
 ---
 
-### H2 — `keyToIndex` usa array raw invece di deduplicato
+### H2 — `keyToIndex` usa array raw invece di deduplicato - DONE -
 
 **File**: `modules/repeater/watch/index.js:275-278`
 **Tipo**: incoerenza interna / index-bug

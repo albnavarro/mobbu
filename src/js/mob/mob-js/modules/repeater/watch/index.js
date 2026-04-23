@@ -274,7 +274,10 @@ export const watchRepeat = ({
              */
             const keyToIndex = hasKey
                 ? new Map(
-                      current.map((item, index) => [`${item?.[key]}`, index])
+                      currentUpdated.map((item, index) => [
+                          `${item?.[key]}`,
+                          index,
+                      ])
                   )
                 : new Map();
 
