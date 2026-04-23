@@ -8964,7 +8964,7 @@
         if (mainComponent) {
           await beforeUpdate();
         }
-        if (!checkRepeaterExistence({ repeatId })) {
+        if (!checkRepeaterExistence({ repeatId }) || !repeaterParentElement?.isConnected) {
           unFreezePropById({ id, prop: state });
           descrementQueue();
           descrementRepeaterQueue();
@@ -8987,7 +8987,7 @@
         const currentUpdated = await updateRepeater({
           state,
           persistent,
-          repeaterParentElement: repeaterParentElement ?? document.createElement("div"),
+          repeaterParentElement,
           current,
           previous: clean2 ? [] : previous,
           key,

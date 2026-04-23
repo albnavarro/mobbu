@@ -63,7 +63,7 @@ Ogni bug riporta: **file:linea**, **tipo**, **descrizione tecnica**, **scenario 
 
 - [C1 — Double hashchange firing in `loadUrl`](#c1--double-hashchange-firing-in-loadurl) **FIXED**
 - [C2 — Event listener `click` su `document` mai rimosso](#c2--event-listener-click-su-document-mai-rimosso)
-- [C4 — `repeaterParentElement` null dopo `await beforeUpdate()`](#c4--repeaterparentelement-null-dopo-await-beforeupdate)
+- [C4 — `repeaterParentElement` null dopo `await beforeUpdate()`](#c4--repeaterparentelement-null-dopo-await-beforeupdate) **FIXED**
 
 ### High
 
@@ -199,7 +199,7 @@ export const initRouter = () => {
 
 ---
 
-### C4 — `repeaterParentElement` null dopo `await beforeUpdate()`
+### C4 — `repeaterParentElement` null dopo `await beforeUpdate()` **FIXED**
 
 **File**: `modules/repeater/watch/index.js:79-204`
 **Tipo**: race / dom-ghost-write

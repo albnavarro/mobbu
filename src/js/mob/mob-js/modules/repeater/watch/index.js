@@ -150,8 +150,12 @@ export const watchRepeat = ({
              * - Topically nested repeater issue.
              * - Should happen with nested repeater
              * - In this case skip all repeater update.
+             * - Check if repeaterParentElement is still connected to the DOM too.
              */
-            if (!checkRepeaterExistence({ repeatId })) {
+            if (
+                !checkRepeaterExistence({ repeatId }) ||
+                !repeaterParentElement?.isConnected
+            ) {
                 /**
                  * If repeater is destroyed unfreeze prop
                  *
@@ -200,8 +204,7 @@ export const watchRepeat = ({
             const currentUpdated = await updateRepeater({
                 state,
                 persistent,
-                repeaterParentElement:
-                    repeaterParentElement ?? document.createElement('div'),
+                repeaterParentElement,
                 current,
                 previous: clean ? [] : previous,
                 key,
