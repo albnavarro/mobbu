@@ -5533,6 +5533,7 @@
     const item = componentMap.get(moduleScopeId);
     if (!item) return false;
     const parentId = item?.parentId ?? "";
+    if (parentId === moduleScopeId) return false;
     return compareIdOrParentIdRecursive({
       moduleScopeId: parentId,
       targetComponentId

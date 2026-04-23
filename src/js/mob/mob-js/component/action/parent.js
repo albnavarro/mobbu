@@ -115,6 +115,15 @@ export const compareIdOrParentIdRecursive = ({
     const parentId = item?.parentId ?? '';
 
     /**
+     * Safe check
+     *
+     * - ParentId should not be equal to parentId
+     * - Prevent infinite recursion.
+     * - Skip possible self reference
+     */
+    if (parentId === moduleScopeId) return false;
+
+    /**
      * If moduleScopeId is defined in component get parent moduleScopeId until/if the the two id is equal.
      */
     return compareIdOrParentIdRecursive({

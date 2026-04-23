@@ -68,14 +68,14 @@ Ogni bug riporta: **file:linea**, **tipo**, **descrizione tecnica**, **scenario 
 ### High
 
 - [H1 — TOCTOU con doppio `ref.deref()`](#h1--toctou-con-doppio-refderef)
-- [H2 — Key-based diff con chiavi duplicate](#h2--key-based-diff-con-chiavi-duplicate)
+- [H2 — Key-based diff con chiavi duplicate](#h2--key-based-diff-con-chiavi-duplicate) **FIXED**
 - [H3 — Ordine cleanup: children distrutti prima del parent-state](#h3--ordine-cleanup-children-distrutti-prima-del-parent-state)
 - [H4 — `parseComponents` non cancellabile durante route transition](#h4--parsecomponents-non-cancellabile-durante-route-transition)
 - [H5 — Event listener di `bind-events` mai rimossi](#h5--event-listener-di-bind-events-mai-rimossi)
 - [H6 — `cleanDelegateEvent` rimuove listener da root disconnesso](#h6--cleandelegateevent-rimuove-listener-da-root-disconnesso)
 - [H7 — `removeCancellableComponent()` ordering vs `parseComponents`](#h7--removecancellablecomponent-ordering-vs-parsecomponents)
 - [H8 — `onMount` senza try/catch](#h8--onmount-senza-trycatch)
-- [H9 — `compareIdOrParentIdRecursive` senza guard su self-reference](#h9--compareidorparentidrecursive-senza-guard-su-self-reference)
+- [H9 — `compareIdOrParentIdRecursive` senza guard su self-reference](#h9--compareidorparentidrecursive-senza-guard-su-self-reference) **FIXED**
 - [H10 — `popstate` vs `hashchange` ordering su scroll restore](#h10--popstate-vs-hashchange-ordering-su-scroll-restore)
 - [H11 — `getOrderedChunkByCurrentRepeatValue` filtra orfani silenziosamente](#h11--getorderedchunkbycurrentrepeatvalue-filtra-orfani-silenziosamente)
 
@@ -301,7 +301,7 @@ withAliveRef(ref, (el) => {
 
 ---
 
-### H2 — `keyToIndex` usa array raw invece di deduplicato - DONE -
+### H2 — `keyToIndex` usa array raw invece di deduplicato **FIXED**
 
 **File**: `modules/repeater/watch/index.js:275-278`
 **Tipo**: incoerenza interna / index-bug
@@ -657,7 +657,7 @@ onMountCallbackMap.delete(id);
 
 ---
 
-### H9 — `compareIdOrParentIdRecursive` senza guard su self-reference
+### H9 — `compareIdOrParentIdRecursive` senza guard su self-reference **FIXED**
 
 **File**: `component/action/parent.js:95-124`
 **Tipo**: infinite-loop
@@ -1340,7 +1340,7 @@ H4, H7, M3, M8, H10 sono tutti istanze dello stesso pattern: codice async interr
 
 5. **H1**: refactor con helper `withAliveRef`.
 6. **H3 + M10**: try/finally in `removeAndDestroyById`.
-7. **H9**: guard self-reference in `compareIdOrParentIdRecursive`.
+7. **H9**: guard self-reference in `compareIdOrParentIdRecursive`. **FIXED**
 8. **H5**: tracking dei listener di `bind-events`.
 
 ### Fase 3 — Refactor dei pattern (1-2 settimane)
