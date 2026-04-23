@@ -61,7 +61,7 @@ Ogni bug riporta: **file:linea**, **tipo**, **descrizione tecnica**, **scenario 
 
 ### Critical
 
-- [C1 — Double hashchange firing in `loadUrl`](#c1--double-hashchange-firing-in-loadurl)
+- [C1 — Double hashchange firing in `loadUrl`](#c1--double-hashchange-firing-in-loadurl) **FIXED**
 - [C2 — Event listener `click` su `document` mai rimosso](#c2--event-listener-click-su-document-mai-rimosso)
 - [C4 — `repeaterParentElement` null dopo `await beforeUpdate()`](#c4--repeaterparentelement-null-dopo-await-beforeupdate)
 
@@ -110,7 +110,7 @@ Ogni bug riporta: **file:linea**, **tipo**, **descrizione tecnica**, **scenario 
 
 ## CRITICAL
 
-### C1 — Double hashchange firing in `loadUrl`
+### C1 — Double hashchange firing in `loadUrl` **FIXED**
 
 **File**: `route/router.js:328-338`
 **Tipo**: double-fire / race

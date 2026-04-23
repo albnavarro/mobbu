@@ -13,7 +13,7 @@ export const asyncTimeline = async () => {
     updateQuickNavState({
         active: true,
         prevRoute: '#caterpillarN2',
-        nextRoute: '#animatedPatternN0?version=0&activeId=0',
+        nextRoute: '#animatedPatternN0',
         backRoute: '#canvas-overview',
     });
 

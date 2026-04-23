@@ -10177,7 +10177,6 @@
     currentParamsFromLoadUrl = urlsParams.length > 0 ? urlsParams : "";
     currentHistory = void 0;
     globalThis.location.hash = currentParamsFromLoadUrl && currentParamsFromLoadUrl.length > 0 ? `${hash}?${currentParamsFromLoadUrl}` : hash;
-    globalThis.dispatchEvent(new HashChangeEvent("hashchange"));
   };
 
   // src/js/mob/mob-js/initialize-app/index.js
@@ -34532,7 +34531,7 @@
     updateQuickNavState({
       active: true,
       prevRoute: "#caterpillarN2",
-      nextRoute: "#animatedPatternN0?version=0&activeId=0",
+      nextRoute: "#animatedPatternN0",
       backRoute: "#canvas-overview"
     });
     return htmlObject({

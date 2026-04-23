@@ -323,7 +323,7 @@ export const loadUrl = ({ url, params, skipTransition }) => {
     currentHistory = undefined;
 
     /**
-     * Update hash
+     * Update hash and dispatch hashcange.
      */
     globalThis.location.hash =
         currentParamsFromLoadUrl && currentParamsFromLoadUrl.length > 0
@@ -331,9 +331,11 @@ export const loadUrl = ({ url, params, skipTransition }) => {
             : hash;
 
     /**
-     * Trigger hashchange. This step is need to reload route with params.
+     * OLD - TO REMOVE.
      *
+     * - GlobalThis.location.hash -> browser dispatch hashcange here.
+     * - Trigger hashchange. This step is need to reload route with params.
      * - If not previous hash is always different from current.
      */
-    globalThis.dispatchEvent(new HashChangeEvent('hashchange'));
+    // globalThis.dispatchEvent(new HashChangeEvent('hashchange'));
 };
