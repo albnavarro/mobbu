@@ -7570,11 +7570,15 @@
       unWatchArray: unWatchArray.filter((item) => item !== void 0)
     });
     if (!inizilizeWatcher) return;
+    const keysToDelete = [];
     for (const [key, value] of bindPropsMap) {
       const { componentId: currentComponentId } = value;
       if (currentComponentId === componentId) {
-        bindPropsMap.delete(key);
+        keysToDelete.push(key);
       }
+    }
+    for (const key of keysToDelete) {
+      bindPropsMap.delete(key);
     }
   };
   var removeOrphansBindProps = () => {

@@ -85,7 +85,7 @@ Ogni bug riporta: **file:linea**, **tipo**, **descrizione tecnica**, **scenario 
 - [M2 — `currentRepeaterValueMap` non ripulito se `get` non viene mai chiamato](#m2--currentrepeatervaluemap-non-ripulito)
 - [M3 — `currentParamsFromLoadUrl` non resettato su early return](#m3--currentparamsfromloadurl-non-resettato-su-early-return)
 - [M4 — `destroyComponentInsideNodeById` senza null-check su `state`](#m4--destroycomponentinsidenodebyid-senza-null-check)
-- [M5 — `bindPropsMap.delete(key)` durante iterazione e mappa inversa non pulita](#m5--bindpropsmapdeletekey-durante-iterazione)
+- [M5 — `bindPropsMap.delete(key)` durante iterazione e mappa inversa non pulita](#m5--bindpropsmapdeletekey-durante-iterazione) **FIXED**
 - [M6 — `sanitizeParams` / `sanitizeHash` troppo aggressivi](#m6--sanitizeparams--sanitizehash-troppo-aggressivi)
 - [M7 — `unsubScribeFunction.length = 0` in closure](#m7--unsubscribefunctionlength--0-in-closure)
 - [M8 — Scroll restore dopo `parseComponents` sovrascrive scroll manuale](#m8--scroll-restore-sovrascrive-scroll-manuale)
@@ -891,7 +891,7 @@ allChild.forEach((id) => {
 
 ---
 
-### M5 — `bindPropsMap.delete(key)` durante iterazione
+### M5 — `bindPropsMap.delete(key)` durante iterazione **FIXED**
 
 **File**: `modules/bind-props/index.js:391-396`
 **Tipo**: iteration-safety / desync

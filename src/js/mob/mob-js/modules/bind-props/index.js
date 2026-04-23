@@ -388,11 +388,26 @@ export const applyBindProps = async ({
      */
     if (!inizilizeWatcher) return;
 
+    /**
+     * Collect keys to delete
+     */
+    const keysToDelete = [];
+
     for (const [key, value] of bindPropsMap) {
         const { componentId: currentComponentId } = value;
         if (currentComponentId === componentId) {
-            bindPropsMap.delete(key);
+            /**
+             * Collect keys to delete
+             */
+            keysToDelete.push(key);
         }
+    }
+
+    /**
+     * Delete keys
+     */
+    for (const key of keysToDelete) {
+        bindPropsMap.delete(key);
     }
 };
 
