@@ -29,8 +29,22 @@ let currentParamsFromLoadUrl;
 /** @type {boolean | undefined} */
 let currentSkipTransition;
 
-/** @type {import('./type').HistoryType | undefined} */
-let currentHistory;
+/**
+ * Flag "in attesa di essere consumato dal prossimo hashchange".
+ *
+ * - Viene alzato (true) dal listener `popstate` quando arriva una navigazione storica del browser (back/forward).
+ * - Viene consumato (letto + riportato a false) in modo SINCRONO dal listener `hashchange`, prima di qualsiasi `await`.
+ *   Il valore letto viene passato a `parseUrlHash` come parametro `fromHistory`.
+ *
+ * Perché un flag consumato atomicamente invece di una variabile modulo letta tardi: fra il `popstate` e il momento in
+ * cui `parseUrlHash` è in grado di leggere il suo valore c'è un `await awaitNextLoop()`. Durante questa finestra un
+ * secondo `popstate` o una `loadUrl` programmatica possono sovrascrivere il segnale, facendo sì che il primo handler
+ * legga un valore non suo. Il consumo atomico ("snapshot" + reset prima dell'await) isola ogni ciclo hashchange dai
+ * successivi.
+ *
+ * @type {boolean}
+ */
+let pendingHistoryNavigation = false;
 
 /**
  * @param {string} value
@@ -77,32 +91,28 @@ const convertObjectParamsToString = (params) => {
 };
 
 /**
- * Prevent click on a element while route is loading.
- */
-document.addEventListener(
-    'click',
-    (event) => {
-        const target = event.target;
-        if (!target) return;
-
-        const link = /** @type {HTMLElement} */ (event.target).closest('a');
-        if (link && mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)) {
-            event.preventDefault();
-        }
-    },
-    { passive: false }
-);
-
-/**
- * Get hash from url and load new route.
+ * Legge l'hash corrente dalla URL e carica la nuova rotta.
  *
- * If shouldLoadRoute is false, update only mainStore currentRoute etc...
+ * Se `shouldLoadRoute` è false, aggiorna solo `mainStore` (currentRoute, currentTemplate, activeParams) senza eseguire
+ * il caricamento vero e proprio.
+ *
+ * `fromHistory` è passato dal listener `hashchange` dopo il consumo di `pendingHistoryNavigation`. Segnala che questa
+ * esecuzione deriva da una navigazione storica del browser (back/forward) e non da una navigazione diretta o
+ * programmatica. Influenza:
+ *
+ * - Se scrivere o no una nuova entry in `history.replaceState`
+ * - Il valore di `isBrowserNavigation` inviato a `loadPage` (scroll restore)
+ * - Il valore di `skipTransition` inviato a `loadPage`
  *
  * @param {object} [params]
  * @param {boolean} [params.shouldLoadRoute]
+ * @param {boolean} [params.fromHistory]
  * @returns {Promise<void>}
  */
-export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
+export const parseUrlHash = async ({
+    shouldLoadRoute = true,
+    fromHistory = false,
+} = {}) => {
     const fullHashWithParmas = globalThis.location.hash;
 
     const historyObejct = {
@@ -129,7 +139,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
     /**
      * Set history, to restore scroll value.
      */
-    if (!currentHistory)
+    if (!fromHistory)
         history.replaceState({ nextId: historyObejct }, '', fullHashWithParmas);
 
     /**
@@ -206,7 +216,7 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
         previousFullHashLoaded = `#${currentCleanHash}${currentParams}`;
 
         /**
-         * If does not come from currentHistory restore scroll is always false
+         * If does not come from history navigation restore scroll is always false
          *
          * - It means direct navigate
          */
@@ -214,11 +224,9 @@ export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
             route: targetRoute,
             templateName: targetTemplate,
             isBrowserNavigation:
-                getRestoreScrollVale({ hash: currentCleanHash }) &&
-                !!currentHistory,
+                getRestoreScrollVale({ hash: currentCleanHash }) && fromHistory,
             params,
-            skipTransition:
-                (currentHistory ?? currentSkipTransition) ? true : false,
+            skipTransition: fromHistory || currentSkipTransition ? true : false,
         });
     }
 
@@ -258,21 +266,29 @@ export const router = () => {
     globalThis.history.scrollRestoration = 'manual';
 
     /**
-     * Intecept pop state ( browser history )
+     * Intercetta il popstate (navigazione history del browser).
+     *
+     * Alza il flag `pendingHistoryNavigation` per segnalare al prossimo hashchange che la navigazione deriva da
+     * back/forward. Controlliamo `event?.state?.nextId` (non solo `event?.state`) per riconoscere solo le entry scritte
+     * da questo modulo: state esterni con shape diversa vengono trattati come direct-nav.
      */
     globalThis.addEventListener('popstate', (event) => {
-        currentHistory = event?.state?.nextId;
+        pendingHistoryNavigation = !!event?.state?.nextId;
     });
 
     /**
-     * Every time hash ( route ) change.
+     * Ad ogni cambio di hash (route).
+     *
+     * Consumiamo `pendingHistoryNavigation` in modo SINCRONO prima di qualsiasi `await`: in questo modo un eventuale
+     * secondo popstate o una `loadUrl` programmatica scatenati durante `awaitNextLoop` non possono sovrascrivere il
+     * segnale appartenente a questo ciclo hashchange. Il valore catturato viene passato a `parseUrlHash` come parametro
+     * locale.
      */
     globalThis.addEventListener('hashchange', async () => {
-        /**
-         * Maybe unnecessary. parseUrlHash() must fired after currentHistory is updated
-         */
+        const fromHistory = pendingHistoryNavigation;
+        pendingHistoryNavigation = false;
         await awaitNextLoop();
-        parseUrlHash();
+        parseUrlHash({ fromHistory });
     });
 };
 
@@ -313,14 +329,17 @@ export const loadUrl = ({ url, params, skipTransition }) => {
     currentParamsFromLoadUrl = urlsParams.length > 0 ? urlsParams : '';
 
     /**
-     * Reset current history when come from direct link.
+     * Una navigazione programmatica (loadUrl) per definizione NON è una navigazione storica del browser.
      *
-     * - Help when click same route that come from history and has params.
-     * - In this case scroll is restored if currentHistory is settled.
-     * - So when loadUrl is settled we are scre that current url is not from history.
-     * - Force currentHistory to undefined.
+     * Abbassiamo il flag in modo SINCRONO prima di modificare `location.hash`: la hashchange che sta per essere
+     * scatenata dal cambio di hash leggerà così `pendingHistoryNavigation = false` e passerà `fromHistory = false` a
+     * `parseUrlHash`.
+     *
+     * Caso utile: l'utente ha appena cliccato Back (popstate ha alzato il flag) e subito dopo una `loadUrl` viene
+     * chiamata. Senza questo reset la hashchange risultante dalla `loadUrl` potrebbe essere erroneamente interpretata
+     * come history-nav, ripristinando lo scroll invece di partire da zero.
      */
-    currentHistory = undefined;
+    pendingHistoryNavigation = false;
 
     /**
      * Update hash and dispatch hashcange.
