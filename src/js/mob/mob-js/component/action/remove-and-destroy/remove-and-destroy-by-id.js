@@ -34,12 +34,23 @@ export const removeAndDestroyById = ({ id = '' }) => {
     } = instanceValue;
 
     /**
+     * - `Freeze` children before destroy
+     * - Come prima cosa disattiviamo i watcher usati dai figli
+     * - Unsubscribe component binding.
+     */
+    if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
+
+    /**
      * Destroy children.
      */
     Object.values(child ?? {})
         .flat()
         .forEach((childId) => {
-            removeAndDestroyById({ id: childId });
+            try {
+                removeAndDestroyById({ id: childId });
+            } catch (error) {
+                console.warn(error);
+            }
         });
 
     /**
@@ -54,13 +65,16 @@ export const removeAndDestroyById = ({ id = '' }) => {
      * - Refs should be used in this callback in special case ( eg. remove input manually to cleanUp GC better ).
      * - If destroy fire an exception app crash, at now is right, app must crash if callback is used wrong.
      */
-    destroy?.();
-    state.destroy();
+    try {
+        destroy?.();
+    } catch (error) {
+        console.error(
+            `[MobJs] destroy callback error for ${componentName}:${id}:`,
+            error
+        );
+    }
 
-    /**
-     * Unsubscribe component binding.
-     */
-    if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
+    state.destroy();
 
     /**
      * Clean all invalidate reference
