@@ -186,12 +186,11 @@ async function handleAction(eventKey, event) {
 /**
  * Clean ghost delegate event with no more target.
  *
- * - This function is called:
- * - After route change
- * - After repeat update ( reactive array.map())
- * - After invalidate update
+ * Called at the end of `applyDelegationBindEvent`, after new WeakRefs and listeners have been registered. This ordering
+ * guarantees that refs belonging to components just parsed are alive when the filter runs, preventing the unnecessary
+ * remove+add cycle of listeners during route changes and reactive updates (repeater/invalidate).
  */
-export const cleanDelegateEvent = () => {
+const cleanDelegateEvent = () => {
     for (const [eventKey, refs] of eventTargetRefs) {
         const aliveRef = refs.filter((ref) => ref.deref()?.isConnected);
 
@@ -300,4 +299,11 @@ export const applyDelegationBindEvent = async (root) => {
      * Clear tail of event to register.
      */
     eventToAdd.clear();
+
+    /**
+     * Now that new WeakRefs and listeners are registered, prune ghost refs from components just destroyed. Running
+     * clean here (instead of externally after the sync call) avoids the async/sync race where clean saw only dead refs
+     * and removed a listener about to be re-added.
+     */
+    cleanDelegateEvent();
 };
