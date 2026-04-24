@@ -1,6 +1,8 @@
 import { MobCore } from '@mobCore';
 import { tagShouldBeComponent } from '../../component/component-tag';
 import { ATTR_BIND_EFFECT, ATTR_BIND_EFFECT_INSTANCE } from '../../constant';
+import { mainStore } from '../../modules';
+import { MAIN_STORE_ROUTE_IS_LOADING } from '../../main-store/constant';
 
 /**
  * Attributi da cambiare per i componenti.
@@ -8,6 +10,18 @@ import { ATTR_BIND_EFFECT, ATTR_BIND_EFFECT_INSTANCE } from '../../constant';
 const attributesComponentExeptions = new Map([
     [ATTR_BIND_EFFECT, ATTR_BIND_EFFECT_INSTANCE],
 ]);
+
+/**
+ * Prevent click on a element while route is loading.
+ *
+ * @param {HTMLAnchorElement} anchor
+ */
+const guardAnchorWhileRouteLoading = (anchor) => {
+    anchor.addEventListener('click', (event) => {
+        if (mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING))
+            event.preventDefault();
+    });
+};
 
 /**
  * Get array of classes.
@@ -46,6 +60,14 @@ export const htmlObject = (data) => {
      * Check if tag is a component
      */
     const shouldBeComponent = tagShouldBeComponent(tag);
+
+    /**
+     * Skip click on `a` tag while route is loading
+     */
+    if (tag === 'a')
+        guardAnchorWhileRouteLoading(
+            /** @type {HTMLAnchorElement} */ (rootElement)
+        );
 
     /**
      * ClassList
@@ -187,6 +209,13 @@ const addContentChild = (rootElement, children) => {
 export const htmlString = (value) => {
     const template = document.createElement('template');
     template.innerHTML = value.trim();
+
+    /**
+     * Skip click on `a` tag while route is loading
+     */
+    for (const anchor of template.content.querySelectorAll('a')) {
+        guardAnchorWhileRouteLoading(anchor);
+    }
 
     return (
         /** @type {HTMLElement | null} */ (
