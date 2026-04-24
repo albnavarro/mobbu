@@ -1,6 +1,6 @@
 # Bug Analysis Report — MobJs
 
-**Data analisi**: 2026-04-23
+**Data analisi**: 2026-04-23 (aggiornato 2026-04-24)
 **Versione analizzata**: branch `dev` (HEAD `537451271`)
 **Scope**: `src/js/mob/mob-js/` con dipendenza `src/js/mob/mob-core/`
 
@@ -8,20 +8,33 @@
 
 ## Sommario esecutivo
 
-L'analisi ha identificato **35 bug concreti** distribuiti su tre aree funzionali della libreria:
+L'analisi ha identificato **31 bug concreti** (dopo riclassificazione di 3 falsi positivi: H1, H4, H11 e downgrade di H3 a MEDIUM).
 
-- **Parsing, Queue e Bind-Props** (15 bug)
-- **Repeater e Invalidate** (8 bug)
-- **Routing, Events, Lifecycle e Cleanup** (13 bug)
+### Stato corrente (2026-04-24)
 
-Distribuzione per severità:
+| Severità    | Trovati | Risolti | Aperti |
+|-------------|---------|---------|--------|
+| CRITICAL    | 3       | 3       | **0**  |
+| HIGH        | 7       | 4       | **3**  |
+| MEDIUM      | 17      | 2       | **15** |
+| LOW         | 4       | 1       | **3**  |
+| **Totale**  | **31**  | **10**  | **21** |
+
+### Distribuzione per severità (bug trovati):
 
 | Severità    | Conteggio | Descrizione                                                   |
 |-------------|-----------|---------------------------------------------------------------|
 | CRITICAL    | 3         | Crash, render inconsistente, side-effect duplicati            |
-| HIGH        | 11        | Race condition, memory leak non deterministici, null-access   |
+| HIGH        | 7         | Race condition, memory leak non deterministici, null-access   |
 | MEDIUM      | 17        | Edge case, ordering problems, cleanup imperfetto              |
 | LOW         | 4         | Ipotetici, da verificare; principalmente micro-edge-case      |
+
+> Nota: H1 è stato riclassificato come FALSO POSITIVO dopo riverifica (2026-04-24) — la spec ECMAScript garantisce stabilità di `WeakRef.deref()` all'interno dello stesso Job. Il conteggio HIGH passa da 11 a 10.
+> Nota: H3 è stato declassato a MEDIUM e assorbito in M10 dopo riverifica (2026-04-24). Il conteggio HIGH passa da 10 a 9.
+> Nota: H4 è stato riclassificato come FALSO POSITIVO dopo riverifica (2026-04-24) — il triplice guard su `MAIN_STORE_ROUTE_IS_LOADING` impedisce lo scenario descritto. Il conteggio HIGH passa da 9 a 8.
+> Nota: H11 è stato riclassificato come FALSO POSITIVO dopo riverifica (2026-04-24) — il filtro è defensive code coerente con `REPATE_PROXI_FAIL`. Il conteggio HIGH passa da 8 a 7.
+> Nota: H7 è stato FIXED (2026-04-24) spostando `cleanDelegateEvent` dentro `applyDelegationBindEvent`, risolvendo la race async/sync fra registrazione di nuovi WeakRef e pulizia dei ref morti.
+> Nota: H10 è stato FIXED (2026-04-24) sostituendo la variabile modulo `currentHistory` con un flag booleano `pendingHistoryNavigation` consumato atomicamente dal listener hashchange prima dell'`await`.
 
 I pattern ricorrenti che emergono dall'analisi sono quattro e suggeriscono interventi trasversali più efficaci rispetto a fix puntuali:
 
@@ -62,22 +75,22 @@ Ogni bug riporta: **file:linea**, **tipo**, **descrizione tecnica**, **scenario 
 ### Critical
 
 - [C1 — Double hashchange firing in `loadUrl`](#c1--double-hashchange-firing-in-loadurl) **FIXED**
-- [C2 — Event listener `click` su `document` mai rimosso](#c2--event-listener-click-su-document-mai-rimosso)
+- [C2 — Event listener `click` su `document` mai rimosso](#c2--event-listener-click-su-document-mai-rimosso) **FIXED (vedi appendice)**
 - [C4 — `repeaterParentElement` null dopo `await beforeUpdate()`](#c4--repeaterparentelement-null-dopo-await-beforeupdate) **FIXED**
 
 ### High
 
-- [H1 — TOCTOU con doppio `ref.deref()`](#h1--toctou-con-doppio-refderef)
+- ~~H1 — TOCTOU con doppio `ref.deref()`~~ **FALSO POSITIVO (vedi appendice)**
 - [H2 — Key-based diff con chiavi duplicate](#h2--key-based-diff-con-chiavi-duplicate) **FIXED**
-- [H3 — Ordine cleanup: children distrutti prima del parent-state](#h3--ordine-cleanup-children-distrutti-prima-del-parent-state)
-- [H4 — `parseComponents` non cancellabile durante route transition](#h4--parsecomponents-non-cancellabile-durante-route-transition)
+- ~~H3 — Ordine cleanup: children distrutti prima del parent-state~~ **DOWNGRADED a MEDIUM, merge in M10 (vedi appendice)**
+- [~~H4 — `parseComponents` non cancellabile durante route transition~~](#h4--parsecomponents-non-cancellabile-durante-route-transition) **FALSO POSITIVO**
 - [H5 — Event listener di `bind-events` mai rimossi](#h5--event-listener-di-bind-events-mai-rimossi)
 - [H6 — `cleanDelegateEvent` rimuove listener da root disconnesso](#h6--cleandelegateevent-rimuove-listener-da-root-disconnesso)
-- [H7 — `removeCancellableComponent()` ordering vs `parseComponents`](#h7--removecancellablecomponent-ordering-vs-parsecomponents)
+- [H7 — `removeCancellableComponent()` ordering vs `parseComponents`](#h7--removecancellablecomponent-ordering-vs-parsecomponents) **FIXED**
 - [H8 — `onMount` senza try/catch](#h8--onmount-senza-trycatch)
 - [H9 — `compareIdOrParentIdRecursive` senza guard su self-reference](#h9--compareidorparentidrecursive-senza-guard-su-self-reference) **FIXED**
-- [H10 — `popstate` vs `hashchange` ordering su scroll restore](#h10--popstate-vs-hashchange-ordering-su-scroll-restore)
-- [H11 — `getOrderedChunkByCurrentRepeatValue` filtra orfani silenziosamente](#h11--getorderedchunkbycurrentrepeatvalue-filtra-orfani-silenziosamente)
+- [H10 — `popstate` vs `hashchange` ordering su scroll restore](#h10--popstate-vs-hashchange-ordering-su-scroll-restore) **FIXED**
+- ~~H11 — `getOrderedChunkByCurrentRepeatValue` filtra orfani silenziosamente~~ **FALSO POSITIVO (vedi appendice)**
 
 ### Medium
 
@@ -90,7 +103,7 @@ Ogni bug riporta: **file:linea**, **tipo**, **descrizione tecnica**, **scenario 
 - [M7 — `unsubScribeFunction.length = 0` in closure](#m7--unsubscribefunctionlength--0-in-closure)
 - [M8 — Scroll restore dopo `parseComponents` sovrascrive scroll manuale](#m8--scroll-restore-sovrascrive-scroll-manuale)
 - [M9 — `unFreezePropById` senza finally](#m9--unfreezepropbyid-senza-finally)
-- [M10 — `removeAndDestroyById`: eccezione in `state.destroy()` salta `element.remove()`](#m10--removeanddestroybyid-eccezione-in-statedestroy)
+- [M10 — `removeAndDestroyById`: eccezione in `state.destroy()` salta `element.remove()`](#m10--removeanddestroybyid-eccezione-in-statedestroy) **FIXED**
 - [M11 — `switchBindTextMap` su placeholder già rimosso](#m11--switchbindtextmap-su-placeholder-già-rimosso)
 - [M12 — `removeCurrentToBindPropsByPropsId` non sincronizzato con mappa inversa](#m12--removecurrenttobindpropsbypropsid-non-sincronizzato) **UNUSED FUNCTION**
 - [M13 — Queue `maxQueuqueSize` check non strict](#m13--queue-maxqueuquesize-check-non-strict)
@@ -104,7 +117,7 @@ Ogni bug riporta: **file:linea**, **tipo**, **descrizione tecnica**, **scenario 
 - [L1 — `watchById` ritorna undefined se id vuoto](#l1--watchbyid-ritorna-undefined-se-id-vuoto)
 - [L2 — `getParentIdFromWeakElementMap` ritorna stringa vuota invece di undefined](#l2--getparentidfromweakelementmap-ritorna-stringa-vuota)
 - [L3 — Race queue max-size (falso positivo probabile)](#l3--race-queue-max-size)
-- [L4 — Listener `document.click` senza capture phase configuration](#l4--listener-documentclick-senza-capture-phase)
+- [L4 — Listener `document.click` senza capture phase configuration](#l4--listener-documentclick-senza-capture-phase) **MOOT (risolto con C2)**
 
 ---
 
@@ -245,59 +258,9 @@ Mai sostituire con un nodo fittizio: è sempre sintomo di errore logico più a m
 
 ## HIGH
 
-### H1 — TOCTOU con doppio `ref.deref()`
+### ~~H1 — TOCTOU con doppio `ref.deref()`~~ **FALSO POSITIVO**
 
-**File**:
-- `modules/bind-text/index.js:241-257`
-- `modules/bind-object/index.js:198-214`
-- `modules/bind-effetc/index.js:282-314`
-
-**Tipo**: race / TOCTOU
-
-#### Descrizione tecnica
-
-Il pattern `ref.deref() && ref.deref()?.isConnected` chiama `deref()` due volte nello stesso branch. Tra le due chiamate (anche se il gap è microtask) il referent può essere raccolto dal GC. Nei blocchi dentro `MobCore.useFrame` / `useNextLoop` il gap è ampio abbastanza da essere osservabile sotto pressione GC.
-
-#### Scenario riproduttivo
-
-Sotto carico elevato con rimozioni/creazioni rapide di nodi:
-
-1. Prima `deref()` → nodo vivo.
-2. Il GC raccoglie il nodo tra le righe.
-3. Seconda `deref()` → `undefined`.
-4. `ref.deref().textContent = ''` → `TypeError`.
-
-#### Codice problematico
-
-```js
-// bind-text/index.js:241-257
-if (ref.deref() && !ref.deref()?.isConnected) {
-    unsubScribeFunction.forEach((fn) => { if (fn) fn(); });
-    unsubScribeFunction.length = 0;
-}
-
-if (ref.deref() && ref.deref()?.isConnected) {
-    ref.deref().textContent = '';
-    ref.deref().insertAdjacentHTML('afterbegin', render());
-}
-```
-
-#### Fix suggerito
-
-Un helper riutilizzabile:
-
-```js
-const withAliveRef = (ref, fn) => {
-    const el = ref.deref();
-    if (!el?.isConnected) return;
-    fn(el);
-};
-
-withAliveRef(ref, (el) => {
-    el.textContent = '';
-    el.insertAdjacentHTML('afterbegin', render());
-});
-```
+Riclassificato come falso positivo dopo verifica. Vedi sezione "Appendice — Falsi positivi" per il ragionamento completo.
 
 ---
 
@@ -375,98 +338,15 @@ Questo garantisce coerenza interna: stessa sorgente per render e per calcolo ind
 
 ---
 
-### H3 — Ordine cleanup: children distrutti prima del parent-state
+### ~~H3 — Ordine cleanup: children distrutti prima del parent-state~~ **DOWNGRADED a MEDIUM**
 
-**File**: `component/action/remove-and-destroy/remove-and-destroy-by-id.js:39-58`
-**Tipo**: cleanup-order
-
-#### Descrizione tecnica
-
-`removeAndDestroyById` distrugge i figli prima di distruggere lo state del parent. Se il parent ha watcher che ancora puntano ai figli, quei watcher possono triggerare durante la distruzione dei children e lanciare sui figli già parzialmente demoliti. Inoltre, se `state.destroy()` del parent lancia, `element?.remove()` (riga 103-105) viene saltato lasciando il DOM orfano.
-
-#### Scenario riproduttivo
-
-Parent con watcher su `children[i].prop`:
-
-1. `removeAndDestroyById(parent)` invoca ricorsivamente destroy sui children.
-2. Durante la distruzione di `child[0]`, un suo state change triggera il watcher del parent.
-3. Il watcher accede a `child[1]` che è già parzialmente distrutto.
-
-#### Codice problematico
-
-```js
-// remove-and-destroy-by-id.js:39-58
-Object.values(child ?? {})
-    .flat()
-    .forEach((childId) => {
-        removeAndDestroyById({ id: childId });
-    });
-
-// ...
-
-state.destroy();  // se lancia, non arriva a element.remove()
-```
-
-#### Fix suggerito
-
-Inserire try/finally e disattivare i watcher del parent prima di distruggere i children:
-
-```js
-try {
-    state.freezeAllWatchers?.();  // opzionale, da implementare nel core
-    Object.values(child ?? {}).flat().forEach((id) => removeAndDestroyById({ id }));
-    state.destroy();
-} finally {
-    element?.removeCustomComponent?.();
-    element?.remove();
-    instanceValue.element = null;
-}
-```
+Dopo riverifica, il nocciolo reale coincide con **M10** (eccezione in `destroy?.()` / `state.destroy()` salta `element.remove()`). Lo scenario originale ("watcher del parent che accede a `child[1]` già parzialmente distrutto") non combacia con il flusso sincrono di `forEach`: ogni child è completamente distrutto prima che il successivo venga iterato, quindi non esiste uno stato "parzialmente demolito" visibile ai watcher. Il fix proposto (`state.freezeAllWatchers?.()`) dipende inoltre da API inesistente in `mob-core` e avrebbe side-effect troppo ampi. Vedi **M10** per il fix effettivo (try/catch/finally) e l'appendice "Falsi positivi / ridimensionamenti" per il ragionamento completo.
 
 ---
 
-### H4 — `parseComponents` non cancellabile durante route transition
+### ~~H4 — `parseComponents` non cancellabile durante route transition~~ **FALSO POSITIVO**
 
-**File**: `route/load-page.js:148-182`
-**Tipo**: race / cleanup-order
-
-#### Descrizione tecnica
-
-`loadPage()` ottiene il `contentElement`, lo svuota, prepare il nuovo content, chiama `parseComponents()` in modo asincrono. Se l'utente scatena una nuova navigazione mentre `parseComponents` è in corso, la seconda chiamata di `loadPage` invoca `removeCancellableComponent()` distruggendo nodi che il parser della prima chiamata sta ancora processando.
-
-#### Scenario riproduttivo
-
-1. Route A: `layout()` async lento.
-2. Utente clicca link Route B prima che A finisca.
-3. Nuovo `loadPage` svuota `contentElement` e rimuove i componenti non-persistenti.
-4. Il `parseComponents` della Route A riprende e cerca elementi che non esistono più.
-
-#### Codice problematico
-
-```js
-// route/load-page.js:174-182
-contentElement.replaceChildren();
-removeCancellableComponent();
-contentElement.prepend(content);
-// ...
-await parseComponents({ element: contentElement });
-```
-
-#### Fix suggerito
-
-Introdurre un token di cancellazione:
-
-```js
-let currentLoadToken = 0;
-
-export const loadPage = async (args) => {
-    const token = ++currentLoadToken;
-    // ...
-    await parseComponents({ element: contentElement, isCancelled: () => token !== currentLoadToken });
-};
-```
-
-Il parser controlla `isCancelled()` dopo ogni await e ritorna early.
+Riclassificato come falso positivo dopo verifica. Vedi sezione "Appendice — Falsi positivi" per il ragionamento completo.
 
 ---
 
@@ -566,40 +446,50 @@ activeHandlers.delete(eventKey);
 
 ---
 
-### H7 — `removeCancellableComponent()` ordering vs `parseComponents`
+### H7 — `cleanDelegateEvent` vs `applyDelegationBindEvent`: race async/sync **FIXED**
 
-**File**: `route/load-page.js:174-182`
-**Tipo**: cleanup-order
+**Stato**: FIXED — 2026-04-24. Vedi "Appendice — Fix applicati / H7".
+**File**: `parse/parse-function-while.js:441-445` (pre-fix), `modules/delegate-events/index.js:194-220, 228-303` (pre-fix)
+**Tipo**: ordering-race (async vs sync)
 
-#### Descrizione tecnica
+> Nota: l'entry originale puntava a `route/load-page.js:174-182` e descriveva un ordering problem fra `removeCancellableComponent` e `parseComponents`. Dopo verifica, quella posizione **non è la causa del bug**. Il fix applicato e l'analisi aggiornata seguono.
 
-`removeCancellableComponent()` viene chiamato prima di `parseComponents()`. I componenti non-persistent vengono eliminati, ma se hanno listener delegati registrati tramite WeakRef in `eventTargetRefs`, i ref diventano dead. `cleanDelegateEvent` non distingue tra "rimosso intenzionalmente" e "raccolto dal GC": può rimuovere un listener che sarà appena reinstallato dal nuovo parse.
+#### Descrizione tecnica (aggiornata)
 
-#### Scenario riproduttivo
-
-1. Route A ha elementi con delegate click.
-2. Route B sta caricando: rimuove A.
-3. `cleanDelegateEvent` viene invocato subito dopo: vede 0 ref alive.
-4. Rimuove il handler dal root.
-5. Route B registra nuovi elementi con lo stesso evento click.
-6. `setDelegateBindEvent` ri-registra handler: OK per i nuovi.
-
-Caso limite: se esiste una zona di mezzo dove un sottoset degli elementi della route A sopravvive (es. elementi persistent), il cleanup prematuro può disattivare listener ancora necessari.
-
-#### Codice problematico
+In `parse-function-while.js` il blocco finale era:
 
 ```js
-// route/load-page.js:174-182
-contentElement.replaceChildren();
-removeCancellableComponent();
-contentElement.prepend(content);
-// ...
-await parseComponents({ element: contentElement });
+applyDelegationBindEvent(element);   // riga 441 — NON awaited
+applyBindEffect(element);
+switchBindTextMap();
+switchBindObjectMap();
+cleanDelegateEvent();                 // riga 445
 ```
 
-#### Fix suggerito
+`applyDelegationBindEvent` è `async` e inizia con `await repeaterTick()` / `await invalidateTick()` (`delegate-events/index.js:232-233`). Alla chiamata di riga 441, la funzione **si sospende al primo await**. Le righe 442-445 eseguono sincronamente. Quando `cleanDelegateEvent()` parte (riga 445):
 
-Spostare `removeCancellableComponent` dopo la fase di parsing dei nuovi componenti, o separare la pulizia in due fasi: prima struttura, poi listener.
+- I nuovi `WeakRef` della route/repeater appena parsati **non sono ancora stati registrati** (la registrazione avviene solo dopo le `await`, righe 245-276).
+- `eventTargetRefs` contiene solo ref morti dei componenti appena distrutti.
+- Per ogni `eventKey`, `aliveRefs.length === 0` → il listener viene rimosso dal root (riga 206).
+
+Qualche microtask dopo, `applyDelegationBindEvent` riprende, registra i nuovi `WeakRef` e ri-attacca il listener (righe 287-297).
+
+**Effetto visibile**: remove+add inutile del listener su ogni parse. Durante la finestra micro-task intermedia, un evento utente sull'elemento del nuovo parse potrebbe non firare (il listener è temporaneamente detached).
+
+#### Imprecisioni nella descrizione originale (ora deprecata)
+
+L'entry originale citava un "caso limite" con elementi persistent: "se esiste una zona di mezzo dove un sottoset degli elementi della route A sopravvive (es. elementi persistent), il cleanup prematuro può disattivare listener ancora necessari". **Falso** — i componenti persistent sono **fuori** da `contentElement` (vedi `componentIsPersistent` in `component/action/component.js:89-98`: `return !contentElement?.contains(element);`). `contentElement.replaceChildren()` non li tocca, restano connected, i loro `WeakRef` sopravvivono al filter. Il listener non viene mai rimosso per gli eventi con almeno un persistent attivo.
+
+#### Fix applicato
+
+`cleanDelegateEvent` è stato spostato **dentro** `applyDelegationBindEvent`, in fondo alla funzione (dopo la registrazione dei WeakRef e dei listener). Il modulo `delegate-events` è ora self-contained: register → clean avviene atomicamente dal punto di vista del chiamante, senza dipendere dall'ordering esterno.
+
+Dettagli concreti:
+- `cleanDelegateEvent` declassato da `export const` a `const` (helper interno).
+- Chiamata rimossa da `parse-function-while.js:445`.
+- Import di `cleanDelegateEvent` rimosso da `parse-function-while.js:15`.
+
+Vedi "Appendice — Fix applicati / H7" per codice before/after.
 
 ---
 
@@ -693,89 +583,57 @@ O più robusto: un `Set` di ID visitati passato come argomento.
 
 ---
 
-### H10 — `popstate` vs `hashchange` ordering su scroll restore
+### H10 — `popstate` vs `hashchange`: race sulla variabile `currentHistory` **FIXED**
 
-**File**: `route/router.js:263-276`
-**Tipo**: race
+**Stato**: FIXED — 2026-04-24. Vedi "Appendice — Fix applicati / H10".
+**File**: `route/router.js` (pre-fix righe 33, 115, 201, 204, 247, 306)
+**Tipo**: race async/sync su variabile modulo condivisa
 
-#### Descrizione tecnica
+#### Descrizione tecnica (aggiornata)
 
-`popstate` salva `currentHistory = event?.state?.nextId` sincronamente in una variabile modulo. `hashchange` fa `await awaitNextLoop()` e poi `parseUrlHash`. Se tra popstate e hashchange arriva una navigazione parallela (un `loadUrl` programmatico o un secondo Back), `currentHistory` viene sovrascritto.
+Pre-fix il modulo teneva una variabile `currentHistory` usata come segnale "questa navigazione deriva da popstate". Flusso:
 
-#### Scenario riproduttivo
+- Il listener `popstate` scriveva `currentHistory = event?.state?.nextId` (sincrono).
+- Il listener `hashchange` faceva `await awaitNextLoop()` e poi `parseUrlHash()`, che leggeva `currentHistory` per decidere tre cose: se scrivere un nuovo entry history (`replaceState`), il valore di `isBrowserNavigation` passato a `loadPage` (scroll restore), il valore di `skipTransition`.
+- Il listener `loadUrl` (navigazione programmatica) resettava `currentHistory = undefined` prima di cambiare la URL.
 
-L'utente preme Back rapidamente due volte:
+Fra la scrittura (popstate, sincrona) e la lettura (dentro parseUrlHash, dopo l'await) esiste una finestra micro-task in cui un secondo popstate o una `loadUrl` concorrente possono sovrascrivere la variabile, facendo sì che il primo hashchange osservi un valore non suo.
 
-1. Primo Back: popstate → `currentHistory = A`.
-2. Il tick di `hashchange` è rinviato a `awaitNextLoop`.
-3. Secondo Back: popstate → `currentHistory = B`.
-4. Primo hashchange esegue `parseUrlHash` con state `B` invece che `A`.
+#### Lo scenario originale era descritto in maniera imprecisa
 
-#### Codice problematico
+L'entry originale citava il doppio Back rapido. In realtà quel caso è **benigno**: entrambi i popstate impostano `currentHistory` a valori truthy; il secondo hashchange viene bloccato dal guard `MAIN_STORE_ROUTE_IS_LOADING`; nessuna regressione osservabile.
 
-```js
-// route/router.js:263-265
-globalThis.addEventListener('popstate', (event) => {
-    currentHistory = event?.state?.nextId;
-});
+Lo scenario **reale** è: **popstate + `loadUrl` programmatica durante la finestra `await awaitNextLoop`**:
 
-// route/router.js:270-276
-globalThis.addEventListener('hashchange', async () => {
-    await awaitNextLoop();
-    parseUrlHash();
-});
-```
+1. T0: Back → popstate → `currentHistory = truthy`
+2. T0+ε: hashchange → `await awaitNextLoop()` → sospensione
+3. T1: codice utente chiama `loadUrl('#X')` (es. dentro onMount di componente persistent). `ROUTE_IS_LOADING` è ancora false (`loadPage` non è ancora partito), quindi `loadUrl` procede e setta `currentHistory = undefined`
+4. T2: primo hashchange riprende → `parseUrlHash()` legge `currentHistory = undefined` → tratta come direct-nav (scroll reset, transizione non skippata) anche se il ciclo era partito da una history-nav
 
-#### Fix suggerito
+Effetto osservabile: Back con `loadUrl` concorrente produce scroll reset al posto del restore e transizione attiva al posto dello skip.
 
-Leggere `history.state` direttamente dentro `parseUrlHash` (è sempre aggiornato dal browser) anziché mantenere una variabile modulo che si desincronizza.
+#### Bug latenti aggiuntivi (risolti collateralmente dal fix)
+
+Durante la riverifica sono emersi due difetti minori dello stesso modulo, non descritti nell'entry originale:
+
+1. **`currentHistory` mai resettata dopo uso in `parseUrlHash`**: restava truthy indefinitamente dopo una back-nav. Una successiva modifica dell'hash da codice esterno (o URL bar del browser) veniva interpretata come history-nav "stale". Il post-fix consuma e resetta il flag in hashchange → nessuno stato residuo fra cicli.
+2. **Shape dello state non validato**: `currentHistory = event?.state?.nextId` era truthy solo per state scritto da questo modulo. Una versione naïve `!!event?.state` sarebbe stata regressiva per codice esterno che usa `history.pushState({custom:...})`. Il post-fix usa `!!event?.state?.nextId` per parità semantica.
+
+#### Il fix proposto originale NON avrebbe funzionato
+
+L'entry originale suggeriva di "leggere `history.state` direttamente dentro `parseUrlHash`". Verifica: `parseUrlHash` stesso fa `history.replaceState({ nextId: historyObejct }, ...)` su ogni direct-nav (router.js:116 pre-fix). Quindi `history.state` è sempre truthy dopo la prima navigazione. Non può distinguere "popstate-triggered" da "direct nav con state residuo". La domanda chiave non è *"qual è lo state?"* ma *"questo hashchange deriva da un popstate?"* — una domanda sulla provenienza dell'evento, non sul contenuto history.
+
+#### Fix applicato
+
+La variabile modulo `currentHistory` è stata sostituita da un flag booleano `pendingHistoryNavigation` con lifecycle chiaro: il listener `popstate` alza il flag, il listener `hashchange` lo consuma (legge + resetta) in modo **sincrono prima dell'await**, e il valore catturato viene passato come parametro locale `fromHistory` a `parseUrlHash`. Nessuna variabile modulo viene letta nel corpo di `parseUrlHash`.
+
+Vedi "Appendice — Fix applicati / H10" per codice before/after e verifica di equivalenza semantica.
 
 ---
 
-### H11 — `getOrderedChunkByCurrentRepeatValue` filtra orfani silenziosamente
+### ~~H11 — `getOrderedChunkByCurrentRepeatValue` filtra orfani silenziosamente~~ **FALSO POSITIVO**
 
-**File**: `modules/repeater/utils.js:210-247`
-**Tipo**: diff-bug
-
-#### Descrizione tecnica
-
-`.filter((item) => item !== undefined)` rimuove gruppi DOM che non trovano corrispondenza nei dati. `chunkChildrenOrdered` finisce più corto del previsto e i loop successivi saltano indici, causando render parziale.
-
-#### Scenario riproduttivo
-
-Reorder aggressivo dell'array con chiavi che cambiano:
-
-```js
-// Prima
-[{ id: 1 }, { id: 2 }, { id: 3 }]
-// Dopo
-[{ id: 3 }, { id: 1 }]
-// Durante la transizione, { id: 2 } è ancora nel DOM ma non in data
-```
-
-Il gruppo `id: 2` viene filtrato silenziosamente, ma il DOM non lo rimuove.
-
-#### Codice problematico
-
-```js
-// modules/repeater/utils.js:244-246
-return data
-    .map((item) => childrenMap.get(item[key]))
-    .filter((item) => item !== undefined);
-```
-
-#### Fix suggerito
-
-Distinguere esplicitamente "orfani da rimuovere" da "ordinati":
-
-```js
-const ordered = data.map((item) => childrenMap.get(item[key]));
-const orphans = Array.from(childrenMap.values()).filter(
-    (group) => !ordered.includes(group)
-);
-// orphans deve essere rimosso esplicitamente dal DOM
-return { ordered: ordered.filter(Boolean), orphans };
-```
+Riclassificato come falso positivo dopo verifica. Vedi sezione "Appendice — Falsi positivi" per il ragionamento completo.
 
 ---
 
@@ -1023,12 +881,251 @@ MobCore.useNextLoop(async () => {
 
 ---
 
-### M10 — `removeAndDestroyById`: eccezione in `state.destroy()` salta `element.remove()`
+### M10 — `removeAndDestroyById`: ordine cleanup e exception-safety *(assorbe H3)*
 
-**File**: `component/action/remove-and-destroy/remove-and-destroy-by-id.js:58-121`
-**Tipo**: cleanup-order
+**Stato**: FIXED — 2026-04-24. Vedi "Appendice — Fix applicati / M10".
+**File**: `component/action/remove-and-destroy/remove-and-destroy-by-id.js:17-130`
+**Tipo**: cleanup-order / exception-safety
 
-Vedi H3 per descrizione dettagliata. Correlato.
+#### Descrizione tecnica
+
+L'ordine attuale delle operazioni in `removeAndDestroyById` presenta tre problemi tra loro correlati:
+
+**Problema 1 — `parentPropsWatcher` unsubscribed tardi (riga 63)**
+
+`parentPropsWatcher` è un array di unwatch function che rappresentano **subscription verso il nostro state dal parent**: sono watcher registrati sullo state del parent il cui callback scrive nel nostro state via `setStateById(ourId, ...)` (meccanismo di `bindProps` / `setDynamicPropsWatch`, vedi `component/action/props.js:8-19`).
+
+Nell'ordine attuale:
+
+```js
+// riga 58
+state.destroy();
+
+// riga 63
+if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
+```
+
+Tra riga 58 e riga 63 esiste una **finestra** in cui il parent state può subire un cambio (side-effect di altri destroy, watcher async, ecc.); il callback di `parentPropsWatcher` viene invocato e prova a scrivere su uno state appena distrutto. A seconda di come `mob-core` gestisce la scrittura su state morto si ottiene un throw o un no-op silenzioso.
+
+**Problema 2 — `parentPropsWatcher` attivo durante la distruzione dei children**
+
+Anche più subtle: durante `forEach` (righe 39-43) il `destroy?.()` di un child può scrivere sul parent state. Quel cambio propaga via `parentPropsWatcher` al nostro state ancora vivo: i nostri watcher scattano su un componente in fase di smontaggio (children in parte già morti, DOM ancora attaccato).
+
+**Problema 3 — Eccezione in `destroy?.()` o `state.destroy()` salta l'intero cleanup a valle**
+
+Le righe 57-58 invocano `destroy?.()` (callback utente) e `state.destroy()` senza protezione. Qualunque eccezione propaga fuori dalla funzione, saltando tutto ciò che segue:
+
+- `parentPropsWatcher` non viene unwatchato (leak di subscription — aggravato dal Problema 1)
+- `removeInvalidateId` / `removeRepeaterId` / `removeRepeaterComponentChildren` / `removeIdFromInstanceMap` / `removeNonPersisitentComponent` / `removeCurrentIdToBindProps` non invocati (desync di 6 mappe globali)
+- `element.removeCustomComponent()` e `element.remove()` non eseguiti → **DOM orfano**
+- `componentMap.delete(id)` saltato → `instanceValue` resta in memoria con references detached
+- I children, invece, sono già stati distrutti alle righe 39-43: lo stato finale è un parent mappato ma con gerarchia children già rimossa
+
+Il commento attuale al codice esplicita un design intenzionale (*"If destroy fire an exception app crash, at now is right, app must crash if callback is used wrong"*), ma il prezzo è la corruzione silenziosa di 6 mappe globali e del DOM: un crash "pulito" lascerebbe l'app in uno stato recuperabile, non uno stato ibrido.
+
+#### Scenario riproduttivo (Problema 3)
+
+Componente con callback `destroy` utente che lancia (es. pulizia manuale di risorse esterne fallita):
+
+```js
+MobJs.createComponent({
+    name: 'my-comp',
+    render: ({ onDestroy }) => {
+        onDestroy(() => {
+            throw new Error('cleanup fallito');
+        });
+    },
+});
+```
+
+Alla distruzione: children rimossi, poi `destroy?.()` lancia → elemento DOM resta appeso, `componentMap` non ripulito, successivi parse trovano un ID già registrato ma senza elemento reale.
+
+#### Analisi delle risorse coinvolte
+
+Il componente tocca 13 "punti di ancoraggio" nell'applicazione:
+
+| # | Risorsa | Chi la libera |
+|---|---------|---------------|
+| 1 | `componentMap` | `componentMap.delete(id)` |
+| 2 | Entry nel `child` del parent | `removeItselfFromParent` |
+| 3 | `parentPropsWatcher` (subscription in ingresso) | `parentPropsWatcher.forEach(unwatch)` |
+| 4 | Watcher esterni sul nostro state (es. da siblings) | `state.destroy()` |
+| 5 | Watcher interni dell'utente (`.watch(...)`) | `state.destroy()` |
+| 6 | `invalidateIdsMap` / `invalidateInstancesMap` | `removeInvalidateId` |
+| 7 | `repeatIdsMap` / `repeatInstancesMap` | `removeRepeaterId` |
+| 8 | `repeatComponentChildrenMap` | `removeRepeaterComponentChildren` |
+| 9 | `instanceMap` (se `instanceName`) | `removeIdFromInstanceMap` |
+| 10 | `nonPersisitentComponentSet` | `removeNonPersisitentComponent` |
+| 11 | `bindPropsMap` (altri ci targettano) | `removeCurrentIdToBindProps` |
+| 12 | DOM node | `element.removeCustomComponent()` + `element.remove()` |
+| 13 | `refs`, `methods`, `state`, `element` interni | null-out |
+
+#### Invarianti da garantire
+
+- **I1** — I children vanno distrutti **prima** del nostro state: i loro `parentPropsWatcher` puntano al nostro state e vengono unsubscribed durante il loro recursive destroy, che lo legge.
+- **I2** — Il nostro `destroy?.()` callback deve avere `state`, `element`, `refs`, `methods` **vivi** (vedi docstring attuale: *"Refs should be used in this callback"*).
+- **I3** — Dopo `state.destroy()`, **nessuno** deve più scrivere sul nostro state → i watcher in ingresso (`parentPropsWatcher`) devono essere disattivati prima.
+- **I4** — `element.remove()` e `componentMap.delete(id)` devono avvenire **sempre**, anche se `destroy?.()` o `state.destroy()` lanciano eccezioni.
+  > Nota post-fix: `state.destroy()` è dimostrabilmente non-throwing (vedi "Strategia di exception-safety"), quindi in pratica l'unica fonte di eccezione che richiede protezione per soddisfare I4 è `destroy?.()` utente (e per propagazione la ricorsione sui children).
+- **I5** — Il null-out delle reference deve precedere `componentMap.delete` per aiutare il GC.
+
+#### Ordine corretto proposto
+
+```
+FASE 0 — Guards
+  1. if (!id) return
+  2. const instanceValue = componentMap.get(id); if (!instanceValue) return
+  3. destructure
+
+FASE 1 — Freeze incoming (stop ricezione side-effect da altri componenti)
+  4. parentPropsWatcher?.forEach((unwatch) => unwatch())
+     → Motivazione (I3, problemi 1 e 2): nessuno deve più scriverci sopra da qui in poi.
+     → No try/catch: `unwatch` è non-throwing by construction (vedi "Strategia di exception-safety").
+
+FASE 2 — Destroy bottom-up
+  5. Object.values(child ?? {}).flat().forEach((childId) => {
+         try { removeAndDestroyById({ id: childId }); }
+         catch (err) { console.warn(err); }
+     })
+     → Motivazione (I1, I4): i children leggono il nostro state; un child che lancia non deve bloccare gli altri.
+     → Il try/catch qui isola la propagazione di un'eccezione dalla Fase 4 del figlio (unica fonte reale di throw nella ricorsione).
+
+FASE 3 — Remove itself from parent (mantenuto come nell'ordine originale)
+  6. removeItselfFromParent({ id, parentId, componentName })
+     → Scelta: mantenere la posizione attuale (subito dopo i children, prima del destroy?.()).
+
+FASE 4 — User callback (può ancora accedere a state + element + refs + methods)
+  7. try { destroy?.() } catch (err) { console.error(`[MobJs] destroy callback error for ${componentName}:${id}:`, err); }
+     → Motivazione (I2): docstring garantisce accesso a refs/element. Cambio di contratto: non crasha più l'app, logga.
+     → Unica fonte reale di eccezione nel flusso: codice utente arbitrario.
+
+FASE 5 — Destroy own state (nessuno deve più dipenderne)
+  8. state.destroy()
+     → Dopo questo, tutti i watcher del nostro state (inclusi watchById esterni) sono disattivati.
+     → No try/catch: `destroyStoreEntryPoint` è non-throwing by construction (vedi "Strategia di exception-safety").
+
+FASE 6 — Cleanup mappe globali (indipendenti tra loro)
+  9.  removeInvalidateId({ id })
+ 10.  removeRepeaterId({ id })
+ 11.  if (componentRepeatId && componentRepeatId.length > 0) removeRepeaterComponentChildren(...)
+ 12.  if (instanceName && instanceName.length > 0)           removeIdFromInstanceMap(...)
+ 13.  if (!persistent)                                        removeNonPersisitentComponent(id)
+ 14.  removeCurrentIdToBindProps({ componentId: id })
+
+FASE 7 — DOM removal
+ 15. element?.removeCustomComponent?.()
+ 16. element?.remove()
+
+FASE 8 — Detach e GC hint
+ 17-22. null-out di methods, refs, repeaterInnerWrap, element, currentRepeaterState, state
+ 23.    componentMap.delete(id)
+```
+
+#### Strategia di exception-safety (variante V2 — isolamento puntuale)
+
+Si è scartata la variante a `try/finally` unico esterno perché se la Fase 2 (children) lanciasse in cascata, le Fasi 4-5 (destroy/state.destroy) verrebbero saltate lasciando watcher attivi. Si è scartata anche una variante `try/finally` annidata perché mescola concern diversi (user code vs framework code).
+
+**La variante scelta isola il codice utente (l'unica fonte reale di eccezione) con try/catch puntuali.** Analizzando il codice di `mob-core/store`, le operazioni framework sono non-throwing by construction:
+
+- **Fase 1 — `unwatch()`**: le closure ritornate da `watchMobStore` / `watchEntryPoint` (store-watch.js:113, 163) eseguono solo `Map.get` / `Map.set` / `Map.delete` / `Array.filter`, tutte con early-return su null. Non throwano.
+- **Fase 5 — `state.destroy()`**: delega a `destroyStoreEntryPoint` (destroy.js:9) che usa solo `.clear()` su Map/Set, riassegnazioni e chiamate a unwatch già analizzati. Non throwa.
+
+**L'unica fonte reale di eccezione è `destroy?.()` utente (Fase 4)**, che contiene codice arbitrario. I try/catch applicati sono quindi due:
+
+1. **Fase 2 — children recursion**: try/catch per-child. Non perché la ricorsione sia rischiosa in sé, ma perché al suo interno c'è la Fase 4 del figlio. Serve a evitare che un figlio con `destroy` bacato blocchi la distruzione dei fratelli (isolamento di propagazione).
+2. **Fase 4 — `destroy?.()` utente**: try/catch diretto. Logga con `console.error` contestualizzato (id + componentName) e prosegue il cleanup.
+
+Fase 1 e Fase 5 non sono protette perché sarebbe cinture-e-bretelle su codice dimostrabilmente safe. Se un domani `mob-core` introducesse un path throwing in queste API, sarebbe un bug interno e deve essere visibile (stessa regola delle Fasi 6-8).
+
+#### Cambio di contratto deliberato
+
+Il commento attuale del codice (*"If destroy fire an exception app crash, at now is right, app must crash if callback is used wrong"*) viene **deprecato**. Nuova semantica:
+
+- Un'eccezione in `destroy?.()` produce un `console.error` con id, `componentName` e stack trace.
+- L'app **non crasha più** su user callback buggy.
+- Il cleanup delle mappe globali, del DOM e del `componentMap` avviene comunque.
+
+Razionale: una libreria deve garantire un teardown predicibile anche davanti a codice utente scorretto; un `console.error` ben formattato è più utile di un crash che lascia 6 mappe globali desincronizzate e un DOM orfano.
+
+#### Fix sintetico (pseudo-codice)
+
+```js
+export const removeAndDestroyById = ({ id = '' }) => {
+    if (!id) return;
+    const instanceValue = componentMap.get(id);
+    if (!instanceValue) return;
+
+    const {
+        parentId, componentName, child, element, state, destroy,
+        parentPropsWatcher, componentRepeatId, instanceName, persistent,
+    } = instanceValue;
+
+    // FASE 1 — freeze incoming (unwatch non-throwing by construction)
+    parentPropsWatcher?.forEach((unwatch) => unwatch());
+
+    // FASE 2 — children bottom-up (isola propagazione da destroy?.() dei figli)
+    Object.values(child ?? {}).flat().forEach((childId) => {
+        try { removeAndDestroyById({ id: childId }); } catch (err) {
+            console.warn(err);
+        }
+    });
+
+    // FASE 3
+    removeItselfFromParent({ id, parentId, componentName });
+
+    // FASE 4 — user callback (unica fonte reale di eccezione)
+    try { destroy?.(); } catch (err) {
+        console.error(`[MobJs] destroy callback error for ${componentName}:${id}:`, err);
+    }
+
+    // FASE 5 — own state (destroyStoreEntryPoint non-throwing by construction)
+    state.destroy();
+
+    // FASE 6 — global maps (indipendenti)
+    removeInvalidateId({ id });
+    removeRepeaterId({ id });
+    if (componentRepeatId && componentRepeatId.length > 0) {
+        removeRepeaterComponentChildren({ componentId: id, repeatId: componentRepeatId });
+    }
+    if (instanceName && instanceName.length > 0) {
+        removeIdFromInstanceMap({ instanceName, id });
+    }
+    if (!persistent) removeNonPersisitentComponent(id);
+    removeCurrentIdToBindProps({ componentId: id });
+
+    // FASE 7 — DOM
+    // @ts-ignore
+    element?.removeCustomComponent?.();
+    element?.remove();
+
+    // FASE 8 — detach + componentMap
+    // @ts-ignore
+    instanceValue.methods = null;
+    // @ts-ignore
+    instanceValue.refs = null;
+    // @ts-ignore
+    instanceValue.repeaterInnerWrap = null;
+    // @ts-ignore
+    instanceValue.element = null;
+    // @ts-ignore
+    instanceValue.currentRepeaterState = null;
+    // @ts-ignore
+    instanceValue.state = null;
+    componentMap.delete(id);
+};
+```
+
+#### Note architetturali non adottate
+
+Si è **scartata** l'ipotesi originale di H3 di introdurre un `state.freezeAllWatchers?.()` prima dei children, perché:
+
+1. L'API `freezeAllWatchers` non esiste in `mob-core` e dovrebbe essere progettata ex-novo.
+2. Un freeze globale dello state impatterebbe anche watcher registrati da altri componenti esterni su questo state.
+3. Lo scenario originale ("watcher del parent che accede a child parzialmente distrutto") non si verifica nel `forEach` sincrono: ogni child è completamente distrutto prima del successivo. Vedi appendice "Falsi positivi" per la verifica completa.
+
+Il problema reale di isolamento dai side-effect esterni è risolto dalla Fase 1 (unsubscribe di `parentPropsWatcher` all'inizio), che è un'operazione **localmente proprietaria** (il componente possiede i propri `parentPropsWatcher`) e non ha gli stessi side-effect di un freeze globale.
+
+---
 
 ---
 
@@ -1304,13 +1401,15 @@ document.addEventListener('click', handler, { passive: false, capture: true });
 
 ## Pattern ricorrenti
 
-### Pattern 1 — `WeakRef.deref()` multiple
+### ~~Pattern 1 — `WeakRef.deref()` multiple~~ **NON APPLICABILE**
 
-Il pattern `ref.deref() && ref.deref()?.isConnected` appare in almeno 3 moduli (H1). È una classe di bug ricorrente. **Proposta**: introdurre un helper centralizzato `withAliveRef(ref, fn)` e applicarlo dovunque.
+Il pattern `ref.deref() && ref.deref()?.isConnected` appare in almeno 3 moduli (H1). L'analisi originale lo classificava come bug ricorrente. Dopo verifica (vedi appendice H1) è un **falso positivo**: la spec ECMAScript `KeepDuringJob` garantisce che multiple chiamate sincrone a `deref()` ritornino lo stesso valore all'interno di un Job.
 
 ### Pattern 2 — Cleanup ordering
 
-I bug C4, H3, H7, M1, M10, M16 sono tutti istanze dello stesso problema: la distruzione dei componenti nidificati ha race multiple con il route change. **Proposta**: un singolo refactor del teardown sequence, con un'idea chiara di:
+I bug C4, M1, M10 (che assorbe H3), M16 sono tutti istanze dello stesso problema: la distruzione dei componenti nidificati ha race multiple con il route change. **Proposta**: un singolo refactor del teardown sequence, con un'idea chiara di:
+
+> Nota: H7 era originariamente incluso in questo pattern, ma il fix applicato (2026-04-24) lo sposta fuori dal dominio teardown — vedi appendice.
 
 1. Prima: disattivare i watcher (freeze).
 2. Poi: rimuovere i listener.
@@ -1323,7 +1422,11 @@ Listener registrati a module-load (C2), stato globale non resettabile: bloccano 
 
 ### Pattern 4 — Mancanza di token di cancellazione
 
-H4, H7, M3, M8, H10 sono tutti istanze dello stesso pattern: codice async interrotto da navigazione. **Proposta**: un singleton `navigationToken` incrementato ad ogni `loadUrl`; ogni operazione async lungo il percorso controlla il proprio token dopo ogni await.
+M3, M8 sono istanze dello stesso pattern: codice async interrotto da navigazione. **Proposta**: un singleton `navigationToken` incrementato ad ogni `loadUrl`; ogni operazione async lungo il percorso controlla il proprio token dopo ogni await.
+
+> Nota: H4 era originariamente incluso in questo pattern, ma è stato riclassificato come FALSO POSITIVO (il guard `MAIN_STORE_ROUTE_IS_LOADING` impedisce già la concorrenza — vedi appendice).
+> Nota: H7 era originariamente incluso in questo pattern, ma il fix applicato (2026-04-24) l'ha spostato nel dominio interno di `delegate-events` (race async/sync) — vedi appendice.
+> Nota: H10 era originariamente incluso in questo pattern; il fix applicato (2026-04-24) usa un consumo atomico del flag in hashchange invece di un navigationToken generico, sufficiente per il caso specifico senza introdurre il token pattern globalmente — vedi appendice.
 
 ---
 
@@ -1331,24 +1434,24 @@ H4, H7, M3, M8, H10 sono tutti istanze dello stesso pattern: codice async interr
 
 ### Fase 1 — Fix critici (1-2 giorni di lavoro)
 
-1. **C2**: guard idempotenza su listener `document.click`.
-2. **C1**: rimuovere doppio `hashchange` dispatch.
-3. **C4**: early return se `repeaterParentElement` non connesso (eliminare il ghost div).
+1. ~~**C2**: guard idempotenza su listener `document.click`.~~ **FIXED** (vedi appendice)
+2. ~~**C1**: rimuovere doppio `hashchange` dispatch.~~ **FIXED**
+3. ~~**C4**: early return se `repeaterParentElement` non connesso (eliminare il ghost div).~~ **FIXED**
 4. **H8**: try/catch attorno a `onMount`.
 
 ### Fase 2 — Fix alta severità (3-5 giorni)
 
-5. **H1**: refactor con helper `withAliveRef`.
-6. **H3 + M10**: try/finally in `removeAndDestroyById`.
-7. **H9**: guard self-reference in `compareIdOrParentIdRecursive`. **FIXED**
+5. ~~**H1**: refactor con helper `withAliveRef`.~~ **FALSO POSITIVO**
+6. ~~**H3**~~ assorbito in **M10**: **FIXED** (2026-04-24). Riordino delle fasi e try/catch mirati in `removeAndDestroyById` — vedi "Appendice — Fix applicati / M10".
+7. ~~**H9**: guard self-reference in `compareIdOrParentIdRecursive`.~~ **FIXED**
 8. **H5**: tracking dei listener di `bind-events`.
 
 ### Fase 3 — Refactor dei pattern (1-2 settimane)
 
 9. **Pattern 2**: refactor completo del teardown sequence.
 10. **Pattern 4**: introdurre token di cancellazione per navigazione.
-11. **Pattern 3**: rifondere l'init per renderlo idempotente.
-12. **H11 + H2**: migliorare il diff del repeater con warning su key duplicate e gestione esplicita degli orfani.
+11. ~~**Pattern 3**: rifondere l'init per renderlo idempotente.~~ **Parzialmente risolto con C2**
+12. ~~**H11 + H2**~~: migliorare il diff del repeater con warning su key duplicate e gestione esplicita degli orfani. **H2 FIXED, H11 FALSO POSITIVO**
 
 ### Fase 4 — Hardening (quando c'è tempo)
 
@@ -1380,3 +1483,589 @@ Questa analisi è stata condotta via static review a tre livelli di profondità.
 Ogni bug va verificato con un test minimo prima di intervenire in produzione.
 
 I bug più meritevoli di verifica immediata sono **C1, C2, C4, H3, H8** perché le conseguenze (double-fire, memory leak cumulativi, DOM write su ghost, inconsistenza del cleanup, crash su onMount) sono osservabili in produzione con scenari comuni.
+
+---
+
+## Appendice — Fix applicati
+
+### C2 — Event listener `click` su `document` mai rimosso
+
+**Data fix**: 2026-04-24
+**Commit**: (da completare)
+**File modificati**: 
+- `src/js/mob/mob-js/route/router.js` (listener globale rimosso)
+- `src/js/mob/mob-js/parse/steps/from-object.js` (logica spostata qui)
+
+#### Approccio
+
+Rimosso completamente il listener globale su `document.addEventListener('click', ...)` da `router.js`. La logica di prevenzione click durante il caricamento rotte è stata spostata direttamente sugli elementi `<a>` individuali al momento della loro creazione.
+
+#### Implementazione
+
+1. **Helper centralizzato** in `from-object.js` (linee 14-24):
+   ```js
+   const guardAnchorWhileRouteLoading = (anchor) => {
+       anchor.addEventListener('click', (event) => {
+           if (mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING))
+               event.preventDefault();
+       });
+   };
+   ```
+
+2. **In `htmlObject()`** (linee 64-70): quando `tag === 'a'`, il guard viene attaccato all'elemento prima del suo inserimento nel DOM.
+
+3. **In `htmlString()`** (linee 213-218): dopo il parsing del template HTML, un `querySelectorAll('a')` trova tutti i link annidati e applica il guard a ciascuno.
+
+#### Benefici
+
+- ✅ **Nessun listener globale**: zero overhead di event delegation, nessuna iterazione su `closest('a')`.
+- ✅ **Garbage collection automatica**: i listener vengono rimossi insieme all'elemento DOM quando questo è distrutto.
+- ✅ **Idempotenza garantita**: nessuna accumulazione su re-init (HMR, test suite).
+- ✅ **Risolve anche L4**: i listener diretti sull'elemento non soffrono di problemi legati al bubbling o a `stopPropagation()` di handler più interni.
+
+#### Coverage
+
+La soluzione copre:
+- ✅ Tutti i link creati tramite `htmlObject({ tag: 'a', ... })`
+- ✅ Tutti i link parsati da HTML stringificato via `htmlString()`
+- ❌ **Residuo non coperto**: link inseriti tramite `insertAdjacentHTML()` in `addContentChild` (riga 170). Questo riguarda i 2 casi di `content: '<span>...</span>'` nel codebase — impatto trascurabile, in via di migrazione a oggetti.
+
+#### Note architetturali
+
+Il fix introduce un coupling tra il layer `parse` e il layer `route` (import di `MAIN_STORE_ROUTE_IS_LOADING` in `from-object.js`). Questo è accettabile pragmaticamente, ma per purezza massima si potrebbe in futuro iniettare il guard come configurazione esterna:
+
+```js
+// ipotetico refactor futuro
+export const htmlObject = (data, { linkGuard } = {}) => {
+    if (tag === 'a' && linkGuard) linkGuard(rootElement);
+};
+```
+
+---
+
+### M10 — `removeAndDestroyById`: ordine cleanup e exception-safety *(assorbe H3)*
+
+**Data fix**: 2026-04-24
+**Commit**: (da completare)
+**File modificati**:
+- `src/js/mob/mob-js/component/action/remove-and-destroy/remove-and-destroy-by-id.js`
+
+#### Approccio
+
+Riordino delle fasi di teardown secondo gli invarianti I1-I5 (vedi sezione M10 principale) e introduzione di try/catch **mirati** solo sui punti dimostrabilmente a rischio di eccezione: la ricorsione children (Fase 2) e la user callback `destroy?.()` (Fase 4). Fase 1 (`unwatch` di `parentPropsWatcher`) e Fase 5 (`state.destroy()`) sono lasciate senza protezione perché, analizzando `mob-core/store`, si è verificato che entrambe sono **non-throwing by construction**.
+
+#### Implementazione
+
+```js
+// FASE 1 — freeze incoming (unwatch non-throwing by construction)
+if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
+
+// FASE 2 — children bottom-up (isola propagazione da destroy?.() dei figli)
+Object.values(child ?? {}).flat().forEach((childId) => {
+    try {
+        removeAndDestroyById({ id: childId });
+    } catch (error) {
+        console.warn(error);
+    }
+});
+
+// FASE 3
+removeItselfFromParent({ id, parentId, componentName });
+
+// FASE 4 — user callback (unica fonte reale di eccezione)
+try {
+    destroy?.();
+} catch (error) {
+    console.error(
+        `[MobJs] destroy callback error for ${componentName}:${id}:`,
+        error
+    );
+}
+
+// FASE 5 — own state (destroyStoreEntryPoint non-throwing by construction)
+state.destroy();
+
+// Fasi 6-8: cleanup mappe globali, DOM removal, detach + componentMap.delete (invariate)
+```
+
+#### Analisi "non-throwing by construction"
+
+- **Fase 1 — `unwatch()`**: le closure ritornate da `watchMobStore` / `watchEntryPoint` (`mob-core/store/store-watch.js:113`, `:163`) eseguono solo `Map.get` / `Map.set` / `Map.delete` / `Array.filter`, tutte con early-return su null.
+- **Fase 5 — `state.destroy()`**: delega a `destroyStoreEntryPoint` (`mob-core/store/destroy.js:9`) che usa solo `.clear()` su Map/Set, riassegnazioni e chiamate a unwatch.
+
+Se un domani `mob-core` introducesse path throwing su queste API, sarebbe un bug interno del core e deve essere visibile (stessa regola di Fasi 6-8).
+
+#### Cambio di contratto
+
+Il commento storico *"If destroy fire an exception app crash, at now is right, app must crash if callback is used wrong"* è stato **deprecato**. Nuova semantica:
+
+- Un'eccezione in `destroy?.()` produce `console.error` con `componentName` e `id`.
+- L'app **non crasha più** su user callback buggy.
+- Il cleanup delle mappe globali, del DOM e del `componentMap` avviene comunque (I4 soddisfatta).
+
+#### Problemi risolti
+
+- **Problema 1** (M10): `parentPropsWatcher` ora unwatchato come prima operazione (Fase 1), prima di qualunque altra fase — nessuna finestra di scrittura su state morto.
+- **Problema 2** (M10): durante la distruzione dei children i `parentPropsWatcher` sono già disattivati, quindi side-effect propagati dai `destroy?.()` dei figli non scattano più sul nostro state.
+- **Problema 3** (M10, ex-H3): un'eccezione in `destroy?.()` utente viene loggata e il cleanup prosegue — DOM rimosso, mappe globali pulite, `componentMap.delete(id)` garantito.
+
+#### Coverage
+
+- ✅ Copre i tre problemi originali di M10.
+- ✅ Assorbe e chiude **H3** (ordine cleanup: children distrutti prima del parent-state).
+- ✅ Mantiene I1 (bottom-up), I2 (refs vivi in `destroy?.()`), I3 (no scritture post-state.destroy), I4 (DOM + map delete garantiti), I5 (null-out prima di `componentMap.delete`).
+
+---
+
+### L4 — Listener `document.click` senza capture phase configuration
+
+**Stato**: MOOT (non più applicabile)
+
+Il bug L4 segnalava che il listener globale su `document` operava in bubbling phase, rendendolo bypassabile da `stopPropagation()` di handler più interni.
+
+Con la rimozione del listener globale (fix C2), questo bug **non è più rilevante**: i listener sono ora attaccati direttamente sugli elementi `<a>`, quindi si attivano al primo livello di dispatch, prima di qualunque bubbling.
+
+---
+
+### H7 — `cleanDelegateEvent` vs `applyDelegationBindEvent`: race async/sync
+
+**Data fix**: 2026-04-24
+**Commit**: (da completare)
+**File modificati**:
+- `src/js/mob/mob-js/modules/delegate-events/index.js`
+- `src/js/mob/mob-js/parse/parse-function-while.js`
+
+#### Riclassificazione dello scope
+
+L'entry originale H7 puntava a `route/load-page.js:174-182` e descriveva un ordering problem fra `removeCancellableComponent` e `parseComponents`. Dopo verifica, quella posizione **non è la causa del bug** e il fix proposto ("spostare `removeCancellableComponent` dopo il parsing") non avrebbe risolto nulla. Il bug reale vive in `parse-function-while.js` + `delegate-events/index.js`: una race async/sync fra `cleanDelegateEvent` (sync) e `applyDelegationBindEvent` (async con `await` interni).
+
+#### Causa del bug
+
+Pre-fix, `parse-function-while.js:441-445` eseguiva:
+
+```js
+applyDelegationBindEvent(element);   // async — NON awaited
+applyBindEffect(element);
+switchBindTextMap();
+switchBindObjectMap();
+cleanDelegateEvent();                 // sync — parte subito
+```
+
+`applyDelegationBindEvent` sospende al primo `await repeaterTick()` (`delegate-events/index.js:232`). Le chiamate sincrone successive (incluso `cleanDelegateEvent`) eseguono prima che `applyDelegationBindEvent` abbia registrato i nuovi `WeakRef` (righe 245-276 della versione pre-fix).
+
+Quando `cleanDelegateEvent` parte:
+- `eventTargetRefs` contiene solo ref morti dei componenti appena distrutti.
+- Per ogni `eventKey`, `aliveRefs.length === 0` → il listener viene rimosso dal root.
+
+Qualche microtask dopo, `applyDelegationBindEvent` riprende e ri-attacca il listener. Risultato: remove+add inutile a ogni parse, con finestra micro-task in cui eventi utente possono mancare il listener.
+
+#### Approccio
+
+`cleanDelegateEvent` spostato **dentro** `applyDelegationBindEvent`, dopo la registrazione di `WeakRef` e listener. Il modulo `delegate-events` è ora self-contained: register → clean avviene atomicamente nel Job che esegue la parte post-await di `applyDelegationBindEvent`, senza dipendere dall'ordering esterno.
+
+#### Implementazione
+
+**Prima** (`modules/delegate-events/index.js`):
+```js
+export const cleanDelegateEvent = () => { /* ... */ };
+
+export const applyDelegationBindEvent = async (root) => {
+    await repeaterTick();
+    await invalidateTick();
+    // ...register WeakRef + listener...
+    eventToAdd.clear();
+};
+```
+
+**Dopo**:
+```js
+const cleanDelegateEvent = () => { /* ... */ };   // ora helper interno
+
+export const applyDelegationBindEvent = async (root) => {
+    await repeaterTick();
+    await invalidateTick();
+    // ...register WeakRef + listener...
+    eventToAdd.clear();
+    cleanDelegateEvent();                          // pulizia after-register
+};
+```
+
+**Prima** (`parse/parse-function-while.js`):
+```js
+import { applyDelegationBindEvent, cleanDelegateEvent } from '../modules/delegate-events';
+// ...
+applyDelegationBindEvent(element);
+applyBindEffect(element);
+switchBindTextMap();
+switchBindObjectMap();
+cleanDelegateEvent();
+```
+
+**Dopo**:
+```js
+import { applyDelegationBindEvent } from '../modules/delegate-events';
+// ...
+applyDelegationBindEvent(element);
+applyBindEffect(element);
+switchBindTextMap();
+switchBindObjectMap();
+```
+
+#### Benefici
+
+- ✅ **Nessun remove+add cycle**: il listener non viene mai disattaccato e ri-attaccato su parse con eventi condivisi.
+- ✅ **Nessuna finestra di eventi persi**: `cleanDelegateEvent` vede i WeakRef nuovi come alive.
+- ✅ **Self-containment del modulo**: la pulizia è responsabilità del modulo che conosce il timing della registrazione, non di un chiamante esterno.
+- ✅ **Rispetta il vincolo "do not use await here"** in `parse-function-while.js`: la chiamata a `applyDelegationBindEvent(element)` resta fire-and-forget; il chiamante non deve attendere il clean.
+
+#### Imprecisione nella descrizione originale
+
+L'entry originale citava un "caso limite" con elementi persistent che potevano restare senza listener dopo il cleanup prematuro. Verifica: i componenti persistent sono **fuori** da `contentElement` (`componentIsPersistent` in `component/action/component.js:89-98`: `return !contentElement?.contains(element);`). `contentElement.replaceChildren()` non li tocca, restano connected, i loro WeakRef sopravvivono al filter. Quel caso limite **non esiste**.
+
+---
+
+### H10 — `popstate` vs `hashchange`: race sulla variabile `currentHistory`
+
+**Data fix**: 2026-04-24
+**Commit**: (da completare)
+**File modificati**:
+- `src/js/mob/mob-js/route/router.js`
+
+#### Riclassificazione dello scope
+
+L'entry originale H10 descriveva come scenario problematico il doppio Back rapido. Dopo verifica quello scenario è **benigno**: entrambi i popstate impostano `currentHistory` a valori truthy e il secondo hashchange viene bloccato dal guard `MAIN_STORE_ROUTE_IS_LOADING`. Lo scenario reale è `popstate + loadUrl programmatica` durante la finestra `await awaitNextLoop`. Il fix originale proposto ("leggere `history.state` direttamente in `parseUrlHash`") non avrebbe funzionato perché `parseUrlHash` stessa scrive sempre in `history.state` su direct-nav, rendendo impossibile distinguere la provenienza.
+
+#### Causa del bug
+
+La variabile modulo `currentHistory` veniva scritta sincrona da `popstate` e letta tardi, dopo un `await awaitNextLoop()`, dentro `parseUrlHash`. Fra scrittura e lettura qualsiasi altro evento (secondo popstate, `loadUrl`) poteva sovrascriverla. Inoltre `currentHistory` non veniva mai resettata dopo uso in `parseUrlHash`: restava truthy dopo una back-nav, causando misinterpretazione di successive modifiche dell'hash.
+
+#### Approccio
+
+Sostituita `currentHistory` con un flag booleano `pendingHistoryNavigation`, con lifecycle preciso:
+
+- Alzato (`true`) dal listener `popstate` quando `event.state.nextId` è truthy (parità semantica con il controllo originale sulla shape dello state)
+- Consumato dal listener `hashchange` in modo **sincrono prima di qualsiasi await**: il valore viene copiato in una costante locale e il flag viene immediatamente resettato a `false`
+- Il valore catturato viene passato a `parseUrlHash` come parametro locale `fromHistory`
+- `loadUrl` resetta il flag sincrono prima di modificare `location.hash`, per coerenza con "navigazione programmatica ≠ history"
+
+Nessuna variabile modulo viene più letta nel corpo di `parseUrlHash`: la decisione "fromHistory" è incapsulata nel parametro passato dal chiamante.
+
+#### Implementazione
+
+**Prima** (`route/router.js`):
+```js
+/** @type {import('./type').HistoryType | undefined} */
+let currentHistory;
+
+export const parseUrlHash = async ({ shouldLoadRoute = true } = {}) => {
+    // ...
+    if (!currentHistory)
+        history.replaceState({ nextId: historyObejct }, '', fullHashWithParmas);
+    // ...
+    await loadPage({
+        // ...
+        isBrowserNavigation: getRestoreScrollVale({ hash: currentCleanHash }) && !!currentHistory,
+        skipTransition: (currentHistory ?? currentSkipTransition) ? true : false,
+    });
+};
+
+// init
+globalThis.addEventListener('popstate', (event) => {
+    currentHistory = event?.state?.nextId;
+});
+globalThis.addEventListener('hashchange', async () => {
+    await awaitNextLoop();
+    parseUrlHash();
+});
+
+// loadUrl
+currentHistory = undefined;
+```
+
+**Dopo**:
+```js
+/** @type {boolean} */
+let pendingHistoryNavigation = false;
+
+export const parseUrlHash = async ({ shouldLoadRoute = true, fromHistory = false } = {}) => {
+    // ...
+    if (!fromHistory)
+        history.replaceState({ nextId: historyObejct }, '', fullHashWithParmas);
+    // ...
+    await loadPage({
+        // ...
+        isBrowserNavigation: getRestoreScrollVale({ hash: currentCleanHash }) && fromHistory,
+        skipTransition: (fromHistory || currentSkipTransition) ? true : false,
+    });
+};
+
+// init
+globalThis.addEventListener('popstate', (event) => {
+    pendingHistoryNavigation = !!event?.state?.nextId;
+});
+globalThis.addEventListener('hashchange', async () => {
+    const fromHistory = pendingHistoryNavigation;   // consumo atomico
+    pendingHistoryNavigation = false;                // reset sincrono pre-await
+    await awaitNextLoop();
+    parseUrlHash({ fromHistory });
+});
+
+// loadUrl
+pendingHistoryNavigation = false;
+```
+
+#### Verifica di equivalenza semantica (per non introdurre regressioni)
+
+| Sito | Pre-fix | Post-fix | Equivalenza |
+|---|---|---|---|
+| Dichiarazione iniziale | `undefined` (falsy) | `false` | ✅ entrambi falsy |
+| Scrittura popstate | `event?.state?.nextId` (truthy solo per state con nextId) | `!!event?.state?.nextId` (stesso predicato, cast a bool) | ✅ identico |
+| `if (!currentHistory)` → replaceState | write se falsy | `if (!fromHistory)` → write se false | ✅ identico |
+| `!!currentHistory` per isBrowserNavigation | cast a bool | `fromHistory` (già bool) | ✅ identico |
+| `currentHistory ?? currentSkipTransition` | `??` | `fromHistory \|\| currentSkipTransition` | ✅ identico sotto cast `? true : false` (tavola di verità verificata) |
+| Reset `loadUrl` | `currentHistory = undefined` | `pendingHistoryNavigation = false` | ✅ identico |
+
+L'unica differenza sintattica che richiede verifica è `??` vs `||`. Dato `fromHistory: boolean`, la tavola di verità con `currentSkipTransition ∈ { undefined, false, true }` è identica sotto il cast finale `? true : false`.
+
+#### Benefici
+
+- ✅ **Race H10 risolta**: consumo atomico del flag prima dell'await impedisce che un secondo popstate o una `loadUrl` concorrente corrompano il segnale osservato dal primo handler.
+- ✅ **Nessuno stato residuo fra cicli**: il flag viene resettato dopo ogni hashchange. Pre-fix `currentHistory` restava truthy indefinitamente dopo una back-nav.
+- ✅ **Signature esplicita di `parseUrlHash`**: la dipendenza "derivo da history" è un parametro, non una variabile modulo implicita.
+- ✅ **Nessuna regressione su state esterno**: il controllo `!!event?.state?.nextId` mantiene la parità con pre-fix (state con shape diversa da `{ nextId: ... }` viene trattato come direct-nav).
+
+#### Limite fuori scope (non coperto né pre-fix né post-fix)
+
+Se popstate fira **senza** una successiva hashchange (es. Back fra due entry history con stesso hash ma URL diversa creata esternamente via `pushState`), il flag resta alzato fino alla prossima hashchange. Pre-fix aveva la stessa limitazione e non è obiettivo di H10.
+
+---
+
+## Appendice — Falsi positivi
+
+### H1 — TOCTOU con doppio `ref.deref()`
+
+**Data verifica**: 2026-04-24
+**Stato**: FALSO POSITIVO
+**File**:
+- `modules/bind-text/index.js:241-257`
+- `modules/bind-object/index.js:198-214`
+- `modules/bind-effetc/index.js:282-314`
+
+#### Descrizione originale (errata)
+
+L'analisi originale segnalava che il pattern `ref.deref() && ref.deref()?.isConnected` fosse soggetto a TOCTOU: tra due chiamate a `deref()` il GC avrebbe potuto raccogliere l'oggetto, rendendo la seconda `deref()` undefined e causando `TypeError` all'uso successivo.
+
+#### Verifica spec ECMAScript
+
+La specifica ECMAScript per WeakRef definisce il meccanismo **KeepDuringJob**:
+
+> *"Every WeakRef whose target is a live object at the time of a `deref()` call adds that target to the Kept Objects list for the current Job. Objects in that list MUST NOT be reclaimed by the garbage collector until the current Job completes."*
+
+In pratica:
+
+1. Alla prima `deref()` che ritorna un oggetto vivo, l'engine aggiunge l'oggetto alla lista "Kept Objects" del Job corrente.
+2. L'oggetto **non può** essere raccolto dal GC fino alla fine del Job.
+3. Tutte le successive chiamate `deref()` nello stesso Job ritornano lo stesso oggetto.
+
+Un "Job" corrisponde a un turno del microtask loop (una callback sincrona eseguita fino alla fine o fino al prossimo `await`).
+
+#### Verifica dei punti citati
+
+| File | Linea | deref() multipli | `await` tra i deref? | Stesso Job? |
+|---|---|---|---|---|
+| `bind-text/index.js` | 241-257 | sì (5 chiamate) | no | sì |
+| `bind-object/index.js` | 198-214 | sì (5 chiamate) | no | sì |
+| `bind-effetc/index.js` | 282-292 | sì (2 sulla stessa riga) | no | sì |
+| `bind-effetc/index.js` | 302-312 | sì (3 chiamate) | no | sì |
+
+Tutti i siti sono blocchi sincroni dentro `useFrame` / callback async senza `await` tra i `deref()`. Un engine JavaScript conforme allo spec **non può** far ritornare valori diversi.
+
+#### Perché NON introduciamo un helper `withAliveRef`
+
+Proposta dello scenario originale: un helper che cacha `const el = ref.deref()` e passa `el` alla callback.
+
+Problema: se la callback contiene `await`, `el` resta catturato nella closure per tutta la durata della callback, creando una **strong reference** che va contro lo spirito di WeakRef. L'oggetto verrebbe trattenuto in memoria più a lungo del necessario.
+
+Il codice attuale, chiamando `deref()` fresh ogni volta, rispetta meglio la semantica WeakRef: non estende artificialmente la vita dell'oggetto oltre il Job corrente.
+
+#### Conclusione
+
+- H1 **non** descrive un bug reale: la spec ECMAScript previene lo scenario ipotizzato.
+- Il codice attuale è corretto e semanticamente pulito rispetto a WeakRef.
+- Non vengono adottate modifiche (nessun commento aggiuntivo, nessun helper).
+
+#### Concern residuo (non di bug)
+
+Se in futuro qualcuno introducesse un `await` **in mezzo** ai `deref()`, la garanzia KeepDuringJob non copre più il caso (sono Job diversi). In quello scenario tornerebbero validi sia il TOCTOU sul `deref()` sia lo staleness di `isConnected`. Mitigazione affidata a code review, non a refactor preventivo.
+
+---
+
+### H4 — `parseComponents` non cancellabile durante route transition
+
+**Data verifica**: 2026-04-24
+**Stato**: FALSO POSITIVO
+**File**: `route/load-page.js:47-243`, `route/router.js:88-230`, `parse/steps/from-object.js:14-24`
+
+#### Descrizione originale (errata)
+
+L'analisi originale ipotizzava che una navigazione verso Route B potesse partire mentre `parseComponents` della Route A era ancora in volo, portando `removeCancellableComponent()` della seconda `loadPage` a distruggere nodi ancora in parsing. Veniva proposto un token di cancellazione.
+
+#### Verifica del flusso reale
+
+Lo scenario è bloccato da un **triplice guard** su `MAIN_STORE_ROUTE_IS_LOADING`, che copre tutti gli entry-point verso la navigazione:
+
+| Entry-point | Guard | File |
+|---|---|---|
+| `parseUrlHash` (anche chiamata da `hashchange`) | `if (routeIsLoading) { location.hash = previousFullHashLoaded; return; }` | `route/router.js:100-110` |
+| `loadUrl` (navigazione programmatica) | `if (!url || mainStore.getProp(MAIN_STORE_ROUTE_IS_LOADING)) return;` | `route/router.js:274` |
+| Click su `<a>` | `event.preventDefault()` se `ROUTE_IS_LOADING === true` (fix C2) | `parse/steps/from-object.js:21` |
+
+#### Timing del flag
+
+- Impostato a `true` **sincronamente** a `load-page.js:54`, prima di qualsiasi `await`.
+- Impostato a `false` solo a `load-page.js:242`, dopo `parseComponents` + transizioni + scroll restore.
+
+Il flag copre l'intera durata di `loadPage`, incluso il tempo in cui `parseComponents` è in volo.
+
+#### Call sites di `loadPage`
+
+`loadPage` è importata e chiamata solo da `router.js:196` (dentro `parseUrlHash`). Nessun altro file la importa — non esiste bypass.
+
+#### Conclusione
+
+- H4 non descrive un bug reale: una seconda `loadPage` **non può** partire mentre la prima è in esecuzione.
+- Il token di cancellazione proposto non è necessario: il problema è già risolto dal flag `MAIN_STORE_ROUTE_IS_LOADING` + tre guard a monte.
+- Non vengono adottate modifiche.
+
+#### Concern residuo (non di bug)
+
+Rischio teorico se dentro la `layout()` utente (awaitata a `load-page.js:148`) il codice chiamasse manualmente `mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, false)` e triggerasse una navigazione. Sarebbe un abuso dell'API interna, non un bug di framework — non copre lo scenario H4.
+
+---
+
+### H3 — Ordine cleanup: children distrutti prima del parent-state
+
+**Data verifica**: 2026-04-24
+**Stato**: RIDIMENSIONATO — assorbito in M10, declassato a MEDIUM
+**File**: `component/action/remove-and-destroy/remove-and-destroy-by-id.js`
+
+#### Descrizione originale (parzialmente errata)
+
+L'analisi originale descriveva uno scenario in cui, durante la distruzione dei children in `forEach`, un state change di `child[0]` avrebbe triggerato un watcher del parent che accedeva a `child[1]` "già parzialmente distrutto".
+
+#### Verifica del flusso reale
+
+Riga 39-43 di `remove-and-destroy-by-id.js`:
+
+```js
+Object.values(child ?? {})
+    .flat()
+    .forEach((childId) => {
+        removeAndDestroyById({ id: childId });
+    });
+```
+
+Osservazioni:
+
+1. `Object.values(...).flat()` produce uno **snapshot array**: eventuali mutazioni su `instanceValue.child` durante il loop non impattano l'iterazione.
+2. `forEach` è **sincrono**: `child[0]` viene completamente distrutto (incluso `componentMap.delete(child[0].id)` a riga 129 della chiamata ricorsiva) **prima** che `child[1]` inizi. Non esiste un momento in cui entrambi siano "parzialmente distrutti" contemporaneamente.
+3. I watcher registrati dal parent sullo stato dei children (via `watchById(childId, ...)`) vivono nello state del child e vengono rimossi quando `child[0].state.destroy()` viene invocato, prima che qualunque watcher del parent possa ancora accedervi.
+
+#### Scenario residuo (teorico, molto specifico)
+
+L'unico scenario riproducibile richiede **tre condizioni contemporanee**:
+
+1. Il parent ha un watcher sul proprio stato (`watchById(parentId, ...)`).
+2. Quel watcher accede ai children via `componentMap.get(childId)`.
+3. Il callback `destroy?.()` del child scrive esplicitamente sul parent state con `setStateById(parentId, ...)`.
+
+In questo caso, dopo che `child[0]` è stato rimosso da `componentMap`, il watcher del parent leggerebbe `undefined`. È un edge-case che:
+
+- Non è osservato nel codice applicativo canonico.
+- Richiede un anti-pattern esplicito nel callback `destroy` del child (scrivere sul parent durante teardown).
+- È mitigato a monte dalla stessa documentazione che risolve M17 (feedback loop bottom-up).
+
+#### Fix originale non applicabile
+
+Il fix suggerito era:
+
+```js
+state.freezeAllWatchers?.();
+```
+
+Problemi:
+
+1. **API inesistente**: `freezeAllWatchers` non è implementato in `mob-core`, il fix non è applicabile as-is.
+2. **Scope eccessivo**: "freezare tutti i watcher" di uno state impatta anche watcher registrati da altri componenti esterni, producendo bug silenziosi più gravi dell'originale.
+3. **Non ricorsivo**: il freeze sul parent non aiuta con watcher dei child che mutano durante il loro stesso destroy.
+
+#### Conclusione
+
+Il contenuto concreto e azionabile di H3 coincide con **M10**: un'eccezione in `destroy?.()` o `state.destroy()` salta tutta la catena di cleanup a valle, incluso `element.remove()` e `componentMap.delete()`. Questo è deterministico, osservabile, e si risolve con un semplice try/catch/finally — senza bisogno di freeze di watcher.
+
+H3 viene quindi:
+
+- **Declassato** da HIGH a MEDIUM.
+- **Assorbito** nell'entry M10 (estesa con descrizione completa, codice, e fix).
+- **Mantenuto nell'indice** come riferimento deprecato con puntatore a M10.
+
+---
+
+### H11 — `getOrderedChunkByCurrentRepeatValue` filtra orfani silenziosamente
+
+**Data verifica**: 2026-04-24
+**Stato**: FALSO POSITIVO
+**File**: `modules/repeater/utils.js:210-247`
+
+#### Descrizione originale (errata)
+
+L'analisi originale segnalava che `.filter((item) => item !== undefined)` rimuovesse "gruppi DOM che non trovano corrispondenza nei dati", causando render parziale con `chunkChildrenOrdered` più corto del previsto e indici disallineati nei loop downstream.
+
+#### Verifica del flusso reale
+
+Tracciando il flusso completo si scopre che:
+
+1. **Gli orfani DOM sono rimossi a monte**, non dal filtro:
+   - In `add-with-key.js:128`: `removeAndDestroyById({ id })` distrugge tutti i componenti la cui chiave non è presente in `currentUnique`
+   - In `add-without-key.js:151`: stesso pattern per gli elementi in eccesso quando `diff < 0`
+
+2. Quando `getOrderedChunkByCurrentRepeatValue` viene invocato in `watch/index.js:258`, `childrenFilteredByRepeatId` (riga 220) contiene **solo i componenti correnti**: gli orfani sono già stati distrutti.
+
+3. Il filtro lavora nella **direzione opposta** a quella descritta dal bug: rimuove i `data` item che non hanno un chunk corrispondente, non i chunk senza data.
+
+#### Quando il filtro scarta effettivamente qualcosa
+
+L'unico scenario in cui il filtro ha effetto è quando `updateRepeaterWithtKey` ritorna `undefined`, cosa che avviene **esclusivamente** in caso di `REPATE_PROXI_FAIL` (vedi `update/utils.js:126`):
+
+```js
+if (proxiObject?.['value'] === REPATE_PROXI_FAIL) return;
+```
+
+Il commento in loco chiarisce: *"If proxi return false repeater is destroyed before proxi creation - Should skip item render"*.
+
+In questo scenario:
+- Il repeater è in fase di distruzione mid-update
+- Il nuovo render viene legittimamente skippato
+- L'eventuale disallineamento di indici downstream è **inconsequential**: il cleanup del repeater sovrascrive comunque tutto
+
+#### Conclusione
+
+Il filtro è **defensive code coerente** con il pattern `REPATE_PROXI_FAIL`. Non causa render parziale in flusso canonico. L'analisi originale aveva confuso la direzione del filtro (orfani vs componenti mancanti).
+
+#### Mitigazione
+
+Per evitare future confusioni, è stato aggiunto un commento esplicito in `modules/repeater/utils.js:238-251` che documenta:
+
+- Perché il filtro non rimuove orfani (gestiti a monte)
+- Quale è l'unico scenario in cui ha effetto (`REPATE_PROXI_FAIL`)
+- Perché in quello scenario il flusso downstream è ininfluente
+
+#### Concern residuo (legittimo, ma altrove)
+
+L'unico rischio reale tracciabile a questa zona è che il flusso continui a eseguire su un repeater destroyed senza un early-return esplicito. Questo è già coperto da:
+
+- **Pattern 4** — Mancanza di token di cancellazione
+
+Quindi non serve mantenere H11 come bug indipendente.
+
+> Nota storica: il riferimento puntava originariamente a H4, poi sostituito con H7. Entrambi risultano oggi non attinenti — H4 è FALSO POSITIVO e H7 è FIXED con fix sullo scope diverso (race async/sync interna a `delegate-events`, non ordering di teardown). Il concern residuo resta però valido e tracciato sotto Pattern 4.
