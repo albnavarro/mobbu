@@ -2,7 +2,7 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { htmlObject, MobJs } from '@mobJs';
+import { htmlObject, MobJsInternal } from '@mobJs';
 import { MobSlide } from '@mobMotionPlugin';
 import { generateTreeComponents } from '../recursive-tree';
 import { updateDebugComponentById } from '../../debug-component/utils';
@@ -22,7 +22,7 @@ const getCounter = (value) => {
  * @returns {boolean}
  */
 const activeItemChildren = ({ id, value }) => {
-    const component = MobJs.componentMap.get(id);
+    const component = MobJsInternal.componentMap.get(id);
     const children = component?.child;
     if (!children) return false;
 

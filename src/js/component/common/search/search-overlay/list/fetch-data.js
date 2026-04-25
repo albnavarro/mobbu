@@ -1,4 +1,4 @@
-import { routes } from 'src/js/pages';
+import { routes } from '@pages/index';
 
 /**
  * @param {object} params

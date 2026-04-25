@@ -1,6 +1,6 @@
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { MobCore } from '@mobCore';
-import { htmlObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs, MobJsInternal } from '@mobJs';
 import { DebugFilterListItem } from './item/definition';
 
 /**
@@ -63,7 +63,7 @@ const getDataFiltered = ({ testString }) => {
          * Prefer cycle componentMap instead create a copy for performance. Better for memory.
          */
         const result = [];
-        for (const item of MobJs.componentMap.values()) {
+        for (const item of MobJsInternal.componentMap.values()) {
             const condition = stringParsed.every((piece) =>
                 item.componentName.includes(piece)
             );

@@ -9,7 +9,7 @@
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
-import { htmlObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs, MobJsInternal } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../constant';
 import { debugActiveComponentStore } from '@stores/debug';
 
@@ -97,7 +97,7 @@ const getContent = ({ getState }) => {
     const { id } = getState();
     if (id === RESET_FILTER_DEBUG) return htmlObject({});
 
-    const item = MobJs.componentMap.get(id);
+    const item = MobJsInternal.componentMap.get(id);
     if (!item)
         return htmlObject({
             content: 'component not found',

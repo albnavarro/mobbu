@@ -2,7 +2,7 @@
  * @import {MobComponent} from "@mobJsType"
  */
 
-import { htmlObject, MobJs } from '@mobJs';
+import { htmlObject, MobJs, MobJsInternal } from '@mobJs';
 import { DebugSearch } from './search/definition';
 
 const leftContent = () => [
@@ -21,7 +21,7 @@ const leftContent = () => [
                 tag: 'strong',
                 content: 'Number of component: ',
             },
-            `${MobJs.componentMap.size} ( excluded generated debug )`,
+            `${MobJsInternal.componentMap.size} ( excluded generated debug )`,
         ],
     },
     {
@@ -30,7 +30,7 @@ const leftContent = () => [
                 tag: 'strong',
                 content: 'Active repeater: ',
             },
-            `${MobJs.getNumberOfActiveRepeater()}`,
+            `${MobJsInternal.getNumberOfActiveRepeater()}`,
         ],
     },
     {
@@ -39,7 +39,7 @@ const leftContent = () => [
                 tag: 'strong',
                 content: 'Active invalidate: ',
             },
-            `${MobJs.getNumberOfActiveInvalidate()}`,
+            `${MobJsInternal.getNumberOfActiveInvalidate()}`,
         ],
     },
 ];

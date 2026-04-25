@@ -25,15 +25,8 @@ export { updateStateByName } from './component/action/state/update-state-by-name
 export { watchById } from './component/action/watch';
 export { useComponent } from './component/component-list';
 export { createComponent, getDebugMode } from './component/create-component';
-export { componentMap } from './component/component-map';
 export { inizializeApp } from './initialize-app';
 export { mainStore } from './main-store/main-store';
-export {
-    eventDelegationMap,
-    tempDelegateEventMap,
-} from './modules/delegate-events';
-export { getNumberOfActiveInvalidate } from './modules/invalidate/action/get/get-number-of-active-invalidate';
-export { getNumberOfActiveRepeater } from './modules/repeater/action/get/get-number-of-active-repeater';
 export { getPropsFromParent } from './modules/static-props';
 export { tick } from './queque/tick';
 export { loadUrl } from './route/router';

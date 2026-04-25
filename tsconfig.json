@@ -8,13 +8,12 @@
         "checkJs": true,
         "lib": ["ESNext", "DOM", "DOM.Iterable"],
         "module": "ESNext",
-        "moduleResolution": "Node",
+        "moduleResolution": "Bundler",
         "noEmit": true,
         "noPropertyAccessFromIndexSignature": true,
         "skipLibCheck": true,
         "strict": true,
         "target": "ESNext",
-        "baseUrl": ".",
         "paths": {
             // mobCore
             "@mobCore": ["./src/js/mob/mob-core"],
