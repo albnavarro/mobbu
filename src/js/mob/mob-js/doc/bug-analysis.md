@@ -84,7 +84,7 @@ Ogni bug riporta: **file:linea**, **tipo**, **descrizione tecnica**, **scenario 
 - [H2 — Key-based diff con chiavi duplicate](#h2--key-based-diff-con-chiavi-duplicate) **FIXED**
 - ~~H3 — Ordine cleanup: children distrutti prima del parent-state~~ **DOWNGRADED a MEDIUM, merge in M10 (vedi appendice)**
 - [~~H4 — `parseComponents` non cancellabile durante route transition~~](#h4--parsecomponents-non-cancellabile-durante-route-transition) **FALSO POSITIVO**
-- [H5 — Event listener di `bind-events` mai rimossi](#h5--event-listener-di-bind-events-mai-rimossi)
+- [H5 — Event listener di `bind-events` mai rimossi](#h5--event-listener-di-bind-events-mai-rimossi) **FIXED**
 - [H6 — `cleanDelegateEvent` rimuove listener da root disconnesso](#h6--cleandelegateevent-rimuove-listener-da-root-disconnesso)
 - [H7 — `removeCancellableComponent()` ordering vs `parseComponents`](#h7--removecancellablecomponent-ordering-vs-parsecomponents) **FIXED**
 - [H8 — `onMount` senza try/catch](#h8--onmount-senza-trycatch)
@@ -350,7 +350,7 @@ Riclassificato come falso positivo dopo verifica. Vedi sezione "Appendice — Fa
 
 ---
 
-### H5 — Event listener di `bind-events` mai rimossi
+### H5 — Event listener di `bind-events` mai rimossi **FIXED**
 
 **File**: `modules/bind-events/index.js:45-70`
 **Tipo**: memory-leak
@@ -1492,7 +1492,7 @@ I bug più meritevoli di verifica immediata sono **C1, C2, C4, H3, H8** perché 
 
 **Data fix**: 2026-04-24
 **Commit**: (da completare)
-**File modificati**: 
+**File modificati**:
 - `src/js/mob/mob-js/route/router.js` (listener globale rimosso)
 - `src/js/mob/mob-js/parse/steps/from-object.js` (logica spostata qui)
 

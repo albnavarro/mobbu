@@ -24,6 +24,10 @@ export interface ComponentCommon {
     repeaterContextId?: string;
     componentRepeatId?: string;
     parentPropsWatcher?: (() => void)[];
+    bindEventsHandlers?: {
+        eventName: string;
+        handler: (arg0: Event) => void;
+    }[];
     destroy?: () => void;
     freezedPros?: string[];
     persistent: boolean;

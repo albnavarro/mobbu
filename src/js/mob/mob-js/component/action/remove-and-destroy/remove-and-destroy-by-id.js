@@ -31,7 +31,17 @@ export const removeAndDestroyById = ({ id = '' }) => {
         componentRepeatId,
         instanceName,
         persistent,
+        bindEventsHandlers,
     } = instanceValue;
+
+    /**
+     * Force remove event added with bindEvents.
+     *
+     * - In case element is not collected by GC ( closure and so on )
+     */
+    bindEventsHandlers?.forEach(({ eventName, handler }) => {
+        element.removeEventListener(eventName, handler);
+    });
 
     /**
      * - `Freeze` children before destroy
@@ -119,8 +129,13 @@ export const removeAndDestroyById = ({ id = '' }) => {
     element?.remove();
 
     /**
-     * Detach component. Remove inner reference ( esplicit mark for CG ). Detach component from map.
+     * Detach component.
+     *
+     * - Remove inner reference ( esplicit mark for CG ).
+     * - Handler ref added to element node.
+     * - Detach component from map.
      */
+    instanceValue.bindEventsHandlers = [];
 
     // @ts-ignore
     instanceValue.methods = null;

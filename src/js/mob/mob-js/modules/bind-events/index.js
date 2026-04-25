@@ -1,4 +1,5 @@
 import { MobCore } from '../../../mob-core';
+import { setBindEventsById } from '../../component/action/bind-events';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { tick } from '../../queque/tick';
 import {
@@ -39,10 +40,13 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
     const eventArray = bindEventMap.get(bindEventsId);
     if (!eventArray) return;
 
-    eventArray.forEach(([eventName, callback]) => {
-        if (!eventName || !callback) return;
+    /**
+     * Bind all Event to component root element
+     */
+    const handlers = eventArray.flatMap(([eventName, callback]) => {
+        if (!eventName || !callback) return [];
 
-        element.addEventListener(eventName, async (e) => {
+        const handler = async (/** @type {Event} */ event) => {
             /**
              * Fire one event at time on end of app tick.
              *
@@ -63,12 +67,28 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
             });
 
             callback(
-                e,
+                event,
                 currentRepeaterState?.current,
                 currentRepeaterState?.index
             );
-        });
+        };
+
+        element.addEventListener(eventName, handler);
+
+        return [
+            {
+                eventName,
+                handler,
+            },
+        ];
     });
+
+    /**
+     * Store event handler in component map.
+     *
+     * - On destroy removeListener
+     */
+    setBindEventsById({ id: componentId, handlers });
 
     /**
      * Remove props
