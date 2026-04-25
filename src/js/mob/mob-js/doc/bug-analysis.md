@@ -10,15 +10,15 @@
 
 L'analisi ha identificato **31 bug concreti** (dopo riclassificazione di 3 falsi positivi: H1, H4, H11 e downgrade di H3 a MEDIUM).
 
-### Stato corrente (2026-04-24)
+### Stato corrente (2026-04-25)
 
 | Severità    | Trovati | Risolti | Aperti |
 |-------------|---------|---------|--------|
 | CRITICAL    | 3       | 3       | **0**  |
-| HIGH        | 7       | 4       | **3**  |
+| HIGH        | 7       | 5       | **2**  |
 | MEDIUM      | 17      | 2       | **15** |
 | LOW         | 4       | 1       | **3**  |
-| **Totale**  | **31**  | **10**  | **21** |
+| **Totale**  | **31**  | **11**  | **20** |
 
 ### Distribuzione per severità (bug trovati):
 
@@ -35,6 +35,7 @@ L'analisi ha identificato **31 bug concreti** (dopo riclassificazione di 3 falsi
 > Nota: H11 è stato riclassificato come FALSO POSITIVO dopo riverifica (2026-04-24) — il filtro è defensive code coerente con `REPATE_PROXI_FAIL`. Il conteggio HIGH passa da 8 a 7.
 > Nota: H7 è stato FIXED (2026-04-24) spostando `cleanDelegateEvent` dentro `applyDelegationBindEvent`, risolvendo la race async/sync fra registrazione di nuovi WeakRef e pulizia dei ref morti.
 > Nota: H10 è stato FIXED (2026-04-24) sostituendo la variabile modulo `currentHistory` con un flag booleano `pendingHistoryNavigation` consumato atomicamente dal listener hashchange prima dell'`await`.
+> Nota: H5 è stato FIXED (2026-04-25) — gli handler di `bind-events` sono tracciati in `componentMap.bindEventsHandlers` e rimossi in `removeAndDestroyById`. L'implementazione usa l'infrastruttura esistente invece di una Map dedicata, salvando `{eventName, handler}` per ogni listener.
 
 I pattern ricorrenti che emergono dall'analisi sono quattro e suggeriscono interventi trasversali più efficaci rispetto a fix puntuali:
 
@@ -400,6 +401,19 @@ componentListeners.set(componentId, list);
 });
 componentListeners.delete(id);
 ```
+
+#### Implementazione attuale (2026-04-25)
+
+L'implementazione segue il pattern suggerito ma riutilizza `componentMap` invece di creare una Map dedicata:
+
+- **`modules/bind-events/index.js:46-84`**: gli handler sono nominati (`const handler = async ...`) e raccolti via `flatMap` in `[{ eventName, handler }]`.
+- **`component/action/bind-events.js:11-21`**: `setBindEventsById` salva l'array in `componentMap.set(id, { ...item, bindEventsHandlers: handlers })`.
+- **`component/action/remove-and-destroy/remove-and-destroy-by-id.js:42-44`**: al destroy, `bindEventsHandlers?.forEach(({ eventName, handler }) => element.removeEventListener(eventName, handler))` rimuove i listener.
+- **`remove-and-destroy-by-id.js:138`**: `instanceValue.bindEventsHandlers = []` come cleanup finale.
+
+Differenze rispetto al fix proposto (tutte legittime):
+- Niente Map separata: storage integrato in `componentMap`.
+- `element` non memorizzato per-handler (tutti condividono il root element del componente).
 
 ---
 
@@ -1444,7 +1458,7 @@ M3, M8 sono istanze dello stesso pattern: codice async interrotto da navigazione
 5. ~~**H1**: refactor con helper `withAliveRef`.~~ **FALSO POSITIVO**
 6. ~~**H3**~~ assorbito in **M10**: **FIXED** (2026-04-24). Riordino delle fasi e try/catch mirati in `removeAndDestroyById` — vedi "Appendice — Fix applicati / M10".
 7. ~~**H9**: guard self-reference in `compareIdOrParentIdRecursive`.~~ **FIXED**
-8. **H5**: tracking dei listener di `bind-events`.
+8. ~~**H5**: tracking dei listener di `bind-events`.~~ **FIXED** (2026-04-25). Handler tracciati in `componentMap.bindEventsHandlers` e rimossi in `removeAndDestroyById`.
 
 ### Fase 3 — Refactor dei pattern (1-2 settimane)
 
