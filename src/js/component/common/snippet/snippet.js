@@ -103,7 +103,14 @@ export const SnippetFn = ({
         content: [
             {
                 tag: 'code',
+                /**
+                 * Set initial class. Set right initial of code module
+                 */
+                className: [useExpand ? 'close' : 'open'],
                 modules: bindEffect({
+                    /**
+                     * Update code class runtime ( if expanded ).
+                     */
                     toggleClass: {
                         close: () => useExpand && !proxi.isExpanded,
                         open: () => useExpand && proxi.isExpanded,
