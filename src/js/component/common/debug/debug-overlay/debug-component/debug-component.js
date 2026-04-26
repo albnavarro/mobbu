@@ -487,7 +487,7 @@ export const DebugComponentFn = ({
                     tag: 'button',
                     className: 'back',
                     attributes: { type: 'button' },
-                    content: 'back',
+                    content: '<',
                     modules: [
                         bindEffect({
                             toggleClass: {
