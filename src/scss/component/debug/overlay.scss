@@ -20,6 +20,8 @@
             opacity: 0;
             pointer-events: none;
 
+            --debug-list-header-height: #{rem(50)};
+
             &.active {
                 visibility: visible;
                 opacity: 1;
@@ -79,10 +81,15 @@
                 'list component';
             grid-template-columns: repeat(2, 1fr);
             /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
-            grid-template-rows: rem(140) 40vh;
+            grid-template-rows: var(--debug-header-row-height) var(
+                    --debug-content-row-height
+                );
             width: 100%;
             max-width: 90%;
             border: 1px var(--white) solid;
+
+            --debug-header-row-height: #{rem(140)};
+            --debug-content-row-height: 40vh;
 
             @include mq(large) {
                 max-width: 80%;
@@ -119,8 +126,6 @@
         }
 
         .list {
-            --debug-list-header-height: #{rem(50)};
-
             position: relative;
             grid-area: list;
             border-right: 1px var(--white) solid;
@@ -146,6 +151,9 @@
         .list-toggle {
             display: inline-block;
             padding-inline: rem(10);
+            transition:
+                background 0.35s,
+                color 0.35s;
             border: 1px var(--white) solid;
             background: transparent;
             font-size: rem(12);
@@ -155,6 +163,11 @@
             }
 
             &.active {
+                background: var(--white);
+                color: var(--dark);
+            }
+
+            &:hover {
                 background: var(--white);
                 color: var(--dark);
             }

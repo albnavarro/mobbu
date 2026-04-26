@@ -20,7 +20,7 @@
 
         .debug-container {
             min-height: 100%;
-            padding: rem(20);
+            padding: rem(60) rem(20) rem(20);
         }
 
         .section-title {
@@ -47,7 +47,7 @@
             list-style-type: none;
         }
 
-        button,
+        .child,
         .parent-id-code {
             margin-bottom: rem(4);
             margin-left: rem(4);
@@ -61,6 +61,44 @@
                 opacity: 0.5;
             }
         }
+
+        .back-block {
+            display: flex;
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            right: 0;
+            left: 0;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--debug-list-header-height);
+            padding-left: rem(20);
+            border-bottom: 1px rgba(var(--white-rgb), 0.2) solid;
+            background: rgba(var(--dark-rgb), 0.9);
+        }
+
+        .back {
+            display: inline-block;
+            padding-inline: rem(10);
+            transition:
+                background 0.35s,
+                color 0.35s;
+            border: 1px var(--white) solid;
+            opacity: 0.2;
+            background: transparent;
+            font-size: rem(12);
+            pointer-events: none;
+
+            &.active {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            &:hover {
+                background: var(--white);
+                color: var(--dark);
+            }
+        }
     }
 }
 
@@ -68,9 +106,9 @@
 .c-debug-component .scrollbar {
     position: absolute;
     z-index: 14;
-    top: 1vh;
+    top: rem(60);
     left: calc(100% - #{rem(20)});
-    width: 37vh;
+    width: calc(var(--debug-content-row-height) - #{rem(80)});
     transform: rotate(90deg);
     transform-origin: left;
     background: transparent;

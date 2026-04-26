@@ -4,8 +4,8 @@
  * @import {
  *   DelegateEvents,
  *   GetRef,
- *   GetState,
- *   MobComponent
+ *   MobComponent,
+ *   ProxiState
  * } from "@mobJsType"
  */
 
@@ -59,6 +59,7 @@ const getChild = ({ child, delegateEvents }) => {
                             tag: 'li',
                             content: {
                                 tag: 'button',
+                                className: 'child',
                                 attributes: { type: 'button' },
                                 content: item,
                                 modules: delegateEvents({
@@ -104,18 +105,19 @@ const getStateProps = (states) => {
 
 /**
  * @param {object} params
- * @param {GetState<import('./type').DebugComponentType>} params.getState
+ * @param {ProxiState<import('./type').DebugComponentType>} params.proxi
  * @param {DelegateEvents} params.delegateEvents
  */
-const getContent = ({ getState, delegateEvents }) => {
-    const { id } = getState();
-    if (id === RESET_FILTER_DEBUG) return htmlObject({});
+const getContent = ({ proxi, delegateEvents }) => {
+    if (proxi.id === RESET_FILTER_DEBUG) return htmlObject({});
 
-    const item = MobJsInternal.componentMap.get(id);
+    const item = MobJsInternal.componentMap.get(proxi.id);
     if (!item)
         return htmlObject({
             content: 'component not found',
         });
+
+    proxi.parentId = item.parentId ?? '';
 
     return htmlObject({
         content: [
@@ -132,7 +134,7 @@ const getContent = ({ getState, delegateEvents }) => {
                         {
                             tag: 'span',
                             className: 'id-code',
-                            content: id,
+                            content: proxi.id,
                         },
                     ],
                 },
@@ -421,7 +423,6 @@ const initScroller = ({ getRef }) => {
 export const DebugComponentFn = ({
     onMount,
     addMethod,
-    getState,
     invalidate,
     setRef,
     getRef,
@@ -429,6 +430,7 @@ export const DebugComponentFn = ({
     getProxi,
     emit,
     delegateEvents,
+    bindEffect,
 }) => {
     const proxi = getProxi();
 
@@ -480,6 +482,33 @@ export const DebugComponentFn = ({
         modules: setRef('screen'),
         content: [
             {
+                className: 'back-block',
+                content: {
+                    tag: 'button',
+                    className: 'back',
+                    attributes: { type: 'button' },
+                    content: 'back',
+                    modules: [
+                        bindEffect({
+                            toggleClass: {
+                                active: () => proxi.parentId.length > 0,
+                            },
+                        }),
+                        delegateEvents({
+                            click: () => {
+                                if (
+                                    !proxi.parentId ||
+                                    proxi.parentId.length === 0
+                                )
+                                    return;
+
+                                updateDebugComponentById(proxi.parentId);
+                            },
+                        }),
+                    ],
+                },
+            },
+            {
                 tag: 'input',
                 className: 'scrollbar',
                 attributes: {
@@ -499,7 +528,7 @@ export const DebugComponentFn = ({
                 content: invalidate({
                     observe: () => proxi.id,
                     render: () => {
-                        return getContent({ getState, delegateEvents });
+                        return getContent({ proxi, delegateEvents });
                     },
                 }),
             },

@@ -1,6 +1,7 @@
 export interface DebugComponentType {
     state: {
         id: string;
+        parentId: string;
     };
     methods: {
         updateId: (id: string) => void;

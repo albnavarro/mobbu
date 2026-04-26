@@ -19,6 +19,11 @@ export const DebugComponent = MobJs.createComponent(
                 type: String,
                 skipEqual: false,
             }),
+            parentId: () => ({
+                value: '',
+                type: String,
+                skipEqual: false,
+            }),
         },
     })
 );
