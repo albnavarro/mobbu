@@ -1,14 +1,3 @@
-# Deps
-Valutare migrazione a `eslint-plugin-import-x` e finire l'update delle deps con `eslint 10`
-
-
-# App
-
-## 1. Debug.
-- Fare `child` e `parent` cliccabili per accedere direttamante al dettaglio.
-- Prevedere uno storico della navigazione dei componenti.
-
-
 # MobJs
 
 ## 1. BindStore.

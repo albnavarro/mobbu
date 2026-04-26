@@ -2,6 +2,7 @@
 
 /**
  * @import {
+ *   DelegateEvents,
  *   GetRef,
  *   GetState,
  *   MobComponent
@@ -12,6 +13,7 @@ import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { htmlObject, MobJs, MobJsInternal } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../constant';
 import { debugActiveComponentStore } from '@stores/debug';
+import { updateDebugComponentById } from './utils';
 
 /**
  * @param {DOMTokenList | undefined} value
@@ -37,10 +39,12 @@ const getObjectKeys = (methods) => {
 };
 
 /**
- * @param {{} | { [key: string]: string[] }} child
+ * @param {object} params
+ * @param {{} | { [key: string]: string[] }} params.child
+ * @param {DelegateEvents} params.delegateEvents
  * @returns {HTMLElement[]}
  */
-const getChild = (child) => {
+const getChild = ({ child, delegateEvents }) => {
     return Object.entries(child).map(([key, value]) => {
         return htmlObject({
             content: [
@@ -53,7 +57,16 @@ const getChild = (child) => {
                     content: value.map((item) =>
                         htmlObject({
                             tag: 'li',
-                            content: item,
+                            content: {
+                                tag: 'button',
+                                attributes: { type: 'button' },
+                                content: item,
+                                modules: delegateEvents({
+                                    click: () => {
+                                        updateDebugComponentById(item);
+                                    },
+                                }),
+                            },
                         })
                     ),
                 },
@@ -92,8 +105,9 @@ const getStateProps = (states) => {
 /**
  * @param {object} params
  * @param {GetState<import('./type').DebugComponentType>} params.getState
+ * @param {DelegateEvents} params.delegateEvents
  */
-const getContent = ({ getState }) => {
+const getContent = ({ getState, delegateEvents }) => {
     const { id } = getState();
     if (id === RESET_FILTER_DEBUG) return htmlObject({});
 
@@ -132,9 +146,19 @@ const getContent = ({ getState }) => {
                         },
                         item?.parentId?.length && item.parentId.length > 0
                             ? {
-                                  tag: 'span',
+                                  tag: 'button',
+                                  attributes: { type: 'button' },
                                   className: 'parent-id-code',
                                   content: item.parentId,
+                                  modules: delegateEvents({
+                                      click: () => {
+                                          updateDebugComponentById(
+                                              /** @type {string} */ (
+                                                  item.parentId
+                                              )
+                                          );
+                                      },
+                                  }),
                               }
                             : '',
                     ],
@@ -228,7 +252,10 @@ const getContent = ({ getState }) => {
             },
             {
                 class: 'section-list',
-                content: getChild(item?.child ?? {}),
+                content: getChild({
+                    child: item?.child ?? {},
+                    delegateEvents,
+                }),
             },
 
             /**
@@ -401,6 +428,7 @@ export const DebugComponentFn = ({
     watch,
     getProxi,
     emit,
+    delegateEvents,
 }) => {
     const proxi = getProxi();
 
@@ -471,7 +499,7 @@ export const DebugComponentFn = ({
                 content: invalidate({
                     observe: () => proxi.id,
                     render: () => {
-                        return getContent({ getState });
+                        return getContent({ getState, delegateEvents });
                     },
                 }),
             },
