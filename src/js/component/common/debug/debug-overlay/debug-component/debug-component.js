@@ -206,6 +206,17 @@ const getContent = ({ getState }) => {
                     ],
                 },
             },
+            {
+                content: {
+                    content: [
+                        {
+                            tag: 'strong',
+                            content: 'event handler',
+                        },
+                        `: ${item.bindEventsHandlers?.length ?? 0}`,
+                    ],
+                },
+            },
 
             /**
              * Children
