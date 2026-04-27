@@ -8,17 +8,17 @@
 
 ## Sommario esecutivo
 
-L'analisi ha identificato **31 bug concreti** (dopo riclassificazione di 3 falsi positivi: H1, H4, H11 e downgrade di H3 a MEDIUM).
+L'analisi ha identificato **30 bug concreti** (dopo riclassificazione di 4 falsi positivi: H1, H4, H11, M1 e downgrade di H3 a MEDIUM).
 
-### Stato corrente (2026-04-25)
+### Stato corrente (2026-04-27)
 
 | Severità    | Trovati | Risolti | Aperti |
 |-------------|---------|---------|--------|
 | CRITICAL    | 3       | 3       | **0**  |
-| HIGH        | 7       | 5       | **2**  |
-| MEDIUM      | 17      | 2       | **15** |
+| HIGH        | 7       | 6       | **1**  |
+| MEDIUM      | 16      | 5       | **11** |
 | LOW         | 4       | 1       | **3**  |
-| **Totale**  | **31**  | **11**  | **20** |
+| **Totale**  | **30**  | **15**  | **15** |
 
 ### Distribuzione per severità (bug trovati):
 
@@ -26,7 +26,7 @@ L'analisi ha identificato **31 bug concreti** (dopo riclassificazione di 3 falsi
 |-------------|-----------|---------------------------------------------------------------|
 | CRITICAL    | 3         | Crash, render inconsistente, side-effect duplicati            |
 | HIGH        | 7         | Race condition, memory leak non deterministici, null-access   |
-| MEDIUM      | 17        | Edge case, ordering problems, cleanup imperfetto              |
+| MEDIUM      | 16        | Edge case, ordering problems, cleanup imperfetto              |
 | LOW         | 4         | Ipotetici, da verificare; principalmente micro-edge-case      |
 
 > Nota: H1 è stato riclassificato come FALSO POSITIVO dopo riverifica (2026-04-24) — la spec ECMAScript garantisce stabilità di `WeakRef.deref()` all'interno dello stesso Job. Il conteggio HIGH passa da 11 a 10.
@@ -36,6 +36,12 @@ L'analisi ha identificato **31 bug concreti** (dopo riclassificazione di 3 falsi
 > Nota: H7 è stato FIXED (2026-04-24) spostando `cleanDelegateEvent` dentro `applyDelegationBindEvent`, risolvendo la race async/sync fra registrazione di nuovi WeakRef e pulizia dei ref morti.
 > Nota: H10 è stato FIXED (2026-04-24) sostituendo la variabile modulo `currentHistory` con un flag booleano `pendingHistoryNavigation` consumato atomicamente dal listener hashchange prima dell'`await`.
 > Nota: H5 è stato FIXED (2026-04-25) — gli handler di `bind-events` sono tracciati in `componentMap.bindEventsHandlers` e rimossi in `removeAndDestroyById`. L'implementazione usa l'infrastruttura esistente invece di una Map dedicata, salvando `{eventName, handler}` per ogni listener.
+> Nota: H8 è stato FIXED (2026-04-27) — try/catch attorno a `callback?.({ element })` in `fireOnMountCallBack`. Errori utente loggati senza propagare al parser. Cleanup di `onMountCallbackMap` garantita anche on error.
+> Nota: M1 è stato riclassificato come FALSO POSITIVO dopo riverifica (2026-04-27) — `invalidatToDelete` è già una snapshot costruita da `getRepeatOrInvalidateInsideElement` (push su array locale), non un riferimento alla Map sorgente. Le mutazioni di `invalidateInstancesMap` non impattano l'array iterato. Il conteggio MEDIUM passa da 17 a 16.
+> Nota: M2 — fix tentato e poi revertato (2026-04-27). L'analisi cross-mappa (vedi "Appendice — Fix applicati / M2 (e famiglia) — Pattern delle Map orfane") ha mostrato che lo stesso pattern di leak coinvolge anche `bindTextToInitializeMap`, `bindObjectToInitializeMap`, `tempDelegateEventMap`, `staticPropsMap`. Le soluzioni naive (`clear()` ai consume-point locali) hanno race con parse concorrenti o spazzano entry valide settate in anticipo per iterazioni future. Fix corretto richiede uno fra: counter `parseInFlight`, scope per-parse, o refactor a `WeakMap<Element, value>`. M2 resta APERTO in attesa di una di queste strategie applicata in modo trasversale.
+> Nota: M7 è stato FIXED (2026-04-27) — riassegnazione `unsubScribeFunction = []` al posto di `.length = 0` per maggior chiarezza d'intento. Fix applicato in modo consistente nei tre moduli: `bind-text`, `bind-object`, `bind-effect`.
+> Nota: M15 è stato FIXED (2026-04-27) — aggiunto `?? ''` in `cleanProsId = propsId?.split(' ').join('') ?? ''` per garantire tipo `string` invece di `string | undefined`. Fix defensive che rende esplicito il fallback invece di affidarsi al default param del consumer `getPropsFromParent`.
+> Nota: M16 è stato FIXED (2026-04-27) — assorbito dal fix di M10. L'unwatch di `parentPropsWatcher` come prima operazione in `removeAndDestroyById` garantisce che durante la distruzione ricorsiva dei children annidati (anche nei repeater profondi) i watcher del parent siano già disattivati. Vedi "Appendice — Fix applicati / M10" per dettagli.
 
 I pattern ricorrenti che emergono dall'analisi sono quattro e suggeriscono interventi trasversali più efficaci rispetto a fix puntuali:
 
@@ -88,20 +94,20 @@ Ogni bug riporta: **file:linea**, **tipo**, **descrizione tecnica**, **scenario 
 - [H5 — Event listener di `bind-events` mai rimossi](#h5--event-listener-di-bind-events-mai-rimossi) **FIXED**
 - [H6 — `cleanDelegateEvent` rimuove listener da root disconnesso](#h6--cleandelegateevent-rimuove-listener-da-root-disconnesso)
 - [H7 — `removeCancellableComponent()` ordering vs `parseComponents`](#h7--removecancellablecomponent-ordering-vs-parsecomponents) **FIXED**
-- [H8 — `onMount` senza try/catch](#h8--onmount-senza-trycatch)
+- [H8 — `onMount` senza try/catch](#h8--onmount-senza-trycatch) **FIXED**
 - [H9 — `compareIdOrParentIdRecursive` senza guard su self-reference](#h9--compareidorparentidrecursive-senza-guard-su-self-reference) **FIXED**
 - [H10 — `popstate` vs `hashchange` ordering su scroll restore](#h10--popstate-vs-hashchange-ordering-su-scroll-restore) **FIXED**
 - ~~H11 — `getOrderedChunkByCurrentRepeatValue` filtra orfani silenziosamente~~ **FALSO POSITIVO (vedi appendice)**
 
 ### Medium
 
-- [M1 — Mutation durante `destroyNestedInvalidate/Repeat` forEach](#m1--mutation-durante-destroynestedinvalidaterepeat-foreach)
-- [M2 — `currentRepeaterValueMap` non ripulito se `get` non viene mai chiamato](#m2--currentrepeatervaluemap-non-ripulito)
+- ~~M1 — Mutation durante `destroyNestedInvalidate/Repeat` forEach~~ **FALSO POSITIVO (vedi appendice)**
+- [M2 — `currentRepeaterValueMap` non ripulito se `get` non viene mai chiamato](#m2--currentrepeatervaluemap-non-ripulito) — fix tentato e revertato; vedi "Pattern delle Map orfane"
 - [M3 — `currentParamsFromLoadUrl` non resettato su early return](#m3--currentparamsfromloadurl-non-resettato-su-early-return)
 - [M4 — `destroyComponentInsideNodeById` senza null-check su `state`](#m4--destroycomponentinsidenodebyid-senza-null-check)
 - [M5 — `bindPropsMap.delete(key)` durante iterazione e mappa inversa non pulita](#m5--bindpropsmapdeletekey-durante-iterazione) **FIXED**
 - [M6 — `sanitizeParams` / `sanitizeHash` troppo aggressivi](#m6--sanitizeparams--sanitizehash-troppo-aggressivi)
-- [M7 — `unsubScribeFunction.length = 0` in closure](#m7--unsubscribefunctionlength--0-in-closure)
+- [M7 — `unsubScribeFunction.length = 0` in closure](#m7--unsubscribefunctionlength--0-in-closure) **FIXED**
 - [M8 — Scroll restore dopo `parseComponents` sovrascrive scroll manuale](#m8--scroll-restore-sovrascrive-scroll-manuale)
 - [M9 — `unFreezePropById` senza finally](#m9--unfreezepropbyid-senza-finally)
 - [M10 — `removeAndDestroyById`: eccezione in `state.destroy()` salta `element.remove()`](#m10--removeanddestroybyid-eccezione-in-statedestroy) **FIXED**
@@ -109,8 +115,8 @@ Ogni bug riporta: **file:linea**, **tipo**, **descrizione tecnica**, **scenario 
 - [M12 — `removeCurrentToBindPropsByPropsId` non sincronizzato con mappa inversa](#m12--removecurrenttobindpropsbypropsid-non-sincronizzato) **UNUSED FUNCTION**
 - [M13 — Queue `maxQueuqueSize` check non strict](#m13--queue-maxqueuquesize-check-non-strict)
 - [M14 — `unWatchRouteChange` senza type check](#m14--unwatchroutechange-senza-type-check)
-- [M15 — `getParamsFromWebComponent` con `propsId` undefined](#m15--getparamsfromwebcomponent-con-propsid-undefined)
-- [M16 — Repeater annidato: ordine di distruzione](#m16--repeater-annidato-ordine-di-distruzione)
+- [M15 — `getParamsFromWebComponent` con `propsId` undefined](#m15--getparamsfromwebcomponent-con-propsid-undefined) **FIXED**
+- [M16 — Repeater annidato: ordine di distruzione](#m16--repeater-annidato-ordine-di-distruzione) **FIXED** (assorbito da M10)
 - [M17 — Loop di microtask via feedback esplicito dal child](#m17--loop-di-microtask-via-feedback-esplicito-dal-child)
 
 ### Low
@@ -507,9 +513,10 @@ Vedi "Appendice — Fix applicati / H7" per codice before/after.
 
 ---
 
-### H8 — `onMount` senza try/catch
+### H8 — `onMount` senza try/catch **FIXED**
 
-**File**: `modules/on-mount/index.js:29-50`
+**Stato**: FIXED — 2026-04-27. Vedi "Appendice — Fix applicati / H8".
+**File**: `modules/on-mount/index.js:29-54`
 **Tipo**: error-handling
 
 #### Descrizione tecnica
@@ -653,38 +660,15 @@ Riclassificato come falso positivo dopo verifica. Vedi sezione "Appendice — Fa
 
 ## MEDIUM
 
-### M1 — Mutation durante `destroyNestedInvalidate/Repeat` forEach
+### ~~M1 — Mutation durante `destroyNestedInvalidate/Repeat` forEach~~ **FALSO POSITIVO**
 
-**File**:
-- `modules/invalidate/action/initialize/inizialize-invalidate-watch.js:125-126`
-- `modules/invalidate/action/destroy/remove-nested-invalidate.js:30-39`
-
-**Tipo**: mutation-during-iteration
-
-#### Descrizione
-
-Durante il `forEach` su `invalidatToDelete`, gli unsubscribe possono causare cascading destroy che mutano la lista originale.
-
-#### Codice problematico
-
-```js
-invalidatToDelete.forEach(({ unsubscribe, moduleId }) => {
-    unsubscribe.forEach((fn) => fn());
-    removeInvalidateByInvalidateId({ id, invalidateId: moduleId });
-});
-```
-
-#### Fix
-
-```js
-const snapshot = [...invalidatToDelete];
-snapshot.forEach(...);
-```
+Riclassificato come falso positivo dopo verifica (2026-04-27). Vedi sezione "Appendice — Falsi positivi" per il ragionamento completo.
 
 ---
 
 ### M2 — `currentRepeaterValueMap` non ripulito
 
+**Stato**: APERTO — fix tentato e revertato (2026-04-27). Vedi "Appendice — Fix applicati / M2 (e famiglia) — Pattern delle Map orfane" per analisi completa.
 **File**: `modules/repeater/repeater-value/index.js:29-36`
 **Tipo**: leak
 
@@ -692,20 +676,9 @@ snapshot.forEach(...);
 
 Pattern set-then-expected-read: `getComponentRepeaterState` fa `.get()` + `.delete()`. Se il lettore non viene mai eseguito (componente distrutto prima), la entry resta in memoria.
 
-#### Codice problematico
+Scenario: WebComponent creato + `setRepeatAttribute` eseguita + parser non raggiunge mai `getParamsFromPlaceHolder` per quel componente (distrutto durante await, parse cancellato, navigazione).
 
-```js
-export const getComponentRepeaterState = (id = '') => {
-    if (!id) return DEFAULT_CURRENT_REPEATER_STATE;
-    const value = currentRepeaterValueMap.get(id);
-    currentRepeaterValueMap.delete(id);
-    return value ?? DEFAULT_CURRENT_REPEATER_STATE;
-};
-```
-
-#### Fix
-
-Registrare la entry con TTL o collegarla al lifecycle del componente (remove on destroy).
+> **Nota**: questo bug fa parte di una famiglia di 5 mappe globali con lo stesso pattern (set in fase A → get+delete in fase B, leak se B non si verifica). Le altre quattro sono `bindTextToInitializeMap`, `bindObjectToInitializeMap`, `tempDelegateEventMap`, `staticPropsMap`. Un fix "puntuale" su `currentRepeaterValueMap` (clear su idle del repeater queue) è stato implementato e poi revertato perché l'analisi cross-mappa ha rivelato che la stessa famiglia richiede una strategia uniforme — un clear locale non è sufficiente per le altre mappe e l'incoerenza fra fix puntuale di una sola mappa e leak persistente sulle altre quattro non è desiderabile. Vedi "Appendice — Fix applicati / M2 (e famiglia) — Pattern delle Map orfane" per l'analisi completa.
 
 ---
 
@@ -833,18 +806,24 @@ const sanitizeHash = (value) =>
 
 ---
 
-### M7 — `unsubScribeFunction.length = 0` in closure
+### M7 — `unsubScribeFunction.length = 0` in closure **FIXED**
 
+**Stato**: FIXED — 2026-04-27. Vedi "Appendice — Fix applicati / M7".
 **File**: `bind-text/index.js:246`, `bind-object/index.js:203`, `bind-effetc/index.js:290`
-**Tipo**: subtle-mutability
+**Tipo**: code-style / clarity
 
-#### Descrizione
+#### Descrizione tecnica
 
-Svuotare un array con `length = 0` funziona, ma se la closure è condivisa con altri punti del codice che hanno un riferimento locale, quei puntatori vedono l'array troncato mentre altri codice può iterare il pre-truncation (durante la callback).
+Tre moduli (`bind-text`, `bind-object`, `bind-effect`) usavano `unsubScribeFunction.length = 0` per svuotare l'array di unsubscribe callbacks dopo averle invocate. Il pattern funziona correttamente ma la riassegnazione `unsubScribeFunction = []` è più esplicita nell'intento ("sostituisco il contenitore, non lo muto") e coerente con pattern moderni.
 
-#### Fix
+#### Contesto del fix
 
-Usare `splice(0)` per coerenza o riassegnare `unsubScribeFunction = []`.
+L'array è locale alla funzione (`watchBindEffect`, `createBindObjectWatcher`, `createBindTextWatcher`) e non esiste alcun riferimento esterno condiviso. Entrambe le forme (`.length = 0` vs `= []`) producono lo stesso comportamento poiché:
+- La sequenza è sempre: `forEach((fn) => fn())` → poi clear
+- Nessun codice esterno mantiene una copia del riferimento
+- I closure interni condividono lo stesso binding `let`, quindi vedono la nuova assegnazione
+
+Il fix migliora la leggibilità e previene eventuali confusioni future, ma non corregge un bug funzionale esistente.
 
 ---
 
@@ -1231,29 +1210,60 @@ if (typeof unWatchRouteChange === 'function') {
 
 ---
 
-### M15 — `getParamsFromWebComponent` con `propsId` undefined
+### M15 — `getParamsFromWebComponent` con `propsId` undefined **FIXED**
 
+**Stato**: FIXED — 2026-04-27. Vedi "Appendice — Fix applicati / M15".
 **File**: `parse/steps/get-params-from-web-component.js:34`
-**Tipo**: null-access
+**Tipo**: defensive-code / type-safety
 
-#### Descrizione
+#### Descrizione tecnica
 
-`propsId?.split(' ').join('')` → se `propsId` è undefined, `cleanProsId` è undefined. `getPropsFromParent(undefined)` dipende da come gestisce l'input.
+`propsId` può essere `undefined` o `null` (tipato come `string | undefined | null` in `user-component.js:70`). Senza il fallback `?? ''`, il risultato di `propsId?.split(' ').join('')` è `undefined` quando `propsId` è nullish.
 
-#### Fix
+Il consumer `getPropsFromParent(id = '')` gestisce già `undefined` tramite default param — quindi non c'era un crash reale. Tuttavia, affidarsi al default param del consumer è implicito e fragile: se in futuro la signature di `getPropsFromParent` cambiasse (es. rimuovendo il default), il codice smetterebbe di funzionare.
 
-```js
-const cleanProsId = propsId?.split(' ').join('') ?? '';
-```
+#### Contesto del fix
+
+Il fix rende **esplicito** il fallback a stringa vuota, garantendo che `cleanProsId` sia sempre `string`:
+- Type-safety migliorata (no `string | undefined`)
+- Indipendenza dal contratto del consumer
+- Chiarezza d'intento: "se propsId è nullish, usa stringa vuota"
+
+Classificato come fix defensivo: non corregge un bug osservabile, ma aumenta la robustezza del codice.
 
 ---
 
-### M16 — Repeater annidato: ordine di distruzione
+### M16 — Repeater annidato: ordine di distruzione **FIXED** (assorbito da M10)
 
-**File**: `component/action/remove-and-destroy/remove-and-destroy-by-id.js:39-43`
+**Stato**: FIXED — 2026-04-27. Assorbito dal fix di M10. Vedi "Appendice — Fix applicati / M10".
+**File**: `component/action/remove-and-destroy/remove-and-destroy-by-id.js:51-64`
 **Tipo**: cleanup-order
 
+#### Descrizione tecnica
+
 Correlato a H3. In repeater annidati profondamente, il cleanup dal basso verso l'alto mantiene i watcher del parent attivi durante la distruzione dei children, con potenziale scrittura su state zombie.
+
+#### Perché è risolto da M10
+
+Il fix di M10 sposta l'unwatch di `parentPropsWatcher` come **prima operazione** della funzione `removeAndDestroyById`, prima della distruzione ricorsiva dei children:
+
+```js
+// FASE 1 — unwatch parent watchers
+if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
+
+// FASE 2 — destroy children (ricorsivo)
+Object.values(child ?? {}).flat().forEach((childId) => {
+    try { removeAndDestroyById({ id: childId }); }
+    catch (error) { console.warn(error); }
+});
+```
+
+A ogni livello della ricorsione (incluso il caso di repeater profondamente annidati), i watcher del parent verso il componente in distruzione sono spenti prima che la distruzione dei children inizi. Questo garantisce che:
+- Side-effect propagati da `destroy?.()` dei figli non scattino su state zombie del parent
+- Nessuna finestra in cui watcher attivi possano scrivere su componenti in fase di teardown
+- L'invariante I1 (bottom-up safe destruction) è preservata anche per repeater nested
+
+Vedi "Appendice — Fix applicati / M10" per analisi completa, codice before/after, e copertura degli invarianti I1-I5.
 
 ---
 
@@ -1421,7 +1431,7 @@ Il pattern `ref.deref() && ref.deref()?.isConnected` appare in almeno 3 moduli (
 
 ### Pattern 2 — Cleanup ordering
 
-I bug C4, M1, M10 (che assorbe H3), M16 sono tutti istanze dello stesso problema: la distruzione dei componenti nidificati ha race multiple con il route change. **Proposta**: un singolo refactor del teardown sequence, con un'idea chiara di:
+I bug C4, M1, M10 (che assorbe H3 e M16) sono tutti istanze dello stesso problema: la distruzione dei componenti nidificati ha race multiple con il route change. **Proposta**: un singolo refactor del teardown sequence, con un'idea chiara di:
 
 > Nota: H7 era originariamente incluso in questo pattern, ma il fix applicato (2026-04-24) lo sposta fuori dal dominio teardown — vedi appendice.
 
@@ -1451,7 +1461,7 @@ M3, M8 sono istanze dello stesso pattern: codice async interrotto da navigazione
 1. ~~**C2**: guard idempotenza su listener `document.click`.~~ **FIXED** (vedi appendice)
 2. ~~**C1**: rimuovere doppio `hashchange` dispatch.~~ **FIXED**
 3. ~~**C4**: early return se `repeaterParentElement` non connesso (eliminare il ghost div).~~ **FIXED**
-4. **H8**: try/catch attorno a `onMount`.
+4. ~~**H8**: try/catch attorno a `onMount`.~~ **FIXED** (2026-04-27). Vedi "Appendice — Fix applicati / H8".
 
 ### Fase 2 — Fix alta severità (3-5 giorni)
 
@@ -1496,7 +1506,7 @@ Questa analisi è stata condotta via static review a tre livelli di profondità.
 
 Ogni bug va verificato con un test minimo prima di intervenire in produzione.
 
-I bug più meritevoli di verifica immediata sono **C1, C2, C4, H3, H8** perché le conseguenze (double-fire, memory leak cumulativi, DOM write su ghost, inconsistenza del cleanup, crash su onMount) sono osservabili in produzione con scenari comuni.
+I bug più meritevoli di verifica immediata erano **C1, C2, C4, H3, H8** perché le conseguenze (double-fire, memory leak cumulativi, DOM write su ghost, inconsistenza del cleanup, crash su onMount) erano osservabili in produzione con scenari comuni. **Tutti risolti** al 2026-04-27 (C1, C2, C4, H8 FIXED; H3 downgrade a MEDIUM + merge in M10 FIXED).
 
 ---
 
@@ -1627,6 +1637,7 @@ Il commento storico *"If destroy fire an exception app crash, at now is right, a
 
 - ✅ Copre i tre problemi originali di M10.
 - ✅ Assorbe e chiude **H3** (ordine cleanup: children distrutti prima del parent-state).
+- ✅ Assorbe e chiude **M16** (repeater annidato: watcher del parent attivi durante distruzione children) — la ricorsione su `removeAndDestroyById` esegue Fase 1 (unwatch) a ogni livello, garantendo cleanup safety anche su repeater profondamente nested.
 - ✅ Mantiene I1 (bottom-up), I2 (refs vivi in `destroy?.()`), I3 (no scritture post-state.destroy), I4 (DOM + map delete garantiti), I5 (null-out prima di `componentMap.delete`).
 
 ---
@@ -1735,6 +1746,298 @@ switchBindObjectMap();
 #### Imprecisione nella descrizione originale
 
 L'entry originale citava un "caso limite" con elementi persistent che potevano restare senza listener dopo il cleanup prematuro. Verifica: i componenti persistent sono **fuori** da `contentElement` (`componentIsPersistent` in `component/action/component.js:89-98`: `return !contentElement?.contains(element);`). `contentElement.replaceChildren()` non li tocca, restano connected, i loro WeakRef sopravvivono al filter. Quel caso limite **non esiste**.
+
+---
+
+### H8 — `onMount` senza try/catch
+
+**Data fix**: 2026-04-27
+**Commit**: (da completare)
+**File modificati**:
+- `src/js/mob/mob-js/modules/on-mount/index.js`
+
+#### Approccio
+
+Try/catch attorno all'invocazione del callback utente in `fireOnMountCallBack`. Errori utente vengono loggati con `console.error` e component id, senza propagare al parser. La cleanup di `onMountCallbackMap` resta fuori dal try/catch → garantita anche on error.
+
+#### Implementazione
+
+**Prima**:
+```js
+export const fireOnMountCallBack = async ({ id, element }) => {
+    const callback = onMountCallbackMap.get(id);
+
+    const destroyCallback = await callback?.({
+        element,
+    });
+
+    setDestroyCallback({ cb: destroyCallback, id });
+    onMountCallbackMap.delete(id);
+};
+```
+
+**Dopo**:
+```js
+export const fireOnMountCallBack = async ({ id, element }) => {
+    const callback = onMountCallbackMap.get(id);
+
+    /** @type {() => void} destroy Callback */
+    let destroyCallback;
+
+    try {
+        destroyCallback = await callback?.({ element });
+        setDestroyCallback({ cb: destroyCallback, id });
+    } catch (error) {
+        console.error(`[MobJs] onMount error for component ${id}:`, error);
+    }
+
+    onMountCallbackMap.delete(id);
+};
+```
+
+#### Benefici
+
+- ✅ **Pipeline parser non si interrompe**: un throw in `onMount` utente è contenuto.
+- ✅ **Cleanup garantito**: `onMountCallbackMap.delete(id)` resta fuori dal try/catch → nessun leak della Map anche on error.
+- ✅ **Diagnostica**: `console.error` con component id rende l'errore tracciabile senza nascondere il problema.
+
+#### Nota su `setDestroyCallback` skippato on error
+
+Il fix non chiama `setDestroyCallback` se il callback throw. Equivalente al pattern "chiamarlo con `cb` undefined" perché:
+- Il componente è creato con `destroy = () => {}` di default (`component/index.js:32`).
+- `setDestroyCallback` ha `cb = () => {}` come default via destructuring.
+
+In entrambi i casi `destroy` resta un no-op valido. Nessuna differenza osservabile vs. il fix originalmente suggerito.
+
+---
+
+### M7 — `unsubScribeFunction.length = 0` in closure
+
+**Data fix**: 2026-04-27
+**Commit**: (da completare)
+**File modificati**:
+- `src/js/mob/mob-js/modules/bind-text/index.js`
+- `src/js/mob/mob-js/modules/bind-object/index.js`
+- `src/js/mob/mob-js/modules/bind-effetc/index.js`
+
+#### Approccio
+
+Cambio da `const unsubScribeFunction = [...]` + `.length = 0` a `let unsubScribeFunction = [...]` + `= []` per maggior chiarezza d'intento. Nei tre moduli coinvolti, il pattern era:
+
+```js
+unsubScribeFunction.forEach((fn) => { if (fn) fn(); });
+unsubScribeFunction.length = 0;
+```
+
+Ora:
+
+```js
+unsubScribeFunction.forEach((fn) => { if (fn) fn(); });
+unsubScribeFunction = [];
+```
+
+#### Razionale corretto
+
+L'entry originale M7 sosteneva che `.length = 0` fosse problematico per "closure condivise che vedono l'array troncato" — in realtà è il contrario: mutare con `.length = 0` garantisce che **tutti** i riferimenti vedano il vuoto, mentre `= []` riassegna solo la variabile. Nel caso specifico non esiste alcun riferimento esterno condiviso, quindi entrambe le forme funzionano equivalentemente.
+
+Il fix vale come **miglioramento stilistico**: `= []` è più esplicito nell'intento ("sostituisco il contenitore") ed è coerente con pattern moderni. Non corregge un bug funzionale esistente.
+
+#### Implementazione
+
+**Prima** (`bind-text/index.js:197-246` — pattern identico negli altri due file):
+```js
+const unsubScribeFunction = propsParsed.map((state) => {
+    return watchById(id, state, async () => {
+        // ...
+        if (ref.deref() && !ref.deref()?.isConnected) {
+            unsubScribeFunction.forEach((fn) => {
+                if (fn) fn();
+            });
+
+            unsubScribeFunction.length = 0;
+        }
+        // ...
+    });
+});
+```
+
+**Dopo**:
+```js
+let unsubScribeFunction = propsParsed.map((state) => {
+    return watchById(id, state, async () => {
+        // ...
+        if (ref.deref() && !ref.deref()?.isConnected) {
+            unsubScribeFunction.forEach((fn) => {
+                if (fn) fn();
+            });
+
+            unsubScribeFunction = [];
+        }
+        // ...
+    });
+});
+```
+
+#### Benefici
+
+- ✅ **Intento più chiaro**: `= []` comunica immediatamente "questo è un nuovo array vuoto", senza dover ragionare su mutation.
+- ✅ **Coerenza**: pattern uniforme nei tre moduli (`bind-text`, `bind-object`, `bind-effect`).
+- ✅ **Semantica preservata**: nessun comportamento funzionale cambiato — tutti i closure condividono lo stesso binding `let`, vedono la nuova assegnazione.
+
+#### Note
+
+L'array non è mai esposto fuori dallo scope della funzione. La sequenza `forEach` → clear garantisce che l'iterazione completi prima dello svuotamento. Non c'era alcun bug di "mutation durante iteration" — questo è un fix puramente stilistico.
+
+---
+
+### M15 — `getParamsFromWebComponent` con `propsId` undefined
+
+**Data fix**: 2026-04-27
+**Commit**: (da completare)
+**File modificati**:
+- `src/js/mob/mob-js/parse/steps/get-params-from-web-component.js`
+
+#### Approccio
+
+Aggiunto fallback esplicito `?? ''` per garantire che `cleanProsId` sia sempre `string` invece di `string | undefined`. Il fix rende esplicito il comportamento di fallback invece di affidarsi al default param del consumer.
+
+#### Implementazione
+
+**Prima**:
+```js
+const propsId = element.getStaticPropsId();
+// ... altre variabili ...
+const cleanProsId = propsId?.split(' ').join('');
+const propsFromParent = getPropsFromParent(cleanProsId);
+```
+
+**Dopo**:
+```js
+const propsId = element.getStaticPropsId();
+// ... altre variabili ...
+const cleanProsId = propsId?.split(' ').join('') ?? '';
+const propsFromParent = getPropsFromParent(cleanProsId);
+```
+
+#### Razionale corretto
+
+L'entry originale M15 suggeriva un "null-access" bug. Verifica del flusso reale:
+
+1. **`propsId` può essere `undefined` o `null`**: dichiarato come `string | undefined | null` in `user-component.js:70`.
+2. **Optional chaining gestisce entrambi**: `propsId?.split(...)` ritorna `undefined` se `propsId` è `null` o `undefined`.
+3. **Il consumer aveva già una protezione**: `getPropsFromParent(id = '')` ha default param → quando riceve `undefined`, usa `''`.
+4. **Sequenza senza fix**:
+   - `propsId = undefined` → `cleanProsId = undefined`
+   - `getPropsFromParent(undefined)` → default param scatta → `id = ''`
+   - `staticPropsMap.get('')` → `undefined`
+   - `return props ?? {}` → restituisce `{}`
+   - ✅ **Nessun crash**
+
+#### Perché il fix è comunque utile
+
+Anche se non c'era un crash reale, il fix è valido come **difesa in profondità**:
+
+1. **Type-safety**: `cleanProsId` diventa `string` invece di `string | undefined` — elimina ambiguità nel tipo.
+2. **Indipendenza dal consumer**: se in futuro `getPropsFromParent` perde il default param (refactor, cambio API), il codice continua a funzionare.
+3. **Esplicitezza d'intento**: `?? ''` comunica chiaramente "fallback a stringa vuota" senza richiedere conoscenza dell'implementazione del consumer.
+
+#### Benefici
+
+- ✅ **Robustezza ai cambi di contratto**: non dipende più dal default param di `getPropsFromParent`.
+- ✅ **Type narrowing**: `cleanProsId` sempre `string`, migliore type checking.
+- ✅ **Chiarezza**: il comportamento di fallback è locale e visibile, non nascosto nel consumer.
+
+#### Note
+
+Classificato come fix **defensivo/preventivo** piuttosto che fix di bug critico. Il codice originale funzionava grazie al default param, ma la dipendenza implicita rendeva il codice fragile ai refactor futuri. Analogo a M7 per natura (miglioramento di chiarezza/robustezza più che fix di crash).
+
+---
+
+### M2 (e famiglia) — Pattern delle Map orfane: tentativo di fix puntuale revertato
+
+**Data analisi**: 2026-04-27
+**Bug correlati**: M2 (`currentRepeaterValueMap`), e per estensione `bindTextToInitializeMap`, `bindObjectToInitializeMap`, `tempDelegateEventMap`, `staticPropsMap`.
+
+#### Famiglia di mappe coinvolte
+
+Il codebase usa cinque `Map` globali con lo stesso shape "passing buffer fra fasi":
+
+| Mappa | Setter | Consumer | Chiave |
+|-------|--------|----------|--------|
+| `currentRepeaterValueMap` | `setRepeatAttribute` | `getParamsFromPlaceHolder` | id univoco |
+| `bindTextToInitializeMap` | `addBindTextToInitialzie` (template tag `bindText`) | `switchBindTextMap` | id univoco |
+| `bindObjectToInitializeMap` | `addBindObjectToInitialzie` (template tag `bindObject`) | `switchBindObjectMap` | id univoco |
+| `tempDelegateEventMap` | `setDelegateBindEvent` | `applyDelegationBindEvent` | id univoco |
+| `staticPropsMap` | `setStaticProps` | `getPropsFromParent` | id univoco |
+
+In tutti i casi: il setter aggiunge `(id, value)` quando un padre genera HTML/attributi per i propri figli; il consumer fa `get + delete` quando il figlio entra effettivamente nel parse pipeline. Se il figlio non viene mai parsato (parse cancellato, `ROUTE_IS_LOADING` flip, await yield + destroy concorrente), l'entry resta orfana per sempre.
+
+#### Tentativo di fix puntuale (revertato)
+
+Il primo approccio è stato chiudere singolarmente il leak di `currentRepeaterValueMap`:
+
+- Aggiunta `clearCurrentRepeaterValueMap()` in `modules/repeater/repeater-value/index.js`
+- Chiamata in `modules/repeater/watch/index.js` (dentro `MobCore.useNextLoop`, dopo `descrementRepeaterQueue()`) sotto il guard `if (repeaterQuequeIsEmpty()) clearCurrentRepeaterValueMap();`
+
+Logica: a quel punto nessun `setRepeatAttribute` è "set ma non ancora consumato" → safe clear.
+
+**Estensione tentata** alle altre due mappe più semplici:
+
+- `bindObjectToInitializeMap.clear()` a fine `switchBindObjectMap` (dopo il `forEach` di consume).
+- `bindTextToInitializeMap.clear()` a fine `switchBindTextMap`.
+
+#### Perché il fix è stato revertato
+
+Tre problemi emersi dall'analisi cross-mappa:
+
+##### 1. Race su parse concorrenti per bind-text/bind-object
+
+Il `clear()` a fine `switchBindXxxMap` è safe **solo per parse single-thread**. Scenario di rottura:
+
+1. Parse **A** entra nel while-loop di `parseComponentsWhile`. L'iterazione costruisce HTML con `bindText\`...\`` → `addBindTextToInitialzie(idA1)` (sync, dentro user render).
+2. Linea 199 `await userFunctionComponent(...)` yield (user function async — scenario raro ma documentato per root node, vedi `parse-function-while.js:75-79`).
+3. Parse **B** triggerato da `MAIN_STORE_PARSER_ASYNC` (es. fire repeat precedente) gira completamente, raggiunge `switchBindTextMap()` → consuma le sue entry → **`bindTextToInitializeMap.clear()` cancella anche `idA1`** che era settato ma il cui `<mobjs-bind-text>` non è ancora stato inserito nel DOM.
+4. A riprende, `convertToRealElement` inserisce A1, `connectedCallback` aggiunge a `bindTextPlaceHolderMap`.
+5. Fine while di A → `switchBindTextMap` itera, trova A1, cerca `idA1` → **non c'è** → `if (!item) return;` → bindText silently broken.
+
+Il `bindTextPlaceHolderMap.clear()` preesistente non aveva questa race perché la chiave è l'`Element` e A1 non era ancora connesso. Il problema è specificamente del `clear()` su mappa con chiavi id-univoco settate "in anticipo".
+
+##### 2. Cross-iteration set/consume per tempDelegateEventMap
+
+`setDelegateBindEvent` è chiamata in `get-params-for-component.js:241` quando il padre genera attributi per un **figlio placeholder**, ma il consumer `applyDelegationBindEvent` è chiamato a fine parse del **padre** — il figlio sarà parsato in iterazioni successive.
+
+Aggiungere `tempDelegateEventMap.clear()` a fine `applyDelegationBindEvent` cancella entry settate per figli non ancora parsati → niente listener sui figli del repeater. Test confermato dal revert: l'app ha perso i listener sui repeater.
+
+A differenza di bind-text/bind-object, il pattern setter→consumer **non è confinato alla stessa iterazione del while-loop** ma attraversa più iterazioni (e potenzialmente più chiamate annidate di `parseComponentsWhile`).
+
+##### 3. staticPropsMap ha logica di cleanup partial già presente ma non sufficiente
+
+`removeOrphansPropsFromParent()` (un `clear()` totale) viene chiamata in `route/load-page.js:122` solo su cambio rotta. Dentro la stessa rotta gli orfani si accumulano. Il commento al codice (`static-props/index.js:60-63`) cita "when active parser counter is equal 0" ma il counter non esiste in implementazione → fix incompleto.
+
+#### Strategie di fix viable (deferred)
+
+Tre strategie identificate, nessuna implementata:
+
+1. **Counter `parseInFlight`**: incrementare/decrementare ai bordi di `parseComponentsWhile`. Clear singola funzione `cleanAllOrphanMaps()` chiamata sotto guard `parseInFlight === 0 && repeaterQuequeIsEmpty() && invalidateQuequeIsEmpty()`. Più centralizzato, ma fragile se c'è un cammino di exit non tracciato (decremento mancato → guard sempre falso → leak permanente).
+
+2. **Scope per-parse**: trasformare le mappe da `Map<id, value>` a `Map<parseScopeId, Map<id, value>>`. Ogni `parseComponentsWhile` genera un `parseScopeId` all'inizio e cancella la sub-map alla fine. Niente race, niente `clear()` globale. Refactor medio, ma robusto.
+
+3. **`WeakMap<HTMLElement, value>`**: chiave diventa l'Element host del placeholder. Quando il GC raccoglie l'Element orfano, l'entry sparisce by-construction. Refactor multi-file (eliminare id generation, riscrivere setter/getter, rimuovere attributi `ATTR_*`). Semanticamente la più pulita ma più invasiva.
+
+Per `currentRepeaterValueMap` la strategia 3 è particolarmente attraente perché la chiave id-univoco è già scritta come attributo DOM (`ATTR_CURRENT_LIST_VALUE`) sul WebComponent host: un WeakMap con l'host come chiave eliminerebbe l'attributo e l'id generation.
+
+#### Stato corrente
+
+Tutti e cinque i bug della famiglia restano APERTI. Nessun fix puntuale è stato mantenuto perché:
+- Non vogliamo coerenza parziale (1 mappa fixata su 5 con la stessa pathology).
+- I fix puntuali "naive" (clear locale) sono fragili (vedi punti 1 e 2).
+- La strategia corretta (counter o scope per-parse) richiede un singolo intervento trasversale, non cinque patch separate.
+
+#### Severity aggregata
+
+- Entry piccole singolarmente; leak cumulativo in app con navigazione veloce o repeater che si re-renderano frequentemente.
+- Nessun crash funzionale, solo accumulo di memoria.
+- Mantenuti come MEDIUM individuali. Da riconsiderare collettivamente quando si schedula il refactor trasversale.
 
 ---
 
@@ -2083,3 +2386,38 @@ L'unico rischio reale tracciabile a questa zona è che il flusso continui a eseg
 Quindi non serve mantenere H11 come bug indipendente.
 
 > Nota storica: il riferimento puntava originariamente a H4, poi sostituito con H7. Entrambi risultano oggi non attinenti — H4 è FALSO POSITIVO e H7 è FIXED con fix sullo scope diverso (race async/sync interna a `delegate-events`, non ordering di teardown). Il concern residuo resta però valido e tracciato sotto Pattern 4.
+
+---
+
+### M1 — Mutation durante `destroyNestedInvalidate/Repeat` forEach
+
+**Data verifica**: 2026-04-27
+**Stato**: FALSO POSITIVO
+**File**:
+- `modules/invalidate/action/remove/remove-nested-invalidate.js:30-39`
+- `modules/repeater/action/remove/remove-nested-repeat.js:30-42`
+- `modules/common-repeat-invalidate.js:25-98` (helper sorgente)
+
+#### Descrizione originale (errata)
+
+L'entry segnalava che durante `invalidatToDelete.forEach(...)` gli `unsubscribe` o le successive chiamate a `removeInvalidateByInvalidateId` potessero "mutare la lista originale" tramite cascading destroy, e proponeva uno snapshot difensivo `[...invalidatToDelete]`.
+
+#### Verifica del flusso reale
+
+1. **`invalidatToDelete` è già una snapshot.** È il valore di ritorno di `getRepeatOrInvalidateInsideElement` (`common-repeat-invalidate.js:25-98`), che costruisce esplicitamente un nuovo array locale:
+   ```js
+   const result = [];
+   for (const item of entries) { /* ... */ result.push({ moduleId, initializeModule, unsubscribe }); }
+   return result;
+   ```
+   L'array ritornato non è connesso alle Map sorgente (`invalidateInstancesMap`, `repeatInstancesMap`).
+
+2. **`removeInvalidateByInvalidateId` muta solo le Map sorgente, non l'array iterato.** Le mutazioni colpiscono `invalidateInstancesMap.delete(invalidateId)` e `invalidateIdsMap.set(...)`, ma il `forEach` sta iterando su `invalidatToDelete` — un array proprio costruito prima dell'iterazione.
+
+3. **`unsubscribe.forEach(fn => fn())` non triggera cascading destroy.** Le `fn()` sono unsubscribe di `watch(state, callback)`: rimuovono listener da uno store, non chiamano destroy né mutano le Map dei moduli.
+
+4. **Il fix proposto è ridondante.** `[...invalidatToDelete]` farebbe una copia di una copia. Nessun beneficio osservabile.
+
+#### Conclusione
+
+Lo stesso pattern e lo stesso helper sono usati in `destroyNestedRepeat`: stessa analisi, stessa sicurezza. M1 è classificabile come falso positivo: l'autore originale ha probabilmente confuso la mutazione delle Map sorgente con una mutazione dell'array iterato — ma sono oggetti distinti grazie a `result.push(...)` nel costruttore.
