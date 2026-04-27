@@ -185,7 +185,17 @@ export interface CreateComponentParams<T> extends ComponentParsed<T> {
     component: ComponentFunction;
 }
 
-export type CreateComponentReturnType = Record<
+export interface CreateComponentReturnType {
+    component: {
+        tag: string;
+        params: {
+            componentFunction: ComponentFunction;
+            componentParams: ComponentParsed;
+        };
+    };
+}
+
+export type AvailableComponent = Record<
     string,
     {
         componentFunction: ComponentFunction;

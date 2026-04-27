@@ -23,7 +23,7 @@ export const getComponentList = () => {
 };
 
 /**
- * @type {Set<import('../type').CreateComponentReturnType>}
+ * @type {Set<import('../type').AvailableComponent>}
  */
 const availableComponent = new Set();
 
@@ -36,8 +36,6 @@ export const setComponentList = () => {
     componentListMap = Object.fromEntries(
         [...availableComponent.values()].flatMap((item) => Object.entries(item))
     );
-
-    console.log(`component loaded:${Object.keys(componentListMap).length}`);
 
     /**
      * Register custom HTML tag component. This custom TAG will be converted in native DOM element during parse.
@@ -62,7 +60,9 @@ export const setComponentList = () => {
 export const useComponent = (components) => {
     if (!components || components?.length === 0) return;
 
-    components.forEach((component) => {
-        availableComponent.add(component);
+    components.forEach((item) => {
+        availableComponent.add({
+            [item.component.tag]: item.component.params,
+        });
     });
 };

@@ -51,8 +51,8 @@ const getClassList = (value) => {
  * @type {import('./type').FromObjectType}
  */
 export const htmlObject = (data) => {
-    const component = data?.component ?? null;
-    const componentKey = component && Object.keys(component)?.[0];
+    const componentProp = data?.component ?? null;
+    const componentKey = componentProp && componentProp.component.tag;
     const tag = componentKey ?? data?.tag ?? `div`;
     const rootElement = document.createElement(tag);
 

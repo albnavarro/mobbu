@@ -45,19 +45,22 @@ export const createComponent = ({
     style = '',
 }) => {
     const comp = {
-        [tag]: {
-            componentFunction: component,
-            componentParams: {
-                exportState: Object.keys(props),
-                scoped,
-                state: { ...props, ...state },
-                bindStore,
-                connectedCallback,
-                disconnectedCallback,
-                adoptedCallback,
-                attributeToObserve,
-                attributeChangedCallback,
-                style,
+        component: {
+            tag,
+            params: {
+                componentFunction: component,
+                componentParams: {
+                    exportState: Object.keys(props),
+                    scoped,
+                    state: { ...props, ...state },
+                    bindStore,
+                    connectedCallback,
+                    disconnectedCallback,
+                    adoptedCallback,
+                    attributeToObserve,
+                    attributeChangedCallback,
+                    style,
+                },
             },
         },
     };
