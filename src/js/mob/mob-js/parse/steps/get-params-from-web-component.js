@@ -31,7 +31,7 @@ export const getParamsFromPlaceHolder = ({ element }) => {
     const componentRepeatId = element.getComponentRepeatId();
     const key = element.getCurrentKey() ?? '';
     const componentName = element.getComponentName();
-    const cleanProsId = propsId?.split(' ').join('');
+    const cleanProsId = propsId?.split(' ').join('') ?? '';
     const propsFromParent = getPropsFromParent(cleanProsId);
     const baseProps = { ...element.dataset };
     const repeatPropBind = element.getRepeaterPropBind();
