@@ -34,14 +34,18 @@ export const fireOnMountCallBack = async ({ id, element }) => {
      *
      * @type {() => void} destroy Callback
      */
-    const destroyCallback = await callback?.({
-        element,
-    });
+    let destroyCallback;
 
-    /**
-     * Update destroy callback
-     */
-    setDestroyCallback({ cb: destroyCallback, id });
+    try {
+        destroyCallback = await callback?.({ element });
+
+        /**
+         * Update destroy callback
+         */
+        setDestroyCallback({ cb: destroyCallback, id });
+    } catch (error) {
+        console.error(`[MobJs] onMount error for component ${id}:`, error);
+    }
 
     /**
      * Remove callback
