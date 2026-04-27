@@ -3,7 +3,7 @@
 /**
  * @type {Set<import('../../web-component/type').UserComponent>}
  */
-const userPlaceholder = new Set();
+export const userPlaceholder = new Set();
 
 /** @returns {boolean} */
 let skipAddUserComponent = false;

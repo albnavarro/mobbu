@@ -12,7 +12,7 @@ import { getRepeaterObservedByComponentid } from '../repeater/action/get/get-rep
  *
  * @type {Map<string, import('./type').BindObectToInitialize>}
  */
-const bindObjectToInitializeMap = new Map();
+export const bindObjectToInitializeMap = new Map();
 
 /**
  * Add all future module to initialize at the end of parse.

@@ -7,7 +7,7 @@ import { getInvalidateObservedByComponentid } from '../invalidate/action/get/get
 import { getRepeaterObservedByComponentid } from '../repeater/action/get/get-repeater-observed-by-component-id';
 
 /** @type {import('./type').BindEffectMap} */
-const bindEffectMap = new Map();
+export const bindEffectMap = new Map();
 
 /**
  * @param {string | string[] | (() => void) | (() => void)[]} observe
