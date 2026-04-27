@@ -197,7 +197,7 @@ const createBindTextWatcher = ({ id, render, props, element }) => {
         ...new Set([...props, ...repeaterObserved, ...invalidateObserved]),
     ];
 
-    const unsubScribeFunction = propsParsed.map((state) => {
+    let unsubScribeFunction = propsParsed.map((state) => {
         /**
          * Get state to watch if prop is: bindText`${'myProps.prop1.prop2'}` Get first prop
          */
@@ -243,7 +243,7 @@ const createBindTextWatcher = ({ id, render, props, element }) => {
                             if (fn) fn();
                         });
 
-                        unsubScribeFunction.length = 0;
+                        unsubScribeFunction = [];
                     }
 
                     /**

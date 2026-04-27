@@ -211,7 +211,7 @@ const watchBindEffect = ({ data, element }) => {
     const { parentId: id } = data;
     const { items } = data;
 
-    const unsubScribeFunction = items.flatMap(
+    let unsubScribeFunction = items.flatMap(
         ({ observe, toggleClass, toggleStyle, toggleAttribute }) => {
             /**
              * Watch props on change
@@ -287,7 +287,7 @@ const watchBindEffect = ({ data, element }) => {
                             if (fn) fn();
                         });
 
-                        unsubScribeFunction.length = 0;
+                        unsubScribeFunction = [];
                         return;
                     }
 

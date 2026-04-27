@@ -173,7 +173,7 @@ const createBindObjectWatcher = ({ id, keys, render, element }) => {
         ...new Set([...keys, ...repeaterObserved, ...invalidateObserved]),
     ];
 
-    const unsubScribeFunction = keysParsed.map((state) => {
+    let unsubScribeFunction = keysParsed.map((state) => {
         return watchById(id, state, async () => {
             /**
              * BindEffect/BindText/BindObject is scheduled after repeat/invalidate.
@@ -200,7 +200,7 @@ const createBindObjectWatcher = ({ id, keys, render, element }) => {
                             if (fn) fn();
                         });
 
-                        unsubScribeFunction.length = 0;
+                        unsubScribeFunction = [];
                     }
 
                     /**
