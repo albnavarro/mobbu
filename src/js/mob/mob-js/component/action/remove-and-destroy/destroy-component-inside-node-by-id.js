@@ -18,6 +18,8 @@ export const destroyComponentInsideNodeById = ({ id, container }) => {
 
     allChild.forEach((id) => {
         const state = componentMap.get(id);
+        if (!state) return;
+
         const element = state?.element;
         const currentId = state?.id ?? '';
 
