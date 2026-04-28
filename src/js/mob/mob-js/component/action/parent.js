@@ -79,7 +79,7 @@ export const getParentIdFromWeakElementMap = ({ element }) => {
         }
     }
 
-    return id ?? '';
+    return id ?? undefined;
 };
 
 /**
