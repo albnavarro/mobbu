@@ -32,3 +32,6 @@ export { currentRepeaterValueMap } from './modules/repeater/repeater-value';
 export { getSlotPlaceholderSize, slotPlaceholder } from './modules/slot';
 export { staticPropsMap } from './modules/static-props';
 export { userPlaceholder } from './modules/user-component';
+export { queque } from './queque/tick';
+export { invalidateQueque } from './queque/tick-invalidate';
+export { repeaterQueque } from './queque/tick-repeater';

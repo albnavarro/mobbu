@@ -4,7 +4,7 @@ import { awaitNextLoop } from './utils';
 /**
  * @type {Map<string, import('./type').TickQuequeData>}
  */
-const queque = new Map();
+export const queque = new Map();
 
 /**
  * Limit queque size. Prevent possible side effect

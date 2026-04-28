@@ -4,7 +4,7 @@ import { awaitNextLoop } from './utils';
 /**
  * @type {Map<string, import('./type').RepeaterTickQuequeData>}
  */
-const repeaterQueque = new Map();
+export const repeaterQueque = new Map();
 
 /**
  * @returns {boolean}

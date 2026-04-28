@@ -49,5 +49,8 @@ export const consoleLogDebug = () => {
     console.log('onMountCallbackMap:', MobJsInternal.onMountCallbackMap.size);
     console.log('slotPlaceholder:', MobJsInternal.slotPlaceholder.size);
     console.log('userPlaceholder:', MobJsInternal.userPlaceholder.size);
+    console.log('queque:', MobJsInternal.queque.size);
+    console.log('invalidateQueque:', MobJsInternal.invalidateQueque.size);
+    console.log('repeaterQueque:', MobJsInternal.repeaterQueque.size);
     console.log('----');
 };

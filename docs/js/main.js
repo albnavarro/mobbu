@@ -10276,10 +10276,13 @@
     invalidateIdHostMap: () => invalidateIdHostMap,
     invalidateIdsMap: () => invalidateIdsMap,
     invalidateInstancesMap: () => invalidateInstancesMap,
+    invalidateQueque: () => invalidateQueque,
     onMountCallbackMap: () => onMountCallbackMap,
+    queque: () => queque,
     repeatIdHostMap: () => repeatIdHostMap,
     repeatIdsMap: () => repeatIdsMap,
     repeatInstancesMap: () => repeatInstancesMap,
+    repeaterQueque: () => repeaterQueque,
     slotPlaceholder: () => slotPlaceholder,
     staticPropsMap: () => staticPropsMap,
     tempDelegateEventMap: () => tempDelegateEventMap,
@@ -37974,6 +37977,9 @@
     console.log("onMountCallbackMap:", internal_exports.onMountCallbackMap.size);
     console.log("slotPlaceholder:", internal_exports.slotPlaceholder.size);
     console.log("userPlaceholder:", internal_exports.userPlaceholder.size);
+    console.log("queque:", internal_exports.queque.size);
+    console.log("invalidateQueque:", internal_exports.invalidateQueque.size);
+    console.log("repeaterQueque:", internal_exports.repeaterQueque.size);
     console.log("----");
   };
 

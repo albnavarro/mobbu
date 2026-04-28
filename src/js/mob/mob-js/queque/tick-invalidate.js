@@ -4,7 +4,7 @@ import { awaitNextLoop } from './utils';
 /**
  * @type {Map<string, import('./type').InvalidateTickQuequeData>}
  */
-const invalidateQueque = new Map();
+export const invalidateQueque = new Map();
 
 /**
  * @returns {boolean}
