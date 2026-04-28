@@ -6331,10 +6331,12 @@
   // src/js/mob/mob-js/component/action/watch.js
   var watchById = (id = "", prop = "", cb = () => {
   }, { wait = false } = {}) => {
-    if ((!id || id === "") && (!prop || prop === "")) return;
+    if ((!id || id === "") && (!prop || prop === "")) return () => {
+    };
     const item = componentMap.get(id);
     const state = item?.state;
-    return state?.watch(prop, cb, { wait: wait ?? false });
+    return state?.watch(prop, cb, { wait: wait ?? false }) ?? (() => {
+    });
   };
 
   // src/js/mob/mob-js/queque/utils.js
@@ -7942,8 +7944,7 @@
         const rootElement = getRoot();
         const handlerToRemove = activeHandlers.get(eventKey);
         if (handlerToRemove) {
-          if (rootElement?.isConnected)
-            rootElement.removeEventListener(eventKey, handlerToRemove);
+          rootElement.removeEventListener(eventKey, handlerToRemove);
           activeHandlers.delete(eventKey);
           eventRegistered.delete(eventKey);
           eventToAdd.delete(eventKey);
