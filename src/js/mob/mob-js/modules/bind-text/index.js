@@ -138,7 +138,7 @@ export const switchBindTextMap = () => {
          * Individuiamo il div che sara da aggiornare.
          */
         let parentElement = placeholder.parentElement;
-        if (!parentElement) {
+        if (!parentElement || !placeholder.isConnected) {
             bindTextToInitializeMap.delete(bindTextId);
             return;
         }

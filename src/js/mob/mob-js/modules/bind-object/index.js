@@ -122,7 +122,7 @@ export const switchBindObjectMap = () => {
          * Individuiamo il div che sara da aggiornare.
          */
         let parentElement = placeholder.parentElement;
-        if (!parentElement) {
+        if (!parentElement || !placeholder.isConnected) {
             bindObjectToInitializeMap.delete(bindObjectId);
             return;
         }
