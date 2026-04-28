@@ -202,9 +202,7 @@ const cleanDelegateEvent = () => {
             const handlerToRemove = activeHandlers.get(eventKey);
 
             if (handlerToRemove) {
-                if (rootElement?.isConnected)
-                    rootElement.removeEventListener(eventKey, handlerToRemove);
-
+                rootElement.removeEventListener(eventKey, handlerToRemove);
                 activeHandlers.delete(eventKey);
                 eventRegistered.delete(eventKey);
                 eventToAdd.delete(eventKey);

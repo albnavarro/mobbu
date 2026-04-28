@@ -7,7 +7,7 @@ import { componentMap } from '../component-map';
  * @param {string} prop
  * @param {(arg0: any) => void} cb
  * @param {{ wait?: boolean }} [options]
- * @returns {(( function():void )|undefined)}
+ * @returns {() => void}
  */
 export const watchById = (
     id = '',
@@ -15,9 +15,9 @@ export const watchById = (
     cb = () => {},
     { wait = false } = {}
 ) => {
-    if ((!id || id === '') && (!prop || prop === '')) return;
+    if ((!id || id === '') && (!prop || prop === '')) return () => {};
     const item = componentMap.get(id);
     const state = item?.state;
 
-    return state?.watch(prop, cb, { wait: wait ?? false });
+    return state?.watch(prop, cb, { wait: wait ?? false }) ?? (() => {});
 };
