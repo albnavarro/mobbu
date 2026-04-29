@@ -1,26 +1,32 @@
-import { serializeFragment } from './utils';
-
 /**
  * @param {object} params
  * @param {string} params.svg
  * @param {string} params.id
- * @returns String
+ * @returns {Element}
  */
 export const parseSvg = ({ svg, id }) => {
-    const fragment = document.createRange().createContextualFragment(svg);
-    const layers = fragment.querySelectorAll('[type="layer"]');
-    const layerToRemove = fragment.querySelectorAll('[type="delete"]');
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(svg, 'image/svg+xml');
 
-    [...layers].forEach((layer) => {
-        const currentId = layer.id;
-        if (currentId !== id) layer.remove();
+    /**
+     * Extract svg element
+     */
+    const svgElement = doc.documentElement;
+    const layers = svgElement.querySelectorAll('[type="layer"]');
+    const layersToRemove = svgElement.querySelectorAll('[type="delete"]');
+
+    layers.forEach((layer) => {
+        if (layer.id !== id) {
+            layer.remove();
+        }
     });
 
-    [...layerToRemove].forEach((layer) => {
+    layersToRemove.forEach((layer) => {
         layer.remove();
     });
 
-    const serialized = serializeFragment(fragment);
-
-    return serialized;
+    /**
+     * Return SVG element
+     */
+    return svgElement;
 };

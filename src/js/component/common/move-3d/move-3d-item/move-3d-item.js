@@ -17,6 +17,7 @@ const getComponent = (component) => {
         content: {
             tag: component.tagName,
             modules: MobJs.staticProps(component?.props ?? {}),
+            content: component?.props,
         },
     });
 };

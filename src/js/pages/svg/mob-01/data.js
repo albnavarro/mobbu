@@ -38,7 +38,7 @@ export const rdp_01_schema = ({
                         classList: '',
                         animate: true,
                         component: {
-                            tagName: 'any-component',
+                            tagName: 'div',
                             className:
                                 'u-center-inner-svg svg-animation-block-01',
                             props: {
@@ -56,7 +56,7 @@ export const rdp_01_schema = ({
                         classList: '',
                         animate: true,
                         component: {
-                            tagName: 'any-component',
+                            tagName: 'div',
                             className:
                                 'u-center-inner-svg svg-animation-block-01',
                             props: {
@@ -75,7 +75,7 @@ export const rdp_01_schema = ({
                         classList: '',
                         animate: true,
                         component: {
-                            tagName: 'any-component',
+                            tagName: 'div',
                             className:
                                 'u-center-inner-svg svg-animation-block-01',
                             props: {
@@ -93,7 +93,7 @@ export const rdp_01_schema = ({
                                 classList: '',
                                 animate: true,
                                 component: {
-                                    tagName: 'any-component',
+                                    tagName: 'div',
                                     className:
                                         'u-center-inner-svg svg-animation-block-01',
                                     props: {
@@ -112,7 +112,7 @@ export const rdp_01_schema = ({
                                 animate: true,
                                 rotate: 'y',
                                 component: {
-                                    tagName: 'any-component',
+                                    tagName: 'div',
                                     className:
                                         'u-center-inner-svg svg-animation-block-01',
                                     props: {
@@ -130,7 +130,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {
@@ -150,7 +150,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {
@@ -170,7 +170,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {
@@ -190,7 +190,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {
@@ -210,7 +210,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {
@@ -230,7 +230,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {
@@ -249,7 +249,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {
@@ -268,7 +268,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {
@@ -290,7 +290,7 @@ export const rdp_01_schema = ({
                                 animate: true,
                                 rotate: 'y',
                                 component: {
-                                    tagName: 'any-component',
+                                    tagName: 'div',
                                     className:
                                         'u-center-inner-svg svg-animation-block-01',
                                     props: {
@@ -309,7 +309,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {
@@ -329,7 +329,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {
@@ -349,7 +349,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {
@@ -369,7 +369,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {
@@ -389,7 +389,7 @@ export const rdp_01_schema = ({
                                         animate: true,
                                         rotate: 'y',
                                         component: {
-                                            tagName: 'any-component',
+                                            tagName: 'div',
                                             className:
                                                 'u-center-inner-svg svg-animation-block-01',
                                             props: {

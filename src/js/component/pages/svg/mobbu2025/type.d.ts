@@ -1,7 +1,7 @@
 export interface Mobbu2025 {
     props: {
-        layer02: string;
-        layer03: string;
+        layer02: Element;
+        layer03: Element;
     };
     ref: {
         screen: HTMLDivElement;
