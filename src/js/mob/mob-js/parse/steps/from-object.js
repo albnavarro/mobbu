@@ -174,7 +174,7 @@ const addContentChild = (rootElement, children) => {
         /**
          * HTML Node element
          */
-        if (MobCore.checkType(HTMLElement, child)) {
+        if (MobCore.checkType(Element, child)) {
             rootElement.append(child);
             continue;
         }
