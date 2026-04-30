@@ -44,11 +44,6 @@
                 opacity: 0.5;
             }
 
-            // Performance on scroll
-            @include when-inside('.is-whelling') {
-                pointer-events: none;
-            }
-
             &.current {
                 &::before {
                     content: '';
@@ -59,6 +54,12 @@
                     width: rem(2);
                     background: var(--white);
                 }
+            }
+        }
+
+        ul.is-whelling {
+            li {
+                pointer-events: none;
             }
         }
 

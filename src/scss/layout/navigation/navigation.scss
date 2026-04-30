@@ -5,6 +5,12 @@
         :scope {
             width: 100%;
             margin: auto;
+
+            @include when-inside('.is-whelling') {
+                .link {
+                    pointer-events: none;
+                }
+            }
         }
 
         .list {
@@ -129,10 +135,6 @@
 
             span {
                 font-size: rem(12);
-            }
-
-            @include when-inside('.is-whelling') {
-                pointer-events: none;
             }
         }
 

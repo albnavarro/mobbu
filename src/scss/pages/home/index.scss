@@ -12,6 +12,12 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
             justify-content: start;
             height: calc(100vh);
             overflow: hidden;
+
+            @include when-inside('.is-firefox') {
+                svg {
+                    transform: translateZ(0.5px);
+                }
+            }
         }
 
         .logo {
@@ -29,10 +35,6 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
             overflow: visible;
             transform-origin: center;
             scale: 0;
-
-            @include when-inside('.is-firefox') {
-                transform: translateZ(0.5px);
-            }
 
             @media (aspect-ratio >= 3/2) {
                 width: min(1920px, calc(((1700 * 100) / 1920) * 1vw));
