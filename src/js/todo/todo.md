@@ -53,4 +53,3 @@ bindStore: [{ store: MobJs.mainStore, pick: ['prop', 'prop2'] }],
 ## 3. SetTween.
 - Se chiamato durante un add / addAsync puó generare un errore, ( da verificare che questa condizione sia giusta ) ???
 
-- test
