@@ -156,8 +156,8 @@ const createBindObjectWatcher = ({ id, keys, render, element }) => {
      */
     let watchIsRunning = false;
 
-    /** @type {WeakRef<HTMLElement>} */
-    const ref = new WeakRef(element);
+    /** @type {WeakRef<HTMLElement> | null} */
+    let ref = new WeakRef(element);
 
     /**
      * Merge keys with repater/invalidate key if scope component use it.
@@ -195,18 +195,19 @@ const createBindObjectWatcher = ({ id, keys, render, element }) => {
                     /**
                      * - Unsubscribe module if element is disconnected from DOM.
                      */
-                    if (ref.deref() && !ref.deref()?.isConnected) {
+                    if (ref?.deref() && !ref.deref()?.isConnected) {
                         unsubScribeFunction.forEach((fn) => {
                             if (fn) fn();
                         });
 
                         unsubScribeFunction = [];
+                        ref = null;
                     }
 
                     /**
                      * - Update DOM.
                      */
-                    if (ref.deref() && ref.deref()?.isConnected) {
+                    if (ref?.deref() && ref.deref()?.isConnected) {
                         // @ts-ignore
                         ref.deref().textContent = '';
                         // @ts-ignore

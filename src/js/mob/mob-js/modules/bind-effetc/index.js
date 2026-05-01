@@ -132,12 +132,12 @@ export const applyBindEffectFromComponent = ({ moduleId, target }) => {
 
 /**
  * @param {object} params
- * @param {WeakRef<HTMLElement>} params.ref
+ * @param {WeakRef<HTMLElement> | null} params.ref
  * @param {Record<string, () => boolean> | undefined} params.data
  * @returns {void}
  */
 const applyClass = ({ ref, data }) => {
-    if (!data) return;
+    if (!data || !ref) return;
 
     Object.entries(data).forEach(([className, fn]) => {
         if (!ref.deref()) return;
@@ -149,11 +149,13 @@ const applyClass = ({ ref, data }) => {
 
 /**
  * @param {object} params
- * @param {WeakRef<HTMLElement>} params.ref
+ * @param {WeakRef<HTMLElement> | null} params.ref
  * @param {Record<string, () => string>} params.data
  * @returns {void}
  */
 const applyStyle = ({ ref, data }) => {
+    if (!ref) return;
+
     Object.entries(data).forEach(([styleName, fn]) => {
         if (!ref.deref()) return;
 
@@ -164,11 +166,13 @@ const applyStyle = ({ ref, data }) => {
 
 /**
  * @param {object} params
- * @param {WeakRef<HTMLElement>} params.ref
+ * @param {WeakRef<HTMLElement> | null} params.ref
  * @param {Record<string, () => string | boolean | null | undefined>} params.data
  * @returns {void}
  */
 const applyAttribute = ({ ref, data }) => {
+    if (!ref) return;
+
     Object.entries(data).forEach(([attributeName, fn]) => {
         if (!ref.deref()) return;
         const value = fn?.();
@@ -205,8 +209,8 @@ const applyAttribute = ({ ref, data }) => {
  * @returns {void}
  */
 const watchBindEffect = ({ data, element }) => {
-    /** @type {WeakRef<HTMLElement>} */
-    const ref = new WeakRef(element);
+    /** @type {WeakRef<HTMLElement> | null} */
+    let ref = new WeakRef(element);
 
     const { parentId: id } = data;
     const { items } = data;
@@ -279,7 +283,7 @@ const watchBindEffect = ({ data, element }) => {
                     /**
                      * Unsubscribe module if element is disconnected from DOM
                      */
-                    if (ref.deref() && !ref.deref()?.isConnected) {
+                    if (ref?.deref() && !ref.deref()?.isConnected) {
                         /**
                          * Unsubscribe all watcher attached to this ref
                          */
@@ -288,6 +292,7 @@ const watchBindEffect = ({ data, element }) => {
                         });
 
                         unsubScribeFunction = [];
+                        ref = null;
                         return;
                     }
 
@@ -299,15 +304,15 @@ const watchBindEffect = ({ data, element }) => {
 
                     MobCore.useNextLoop(() => {
                         MobCore.useFrame(() => {
-                            if (toggleClass && ref.deref()) {
+                            if (toggleClass && ref?.deref()) {
                                 applyClass({ ref, data: toggleClass });
                             }
 
-                            if (toggleStyle && ref.deref()) {
+                            if (toggleStyle && ref?.deref()) {
                                 applyStyle({ ref, data: toggleStyle });
                             }
 
-                            if (toggleAttribute && ref.deref()) {
+                            if (toggleAttribute && ref?.deref()) {
                                 applyAttribute({ ref, data: toggleAttribute });
                             }
 
