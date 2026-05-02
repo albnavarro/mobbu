@@ -1,4 +1,4 @@
-import { html, htmlObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -9,7 +9,7 @@ export const StarSvgFn = ({ getState }) => {
     const { fill } = getState();
 
     return htmlObject({
-        content: html`
+        content: /* HTML */ `
             <svg
                 viewBox="0 0 105.83333 105.83334"
                 version="1.1"

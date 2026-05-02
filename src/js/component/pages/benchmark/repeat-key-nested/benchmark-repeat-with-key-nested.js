@@ -1,4 +1,4 @@
-import { htmlObject, html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { BenchMarkFakeComponent } from '../fake-component/definition';
 
@@ -85,7 +85,7 @@ export const BenchMarkRepeatWithKyFnNested = ({
                     },
                     {
                         tag: 'p',
-                        content: html`
+                        content: /* HTML */ `
                             Repater without component with the same repeater
                             with component inside<br />
                             ( max value <strong>10</strong> ).

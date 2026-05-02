@@ -1,9 +1,9 @@
-import { html, htmlObject } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent} */
 export const TestScssGridFn = () => {
     return htmlObject({
-        content: html`
+        content: /* HTML */ `
             <div class="test-grid">
                 <div class="test-grid__grid">
                     <span></span><span></span><span></span><span></span

@@ -1,5 +1,5 @@
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
-import { htmlObject, html, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { fetchSearchResult } from './fetch-data';
 import { SearchOverlayListItem } from './list-item/definition';
 
@@ -129,7 +129,9 @@ export const SearchOverlayListFn = ({
                                   className: 'section',
                                   content: {
                                       tag: 'p',
-                                      content: html`<strong>no result</strong>`,
+                                      content: /* HTML */ `<strong
+                                          >no result</strong
+                                      >`,
                                   },
                               },
                           },

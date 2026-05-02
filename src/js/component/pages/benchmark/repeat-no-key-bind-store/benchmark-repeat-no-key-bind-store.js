@@ -1,4 +1,4 @@
-import { htmlObject, html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { benchMarkListExternalPartial } from './bench-mark-list-external-partial';
 import { externalBenchmarkStore } from '@stores/benchmark';
 import { benchMarkUseProxi } from '../strategy';
@@ -49,10 +49,10 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
                     },
                     {
                         tag: 'p',
-                        content: html`
-                            Use extrernal store as state ( bindStore module
-                            ).<br />
-                            ( max value <strong>1000</strong> ).
+                        content: /* HTML */ `
+                            Generates and updates a large list of vanilla HTML
+                            element with 4 reactive elements inside.<br />
+                            ( max component <strong>1000</strong> ).
                         `,
                     },
                     benchMarkListExternalPartial({

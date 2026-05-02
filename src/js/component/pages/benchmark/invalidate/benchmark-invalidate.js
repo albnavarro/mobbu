@@ -1,6 +1,6 @@
 //@ts-check
 
-import { htmlObject, html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { BenchMarkFakeComponent } from '../fake-component/definition';
 
@@ -83,7 +83,7 @@ export const BenchMarkInvalidateFn = ({
                     },
                     {
                         tag: 'p',
-                        content: html`
+                        content: /* HTML */ `
                             Invalidate a large list of components with 5
                             reactive elements inside.<br />
                             ( max component <strong>1000</strong> ).

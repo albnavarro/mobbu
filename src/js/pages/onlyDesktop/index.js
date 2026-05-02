@@ -1,5 +1,5 @@
 import { OnlyDesktopCta } from '@commonComponent/only-desktop-cta/definition';
-import { htmlObject, html } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { loadTextContent } from '@utils/utils';
 
 /** @type {import('@mobJsType').Page} */
@@ -31,7 +31,7 @@ export const onlyDesktop = async () => {
                 },
                 {
                     tag: 'p',
-                    content: html`This site is designed<br />
+                    content: /* HTML */ `This site is designed<br />
                         for a desktop experience,<br />
                         the minimum resolution is
                         <strong>992px</strong>.<br /><br />

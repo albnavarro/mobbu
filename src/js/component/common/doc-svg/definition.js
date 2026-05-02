@@ -1,4 +1,4 @@
-import { html, MobJs } from '@mobJs';
+import { MobJs } from '@mobJs';
 import { DocSvgFn } from './doc-svg';
 
 /**
@@ -22,7 +22,9 @@ export const DocSvg = MobJs.createComponent(
         },
         state: {
             source: () => ({
-                value: html`<span class="loading"> loading image ... </span>`,
+                value: /* HTML */ `<span class="loading">
+                    loading image ...
+                </span>`,
                 type: String,
             }),
         },

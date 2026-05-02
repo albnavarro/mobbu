@@ -1,7 +1,7 @@
 import { AnyComponent } from '@commonComponent/any-component/definition';
 import { Dragger } from '@commonComponent/dragger/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
-import { htmlObject, html, MobJs } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { loadTextContent } from '@utils/utils';
 
 const useLog = false;
@@ -27,7 +27,7 @@ export const DraggerRoute = async () => {
     /**
      * Container border
      */
-    const rootContent = html`
+    const rootContent = /* HTML */ `
         <div class="borders">
             <h3 class="title">Drag and zoom</h3>
             <div class="top-left"></div>
@@ -40,7 +40,7 @@ export const DraggerRoute = async () => {
     /**
      * Child
      */
-    const childContent = html`<div class="child-container">
+    const childContent = /* HTML */ `<div class="child-container">
         <div class="child is-1"></div>
         <div class="child is-2"></div>
         <div class="child is-3"></div>
