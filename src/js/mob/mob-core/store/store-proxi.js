@@ -7,7 +7,10 @@ import { storeMap, updateMainMap } from './store-map';
 import { storeSetEntryPoint } from './store-set';
 import { checkType } from './store-type';
 import { checkIfPropIsComputed } from './store-utils';
-import { storeProxiReadOnlyWarning } from './store-warining';
+import {
+    storeComputedPropUsedWarning,
+    storeProxiReadOnlyWarning,
+} from './store-warining';
 
 /**
  * Controlla se il valore è un oggetto che dovrebbe essere congelato (non primitivi, non Map/Set che devono rimanere
@@ -72,6 +75,8 @@ const createDynamicProxy = (instanceId) => {
                 const isReadOnly = mainState.proxiReadOnlyProp.has(prop);
 
                 if (isReadOnly) storeProxiReadOnlyWarning(prop, logStyle);
+                if (isComputed) storeComputedPropUsedWarning(prop, logStyle);
+
                 if (isComputed || isReadOnly) return false;
 
                 storeSetEntryPoint({

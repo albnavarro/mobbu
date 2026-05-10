@@ -719,6 +719,9 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
 /**
  * Check for circular dependencies using DFS.
  *
+ * - Creiamo un grafo completo delle dipendenze per assicurarci che tutte li chiavi ( dipendenze ) non riportino a
+ *   targetProp.
+ *
  * @param {string} targetProp - La prop corrente da analizzare.
  * @param {string[]} targetKeys - Le chiavi correnti da analizzare.
  * @param {Set<{ prop: string; fn: (arg0: Record<string, any>) => void; keys: string[] }>} callBackComputed
@@ -732,24 +735,26 @@ const hasCircularDependencies = (
     visited = new Set()
 ) => {
     /**
-     * Se una delle dipendenze è il target stesso, c'è ciclo
+     * Se una delle dipendenze è il target stesso, abbiamo una dipendenza circolare.
      *
-     * - Le dipendenze possono fare riferimento a record diversi di callBackComputed.
+     * - Le dipendenze possono attraversare piu computed.
      */
     if (targetKeys.includes(targetProp)) return true;
 
-    /**
-     * Per ogni dipendenza, controlliamo che non abbia match con la prop corrente.
-     */
     for (const key of targetKeys) {
         /**
-         * Evita loop infiniti, skip prop giá visitate.
+         * Se una prop è già stata esplorata in questo percorso, la saltiamo.
+         *
+         * - Evita loop infiniti nel grafo (es. a -> b -> a -> b ...)
          */
         if (visited.has(key)) continue;
         visited.add(key);
 
         /**
-         * Trova se esiste un computed che produce questa key
+         * Trova il computed che produce questa key.
+         *
+         * - Se `key` è prodotta da un computed, dobbiamo esplorare le dipendenze di QUEL computed (ricorsione).
+         * - Così seguiamo la catena: c dipende da b, b dipende da a, a dipende da c? -> CICLO!
          */
         const computedForKey = [...callBackComputed].find(
             ({ prop }) => prop === key
@@ -757,7 +762,11 @@ const hasCircularDependencies = (
 
         if (
             /**
-             * Controlla ricorsivamente le dipendenze di questo computed
+             * Esplora ricorsivamente le dipendenze del computed trovato.
+             *
+             * - `targetProp` rimane fisso: è il computed che stiamo aggiungendo.
+             * - Se nelle dipendenze transitive ritorna a `targetProp`, abbiamo un ciclo.
+             * - `computedForKey.keys` sono le nuove dipendenze da esplorare.
              */
             computedForKey &&
             hasCircularDependencies(

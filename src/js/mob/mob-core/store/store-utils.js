@@ -1,6 +1,10 @@
+import { getLogStyle } from './log-style.js';
 import { getStateFromMainMap } from './store-map.js';
 import { checkType, storeType } from './store-type.js';
-import { storeDepthWarning } from './store-warining.js';
+import {
+    storeComputedPropUsedWarning,
+    storeDepthWarning,
+} from './store-warining.js';
 
 /**
  * Get depth of Object
@@ -208,9 +212,7 @@ export const checkIfPropIsComputed = ({ instanceId, prop }) => {
     );
 
     if (isComputed) {
-        console.warn(
-            `${prop} is used as computed target, set and multiple computed on same prop is blocked.`
-        );
+        storeComputedPropUsedWarning(prop, getLogStyle());
     }
 
     return isComputed;
