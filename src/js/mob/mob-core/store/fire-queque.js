@@ -4,6 +4,13 @@ import { useNextLoop } from '../utils/next-tick';
 const waitMap = new Map();
 
 /**
+ * Check if prop exist in waitMap exist
+ *
+ * - Undefined && null is valid value
+ */
+const WAIT_PROP_MISSED = '__MOB_CORE_WAIT_PROP_MISSED';
+
+/**
  * Clean waitMap when component is destroyed
  *
  * - WaitMap is global
@@ -106,14 +113,12 @@ export const runCallbackQueqe = ({
                     /**
                      * Get last updated value
                      */
-                    const propsPerIdNow = waitMap.get(instanceId);
-                    const current = propsPerIdNow?.get(prop);
+                    const currentPropsPerId = waitMap.get(instanceId);
+                    const current = currentPropsPerId?.has(prop)
+                        ? currentPropsPerId.get(prop)
+                        : WAIT_PROP_MISSED;
 
-                    if (
-                        current &&
-                        current.newValue !== undefined &&
-                        current.newValue !== null
-                    ) {
+                    if (current !== WAIT_PROP_MISSED) {
                         /**
                          * Fire every single callback related to every watch with wait props active.
                          */
@@ -129,12 +134,12 @@ export const runCallbackQueqe = ({
                     /**
                      * Remove prop in instanceId map once fired.
                      */
-                    propsPerIdNow?.delete(prop);
+                    currentPropsPerId?.delete(prop);
 
                     /**
                      * If instanceId has no more prop in queque delete.
                      */
-                    if (propsPerIdNow?.size === 0) {
+                    if (currentPropsPerId?.size === 0) {
                         waitMap.delete(instanceId);
                     }
                 });
