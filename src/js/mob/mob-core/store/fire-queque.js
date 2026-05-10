@@ -111,7 +111,9 @@ export const runCallbackQueqe = ({
             if (firstCycle) {
                 useNextLoop(() => {
                     /**
-                     * Get last updated value
+                     * Get last updated value.
+                     *
+                     * - Undefined && null is a valid value.
                      */
                     const currentPropsPerId = waitMap.get(instanceId);
                     const current = currentPropsPerId?.has(prop)
