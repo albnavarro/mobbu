@@ -722,6 +722,38 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
  * - Creiamo un grafo completo delle dipendenze per assicurarci che tutte li chiavi ( dipendenze ) non riportino a
  *   targetProp.
  *
+ * @example
+ *     storeTest.computed(
+ *     () => proxi.a,
+ *     () => proxi.c + 1      // prop: 'a', keys: ['c']
+ *     );
+ *
+ *     storeTest.computed(
+ *     () => proxi.b,
+ *     () => proxi.a + 1      // prop: 'b', keys: ['a']
+ *     );
+ *
+ *     storeTest.computed(
+ *     () => proxi.c,
+ *     () => proxi.b + 1      // prop: 'c', keys: ['b']
+ *     );
+ *
+ *     Dipendenze:
+ *     a dipende da c
+ *     b dipende da a
+ *     c dipende da b
+ *
+ *     Verifica ciclo su c:
+ *
+ *     1. targetProp: c | targetKeys: [b]
+ *     Quale computed calcola b? -> il computed con prop b (keys: [a])
+ *
+ *     2. targetProp: c | targetKeys: [a]
+ *     Quale computed calcola a? -> il computed con prop a (keys: [c])
+ *
+ *     3. targetProp: c | targetKeys: [c]
+ *     targetKeys include targetProp! -> dipendenza circolare
+ *
  * @param {string} targetProp - La prop corrente da analizzare.
  * @param {string[]} targetKeys - Le chiavi correnti da analizzare.
  * @param {Set<{ prop: string; fn: (arg0: Record<string, any>) => void; keys: string[] }>} callBackComputed
