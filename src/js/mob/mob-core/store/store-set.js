@@ -717,6 +717,64 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
 };
 
 /**
+ * Check for circular dependencies using DFS.
+ *
+ * @param {string} targetProp - La prop corrente da analizzare.
+ * @param {string[]} targetKeys - Le chiavi correnti da analizzare.
+ * @param {Set<{ prop: string; fn: (arg0: Record<string, any>) => void; keys: string[] }>} callBackComputed
+ * @param {Set<string>} [visited] - Prop giá visitata.
+ * @returns {boolean}
+ */
+const hasCircularDependencies = (
+    targetProp,
+    targetKeys,
+    callBackComputed,
+    visited = new Set()
+) => {
+    /**
+     * Se una delle dipendenze è il target stesso, c'è ciclo
+     *
+     * - Le dipendenze possono fare riferimento a record diversi di callBackComputed.
+     */
+    if (targetKeys.includes(targetProp)) return true;
+
+    /**
+     * Per ogni dipendenza, controlliamo che non abbia match con la prop corrente.
+     */
+    for (const key of targetKeys) {
+        /**
+         * Evita loop infiniti, skip prop giá visitate.
+         */
+        if (visited.has(key)) continue;
+        visited.add(key);
+
+        /**
+         * Trova se esiste un computed che produce questa key
+         */
+        const computedForKey = [...callBackComputed].find(
+            ({ prop }) => prop === key
+        );
+
+        if (
+            /**
+             * Controlla ricorsivamente le dipendenze di questo computed
+             */
+            computedForKey &&
+            hasCircularDependencies(
+                targetProp,
+                computedForKey.keys,
+                callBackComputed,
+                visited
+            )
+        ) {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+/**
  * Save callback in map store. Check for circular dependencies.
  *
  * @param {import('./type').MobStoreComputedAction} params
@@ -728,18 +786,9 @@ const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
 
     const { callBackComputed } = state;
 
-    const hasCircularDependecies = [...callBackComputed].reduce(
-        (previous, { prop: currentProp, keys: currentKeys }) => {
-            return (
-                currentKeys.includes(prop) &&
-                keys.includes(currentProp) &&
-                !previous
-            );
-        },
-        false
-    );
+    const hasCircular = hasCircularDependencies(prop, keys, callBackComputed);
 
-    if (keys.includes(prop) || hasCircularDependecies) {
+    if (keys.includes(prop) || hasCircular) {
         storeComputedKeyUsedWarning(keys, getLogStyle());
         return;
     }

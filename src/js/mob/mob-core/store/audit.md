@@ -11,66 +11,6 @@ Legenda gravità:
 
 ## 🔴 Bug confermati
 
-### #1 — `storeComputedAction`: rilevamento dipendenze circolari errato
-
-**File:** `store-set.js:731-740`
-
-```js
-const hasCircularDependecies = [...callBackComputed].reduce(
-    (previous, { prop: currentProp, keys: currentKeys }) => {
-        return (
-            currentKeys.includes(prop) &&
-            keys.includes(currentProp) &&
-            !previous           // ← BUG
-        );
-    },
-    false
-);
-```
-
-L'operatore `&& !previous` cancella il `true` rilevato in iterazioni precedenti. Esempio: se l'iterazione 1 trova un ciclo (`true`) e l'iterazione 2 non lo trova, la 2 calcola `… && !true = false` → il ciclo viene perso. Anche due `true` consecutivi danno `false` (`true && !true`).
-
-**Effetto:** un computed circolare può sfuggire al check, generando ricorsione infinita su `fireComputed`.
-
-**Fix:**
-```js
-const hasCircularDependecies = [...callBackComputed].some(
-    ({ prop: currentProp, keys: currentKeys }) =>
-        currentKeys.includes(prop) && keys.includes(currentProp)
-);
-```
-
----
-
-### #2 — Wait-watcher silenziato per `null` / `undefined`
-
-**File:** `fire-queque.js:112-127`
-
-```js
-if (
-    current &&
-    current.newValue !== undefined &&
-    current.newValue !== null      // ← BUG
-) {
-    for (const currentFunction of current.callbacks) { … }
-}
-```
-
-Se `set('prop', null)` o `set('prop', undefined)` (es. reset di stato) e il watcher ha `wait: true`, il callback **non viene chiamato**. Inoltre l'entry resta orfana nella `waitMap` perché il `delete` avviene comunque dopo il blocco `if`, ma il callback non parte mai.
-
-**Effetto:** valori legittimi (null come "nessun selezione", undefined come "non inizializzato") non triggerano i watcher in modalità `wait`.
-
-**Fix:** rimuovere il check sui valori, mantenere solo `if (current)`:
-```js
-if (current) {
-    for (const currentFunction of current.callbacks) {
-        currentFunction(current.newValue, current.oldValue, current.validationValue);
-    }
-}
-```
-
----
-
 ### #3 — `emitAsync` + watcher `wait` pendente → doppio fire
 
 **File:** `store-emit.js:84-112`, `fire-queque.js:150-163`
