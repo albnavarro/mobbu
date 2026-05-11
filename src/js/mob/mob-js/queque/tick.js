@@ -53,13 +53,13 @@ const queueIsResolved = () => {
  * @returns {Promise<void>}
  */
 export const tick = async ({ debug = false, previousResolve } = {}) => {
-    await awaitNextLoop();
-
     if (debug) {
         queque.forEach((value) => {
             console.log(value);
         });
     }
+
+    await awaitNextLoop();
 
     /**
      * After first cycle use previousResolve.

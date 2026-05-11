@@ -58,13 +58,13 @@ const queueIsResolved = () => {
  * @returns {Promise<void>}
  */
 export const repeaterTick = async ({ debug = false, previousResolve } = {}) => {
-    await awaitNextLoop();
-
     if (debug) {
         repeaterQueque.forEach((value) => {
             console.log(value);
         });
     }
+
+    await awaitNextLoop();
 
     /**
      * After first cycle use previousResolve.
