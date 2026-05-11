@@ -106,6 +106,8 @@ export const inizializeInvalidateWatch = async ({
             MobCore.useNextLoop(async () => {
                 if (!invalidateParent) {
                     unFreezePropById({ id, prop: state });
+                    descrementQueue();
+                    decrementInvalidateQueque();
                     return;
                 }
 
@@ -116,6 +118,8 @@ export const inizializeInvalidateWatch = async ({
                  */
                 if (!checkInvalidateExistence({ invalidateId })) {
                     unFreezePropById({ id, prop: state });
+                    descrementQueue();
+                    decrementInvalidateQueque();
                     return;
                 }
 
