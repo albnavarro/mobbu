@@ -7,14 +7,8 @@ import { watchById } from '../../component/action/watch';
 import { incrementTickQueuque } from '../../queque/tick';
 import { componentMap } from '../../component/component-map';
 import { QUEQUE_TYPE_BINDPROPS } from '../../constant';
-import {
-    repeaterQuequeIsEmpty,
-    repeaterTick,
-} from '../../queque/tick-repeater';
-import {
-    invalidateQuequeIsEmpty,
-    invalidateTick,
-} from '../../queque/tick-invalidate';
+import { repeaterTick } from '../../queque/tick-repeater';
+import { invalidateTick } from '../../queque/tick-invalidate';
 import { bindComponentTobindId, bindPropsMap } from './bind-props-map';
 
 /**
@@ -129,26 +123,6 @@ const updateBindProp = ({
         id: componentId,
     });
 
-    // let newProps;
-
-    /**
-     * TODOL should be removed, use only for debug.
-     */
-    // try {
-    //     newProps = props?.(
-    //         parentState,
-    //         currentRepeaterState.current,
-    //         currentRepeaterState?.index
-    //     );
-    // } catch {
-    //     console.log('bindProps error:', componentId);
-    //     const element = getElementById({ id: componentId });
-    //     if (!element) return;
-    //
-    //     if (!document.body.contains(element))
-    //         removeAndDestroyById({ id: componentId });
-    // }
-
     const newProps = props?.(
         parentState,
         currentRepeaterState.current,
@@ -246,13 +220,6 @@ export const applyBindProps = async ({
             ? [...observe, repeatPropBind]
             : [...observe];
 
-    /**
-     * Normally props is initialized after repeater So on created we doesn't have the props ready Fire setDynamicProp
-     * once before repeater tick to add value in store and use it onCreated
-     *
-     * The values calculated here can refer to the previous state of the store, in the next step after the repeaters
-     * have been executed it will be updated with the latest state of the store.
-     */
     if (!inizilizeWatcher) {
         updateBindProp({
             componentId,
@@ -261,51 +228,9 @@ export const applyBindProps = async ({
             currentParentId: parentId ?? '',
             fireCallback: false,
         });
+
+        return;
     }
-
-    /**
-     * If repeater is running, update
-     */
-    if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
-        /**
-         * Initialize props after repater So we have the last value of currentValue && index
-         */
-        await repeaterTick();
-
-        /**
-         * Refresh state after repater created
-         */
-        updateBindProp({
-            componentId,
-            observe: observeParsed,
-            props,
-            currentParentId: parentId ?? '',
-            fireCallback: true,
-        });
-    }
-
-    /**
-     * If invalidate is running, update
-     */
-    if (!inizilizeWatcher && !invalidateQuequeIsEmpty()) {
-        /**
-         * Initialize props after repater So we have the last value of currentValue && index
-         */
-        await invalidateTick();
-
-        /**
-         * Refresh state after repater created
-         */
-        updateBindProp({
-            componentId,
-            observe: observeParsed,
-            props,
-            currentParentId: parentId ?? '',
-            fireCallback: true,
-        });
-    }
-
-    if (!inizilizeWatcher) return;
 
     /**
      * Watch props on change
