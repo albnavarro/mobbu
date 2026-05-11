@@ -1,6 +1,7 @@
 import { htmlObject } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { BenchMarkFakeComponent } from '../fake-component/definition';
+import { benchMarkUseProxi } from '../strategy';
 
 /**
  * @import {
@@ -49,21 +50,41 @@ export const BenchMarkRepeatWithKyFnNested = ({
                             tag: 'div',
                             content: repeat({
                                 observe: () => proxi.data,
-                                key: 'label',
                                 render: ({ current }) => {
-                                    return htmlObject({
-                                        component: BenchMarkFakeComponent,
-                                        modules: [
-                                            bindProps(
-                                                /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
-                                                () => ({
-                                                    index: current.index,
-                                                    label: current.value.label,
-                                                    counter: proxi.counter,
-                                                })
-                                            ),
-                                        ],
-                                    });
+                                    return benchMarkUseProxi
+                                        ? htmlObject({
+                                              component: BenchMarkFakeComponent,
+                                              modules: [
+                                                  bindProps(
+                                                      /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                                                      () => ({
+                                                          index: current.index,
+                                                          label: current.value
+                                                              .label,
+                                                          counter:
+                                                              proxi.counter,
+                                                      })
+                                                  ),
+                                              ],
+                                          })
+                                        : htmlObject({
+                                              component: BenchMarkFakeComponent,
+                                              modules: [
+                                                  bindProps({
+                                                      observe: ['counter'],
+                                                      /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                                                      props: (
+                                                          { counter },
+                                                          value,
+                                                          index
+                                                      ) => ({
+                                                          index: index,
+                                                          label: value['label'],
+                                                          counter: counter,
+                                                      }),
+                                                  }),
+                                              ],
+                                          });
                                 },
                             }),
                         },
