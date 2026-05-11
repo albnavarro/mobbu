@@ -2,8 +2,6 @@ import { MobCore } from '../../../mob-core';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { getIdByElement } from '../../component/action/element';
 import { tick } from '../../queque/tick';
-import { invalidateTick } from '../../queque/tick-invalidate';
-import { repeaterTick } from '../../queque/tick-repeater';
 import {
     ATTR_WEAK_BIND_EVENTS,
     DEFAULT_CURRENT_REPEATER_STATE,
@@ -222,15 +220,9 @@ const cleanDelegateEvent = () => {
  * Store props and return a unique identifier
  *
  * @param {HTMLElement} root
- * @returns {Promise<any>}
+ * @returns {void}
  */
-export const applyDelegationBindEvent = async (root) => {
-    /**
-     * Await end of current reactive things ( bindpros/repeaters/invalidate )
-     */
-    await repeaterTick();
-    await invalidateTick();
-
+export const applyDelegationBindEvent = (root) => {
     /**
      * Get parent node of root ( root of parseComponentRecursive ).
      */
