@@ -68,7 +68,7 @@ export const setBindProps = (data) => {
  *
  * @param {object} obj
  * @param {string} obj.componentId
- * @param {string[]} obj.observe
+ * @param {string[]} obj.observedState
  * @param {(arg0: Record<string, any>, value: Record<string, any>, index: number) => object} obj.props
  * @param {string} obj.currentParentId
  * @param {boolean} obj.fireCallback
@@ -76,7 +76,7 @@ export const setBindProps = (data) => {
  */
 const updateBindProp = ({
     componentId,
-    observe,
+    observedState,
     props,
     currentParentId,
     fireCallback,
@@ -90,28 +90,15 @@ const updateBindProp = ({
     if (!parentState) return;
 
     const parentStateKeys = Object.keys(parentState);
-    const bindArrayIsValid = observe.every((state) =>
+    const bindArrayIsValid = observedState.every((state) =>
         parentStateKeys.includes(state)
     );
 
     if (!bindArrayIsValid) {
         console.warn(
-            `bind props error: Some prop ${JSON.stringify(observe)} doesn't exist`
+            `bind props error: Some prop ${JSON.stringify(observedState)} doesn't exist`
         );
     }
-
-    /**
-     * Use this to filter parent props that match with nind array Use instead parentState in newProps initialize. It is
-     * more useful pass all parent state instead prop definited in bind array
-     *
-     *     const values = watch
-     *         .map((currentState) => {
-     *             return {
-     *                 [currentState]: parentState[currentState],
-     *             };
-     *         })
-     *         .reduce((previous, current) => ({ ...previous, ...current }), {});
-     */
 
     /**
      * If element is deleted from list don't update state.
@@ -123,17 +110,40 @@ const updateBindProp = ({
         id: componentId,
     });
 
+    /**
+     * Create an object with parent state/prop that match child props.
+     *
+     * - This is used as alternative of proxies.
+     */
+    const childPropValues = Object.fromEntries(
+        observedState.map((currentState) => [
+            currentState,
+            parentState[currentState],
+        ])
+    );
+
+    /**
+     * - Prepare child prop with current parent value.
+     *
+     * @type {Record<string, any>}
+     */
     const newProps = props?.(
-        parentState,
+        childPropValues,
         currentRepeaterState.current,
         currentRepeaterState?.index
     );
 
     if (!newProps) return;
 
-    Object.entries(newProps).forEach(([key, value]) => {
-        setStateById(componentId, key, value, { emit: fireCallback });
-    });
+    for (const key in newProps) {
+        setStateById(componentId, key, newProps[key], {
+            emit: fireCallback,
+        });
+    }
+
+    // for (const [key, value] of Object.entries(newProps)) {
+    //     setStateById(componentId, key, value, { emit: fireCallback });
+    // }
 };
 
 /**
@@ -220,10 +230,13 @@ export const applyBindProps = async ({
             ? [...observe, repeatPropBind]
             : [...observe];
 
+    /**
+     * Update component props with parent values before onMounted() callback
+     */
     if (!inizilizeWatcher) {
         updateBindProp({
             componentId,
-            observe: observeParsed,
+            observedState: observeParsed,
             props,
             currentParentId: parentId ?? '',
             fireCallback: false,
@@ -267,7 +280,7 @@ export const applyBindProps = async ({
             MobCore.useNextLoop(() => {
                 updateBindProp({
                     componentId,
-                    observe: observeParsed,
+                    observedState: observeParsed,
                     props,
                     currentParentId: parentId ?? '',
                     fireCallback: true,
