@@ -177,7 +177,7 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "<span class='quote'>Input</span>: Full parent state object (all values)",
+                    "<span class='quote'>Input</span>: Observed parent state object",
                     "<span class='quote'>Output</span>: Object for child component state"
                 ]
             }

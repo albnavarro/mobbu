@@ -1,5 +1,5 @@
 ${staticProps(
-    /** @type{MyOtherComponent['state']} */ ({
+    /** @type{MyOtherComponent['props']} */ ({
         level: 'level 1',
     })
 )}

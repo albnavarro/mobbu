@@ -8,9 +8,9 @@ export const MyComponent = ({ invalidate, getProxi }) => {
         className: 'grid',
         content: [
             {
-                tag: 'column',
+                className: 'column',
                 content: {
-                    tag: 'card',
+                    component: MyCard,
                     className: 'card-class',
                     content: [
                         {
