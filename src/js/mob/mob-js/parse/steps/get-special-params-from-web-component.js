@@ -11,8 +11,8 @@ export const getParamsFromCustomComponent = ({
     shouldBeComponent,
 }) => {
     const bindEffectInstanceId = shouldBeComponent
-        ? element.getBindEffectInstance()
-        : undefined;
+        ? (element.getBindEffectInstance() ?? '')
+        : '';
 
     return {
         bindEffectInstanceId,

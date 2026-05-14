@@ -289,7 +289,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 getRepeaterPropBind() {
-                    return this.#repeatPropBind ?? undefined;
+                    return this.#repeatPropBind;
                 }
 
                 /**

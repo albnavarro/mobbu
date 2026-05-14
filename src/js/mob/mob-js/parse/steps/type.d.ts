@@ -8,13 +8,13 @@ export interface ComponentData {
     componentName: string;
     instanceName: string;
     key: string;
-    dynamicPropsId: string | undefined;
-    bindEventsId: string | undefined;
-    parentId: string | undefined;
+    dynamicPropsId: string;
+    bindEventsId: string;
+    parentId: string;
     currentRepeatValue: any;
-    componentRepeatId: string | undefined;
-    repeatPropBind: string | undefined;
-    bindEffectInstanceId: string | undefined;
+    componentRepeatId: string;
+    repeatPropBind: string;
+    bindEffectInstanceId: string;
 }
 
 export interface GetParamsForComponent extends ComponentStoreReturn {

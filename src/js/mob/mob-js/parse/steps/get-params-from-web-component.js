@@ -23,19 +23,19 @@ export const getParamsFromPlaceHolder = ({ element }) => {
      *
      * So after first level of node tree parentIdFromWebComponent always win.
      */
-    const parentId = getParentIdFromWeakElementMap({ element });
-    const propsId = element.getStaticPropsId();
-    const dynamicPropsId = element.getDynamicPropsid();
-    const bindEventsId = element.getBindEventsId();
-    const currentRepeaterValueId = element.getRepeatValue();
-    const componentRepeatId = element.getComponentRepeatId();
+    const parentId = getParentIdFromWeakElementMap({ element }) ?? '';
+    const propsId = element.getStaticPropsId() ?? '';
+    const dynamicPropsId = element.getDynamicPropsid() ?? '';
+    const bindEventsId = element.getBindEventsId() ?? '';
+    const currentRepeaterValueId = element.getRepeatValue() ?? '';
+    const componentRepeatId = element.getComponentRepeatId() ?? '';
     const key = element.getCurrentKey() ?? '';
-    const componentName = element.getComponentName();
+    const componentName = element.getComponentName() ?? '';
     const cleanProsId = propsId?.split(' ').join('') ?? '';
     const propsFromParent = getPropsFromParent(cleanProsId);
     const baseProps = { ...element.dataset };
-    const repeatPropBind = element.getRepeaterPropBind();
-    const bindEffectInstanceId = element.getBindEffectInstance();
+    const repeatPropBind = element.getRepeaterPropBind() ?? '';
+    const bindEffectInstanceId = element.getBindEffectInstance() ?? '';
     const currentRepeatValue = getComponentRepeaterState(
         currentRepeaterValueId
     );

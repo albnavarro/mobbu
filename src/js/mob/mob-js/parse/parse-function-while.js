@@ -257,35 +257,29 @@ export const parseComponentsWhile = async ({
             });
 
         /**
-         * Applichiamo i moduli `speciali` legati al nuovo DOM restituito dalla funzione
+         * Applichiamo bindEffect al nuovo nodo nativo resituito dalla funzione
          *
-         * - Nodi normnali
-         * - Web component
+         * - Nodo standard
+         * - L'id é tracciato in getParamsFromPlaceHolder()
          */
-        if (bindEffectInstanceId || bindEffectInstanceIdCC) {
-            /**
-             * Applichiamo bindEffect al nuovo nodo nativo resituito dalla funzione
-             *
-             * - L'id é tracciato in getParamsFromPlaceHolder()
-             */
-            if (bindEffectInstanceId && bindEffectInstanceId?.length > 0) {
-                applyBindEffectFromComponent({
-                    moduleId: bindEffectInstanceId,
-                    target: newElement,
-                });
-            }
+        if (bindEffectInstanceId.length > 0) {
+            applyBindEffectFromComponent({
+                moduleId: bindEffectInstanceId,
+                target: newElement,
+            });
+        }
 
-            /**
-             * Applichiamo bindEffect al nuovo customComponent resituito dalla funzione
-             *
-             * - L'id é tracciato in getParamsFromCustomComponent()
-             */
-            if (bindEffectInstanceIdCC && bindEffectInstanceIdCC.length > 0) {
-                applyBindEffectFromComponent({
-                    moduleId: bindEffectInstanceIdCC,
-                    target: newElement,
-                });
-            }
+        /**
+         * Applichiamo bindEffect al nuovo customComponent resituito dalla funzione
+         *
+         * - Web component
+         * - L'id é tracciato in getParamsFromCustomComponent()
+         */
+        if (bindEffectInstanceIdCC.length > 0) {
+            applyBindEffectFromComponent({
+                moduleId: bindEffectInstanceIdCC,
+                target: newElement,
+            });
         }
 
         /**
