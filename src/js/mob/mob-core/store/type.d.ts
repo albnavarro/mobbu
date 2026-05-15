@@ -77,7 +77,7 @@ export interface MobStoreReturnType<T extends StoreDefaultMap> {
     emitAsync: MobStoreEmitAsync<T>;
     getProxi: MobStoreStoreProxi<T>;
     getSelfProxi: MobStoreStoreProxiSelf<T>;
-    getBoundedProxi: MobStoreStoreProxiBouded<T>;
+    getBoundedProxi: MobStoreStoreProxiBounded<T>;
     setProxiReadOnlyProp: MobStoreProxiReadOnly;
     getValidation: () => object | undefined;
     debug: () => void;
@@ -199,7 +199,7 @@ interface MobStoreEmitAsync<T> {
 
 export type MobStoreStoreProxi<T> = () => T;
 export type MobStoreStoreProxiSelf<T> = () => T;
-export type MobStoreStoreProxiBouded<T> = () => T;
+export type MobStoreStoreProxiBounded<T> = () => T;
 
 export type MobStoreProxiReadOnly = (values: string[]) => void;
 

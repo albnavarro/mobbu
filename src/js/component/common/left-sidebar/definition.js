@@ -10,7 +10,7 @@ export const LeftSidebar = MobJs.createComponent(
     ({
         tag: 'left-sidebar',
         component: LightSidebarFn,
-        bindStore: [MobJs.mainStore],
+        bindStore: MobJs.mainStore,
         state: {
             data: () => ({
                 value: [],

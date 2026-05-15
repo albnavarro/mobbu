@@ -1,3 +1,4 @@
+import { WithSource } from '@mobJsType';
 import { NavigationStore } from '@stores/navigation/type';
 
 export interface NavigationLabelType {
@@ -6,5 +7,5 @@ export interface NavigationLabelType {
         sectioName: string;
         hide?: boolean;
     };
-    bindStore: NavigationStore;
+    bindStore: WithSource<NavigationStore>;
 }

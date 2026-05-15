@@ -1,3 +1,4 @@
+import { WithSource } from '@mobJsType';
 import { NavigationStore } from '@stores/navigation/type';
 
 export interface HeaderMainMenuButton {
@@ -8,5 +9,5 @@ export interface HeaderMainMenuButton {
     state: {
         active: boolean;
     };
-    bindStore: NavigationStore;
+    bindStore: WithSource<NavigationStore>;
 }

@@ -48,7 +48,8 @@ const initScroller = ({ getRef }) => {
 
 /** @type {MobComponent<import('./type').SearchOverlayList>} */
 export const SearchOverlayListFn = ({
-    getProxi,
+    getSelfProxi,
+    getBoundedProxi,
     repeat,
     setRef,
     getRef,
@@ -59,7 +60,8 @@ export const SearchOverlayListFn = ({
     invalidate,
     bindProps,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
+    const boundedProxi = getBoundedProxi();
 
     /**
      * TODO: fetch result and update proxi.list
@@ -156,7 +158,8 @@ export const SearchOverlayListFn = ({
                         /** @returns {ReturnBindProps<import('./list-item/type').SearchOverlayListItemType>} */
                         () => ({
                             active:
-                                proxi.activeRoute.route === current.value.uri,
+                                boundedProxi.activeRoute.route ===
+                                current.value.uri,
                             uri: current.value.uri,
                             breadCrumbs: current.value.breadCrumbs,
                             count: current.value.count,

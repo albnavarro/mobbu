@@ -13,12 +13,12 @@ export const HeaderMainMenuButtonFn = ({
     computed,
 }) => {
     const proxi = getSelfProxi();
-    const boudedProxi = getBoundedProxi();
+    const boundedProxi = getBoundedProxi();
 
     computed(
         () => proxi.active,
         () => {
-            return proxi.section === boudedProxi.activeNavigationSection;
+            return proxi.section === boundedProxi.activeNavigationSection;
         }
     );
 

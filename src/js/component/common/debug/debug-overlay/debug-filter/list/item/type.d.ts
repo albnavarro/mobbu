@@ -1,3 +1,4 @@
+import { WithSource } from '@mobJsType';
 import { DebugActiveComponentStore } from '@stores/debug/type';
 
 export interface DebugFilterListItemType {
@@ -9,5 +10,5 @@ export interface DebugFilterListItemType {
     state: {
         active: boolean;
     };
-    bindStore: DebugActiveComponentStore;
+    bindStore: WithSource<DebugActiveComponentStore>;
 }

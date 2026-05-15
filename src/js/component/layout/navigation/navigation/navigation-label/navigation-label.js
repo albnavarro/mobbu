@@ -7,7 +7,7 @@ export const NavigationLabelFn = ({
     getBoundedProxi,
 }) => {
     const proxi = getSelfProxi();
-    const boudedProxi = getBoundedProxi();
+    const boundedProxi = getBoundedProxi();
 
     return htmlObject({
         className: 'label',
@@ -15,7 +15,7 @@ export const NavigationLabelFn = ({
         modules: bindEffect({
             toggleClass: {
                 active: () =>
-                    proxi.sectioName === boudedProxi.activeNavigationSection,
+                    proxi.sectioName === boundedProxi.activeNavigationSection,
                 hide: () => !!proxi.hide,
             },
         }),

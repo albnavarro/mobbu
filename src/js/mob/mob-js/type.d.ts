@@ -93,6 +93,15 @@ export type UseMethodArrayByName<T = { methods: any }> =
     PartialUseMethodByName<T>[];
 
 /**
+ * Use wqith bindSore to track original interface name.
+ */
+export type WithSource<T> = {
+    [K in keyof T]: T[K] & {
+        readonly __source: T;
+    };
+};
+
+/**
  * Main component.
  */
 type MobComponentMap = Record<string, any>;

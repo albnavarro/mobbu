@@ -1,4 +1,4 @@
-import { MobJsStore } from '@mobJsType';
+import { MobJsStore, WithSource } from '@mobJsType';
 
 interface LeftSideBarList {
     label: string;
@@ -13,7 +13,7 @@ export interface LeftSidebar {
         }[];
         isVisible: boolean;
     };
-    bindStore: MobJsStore;
+    bindStore: WithSource<MobJsStore>;
     methods: {
         updateList: (arg0: LeftSideBarList[]) => void;
     };

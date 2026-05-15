@@ -2,7 +2,7 @@ import { HtmlContent } from '@commonComponent/html-content/type';
 import { List } from '@commonComponent/typography/list/type';
 import { Paragraph } from '@commonComponent/typography/paragraph/type';
 import { Title } from '@commonComponent/typography/titles/type';
-import { MobJsStore } from '@mobJsType';
+import { MobJsStore, WithSource } from '@mobJsType';
 
 export interface SearchListItem {
     title: string;
@@ -21,7 +21,7 @@ export interface SearchOverlayList {
         loading: boolean;
         noResult: boolean;
     };
-    bindStore: MobJsStore;
+    bindStore: WithSource<MobJsStore>;
     methods: {
         update: (data: string) => Promise<void>;
         reset: () => void;

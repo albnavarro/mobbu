@@ -17,7 +17,7 @@ export const HeaderToggleFn = ({
     onMount,
 }) => {
     const proxi = getSelfProxi();
-    const boudedProxi = getBoundedProxi();
+    const boundedProxi = getBoundedProxi();
 
     onMount(() => {
         MobCore.useFrameIndex(() => {
@@ -33,7 +33,7 @@ export const HeaderToggleFn = ({
                 /**
                  * Secure check. Mouse loave on SmoothScroll trigger Unfrezze too.
                  */
-                if (!boudedProxi.navigationIsOpen) {
+                if (!boundedProxi.navigationIsOpen) {
                     UnFreezeMobPageScroll();
                 }
             },
@@ -41,7 +41,7 @@ export const HeaderToggleFn = ({
         bindEffect([
             {
                 toggleClass: {
-                    'is-open': () => boudedProxi.navigationIsOpen,
+                    'is-open': () => boundedProxi.navigationIsOpen,
                 },
             },
             {

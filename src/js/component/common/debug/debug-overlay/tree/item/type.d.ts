@@ -1,3 +1,4 @@
+import { WithSource } from '@mobJsType';
 import { DebugActiveComponentStore } from '@stores/debug/type';
 
 export interface DebugTreeItemType {
@@ -12,7 +13,7 @@ export interface DebugTreeItemType {
         isActive: boolean;
         hasActiveChildren: boolean;
     };
-    bindStore: DebugActiveComponentStore;
+    bindStore: WithSource<DebugActiveComponentStore>;
     ref: {
         content: HTMLElement;
     };
