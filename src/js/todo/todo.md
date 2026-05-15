@@ -1,20 +1,54 @@
 # MobJs
 
-## 1. BindStore.
-- Il miglioramanto della selezione della propietá di uno store `bindato` é sempre attuale.
-- Possiamo anche ipotizzare di modificare solo la dichiarazione secondo il seguente schema:
+## 1. BindStore UX piú splicita.
+
+#### 1. type [ ]
+- La modifica al tipo é la prima cosa da fare a prescindere.
+- Aggiungere al tipo la propietá `onlyBounded`, semplifica la dichiarazione dei tipi a priori.
+
+
 ```javascript
-...
-bindStore: [{ store: MobJs.mainStore, pick: ['prop', 'prop2'] }],
-...
+export interface BenchMarkExternal {
+    props: {
+        selfProp: number;
+    };
+    state: {
+        selfState: number;
+    };
+    bounded: Readonly<ExternalStore>;
+    ref: {
+        loading: HTMLElement;
+        input: HTMLInputElement;
+    };
+}
 ```
 
-- Cosi rendiamo esplicito nella definizione il nome delle prop usate.
-- In mobStore raccolgiamo in un `new Set()` tutti i pick e se necessario li usiamo per filtrare.
-- La cosa piu importante e che i nome delle prop siano in chiaro nella definizione per essere subito visibili, un pó come fosse un commento.
-- L'ideale poi e usarle nello store come filtro generico per tutti gli store `bindati`.
+```javascript
+export type ExtractState<T> = T['state'];
+export type ExtractProps<T> = T['props'];
+export type ExtractBoundedStore<T> = T['bounded'];
+export type ExtractPropsAndState<T> = T['state'] & T['props'] & T['bounded'];
+```
 
+#### 2. get, getProp, watch, emit, emitAsync [ ]
+- Rimangono come ora, viene incetivato l' uso dei proxi per selzionare la prop.
+- L' uso della chiave-stringa comprende tutto.
+- L' uso del proxi sará piú specifico.
 
+#### 3. Proxi: [ ]
+- Gestire due proxi separati
+
+```javascript
+/**
+* Usa T['state'] && T['props']
+*/
+const proxi = getProxi();
+
+/**
+* Usa T['bounded']
+*/
+const boundedProxi = getBoundedProxi();
+```
 
 
 ## 2. Repat proxi
