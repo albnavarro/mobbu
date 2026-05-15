@@ -1,5 +1,3 @@
-import { BenchMarkFakeComponent } from '../fake-component/definition';
-
 export const defaultAmountOfCard = 10;
 
 export const benchMarkDefinitionPartial = (maxItem = 1001) => ({
@@ -32,5 +30,4 @@ export const benchMarkDefinitionPartial = (maxItem = 1001) => ({
             type: Number,
         }),
     },
-    child: [BenchMarkFakeComponent],
 });
