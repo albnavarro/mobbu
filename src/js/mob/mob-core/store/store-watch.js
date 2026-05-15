@@ -127,14 +127,20 @@ export const watchEntryPoint = ({ instanceId, prop, callback, wait }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return () => {};
 
-    const { bindInstance, unsubscribeBindInstance } = state;
-
-    if (!bindInstance || bindInstance.length === 0) {
+    /**
+     * Prioritá agli store propi ( itself )
+     */
+    if (prop in state.store) {
         return watchMobStore({ instanceId, prop, callback, wait });
     }
 
+    /**
+     * Se la prop non é nello store itself controlliamo gli store bounded.
+     */
+    const { bindInstance, unsubscribeBindInstance } = state;
+
     const currentBindId =
-        [instanceId, ...bindInstance].find((id) => {
+        bindInstance.find((id) => {
             const store = getStateFromMainMap(id)?.store;
             return store && prop in store;
         }) ?? '';
