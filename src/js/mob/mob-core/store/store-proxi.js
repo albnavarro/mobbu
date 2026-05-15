@@ -9,6 +9,7 @@ import { checkType } from './store-type';
 import { checkIfPropIsComputed } from './store-utils';
 import {
     storeComputedPropUsedWarning,
+    storePropInProxiWarning,
     storeProxiReadOnlyWarning,
 } from './store-warining';
 
@@ -69,7 +70,10 @@ const createDynamicProxy = (instanceId) => {
                 /**
                  * Set operation is applied only in `self` store.
                  */
-                if (!(prop in mainState.store)) return false;
+                if (!(prop in mainState.store)) {
+                    storePropInProxiWarning(prop, logStyle);
+                    return false;
+                }
 
                 const isComputed = checkIfPropIsComputed({ instanceId, prop });
                 const isReadOnly = mainState.proxiReadOnlyProp.has(prop);
