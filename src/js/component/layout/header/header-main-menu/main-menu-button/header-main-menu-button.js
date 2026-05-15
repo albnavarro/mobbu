@@ -6,13 +6,19 @@
 import { htmlObject } from '@mobJs';
 
 /** @type {MobComponent<HeaderMainMenuButton>} */
-export const HeaderMainMenuButtonFn = ({ getProxi, bindEffect, computed }) => {
-    const proxi = getProxi();
+export const HeaderMainMenuButtonFn = ({
+    getSelfProxi,
+    getBoundedProxi,
+    bindEffect,
+    computed,
+}) => {
+    const proxi = getSelfProxi();
+    const boudedProxi = getBoundedProxi();
 
     computed(
         () => proxi.active,
         () => {
-            return proxi.section === proxi.activeNavigationSection;
+            return proxi.section === boudedProxi.activeNavigationSection;
         }
     );
 

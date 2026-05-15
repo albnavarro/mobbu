@@ -41,9 +41,11 @@ import {
     PartialUseMethodByName,
     PartialWatch,
     PartialWatchParent,
+    PartialGetSelfProxi,
+    PartialGetSelfProxiState,
+    PartialGetBoundedProxi,
+    PartialGetBoundedProxiState,
 } from './ts-utils/mob-component-props';
-
-// import { OnlyStringKey } from './ts-utils/utils';
 
 export type MobJsStore = MainStore;
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
@@ -55,6 +57,10 @@ export type SetState<T> = PartialSetState<T>;
 export type UpdateState<T> = PartialUpdateState<T>;
 export type GetProxi<T> = PartialGetProxi<T>;
 export type ProxiState<T> = PartialGetProxiState<T>;
+export type GetSelfProxi<T> = PartialGetSelfProxi<T>;
+export type ProxiSelfState<T> = PartialGetSelfProxiState<T>;
+export type GetBoundedProxi<T> = PartialGetBoundedProxi<T>;
+export type ProxiBoundedState<T> = PartialGetBoundedProxiState<T>;
 export type Emit<T> = PartialEmit<T>;
 export type EmitAsync<T> = PartialEmitAsync<T>;
 export type Computed<T> = PartialCompunted<T>;
@@ -111,6 +117,8 @@ export interface ComponentPropsType<T, R> {
     setState: SetState<T>;
     updateState: UpdateState<T>;
     getProxi: GetProxi<T>;
+    getSelfProxi: GetSelfProxi<T>;
+    getBoundedProxi: GetBoundedProxi<T>;
     emit: Emit<T>;
     emitAsync: EmitAsync<T>;
     computed: Computed<T>;

@@ -42,10 +42,13 @@ export const DebugTreeItemFn = ({
     delegateEvents,
     watch,
     bindEffect,
-    getProxi,
+    getSelfProxi,
+    getBoundedProxi,
     computed,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
+    const boundedProxi = getBoundedProxi();
+
     const hasChildrenClass = proxi.children.length > 0 ? 'has-children' : '';
 
     /**
@@ -53,7 +56,7 @@ export const DebugTreeItemFn = ({
      */
     computed(
         () => proxi.isActive,
-        () => proxi.id === proxi.currentId
+        () => proxi.id === boundedProxi.currentId
     );
 
     /**
@@ -64,7 +67,7 @@ export const DebugTreeItemFn = ({
         () =>
             activeItemChildren({
                 id: proxi.id,
-                value: proxi.currentId,
+                value: boundedProxi.currentId,
             })
     );
 

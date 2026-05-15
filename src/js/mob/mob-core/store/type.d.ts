@@ -48,6 +48,8 @@ export interface StoreMapValue {
     strict: Record<string, any>;
     skipEqual: Record<string, any>;
     proxiObject?: Record<string, any> | null | undefined;
+    selfProxiObject?: Record<string, any> | null | undefined;
+    boundedProxiObject?: Record<string, any> | null | undefined;
     bindInstance: string[];
     bindInstanceBy: string[];
     unsubscribeBindInstance: (() => void)[];
@@ -74,6 +76,8 @@ export interface MobStoreReturnType<T extends StoreDefaultMap> {
     emit: MobStoreEmit<T>;
     emitAsync: MobStoreEmitAsync<T>;
     getProxi: MobStoreStoreProxi<T>;
+    getSelfProxi: MobStoreStoreProxiSelf<T>;
+    getBoundedProxi: MobStoreStoreProxiBouded<T>;
     setProxiReadOnlyProp: MobStoreProxiReadOnly;
     getValidation: () => object | undefined;
     debug: () => void;
@@ -194,6 +198,8 @@ interface MobStoreEmitAsync<T> {
 }
 
 export type MobStoreStoreProxi<T> = () => T;
+export type MobStoreStoreProxiSelf<T> = () => T;
+export type MobStoreStoreProxiBouded<T> = () => T;
 
 export type MobStoreProxiReadOnly = (values: string[]) => void;
 

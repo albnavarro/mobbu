@@ -19,13 +19,12 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
     bindObject,
     setRef,
     getRef,
-    getState,
     bindProps,
     repeat,
     bindEffect,
-    getProxi,
+    getBoundedProxi,
 }) => {
-    const proxi = getProxi();
+    const boundedProxi = getBoundedProxi();
 
     onMount(() => {
         // eslint-disable-next-line unicorn/consistent-function-scoping
@@ -59,19 +58,19 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
                         setRef,
                         getRef,
                         delegateEvents,
-                        getState,
+                        boundedProxi,
                         bindEffect,
                     }),
                     {
                         className: 'time',
-                        content: bindObject`components generate in <strong>${() => proxi.time}ms</strong>`,
+                        content: bindObject`components generate in <strong>${() => boundedProxi.time}ms</strong>`,
                     },
                 ],
             },
             {
                 className: 'list',
                 content: repeat({
-                    observe: () => proxi.data,
+                    observe: () => boundedProxi.data,
                     render: ({ current }) => {
                         return benchMarkUseProxi
                             ? htmlObject({
@@ -82,7 +81,7 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
                                           () => ({
                                               index: current.index,
                                               label: current.value.label,
-                                              counter: proxi.counter,
+                                              counter: boundedProxi.counter,
                                           })
                                       ),
                                   ],

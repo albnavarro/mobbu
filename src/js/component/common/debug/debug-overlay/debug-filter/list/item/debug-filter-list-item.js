@@ -10,14 +10,16 @@ export const DebugFilterListItemFn = ({
     delegateEvents,
     bindText,
     bindEffect,
-    getProxi,
+    getSelfProxi,
+    getBoundedProxi,
     computed,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
+    const boundedProxi = getBoundedProxi();
 
     computed(
         () => proxi.active,
-        () => proxi.id === proxi.currentId
+        () => proxi.id === boundedProxi.currentId
     );
 
     return htmlObject({

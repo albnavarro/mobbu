@@ -27,6 +27,8 @@ export const destroyStoreEntryPoint = (instanceId) => {
     state.watcherMetadata.clear();
     state.store = {};
     state.proxiObject = null;
+    state.selfProxiObject = null;
+    state.boundedProxiObject = null;
 
     const { unsubscribeBindInstance, bindInstance } = state;
 

@@ -12,10 +12,12 @@ import { navigationStore } from '@stores/navigation';
 export const HeaderToggleFn = ({
     delegateEvents,
     bindEffect,
-    getProxi,
+    getSelfProxi,
+    getBoundedProxi,
     onMount,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
+    const boudedProxi = getBoundedProxi();
 
     onMount(() => {
         MobCore.useFrameIndex(() => {
@@ -31,7 +33,7 @@ export const HeaderToggleFn = ({
                 /**
                  * Secure check. Mouse loave on SmoothScroll trigger Unfrezze too.
                  */
-                if (!proxi.navigationIsOpen) {
+                if (!boudedProxi.navigationIsOpen) {
                     UnFreezeMobPageScroll();
                 }
             },
@@ -39,7 +41,7 @@ export const HeaderToggleFn = ({
         bindEffect([
             {
                 toggleClass: {
-                    'is-open': () => proxi.navigationIsOpen,
+                    'is-open': () => boudedProxi.navigationIsOpen,
                 },
             },
             {

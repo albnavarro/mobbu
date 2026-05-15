@@ -16,6 +16,12 @@ export type ExtractPropsAndState<T> = ExtractState<T> &
     ExtractBoundedStore<T>;
 
 /**
+ * 'state' && 'props'
+ */
+export type ExtractPropsAndStateSelf<T> = ExtractState<T> &
+    Readonly<ExtractProps<T>>;
+
+/**
  * 'state' && Readonly<'props'> && Readonly<'bindStore'>
  */
 export type ExtractPropsAndStateSet<T> = ExtractState<T> &
@@ -116,14 +122,34 @@ interface PartialUpdateState<T> {
 }
 
 /**
- * Get proxi function
+ * Get proxi function - ALL
  */
 export type PartialGetProxi<T> = () => ExtractPropsAndStateSet<T>;
 
 /**
- * Get proxi state
+ * Get proxi state - ALL
  */
 export type PartialGetProxiState<T> = ExtractPropsAndStateSet<T>;
+
+/**
+ * Get proxi function - Self
+ */
+export type PartialGetSelfProxi<T> = () => ExtractPropsAndStateSelf<T>;
+
+/**
+ * Get proxi state - Self
+ */
+export type PartialGetSelfProxiState<T> = ExtractPropsAndStateSelf<T>;
+
+/**
+ * Get proxi function - Self
+ */
+export type PartialGetBoundedProxi<T> = () => Readonly<ExtractBoundedStore<T>>;
+
+/**
+ * Get proxi state - Self
+ */
+export type PartialGetBoundedProxiState<T> = Readonly<ExtractBoundedStore<T>>;
 
 /**
  * SetStateByName

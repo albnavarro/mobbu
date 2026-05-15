@@ -65,6 +65,8 @@ export const inizializeInstance = (data) => {
             fallback: true,
         }),
         proxiObject: undefined,
+        boundedProxiObject: undefined,
+        selfProxiObject: undefined,
         bindInstance: [],
         bindInstanceBy: [],
         unsubscribeBindInstance: [],

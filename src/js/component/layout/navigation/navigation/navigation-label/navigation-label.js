@@ -1,8 +1,13 @@
 import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').NavigationLabelType>} */
-export const NavigationLabelFn = ({ bindEffect, getProxi }) => {
-    const proxi = getProxi();
+export const NavigationLabelFn = ({
+    bindEffect,
+    getSelfProxi,
+    getBoundedProxi,
+}) => {
+    const proxi = getSelfProxi();
+    const boudedProxi = getBoundedProxi();
 
     return htmlObject({
         className: 'label',
@@ -10,7 +15,7 @@ export const NavigationLabelFn = ({ bindEffect, getProxi }) => {
         modules: bindEffect({
             toggleClass: {
                 active: () =>
-                    proxi.sectioName === proxi.activeNavigationSection,
+                    proxi.sectioName === boudedProxi.activeNavigationSection,
                 hide: () => !!proxi.hide,
             },
         }),

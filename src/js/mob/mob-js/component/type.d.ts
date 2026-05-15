@@ -60,6 +60,8 @@ export interface ComponentStoreReturn {
     setState: MobStoreSet;
     updateState: MobStoreUpdate;
     getProxi: MobStoreStoreProxi;
+    getSelfProxi: MobStoreStoreProxi;
+    getBoundedProxi: MobStoreStoreProxi;
     emit: MobStoreEmit;
     emitAsync: MobStoreEmitAsync;
     computed: MobStoreComputed;

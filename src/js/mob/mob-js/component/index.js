@@ -144,6 +144,8 @@ export const addComponentToStore = ({
             });
         },
         getProxi: () => store.getProxi(),
+        getSelfProxi: () => store.getSelfProxi(),
+        getBoundedProxi: () => store.getBoundedProxi(),
         emit: (prop = '') => store.emit(prop),
         emitAsync: async (prop = '') => await store.emitAsync(prop),
         computed: (

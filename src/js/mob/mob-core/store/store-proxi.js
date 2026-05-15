@@ -1,6 +1,12 @@
 // store-proxi.js (modificato)
 
-import { STORE_SET } from './constant';
+import {
+    PROXI_ALL,
+    PROXI_BOUNDED,
+    PROXI_KEY_IN_MAP,
+    PROXI_SELF,
+    STORE_SET,
+} from './constant';
 import { setCurrentDependencies } from './current-key';
 import { getLogStyle } from './log-style';
 import { storeMap, updateMainMap } from './store-map';
@@ -55,9 +61,10 @@ const shouldFreeze = (value) => {
  * - Set: scrive SOLO su self store
  *
  * @param {string} instanceId
+ * @param {'PROXI_ALL' | 'PROXI_SELF' | 'PROXI_BOUNDED'} strategy
  * @returns {Record<string, any>}
  */
-const createDynamicProxy = (instanceId) => {
+const createDynamicProxy = (instanceId, strategy) => {
     const logStyle = getLogStyle();
 
     return new Proxy(
@@ -106,12 +113,37 @@ const createDynamicProxy = (instanceId) => {
                 /**
                  * Cerca prima in self, poi nei binded
                  */
-                if (prop in state.store) {
+                if (strategy === PROXI_ALL) {
+                    if (prop in state.store) {
+                        value = state.store[prop];
+                        setCurrentDependencies(prop);
+                    }
+
+                    if (!(prop in state.store)) {
+                        for (const bindId of state.bindInstance) {
+                            const bindState = storeMap.get(bindId);
+
+                            if (bindState && prop in bindState.store) {
+                                value = bindState.store[prop];
+                                setCurrentDependencies(prop);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                /**
+                 * Only self store
+                 */
+                if (strategy === PROXI_SELF && prop in state.store) {
                     value = state.store[prop];
                     setCurrentDependencies(prop);
                 }
 
-                if (!(prop in state.store)) {
+                /**
+                 * Only bounded store
+                 */
+                if (strategy === PROXI_BOUNDED && !(prop in state.store)) {
                     for (const bindId of state.bindInstance) {
                         const bindState = storeMap.get(bindId);
 
@@ -163,13 +195,33 @@ const createDynamicProxy = (instanceId) => {
                 if (!state) return false;
 
                 /**
-                 * HAS: cerca prima in self, poi nei binded
+                 * All stores
                  */
-                if (prop in state.store) return true;
+                if (strategy === PROXI_ALL) {
+                    /**
+                     * HAS: cerca prima in self, poi nei binded
+                     */
+                    if (prop in state.store) return true;
 
-                for (const bindId of state.bindInstance) {
-                    const bindState = storeMap.get(bindId);
-                    if (bindState && prop in bindState.store) return true;
+                    for (const bindId of state.bindInstance) {
+                        const bindState = storeMap.get(bindId);
+                        if (bindState && prop in bindState.store) return true;
+                    }
+                }
+
+                /**
+                 * Self stores
+                 */
+                if (strategy === PROXI_SELF && prop in state.store) return true;
+
+                /**
+                 * Bounded stores
+                 */
+                if (strategy === PROXI_ALL) {
+                    for (const bindId of state.bindInstance) {
+                        const bindState = storeMap.get(bindId);
+                        if (bindState && prop in bindState.store) return true;
+                    }
                 }
 
                 return false;
@@ -181,9 +233,10 @@ const createDynamicProxy = (instanceId) => {
 /**
  * @param {object} params
  * @param {string} params.instanceId
+ * @param {'PROXI_ALL' | 'PROXI_SELF' | 'PROXI_BOUNDED'} params.strategy
  * @returns {Record<string, any>}
  */
-export const getProxiEntryPoint = ({ instanceId }) => {
+export const getProxiEntryPoint = ({ instanceId, strategy = PROXI_ALL }) => {
     const state = storeMap.get(instanceId);
     if (!state) return {};
 
@@ -191,11 +244,11 @@ export const getProxiEntryPoint = ({ instanceId }) => {
         return state.proxiObject;
     }
 
-    const proxiObject = createDynamicProxy(instanceId);
+    const proxiObject = createDynamicProxy(instanceId, strategy);
 
     updateMainMap(instanceId, {
         ...state,
-        proxiObject,
+        [PROXI_KEY_IN_MAP[strategy]]: proxiObject,
     });
 
     return proxiObject;

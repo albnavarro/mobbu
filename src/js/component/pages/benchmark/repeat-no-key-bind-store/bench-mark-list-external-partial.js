@@ -12,7 +12,7 @@ import { defaultAmountOfCard } from '../partials/definition-partial';
  *   BindEffect,
  *   DelegateEvents,
  *   GetRef,
- *   GetState,
+ *   ProxiBoundedState,
  *   SetRef
  * } from "@mobJsType"
  */
@@ -66,14 +66,14 @@ const setData = ({ value, useShuffle = false }) => {
  * @param {DelegateEvents} params.delegateEvents
  * @param {SetRef<import('./type').BenchMarkExternal>} params.setRef
  * @param {GetRef<import('./type').BenchMarkExternal>} params.getRef
- * @param {GetState<import('./type').BenchMarkExternal>} params.getState
+ * @param {ProxiBoundedState<import('./type').BenchMarkExternal>} params.boundedProxi
  * @param {BindEffect<import('./type').BenchMarkExternal>} params.bindEffect
  */
 export const benchMarkListExternalPartial = ({
     delegateEvents,
     setRef,
     getRef,
-    getState,
+    boundedProxi,
     bindEffect,
 }) => {
     return htmlObject({
@@ -82,7 +82,7 @@ export const benchMarkListExternalPartial = ({
                 className: 'loader',
                 modules: bindEffect({
                     observe: 'isLoading',
-                    toggleClass: { active: () => getState().isLoading },
+                    toggleClass: { active: () => boundedProxi.isLoading },
                 }),
                 content: 'generate components',
             },
@@ -139,9 +139,8 @@ export const benchMarkListExternalPartial = ({
                         attributes: { type: 'button' },
                         modules: delegateEvents({
                             click: () => {
-                                const { data } = getState();
                                 setData({
-                                    value: data.length,
+                                    value: boundedProxi.data.length,
                                     useShuffle: true,
                                 });
                             },
