@@ -164,7 +164,12 @@ export const runCallbackQueqeAsync = async ({
     const propWatchers = watcherByProp?.get(prop);
     if (!propWatchers || propWatchers.size === 0) return;
 
-    for (const { fn } of propWatchers.values()) {
+    for (const { fn, wait } of propWatchers.values()) {
+        /**
+         * Wait watcher works only with emit ( no async )
+         */
+        if (wait) continue;
+
         await fn(newValue, oldValue, validationValue);
     }
 };
