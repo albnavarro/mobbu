@@ -2,7 +2,7 @@
 
 ## 1. BindStore UX piú splicita.
 
-#### 1. type [ ]
+#### 1. type [x]
 - La modifica al tipo é la prima cosa da fare a prescindere.
 - Aggiungere al tipo la propietá `onlyBounded`, semplifica la dichiarazione dei tipi a priori.
 
@@ -15,7 +15,7 @@ export interface BenchMarkExternal {
     state: {
         selfState: number;
     };
-    bounded: Readonly<ExternalStore>;
+    bindStore: Readonly<ExternalStore>;
     ref: {
         loading: HTMLElement;
         input: HTMLInputElement;
@@ -26,8 +26,8 @@ export interface BenchMarkExternal {
 ```javascript
 export type ExtractState<T> = T['state'];
 export type ExtractProps<T> = T['props'];
-export type ExtractBoundedStore<T> = T['bounded'];
-export type ExtractPropsAndState<T> = T['state'] & T['props'] & T['bounded'];
+export type ExtractBoundedStore<T> = T['bindStore'];
+export type ExtractPropsAndState<T> = T['state'] & T['props'] & T['bindStore'];
 ```
 
 #### 2. get, getProp, watch, emit, emitAsync [ ]
@@ -36,13 +36,29 @@ export type ExtractPropsAndState<T> = T['state'] & T['props'] & T['bounded'];
 - L' uso del proxi sará piú specifico.
 
 #### 3. Proxi: [ ]
-- Gestire due proxi separati
+- Aggiungere due proxi separati.
+
+- getProxi rimane e:
+   - Funzionerá da proxi unificato.
+   - Default di `mobStore`.
+
+- Utilizzare lo stesso entry-point aggiungendo un parametro in entrata:
+   - `ALL` ( default `getProxi()` attuale ).
+   - `SELF`
+   - `BOUNDED`
+- Alla fine memorizzeremo 3 proxi distinti.
+
 
 ```javascript
 /**
-* Usa T['state'] && T['props']
+* Usa T['state'] && T['props'] && ['bindStore']
 */
 const proxi = getProxi();
+
+/**
+* Usa T['state'] && T['props']
+*/
+const selfProxi = getSelfProxi();
 
 /**
 * Usa T['bounded']
@@ -50,6 +66,11 @@ const proxi = getProxi();
 const boundedProxi = getBoundedProxi();
 ```
 
+-  La gestioen dei tipo sará molto semplice, basta duplicare le presenti e cambiare l'unione di stati.
+```javascript
+export type PartialGetProxi<T> = () => ExtractPropsAndState<T>;
+export type PartialGetProxiState<T> = ExtractPropsAndState<T>;
+```
 
 ## 2. Repat proxi
 - il `proxi` repeater potrebbe tornare un oggetto `frezzed` per evutare accidentali mutazioni.

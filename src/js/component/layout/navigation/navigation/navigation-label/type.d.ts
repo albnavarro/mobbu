@@ -6,5 +6,5 @@ export interface NavigationLabelType {
         sectioName: string;
         hide?: boolean;
     };
-    state: Readonly<NavigationStore>;
+    bindStore: NavigationStore;
 }

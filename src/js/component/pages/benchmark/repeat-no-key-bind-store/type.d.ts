@@ -1,7 +1,7 @@
 import { ExternalStore } from '@stores/benchmark/type';
 
 export interface BenchMarkExternal {
-    state: Readonly<ExternalStore>;
+    bindStore: ExternalStore;
     ref: {
         loading: HTMLElement;
         input: HTMLInputElement;

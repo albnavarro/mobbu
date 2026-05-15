@@ -146,19 +146,10 @@
             "content": "Type tips:"
         },
         {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium",
-                "boxed": true,
-                "note": true
-            },
-            "content": "When using the bindStore utility you need to extend the type ( use readOnlyts utils )."
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-store-type.ts",
-                "numLines": 16
+                "numLines": 8
             }
         }
     ]

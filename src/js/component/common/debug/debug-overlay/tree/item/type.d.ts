@@ -1,11 +1,5 @@
 import { DebugActiveComponentStore } from '@stores/debug/type';
 
-interface State extends Readonly<DebugActiveComponentStore> {
-    isOpen: boolean;
-    isActive: boolean;
-    hasActiveChildren: boolean;
-}
-
 export interface DebugTreeItemType {
     props: {
         id: string;
@@ -13,7 +7,12 @@ export interface DebugTreeItemType {
         instanceName: string;
         children: DebugTreeItemType['props'][] | [];
     };
-    state: State;
+    state: {
+        isOpen: boolean;
+        isActive: boolean;
+        hasActiveChildren: boolean;
+    };
+    bindStore: DebugActiveComponentStore;
     ref: {
         content: HTMLElement;
     };

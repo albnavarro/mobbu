@@ -1,12 +1,12 @@
 export interface Snippet {
     props: {
-        contentIsLoaded: boolean;
-        isExpanded: boolean;
-    };
-    state: {
         source: string;
         numLines: number;
         awaitLoad: boolean;
+    };
+    state: {
+        isExpanded: boolean;
+        contentIsLoaded: boolean;
     };
     ref: {
         codeEl: HTMLPreElement;

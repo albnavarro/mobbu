@@ -12,17 +12,16 @@ export interface SearchListItem {
     count: number;
 }
 
-interface SearchOverlayListState extends Readonly<MobJsStore> {
-    list: SearchListItem[];
-    loading: boolean;
-    noResult: boolean;
-}
-
 export interface SearchOverlayList {
     props: {
         updatePrentSearchKey: (value: string) => void;
     };
-    state: SearchOverlayListState;
+    state: {
+        list: SearchListItem[];
+        loading: boolean;
+        noResult: boolean;
+    };
+    bindStore: MobJsStore;
     methods: {
         update: (data: string) => Promise<void>;
         reset: () => void;
@@ -40,10 +39,7 @@ type PropsList = List['state'];
 type PropsHtmlContent = HtmlContent['state'];
 
 interface Data
-    extends PropsTitle,
-        PropsParagraph,
-        PropsHtmlContent,
-        PropsList {}
+    extends PropsTitle, PropsParagraph, PropsHtmlContent, PropsList {}
 
 /**
  * If HtmlContet is used all structure is repeat inside data props.

@@ -6,7 +6,22 @@ import { ArrayElement, NotValue, OnlyStringKey } from './utils';
 
 export type ExtractState<T> = T['state'];
 export type ExtractProps<T> = T['props'];
-export type ExtractPropsAndState<T> = T['state'] & T['props'];
+export type ExtractBoundedStore<T> = T['bindStore'];
+
+/**
+ * 'state' && 'props' && 'bindStore'
+ */
+export type ExtractPropsAndState<T> = ExtractState<T> &
+    ExtractProps<T> &
+    ExtractBoundedStore<T>;
+
+/**
+ * 'state' && Readonly<'props'> && Readonly<'bindStore'>
+ */
+export type ExtractPropsAndStateSet<T> = ExtractState<T> &
+    Readonly<ExtractProps<T>> &
+    Readonly<ExtractBoundedStore<T>>;
+
 export type ExtractMethods<T> = T['methods'];
 export type ExtractRef<T> = T['ref'];
 
@@ -21,7 +36,7 @@ interface BindPropsObject<T, R> {
         arg0: ExtractPropsAndState<T>,
         value: Record<string, any>,
         index: number
-    ) => Partial<ExtractPropsAndState<R>>;
+    ) => Partial<ExtractProps<R>>;
 }
 
 /**
@@ -103,12 +118,12 @@ interface PartialUpdateState<T> {
 /**
  * Get proxi function
  */
-export type PartialGetProxi<T> = () => ExtractPropsAndState<T>;
+export type PartialGetProxi<T> = () => ExtractPropsAndStateSet<T>;
 
 /**
  * Get proxi state
  */
-export type PartialGetProxiState<T> = ExtractPropsAndState<T>;
+export type PartialGetProxiState<T> = ExtractPropsAndStateSet<T>;
 
 /**
  * SetStateByName

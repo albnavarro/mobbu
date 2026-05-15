@@ -1,7 +1,8 @@
 /**
  * @import {
  *   BindEffect,
- *   MobComponent
+ *   MobComponent,
+ *   ProxiState
  * } from "@mobJsType"
  * @import {LeftSidebar} from "./type"
  */
@@ -11,7 +12,7 @@ import { docsTemplate } from '@pages/index';
 
 /**
  * @param {object} params
- * @param {LeftSidebar['state']} params.proxi
+ * @param {ProxiState<LeftSidebar>} params.proxi
  * @param {BindEffect<LeftSidebar>} params.bindEffect
  * @returns {HTMLElement[]}
  */
