@@ -20,6 +20,20 @@ export const storeTest = () => {
             myComputed: 0,
             myComputed2: 0,
             myComputed3: 0,
+            obj: {
+                prop4: {
+                    __value: 0,
+                    __type: Number,
+                    __skipEqual: false,
+                    __validate: (value) => value < 10,
+                    __transform: (value) => value + 1,
+                    __strict: true,
+                },
+            },
+            obj2: {
+                __value: { pippo: 2, pluto: { topo: 2 } },
+                __type: 'any',
+            },
         })
     );
 
@@ -50,7 +64,7 @@ export const storeTest = () => {
     storeTest.watch(
         () => proxi.afterRouteChange,
         (value) => {
-            console.log('mainStore', value.route);
+            console.log('mainStore', value.currentRoute);
         }
     );
 

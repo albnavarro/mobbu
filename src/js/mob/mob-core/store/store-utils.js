@@ -1,3 +1,4 @@
+import { STORE_VALUE_KEY } from './constant.js';
 import { getLogStyle } from './log-style.js';
 import { getStateFromMainMap } from './store-map.js';
 import { checkType, storeType } from './store-type.js';
@@ -22,6 +23,14 @@ export const maxDepth = (object) => {
 };
 
 /**
+ * @param {any} data
+ */
+const isComplexState = (data) => {
+    const isObject = storeType.isObject(data);
+    return isObject && STORE_VALUE_KEY in data;
+};
+
+/**
  * Get Main Store Object If use a function with validation check if there is a function that return an object: key: ()
  * => ({ value: 0, validate: (val) => ...., ... }),
  *
@@ -34,13 +43,22 @@ export const maxDepth = (object) => {
 export const getDataRecursive = (data, shouldRecursive = true) => {
     return Object.fromEntries(
         Object.entries(data).map(([key, value]) => {
+            const isComplex = isComplexState(value);
+
             /**
              * First level value is an object. Recursive step to parse each props of object.
              *
              * - This step set shouldRecursive to false.
              */
-            if (storeType.isObject(value) && shouldRecursive) {
+            if (!isComplex && storeType.isObject(value) && shouldRecursive) {
                 return [key, getDataRecursive(value, false)];
+            }
+
+            /**
+             * Alert too many nested obj without 'any'
+             */
+            if (!isComplex && storeType.isObject(value) && !shouldRecursive) {
+                storeDepthWarning(3, getLogStyle());
             }
 
             /**
@@ -48,21 +66,8 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
              *
              * - Complex state has value and ate least validate or type or skipEqual
              */
-            if (storeType.isFunction(value)) {
-                const functionResult = value();
-
-                /**
-                 * Complex data with validate || type || skipEqual || strict
-                 */
-                if (
-                    storeType.isObject(functionResult) &&
-                    'value' in functionResult &&
-                    ['validate', 'type', 'skipEqual', 'strict'].some(
-                        (prop) => prop in functionResult
-                    )
-                ) {
-                    return [key, functionResult.value];
-                }
+            if (isComplex) {
+                return [key, value[STORE_VALUE_KEY]];
             }
 
             /**
@@ -90,12 +95,14 @@ export const getPropRecursive = (
 ) => {
     return Object.fromEntries(
         Object.entries(data).map(([key, value]) => {
+            const isComplex = isComplexState(value);
+
             /**
              * First level value is an object. Recursive step to parse each props of object.
              *
              * - This step set shouldRecursive to false.
              */
-            if (storeType.isObject(value) && shouldRecursive) {
+            if (!isComplex && storeType.isObject(value) && shouldRecursive) {
                 return [key, getPropRecursive(value, prop, fallback, false)];
             }
 
@@ -104,22 +111,12 @@ export const getPropRecursive = (
              *
              * - Complex state has value and ate least validate or type or skipEqual
              */
-            if (storeType.isFunction(value)) {
-                const functionResult = value();
+            if (isComplex && prop in value) {
+                const propParsed = storeType.isString(value[prop])
+                    ? value[prop].toUpperCase()
+                    : value[prop];
 
-                /**
-                 * Complex data with specific key ( validate, skipEqual etc.. )
-                 */
-                if (
-                    storeType.isObject(functionResult) &&
-                    'value' in functionResult &&
-                    prop in functionResult
-                ) {
-                    const propParsed = storeType.isString(functionResult[prop])
-                        ? functionResult[prop].toUpperCase()
-                        : functionResult[prop];
-                    return [key, propParsed];
-                }
+                return [key, propParsed];
             }
 
             /**
@@ -133,16 +130,9 @@ export const getPropRecursive = (
 /**
  * @param {Object} obj
  * @param {import('./type.js').MobStoreParams} obj.data
- * @param {number} obj.depth
- * @param {string} obj.logStyle
  * @returns {Object<string, Object<string, any> | any>}
  */
-export const inizializeStoreData = ({ data, depth, logStyle }) => {
-    if (depth > 2) {
-        storeDepthWarning(depth, logStyle);
-        return {};
-    }
-
+export const inizializeStoreData = ({ data }) => {
     return getDataRecursive(data);
 };
 
@@ -150,23 +140,10 @@ export const inizializeStoreData = ({ data, depth, logStyle }) => {
  * @param {Object} obj
  * @param {import('./type.js').MobStoreParams} obj.data
  * @param {string} obj.prop
- * @param {number} obj.depth
- * @param {string} obj.logStyle
  * @param {any} obj.fallback
  * @returns {Object<string, Object<string, any> | any>}
  */
-export const inizializeSpecificProp = ({
-    data,
-    prop,
-    depth,
-    logStyle,
-    fallback,
-}) => {
-    if (depth > 2) {
-        storeDepthWarning(depth, logStyle);
-        return {};
-    }
-
+export const inizializeSpecificProp = ({ data, prop, fallback }) => {
     return getPropRecursive(data, prop, fallback);
 };
 
