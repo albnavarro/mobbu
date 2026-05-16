@@ -1,46 +1,12 @@
 # MobJs
 
-## MobCore
-- Store, passare dalla definizione funzione per gli stati complessi a delle key private:
 
-```javascript
-export const navigationStore = MobCore.createStore(
-    /** @type {MobStoreParams<import('./type').NavigationStore>} */
-    ({
-        activeNavigationSection: () => ({
-            value: '',
-            type: String,
-            skipEqual: false,
-        }),
-        navigationIsOpen: () => ({
-            value: false,
-            type: Boolean,
-        }),
-    })
-);
-```
-
-a:
-
-```javascript
-export const navigationStore = MobCore.createStore(
-    /** @type {MobStoreParams<import('./type').NavigationStore>} */
-    ({
-        activeNavigationSection: {
-            __value: '',
-            __type: String,
-            __skipEqual: false,
-        },
-        navigationIsOpen: {
-            __value: false,
-            __type: Boolean,
-        },
-    })
-);
-```
-
-## 1. BindStore UX piú splicita.
+## 1. DOCS:
 - Aggiornare DOC `mobCore` `mobJs`.
+- MobStore: speficiare che `getSelfProxi` e `getBoundedProxi` sono per uso esterno ( mobJs ) in `proxi` e `bindStore`.
+- MobJs: epecificare i 3 proxi in `proxi` e `bindStore`.
+- MobStore: new `complexObject` API
+- MobJs: new `complexObject` API
 
 
 ## 2. Repat proxi
