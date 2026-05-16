@@ -7,13 +7,13 @@ import { htmlObject } from '@mobJs';
 
 /** @type {MobComponent<MatrioskaItemType>} */
 export const MatrioskaItemFn = ({
-    getProxi,
+    getSelfProxi,
     bindText,
     id,
     bindEffect,
     addMethod,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     addMethod('toggleActive', () => {
         proxi.active = !proxi.active;

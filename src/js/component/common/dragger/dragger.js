@@ -3,13 +3,13 @@ import { draggerAnimation } from './animation';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Dragger>} */
 export const DraggerFn = ({
-    getProxi,
+    getSelfProxi,
     setRef,
     getRef,
     bindEffect,
     onMount,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(({ element }) => {
         let { child } = getRef();

@@ -9,6 +9,7 @@ import { SideBarLinksButton } from './side-bar-links-button/definition';
  * @import {
  *   BindProps,
  *   MobComponent,
+ *   ProxiSelfState,
  *   StaticProps
  * } from "@mobJsType"
  * @import {SideBarLinksButtonType} from "./side-bar-links-button/type"
@@ -27,7 +28,7 @@ let updateScroller = () => {};
  * @param {object} param
  * @param {StaticProps} param.staticProps
  * @param {BindProps<SideBarLinks, SideBarLinksButtonType>} param.bindProps
- * @param {SideBarLinks['state']} param.proxi
+ * @param {ProxiSelfState<SideBarLinks>} param.proxi
  */
 const getItems = ({ staticProps, bindProps, proxi }) => {
     return proxi.data.map((item) => {
@@ -68,10 +69,10 @@ export const SideBarLinksFn = ({
     bindProps,
     invalidate,
     bindEffect,
-    getProxi,
+    getSelfProxi,
 }) => {
     const mainData = getCommonData();
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     /** @type{Record<string, any>} */
     const templateData = {

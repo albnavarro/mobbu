@@ -9,7 +9,7 @@ import { DynamicCounter } from './counter/definition';
  * @import {
  *   DelegateEvents,
  *   MobComponent,
- *   ProxiState,
+ *   ProxiSelfState,
  *   ReturnBindProps,
  *   StaticProps
  * } from "@mobJsType"
@@ -28,7 +28,7 @@ function createArray(numberOfItem) {
  * @param {object} params
  * @param {StaticProps<DynamicListCardInnerType>} params.staticProps
  * @param {DelegateEvents} params.delegateEvents
- * @param {ProxiState<DynamicListCardType>} params.proxi
+ * @param {ProxiSelfState<DynamicListCardType>} params.proxi
  */
 const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
     return createArray(proxi.counter).map((item) => {
@@ -62,10 +62,10 @@ export const DynamicListCardFn = ({
     repeat,
     bindText,
     bindEffect,
-    getProxi,
+    getSelfProxi,
     computed,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
     let repeaterIndex = 0;
 
     computed(

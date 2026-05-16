@@ -24,11 +24,11 @@ function titleHandler() {
 export const HeaderFn = ({
     delegateEvents,
     bindEffect,
-    getProxi,
+    getSelfProxi,
     onMount,
     addMethod,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(({ element }) => {
         addMethod('getHeaderHeight', () => {

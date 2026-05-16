@@ -2,7 +2,8 @@
  * @import {
  *   BindEffect,
  *   MobComponent,
- *   ProxiState
+ *   ProxiBoundedState,
+ *   ProxiSelfState
  * } from "@mobJsType"
  * @import {LeftSidebar} from "./type"
  */
@@ -12,11 +13,12 @@ import { docsTemplate } from '@pages/index';
 
 /**
  * @param {object} params
- * @param {ProxiState<LeftSidebar>} params.proxi
+ * @param {ProxiSelfState<LeftSidebar>} params.proxi
+ * @param {ProxiBoundedState<LeftSidebar>} params.boundedProxi
  * @param {BindEffect<LeftSidebar>} params.bindEffect
  * @returns {HTMLElement[]}
  */
-const getList = ({ proxi, bindEffect }) => {
+const getList = ({ proxi, boundedProxi, bindEffect }) => {
     return proxi.data.map(({ label, url }) => {
         const urlParsed = url.replaceAll('#', '');
 
@@ -29,7 +31,8 @@ const getList = ({ proxi, bindEffect }) => {
                 attributes: { href: url },
                 modules: bindEffect({
                     toggleClass: {
-                        active: () => proxi.activeRoute.route === urlParsed,
+                        active: () =>
+                            boundedProxi.activeRoute.route === urlParsed,
                     },
                 }),
                 content: label,
@@ -40,13 +43,15 @@ const getList = ({ proxi, bindEffect }) => {
 
 /** @type {MobComponent<LeftSidebar>} */
 export const LightSidebarFn = ({
-    getProxi,
+    getSelfProxi,
+    getBoundedProxi,
     invalidate,
     addMethod,
     computed,
     bindEffect,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
+    const boundedProxi = getBoundedProxi();
 
     addMethod('updateList', (data) => {
         proxi.data = data;
@@ -85,7 +90,7 @@ export const LightSidebarFn = ({
                 content: invalidate({
                     observe: () => proxi.data,
                     render: () => {
-                        return getList({ proxi, bindEffect });
+                        return getList({ proxi, boundedProxi, bindEffect });
                     },
                 }),
             },

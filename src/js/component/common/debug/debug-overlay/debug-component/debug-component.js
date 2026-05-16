@@ -5,6 +5,7 @@
  *   DelegateEvents,
  *   GetRef,
  *   MobComponent,
+ *   ProxiSelfState,
  *   ProxiState
  * } from "@mobJsType"
  */
@@ -105,7 +106,7 @@ const getStateProps = (states) => {
 
 /**
  * @param {object} params
- * @param {ProxiState<import('./type').DebugComponentType>} params.proxi
+ * @param {ProxiSelfState<import('./type').DebugComponentType>} params.proxi
  * @param {DelegateEvents} params.delegateEvents
  */
 const getContent = ({ proxi, delegateEvents }) => {
@@ -427,12 +428,12 @@ export const DebugComponentFn = ({
     setRef,
     getRef,
     watch,
-    getProxi,
+    getSelfProxi,
     emit,
     delegateEvents,
     bindEffect,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     addMethod('updateId', (id) => {
         proxi.id = id;

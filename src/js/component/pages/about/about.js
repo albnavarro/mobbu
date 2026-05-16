@@ -4,6 +4,7 @@
  *   DelegateEvents,
  *   GetState,
  *   MobComponent,
+ *   ProxiSelfState,
  *   SetRef
  * } from "@mobJsType"
  */
@@ -191,7 +192,7 @@ const block04 = ({ setRef, getState }) => {
 
 /**
  * @param {object} params
- * @param {import('./type').About['state']} params.proxi
+ * @param {ProxiSelfState<import('./type').About>} params.proxi
  * @param {DelegateEvents} params.delegateEvents
  * @param {BindEffect<import('./type').About>} params.bindEffect
  */
@@ -270,9 +271,9 @@ export const AboutComponentFn = ({
     getState,
     bindEffect,
     delegateEvents,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
     const numberOfSection = 4;
 
     let freezeOnLag = false;

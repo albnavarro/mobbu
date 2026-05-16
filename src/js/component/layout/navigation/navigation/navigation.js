@@ -8,6 +8,7 @@ import { NavigationButton } from './navigation-button/definition';
  * @import {
  *   BindProps,
  *   MobComponent,
+ *   ProxiSelfState,
  *   ReturnBindProps,
  *   StaticProps
  * } from "@mobJsType"
@@ -24,7 +25,7 @@ import { NavigationButton } from './navigation-button/definition';
  * @param {import('../../../../data/type').CommonData['navigation']} param.data
  * @param {StaticProps} param.staticProps
  * @param {BindProps<Navigation, NavigationSubmenuType>} param.bindProps
- * @param {Navigation['state']} param.proxi
+ * @param {ProxiSelfState<Navigation>} param.proxi
  */
 function getItems({ data, staticProps, bindProps, proxi }) {
     return data.map((item, index) => {
@@ -108,9 +109,9 @@ export const NavigationFn = ({
     setState,
     bindProps,
     addMethod,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
     const { navigation: data } = getCommonData();
 
     /**

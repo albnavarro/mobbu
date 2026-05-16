@@ -6,7 +6,7 @@
  *   DelegateEvents,
  *   GetRef,
  *   MobComponent,
- *   ProxiState
+ *   ProxiSelfState
  * } from "@mobJsType"
  * @import {ScrollerN0} from "./type"
  */
@@ -22,7 +22,7 @@ import { params } from './variations';
 
 /**
  * @param {object} params
- * @param {ProxiState<ScrollerN0>} params.proxi
+ * @param {ProxiSelfState<ScrollerN0>} params.proxi
  * @param {GetRef<ScrollerN0>} params.getRef
  * @param {boolean} [params.resetScroll]
  * @returns {void}
@@ -46,7 +46,7 @@ const createAnimation = ({ proxi, getRef, resetScroll = true }) => {
 /**
  * @param {object} params
  * @param {DelegateEvents} params.delegateEvents
- * @param {ProxiState<ScrollerN0>} params.proxi
+ * @param {ProxiSelfState<ScrollerN0>} params.proxi
  * @param {GetRef<ScrollerN0>} params.getRef
  * @param {BindEffect<ScrollerN0>} params.bindEffect
  * @returns {HTMLElement[]}
@@ -84,10 +84,10 @@ export const ScrollerN0Fn = ({
     setRef,
     getRef,
     bindEffect,
-    getProxi,
+    getSelfProxi,
     delegateEvents,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(() => {
         /** Show scroll down label. */

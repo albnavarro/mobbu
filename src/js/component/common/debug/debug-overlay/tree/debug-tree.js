@@ -44,9 +44,9 @@ export const DebugTreeFn = ({
     getRef,
     addMethod,
     bindEffect,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
     //
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let destroy = () => {};

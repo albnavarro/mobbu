@@ -4,7 +4,7 @@
  *   Current,
  *   DelegateEvents,
  *   MobComponent,
- *   ProxiState,
+ *   ProxiSelfState,
  *   ReturnBindProps,
  *   StaticProps
  * } from "@mobJsType"
@@ -23,7 +23,7 @@ import { DynamicListSlottedLabel } from './slotted-label/definition';
  * @param {BindProps<DynamicListRepeaterType>} param.bindProps
  * @param {DelegateEvents} param.delegateEvents
  * @param {Current<DynamicListRepeaterType, 'data'>} param.current
- * @param {ProxiState<DynamicListRepeaterType>} param.proxi
+ * @param {ProxiSelfState<DynamicListRepeaterType>} param.proxi
  */
 function getRepeaterCard({
     staticProps,
@@ -77,9 +77,9 @@ export const DynamicListRepeaterFn = ({
     bindProps,
     delegateEvents,
     repeat,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
     const keyParsed = proxi.key.length > 0 ? proxi.key : undefined;
 
     return htmlObject({

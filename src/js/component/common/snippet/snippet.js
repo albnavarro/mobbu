@@ -55,10 +55,10 @@ export const SnippetFn = ({
     getRef,
     delegateEvents,
     bindEffect,
-    getProxi,
+    getSelfProxi,
     bindObject,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     /**
      * Get pre rem font size. Calculate full size of snippet before load.

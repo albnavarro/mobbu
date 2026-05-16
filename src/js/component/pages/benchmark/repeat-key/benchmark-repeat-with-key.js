@@ -22,9 +22,9 @@ export const BenchMarkRepeatWithKyFn = ({
     bindProps,
     repeat,
     bindEffect,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(() => {
         // eslint-disable-next-line unicorn/consistent-function-scoping

@@ -3,8 +3,8 @@
 import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').HorizontalScrollerButtonType>} */
-export const HorizontalScrollerButtonFn = ({ getProxi }) => {
-    const proxi = getProxi();
+export const HorizontalScrollerButtonFn = ({ getSelfProxi }) => {
+    const proxi = getSelfProxi();
 
     return htmlObject({
         tag: 'li',

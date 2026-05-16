@@ -48,11 +48,11 @@ const getItems = ({ delegateEvents, staticProps }) => {
 export const headerMainMenuFn = ({
     delegateEvents,
     staticProps,
-    getProxi,
+    getSelfProxi,
     onMount,
     bindEffect,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(() => {
         MobCore.useFrameIndex(() => {

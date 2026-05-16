@@ -10,13 +10,13 @@ import { mobNavigationName } from '@instanceName';
 import { Navigation } from './navigation/definition';
 
 /**
- * @import {ProxiState} from "@mobJsType"
+ * @import {ProxiSelfState} from "@mobJsType"
  */
 
 /**
  * @param {object} params
  * @param {HTMLElement} params.main
- * @param {ProxiState<import('./type').NavigationContainer>} params.proxi
+ * @param {ProxiSelfState<import('./type').NavigationContainer>} params.proxi
  * @returns {void}
  */
 function closeNavigation({ main, proxi }) {
@@ -31,7 +31,7 @@ function closeNavigation({ main, proxi }) {
 /**
  * @param {object} params
  * @param {HTMLElement} params.main
- * @param {ProxiState<import('./type').NavigationContainer>} params.proxi
+ * @param {ProxiSelfState<import('./type').NavigationContainer>} params.proxi
  * @returns {void}
  */
 function openNavigation({ main, proxi }) {
@@ -70,9 +70,9 @@ export const NavigationContainerFn = ({
     addMethod,
     delegateEvents,
     bindEffect,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(({ element }) => {
         const main = /** @type {HTMLElement} */ (

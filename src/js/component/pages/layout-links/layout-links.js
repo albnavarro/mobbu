@@ -26,9 +26,9 @@ export const LayoutLinksFn = ({
     getRef,
     onMount,
     bindEffect,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let destroy = () => {};

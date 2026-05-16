@@ -1,76 +1,47 @@
 # MobJs
 
+## MobCore
+- Store, passare dalla definizione funzione per gli stati complessi a delle key private:
+
+```javascript
+export const navigationStore = MobCore.createStore(
+    /** @type {MobStoreParams<import('./type').NavigationStore>} */
+    ({
+        activeNavigationSection: () => ({
+            value: '',
+            type: String,
+            skipEqual: false,
+        }),
+        navigationIsOpen: () => ({
+            value: false,
+            type: Boolean,
+        }),
+    })
+);
+```
+
+a:
+
+```javascript
+export const navigationStore = MobCore.createStore(
+    /** @type {MobStoreParams<import('./type').NavigationStore>} */
+    ({
+        activeNavigationSection: {
+            __value: '',
+            __type: String,
+            __skipEqual: false,
+        },
+        navigationIsOpen: {
+            __value: false,
+            __type: Boolean,
+        },
+    })
+);
+```
+
 ## 1. BindStore UX piú splicita.
+- Aggiornare DOC `mobCore` `mobJs`.
 
-#### 1. type [x]
-- La modifica al tipo é la prima cosa da fare a prescindere.
-- Aggiungere al tipo la propietá `onlyBounded`, semplifica la dichiarazione dei tipi a priori.
-
-
-```javascript
-export interface BenchMarkExternal {
-    props: {
-        selfProp: number;
-    };
-    state: {
-        selfState: number;
-    };
-    bindStore: Readonly<ExternalStore>;
-    ref: {
-        loading: HTMLElement;
-        input: HTMLInputElement;
-    };
-}
-```
-
-```javascript
-export type ExtractState<T> = T['state'];
-export type ExtractProps<T> = T['props'];
-export type ExtractBoundedStore<T> = T['bindStore'];
-export type ExtractPropsAndState<T> = T['state'] & T['props'] & T['bindStore'];
-```
-
-#### 2. get, getProp, watch, emit, emitAsync [ ]
-- Rimangono come ora, viene incetivato l' uso dei proxi per selzionare la prop.
-- L' uso della chiave-stringa comprende tutto.
-- L' uso del proxi sará piú specifico.
-
-#### 3. Proxi: [ ]
-- Aggiungere due proxi separati.
-
-- getProxi rimane e:
-   - Funzionerá da proxi unificato.
-   - Default di `mobStore`.
-
-- Utilizzare lo stesso entry-point aggiungendo un parametro in entrata:
-   - `ALL` ( default `getProxi()` attuale ).
-   - `SELF`
-   - `BOUNDED`
-- Alla fine memorizzeremo 3 proxi distinti.
-
-
-```javascript
-/**
-* Usa T['state'] && T['props'] && ['bindStore']
-*/
-const proxi = getProxi();
-
-/**
-* Usa T['state'] && T['props']
-*/
-const selfProxi = getSelfProxi();
-
-/**
-* Usa T['bounded']
-*/
-const boundedProxi = getBoundedProxi();
-```
-
--  La gestioen dei tipo sará molto semplice, basta duplicare le presenti e cambiare l'unione di stati.
-```javascript
-export type PartialGetProxi<T> = () => ExtractPropsAndState<T>;
-export type PartialGetProxiState<T> = ExtractPropsAndState<T>;
-```
 
 ## 2. Repat proxi
 - il `proxi` repeater potrebbe tornare un oggetto `frezzed` per evutare accidentali mutazioni.

@@ -8,14 +8,14 @@ import { htmlObject } from '@mobJs';
 
 /** @type {MobComponent<import('./type').BenchMarkFakeComponentType>} */
 export const BenchMarkFakeComponentFn = ({
-    getProxi,
+    getSelfProxi,
     bindObject,
     delegateEvents,
     onMount,
     id,
     bindEffect,
 }) => {
-    const proxiState = getProxi();
+    const proxiState = getSelfProxi();
 
     onMount(() => {
         // eslint-disable-next-line unicorn/consistent-function-scoping

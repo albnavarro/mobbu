@@ -10,10 +10,10 @@ import { navigationStore } from '@stores/navigation';
 /** @type {MobComponent<NavigationButtonType>} */
 export const NavigationButtonFn = ({
     delegateEvents,
-    getProxi,
+    getSelfProxi,
     bindEffect,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     const {
         label,

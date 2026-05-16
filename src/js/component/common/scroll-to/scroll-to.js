@@ -10,6 +10,7 @@ import { ScrollToButton } from './button/definition';
  *   BindProps,
  *   DelegateEvents,
  *   MobComponent,
+ *   ProxiSelfState,
  *   ReturnBindProps
  * } from "@mobJsType"
  * @import {ScrollToButtonType} from "./button/type"
@@ -22,7 +23,7 @@ let disableObservereffect = false;
  * @param {Object} param
  * @param {DelegateEvents} param.delegateEvents
  * @param {BindProps<ScrollTo, ScrollToButtonType>} param.bindProps
- * @param {ScrollTo['state']} param.proxi
+ * @param {ProxiSelfState<ScrollTo>} param.proxi
  * @returns {HTMLElement[]}
  */
 function getButtons({ delegateEvents, bindProps, proxi }) {
@@ -121,9 +122,9 @@ export const ScrollToFn = ({
     computed,
     addMethod,
     updateState,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     /**
      * @type {'DOWN' | 'UP'}

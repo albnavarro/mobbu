@@ -9,6 +9,7 @@ import { DynamicListCardInner } from './repeaters/card/innerCard/definition';
  *   BindProps,
  *   DelegateEvents,
  *   MobComponent,
+ *   ProxiSelfState,
  *   ReturnBindProps,
  *   StaticProps
  * } from "@mobJsType"
@@ -60,7 +61,7 @@ const repeaters = [
  * @param {StaticProps} param.staticProps
  * @param {DelegateEvents} param.delegateEvents
  * @param {BindProps<DynamicList, DynamicListButtonType>} param.bindProps
- * @param {DynamicList['state']} param.proxi
+ * @param {ProxiSelfState<DynamicList>} param.proxi
  */
 function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
     return buttons.map((column, index) => {
@@ -96,7 +97,7 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
  * @param {object} param
  * @param {StaticProps} param.staticProps
  * @param {BindProps<DynamicList, DynamicListRepeaterType>} param.bindProps
- * @param {DynamicList['state']} param.proxi
+ * @param {ProxiSelfState<DynamicList>} param.proxi
  */
 function getRepeaters({ bindProps, staticProps, proxi }) {
     return repeaters.map((item, index) => {
@@ -133,9 +134,9 @@ export const DynamicListFn = ({
     delegateEvents,
     invalidate,
     bindText,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     /**
      * Header

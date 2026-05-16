@@ -18,7 +18,7 @@ export const Move3Dfn = ({
     watch,
     computed,
     invalidate,
-    getProxi,
+    getSelfProxi,
     bindEffect,
 }) => {
     /**
@@ -29,7 +29,7 @@ export const Move3Dfn = ({
     /**
      * State
      */
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     /**
      * Mutable scoped reference

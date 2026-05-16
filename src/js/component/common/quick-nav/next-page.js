@@ -8,7 +8,7 @@ import { MobTween } from '@mobMotion';
 
 /** @type {MobComponent<QuickNav>} */
 export const QuickNavFn = ({
-    getProxi,
+    getSelfProxi,
     bindEffect,
     addMethod,
     setRef,
@@ -16,7 +16,7 @@ export const QuickNavFn = ({
     onMount,
     watch,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     addMethod('update', (prop, value) => {
         proxi[prop] = value;

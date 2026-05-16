@@ -7,7 +7,7 @@ import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definitio
  * @import {
  *   DelegateEvents,
  *   Invalidate,
- *   ProxiState,
+ *   ProxiSelfState,
  *   UpdateState
  * } from "@mobJsType"
  * @import {Matrioska} from "../type"
@@ -23,7 +23,7 @@ function getRandomInt(max) {
  * @param {DelegateEvents} params.delegateEvents
  * @param {UpdateState<Matrioska>} params.updateState
  * @param {Invalidate<Matrioska>} params.invalidate
- * @param {ProxiState<Matrioska>} params.proxi
+ * @param {ProxiSelfState<Matrioska>} params.proxi
  */
 export const getButtons = ({
     delegateEvents,

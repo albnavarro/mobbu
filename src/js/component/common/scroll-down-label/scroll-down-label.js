@@ -7,8 +7,8 @@
 import { htmlObject } from '@mobJs';
 
 /** @type {MobComponent<ScrollDownLabel>} */
-export const ScrollDownLabelFn = ({ getProxi, bindEffect, addMethod }) => {
-    const proxi = getProxi();
+export const ScrollDownLabelFn = ({ getSelfProxi, bindEffect, addMethod }) => {
+    const proxi = getSelfProxi();
 
     addMethod('update', (value) => {
         proxi.active = value;

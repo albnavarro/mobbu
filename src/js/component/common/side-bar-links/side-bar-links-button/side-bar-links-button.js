@@ -8,8 +8,8 @@ import { htmlObject } from '@mobJs';
 /**
  * @type {MobComponent<SideBarLinksButtonType>}
  */
-export const SideBarLinksButtonFn = ({ getProxi, bindEffect }) => {
-    const proxi = getProxi();
+export const SideBarLinksButtonFn = ({ getSelfProxi, bindEffect }) => {
+    const proxi = getSelfProxi();
 
     return htmlObject({
         tag: 'a',

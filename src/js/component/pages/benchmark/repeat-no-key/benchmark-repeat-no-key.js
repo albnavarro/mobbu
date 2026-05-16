@@ -21,10 +21,10 @@ export const BenchMarkRepeatNoKyFn = ({
     bindProps,
     repeat,
     bindEffect,
-    getProxi,
+    getSelfProxi,
     bindObject,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(() => {
         // eslint-disable-next-line unicorn/consistent-function-scoping

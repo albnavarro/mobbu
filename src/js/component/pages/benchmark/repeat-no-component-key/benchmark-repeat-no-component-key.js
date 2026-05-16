@@ -15,9 +15,9 @@ export const BenchMarkRepeatNoComponentWithKeyFn = ({
     repeat,
     bindEffect,
     bindObject,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(() => {
         // eslint-disable-next-line unicorn/consistent-function-scoping

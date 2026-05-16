@@ -45,8 +45,8 @@ const leftContent = () => [
 ];
 
 /** @type {MobComponent<import('./type').DebugHeadType>} */
-export const DebugHeadFn = ({ invalidate, getProxi }) => {
-    const proxi = getProxi();
+export const DebugHeadFn = ({ invalidate, getSelfProxi }) => {
+    const proxi = getSelfProxi();
 
     return htmlObject({
         className: 'c-debug-head',

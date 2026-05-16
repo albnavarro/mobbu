@@ -15,8 +15,8 @@ const getIndex = (index) => {
 };
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Title>} */
-export const TitleFn = ({ getProxi }) => {
-    const proxi = getProxi();
+export const TitleFn = ({ getSelfProxi }) => {
+    const proxi = getSelfProxi();
 
     const colorClass = proxi.color === 'inherit' ? '' : `is-${proxi.color}`;
     const boldClass = proxi.isBold ? `u-weight-bold` : '';

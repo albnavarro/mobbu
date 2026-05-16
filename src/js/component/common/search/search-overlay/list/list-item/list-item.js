@@ -16,12 +16,12 @@ const loadPage = ({ uri }) => {
 
 /** @type {MobComponent<import('./type').SearchOverlayListItemType>} */
 export const SearchOverlayListItemFn = ({
-    getProxi,
+    getSelfProxi,
     bindEffect,
     delegateEvents,
     bindObject,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     return htmlObject({
         tag: 'li',

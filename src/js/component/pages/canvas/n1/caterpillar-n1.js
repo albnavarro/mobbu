@@ -4,7 +4,7 @@
  *   BindObject,
  *   DelegateEvents,
  *   MobComponent,
- *   ProxiState
+ *   ProxiSelfState
  * } from "@mobJsType"
  * @import {CaterpillarN1} from "./type"
  */
@@ -18,7 +18,7 @@ import { caterpillarN1Animation } from './animation/animation';
  * @param {DelegateEvents} params.delegateEvents
  * @param {BindEffect<CaterpillarN1>} params.bindEffect
  * @param {BindObject} params.bindObject
- * @param {ProxiState<CaterpillarN1>} params.proxi
+ * @param {ProxiSelfState<CaterpillarN1>} params.proxi
  * @returns {HTMLElement}
  */
 function getControls({ delegateEvents, bindEffect, bindObject, proxi }) {
@@ -59,11 +59,11 @@ export const CaterpillarN1Fn = ({
     getRef,
     setRef,
     bindEffect,
-    getProxi,
+    getSelfProxi,
     delegateEvents,
     bindObject,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(() => {
         const { canvas } = getRef();

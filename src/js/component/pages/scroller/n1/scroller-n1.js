@@ -5,7 +5,7 @@
  *   BindObject,
  *   DelegateEvents,
  *   MobComponent,
- *   ProxiState
+ *   ProxiSelfState
  * } from "@mobJsType"
  * @import {ScrollerN1} from "./type"
  */
@@ -20,7 +20,7 @@ import { scrollerN1Animation } from './animation/animation';
 
 /**
  * @param {object} params
- * @param {ProxiState<ScrollerN1>} params.proxi
+ * @param {ProxiSelfState<ScrollerN1>} params.proxi
  * @param {DelegateEvents} params.delegateEvents
  * @param {BindObject} params.bindObject
  * @returns {HTMLElement}
@@ -85,11 +85,11 @@ export const ScrollerN1Fn = ({
     setRef,
     getRef,
     bindEffect,
-    getProxi,
+    getSelfProxi,
     delegateEvents,
     bindObject,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(() => {
         // eslint-disable-next-line unicorn/consistent-function-scoping

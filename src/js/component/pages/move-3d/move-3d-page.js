@@ -7,7 +7,7 @@ import { htmlObject } from '@mobJs';
  *   BindObject,
  *   DelegateEvents,
  *   MobComponent,
- *   ProxiState,
+ *   ProxiSelfState,
  *   ReturnBindProps
  * } from "@mobJsType"
  */
@@ -17,7 +17,7 @@ import { htmlObject } from '@mobJs';
  * @param {DelegateEvents} params.delegateEvents
  * @param {BindEffect<import('./type').Move3DPage>} params.bindEffect
  * @param {BindObject} params.bindObject
- * @param {ProxiState<import('./type').Move3DPage>} params.proxi
+ * @param {ProxiSelfState<import('./type').Move3DPage>} params.proxi
  */
 const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
     /**
@@ -224,10 +224,10 @@ export const Move3DPagefn = ({
     bindProps,
     delegateEvents,
     bindObject,
-    getProxi,
+    getSelfProxi,
     bindEffect,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     return htmlObject({
         className: 'l-move3d-page',

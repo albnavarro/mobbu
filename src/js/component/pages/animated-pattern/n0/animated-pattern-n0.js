@@ -6,7 +6,7 @@
  *   DelegateEvents,
  *   GetRef,
  *   MobComponent,
- *   ProxiState
+ *   ProxiSelfState
  * } from "@mobJsType"
  * @import {AnimatedPatternN0} from "./type"
  */
@@ -18,7 +18,7 @@ import { params } from './variations';
 
 /**
  * @param {object} params
- * @param {ProxiState<AnimatedPatternN0>} params.proxi
+ * @param {ProxiSelfState<AnimatedPatternN0>} params.proxi
  * @param {GetRef<AnimatedPatternN0>} params.getRef
  * @returns {void}
  */
@@ -36,7 +36,7 @@ const createAnimation = ({ proxi, getRef }) => {
 /**
  * @param {object} params
  * @param {DelegateEvents} params.delegateEvents
- * @param {ProxiState<AnimatedPatternN0>} params.proxi
+ * @param {ProxiSelfState<AnimatedPatternN0>} params.proxi
  * @param {GetRef<AnimatedPatternN0>} params.getRef
  * @param {BindEffect<AnimatedPatternN0>} params.bindEffect
  * @returns {HTMLElement[]}
@@ -75,10 +75,10 @@ export const AnimatedPatternN0Fn = ({
     setRef,
     getRef,
     bindEffect,
-    getProxi,
+    getSelfProxi,
     delegateEvents,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(() => {
         /**

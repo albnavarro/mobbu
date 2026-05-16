@@ -6,7 +6,7 @@ import { MatrioskaItem } from '../item/definition';
  * @import {
  *   BindProps,
  *   DelegateEvents,
- *   ProxiState,
+ *   ProxiSelfState,
  *   Repeat,
  *   StaticProps
  * } from "@mobJsType"
@@ -20,7 +20,7 @@ import { MatrioskaItem } from '../item/definition';
  * @param {StaticProps<MatrioskaItemType>} params.staticProps
  * @param {BindProps<Matrioska, MatrioskaItemType>} params.bindProps
  * @param {DelegateEvents} params.delegateEvents
- * @param {ProxiState<Matrioska>} params.proxi
+ * @param {ProxiSelfState<Matrioska>} params.proxi
  */
 export const getSecondLevel = ({
     repeat,

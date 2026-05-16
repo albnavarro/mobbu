@@ -7,8 +7,13 @@ import { htmlObject, MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
 
 /** @type {MobComponent<RouteLoader>} */
-export const RouteLoaderFn = ({ onMount, getProxi, bindEffect, addMethod }) => {
-    const proxi = getProxi();
+export const RouteLoaderFn = ({
+    onMount,
+    getSelfProxi,
+    bindEffect,
+    addMethod,
+}) => {
+    const proxi = getSelfProxi();
 
     addMethod('skip', () => {
         proxi.skip = false;

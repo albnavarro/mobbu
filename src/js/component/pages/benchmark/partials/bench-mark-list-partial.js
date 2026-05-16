@@ -7,6 +7,7 @@ import { defaultAmountOfCard } from './definition-partial';
  *   BindEffect,
  *   DelegateEvents,
  *   GetRef,
+ *   ProxiSelfState,
  *   ProxiState,
  *   SetRef
  * } from "@mobJsType"
@@ -86,7 +87,7 @@ const setData = ({ proxi, value, useShuffle = false }) => {
  * @param {DelegateEvents} params.delegateEvents
  * @param {SetRef<import('../type').BenchMark>} params.setRef
  * @param {GetRef<import('../type').BenchMark>} params.getRef
- * @param {ProxiState<import('../type').BenchMark>} params.proxi
+ * @param {ProxiSelfState<import('../type').BenchMark>} params.proxi
  * @param {BindEffect<import('../type').BenchMark>} params.bindEffect
  */
 export const benchMarkListPartial = ({

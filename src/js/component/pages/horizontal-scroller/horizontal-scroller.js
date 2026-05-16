@@ -4,7 +4,7 @@
  * @import {
  *   DelegateEvents,
  *   MobComponent,
- *   ProxiState,
+ *   ProxiSelfState,
  *   StaticProps
  * } from "@mobJsType"
  * @import {HorizontalScrollerButtonType} from "./button/type"
@@ -55,7 +55,7 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
 /**
  * @param {object} param
  * @param {number} param.numOfCol
- * @param {ProxiState<HorizontalScroller>} param.proxi
+ * @param {ProxiSelfState<HorizontalScroller>} param.proxi
  * @param {StaticProps} param.staticProps
  * @param {DelegateEvents} param.delegateEvents
  */
@@ -85,9 +85,9 @@ export const HorizontalScrollerFn = ({
     delegateEvents,
     setRef,
     getRef,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(({ element }) => {
         const numberOfColumns = 10;

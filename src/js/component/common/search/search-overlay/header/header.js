@@ -8,6 +8,7 @@ import { SearchOverlaySuggestion } from './suggestion/definition';
  * @import {
  *   GetRef,
  *   MobComponent,
+ *   ProxiSelfState,
  *   ReturnBindProps
  * } from "@mobJsType"
  * @import {SearchOverlaySuggestionType} from "./suggestion/type"
@@ -24,7 +25,6 @@ const sendSearch = async ({ currentSearch }) => {
 /**
  * @param {object} params
  * @param {GetRef<import('./type').SearchOverlayHeader>} params.getRef
- * @param {import('./type').SearchOverlayHeader['state']} params.proxi
  */
 const sendToList = ({ getRef }) => {
     const { search_input } = getRef();
@@ -37,7 +37,7 @@ const sendToList = ({ getRef }) => {
 /**
  * @param {object} params
  * @param {GetRef<import('./type').SearchOverlayHeader>} params.getRef
- * @param {import('./type').SearchOverlayHeader['state']} params.proxi
+ * @param {ProxiSelfState<import('./type').SearchOverlayHeader>} params.proxi
  */
 const sendReset = ({ getRef, proxi }) => {
     resetOverlayList();
@@ -129,14 +129,14 @@ export const SearchOverlayHeaderFn = ({
     delegateEvents,
     getRef,
     setRef,
-    getProxi,
+    getSelfProxi,
     bindProps,
     addMethod,
     onMount,
     computed,
     bindEffect,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     // Close suggestion pop-up when no occorrence found
     computed(
@@ -211,7 +211,7 @@ export const SearchOverlayHeaderFn = ({
             keyup: MobCore.useDebounce((/** @type {KeyboardEvent} */ event) => {
                 if (event?.code?.toLowerCase?.() === 'enter') {
                     event.preventDefault();
-                    sendToList({ getRef, proxi });
+                    sendToList({ getRef });
                     proxi.suggestionListData = [];
                     return;
                 }
@@ -277,11 +277,11 @@ export const SearchOverlayHeaderFn = ({
                 className: 'search-button',
                 modules: delegateEvents({
                     click: () => {
-                        sendToList({ getRef, proxi });
+                        sendToList({ getRef });
                     },
                     keydown: (/** @type {KeyboardEvent} */ event) => {
                         if (event.code.toLowerCase() === 'enter') {
-                            sendToList({ getRef, proxi });
+                            sendToList({ getRef });
                         }
                     },
                 }),

@@ -39,10 +39,10 @@ export const AsyncTimelineFn = ({
     setRef,
     getRef,
     bindEffect,
-    getProxi,
+    getSelfProxi,
     delegateEvents,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     let methods = {};
     // eslint-disable-next-line unicorn/consistent-function-scoping

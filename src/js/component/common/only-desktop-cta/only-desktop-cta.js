@@ -23,8 +23,13 @@ MobJs.afterRouteChange(({ currentRoute }) => {
 });
 
 /** @type {MobComponent<import('./type').OnlyDesktop>} */
-export const OnlyDesktopFnCta = ({ onMount, getProxi, bindEffect, watch }) => {
-    const proxi = getProxi();
+export const OnlyDesktopFnCta = ({
+    onMount,
+    getSelfProxi,
+    bindEffect,
+    watch,
+}) => {
+    const proxi = getSelfProxi();
     proxi.active = shouldActivateCta();
 
     onMount(() => {

@@ -21,11 +21,11 @@ const onKeyDown = ({ code, word }) => {
 
 /** @type {import('@mobJsType').MobComponent<import('./type').SearchOverlaySugestionItemType>} */
 export const SearchOverlaySuggestionItemFn = ({
-    getProxi,
+    getSelfProxi,
     delegateEvents,
     bindObject,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     return htmlObject({
         tag: 'li',

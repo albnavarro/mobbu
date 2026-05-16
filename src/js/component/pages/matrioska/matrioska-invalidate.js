@@ -17,9 +17,9 @@ export const MatrioskaInvalidateFn = ({
     staticProps,
     bindProps,
     invalidate,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     const levelOneBlock = {
         className: 'level level--1',

@@ -1,5 +1,8 @@
 /**
- * @import {MobComponent} from "@mobJsType"
+ * @import {
+ *   MobComponent,
+ *   ProxiSelfState
+ * } from "@mobJsType"
  */
 
 import { htmlObject } from '@mobJs';
@@ -13,7 +16,7 @@ import { SearchOverlayHeader } from './header/definition';
 
 /**
  * @param {object} params
- * @param {import('./type').SearchOverlay['state']} params.proxi
+ * @param {ProxiSelfState<import('./type').SearchOverlay>} params.proxi
  */
 const closeOverlay = ({ proxi }) => {
     proxi.active = false;
@@ -31,14 +34,14 @@ const shouldCloseSuggestion = ({ target }) => {
 
 /** @type {MobComponent<import('./type').SearchOverlay>} */
 export const SearchOverlayFn = ({
-    getProxi,
+    getSelfProxi,
     delegateEvents,
     bindEffect,
     addMethod,
     bindObject,
     staticProps,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     addMethod('toggle', () => {
         proxi.active = !proxi.active;

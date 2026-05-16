@@ -21,9 +21,9 @@ export const BenchMarkRepeatWithKyFnNested = ({
     repeat,
     bindObject,
     bindEffect,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(() => {
         // eslint-disable-next-line unicorn/consistent-function-scoping

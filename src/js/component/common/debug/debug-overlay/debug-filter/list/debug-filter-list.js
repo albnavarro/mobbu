@@ -119,10 +119,10 @@ export const DebugFilterListFn = ({
     staticProps,
     bindProps,
     bindEffect,
-    getProxi,
+    getSelfProxi,
     computed,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let destroy = () => {};

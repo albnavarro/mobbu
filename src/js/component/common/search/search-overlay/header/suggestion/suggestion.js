@@ -10,8 +10,12 @@ import { SearchOverlaySuggestionItem } from './suggestion-item/definition';
  */
 
 /** @type {MobComponent<import('./type').SearchOverlaySuggestionType>} */
-export const SearchOverlaySuggestionFn = ({ getProxi, repeat, bindProps }) => {
-    const proxi = getProxi();
+export const SearchOverlaySuggestionFn = ({
+    getSelfProxi,
+    repeat,
+    bindProps,
+}) => {
+    const proxi = getSelfProxi();
 
     const repeaterRender = repeat({
         observe: () => proxi.list,

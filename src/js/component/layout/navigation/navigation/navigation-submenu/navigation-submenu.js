@@ -1,7 +1,7 @@
 /**
  * @import {
  *   MobComponent,
- *   ProxiState,
+ *   ProxiSelfState,
  *   ReturnBindProps,
  *   StaticProps
  * } from "@mobJsType"
@@ -17,7 +17,7 @@ import { NavigationButton } from '../navigation-button/definition';
 
 /**
  * @param {object} params
- * @param {ProxiState<NavigationSubmenuType>} params.proxi
+ * @param {ProxiSelfState<NavigationSubmenuType>} params.proxi
  * @param {StaticProps<NavigationButtonType>} params.staticProps
  * @returns {HTMLElement[]}
  */
@@ -65,9 +65,9 @@ export const NavigationSubmenuFn = ({
     watch,
     setRef,
     getRef,
-    getProxi,
+    getSelfProxi,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
     const { label, url, activeId } = proxi.headerButton;
 
     onMount(() => {

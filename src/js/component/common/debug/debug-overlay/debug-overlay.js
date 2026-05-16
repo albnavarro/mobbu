@@ -1,5 +1,3 @@
-// @ts-check
-
 import { htmlObject, MobJs } from '@mobJs';
 import { consoleLogDebug } from '../console-log';
 import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
@@ -29,10 +27,10 @@ export const DebugOverlayFn = ({
     bindProps,
     invalidate,
     bindEffect,
-    getProxi,
+    getSelfProxi,
     onMount,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     addMethod('toggle', () => {
         proxi.active = !proxi.active;

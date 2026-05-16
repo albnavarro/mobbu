@@ -34,8 +34,13 @@ const getBio = () => {
 };
 
 /** @type {MobComponent<import('./type').Footer>} */
-export const FooterFn = ({ delegateEvents, getProxi, onMount, bindEffect }) => {
-    const proxi = getProxi();
+export const FooterFn = ({
+    delegateEvents,
+    getSelfProxi,
+    onMount,
+    bindEffect,
+}) => {
+    const proxi = getSelfProxi();
 
     onMount(() => {
         MobCore.useFrameIndex(() => {

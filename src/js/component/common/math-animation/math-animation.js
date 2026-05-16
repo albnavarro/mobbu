@@ -9,14 +9,14 @@ import { MobCore } from '@mobCore';
 
 /** @type {MobComponent<import('./type').MathAnimationType>} */
 export const MathAnimationFn = ({
-    getProxi,
+    getSelfProxi,
     setRef,
     getRef,
     getRefs,
     delegateEvents,
     onMount,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
     const showNavigationClass = proxi.showNavigation ? 'active' : '';
     const targetSize = 3;
     const gap = targetSize / proxi.numberOfStaggers;

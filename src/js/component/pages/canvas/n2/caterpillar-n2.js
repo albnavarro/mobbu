@@ -5,7 +5,7 @@
  *   BindObject,
  *   DelegateEvents,
  *   MobComponent,
- *   ProxiState
+ *   ProxiSelfState
  * } from "@mobJsType"
  * @import {CaterpillarN2} from "./type"
  */
@@ -16,7 +16,7 @@ import { caterpillarN2Animation } from './animation/animation';
 
 /**
  * @param {object} params
- * @param {ProxiState<CaterpillarN2>} params.proxi
+ * @param {ProxiSelfState<CaterpillarN2>} params.proxi
  * @param {DelegateEvents} params.delegateEvents
  * @param {BindObject} params.bindObject
  * @returns {HTMLElement[]}
@@ -107,11 +107,11 @@ export const CaterpillarN2Fn = ({
     setRef,
     getRef,
     bindEffect,
-    getProxi,
+    getSelfProxi,
     delegateEvents,
     bindObject,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     onMount(({ element }) => {
         const { canvas } = getRef();

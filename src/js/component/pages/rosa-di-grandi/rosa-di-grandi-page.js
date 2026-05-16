@@ -9,14 +9,14 @@ import { htmlObject, MobJs } from '@mobJs';
  *   DelegateEvents,
  *   GetRef,
  *   MobComponent,
- *   ProxiState,
+ *   ProxiSelfState,
  *   SetRef
  * } from "@mobJsType"
  */
 
 /**
  * @param {object} params
- * @param {ProxiState<import('./type').RosaDiGrandiPage>} params.proxi
+ * @param {ProxiSelfState<import('./type').RosaDiGrandiPage>} params.proxi
  * @param {SetRef<import('./type').RosaDiGrandiPage>} params.setRef
  * @param {GetRef<import('./type').RosaDiGrandiPage>} params.getRef
  * @param {DelegateEvents} params.delegateEvents
@@ -120,7 +120,7 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
 
 /** @type {MobComponent<import('./type').RosaDiGrandiPage>} */
 export const RosaDiGrandiPageFn = ({
-    getProxi,
+    getSelfProxi,
     delegateEvents,
     invalidate,
     bindEffect,
@@ -128,7 +128,7 @@ export const RosaDiGrandiPageFn = ({
     setRef,
     bindObject,
 }) => {
-    const proxi = getProxi();
+    const proxi = getSelfProxi();
 
     return htmlObject({
         className: 'l-rosa',
