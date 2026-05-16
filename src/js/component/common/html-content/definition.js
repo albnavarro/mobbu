@@ -11,26 +11,26 @@ export const HtmlContent = MobJs.createComponent(
         tag: 'html-content',
         component: HtmlContentFn,
         props: {
-            source: () => ({
-                value: '',
-                type: String,
-            }),
-            data: () => ({
-                value: [],
-                type: Array,
-            }),
-            awaitLoadSnippet: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            useTriangle: () => ({
-                value: true,
-                type: Boolean,
-            }),
-            usePadding: () => ({
-                value: true,
-                type: Boolean,
-            }),
+            source: {
+                __value: '',
+                __type: String,
+            },
+            data: {
+                __value: [],
+                __type: Array,
+            },
+            awaitLoadSnippet: {
+                __value: false,
+                __type: Boolean,
+            },
+            useTriangle: {
+                __value: true,
+                __type: Boolean,
+            },
+            usePadding: {
+                __value: true,
+                __type: Boolean,
+            },
         },
     })
 );

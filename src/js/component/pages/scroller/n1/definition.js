@@ -13,30 +13,30 @@ export const ScrollerN1 = MobJs.createComponent(
         tag: 'scroller-n1',
         component: ScrollerN1Fn,
         props: {
-            background: () => ({
-                value: '',
-                type: String,
-            }),
-            disableOffcanvas: () => ({
+            background: {
+                __value: '',
+                __type: String,
+            },
+            disableOffcanvas: {
                 // value: detectFirefox() || detectSafari() ? true : false,
-                value: true,
-                type: Boolean,
-            }),
+                __value: true,
+                __type: Boolean,
+            },
         },
         state: {
             isMounted: false,
-            controlsActive: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            rotation: () => ({
-                value: 720,
-                type: Number,
-            }),
-            rotationlabel: () => ({
-                value: 720,
-                type: Number,
-            }),
+            controlsActive: {
+                __value: false,
+                __type: Boolean,
+            },
+            rotation: {
+                __value: 720,
+                __type: Number,
+            },
+            rotationlabel: {
+                __value: 720,
+                __type: Number,
+            },
         },
     })
 );

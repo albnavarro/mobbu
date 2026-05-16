@@ -11,14 +11,14 @@ export const SearchOverlayHeader = MobJs.createComponent(
         tag: 'search-overlay-header',
         component: SearchOverlayHeaderFn,
         state: {
-            suggestionListActive: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            suggestionListData: () => ({
-                value: [],
-                type: Array,
-            }),
+            suggestionListActive: {
+                __value: false,
+                __type: Boolean,
+            },
+            suggestionListData: {
+                __value: [],
+                __type: Array,
+            },
         },
     })
 );

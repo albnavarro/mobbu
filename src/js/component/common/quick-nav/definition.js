@@ -11,26 +11,26 @@ export const QuickNav = MobJs.createComponent(
         tag: 'quick-nav',
         component: QuickNavFn,
         state: {
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            backRoute: () => ({
-                value: '',
-                type: String,
-            }),
-            prevRoute: () => ({
-                value: '',
-                type: String,
-            }),
-            nextRoute: () => ({
-                value: '',
-                type: String,
-            }),
-            currentLabelId: () => ({
-                value: -1,
-                type: Number,
-            }),
+            active: {
+                __value: false,
+                __type: Boolean,
+            },
+            backRoute: {
+                __value: '',
+                __type: String,
+            },
+            prevRoute: {
+                __value: '',
+                __type: String,
+            },
+            nextRoute: {
+                __value: '',
+                __type: String,
+            },
+            currentLabelId: {
+                __value: -1,
+                __type: Number,
+            },
         },
     })
 );

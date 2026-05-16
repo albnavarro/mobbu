@@ -11,33 +11,33 @@ export const List = MobJs.createComponent(
         tag: 'mob-list',
         component: ListFn,
         props: {
-            style: () => ({
-                value: 'medium',
-                type: String,
-                validate: (val) => ['small', 'medium', 'big'].includes(val),
-                strict: true,
-            }),
-            dots: () => ({
-                value: true,
-                type: Boolean,
-            }),
-            links: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            color: () => ({
-                value: 'black',
-                type: String,
-                validate: (val) => {
+            style: {
+                __value: 'medium',
+                __type: String,
+                __validate: (val) => ['small', 'medium', 'big'].includes(val),
+                __strict: true,
+            },
+            dots: {
+                __value: true,
+                __type: Boolean,
+            },
+            links: {
+                __value: false,
+                __type: Boolean,
+            },
+            color: {
+                __value: 'black',
+                __type: String,
+                __validate: (val) => {
                     return ['white', 'black', 'grey', 'hightlight'].includes(
                         val
                     );
                 },
-            }),
-            items: () => ({
-                value: [],
-                type: Array,
-            }),
+            },
+            items: {
+                __value: [],
+                __type: Array,
+            },
         },
     })
 );

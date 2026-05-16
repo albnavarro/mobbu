@@ -11,17 +11,17 @@ export const DebugHead = MobJs.createComponent(
         tag: 'debug-head',
         component: DebugHeadFn,
         props: {
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            active: {
+                __value: false,
+                __type: Boolean,
+            },
         },
         state: {
-            shouldUpdate: () => ({
-                value: true,
-                type: Boolean,
-                skipEqual: false,
-            }),
+            shouldUpdate: {
+                __value: true,
+                __type: Boolean,
+                __skipEqual: false,
+            },
         },
     })
 );

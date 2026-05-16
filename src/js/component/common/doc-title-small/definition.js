@@ -10,6 +10,5 @@ export const DocsTitleSmall = MobJs.createComponent(
     ({
         tag: 'doc-title-small',
         component: DocTitleSmallFn,
-        state: {},
     })
 );

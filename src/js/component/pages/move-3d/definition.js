@@ -13,52 +13,52 @@ export const Move3DPage = MobJs.createComponent(
         tag: 'move-3d-page',
         component: Move3DPagefn,
         props: {
-            data: () => ({
-                value: [],
-                type: Array,
-            }),
-            drag: () => ({
-                value: true,
-                type: Boolean,
-            }),
+            data: {
+                __value: [],
+                __type: Array,
+            },
+            drag: {
+                __value: true,
+                __type: Boolean,
+            },
         },
         state: {
-            xDepth: () => ({
-                value: 20,
-                type: Number,
-            }),
-            yDepth: () => ({
-                value: 20,
-                type: Number,
-            }),
-            xLimit: () => ({
-                value: 1000,
-                type: Number,
-            }),
-            yLimit: () => ({
-                value: 1000,
-                type: Number,
-            }),
-            perspective: () => ({
-                value: 700,
-                type: Number,
-            }),
-            debug: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            factor: () => ({
-                value: 45,
-                type: Number,
-                validate: (value) => {
+            xDepth: {
+                __value: 20,
+                __type: Number,
+            },
+            yDepth: {
+                __value: 20,
+                __type: Number,
+            },
+            xLimit: {
+                __value: 1000,
+                __type: Number,
+            },
+            yLimit: {
+                __value: 1000,
+                __type: Number,
+            },
+            perspective: {
+                __value: 700,
+                __type: Number,
+            },
+            debug: {
+                __value: false,
+                __type: Boolean,
+            },
+            factor: {
+                __value: 45,
+                __type: Number,
+                __validate: (value) => {
                     return value > 1;
                 },
-                strict: true,
-            }),
-            controlsActive: () => ({
-                value: false,
-                type: Boolean,
-            }),
+                __strict: true,
+            },
+            controlsActive: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

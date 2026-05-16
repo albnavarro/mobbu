@@ -13,28 +13,28 @@ export const ScrollerN0 = MobJs.createComponent(
         tag: 'scroller-n0',
         component: ScrollerN0Fn,
         props: {
-            background: () => ({
-                value: '',
-                type: String,
-            }),
+            background: {
+                __value: '',
+                __type: String,
+            },
         },
         state: {
-            isMounted: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            controlsActive: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            destroy: () => ({
-                value: () => {},
-                type: Function,
-            }),
-            currentParamsId: () => ({
-                value: 0,
-                type: Number,
-            }),
+            isMounted: {
+                __value: false,
+                __type: Boolean,
+            },
+            controlsActive: {
+                __value: false,
+                __type: Boolean,
+            },
+            destroy: {
+                __value: () => {},
+                __type: Function,
+            },
+            currentParamsId: {
+                __value: 0,
+                __type: Number,
+            },
         },
     })
 );

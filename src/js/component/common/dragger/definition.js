@@ -12,65 +12,65 @@ export const Dragger = MobJs.createComponent(
         tag: 'c-dragger',
         component: DraggerFn,
         props: {
-            rootClass: () => ({
-                value: '',
-                type: String,
-            }),
-            childrenClass: () => ({
-                value: '',
-                type: String,
-            }),
-            containerClass: () => ({
-                value: '',
-                type: String,
-            }),
-            initialZoom: () => ({
-                value: 1,
-                type: Number,
-            }),
-            ease: () => ({
-                value: true,
-                type: Boolean,
-            }),
-            align: () => ({
-                value: DRAGGER_CENTER,
-                type: String,
-                transform: (value) => {
+            rootClass: {
+                __value: '',
+                __type: String,
+            },
+            childrenClass: {
+                __value: '',
+                __type: String,
+            },
+            containerClass: {
+                __value: '',
+                __type: String,
+            },
+            initialZoom: {
+                __value: 1,
+                __type: Number,
+            },
+            ease: {
+                __value: true,
+                __type: Boolean,
+            },
+            align: {
+                __value: DRAGGER_CENTER,
+                __type: String,
+                __transform: (value) => {
                     return value.toUpperCase();
                 },
-            }),
-            usePrespective: () => ({
-                value: true,
-                type: Boolean,
-            }),
-            perspective: () => ({
-                value: 600,
-                type: Number,
-            }),
-            hideThreshold: () => ({
-                value: 1,
-                type: Number,
-            }),
-            depthFactor: () => ({
-                value: 30,
-                type: Number,
-            }),
-            maxLowDepth: () => ({
-                value: -200,
-                type: Number,
-            }),
-            maxHightDepth: () => ({
-                value: 200,
-                type: Number,
-            }),
-            afterInit: () => ({
-                value: () => {},
-                type: Function,
-            }),
-            onDepthChange: () => ({
-                value: () => {},
-                type: Function,
-            }),
+            },
+            usePrespective: {
+                __value: true,
+                __type: Boolean,
+            },
+            perspective: {
+                __value: 600,
+                __type: Number,
+            },
+            hideThreshold: {
+                __value: 1,
+                __type: Number,
+            },
+            depthFactor: {
+                __value: 30,
+                __type: Number,
+            },
+            maxLowDepth: {
+                __value: -200,
+                __type: Number,
+            },
+            maxHightDepth: {
+                __value: 200,
+                __type: Number,
+            },
+            afterInit: {
+                __value: () => {},
+                __type: Function,
+            },
+            onDepthChange: {
+                __value: () => {},
+                __type: Function,
+            },
         },
     })
 );

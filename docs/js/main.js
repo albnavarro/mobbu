@@ -3512,60 +3512,60 @@
       /**
        * Use passive event.
        */
-      usePassive: () => ({
-        value: false,
-        type: Boolean
-      }),
+      usePassive: {
+        __value: false,
+        __type: Boolean
+      },
       /**
        * Frame Event
        */
-      currentFrame: () => ({
-        value: 0,
-        type: Number
-      }),
+      currentFrame: {
+        __value: 0,
+        __type: Number
+      },
       /**
        * Initial fps value
        */
-      instantFps: () => ({
-        value: 60,
-        type: Number
-      }),
+      instantFps: {
+        __value: 60,
+        __type: Number
+      },
       /**
        * Trigger nexFrame
        */
-      requestFrame: () => ({
-        value: () => {
+      requestFrame: {
+        __value: () => {
         },
-        type: Function
-      }),
+        __type: Function
+      },
       /**
        * Send nextTick on next loop
        */
-      deferredNextTick: () => ({
-        value: true,
-        type: Boolean
-      }),
+      deferredNextTick: {
+        __value: true,
+        __type: Boolean
+      },
       /**
        * Throttle scroll value
        */
-      throttle: () => ({
-        value: 60,
-        type: Number
-      }),
+      throttle: {
+        __value: 60,
+        __type: Number
+      },
       /**
        * Mouse wheell spinY max value ( 2.5 | -2.5 )
        */
-      spinYMaxValue: () => ({
-        value: 2.5,
-        type: Number
-      }),
+      spinYMaxValue: {
+        __value: 2.5,
+        __type: Number
+      },
       /**
        * Mouse wheell spinX max value ( 2.5 | -2.5 )
        */
-      spinXMaxValue: () => ({
-        value: 2.5,
-        type: Number
-      })
+      spinXMaxValue: {
+        __value: 2.5,
+        __type: Number
+      }
     }
   );
 
@@ -5235,56 +5235,56 @@
   var mainStore = modules_exports.createStore(
     /** @type {MobStoreParams<import('./type').MainStore>} */
     {
-      [MAIN_STORE_ACTIVE_ROUTE]: () => ({
-        value: { route: "", templateName: "" },
-        type: "any",
-        skipEqual: false
-      }),
-      [MAIN_STORE_ACTIVE_PARAMS]: () => ({
-        value: {},
-        type: "any",
-        skipEqual: false
-      }),
-      [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
-        value: {
+      [MAIN_STORE_ACTIVE_ROUTE]: {
+        __value: { route: "", templateName: "" },
+        __type: "any",
+        __skipEqual: false
+      },
+      [MAIN_STORE_ACTIVE_PARAMS]: {
+        __value: {},
+        __type: "any",
+        __skipEqual: false
+      },
+      [MAIN_STORE_BEFORE_ROUTE_CHANGE]: {
+        __value: {
           currentRoute: "",
           currentTemplate: "",
           nextRoute: "",
           nextTemplate: ""
         },
-        type: "any",
-        skipEqual: false
-      }),
-      [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
-        value: {
+        __type: "any",
+        __skipEqual: false
+      },
+      [MAIN_STORE_AFTER_ROUTE_CHANGE]: {
+        __value: {
           currentRoute: "",
           currentTemplate: "",
           previousRoute: "",
           previousTemplate: ""
         },
-        type: "any",
-        skipEqual: false
-      }),
-      [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
-        value: false,
-        type: Boolean
-      }),
+        __type: "any",
+        __skipEqual: false
+      },
+      [MAIN_STORE_ROUTE_IS_LOADING]: {
+        __value: false,
+        __type: Boolean
+      },
       [MAIN_STORE_PARSER_ASYNC]: {
-        element: () => ({
-          value: document.createElement("div"),
-          type: HTMLElement,
-          skipEqual: false
-        }),
-        persistent: () => ({
-          value: false,
-          type: Boolean,
-          skipEqual: false
-        }),
-        source: () => ({
-          value: PARSER_ASYNC_DEFAULT,
-          type: String,
-          skipEqual: false
-        })
+        element: {
+          __value: document.createElement("div"),
+          __type: HTMLElement,
+          __skipEqual: false
+        },
+        persistent: {
+          __value: false,
+          __type: Boolean,
+          __skipEqual: false
+        },
+        source: {
+          __value: PARSER_ASYNC_DEFAULT,
+          __type: String,
+          __skipEqual: false
+        }
       }
     }
   );
@@ -25503,24 +25503,24 @@
       tag: "layout-links",
       component: LayoutLinksFn,
       props: {
-        title: () => ({
-          value: "",
-          type: String
-        }),
-        items: () => ({
-          value: [],
-          type: Array
-        })
+        title: {
+          __value: "",
+          __type: String
+        },
+        items: {
+          __value: [],
+          __type: Array
+        }
       },
       state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        }),
-        showControls: () => ({
-          value: false,
-          type: Boolean
-        })
+        isMounted: {
+          __value: false,
+          __type: Boolean
+        },
+        showControls: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -25604,8 +25604,7 @@
     /** @type {CreateComponentParams<any>} */
     {
       tag: "doc-title",
-      component: DocTitleFn,
-      state: {}
+      component: DocTitleFn
     }
   );
 
@@ -25624,8 +25623,7 @@
     /** @type {CreateComponentParams<any>} */
     {
       tag: "doc-title-small",
-      component: DocTitleSmallFn,
-      state: {}
+      component: DocTitleSmallFn
     }
   );
 
@@ -25669,26 +25667,26 @@
       tag: "html-content",
       component: HtmlContentFn,
       props: {
-        source: () => ({
-          value: "",
-          type: String
-        }),
-        data: () => ({
-          value: [],
-          type: Array
-        }),
-        awaitLoadSnippet: () => ({
-          value: false,
-          type: Boolean
-        }),
-        useTriangle: () => ({
-          value: true,
-          type: Boolean
-        }),
-        usePadding: () => ({
-          value: true,
-          type: Boolean
-        })
+        source: {
+          __value: "",
+          __type: String
+        },
+        data: {
+          __value: [],
+          __type: Array
+        },
+        awaitLoadSnippet: {
+          __value: false,
+          __type: Boolean
+        },
+        useTriangle: {
+          __value: true,
+          __type: Boolean
+        },
+        usePadding: {
+          __value: true,
+          __type: Boolean
+        }
       }
     }
   );
@@ -25719,22 +25717,22 @@
       tag: "scroll-to-button",
       component: ScrollToButtonFn,
       props: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        active: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isSection: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isNote: () => ({
-          value: false,
-          type: Boolean
-        })
+        label: {
+          __value: "",
+          __type: String
+        },
+        active: {
+          __value: false,
+          __type: Boolean
+        },
+        isSection: {
+          __value: false,
+          __type: Boolean
+        },
+        isNote: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -25893,22 +25891,22 @@
       tag: "scroll-to",
       component: ScrollToFn,
       state: {
-        activeLabel: () => ({
-          value: "",
-          type: String
-        }),
-        updateAnchorOnWheel: () => ({
-          value: false,
-          type: Boolean
-        }),
-        anchorItemsToBeComputed: () => ({
-          value: [],
-          type: Array
-        }),
-        anchorItems: () => ({
-          value: [],
-          type: Array,
-          transform: (value) => {
+        activeLabel: {
+          __value: "",
+          __type: String
+        },
+        updateAnchorOnWheel: {
+          __value: false,
+          __type: Boolean
+        },
+        anchorItemsToBeComputed: {
+          __value: [],
+          __type: Array
+        },
+        anchorItems: {
+          __value: [],
+          __type: Array,
+          __transform: (value) => {
             return value.toSorted(
               function(a, b) {
                 const { element: elementA } = a;
@@ -25922,7 +25920,7 @@
               }
             );
           }
-        })
+        }
       }
     }
   );
@@ -26902,60 +26900,60 @@
       tag: "about-component",
       component: AboutComponentFn,
       props: {
-        block_1: () => ({
-          value: {
+        block_1: {
+          __value: {
             titleTop: "",
             titleBottom: ""
           },
-          type: "any"
-        }),
-        block_2: () => ({
-          value: {
+          __type: "any"
+        },
+        block_2: {
+          __value: {
             title: "",
             copy: ""
           },
-          type: "any"
-        }),
-        block_3: () => ({
-          value: {
+          __type: "any"
+        },
+        block_3: {
+          __value: {
             title: "",
             copy: ""
           },
-          type: "any"
-        }),
-        block_4: () => ({
-          value: {
+          __type: "any"
+        },
+        block_4: {
+          __value: {
             title: "",
             items: [""]
           },
-          type: "any"
-        }),
-        aboutSvg: () => ({
-          value: "",
-          type: String
-        })
+          __type: "any"
+        },
+        aboutSvg: {
+          __value: "",
+          __type: String
+        }
       },
       state: {
-        navItem: () => ({
-          value: [
+        navItem: {
+          __value: [
             { index: 1, label: "about" },
             { index: 2, label: "why" },
             { index: 3, label: "what" },
             { index: 4, label: "inspiration" }
           ],
-          type: Array
-        }),
-        activenavItem: () => ({
-          value: 1,
-          type: Number,
-          transform: (value) => {
+          __type: Array
+        },
+        activenavItem: {
+          __value: 1,
+          __type: Number,
+          __transform: (value) => {
             return core_exports.clamp(value, 1, 4);
           }
-        }),
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
+        },
+        isMounted: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -27016,15 +27014,15 @@
   var navigationStore = modules_exports.createStore(
     /** @type {MobStoreParams<import('./type').NavigationStore>} */
     {
-      activeNavigationSection: () => ({
-        value: "",
-        type: String,
-        skipEqual: false
-      }),
-      navigationIsOpen: () => ({
-        value: false,
-        type: Boolean
-      })
+      activeNavigationSection: {
+        __value: "",
+        __type: String,
+        __skipEqual: false
+      },
+      navigationIsOpen: {
+        __value: false,
+        __type: Boolean
+      }
     }
   );
   navigationStore.set("activeNavigationSection", "");
@@ -27517,29 +27515,29 @@
       tag: "animatedpattern-n0",
       component: AnimatedPatternN0Fn,
       props: {
-        background: () => ({
-          value: "",
-          type: String
-        })
+        background: {
+          __value: "",
+          __type: String
+        }
       },
       state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        }),
-        controlsActive: () => ({
-          value: false,
-          type: Boolean
-        }),
-        destroy: () => ({
-          value: () => {
+        isMounted: {
+          __value: false,
+          __type: Boolean
+        },
+        controlsActive: {
+          __value: false,
+          __type: Boolean
+        },
+        destroy: {
+          __value: () => {
           },
-          type: Function
-        }),
-        currentParamsId: () => ({
-          value: 0,
-          type: Number
-        })
+          __type: Function
+        },
+        currentParamsId: {
+          __value: 0,
+          __type: Number
+        }
       }
     }
   );
@@ -27887,15 +27885,15 @@
       tag: "animatedpattern-n1",
       component: AnimatedPatternN1Fn,
       props: {
-        background: () => ({
-          value: "",
-          type: String
-        }),
-        disableOffcanvas: () => ({
+        background: {
+          __value: "",
+          __type: String
+        },
+        disableOffcanvas: {
           // value: detectFirefox() || detectSafari() ? true : false,
-          value: true,
-          type: Boolean
-        })
+          __value: true,
+          __type: Boolean
+        }
       },
       state: {
         isMounted: false
@@ -28295,36 +28293,36 @@
       tag: "caterpillar-n1",
       component: CaterpillarN1Fn,
       props: {
-        background: () => ({
-          value: "",
-          type: String
-        }),
-        disableOffcanvas: () => ({
+        background: {
+          __value: "",
+          __type: String
+        },
+        disableOffcanvas: {
           // value: detectFirefox() || detectSafari() ? true : false,
-          value: true,
-          type: Boolean
-        })
+          __value: true,
+          __type: Boolean
+        }
       },
       state: {
         isMounted: false,
-        controlsActive: () => ({
-          value: false,
-          type: Boolean
-        }),
-        destroy: () => ({
-          value: () => {
+        controlsActive: {
+          __value: false,
+          __type: Boolean
+        },
+        destroy: {
+          __value: () => {
           },
-          type: Function
-        }),
-        stopBlackOne: () => ({
-          value: () => {
+          __type: Function
+        },
+        stopBlackOne: {
+          __value: () => {
           },
-          type: Function
-        }),
-        blackOneIsStopped: () => ({
-          value: false,
-          type: Boolean
-        })
+          __type: Function
+        },
+        blackOneIsStopped: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -28757,34 +28755,34 @@
       tag: "caterpillar-n2",
       component: CaterpillarN2Fn,
       props: {
-        background: () => ({
-          value: "",
-          type: String
-        }),
-        disableOffcanvas: () => ({
+        background: {
+          __value: "",
+          __type: String
+        },
+        disableOffcanvas: {
           // value: detectFirefox() || detectSafari() ? true : false,
-          value: true,
-          type: Boolean
-        })
+          __value: true,
+          __type: Boolean
+        }
       },
       state: {
         isMounted: false,
-        rotation: () => ({
-          value: 166,
-          type: Number
-        }),
-        rotationlabel: () => ({
-          value: 166,
-          type: Number
-        }),
-        controlsActive: () => ({
-          value: false,
-          type: Boolean
-        }),
-        buttons: () => ({
-          value: buttons,
-          type: "Any"
-        })
+        rotation: {
+          __value: 166,
+          __type: Number
+        },
+        rotationlabel: {
+          __value: 166,
+          __type: Number
+        },
+        controlsActive: {
+          __value: false,
+          __type: Boolean
+        },
+        buttons: {
+          __value: buttons,
+          __type: "Any"
+        }
       }
     }
   );
@@ -29209,29 +29207,29 @@
       tag: "scroller-n0",
       component: ScrollerN0Fn,
       props: {
-        background: () => ({
-          value: "",
-          type: String
-        })
+        background: {
+          __value: "",
+          __type: String
+        }
       },
       state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        }),
-        controlsActive: () => ({
-          value: false,
-          type: Boolean
-        }),
-        destroy: () => ({
-          value: () => {
+        isMounted: {
+          __value: false,
+          __type: Boolean
+        },
+        controlsActive: {
+          __value: false,
+          __type: Boolean
+        },
+        destroy: {
+          __value: () => {
           },
-          type: Function
-        }),
-        currentParamsId: () => ({
-          value: 0,
-          type: Number
-        })
+          __type: Function
+        },
+        currentParamsId: {
+          __value: 0,
+          __type: Number
+        }
       }
     }
   );
@@ -29610,30 +29608,30 @@
       tag: "scroller-n1",
       component: ScrollerN1Fn,
       props: {
-        background: () => ({
-          value: "",
-          type: String
-        }),
-        disableOffcanvas: () => ({
+        background: {
+          __value: "",
+          __type: String
+        },
+        disableOffcanvas: {
           // value: detectFirefox() || detectSafari() ? true : false,
-          value: true,
-          type: Boolean
-        })
+          __value: true,
+          __type: Boolean
+        }
       },
       state: {
         isMounted: false,
-        controlsActive: () => ({
-          value: false,
-          type: Boolean
-        }),
-        rotation: () => ({
-          value: 720,
-          type: Number
-        }),
-        rotationlabel: () => ({
-          value: 720,
-          type: Number
-        })
+        controlsActive: {
+          __value: false,
+          __type: Boolean
+        },
+        rotation: {
+          __value: 720,
+          __type: Number
+        },
+        rotationlabel: {
+          __value: 720,
+          __type: Number
+        }
       }
     }
   );
@@ -29844,14 +29842,14 @@
       tag: "dynamic-list-button",
       component: DynamicListButtonFn,
       props: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
+        label: {
+          __value: "",
+          __type: String
+        },
+        active: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -29875,10 +29873,10 @@
       tag: "dynamic-list-card-inner",
       component: DynamicListCardInnerFn,
       props: {
-        key: () => ({
-          value: "",
-          type: String
-        })
+        key: {
+          __value: "",
+          __type: String
+        }
       }
     }
   );
@@ -29945,14 +29943,14 @@
       tag: "dynamic-list-counter",
       component: DynamicListCounterFn,
       props: {
-        parentListId: () => ({
-          value: -1,
-          type: Number
-        }),
-        counter: () => ({
-          value: 0,
-          type: Number
-        })
+        parentListId: {
+          __value: -1,
+          __type: Number
+        },
+        counter: {
+          __value: 0,
+          __type: Number
+        }
       }
     }
   );
@@ -30233,40 +30231,40 @@
       tag: "dynamic-list-card",
       component: DynamicListCardFn,
       props: {
-        parentListId: () => ({
-          value: -1,
-          type: Number
-        }),
-        label: () => ({
-          value: "-",
-          type: String
-        }),
-        index: () => ({
-          value: -1,
-          type: Number
-        }),
-        counter: () => ({
-          value: 1,
-          type: Number
-        })
+        parentListId: {
+          __value: -1,
+          __type: Number
+        },
+        label: {
+          __value: "-",
+          __type: String
+        },
+        index: {
+          __value: -1,
+          __type: Number
+        },
+        counter: {
+          __value: 1,
+          __type: Number
+        }
       },
       state: {
-        innerData: () => ({
-          value: innerData[0],
-          type: Array
-        }),
-        innerDataUnivoque: () => ({
-          value: innerData[0],
-          type: Array
-        }),
-        isSelected: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
+        innerData: {
+          __value: innerData[0],
+          __type: Array
+        },
+        innerDataUnivoque: {
+          __value: innerData[0],
+          __type: Array
+        },
+        isSelected: {
+          __value: false,
+          __type: Boolean
+        },
+        isMounted: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -30289,10 +30287,10 @@
       tag: "dynamic-slotted-label",
       component: DynamicListSlottedLabelFn,
       props: {
-        label: () => ({
-          value: "",
-          type: String
-        })
+        label: {
+          __value: "",
+          __type: String
+        }
       }
     }
   );
@@ -30392,30 +30390,30 @@
       tag: "dynamic-list-repeater",
       component: DynamicListRepeaterFn,
       props: {
-        data: () => ({
-          value: [],
-          type: Array
-        }),
-        key: () => ({
-          value: "",
-          type: String
-        }),
-        clean: () => ({
-          value: false,
-          type: Boolean
-        }),
-        listId: () => ({
-          value: -1,
-          type: Number
-        }),
-        counter: () => ({
-          value: -1,
-          type: Number
-        }),
-        label: () => ({
-          value: "",
-          type: String
-        })
+        data: {
+          __value: [],
+          __type: Array
+        },
+        key: {
+          __value: "",
+          __type: String
+        },
+        clean: {
+          __value: false,
+          __type: Boolean
+        },
+        listId: {
+          __value: -1,
+          __type: Number
+        },
+        counter: {
+          __value: -1,
+          __type: Number
+        },
+        label: {
+          __value: "",
+          __type: String
+        }
       }
     }
   );
@@ -30646,20 +30644,20 @@
       tag: "dynamic-list",
       component: DynamicListFn,
       state: {
-        counter: () => ({
-          value: 1,
-          type: Number,
-          validate: (val) => val <= 10 && val >= 0,
-          strict: true
-        }),
-        data: () => ({
-          value: startData,
-          type: Array
-        }),
-        activeSample: () => ({
-          value: 3,
-          type: Number
-        })
+        counter: {
+          __value: 1,
+          __type: Number,
+          __validate: (val) => val <= 10 && val >= 0,
+          __strict: true
+        },
+        data: {
+          __value: startData,
+          __type: Array
+        },
+        activeSample: {
+          __value: 3,
+          __type: Number
+        }
       }
     }
   );
@@ -30778,16 +30776,16 @@
       tag: "home-component",
       component: HomeComponentFn,
       props: {
-        svg: () => ({
-          value: [],
-          type: Array
-        })
+        svg: {
+          __value: [],
+          __type: Array
+        }
       },
       state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
+        isMounted: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -31057,34 +31055,34 @@
       tag: "matrioska-item",
       component: MatrioskaItemFn,
       props: {
-        level: () => ({
-          value: "",
-          type: String
-        }),
-        key: () => ({
-          value: "",
-          strict: true,
-          type: String
-        }),
-        index: () => ({
-          value: 0,
-          strict: true,
-          type: Number
-        }),
-        value: () => ({
-          value: "",
-          type: String
-        }),
-        counter: () => ({
-          value: -1,
-          type: Number
-        })
+        level: {
+          __value: "",
+          __type: String
+        },
+        key: {
+          __value: "",
+          __strict: true,
+          __type: String
+        },
+        index: {
+          __value: 0,
+          __strict: true,
+          __type: Number
+        },
+        value: {
+          __value: "",
+          __type: String
+        },
+        counter: {
+          __value: -1,
+          __type: Number
+        }
       },
       state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
+        active: {
+          __value: false,
+          __type: Boolean
+        }
       },
       style: (
         /* CSS */
@@ -31536,37 +31534,37 @@
   };
   var commonParams = {
     state: {
-      level1: () => ({
-        value: [{ key: 1, value: modules_exports.getUnivoqueId() }],
-        type: Array,
-        validate: (val) => val.length <= 10,
-        strict: true
-      }),
-      level2: () => ({
-        value: [
+      level1: {
+        __value: [{ key: 1, value: modules_exports.getUnivoqueId() }],
+        __type: Array,
+        __validate: (val) => val.length <= 10,
+        __strict: true
+      },
+      level2: {
+        __value: [
           { key: 1, value: modules_exports.getUnivoqueId() },
           { key: 2, value: modules_exports.getUnivoqueId() }
         ],
-        type: Array,
-        validate: (val) => val.length <= 10,
-        strict: true
-      }),
-      level3: () => ({
-        value: [
+        __type: Array,
+        __validate: (val) => val.length <= 10,
+        __strict: true
+      },
+      level3: {
+        __value: [
           { key: 1, value: modules_exports.getUnivoqueId() },
           { key: 2, value: modules_exports.getUnivoqueId() }
         ],
-        type: Array,
-        transform: (val, oldVal) => {
+        __type: Array,
+        __transform: (val, oldVal) => {
           return val > oldVal ? shuffle(val) : val;
         },
-        validate: (val) => val.length <= 6,
-        strict: true
-      }),
-      counter: () => ({
-        value: 0,
-        type: Number
-      })
+        __validate: (val) => val.length <= 6,
+        __strict: true
+      },
+      counter: {
+        __value: 0,
+        __type: Number
+      }
     }
   };
   var MatrioskaRepeat = modules_exports2.createComponent(
@@ -31763,14 +31761,14 @@
       tag: "horizontal-scroller-section",
       component: HorizontalScrollerSectionFn,
       props: {
-        id: () => ({
-          value: -1,
-          type: Number
-        }),
-        pinClass: () => ({
-          value: "",
-          type: String
-        })
+        id: {
+          __value: -1,
+          __type: Number
+        },
+        pinClass: {
+          __value: "",
+          __type: String
+        }
       }
     }
   );
@@ -31798,10 +31796,10 @@
       tag: "horizontal-scroller-button",
       component: HorizontalScrollerButtonFn,
       props: {
-        id: () => ({
-          value: -1,
-          type: Number
-        })
+        id: {
+          __value: -1,
+          __type: Number
+        }
       }
     }
   );
@@ -31958,21 +31956,21 @@
       tag: "horizontal-scroller",
       component: HorizontalScrollerFn,
       props: {
-        animatePin: () => ({
-          value: false,
-          type: Boolean
-        })
+        animatePin: {
+          __value: false,
+          __type: Boolean
+        }
       },
       state: {
-        currentId: () => ({
-          value: 0,
-          type: Number,
-          skipEqual: false
-        }),
-        currentIdFromScroll: () => ({
-          value: 0,
-          type: Number
-        })
+        currentId: {
+          __value: 0,
+          __type: Number,
+          __skipEqual: false
+        },
+        currentIdFromScroll: {
+          __value: 0,
+          __type: Number
+        }
       }
     }
   );
@@ -32242,78 +32240,78 @@
       tag: "move-3d-item",
       component: Move3DItemfn,
       props: {
-        root: () => ({
-          value: true,
-          type: Boolean
-        }),
-        depth: () => ({
-          value: 0,
-          type: Number
-        }),
-        rotate: () => ({
-          value: "x",
-          type: String
-        }),
-        width: () => ({
-          value: "0px",
-          type: String
-        }),
-        height: () => ({
-          value: "0px",
-          type: String
-        }),
-        offsetX: () => ({
-          value: "0px",
-          type: String
-        }),
-        offsetY: () => ({
-          value: "0px",
-          type: String
-        }),
-        range: () => ({
-          value: 20,
-          type: Number
-        }),
-        anchorPoint: () => ({
-          value: "center",
-          type: String
-        }),
-        animate: () => ({
-          value: true,
-          type: Boolean
-        }),
-        initialRotate: () => ({
-          value: 0,
-          type: Number
-        }),
-        initialDepth: () => ({
-          value: 0,
-          type: Number
-        }),
-        classList: () => ({
-          value: "",
-          type: String
-        }),
+        root: {
+          __value: true,
+          __type: Boolean
+        },
+        depth: {
+          __value: 0,
+          __type: Number
+        },
+        rotate: {
+          __value: "x",
+          __type: String
+        },
+        width: {
+          __value: "0px",
+          __type: String
+        },
+        height: {
+          __value: "0px",
+          __type: String
+        },
+        offsetX: {
+          __value: "0px",
+          __type: String
+        },
+        offsetY: {
+          __value: "0px",
+          __type: String
+        },
+        range: {
+          __value: 20,
+          __type: Number
+        },
+        anchorPoint: {
+          __value: "center",
+          __type: String
+        },
+        animate: {
+          __value: true,
+          __type: Boolean
+        },
+        initialRotate: {
+          __value: 0,
+          __type: Number
+        },
+        initialDepth: {
+          __value: 0,
+          __type: Number
+        },
+        classList: {
+          __value: "",
+          __type: String
+        },
         component: {
-          tagName: () => ({
-            value: "",
-            type: String
-          }),
-          className: () => ({
-            value: "",
-            type: String
-          }),
-          props: () => ({
-            value: "",
-            type: "any"
-          })
+          tagName: {
+            __value: "",
+            __type: String
+          },
+          className: {
+            __value: "",
+            __type: String
+          },
+          props: {
+            __value: "",
+            __type: "any"
+          }
         }
       },
       state: {
-        id: () => ({
-          value: "",
-          type: String
-        })
+        id: {
+          __value: "",
+          __type: String
+        }
       }
     }
   );
@@ -32642,74 +32640,74 @@
       tag: "move-3d",
       component: Move3Dfn,
       props: {
-        drag: () => ({
-          value: false,
-          type: Boolean
-        }),
-        centerToViewoport: () => ({
-          value: false,
-          type: Boolean
-        }),
-        perspective: () => ({
-          value: 700,
-          type: Number
-        }),
-        xDepth: () => ({
-          value: 20,
-          type: Number,
-          validate: (value) => {
+        drag: {
+          __value: false,
+          __type: Boolean
+        },
+        centerToViewoport: {
+          __value: false,
+          __type: Boolean
+        },
+        perspective: {
+          __value: 700,
+          __type: Number
+        },
+        xDepth: {
+          __value: 20,
+          __type: Number,
+          __validate: (value) => {
             return value > 1;
           },
-          strict: true
-        }),
-        yDepth: () => ({
-          value: 20,
-          type: Number,
-          validate: (value) => {
+          __strict: true
+        },
+        yDepth: {
+          __value: 20,
+          __type: Number,
+          __validate: (value) => {
             return value > 1;
           },
-          strict: true
-        }),
-        xLimit: () => ({
-          value: 1e4,
-          type: Number
-        }),
-        yLimit: () => ({
-          value: 1e4,
-          type: Number
-        }),
-        factor: () => ({
-          value: 45,
-          type: Number,
-          validate: (value) => {
+          __strict: true
+        },
+        xLimit: {
+          __value: 1e4,
+          __type: Number
+        },
+        yLimit: {
+          __value: 1e4,
+          __type: Number
+        },
+        factor: {
+          __value: 45,
+          __type: Number,
+          __validate: (value) => {
             return value > 1;
           },
-          strict: true
-        }),
-        shape: () => ({
-          value: [],
-          type: Array
-        }),
-        debug: () => ({
-          value: false,
-          type: Boolean
-        }),
-        afterInit: () => ({
-          value: () => {
+          __strict: true
+        },
+        shape: {
+          __value: [],
+          __type: Array
+        },
+        debug: {
+          __value: false,
+          __type: Boolean
+        },
+        afterInit: {
+          __value: () => {
           },
-          type: Function
-        }),
-        onUpdate: () => ({
-          value: () => {
+          __type: Function
+        },
+        onUpdate: {
+          __value: () => {
           },
-          type: Function
-        })
+          __type: Function
+        }
       },
       state: {
-        useScroll: () => ({
-          value: true,
-          type: Boolean
-        })
+        useScroll: {
+          __value: true,
+          __type: Boolean
+        }
       }
     }
   );
@@ -32947,52 +32945,52 @@
       tag: "move-3d-page",
       component: Move3DPagefn,
       props: {
-        data: () => ({
-          value: [],
-          type: Array
-        }),
-        drag: () => ({
-          value: true,
-          type: Boolean
-        })
+        data: {
+          __value: [],
+          __type: Array
+        },
+        drag: {
+          __value: true,
+          __type: Boolean
+        }
       },
       state: {
-        xDepth: () => ({
-          value: 20,
-          type: Number
-        }),
-        yDepth: () => ({
-          value: 20,
-          type: Number
-        }),
-        xLimit: () => ({
-          value: 1e3,
-          type: Number
-        }),
-        yLimit: () => ({
-          value: 1e3,
-          type: Number
-        }),
-        perspective: () => ({
-          value: 700,
-          type: Number
-        }),
-        debug: () => ({
-          value: false,
-          type: Boolean
-        }),
-        factor: () => ({
-          value: 45,
-          type: Number,
-          validate: (value) => {
+        xDepth: {
+          __value: 20,
+          __type: Number
+        },
+        yDepth: {
+          __value: 20,
+          __type: Number
+        },
+        xLimit: {
+          __value: 1e3,
+          __type: Number
+        },
+        yLimit: {
+          __value: 1e3,
+          __type: Number
+        },
+        perspective: {
+          __value: 700,
+          __type: Number
+        },
+        debug: {
+          __value: false,
+          __type: Boolean
+        },
+        factor: {
+          __value: 45,
+          __type: Number,
+          __validate: (value) => {
             return value > 1;
           },
-          strict: true
-        }),
-        controlsActive: () => ({
-          value: false,
-          type: Boolean
-        })
+          __strict: true
+        },
+        controlsActive: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -34083,11 +34081,11 @@
       tag: "only-desktop-cta",
       component: OnlyDesktopFnCta,
       state: {
-        active: () => ({
-          value: false,
-          type: Boolean,
-          skipEqual: false
-        })
+        active: {
+          __value: false,
+          __type: Boolean,
+          __skipEqual: false
+        }
       }
     }
   );
@@ -34664,22 +34662,22 @@
       component: AsyncTimelineFn,
       props: {
         background: "",
-        disableOffcanvas: () => ({
+        disableOffcanvas: {
           // value: detectFirefox() || detectSafari() ? true : false,
-          value: true,
-          type: Boolean
-        })
+          __value: true,
+          __type: Boolean
+        }
       },
       state: {
         isMounted: false,
-        controlsActive: () => ({
-          value: false,
-          type: Boolean
-        }),
-        buttons: () => ({
-          value: buttons4,
-          type: "Any"
-        })
+        controlsActive: {
+          __value: false,
+          __type: Boolean
+        },
+        buttons: {
+          __value: buttons4,
+          __type: "Any"
+        }
       }
     }
   );
@@ -35121,14 +35119,14 @@
       tag: "mobbu-2025",
       component: Mobbu2025fn,
       props: {
-        layer02: () => ({
-          value: document.createElement("div"),
-          type: Element
-        }),
-        layer03: () => ({
-          value: document.createElement("div"),
-          type: Element
-        })
+        layer02: {
+          __value: document.createElement("div"),
+          __type: Element
+        },
+        layer03: {
+          __value: document.createElement("div"),
+          __type: Element
+        }
       }
     }
   );
@@ -35192,10 +35190,10 @@
       tag: "any-component",
       component: AnyComponentFn,
       props: {
-        content: () => ({
-          value: "",
-          type: String
-        })
+        content: {
+          __value: "",
+          __type: String
+        }
       }
     }
   );
@@ -35555,67 +35553,67 @@
       tag: "c-dragger",
       component: DraggerFn,
       props: {
-        rootClass: () => ({
-          value: "",
-          type: String
-        }),
-        childrenClass: () => ({
-          value: "",
-          type: String
-        }),
-        containerClass: () => ({
-          value: "",
-          type: String
-        }),
-        initialZoom: () => ({
-          value: 1,
-          type: Number
-        }),
-        ease: () => ({
-          value: true,
-          type: Boolean
-        }),
-        align: () => ({
-          value: DRAGGER_CENTER,
-          type: String,
-          transform: (value) => {
+        rootClass: {
+          __value: "",
+          __type: String
+        },
+        childrenClass: {
+          __value: "",
+          __type: String
+        },
+        containerClass: {
+          __value: "",
+          __type: String
+        },
+        initialZoom: {
+          __value: 1,
+          __type: Number
+        },
+        ease: {
+          __value: true,
+          __type: Boolean
+        },
+        align: {
+          __value: DRAGGER_CENTER,
+          __type: String,
+          __transform: (value) => {
             return value.toUpperCase();
           }
-        }),
-        usePrespective: () => ({
-          value: true,
-          type: Boolean
-        }),
-        perspective: () => ({
-          value: 600,
-          type: Number
-        }),
-        hideThreshold: () => ({
-          value: 1,
-          type: Number
-        }),
-        depthFactor: () => ({
-          value: 30,
-          type: Number
-        }),
-        maxLowDepth: () => ({
-          value: -200,
-          type: Number
-        }),
-        maxHightDepth: () => ({
-          value: 200,
-          type: Number
-        }),
-        afterInit: () => ({
-          value: () => {
+        },
+        usePrespective: {
+          __value: true,
+          __type: Boolean
+        },
+        perspective: {
+          __value: 600,
+          __type: Number
+        },
+        hideThreshold: {
+          __value: 1,
+          __type: Number
+        },
+        depthFactor: {
+          __value: 30,
+          __type: Number
+        },
+        maxLowDepth: {
+          __value: -200,
+          __type: Number
+        },
+        maxHightDepth: {
+          __value: 200,
+          __type: Number
+        },
+        afterInit: {
+          __value: () => {
           },
-          type: Function
-        }),
-        onDepthChange: () => ({
-          value: () => {
+          __type: Function
+        },
+        onDepthChange: {
+          __value: () => {
           },
-          type: Function
-        })
+          __type: Function
+        }
       }
     }
   );
@@ -36429,22 +36427,22 @@
       tag: "math-animation",
       component: MathAnimationFn,
       props: {
-        name: () => ({
-          value: "",
-          type: String
-        }),
-        showNavigation: () => ({
-          value: true,
-          type: Boolean
-        }),
-        numberOfStaggers: () => ({
-          value: 5,
-          type: Number
-        }),
-        args: () => ({
-          value: [],
-          type: Array
-        })
+        name: {
+          __value: "",
+          __type: String
+        },
+        showNavigation: {
+          __value: true,
+          __type: Boolean
+        },
+        numberOfStaggers: {
+          __value: 5,
+          __type: Number
+        },
+        args: {
+          __value: [],
+          __type: Array
+        }
       }
     }
   );
@@ -36642,34 +36640,34 @@
       tag: "rosa-di-grandi-page",
       component: RosaDiGrandiPageFn,
       state: {
-        numerators: () => ({
-          value: 2,
-          type: Number
-        }),
-        denominator: () => ({
-          value: 3,
-          type: Number
-        }),
-        numeratorsLabel: () => ({
-          value: 2,
-          type: Number
-        }),
-        denominatorLabel: () => ({
-          value: 3,
-          type: Number
-        }),
-        duration: () => ({
-          value: 500,
-          type: Number
-        }),
-        staggerEach: () => ({
-          value: 4,
-          type: Number
-        }),
-        controlsActive: () => ({
-          value: false,
-          type: Boolean
-        })
+        numerators: {
+          __value: 2,
+          __type: Number
+        },
+        denominator: {
+          __value: 3,
+          __type: Number
+        },
+        numeratorsLabel: {
+          __value: 2,
+          __type: Number
+        },
+        denominatorLabel: {
+          __value: 3,
+          __type: Number
+        },
+        duration: {
+          __value: 500,
+          __type: Number
+        },
+        staggerEach: {
+          __value: 4,
+          __type: Number
+        },
+        controlsActive: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -38273,14 +38271,14 @@
       tag: "debug-tree",
       component: DebugTreeFn,
       state: {
-        data: () => ({
-          value: [],
-          type: Array
-        }),
-        isLoading: () => ({
-          value: false,
-          type: Boolean
-        })
+        data: {
+          __value: [],
+          __type: Array
+        },
+        isLoading: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -38364,10 +38362,10 @@
   var debugActiveComponentStore = modules_exports.createStore(
     /** @type {MobStoreParams<import('./type').DebugActiveComponentStore>} */
     {
-      currentId: () => ({
-        value: "",
-        type: String
-      })
+      currentId: {
+        __value: "",
+        ___type: String
+      }
     }
   );
 
@@ -38379,24 +38377,24 @@
       component: DebugFilterListItemFn,
       bindStore: debugActiveComponentStore,
       props: {
-        id: () => ({
-          value: "",
-          type: String
-        }),
-        tag: () => ({
-          value: "",
-          type: String
-        }),
-        name: () => ({
-          value: "",
-          type: String
-        })
+        id: {
+          __value: "",
+          __type: String
+        },
+        tag: {
+          __value: "",
+          __type: String
+        },
+        name: {
+          __value: "",
+          __type: String
+        }
       },
       state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
+        active: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -38597,18 +38595,18 @@
       tag: "debug-filter-list",
       component: DebugFilterListFn,
       state: {
-        data: () => ({
-          value: [],
-          type: Array
-        }),
-        isLoading: () => ({
-          value: true,
-          type: Boolean
-        }),
-        noResult: () => ({
-          value: false,
-          type: Boolean
-        })
+        data: {
+          __value: [],
+          __type: Array
+        },
+        isLoading: {
+          __value: true,
+          __type: Boolean
+        },
+        noResult: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -39074,16 +39072,16 @@
       tag: "debug-component",
       component: DebugComponentFn,
       state: {
-        id: () => ({
-          value: RESET_FILTER_DEBUG,
-          type: String,
-          skipEqual: false
-        }),
-        parentId: () => ({
-          value: "",
-          type: String,
-          skipEqual: false
-        })
+        id: {
+          __value: RESET_FILTER_DEBUG,
+          __type: String,
+          __skipEqual: false
+        },
+        parentId: {
+          __value: "",
+          __type: String,
+          __skipEqual: false
+        }
       }
     }
   );
@@ -39319,17 +39317,17 @@
       tag: "debug-head",
       component: DebugHeadFn,
       props: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
+        active: {
+          __value: false,
+          __type: Boolean
+        }
       },
       state: {
-        shouldUpdate: () => ({
-          value: true,
-          type: Boolean,
-          skipEqual: false
-        })
+        shouldUpdate: {
+          __value: true,
+          __type: Boolean,
+          __skipEqual: false
+        }
       }
     }
   );
@@ -39600,14 +39598,14 @@
       tag: "debug-overlay",
       component: DebugOverlayFn,
       state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        }),
-        listType: () => ({
-          value: DEBUG_USE_TREE,
-          type: String
-        })
+        active: {
+          __value: false,
+          __type: Boolean
+        },
+        listType: {
+          __value: DEBUG_USE_TREE,
+          __type: String
+        }
       }
     }
   );
@@ -39632,18 +39630,18 @@
       tag: "sidebar-links-button",
       component: SideBarLinksButtonFn,
       props: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        url: () => ({
-          value: "",
-          type: String
-        }),
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
+        label: {
+          __value: "",
+          __type: String
+        },
+        url: {
+          __value: "",
+          __type: String
+        },
+        active: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -39805,22 +39803,22 @@
       tag: "side-bar-links",
       component: SideBarLinksFn,
       state: {
-        data: () => ({
-          value: [],
-          type: Array
-        }),
-        activeSection: () => ({
-          value: "",
-          type: String
-        }),
-        hide: () => ({
-          value: true,
-          type: Boolean
-        }),
-        shift: () => ({
-          value: false,
-          type: Boolean
-        })
+        data: {
+          __value: [],
+          __type: Array
+        },
+        activeSection: {
+          __value: "",
+          __type: String
+        },
+        hide: {
+          __value: true,
+          __type: Boolean
+        },
+        shift: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -39974,26 +39972,26 @@
       tag: "quick-nav",
       component: QuickNavFn,
       state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        }),
-        backRoute: () => ({
-          value: "",
-          type: String
-        }),
-        prevRoute: () => ({
-          value: "",
-          type: String
-        }),
-        nextRoute: () => ({
-          value: "",
-          type: String
-        }),
-        currentLabelId: () => ({
-          value: -1,
-          type: Number
-        })
+        active: {
+          __value: false,
+          __type: Boolean
+        },
+        backRoute: {
+          __value: "",
+          __type: String
+        },
+        prevRoute: {
+          __value: "",
+          __type: String
+        },
+        nextRoute: {
+          __value: "",
+          __type: String
+        },
+        currentLabelId: {
+          __value: -1,
+          __type: Number
+        }
       }
     }
   );
@@ -40073,14 +40071,14 @@
       component: LightSidebarFn,
       bindStore: modules_exports2.mainStore,
       state: {
-        data: () => ({
-          value: [],
-          type: Array
-        }),
-        isVisible: () => ({
-          value: false,
-          type: Boolean
-        })
+        data: {
+          __value: [],
+          __type: Array
+        },
+        isVisible: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -40141,18 +40139,18 @@
       tag: "route-loader",
       component: RouteLoaderFn,
       state: {
-        isLoading: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isDisable: () => ({
-          value: false,
-          type: Boolean
-        }),
-        skip: () => ({
-          value: true,
-          type: Boolean
-        })
+        isLoading: {
+          __value: false,
+          __type: Boolean
+        },
+        isDisable: {
+          __value: false,
+          __type: Boolean
+        },
+        skip: {
+          __value: true,
+          __type: Boolean
+        }
       }
     }
   );
@@ -40180,10 +40178,10 @@
       tag: "scroll-down-label",
       component: ScrollDownLabelFn,
       state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
+        active: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -40375,26 +40373,26 @@
       tag: "search-overlay-list-item",
       component: SearchOverlayListItemFn,
       props: {
-        uri: () => ({
-          value: "",
-          type: String
-        }),
-        breadCrumbs: () => ({
-          value: "",
-          type: String
-        }),
-        title: () => ({
-          value: "",
-          type: String
-        }),
-        count: () => ({
-          value: 0,
-          type: Number
-        }),
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
+        uri: {
+          __value: "",
+          __type: String
+        },
+        breadCrumbs: {
+          __value: "",
+          __type: String
+        },
+        title: {
+          __value: "",
+          __type: String
+        },
+        count: {
+          __value: 0,
+          __type: Number
+        },
+        active: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -40566,25 +40564,25 @@
       component: SearchOverlayListFn,
       bindStore: modules_exports2.mainStore,
       props: {
-        updatePrentSearchKey: () => ({
-          value: () => {
+        updatePrentSearchKey: {
+          __value: () => {
           },
-          type: Function
-        })
+          __type: Function
+        }
       },
       state: {
-        list: () => ({
-          value: [],
-          type: Array
-        }),
-        loading: () => ({
-          value: false,
-          type: Boolean
-        }),
-        noResult: () => ({
-          value: false,
-          type: Boolean
-        })
+        list: {
+          __value: [],
+          __type: Array
+        },
+        loading: {
+          __value: false,
+          __type: Boolean
+        },
+        noResult: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -40645,14 +40643,14 @@
       tag: "search-overlay-suggestion-item",
       component: SearchOverlaySuggestionItemFn,
       props: {
-        word: () => ({
-          value: "",
-          type: String
-        }),
-        wordHiglight: () => ({
-          value: "",
-          type: String
-        })
+        word: {
+          __value: "",
+          __type: String
+        },
+        wordHiglight: {
+          __value: "",
+          __type: String
+        }
       }
     }
   );
@@ -40701,10 +40699,10 @@
       tag: "search-overlay-suggestion",
       component: SearchOverlaySuggestionFn,
       props: {
-        list: () => ({
-          value: [],
-          type: Array
-        })
+        list: {
+          __value: [],
+          __type: Array
+        }
       }
     }
   );
@@ -40915,14 +40913,14 @@
       tag: "search-overlay-header",
       component: SearchOverlayHeaderFn,
       state: {
-        suggestionListActive: () => ({
-          value: false,
-          type: Boolean
-        }),
-        suggestionListData: () => ({
-          value: [],
-          type: Array
-        })
+        suggestionListActive: {
+          __value: false,
+          __type: Boolean
+        },
+        suggestionListData: {
+          __value: [],
+          __type: Array
+        }
       }
     }
   );
@@ -41039,14 +41037,14 @@
       tag: "search-overlay",
       component: SearchOverlayFn,
       state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        }),
-        currentSearch: () => ({
-          value: "",
-          type: String
-        })
+        active: {
+          __value: false,
+          __type: Boolean
+        },
+        currentSearch: {
+          __value: "",
+          __type: String
+        }
       }
     }
   );
@@ -41167,10 +41165,10 @@
       tag: "mob-footer",
       component: FooterFn,
       state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
+        isMounted: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -41226,20 +41224,20 @@
       component: HeaderMainMenuButtonFn,
       bindStore: navigationStore,
       props: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        section: () => ({
-          value: "",
-          type: String
-        })
+        label: {
+          __value: "",
+          __type: String
+        },
+        section: {
+          __value: "",
+          __type: String
+        }
       },
       state: {
-        active: () => ({
-          value: false,
-          type: Boolean
-        })
+        active: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -41304,10 +41302,10 @@
       tag: "header-main-menu",
       component: headerMainMenuFn,
       state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
+        isMounted: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -41460,10 +41458,10 @@
       component: HeaderToggleFn,
       bindStore: navigationStore,
       state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
+        isMounted: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -41575,10 +41573,10 @@
       tag: "mob-header",
       component: HeaderFn,
       state: {
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
+        isMounted: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -41688,18 +41686,18 @@
       component: NavigationLabelFn,
       bindStore: navigationStore,
       props: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        sectioName: () => ({
-          value: "",
-          type: String
-        }),
-        hide: () => ({
-          value: false,
-          type: Boolean
-        })
+        label: {
+          __value: "",
+          __type: String
+        },
+        sectioName: {
+          __value: "",
+          __type: String
+        },
+        hide: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -41768,53 +41766,53 @@
       tag: "mob-navigation-button",
       component: NavigationButtonFn,
       props: {
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        url: () => ({
-          value: "",
-          type: String
-        }),
-        arrowClass: () => ({
-          value: "",
-          type: String
-        }),
-        subMenuClass: () => ({
-          value: "",
-          type: String
-        }),
-        fireRoute: () => ({
-          value: true,
-          type: Boolean
-        }),
-        callback: () => ({
-          value: () => {
+        label: {
+          __value: "",
+          __type: String
+        },
+        url: {
+          __value: "",
+          __type: String
+        },
+        arrowClass: {
+          __value: "",
+          __type: String
+        },
+        subMenuClass: {
+          __value: "",
+          __type: String
+        },
+        fireRoute: {
+          __value: true,
+          __type: Boolean
+        },
+        callback: {
+          __value: () => {
           },
-          type: Function
-        }),
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        }),
-        scrollToSection: () => ({
-          value: "",
-          type: String
-        }),
-        activeId: () => ({
-          value: -1,
-          type: Number
-        }),
-        forceChildren: () => ({
-          value: [],
-          type: Array
-        })
+          __type: Function
+        },
+        isOpen: {
+          __value: false,
+          __type: Boolean
+        },
+        scrollToSection: {
+          __value: "",
+          __type: String
+        },
+        activeId: {
+          __value: -1,
+          __type: Number
+        },
+        forceChildren: {
+          __value: [],
+          __type: Array
+        }
       },
       state: {
-        isCurrent: () => ({
-          value: false,
-          type: Boolean
-        })
+        isCurrent: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -41921,23 +41919,23 @@
       tag: "mob-navigation-submenu",
       component: NavigationSubmenuFn,
       props: {
-        callback: () => ({
-          value: () => {
+        callback: {
+          __value: () => {
           },
-          type: Function
-        }),
-        headerButton: () => ({
-          value: {},
-          type: "Any"
-        }),
-        children: () => ({
-          value: [],
-          type: Array
-        }),
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        })
+          __type: Function
+        },
+        headerButton: {
+          __value: {},
+          __type: "Any"
+        },
+        children: {
+          __value: [],
+          __type: Array
+        },
+        isOpen: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -42049,11 +42047,11 @@
       tag: "mob-navigation",
       component: NavigationFn,
       state: {
-        currentAccordionId: () => ({
-          value: -1,
-          type: Number,
-          skipEqual: false
-        })
+        currentAccordionId: {
+          __value: -1,
+          __type: Number,
+          __skipEqual: false
+        }
       }
     }
   );
@@ -42165,14 +42163,14 @@
       tag: "mob-navigation-container",
       component: NavigationContainerFn,
       state: {
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isMounted: () => ({
-          value: false,
-          type: Boolean
-        })
+        isOpen: {
+          __value: false,
+          __type: Boolean
+        },
+        isMounted: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -42209,10 +42207,10 @@
       tag: "svg-star",
       component: StarSvgFn,
       props: {
-        fill: () => ({
-          value: "#000000",
-          type: String
-        })
+        fill: {
+          __value: "#000000",
+          __type: String
+        }
       }
     }
   );
@@ -42372,36 +42370,36 @@
       component: DebugTreeItemFn,
       bindStore: debugActiveComponentStore,
       props: {
-        id: () => ({
-          value: "",
-          type: String
-        }),
-        componentName: () => ({
-          value: "",
-          type: String
-        }),
-        instanceName: () => ({
-          value: "",
-          type: String
-        }),
-        children: () => ({
-          value: [],
-          type: Array
-        })
+        id: {
+          __value: "",
+          __type: String
+        },
+        componentName: {
+          __value: "",
+          __type: String
+        },
+        instanceName: {
+          __value: "",
+          __type: String
+        },
+        children: {
+          __value: [],
+          __type: Array
+        }
       },
       state: {
-        isOpen: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isActive: () => ({
-          value: false,
-          type: Boolean
-        }),
-        hasActiveChildren: () => ({
-          value: false,
-          type: Boolean
-        })
+        isOpen: {
+          __value: false,
+          __type: Boolean
+        },
+        isActive: {
+          __value: false,
+          __type: Boolean
+        },
+        hasActiveChildren: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -43204,28 +43202,28 @@
       tag: "mob-snippet",
       component: SnippetFn,
       props: {
-        source: () => ({
-          value: "",
-          type: String
-        }),
-        numLines: () => ({
-          value: 1,
-          type: Number
-        }),
-        awaitLoad: () => ({
-          value: false,
-          type: Boolean
-        })
+        source: {
+          __value: "",
+          __type: String
+        },
+        numLines: {
+          __value: 1,
+          __type: Number
+        },
+        awaitLoad: {
+          __value: false,
+          __type: Boolean
+        }
       },
       state: {
-        contentIsLoaded: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isExpanded: () => ({
-          value: false,
-          type: Boolean
-        })
+        contentIsLoaded: {
+          __value: false,
+          __type: Boolean
+        },
+        isExpanded: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -43286,28 +43284,28 @@
       tag: "mob-spacer",
       component: SpacerAnchorFn,
       props: {
-        style: () => ({
-          value: "x-small",
-          type: String,
-          validate: (val) => ["x-small", "small", "medium", "big"].includes(val),
-          strict: true
-        }),
-        id: () => ({
-          value: "",
-          type: String
-        }),
-        label: () => ({
-          value: "",
-          type: String
-        }),
-        isSection: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isNote: () => ({
-          value: false,
-          type: Boolean
-        })
+        style: {
+          __value: "x-small",
+          __type: String,
+          __validate: (val) => ["x-small", "small", "medium", "big"].includes(val),
+          __strict: true
+        },
+        id: {
+          __value: "",
+          __type: String
+        },
+        label: {
+          __value: "",
+          __type: String
+        },
+        isSection: {
+          __value: false,
+          __type: Boolean
+        },
+        isNote: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -43356,14 +43354,14 @@
       tag: "anchor-button",
       component: AnchorButtonFn,
       props: {
-        anchor: () => ({
-          value: "",
-          type: String
-        }),
-        content: () => ({
-          value: "",
-          type: String
-        })
+        anchor: {
+          __value: "",
+          __type: String
+        },
+        content: {
+          __value: "",
+          __type: String
+        }
       }
     }
   );
@@ -43423,33 +43421,33 @@
       tag: "mob-list",
       component: ListFn,
       props: {
-        style: () => ({
-          value: "medium",
-          type: String,
-          validate: (val) => ["small", "medium", "big"].includes(val),
-          strict: true
-        }),
-        dots: () => ({
-          value: true,
-          type: Boolean
-        }),
-        links: () => ({
-          value: false,
-          type: Boolean
-        }),
-        color: () => ({
-          value: "black",
-          type: String,
-          validate: (val) => {
+        style: {
+          __value: "medium",
+          __type: String,
+          __validate: (val) => ["small", "medium", "big"].includes(val),
+          __strict: true
+        },
+        dots: {
+          __value: true,
+          __type: Boolean
+        },
+        links: {
+          __value: false,
+          __type: Boolean
+        },
+        color: {
+          __value: "black",
+          __type: String,
+          __validate: (val) => {
             return ["white", "black", "grey", "hightlight"].includes(
               val
             );
           }
-        }),
-        items: () => ({
-          value: [],
-          type: Array
-        })
+        },
+        items: {
+          __value: [],
+          __type: Array
+        }
       }
     }
   );
@@ -43476,29 +43474,29 @@
       tag: "mob-paragraph",
       component: ParagraphFn,
       props: {
-        style: () => ({
-          value: "medium",
-          type: String,
-          validate: (val) => ["small", "medium", "big"].includes(val),
-          strict: true
-        }),
-        color: () => ({
-          value: "inherit",
-          type: String,
-          validate: (val) => {
+        style: {
+          __value: "medium",
+          __type: String,
+          __validate: (val) => ["small", "medium", "big"].includes(val),
+          __strict: true
+        },
+        color: {
+          __value: "inherit",
+          __type: String,
+          __validate: (val) => {
             return ["inherit", "white", "hightlight", "black"].includes(
               val
             );
           }
-        }),
-        boxed: () => ({
-          value: false,
-          type: Boolean
-        }),
-        note: () => ({
-          value: false,
-          type: Boolean
-        })
+        },
+        boxed: {
+          __value: false,
+          __type: Boolean
+        },
+        note: {
+          __value: false,
+          __type: Boolean
+        }
       }
     }
   );
@@ -43539,29 +43537,29 @@
       tag: "mob-title",
       component: TitleFn,
       props: {
-        tag: () => ({
-          value: "h1",
-          type: String
-        }),
-        color: () => ({
-          value: "inherit",
-          type: String,
-          validate: (val) => {
+        tag: {
+          __value: "h1",
+          __type: String
+        },
+        color: {
+          __value: "inherit",
+          __type: String,
+          __validate: (val) => {
             return ["inherit", "white", "black"].includes(val);
           }
-        }),
-        isSection: () => ({
-          value: false,
-          type: Boolean
-        }),
-        isBold: () => ({
-          value: false,
-          type: Boolean
-        }),
-        index: () => ({
-          value: "",
-          type: String
-        })
+        },
+        isSection: {
+          __value: false,
+          __type: Boolean
+        },
+        isBold: {
+          __value: false,
+          __type: Boolean
+        },
+        index: {
+          __value: "",
+          __type: String
+        }
       }
     }
   );
@@ -43597,25 +43595,25 @@
       tag: "doc-svg",
       component: DocSvgFn,
       props: {
-        className: () => ({
-          value: "",
-          type: String
-        }),
-        url: () => ({
-          value: "",
-          type: String
-        })
+        className: {
+          __value: "",
+          __type: String
+        },
+        url: {
+          __value: "",
+          __type: String
+        }
       },
       state: {
-        source: () => ({
-          value: (
+        source: {
+          __value: (
             /* HTML */
             `<span class="loading">
                     loading image ...
                 </span>`
           ),
-          type: String
-        })
+          __type: String
+        }
       }
     }
   );
@@ -43624,33 +43622,33 @@
   var defaultAmountOfCard = 10;
   var benchMarkDefinitionPartial = (maxItem = 1001) => ({
     state: {
-      counter: () => ({
-        value: 0,
-        type: Number
-      }),
-      data: () => ({
-        value: [...Array.from({ length: defaultAmountOfCard }).keys()].map(
-          (item) => ({ label: `comp-${item + 1}` })
-        ),
-        type: Array,
-        validate: (value) => value.length < maxItem,
-        strict: true,
-        skipEqual: false
-      }),
-      time: () => ({
-        value: 0,
-        type: Number,
-        transform: (value) => Math.round(value),
-        skipEqual: false
-      }),
-      isLoading: () => ({
-        value: false,
-        type: Boolean
-      }),
-      currentIndex: () => ({
-        value: -1,
-        type: Number
-      })
+      counter: {
+        __value: 0,
+        __type: Number
+      },
+      data: {
+        __value: [
+          ...Array.from({ length: defaultAmountOfCard }).keys()
+        ].map((item) => ({ label: `comp-${item + 1}` })),
+        __type: Array,
+        __validate: (value) => value.length < maxItem,
+        __strict: true,
+        __skipEqual: false
+      },
+      time: {
+        __value: 0,
+        __type: Number,
+        __transform: (value) => Math.round(value),
+        __skipEqual: false
+      },
+      isLoading: {
+        __value: false,
+        __type: Boolean
+      },
+      currentIndex: {
+        __value: -1,
+        __type: Number
+      }
     }
   });
 
@@ -44392,29 +44390,29 @@
   var externalBenchmarkStore = modules_exports.createStore(
     /** @type {MobStoreParams<import('./type').ExternalStore>} */
     {
-      data: () => ({
-        value: [...Array.from({ length: defaultAmountOfCard }).keys()].map(
-          (item) => ({ label: `comp-${item + 1}` })
-        ),
-        type: Array,
-        validate: (value) => value.length < 1001,
-        strict: true,
-        skipEqual: false
-      }),
-      counter: () => ({
-        value: 0,
-        type: Number
-      }),
-      time: () => ({
-        value: 0,
-        type: Number,
-        transform: (value) => Math.round(value),
-        skipEqual: false
-      }),
-      isLoading: () => ({
-        value: false,
-        type: Boolean
-      })
+      data: {
+        __value: [
+          ...Array.from({ length: defaultAmountOfCard }).keys()
+        ].map((item) => ({ label: `comp-${item + 1}` })),
+        __type: Array,
+        __validate: (value) => value.length < 1001,
+        __strict: true,
+        __skipEqual: false
+      },
+      counter: {
+        __value: 0,
+        __type: Number
+      },
+      time: {
+        __value: 0,
+        __type: Number,
+        __transform: (value) => Math.round(value),
+        __skipEqual: false
+      },
+      isLoading: {
+        __value: false,
+        __type: Boolean
+      }
     }
   );
 

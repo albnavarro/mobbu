@@ -13,36 +13,36 @@ export const DebugTreeItem = MobJs.createComponent(
         component: DebugTreeItemFn,
         bindStore: debugActiveComponentStore,
         props: {
-            id: () => ({
-                value: '',
-                type: String,
-            }),
-            componentName: () => ({
-                value: '',
-                type: String,
-            }),
-            instanceName: () => ({
-                value: '',
-                type: String,
-            }),
-            children: () => ({
-                value: [],
-                type: Array,
-            }),
+            id: {
+                __value: '',
+                __type: String,
+            },
+            componentName: {
+                __value: '',
+                __type: String,
+            },
+            instanceName: {
+                __value: '',
+                __type: String,
+            },
+            children: {
+                __value: [],
+                __type: Array,
+            },
         },
         state: {
-            isOpen: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            isActive: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            hasActiveChildren: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            isOpen: {
+                __value: false,
+                __type: Boolean,
+            },
+            isActive: {
+                __value: false,
+                __type: Boolean,
+            },
+            hasActiveChildren: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

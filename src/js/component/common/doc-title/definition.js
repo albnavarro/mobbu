@@ -10,6 +10,5 @@ export const DocTitle = MobJs.createComponent(
     ({
         tag: 'doc-title',
         component: DocTitleFn,
-        state: {},
     })
 );

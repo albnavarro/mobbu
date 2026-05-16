@@ -11,29 +11,29 @@ export const Title = MobJs.createComponent(
         tag: 'mob-title',
         component: TitleFn,
         props: {
-            tag: () => ({
-                value: 'h1',
-                type: String,
-            }),
-            color: () => ({
-                value: 'inherit',
-                type: String,
-                validate: (val) => {
+            tag: {
+                __value: 'h1',
+                __type: String,
+            },
+            color: {
+                __value: 'inherit',
+                __type: String,
+                __validate: (val) => {
                     return ['inherit', 'white', 'black'].includes(val);
                 },
-            }),
-            isSection: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            isBold: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            index: () => ({
-                value: '',
-                type: String,
-            }),
+            },
+            isSection: {
+                __value: false,
+                __type: Boolean,
+            },
+            isBold: {
+                __value: false,
+                __type: Boolean,
+            },
+            index: {
+                __value: '',
+                __type: String,
+            },
         },
     })
 );

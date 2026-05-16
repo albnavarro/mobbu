@@ -11,14 +11,14 @@ export const SearchOverlaySuggestionItem = MobJs.createComponent(
         tag: 'search-overlay-suggestion-item',
         component: SearchOverlaySuggestionItemFn,
         props: {
-            word: () => ({
-                value: '',
-                type: String,
-            }),
-            wordHiglight: () => ({
-                value: '',
-                type: String,
-            }),
+            word: {
+                __value: '',
+                __type: String,
+            },
+            wordHiglight: {
+                __value: '',
+                __type: String,
+            },
         },
     })
 );

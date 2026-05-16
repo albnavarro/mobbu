@@ -13,34 +13,34 @@ export const CaterpillarN1 = MobJs.createComponent(
         tag: 'caterpillar-n1',
         component: CaterpillarN1Fn,
         props: {
-            background: () => ({
-                value: '',
-                type: String,
-            }),
-            disableOffcanvas: () => ({
+            background: {
+                __value: '',
+                __type: String,
+            },
+            disableOffcanvas: {
                 // value: detectFirefox() || detectSafari() ? true : false,
-                value: true,
-                type: Boolean,
-            }),
+                __value: true,
+                __type: Boolean,
+            },
         },
         state: {
             isMounted: false,
-            controlsActive: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            destroy: () => ({
-                value: () => {},
-                type: Function,
-            }),
-            stopBlackOne: () => ({
-                value: () => {},
-                type: Function,
-            }),
-            blackOneIsStopped: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            controlsActive: {
+                __value: false,
+                __type: Boolean,
+            },
+            destroy: {
+                __value: () => {},
+                __type: Function,
+            },
+            stopBlackOne: {
+                __value: () => {},
+                __type: Function,
+            },
+            blackOneIsStopped: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

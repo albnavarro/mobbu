@@ -11,22 +11,22 @@ export const ScrollTo = MobJs.createComponent(
         tag: 'scroll-to',
         component: ScrollToFn,
         state: {
-            activeLabel: () => ({
-                value: '',
-                type: String,
-            }),
-            updateAnchorOnWheel: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            anchorItemsToBeComputed: () => ({
-                value: [],
-                type: Array,
-            }),
-            anchorItems: () => ({
-                value: [],
-                type: Array,
-                transform: (value) => {
+            activeLabel: {
+                __value: '',
+                __type: String,
+            },
+            updateAnchorOnWheel: {
+                __value: false,
+                __type: Boolean,
+            },
+            anchorItemsToBeComputed: {
+                __value: [],
+                __type: Array,
+            },
+            anchorItems: {
+                __value: [],
+                __type: Array,
+                __transform: (value) => {
                     return value.toSorted(
                         function (/** @type {any} */ a, /** @type {any} */ b) {
                             const { element: elementA } = a;
@@ -43,7 +43,7 @@ export const ScrollTo = MobJs.createComponent(
                         }
                     );
                 },
-            }),
+            },
         },
     })
 );

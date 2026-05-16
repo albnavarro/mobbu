@@ -11,10 +11,10 @@ export const Header = MobJs.createComponent(
         tag: 'mob-header',
         component: HeaderFn,
         state: {
-            isMounted: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            isMounted: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

@@ -10,18 +10,18 @@ export const RouteLoader = MobJs.createComponent(
         tag: 'route-loader',
         component: RouteLoaderFn,
         state: {
-            isLoading: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            isDisable: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            skip: () => ({
-                value: true,
-                type: Boolean,
-            }),
+            isLoading: {
+                __value: false,
+                __type: Boolean,
+            },
+            isDisable: {
+                __value: false,
+                __type: Boolean,
+            },
+            skip: {
+                __value: true,
+                __type: Boolean,
+            },
         },
     })
 );

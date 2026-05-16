@@ -11,30 +11,30 @@ export const DynamicListRepeater = MobJs.createComponent(
         tag: 'dynamic-list-repeater',
         component: DynamicListRepeaterFn,
         props: {
-            data: () => ({
-                value: [],
-                type: Array,
-            }),
-            key: () => ({
-                value: '',
-                type: String,
-            }),
-            clean: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            listId: () => ({
-                value: -1,
-                type: Number,
-            }),
-            counter: () => ({
-                value: -1,
-                type: Number,
-            }),
-            label: () => ({
-                value: '',
-                type: String,
-            }),
+            data: {
+                __value: [],
+                __type: Array,
+            },
+            key: {
+                __value: '',
+                __type: String,
+            },
+            clean: {
+                __value: false,
+                __type: Boolean,
+            },
+            listId: {
+                __value: -1,
+                __type: Number,
+            },
+            counter: {
+                __value: -1,
+                __type: Number,
+            },
+            label: {
+                __value: '',
+                __type: String,
+            },
         },
     })
 );

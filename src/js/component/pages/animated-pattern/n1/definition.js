@@ -13,15 +13,15 @@ export const AnimatedPatternN1 = MobJs.createComponent(
         tag: 'animatedpattern-n1',
         component: AnimatedPatternN1Fn,
         props: {
-            background: () => ({
-                value: '',
-                type: String,
-            }),
-            disableOffcanvas: () => ({
+            background: {
+                __value: '',
+                __type: String,
+            },
+            disableOffcanvas: {
                 // value: detectFirefox() || detectSafari() ? true : false,
-                value: true,
-                type: Boolean,
-            }),
+                __value: true,
+                __type: Boolean,
+            },
         },
         state: {
             isMounted: false,

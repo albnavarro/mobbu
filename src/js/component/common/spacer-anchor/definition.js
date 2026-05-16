@@ -11,29 +11,29 @@ export const SpacerAnchor = MobJs.createComponent(
         tag: 'mob-spacer',
         component: SpacerAnchorFn,
         props: {
-            style: () => ({
-                value: 'x-small',
-                type: String,
-                validate: (val) =>
+            style: {
+                __value: 'x-small',
+                __type: String,
+                __validate: (val) =>
                     ['x-small', 'small', 'medium', 'big'].includes(val),
-                strict: true,
-            }),
-            id: () => ({
-                value: '',
-                type: String,
-            }),
-            label: () => ({
-                value: '',
-                type: String,
-            }),
-            isSection: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            isNote: () => ({
-                value: false,
-                type: Boolean,
-            }),
+                __strict: true,
+            },
+            id: {
+                __value: '',
+                __type: String,
+            },
+            label: {
+                __value: '',
+                __type: String,
+            },
+            isSection: {
+                __value: false,
+                __type: Boolean,
+            },
+            isNote: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

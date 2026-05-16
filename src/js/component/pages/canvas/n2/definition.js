@@ -56,34 +56,34 @@ export const CaterpillarN2 = MobJs.createComponent(
         tag: 'caterpillar-n2',
         component: CaterpillarN2Fn,
         props: {
-            background: () => ({
-                value: '',
-                type: String,
-            }),
-            disableOffcanvas: () => ({
+            background: {
+                __value: '',
+                __type: String,
+            },
+            disableOffcanvas: {
                 // value: detectFirefox() || detectSafari() ? true : false,
-                value: true,
-                type: Boolean,
-            }),
+                __value: true,
+                __type: Boolean,
+            },
         },
         state: {
             isMounted: false,
-            rotation: () => ({
-                value: 166,
-                type: Number,
-            }),
-            rotationlabel: () => ({
-                value: 166,
-                type: Number,
-            }),
-            controlsActive: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            buttons: () => ({
-                value: buttons,
-                type: 'Any',
-            }),
+            rotation: {
+                __value: 166,
+                __type: Number,
+            },
+            rotationlabel: {
+                __value: 166,
+                __type: Number,
+            },
+            controlsActive: {
+                __value: false,
+                __type: Boolean,
+            },
+            buttons: {
+                __value: buttons,
+                __type: 'Any',
+            },
         },
     })
 );

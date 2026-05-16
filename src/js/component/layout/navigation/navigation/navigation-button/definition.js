@@ -11,52 +11,52 @@ export const NavigationButton = MobJs.createComponent(
         tag: 'mob-navigation-button',
         component: NavigationButtonFn,
         props: {
-            label: () => ({
-                value: '',
-                type: String,
-            }),
-            url: () => ({
-                value: '',
-                type: String,
-            }),
-            arrowClass: () => ({
-                value: '',
-                type: String,
-            }),
-            subMenuClass: () => ({
-                value: '',
-                type: String,
-            }),
-            fireRoute: () => ({
-                value: true,
-                type: Boolean,
-            }),
-            callback: () => ({
-                value: () => {},
-                type: Function,
-            }),
-            isOpen: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            scrollToSection: () => ({
-                value: '',
-                type: String,
-            }),
-            activeId: () => ({
-                value: -1,
-                type: Number,
-            }),
-            forceChildren: () => ({
-                value: [],
-                type: Array,
-            }),
+            label: {
+                __value: '',
+                __type: String,
+            },
+            url: {
+                __value: '',
+                __type: String,
+            },
+            arrowClass: {
+                __value: '',
+                __type: String,
+            },
+            subMenuClass: {
+                __value: '',
+                __type: String,
+            },
+            fireRoute: {
+                __value: true,
+                __type: Boolean,
+            },
+            callback: {
+                __value: () => {},
+                __type: Function,
+            },
+            isOpen: {
+                __value: false,
+                __type: Boolean,
+            },
+            scrollToSection: {
+                __value: '',
+                __type: String,
+            },
+            activeId: {
+                __value: -1,
+                __type: Number,
+            },
+            forceChildren: {
+                __value: [],
+                __type: Array,
+            },
         },
         state: {
-            isCurrent: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            isCurrent: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

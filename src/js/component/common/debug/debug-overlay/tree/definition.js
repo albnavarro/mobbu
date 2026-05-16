@@ -11,14 +11,14 @@ export const DebugTree = MobJs.createComponent(
         tag: 'debug-tree',
         component: DebugTreeFn,
         state: {
-            data: () => ({
-                value: [],
-                type: Array,
-            }),
-            isLoading: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            data: {
+                __value: [],
+                __type: Array,
+            },
+            isLoading: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

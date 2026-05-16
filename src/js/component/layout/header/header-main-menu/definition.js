@@ -11,10 +11,10 @@ export const HeaderMainMenu = MobJs.createComponent(
         tag: 'header-main-menu',
         component: headerMainMenuFn,
         state: {
-            isMounted: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            isMounted: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

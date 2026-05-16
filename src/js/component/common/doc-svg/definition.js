@@ -11,22 +11,22 @@ export const DocSvg = MobJs.createComponent(
         tag: 'doc-svg',
         component: DocSvgFn,
         props: {
-            className: () => ({
-                value: '',
-                type: String,
-            }),
-            url: () => ({
-                value: '',
-                type: String,
-            }),
+            className: {
+                __value: '',
+                __type: String,
+            },
+            url: {
+                __value: '',
+                __type: String,
+            },
         },
         state: {
-            source: () => ({
-                value: /* HTML */ `<span class="loading">
+            source: {
+                __value: /* HTML */ `<span class="loading">
                     loading image ...
                 </span>`,
-                type: String,
-            }),
+                __type: String,
+            },
         },
     })
 );

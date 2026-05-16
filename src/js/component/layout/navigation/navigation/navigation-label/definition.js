@@ -13,18 +13,18 @@ export const NavigationLabel = MobJs.createComponent(
         component: NavigationLabelFn,
         bindStore: navigationStore,
         props: {
-            label: () => ({
-                value: '',
-                type: String,
-            }),
-            sectioName: () => ({
-                value: '',
-                type: String,
-            }),
-            hide: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            label: {
+                __value: '',
+                __type: String,
+            },
+            sectioName: {
+                __value: '',
+                __type: String,
+            },
+            hide: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

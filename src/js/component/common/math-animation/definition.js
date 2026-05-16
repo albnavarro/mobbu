@@ -11,22 +11,22 @@ export const MathAnimation = MobJs.createComponent(
         tag: 'math-animation',
         component: MathAnimationFn,
         props: {
-            name: () => ({
-                value: '',
-                type: String,
-            }),
-            showNavigation: () => ({
-                value: true,
-                type: Boolean,
-            }),
-            numberOfStaggers: () => ({
-                value: 5,
-                type: Number,
-            }),
-            args: () => ({
-                value: [],
-                type: Array,
-            }),
+            name: {
+                __value: '',
+                __type: String,
+            },
+            showNavigation: {
+                __value: true,
+                __type: Boolean,
+            },
+            numberOfStaggers: {
+                __value: 5,
+                __type: Number,
+            },
+            args: {
+                __value: [],
+                __type: Array,
+            },
         },
     })
 );

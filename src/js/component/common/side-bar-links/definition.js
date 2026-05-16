@@ -11,22 +11,22 @@ export const SideBarLinks = MobJs.createComponent(
         tag: 'side-bar-links',
         component: SideBarLinksFn,
         state: {
-            data: () => ({
-                value: [],
-                type: Array,
-            }),
-            activeSection: () => ({
-                value: '',
-                type: String,
-            }),
-            hide: () => ({
-                value: true,
-                type: Boolean,
-            }),
-            shift: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            data: {
+                __value: [],
+                __type: Array,
+            },
+            activeSection: {
+                __value: '',
+                __type: String,
+            },
+            hide: {
+                __value: true,
+                __type: Boolean,
+            },
+            shift: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

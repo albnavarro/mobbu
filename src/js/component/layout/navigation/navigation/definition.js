@@ -10,11 +10,11 @@ export const Navigation = MobJs.createComponent(
         tag: 'mob-navigation',
         component: NavigationFn,
         state: {
-            currentAccordionId: () => ({
-                value: -1,
-                type: Number,
-                skipEqual: false,
-            }),
+            currentAccordionId: {
+                __value: -1,
+                __type: Number,
+                __skipEqual: false,
+            },
         },
     })
 );

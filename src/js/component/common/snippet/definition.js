@@ -11,28 +11,28 @@ export const Snippet = MobJs.createComponent(
         tag: 'mob-snippet',
         component: SnippetFn,
         props: {
-            source: () => ({
-                value: '',
-                type: String,
-            }),
-            numLines: () => ({
-                value: 1,
-                type: Number,
-            }),
-            awaitLoad: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            source: {
+                __value: '',
+                __type: String,
+            },
+            numLines: {
+                __value: 1,
+                __type: Number,
+            },
+            awaitLoad: {
+                __value: false,
+                __type: Boolean,
+            },
         },
         state: {
-            contentIsLoaded: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            isExpanded: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            contentIsLoaded: {
+                __value: false,
+                __type: Boolean,
+            },
+            isExpanded: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

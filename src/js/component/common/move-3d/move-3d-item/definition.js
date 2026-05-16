@@ -11,78 +11,78 @@ export const Move3DItem = MobJs.createComponent(
         tag: 'move-3d-item',
         component: Move3DItemfn,
         props: {
-            root: () => ({
-                value: true,
-                type: Boolean,
-            }),
-            depth: () => ({
-                value: 0,
-                type: Number,
-            }),
-            rotate: () => ({
-                value: 'x',
-                type: String,
-            }),
-            width: () => ({
-                value: '0px',
-                type: String,
-            }),
-            height: () => ({
-                value: '0px',
-                type: String,
-            }),
-            offsetX: () => ({
-                value: '0px',
-                type: String,
-            }),
-            offsetY: () => ({
-                value: '0px',
-                type: String,
-            }),
-            range: () => ({
-                value: 20,
-                type: Number,
-            }),
-            anchorPoint: () => ({
-                value: 'center',
-                type: String,
-            }),
-            animate: () => ({
-                value: true,
-                type: Boolean,
-            }),
-            initialRotate: () => ({
-                value: 0,
-                type: Number,
-            }),
-            initialDepth: () => ({
-                value: 0,
-                type: Number,
-            }),
-            classList: () => ({
-                value: '',
-                type: String,
-            }),
+            root: {
+                __value: true,
+                __type: Boolean,
+            },
+            depth: {
+                __value: 0,
+                __type: Number,
+            },
+            rotate: {
+                __value: 'x',
+                __type: String,
+            },
+            width: {
+                __value: '0px',
+                __type: String,
+            },
+            height: {
+                __value: '0px',
+                __type: String,
+            },
+            offsetX: {
+                __value: '0px',
+                __type: String,
+            },
+            offsetY: {
+                __value: '0px',
+                __type: String,
+            },
+            range: {
+                __value: 20,
+                __type: Number,
+            },
+            anchorPoint: {
+                __value: 'center',
+                __type: String,
+            },
+            animate: {
+                __value: true,
+                __type: Boolean,
+            },
+            initialRotate: {
+                __value: 0,
+                __type: Number,
+            },
+            initialDepth: {
+                __value: 0,
+                __type: Number,
+            },
+            classList: {
+                __value: '',
+                __type: String,
+            },
             component: {
-                tagName: () => ({
-                    value: '',
-                    type: String,
-                }),
-                className: () => ({
-                    value: '',
-                    type: String,
-                }),
-                props: () => ({
-                    value: '',
-                    type: 'any',
-                }),
+                tagName: {
+                    __value: '',
+                    __type: String,
+                },
+                className: {
+                    __value: '',
+                    __type: String,
+                },
+                props: {
+                    __value: '',
+                    __type: 'any',
+                },
             },
         },
         state: {
-            id: () => ({
-                value: '',
-                type: String,
-            }),
+            id: {
+                __value: '',
+                __type: String,
+            },
         },
     })
 );

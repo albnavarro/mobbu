@@ -11,26 +11,26 @@ export const SearchOverlayListItem = MobJs.createComponent(
         tag: 'search-overlay-list-item',
         component: SearchOverlayListItemFn,
         props: {
-            uri: () => ({
-                value: '',
-                type: String,
-            }),
-            breadCrumbs: () => ({
-                value: '',
-                type: String,
-            }),
-            title: () => ({
-                value: '',
-                type: String,
-            }),
-            count: () => ({
-                value: 0,
-                type: Number,
-            }),
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            uri: {
+                __value: '',
+                __type: String,
+            },
+            breadCrumbs: {
+                __value: '',
+                __type: String,
+            },
+            title: {
+                __value: '',
+                __type: String,
+            },
+            count: {
+                __value: 0,
+                __type: Number,
+            },
+            active: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

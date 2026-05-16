@@ -7,15 +7,15 @@ import { MobCore } from '@mobCore';
 export const navigationStore = MobCore.createStore(
     /** @type {MobStoreParams<import('./type').NavigationStore>} */
     ({
-        activeNavigationSection: () => ({
-            value: '',
-            type: String,
-            skipEqual: false,
-        }),
-        navigationIsOpen: () => ({
-            value: false,
-            type: Boolean,
-        }),
+        activeNavigationSection: {
+            __value: '',
+            __type: String,
+            __skipEqual: false,
+        },
+        navigationIsOpen: {
+            __value: false,
+            __type: Boolean,
+        },
     })
 );
 

@@ -16,56 +16,56 @@ import {
 export const mainStore = MobCore.createStore(
     /** @type {MobStoreParams<import('./type').MainStore>} */
     ({
-        [MAIN_STORE_ACTIVE_ROUTE]: () => ({
-            value: { route: '', templateName: '' },
-            type: 'any',
-            skipEqual: false,
-        }),
-        [MAIN_STORE_ACTIVE_PARAMS]: () => ({
-            value: {},
-            type: 'any',
-            skipEqual: false,
-        }),
-        [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
-            value: {
+        [MAIN_STORE_ACTIVE_ROUTE]: {
+            __value: { route: '', templateName: '' },
+            __type: 'any',
+            __skipEqual: false,
+        },
+        [MAIN_STORE_ACTIVE_PARAMS]: {
+            __value: {},
+            __type: 'any',
+            __skipEqual: false,
+        },
+        [MAIN_STORE_BEFORE_ROUTE_CHANGE]: {
+            __value: {
                 currentRoute: '',
                 currentTemplate: '',
                 nextRoute: '',
                 nextTemplate: '',
             },
-            type: 'any',
-            skipEqual: false,
-        }),
-        [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
-            value: {
+            __type: 'any',
+            __skipEqual: false,
+        },
+        [MAIN_STORE_AFTER_ROUTE_CHANGE]: {
+            __value: {
                 currentRoute: '',
                 currentTemplate: '',
                 previousRoute: '',
                 previousTemplate: '',
             },
-            type: 'any',
-            skipEqual: false,
-        }),
-        [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
-            value: false,
-            type: Boolean,
-        }),
+            __type: 'any',
+            __skipEqual: false,
+        },
+        [MAIN_STORE_ROUTE_IS_LOADING]: {
+            __value: false,
+            __type: Boolean,
+        },
         [MAIN_STORE_PARSER_ASYNC]: {
-            element: () => ({
-                value: document.createElement('div'),
-                type: HTMLElement,
-                skipEqual: false,
-            }),
-            persistent: () => ({
-                value: false,
-                type: Boolean,
-                skipEqual: false,
-            }),
-            source: () => ({
-                value: PARSER_ASYNC_DEFAULT,
-                type: String,
-                skipEqual: false,
-            }),
+            element: {
+                __value: document.createElement('div'),
+                __type: HTMLElement,
+                __skipEqual: false,
+            },
+            persistent: {
+                __value: false,
+                __type: Boolean,
+                __skipEqual: false,
+            },
+            source: {
+                __value: PARSER_ASYNC_DEFAULT,
+                __type: String,
+                __skipEqual: false,
+            },
         },
     })
 );

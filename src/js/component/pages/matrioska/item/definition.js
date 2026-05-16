@@ -13,34 +13,34 @@ export const MatrioskaItem = MobJs.createComponent(
         tag: 'matrioska-item',
         component: MatrioskaItemFn,
         props: {
-            level: () => ({
-                value: '',
-                type: String,
-            }),
-            key: () => ({
-                value: '',
-                strict: true,
-                type: String,
-            }),
-            index: () => ({
-                value: 0,
-                strict: true,
-                type: Number,
-            }),
-            value: () => ({
-                value: '',
-                type: String,
-            }),
-            counter: () => ({
-                value: -1,
-                type: Number,
-            }),
+            level: {
+                __value: '',
+                __type: String,
+            },
+            key: {
+                __value: '',
+                __strict: true,
+                __type: String,
+            },
+            index: {
+                __value: 0,
+                __strict: true,
+                __type: Number,
+            },
+            value: {
+                __value: '',
+                __type: String,
+            },
+            counter: {
+                __value: -1,
+                __type: Number,
+            },
         },
         state: {
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            active: {
+                __value: false,
+                __type: Boolean,
+            },
         },
         style: /* CSS */ `:host { display: block; } `,
         // connectedCallback: ({ context, params }) => {

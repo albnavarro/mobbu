@@ -11,11 +11,11 @@ export const OnlyDesktopCta = MobJs.createComponent(
         tag: 'only-desktop-cta',
         component: OnlyDesktopFnCta,
         state: {
-            active: () => ({
-                value: false,
-                type: Boolean,
-                skipEqual: false,
-            }),
+            active: {
+                __value: false,
+                __type: Boolean,
+                __skipEqual: false,
+            },
         },
     })
 );

@@ -11,22 +11,22 @@ export const ScrollToButton = MobJs.createComponent(
         tag: 'scroll-to-button',
         component: ScrollToButtonFn,
         props: {
-            label: () => ({
-                value: '',
-                type: String,
-            }),
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            isSection: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            isNote: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            label: {
+                __value: '',
+                __type: String,
+            },
+            active: {
+                __value: false,
+                __type: Boolean,
+            },
+            isSection: {
+                __value: false,
+                __type: Boolean,
+            },
+            isNote: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

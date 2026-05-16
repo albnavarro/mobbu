@@ -13,14 +13,14 @@ export const Mobbu2025 = MobJs.createComponent(
         tag: 'mobbu-2025',
         component: Mobbu2025fn,
         props: {
-            layer02: () => ({
-                value: document.createElement('div'),
-                type: Element,
-            }),
-            layer03: () => ({
-                value: document.createElement('div'),
-                type: Element,
-            }),
+            layer02: {
+                __value: document.createElement('div'),
+                __type: Element,
+            },
+            layer03: {
+                __value: document.createElement('div'),
+                __type: Element,
+            },
         },
     })
 );

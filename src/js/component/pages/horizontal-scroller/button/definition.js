@@ -13,10 +13,10 @@ export const HorizontalScrollerButton = MobJs.createComponent(
         tag: 'horizontal-scroller-button',
         component: HorizontalScrollerButtonFn,
         props: {
-            id: () => ({
-                value: -1,
-                type: Number,
-            }),
+            id: {
+                __value: -1,
+                __type: Number,
+            },
         },
     })
 );

@@ -11,14 +11,14 @@ export const AnchorButton = MobJs.createComponent(
         tag: 'anchor-button',
         component: AnchorButtonFn,
         props: {
-            anchor: () => ({
-                value: '',
-                type: String,
-            }),
-            content: () => ({
-                value: '',
-                type: String,
-            }),
+            anchor: {
+                __value: '',
+                __type: String,
+            },
+            content: {
+                __value: '',
+                __type: String,
+            },
         },
     })
 );

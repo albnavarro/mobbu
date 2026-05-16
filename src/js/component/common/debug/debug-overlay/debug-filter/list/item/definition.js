@@ -13,24 +13,24 @@ export const DebugFilterListItem = MobJs.createComponent(
         component: DebugFilterListItemFn,
         bindStore: debugActiveComponentStore,
         props: {
-            id: () => ({
-                value: '',
-                type: String,
-            }),
-            tag: () => ({
-                value: '',
-                type: String,
-            }),
-            name: () => ({
-                value: '',
-                type: String,
-            }),
+            id: {
+                __value: '',
+                __type: String,
+            },
+            tag: {
+                __value: '',
+                __type: String,
+            },
+            name: {
+                __value: '',
+                __type: String,
+            },
         },
         state: {
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            active: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

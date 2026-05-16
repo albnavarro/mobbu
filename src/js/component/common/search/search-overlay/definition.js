@@ -11,14 +11,14 @@ export const SearchOverlay = MobJs.createComponent(
         tag: 'search-overlay',
         component: SearchOverlayFn,
         state: {
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            currentSearch: () => ({
-                value: '',
-                type: String,
-            }),
+            active: {
+                __value: false,
+                __type: Boolean,
+            },
+            currentSearch: {
+                __value: '',
+                __type: String,
+            },
         },
     })
 );

@@ -14,20 +14,20 @@ export const DynamicList = MobJs.createComponent(
         tag: 'dynamic-list',
         component: DynamicListFn,
         state: {
-            counter: () => ({
-                value: 1,
-                type: Number,
-                validate: (val) => val <= 10 && val >= 0,
-                strict: true,
-            }),
-            data: () => ({
-                value: startData,
-                type: Array,
-            }),
-            activeSample: () => ({
-                value: 3,
-                type: Number,
-            }),
+            counter: {
+                __value: 1,
+                __type: Number,
+                __validate: (val) => val <= 10 && val >= 0,
+                __strict: true,
+            },
+            data: {
+                __value: startData,
+                __type: Array,
+            },
+            activeSample: {
+                __value: 3,
+                __type: Number,
+            },
         },
     })
 );

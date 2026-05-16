@@ -13,14 +13,14 @@ export const HorizontalScrollerSection = MobJs.createComponent(
         tag: 'horizontal-scroller-section',
         component: HorizontalScrollerSectionFn,
         props: {
-            id: () => ({
-                value: -1,
-                type: Number,
-            }),
-            pinClass: () => ({
-                value: '',
-                type: String,
-            }),
+            id: {
+                __value: -1,
+                __type: Number,
+            },
+            pinClass: {
+                __value: '',
+                __type: String,
+            },
         },
     })
 );

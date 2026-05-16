@@ -11,22 +11,22 @@ export const NavigationSubmenu = MobJs.createComponent(
         tag: 'mob-navigation-submenu',
         component: NavigationSubmenuFn,
         props: {
-            callback: () => ({
-                value: () => {},
-                type: Function,
-            }),
-            headerButton: () => ({
-                value: {},
-                type: 'Any',
-            }),
-            children: () => ({
-                value: [],
-                type: Array,
-            }),
-            isOpen: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            callback: {
+                __value: () => {},
+                __type: Function,
+            },
+            headerButton: {
+                __value: {},
+                __type: 'Any',
+            },
+            children: {
+                __value: [],
+                __type: Array,
+            },
+            isOpen: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

@@ -11,72 +11,72 @@ export const Move3D = MobJs.createComponent(
         tag: 'move-3d',
         component: Move3Dfn,
         props: {
-            drag: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            centerToViewoport: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            perspective: () => ({
-                value: 700,
-                type: Number,
-            }),
-            xDepth: () => ({
-                value: 20,
-                type: Number,
-                validate: (value) => {
+            drag: {
+                __value: false,
+                __type: Boolean,
+            },
+            centerToViewoport: {
+                __value: false,
+                __type: Boolean,
+            },
+            perspective: {
+                __value: 700,
+                __type: Number,
+            },
+            xDepth: {
+                __value: 20,
+                __type: Number,
+                __validate: (value) => {
                     return value > 1;
                 },
-                strict: true,
-            }),
-            yDepth: () => ({
-                value: 20,
-                type: Number,
-                validate: (value) => {
+                __strict: true,
+            },
+            yDepth: {
+                __value: 20,
+                __type: Number,
+                __validate: (value) => {
                     return value > 1;
                 },
-                strict: true,
-            }),
-            xLimit: () => ({
-                value: 10_000,
-                type: Number,
-            }),
-            yLimit: () => ({
-                value: 10_000,
-                type: Number,
-            }),
-            factor: () => ({
-                value: 45,
-                type: Number,
-                validate: (value) => {
+                __strict: true,
+            },
+            xLimit: {
+                __value: 10_000,
+                __type: Number,
+            },
+            yLimit: {
+                __value: 10_000,
+                __type: Number,
+            },
+            factor: {
+                __value: 45,
+                __type: Number,
+                __validate: (value) => {
                     return value > 1;
                 },
-                strict: true,
-            }),
-            shape: () => ({
-                value: [],
-                type: Array,
-            }),
-            debug: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            afterInit: () => ({
-                value: () => {},
-                type: Function,
-            }),
-            onUpdate: () => ({
-                value: () => {},
-                type: Function,
-            }),
+                __strict: true,
+            },
+            shape: {
+                __value: [],
+                __type: Array,
+            },
+            debug: {
+                __value: false,
+                __type: Boolean,
+            },
+            afterInit: {
+                __value: () => {},
+                __type: Function,
+            },
+            onUpdate: {
+                __value: () => {},
+                __type: Function,
+            },
         },
         state: {
-            useScroll: () => ({
-                value: true,
-                type: Boolean,
-            }),
+            useScroll: {
+                __value: true,
+                __type: Boolean,
+            },
         },
     })
 );

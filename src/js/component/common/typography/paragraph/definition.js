@@ -11,29 +11,29 @@ export const Paragraph = MobJs.createComponent(
         tag: 'mob-paragraph',
         component: ParagraphFn,
         props: {
-            style: () => ({
-                value: 'medium',
-                type: String,
-                validate: (val) => ['small', 'medium', 'big'].includes(val),
-                strict: true,
-            }),
-            color: () => ({
-                value: 'inherit',
-                type: String,
-                validate: (val) => {
+            style: {
+                __value: 'medium',
+                __type: String,
+                __validate: (val) => ['small', 'medium', 'big'].includes(val),
+                __strict: true,
+            },
+            color: {
+                __value: 'inherit',
+                __type: String,
+                __validate: (val) => {
                     return ['inherit', 'white', 'hightlight', 'black'].includes(
                         val
                     );
                 },
-            }),
-            boxed: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            note: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            },
+            boxed: {
+                __value: false,
+                __type: Boolean,
+            },
+            note: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

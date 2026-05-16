@@ -13,34 +13,34 @@ export const RosaDiGrandiPage = MobJs.createComponent(
         tag: 'rosa-di-grandi-page',
         component: RosaDiGrandiPageFn,
         state: {
-            numerators: () => ({
-                value: 2,
-                type: Number,
-            }),
-            denominator: () => ({
-                value: 3,
-                type: Number,
-            }),
-            numeratorsLabel: () => ({
-                value: 2,
-                type: Number,
-            }),
-            denominatorLabel: () => ({
-                value: 3,
-                type: Number,
-            }),
-            duration: () => ({
-                value: 500,
-                type: Number,
-            }),
-            staggerEach: () => ({
-                value: 4,
-                type: Number,
-            }),
-            controlsActive: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            numerators: {
+                __value: 2,
+                __type: Number,
+            },
+            denominator: {
+                __value: 3,
+                __type: Number,
+            },
+            numeratorsLabel: {
+                __value: 2,
+                __type: Number,
+            },
+            denominatorLabel: {
+                __value: 3,
+                __type: Number,
+            },
+            duration: {
+                __value: 500,
+                __type: Number,
+            },
+            staggerEach: {
+                __value: 4,
+                __type: Number,
+            },
+            controlsActive: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

@@ -11,14 +11,14 @@ export const NavigationContainer = MobJs.createComponent(
         tag: 'mob-navigation-container',
         component: NavigationContainerFn,
         state: {
-            isOpen: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            isMounted: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            isOpen: {
+                __value: false,
+                __type: Boolean,
+            },
+            isMounted: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

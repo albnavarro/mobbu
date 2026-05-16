@@ -14,60 +14,60 @@ export const AboutComponent = MobJs.createComponent(
         tag: 'about-component',
         component: AboutComponentFn,
         props: {
-            block_1: () => ({
-                value: {
+            block_1: {
+                __value: {
                     titleTop: '',
                     titleBottom: '',
                 },
-                type: 'any',
-            }),
-            block_2: () => ({
-                value: {
+                __type: 'any',
+            },
+            block_2: {
+                __value: {
                     title: '',
                     copy: '',
                 },
-                type: 'any',
-            }),
-            block_3: () => ({
-                value: {
+                __type: 'any',
+            },
+            block_3: {
+                __value: {
                     title: '',
                     copy: '',
                 },
-                type: 'any',
-            }),
-            block_4: () => ({
-                value: {
+                __type: 'any',
+            },
+            block_4: {
+                __value: {
                     title: '',
                     items: [''],
                 },
-                type: 'any',
-            }),
-            aboutSvg: () => ({
-                value: '',
-                type: String,
-            }),
+                __type: 'any',
+            },
+            aboutSvg: {
+                __value: '',
+                __type: String,
+            },
         },
         state: {
-            navItem: () => ({
-                value: [
+            navItem: {
+                __value: [
                     { index: 1, label: 'about' },
                     { index: 2, label: 'why' },
                     { index: 3, label: 'what' },
                     { index: 4, label: 'inspiration' },
                 ],
-                type: Array,
-            }),
-            activenavItem: () => ({
-                value: 1,
-                type: Number,
-                transform: (value) => {
+                __type: Array,
+            },
+            activenavItem: {
+                __value: 1,
+                __type: Number,
+                __transform: (value) => {
                     return MobMotionCore.clamp(value, 1, 4);
                 },
-            }),
-            isMounted: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            },
+            isMounted: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

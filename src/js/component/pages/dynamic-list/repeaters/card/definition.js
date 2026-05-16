@@ -14,40 +14,40 @@ export const DynamicListCard = MobJs.createComponent(
         tag: 'dynamic-list-card',
         component: DynamicListCardFn,
         props: {
-            parentListId: () => ({
-                value: -1,
-                type: Number,
-            }),
-            label: () => ({
-                value: '-',
-                type: String,
-            }),
-            index: () => ({
-                value: -1,
-                type: Number,
-            }),
-            counter: () => ({
-                value: 1,
-                type: Number,
-            }),
+            parentListId: {
+                __value: -1,
+                __type: Number,
+            },
+            label: {
+                __value: '-',
+                __type: String,
+            },
+            index: {
+                __value: -1,
+                __type: Number,
+            },
+            counter: {
+                __value: 1,
+                __type: Number,
+            },
         },
         state: {
-            innerData: () => ({
-                value: innerData[0],
-                type: Array,
-            }),
-            innerDataUnivoque: () => ({
-                value: innerData[0],
-                type: Array,
-            }),
-            isSelected: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            isMounted: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            innerData: {
+                __value: innerData[0],
+                __type: Array,
+            },
+            innerDataUnivoque: {
+                __value: innerData[0],
+                __type: Array,
+            },
+            isSelected: {
+                __value: false,
+                __type: Boolean,
+            },
+            isMounted: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

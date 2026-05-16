@@ -13,21 +13,21 @@ export const HorizontalScroller = MobJs.createComponent(
         tag: 'horizontal-scroller',
         component: HorizontalScrollerFn,
         props: {
-            animatePin: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            animatePin: {
+                __value: false,
+                __type: Boolean,
+            },
         },
         state: {
-            currentId: () => ({
-                value: 0,
-                type: Number,
-                skipEqual: false,
-            }),
-            currentIdFromScroll: () => ({
-                value: 0,
-                type: Number,
-            }),
+            currentId: {
+                __value: 0,
+                __type: Number,
+                __skipEqual: false,
+            },
+            currentIdFromScroll: {
+                __value: 0,
+                __type: Number,
+            },
         },
     })
 );

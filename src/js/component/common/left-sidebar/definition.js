@@ -12,14 +12,14 @@ export const LeftSidebar = MobJs.createComponent(
         component: LightSidebarFn,
         bindStore: MobJs.mainStore,
         state: {
-            data: () => ({
-                value: [],
-                type: Array,
-            }),
-            isVisible: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            data: {
+                __value: [],
+                __type: Array,
+            },
+            isVisible: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

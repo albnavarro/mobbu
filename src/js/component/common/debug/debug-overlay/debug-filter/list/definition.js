@@ -11,18 +11,18 @@ export const DebugFilterList = MobJs.createComponent(
         tag: 'debug-filter-list',
         component: DebugFilterListFn,
         state: {
-            data: () => ({
-                value: [],
-                type: Array,
-            }),
-            isLoading: () => ({
-                value: true,
-                type: Boolean,
-            }),
-            noResult: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            data: {
+                __value: [],
+                __type: Array,
+            },
+            isLoading: {
+                __value: true,
+                __type: Boolean,
+            },
+            noResult: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

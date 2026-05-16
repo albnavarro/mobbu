@@ -13,10 +13,10 @@ export const HeaderToggle = MobJs.createComponent(
         component: HeaderToggleFn,
         bindStore: navigationStore,
         state: {
-            isMounted: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            isMounted: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

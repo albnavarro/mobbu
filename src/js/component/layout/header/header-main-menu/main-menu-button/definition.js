@@ -13,20 +13,20 @@ export const HeaderMainMenuButton = MobJs.createComponent(
         component: HeaderMainMenuButtonFn,
         bindStore: navigationStore,
         props: {
-            label: () => ({
-                value: '',
-                type: String,
-            }),
-            section: () => ({
-                value: '',
-                type: String,
-            }),
+            label: {
+                __value: '',
+                __type: String,
+            },
+            section: {
+                __value: '',
+                __type: String,
+            },
         },
         state: {
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            active: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

@@ -14,16 +14,16 @@ export const DebugComponent = MobJs.createComponent(
         tag: 'debug-component',
         component: DebugComponentFn,
         state: {
-            id: () => ({
-                value: RESET_FILTER_DEBUG,
-                type: String,
-                skipEqual: false,
-            }),
-            parentId: () => ({
-                value: '',
-                type: String,
-                skipEqual: false,
-            }),
+            id: {
+                __value: RESET_FILTER_DEBUG,
+                __type: String,
+                __skipEqual: false,
+            },
+            parentId: {
+                __value: '',
+                __type: String,
+                __skipEqual: false,
+            },
         },
     })
 );

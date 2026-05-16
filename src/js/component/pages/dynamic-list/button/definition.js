@@ -13,14 +13,14 @@ export const DynamicListButton = MobJs.createComponent(
         tag: 'dynamic-list-button',
         component: DynamicListButtonFn,
         props: {
-            label: () => ({
-                value: '',
-                type: String,
-            }),
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            label: {
+                __value: '',
+                __type: String,
+            },
+            active: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

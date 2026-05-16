@@ -12,24 +12,24 @@ export const SearchOverlayList = MobJs.createComponent(
         component: SearchOverlayListFn,
         bindStore: MobJs.mainStore,
         props: {
-            updatePrentSearchKey: () => ({
-                value: () => {},
-                type: Function,
-            }),
+            updatePrentSearchKey: {
+                __value: () => {},
+                __type: Function,
+            },
         },
         state: {
-            list: () => ({
-                value: [],
-                type: Array,
-            }),
-            loading: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            noResult: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            list: {
+                __value: [],
+                __type: Array,
+            },
+            loading: {
+                __value: false,
+                __type: Boolean,
+            },
+            noResult: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

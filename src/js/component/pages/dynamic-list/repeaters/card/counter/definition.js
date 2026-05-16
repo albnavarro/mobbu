@@ -13,14 +13,14 @@ export const DynamicCounter = MobJs.createComponent(
         tag: 'dynamic-list-counter',
         component: DynamicListCounterFn,
         props: {
-            parentListId: () => ({
-                value: -1,
-                type: Number,
-            }),
-            counter: () => ({
-                value: 0,
-                type: Number,
-            }),
+            parentListId: {
+                __value: -1,
+                __type: Number,
+            },
+            counter: {
+                __value: 0,
+                __type: Number,
+            },
         },
     })
 );

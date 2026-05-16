@@ -11,18 +11,18 @@ export const SideBarLinksButton = MobJs.createComponent(
         tag: 'sidebar-links-button',
         component: SideBarLinksButtonFn,
         props: {
-            label: () => ({
-                value: '',
-                type: String,
-            }),
-            url: () => ({
-                value: '',
-                type: String,
-            }),
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            label: {
+                __value: '',
+                __type: String,
+            },
+            url: {
+                __value: '',
+                __type: String,
+            },
+            active: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

@@ -13,10 +13,10 @@ export const DynamicListCardInner = MobJs.createComponent(
         tag: 'dynamic-list-card-inner',
         component: DynamicListCardInnerFn,
         props: {
-            key: () => ({
-                value: '',
-                type: String,
-            }),
+            key: {
+                __value: '',
+                __type: String,
+            },
         },
     })
 );

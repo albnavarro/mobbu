@@ -11,10 +11,10 @@ export const AnyComponent = MobJs.createComponent(
         tag: 'any-component',
         component: AnyComponentFn,
         props: {
-            content: () => ({
-                value: '',
-                type: String,
-            }),
+            content: {
+                __value: '',
+                __type: String,
+            },
         },
     })
 );

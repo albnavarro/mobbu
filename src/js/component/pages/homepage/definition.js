@@ -13,16 +13,16 @@ export const HomeComponent = MobJs.createComponent(
         tag: 'home-component',
         component: HomeComponentFn,
         props: {
-            svg: () => ({
-                value: [],
-                type: Array,
-            }),
+            svg: {
+                __value: [],
+                __type: Array,
+            },
         },
         state: {
-            isMounted: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            isMounted: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

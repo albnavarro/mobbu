@@ -11,10 +11,10 @@ export const Footer = MobJs.createComponent(
         tag: 'mob-footer',
         component: FooterFn,
         state: {
-            isMounted: () => ({
-                value: false,
-                type: Boolean,
-            }),
+            isMounted: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

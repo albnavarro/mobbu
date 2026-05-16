@@ -14,14 +14,14 @@ export const DebugOverlay = MobJs.createComponent(
         tag: 'debug-overlay',
         component: DebugOverlayFn,
         state: {
-            active: () => ({
-                value: false,
-                type: Boolean,
-            }),
-            listType: () => ({
-                value: DEBUG_USE_TREE,
-                type: String,
-            }),
+            active: {
+                __value: false,
+                __type: Boolean,
+            },
+            listType: {
+                __value: DEBUG_USE_TREE,
+                __type: String,
+            },
         },
     })
 );

@@ -24,37 +24,37 @@ const shuffle = (array) => {
 /** @type {Partial<CreateComponentParams<import('./type').Matrioska>>} */
 const commonParams = {
     state: {
-        level1: () => ({
-            value: [{ key: 1, value: MobCore.getUnivoqueId() }],
-            type: Array,
-            validate: (val) => val.length <= 10,
-            strict: true,
-        }),
-        level2: () => ({
-            value: [
+        level1: {
+            __value: [{ key: 1, value: MobCore.getUnivoqueId() }],
+            __type: Array,
+            __validate: (val) => val.length <= 10,
+            __strict: true,
+        },
+        level2: {
+            __value: [
                 { key: 1, value: MobCore.getUnivoqueId() },
                 { key: 2, value: MobCore.getUnivoqueId() },
             ],
-            type: Array,
-            validate: (val) => val.length <= 10,
-            strict: true,
-        }),
-        level3: () => ({
-            value: [
+            __type: Array,
+            __validate: (val) => val.length <= 10,
+            __strict: true,
+        },
+        level3: {
+            __value: [
                 { key: 1, value: MobCore.getUnivoqueId() },
                 { key: 2, value: MobCore.getUnivoqueId() },
             ],
-            type: Array,
-            transform: (val, oldVal) => {
+            __type: Array,
+            __transform: (val, oldVal) => {
                 return val > oldVal ? shuffle(val) : val;
             },
-            validate: (val) => val.length <= 6,
-            strict: true,
-        }),
-        counter: () => ({
-            value: 0,
-            type: Number,
-        }),
+            __validate: (val) => val.length <= 6,
+            __strict: true,
+        },
+        counter: {
+            __value: 0,
+            __type: Number,
+        },
     },
 };
 
