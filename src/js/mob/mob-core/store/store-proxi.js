@@ -240,8 +240,19 @@ export const getProxiEntryPoint = ({ instanceId, strategy = PROXI_ALL }) => {
     const state = storeMap.get(instanceId);
     if (!state) return {};
 
-    if (state.proxiObject) {
+    /**
+     * Return proxy if exist, otherwise create new one.
+     */
+    if (strategy === PROXI_ALL && state.proxiObject) {
         return state.proxiObject;
+    }
+
+    if (strategy === PROXI_SELF && state.selfProxiObject) {
+        return state.selfProxiObject;
+    }
+
+    if (strategy === PROXI_BOUNDED && state.boundedProxiObject) {
+        return state.boundedProxiObject;
     }
 
     const proxiObject = createDynamicProxy(instanceId, strategy);
