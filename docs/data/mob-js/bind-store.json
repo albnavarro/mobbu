@@ -15,12 +15,29 @@
             }
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
                 "style": "medium",
-                "boxed": true
+                "dots": true,
+                "items": [
+                    "Creates reactive binding between component state and an instance of <a href='#mobCore-store'>mobStore</a>",
+                    "Inherits full reactivity system from linked store",
+                    "Multi-store support: Pass an array of stores"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
             },
-            "content": "<ul><li>Creates reactive binding between component state and an instance of <a href='#mobCore-store'>mobStore</a></li> <li>Inherits full reactivity system from linked store</li> <li>Multi-store support: Pass an array of stores</li> </ul>"
+            "content": "When using <span class='quote'>proxies</span>, the parameters of connected stores can be accessed both from the global proxy <strong>getProxi()</strong> and from the specific proxy for connected stores <strong>getBoundedProxi()</strong> ( Recommended )."
         },
         {
             "component": "mob-spacer",
@@ -146,10 +163,19 @@
             "content": "Type tips:"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium",
+                "boxed": true,
+                "note": true
+            },
+            "content": "To declare the type related other stores, you can use the <span class='quote'>WithSource</span> utility. This will add the source of origin (the owning store) to the signature of each property when using proxies."
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/bind-store-type.ts",
-                "numLines": 8
+                "numLines": 10
             }
         }
     ]

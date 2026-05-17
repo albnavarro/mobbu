@@ -17,10 +17,26 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium",
-                "boxed": true
+                "style": "medium"
             },
-            "content": "Through the proxy, it is possible to obtain the value of <span class='quote'>props</span> and <span class='quote'>states</span>. It is possible to modify states, while props can only be modified by a parent component."
+            "content": "We can access three types of proxies:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "items": [
+                    "<strong>getProxi():</strong> Here we have access to all the proper parameters of the component and any connected external stores.",
+                    "<strong>getSelfProxi():</strong> Here we have access only to the component's states/props.",
+                    "<strong>getBoundedProxi():</strong> Here we have access only to the states/props of connected external stores."
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-paragraph",

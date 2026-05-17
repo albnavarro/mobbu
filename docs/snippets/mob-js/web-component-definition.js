@@ -2,8 +2,8 @@ import { MobJs } from '@mobJs';
 import { MyComponent } from '../myComponent';
 
 /**
- * @import { CreateComponentParams } from "@mobJsType";
- **/
+ * @import {CreateComponentParams} from "@mobJsType"
+ */
 
 export const myComponentDefinition = MobJs.createComponent(
     /** @type{CreateComponentParams<import('./type').MyComponent>} */
@@ -12,14 +12,14 @@ export const myComponentDefinition = MobJs.createComponent(
         component: MyComponent,
         exportState: ['label'],
         state: {
-            label: () => ({
-                value: '',
-                type: String,
-            }),
-            myArray: () => ({
-                value: [],
-                type: Array,
-            }),
+            label: {
+                __value: '',
+                __type: String,
+            },
+            myArray: {
+                __value: [],
+                __type: Array,
+            },
         },
 
         /**

@@ -3,8 +3,8 @@ import { html, htmlObject } from '@mobJs';
 /**
  * @type {import('@mobJsType').MobComponent<import('./type').MyComponent>}
  */
-export const MyComponent = ({ getProxi, bindObject, invalidate }) => {
-    const proxi = getProxi();
+export const MyComponent = ({ getBoundedProxi, bindObject, invalidate }) => {
+    const proxi = getBoundedProxi();
 
     return htmlObject({
         content: [

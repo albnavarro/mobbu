@@ -1,24 +1,15 @@
 # MobJs
 
-
-## 1. DOCS:
-- Aggiornare DOC `mobCore` `mobJs`.
-- MobStore: speficiare che `getSelfProxi` e `getBoundedProxi` sono per uso esterno ( mobJs ) in `proxi` e `bindStore`.
-- MobJs: epecificare i 3 proxi in `proxi` e `bindStore`.
-- MobStore: new `complexObject` API
-- MobJs: new `complexObject` API
-
-
-## 2. Repat proxi
+## 1. Repat proxi
 - il `proxi` repeater potrebbe tornare un oggetto `frezzed` per evutare accidentali mutazioni.
 
-## 3. New Observe props.
+## 2. New Observe props.
 - `observe` nei nelle funzioni interne dovrebbe diventare `observedState` per una migliore leggibilitá.
 
-## 4. Routing:
+## 3. Routing:
 - Rendere opzionale il blocco sul caricamento della stessa rotta.
 
-## 5. attributeChangedCallback
+## 4. attributeChangedCallback
 - In riferimento agli `stati esportabili`, `attributeChangedCallback` puo intereccettare se l'atributo é uno stato e automaticamante eseguire un `this.#params.setState(state, <val>)`.
 - Detect della props:
     - i `word-word` dovranno essere convertiti in `wordWord` per combaciare con lo stato. es, `isLoading` sará scritto come `is-loading` attributo nel `dom`.
@@ -26,10 +17,10 @@
 
 - Bisognerá fare un lavoro sui tipi, arriveranno tutte `string` ma prima del set venno convertite nel giusto tipo, per fare questo lavoro bisogna accedere all' oggetto `type` delle store.
 
-## 6. Quickset
+## 5. Quickset
 - Aggiungere `Quickset`.
 
-## 7. Debug
+## 6. Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
 
 # Mobmotion

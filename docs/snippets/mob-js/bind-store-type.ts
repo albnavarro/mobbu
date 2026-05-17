@@ -1,8 +1,10 @@
+import { MobJsStore, WithSource } from '@mobJsType';
+
 interface MyComponent {
     state: {
         label: string;
         section: string;
         active: boolean;
     };
-    bindStore: MobJsStore;
+    bindStore: WithSource<MobJsStore>;
 }
