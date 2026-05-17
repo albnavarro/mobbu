@@ -1,10 +1,10 @@
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    prop: () => ({
-        value: '',
-        type: 'any',
-    }),
+    prop: {
+        __value: '',
+        __type: 'any',
+    },
 });
 
 const myAsyncFunction = async (value) => {

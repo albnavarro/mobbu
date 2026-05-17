@@ -1,8 +1,8 @@
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    myProps: () => ({
-        value: {
+    myProps: {
+        __value: {
             prop: {
                 nestedProp: {
                     nestedProp: {
@@ -11,6 +11,6 @@ const myStore = MobCore.createStore({
                 },
             },
         },
-        type: 'any',
-    }),
+        __type: 'any',
+    },
 });

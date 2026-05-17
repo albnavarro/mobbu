@@ -1,11 +1,11 @@
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    myMap: () => ({
-        value: new Map(),
-        type: Map,
-        skipEqual: false,
-    }),
+    myMap: {
+        __value: new Map(),
+        __type: Map,
+        __skipEqual: false,
+    },
 });
 
 const proxi = myStore.getProxi();

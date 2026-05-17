@@ -131,7 +131,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "For advanced usage, it is necessary to return a function that returns an object containing the <span class='quote'>value</span> property and at least one of the following properties: <span class='quote'>validate</span>, <span class='quote'>type</span>, <span class='quote'>skipEqual</span> or <span class='quote'>strict</span>. You can nest up to two levels (supporting both basic and advanced use cases) for properties, as demonstrated in example below."
+            "content": "Each state can be declared by explicitly specifying the following properties: <span class='quote'>value</span>, <span class='quote'>type</span>,  <span class='quote'>transform</span>,  <span class='quote'>validate</span>,  <span class='quote'>skipEqual</span>,  <span class='quote'>strict</span>. To avoid confusion with a simple declaration, each of these properties must be preceded by the  <span class='quote'>__</span> character. To enable an advanced state, at least the  <span class='quote'>__value</span> property must be present."
         },
         {
             "component": "mob-snippet",
@@ -277,7 +277,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "value"
+            "content": "__value"
         },
         {
             "component": "mob-paragraph",
@@ -297,7 +297,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "type"
+            "content": "__type"
         },
         {
             "component": "mob-paragraph",
@@ -335,7 +335,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "transform"
+            "content": "__transform"
         },
         {
             "component": "mob-paragraph",
@@ -355,7 +355,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "validate"
+            "content": "__validate"
         },
         {
             "component": "mob-paragraph",
@@ -375,7 +375,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "skipEqual"
+            "content": "__skipEqual"
         },
         {
             "component": "mob-paragraph",
@@ -395,7 +395,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "strict"
+            "content": "__strict"
         },
         {
             "component": "mob-paragraph",
@@ -1040,7 +1040,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/emit-proxi.js",
-                "numLines": 12
+                "numLines": 1
             }
         },
         {

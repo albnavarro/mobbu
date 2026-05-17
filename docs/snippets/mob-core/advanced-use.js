@@ -1,20 +1,20 @@
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    props1: () => ({
-        value: 0,
-        type: Number,
-        transform: (val) => {
+    props1: {
+        __value: 0,
+        __type: Number,
+        __transform: (val) => {
             return val * 2;
         },
-        validate: (val) => {
+        __validate: (val) => {
             return val > 0;
         },
-        strict: false,
-        skipEqual: false,
-    }),
-    props2: () => ({
-        value: 'test',
-        type: String,
-    }),
+        __strict: false,
+        __skipEqual: false,
+    },
+    props2: {
+        __value: 'test',
+        __type: String,
+    },
 });

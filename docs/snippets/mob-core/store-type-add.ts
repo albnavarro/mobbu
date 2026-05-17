@@ -1,5 +1,5 @@
 /**
- * @import {MobStoreParams} from '@mobStoreType';
+ * @import {MobStoreParams} from "@mobStoreType"
  */
 
 import { MobCore } from '@mobCore';
@@ -7,13 +7,13 @@ import { MobCore } from '@mobCore';
 export const myStore = MobCore.createStore(
     /** @type {MobStoreParams<import('./type').MyStoreType>} */
     {
-        prop1: () => ({
-            value: 0,
-            type: Number,
-        }),
-        prop2: () => ({
-            value: [],
-            type: Array,
-        }),
+        prop1: {
+            __value: 0,
+            __type: Number,
+        },
+        prop2: {
+            __value: [],
+            __type: Array,
+        },
     }
 );

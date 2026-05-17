@@ -1,19 +1,19 @@
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    myProp: () => ({
-        value: '',
-        type: String,
-    }),
-    myObj: () => ({
-        value: {
+    myProp: {
+        __value: '',
+        __type: String,
+    },
+    myObj: {
+        __value: {
             prop: 2,
             prop2: {
                 nested: 10,
             },
         },
-        type: 'any',
-    }),
+        __type: 'any',
+    },
 });
 
 const proxi = myStore.getProxi();

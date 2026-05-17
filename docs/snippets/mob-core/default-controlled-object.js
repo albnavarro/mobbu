@@ -2,19 +2,19 @@ import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
     myObject: {
-        myProps: () => ({
-            value: 'option1',
-            type: String,
-            transform: (val) => {
+        myProps: {
+            __value: 'option1',
+            __type: String,
+            __transform: (val) => {
                 return `option${val}`;
             },
-            validate: (val) => {
+            __validate: (val) => {
                 return ['option1', 'option2'].includes(val);
             },
-        }),
-        myProps2: () => ({
-            value: [],
-            type: Array,
-        }),
+        },
+        myProps2: {
+            __value: [],
+            __type: Array,
+        },
     },
 });

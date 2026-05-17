@@ -1,10 +1,10 @@
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    myArray: () => ({
-        value: [],
-        type: Array,
-    }),
+    myArray: {
+        __value: [],
+        __type: Array,
+    },
 });
 
 /**
