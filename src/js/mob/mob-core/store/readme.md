@@ -65,21 +65,21 @@ For advanced usage, it is necessary to return a function that returns an object 
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    props1: () => ({
-        value: 0,
-        type: Number,
-        transform: (val) => {
+    props1: {
+        __value: 0,
+        __type: Number,
+        __transform: (val) => {
             return val * 2;
         },
-        validate: (val) => {
+        __validate: (val) => {
             return val > 0;
         },
-        strict: false,
-        skipEqual: false,
-    }),
-    props2: () => ({
-        value: 'test',
-        type: String,
+        __strict: false,
+        __skipEqual: false,
+    },
+    props2: {
+        __value: 'test',
+        __type: String,
     }),
 });
 ```
@@ -101,20 +101,20 @@ import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
     myObject: {
-        myProps: () => ({
-            value: 'option1',
-            type: String,
-            transform: (val) => {
+        myProps: {
+            __value: 'option1',
+            __type: String,
+            __transform: (val) => {
                 return `option${val}`;
             },
-            validate: (val) => {
+            __validate: (val) => {
                 return ['option1', 'option2'].includes(val);
             },
         }),
-        myProps2: () => ({
-            value: [],
-            type: Array,
-        }),
+        myProps2: {
+            __value: [],
+            __type: Array,
+        },
     },
 });
 ```
@@ -206,14 +206,14 @@ import { MobCore } from '@mobCore';
 export const myStore = MobCore.createStore(
     /** @type {MobStoreParams<import('./type').MyStoreType>} */
     {
-        prop1: () => ({
-            value: 0,
-            type: Number,
-        }),
-        prop2: () => ({
-            value: [],
-            type: Array,
-        }),
+        prop1: {
+            __value: 0,
+            __type: Number,
+        },
+        prop2: {
+            __value: [],
+            __type: Array,
+        },
     }
 );
 ```
@@ -225,14 +225,14 @@ import { MobCore } from '@mobCore';
 import { DebugActiveComponentStore } from './type';
 
 export const debugActiveComponentStore = MobCore.createStore<MyStoreType>({
-    prop1: () => ({
-        value: 0,
-        type: Number,
-    }),
-    prop2: () => ({
-        value: [],
-        type: Array,
-    }),
+    prop1: {
+        __value: 0,
+        __type: Number,
+    },
+    prop2: {
+        __value: [],
+        __type: Array,
+    },
 });
 ```
 
@@ -254,19 +254,19 @@ The proxy mechanism ensures that when an array or object property (excluding Map
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    myProp: () => ({
-        value: '',
-        type: String,
-    }),
-    myObj: () => ({
-        value: {
+    myProp: {
+        __value: '',
+        __type: String,
+    },
+    myObj: {
+        __value: {
             prop: 2,
             prop2: {
                 nested: 10,
             }
         },
-        type: 'any',
-    }),
+        __type: 'any',
+    },
 });
 
 const proxi = myStore.getProxi();
@@ -321,14 +321,14 @@ import { MobCore } from '@mobCore';
 const myStore = MobCore.createStore({
     prop: 0,
     myComplexObj: {
-        prop: () => ({
-            value: 0,
-            type: Number,
-        }),
-        prop2: () => ({
-            value: 0,
-            type: Number,
-        }),
+        prop: {
+            __value: 0,
+            __type: Number,
+        },
+        prop2: {
+            __value: 0,
+            __type: Number,
+        },
     },
 });
 
@@ -349,14 +349,14 @@ import { MobCore } from '@mobCore';
 const myStore = MobCore.createStore({
     prop: 0,
     myComplexObj: {
-        prop: () => ({
-            value: 0,
-            type: Number,
-        }),
-        prop2: () => ({
-            value: 0,
-            type: Number,
-        }),
+        prop: {
+            __value: 0,
+            __type: Number,
+        },
+        prop2: {
+            __value: 0,
+            __type: Number,
+        },
     },
 });
 
@@ -386,14 +386,14 @@ import { MobCore } from '@mobCore';
 const myStore = MobCore.createStore({
     prop: 0,
     myObject: {
-        prop: () => ({
-            value: 0,
-            type: Number,
-        }),
-        prop2: () => ({
-            value: 0,
-            type: Number,
-        }),
+        prop: {
+            __value: 0,
+            __type: Number,
+        },
+        prop2: {
+            __value: 0,
+            __type: Number,
+        },
     },
 });
 
@@ -417,10 +417,10 @@ myStore.update('myObject', (obj) => {
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    myArray: () => ({
-        value: [],
-        type: Array,
-    }),
+    myArray: {
+        __value: [],
+        __type: Array,
+    },
 });
 
 /**
@@ -578,10 +578,10 @@ Processes all asynchronous property-related callbacks.
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    prop: () => ({
-        value: '',
-        type: 'any',
-    }),
+    prop: {
+        __value: '',
+        __type: 'any',
+    },
 });
 
 const myAsyncFunction = async (value) => {
@@ -768,14 +768,16 @@ storeOne.set('prop1', 2);
 storeTwo.set('prop2', 4);
 ```
 
-When using bindStore, you must extend the type (using Readonly TypeScript utils).
+To declare the type related to a store with bindings to other stores, you can use the WithSource utility. This will add the source of origin (the owning store) to the signature of each property when using proxies.
 
 ```JavaScript
+import { WithSource } from '@mobJsType';
+
 interface Store2 {
     prop2: number;
 }
 
-interface StoreOne extends Readonly<Store2> {
+interface StoreOne extends WithSource<Store2> {
     prop1: number;
     sum: number;
 }
@@ -797,11 +799,11 @@ Map and Set, if not reassigned, are treated as shallow copies, so they will alwa
 import { MobCore } from '@mobCore';
 
 const myStore = MobCore.createStore({
-    myMap: () => ({
-        value: new Map(),
-        type: Map,
-        skipEqual: false,
-    }),
+    myMap: {
+        __value: new Map(),
+        __type: Map,
+        __skipEqual: false,
+    },
 });
 
 const proxi = myStore.getProxi();

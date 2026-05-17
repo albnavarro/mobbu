@@ -217,7 +217,7 @@ const createDynamicProxy = (instanceId, strategy) => {
                 /**
                  * Bounded stores
                  */
-                if (strategy === PROXI_ALL) {
+                if (strategy === PROXI_BOUNDED) {
                     for (const bindId of state.bindInstance) {
                         const bindState = storeMap.get(bindId);
                         if (bindState && prop in bindState.store) return true;
