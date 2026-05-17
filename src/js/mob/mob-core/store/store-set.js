@@ -254,13 +254,8 @@ const setObj = ({
                    * - Se coincidono non abbiamo bisogno di traformarlo
                    * - Questo permetti di modificare una sola propietá senza triggere un nuovo transform in una propietá
                    *   non mutata.
-                   *
-                   * Durante l'inizializzazione tutti i trasfrom devono essere eseguiti almeno una volta.
                    */
-                  if (
-                      !initalizeStep &&
-                      checkEquality(type[prop][subProp], subVal, subValOld)
-                  )
+                  if (checkEquality(type[prop][subProp], subVal, subValOld))
                       return [subProp, subVal];
 
                   return [
