@@ -18,32 +18,32 @@ export const MyComponent = MobJs.createComponent(
          */
         bindStore: MobJs.mainStore,
         props: {
-            label: () => ({
-                value: '',
-                type: String,
-            }),
+            label: {
+                __value: '',
+                __type: String,
+            },
         },
         state: {
-            myArray: () => ({
-                value: [],
-                type: Array,
-            }),
-            myObject: () => ({
-                value: {
+            myArray: {
+                __value: [],
+                __type: Array,
+            },
+            myObject: {
+                __value: {
                     prop: 'lorem',
                 },
-                type: 'any',
-            }),
-            myComplexState: () => ({
-                value: 2,
-                type: Number,
-                transform: (value, oldValue) => {
+                __type: 'any',
+            },
+            myComplexState: {
+                __value: 2,
+                __type: Number,
+                __transform: (value, oldValue) => {
                     return value + oldValue;
                 },
-                validate: (value) => value < 100,
-                strict: true,
-                skipEqual: false,
-            }),
+                __validate: (value) => value < 100,
+                __strict: true,
+                __skipEqual: false,
+            },
         },
 
         /**

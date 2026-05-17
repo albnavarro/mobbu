@@ -2,18 +2,18 @@ export const MyComponent = MobJs.createComponent<MyComponent>({
     tag: 'my-component',
     component: MyComponentFn,
     props: {
-        active: () => ({
-            value: false,
-            type: Boolean,
-        }),
+        active: {
+            __value: false,
+            __type: Boolean,
+        },
     },
     state: {
-        color: () => ({
-            value: 'white',
-            type: String,
-            validate: (value) => {
+        color: {
+            __value: 'white',
+            __type: String,
+            __validate: (value) => {
                 return ['white', 'black'].includes(value);
             },
-        }),
+        },
     },
 });

@@ -538,11 +538,22 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "medium",
-                "boxed": true,
-                "note": true
+                "style": "medium"
             },
-            "content": "Component Typing System: <ul> <li>Associate an interface to define types for: <ul> <li>props</li> <li>state</li>  <li>methods</li> <li>refs</li> </ul> </li><br/> <li>Automatic function configuration <ul><li>getRef: Returns HTMLElement</li> <li>getRefs: Returns HTMLElement[]</li></ul> </ul>"
+            "content": "Component Typing System:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": ["props", "state", "bindStore", "methods", "ref"]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-paragraph",
@@ -551,7 +562,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "Type Safety Note: The type parameter (dynamic runtime checks) bypasses TypeScript's static type validation."
+            "content": "Type Safety Note: The type parameter (dynamic runtime checks) bypasses TypeScript's static type validation.<br/>The <strong>WithSource</strong> utility allows tracking the owning store in the type signature."
         },
         {
             "component": "mob-spacer",
@@ -563,7 +574,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/component-type-decalration.ts",
-                "numLines": 15
+                "numLines": 19
             }
         },
         {
@@ -677,7 +688,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/single-type.d.ts",
-                "numLines": 36
+                "numLines": 38
             }
         },
         {
