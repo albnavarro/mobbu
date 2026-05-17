@@ -563,6 +563,13 @@
             "content": "Returns a proxy wrapper for the original object."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<strong>getProxi</strong> exposes all properties of all stores together.<br/>There are also two other properties, <strong>getSelfProxi</strong> and <strong>getBoundedProxi</strong>, which separately expose the internal properties and those of connected stores ( <span class='quote'>bindStore</span> ). These last two methods are <strong>explicitly designed for mobJs</strong>, where <span class='quote'>TypeScript</span> is able to split types in a rational way. <span class='quote'>mobStore</span>, which sits at the root, uses a simpler type form; here, the use of specific proxies is considered an unnecessary overhead in relation to the simplicity of type declaration."
+        },
+        {
             "component": "mob-list",
             "props": {
                 "style": "medium",
@@ -1279,7 +1286,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "You can connect multiple stores to:  <li>Access their properties reactively</li> <li>Sync computations across stores</li> "
+            "content": "bindStore allows a specific store to leverage the <span class='quote'>reactivity</span> of other stores.<br/>It is possible to add one or more stores using the array form."
         },
         {
             "component": "mob-paragraph",
@@ -1344,13 +1351,13 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "When using bindStore, you must extend the type (using Readonly TypeScript utils)."
+            "content": "To declare the type related to a store with bindings to other stores, you can use the <span class='quote'>WithSource</span> utility. This will add the source of origin (the owning store) to the signature of each property when using proxies."
         },
         {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/store-type-bind-store.ts",
-                "numLines": 8
+                "numLines": 10
             }
         },
         {

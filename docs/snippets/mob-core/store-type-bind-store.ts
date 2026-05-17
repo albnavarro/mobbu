@@ -1,8 +1,10 @@
-interface Store2 {
-    prop2: number;
-}
+import { WithSource } from '@mobJsType';
 
-interface StoreOne extends Readonly<Store2> {
+export type StoreOne = WithSource<Store2> & {
     prop1: number;
     sum: number;
+};
+
+interface Store2 {
+    prop2: number;
 }
