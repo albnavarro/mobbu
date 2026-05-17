@@ -92,11 +92,14 @@ const setProp = ({
 
     /**
      * Transform value
+     *
+     * - Skip initialization step
      */
-    const valueTransformed =
-        /** @type{{[key:string]: ((current: any, previous: any) => any)}} */ (
-            fnTransformation
-        )[prop]?.(val, oldVal) ?? val;
+    const valueTransformed = initalizeStep
+        ? val
+        : /** @type{{[key:string]: ((current: any, previous: any) => any)}} */ (
+              fnTransformation[prop]?.(val, oldVal) ?? val
+          );
 
     /**
      * Validation
@@ -237,33 +240,36 @@ const setObj = ({
     /**
      * Transform value
      */
-    const valueTransformed = Object.fromEntries(
-        Object.entries(val).map((item) => {
-            const [subProp, subVal] = item;
-            const subValOld = store[prop][subProp];
+    const valueTransformed = initalizeStep
+        ? val
+        : Object.fromEntries(
+              Object.entries(val).map((item) => {
+                  const [subProp, subVal] = item;
+                  const subValOld = store[prop][subProp];
 
-            /**
-             * Trasforma il valore solo se il dato è effettivamente cambiato.
-             *
-             * - Confrontiamo il nuovo valore con il vecchio valore trasformato
-             * - Se coincidono non abbiamo bisogno di traformarlo
-             * - Questo permetti di modificare una sola propietá senza triggere un nuovo transform in una propietá non
-             *   mutata.
-             *
-             * Durante l'inizializzazione tutti i trasfrom devono essere eseguiti almeno una volta.
-             */
-            if (
-                !initalizeStep &&
-                checkEquality(type[prop][subProp], subVal, subValOld)
-            )
-                return [subProp, subVal];
+                  /**
+                   * Trasforma il valore solo se il dato è effettivamente cambiato.
+                   *
+                   * - Confrontiamo il nuovo valore con il vecchio valore trasformato
+                   * - Se coincidono non abbiamo bisogno di traformarlo
+                   * - Questo permetti di modificare una sola propietá senza triggere un nuovo transform in una propietá
+                   *   non mutata.
+                   *
+                   * Durante l'inizializzazione tutti i trasfrom devono essere eseguiti almeno una volta.
+                   */
+                  if (
+                      !initalizeStep &&
+                      checkEquality(type[prop][subProp], subVal, subValOld)
+                  )
+                      return [subProp, subVal];
 
-            return [
-                subProp,
-                fnTransformation[prop][subProp]?.(subVal, subValOld) ?? subVal,
-            ];
-        })
-    );
+                  return [
+                      subProp,
+                      fnTransformation[prop][subProp]?.(subVal, subValOld) ??
+                          subVal,
+                  ];
+              })
+          );
 
     /**
      * Check type of each propierties
