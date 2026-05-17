@@ -62,9 +62,7 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
             }
 
             /**
-             * Check if it's a function that return an object.
-             *
-             * - Complex state has value and ate least validate or type or skipEqual
+             * - Return value for specific KEY in complex state.
              */
             if (isComplex) {
                 return [key, value[STORE_VALUE_KEY]];
@@ -107,9 +105,7 @@ export const getPropRecursive = (
             }
 
             /**
-             * Check if it's a function that return an object.
-             *
-             * - Complex state has value and ate least validate or type or skipEqual
+             * - Return value for specific KEY in complex state.
              */
             if (isComplex && prop in value) {
                 const propParsed = storeType.isString(value[prop])
