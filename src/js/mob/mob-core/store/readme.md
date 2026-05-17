@@ -59,7 +59,7 @@ const myStore = MobCore.createStore({
 ```
 
 ## Advanced implementations
-For advanced usage, it is necessary to return a function that returns an object containing the `value` property and at least one of the following properties: `validate`, `type`, `skipEqual` or `strict`.
+Each state can be declared by explicitly specifying the following properties: value, type, transform, validate, skipEqual, strict. To avoid confusion with a simple declaration, each of these properties must be preceded by the __ character. To enable an advanced state, at least the __value property must be present.
 
 ```JavaScript
 import { MobCore } from '@mobCore';
@@ -150,10 +150,10 @@ const myStore = MobCore.createStore({
 
 Details of the parameters if defining a single state via an advanced implementation. Recall that in this case, the practice is to provide a function that returns an object with a `value` property and one of `validate`, `type`, `skipEqual` or `strict`.
 
-### value
+### __value
 Initial value
 
-### type
+### __type
 The type can be defined as a native JavaScript object or in the form of a string.<br/>
 The `object` type has been intentionally omitted. Please refer to the `default controlled object` section or the `any` type.
 
@@ -169,18 +169,18 @@ The `object` type has been intentionally omitted. Please refer to the `default c
 - `Map` | 'Map'
 - 'Any
 
-### transform
+### __transform
 Transformation function that processes values before validation.
 
-### validate
+### __validate
 Validation function that analyzes values. It receives both the current value and previous value as parameters, returning a boolean result. Each property's validation status appears as watch function parameters and can be retrieved via the `getValidation()` method.
 
-### skipEqual
+### __skipEqual
 If the value equals the previous one, the property won't update.
 This prevents watch execution and makes the property irrelevant to its related computed values.
 Default: `true`.
 
-### strict
+### __strict
 When true, the validation function acts as a blocker - the property updates only if validation succeeds.
 Default: `false`.
 
