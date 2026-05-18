@@ -45,12 +45,30 @@ export const DebugOverlayFn = ({
     bindEffect,
     getSelfProxi,
     onMount,
+    watch,
 }) => {
     const proxi = getSelfProxi();
 
     addMethod('toggle', () => {
         proxi.active = !proxi.active;
     });
+
+    /**
+     * Close overlay on esc.
+     */
+    const handler = createEscHandler(proxi);
+
+    watch(
+        () => proxi.active,
+        (isActive) => {
+            if (isActive) {
+                document.addEventListener('keydown', handler);
+                return;
+            }
+
+            document.removeEventListener('keydown', handler);
+        }
+    );
 
     onMount(() => {
         /**
@@ -62,15 +80,8 @@ export const DebugOverlayFn = ({
             proxi.listType = DEBUG_USE_TREE;
         });
 
-        /**
-         * Close overlay on esc.
-         */
-        const handler = createEscHandler(proxi);
-        document.addEventListener('keydown', handler);
-
         return () => {
             unsubScribeBeforeRouterChange();
-            document.removeEventListener('keydown', handler);
         };
     });
 
