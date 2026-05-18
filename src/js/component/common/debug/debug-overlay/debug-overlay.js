@@ -15,7 +15,6 @@ import { DebugFilterHead } from './debug-filter/head/definition';
 /**
  * @import {
  *   MobComponent,
- *   ProxiSelfState,
  *   ReturnBindProps
  * } from "@mobJsType"
  * @import {DebugHeadType} from "./head/type"
@@ -24,17 +23,13 @@ import { DebugFilterHead } from './debug-filter/head/definition';
 /**
  * Close overlay
  *
- * @param {ProxiSelfState<import('./type').DebugOverlayType>} proxi
+ * @param {KeyboardEvent} event
  */
-const createEscHandler = (proxi) => {
-    /** @param {KeyboardEvent} event */
-    return function escHandler(event) {
-        if (event?.code?.toLowerCase?.() === 'escape') {
-            proxi.active = false;
-            event.preventDefault();
-        }
-    };
-};
+function escHandler(event) {
+    if (event?.code?.toLowerCase?.() === 'escape') {
+        event.preventDefault();
+    }
+}
 
 /** @type {MobComponent<import('./type').DebugOverlayType>} */
 export const DebugOverlayFn = ({
@@ -53,20 +48,15 @@ export const DebugOverlayFn = ({
         proxi.active = !proxi.active;
     });
 
-    /**
-     * Close overlay on esc.
-     */
-    const handler = createEscHandler(proxi);
-
     watch(
         () => proxi.active,
         (isActive) => {
             if (isActive) {
-                document.addEventListener('keydown', handler);
+                document.addEventListener('keydown', escHandler);
                 return;
             }
 
-            document.removeEventListener('keydown', handler);
+            document.removeEventListener('keydown', escHandler);
         }
     );
 
