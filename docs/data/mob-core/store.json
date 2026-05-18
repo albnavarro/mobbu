@@ -560,14 +560,35 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Returns a proxy wrapper for the original object."
+            "content": "<strong>getProxi</strong> exposes all properties of all stores together ( self and connected )."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<strong>getProxi</strong> exposes all properties of all stores together.<br/>There are also two other properties, <strong>getSelfProxi</strong> and <strong>getBoundedProxi</strong>, which separately expose the internal properties and those of connected stores ( <span class='quote'>bindStore</span> ). These last two methods are <strong>explicitly designed for mobJs</strong>, where <span class='quote'>TypeScript</span> is able to split types in a rational way. <span class='quote'>mobStore</span>, which sits at the root, uses a simpler type form; here, the use of specific proxies is considered an unnecessary overhead in relation to the simplicity of type declaration."
+            "content": "Properties that come from connected stores will be read-only."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "There are also two other properties, <strong>getSelfProxi</strong> and <strong>getBoundedProxi</strong>, which separately expose the internal properties and those of connected stores ( <span class='quote'>bindStore</span> ). These last two methods are explicitly designed for <a href='#mobJs-overview'>mobJs</a>, where <span class='quote'>TypeScript</span> is able to split types in a rational way. <span class='quote'>mobStore</span>, which sits at the root, uses a simpler type form; here, the use of specific proxies is considered an unnecessary overhead in relation to the simplicity of type declaration."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is important that the properties of connected stores are <strong>unique</strong> and do not cause <strong>collisions</strong>. The module is designed to maintain a reasonable level of simplicity. If you design a store to support one or more stores, the choice of property names becomes important. Compared to using tools like <span class='quote'>aliases</span>, designing a proper naming convention allows you to manage the code in a simpler and more consistent way, both at the user level and at the library design level. The choice is debatable; at the moment I consider it the most coherent."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "An additional advantage of having a unified state manager is <span class='quote'>portability</span>. A proxy that rationally unifies all the states of a store (or of a mobJs component) allows for easier use as a parameter for utility functions."
         },
         {
             "component": "mob-list",
@@ -583,7 +604,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
@@ -1287,6 +1308,13 @@
                 "style": "medium"
             },
             "content": "bindStore allows a specific store to leverage the <span class='quote'>reactivity</span> of other stores.<br/>It is possible to add one or more stores using the array form."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "As described in the section on proxies, all connected stores must have unique keys."
         },
         {
             "component": "mob-paragraph",

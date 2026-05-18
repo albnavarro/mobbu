@@ -248,6 +248,8 @@ Using proxies enables the simplest way to both read and modify state values.
 
 The proxy mechanism ensures that when an array or object property (excluding Map and Set) is accessed, it returns a `frozen copy` of that property. This prevents accidental direct mutations to the original store data.
 
+It is important that the properties of connected stores are unique and do not cause collisions. The module is designed to maintain a reasonable level of simplicity. If you design a store to support one or more stores, the choice of property names becomes important. Compared to using tools like aliases, designing a proper naming convention allows you to manage the code in a simpler and more consistent way, both at the user level and at the library design level. The choice is debatable; at the moment I consider it the most coherent.
+
 **Note:** This is not a deep freeze—deeply nested properties will still be accessible. It is a compromise between simplicity and security.
 
 ```JavaScript

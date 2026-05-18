@@ -40,6 +40,13 @@
             "content": "When using <span class='quote'>proxies</span>, the parameters of connected stores can be accessed both from the global proxy <strong>getProxi()</strong> and from the specific proxy for connected stores <strong>getBoundedProxi()</strong> ( Recommended )."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is important that the properties of connected stores are <strong>unique</strong> and do not cause <strong>collisions</strong>. The module is designed to maintain a reasonable level of simplicity. If you design a store to support one or more stores, the choice of property names becomes important. Compared to using tools like <span class='quote'>aliases</span>, designing a proper naming convention allows you to manage the code in a simpler and more consistent way, both at the user level and at the library design level. The choice is debatable; at the moment I consider it the most coherent."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"

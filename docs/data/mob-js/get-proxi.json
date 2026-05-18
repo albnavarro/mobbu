@@ -33,6 +33,20 @@
             }
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is important that the properties of connected stores are <strong>unique</strong> and do not cause <strong>collisions</strong>. The module is designed to maintain a reasonable level of simplicity. If you design a store to support one or more stores, the choice of property names becomes important. Compared to using tools like <span class='quote'>aliases</span>, designing a proper naming convention allows you to manage the code in a simpler and more consistent way, both at the user level and at the library design level. The choice is debatable; at the moment I consider it the most coherent."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "An additional advantage of having a unified state manager is <span class='quote'>portability</span>. A proxy that rationally unifies all the states of a store (or of a mobJs component) allows for easier use as a parameter for utility functions."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
