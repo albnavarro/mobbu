@@ -38,3 +38,11 @@ export const closeSearchSuggestion = () => {
     const headerMethods = MobJs.useMethodByName(searchOverlayHeader);
     headerMethods?.closeSuggestion();
 };
+
+export const suggestioNsearchIsActive = () => {
+    /**
+     * @type {import('@mobJsType').UseMethodByName<import('./type').SearchOverlayHeader>}
+     */
+    const headerMethods = MobJs.useMethodByName(searchOverlayHeader);
+    return headerMethods?.suggestionIsActive();
+};

@@ -8,9 +8,19 @@ import {
     refreshDebugComponentById,
     updateDebugComponentById,
 } from '../../debug-component/utils';
+import { MobCore } from '@mobCore';
 
 /** @type {MobComponent<import('./type').DebugSearchType>} */
-export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
+export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
+    onMount(() => {
+        /**
+         * Focus first input on component creation.
+         */
+        MobCore.useNextFrame(() => {
+            getRef().id_input.focus();
+        });
+    });
+
     /**
      * Search by id
      */

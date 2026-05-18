@@ -9,6 +9,7 @@ import { htmlObject } from '@mobJs';
 import {
     closeSearchSuggestion,
     shouldCloseSearchSuggestion,
+    suggestioNsearchIsActive,
 } from './header/utils';
 import { searchOverlayHeader, searchOverlayList } from '@instanceName';
 import { SearchOverlayList } from './list/definition';
@@ -32,6 +33,27 @@ const shouldCloseSuggestion = ({ target }) => {
     shouldCloseSearchSuggestion(target);
 };
 
+/**
+ * Close overlay
+ *
+ * @param {ProxiSelfState<import('./type').SearchOverlay>} proxi
+ */
+const createEscHandler = (proxi) => {
+    /** @param {KeyboardEvent} event */
+    return function escHandler(event) {
+        /**
+         * Close overlay only if suggestion is closed
+         */
+        const suggestionIsActive = suggestioNsearchIsActive();
+        if (suggestionIsActive) return;
+
+        if (event?.code?.toLowerCase?.() === 'escape') {
+            proxi.active = false;
+            event.preventDefault();
+        }
+    };
+};
+
 /** @type {MobComponent<import('./type').SearchOverlay>} */
 export const SearchOverlayFn = ({
     getSelfProxi,
@@ -40,11 +62,24 @@ export const SearchOverlayFn = ({
     addMethod,
     bindObject,
     staticProps,
+    onMount,
 }) => {
     const proxi = getSelfProxi();
 
     addMethod('toggle', () => {
         proxi.active = !proxi.active;
+    });
+
+    onMount(() => {
+        /**
+         * Close overlay on esc.
+         */
+        const handler = createEscHandler(proxi);
+        document.addEventListener('keydown', handler);
+
+        return () => {
+            document.removeEventListener('keydown', handler);
+        };
     });
 
     /**
@@ -88,11 +123,16 @@ export const SearchOverlayFn = ({
 
     return htmlObject({
         className: 'c-search-overlay',
-        modules: bindEffect({
-            toggleClass: {
-                active: () => proxi.active,
-            },
-        }),
+        modules: [
+            bindEffect({
+                toggleClass: {
+                    active: () => proxi.active,
+                },
+                toggleAttribute: {
+                    inert: () => !proxi.active,
+                },
+            }),
+        ],
         content: [
             {
                 tag: 'button',

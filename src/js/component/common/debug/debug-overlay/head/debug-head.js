@@ -71,11 +71,21 @@ export const DebugHeadFn = ({ invalidate, getSelfProxi }) => {
             },
             {
                 className: 'search',
-                content: {
-                    content: {
-                        component: DebugSearch,
+                content: invalidate({
+                    observe: () => proxi.active,
+                    render: () => {
+                        if (!proxi.active) return htmlObject({});
+
+                        /**
+                         * Recompile left component every update
+                         *
+                         * - Extranl data i sused inside
+                         */
+                        return htmlObject({
+                            component: DebugSearch,
+                        });
                     },
-                },
+                }),
             },
         ],
     });

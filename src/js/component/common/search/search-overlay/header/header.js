@@ -190,6 +190,11 @@ export const SearchOverlayHeaderFn = ({
         });
 
         /**
+         * Check if suggestion in active for esc listener conflict.
+         */
+        addMethod('suggestionIsActive', () => proxi.suggestionListActive);
+
+        /**
          * Wait animation completed before set focus to input
          */
         addMethod('setInputFocus', async () => {

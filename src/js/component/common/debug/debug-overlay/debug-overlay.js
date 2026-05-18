@@ -15,10 +15,26 @@ import { DebugFilterHead } from './debug-filter/head/definition';
 /**
  * @import {
  *   MobComponent,
+ *   ProxiSelfState,
  *   ReturnBindProps
  * } from "@mobJsType"
  * @import {DebugHeadType} from "./head/type"
  */
+
+/**
+ * Close overlay
+ *
+ * @param {ProxiSelfState<import('./type').DebugOverlayType>} proxi
+ */
+const createEscHandler = (proxi) => {
+    /** @param {KeyboardEvent} event */
+    return function escHandler(event) {
+        if (event?.code?.toLowerCase?.() === 'escape') {
+            proxi.active = false;
+            event.preventDefault();
+        }
+    };
+};
 
 /** @type {MobComponent<import('./type').DebugOverlayType>} */
 export const DebugOverlayFn = ({
@@ -46,8 +62,15 @@ export const DebugOverlayFn = ({
             proxi.listType = DEBUG_USE_TREE;
         });
 
+        /**
+         * Close overlay on esc.
+         */
+        const handler = createEscHandler(proxi);
+        document.addEventListener('keydown', handler);
+
         return () => {
             unsubScribeBeforeRouterChange();
+            document.removeEventListener('keydown', handler);
         };
     });
 

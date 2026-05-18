@@ -64,6 +64,19 @@ const toTopBtnHandler = () => {
     if (!navigationIsOpen) MobBodyScroll.to(0);
 };
 
+/**
+ * Close overlay
+ *
+ * @param {KeyboardEvent} event
+ */
+function escHandler(event) {
+    if (event?.code?.toLowerCase?.() === 'escape') {
+        navigationStore.set('navigationIsOpen', false);
+        UnFreezeMobPageScroll();
+        event.preventDefault();
+    }
+}
+
 /** @type {import('@mobJsType').MobComponent<import('./type').NavigationContainer>} */
 export const NavigationContainerFn = ({
     onMount,
@@ -105,14 +118,23 @@ export const NavigationContainerFn = ({
             proxi.isMounted = true;
         }, getFrameDelay());
 
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        return () => {};
+        /**
+         * Close navigation on esc.
+         */
+        document.addEventListener('keydown', escHandler);
+
+        return () => {
+            document.removeEventListener('keydown', escHandler);
+        };
     });
 
     return htmlObject({
         className: 'l-navcontainer',
         modules: bindEffect({
             toggleClass: { active: () => proxi.isOpen },
+            toggleAttribute: {
+                inert: () => !proxi.isOpen,
+            },
         }),
         content: [
             {

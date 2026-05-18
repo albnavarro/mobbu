@@ -13,6 +13,7 @@ export interface SearchOverlayHeader {
         updateCurrentSearchFromSuggestion: (value: string) => void;
         shouldCloseSuggestion: (element: HTMLElement) => void;
         closeSuggestion: () => void;
+        suggestionIsActive: () => boolean;
         setInputFocus: () => void;
     };
 }
