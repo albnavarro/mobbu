@@ -63,6 +63,7 @@ export const SearchOverlayFn = ({
     bindObject,
     staticProps,
     watch,
+    onMount,
 }) => {
     const proxi = getSelfProxi();
 
@@ -70,22 +71,29 @@ export const SearchOverlayFn = ({
         proxi.active = !proxi.active;
     });
 
-    /**
-     * Close overlay on esc.
-     */
-    const handler = createEscHandler(proxi);
+    onMount(() => {
+        /**
+         * Close overlay on esc.
+         */
+        let handler = createEscHandler(proxi);
 
-    watch(
-        () => proxi.active,
-        (isActive) => {
-            if (isActive) {
-                document.addEventListener('keydown', handler);
-                return;
+        watch(
+            () => proxi.active,
+            (isActive) => {
+                if (isActive) {
+                    document.addEventListener('keydown', handler);
+                    return;
+                }
+
+                document.removeEventListener('keydown', handler);
             }
+        );
 
-            document.removeEventListener('keydown', handler);
-        }
-    );
+        return () => {
+            // @ts-ignore
+            handler = null;
+        };
+    });
 
     /**
      * Main content

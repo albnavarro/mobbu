@@ -15,6 +15,7 @@ import { DebugFilterHead } from './debug-filter/head/definition';
 /**
  * @import {
  *   MobComponent,
+ *   ProxiSelfState,
  *   ReturnBindProps
  * } from "@mobJsType"
  * @import {DebugHeadType} from "./head/type"
@@ -23,13 +24,17 @@ import { DebugFilterHead } from './debug-filter/head/definition';
 /**
  * Close overlay
  *
- * @param {KeyboardEvent} event
+ * @param {ProxiSelfState<import('./type').DebugOverlayType>} proxi
  */
-function escHandler(event) {
-    if (event?.code?.toLowerCase?.() === 'escape') {
-        event.preventDefault();
-    }
-}
+const createEscHandler = (proxi) => {
+    /** @param {KeyboardEvent} event */
+    return function escHandler(event) {
+        if (event?.code?.toLowerCase?.() === 'escape') {
+            proxi.active = false;
+            event.preventDefault();
+        }
+    };
+};
 
 /** @type {MobComponent<import('./type').DebugOverlayType>} */
 export const DebugOverlayFn = ({
@@ -48,19 +53,24 @@ export const DebugOverlayFn = ({
         proxi.active = !proxi.active;
     });
 
-    watch(
-        () => proxi.active,
-        (isActive) => {
-            if (isActive) {
-                document.addEventListener('keydown', escHandler);
-                return;
-            }
-
-            document.removeEventListener('keydown', escHandler);
-        }
-    );
-
     onMount(() => {
+        /**
+         * Close overlay on esc.
+         */
+        let handler = createEscHandler(proxi);
+
+        watch(
+            () => proxi.active,
+            (isActive) => {
+                if (isActive) {
+                    document.addEventListener('keydown', handler);
+                    return;
+                }
+
+                document.removeEventListener('keydown', handler);
+            }
+        );
+
         /**
          * Close overlay on route change. Avoid infinite debuf overlay filter item increase. If filter list is visible
          * avoid to count them.
@@ -72,6 +82,8 @@ export const DebugOverlayFn = ({
 
         return () => {
             unsubScribeBeforeRouterChange();
+            // @ts-ignore
+            handler = null;
         };
     });
 
