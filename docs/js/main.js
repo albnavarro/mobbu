@@ -45140,6 +45140,10 @@
           attributes: { name: mobNavigationContainerName }
         },
         {
+          component: LeftSidebar,
+          attributes: { name: leftSidebarName }
+        },
+        {
           tag: "main",
           className: "main",
           content: {
@@ -45153,9 +45157,6 @@
           }
         },
         {
-          component: Footer
-        },
-        {
           component: RouteLoader,
           attributes: { name: routeLoader }
         },
@@ -45167,12 +45168,11 @@
           component: SideBarLinks
         },
         {
-          component: LeftSidebar,
-          attributes: { name: leftSidebarName }
-        },
-        {
           component: SearchOverlay,
           attributes: { name: searchOverlay }
+        },
+        {
+          component: Footer
         }
       ]
     });

@@ -77,6 +77,10 @@ export const wrapper = async () => {
                 attributes: { name: mobNavigationContainerName },
             },
             {
+                component: LeftSidebar,
+                attributes: { name: leftSidebarName },
+            },
+            {
                 tag: 'main',
                 className: 'main',
                 content: {
@@ -90,9 +94,6 @@ export const wrapper = async () => {
                 },
             },
             {
-                component: Footer,
-            },
-            {
                 component: RouteLoader,
                 attributes: { name: routeLoader },
             },
@@ -104,12 +105,11 @@ export const wrapper = async () => {
                 component: SideBarLinks,
             },
             {
-                component: LeftSidebar,
-                attributes: { name: leftSidebarName },
-            },
-            {
                 component: SearchOverlay,
                 attributes: { name: searchOverlay },
+            },
+            {
+                component: Footer,
             },
         ],
     });
