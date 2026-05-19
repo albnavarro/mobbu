@@ -119,6 +119,8 @@ export const DebugTreeItemFn = ({
                 ],
                 content: [
                     {
+                        tag: 'button',
+                        attributes: { type: 'button' },
                         className: ['left', hasChildrenClass],
                         content: [
                             {

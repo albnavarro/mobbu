@@ -3,6 +3,7 @@ import { benchMarkListExternalPartial } from './bench-mark-list-external-partial
 import { externalBenchmarkStore } from '@stores/benchmark';
 import { benchMarkUseProxi } from '../strategy';
 import { BenchMarkFakeComponent } from '../fake-component/definition';
+import { MobCore } from '@mobCore';
 
 /**
  * @import {
@@ -27,6 +28,11 @@ export const BenchMarkRepeatNoKyBindStoreFn = ({
     const boundedProxi = getBoundedProxi();
 
     onMount(() => {
+        MobCore.useNextFrame(() => {
+            getRef()?.input.focus();
+            getRef()?.input.select();
+        });
+
         // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
             getRef()?.input.remove();

@@ -11,6 +11,7 @@ import { DebugFilterList } from './debug-filter/list/definition';
 import { DebugComponent } from './debug-component/definition';
 import { DebugHead } from './head/definition';
 import { DebugFilterHead } from './debug-filter/head/definition';
+import { getFocusTrapHandler } from '@componentLibs/utils/utils';
 
 /**
  * @import {
@@ -53,21 +54,31 @@ export const DebugOverlayFn = ({
         proxi.active = !proxi.active;
     });
 
-    onMount(() => {
+    onMount(({ element }) => {
         /**
          * Close overlay on esc.
          */
-        let handler = createEscHandler(proxi);
+        let escHandler = createEscHandler(proxi);
+        let focusuTrapHandler = getFocusTrapHandler(element);
 
         watch(
             () => proxi.active,
             (isActive) => {
                 if (isActive) {
-                    document.addEventListener('keydown', handler);
+                    /**
+                     * Esc coltrol.
+                     */
+                    document.addEventListener('keydown', escHandler);
+
+                    /**
+                     * Tab loop inside overlay
+                     */
+                    element.addEventListener('keydown', focusuTrapHandler);
                     return;
                 }
 
-                document.removeEventListener('keydown', handler);
+                document.removeEventListener('keydown', escHandler);
+                element.removeEventListener('keydown', focusuTrapHandler);
             }
         );
 
@@ -82,8 +93,12 @@ export const DebugOverlayFn = ({
 
         return () => {
             unsubScribeBeforeRouterChange();
+
             // @ts-ignore
-            handler = null;
+            escHandler = null;
+
+            // @ts-ignore
+            focusuTrapHandler = null;
         };
     });
 

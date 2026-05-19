@@ -3,6 +3,7 @@ import { benchMarkGarbagePartial } from '../partials/bench-mark-garbage-partial'
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { benchMarkUseProxi } from '../strategy';
 import { BenchMarkFakeComponent } from '../fake-component/definition';
+import { MobCore } from '@mobCore';
 
 /**
  * @import {
@@ -27,6 +28,11 @@ export const BenchMarkRepeatNoKyFn = ({
     const proxi = getSelfProxi();
 
     onMount(() => {
+        MobCore.useNextFrame(() => {
+            getRef()?.input.focus();
+            getRef()?.input.select();
+        });
+
         // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
             // Chorme leak memory with input, maintain reference.
