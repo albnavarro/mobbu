@@ -27380,12 +27380,43 @@
     }
   ];
 
-  // src/js/component/pages/utils.js
+  // src/js/component/lib/utils/utils.js
   var createAsideEscHandler = (proxi) => {
     return function escHandler2(event) {
       if (event?.code?.toLowerCase?.() === "escape") {
         proxi.controlsActive = false;
         event.preventDefault();
+      }
+    };
+  };
+  var focusableSelector = [
+    "a[href]",
+    "button:not([disabled])",
+    "input:not([disabled])",
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    '[tabindex]:not([tabindex="-1"])'
+  ].join(", ");
+  var getFocusTrapHandler = (element) => {
+    return function trapHandler(event) {
+      if (event.key !== "Tab") return;
+      const innerElement = [...element.querySelectorAll(focusableSelector)];
+      if (innerElement.length === 0) return;
+      const firstElement = innerElement[0];
+      const lastElement = innerElement.at(-1);
+      const activeElement = document.activeElement;
+      if (event.shiftKey) {
+        if (activeElement === firstElement) {
+          event.preventDefault();
+          if (lastElement)
+            lastElement.focus();
+        }
+      } else {
+        if (activeElement === lastElement) {
+          event.preventDefault();
+          if (firstElement)
+            firstElement.focus();
+        }
       }
     };
   };
@@ -40861,6 +40892,9 @@
                 bindEffect({
                   toggleClass: {
                     active: () => proxi.suggestionListActive
+                  },
+                  toggleAttribute: {
+                    inert: () => !proxi.suggestionListActive
                   }
                 })
               ],
@@ -40948,9 +40982,12 @@
   };
   var createEscHandler2 = (proxi) => {
     return function escHandler2(event) {
-      const suggestionIsActive = suggestioNsearchIsActive();
-      if (suggestionIsActive) return;
       if (event?.code?.toLowerCase?.() === "escape") {
+        const suggestionIsActive = suggestioNsearchIsActive();
+        if (suggestionIsActive) {
+          closeSearchSuggestion();
+          return;
+        }
         proxi.active = false;
         event.preventDefault();
       }
@@ -40970,20 +41007,24 @@
     addMethod("toggle", () => {
       proxi.active = !proxi.active;
     });
-    onMount(() => {
-      let handler7 = createEscHandler2(proxi);
+    onMount(({ element }) => {
+      let escHandler2 = createEscHandler2(proxi);
+      let focusuTrapHandler = getFocusTrapHandler(element);
       watch(
         () => proxi.active,
         (isActive2) => {
           if (isActive2) {
-            document.addEventListener("keydown", handler7);
+            document.addEventListener("keydown", escHandler2);
+            element.addEventListener("keydown", focusuTrapHandler);
             return;
           }
-          document.removeEventListener("keydown", handler7);
+          document.removeEventListener("keydown", escHandler2);
+          element.removeEventListener("keydown", focusuTrapHandler);
         }
       );
       return () => {
-        handler7 = null;
+        escHandler2 = null;
+        focusuTrapHandler = null;
       };
     });
     const gridContent = [

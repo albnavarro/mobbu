@@ -15,7 +15,7 @@ import { MobCore } from '@mobCore';
 import { htmlObject } from '@mobJs';
 import { animatedPatternN0Animation } from './animation/animation';
 import { params } from './variations';
-import { createAsideEscHandler } from '@pagesComponent/utils';
+import { createAsideEscHandler } from '@componentLibs/utils/utils';
 
 /**
  * @param {object} params

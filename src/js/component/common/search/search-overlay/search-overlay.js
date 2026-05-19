@@ -14,6 +14,7 @@ import {
 import { searchOverlayHeader, searchOverlayList } from '@instanceName';
 import { SearchOverlayList } from './list/definition';
 import { SearchOverlayHeader } from './header/definition';
+import { getFocusTrapHandler } from '@componentLibs/utils/utils';
 
 /**
  * @param {object} params
@@ -41,13 +42,22 @@ const shouldCloseSuggestion = ({ target }) => {
 const createEscHandler = (proxi) => {
     /** @param {KeyboardEvent} event */
     return function escHandler(event) {
-        /**
-         * Close overlay only if suggestion is closed
-         */
-        const suggestionIsActive = suggestioNsearchIsActive();
-        if (suggestionIsActive) return;
-
         if (event?.code?.toLowerCase?.() === 'escape') {
+            /**
+             * If suggestion is open close
+             *
+             * - In tab cicly maybe focus is moved from suggestion to outside
+             * - First time close suggstion if is open always
+             */
+            const suggestionIsActive = suggestioNsearchIsActive();
+            if (suggestionIsActive) {
+                closeSearchSuggestion();
+                return;
+            }
+
+            /**
+             * Than when sggestion is closed close all overlay
+             */
             proxi.active = false;
             event.preventDefault();
         }
@@ -71,27 +81,43 @@ export const SearchOverlayFn = ({
         proxi.active = !proxi.active;
     });
 
-    onMount(() => {
+    onMount(({ element }) => {
         /**
          * Close overlay on esc.
+         *
+         * - Force tab inside dialog element
          */
-        let handler = createEscHandler(proxi);
+        let escHandler = createEscHandler(proxi);
+        let focusuTrapHandler = getFocusTrapHandler(element);
 
         watch(
             () => proxi.active,
             (isActive) => {
                 if (isActive) {
-                    document.addEventListener('keydown', handler);
+                    /**
+                     * Esc coltrol.
+                     */
+                    document.addEventListener('keydown', escHandler);
+
+                    /**
+                     * Tab loop inside overlay
+                     */
+                    element.addEventListener('keydown', focusuTrapHandler);
+
                     return;
                 }
 
-                document.removeEventListener('keydown', handler);
+                document.removeEventListener('keydown', escHandler);
+                element.removeEventListener('keydown', focusuTrapHandler);
             }
         );
 
         return () => {
             // @ts-ignore
-            handler = null;
+            escHandler = null;
+
+            // @ts-ignore
+            focusuTrapHandler = null;
         };
     });
 

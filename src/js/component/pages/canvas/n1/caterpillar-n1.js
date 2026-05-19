@@ -12,7 +12,7 @@
 import { MobCore } from '@mobCore';
 import { htmlObject } from '@mobJs';
 import { caterpillarN1Animation } from './animation/animation';
-import { createAsideEscHandler } from '@pagesComponent/utils';
+import { createAsideEscHandler } from '@componentLibs/utils/utils';
 
 /**
  * @param {object} params

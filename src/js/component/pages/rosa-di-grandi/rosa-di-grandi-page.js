@@ -1,8 +1,8 @@
 //@ts-check
 
 import { MathAnimation } from '@commonComponent/math-animation/definition';
+import { createAsideEscHandler } from '@componentLibs/utils/utils';
 import { htmlObject, MobJs } from '@mobJs';
-import { createAsideEscHandler } from '@pagesComponent/utils';
 
 /**
  * @import {

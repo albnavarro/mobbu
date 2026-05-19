@@ -1,6 +1,6 @@
 import { Move3D } from '@commonComponent/move-3d/definition';
+import { createAsideEscHandler } from '@componentLibs/utils/utils';
 import { htmlObject } from '@mobJs';
-import { createAsideEscHandler } from '@pagesComponent/utils';
 
 /**
  * @import {

@@ -17,7 +17,7 @@ import {
     deactivateScrollDownArrow,
 } from '../../../common/scroll-down-label/utils';
 import { scrollerN1Animation } from './animation/animation';
-import { createAsideEscHandler } from '@pagesComponent/utils';
+import { createAsideEscHandler } from '@componentLibs/utils/utils';
 
 /**
  * @param {object} params

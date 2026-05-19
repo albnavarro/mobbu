@@ -259,6 +259,9 @@ export const SearchOverlayHeaderFn = ({
                                 toggleClass: {
                                     active: () => proxi.suggestionListActive,
                                 },
+                                toggleAttribute: {
+                                    inert: () => !proxi.suggestionListActive,
+                                },
                             }),
                         ],
                         content: {

@@ -19,7 +19,7 @@ import {
 } from '../../../common/scroll-down-label/utils';
 import { scrollerN0Animation } from './animation/animation';
 import { params } from './variations';
-import { createAsideEscHandler } from '@pagesComponent/utils';
+import { createAsideEscHandler } from '@componentLibs/utils/utils';
 
 /**
  * @param {object} params
