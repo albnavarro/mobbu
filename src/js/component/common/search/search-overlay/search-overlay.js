@@ -135,6 +135,7 @@ export const SearchOverlayFn = ({
     ];
 
     return htmlObject({
+        tag: 'dialog',
         className: 'c-search-overlay',
         modules: [
             bindEffect({

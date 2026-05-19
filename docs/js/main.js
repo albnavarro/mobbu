@@ -39692,6 +39692,7 @@
       })
     };
     return htmlObject({
+      tag: "dialog",
       className: "c-debug-overlay",
       modules: bindEffect({
         toggleClass: { active: () => proxi.active }
@@ -41021,6 +41022,7 @@
       }
     ];
     return htmlObject({
+      tag: "dialog",
       className: "c-search-overlay",
       modules: [
         bindEffect({

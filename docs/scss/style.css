@@ -3514,7 +3514,9 @@ code.hljs {
       width: 100%;
       height: 100%;
       transition: opacity 0.35s, visibility 0.35s;
+      border: 0;
       opacity: 0;
+      background: transparent;
       pointer-events: none;
       --debug-list-header-height: 3.3333333333rem;
     }
@@ -5556,7 +5558,9 @@ code.hljs {
       width: 100%;
       height: 100%;
       transition: opacity 0.35s, visibility 0.35s;
+      border: 0;
       opacity: 0;
+      background: transparent;
       color: var(--white);
       font-size: 0.8rem;
       pointer-events: none;
