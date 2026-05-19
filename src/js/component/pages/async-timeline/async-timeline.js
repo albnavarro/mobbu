@@ -9,6 +9,7 @@
 import { MobCore } from '@mobCore';
 import { htmlObject } from '@mobJs';
 import { asyncTimelineanimation } from './animation/animation';
+import { createAsideEscHandler } from '@pagesComponent/utils';
 
 /**
  * @param {object} params
@@ -41,6 +42,7 @@ export const AsyncTimelineFn = ({
     bindEffect,
     getSelfProxi,
     delegateEvents,
+    watch,
 }) => {
     const proxi = getSelfProxi();
 
@@ -105,9 +107,28 @@ export const AsyncTimelineFn = ({
             proxi.isMounted = true;
         });
 
+        /**
+         * Close overlay on esc.
+         */
+        let escHandler = createAsideEscHandler(proxi);
+
+        watch(
+            () => proxi.controlsActive,
+            (isActive) => {
+                if (isActive) {
+                    document.addEventListener('keydown', escHandler);
+                    return;
+                }
+
+                document.removeEventListener('keydown', escHandler);
+            }
+        );
+
         return () => {
             unsubscribeResize();
             destroy();
+            // @ts-ignore
+            escHandler = null;
         };
     });
 
@@ -131,6 +152,9 @@ export const AsyncTimelineFn = ({
                     modules: bindEffect({
                         toggleClass: {
                             active: () => proxi.controlsActive,
+                        },
+                        toggleAttribute: {
+                            inert: () => !proxi.controlsActive,
                         },
                     }),
                     content: [

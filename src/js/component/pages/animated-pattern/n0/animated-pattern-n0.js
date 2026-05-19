@@ -15,6 +15,7 @@ import { MobCore } from '@mobCore';
 import { htmlObject } from '@mobJs';
 import { animatedPatternN0Animation } from './animation/animation';
 import { params } from './variations';
+import { createAsideEscHandler } from '@pagesComponent/utils';
 
 /**
  * @param {object} params
@@ -77,6 +78,7 @@ export const AnimatedPatternN0Fn = ({
     bindEffect,
     getSelfProxi,
     delegateEvents,
+    watch,
 }) => {
     const proxi = getSelfProxi();
 
@@ -103,12 +105,32 @@ export const AnimatedPatternN0Fn = ({
             proxi.isMounted = true;
         });
 
+        /**
+         * Close overlay on esc.
+         */
+        let escHandler = createAsideEscHandler(proxi);
+
+        watch(
+            () => proxi.controlsActive,
+            (isActive) => {
+                if (isActive) {
+                    document.addEventListener('keydown', escHandler);
+                    return;
+                }
+
+                document.removeEventListener('keydown', escHandler);
+            }
+        );
+
         return () => {
             proxi.destroy();
 
             // @ts-ignore
             proxi.destroy = () => {};
             unsubscribeResize();
+
+            // @ts-ignore
+            escHandler = null;
         };
     });
 
@@ -138,6 +160,9 @@ export const AnimatedPatternN0Fn = ({
                         modules: bindEffect({
                             toggleClass: {
                                 active: () => proxi.controlsActive,
+                            },
+                            toggleAttribute: {
+                                inert: () => !proxi.controlsActive,
                             },
                         }),
                         content: [

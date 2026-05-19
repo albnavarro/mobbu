@@ -17,6 +17,7 @@ import {
     deactivateScrollDownArrow,
 } from '../../../common/scroll-down-label/utils';
 import { scrollerN1Animation } from './animation/animation';
+import { createAsideEscHandler } from '@pagesComponent/utils';
 
 /**
  * @param {object} params
@@ -88,6 +89,7 @@ export const ScrollerN1Fn = ({
     getSelfProxi,
     delegateEvents,
     bindObject,
+    watch,
 }) => {
     const proxi = getSelfProxi();
 
@@ -128,12 +130,32 @@ export const ScrollerN1Fn = ({
             proxi.isMounted = true;
         });
 
+        /**
+         * Close overlay on esc.
+         */
+        let escHandler = createAsideEscHandler(proxi);
+
+        watch(
+            () => proxi.controlsActive,
+            (isActive) => {
+                if (isActive) {
+                    document.addEventListener('keydown', escHandler);
+                    return;
+                }
+
+                document.removeEventListener('keydown', escHandler);
+            }
+        );
+
         return () => {
             destroy();
             deactivateScrollDownArrow();
 
             // @ts-ignore
             destroy = null;
+
+            // @ts-ignore
+            escHandler = null;
         };
     });
 
@@ -163,6 +185,9 @@ export const ScrollerN1Fn = ({
                         modules: bindEffect({
                             toggleClass: {
                                 active: () => proxi.controlsActive,
+                            },
+                            toggleAttribute: {
+                                inert: () => !proxi.controlsActive,
                             },
                         }),
                         content: [

@@ -4,6 +4,8 @@ import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 import { toggleDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
 import { DebugButton } from '@commonComponent/debug/definition';
+import { QuickNav } from '@commonComponent/quick-nav/definition';
+import { quickNavName } from '@instanceName';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -63,6 +65,10 @@ export const FooterFn = ({
                 {
                     className: 'debug-cell',
                     content: [
+                        {
+                            component: QuickNav,
+                            attributes: { name: quickNavName },
+                        },
                         {
                             component: DebugButton,
                             attributes: { type: 'button' },

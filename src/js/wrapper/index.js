@@ -1,6 +1,5 @@
 import { DebugOverlay } from '@commonComponent/debug/debug-overlay/definition';
 import { SideBarLinks } from '@commonComponent/side-bar-links/definition';
-import { QuickNav } from '@commonComponent/quick-nav/definition';
 import { LeftSidebar } from '@commonComponent/left-sidebar/definition';
 import { RouteLoader } from '@commonComponent/route-loader/definition';
 import { ScrollDownLabel } from '@commonComponent/scroll-down-label/definition';
@@ -9,7 +8,6 @@ import {
     debugOverlayName,
     headerName,
     mobNavigationContainerName,
-    quickNavName,
     leftSidebarName,
     routeLoader,
     scrollDownLabelName,
@@ -93,10 +91,6 @@ export const wrapper = async () => {
             },
             {
                 component: Footer,
-            },
-            {
-                component: QuickNav,
-                attributes: { name: quickNavName },
             },
             {
                 component: RouteLoader,

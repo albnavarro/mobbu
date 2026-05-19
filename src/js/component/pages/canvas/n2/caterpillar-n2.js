@@ -13,6 +13,7 @@
 import { MobCore } from '@mobCore';
 import { htmlObject } from '@mobJs';
 import { caterpillarN2Animation } from './animation/animation';
+import { createAsideEscHandler } from '@pagesComponent/utils';
 
 /**
  * @param {object} params
@@ -110,6 +111,7 @@ export const CaterpillarN2Fn = ({
     getSelfProxi,
     delegateEvents,
     bindObject,
+    watch,
 }) => {
     const proxi = getSelfProxi();
 
@@ -155,11 +157,31 @@ export const CaterpillarN2Fn = ({
             proxi.isMounted = true;
         });
 
+        /**
+         * Close overlay on esc.
+         */
+        let escHandler = createAsideEscHandler(proxi);
+
+        watch(
+            () => proxi.controlsActive,
+            (isActive) => {
+                if (isActive) {
+                    document.addEventListener('keydown', escHandler);
+                    return;
+                }
+
+                document.removeEventListener('keydown', escHandler);
+            }
+        );
+
         return () => {
             destroy();
 
             // @ts-ignore
             destroy = null;
+
+            // @ts-ignore
+            escHandler = null;
         };
     });
 
@@ -188,6 +210,9 @@ export const CaterpillarN2Fn = ({
                         modules: bindEffect({
                             toggleClass: {
                                 active: () => proxi.controlsActive,
+                            },
+                            toggleAttribute: {
+                                inert: () => !proxi.controlsActive,
                             },
                         }),
                         content: [

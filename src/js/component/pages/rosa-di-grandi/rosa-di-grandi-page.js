@@ -2,6 +2,7 @@
 
 import { MathAnimation } from '@commonComponent/math-animation/definition';
 import { htmlObject, MobJs } from '@mobJs';
+import { createAsideEscHandler } from '@pagesComponent/utils';
 
 /**
  * @import {
@@ -127,8 +128,34 @@ export const RosaDiGrandiPageFn = ({
     getRef,
     setRef,
     bindObject,
+    onMount,
+    watch,
 }) => {
     const proxi = getSelfProxi();
+
+    onMount(() => {
+        /**
+         * Close overlay on esc.
+         */
+        let escHandler = createAsideEscHandler(proxi);
+
+        watch(
+            () => proxi.controlsActive,
+            (isActive) => {
+                if (isActive) {
+                    document.addEventListener('keydown', escHandler);
+                    return;
+                }
+
+                document.removeEventListener('keydown', escHandler);
+            }
+        );
+
+        return () => {
+            // @ts-ignore
+            escHandler = null;
+        };
+    });
 
     return htmlObject({
         className: 'l-rosa',
@@ -149,6 +176,9 @@ export const RosaDiGrandiPageFn = ({
                 modules: bindEffect({
                     toggleClass: {
                         active: () => proxi.controlsActive,
+                    },
+                    toggleAttribute: {
+                        inert: () => !proxi.controlsActive,
                     },
                 }),
                 content: [
