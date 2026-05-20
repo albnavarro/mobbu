@@ -38403,8 +38403,7 @@
     return htmlObject({
       className: "c-debug-tree",
       content: {
-        className: "tree-list",
-        modules: setRef("screen"),
+        className: "tree-container",
         content: [
           {
             tag: "input",
@@ -38420,24 +38419,30 @@
             modules: setRef("scrollbar")
           },
           {
-            className: "status",
-            modules: bindEffect({
-              toggleClass: { visible: () => proxi.isLoading }
-            }),
-            content: "Generate tree"
-          },
-          {
-            className: "scollable-element",
-            modules: setRef("scroller"),
-            content: invalidate({
-              observe: () => proxi.data,
-              render: () => {
-                return generateTreeComponents({
-                  data: proxi.data,
-                  staticProps: staticProps2
-                });
+            className: "tree-list",
+            modules: setRef("screen"),
+            content: [
+              {
+                className: "status",
+                modules: bindEffect({
+                  toggleClass: { visible: () => proxi.isLoading }
+                }),
+                content: "Generate tree"
+              },
+              {
+                className: "scollable-element",
+                modules: setRef("scroller"),
+                content: invalidate({
+                  observe: () => proxi.data,
+                  render: () => {
+                    return generateTreeComponents({
+                      data: proxi.data,
+                      staticProps: staticProps2
+                    });
+                  }
+                })
               }
-            })
+            ]
           }
         ]
       }
@@ -38725,8 +38730,7 @@
     return htmlObject({
       className: "c-debug-filter-list",
       content: {
-        className: "list",
-        modules: setRef("screen"),
+        className: "list-container",
         content: [
           {
             tag: "input",
@@ -38743,25 +38747,32 @@
             modules: setRef("scrollbar")
           },
           {
-            tag: "span",
-            className: "status",
-            modules: bindEffect({
-              toggleClass: { visible: () => proxi.isLoading }
-            }),
-            content: "Generate list"
-          },
-          {
-            tag: "span",
-            className: "status",
-            modules: bindEffect({
-              toggleClass: { visible: () => proxi.noResult }
-            }),
-            content: "no result"
-          },
-          {
-            className: "scrollable-element",
-            modules: setRef("scroller"),
-            content: renderList
+            className: "list",
+            modules: setRef("screen"),
+            content: [
+              ,
+              {
+                tag: "span",
+                className: "status",
+                modules: bindEffect({
+                  toggleClass: { visible: () => proxi.isLoading }
+                }),
+                content: "Generate list"
+              },
+              {
+                tag: "span",
+                className: "status",
+                modules: bindEffect({
+                  toggleClass: { visible: () => proxi.noResult }
+                }),
+                content: "no result"
+              },
+              {
+                className: "scrollable-element",
+                modules: setRef("scroller"),
+                content: renderList
+              }
+            ]
           }
         ]
       }
@@ -39192,7 +39203,6 @@
     });
     return htmlObject({
       className: "c-debug-component",
-      modules: setRef("screen"),
       content: [
         {
           className: "back-block",
@@ -39232,14 +39242,20 @@
           modules: setRef("scrollbar")
         },
         {
-          className: "debug-container",
-          modules: setRef("scroller"),
-          content: invalidate({
-            observe: () => proxi.id,
-            render: () => {
-              return getContent({ proxi, delegateEvents });
+          className: "screen",
+          modules: setRef("screen"),
+          content: [
+            {
+              className: "debug-container",
+              modules: setRef("scroller"),
+              content: invalidate({
+                observe: () => proxi.id,
+                render: () => {
+                  return getContent({ proxi, delegateEvents });
+                }
+              })
             }
-          })
+          ]
         }
       ]
     });

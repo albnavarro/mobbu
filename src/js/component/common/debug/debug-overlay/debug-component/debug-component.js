@@ -480,7 +480,6 @@ export const DebugComponentFn = ({
 
     return htmlObject({
         className: 'c-debug-component',
-        modules: setRef('screen'),
         content: [
             {
                 className: 'back-block',
@@ -524,14 +523,20 @@ export const DebugComponentFn = ({
                 modules: setRef('scrollbar'),
             },
             {
-                className: 'debug-container',
-                modules: setRef('scroller'),
-                content: invalidate({
-                    observe: () => proxi.id,
-                    render: () => {
-                        return getContent({ proxi, delegateEvents });
+                className: 'screen',
+                modules: setRef('screen'),
+                content: [
+                    {
+                        className: 'debug-container',
+                        modules: setRef('scroller'),
+                        content: invalidate({
+                            observe: () => proxi.id,
+                            render: () => {
+                                return getContent({ proxi, delegateEvents });
+                            },
+                        }),
                     },
-                }),
+                ],
             },
         ],
     });

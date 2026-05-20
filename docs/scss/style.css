@@ -3683,7 +3683,7 @@ code.hljs {
 .c-debug-tree .scrollbar {
   position: absolute;
   z-index: 14;
-  top: 0.6666666667rem;
+  top: 3.7333333333rem;
   left: calc(100% - 1.3333333333rem);
   width: calc(var(--debug-content-row-height) - 5.3333333333rem);
   transform: rotate(90deg);
@@ -3795,7 +3795,7 @@ code.hljs {
 }
 @layer layout {
   @scope (.c-debug-component) {
-    :scope {
+    .screen {
       position: absolute;
       overflow: hidden;
       color: var(--white);
@@ -3861,6 +3861,7 @@ code.hljs {
       padding-left: 1.3333333333rem;
       border-bottom: 1px rgba(var(--white-rgb), 0.2) solid;
       background: rgba(var(--dark-rgb), 0.9);
+      color: var(--white);
     }
     .back {
       display: inline-block;
@@ -4004,7 +4005,7 @@ code.hljs {
 .c-debug-filter-list .scrollbar {
   position: absolute;
   z-index: 14;
-  top: 0.6666666667rem;
+  top: 3.7333333333rem;
   left: calc(100% - 1.3333333333rem);
   width: calc(var(--debug-content-row-height) - 5.3333333333rem);
   transform: rotate(90deg);

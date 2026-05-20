@@ -2,7 +2,7 @@
 
 @layer layout {
     @scope (.c-debug-component) {
-        :scope {
+        .screen {
             position: absolute;
             overflow: hidden;
             color: var(--white);
@@ -75,6 +75,7 @@
             padding-left: rem(20);
             border-bottom: 1px rgba(var(--white-rgb), 0.2) solid;
             background: rgba(var(--dark-rgb), 0.9);
+            color: var(--white);
         }
 
         .back {

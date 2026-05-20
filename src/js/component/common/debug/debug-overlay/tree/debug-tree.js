@@ -98,8 +98,7 @@ export const DebugTreeFn = ({
     return htmlObject({
         className: 'c-debug-tree',
         content: {
-            className: 'tree-list',
-            modules: setRef('screen'),
+            className: 'tree-container',
             content: [
                 {
                     tag: 'input',
@@ -115,24 +114,30 @@ export const DebugTreeFn = ({
                     modules: setRef('scrollbar'),
                 },
                 {
-                    className: 'status',
-                    modules: bindEffect({
-                        toggleClass: { visible: () => proxi.isLoading },
-                    }),
-                    content: 'Generate tree',
-                },
-                {
-                    className: 'scollable-element',
-                    modules: setRef('scroller'),
-                    content: invalidate({
-                        observe: () => proxi.data,
-                        render: () => {
-                            return generateTreeComponents({
-                                data: proxi.data,
-                                staticProps,
-                            });
+                    className: 'tree-list',
+                    modules: setRef('screen'),
+                    content: [
+                        {
+                            className: 'status',
+                            modules: bindEffect({
+                                toggleClass: { visible: () => proxi.isLoading },
+                            }),
+                            content: 'Generate tree',
                         },
-                    }),
+                        {
+                            className: 'scollable-element',
+                            modules: setRef('scroller'),
+                            content: invalidate({
+                                observe: () => proxi.data,
+                                render: () => {
+                                    return generateTreeComponents({
+                                        data: proxi.data,
+                                        staticProps,
+                                    });
+                                },
+                            }),
+                        },
+                    ],
                 },
             ],
         },

@@ -226,8 +226,7 @@ export const DebugFilterListFn = ({
     return htmlObject({
         className: 'c-debug-filter-list',
         content: {
-            className: 'list',
-            modules: setRef('screen'),
+            className: 'list-container',
             content: [
                 {
                     tag: 'input',
@@ -244,25 +243,32 @@ export const DebugFilterListFn = ({
                     modules: setRef('scrollbar'),
                 },
                 {
-                    tag: 'span',
-                    className: 'status',
-                    modules: bindEffect({
-                        toggleClass: { visible: () => proxi.isLoading },
-                    }),
-                    content: 'Generate list',
-                },
-                {
-                    tag: 'span',
-                    className: 'status',
-                    modules: bindEffect({
-                        toggleClass: { visible: () => proxi.noResult },
-                    }),
-                    content: 'no result',
-                },
-                {
-                    className: 'scrollable-element',
-                    modules: setRef('scroller'),
-                    content: renderList,
+                    className: 'list',
+                    modules: setRef('screen'),
+                    content: [
+                        ,
+                        {
+                            tag: 'span',
+                            className: 'status',
+                            modules: bindEffect({
+                                toggleClass: { visible: () => proxi.isLoading },
+                            }),
+                            content: 'Generate list',
+                        },
+                        {
+                            tag: 'span',
+                            className: 'status',
+                            modules: bindEffect({
+                                toggleClass: { visible: () => proxi.noResult },
+                            }),
+                            content: 'no result',
+                        },
+                        {
+                            className: 'scrollable-element',
+                            modules: setRef('scroller'),
+                            content: renderList,
+                        },
+                    ],
                 },
             ],
         },
