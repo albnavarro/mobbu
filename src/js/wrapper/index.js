@@ -65,16 +65,16 @@ export const wrapper = async () => {
         content: [
             useScssTestGrid ? '<test-scss-grid></test-scss-grid>' : '',
             {
-                component: DebugOverlay,
-                attributes: { name: debugOverlayName },
-            },
-            {
                 component: Header,
                 attributes: { name: headerName },
             },
             {
                 component: NavigationContainer,
                 attributes: { name: mobNavigationContainerName },
+            },
+            {
+                component: SearchOverlay,
+                attributes: { name: searchOverlay },
             },
             {
                 component: LeftSidebar,
@@ -105,8 +105,8 @@ export const wrapper = async () => {
                 component: SideBarLinks,
             },
             {
-                component: SearchOverlay,
-                attributes: { name: searchOverlay },
+                component: DebugOverlay,
+                attributes: { name: debugOverlayName },
             },
             {
                 component: Footer,
