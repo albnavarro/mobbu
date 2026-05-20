@@ -100,11 +100,6 @@ export const DebugTreeItemFn = ({
             {
                 className: ['tree-header', hasChildrenClass],
                 modules: [
-                    delegateEvents({
-                        click: () => {
-                            proxi.isOpen = !proxi.isOpen;
-                        },
-                    }),
                     bindEffect([
                         {
                             toggleClass: { open: () => proxi.isOpen },
@@ -120,8 +115,20 @@ export const DebugTreeItemFn = ({
                 content: [
                     {
                         tag: 'button',
-                        attributes: { type: 'button' },
                         className: ['left', hasChildrenClass],
+                        attributes: {
+                            type: 'button',
+
+                            /**
+                             * Enable focus only if has children
+                             */
+                            tabindex: proxi.children.length > 0 ? 0 : 1,
+                        },
+                        modules: delegateEvents({
+                            click: () => {
+                                proxi.isOpen = !proxi.isOpen;
+                            },
+                        }),
                         content: [
                             {
                                 tag: 'span',

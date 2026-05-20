@@ -51,9 +51,11 @@
             transition: opacity 0.35s;
             border: 0;
             background: transparent;
+            pointer-events: none;
 
             &.has-children {
                 cursor: pointer;
+                pointer-events: all;
 
                 &:hover {
                     opacity: 0.5;

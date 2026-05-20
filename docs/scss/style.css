@@ -4154,9 +4154,11 @@ code.hljs {
       transition: opacity 0.35s;
       border: 0;
       background: transparent;
+      pointer-events: none;
     }
     .left.has-children {
       cursor: pointer;
+      pointer-events: all;
     }
     .left.has-children:hover {
       opacity: 0.5;
