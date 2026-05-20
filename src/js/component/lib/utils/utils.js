@@ -15,8 +15,8 @@ export const createAsideEscHandler = (proxi) => {
 
 const focusableSelector = [
     'a[href]',
-    'button:not([disabled])',
-    'input:not([disabled])',
+    'button:not([disabled]):not([tabindex="-1"])',
+    'input:not([disabled]):not([tabindex="-1"])',
     'select:not([disabled])',
     'textarea:not([disabled])',
     '[tabindex]:not([tabindex="-1"])',
