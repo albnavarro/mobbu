@@ -157,15 +157,12 @@ export const SideBarLinksFn = ({
 
     return htmlObject({
         className: 'c-sidebar-links',
-        modules: [
-            setRef('screenEl'),
-            bindEffect({
-                toggleClass: {
-                    hide: () => proxi.hide,
-                    shift: () => proxi.shift,
-                },
-            }),
-        ],
+        modules: bindEffect({
+            toggleClass: {
+                hide: () => proxi.hide,
+                shift: () => proxi.shift,
+            },
+        }),
         content: [
             {
                 tag: 'input',
@@ -182,18 +179,24 @@ export const SideBarLinksFn = ({
                 modules: setRef('scrollbar'),
             },
             {
-                tag: 'ul',
-                modules: setRef('scrollerEl'),
-                content: invalidate({
-                    observe: () => proxi.data,
-                    render: () => {
-                        return getItems({
-                            staticProps,
-                            bindProps,
-                            proxi,
-                        });
+                className: 'screen',
+                modules: setRef('screenEl'),
+                content: [
+                    {
+                        tag: 'ul',
+                        modules: setRef('scrollerEl'),
+                        content: invalidate({
+                            observe: () => proxi.data,
+                            render: () => {
+                                return getItems({
+                                    staticProps,
+                                    bindProps,
+                                    proxi,
+                                });
+                            },
+                        }),
                     },
-                }),
+                ],
             },
         ],
     });

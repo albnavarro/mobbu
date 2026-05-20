@@ -3,6 +3,11 @@
 @layer layout {
     @scope (.c-search-list) {
         :scope {
+            position: relative;
+            height: 100%;
+        }
+
+        .screen {
             position: absolute;
             overflow: hidden;
             color: var(--white);

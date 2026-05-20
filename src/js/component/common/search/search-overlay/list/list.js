@@ -173,18 +173,7 @@ export const SearchOverlayListFn = ({
 
     return htmlObject({
         className: 'c-search-list',
-        modules: setRef('screen'),
         content: [
-            {
-                tag: 'span',
-                className: 'loader',
-                modules: bindEffect({
-                    toggleClass: {
-                        active: () => proxi.loading,
-                    },
-                }),
-                content: 'fetch data',
-            },
             {
                 tag: 'input',
                 className: 'scrollbar',
@@ -199,8 +188,24 @@ export const SearchOverlayListFn = ({
                 },
                 modules: setRef('scrollbar'),
             },
-            resultUI,
-            renderList,
+            {
+                className: 'screen',
+                modules: setRef('screen'),
+                content: [
+                    {
+                        tag: 'span',
+                        className: 'loader',
+                        modules: bindEffect({
+                            toggleClass: {
+                                active: () => proxi.loading,
+                            },
+                        }),
+                        content: 'fetch data',
+                    },
+                    resultUI,
+                    renderList,
+                ],
+            },
         ],
     });
 };
