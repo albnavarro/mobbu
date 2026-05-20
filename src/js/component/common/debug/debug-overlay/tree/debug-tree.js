@@ -27,6 +27,11 @@ const initScroller = async ({ getRef }) => {
     updateScroller();
     move(0);
 
+    /**
+     * Restore position of element scrolled with tab.
+     */
+    getRef().screen.scrollTop = 0;
+
     return {
         destroy,
         refresh,

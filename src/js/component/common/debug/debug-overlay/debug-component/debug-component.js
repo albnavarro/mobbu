@@ -5,8 +5,7 @@
  *   DelegateEvents,
  *   GetRef,
  *   MobComponent,
- *   ProxiSelfState,
- *   ProxiState
+ *   ProxiSelfState
  * } from "@mobJsType"
  */
 
@@ -412,6 +411,11 @@ const initScroller = ({ getRef }) => {
     updateScroller();
     move(0);
 
+    /**
+     * Restore position of element scrolled with tab.
+     */
+    getRef().screen.scrollTop = 0;
+
     return {
         destroy,
         move,
@@ -470,6 +474,11 @@ export const DebugComponentFn = ({
                 refresh();
                 updateScroller();
                 move(0);
+
+                /**
+                 * Restore position of element scrolled with tab.
+                 */
+                getRef().screen.scrollTop = 0;
             }
         );
 

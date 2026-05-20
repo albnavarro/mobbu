@@ -75,6 +75,11 @@ export const SearchOverlayListFn = ({
         proxi.loading = false;
         proxi.noResult = proxi.list.length === 0;
         proxi.updatePrentSearchKey(currentSearch);
+
+        /**
+         * Restore position of element scrolled with tab.
+         */
+        getRef().screen.scrollTop = 0;
     });
 
     addMethod('reset', () => {
@@ -107,6 +112,11 @@ export const SearchOverlayListFn = ({
                 refresh();
                 updateScroller();
                 move(0);
+
+                /**
+                 * Restore position of element scrolled with tab.
+                 */
+                getRef().screen.scrollTop = 0;
             }
         );
 

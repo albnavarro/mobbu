@@ -141,6 +141,11 @@ export const SideBarLinksFn = ({
                     proxi.hide = true;
                     destroy?.();
                     isActive = false;
+
+                    /**
+                     * Restore position of element scrolled with tab.
+                     */
+                    getRef().screenEl.scrollTop = 0;
                 }
             }
         );
