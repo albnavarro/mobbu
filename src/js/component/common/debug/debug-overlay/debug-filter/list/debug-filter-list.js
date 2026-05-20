@@ -239,6 +239,7 @@ export const DebugFilterListFn = ({
                         max: 100,
                         value: 0,
                         step: 0.5,
+                        tabindex: -1,
                     },
                     modules: setRef('scrollbar'),
                 },
@@ -246,7 +247,6 @@ export const DebugFilterListFn = ({
                     className: 'list',
                     modules: setRef('screen'),
                     content: [
-                        ,
                         {
                             tag: 'span',
                             className: 'status',

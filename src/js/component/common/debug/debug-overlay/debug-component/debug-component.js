@@ -493,6 +493,13 @@ export const DebugComponentFn = ({
                             toggleClass: {
                                 active: () => proxi.parentId.length > 0,
                             },
+                            toggleAttribute: {
+                                /**
+                                 * Enable focus only if is visible in screen
+                                 */
+                                tabindex: () =>
+                                    proxi.parentId.length > 0 ? '0' : '-1',
+                            },
                         }),
                         delegateEvents({
                             click: () => {
@@ -519,6 +526,7 @@ export const DebugComponentFn = ({
                     max: 100,
                     value: 0,
                     step: 0.5,
+                    tabindex: -1,
                 },
                 modules: setRef('scrollbar'),
             },

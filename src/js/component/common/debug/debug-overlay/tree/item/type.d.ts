@@ -7,6 +7,7 @@ export interface DebugTreeItemType {
         componentName: string;
         instanceName: string;
         children: DebugTreeItemType['props'][] | [];
+        focusable: boolean;
     };
     state: {
         isOpen: boolean;

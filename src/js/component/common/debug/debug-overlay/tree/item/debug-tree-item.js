@@ -45,6 +45,7 @@ export const DebugTreeItemFn = ({
     getSelfProxi,
     getBoundedProxi,
     computed,
+    bindProps,
 }) => {
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
@@ -118,17 +119,26 @@ export const DebugTreeItemFn = ({
                         className: ['left', hasChildrenClass],
                         attributes: {
                             type: 'button',
-
-                            /**
-                             * Enable focus only if has children
-                             */
-                            tabindex: proxi.children.length > 0 ? 0 : 1,
                         },
-                        modules: delegateEvents({
-                            click: () => {
-                                proxi.isOpen = !proxi.isOpen;
-                            },
-                        }),
+                        modules: [
+                            delegateEvents({
+                                click: () => {
+                                    proxi.isOpen = !proxi.isOpen;
+                                },
+                            }),
+                            bindEffect({
+                                toggleAttribute: {
+                                    /**
+                                     * Enable focus only if has children and is visible in screen
+                                     */
+                                    tabindex: () =>
+                                        proxi.focusable &&
+                                        proxi.children.length > 0
+                                            ? '0'
+                                            : '-1',
+                                },
+                            }),
+                        ],
                         content: [
                             {
                                 tag: 'span',
@@ -170,6 +180,13 @@ export const DebugTreeItemFn = ({
                                         toggleClass: {
                                             active: () => proxi.isActive,
                                         },
+                                        toggleAttribute: {
+                                            /**
+                                             * Enable focus only if is visible in screen
+                                             */
+                                            tabindex: () =>
+                                                proxi.focusable ? '0' : '-1',
+                                        },
                                     }),
                                 ],
                                 content: 'detail',
@@ -184,6 +201,8 @@ export const DebugTreeItemFn = ({
                 content: generateTreeComponents({
                     data: proxi.children,
                     staticProps,
+                    bindProps,
+                    proxi,
                 }),
             },
         ],

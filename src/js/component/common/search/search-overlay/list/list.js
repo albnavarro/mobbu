@@ -185,6 +185,7 @@ export const SearchOverlayListFn = ({
                     max: 100,
                     value: 0,
                     step: 0.5,
+                    tabindex: -1,
                 },
                 modules: setRef('scrollbar'),
             },

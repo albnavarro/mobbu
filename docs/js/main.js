@@ -38307,23 +38307,67 @@
   };
 
   // src/js/component/common/debug/debug-overlay/tree/recursive-tree.js
-  var generateTreeComponents = ({ data, staticProps: staticProps2 }) => {
+  var generateTreeComponents = ({
+    data,
+    staticProps: staticProps2,
+    bindProps = null,
+    proxi = null
+  }) => {
     return data.map(({ id, componentName, instanceName, children }) => {
-      return htmlObject({
+      return bindProps && proxi ? (
         /**
-         * Use tag instead component to prevent dependency cycle
+         * Is child of another tree-item
+         *
+         * - Has bindProps and shoub be hidden or visible
          */
-        tag: "debug-tree-item",
-        modules: staticProps2(
-          /** @type {import('./item/type').DebugTreeItemType['props']} */
-          {
-            id,
-            componentName,
-            instanceName,
-            children
-          }
-        )
-      });
+        htmlObject({
+          /**
+           * Use tag instead component to prevent dependency cycle
+           */
+          tag: "debug-tree-item",
+          modules: [
+            staticProps2(
+              /** @type {import('./item/type').DebugTreeItemType['props']} */
+              {
+                id,
+                componentName,
+                instanceName,
+                children
+              }
+            ),
+            bindProps(
+              /** @returns {ReturnBindProps<import('./item/type').DebugTreeItemType>} */
+              () => ({
+                focusable: proxi?.isOpen
+              })
+            )
+          ]
+        })
+      ) : (
+        /**
+         * First level tree.
+         *
+         * - Is not chil dof another tree-item.
+         */
+        htmlObject({
+          /**
+           * Use tag instead component to prevent dependency cycle
+           */
+          tag: "debug-tree-item",
+          modules: [
+            staticProps2(
+              /** @type {import('./item/type').DebugTreeItemType['props']} */
+              {
+                id,
+                componentName,
+                instanceName,
+                children,
+                focusable: true
+              }
+            )
+          ]
+        })
+      );
     });
   };
 
@@ -38414,7 +38458,8 @@
               min: 0,
               max: 100,
               value: 0,
-              step: 0.5
+              step: 0.5,
+              tabindex: -1
             },
             modules: setRef("scrollbar")
           },
@@ -38742,7 +38787,8 @@
               min: 0,
               max: 100,
               value: 0,
-              step: 0.5
+              step: 0.5,
+              tabindex: -1
             },
             modules: setRef("scrollbar")
           },
@@ -38750,7 +38796,6 @@
             className: "list",
             modules: setRef("screen"),
             content: [
-              ,
               {
                 tag: "span",
                 className: "status",
@@ -39215,6 +39260,12 @@
               bindEffect({
                 toggleClass: {
                   active: () => proxi.parentId.length > 0
+                },
+                toggleAttribute: {
+                  /**
+                   * Enable focus only if is visible in screen
+                   */
+                  tabindex: () => proxi.parentId.length > 0 ? "0" : "-1"
                 }
               }),
               delegateEvents({
@@ -39237,7 +39288,8 @@
             min: 0,
             max: 100,
             value: 0,
-            step: 0.5
+            step: 0.5,
+            tabindex: -1
           },
           modules: setRef("scrollbar")
         },
@@ -40600,7 +40652,8 @@
             min: 0,
             max: 100,
             value: 0,
-            step: 0.5
+            step: 0.5,
+            tabindex: -1
           },
           modules: setRef("scrollbar")
         },
@@ -42548,7 +42601,8 @@
     bindEffect,
     getSelfProxi,
     getBoundedProxi,
-    computed
+    computed,
+    bindProps
   }) => {
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
@@ -42602,17 +42656,23 @@
               tag: "button",
               className: ["left", hasChildrenClass],
               attributes: {
-                type: "button",
-                /**
-                 * Enable focus only if has children
-                 */
-                tabindex: proxi.children.length > 0 ? 0 : 1
+                type: "button"
               },
-              modules: delegateEvents({
-                click: () => {
-                  proxi.isOpen = !proxi.isOpen;
-                }
-              }),
+              modules: [
+                delegateEvents({
+                  click: () => {
+                    proxi.isOpen = !proxi.isOpen;
+                  }
+                }),
+                bindEffect({
+                  toggleAttribute: {
+                    /**
+                     * Enable focus only if has children and is visible in screen
+                     */
+                    tabindex: () => proxi.focusable && proxi.children.length > 0 ? "0" : "-1"
+                  }
+                })
+              ],
               content: [
                 {
                   tag: "span",
@@ -42653,6 +42713,12 @@
                     bindEffect({
                       toggleClass: {
                         active: () => proxi.isActive
+                      },
+                      toggleAttribute: {
+                        /**
+                         * Enable focus only if is visible in screen
+                         */
+                        tabindex: () => proxi.focusable ? "0" : "-1"
                       }
                     })
                   ],
@@ -42667,7 +42733,9 @@
           modules: setRef("content"),
           content: generateTreeComponents({
             data: proxi.children,
-            staticProps: staticProps2
+            staticProps: staticProps2,
+            bindProps,
+            proxi
           })
         }
       ]
@@ -42697,6 +42765,10 @@
         children: {
           __value: [],
           __type: Array
+        },
+        focusable: {
+          __value: false,
+          __type: Boolean
         }
       },
       state: {

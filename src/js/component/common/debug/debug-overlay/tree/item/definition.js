@@ -29,6 +29,10 @@ export const DebugTreeItem = MobJs.createComponent(
                 __value: [],
                 __type: Array,
             },
+            focusable: {
+                __value: false,
+                __type: Boolean,
+            },
         },
         state: {
             isOpen: {
