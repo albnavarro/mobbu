@@ -27571,11 +27571,18 @@
               tag: "button",
               className: "controls-open",
               attributes: { type: "button" },
-              modules: delegateEvents({
-                click: () => {
-                  proxi.controlsActive = true;
-                }
-              }),
+              modules: [
+                delegateEvents({
+                  click: () => {
+                    proxi.controlsActive = true;
+                  }
+                }),
+                bindEffect({
+                  toggleAttribute: {
+                    tabindex: () => proxi.controlsActive ? "-1" : "0"
+                  }
+                })
+              ],
               content: "variations"
             },
             {
@@ -28371,11 +28378,18 @@
               tag: "button",
               className: "controls-open",
               attributes: { type: "button" },
-              modules: delegateEvents({
-                click: () => {
-                  proxi.controlsActive = true;
-                }
-              }),
+              modules: [
+                delegateEvents({
+                  click: () => {
+                    proxi.controlsActive = true;
+                  }
+                }),
+                bindEffect({
+                  toggleAttribute: {
+                    tabindex: () => proxi.controlsActive ? "-1" : "0"
+                  }
+                })
+              ],
               content: "show controls"
             },
             {
@@ -28815,11 +28829,18 @@
             {
               tag: "button",
               className: "controls-open",
-              modules: delegateEvents({
-                click: () => {
-                  proxi.controlsActive = true;
-                }
-              }),
+              modules: [
+                delegateEvents({
+                  click: () => {
+                    proxi.controlsActive = true;
+                  }
+                }),
+                bindEffect({
+                  toggleAttribute: {
+                    tabindex: () => proxi.controlsActive ? "-1" : "0"
+                  }
+                })
+              ],
               content: "show controls"
             },
             {
@@ -29325,11 +29346,18 @@
               tag: "button",
               className: "controls-open",
               attributes: { type: "button" },
-              modules: delegateEvents({
-                click: () => {
-                  proxi.controlsActive = true;
-                }
-              }),
+              modules: [
+                delegateEvents({
+                  click: () => {
+                    proxi.controlsActive = true;
+                  }
+                }),
+                bindEffect({
+                  toggleAttribute: {
+                    tabindex: () => proxi.controlsActive ? "-1" : "0"
+                  }
+                })
+              ],
               content: "variations"
             },
             {
@@ -29749,11 +29777,18 @@
               tag: "button",
               className: "controls-open",
               attributes: { type: "button" },
-              modules: delegateEvents({
-                click: () => {
-                  proxi.controlsActive = true;
-                }
-              }),
+              modules: [
+                delegateEvents({
+                  click: () => {
+                    proxi.controlsActive = true;
+                  }
+                }),
+                bindEffect({
+                  toggleAttribute: {
+                    tabindex: () => proxi.controlsActive ? "-1" : "0"
+                  }
+                })
+              ],
               content: "variations"
             },
             {
@@ -33141,11 +33176,18 @@
           tag: "button",
           attributes: { type: "button" },
           className: "show-controls",
-          modules: delegateEvents({
-            click: () => {
-              proxi.controlsActive = true;
-            }
-          }),
+          modules: [
+            delegateEvents({
+              click: () => {
+                proxi.controlsActive = true;
+              }
+            }),
+            bindEffect({
+              toggleAttribute: {
+                tabindex: () => proxi.controlsActive ? "-1" : "0"
+              }
+            })
+          ],
           content: "show controls"
         },
         getControls6({ delegateEvents, bindEffect, bindObject, proxi }),
@@ -34822,11 +34864,18 @@
           {
             tag: "button",
             className: "controls-open",
-            modules: delegateEvents({
-              click: () => {
-                proxi.controlsActive = true;
-              }
-            }),
+            modules: [
+              delegateEvents({
+                click: () => {
+                  proxi.controlsActive = true;
+                }
+              }),
+              bindEffect({
+                toggleAttribute: {
+                  tabindex: () => proxi.controlsActive ? "-1" : "0"
+                }
+              })
+            ],
             content: "show controls"
           },
           {
@@ -36850,11 +36899,18 @@
         {
           tag: "button",
           className: "controls-open",
-          modules: delegateEvents({
-            click: () => {
-              proxi.controlsActive = true;
-            }
-          }),
+          modules: [
+            delegateEvents({
+              click: () => {
+                proxi.controlsActive = true;
+              }
+            }),
+            bindEffect({
+              toggleAttribute: {
+                tabindex: () => proxi.controlsActive ? "-1" : "0"
+              }
+            })
+          ],
           content: "show controls"
         },
         {

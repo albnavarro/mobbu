@@ -174,11 +174,19 @@ export const ScrollerN1Fn = ({
                         tag: 'button',
                         className: 'controls-open',
                         attributes: { type: 'button' },
-                        modules: delegateEvents({
-                            click: () => {
-                                proxi.controlsActive = true;
-                            },
-                        }),
+                        modules: [
+                            delegateEvents({
+                                click: () => {
+                                    proxi.controlsActive = true;
+                                },
+                            }),
+                            bindEffect({
+                                toggleAttribute: {
+                                    tabindex: () =>
+                                        proxi.controlsActive ? '-1' : '0',
+                                },
+                            }),
+                        ],
                         content: 'variations',
                     },
                     {

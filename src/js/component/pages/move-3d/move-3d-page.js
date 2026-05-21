@@ -271,11 +271,18 @@ export const Move3DPagefn = ({
                 tag: 'button',
                 attributes: { type: 'button' },
                 className: 'show-controls',
-                modules: delegateEvents({
-                    click: () => {
-                        proxi.controlsActive = true;
-                    },
-                }),
+                modules: [
+                    delegateEvents({
+                        click: () => {
+                            proxi.controlsActive = true;
+                        },
+                    }),
+                    bindEffect({
+                        toggleAttribute: {
+                            tabindex: () => (proxi.controlsActive ? '-1' : '0'),
+                        },
+                    }),
+                ],
                 content: 'show controls',
             },
             getControls({ delegateEvents, bindEffect, bindObject, proxi }),
