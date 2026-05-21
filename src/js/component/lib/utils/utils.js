@@ -23,32 +23,28 @@ const focusableSelector = [
 ].join(', ');
 
 /**
- * @param {HTMLElement} element
+ * @param {object} params
+ * @param {HTMLElement} params.element
+ * @param {import('../../../mob/mob-core/events/tab-handler/type').TabDirection} params.direction
+ * @param {() => void} params.preventDefault
  */
-export const getFocusTrapHandler = (element) => {
-    /** @param {KeyboardEvent} event */
-    return function trapHandler(event) {
-        if (event.key !== 'Tab') return;
+export const tabLoopTrap = ({ element, direction, preventDefault }) => {
+    const innerElement = [...element.querySelectorAll(focusableSelector)];
+    if (innerElement.length === 0) return;
 
-        const innerElement = [...element.querySelectorAll(focusableSelector)];
-        if (innerElement.length === 0) return;
+    const firstElement = innerElement[0];
+    const lastElement = innerElement.at(-1);
+    const activeElement = document.activeElement;
 
-        const firstElement = innerElement[0];
-        const lastElement = innerElement.at(-1);
-        const activeElement = document.activeElement;
-
-        if (event.shiftKey) {
-            if (activeElement === firstElement) {
-                event.preventDefault();
-                if (lastElement)
-                    /** @type {HTMLElement} */ (lastElement).focus();
-            }
-        } else {
-            if (activeElement === lastElement) {
-                event.preventDefault();
-                if (firstElement)
-                    /** @type {HTMLElement} */ (firstElement).focus();
-            }
+    if (direction === 'BACKWARD') {
+        if (activeElement === firstElement) {
+            preventDefault();
+            if (lastElement) /** @type {HTMLElement} */ (lastElement).focus();
         }
-    };
+    } else {
+        if (activeElement === lastElement) {
+            preventDefault();
+            if (firstElement) /** @type {HTMLElement} */ (firstElement).focus();
+        }
+    }
 };

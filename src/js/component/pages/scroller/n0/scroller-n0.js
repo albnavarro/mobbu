@@ -19,7 +19,11 @@ import {
 } from '../../../common/scroll-down-label/utils';
 import { scrollerN0Animation } from './animation/animation';
 import { params } from './variations';
-import { createAsideEscHandler } from '@componentLibs/utils/utils';
+
+/**
+ * Component is a singleton
+ */
+let unsubscribeEscHandler = () => {};
 
 /**
  * @param {object} params
@@ -117,20 +121,20 @@ export const ScrollerN0Fn = ({
             proxi.isMounted = true;
         });
 
-        /**
-         * Close overlay on esc.
-         */
-        let escHandler = createAsideEscHandler(proxi);
-
         watch(
             () => proxi.controlsActive,
             (isActive) => {
                 if (isActive) {
-                    document.addEventListener('keydown', escHandler);
+                    unsubscribeEscHandler = MobCore.useEscHandler(
+                        ({ preventDefault }) => {
+                            proxi.controlsActive = false;
+                            preventDefault();
+                        }
+                    );
                     return;
                 }
 
-                document.removeEventListener('keydown', escHandler);
+                unsubscribeEscHandler();
             }
         );
 
@@ -138,12 +142,9 @@ export const ScrollerN0Fn = ({
             proxi.destroy();
             // @ts-ignore
             proxi.destroy = () => {};
-
             deactivateScrollDownArrow();
             unsubscribeResize();
-
-            // @ts-ignore
-            escHandler = null;
+            unsubscribeEscHandler();
         };
     });
 

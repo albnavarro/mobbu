@@ -15,7 +15,11 @@ import { MobCore } from '@mobCore';
 import { htmlObject } from '@mobJs';
 import { animatedPatternN0Animation } from './animation/animation';
 import { params } from './variations';
-import { createAsideEscHandler } from '@componentLibs/utils/utils';
+
+/**
+ * Component is a singleton
+ */
+let unsubscribeEscHandler = () => {};
 
 /**
  * @param {object} params
@@ -105,20 +109,20 @@ export const AnimatedPatternN0Fn = ({
             proxi.isMounted = true;
         });
 
-        /**
-         * Close overlay on esc.
-         */
-        let escHandler = createAsideEscHandler(proxi);
-
         watch(
             () => proxi.controlsActive,
             (isActive) => {
                 if (isActive) {
-                    document.addEventListener('keydown', escHandler);
+                    unsubscribeEscHandler = MobCore.useEscHandler(
+                        ({ preventDefault }) => {
+                            proxi.controlsActive = false;
+                            preventDefault();
+                        }
+                    );
                     return;
                 }
 
-                document.removeEventListener('keydown', escHandler);
+                unsubscribeEscHandler();
             }
         );
 
@@ -128,9 +132,7 @@ export const AnimatedPatternN0Fn = ({
             // @ts-ignore
             proxi.destroy = () => {};
             unsubscribeResize();
-
-            // @ts-ignore
-            escHandler = null;
+            unsubscribeEscHandler();
         };
     });
 

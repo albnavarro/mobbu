@@ -64,19 +64,6 @@ const toTopBtnHandler = () => {
     if (!navigationIsOpen) MobBodyScroll.to(0);
 };
 
-/**
- * Close overlay
- *
- * @param {KeyboardEvent} event
- */
-function escHandler(event) {
-    if (event?.code?.toLowerCase?.() === 'escape') {
-        navigationStore.set('navigationIsOpen', false);
-        UnFreezeMobPageScroll();
-        event.preventDefault();
-    }
-}
-
 /** @type {import('@mobJsType').MobComponent<import('./type').NavigationContainer>} */
 export const NavigationContainerFn = ({
     onMount,
@@ -121,10 +108,13 @@ export const NavigationContainerFn = ({
         /**
          * Close navigation on esc.
          */
-        document.addEventListener('keydown', escHandler);
+        const unsubscribeEscHandler = MobCore.useEscHandler(() => {
+            navigationStore.set('navigationIsOpen', false);
+            UnFreezeMobPageScroll();
+        });
 
         return () => {
-            document.removeEventListener('keydown', escHandler);
+            unsubscribeEscHandler();
         };
     });
 

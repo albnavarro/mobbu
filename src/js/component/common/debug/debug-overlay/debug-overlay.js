@@ -11,31 +11,22 @@ import { DebugFilterList } from './debug-filter/list/definition';
 import { DebugComponent } from './debug-component/definition';
 import { DebugHead } from './head/definition';
 import { DebugFilterHead } from './debug-filter/head/definition';
-import { getFocusTrapHandler } from '@componentLibs/utils/utils';
+import { tabLoopTrap } from '@componentLibs/utils/utils';
+import { MobCore } from '@mobCore';
 
 /**
  * @import {
  *   MobComponent,
- *   ProxiSelfState,
  *   ReturnBindProps
  * } from "@mobJsType"
  * @import {DebugHeadType} from "./head/type"
  */
 
 /**
- * Close overlay
- *
- * @param {ProxiSelfState<import('./type').DebugOverlayType>} proxi
+ * Component is a singleton
  */
-const createEscHandler = (proxi) => {
-    /** @param {KeyboardEvent} event */
-    return function escHandler(event) {
-        if (event?.code?.toLowerCase?.() === 'escape') {
-            proxi.active = false;
-            event.preventDefault();
-        }
-    };
-};
+let unsubscribeTabHandler = () => {};
+let unsubscribeEscHandler = () => {};
 
 /** @type {MobComponent<import('./type').DebugOverlayType>} */
 export const DebugOverlayFn = ({
@@ -55,12 +46,6 @@ export const DebugOverlayFn = ({
     });
 
     onMount(({ element }) => {
-        /**
-         * Close overlay on esc.
-         */
-        let escHandler = createEscHandler(proxi);
-        let focusuTrapHandler = getFocusTrapHandler(element);
-
         watch(
             () => proxi.active,
             (isActive) => {
@@ -68,17 +53,27 @@ export const DebugOverlayFn = ({
                     /**
                      * Esc coltrol.
                      */
-                    document.addEventListener('keydown', escHandler);
+                    unsubscribeEscHandler = MobCore.useEscHandler(
+                        ({ preventDefault }) => {
+                            proxi.active = false;
+                            preventDefault();
+                        }
+                    );
 
                     /**
                      * Tab loop inside overlay
                      */
-                    element.addEventListener('keydown', focusuTrapHandler);
+                    unsubscribeTabHandler = MobCore.useTabHandler(
+                        ({ direction, preventDefault }) => {
+                            tabLoopTrap({ element, direction, preventDefault });
+                        }
+                    );
+
                     return;
                 }
 
-                document.removeEventListener('keydown', escHandler);
-                element.removeEventListener('keydown', focusuTrapHandler);
+                unsubscribeEscHandler();
+                unsubscribeTabHandler();
             }
         );
 
@@ -93,12 +88,8 @@ export const DebugOverlayFn = ({
 
         return () => {
             unsubScribeBeforeRouterChange();
-
-            // @ts-ignore
-            escHandler = null;
-
-            // @ts-ignore
-            focusuTrapHandler = null;
+            unsubscribeEscHandler();
+            unsubscribeTabHandler();
         };
     });
 

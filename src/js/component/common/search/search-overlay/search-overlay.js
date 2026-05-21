@@ -14,7 +14,14 @@ import {
 import { searchOverlayHeader, searchOverlayList } from '@instanceName';
 import { SearchOverlayList } from './list/definition';
 import { SearchOverlayHeader } from './header/definition';
-import { getFocusTrapHandler } from '@componentLibs/utils/utils';
+import { tabLoopTrap } from '@componentLibs/utils/utils';
+import { MobCore } from '@mobCore';
+
+/**
+ * Component is a singleton
+ */
+let unsubscribeTabHandler = () => {};
+let unsubscribeEscHandler = () => {};
 
 /**
  * @param {object} params
@@ -39,30 +46,24 @@ const shouldCloseSuggestion = ({ target }) => {
  *
  * @param {ProxiSelfState<import('./type').SearchOverlay>} proxi
  */
-const createEscHandler = (proxi) => {
-    /** @param {KeyboardEvent} event */
-    return function escHandler(event) {
-        if (event?.code?.toLowerCase?.() === 'escape') {
-            /**
-             * If suggestion is open close
-             *
-             * - In tab cicly maybe focus is moved from suggestion to outside
-             * - First time close suggstion if is open always
-             */
-            const suggestionIsActive = suggestioNsearchIsActive();
-            if (suggestionIsActive) {
-                closeSearchSuggestion();
-                return;
-            }
+function escHandler(proxi) {
+    /**
+     * If suggestion is open close
+     *
+     * - In tab cicly maybe focus is moved from suggestion to outside
+     * - First time close suggstion if is open always
+     */
+    const suggestionIsActive = suggestioNsearchIsActive();
+    if (suggestionIsActive) {
+        closeSearchSuggestion();
+        return;
+    }
 
-            /**
-             * Than when sggestion is closed close all overlay
-             */
-            proxi.active = false;
-            event.preventDefault();
-        }
-    };
-};
+    /**
+     * Than when sggestion is closed close all overlay
+     */
+    proxi.active = false;
+}
 
 /** @type {MobComponent<import('./type').SearchOverlay>} */
 export const SearchOverlayFn = ({
@@ -82,14 +83,6 @@ export const SearchOverlayFn = ({
     });
 
     onMount(({ element }) => {
-        /**
-         * Close overlay on esc.
-         *
-         * - Force tab inside dialog element
-         */
-        let escHandler = createEscHandler(proxi);
-        let focusuTrapHandler = getFocusTrapHandler(element);
-
         watch(
             () => proxi.active,
             (isActive) => {
@@ -97,27 +90,34 @@ export const SearchOverlayFn = ({
                     /**
                      * Esc coltrol.
                      */
-                    document.addEventListener('keydown', escHandler);
+                    unsubscribeEscHandler = MobCore.useEscHandler(
+                        ({ preventDefault }) => {
+                            escHandler(proxi);
+                            preventDefault();
+                        }
+                    );
 
                     /**
                      * Tab loop inside overlay
                      */
-                    element.addEventListener('keydown', focusuTrapHandler);
+                    unsubscribeTabHandler = MobCore.useTabHandler(
+                        ({ direction, preventDefault }) => {
+                            tabLoopTrap({ element, direction, preventDefault });
+                        }
+                    );
 
                     return;
                 }
 
-                document.removeEventListener('keydown', escHandler);
-                element.removeEventListener('keydown', focusuTrapHandler);
+                unsubscribeEscHandler();
+                unsubscribeTabHandler();
             }
         );
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
-            // @ts-ignore
-            escHandler = null;
-
-            // @ts-ignore
-            focusuTrapHandler = null;
+            unsubscribeEscHandler();
+            unsubscribeTabHandler();
         };
     });
 

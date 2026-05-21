@@ -13,7 +13,11 @@
 import { MobCore } from '@mobCore';
 import { htmlObject } from '@mobJs';
 import { caterpillarN2Animation } from './animation/animation';
-import { createAsideEscHandler } from '@componentLibs/utils/utils';
+
+/**
+ * Component is a singleton
+ */
+let unsubscribeEscHandler = () => {};
 
 /**
  * @param {object} params
@@ -157,20 +161,20 @@ export const CaterpillarN2Fn = ({
             proxi.isMounted = true;
         });
 
-        /**
-         * Close overlay on esc.
-         */
-        let escHandler = createAsideEscHandler(proxi);
-
         watch(
             () => proxi.controlsActive,
             (isActive) => {
                 if (isActive) {
-                    document.addEventListener('keydown', escHandler);
+                    unsubscribeEscHandler = MobCore.useEscHandler(
+                        ({ preventDefault }) => {
+                            proxi.controlsActive = false;
+                            preventDefault();
+                        }
+                    );
                     return;
                 }
 
-                document.removeEventListener('keydown', escHandler);
+                unsubscribeEscHandler();
             }
         );
 
@@ -179,9 +183,7 @@ export const CaterpillarN2Fn = ({
 
             // @ts-ignore
             destroy = null;
-
-            // @ts-ignore
-            escHandler = null;
+            unsubscribeEscHandler();
         };
     });
 

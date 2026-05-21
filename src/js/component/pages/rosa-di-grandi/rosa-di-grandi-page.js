@@ -1,8 +1,13 @@
 //@ts-check
 
 import { MathAnimation } from '@commonComponent/math-animation/definition';
-import { createAsideEscHandler } from '@componentLibs/utils/utils';
+import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
+
+/**
+ * Component is a singleton
+ */
+let unsubscribeEscHandler = () => {};
 
 /**
  * @import {
@@ -134,26 +139,26 @@ export const RosaDiGrandiPageFn = ({
     const proxi = getSelfProxi();
 
     onMount(() => {
-        /**
-         * Close overlay on esc.
-         */
-        let escHandler = createAsideEscHandler(proxi);
-
         watch(
             () => proxi.controlsActive,
             (isActive) => {
                 if (isActive) {
-                    document.addEventListener('keydown', escHandler);
+                    unsubscribeEscHandler = MobCore.useEscHandler(
+                        ({ preventDefault }) => {
+                            proxi.controlsActive = false;
+                            preventDefault();
+                        }
+                    );
                     return;
                 }
 
-                document.removeEventListener('keydown', escHandler);
+                unsubscribeEscHandler();
             }
         );
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
-            // @ts-ignore
-            escHandler = null;
+            unsubscribeEscHandler();
         };
     });
 

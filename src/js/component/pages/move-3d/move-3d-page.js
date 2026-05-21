@@ -1,5 +1,5 @@
 import { Move3D } from '@commonComponent/move-3d/definition';
-import { createAsideEscHandler } from '@componentLibs/utils/utils';
+import { MobCore } from '@mobCore';
 import { htmlObject } from '@mobJs';
 
 /**
@@ -12,6 +12,11 @@ import { htmlObject } from '@mobJs';
  *   ReturnBindProps
  * } from "@mobJsType"
  */
+
+/**
+ * Component is a singleton
+ */
+let unsubscribeEscHandler = () => {};
 
 /**
  * @param {object} params
@@ -236,26 +241,26 @@ export const Move3DPagefn = ({
     const proxi = getSelfProxi();
 
     onMount(() => {
-        /**
-         * Close overlay on esc.
-         */
-        let escHandler = createAsideEscHandler(proxi);
-
         watch(
             () => proxi.controlsActive,
             (isActive) => {
                 if (isActive) {
-                    document.addEventListener('keydown', escHandler);
+                    unsubscribeEscHandler = MobCore.useEscHandler(
+                        ({ preventDefault }) => {
+                            proxi.controlsActive = false;
+                            preventDefault();
+                        }
+                    );
                     return;
                 }
 
-                document.removeEventListener('keydown', escHandler);
+                unsubscribeEscHandler();
             }
         );
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
-            // @ts-ignore
-            escHandler = null;
+            unsubscribeEscHandler();
         };
     });
 
