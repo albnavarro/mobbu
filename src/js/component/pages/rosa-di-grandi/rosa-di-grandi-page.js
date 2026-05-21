@@ -61,7 +61,7 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
                             const value = currentTarget.value;
                             proxi.numeratorsLabel = Number(value);
                         },
-                        change: (/** @type {InputEvent} */ event) => {
+                        'change:force': (/** @type {InputEvent} */ event) => {
                             const { currentTarget } = event;
                             if (!currentTarget) return;
 
@@ -107,7 +107,7 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
                             const value = target.value;
                             proxi.denominatorLabel = Number(value);
                         },
-                        change: (/** @type {InputEvent} */ event) => {
+                        'change:force': (/** @type {InputEvent} */ event) => {
                             const { target } = event;
                             if (!target) return;
 
