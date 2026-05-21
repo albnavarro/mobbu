@@ -288,7 +288,7 @@ export const SearchOverlayHeaderFn = ({
                         sendToList({ getRef });
                     },
                     keydown: (/** @type {KeyboardEvent} */ event) => {
-                        if (event.code.toLowerCase() === 'enter') {
+                        if (event?.code?.toLowerCase() === 'enter') {
                             sendToList({ getRef });
                         }
                     },
@@ -307,7 +307,7 @@ export const SearchOverlayHeaderFn = ({
                         sendReset({ getRef, proxi });
                     },
                     keydown: (/** @type {KeyboardEvent} */ event) => {
-                        if (event.code.toLowerCase() === 'enter') {
+                        if (event?.code?.toLowerCase() === 'enter') {
                             sendReset({ getRef, proxi });
                         }
                     },

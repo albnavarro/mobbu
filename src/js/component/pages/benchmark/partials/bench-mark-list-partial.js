@@ -123,7 +123,7 @@ export const benchMarkListPartial = ({
                             delegateEvents({
                                 keydown: (/** @type {Event} */ event) => {
                                     // @ts-ignore
-                                    if (event.keyCode === 13) {
+                                    if (event?.keyCode === 13) {
                                         event.preventDefault();
 
                                         const value = Number(

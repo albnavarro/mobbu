@@ -45,7 +45,7 @@ export const DebugFilterHeadFn = ({
                     setRef('input'),
                     delegateEvents({
                         keydown: (/** @type {KeyboardEvent} */ event) => {
-                            if (event.code.toLowerCase() === 'enter') {
+                            if (event?.code?.toLowerCase() === 'enter') {
                                 event.preventDefault();
 
                                 const testString =
