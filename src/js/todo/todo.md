@@ -1,3 +1,30 @@
+# Accessibility:
+1. `MobCore`: creare `useEscHandler()` && `useTabHandler({ direction })`
+
+2. Usare i nuovi due eventi in:
+   - src/js/component/common/debug/debug-overlay/debug-overlay.js
+   - src/js/component/common/search/search-overlay/search-overlay.js
+   - src/js/component/layout/navigation/nav-container.js
+   - src/js/component/pages/animated-pattern/n0/animated-pattern-n0.js
+   - src/js/component/pages/async-timeline/async-timeline.js
+   - src/js/component/pages/canvas/n1/caterpillar-n1.js
+   - src/js/component/pages/canvas/n2/caterpillar-n2.js
+   - src/js/component/pages/move-3d/move-3d-page.js
+   - src/js/component/pages/rosa-di-grandi/rosa-di-grandi-page.js
+   - src/js/component/pages/scroller/n0/scroller-n0.js
+   - src/js/component/pages/scroller/n1/scroller-n1.js
+
+3. I componenti che usan `smooth-scroller` devono avere la cta per tornare in cima.
+
+4. Smooth scroller accessibility ?
+
+5. FocusRouter(<alias elemento>)
+
+6. `<Dialog>` per muovere velocemente il focus nelle macroaree del sito per template.
+
+7. Le ancore devono spostare il focus.
+
+
 # MobJs
 
 ## 1. Repat proxi
