@@ -7,7 +7,6 @@ import { SearchOverlay } from '@commonComponent/search/search-overlay/definition
 import {
     debugOverlayName,
     headerName,
-    mobNavigationContainerName,
     leftSidebarName,
     routeLoader,
     scrollDownLabelName,
@@ -15,7 +14,6 @@ import {
 } from '@instanceName';
 import { Footer } from '@layoutComponent/footer/definition';
 import { Header } from '@layoutComponent/header/definition';
-import { NavigationContainer } from '@layoutComponent/navigation/definition';
 import { htmlObject, MobJs } from '@mobJs';
 import { StarSvg } from '@commonComponent/svg-shape/star/definition';
 import { DebugTreeItem } from '@commonComponent/debug/debug-overlay/tree/item/definition';
@@ -67,10 +65,6 @@ export const wrapper = async () => {
             {
                 component: Header,
                 attributes: { name: headerName },
-            },
-            {
-                component: NavigationContainer,
-                attributes: { name: mobNavigationContainerName },
             },
             {
                 component: SearchOverlay,

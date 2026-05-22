@@ -12,6 +12,8 @@ import { closeAllNavAccordion } from '@layoutComponent/navigation/navigation/uti
 import { HeaderMainMenu } from './header-main-menu/definition';
 import { HeaderUtils } from './header-utils/definition';
 import { HeaderToggle } from './nav-toggle/definition';
+import { NavigationContainer } from '@layoutComponent/navigation/definition';
+import { mobNavigationContainerName } from '@instanceName';
 
 function titleHandler() {
     MobJs.loadUrl({ url: 'home' });
@@ -83,6 +85,10 @@ export const HeaderFn = ({
                         content: {
                             component: HeaderToggle,
                         },
+                    },
+                    {
+                        component: NavigationContainer,
+                        attributes: { name: mobNavigationContainerName },
                     },
                     {
                         tag: 'button',
