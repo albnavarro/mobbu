@@ -30,6 +30,7 @@ export const initNavigationScoller = ({ root }) => {
         direction: 'vertical',
         drag: true,
         scopedEvent: false,
+        usability: true,
         onUpdate: ({ percent }) => {
             const { navigationIsOpen } = navigationStore.get();
             if (!navigationIsOpen) return;

@@ -31,6 +31,11 @@ export class MobSmoothScroller {
     /**
      * @type {boolean}
      */
+    #usability = false;
+
+    /**
+     * @type {boolean}
+     */
     #propsIsValid = true;
 
     /**
@@ -155,6 +160,12 @@ export class MobSmoothScroller {
      * @returns {void}
      */
     #subscribeMouseLeave = () => UnFreezeMobPageScroll();
+
+    /**
+     * @type {() => void}
+     * @returns {void}
+     */
+    #subscribeHandleTab = () => {};
 
     /**
      * @type {MobLerp | MobSpring}
@@ -489,6 +500,12 @@ export class MobSmoothScroller {
             NOOP
         );
 
+        this.#usability = valueIsBooleanAndReturnDefault(
+            data?.usability,
+            'usability',
+            false
+        );
+
         this.#snapPoints = valueIsArrayAndReturnDefault(
             data?.snapPoints,
             'SmoothScroller: snapPoints',
@@ -702,6 +719,7 @@ export class MobSmoothScroller {
         }
 
         this.#initMotion();
+        this.#setUsability();
 
         if (mq[this.#queryType](this.#breakpoint)) {
             this.#setScrolerStyle();
@@ -721,6 +739,57 @@ export class MobSmoothScroller {
                 });
             });
         }, 3);
+    }
+
+    /**
+     * Update scroller after user Tab
+     */
+    #setUsability() {
+        if (this.#usability) {
+            this.#subscribeHandleTab = MobCore.useTabHandler(() => {
+                if (
+                    !this.#screen ||
+                    !this.#scroller ||
+                    /** @type {any} */ (this.#screen) === globalThis
+                )
+                    return;
+
+                const screenEl = /** @type {HTMLElement} */ (this.#screen);
+                const scrollerEl = /** @type {HTMLElement} */ (this.#scroller);
+
+                MobCore.useNextLoop(() => {
+                    const focusedElement = document.activeElement;
+
+                    if (!focusedElement || !scrollerEl.contains(focusedElement))
+                        return;
+
+                    const scrollerRect = scrollerEl.getBoundingClientRect();
+                    const focusedRect = focusedElement.getBoundingClientRect();
+
+                    const targetScrollValue =
+                        this.#direction ===
+                        MobScrollerConstant.DIRECTION_VERTICAL
+                            ? focusedRect.top -
+                              scrollerRect.top -
+                              screenEl.offsetHeight / 5
+                            : focusedRect.left -
+                              scrollerRect.left -
+                              screenEl.offsetWidth / 5;
+
+                    this.#endValue = clamp(
+                        Math.round(targetScrollValue),
+                        0,
+                        this.#maxValue
+                    );
+
+                    screenEl.scrollTop = 0;
+                    screenEl.scrollLeft = 0;
+
+                    this.#updateScrollState();
+                    this.#executeScroll();
+                });
+            });
+        }
     }
 
     /**
@@ -1553,6 +1622,7 @@ export class MobSmoothScroller {
         this.#subscribeMotion();
         this.#subscribeOnComplete();
         this.#subscribeDebounceWhell();
+        this.#subscribeHandleTab();
         this.#motion?.destroy();
         // @ts-ignore
         this.#motion = null;

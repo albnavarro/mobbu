@@ -19,6 +19,7 @@ export const verticalScroller = ({ screen, scroller, scrollbar }) => {
                 drag: true,
                 scopedEvent: false,
                 breakpoint: 'desktop',
+                usability: true,
                 onTick: ({ percent }) => {
                     scrollbar.value = `${percent}`;
                 },
