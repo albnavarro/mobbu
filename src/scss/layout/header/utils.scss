@@ -28,6 +28,10 @@
             border: 0;
             background: transparent;
             color: var(--white);
+
+            &:focus {
+                outline-color: var(--dark);
+            }
         }
 
         /* stylelint-disable-next-line no-descending-specificity */

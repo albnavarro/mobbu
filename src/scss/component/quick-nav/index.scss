@@ -75,6 +75,10 @@
                 opacity: 0.2;
                 pointer-events: none;
             }
+
+            &:focus {
+                outline-color: var(--white);
+            }
         }
 
         :scope:hover {

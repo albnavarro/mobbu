@@ -23,8 +23,6 @@
             text-align: left;
 
             &:focus {
-                outline: none;
-
                 &::after {
                     content: '';
                     position: absolute;
