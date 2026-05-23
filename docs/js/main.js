@@ -39963,6 +39963,14 @@
       }
     }
   };
+  var setFocusInsideElement = ({ element, activeClass }) => {
+    const activeElement = (
+      /** @type {HTMLElement} */
+      element.querySelector(activeClass)
+    );
+    if (!activeElement) return;
+    activeElement.focus();
+  };
 
   // src/js/component/common/debug/debug-overlay/debug-overlay.js
   var unsubscribeTabHandler = () => {
@@ -42369,6 +42377,7 @@
       const { label, url, scrollToSection, activeId } = child;
       return htmlObject({
         tag: "li",
+        className: "submenu-item",
         content: {
           component: NavigationButton,
           modules: staticProps2(
@@ -42397,7 +42406,8 @@
     watch,
     setRef,
     getRef,
-    getSelfProxi
+    getSelfProxi,
+    bindEffect
   }) => {
     const proxi = getSelfProxi();
     const { label, url, activeId } = proxi.headerButton;
@@ -42451,7 +42461,14 @@
         {
           tag: "ul",
           className: "submenu",
-          modules: setRef("content"),
+          modules: [
+            setRef("content"),
+            bindEffect({
+              toggleAttribute: {
+                inert: () => !proxi.isOpen
+              }
+            })
+          ],
           content: getSubmenu({ proxi, staticProps: staticProps2 })
         }
       ]
@@ -42610,12 +42627,20 @@
       main.classList.remove("shift");
     });
   }
-  function openNavigation({ main, proxi }) {
+  function openNavigation({ root: root2, main, proxi }) {
     refreshNavigationScroller();
     proxi.isOpen = true;
     modules_exports.useFrame(() => {
       document.body.style.overflow = "hidden";
       main.classList.add("shift");
+      modules_exports.useNextTick(() => {
+        modules_exports.useFrameIndex(() => {
+          setFocusInsideElement({
+            element: root2,
+            activeClass: ".current"
+          });
+        }, 2);
+      });
     });
   }
   function addMainHandler({ main }) {
@@ -42645,7 +42670,7 @@
       );
       navigationStore.watch("navigationIsOpen", (val) => {
         if (val && main) {
-          openNavigation({ main, proxi });
+          openNavigation({ root: element, main, proxi });
           return;
         }
         closeNavigation({ main, proxi });

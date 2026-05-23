@@ -1171,10 +1171,7 @@ code.hljs {
       list-style-type: none;
     }
     .submenu-item {
-      position: relative;
-    }
-    .submenu-item:last-child {
-      border-bottom: 0;
+      padding: 0.2666666667rem;
     }
   }
 }

@@ -8,6 +8,7 @@ import { refreshNavigationScroller, scrollToTopNav } from './utils';
 import { closeAllNavAccordion } from './navigation/utils';
 import { mobNavigationName } from '@instanceName';
 import { Navigation } from './navigation/definition';
+import { setFocusInsideElement } from '@componentLibs/utils/utils';
 
 /**
  * @import {ProxiSelfState} from "@mobJsType"
@@ -30,17 +31,30 @@ function closeNavigation({ main, proxi }) {
 
 /**
  * @param {object} params
+ * @param {HTMLElement} params.root
  * @param {HTMLElement} params.main
  * @param {ProxiSelfState<import('./type').NavigationContainer>} params.proxi
  * @returns {void}
  */
-function openNavigation({ main, proxi }) {
+function openNavigation({ root, main, proxi }) {
     refreshNavigationScroller();
     proxi.isOpen = true;
 
     MobCore.useFrame(() => {
         document.body.style.overflow = 'hidden';
         main.classList.add('shift');
+
+        /**
+         * After redraw move focus to active menu element.
+         */
+        MobCore.useNextTick(() => {
+            MobCore.useFrameIndex(() => {
+                setFocusInsideElement({
+                    element: root,
+                    activeClass: '.current',
+                });
+            }, 2);
+        });
     });
 }
 
@@ -84,7 +98,8 @@ export const NavigationContainerFn = ({
          */
         navigationStore.watch('navigationIsOpen', (val) => {
             if (val && main) {
-                openNavigation({ main, proxi });
+                openNavigation({ root: element, main, proxi });
+
                 return;
             }
 

@@ -27,6 +27,7 @@ function getSubmenu({ proxi, staticProps }) {
 
         return htmlObject({
             tag: 'li',
+            className: 'submenu-item',
             content: {
                 component: NavigationButton,
                 modules: staticProps(
@@ -66,6 +67,7 @@ export const NavigationSubmenuFn = ({
     setRef,
     getRef,
     getSelfProxi,
+    bindEffect,
 }) => {
     const proxi = getSelfProxi();
     const { label, url, activeId } = proxi.headerButton;
@@ -135,7 +137,14 @@ export const NavigationSubmenuFn = ({
             {
                 tag: 'ul',
                 className: 'submenu',
-                modules: setRef('content'),
+                modules: [
+                    setRef('content'),
+                    bindEffect({
+                        toggleAttribute: {
+                            inert: () => !proxi.isOpen,
+                        },
+                    }),
+                ],
                 content: getSubmenu({ proxi, staticProps }),
             },
         ],

@@ -48,3 +48,16 @@ export const tabLoopTrap = ({ element, direction, preventDefault }) => {
         }
     }
 };
+
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.element
+ * @param {string} params.activeClass
+ */
+export const setFocusInsideElement = ({ element, activeClass }) => {
+    const activeElement = /** @type {HTMLElement} */ (
+        element.querySelector(activeClass)
+    );
+    if (!activeElement) return;
+    activeElement.focus();
+};

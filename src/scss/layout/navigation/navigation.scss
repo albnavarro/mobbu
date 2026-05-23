@@ -145,11 +145,7 @@
         }
 
         .submenu-item {
-            position: relative;
-
-            &:last-child {
-                border-bottom: 0;
-            }
+            padding: rem(4);
         }
     }
 }
