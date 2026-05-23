@@ -2,6 +2,7 @@ export type VerticalScroller = (arg0: {
     screen: HTMLElement;
     scroller: HTMLElement;
     scrollbar: HTMLInputElement;
+    fixedTab?: boolean;
 }) => {
     init: () => void;
     destroy: () => void;

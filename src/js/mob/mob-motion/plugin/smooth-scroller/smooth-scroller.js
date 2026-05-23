@@ -36,6 +36,11 @@ export class MobSmoothScroller {
     /**
      * @type {boolean}
      */
+    #fixedTab = true;
+
+    /**
+     * @type {boolean}
+     */
     #propsIsValid = true;
 
     /**
@@ -506,6 +511,12 @@ export class MobSmoothScroller {
             false
         );
 
+        this.#fixedTab = valueIsBooleanAndReturnDefault(
+            data?.fixedTab,
+            'fixedTab',
+            true
+        );
+
         this.#snapPoints = valueIsArrayAndReturnDefault(
             data?.snapPoints,
             'SmoothScroller: snapPoints',
@@ -742,6 +753,39 @@ export class MobSmoothScroller {
     }
 
     /**
+     * @param {HTMLElement} focusedElement
+     */
+    #checkIfElementIsInsideScreen(focusedElement) {
+        if (!this.#screen) return;
+
+        const screenRect = /** @type {HTMLElement} */ (
+            this.#screen
+        ).getBoundingClientRect();
+        const focusedRect = focusedElement.getBoundingClientRect();
+
+        const isVertical =
+            this.#direction === MobScrollerConstant.DIRECTION_VERTICAL;
+        const elementSize = isVertical
+            ? focusedElement.clientHeight
+            : focusedElement.clientWidth;
+        const screenSize = isVertical ? screenRect.height : screenRect.width;
+        const safetyMargin = Math.ceil(elementSize * 0.1);
+        const threshold = elementSize + safetyMargin;
+
+        if (elementSize > screenSize) return true;
+
+        if (isVertical) {
+            const distanceToTop = focusedRect.top - screenRect.top;
+            const distanceToBottom = screenRect.bottom - focusedRect.bottom;
+            return distanceToTop < threshold || distanceToBottom < threshold;
+        } else {
+            const distanceToLeft = focusedRect.left - screenRect.left;
+            const distanceToRight = screenRect.right - focusedRect.right;
+            return distanceToLeft < threshold || distanceToRight < threshold;
+        }
+    }
+
+    /**
      * Update scroller after user Tab
      */
     #setUsability() {
@@ -762,6 +806,21 @@ export class MobSmoothScroller {
 
                     if (!focusedElement || !scrollerEl.contains(focusedElement))
                         return;
+
+                    /**
+                     * Aggiorna lo scroller
+                     *
+                     * - A ogni tab.
+                     * - Quando l'elemento con il focus stá per uscire dallo schermo.
+                     */
+                    if (
+                        !this.#fixedTab &&
+                        !this.#checkIfElementIsInsideScreen(
+                            /** @type {HTMLElement} */ (focusedElement)
+                        )
+                    ) {
+                        return;
+                    }
 
                     const scrollerRect = scrollerEl.getBoundingClientRect();
                     const focusedRect = focusedElement.getBoundingClientRect();

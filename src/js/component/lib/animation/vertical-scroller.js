@@ -4,7 +4,12 @@ import { outerHeight, outerWidth } from '@mobCoreUtils';
 import { MobSmoothScroller } from '@mobMotionPlugin';
 
 /** @type {import('./type').VerticalScroller} */
-export const verticalScroller = ({ screen, scroller, scrollbar }) => {
+export const verticalScroller = ({
+    screen,
+    scroller,
+    scrollbar,
+    fixedTab = true,
+}) => {
     /** @type {MobSmoothScroller} */
     let instance;
 
@@ -20,6 +25,7 @@ export const verticalScroller = ({ screen, scroller, scrollbar }) => {
                 scopedEvent: false,
                 breakpoint: 'desktop',
                 syncTab: true,
+                fixedTab,
                 onTick: ({ percent }) => {
                     scrollbar.value = `${percent}`;
                 },

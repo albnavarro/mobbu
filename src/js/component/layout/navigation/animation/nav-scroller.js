@@ -31,6 +31,7 @@ export const initNavigationScoller = ({ root }) => {
         drag: true,
         scopedEvent: false,
         syncTab: true,
+        fixedTab: false,
         onUpdate: ({ percent }) => {
             const { navigationIsOpen } = navigationStore.get();
             if (!navigationIsOpen) return;

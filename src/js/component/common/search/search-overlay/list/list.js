@@ -27,6 +27,7 @@ const initScroller = ({ getRef }) => {
         screen,
         scroller,
         scrollbar,
+        fixedTab: false,
     });
 
     const init = methods.init;

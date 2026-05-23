@@ -127,6 +127,7 @@ export const SideBarLinksFn = ({
                             screen: screenEl,
                             scroller: scrollerEl,
                             scrollbar,
+                            fixedTab: false,
                         }
                     ));
 
