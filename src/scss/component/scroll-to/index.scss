@@ -19,12 +19,14 @@
         }
 
         li {
-            margin-bottom: 0;
+            margin-bottom: rem(2);
         }
 
         button {
             display: block;
             position: relative;
+            min-width: rem(140);
+            margin-right: rem(10);
             margin-left: rem(10);
             padding: 0;
             transition: opacity 0.55s;
@@ -32,6 +34,7 @@
             background: transparent;
             font-size: rem(12);
             line-height: 1.5;
+            text-align: left;
 
             @include mq(large) {
                 font-size: rem(13);
@@ -63,7 +66,7 @@
                 content: '';
                 position: absolute;
                 top: 50%;
-                right: calc(100% + #{rem(5)});
+                right: calc(100% + #{rem(10)});
                 width: rem(4);
                 height: rem(4);
                 transform: translateY(-50%) rotate(45deg);

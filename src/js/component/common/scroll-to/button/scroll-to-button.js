@@ -8,7 +8,10 @@ export const ScrollToButtonFn = ({ bindEffect, getSelfProxi }) => {
 
     return htmlObject({
         tag: 'button',
-        attributes: { type: 'button' },
+        attributes: {
+            type: 'button',
+            tabindex: proxi.isSection || proxi.isNote ? '-1' : '0',
+        },
         className: [isSectionClass, isNoteClass],
         modules: bindEffect({
             toggleClass: { active: () => proxi.active },

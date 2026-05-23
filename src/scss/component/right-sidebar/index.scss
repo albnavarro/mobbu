@@ -7,8 +7,11 @@
             visibility: hidden;
             position: fixed;
             z-index: 9;
-            top: calc(var(--gap-size) + var(--header-height));
-            left: var(--header-height);
+            top: var(--header-height);
+            left: calc(var(--header-height) / 2);
+            width: var(--left-sidebar);
+            height: calc(100vh - var(--header-height) - var(--footer-height));
+            padding: var(--gap-size);
             transition:
                 opacity 0.35s,
                 visibility 0.35s;
@@ -55,14 +58,18 @@
         }
 
         .link {
+            display: block;
             position: relative;
+            min-width: rem(100);
+            padding-right: rem(5);
+            padding-left: rem(5);
             transition: opacity 0.35s;
 
             &::before {
                 content: '';
                 position: absolute;
                 top: 50%;
-                right: calc(100% + #{rem(5)});
+                right: calc(100% + #{rem(10)});
                 width: rem(5);
                 height: rem(5);
                 transform: translateY(-50%) rotate(45deg);
