@@ -789,73 +789,87 @@ export class MobSmoothScroller {
      * Update scroller after user Tab
      */
     #setUsability() {
+        let tabIsActive = false;
+
         if (this.#syncTab) {
             this.#subscribeHandleTab = MobCore.useTabHandler(() => {
                 if (
+                    tabIsActive ||
                     !this.#screen ||
                     !this.#scroller ||
                     /** @type {any} */ (this.#screen) === globalThis
                 )
                     return;
 
+                tabIsActive = true;
                 const screenEl = /** @type {HTMLElement} */ (this.#screen);
                 const scrollerEl = /** @type {HTMLElement} */ (this.#scroller);
 
-                MobCore.useNextLoop(() => {
-                    const focusedElement = document.activeElement;
+                MobCore.useFrameIndex(() => {
+                    MobCore.useNextTick(() => {
+                        const focusedElement = document.activeElement;
 
-                    if (!focusedElement || !scrollerEl.contains(focusedElement))
-                        return;
+                        if (
+                            !focusedElement ||
+                            !scrollerEl.contains(focusedElement)
+                        ) {
+                            tabIsActive = false;
+                            return;
+                        }
 
-                    /**
-                     * Aggiorna lo scroller
-                     *
-                     * - A ogni tab.
-                     * - Quando l'elemento con il focus stá per uscire dallo schermo.
-                     */
-                    if (
-                        !this.#fixedTab &&
-                        !this.#checkIfElementIsInsideScreen(
-                            /** @type {HTMLElement} */ (focusedElement)
-                        )
-                    ) {
-                        return;
-                    }
+                        /**
+                         * Aggiorna lo scroller
+                         *
+                         * - A ogni tab.
+                         * - Quando l'elemento con il focus stá per uscire dallo schermo.
+                         */
+                        if (
+                            !this.#fixedTab &&
+                            !this.#checkIfElementIsInsideScreen(
+                                /** @type {HTMLElement} */ (focusedElement)
+                            )
+                        ) {
+                            tabIsActive = false;
+                            return;
+                        }
 
-                    const scrollerRect = scrollerEl.getBoundingClientRect();
-                    const focusedRect = focusedElement.getBoundingClientRect();
+                        const scrollerRect = scrollerEl.getBoundingClientRect();
+                        const focusedRect =
+                            focusedElement.getBoundingClientRect();
 
-                    const targetScrollValue =
-                        this.#direction ===
-                        MobScrollerConstant.DIRECTION_VERTICAL
-                            ? focusedRect.top -
-                              scrollerRect.top -
-                              screenEl.offsetHeight / 5
-                            : focusedRect.left -
-                              scrollerRect.left -
-                              screenEl.offsetWidth / 5;
+                        const targetScrollValue =
+                            this.#direction ===
+                            MobScrollerConstant.DIRECTION_VERTICAL
+                                ? focusedRect.top -
+                                  scrollerRect.top -
+                                  screenEl.offsetHeight / 5
+                                : focusedRect.left -
+                                  scrollerRect.left -
+                                  screenEl.offsetWidth / 5;
 
-                    this.#endValue = clamp(
-                        Math.round(targetScrollValue),
-                        0,
-                        this.#maxValue
-                    );
+                        this.#endValue = clamp(
+                            Math.round(targetScrollValue),
+                            0,
+                            this.#maxValue
+                        );
 
-                    /**
-                     * Preveniamo il caso in cui la gesture `enter` venga interpretata come mouseClick.
-                     *
-                     * - In questo case il check `preventChecker` impedirebbe di eseguire l'azione di click
-                     * - FirstTouchValue && endValue devono coincidere, non stiamo draggando l'elemento, ma il sistema puo
-                     *   pensare di si.
-                     */
-                    this.#firstTouchValue = this.#endValue;
+                        /**
+                         * Preveniamo il caso in cui la gesture `enter` venga interpretata come mouseClick.
+                         *
+                         * - In questo case il check `preventChecker` impedirebbe di eseguire l'azione di click
+                         * - FirstTouchValue && endValue devono coincidere, non stiamo draggando l'elemento, ma il sistema
+                         *   puo pensare di si.
+                         */
+                        this.#firstTouchValue = this.#endValue;
 
-                    screenEl.scrollTop = 0;
-                    screenEl.scrollLeft = 0;
+                        screenEl.scrollTop = 0;
+                        screenEl.scrollLeft = 0;
 
-                    this.#updateScrollState();
-                    this.#executeScroll();
-                });
+                        this.#updateScrollState();
+                        this.#executeScroll();
+                        tabIsActive = false;
+                    });
+                }, 2);
             });
         }
     }
