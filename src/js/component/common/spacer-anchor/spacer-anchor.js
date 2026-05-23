@@ -62,7 +62,7 @@ export const SpacerAnchorFn = ({ getState, onMount }) => {
 
     return htmlObject({
         className: ['spacer', `is-${style}`],
-        attributes: { id },
+        attributes: { id, tabindex: '-1' },
         content: {
             tag: 'span',
         },

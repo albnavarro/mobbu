@@ -17,13 +17,16 @@ export const AnchorButtonFn = ({ getState, delegateEvents }) => {
             className: 'anchor-button',
             attributes: { type: 'button' },
             modules: delegateEvents({
-                click: () => {
+                click: async () => {
                     const target = document.querySelector(anchor);
                     if (!target) return;
 
                     // @ts-ignore
                     const offsetTop = offset(target).top - 50;
-                    MobBodyScroll.to(offsetTop);
+                    await MobBodyScroll.to(offsetTop);
+                    /** @type {HTMLElement} */ (target).focus({
+                        preventScroll: true,
+                    });
                 },
             }),
             content: [

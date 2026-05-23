@@ -39,12 +39,18 @@ export const tabLoopTrap = ({ element, direction, preventDefault }) => {
     if (direction === 'BACKWARD') {
         if (activeElement === firstElement) {
             preventDefault();
-            if (lastElement) /** @type {HTMLElement} */ (lastElement).focus();
+            if (lastElement)
+                /** @type {HTMLElement} */ (lastElement).focus({
+                    preventScroll: true,
+                });
         }
     } else {
         if (activeElement === lastElement) {
             preventDefault();
-            if (firstElement) /** @type {HTMLElement} */ (firstElement).focus();
+            if (firstElement)
+                /** @type {HTMLElement} */ (firstElement).focus({
+                    preventScroll: true,
+                });
         }
     }
 };
@@ -59,5 +65,5 @@ export const setFocusInsideElement = ({ element, activeClass }) => {
         element.querySelector(activeClass)
     );
     if (!activeElement) return;
-    activeElement.focus();
+    activeElement.focus({ preventScroll: true });
 };
