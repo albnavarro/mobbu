@@ -14,7 +14,7 @@ export type OnUpdate = (arg0: {
 }) => void;
 
 export interface MobSmoothScroller {
-    usability?: boolean;
+    syncTab?: boolean;
 
     /**
      * Defines the scroll direction

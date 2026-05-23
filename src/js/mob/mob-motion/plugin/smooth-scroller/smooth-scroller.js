@@ -31,7 +31,7 @@ export class MobSmoothScroller {
     /**
      * @type {boolean}
      */
-    #usability = false;
+    #syncTab = false;
 
     /**
      * @type {boolean}
@@ -500,9 +500,9 @@ export class MobSmoothScroller {
             NOOP
         );
 
-        this.#usability = valueIsBooleanAndReturnDefault(
-            data?.usability,
-            'usability',
+        this.#syncTab = valueIsBooleanAndReturnDefault(
+            data?.syncTab,
+            'syncTab',
             false
         );
 
@@ -745,7 +745,7 @@ export class MobSmoothScroller {
      * Update scroller after user Tab
      */
     #setUsability() {
-        if (this.#usability) {
+        if (this.#syncTab) {
             this.#subscribeHandleTab = MobCore.useTabHandler(() => {
                 if (
                     !this.#screen ||
@@ -781,6 +781,15 @@ export class MobSmoothScroller {
                         0,
                         this.#maxValue
                     );
+
+                    /**
+                     * Preveniamo il caso in cui la gesture `enter` venga interpretata come mouseClick.
+                     *
+                     * - In questo case il check `preventChecker` impedirebbe di eseguire l'azione di click
+                     * - FirstTouchValue && endValue devono coincidere, non stiamo draggando l'elemento, ma il sistema puo
+                     *   pensare di si.
+                     */
+                    this.#firstTouchValue = this.#endValue;
 
                     screenEl.scrollTop = 0;
                     screenEl.scrollLeft = 0;
