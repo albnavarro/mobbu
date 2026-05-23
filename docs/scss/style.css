@@ -2561,6 +2561,7 @@ code.hljs {
       transition: opacity 0.55s, background 0.55s;
       border: 1px var(--dark) solid;
       border-radius: 2rem;
+      outline-color: var(--dark);
       background: var(--dark);
       color: var(--white);
     }
