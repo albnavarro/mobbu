@@ -5,7 +5,7 @@ import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
 import { toggleDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
 import { DebugButton } from '@commonComponent/debug/definition';
 import { QuickNav } from '@commonComponent/quick-nav/definition';
-import { quickNavName } from '@instanceName';
+import { debugCtaName, quickNavName } from '@instanceName';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -71,7 +71,7 @@ export const FooterFn = ({
                         },
                         {
                             component: DebugButton,
-                            attributes: { type: 'button' },
+                            attributes: { type: 'button', name: debugCtaName },
                             className: 'c-button-debug',
                             modules: delegateEvents({
                                 click: () => {

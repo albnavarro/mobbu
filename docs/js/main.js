@@ -26148,6 +26148,7 @@
   };
 
   // src/js/component-instance-name/index.js
+  var debugCtaName = "debug_component_cta";
   var debugComponentName = "debug_component";
   var debugFilterListName = "debug_filter_list";
   var debugOverlayName = "debug_overlay";
@@ -26156,7 +26157,7 @@
   var scrollDownLabelName = "scroll_down_label";
   var scrollToName = "scroll_to";
   var headerName = "header";
-  var mobNavigationToggle = "mob_navigation_toggle";
+  var mobNavigationToggleName = "mob_navigation_toggle";
   var mobNavigationName = "mob_navigation";
   var mobNavigationContainerName = "mob_navigation_container";
   var searchOverlay = "search_overlay";
@@ -39983,6 +39984,13 @@
     activeElement.focus({ preventScroll: true });
   };
 
+  // src/js/component/common/debug/utils.js
+  var setFcousToDebugBtn = () => {
+    console.log("toggle");
+    const overlayMethods = modules_exports2.useMethodByName(debugCtaName);
+    overlayMethods?.setFocus();
+  };
+
   // src/js/component/common/debug/debug-overlay/debug-overlay.js
   var unsubscribeTabHandler = () => {
   };
@@ -40001,6 +40009,10 @@
     const proxi = getSelfProxi();
     addMethod("toggle", () => {
       proxi.active = !proxi.active;
+      if (proxi.active) return;
+      modules_exports.useNextLoop(() => {
+        setFcousToDebugBtn();
+      });
     });
     onMount(({ element }) => {
       watch(
@@ -40010,6 +40022,9 @@
             unsubscribeEscHandler9 = modules_exports.useEscHandler(
               ({ preventDefault }) => {
                 proxi.active = false;
+                modules_exports.useNextLoop(() => {
+                  setFcousToDebugBtn();
+                });
                 preventDefault();
               }
             );
@@ -40126,7 +40141,7 @@
         {
           tag: "button",
           className: "background",
-          attributes: { type: "button" },
+          attributes: { type: "button", tabindex: "-1" },
           modules: delegateEvents({
             click: () => {
               proxi.active = false;
@@ -41580,7 +41595,12 @@
   };
 
   // src/js/component/common/debug/debug-button.js
-  var DebugButtonFn = () => {
+  var DebugButtonFn = ({ onMount, addMethod }) => {
+    onMount(({ element }) => {
+      addMethod("setFocus", () => {
+        element.focus({ preventScroll: true, focusVisible: true });
+      });
+    });
     return htmlObject({
       tag: "button",
       attributes: { type: "button" },
@@ -41826,7 +41846,7 @@
               },
               {
                 component: DebugButton,
-                attributes: { type: "button" },
+                attributes: { type: "button", name: debugCtaName },
                 className: "c-button-debug",
                 modules: delegateEvents({
                   click: () => {
@@ -42659,7 +42679,7 @@
 
   // src/js/component/layout/header/nav-toggle/utils.js
   var setFcousToNavigationToggle = () => {
-    const overlayMethods = modules_exports2.useMethodByName(mobNavigationToggle);
+    const overlayMethods = modules_exports2.useMethodByName(mobNavigationToggleName);
     overlayMethods?.setFocus();
   };
 
@@ -42875,7 +42895,7 @@
               className: "toggle-cell",
               content: {
                 component: HeaderToggle,
-                attributes: { name: mobNavigationToggle }
+                attributes: { name: mobNavigationToggleName }
               }
             },
             {

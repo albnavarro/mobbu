@@ -13,7 +13,10 @@ import { HeaderMainMenu } from './header-main-menu/definition';
 import { HeaderUtils } from './header-utils/definition';
 import { HeaderToggle } from './nav-toggle/definition';
 import { NavigationContainer } from '@layoutComponent/navigation/definition';
-import { mobNavigationContainerName, mobNavigationToggle } from '@instanceName';
+import {
+    mobNavigationContainerName,
+    mobNavigationToggleName,
+} from '@instanceName';
 
 function titleHandler() {
     MobJs.loadUrl({ url: 'home' });
@@ -84,7 +87,7 @@ export const HeaderFn = ({
                         className: 'toggle-cell',
                         content: {
                             component: HeaderToggle,
-                            attributes: { name: mobNavigationToggle },
+                            attributes: { name: mobNavigationToggleName },
                         },
                     },
                     {

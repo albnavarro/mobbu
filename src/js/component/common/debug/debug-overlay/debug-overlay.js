@@ -13,6 +13,7 @@ import { DebugHead } from './head/definition';
 import { DebugFilterHead } from './debug-filter/head/definition';
 import { tabLoopTrap } from '@componentLibs/utils/utils';
 import { MobCore } from '@mobCore';
+import { setFcousToDebugBtn } from '../utils';
 
 /**
  * @import {
@@ -43,6 +44,11 @@ export const DebugOverlayFn = ({
 
     addMethod('toggle', () => {
         proxi.active = !proxi.active;
+        if (proxi.active) return;
+
+        MobCore.useNextLoop(() => {
+            setFcousToDebugBtn();
+        });
     });
 
     onMount(({ element }) => {
@@ -56,6 +62,10 @@ export const DebugOverlayFn = ({
                     unsubscribeEscHandler = MobCore.useEscHandler(
                         ({ preventDefault }) => {
                             proxi.active = false;
+                            MobCore.useNextLoop(() => {
+                                setFcousToDebugBtn();
+                            });
+
                             preventDefault();
                         }
                     );
@@ -207,7 +217,7 @@ export const DebugOverlayFn = ({
             {
                 tag: 'button',
                 className: 'background',
-                attributes: { type: 'button' },
+                attributes: { type: 'button', tabindex: '-1' },
                 modules: delegateEvents({
                     click: () => {
                         proxi.active = false;
