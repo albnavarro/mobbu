@@ -39986,12 +39986,17 @@
 
   // src/js/component/common/debug/utils.js
   var setFcousToDebugBtn = () => {
-    console.log("toggle");
     const overlayMethods = modules_exports2.useMethodByName(debugCtaName);
     overlayMethods?.setFocus();
   };
 
   // src/js/component/common/debug/debug-overlay/debug-overlay.js
+  var closeOverlayAndSetFocusBack = ({ proxi }) => {
+    proxi.active = false;
+    modules_exports.useNextLoop(() => {
+      setFcousToDebugBtn();
+    });
+  };
   var unsubscribeTabHandler = () => {
   };
   var unsubscribeEscHandler9 = () => {
@@ -40021,10 +40026,7 @@
           if (isActive2) {
             unsubscribeEscHandler9 = modules_exports.useEscHandler(
               ({ preventDefault }) => {
-                proxi.active = false;
-                modules_exports.useNextLoop(() => {
-                  setFcousToDebugBtn();
-                });
+                closeOverlayAndSetFocusBack({ proxi });
                 preventDefault();
               }
             );
@@ -40144,7 +40146,7 @@
           attributes: { type: "button", tabindex: "-1" },
           modules: delegateEvents({
             click: () => {
-              proxi.active = false;
+              closeOverlayAndSetFocusBack({ proxi });
               proxi.listType = DEBUG_USE_TREE;
             }
           })
@@ -40155,7 +40157,7 @@
           attributes: { type: "button" },
           modules: delegateEvents({
             click: () => {
-              proxi.active = false;
+              closeOverlayAndSetFocusBack({ proxi });
               proxi.listType = DEBUG_USE_TREE;
             }
           })

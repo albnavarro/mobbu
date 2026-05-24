@@ -18,10 +18,23 @@ import { setFcousToDebugBtn } from '../utils';
 /**
  * @import {
  *   MobComponent,
+ *   ProxiSelfState,
  *   ReturnBindProps
  * } from "@mobJsType"
  * @import {DebugHeadType} from "./head/type"
  */
+
+/**
+ * @param {object} params
+ * @param {ProxiSelfState<import('./type').DebugOverlayType>} params.proxi
+ */
+const closeOverlayAndSetFocusBack = ({ proxi }) => {
+    proxi.active = false;
+
+    MobCore.useNextLoop(() => {
+        setFcousToDebugBtn();
+    });
+};
 
 /**
  * Component is a singleton
@@ -61,11 +74,7 @@ export const DebugOverlayFn = ({
                      */
                     unsubscribeEscHandler = MobCore.useEscHandler(
                         ({ preventDefault }) => {
-                            proxi.active = false;
-                            MobCore.useNextLoop(() => {
-                                setFcousToDebugBtn();
-                            });
-
+                            closeOverlayAndSetFocusBack({ proxi });
                             preventDefault();
                         }
                     );
@@ -220,7 +229,7 @@ export const DebugOverlayFn = ({
                 attributes: { type: 'button', tabindex: '-1' },
                 modules: delegateEvents({
                     click: () => {
-                        proxi.active = false;
+                        closeOverlayAndSetFocusBack({ proxi });
                         proxi.listType = DEBUG_USE_TREE;
                     },
                 }),
@@ -231,7 +240,7 @@ export const DebugOverlayFn = ({
                 attributes: { type: 'button' },
                 modules: delegateEvents({
                     click: () => {
-                        proxi.active = false;
+                        closeOverlayAndSetFocusBack({ proxi });
                         proxi.listType = DEBUG_USE_TREE;
                     },
                 }),

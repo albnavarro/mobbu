@@ -1,8 +1,6 @@
 # Accessibility:
 #### I componenti che usan `smooth-scroller` devono avere la cta per tornare in cima.
 
-#### Ogni Dialog alla chiusura deve riportare il focus sull' elemento che la a perta.
-
 #### `<Dialog>` per muovere velocemente il focus nelle macroaree del sito per template.
 - `<M>-m`: shortcut generale per il component Accessibility.
 - Al primo tab eseguito dopo l'apertura il componente si apre.
