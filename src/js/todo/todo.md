@@ -1,4 +1,22 @@
 # Accessibility:
+####
+Componente `sr-update`, che al cambio rotta cambia il suo contento con il titolo della rotta.
+- Il componente non deve essere visibile.
+- Prima si svuota il contenuto poi si inserisce il nuovo contenuto.
+
+```html
+<div id="sr-annuncio" aria-live="polite" aria-atomic="true" hidden></div>
+```
+
+```js
+this.el.textContent = '';
+
+requestAnimationFrame(() => {
+  this.el.textContent = 'Titolo';
+});
+```
+
+
 #### I componenti che usan `smooth-scroller` devono avere la cta per tornare in cima.
 
 #### `<Dialog>` per muovere velocemente il focus nelle macroaree del sito per template.
