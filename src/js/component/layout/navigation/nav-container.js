@@ -8,8 +8,11 @@ import { refreshNavigationScroller, scrollToTopNav } from './utils';
 import { closeAllNavAccordion } from './navigation/utils';
 import { mobNavigationName } from '@instanceName';
 import { Navigation } from './navigation/definition';
-import { setFocusInsideElement } from '@componentLibs/utils/utils';
+import { setFocusInsideElement, tabLoopTrap } from '@componentLibs/utils/utils';
 import { setFcousToNavigationToggle } from '@layoutComponent/header/nav-toggle/utils';
+
+let unsubscribeTabHandler = () => {};
+let unsubscribeEscHandler = () => {};
 
 /**
  * @import {ProxiSelfState} from "@mobJsType"
@@ -102,10 +105,29 @@ export const NavigationContainerFn = ({
             if (val && main) {
                 openNavigation({ root: element, main, proxi });
 
+                /**
+                 * Tab loop inside overlay
+                 */
+                unsubscribeTabHandler = MobCore.useTabHandler(
+                    ({ direction, preventDefault }) => {
+                        tabLoopTrap({ element, direction, preventDefault });
+                    }
+                );
+
+                /**
+                 * Close navigation on esc.
+                 */
+                unsubscribeEscHandler = MobCore.useEscHandler(() => {
+                    navigationStore.set('navigationIsOpen', false);
+                    UnFreezeMobPageScroll();
+                });
+
                 return;
             }
 
             closeNavigation({ main, proxi });
+            unsubscribeEscHandler();
+            unsubscribeTabHandler();
         });
 
         addMainHandler({ main });
@@ -122,16 +144,10 @@ export const NavigationContainerFn = ({
             proxi.isMounted = true;
         }, getFrameDelay());
 
-        /**
-         * Close navigation on esc.
-         */
-        const unsubscribeEscHandler = MobCore.useEscHandler(() => {
-            navigationStore.set('navigationIsOpen', false);
-            UnFreezeMobPageScroll();
-        });
-
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
             unsubscribeEscHandler();
+            unsubscribeTabHandler();
         };
     });
 

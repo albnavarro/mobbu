@@ -42663,6 +42663,10 @@
   };
 
   // src/js/component/layout/navigation/nav-container.js
+  var unsubscribeTabHandler3 = () => {
+  };
+  var unsubscribeEscHandler11 = () => {
+  };
   function closeNavigation({ main, proxi }) {
     proxi.isOpen = false;
     modules_exports.useFrame(() => {
@@ -42715,9 +42719,20 @@
       navigationStore.watch("navigationIsOpen", (val) => {
         if (val && main) {
           openNavigation({ root: element, main, proxi });
+          unsubscribeTabHandler3 = modules_exports.useTabHandler(
+            ({ direction: direction2, preventDefault }) => {
+              tabLoopTrap({ element, direction: direction2, preventDefault });
+            }
+          );
+          unsubscribeEscHandler11 = modules_exports.useEscHandler(() => {
+            navigationStore.set("navigationIsOpen", false);
+            UnFreezeMobPageScroll();
+          });
           return;
         }
         closeNavigation({ main, proxi });
+        unsubscribeEscHandler11();
+        unsubscribeTabHandler3();
       });
       addMainHandler({ main });
       const { scrollNativationToTop, refreshScroller } = initNavigationScoller({
@@ -42728,12 +42743,9 @@
       modules_exports.useFrameIndex(() => {
         proxi.isMounted = true;
       }, getFrameDelay());
-      const unsubscribeEscHandler11 = modules_exports.useEscHandler(() => {
-        navigationStore.set("navigationIsOpen", false);
-        UnFreezeMobPageScroll();
-      });
       return () => {
         unsubscribeEscHandler11();
+        unsubscribeTabHandler3();
       };
     });
     return htmlObject({
