@@ -55,53 +55,60 @@ export const DraggerRoute = async () => {
     </div>`;
 
     return htmlObject({
-        className: 'l-dragger',
-        content: [
-            {
-                className: 'l-background-shape',
-                content: bg,
-            },
-            {
-                component: Dragger,
-                modules: MobJs.staticProps(
-                    /** @type {import('@commonComponent/dragger/type').Dragger['props']} */
-                    ({
-                        rootClass: 'dragger-component',
-                        containerClass: '.l-dragger',
-                        childrenClass: '.child',
-                        align: 'CENTER',
-                        maxHightDepth: 140,
-                        maxLowDepth: -200,
-                        perspective: 300,
-                        hideThreshold: 10,
-                        afterInit: ({ root }) => {
-                            if (useLog) console.log(root);
+        tag: 'main',
+        content: {
+            className: 'l-dragger',
+            content: [
+                {
+                    className: 'l-background-shape',
+                    content: bg,
+                },
+                {
+                    component: Dragger,
+                    modules: MobJs.staticProps(
+                        /** @type {import('@commonComponent/dragger/type').Dragger['props']} */
+                        ({
+                            rootClass: 'dragger-component',
+                            containerClass: '.l-dragger',
+                            childrenClass: '.child',
+                            align: 'CENTER',
+                            maxHightDepth: 140,
+                            maxLowDepth: -200,
+                            perspective: 300,
+                            hideThreshold: 10,
+                            afterInit: ({ root }) => {
+                                if (useLog) console.log(root);
+                            },
+                            onDepthChange: ({ depth }) => {
+                                if (useLog) console.log(depth);
+                            },
+                        })
+                    ),
+                    content: [
+                        /**
+                         * Root border
+                         */
+                        {
+                            component: AnyComponent,
+                            attributes: { slot: 'root-slot' },
+                            modules: MobJs.staticProps({
+                                content: rootContent,
+                            }),
                         },
-                        onDepthChange: ({ depth }) => {
-                            if (useLog) console.log(depth);
-                        },
-                    })
-                ),
-                content: [
-                    /**
-                     * Root border
-                     */
-                    {
-                        component: AnyComponent,
-                        attributes: { slot: 'root-slot' },
-                        modules: MobJs.staticProps({ content: rootContent }),
-                    },
 
-                    /**
-                     * Child
-                     */
-                    {
-                        component: AnyComponent,
-                        attributes: { slot: 'child-slot' },
-                        modules: MobJs.staticProps({ content: childContent }),
-                    },
-                ],
-            },
-        ],
+                        /**
+                         * Child
+                         */
+                        {
+                            component: AnyComponent,
+                            attributes: { slot: 'child-slot' },
+                            modules: MobJs.staticProps({
+                                content: childContent,
+                            }),
+                        },
+                    ],
+                },
+            ],
+        },
     });
 };

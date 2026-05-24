@@ -18,12 +18,15 @@ export const animatedPatternN0 = async () => {
     });
 
     return htmlObject({
-        component: AnimatedPatternN0,
-        modules: MobJs.staticProps(
-            /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
-            ({
-                background: bg,
-            })
-        ),
+        tag: 'main',
+        content: {
+            component: AnimatedPatternN0,
+            modules: MobJs.staticProps(
+                /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
+                ({
+                    background: bg,
+                })
+            ),
+        },
     });
 };

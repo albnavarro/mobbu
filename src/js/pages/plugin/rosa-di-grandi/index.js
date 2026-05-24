@@ -13,6 +13,9 @@ export const rosaDiGrandiRoute = async () => {
     });
 
     return htmlObject({
-        component: RosaDiGrandiPage,
+        tag: 'main',
+        content: {
+            component: RosaDiGrandiPage,
+        },
     });
 };

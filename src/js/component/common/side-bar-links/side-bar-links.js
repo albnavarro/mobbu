@@ -162,11 +162,18 @@ export const SideBarLinksFn = ({
     });
 
     return htmlObject({
+        tag: 'aside',
         className: 'c-sidebar-links',
+        attributes: {
+            'aria-label': 'Secondary navigation right',
+        },
         modules: bindEffect({
             toggleClass: {
                 hide: () => proxi.hide,
                 shift: () => proxi.shift,
+            },
+            toggleAttribute: {
+                hidden: () => proxi.hide,
             },
         }),
         content: [
@@ -185,7 +192,11 @@ export const SideBarLinksFn = ({
                 modules: setRef('scrollbar'),
             },
             {
+                tag: 'nav',
                 className: 'screen',
+                attributes: {
+                    'aria-label': 'Related pages',
+                },
                 modules: setRef('screenEl'),
                 content: [
                     {

@@ -5,6 +5,9 @@ export const benchMark = async ({ props }) => {
     const { rootComponent } = props;
 
     return htmlObject({
-        tag: rootComponent,
+        tag: 'main',
+        content: {
+            tag: rootComponent,
+        },
     });
 };

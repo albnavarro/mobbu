@@ -71,6 +71,7 @@ export const lettering01 = async () => {
     });
 
     return htmlObject({
+        tag: 'main',
         className: 'l-mob-01',
         content: [
             {

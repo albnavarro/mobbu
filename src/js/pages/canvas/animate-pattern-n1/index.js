@@ -17,7 +17,10 @@ export const animatedPatternN1 = async () => {
     });
 
     return htmlObject({
-        component: AnimatedPatternN1,
-        modules: MobJs.staticProps({ background: bg }),
+        tag: 'main',
+        content: {
+            component: AnimatedPatternN1,
+            modules: MobJs.staticProps({ background: bg }),
+        },
     });
 };

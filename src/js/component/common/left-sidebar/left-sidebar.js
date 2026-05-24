@@ -73,10 +73,17 @@ export const LightSidebarFn = ({
     );
 
     return htmlObject({
+        tag: 'aside',
         className: 'left-sidebar',
+        attributes: {
+            'aria-label': 'Secondary navigation left',
+        },
         modules: bindEffect({
             toggleClass: {
                 visible: () => proxi.isVisible,
+            },
+            toggleAttribute: {
+                hidden: () => !proxi.isVisible,
             },
         }),
         content: [
@@ -85,14 +92,20 @@ export const LightSidebarFn = ({
                 content: 'Sections:',
             },
             {
-                tag: 'ul',
-                className: 'list',
-                content: invalidate({
-                    observe: () => proxi.data,
-                    render: () => {
-                        return getList({ proxi, boundedProxi, bindEffect });
-                    },
-                }),
+                tag: 'nav',
+                attributes: {
+                    'aria-label': 'Section navigation',
+                },
+                content: {
+                    tag: 'ul',
+                    className: 'list',
+                    content: invalidate({
+                        observe: () => proxi.data,
+                        render: () => {
+                            return getList({ proxi, boundedProxi, bindEffect });
+                        },
+                    }),
+                },
             },
         ],
     });

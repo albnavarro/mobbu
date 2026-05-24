@@ -122,7 +122,9 @@ export const NavigationFn = ({
     });
 
     return htmlObject({
+        tag: 'nav',
         className: 'l-navigation',
+        attributes: { 'arial-label': 'Site navigation' },
         content: {
             tag: 'ul',
             className: 'list',

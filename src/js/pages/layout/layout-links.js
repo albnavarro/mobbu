@@ -8,13 +8,16 @@ export const layoutLinksPage = async ({ props }) => {
     const { data } = await loadJsonContent({ source });
 
     return htmlObject({
-        component: LayoutLinks,
-        modules: MobJs.staticProps(
-            /** @type {import('@pagesComponent/layout-links/type').LayoutLinks['props']} */
-            ({
-                title: data.title,
-                items: data.items,
-            })
-        ),
+        tag: 'main',
+        content: {
+            component: LayoutLinks,
+            modules: MobJs.staticProps(
+                /** @type {import('@pagesComponent/layout-links/type').LayoutLinks['props']} */
+                ({
+                    title: data.title,
+                    items: data.items,
+                })
+            ),
+        },
     });
 };

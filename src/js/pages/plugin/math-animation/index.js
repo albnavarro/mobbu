@@ -16,12 +16,15 @@ export const mathAnimationRoute = async ({ props }) => {
     });
 
     return htmlObject({
-        className: 'l-math',
-        content: names.map((name) => {
-            return htmlObject({
-                component: MathAnimation,
-                modules: MobJs.staticProps({ name }),
-            });
-        }),
+        tag: 'main',
+        content: {
+            className: 'l-math',
+            content: names.map((name) => {
+                return htmlObject({
+                    component: MathAnimation,
+                    modules: MobJs.staticProps({ name }),
+                });
+            }),
+        },
     });
 };

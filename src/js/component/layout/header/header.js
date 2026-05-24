@@ -106,7 +106,9 @@ export const HeaderFn = ({
                         content: [logoContent],
                     },
                     {
+                        tag: 'nav',
                         className: 'menu-cell',
+                        attributes: { 'arial-label': 'Main manvigation' },
                         content: {
                             component: HeaderMainMenu,
                         },

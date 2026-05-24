@@ -41,6 +41,8 @@ export const HomeComponentFn = ({ onMount, getSelfProxi }) => {
     });
 
     return htmlObject({
+        tag: 'main',
+        attributes: { tabindex: '-1' },
         className: 'l-index',
         content: {
             className: 'logo',

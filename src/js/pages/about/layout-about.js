@@ -13,16 +13,19 @@ export const layoutAbout = async () => {
     });
 
     return htmlObject({
-        component: AboutComponent,
-        modules: MobJs.staticProps(
-            /** @type {import('@pagesComponent/about/type').About['props']} */
-            ({
-                block_1: data.block_1,
-                block_2: data.block_2,
-                block_3: data.block_3,
-                block_4: data.block_4,
-                aboutSvg,
-            })
-        ),
+        tag: 'main',
+        content: {
+            component: AboutComponent,
+            modules: MobJs.staticProps(
+                /** @type {import('@pagesComponent/about/type').About['props']} */
+                ({
+                    block_1: data.block_1,
+                    block_2: data.block_2,
+                    block_3: data.block_3,
+                    block_4: data.block_4,
+                    aboutSvg,
+                })
+            ),
+        },
     });
 };

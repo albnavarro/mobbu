@@ -57,6 +57,7 @@ export const rdp = async () => {
     });
 
     return htmlObject({
+        tag: 'main',
         className: 'l-rdp-01',
         content: [
             {

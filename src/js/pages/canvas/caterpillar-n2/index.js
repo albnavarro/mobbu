@@ -17,7 +17,10 @@ export const caterpillarN2 = async () => {
     });
 
     return htmlObject({
-        component: CaterpillarN2,
-        modules: MobJs.staticProps({ background: bg }),
+        tag: 'main',
+        content: {
+            component: CaterpillarN2,
+            modules: MobJs.staticProps({ background: bg }),
+        },
     });
 };

@@ -44,6 +44,7 @@ export const home = async () => {
     });
 
     return htmlObject({
+        tag: 'main',
         content: [
             {
                 className: 'l-background-shape',

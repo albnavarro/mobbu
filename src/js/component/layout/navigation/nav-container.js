@@ -95,7 +95,7 @@ export const NavigationContainerFn = ({
 
     onMount(({ element }) => {
         const main = /** @type {HTMLElement} */ (
-            document.querySelector('main.main')
+            document.querySelector('.main-app-content')
         );
 
         /**

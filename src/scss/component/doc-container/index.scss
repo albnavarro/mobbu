@@ -17,7 +17,7 @@
             }
         }
 
-        .left {
+        .left-placeholder {
             display: none;
             position: sticky;
             z-index: 14;
@@ -33,7 +33,7 @@
             }
         }
 
-        .content {
+        main {
             position: relative;
             grid-column: 1 / span 1;
             min-height: 100vh;

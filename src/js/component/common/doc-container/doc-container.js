@@ -10,17 +10,19 @@ export const DocContainerFn = () => {
         className: 'c-doc-container',
         content: [
             {
-                className: 'left',
+                className: 'left-placeholder',
             },
             {
-                className: 'content',
+                tag: 'main',
                 content: {
                     tag: 'mobjs-slot',
                     attributes: { name: 'docs' },
                 },
             },
             {
+                tag: 'aside',
                 className: 'right',
+                attributes: { 'aria-label': 'right section utils' },
                 content: [
                     {
                         tag: 'mobjs-slot',

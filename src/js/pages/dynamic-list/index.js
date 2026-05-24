@@ -3,6 +3,9 @@ import { DynamicList } from '@pagesComponent/dynamic-list/definition';
 
 export const dynamic_list = () => {
     return htmlObject({
-        component: DynamicList,
+        tag: 'main',
+        content: {
+            component: DynamicList,
+        },
     });
 };

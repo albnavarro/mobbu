@@ -17,7 +17,10 @@ export const scrollerN1 = async () => {
     });
 
     return htmlObject({
-        component: ScrollerN1,
-        modules: MobJs.staticProps({ background: bg }),
+        tag: 'main',
+        content: {
+            component: ScrollerN1,
+            modules: MobJs.staticProps({ background: bg }),
+        },
     });
 };

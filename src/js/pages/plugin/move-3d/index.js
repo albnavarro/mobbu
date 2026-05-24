@@ -20,18 +20,21 @@ export const move3DRoute = async ({ props }) => {
     });
 
     return htmlObject({
-        content: [
-            {
-                className: 'l-background-shape',
-                content: bg,
-            },
-            {
-                component: Move3DPage,
-                modules: MobJs.staticProps(
-                    /** @type {import('@pagesComponent/move-3d/type').Move3DPage['props']} */
-                    ({ data, drag })
-                ),
-            },
-        ],
+        tag: 'main',
+        content: {
+            content: [
+                {
+                    className: 'l-background-shape',
+                    content: bg,
+                },
+                {
+                    component: Move3DPage,
+                    modules: MobJs.staticProps(
+                        /** @type {import('@pagesComponent/move-3d/type').Move3DPage['props']} */
+                        ({ data, drag })
+                    ),
+                },
+            ],
+        },
     });
 };

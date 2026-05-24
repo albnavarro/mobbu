@@ -39,6 +39,7 @@ export const layoutSidebarAnchor = async ({ props }) => {
                     {
                         tag: 'span',
                         content: title,
+                        attributes: { 'aria-current': 'page' },
                     },
                 ],
             },

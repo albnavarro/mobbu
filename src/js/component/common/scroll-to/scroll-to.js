@@ -123,6 +123,7 @@ export const ScrollToFn = ({
     addMethod,
     updateState,
     getSelfProxi,
+    bindEffect,
 }) => {
     const proxi = getSelfProxi();
 
@@ -230,7 +231,16 @@ export const ScrollToFn = ({
     });
 
     return htmlObject({
+        tag: 'nav',
         className: 'c-scroll-to',
+        attributes: {
+            'aria-label': 'page anchor',
+        },
+        modules: bindEffect({
+            toggleAttribute: {
+                hidden: () => proxi.anchorItems.length === 0,
+            },
+        }),
         content: {
             tag: 'ul',
             content: invalidate({

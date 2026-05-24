@@ -18,6 +18,7 @@ export const scrollerN0 = async () => {
     });
 
     return htmlObject({
+        tag: 'main',
         content: {
             component: ScrollerN0,
             modules: MobJs.staticProps(

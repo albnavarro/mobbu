@@ -18,7 +18,10 @@ export const asyncTimeline = async () => {
     });
 
     return htmlObject({
-        component: AsyncTimeline,
-        modules: MobJs.staticProps({ background: bg }),
+        tag: 'main',
+        content: {
+            component: AsyncTimeline,
+            modules: MobJs.staticProps({ background: bg }),
+        },
     });
 };

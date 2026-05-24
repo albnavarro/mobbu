@@ -29,6 +29,7 @@ export const mob_02 = async () => {
     });
 
     return htmlObject({
+        tag: 'main',
         className: 'l-mob-02',
         content: [
             {

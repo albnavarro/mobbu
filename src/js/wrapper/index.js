@@ -75,15 +75,11 @@ export const wrapper = async () => {
                 attributes: { name: leftSidebarName },
             },
             {
-                tag: 'main',
-                className: 'main',
+                className: 'main-app-content',
                 content: {
                     className: 'container',
                     content: {
-                        className: 'inner-wrap',
-                        content: {
-                            attributes: { id: 'content' },
-                        },
+                        attributes: { id: 'content' },
                     },
                 },
             },
@@ -99,11 +95,11 @@ export const wrapper = async () => {
                 component: SideBarLinks,
             },
             {
-                component: DebugOverlay,
-                attributes: { name: debugOverlayName },
+                component: Footer,
             },
             {
-                component: Footer,
+                component: DebugOverlay,
+                attributes: { name: debugOverlayName },
             },
         ],
     });
