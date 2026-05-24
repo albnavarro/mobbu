@@ -1,13 +1,14 @@
 # Accessibility:
-1. I componenti che usan `smooth-scroller` devono avere la cta per tornare in cima.
+#### I componenti che usan `smooth-scroller` devono avere la cta per tornare in cima.
 
-2. Smooth scroller accessibility ?
+#### Ogni Dialog alla chiusura deve riportare il focus sull' elemento che la a perta.
 
-3. FocusRouter(<alias elemento>)
+#### `<Dialog>` per muovere velocemente il focus nelle macroaree del sito per template.
+- `<M>-m`: shortcut generale per il component Accessibility.
+- Al primo tab eseguito dopo l'apertura il componente si apre.
+- Per ogni layout ( 3/4 variati ) schema di apertura.
+   - Ogni azione su una macroarea punta il focus sul container realatvo, usare `tabindex: -1` ( e corrispondente aria-label ) per dare il focus solo via javascript.
 
-4. `<Dialog>` per muovere velocemente il focus nelle macroaree del sito per template.
-
-5. Le ancore devono spostare il focus.
 
 
 # MobJs

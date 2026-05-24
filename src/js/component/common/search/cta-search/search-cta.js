@@ -12,9 +12,15 @@ const onClick = () => {
     searchOverlaySetInputFocus();
 };
 
-/** @type {MobComponent} */
-export const SearchCtaFn = ({ delegateEvents }) => {
+/** @type {MobComponent<import('./type').SearchOverlayCta>} */
+export const SearchCtaFn = ({ delegateEvents, onMount, addMethod }) => {
     const searchSvg = getIcons()['searchIcons'];
+
+    onMount(({ element }) => {
+        addMethod('setFocus', () => {
+            element.focus({ preventScroll: true, focusVisible: true });
+        });
+    });
 
     return htmlObject({
         tag: 'button',

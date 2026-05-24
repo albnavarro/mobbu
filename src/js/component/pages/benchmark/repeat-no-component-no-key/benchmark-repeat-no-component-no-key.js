@@ -3,7 +3,6 @@
 import { htmlObject } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { benchMarkVanillaGarbagePartial } from '../partials/bench-mark-vanilla-garbage-partial';
-import { MobCore } from '@mobCore';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -23,11 +22,6 @@ export const BenchMarkRepeatNoComponentNoKeyFn = ({
     const proxi = getSelfProxi();
 
     onMount(() => {
-        MobCore.useNextFrame(() => {
-            getRef()?.input.focus();
-            getRef()?.input.select();
-        });
-
         // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
             // Chorme leak memory with input, maintain reference.

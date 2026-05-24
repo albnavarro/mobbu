@@ -9,6 +9,7 @@ import { closeAllNavAccordion } from './navigation/utils';
 import { mobNavigationName } from '@instanceName';
 import { Navigation } from './navigation/definition';
 import { setFocusInsideElement } from '@componentLibs/utils/utils';
+import { setFcousToNavigationToggle } from '@layoutComponent/header/nav-toggle/utils';
 
 /**
  * @import {ProxiSelfState} from "@mobJsType"
@@ -26,6 +27,7 @@ function closeNavigation({ main, proxi }) {
     MobCore.useFrame(() => {
         document.body.style.overflow = '';
         main.classList.remove('shift');
+        setFcousToNavigationToggle();
     });
 }
 

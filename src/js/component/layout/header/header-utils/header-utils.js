@@ -10,7 +10,8 @@ import { htmlObject, MobJs } from '@mobJs';
 // @ts-ignore
 import { getCommonData, getIcons } from '@data/index';
 import { navigationStore } from '@stores/navigation';
-import { Search } from '@commonComponent/search/cta-search/definition';
+import { SearchCta } from '@commonComponent/search/cta-search/definition';
+import { searchOverlayCta } from '@instanceName';
 
 /**
  * @param {object} params
@@ -74,7 +75,8 @@ export const HeaderUtilsFn = ({ delegateEvents }) => {
             {
                 tag: 'li',
                 content: {
-                    component: Search,
+                    component: SearchCta,
+                    attributes: { name: searchOverlayCta },
                 },
             },
             ...additems({ delegateEvents }),

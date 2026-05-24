@@ -5,5 +5,8 @@ export interface HeaderToggle {
     state: {
         isMounted: boolean;
     };
+    methods: {
+        setFocus: () => void;
+    };
     bindStore: WithSource<NavigationStore>;
 }

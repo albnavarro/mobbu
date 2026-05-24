@@ -15,11 +15,16 @@ export const HeaderToggleFn = ({
     getSelfProxi,
     getBoundedProxi,
     onMount,
+    addMethod,
 }) => {
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
 
-    onMount(() => {
+    onMount(({ element }) => {
+        addMethod('setFocus', () => {
+            element.focus({ preventScroll: true, focusVisible: true });
+        });
+
         MobCore.useFrameIndex(() => {
             proxi.isMounted = true;
         }, getFrameDelay());

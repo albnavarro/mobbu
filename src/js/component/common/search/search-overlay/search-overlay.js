@@ -16,6 +16,7 @@ import { SearchOverlayList } from './list/definition';
 import { SearchOverlayHeader } from './header/definition';
 import { tabLoopTrap } from '@componentLibs/utils/utils';
 import { MobCore } from '@mobCore';
+import { setFcousToSearchBtn } from '../cta-search/utils';
 
 /**
  * Component is a singleton
@@ -27,9 +28,26 @@ let unsubscribeEscHandler = () => {};
  * @param {object} params
  * @param {ProxiSelfState<import('./type').SearchOverlay>} params.proxi
  */
-const closeOverlay = ({ proxi }) => {
+const closeOverlayAndBackFocus = ({ proxi }) => {
     proxi.active = false;
     closeSearchSuggestion();
+
+    MobCore.useNextLoop(() => {
+        setFcousToSearchBtn();
+    });
+};
+
+/**
+ * @param {object} params
+ * @param {ProxiSelfState<import('./type').SearchOverlay>} params.proxi
+ */
+const toggleOverlayAndBackFocus = ({ proxi }) => {
+    proxi.active = !proxi.active;
+    closeSearchSuggestion();
+
+    MobCore.useNextLoop(() => {
+        setFcousToSearchBtn();
+    });
 };
 
 /**
@@ -62,7 +80,7 @@ function escHandler(proxi) {
     /**
      * Than when sggestion is closed close all overlay
      */
-    proxi.active = false;
+    closeOverlayAndBackFocus({ proxi });
 }
 
 /** @type {MobComponent<import('./type').SearchOverlay>} */
@@ -79,7 +97,7 @@ export const SearchOverlayFn = ({
     const proxi = getSelfProxi();
 
     addMethod('toggle', () => {
-        proxi.active = !proxi.active;
+        toggleOverlayAndBackFocus({ proxi });
     });
 
     onMount(({ element }) => {
@@ -180,7 +198,7 @@ export const SearchOverlayFn = ({
                 attributes: { type: 'button' },
                 modules: delegateEvents({
                     click: () => {
-                        closeOverlay({ proxi });
+                        closeOverlayAndBackFocus({ proxi });
                     },
                 }),
             },
@@ -190,7 +208,7 @@ export const SearchOverlayFn = ({
                 attributes: { type: 'button' },
                 modules: delegateEvents({
                     click: () => {
-                        closeOverlay({ proxi });
+                        closeOverlayAndBackFocus({ proxi });
                     },
                 }),
             },
