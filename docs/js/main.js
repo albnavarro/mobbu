@@ -41400,6 +41400,7 @@
   var toggleOverlayAndBackFocus = ({ proxi }) => {
     proxi.active = !proxi.active;
     closeSearchSuggestion();
+    if (proxi.active) return;
     modules_exports.useNextLoop(() => {
       setFcousToSearchBtn();
     });

@@ -44,6 +44,7 @@ const closeOverlayAndBackFocus = ({ proxi }) => {
 const toggleOverlayAndBackFocus = ({ proxi }) => {
     proxi.active = !proxi.active;
     closeSearchSuggestion();
+    if (proxi.active) return;
 
     MobCore.useNextLoop(() => {
         setFcousToSearchBtn();
