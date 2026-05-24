@@ -92,9 +92,12 @@
             display: none;
             grid-area: title;
             width: auto;
+            height: 100%;
+            padding-right: rem(20);
             padding-left: rem(20);
             transition: transform 0.35s;
             border: 0;
+            outline-offset: -2px;
             background: transparent;
             color: var(--dark);
             text-align: left;
@@ -119,7 +122,6 @@
         .utils-cell {
             display: flex;
             height: 100%;
-            padding-right: var(--gap-size);
             transition: opacity 1s 0.55s;
             opacity: 0;
             text-align: right;

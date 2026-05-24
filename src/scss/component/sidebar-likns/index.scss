@@ -54,7 +54,7 @@
             min-height: var(--links-height);
             margin: 0;
             padding-bottom: rem(100);
-            padding-left: rem(40);
+            padding-left: rem(32);
             list-style: none;
 
             @media screen and (height <= 825px) {
@@ -77,7 +77,9 @@
         a {
             display: block;
             position: relative;
+            padding-left: rem(4);
             transition: color 0.35s;
+            outline-offset: 0;
             font-size: rem(12);
             line-height: 1.6;
             text-transform: capitalize;
@@ -121,6 +123,7 @@
         .label {
             margin-top: calc(var(--gap-size) / 2);
             margin-bottom: rem(5);
+            padding-left: rem(4);
             font-size: rem(13);
             font-weight: 600;
             line-height: 1.2;
