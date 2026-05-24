@@ -80,7 +80,7 @@ export const SideBarLinksFn = ({
             mainData.sideBarLinks.mobJsComponentParams,
     };
 
-    onMount(() => {
+    onMount(({ element }) => {
         const { screenEl, scrollerEl, scrollbar } = getRef();
 
         let isActive = false;
@@ -109,6 +109,7 @@ export const SideBarLinksFn = ({
 
                 if (currentData.length > 0) {
                     proxi.hide = false;
+                    element.hidden = false;
 
                     /**
                      * Update scroller
@@ -147,6 +148,7 @@ export const SideBarLinksFn = ({
                      * Restore position of element scrolled with tab.
                      */
                     getRef().screenEl.scrollTop = 0;
+                    element.hidden = true;
                 }
             }
         );
@@ -171,9 +173,6 @@ export const SideBarLinksFn = ({
             toggleClass: {
                 hide: () => proxi.hide,
                 shift: () => proxi.shift,
-            },
-            toggleAttribute: {
-                hidden: () => proxi.hide,
             },
         }),
         content: [
