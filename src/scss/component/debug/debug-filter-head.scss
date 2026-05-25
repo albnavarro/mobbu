@@ -30,6 +30,7 @@
             line-height: 1.7;
 
             @include on-event {
+                outline-color: var(--white);
                 background: var(--white);
                 color: var(--dark);
             }
@@ -42,6 +43,7 @@
     grid-area: input;
     width: rem(150);
     margin-right: rem(5);
+    padding-left: rem(5);
     border: 1px var(--white) solid;
     background: transparent;
     font-size: rem(12);

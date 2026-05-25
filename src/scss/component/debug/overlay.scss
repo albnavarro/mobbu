@@ -162,6 +162,7 @@
             }
 
             &.active {
+                outline-color: var(--white);
                 background: var(--white);
                 color: var(--dark);
             }

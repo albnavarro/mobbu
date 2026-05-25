@@ -3670,6 +3670,7 @@ code.hljs {
       margin-right: 0.3333333333rem;
     }
     .list-toggle.active {
+      outline-color: var(--white);
       background: var(--white);
       color: var(--dark);
     }
@@ -3807,6 +3808,7 @@ code.hljs {
     button:hover,
     button:active,
     button:focus {
+      outline-color: var(--white);
       background: var(--white);
       color: var(--dark);
     }
@@ -3816,6 +3818,7 @@ code.hljs {
   width: 6.6666666667rem;
   height: 1.4666666667rem;
   margin-right: 0.3333333333rem;
+  padding-left: 0.3333333333rem;
   border: 1px var(--white) solid;
   background: transparent;
   vertical-align: middle;
@@ -3992,6 +3995,7 @@ code.hljs {
     button:hover,
     button:active,
     button:focus {
+      outline-color: var(--white);
       background: var(--white);
       color: var(--dark);
     }
@@ -4001,6 +4005,7 @@ code.hljs {
   grid-area: input;
   width: 10rem;
   margin-right: 0.3333333333rem;
+  padding-left: 0.3333333333rem;
   border: 1px var(--white) solid;
   background: transparent;
   font-size: 0.8rem;

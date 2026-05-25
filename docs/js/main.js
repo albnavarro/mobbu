@@ -40233,24 +40233,6 @@
       className: "list-header",
       content: [
         /**
-         * Left top header switch tree/list head
-         */
-        {
-          content: invalidate({
-            observe: [() => proxi.listType, () => proxi.active],
-            render: () => {
-              if (proxi.listType === DEBUG_USE_TREE && proxi.active)
-                return htmlObject({
-                  className: "list-title",
-                  content: "Tree structure"
-                });
-              if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
-                return htmlObject({ component: DebugFilterHead });
-              return htmlObject({});
-            }
-          })
-        },
-        /**
          * Toggle List vs Tree
          */
         {
@@ -40290,6 +40272,24 @@
               content: "Filter"
             }
           ]
+        },
+        /**
+         * Right top header switch tree/list head
+         */
+        {
+          content: invalidate({
+            observe: [() => proxi.listType, () => proxi.active],
+            render: () => {
+              if (proxi.listType === DEBUG_USE_TREE && proxi.active)
+                return htmlObject({
+                  className: "list-title",
+                  content: "Tree structure"
+                });
+              if (proxi.listType === DEBUG_USE_FILTER_COMPONENT && proxi.active)
+                return htmlObject({ component: DebugFilterHead });
+              return htmlObject({});
+            }
+          })
         }
       ]
     };
