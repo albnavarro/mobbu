@@ -41624,8 +41624,7 @@
             active: () => proxi.active
           },
           toggleAttribute: {
-            inert: () => !proxi.active,
-            hidden: () => !proxi.active
+            inert: () => !proxi.active
           }
         })
       ],
@@ -42477,7 +42476,11 @@
     });
     return htmlObject({
       tag: "button",
-      attributes: { type: "button" },
+      attributes: proxi.ariaLabel ? {
+        type: "button",
+        "aria-label": proxi.ariaLabel,
+        "aria-controls": proxi.ariaId
+      } : { type: "button" },
       className: ["link", arrowClass, subMenuClass],
       modules: [
         delegateEvents({
@@ -42546,6 +42549,14 @@
         forceChildren: {
           __value: [],
           __type: Array
+        },
+        ariaLabel: {
+          __value: "",
+          __type: String
+        },
+        ariaId: {
+          __value: "",
+          __type: String
         }
       },
       state: {
@@ -42597,6 +42608,7 @@
   }) => {
     const proxi = getSelfProxi();
     const { label, url, activeId } = proxi.headerButton;
+    const submenuID = modules_exports.getUnivoqueId();
     onMount(() => {
       const { content } = getRef();
       MobSlide.subscribe(content);
@@ -42631,6 +42643,8 @@
                 arrowClass: "has-arrow",
                 fireRoute: false,
                 activeId: activeId ?? -1,
+                ariaLabel: `Open submenu ${label}`,
+                ariaId: submenuID,
                 callback: () => {
                   proxi.callback({ forceClose: proxi.isOpen });
                 }
@@ -42641,12 +42655,18 @@
               () => ({
                 isOpen: proxi.isOpen
               })
-            )
+            ),
+            bindEffect({
+              toggleAttribute: {
+                "aria-expanded": () => proxi.isOpen ? "true" : "false"
+              }
+            })
           ]
         },
         {
           tag: "ul",
           className: "submenu",
+          attributes: { id: submenuID },
           modules: [
             setRef("content"),
             bindEffect({
@@ -42905,8 +42925,7 @@
       modules: bindEffect({
         toggleClass: { active: () => proxi.isOpen },
         toggleAttribute: {
-          inert: () => !proxi.isOpen,
-          hidden: () => !proxi.isOpen
+          inert: () => !proxi.isOpen
         }
       }),
       content: [

@@ -195,7 +195,6 @@ export const SearchOverlayFn = ({
                 },
                 toggleAttribute: {
                     inert: () => !proxi.active,
-                    hidden: () => !proxi.active,
                 },
             }),
         ],

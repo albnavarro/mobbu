@@ -14,6 +14,7 @@ import { MobSlide } from '@mobMotionPlugin';
 import { refreshNavigationScroller } from '../../utils';
 import { closeAllNavAccordion } from '../utils';
 import { NavigationButton } from '../navigation-button/definition';
+import { MobCore } from '@mobCore';
 
 /**
  * @param {object} params
@@ -71,6 +72,7 @@ export const NavigationSubmenuFn = ({
 }) => {
     const proxi = getSelfProxi();
     const { label, url, activeId } = proxi.headerButton;
+    const submenuID = MobCore.getUnivoqueId();
 
     onMount(() => {
         /**
@@ -118,6 +120,8 @@ export const NavigationSubmenuFn = ({
                             arrowClass: 'has-arrow',
                             fireRoute: false,
                             activeId: activeId ?? -1,
+                            ariaLabel: `Open submenu ${label}`,
+                            ariaId: submenuID,
                             callback: () => {
                                 /**
                                  * Trigger close current accordion if is open
@@ -132,11 +136,18 @@ export const NavigationSubmenuFn = ({
                             isOpen: proxi.isOpen,
                         })
                     ),
+                    bindEffect({
+                        toggleAttribute: {
+                            'aria-expanded': () =>
+                                proxi.isOpen ? 'true' : 'false',
+                        },
+                    }),
                 ],
             },
             {
                 tag: 'ul',
                 className: 'submenu',
+                attributes: { id: submenuID },
                 modules: [
                     setRef('content'),
                     bindEffect({

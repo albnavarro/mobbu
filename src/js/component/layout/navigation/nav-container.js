@@ -158,7 +158,6 @@ export const NavigationContainerFn = ({
             toggleClass: { active: () => proxi.isOpen },
             toggleAttribute: {
                 inert: () => !proxi.isOpen,
-                hidden: () => !proxi.isOpen,
             },
         }),
         content: [

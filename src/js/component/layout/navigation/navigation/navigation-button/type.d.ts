@@ -10,6 +10,8 @@ export interface NavigationButtonType {
         callback: () => void;
         isOpen: boolean;
         forceChildren: string[];
+        ariaLabel: string;
+        ariaId: string;
     };
     state: {
         isCurrent: boolean;

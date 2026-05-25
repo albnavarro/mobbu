@@ -51,6 +51,14 @@ export const NavigationButton = MobJs.createComponent(
                 __value: [],
                 __type: Array,
             },
+            ariaLabel: {
+                __value: '',
+                __type: String,
+            },
+            ariaId: {
+                __value: '',
+                __type: String,
+            },
         },
         state: {
             isCurrent: {
