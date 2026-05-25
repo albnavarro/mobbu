@@ -8,3 +8,11 @@ export const toggleSearchOverlay = () => {
     const overlayMethods = MobJs.useMethodByName(searchOverlay);
     overlayMethods?.toggle();
 };
+
+export const openSearchOverlay = () => {
+    /**
+     * @type {import('@mobJsType').UseMethodByName<import('./type').SearchOverlay>}
+     */
+    const overlayMethods = MobJs.useMethodByName(searchOverlay);
+    overlayMethods?.open();
+};

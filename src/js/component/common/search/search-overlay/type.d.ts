@@ -5,5 +5,6 @@ export interface SearchOverlay {
     };
     methods: {
         toggle: () => void;
+        open: () => void;
     };
 }

@@ -4,11 +4,11 @@
 
 import { htmlObject } from '@mobJs';
 import { getIcons } from '@data/index';
-import { toggleSearchOverlay } from '../search-overlay/utils';
+import { openSearchOverlay } from '../search-overlay/utils';
 import { searchOverlaySetInputFocus } from '../search-overlay/header/utils';
 
 const onClick = () => {
-    toggleSearchOverlay();
+    openSearchOverlay();
     searchOverlaySetInputFocus();
 };
 
@@ -24,13 +24,15 @@ export const SearchCtaFn = ({ delegateEvents, onMount, addMethod }) => {
 
     return htmlObject({
         tag: 'button',
-        attributes: { type: 'button' },
+        attributes: { type: 'button', 'aria-label': 'open search dialog' },
         className: 'c-search-cta',
-        modules: delegateEvents({
-            click: () => {
-                onClick();
-            },
-        }),
+        modules: [
+            delegateEvents({
+                click: () => {
+                    onClick();
+                },
+            }),
+        ],
         content: searchSvg,
     });
 };

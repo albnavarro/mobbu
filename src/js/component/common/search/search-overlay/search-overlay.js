@@ -40,9 +40,10 @@ const closeOverlayAndBackFocus = ({ proxi }) => {
 /**
  * @param {object} params
  * @param {ProxiSelfState<import('./type').SearchOverlay>} params.proxi
+ * @param {boolean} [params.forceOpen]
  */
-const toggleOverlayAndBackFocus = ({ proxi }) => {
-    proxi.active = !proxi.active;
+const toggleOverlayAndBackFocus = ({ proxi, forceOpen = false }) => {
+    proxi.active = forceOpen ? true : !proxi.active;
     closeSearchSuggestion();
     if (proxi.active) return;
 
@@ -96,6 +97,10 @@ export const SearchOverlayFn = ({
     onMount,
 }) => {
     const proxi = getSelfProxi();
+
+    addMethod('open', () => {
+        toggleOverlayAndBackFocus({ proxi, forceOpen: true });
+    });
 
     addMethod('toggle', () => {
         toggleOverlayAndBackFocus({ proxi });
@@ -206,7 +211,10 @@ export const SearchOverlayFn = ({
             {
                 tag: 'button',
                 className: 'close-button',
-                attributes: { type: 'button' },
+                attributes: {
+                    type: 'button',
+                    'aria-label': 'close search dialog',
+                },
                 modules: delegateEvents({
                     click: () => {
                         closeOverlayAndBackFocus({ proxi });

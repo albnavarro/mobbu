@@ -47,11 +47,15 @@ export const HeaderToggleFn = ({
             {
                 toggleClass: {
                     'is-open': () => boundedProxi.navigationIsOpen,
-                },
-            },
-            {
-                toggleClass: {
                     'is-mounted': () => proxi.isMounted,
+                },
+                toggleAttribute: {
+                    'aria-label': () =>
+                        boundedProxi.navigationIsOpen
+                            ? 'chiudi menu'
+                            : 'apri menu',
+                    'aria-expanded': () =>
+                        boundedProxi.navigationIsOpen ? 'true' : 'false',
                 },
             },
         ]),

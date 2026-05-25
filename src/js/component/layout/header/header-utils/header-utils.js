@@ -37,8 +37,8 @@ function additems({ delegateEvents }) {
     const { links } = header;
 
     /** @type{Record<string, any>} */
-    const icon = {
-        github: getIcons()['gitHubIcon'],
+    const icons = {
+        github: { icon: getIcons()['gitHubIcon'], ariaLabel: 'github' },
     };
 
     return links.map((link) => {
@@ -49,18 +49,25 @@ function additems({ delegateEvents }) {
             content: internal
                 ? htmlObject({
                       tag: 'button',
-                      dataAttributes: { url },
+                      dataAttributes: {
+                          url,
+                          'aria-label': icons[svg].ariaLabel,
+                      },
                       modules: delegateEvents({
                           click: (/** @type {Event} */ event) => {
                               onClick({ event });
                           },
                       }),
-                      content: icon[svg],
+                      content: icons[svg].icon,
                   })
                 : htmlObject({
                       tag: 'a',
-                      attributes: { href: url, target: '_blank' },
-                      content: icon[svg],
+                      attributes: {
+                          href: url,
+                          target: '_blank',
+                          'aria-label': icons[svg].ariaLabel,
+                      },
+                      content: icons[svg].icon,
                   }),
         });
     });
