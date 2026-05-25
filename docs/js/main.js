@@ -41624,7 +41624,8 @@
             active: () => proxi.active
           },
           toggleAttribute: {
-            inert: () => !proxi.active
+            inert: () => !proxi.active,
+            hidden: () => !proxi.active
           }
         })
       ],
@@ -42904,7 +42905,8 @@
       modules: bindEffect({
         toggleClass: { active: () => proxi.isOpen },
         toggleAttribute: {
-          inert: () => !proxi.isOpen
+          inert: () => !proxi.isOpen,
+          hidden: () => !proxi.isOpen
         }
       }),
       content: [
