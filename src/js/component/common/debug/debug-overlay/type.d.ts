@@ -5,5 +5,6 @@ export interface DebugOverlayType {
     };
     methods: {
         toggle: () => void;
+        open: () => void;
     };
 }

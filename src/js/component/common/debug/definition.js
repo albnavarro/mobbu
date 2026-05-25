@@ -6,9 +6,15 @@ import { DebugButtonFn } from './debug-button';
  */
 
 export const DebugButton = MobJs.createComponent(
-    /** @type {CreateComponentParams<any>} */
+    /** @type {CreateComponentParams<import('./type').DebugOverlayCta>} */
     ({
         tag: 'debug-button',
         component: DebugButtonFn,
+        props: {
+            ariaControls: {
+                __value: '',
+                __type: String,
+            },
+        },
     })
 );

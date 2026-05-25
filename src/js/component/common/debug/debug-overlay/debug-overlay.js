@@ -55,6 +55,10 @@ export const DebugOverlayFn = ({
 }) => {
     const proxi = getSelfProxi();
 
+    addMethod('open', () => {
+        proxi.active = true;
+    });
+
     addMethod('toggle', () => {
         proxi.active = !proxi.active;
         if (proxi.active) return;
@@ -219,8 +223,10 @@ export const DebugOverlayFn = ({
     return htmlObject({
         tag: 'dialog',
         className: 'c-debug-overlay',
+        attributes: { id: 'debug-dialog' },
         modules: bindEffect({
             toggleClass: { active: () => proxi.active },
+            toggleAttribute: { inert: () => !proxi.active },
         }),
         content: [
             {
@@ -235,29 +241,8 @@ export const DebugOverlayFn = ({
                 }),
             },
             {
-                tag: 'button',
-                className: 'close',
-                attributes: { type: 'button' },
-                modules: delegateEvents({
-                    click: () => {
-                        closeOverlayAndSetFocusBack({ proxi });
-                        proxi.listType = DEBUG_USE_TREE;
-                    },
-                }),
-            },
-            {
                 className: 'grid',
                 content: [
-                    {
-                        tag: 'button',
-                        className: 'log',
-                        modules: delegateEvents({
-                            click: () => {
-                                consoleLogDebug();
-                            },
-                        }),
-                        content: `console log`,
-                    },
                     /**
                      * Top header
                      */
@@ -290,7 +275,31 @@ export const DebugOverlayFn = ({
                             attributes: { name: debugComponentName },
                         },
                     },
+                    {
+                        tag: 'button',
+                        className: 'log',
+                        modules: delegateEvents({
+                            click: () => {
+                                consoleLogDebug();
+                            },
+                        }),
+                        content: `console log`,
+                    },
                 ],
+            },
+            {
+                tag: 'button',
+                className: 'close',
+                attributes: {
+                    type: 'button',
+                    'arial-label': 'Close debug dialog',
+                },
+                modules: delegateEvents({
+                    click: () => {
+                        closeOverlayAndSetFocusBack({ proxi });
+                        proxi.listType = DEBUG_USE_TREE;
+                    },
+                }),
             },
         ],
     });

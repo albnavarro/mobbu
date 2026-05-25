@@ -2,7 +2,7 @@ import { consoleLogDebug } from '@commonComponent/debug/console-log';
 import { htmlObject } from '@mobJs';
 import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
-import { toggleDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
+import { openDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
 import { DebugButton } from '@commonComponent/debug/definition';
 import { QuickNav } from '@commonComponent/quick-nav/definition';
 import { debugCtaName, quickNavName } from '@instanceName';
@@ -41,6 +41,7 @@ export const FooterFn = ({
     getSelfProxi,
     onMount,
     bindEffect,
+    staticProps,
 }) => {
     const proxi = getSelfProxi();
 
@@ -71,18 +72,27 @@ export const FooterFn = ({
                         },
                         {
                             component: DebugButton,
-                            attributes: { type: 'button', name: debugCtaName },
+                            attributes: {
+                                name: debugCtaName,
+                            },
                             className: 'c-button-debug',
-                            modules: delegateEvents({
-                                click: () => {
-                                    toggleDebugOverlay();
-                                },
-                            }),
+                            modules: [
+                                delegateEvents({
+                                    click: () => {
+                                        openDebugOverlay();
+                                    },
+                                }),
+                                staticProps(
+                                    /** @type {import('@commonComponent/debug/type').DebugOverlayCta['props']} */
+                                    ({
+                                        ariaControls: 'debug-dialog',
+                                    })
+                                ),
+                            ],
                             content: 'Debug App',
                         },
                         {
                             component: DebugButton,
-                            attributes: { type: 'button' },
                             className: 'c-button-console',
                             modules: delegateEvents({
                                 click: () => {

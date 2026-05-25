@@ -3576,6 +3576,7 @@ code.hljs {
       width: var(--gap-size);
       height: var(--gap-size);
       border: 0;
+      outline-color: var(--white);
       background: transparent;
     }
     .close::after,

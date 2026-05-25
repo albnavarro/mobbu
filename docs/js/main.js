@@ -40085,6 +40085,9 @@
     watch
   }) => {
     const proxi = getSelfProxi();
+    addMethod("open", () => {
+      proxi.active = true;
+    });
     addMethod("toggle", () => {
       proxi.active = !proxi.active;
       if (proxi.active) return;
@@ -40209,8 +40212,10 @@
     return htmlObject({
       tag: "dialog",
       className: "c-debug-overlay",
+      attributes: { id: "debug-dialog" },
       modules: bindEffect({
-        toggleClass: { active: () => proxi.active }
+        toggleClass: { active: () => proxi.active },
+        toggleAttribute: { inert: () => !proxi.active }
       }),
       content: [
         {
@@ -40225,29 +40230,8 @@
           })
         },
         {
-          tag: "button",
-          className: "close",
-          attributes: { type: "button" },
-          modules: delegateEvents({
-            click: () => {
-              closeOverlayAndSetFocusBack({ proxi });
-              proxi.listType = DEBUG_USE_TREE;
-            }
-          })
-        },
-        {
           className: "grid",
           content: [
-            {
-              tag: "button",
-              className: "log",
-              modules: delegateEvents({
-                click: () => {
-                  consoleLogDebug();
-                }
-              }),
-              content: `console log`
-            },
             /**
              * Top header
              */
@@ -40279,8 +40263,32 @@
                 component: DebugComponent,
                 attributes: { name: debugComponentName }
               }
+            },
+            {
+              tag: "button",
+              className: "log",
+              modules: delegateEvents({
+                click: () => {
+                  consoleLogDebug();
+                }
+              }),
+              content: `console log`
             }
           ]
+        },
+        {
+          tag: "button",
+          className: "close",
+          attributes: {
+            type: "button",
+            "arial-label": "Close debug dialog"
+          },
+          modules: delegateEvents({
+            click: () => {
+              closeOverlayAndSetFocusBack({ proxi });
+              proxi.listType = DEBUG_USE_TREE;
+            }
+          })
         }
       ]
     });
@@ -41699,13 +41707,14 @@
   };
 
   // src/js/component/common/debug/debug-overlay/utils.js
-  var toggleDebugOverlay = () => {
+  var openDebugOverlay = () => {
     const methods = modules_exports2.useMethodByName(debugOverlayName);
-    methods?.toggle();
+    methods?.open();
   };
 
   // src/js/component/common/debug/debug-button.js
-  var DebugButtonFn = ({ onMount, addMethod }) => {
+  var DebugButtonFn = ({ onMount, addMethod, getProxi }) => {
+    const proxi = getProxi();
     onMount(({ element }) => {
       addMethod("setFocus", () => {
         element.focus({ preventScroll: true, focusVisible: true });
@@ -41713,7 +41722,12 @@
     });
     return htmlObject({
       tag: "button",
-      attributes: { type: "button" },
+      attributes: proxi.ariaControls ? {
+        type: "button",
+        "aria-controls": proxi.ariaControls
+      } : {
+        type: "button"
+      },
       className: "c-btn-debug",
       content: {
         tag: "mobjs-slot"
@@ -41723,10 +41737,16 @@
 
   // src/js/component/common/debug/definition.js
   var DebugButton = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<any>} */
+    /** @type {CreateComponentParams<import('./type').DebugOverlayCta>} */
     {
       tag: "debug-button",
-      component: DebugButtonFn
+      component: DebugButtonFn,
+      props: {
+        ariaControls: {
+          __value: "",
+          __type: String
+        }
+      }
     }
   );
 
@@ -41927,7 +41947,8 @@
     delegateEvents,
     getSelfProxi,
     onMount,
-    bindEffect
+    bindEffect,
+    staticProps: staticProps2
   }) => {
     const proxi = getSelfProxi();
     onMount(() => {
@@ -41956,18 +41977,27 @@
               },
               {
                 component: DebugButton,
-                attributes: { type: "button", name: debugCtaName },
+                attributes: {
+                  name: debugCtaName
+                },
                 className: "c-button-debug",
-                modules: delegateEvents({
-                  click: () => {
-                    toggleDebugOverlay();
-                  }
-                }),
+                modules: [
+                  delegateEvents({
+                    click: () => {
+                      openDebugOverlay();
+                    }
+                  }),
+                  staticProps2(
+                    /** @type {import('@commonComponent/debug/type').DebugOverlayCta['props']} */
+                    {
+                      ariaControls: "debug-dialog"
+                    }
+                  )
+                ],
                 content: "Debug App"
               },
               {
                 component: DebugButton,
-                attributes: { type: "button" },
                 className: "c-button-console",
                 modules: delegateEvents({
                   click: () => {

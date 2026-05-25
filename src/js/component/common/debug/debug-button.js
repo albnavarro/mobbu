@@ -5,7 +5,9 @@ import { htmlObject } from '@mobJs';
  */
 
 /** @type {MobComponent<import('./type').DebugOverlayCta>} */
-export const DebugButtonFn = ({ onMount, addMethod }) => {
+export const DebugButtonFn = ({ onMount, addMethod, getProxi }) => {
+    const proxi = getProxi();
+
     onMount(({ element }) => {
         addMethod('setFocus', () => {
             element.focus({ preventScroll: true, focusVisible: true });
@@ -14,7 +16,14 @@ export const DebugButtonFn = ({ onMount, addMethod }) => {
 
     return htmlObject({
         tag: 'button',
-        attributes: { type: 'button' },
+        attributes: proxi.ariaControls
+            ? {
+                  type: 'button',
+                  'aria-controls': proxi.ariaControls,
+              }
+            : {
+                  type: 'button',
+              },
         className: 'c-btn-debug',
         content: {
             tag: 'mobjs-slot',
