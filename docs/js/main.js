@@ -25814,9 +25814,15 @@
   // src/js/component/common/doc-title-small/doc-title-small.js
   var DocTitleSmallFn = () => {
     return htmlObject({
+      tag: "nav",
+      attributes: { "aria-label": "BreadCrumbs" },
       className: "l-doc-breadcrumbs",
       content: {
-        tag: "mobjs-slot"
+        tag: "ul",
+        className: "c-breadcrumbs",
+        content: {
+          tag: "mobjs-slot"
+        }
       }
     });
   };
@@ -26147,19 +26153,21 @@
     const items = breadCrumbs.map((item, index) => {
       if (index === breadCrumbs.length - 1) {
         backArrow = /* HTML */
-        `<a href="${item.url}" class="arrows">
-                    <div class="arrow-start"></div>
-                    <div class="arrow-end"></div>
-                </a>`;
+        `<li>
+                    <a href="${item.url}" class="arrows">
+                        <div class="arrow-start"></div>
+                        <div class="arrow-end"></div>
+                    </a>
+                </li>`;
       }
       return (
         /* HTML */
-        `<a class="link" href="${item.url}"
-                >${item.title}</a
-            >`
+        `<li>
+                <a class="link" href="${item.url}">${item.title}</a>
+            </li> `
       );
     }).join("");
-    return `<div class="c-breadcrumbs">${backArrow}${items}</div>`;
+    return `${backArrow}${items}`;
   };
 
   // src/js/component-instance-name/index.js
@@ -26215,9 +26223,12 @@
               breadCrumbs
             }),
             {
-              tag: "span",
-              content: title,
-              attributes: { "aria-current": "page" }
+              tag: "li",
+              content: {
+                tag: "span",
+                content: title,
+                attributes: { "aria-current": "page" }
+              }
             }
           ]
         },
@@ -26261,9 +26272,12 @@
               breadCrumbs
             }),
             {
-              tag: "span",
-              content: title,
-              attributes: { "aria-current": "page" }
+              tag: "li",
+              content: {
+                tag: "span",
+                content: title,
+                attributes: { "aria-current": "page" }
+              }
             }
           ]
         },

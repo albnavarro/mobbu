@@ -35,9 +35,12 @@ export const layoutSidebarLinks = async ({ props }) => {
                         breadCrumbs,
                     }),
                     {
-                        tag: 'span',
-                        content: title,
-                        attributes: { 'aria-current': 'page' },
+                        tag: 'li',
+                        content: {
+                            tag: 'span',
+                            content: title,
+                            attributes: { 'aria-current': 'page' },
+                        },
                     },
                 ],
             },

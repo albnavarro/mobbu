@@ -4787,6 +4787,17 @@ code.hljs {
         font-size: 0.875rem;
       }
     }
+  }
+}
+@layer layout {
+  @scope (.c-breadcrumbs) {
+    :scope {
+      display: inline-block;
+      margin-left: 0;
+    }
+    li {
+      display: inline-block;
+    }
     span {
       display: inline-block;
       position: relative;
@@ -4802,13 +4813,6 @@ code.hljs {
       text-transform: capitalize;
       vertical-align: middle;
       white-space: nowrap;
-    }
-  }
-}
-@layer layout {
-  @scope (.c-breadcrumbs) {
-    :scope {
-      display: inline-block;
     }
     .link {
       display: inline-block;

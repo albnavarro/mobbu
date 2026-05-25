@@ -13,17 +13,19 @@ export const getBreadCrumbs = ({ breadCrumbs }) => {
              * - Back arrow should tay always in first DOM position
              */
             if (index === breadCrumbs.length - 1) {
-                backArrow = /* HTML */ `<a href="${item.url}" class="arrows">
-                    <div class="arrow-start"></div>
-                    <div class="arrow-end"></div>
-                </a>`;
+                backArrow = /* HTML */ `<li>
+                    <a href="${item.url}" class="arrows">
+                        <div class="arrow-start"></div>
+                        <div class="arrow-end"></div>
+                    </a>
+                </li>`;
             }
 
-            return /* HTML */ `<a class="link" href="${item.url}"
-                >${item.title}</a
-            >`;
+            return /* HTML */ `<li>
+                <a class="link" href="${item.url}">${item.title}</a>
+            </li> `;
         })
         .join('');
 
-    return `<div class="c-breadcrumbs">${backArrow}${items}</div>`;
+    return `${backArrow}${items}`;
 };

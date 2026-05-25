@@ -20,6 +20,19 @@
                 font-size: rem(14, xlarge);
             }
         }
+    }
+}
+
+@layer layout {
+    @scope (.c-breadcrumbs) {
+        :scope {
+            display: inline-block;
+            margin-left: 0;
+        }
+
+        li {
+            display: inline-block;
+        }
 
         span {
             display: inline-block;
@@ -36,14 +49,6 @@
             text-transform: capitalize;
             vertical-align: middle;
             white-space: nowrap;
-        }
-    }
-}
-
-@layer layout {
-    @scope (.c-breadcrumbs) {
-        :scope {
-            display: inline-block;
         }
 
         .link {
