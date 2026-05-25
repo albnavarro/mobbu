@@ -1,8 +1,10 @@
 # Accessibility:
-1. rs-annuncient direttamente in index html, sfruttare `beforeRouteChange` per rest textcontent e `afterRouteChange` con delay di X frame per nuovo content.
+1. rs-annuncient : bozza logica allegata
+   - Rispetto alla traccia non forziamo il focus sul main ma lasciamolo dove si trova.
+   - Annunce esporra il name della nuova rotta e le areee attive solo se sono diverse dalle precedenti ( confronto tra template corrente e precedente ).
 2. aria-label su button search / nav-toggle / github. [X]
 3. breadcrumbs diventano `<nav>` . [X]
-4. gestire document.title nel cambio rotta.
+4. gestire document.title nel cambio rotta, ( aggiungere titolo pagina nella config della rotta ).
 5. debug filter update move(0) list.
 6. Search debug invertire scelta tree/filter per UX tab.
 
