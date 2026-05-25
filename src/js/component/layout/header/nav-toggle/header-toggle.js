@@ -64,7 +64,11 @@ export const HeaderToggleFn = ({
     return htmlObject({
         tag: 'button',
         className: 'c-hamburger',
-        attributes: { type: 'button' },
+        attributes: {
+            type: 'button',
+            'aria-label': 'Open site navigation',
+            'aria-controls': 'site-navigation',
+        },
         modules,
         content: {
             className: 'wrapper',

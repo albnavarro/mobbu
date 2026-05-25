@@ -187,6 +187,7 @@ export const SearchOverlayFn = ({
     return htmlObject({
         tag: 'dialog',
         className: 'c-search-overlay',
+        attributes: { id: 'search-dialog', 'aria-label': 'Search dialog' },
         modules: [
             bindEffect({
                 toggleClass: {

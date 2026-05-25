@@ -41617,6 +41617,7 @@
     return htmlObject({
       tag: "dialog",
       className: "c-search-overlay",
+      attributes: { id: "search-dialog", "aria-label": "Search dialog" },
       modules: [
         bindEffect({
           toggleClass: {
@@ -42148,7 +42149,11 @@
     });
     return htmlObject({
       tag: "button",
-      attributes: { type: "button", "aria-label": "open search dialog" },
+      attributes: {
+        type: "button",
+        "aria-label": "open search dialog",
+        "aria-controls": "search-dialog"
+      },
       className: "c-search-cta",
       modules: [
         delegateEvents({
@@ -42282,7 +42287,11 @@
     return htmlObject({
       tag: "button",
       className: "c-hamburger",
-      attributes: { type: "button" },
+      attributes: {
+        type: "button",
+        "aria-label": "Open site navigation",
+        "aria-controls": "site-navigation"
+      },
       modules,
       content: {
         className: "wrapper",
@@ -42891,6 +42900,7 @@
     });
     return htmlObject({
       className: "l-navcontainer",
+      attributes: { id: "site-navigation" },
       modules: bindEffect({
         toggleClass: { active: () => proxi.isOpen },
         toggleAttribute: {

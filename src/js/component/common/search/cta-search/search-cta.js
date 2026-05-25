@@ -24,7 +24,11 @@ export const SearchCtaFn = ({ delegateEvents, onMount, addMethod }) => {
 
     return htmlObject({
         tag: 'button',
-        attributes: { type: 'button', 'aria-label': 'open search dialog' },
+        attributes: {
+            type: 'button',
+            'aria-label': 'open search dialog',
+            'aria-controls': 'search-dialog',
+        },
         className: 'c-search-cta',
         modules: [
             delegateEvents({

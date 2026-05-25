@@ -153,6 +153,7 @@ export const NavigationContainerFn = ({
 
     return htmlObject({
         className: 'l-navcontainer',
+        attributes: { id: 'site-navigation' },
         modules: bindEffect({
             toggleClass: { active: () => proxi.isOpen },
             toggleAttribute: {
