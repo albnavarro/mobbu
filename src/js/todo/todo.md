@@ -37,6 +37,9 @@ requestAnimationFrame(() => {
 
 # MobJs
 
+## Attributes:
+- AL momento non si possono applicare attributi statici ai componenti.
+
 ## 1. Repat proxi
 - il `proxi` repeater potrebbe tornare un oggetto `frezzed` per evutare accidentali mutazioni.
 
