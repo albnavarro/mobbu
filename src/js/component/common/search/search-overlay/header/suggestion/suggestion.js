@@ -38,7 +38,9 @@ export const SearchOverlaySuggestionFn = ({
 
     return htmlObject({
         content: {
+            tag: 'nav',
             className: 'c-search-suggestion',
+            attributes: { 'aria-label': 'Suggestions' },
             content: {
                 tag: 'ul',
                 className: 'list',

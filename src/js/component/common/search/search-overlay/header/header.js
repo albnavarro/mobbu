@@ -237,6 +237,12 @@ export const SearchOverlayHeaderFn = ({
                 });
             }, 60),
         }),
+        bindEffect({
+            toggleAttribute: {
+                'aria-expanded': () =>
+                    proxi.suggestionListActive ? 'true' : 'false',
+            },
+        }),
     ];
 
     return htmlObject({
@@ -248,11 +254,17 @@ export const SearchOverlayHeaderFn = ({
                     {
                         tag: 'input',
                         className: 'serach-input',
-                        attributes: { name: 'search_input' },
+                        attributes: {
+                            name: 'search_input',
+                            'aria-controls': 'suggestions',
+                        },
                         modules: searchModules,
                     },
                     {
                         className: 'suggestion-wrap',
+                        attributes: {
+                            id: 'suggestions',
+                        },
                         modules: [
                             setRef('suggestionElement'),
                             bindEffect({
