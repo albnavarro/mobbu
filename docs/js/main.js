@@ -27704,7 +27704,11 @@
             {
               tag: "button",
               className: "controls-open",
-              attributes: { type: "button" },
+              attributes: {
+                type: "button",
+                "aria-controls": "animation-control",
+                "aria-haspopup": "dialog"
+              },
               modules: [
                 delegateEvents({
                   click: () => {
@@ -27722,6 +27726,12 @@
             {
               tag: "ul",
               className: "controls",
+              attributes: {
+                id: "animation-control",
+                role: "dialog",
+                "aria-label": "Animation controls",
+                "aria-modal": "false"
+              },
               modules: bindEffect({
                 toggleClass: {
                   active: () => proxi.controlsActive
@@ -28517,7 +28527,11 @@
             {
               tag: "button",
               className: "controls-open",
-              attributes: { type: "button" },
+              attributes: {
+                type: "button",
+                "aria-controls": "animation-control",
+                "aria-haspopup": "dialog"
+              },
               modules: [
                 delegateEvents({
                   click: () => {
@@ -28535,6 +28549,12 @@
             {
               tag: "ul",
               className: "controls",
+              attributes: {
+                id: "animation-control",
+                role: "dialog",
+                "aria-label": "Animation controls",
+                "aria-modal": "false"
+              },
               modules: bindEffect({
                 toggleClass: {
                   active: () => proxi.controlsActive
@@ -28972,6 +28992,11 @@
             {
               tag: "button",
               className: "controls-open",
+              attributes: {
+                type: "button",
+                "aria-controls": "animation-control",
+                "aria-haspopup": "dialog"
+              },
               modules: [
                 delegateEvents({
                   click: () => {
@@ -28989,6 +29014,12 @@
             {
               tag: "ul",
               className: "controls",
+              attributes: {
+                id: "animation-control",
+                role: "dialog",
+                "aria-label": "Animation controls",
+                "aria-modal": "false"
+              },
               modules: bindEffect({
                 toggleClass: {
                   active: () => proxi.controlsActive
@@ -29001,6 +29032,7 @@
                 {
                   tag: "button",
                   className: "controls-close",
+                  attributes: { type: "button" },
                   modules: delegateEvents({
                     click: () => {
                       proxi.controlsActive = false;
@@ -29491,7 +29523,11 @@
             {
               tag: "button",
               className: "controls-open",
-              attributes: { type: "button" },
+              attributes: {
+                type: "button",
+                "aria-controls": "animation-control",
+                "aria-haspopup": "dialog"
+              },
               modules: [
                 delegateEvents({
                   click: () => {
@@ -29509,6 +29545,12 @@
             {
               tag: "ul",
               className: "controls",
+              attributes: {
+                id: "animation-control",
+                role: "dialog",
+                "aria-label": "Animation controls",
+                "aria-modal": "false"
+              },
               modules: bindEffect({
                 toggleClass: {
                   active: () => proxi.controlsActive
@@ -29923,7 +29965,11 @@
             {
               tag: "button",
               className: "controls-open",
-              attributes: { type: "button" },
+              attributes: {
+                type: "button",
+                "aria-controls": "animation-control",
+                "aria-haspopup": "dialog"
+              },
               modules: [
                 delegateEvents({
                   click: () => {
@@ -29941,6 +29987,12 @@
             {
               tag: "ul",
               className: "controls",
+              attributes: {
+                id: "animation-control",
+                role: "dialog",
+                "aria-label": "Animation controls",
+                "aria-modal": "false"
+              },
               modules: bindEffect({
                 toggleClass: {
                   active: () => proxi.controlsActive
@@ -33206,6 +33258,12 @@
     };
     return htmlObject({
       className: "controls",
+      attributes: {
+        id: "animation-control",
+        role: "dialog",
+        "aria-label": "Animation controls",
+        "aria-modal": "false"
+      },
       modules: bindEffect({
         toggleClass: {
           active: () => proxi.controlsActive
@@ -33218,6 +33276,9 @@
         {
           tag: "button",
           className: "close-controls",
+          attributes: {
+            type: "button"
+          },
           modules: delegateEvents({
             click: () => {
               proxi.controlsActive = false;
@@ -33336,7 +33397,11 @@
       content: [
         {
           tag: "button",
-          attributes: { type: "button" },
+          attributes: {
+            type: "button",
+            "aria-controls": "animation-control",
+            "aria-haspopup": "dialog"
+          },
           className: "show-controls",
           modules: [
             delegateEvents({
@@ -35030,6 +35095,11 @@
           {
             tag: "button",
             className: "controls-open",
+            attributes: {
+              type: "button",
+              "aria-controls": "animation-control",
+              "aria-haspopup": "dialog"
+            },
             modules: [
               delegateEvents({
                 click: () => {
@@ -35047,6 +35117,12 @@
           {
             tag: "ul",
             className: "controls",
+            attributes: {
+              id: "animation-control",
+              role: "dialog",
+              "aria-label": "Animation controls",
+              "aria-modal": "false"
+            },
             modules: bindEffect({
               toggleClass: {
                 active: () => proxi.controlsActive
@@ -35058,8 +35134,8 @@
             content: [
               {
                 tag: "button",
-                attributes: { type: "button" },
                 className: "controls-close",
+                attributes: { type: "button" },
                 modules: delegateEvents({
                   click: () => {
                     proxi.controlsActive = false;
@@ -37080,6 +37156,11 @@
         {
           tag: "button",
           className: "controls-open",
+          attributes: {
+            type: "button",
+            "aria-controls": "animation-control",
+            "aria-haspopup": "dialog"
+          },
           modules: [
             delegateEvents({
               click: () => {
@@ -37097,6 +37178,12 @@
         {
           tag: "ul",
           className: "controls",
+          attributes: {
+            id: "animation-control",
+            role: "dialog",
+            "aria-label": "Animation controls",
+            "aria-modal": "false"
+          },
           modules: bindEffect({
             toggleClass: {
               active: () => proxi.controlsActive
@@ -37109,6 +37196,7 @@
             {
               tag: "button",
               className: "controls-close",
+              attributes: { type: "button" },
               modules: delegateEvents({
                 click: () => {
                   proxi.controlsActive = false;

@@ -142,6 +142,11 @@ export const AsyncTimelineFn = ({
                 {
                     tag: 'button',
                     className: 'controls-open',
+                    attributes: {
+                        type: 'button',
+                        'aria-controls': 'animation-control',
+                        'aria-haspopup': 'dialog',
+                    },
                     modules: [
                         delegateEvents({
                             click: () => {
@@ -160,6 +165,12 @@ export const AsyncTimelineFn = ({
                 {
                     tag: 'ul',
                     className: 'controls',
+                    attributes: {
+                        id: 'animation-control',
+                        role: 'dialog',
+                        'aria-label': 'Animation controls',
+                        'aria-modal': 'false',
+                    },
                     modules: bindEffect({
                         toggleClass: {
                             active: () => proxi.controlsActive,
@@ -171,8 +182,8 @@ export const AsyncTimelineFn = ({
                     content: [
                         {
                             tag: 'button',
-                            attributes: { type: 'button' },
                             className: 'controls-close',
+                            attributes: { type: 'button' },
                             modules: delegateEvents({
                                 click: () => {
                                     proxi.controlsActive = false;

@@ -132,6 +132,12 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
 
     return htmlObject({
         className: 'controls',
+        attributes: {
+            id: 'animation-control',
+            role: 'dialog',
+            'aria-label': 'Animation controls',
+            'aria-modal': 'false',
+        },
         modules: bindEffect({
             toggleClass: {
                 active: () => proxi.controlsActive,
@@ -144,6 +150,9 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
             {
                 tag: 'button',
                 className: 'close-controls',
+                attributes: {
+                    type: 'button',
+                },
                 modules: delegateEvents({
                     click: () => {
                         proxi.controlsActive = false;
@@ -269,7 +278,11 @@ export const Move3DPagefn = ({
         content: [
             {
                 tag: 'button',
-                attributes: { type: 'button' },
+                attributes: {
+                    type: 'button',
+                    'aria-controls': 'animation-control',
+                    'aria-haspopup': 'dialog',
+                },
                 className: 'show-controls',
                 modules: [
                     delegateEvents({

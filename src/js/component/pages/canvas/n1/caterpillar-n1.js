@@ -143,7 +143,11 @@ export const CaterpillarN1Fn = ({
                     {
                         tag: 'button',
                         className: 'controls-open',
-                        attributes: { type: 'button' },
+                        attributes: {
+                            type: 'button',
+                            'aria-controls': 'animation-control',
+                            'aria-haspopup': 'dialog',
+                        },
                         modules: [
                             delegateEvents({
                                 click: () => {
@@ -162,6 +166,12 @@ export const CaterpillarN1Fn = ({
                     {
                         tag: 'ul',
                         className: 'controls',
+                        attributes: {
+                            id: 'animation-control',
+                            role: 'dialog',
+                            'aria-label': 'Animation controls',
+                            'aria-modal': 'false',
+                        },
                         modules: bindEffect({
                             toggleClass: {
                                 active: () => proxi.controlsActive,
