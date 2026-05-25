@@ -1,4 +1,12 @@
 # Accessibility:
+1. rs-annuncient direttamente in index html, sfruttare `beforeRouteChange` per rest textcontent e `afterRouteChange` con delay di X frame per nuovo content.
+2. aria-label su button search / nav-toggle / github.
+3. breadcrumbs diventano `<nav>` .
+4. document.title.
+5. debug filter update move(0) list.
+6. Search debug invertire scelta tree/filter per UX tab.
+7. La nav di canvas/illustration deve essere un tag <nav> e <aside> gestire anche ui hidden e aria-label etc...
+
 ####
 Componente `sr-update`, che al cambio rotta cambia il suo contento con il titolo della rotta.
 - Il componente non deve essere visibile.
@@ -19,7 +27,7 @@ requestAnimationFrame(() => {
 
 #### I componenti che usan `smooth-scroller` devono avere la cta per tornare in cima.
 
-#### `<Dialog>` per muovere velocemente il focus nelle macroaree del sito per template.
+#### `<Dialog>` per muovere velocemente il focus nelle macroaree del sito per template. ( non Accessibility, sviluppo personale )
 - `<M>-m`: shortcut generale per il component Accessibility.
 - Al primo tab eseguito dopo l'apertura il componente si apre.
 - Per ogni layout ( 3/4 variati ) schema di apertura.
