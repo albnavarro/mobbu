@@ -41910,16 +41910,20 @@
       };
     });
     return htmlObject({
+      tag: "nav",
       className: "c-quick-nav-container",
+      attributes: { "aria-label": "Showcase navigation" },
       modules: bindEffect([
         {
-          toggleClass: { active: () => proxi.active }
+          toggleClass: { active: () => proxi.active },
+          toggleAttribute: { inert: () => !proxi.active }
         }
       ]),
       content: [
         {
           tag: "a",
           className: "c-quick-nav is-prev",
+          attributes: { "arial-label": "previous showcase item" },
           modules: [
             setRef("previous"),
             bindEffect({
@@ -41936,6 +41940,7 @@
         {
           tag: "a",
           className: "c-quick-nav is-back",
+          attributes: { "arial-label": "back to showcase list" },
           modules: [
             setRef("back"),
             bindEffect({
@@ -41952,6 +41957,7 @@
         {
           tag: "a",
           className: "c-quick-nav is-next",
+          attributes: { "arial-label": "next showcase item" },
           modules: [
             setRef("next"),
             bindEffect({
