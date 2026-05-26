@@ -2,6 +2,8 @@
 1. rs-annuncient : bozza logica allegata
    - Rispetto alla traccia non forziamo il focus sul main ma lasciamolo dove si trova.
    - Annunce esporra il name della nuova rotta e le areee attive solo se sono diverse dalle precedenti ( confronto tra template corrente e precedente ).
+   - Suggestion: mandare annuncio quando la suggestion list si apre.
+   - Stessa cosa per i risultati della ricerca mandare un annuncio con la query cercata, 'risultati per X'
 2. aria-label su button search / nav-toggle / github. [X]
 3. breadcrumbs diventano `<nav>` . [X]
 4. gestire document.title nel cambio rotta, ( aggiungere titolo pagina nella config della rotta ).

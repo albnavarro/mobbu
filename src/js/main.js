@@ -75,6 +75,7 @@ const initApp = async () => {
         pageNotFound: 'pageNotFound',
         beforePageTransition,
         pageTransition,
+        basePageName: 'Mob project',
         afterInit: async () => {
             await loaderTween.goTo({ opacity: 0 });
             loaderTween.destroy();

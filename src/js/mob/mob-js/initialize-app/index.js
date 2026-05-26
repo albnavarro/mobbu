@@ -13,6 +13,7 @@ import {
 import { setRestoreScroll } from '../route/scroll-store';
 import { setRedirectFunction } from '../route/redirect';
 import { setDefaultComponent } from '../component/create-component';
+import { setPageName } from '../route/page-name';
 
 /**
  * Inizializa default route.
@@ -31,6 +32,7 @@ export const inizializeApp = async ({
     beforePageTransition,
     pageTransition,
     restoreScroll = true,
+    basePageName = '',
     componentDefaultProps = {
         scoped: false,
         maxParseIteration: 10_000,
@@ -57,6 +59,7 @@ export const inizializeApp = async ({
 
     setContentId({ contentId });
     setRoot({ element: rootEl });
+    setPageName({ name: basePageName });
     setPageTransition({ fn: pageTransition });
     setBeforePageTransition({ fn: beforePageTransition });
     setRestoreScroll(restoreScroll);

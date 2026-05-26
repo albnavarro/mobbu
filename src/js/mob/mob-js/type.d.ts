@@ -263,6 +263,7 @@ export interface Route {
         | ((arg0: { params: any; props: any }) => HTMLElement);
     restoreScroll?: boolean;
     skipTransition?: boolean;
+    pageName?: string;
     props: any;
 }
 
@@ -296,6 +297,7 @@ export interface InizializeApp {
     beforePageTransition?: BeforePageTransition;
     pageTransition?: PageTransition;
     restoreScroll?: boolean;
+    basePageName: string;
     componentDefaultProps?: {
         scoped?: boolean;
         maxParseIteration?: number;

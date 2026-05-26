@@ -170,23 +170,27 @@ export const routes = [
     {
         hash: 'pageNotFound',
         layout: pageNotFound,
+        pageName: 'page not found',
         props: {},
     },
     {
         hash: 'onlyDesktop',
         layout: onlyDesktop,
+        pageName: 'onlyDesktop',
         props: {},
     },
     {
         hash: 'about',
         layout: layoutAbout,
         templateName: PAGE_TEMPLATE_ABOUT,
+        pageName: 'about us',
         props: {},
     },
     {
         hash: 'canvas-overview',
         layout: layoutLinksPage,
         templateName: PAGE_TEMPLATE_LINKS,
+        pageName: 'canvas overview',
         props: {
             source: './data/canvas/data.json',
         },
@@ -195,41 +199,48 @@ export const routes = [
         hash: 'animatedPatternN0',
         layout: animatedPatternN0,
         templateName: PAGE_TEMPLATE_ANIMATION,
+        pageName: 'animatedPatternN0',
         props: {},
     },
     {
         hash: 'animatedPatternN1',
         layout: animatedPatternN1,
         templateName: PAGE_TEMPLATE_ANIMATION,
+        pageName: 'animatedPatternN1',
         props: {},
     },
     {
         hash: 'caterpillarN1',
         layout: caterpillarN1,
+        pageName: 'caterpillarN1',
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
     {
         hash: 'caterpillarN2',
         layout: caterpillarN2,
+        pageName: 'caterpillarN2',
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
     {
         hash: 'async-timeline',
         layout: asyncTimeline,
+        pageName: 'async timeline',
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
     {
         hash: 'scrollerN0',
         layout: scrollerN0,
+        pageName: 'scrollerN0',
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
     {
         hash: 'scrollerN1',
         layout: scrollerN1,
+        pageName: 'scrollerN1',
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
@@ -237,6 +248,7 @@ export const routes = [
         hash: 'dynamic-list',
         layout: dynamic_list,
         templateName: PAGE_TEMPLATE_TEST,
+        pageName: 'dynamic list',
         skipTransition: true,
         props: {
             source: './data/mob-js/general-repeat-test.json',
@@ -250,6 +262,7 @@ export const routes = [
         layout: matrioska_repeat_page,
         templateName: PAGE_TEMPLATE_TEST,
         skipTransition: true,
+        pageName: 'matrioska repeat',
         props: {
             source: './data/mob-js/matrioska.json',
             breadCrumbs: mobJsOverviewBreadCrumbs,
@@ -261,6 +274,7 @@ export const routes = [
         hash: 'matrioska-invalidate',
         layout: matrioska_invalidate_page,
         templateName: PAGE_TEMPLATE_TEST,
+        pageName: 'matrioska invalidate',
         skipTransition: true,
         props: {
             source: './data/mob-js/matrioska.json',
@@ -273,6 +287,7 @@ export const routes = [
         hash: 'home',
         layout: home,
         templateName: PAGE_TEMPLATE_HOME,
+        pageName: 'home',
         props: {},
     },
     {
@@ -280,6 +295,7 @@ export const routes = [
         layout: layoutSidebarAnchor,
         skipTransition: true,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
+        pageName: 'mobCore overview',
         props: {
             source: './data/mob-core/overview.json',
             title: 'mobCore',
@@ -290,6 +306,7 @@ export const routes = [
     },
     {
         hash: 'mobCore-defaults',
+        pageName: 'mobCore defaults',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -303,6 +320,7 @@ export const routes = [
     },
     {
         hash: 'mobCore-events',
+        pageName: 'mobCore events',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -316,6 +334,7 @@ export const routes = [
     },
     {
         hash: 'mobCore-store',
+        pageName: 'mobCore store',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -329,6 +348,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-overview',
+        pageName: 'mobJs overview',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -342,6 +362,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-initialization',
+        pageName: 'mobJs initialization',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -355,6 +376,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-component',
+        pageName: 'mobJs component',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -368,6 +390,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-routing',
+        pageName: 'mobJs routing',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -381,6 +404,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-benchmark-invalidate',
+        pageName: 'mobJs benchmark invalidate',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
         skipTransition: true,
@@ -394,6 +418,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-benchmark-repeat-no-key',
+        pageName: 'mobJs benchmark repeat no key',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
         skipTransition: true,
@@ -407,6 +432,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-benchmark-repeat-key',
+        pageName: 'mobJs benchmark repeat key',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
         skipTransition: true,
@@ -420,6 +446,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-benchmark-repeat-no-component-no-key',
+        pageName: 'mobJs benchmark repeat no component no key',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
         skipTransition: true,
@@ -433,6 +460,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-benchmark-repeat-no-component-with-key',
+        pageName: 'mobJs benchmark repeat no component with key',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
         skipTransition: true,
@@ -446,6 +474,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-benchmark-repeat-no-key-nested',
+        pageName: 'mobJs benchmark repeat no key nested',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
         skipTransition: true,
@@ -459,6 +488,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-benchmark-repeat-key-nested',
+        pageName: 'mobJs benchmark repeat key nested',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
         skipTransition: true,
@@ -472,6 +502,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-benchmark-repeat-key-bind-store',
+        pageName: 'mobJs benchmark repeat key bind store',
         layout: benchMark,
         templateName: PAGE_TEMPLATE_TEST,
         skipTransition: true,
@@ -485,6 +516,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-tick',
+        pageName: 'mobJs tick',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -498,6 +530,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-utils',
+        pageName: 'mobJs utils',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -511,6 +544,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-memory-management',
+        pageName: 'mobJs memory management',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -524,6 +558,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-html-object',
+        pageName: 'mobJs html object',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -537,6 +572,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-debug',
+        pageName: 'mobJs debug',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -550,6 +586,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-onMount',
+        pageName: 'mobJs onMount',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -563,6 +600,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-getState',
+        pageName: 'mobJs getState',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -576,6 +614,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-setState',
+        pageName: 'mobJs setState',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -589,6 +628,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-updateState',
+        pageName: 'mobJs updateState',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -602,6 +642,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-getProxi',
+        pageName: 'mobJs getProxi',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -615,6 +656,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-watch',
+        pageName: 'mobJs watch',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -628,6 +670,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-staticProps',
+        pageName: 'mobJs staticProps',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -641,6 +684,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-dataAttribute',
+        pageName: 'mobJs dataAttribute',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -654,6 +698,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-bindProps',
+        pageName: 'mobJs bindProps',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -667,6 +712,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-bindEvents',
+        pageName: 'mobJs bindEvents',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -680,6 +726,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-delegateEvents',
+        pageName: 'mobJs delegateEvents',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -693,6 +740,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-bindtext',
+        pageName: 'mobJs bindtext',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -706,6 +754,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-bindObject',
+        pageName: 'mobJs bindObject',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -719,6 +768,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-bind-effect',
+        pageName: 'mobJs bind effect',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -732,6 +782,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-methods',
+        pageName: 'mobJs methods',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -745,6 +796,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-useMethodByName',
+        pageName: 'mobJs useMethodByName',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -758,6 +810,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-useMethodArrayByName',
+        pageName: 'mobJs useMethodArrayByName',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -771,6 +824,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-setStateByName',
+        pageName: 'mobJs setStateByName',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -784,6 +838,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-updateStateByName',
+        pageName: 'mobJs updateStateByName',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -797,6 +852,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-refs',
+        pageName: 'mobJs refs',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -810,6 +866,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-runtime',
+        pageName: 'mobJs runtime',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -823,6 +880,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-repeat',
+        pageName: 'mobJs repeat',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -836,6 +894,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-invalidate',
+        pageName: 'mobJs invalidate',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -849,6 +908,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-invalidate-vs-repeater',
+        pageName: 'mobJs invalidate vs repeater',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -862,6 +922,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-web-component',
+        pageName: 'mobJs web component',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -875,6 +936,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-slot',
+        pageName: 'mobJs slot',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -888,6 +950,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-unBind',
+        pageName: 'mobJs unBind',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -901,6 +964,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-emit',
+        pageName: 'mobJs emit',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -914,6 +978,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-emitAsync',
+        pageName: 'mobJs emitAsync',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -927,6 +992,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-computed',
+        pageName: 'mobJs computed',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -940,6 +1006,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-bindStore',
+        pageName: 'mobJs bindStore',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -953,6 +1020,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-removeDom',
+        pageName: 'mobJs removeDom',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -966,6 +1034,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-remove',
+        pageName: 'mobJs remove',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -979,6 +1048,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-getChildren',
+        pageName: 'mobJs getChildren',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -992,6 +1062,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-freezeProp',
+        pageName: 'mobJs freezeProp',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -1005,6 +1076,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-unFreezeProp',
+        pageName: 'mobJs unFreezeProp',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -1018,6 +1090,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-getParentId',
+        pageName: 'mobJs getParentId',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -1031,6 +1104,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-watchParent',
+        pageName: 'mobJs watchParent',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -1044,6 +1118,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-instanceName',
+        pageName: 'mobJs instanceName',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -1057,6 +1132,7 @@ export const routes = [
     },
     {
         hash: 'mobJs-class-list',
+        pageName: 'mobJs class list',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
@@ -1070,6 +1146,7 @@ export const routes = [
     },
     {
         hash: 'mobMotion-stagger',
+        pageName: 'mobMotion stagger',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -1083,6 +1160,7 @@ export const routes = [
     },
     {
         hash: 'mobMotion-defaults',
+        pageName: 'mobMotion defaults',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -1096,6 +1174,7 @@ export const routes = [
     },
     {
         hash: 'mobMotion-utils',
+        pageName: 'mobMotion utils',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -1109,6 +1188,7 @@ export const routes = [
     },
     {
         hash: 'mobMotion-overview',
+        pageName: 'mobMotion overview',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -1122,6 +1202,7 @@ export const routes = [
     },
     {
         hash: 'mobMotion-parallax',
+        pageName: 'mobMotion parallax',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -1135,6 +1216,7 @@ export const routes = [
     },
     {
         hash: 'mobMotion-sequencer',
+        pageName: 'mobMotion sequencer',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -1148,6 +1230,7 @@ export const routes = [
     },
     {
         hash: 'mobMotion-scrolltrigger',
+        pageName: 'mobMotion scrolltrigger',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -1161,6 +1244,7 @@ export const routes = [
     },
     {
         hash: 'mobMotion-sync-timeline',
+        pageName: 'mobMotion sync timeline',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -1174,6 +1258,7 @@ export const routes = [
     },
     {
         hash: 'mobMotion-create-stagger',
+        pageName: 'mobMotion create stagger',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -1187,6 +1272,7 @@ export const routes = [
     },
     {
         hash: 'mobMotion-async-timeline',
+        pageName: 'mobMotion async timeline',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -1200,6 +1286,7 @@ export const routes = [
     },
     {
         hash: 'mobMotion-tween-spring-lerp',
+        pageName: 'mobMotion tween spring lerp',
         layout: layoutSidebarAnchor,
         templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
         skipTransition: true,
@@ -1213,6 +1300,7 @@ export const routes = [
     },
     {
         hash: 'horizontalScroller',
+        pageName: 'horizontalScroller',
         layout: horizontalScroller,
         templateName: PAGE_TEMPLATE_ANIMATION,
         restoreScroll: false,
@@ -1223,18 +1311,21 @@ export const routes = [
     },
     {
         hash: 'move3D-shape1',
+        pageName: 'move3D shape1',
         templateName: PAGE_TEMPLATE_ANIMATION,
         layout: move3DRoute,
         props: move3DrouteProps.shape1,
     },
     {
         hash: 'plugin-dragger',
+        pageName: 'plugin dragger',
         layout: DraggerRoute,
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
     {
         hash: 'math-animation-01',
+        pageName: 'math animation 01',
         layout: mathAnimationRoute,
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {
@@ -1243,12 +1334,14 @@ export const routes = [
     },
     {
         hash: 'rosa-di-grandi',
+        pageName: 'rosa di grandi',
         layout: rosaDiGrandiRoute,
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
     {
         hash: 'plugin-overview',
+        pageName: 'plugin overview',
         layout: layoutLinksPage,
         templateName: PAGE_TEMPLATE_LINKS,
         props: {
@@ -1257,6 +1350,7 @@ export const routes = [
     },
     {
         hash: 'svg-overview',
+        pageName: 'svg overview',
         layout: layoutLinksPage,
         templateName: PAGE_TEMPLATE_LINKS,
         props: {
@@ -1265,18 +1359,21 @@ export const routes = [
     },
     {
         hash: 'mob-01',
+        pageName: 'mob 01',
         layout: lettering01,
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
     {
         hash: 'mob-02',
+        pageName: 'mob 02',
         layout: mob_02,
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },
     {
         hash: 'rdp-01',
+        pageName: 'rdp 01',
         layout: rdp,
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},

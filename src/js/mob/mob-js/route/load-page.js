@@ -14,6 +14,7 @@ import { parseComponents } from '../parse';
 import { getRestoreScroll } from './scroll-store';
 import { tick } from '../queque/tick';
 import { removeCancellableComponent } from '../component/action/remove-and-destroy/cancellable-component/destroy-all-non-persisitent-component';
+import { getPageName } from './page-name';
 
 /**
  * @type {Map<string, number>}
@@ -228,6 +229,13 @@ export const loadPage = async ({
         // @ts-ignore
         clone.remove();
     }
+
+    /**
+     * Add page title if exist whdn page transition is finsiched/
+     */
+    document.title = routeObejct?.pageName
+        ? `${getPageName()} - ${routeObejct.pageName}`
+        : getPageName();
 
     /**
      * Destroy Clone.
