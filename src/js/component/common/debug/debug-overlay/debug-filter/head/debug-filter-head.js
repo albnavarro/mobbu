@@ -1,5 +1,6 @@
 import { htmlObject, MobJs } from '@mobJs';
 import { refreshFilterList } from '../list/utils';
+import { MobCore } from '@mobCore';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -22,6 +23,9 @@ export const DebugFilterHeadFn = ({
          * Update filter list on mount. No filter is applied here.
          */
         refreshList();
+        MobCore.useNextLoop(() => {
+            getRef().input.focus();
+        });
 
         // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {

@@ -53,6 +53,20 @@ export const DebugTreeItemFn = ({
     const hasChildrenClass = proxi.children.length > 0 ? 'has-children' : '';
 
     /**
+     * Force Close when parent is closed.
+     *
+     * - Non standard, should avoid sideEffect with mutation.
+     * - At moment this is the safe way.
+     */
+    watch(
+        () => proxi.focusable,
+        async (isOpen) => {
+            if (isOpen) return;
+            proxi.isOpen = false;
+        }
+    );
+
+    /**
      * Active state.
      */
     computed(
@@ -80,6 +94,8 @@ export const DebugTreeItemFn = ({
 
         /**
          * Open/Close accordion.
+         *
+         * - Add watcher when content ref is available.
          */
         watch(
             () => proxi.isOpen,
@@ -96,6 +112,7 @@ export const DebugTreeItemFn = ({
     });
 
     return htmlObject({
+        tag: 'li',
         className: 'c-debug-tree-item',
         content: [
             {
@@ -119,6 +136,8 @@ export const DebugTreeItemFn = ({
                         className: ['left', hasChildrenClass],
                         attributes: {
                             type: 'button',
+                            'aria-controls':
+                                proxi.children.length > 0 ? proxi.id : null,
                         },
                         modules: [
                             delegateEvents({
@@ -136,6 +155,8 @@ export const DebugTreeItemFn = ({
                                         proxi.children.length > 0
                                             ? '0'
                                             : '-1',
+                                    'aria-expanded': () =>
+                                        proxi.isOpen ? 'true' : 'false',
                                 },
                             }),
                         ],
@@ -158,7 +179,7 @@ export const DebugTreeItemFn = ({
                                 content: proxi.instanceName,
                             },
                             {
-                                tag: 'span',
+                                tag: 'strong',
                                 content: getCounter(proxi.children.length),
                             },
                         ],
@@ -196,7 +217,9 @@ export const DebugTreeItemFn = ({
                 ],
             },
             {
+                tag: 'ul',
                 className: 'tree-content',
+                attributes: { id: proxi.id },
                 modules: setRef('content'),
                 content: generateTreeComponents({
                     data: proxi.children,

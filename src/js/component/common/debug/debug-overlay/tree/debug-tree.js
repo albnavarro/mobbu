@@ -131,6 +131,7 @@ export const DebugTreeFn = ({
                             content: 'Generate tree',
                         },
                         {
+                            tag: 'ul',
                             className: 'scollable-element',
                             modules: setRef('scroller'),
                             content: invalidate({

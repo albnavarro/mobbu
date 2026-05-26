@@ -21,6 +21,10 @@ export const HeaderMainMenuButton = MobJs.createComponent(
                 __value: '',
                 __type: String,
             },
+            url: {
+                __value: '',
+                __type: String,
+            },
         },
         state: {
             active: {

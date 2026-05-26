@@ -32,6 +32,7 @@ export const SearchOverlayListItemFn = ({
         }),
         content: {
             tag: 'button',
+            attributes: { type: 'button', role: 'link' },
             modules: delegateEvents({
                 click: () => {
                     loadPage({ uri: proxi.uri });

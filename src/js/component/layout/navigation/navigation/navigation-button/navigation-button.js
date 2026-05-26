@@ -74,7 +74,7 @@ export const NavigationButtonFn = ({
                   'aria-label': proxi.ariaLabel,
                   'aria-controls': proxi.ariaId,
               }
-            : { type: 'button' },
+            : { type: 'button', role: 'link' },
         className: ['link', arrowClass, subMenuClass],
         modules: [
             delegateEvents({

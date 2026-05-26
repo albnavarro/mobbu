@@ -6,18 +6,16 @@
  * } from "@mobJsType"
  */
 
-import { htmlObject, MobJs } from '@mobJs';
+import { htmlObject } from '@mobJs';
 import { getCommonData } from '@data/index';
-import { navigationStore } from '@stores/navigation';
 import { MobCore } from '@mobCore';
 import { HeaderMainMenuButton } from './main-menu-button/definition';
 
 /**
  * @param {object} params
- * @param {DelegateEvents} params.delegateEvents
  * @param {StaticProps<import('./main-menu-button/type').HeaderMainMenuButton>} params.staticProps
  */
-const getItems = ({ delegateEvents, staticProps }) => {
+const getItems = ({ staticProps }) => {
     const data = getCommonData();
 
     return data.footer.nav.map(({ label, url, section }) => {
@@ -26,16 +24,11 @@ const getItems = ({ delegateEvents, staticProps }) => {
             content: {
                 component: HeaderMainMenuButton,
                 modules: [
-                    delegateEvents({
-                        click: () => {
-                            MobJs.loadUrl({ url });
-                            navigationStore.set('navigationIsOpen', false);
-                        },
-                    }),
                     staticProps(
                         /** @type {import('./main-menu-button/type').HeaderMainMenuButton['props']} */ ({
                             label,
                             section,
+                            url,
                         })
                     ),
                 ],
@@ -46,7 +39,6 @@ const getItems = ({ delegateEvents, staticProps }) => {
 
 /** @type {MobComponent} */
 export const headerMainMenuFn = ({
-    delegateEvents,
     staticProps,
     getSelfProxi,
     onMount,
@@ -73,6 +65,6 @@ export const headerMainMenuFn = ({
                 'is-visible': () => proxi.isMounted,
             },
         }),
-        content: getItems({ delegateEvents, staticProps }),
+        content: getItems({ staticProps }),
     });
 };

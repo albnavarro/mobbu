@@ -249,6 +249,8 @@ export const DebugFilterListFn = ({
                     modules: setRef('scrollbar'),
                 },
                 {
+                    tag: 'nav',
+                    attributes: { 'aria-label': 'Debug filter result' },
                     className: 'list',
                     modules: setRef('screen'),
                     content: [
@@ -269,6 +271,7 @@ export const DebugFilterListFn = ({
                             content: 'no result',
                         },
                         {
+                            tag: 'ul',
                             className: 'scrollable-element',
                             modules: setRef('scroller'),
                             content: renderList,

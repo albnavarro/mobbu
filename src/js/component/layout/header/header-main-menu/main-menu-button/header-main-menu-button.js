@@ -3,7 +3,8 @@
  * @import {HeaderMainMenuButton} from "./type"
  */
 
-import { htmlObject } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
+import { navigationStore } from '@stores/navigation';
 
 /** @type {MobComponent<HeaderMainMenuButton>} */
 export const HeaderMainMenuButtonFn = ({
@@ -11,6 +12,7 @@ export const HeaderMainMenuButtonFn = ({
     getBoundedProxi,
     bindEffect,
     computed,
+    delegateEvents,
 }) => {
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
@@ -24,10 +26,18 @@ export const HeaderMainMenuButtonFn = ({
 
     return htmlObject({
         tag: 'button',
-        attributes: { type: 'button' },
-        modules: bindEffect({
-            toggleClass: { current: () => proxi.active },
-        }),
+        attributes: { type: 'button', role: 'link' },
+        modules: [
+            bindEffect({
+                toggleClass: { current: () => proxi.active },
+            }),
+            delegateEvents({
+                click: () => {
+                    MobJs.loadUrl({ url: proxi.url });
+                    navigationStore.set('navigationIsOpen', false);
+                },
+            }),
+        ],
         content: proxi.label,
     });
 };

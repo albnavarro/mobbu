@@ -201,22 +201,26 @@ export const SearchOverlayListFn = ({
                 modules: setRef('scrollbar'),
             },
             {
-                className: 'screen',
-                modules: setRef('screen'),
-                content: [
-                    {
-                        tag: 'span',
-                        className: 'loader',
-                        modules: bindEffect({
-                            toggleClass: {
-                                active: () => proxi.loading,
-                            },
-                        }),
-                        content: 'fetch data',
-                    },
-                    resultUI,
-                    renderList,
-                ],
+                tag: 'nav',
+                attributes: { 'aria-label': 'search result' },
+                content: {
+                    className: 'screen',
+                    modules: setRef('screen'),
+                    content: [
+                        {
+                            tag: 'span',
+                            className: 'loader',
+                            modules: bindEffect({
+                                toggleClass: {
+                                    active: () => proxi.loading,
+                                },
+                            }),
+                            content: 'fetch data',
+                        },
+                        resultUI,
+                        renderList,
+                    ],
+                },
             },
         ],
     });

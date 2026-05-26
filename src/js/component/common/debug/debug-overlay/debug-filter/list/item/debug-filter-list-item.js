@@ -23,6 +23,7 @@ export const DebugFilterListItemFn = ({
     );
 
     return htmlObject({
+        tag: 'li',
         className: 'c-debug-filter-list-item',
         content: [
             {
