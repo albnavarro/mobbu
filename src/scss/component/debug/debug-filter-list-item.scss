@@ -43,6 +43,7 @@
             cursor: pointer;
 
             @include on-event {
+                outline-color: var(--white);
                 background: rgba(var(--white-rgb), 0.02);
             }
 
