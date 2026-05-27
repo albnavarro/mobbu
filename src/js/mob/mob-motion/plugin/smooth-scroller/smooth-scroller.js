@@ -183,12 +183,6 @@ export class MobSmoothScroller {
     #unSubscribeHandleTab = () => {};
 
     /**
-     * @type {() => void}
-     * @returns {void}
-     */
-    #unSubscribeHandleArrow = () => {};
-
-    /**
      * @type {MobLerp | MobSpring}
      */
     #motion;
@@ -353,6 +347,34 @@ export class MobSmoothScroller {
      */
     #velocityEasing;
 
+    #eventKeyArrow = (/** @type {KeyboardEvent} */ event) => {
+        const keyEvent = event.key?.toUpperCase();
+        if (keyEvent !== 'ARROWDOWN' && keyEvent !== 'ARROWUP') return;
+
+        const valueToAdd =
+            keyEvent === 'ARROWDOWN'
+                ? this.#arrowThreshold
+                : -this.#arrowThreshold;
+
+        this.#endValue = clamp(
+            Math.round(this.#endValue + valueToAdd),
+            0,
+            this.#maxValue
+        );
+
+        /**
+         * Preveniamo il caso in cui la gesture `enter` venga interpretata come mouseClick.
+         *
+         * - In questo case il check `preventChecker` impedirebbe di eseguire l'azione di click
+         * - FirstTouchValue && endValue devono coincidere, non stiamo draggando l'elemento, ma il sistema puo pensare di
+         *   si.
+         */
+        this.#firstTouchValue = this.#endValue;
+        this.#updateScrollState();
+        this.#executeScroll();
+        event.preventDefault();
+    };
+
     /**
      * Create new SmoothScroller instance.
      *
@@ -409,7 +431,6 @@ export class MobSmoothScroller {
         this.#unSubscribeMouseClick = NOOP;
         this.#unSubscribeDebounceWhell = NOOP;
         this.#unSubscribeHandleTab = NOOP;
-        this.#unSubscribeHandleArrow = NOOP;
 
         /**
          * Initialize tween param.
@@ -906,38 +927,7 @@ export class MobSmoothScroller {
         if (this.#syncArrow) {
             const screen = /** @type {any} */ (this.#screen);
             if (screen === globalThis) return;
-
-            screen.addEventListener(
-                'keydown',
-                (/** @type {KeyboardEvent} */ event) => {
-                    const keyEvent = event.key?.toUpperCase();
-                    if (keyEvent !== 'ARROWDOWN' && keyEvent !== 'ARROWUP')
-                        return;
-
-                    const valueToAdd =
-                        keyEvent === 'ARROWDOWN'
-                            ? this.#arrowThreshold
-                            : -this.#arrowThreshold;
-
-                    this.#endValue = clamp(
-                        Math.round(this.#endValue + valueToAdd),
-                        0,
-                        this.#maxValue
-                    );
-
-                    /**
-                     * Preveniamo il caso in cui la gesture `enter` venga interpretata come mouseClick.
-                     *
-                     * - In questo case il check `preventChecker` impedirebbe di eseguire l'azione di click
-                     * - FirstTouchValue && endValue devono coincidere, non stiamo draggando l'elemento, ma il sistema puo
-                     *   pensare di si.
-                     */
-                    this.#firstTouchValue = this.#endValue;
-                    this.#updateScrollState();
-                    this.#executeScroll();
-                    event.preventDefault();
-                }
-            );
+            screen.addEventListener('keydown', this.#eventKeyArrow);
         }
     }
 
@@ -1772,7 +1762,6 @@ export class MobSmoothScroller {
         this.#subscribeOnComplete();
         this.#unSubscribeDebounceWhell();
         this.#unSubscribeHandleTab();
-        this.#unSubscribeHandleArrow();
         this.#motion?.destroy();
         // @ts-ignore
         this.#motion = null;
@@ -1796,6 +1785,13 @@ export class MobSmoothScroller {
         );
 
         this.#unSubscribeMouseLeave = NOOP;
+
+        if (this.#syncArrow) {
+            /** @type {HTMLElement} */ (this.#screen).removeEventListener(
+                'keydown',
+                this.#eventKeyArrow
+            );
+        }
 
         if (this.#scopedEvent) {
             /** @type {HTMLElement} */ (this.#scroller)?.removeEventListener(
