@@ -17,8 +17,6 @@
         }
 
         li {
-            margin-inline: rem(2);
-
             &:hover {
                 svg {
                     opacity: 0.2;
@@ -31,7 +29,7 @@
             display: block;
             width: 100%;
             height: 100%;
-            padding: em(16);
+            padding: em(24) em(16);
             border: 0;
             outline-offset: -2px;
             background: transparent;

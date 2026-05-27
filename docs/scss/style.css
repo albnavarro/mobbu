@@ -936,6 +936,7 @@ code.hljs {
       height: 100%;
       transition: opacity 1s 0.55s;
       opacity: 0;
+      box-shadow: inset 1px 0 0 0 var(--dark);
       text-align: right;
     }
     .utils-cell.is-visible {
@@ -1042,9 +1043,6 @@ code.hljs {
     ul {
       height: 100%;
     }
-    li {
-      margin-inline: 0.1333333333rem;
-    }
     li:hover svg {
       opacity: 0.2;
     }
@@ -1053,7 +1051,7 @@ code.hljs {
       display: block;
       width: 100%;
       height: 100%;
-      padding: 1.0666666667em;
+      padding: 1.6em 1.0666666667em;
       border: 0;
       outline-offset: -2px;
       background: transparent;

@@ -42555,14 +42555,14 @@
       tag: "ul",
       className: "l-header-utils",
       content: [
+        ...additems({ delegateEvents }),
         {
           tag: "li",
           content: {
             component: SearchCta,
             attributes: { name: searchOverlayCta }
           }
-        },
-        ...additems({ delegateEvents })
+        }
       ]
     });
   };

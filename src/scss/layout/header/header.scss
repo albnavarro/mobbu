@@ -124,6 +124,7 @@
             height: 100%;
             transition: opacity 1s 0.55s;
             opacity: 0;
+            box-shadow: inset 1px 0 0 0 var(--dark);
             text-align: right;
 
             &.is-visible {
