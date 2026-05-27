@@ -24457,20 +24457,10 @@
      * @type {number}
      */
     #velocityEasing;
-    #eventKeyArrow = (event) => {
-      const keyEvent = event.key?.toUpperCase();
-      if (keyEvent !== "ARROWDOWN" && keyEvent !== "ARROWUP") return;
-      const valueToAdd = keyEvent === "ARROWDOWN" ? this.#arrowThreshold : -this.#arrowThreshold;
-      this.#endValue = clamp3(
-        Math.round(this.#endValue + valueToAdd),
-        0,
-        this.#maxValue
-      );
-      this.#firstTouchValue = this.#endValue;
-      this.#updateScrollState();
-      this.#executeScroll();
-      event.preventDefault();
-    };
+    /**
+     * @type {(arg0: KeyboardEvent) => void}
+     */
+    #eventKeyArrow;
     /**
      * Create new SmoothScroller instance.
      *
@@ -24676,6 +24666,20 @@
             y: clientY
           }
         });
+      };
+      this.#eventKeyArrow = (event) => {
+        const keyEvent = event.key?.toUpperCase();
+        if (keyEvent !== "ARROWDOWN" && keyEvent !== "ARROWUP") return;
+        const valueToAdd = keyEvent === "ARROWDOWN" ? this.#arrowThreshold : -this.#arrowThreshold;
+        this.#endValue = clamp3(
+          Math.round(this.#endValue + valueToAdd),
+          0,
+          this.#maxValue
+        );
+        this.#firstTouchValue = this.#endValue;
+        this.#updateScrollState();
+        this.#executeScroll();
+        event.preventDefault();
       };
       this.#unSubscribeDebounceWhell = modules_exports.useMouseWheel(
         modules_exports.debounce(() => {
@@ -25383,6 +25387,7 @@
           "keydown",
           this.#eventKeyArrow
         );
+        this.#eventKeyArrow = NOOP;
       }
       if (this.#scopedEvent) {
         this.#scroller?.removeEventListener(
@@ -25397,6 +25402,8 @@
           "touchmove",
           this.#scopedTouchMove
         );
+        this.#scopedTouchMove = NOOP;
+        this.#scopedWhell = NOOP;
       }
       modules_exports.useFrameIndex(() => {
         modules_exports.useNextTick(() => {
