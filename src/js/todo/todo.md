@@ -4,11 +4,8 @@
    - Annunce esporra il name della nuova rotta e le areee attive solo se sono diverse dalle precedenti ( confronto tra template corrente e precedente ).
    - Suggestion: mandare annuncio quando la suggestion list si apre.
    - Stessa cosa per i risultati della ricerca mandare un annuncio con la query cercata, 'risultati per X'
-2. aria-label su button search / nav-toggle / github. [X]
-3. breadcrumbs diventano `<nav>` . [X]
-4. gestire document.title nel cambio rotta, ( aggiungere titolo pagina nella config della rotta ).
-5. debug filter update move(0) list.
-6. Search debug invertire scelta tree/filter per UX tab.
+2. aria-label su toggle degli snippet.
+3. debug filter update move(0) list.
 
 ####
 Componente `sr-update`, che al cambio rotta cambia il suo contento con il titolo della rotta.
