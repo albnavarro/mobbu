@@ -120,7 +120,6 @@ export const NavigationSubmenuFn = ({
                             arrowClass: 'has-arrow',
                             fireRoute: false,
                             activeId: activeId ?? -1,
-                            ariaLabel: `Open submenu ${label}`,
                             ariaId: submenuID,
                             callback: () => {
                                 /**
@@ -140,6 +139,10 @@ export const NavigationSubmenuFn = ({
                         toggleAttribute: {
                             'aria-expanded': () =>
                                 proxi.isOpen ? 'true' : 'false',
+                            'aria-label': () =>
+                                proxi.isOpen
+                                    ? `Close submenu ${label}`
+                                    : `Open submenu ${label}`,
                         },
                     }),
                 ],

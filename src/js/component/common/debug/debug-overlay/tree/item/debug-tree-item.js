@@ -157,6 +157,10 @@ export const DebugTreeItemFn = ({
                                             : '-1',
                                     'aria-expanded': () =>
                                         proxi.isOpen ? 'true' : 'false',
+                                    'aria-label': () =>
+                                        proxi.isOpen
+                                            ? `Close submenu ${proxi.componentName}`
+                                            : `Open submenu ${proxi.componentName}`,
                                 },
                             }),
                         ],

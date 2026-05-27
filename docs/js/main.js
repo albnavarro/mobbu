@@ -24326,12 +24326,6 @@
     #unSubscribeHandleTab = () => {
     };
     /**
-     * @type {() => void}
-     * @returns {void}
-     */
-    #unSubscribeHandleArrow = () => {
-    };
-    /**
      * @type {MobLerp | MobSpring}
      */
     #motion;
@@ -24463,6 +24457,20 @@
      * @type {number}
      */
     #velocityEasing;
+    #eventKeyArrow = (event) => {
+      const keyEvent = event.key?.toUpperCase();
+      if (keyEvent !== "ARROWDOWN" && keyEvent !== "ARROWUP") return;
+      const valueToAdd = keyEvent === "ARROWDOWN" ? this.#arrowThreshold : -this.#arrowThreshold;
+      this.#endValue = clamp3(
+        Math.round(this.#endValue + valueToAdd),
+        0,
+        this.#maxValue
+      );
+      this.#firstTouchValue = this.#endValue;
+      this.#updateScrollState();
+      this.#executeScroll();
+      event.preventDefault();
+    };
     /**
      * Create new SmoothScroller instance.
      *
@@ -24519,7 +24527,6 @@
       this.#unSubscribeMouseClick = NOOP;
       this.#unSubscribeDebounceWhell = NOOP;
       this.#unSubscribeHandleTab = NOOP;
-      this.#unSubscribeHandleArrow = NOOP;
       this.#motion = {
         updateVelocity: NOOP,
         // @ts-ignore
@@ -24890,24 +24897,7 @@
           this.#screen
         );
         if (screen === globalThis) return;
-        screen.addEventListener(
-          "keydown",
-          (event) => {
-            const keyEvent = event.key?.toUpperCase();
-            if (keyEvent !== "ARROWDOWN" && keyEvent !== "ARROWUP")
-              return;
-            const valueToAdd = keyEvent === "ARROWDOWN" ? this.#arrowThreshold : -this.#arrowThreshold;
-            this.#endValue = clamp3(
-              Math.round(this.#endValue + valueToAdd),
-              0,
-              this.#maxValue
-            );
-            this.#firstTouchValue = this.#endValue;
-            this.#updateScrollState();
-            this.#executeScroll();
-            event.preventDefault();
-          }
-        );
+        screen.addEventListener("keydown", this.#eventKeyArrow);
       }
     }
     /**
@@ -25369,7 +25359,6 @@
       this.#subscribeOnComplete();
       this.#unSubscribeDebounceWhell();
       this.#unSubscribeHandleTab();
-      this.#unSubscribeHandleArrow();
       this.#motion?.destroy();
       this.#motion = null;
       this.#children.forEach((element) => {
@@ -25389,6 +25378,12 @@
         this.#unSubscribeMouseLeave
       );
       this.#unSubscribeMouseLeave = NOOP;
+      if (this.#syncArrow) {
+        this.#screen.removeEventListener(
+          "keydown",
+          this.#eventKeyArrow
+        );
+      }
       if (this.#scopedEvent) {
         this.#scroller?.removeEventListener(
           "wheel",
@@ -42976,7 +42971,6 @@
                 arrowClass: "has-arrow",
                 fireRoute: false,
                 activeId: activeId ?? -1,
-                ariaLabel: `Open submenu ${label}`,
                 ariaId: submenuID,
                 callback: () => {
                   proxi.callback({ forceClose: proxi.isOpen });
@@ -42991,7 +42985,8 @@
             ),
             bindEffect({
               toggleAttribute: {
-                "aria-expanded": () => proxi.isOpen ? "true" : "false"
+                "aria-expanded": () => proxi.isOpen ? "true" : "false",
+                "aria-label": () => proxi.isOpen ? `Close submenu ${label}` : `Open submenu ${label}`
               }
             })
           ]
@@ -43584,7 +43579,8 @@
                      * Enable focus only if has children and is visible in screen
                      */
                     tabindex: () => proxi.focusable && proxi.children.length > 0 ? "0" : "-1",
-                    "aria-expanded": () => proxi.isOpen ? "true" : "false"
+                    "aria-expanded": () => proxi.isOpen ? "true" : "false",
+                    "aria-label": () => proxi.isOpen ? `Close submenu ${proxi.componentName}` : `Open submenu ${proxi.componentName}`
                   }
                 })
               ],
