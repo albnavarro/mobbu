@@ -41,6 +41,16 @@ export class MobSmoothScroller {
     /**
      * @type {boolean}
      */
+    #syncArrow = false;
+
+    /**
+     * @type {number}
+     */
+    #arrowThreshold = 100;
+
+    /**
+     * @type {boolean}
+     */
     #propsIsValid = true;
 
     /**
@@ -96,81 +106,87 @@ export class MobSmoothScroller {
     /**
      * @type {() => void}
      */
-    #subscribeResize;
+    #unSubscribeResize;
 
     /**
      * @type {() => void}
      */
-    #subscribeScrollStart;
+    #unSubscribeScrollStart;
 
     /**
      * @type {() => void}
      */
-    #subscribeScrollEnd;
+    #unSubscribeScrollEnd;
 
     /**
      * @type {() => void}
      */
-    #subscribeTouchStart;
+    #unSubscribeTouchStart;
 
     /**
      * @type {() => void}
      */
-    #subscribeTouchEnd;
-
-    /**
-     * @type {() => void}
-     * @returns {void}
-     */
-    #subscribeMouseDown;
+    #unSubscribeTouchEnd;
 
     /**
      * @type {() => void}
      * @returns {void}
      */
-    #subscribeMouseUp;
+    #unSubscribeMouseDown;
 
     /**
      * @type {() => void}
      * @returns {void}
      */
-    #subscribeMouseWheel;
+    #unSubscribeMouseUp;
 
     /**
      * @type {() => void}
      * @returns {void}
      */
-    #subscribeMouseMove;
+    #unSubscribeMouseWheel;
 
     /**
      * @type {() => void}
      * @returns {void}
      */
-    #subscribeTouchMove;
+    #unSubscribeMouseMove;
 
     /**
      * @type {() => void}
      * @returns {void}
      */
-    #subscribeMouseClick;
+    #unSubscribeTouchMove;
 
     /**
      * @type {() => void}
      * @returns {void}
      */
-    #subscribeDebounceWhell;
+    #unSubscribeMouseClick;
 
     /**
      * @type {() => void}
      * @returns {void}
      */
-    #subscribeMouseLeave = () => UnFreezeMobPageScroll();
+    #unSubscribeDebounceWhell;
 
     /**
      * @type {() => void}
      * @returns {void}
      */
-    #subscribeHandleTab = () => {};
+    #unSubscribeMouseLeave = () => UnFreezeMobPageScroll();
+
+    /**
+     * @type {() => void}
+     * @returns {void}
+     */
+    #unSubscribeHandleTab = () => {};
+
+    /**
+     * @type {() => void}
+     * @returns {void}
+     */
+    #unSubscribeHandleArrow = () => {};
 
     /**
      * @type {MobLerp | MobSpring}
@@ -380,18 +396,20 @@ export class MobSmoothScroller {
      * @param {import('./type.js').MobSmoothScroller} data
      */
     constructor(data) {
-        this.#subscribeResize = NOOP;
-        this.#subscribeScrollStart = NOOP;
-        this.#subscribeScrollEnd = NOOP;
-        this.#subscribeTouchStart = NOOP;
-        this.#subscribeTouchEnd = NOOP;
-        this.#subscribeMouseDown = NOOP;
-        this.#subscribeMouseUp = NOOP;
-        this.#subscribeMouseWheel = NOOP;
-        this.#subscribeMouseMove = NOOP;
-        this.#subscribeTouchMove = NOOP;
-        this.#subscribeMouseClick = NOOP;
-        this.#subscribeDebounceWhell = NOOP;
+        this.#unSubscribeResize = NOOP;
+        this.#unSubscribeScrollStart = NOOP;
+        this.#unSubscribeScrollEnd = NOOP;
+        this.#unSubscribeTouchStart = NOOP;
+        this.#unSubscribeTouchEnd = NOOP;
+        this.#unSubscribeMouseDown = NOOP;
+        this.#unSubscribeMouseUp = NOOP;
+        this.#unSubscribeMouseWheel = NOOP;
+        this.#unSubscribeMouseMove = NOOP;
+        this.#unSubscribeTouchMove = NOOP;
+        this.#unSubscribeMouseClick = NOOP;
+        this.#unSubscribeDebounceWhell = NOOP;
+        this.#unSubscribeHandleTab = NOOP;
+        this.#unSubscribeHandleArrow = NOOP;
 
         /**
          * Initialize tween param.
@@ -511,6 +529,18 @@ export class MobSmoothScroller {
             false
         );
 
+        this.#syncArrow = valueIsBooleanAndReturnDefault(
+            data?.syncArrow,
+            'syncArrow',
+            false
+        );
+
+        this.#arrowThreshold = valueIsNumberAndReturnDefault(
+            data?.arrowThreshold,
+            'arrowThreshold',
+            100
+        );
+
         this.#fixedTab = valueIsBooleanAndReturnDefault(
             data?.fixedTab,
             'fixedTab',
@@ -572,7 +602,7 @@ export class MobSmoothScroller {
         /**
          * Remove wheeling class at the end of wheel.
          */
-        this.#subscribeDebounceWhell = MobCore.useMouseWheel(
+        this.#unSubscribeDebounceWhell = MobCore.useMouseWheel(
             MobCore.debounce(() => {
                 this.#removeWhellingClass();
             }, 500)
@@ -671,15 +701,15 @@ export class MobSmoothScroller {
          * Non scoped event
          */
         if (!this.#scopedEvent) {
-            this.#subscribeMouseWheel = MobCore.useMouseWheel((data) => {
+            this.#unSubscribeMouseWheel = MobCore.useMouseWheel((data) => {
                 this.#onWhell(data);
             });
 
-            this.#subscribeMouseMove = MobCore.useMouseMove((data) => {
+            this.#unSubscribeMouseMove = MobCore.useMouseMove((data) => {
                 this.#onTouchMove(data);
             });
 
-            this.#subscribeTouchMove = MobCore.useTouchMove((data) => {
+            this.#unSubscribeTouchMove = MobCore.useTouchMove((data) => {
                 this.#onTouchMove(data);
             });
         }
@@ -687,29 +717,29 @@ export class MobSmoothScroller {
         /**
          * Common event
          */
-        this.#subscribeResize = MobCore.useResize(() => this.refresh());
+        this.#unSubscribeResize = MobCore.useResize(() => this.refresh());
 
-        this.#subscribeScrollStart = MobCore.useScrollStart(() =>
+        this.#unSubscribeScrollStart = MobCore.useScrollStart(() =>
             this.#refreshScroller()
         );
 
-        this.#subscribeScrollEnd = MobCore.useScrollEnd(() =>
+        this.#unSubscribeScrollEnd = MobCore.useScrollEnd(() =>
             this.#refreshScroller()
         );
 
-        this.#subscribeTouchStart = MobCore.useTouchStart((data) =>
+        this.#unSubscribeTouchStart = MobCore.useTouchStart((data) =>
             this.#onMouseDown(data)
         );
 
-        this.#subscribeTouchEnd = MobCore.useTouchEnd((data) =>
+        this.#unSubscribeTouchEnd = MobCore.useTouchEnd((data) =>
             this.#onMouseUp(data)
         );
 
-        this.#subscribeMouseDown = MobCore.useMouseDown((data) =>
+        this.#unSubscribeMouseDown = MobCore.useMouseDown((data) =>
             this.#onMouseDown(data)
         );
 
-        this.#subscribeMouseUp = MobCore.useMouseUp((data) =>
+        this.#unSubscribeMouseUp = MobCore.useMouseUp((data) =>
             this.#onMouseUp(data)
         );
 
@@ -718,11 +748,11 @@ export class MobSmoothScroller {
          */
         /** @type {HTMLElement} */ (this.#scroller).addEventListener(
             'mouseleave',
-            this.#subscribeMouseLeave
+            this.#unSubscribeMouseLeave
         );
 
         if (this.#drag) {
-            this.#subscribeMouseClick = MobCore.useMouseClick(
+            this.#unSubscribeMouseClick = MobCore.useMouseClick(
                 ({ target, preventDefault }) => {
                     this.#preventChecker({ target, preventDefault });
                 }
@@ -792,7 +822,7 @@ export class MobSmoothScroller {
         let tabIsActive = false;
 
         if (this.#syncTab) {
-            this.#subscribeHandleTab = MobCore.useTabHandler(() => {
+            this.#unSubscribeHandleTab = MobCore.useTabHandler(() => {
                 if (
                     tabIsActive ||
                     !this.#screen ||
@@ -871,6 +901,43 @@ export class MobSmoothScroller {
                     });
                 }, 2);
             });
+        }
+
+        if (this.#syncArrow) {
+            const screen = /** @type {any} */ (this.#screen);
+            if (screen === globalThis) return;
+
+            screen.addEventListener(
+                'keydown',
+                (/** @type {KeyboardEvent} */ event) => {
+                    const keyEvent = event.key?.toUpperCase();
+                    if (keyEvent !== 'ARROWDOWN' && keyEvent !== 'ARROWUP')
+                        return;
+
+                    const valueToAdd =
+                        keyEvent === 'ARROWDOWN'
+                            ? this.#arrowThreshold
+                            : -this.#arrowThreshold;
+
+                    this.#endValue = clamp(
+                        Math.round(this.#endValue + valueToAdd),
+                        0,
+                        this.#maxValue
+                    );
+
+                    /**
+                     * Preveniamo il caso in cui la gesture `enter` venga interpretata come mouseClick.
+                     *
+                     * - In questo case il check `preventChecker` impedirebbe di eseguire l'azione di click
+                     * - FirstTouchValue && endValue devono coincidere, non stiamo draggando l'elemento, ma il sistema puo
+                     *   pensare di si.
+                     */
+                    this.#firstTouchValue = this.#endValue;
+                    this.#updateScrollState();
+                    this.#executeScroll();
+                    event.preventDefault();
+                }
+            );
         }
     }
 
@@ -1690,21 +1757,22 @@ export class MobSmoothScroller {
     destroy() {
         this.#isDestroyed = true;
         this.#removeScrolerStyle();
-        this.#subscribeResize();
-        this.#subscribeScrollStart();
-        this.#subscribeScrollEnd();
-        this.#subscribeTouchStart();
-        this.#subscribeTouchEnd();
-        this.#subscribeMouseDown();
-        this.#subscribeMouseUp();
-        this.#subscribeMouseWheel();
-        this.#subscribeMouseMove();
-        this.#subscribeTouchMove();
-        this.#subscribeMouseClick();
+        this.#unSubscribeResize();
+        this.#unSubscribeScrollStart();
+        this.#unSubscribeScrollEnd();
+        this.#unSubscribeTouchStart();
+        this.#unSubscribeTouchEnd();
+        this.#unSubscribeMouseDown();
+        this.#unSubscribeMouseUp();
+        this.#unSubscribeMouseWheel();
+        this.#unSubscribeMouseMove();
+        this.#unSubscribeTouchMove();
+        this.#unSubscribeMouseClick();
         this.#subscribeMotion();
         this.#subscribeOnComplete();
-        this.#subscribeDebounceWhell();
-        this.#subscribeHandleTab();
+        this.#unSubscribeDebounceWhell();
+        this.#unSubscribeHandleTab();
+        this.#unSubscribeHandleArrow();
         this.#motion?.destroy();
         // @ts-ignore
         this.#motion = null;
@@ -1724,10 +1792,10 @@ export class MobSmoothScroller {
 
         /** @type {HTMLElement} */ (this.#scroller).removeEventListener(
             'mouseleave',
-            this.#subscribeMouseLeave
+            this.#unSubscribeMouseLeave
         );
 
-        this.#subscribeMouseLeave = NOOP;
+        this.#unSubscribeMouseLeave = NOOP;
 
         if (this.#scopedEvent) {
             /** @type {HTMLElement} */ (this.#scroller)?.removeEventListener(

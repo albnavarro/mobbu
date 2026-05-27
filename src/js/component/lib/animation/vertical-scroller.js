@@ -26,6 +26,7 @@ export const verticalScroller = ({
                 breakpoint: 'desktop',
                 syncTab: true,
                 fixedTab,
+                syncArrow: true,
                 onTick: ({ percent }) => {
                     scrollbar.value = `${percent}`;
                 },
