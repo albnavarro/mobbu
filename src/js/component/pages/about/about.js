@@ -258,7 +258,7 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
                                         ? 'true'
                                         : 'false',
                                 tabindex: () =>
-                                    proxi.activenavItem === index ? '0' : '-1',
+                                    proxi.activenavItem === index ? '-1' : '0',
                             },
                         }),
                     ],
