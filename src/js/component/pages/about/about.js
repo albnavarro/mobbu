@@ -43,6 +43,12 @@ const block01 = ({ setRef, getState }) => {
 
     return htmlObject({
         className: 'section section--first ',
+        attributes: {
+            id: 'slide-1',
+            role: 'first item',
+            'aria-roledescription': 'slide',
+            'aria-label': '1 di 4',
+        },
         content: [
             {
                 className: 'section-top u-has-overflow',
@@ -76,6 +82,12 @@ const block02 = ({ setRef, getState }) => {
 
     return htmlObject({
         className: 'section',
+        attributes: {
+            id: 'slide-2',
+            role: 'second item',
+            'aria-roledescription': 'slide',
+            'aria-label': '2 di 4',
+        },
         content: [
             {
                 className: 'section-top u-has-overflow',
@@ -119,6 +131,12 @@ const block03 = ({ setRef, getState }) => {
 
     return htmlObject({
         className: 'section',
+        attributes: {
+            id: 'slide-3',
+            role: 'third item',
+            'aria-roledescription': 'slide',
+            'aria-label': '3 di 4',
+        },
         content: [
             {
                 className: 'section-top u-has-overflow',
@@ -162,6 +180,12 @@ const block04 = ({ setRef, getState }) => {
 
     return htmlObject({
         className: 'section section--last',
+        attributes: {
+            id: 'slide-4',
+            role: 'last item',
+            'aria-roledescription': 'slide',
+            'aria-label': '4 di 4',
+        },
         content: [
             {
                 className: 'section-top u-has-overflow',
@@ -199,6 +223,10 @@ const block04 = ({ setRef, getState }) => {
 const navigation = ({ proxi, delegateEvents, bindEffect }) => {
     return htmlObject({
         tag: 'ul',
+        attributes: {
+            role: 'tablist',
+            'aria-label': 'Select a slide',
+        },
         className: 'nav',
         content: proxi.navItem.map(({ index, label }) => {
             return htmlObject({
@@ -207,6 +235,12 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
                 content: {
                     tag: 'button',
                     className: 'nav-button',
+                    attributes: {
+                        type: 'button',
+                        role: 'tab',
+                        'aria-controls': `slide-${index}`,
+                        'aria-label': `Go to slide ${index}: ${label}`,
+                    },
                     modules: [
                         delegateEvents({
                             click: () => {
@@ -217,6 +251,14 @@ const navigation = ({ proxi, delegateEvents, bindEffect }) => {
                         bindEffect({
                             toggleClass: {
                                 active: () => proxi.activenavItem === index,
+                            },
+                            toggleAttribute: {
+                                'aria-selected': () =>
+                                    proxi.activenavItem === index
+                                        ? 'true'
+                                        : 'false',
+                                tabindex: () =>
+                                    proxi.activenavItem === index ? '0' : '-1',
                             },
                         }),
                     ],
@@ -463,6 +505,10 @@ export const AboutComponentFn = ({
                     modules: setRef('scrollerElement'),
                     content: {
                         className: 'scollable-container',
+                        attributes: {
+                            id: 'carousel-track',
+                            role: 'list',
+                        },
                         modules: setRef('wrapElement'),
                         content: [
                             block01({ setRef, getState }),
@@ -476,12 +522,22 @@ export const AboutComponentFn = ({
             {
                 tag: 'button',
                 className: 'prev',
+                attributes: {
+                    type: 'button',
+                    'aria-controls': 'carousel-track',
+                    'aria-label': 'Previous slide',
+                },
                 modules: prevModules,
             },
             navigation({ bindEffect, delegateEvents, proxi }),
             {
                 tag: 'button',
                 className: 'next',
+                attributes: {
+                    type: 'button',
+                    'aria-controls': 'carousel-track',
+                    'aria-label': 'next slide',
+                },
                 modules: nextModules,
             },
         ],
