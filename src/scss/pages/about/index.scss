@@ -34,24 +34,6 @@
             transform: translateX(-50%);
             border: 1px rgba(var(--dark-rgb), 0.2) solid;
             pointer-events: none;
-
-            &::before {
-                content: '{';
-                position: absolute;
-                top: 50%;
-                left: calc(#{rem(50)} * -1);
-                transform: translateY(-50%);
-                font-size: rem(30);
-            }
-
-            &::after {
-                content: '}';
-                position: absolute;
-                top: 50%;
-                right: calc(#{rem(50)} * -1);
-                transform: translateY(-50%);
-                font-size: rem(30);
-            }
         }
 
         .square-legend {

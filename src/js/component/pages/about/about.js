@@ -2,7 +2,6 @@
  * @import {
  *   BindEffect,
  *   DelegateEvents,
- *   GetState,
  *   MobComponent,
  *   ProxiSelfState,
  *   SetRef
@@ -36,11 +35,10 @@ const goToPercentage = {
 /**
  * @param {object} params
  * @param {SetRef<import('./type').About>} params.setRef
- * @param {GetState<import('./type').About>} params.getState
+ * @param {ProxiSelfState<import('./type').About>} params.proxi
+ * @param {BindEffect<import('./type').About>} params.bindEffect
  */
-const block01 = ({ setRef, getState }) => {
-    const { titleTop, titleBottom } = getState().block_1;
-
+const block01 = ({ setRef, proxi, bindEffect }) => {
     return htmlObject({
         className: 'section section--first ',
         attributes: {
@@ -49,6 +47,11 @@ const block01 = ({ setRef, getState }) => {
             'aria-roledescription': 'slide',
             'aria-label': '1 di 4',
         },
+        modules: bindEffect({
+            toggleAttribute: {
+                hidden: () => proxi.activenavItem !== 1,
+            },
+        }),
         content: [
             {
                 className: 'section-top u-has-overflow',
@@ -56,7 +59,7 @@ const block01 = ({ setRef, getState }) => {
                     tag: 'h1',
                     className: 'title-big',
                     modules: setRef('title_1'),
-                    content: titleTop,
+                    content: proxi.block_1.titleTop,
                 },
             },
             {
@@ -65,7 +68,7 @@ const block01 = ({ setRef, getState }) => {
                     tag: 'h1',
                     className: 'title-biggest',
                     modules: setRef('title_2'),
-                    content: titleBottom,
+                    content: proxi.block_1.titleBottom,
                 },
             },
         ],
@@ -75,11 +78,10 @@ const block01 = ({ setRef, getState }) => {
 /**
  * @param {object} params
  * @param {SetRef<import('./type').About>} params.setRef
- * @param {GetState<import('./type').About>} params.getState
+ * @param {ProxiSelfState<import('./type').About>} params.proxi
+ * @param {BindEffect<import('./type').About>} params.bindEffect
  */
-const block02 = ({ setRef, getState }) => {
-    const { title, copy } = getState().block_2;
-
+const block02 = ({ setRef, proxi, bindEffect }) => {
     return htmlObject({
         className: 'section',
         attributes: {
@@ -88,6 +90,11 @@ const block02 = ({ setRef, getState }) => {
             'aria-roledescription': 'slide',
             'aria-label': '2 di 4',
         },
+        modules: bindEffect({
+            toggleAttribute: {
+                hidden: () => proxi.activenavItem !== 2,
+            },
+        }),
         content: [
             {
                 className: 'section-top u-has-overflow',
@@ -101,7 +108,7 @@ const block02 = ({ setRef, getState }) => {
                             tag: 'h1',
                             className: 'title-biggest',
                             modules: setRef('section2_title'),
-                            content: title,
+                            content: proxi.block_2.title,
                         },
                     },
                 ],
@@ -113,7 +120,7 @@ const block02 = ({ setRef, getState }) => {
                     content: {
                         tag: 'p',
                         className: 'section-copy',
-                        content: copy,
+                        content: proxi.block_2.copy,
                     },
                 },
             },
@@ -124,11 +131,10 @@ const block02 = ({ setRef, getState }) => {
 /**
  * @param {object} params
  * @param {SetRef<import('./type').About>} params.setRef
- * @param {GetState<import('./type').About>} params.getState
+ * @param {ProxiSelfState<import('./type').About>} params.proxi
+ * @param {BindEffect<import('./type').About>} params.bindEffect
  */
-const block03 = ({ setRef, getState }) => {
-    const { title, copy } = getState().block_3;
-
+const block03 = ({ setRef, proxi, bindEffect }) => {
     return htmlObject({
         className: 'section',
         attributes: {
@@ -137,6 +143,11 @@ const block03 = ({ setRef, getState }) => {
             'aria-roledescription': 'slide',
             'aria-label': '3 di 4',
         },
+        modules: bindEffect({
+            toggleAttribute: {
+                hidden: () => proxi.activenavItem !== 3,
+            },
+        }),
         content: [
             {
                 className: 'section-top u-has-overflow',
@@ -150,7 +161,7 @@ const block03 = ({ setRef, getState }) => {
                             tag: 'h1',
                             className: 'title-biggest',
                             modules: setRef('section3_title'),
-                            content: title,
+                            content: proxi.block_3.title,
                         },
                     },
                 ],
@@ -162,7 +173,7 @@ const block03 = ({ setRef, getState }) => {
                     content: {
                         tag: 'p',
                         className: 'section-copy',
-                        content: copy,
+                        content: proxi.block_3.copy,
                     },
                 },
             },
@@ -173,11 +184,10 @@ const block03 = ({ setRef, getState }) => {
 /**
  * @param {object} params
  * @param {SetRef<import('./type').About>} params.setRef
- * @param {GetState<import('./type').About>} params.getState
+ * @param {ProxiSelfState<import('./type').About>} params.proxi
+ * @param {BindEffect<import('./type').About>} params.bindEffect
  */
-const block04 = ({ setRef, getState }) => {
-    const { title, items } = getState().block_4;
-
+const block04 = ({ setRef, proxi, bindEffect }) => {
     return htmlObject({
         className: 'section section--last',
         attributes: {
@@ -186,6 +196,11 @@ const block04 = ({ setRef, getState }) => {
             'aria-roledescription': 'slide',
             'aria-label': '4 di 4',
         },
+        modules: bindEffect({
+            toggleAttribute: {
+                hidden: () => proxi.activenavItem !== 4,
+            },
+        }),
         content: [
             {
                 className: 'section-top u-has-overflow',
@@ -193,7 +208,7 @@ const block04 = ({ setRef, getState }) => {
                     tag: 'h1',
                     className: 'title-biggest',
                     modules: setRef('section4_title'),
-                    content: title,
+                    content: proxi.block_4.title,
                 },
             },
             {
@@ -201,7 +216,7 @@ const block04 = ({ setRef, getState }) => {
                 content: {
                     tag: 'ul',
                     className: 'section-list',
-                    content: items.map((item) => {
+                    content: proxi.block_4.items.map((item) => {
                         return htmlObject({
                             tag: 'li',
                             className: 'section-list-item',
@@ -310,7 +325,6 @@ export const AboutComponentFn = ({
     setRef,
     getRef,
     getRefs,
-    getState,
     bindEffect,
     delegateEvents,
     getSelfProxi,
@@ -511,10 +525,10 @@ export const AboutComponentFn = ({
                         },
                         modules: setRef('wrapElement'),
                         content: [
-                            block01({ setRef, getState }),
-                            block02({ setRef, getState }),
-                            block03({ setRef, getState }),
-                            block04({ setRef, getState }),
+                            block01({ setRef, proxi, bindEffect }),
+                            block02({ setRef, proxi, bindEffect }),
+                            block03({ setRef, proxi, bindEffect }),
+                            block04({ setRef, proxi, bindEffect }),
                         ],
                     },
                 },
