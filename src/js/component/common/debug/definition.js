@@ -16,5 +16,11 @@ export const DebugButton = MobJs.createComponent(
                 __type: String,
             },
         },
+        state: {
+            expanded: {
+                __value: false,
+                __type: Boolean,
+            },
+        },
     })
 );

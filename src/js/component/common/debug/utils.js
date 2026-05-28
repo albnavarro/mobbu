@@ -8,3 +8,14 @@ export const setFcousToDebugBtn = () => {
     const overlayMethods = MobJs.useMethodByName(debugCtaName);
     overlayMethods?.setFocus();
 };
+
+/**
+ * @param {boolean} value
+ */
+export const setExpandedToDebugBtn = (value) => {
+    /**
+     * @type {import('@mobJsType').UseMethodByName<import('./type').DebugOverlayCta>}
+     */
+    const overlayMethods = MobJs.useMethodByName(debugCtaName);
+    overlayMethods?.setExpanded(value);
+};

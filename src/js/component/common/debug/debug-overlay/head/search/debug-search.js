@@ -27,6 +27,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
     const searchById = [
         {
             className: 'label',
+            attributes: { for: 'component_id' },
             content: {
                 tag: 'strong',
                 content: 'Search by ID:',
@@ -34,7 +35,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
         },
         {
             tag: 'input',
-            attributes: { type: 'text', name: 'id' },
+            attributes: { type: 'text', id: 'component_id' },
             modules: [
                 setRef('id_input'),
                 delegateEvents({
@@ -54,7 +55,11 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
         },
         {
             tag: 'button',
-            attributes: { type: 'button' },
+            attributes: {
+                type: 'button',
+                'arial-label': 'search by component id',
+                'aria-controls': 'component_id',
+            },
             modules: delegateEvents({
                 click: () => {
                     const { id_input } = getRef();
@@ -73,6 +78,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
     const searchByIstance = [
         {
             className: 'label',
+            attributes: { for: 'instance_name' },
             content: {
                 tag: 'strong',
                 content: 'Search by InstanceName:',
@@ -80,7 +86,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
         },
         {
             tag: 'input',
-            attributes: { type: 'text', name: 'instance' },
+            attributes: { type: 'text', name: 'instance_name' },
             modules: [
                 setRef('instance_input'),
                 delegateEvents({
@@ -102,7 +108,11 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
         },
         {
             tag: 'button',
-            attributes: { type: 'button' },
+            attributes: {
+                type: 'button',
+                'arial-label': 'search by instance name',
+                'aria-controls': 'instance_name',
+            },
             modules: delegateEvents({
                 click: () => {
                     const { instance_input } = getRef();

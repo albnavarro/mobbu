@@ -13,8 +13,19 @@ const onClick = () => {
 };
 
 /** @type {MobComponent<import('./type').SearchOverlayCta>} */
-export const SearchCtaFn = ({ delegateEvents, onMount, addMethod }) => {
+export const SearchCtaFn = ({
+    delegateEvents,
+    onMount,
+    addMethod,
+    getProxi,
+    bindEffect,
+}) => {
+    const proxi = getProxi();
     const searchSvg = getIcons()['searchIcons'];
+
+    addMethod('setExpanded', (value) => {
+        proxi.expanded = value;
+    });
 
     onMount(({ element }) => {
         addMethod('setFocus', () => {
@@ -26,14 +37,20 @@ export const SearchCtaFn = ({ delegateEvents, onMount, addMethod }) => {
         tag: 'button',
         attributes: {
             type: 'button',
-            'aria-label': 'open search dialog',
             'aria-controls': 'search-dialog',
+            'aria-label': 'open search dialog',
+            'aria-haspopup': 'dialog',
         },
         className: 'c-search-cta',
         modules: [
             delegateEvents({
                 click: () => {
                     onClick();
+                },
+            }),
+            bindEffect({
+                toggleAttribute: {
+                    'aria-expanded': () => (proxi.expanded ? 'true' : 'false'),
                 },
             }),
         ],

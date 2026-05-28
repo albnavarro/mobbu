@@ -13,7 +13,7 @@ import { DebugHead } from './head/definition';
 import { DebugFilterHead } from './debug-filter/head/definition';
 import { tabLoopTrap } from '@componentLibs/utils/utils';
 import { MobCore } from '@mobCore';
-import { setFcousToDebugBtn } from '../utils';
+import { setExpandedToDebugBtn, setFcousToDebugBtn } from '../utils';
 
 /**
  * @import {
@@ -74,6 +74,11 @@ export const DebugOverlayFn = ({
             (isActive) => {
                 if (isActive) {
                     /**
+                     * Set toggle buttona rial label to true
+                     */
+                    setExpandedToDebugBtn(true);
+
+                    /**
                      * Esc coltrol.
                      */
                     unsubscribeEscHandler = MobCore.useEscHandler(
@@ -97,6 +102,11 @@ export const DebugOverlayFn = ({
 
                 unsubscribeEscHandler();
                 unsubscribeTabHandler();
+
+                /**
+                 * Set toggle buttona arial label to false.
+                 */
+                setExpandedToDebugBtn(false);
             }
         );
 
@@ -224,7 +234,11 @@ export const DebugOverlayFn = ({
     return htmlObject({
         tag: 'dialog',
         className: 'c-debug-overlay',
-        attributes: { id: 'debug-dialog' },
+        attributes: {
+            id: 'debug-dialog',
+            'aria-label': 'Debug dialog',
+            'aria-modal': 'true',
+        },
         modules: bindEffect({
             toggleClass: { active: () => proxi.active },
             toggleAttribute: { inert: () => !proxi.active },

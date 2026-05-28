@@ -16,7 +16,10 @@ import { SearchOverlayList } from './list/definition';
 import { SearchOverlayHeader } from './header/definition';
 import { tabLoopTrap } from '@componentLibs/utils/utils';
 import { MobCore } from '@mobCore';
-import { setFcousToSearchBtn } from '../cta-search/utils';
+import {
+    setExpandedToSerachBtn,
+    setFcousToSearchBtn,
+} from '../cta-search/utils';
 
 /**
  * Component is a singleton
@@ -112,6 +115,11 @@ export const SearchOverlayFn = ({
             (isActive) => {
                 if (isActive) {
                     /**
+                     * Set toggle buttona rial label to true
+                     */
+                    setExpandedToSerachBtn(true);
+
+                    /**
                      * Esc coltrol.
                      */
                     unsubscribeEscHandler = MobCore.useEscHandler(
@@ -135,6 +143,11 @@ export const SearchOverlayFn = ({
 
                 unsubscribeEscHandler();
                 unsubscribeTabHandler();
+
+                /**
+                 * Set toggle buttona arial label to false.
+                 */
+                setExpandedToSerachBtn(false);
             }
         );
 
