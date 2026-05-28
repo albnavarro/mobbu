@@ -79,7 +79,6 @@ export const HeaderUtilsFn = ({ delegateEvents }) => {
         tag: 'ul',
         className: 'l-header-utils',
         content: [
-            ...additems({ delegateEvents }),
             {
                 tag: 'li',
                 content: {
@@ -87,6 +86,7 @@ export const HeaderUtilsFn = ({ delegateEvents }) => {
                     attributes: { name: searchOverlayCta },
                 },
             },
+            ...additems({ delegateEvents }),
         ],
     });
 };
