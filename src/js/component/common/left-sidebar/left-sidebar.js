@@ -34,6 +34,12 @@ const getList = ({ proxi, boundedProxi, bindEffect }) => {
                         active: () =>
                             boundedProxi.activeRoute.route === urlParsed,
                     },
+                    toggleAttribute: {
+                        'aria-label': () =>
+                            boundedProxi.activeRoute.route === urlParsed
+                                ? `${label} current section`
+                                : null,
+                    },
                 }),
                 content: label,
             },

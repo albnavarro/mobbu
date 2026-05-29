@@ -16,6 +16,10 @@ export const SideBarLinksButtonFn = ({ getSelfProxi, bindEffect }) => {
         attributes: { href: `./#${proxi.url}` },
         modules: bindEffect({
             toggleClass: { current: () => proxi.active },
+            toggleAttribute: {
+                'aria-label': () =>
+                    proxi.active ? `${proxi.label} current section` : null,
+            },
         }),
         content: proxi.label,
     });

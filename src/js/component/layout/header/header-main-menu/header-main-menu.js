@@ -1,6 +1,5 @@
 /**
  * @import {
- *   DelegateEvents,
  *   MobComponent,
  *   StaticProps
  * } from "@mobJsType"

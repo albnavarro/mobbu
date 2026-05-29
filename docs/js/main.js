@@ -40448,6 +40448,9 @@
     if (!activeElement) return;
     activeElement.focus({ preventScroll: true });
   };
+  var removeSpanTags = (value) => {
+    return value.replaceAll(/<span\b[^>]*>(.*?)<\/span>/gi, "$1");
+  };
 
   // src/js/component/common/debug/utils.js
   var setFcousToDebugBtn = () => {
@@ -40746,7 +40749,10 @@
       tag: "a",
       attributes: { href: `./#${proxi.url}` },
       modules: bindEffect({
-        toggleClass: { current: () => proxi.active }
+        toggleClass: { current: () => proxi.active },
+        toggleAttribute: {
+          "aria-label": () => proxi.active ? `${proxi.label} current section` : null
+        }
       }),
       content: proxi.label
     });
@@ -40982,6 +40988,9 @@
           modules: bindEffect({
             toggleClass: {
               active: () => boundedProxi.activeRoute.route === urlParsed
+            },
+            toggleAttribute: {
+              "aria-label": () => boundedProxi.activeRoute.route === urlParsed ? `${label} current section` : null
             }
           }),
           content: label
@@ -42549,7 +42558,10 @@
       attributes: { type: "button", role: "link" },
       modules: [
         bindEffect({
-          toggleClass: { current: () => proxi.active }
+          toggleClass: { current: () => proxi.active },
+          toggleAttribute: {
+            "aria-label": () => proxi.active ? `${proxi.label} current section` : null
+          }
         }),
         delegateEvents({
           click: () => {
@@ -43038,6 +43050,9 @@
           toggleClass: {
             active: () => proxi.isOpen,
             current: () => proxi.isCurrent
+          },
+          toggleAttribute: {
+            "aria-label": () => proxi.isCurrent ? `${removeSpanTags(label)} current section` : null
           }
         })
       ],
@@ -44784,7 +44799,7 @@
     });
     return htmlObject({
       className: ["spacer", `is-${style}`],
-      attributes: { id, tabindex: "-1" },
+      attributes: { id, tabindex: "-1", "aria-hidden": "true" },
       content: {
         tag: "span"
       }

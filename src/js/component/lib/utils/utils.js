@@ -67,3 +67,10 @@ export const setFocusInsideElement = ({ element, activeClass }) => {
     if (!activeElement) return;
     activeElement.focus({ preventScroll: true });
 };
+
+/**
+ * @param {string} value
+ */
+export const removeSpanTags = (value) => {
+    return value.replaceAll(/<span\b[^>]*>(.*?)<\/span>/gi, '$1');
+};

@@ -30,6 +30,10 @@ export const HeaderMainMenuButtonFn = ({
         modules: [
             bindEffect({
                 toggleClass: { current: () => proxi.active },
+                toggleAttribute: {
+                    'aria-label': () =>
+                        proxi.active ? `${proxi.label} current section` : null,
+                },
             }),
             delegateEvents({
                 click: () => {
