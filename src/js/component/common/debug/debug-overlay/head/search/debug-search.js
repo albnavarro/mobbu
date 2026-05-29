@@ -8,24 +8,15 @@ import {
     refreshDebugComponentById,
     updateDebugComponentById,
 } from '../../debug-component/utils';
-import { MobCore } from '@mobCore';
 
 /** @type {MobComponent<import('./type').DebugSearchType>} */
-export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
-    onMount(() => {
-        /**
-         * Focus first input on component creation.
-         */
-        MobCore.useNextFrame(() => {
-            getRef().id_input.focus();
-        });
-    });
-
+export const DebugSearchFn = ({ setRef, getRef, delegateEvents }) => {
     /**
      * Search by id
      */
     const searchById = [
         {
+            tag: 'label',
             className: 'label',
             attributes: { for: 'component_id' },
             content: {
@@ -35,7 +26,11 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
         },
         {
             tag: 'input',
-            attributes: { type: 'text', id: 'component_id' },
+            attributes: {
+                type: 'text',
+                id: 'component_id',
+                name: 'component_id',
+            },
             modules: [
                 setRef('id_input'),
                 delegateEvents({
@@ -77,6 +72,7 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
      */
     const searchByIstance = [
         {
+            tag: 'label',
             className: 'label',
             attributes: { for: 'instance_name' },
             content: {
@@ -86,7 +82,11 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
         },
         {
             tag: 'input',
-            attributes: { type: 'text', name: 'instance_name' },
+            attributes: {
+                type: 'text',
+                id: 'instance_name',
+                name: 'instance_name',
+            },
             modules: [
                 setRef('instance_input'),
                 delegateEvents({
@@ -130,7 +130,9 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
      */
     const clear = [
         {
+            tag: 'label',
             className: 'label',
+            attributes: { for: 'clear_component' },
             content: {
                 tag: 'strong',
                 content: 'Clear',
@@ -138,7 +140,11 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
         },
         {
             tag: 'button',
-            attributes: { type: 'button' },
+            attributes: {
+                type: 'button',
+                id: 'clear_component',
+                name: 'clear_component',
+            },
             modules: delegateEvents({
                 click: () => {
                     const { instance_input, id_input } = getRef();
@@ -156,7 +162,9 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
      */
     const refresh = [
         {
+            tag: 'label',
             className: 'label',
+            attributes: { for: 'refresh_component' },
             content: {
                 tag: 'strong',
                 content: 'Refresh',
@@ -164,7 +172,11 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
         },
         {
             tag: 'button',
-            attributes: { type: 'button' },
+            attributes: {
+                type: 'button',
+                id: 'refresh_component',
+                name: 'refresh_component',
+            },
             modules: delegateEvents({
                 click: () => {
                     refreshDebugComponentById();
@@ -175,7 +187,8 @@ export const DebugSearchFn = ({ setRef, getRef, delegateEvents, onMount }) => {
     ];
 
     return htmlObject({
-        className: 'c-debug-search',
+        className: ['c-debug-search'],
+        attributes: { role: 'search', 'aria-label': 'Search component' },
         content: [
             {
                 content: searchById,

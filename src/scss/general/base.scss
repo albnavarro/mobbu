@@ -135,23 +135,25 @@
         }
     }
 
-    :is(a, button, input, textarea, summary) {
+    :is(a, button, input, textarea, summary, [role='region']) {
         --outline-size: max(2px, 0.08em);
         --outline-style: solid;
         --outline-color: currentcolor;
     }
 
-    :is(a, button, input, textarea, summary):focus {
+    :is(a, button, input, textarea, summary, [role='region']):focus {
         outline: var(--outline-size) var(--outline-style) var(--outline-color);
         outline-offset: var(--outline-offset, var(--outline-size));
     }
 
-    :is(a, button, input, textarea, summary):focus-visible {
+    :is(a, button, input, textarea, summary, [role='region']):focus-visible {
         outline: var(--outline-size) var(--outline-style) var(--outline-color);
         outline-offset: var(--outline-offset, var(--outline-size));
     }
 
-    :is(a, button, input, textarea, summary):focus:not(:focus-visible) {
+    :is(a, button, input, textarea, summary, [role='region']):focus:not(
+            :focus-visible
+        ) {
         outline: none;
     }
 

@@ -4,6 +4,7 @@
     @scope (.c-debug-head) {
         :scope {
             display: flex;
+            height: 100%;
             padding-top: calc(var(--gap-size) / 2);
             color: var(--white);
             font-size: rem(12);

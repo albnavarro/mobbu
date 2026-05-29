@@ -230,6 +230,7 @@ export const DebugFilterListFn = ({
 
     return htmlObject({
         className: 'c-debug-filter-list',
+        attributes: { role: 'region', 'aria-label': 'Filtered list' },
         content: {
             className: 'list-container',
             content: [

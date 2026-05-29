@@ -7,4 +7,7 @@ export interface DebugOverlayType {
         toggle: () => void;
         open: () => void;
     };
+    ref: {
+        header: HTMLElement;
+    };
 }

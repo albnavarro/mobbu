@@ -52,6 +52,8 @@ export const DebugOverlayFn = ({
     getSelfProxi,
     onMount,
     watch,
+    setRef,
+    getRef,
 }) => {
     const proxi = getSelfProxi();
 
@@ -97,6 +99,13 @@ export const DebugOverlayFn = ({
                         }
                     );
 
+                    /**
+                     * Move focus to first area
+                     */
+                    MobCore.useFrameIndex(() => {
+                        getRef().header.focus();
+                    }, 10);
+
                     return;
                 }
 
@@ -140,6 +149,10 @@ export const DebugOverlayFn = ({
                     {
                         tag: 'button',
                         className: 'list-toggle',
+                        attributes: {
+                            type: 'button',
+                            'aria-label': 'Swow tree result',
+                        },
                         modules: [
                             delegateEvents({
                                 click: () => {
@@ -157,6 +170,10 @@ export const DebugOverlayFn = ({
                     },
                     {
                         tag: 'button',
+                        attributes: {
+                            type: 'button',
+                            'aria-label': 'Swow list result',
+                        },
                         className: 'list-toggle',
                         modules: [
                             delegateEvents({
@@ -263,6 +280,12 @@ export const DebugOverlayFn = ({
                      */
                     {
                         className: 'header',
+                        attributes: {
+                            tabindex: '-1',
+                            role: 'region',
+                            'aria-label': 'Infos and search',
+                        },
+                        modules: setRef('header'),
                         content: {
                             component: DebugHead,
                             modules: bindProps(
@@ -278,6 +301,11 @@ export const DebugOverlayFn = ({
                      */
                     {
                         className: 'list',
+                        attributes: {
+                            tabindex: '-1',
+                            role: 'region',
+                            'aria-label': 'component list',
+                        },
                         content: [listHeader, listContent],
                     },
                     /**
@@ -285,6 +313,11 @@ export const DebugOverlayFn = ({
                      */
                     {
                         className: 'single-component',
+                        attributes: {
+                            tabindex: '-1',
+                            role: 'region',
+                            'aria-label': 'component detail',
+                        },
                         content: {
                             component: DebugComponent,
                             attributes: { name: debugComponentName },
