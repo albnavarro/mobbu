@@ -2,6 +2,7 @@ import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { htmlObject, MobJs } from '@mobJs';
 import { fetchSearchResult } from './fetch-data';
 import { SearchOverlayListItem } from './list-item/definition';
+import { MobCore } from '@mobCore';
 
 /**
  * @import {
@@ -162,6 +163,11 @@ export const SearchOverlayListFn = ({
         modules: setRef('scroller'),
         content: repeat({
             observe: () => proxi.list,
+            afterUpdate: () => {
+                MobCore.useFrameIndex(() => {
+                    getRef().screen.focus({ preventScroll: true });
+                }, 10);
+            },
             render: ({ current }) => {
                 return htmlObject({
                     component: SearchOverlayListItem,
@@ -205,6 +211,11 @@ export const SearchOverlayListFn = ({
                 attributes: { 'aria-label': 'search result' },
                 content: {
                     className: 'screen',
+                    attributes: {
+                        role: 'region',
+                        'aria-label': 'serach result',
+                        tabindex: '-1',
+                    },
                     modules: setRef('screen'),
                     content: [
                         {

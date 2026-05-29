@@ -41502,6 +41502,11 @@
       modules: setRef("scroller"),
       content: repeat({
         observe: () => proxi.list,
+        afterUpdate: () => {
+          modules_exports.useFrameIndex(() => {
+            getRef().screen.focus({ preventScroll: true });
+          }, 10);
+        },
         render: ({ current }) => {
           return htmlObject({
             component: SearchOverlayListItem,
@@ -41542,6 +41547,11 @@
           attributes: { "aria-label": "search result" },
           content: {
             className: "screen",
+            attributes: {
+              role: "region",
+              "aria-label": "serach result",
+              tabindex: "-1"
+            },
             modules: setRef("screen"),
             content: [
               {
