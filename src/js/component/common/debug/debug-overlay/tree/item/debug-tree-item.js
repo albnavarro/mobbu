@@ -193,7 +193,11 @@ export const DebugTreeItemFn = ({
                         content: [
                             {
                                 tag: 'button',
-                                attributes: { type: 'button' },
+                                attributes: {
+                                    type: 'button',
+                                    'aria-controls': 'detail-panel',
+                                    'aria-label': `detail for ${proxi.id} | ${proxi.componentName} `,
+                                },
                                 className: 'tree-expand',
                                 modules: [
                                     delegateEvents({
@@ -206,11 +210,12 @@ export const DebugTreeItemFn = ({
                                             active: () => proxi.isActive,
                                         },
                                         toggleAttribute: {
-                                            /**
-                                             * Enable focus only if is visible in screen
-                                             */
                                             tabindex: () =>
                                                 proxi.focusable ? '0' : '-1',
+                                            'aria-expanded': () =>
+                                                proxi.isActive
+                                                    ? 'true'
+                                                    : 'false',
                                         },
                                     }),
                                 ],

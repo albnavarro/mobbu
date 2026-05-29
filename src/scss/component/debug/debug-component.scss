@@ -5,6 +5,7 @@
         .screen {
             position: absolute;
             overflow: hidden;
+            outline-offset: -2px;
             color: var(--white);
             font-size: rem(12);
             inset: 0;

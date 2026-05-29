@@ -53,7 +53,11 @@ export const DebugFilterListItemFn = ({
                 content: [
                     {
                         tag: 'button',
-                        attributes: { type: 'button' },
+                        attributes: {
+                            type: 'button',
+                            'aria-controls': 'detail-panel',
+                            'aria-label': `detail for ${proxi.id} | ${proxi.tag} `,
+                        },
                         className: 'expand',
                         modules: [
                             delegateEvents({
@@ -63,6 +67,10 @@ export const DebugFilterListItemFn = ({
                             }),
                             bindEffect({
                                 toggleClass: { active: () => proxi.active },
+                                toggleAttribute: {
+                                    'aria-expanded': () =>
+                                        proxi.active ? 'true' : 'false',
+                                },
                             }),
                         ],
                         content: 'detail',

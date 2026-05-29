@@ -102,7 +102,10 @@ export const DebugTreeFn = ({
 
     return htmlObject({
         className: 'c-debug-tree',
-        attributes: { role: 'region', 'aria-label': 'Tree list' },
+        attributes: {
+            role: 'region',
+            'aria-label': 'Tree list',
+        },
         content: {
             className: 'tree-container',
             content: [

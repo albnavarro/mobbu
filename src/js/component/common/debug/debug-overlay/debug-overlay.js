@@ -313,11 +313,6 @@ export const DebugOverlayFn = ({
                      */
                     {
                         className: 'single-component',
-                        attributes: {
-                            tabindex: '-1',
-                            role: 'region',
-                            'aria-label': 'component detail',
-                        },
                         content: {
                             component: DebugComponent,
                             attributes: { name: debugComponentName },

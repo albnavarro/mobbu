@@ -14,6 +14,7 @@ import { htmlObject, MobJs, MobJsInternal } from '@mobJs';
 import { RESET_FILTER_DEBUG } from '../constant';
 import { debugActiveComponentStore } from '@stores/debug';
 import { updateDebugComponentById } from './utils';
+import { MobCore } from '@mobCore';
 
 /**
  * @param {DOMTokenList | undefined} value
@@ -541,6 +542,12 @@ export const DebugComponentFn = ({
             },
             {
                 className: 'screen',
+                attributes: {
+                    role: 'region',
+                    'aria-label': 'component detail',
+                    tabindex: '-1',
+                    id: 'detail-panel',
+                },
                 modules: setRef('screen'),
                 content: [
                     {
@@ -548,6 +555,13 @@ export const DebugComponentFn = ({
                         modules: setRef('scroller'),
                         content: invalidate({
                             observe: () => proxi.id,
+                            afterUpdate: () => {
+                                MobCore.useFrameIndex(() => {
+                                    getRef().screen.focus({
+                                        preventScroll: true,
+                                    });
+                                }, 10);
+                            },
                             render: () => {
                                 return getContent({ proxi, delegateEvents });
                             },
