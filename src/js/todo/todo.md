@@ -1,6 +1,7 @@
 # Accessibility:
 1. rs-annuncient : bozza logica allegata
    - Rispetto alla traccia non forziamo il focus sul main ma lasciamolo dove si trova.
+   - ?? Servireebe un annuncio per le suggestion.
    - ?? Annunce esporra il name della nuova rotta e le areee attive solo se sono diverse dalle precedenti ( confronto tra template corrente e precedente ).
    - !! I risultato debug ( componente ) e search ( list ) sposta il focus sulla region che viene notificata, in questo caso annuncier é superfluo.
 2. aria-label su toggle degli snippet.
