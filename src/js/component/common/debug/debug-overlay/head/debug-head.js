@@ -52,24 +52,6 @@ export const DebugHeadFn = ({ invalidate, getSelfProxi }) => {
         className: 'c-debug-head',
         content: [
             {
-                className: 'search',
-                content: invalidate({
-                    observe: () => proxi.active,
-                    render: () => {
-                        if (!proxi.active) return htmlObject({});
-
-                        /**
-                         * Recompile left component every update
-                         *
-                         * - Extranl data i sused inside
-                         */
-                        return htmlObject({
-                            component: DebugSearch,
-                        });
-                    },
-                }),
-            },
-            {
                 className: 'general',
                 content: invalidate({
                     observe: () => proxi.active,
@@ -83,6 +65,24 @@ export const DebugHeadFn = ({ invalidate, getSelfProxi }) => {
                          */
                         return htmlObject({
                             content: leftContent(),
+                        });
+                    },
+                }),
+            },
+            {
+                className: 'search',
+                content: invalidate({
+                    observe: () => proxi.active,
+                    render: () => {
+                        if (!proxi.active) return htmlObject({});
+
+                        /**
+                         * Recompile left component every update
+                         *
+                         * - Extranl data i sused inside
+                         */
+                        return htmlObject({
+                            component: DebugSearch,
                         });
                     },
                 }),
