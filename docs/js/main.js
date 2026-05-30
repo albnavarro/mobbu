@@ -42303,7 +42303,39 @@
     }
   );
 
+  // src/js/component/lib/utils/set-template-links-focus.js
+  var setFocusToFristCta = ({ root: root2 }) => {
+    const firstCta = (
+      /** @type {HTMLElement | null} */
+      root2.querySelector(".index-0")
+    );
+    firstCta?.focus();
+  };
+  var setTemplateLinkFocus = () => {
+    const unsubcribeRouteChange = modules_exports2.afterRouteChange(() => {
+      const root2 = modules_exports2.getRoot();
+      if (!root2) return;
+      const isLoading = modules_exports2.mainStore.getProp("routeIsLoading");
+      if (!isLoading) {
+        setFocusToFristCta({ root: root2 });
+        unsubcribeRouteChange();
+        return;
+      }
+      const unsubscribeRouteIsLoading = modules_exports2.mainStore.watch(
+        "routeIsLoading",
+        (val) => {
+          if (!val) {
+            setFocusToFristCta({ root: root2 });
+          }
+          unsubscribeRouteIsLoading();
+          unsubcribeRouteChange();
+        }
+      );
+    });
+  };
+
   // src/js/component/common/quick-nav/next-page.js
+  var lastClicked;
   var QuickNavFn = ({
     getSelfProxi,
     bindEffect,
@@ -42311,7 +42343,8 @@
     setRef,
     getRef,
     onMount,
-    watch
+    watch,
+    delegateEvents
   }) => {
     const proxi = getSelfProxi();
     addMethod("update", (prop, value) => {
@@ -42322,6 +42355,28 @@
       duration: 300,
       ease: "easeOutQuad"
     });
+    watch(
+      () => proxi.nextRoute,
+      (val) => {
+        if (lastClicked !== "NEXT") return;
+        modules_exports.useFrameIndex(() => {
+          if (val && val.length > 0) {
+            getRef().next.focus();
+          }
+        }, 10);
+      }
+    );
+    watch(
+      () => proxi.prevRoute,
+      (val) => {
+        if (lastClicked !== "PREV") return;
+        modules_exports.useFrameIndex(() => {
+          if (val && val.length > 0) {
+            getRef().previous.focus();
+          }
+        }, 10);
+      }
+    );
     watch(
       () => proxi.currentLabelId,
       (currentId) => {
@@ -42372,52 +42427,67 @@
       ]),
       content: [
         {
-          tag: "a",
+          tag: "button",
           className: "c-quick-nav is-prev",
-          attributes: { "arial-label": "previous showcase item" },
+          attributes: {
+            type: "button",
+            "aria-label": "previous showcase item"
+          },
           modules: [
             setRef("previous"),
+            delegateEvents({
+              click: () => {
+                modules_exports2.loadUrl({ url: proxi.prevRoute });
+                lastClicked = "PREV";
+              }
+            }),
             bindEffect({
-              toggleClass: { "is-disable": () => !proxi.prevRoute },
               toggleAttribute: {
-                href: () => {
-                  const route = proxi.prevRoute;
-                  return route.length > 0 ? route : null;
-                }
+                disabled: () => !proxi.prevRoute || proxi.prevRoute.length === 0 ? true : null
               }
             })
           ]
         },
         {
-          tag: "a",
+          tag: "button",
           className: "c-quick-nav is-back",
-          attributes: { "arial-label": "back to showcase list" },
+          attributes: {
+            type: "button",
+            "aria-label": "back to showcase list"
+          },
           modules: [
             setRef("back"),
+            delegateEvents({
+              click: () => {
+                modules_exports2.loadUrl({ url: proxi.backRoute });
+                setTemplateLinkFocus();
+              }
+            }),
             bindEffect({
-              toggleClass: { "is-disable": () => !proxi.backRoute },
               toggleAttribute: {
-                href: () => {
-                  const route = proxi.backRoute;
-                  return route.length > 0 ? route : null;
-                }
+                disabled: () => !proxi.backRoute || proxi.backRoute.length === 0 ? true : null
               }
             })
           ]
         },
         {
-          tag: "a",
+          tag: "button",
           className: "c-quick-nav is-next",
-          attributes: { "arial-label": "next showcase item" },
+          attributes: {
+            type: "button",
+            "aria-label": "next showcase item"
+          },
           modules: [
             setRef("next"),
+            delegateEvents({
+              click: () => {
+                modules_exports2.loadUrl({ url: proxi.nextRoute });
+                lastClicked = "NEXT";
+              }
+            }),
             bindEffect({
-              toggleClass: { "is-disable": () => !proxi.nextRoute },
               toggleAttribute: {
-                href: () => {
-                  const route = proxi.nextRoute;
-                  return route && route.length > 0 ? route : null;
-                }
+                disabled: () => !proxi.nextRoute || proxi.nextRoute.length === 0 ? true : null
               }
             })
           ]

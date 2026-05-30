@@ -5189,6 +5189,7 @@ code.hljs {
       width: calc(var(--footer-height) - var(--gap));
       height: 100%;
       transition: opacity 0.55s, background 0.55s;
+      border: 0;
       background: transparent;
     }
     :scope::after {
@@ -5212,7 +5213,7 @@ code.hljs {
     :scope.is-back::after {
       transform: translate(-50%, -75%) rotate(135deg);
     }
-    :scope.is-disable {
+    :scope[disabled] {
       opacity: 0.2;
       pointer-events: none;
     }
