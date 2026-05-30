@@ -70,6 +70,12 @@
             }
         }
 
+        h1 {
+            border-radius: em(20);
+            outline-offset: rem(20);
+            outline-width: 3px;
+        }
+
         .grid-bottom {
             position: absolute;
             inset: 50% 0 0;
@@ -241,8 +247,8 @@
         .scroll-label {
             position: absolute;
             z-index: 2;
-            bottom: calc((var(--scroller-height) * 0.5) + #{rem(70)});
-            left: rem(40);
+            bottom: calc((var(--scroller-height) * 0.5) + #{rem(60)});
+            left: rem(45);
             transform: translateX(20%);
             transition:
                 opacity 1.5s,

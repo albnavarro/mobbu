@@ -10,6 +10,7 @@ import { getScrollbarWith } from './utils/scrollbar-with';
 import { wrapper } from './wrapper';
 import { initMainLoader } from './main-loader';
 import { skipRouteLoader } from '@commonComponent/route-loader/utils';
+import { setFocusToH1 } from '@componentLibs/utils/set-focus-to-h1';
 // import { testModule } from './test';
 
 const fpsLoopNumber = 60;
@@ -122,6 +123,7 @@ MobCore.useLoad(() => {
 
     initApp();
     usePageScroll();
+    setFocusToH1();
 
     // testModule();
 });

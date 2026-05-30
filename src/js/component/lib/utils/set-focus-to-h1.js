@@ -4,19 +4,19 @@ import { MobJs } from '@mobJs';
  * @param {object} params
  * @param {HTMLElement} params.root
  */
-const setFocusToFristCta = ({ root }) => {
-    const firstCta = /** @type {HTMLElement | null} */ (
-        root.querySelector('.index-0')
-    );
+const applyFocus = ({ root }) => {
+    const h1 = /** @type {HTMLElement | null} */ (root.querySelector('h1'));
+    h1?.setAttribute('tabindex', '-1');
+    if (!focus) return;
 
-    firstCta?.focus();
+    h1?.focus({ preventScroll: true });
 };
 
 /**
  * Set focus to first link item after route change
  */
-export const setTemplateLinkFocus = () => {
-    const unsubcribeRouteChange = MobJs.afterRouteChange(() => {
+export const setFocusToH1 = () => {
+    MobJs.afterRouteChange(() => {
         const root = MobJs.getRoot();
         if (!root) return;
 
@@ -26,8 +26,7 @@ export const setTemplateLinkFocus = () => {
          * Route is loaded set focus
          */
         if (!isLoading) {
-            setFocusToFristCta({ root });
-            unsubcribeRouteChange();
+            applyFocus({ root });
             return;
         }
 
@@ -38,11 +37,10 @@ export const setTemplateLinkFocus = () => {
             'routeIsLoading',
             (val) => {
                 if (!val) {
-                    setFocusToFristCta({ root });
+                    applyFocus({ root });
                 }
 
                 unsubscribeRouteIsLoading();
-                unsubcribeRouteChange();
             }
         );
     });

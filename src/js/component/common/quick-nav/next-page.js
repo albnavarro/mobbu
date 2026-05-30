@@ -3,7 +3,6 @@
  * @import {QuickNav} from "./type"
  */
 
-import { setTemplateLinkFocus } from '@componentLibs/utils/set-template-links-focus';
 import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
@@ -198,11 +197,6 @@ export const QuickNavFn = ({
                     delegateEvents({
                         click: () => {
                             MobJs.loadUrl({ url: proxi.backRoute });
-
-                            /**
-                             * Focus lost, se focus to first links item after route change.
-                             */
-                            setTemplateLinkFocus();
                         },
                     }),
                     bindEffect({
