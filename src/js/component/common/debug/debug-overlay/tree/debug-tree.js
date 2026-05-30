@@ -77,6 +77,14 @@ export const DebugTreeFn = ({
             updateScroller?.();
         });
 
+        addMethod('setFocus', () => {
+            MobCore.useFrameIndex(() => {
+                getRef().screen.focus({
+                    preventScroll: true,
+                });
+            }, 10);
+        });
+
         (async () => {
             proxi.isLoading = true;
             await MobJs.tick();

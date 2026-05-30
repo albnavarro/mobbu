@@ -5,7 +5,8 @@
  *   DelegateEvents,
  *   GetRef,
  *   MobComponent,
- *   ProxiSelfState
+ *   ProxiSelfState,
+ *   SetRef
  * } from "@mobJsType"
  */
 
@@ -15,6 +16,8 @@ import { RESET_FILTER_DEBUG } from '../constant';
 import { debugActiveComponentStore } from '@stores/debug';
 import { updateDebugComponentById } from './utils';
 import { MobCore } from '@mobCore';
+import { focusDebugTree } from '../tree/utils';
+import { focusFilterList } from '../debug-filter/list/utils';
 
 /**
  * @param {DOMTokenList | undefined} value
@@ -108,8 +111,9 @@ const getStateProps = (states) => {
  * @param {object} params
  * @param {ProxiSelfState<import('./type').DebugComponentType>} params.proxi
  * @param {DelegateEvents} params.delegateEvents
+ * @param {SetRef<import('./type').DebugComponentType>} params.setRef
  */
-const getContent = ({ proxi, delegateEvents }) => {
+const getContent = ({ proxi, delegateEvents, setRef }) => {
     if (proxi.id === RESET_FILTER_DEBUG) return htmlObject({});
 
     const item = MobJsInternal.componentMap.get(proxi.id);
@@ -122,6 +126,24 @@ const getContent = ({ proxi, delegateEvents }) => {
 
     return htmlObject({
         content: [
+            {
+                className: ['back-block'],
+                content: {
+                    tag: 'button',
+                    className: ['back', 'active'],
+                    attributes: { type: 'button' },
+                    content: 'Move focus to listing',
+                    modules: [
+                        setRef('back'),
+                        delegateEvents({
+                            click: () => {
+                                focusDebugTree();
+                                focusFilterList();
+                            },
+                        }),
+                    ],
+                },
+            },
             /**
              * Basic props
              */
@@ -436,7 +458,6 @@ export const DebugComponentFn = ({
     getSelfProxi,
     emit,
     delegateEvents,
-    bindEffect,
 }) => {
     const proxi = getSelfProxi();
 
@@ -492,40 +513,6 @@ export const DebugComponentFn = ({
         className: 'c-debug-component',
         content: [
             {
-                className: 'back-block',
-                content: {
-                    tag: 'button',
-                    className: 'back',
-                    attributes: { type: 'button' },
-                    content: '<',
-                    modules: [
-                        bindEffect({
-                            toggleClass: {
-                                active: () => proxi.parentId.length > 0,
-                            },
-                            toggleAttribute: {
-                                /**
-                                 * Enable focus only if is visible in screen
-                                 */
-                                tabindex: () =>
-                                    proxi.parentId.length > 0 ? '0' : '-1',
-                            },
-                        }),
-                        delegateEvents({
-                            click: () => {
-                                if (
-                                    !proxi.parentId ||
-                                    proxi.parentId.length === 0
-                                )
-                                    return;
-
-                                updateDebugComponentById(proxi.parentId);
-                            },
-                        }),
-                    ],
-                },
-            },
-            {
                 tag: 'input',
                 className: 'scrollbar',
                 attributes: {
@@ -563,7 +550,11 @@ export const DebugComponentFn = ({
                                 }, 10);
                             },
                             render: () => {
-                                return getContent({ proxi, delegateEvents });
+                                return getContent({
+                                    proxi,
+                                    delegateEvents,
+                                    setRef,
+                                });
                             },
                         }),
                     },

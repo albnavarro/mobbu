@@ -11,3 +11,9 @@ export const refreshFilterList = ({ testString, setFocus = false }) => {
     const methods = MobJs.useMethodByName(debugFilterListName);
     methods?.refreshList?.({ testString, setFocus });
 };
+
+export const focusFilterList = () => {
+    /** @type {import('@mobJsType').UseMethodByName<import('./type').DebugFilterListType>} */
+    const methods = MobJs.useMethodByName(debugFilterListName);
+    methods?.setFocus();
+};

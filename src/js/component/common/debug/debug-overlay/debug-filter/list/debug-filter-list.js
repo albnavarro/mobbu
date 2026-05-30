@@ -148,6 +148,12 @@ export const DebugFilterListFn = ({
         }
     );
 
+    addMethod('setFocus', () => {
+        MobCore.useFrameIndex(() => {
+            getRef().screen.focus({ preventScroll: true });
+        }, 10);
+    });
+
     /**
      * List data is controlled by DebugFilterHead component.
      */

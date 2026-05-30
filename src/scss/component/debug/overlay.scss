@@ -123,7 +123,8 @@
             grid-area: head;
             border-bottom: 1px var(--white) solid;
             outline-color: var(--white);
-            outline-offset: -2px;
+            outline-offset: -4px;
+            outline-width: 4px;
         }
 
         .list {

@@ -9,6 +9,7 @@ export interface DebugFilterListType {
     };
     methods: {
         refreshList: (arg0: { testString: string; setFocus: boolean }) => void;
+        setFocus: () => void;
     };
     ref: {
         scrollbar: HTMLInputElement;

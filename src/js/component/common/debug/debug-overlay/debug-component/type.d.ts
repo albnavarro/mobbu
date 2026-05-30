@@ -11,5 +11,6 @@ export interface DebugComponentType {
         screen: HTMLElement;
         scrollbar: HTMLInputElement;
         scroller: HTMLElement;
+        back: HTMLElement;
     };
 }

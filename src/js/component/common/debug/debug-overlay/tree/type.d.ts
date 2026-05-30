@@ -5,6 +5,7 @@ export interface DebugTreeType {
     };
     methods: {
         refresh: () => void;
+        setFocus: () => void;
     };
     ref: {
         scrollbar: HTMLElement;

@@ -6,3 +6,9 @@ export const refreshDebugTree = () => {
     const methods = MobJs.useMethodByName(debugTreeName);
     methods?.refresh();
 };
+
+export const focusDebugTree = () => {
+    /** @type {import('@mobJsType').UseMethodByName<import('./type').DebugTreeType>} */
+    const methods = MobJs.useMethodByName(debugTreeName);
+    methods?.setFocus();
+};

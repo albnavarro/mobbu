@@ -5,7 +5,8 @@
         .screen {
             position: absolute;
             overflow: hidden;
-            outline-offset: -2px;
+            outline-offset: -4px;
+            outline-width: 4px;
             color: var(--white);
             font-size: rem(12);
             inset: 0;
@@ -21,7 +22,7 @@
 
         .debug-container {
             min-height: 100%;
-            padding: rem(60) rem(20) rem(20);
+            padding: rem(14) rem(20) rem(20);
         }
 
         .section-title {
@@ -64,19 +65,7 @@
         }
 
         .back-block {
-            display: flex;
-            position: absolute;
-            z-index: 10;
-            top: 0;
-            right: 0;
-            left: 0;
-            align-items: center;
-            justify-content: space-between;
-            height: var(--debug-list-header-height);
-            padding-left: rem(20);
-            border-bottom: 1px rgba(var(--white-rgb), 0.2) solid;
-            background: rgba(var(--dark-rgb), 0.9);
-            color: var(--white);
+            margin-bottom: rem(22);
         }
 
         .back {
@@ -108,9 +97,9 @@
 .c-debug-component .scrollbar {
     position: absolute;
     z-index: 14;
-    top: rem(60);
+    top: rem(20);
     left: calc(100% - #{rem(20)});
-    width: calc(var(--debug-content-row-height) - #{rem(80)});
+    width: calc(var(--debug-content-row-height) - #{rem(60)});
     transform: rotate(90deg);
     transform-origin: left;
     background: transparent;
