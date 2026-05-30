@@ -65,8 +65,8 @@ export const SearchOverlayListFn = ({
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
 
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let move = () => {};
+    /** @type {(arg0: number) => void} */
+    let move;
 
     /**
      * TODO: fetch result and update proxi.list
@@ -89,7 +89,7 @@ export const SearchOverlayListFn = ({
 
     addMethod('scrollTop', () => {
         // @ts-ignore
-        move(0);
+        move?.(0);
     });
 
     addMethod('reset', () => {
@@ -108,7 +108,6 @@ export const SearchOverlayListFn = ({
         });
 
         // update slide move reference
-        // @ts-ignore
         move = moveUpdated;
 
         watch(
@@ -120,7 +119,7 @@ export const SearchOverlayListFn = ({
                 refresh();
                 updateScroller();
                 // @ts-ignore
-                move(0);
+                move?.(0);
 
                 /**
                  * Restore position of element scrolled with tab.

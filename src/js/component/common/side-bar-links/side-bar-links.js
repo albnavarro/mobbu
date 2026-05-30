@@ -21,8 +21,10 @@ import { SideBarLinksButton } from './side-bar-links-button/definition';
  */
 let init = () => {};
 let destroy = () => {};
-let move = () => {};
 let updateScroller = () => {};
+
+/** @type {(arg0: number) => void} */
+let move = () => {};
 
 /**
  * @param {object} param
@@ -135,7 +137,6 @@ export const SideBarLinksFn = ({
                     isActive = true;
                     init();
                     updateScroller();
-                    // @ts-ignore
                     move(0);
                 }
 

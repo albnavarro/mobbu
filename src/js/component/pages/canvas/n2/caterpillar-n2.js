@@ -122,8 +122,8 @@ export const CaterpillarN2Fn = ({
     onMount(({ element }) => {
         const { canvas } = getRef();
 
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let destroy = () => {};
+        /** @type {() => void} */
+        let destroy;
 
         /**
          * Inizializa animation and get anima methods.
@@ -179,10 +179,8 @@ export const CaterpillarN2Fn = ({
         );
 
         return () => {
-            destroy();
-
-            // @ts-ignore
-            destroy = null;
+            destroy?.();
+            destroy = () => {};
             unsubscribeEscHandler();
         };
     });

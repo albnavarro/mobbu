@@ -20,8 +20,8 @@ export const AnimatedPatternN1Fn = ({
 }) => {
     const proxi = getSelfProxi();
 
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let destroy = () => {};
+    /** @type {() => void} */
+    let destroy;
 
     onMount(() => {
         const { canvas } = getRef();
@@ -31,7 +31,7 @@ export const AnimatedPatternN1Fn = ({
          */
         MobCore.useFrame(() => {
             MobCore.useNextTick(() => {
-                destroy();
+                destroy?.();
 
                 destroy = animatedPatternN1Animation({
                     canvas,
@@ -41,7 +41,7 @@ export const AnimatedPatternN1Fn = ({
         });
 
         const unsubscribeResize = MobCore.useResize(() => {
-            destroy();
+            destroy?.();
 
             destroy = animatedPatternN1Animation({
                 canvas,
@@ -60,10 +60,8 @@ export const AnimatedPatternN1Fn = ({
 
         return () => {
             unsubscribeResize();
-            destroy();
-
-            // @ts-ignore
-            destroy = null;
+            destroy?.();
+            destroy = () => {};
         };
     });
 

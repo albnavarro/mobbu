@@ -30,10 +30,11 @@ export const LayoutLinksFn = ({
 }) => {
     const proxi = getSelfProxi();
 
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let destroy = () => {};
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let refresh = () => {};
+    /** @type {() => void} */
+    let destroy;
+
+    /** @type {() => void} */
+    let refresh;
 
     onMount(() => {
         const { screenElement, scrollerElement } = getRef();
@@ -65,7 +66,7 @@ export const LayoutLinksFn = ({
         }, 500);
 
         return () => {
-            destroy();
+            destroy?.();
             destroy = () => {};
             refresh = () => {};
         };

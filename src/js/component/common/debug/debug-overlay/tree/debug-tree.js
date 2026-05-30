@@ -54,22 +54,25 @@ export const DebugTreeFn = ({
     getSelfProxi,
 }) => {
     const proxi = getSelfProxi();
-    //
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let destroy = () => {};
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let refresh = () => {};
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let updateScroller = () => {};
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let move = () => {};
+
+    /** @type {() => void} */
+    let destroy;
+
+    /** @type {() => void} */
+    let refresh;
+
+    /** @type {() => void} */
+    let updateScroller;
+
+    /** @type {(arg0: number) => void} */
+    let move;
 
     onMount(() => {
         const { scrollbar } = getRef();
 
         scrollbar.addEventListener('input', () => {
             // @ts-ignore
-            move(scrollbar.value);
+            move?.(scrollbar.value);
         });
 
         addMethod('refresh', () => {
@@ -83,8 +86,7 @@ export const DebugTreeFn = ({
                     preventScroll: true,
                 });
 
-                // @ts-ignore
-                move(0);
+                move?.(0);
             }, 10);
         });
 
@@ -95,7 +97,6 @@ export const DebugTreeFn = ({
             destroy?.();
             proxi.data = MobJs.getTree();
 
-            // @ts-ignore
             ({ destroy, move, refresh, updateScroller } = await initScroller({
                 getRef,
             }));

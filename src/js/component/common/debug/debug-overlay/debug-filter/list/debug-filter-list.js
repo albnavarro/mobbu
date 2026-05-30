@@ -129,14 +129,17 @@ export const DebugFilterListFn = ({
 }) => {
     const proxi = getSelfProxi();
 
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let destroy = () => {};
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let move = () => {};
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let refresh = () => {};
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let updateScroller = () => {};
+    /** @type {() => void} */
+    let destroy;
+
+    /** @type {() => void} */
+    let refresh;
+
+    /** @type {() => void} */
+    let updateScroller;
+
+    /** @type {(arg0: number) => void} */
+    let move;
 
     /**
      * Show/hide no-result label

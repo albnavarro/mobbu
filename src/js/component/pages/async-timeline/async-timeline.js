@@ -51,8 +51,9 @@ export const AsyncTimelineFn = ({
     const proxi = getSelfProxi();
 
     let methods = {};
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    let destroy = () => {};
+
+    /** @type {() => void} */
+    let destroy;
 
     onMount(({ element }) => {
         const { canvas } = getRef();
@@ -62,7 +63,7 @@ export const AsyncTimelineFn = ({
          */
         MobCore.useFrame(() => {
             MobCore.useNextTick(() => {
-                destroy();
+                destroy?.();
 
                 methods = asyncTimelineanimation({
                     canvas,
@@ -78,7 +79,7 @@ export const AsyncTimelineFn = ({
         });
 
         const unsubscribeResize = MobCore.useResize(() => {
-            destroy();
+            destroy?.();
 
             methods = asyncTimelineanimation({
                 canvas,
@@ -130,7 +131,7 @@ export const AsyncTimelineFn = ({
 
         return () => {
             unsubscribeResize();
-            destroy();
+            destroy?.();
             unsubscribeEscHandler();
         };
     });

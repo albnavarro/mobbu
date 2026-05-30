@@ -98,8 +98,8 @@ export const ScrollerN1Fn = ({
     const proxi = getSelfProxi();
 
     onMount(() => {
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let destroy = () => {};
+        /** @type {() => void} */
+        let destroy;
 
         /** Show scroll down label. */
         activateScrollDownArrow();
@@ -114,7 +114,7 @@ export const ScrollerN1Fn = ({
          */
         MobCore.useFrame(() => {
             MobCore.useNextTick(() => {
-                destroy();
+                destroy?.();
 
                 destroy = scrollerN1Animation({
                     canvas,
@@ -152,11 +152,9 @@ export const ScrollerN1Fn = ({
         );
 
         return () => {
-            destroy();
+            destroy?.();
             deactivateScrollDownArrow();
-
-            // @ts-ignore
-            destroy = null;
+            destroy = () => {};
             unsubscribeEscHandler();
         };
     });
