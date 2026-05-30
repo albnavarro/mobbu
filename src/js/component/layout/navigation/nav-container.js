@@ -30,7 +30,6 @@ function closeNavigation({ main, proxi }) {
     MobCore.useFrame(() => {
         document.body.style.overflow = '';
         main.classList.remove('shift');
-        setFcousToNavigationToggle();
     });
 }
 
@@ -72,6 +71,7 @@ function addMainHandler({ main }) {
     main.addEventListener('click', () => {
         navigationStore.set('navigationIsOpen', false);
         UnFreezeMobPageScroll();
+        setFcousToNavigationToggle();
     });
 }
 
@@ -120,6 +120,7 @@ export const NavigationContainerFn = ({
                 unsubscribeEscHandler = MobCore.useEscHandler(() => {
                     navigationStore.set('navigationIsOpen', false);
                     UnFreezeMobPageScroll();
+                    setFcousToNavigationToggle();
                 });
 
                 return;
