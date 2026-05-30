@@ -1,4 +1,4 @@
-import { htmlObject } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -8,19 +8,29 @@ import { htmlObject } from '@mobJs';
 /**
  * @type {MobComponent<SideBarLinksButtonType>}
  */
-export const SideBarLinksButtonFn = ({ getSelfProxi, bindEffect }) => {
+export const SideBarLinksButtonFn = ({
+    getSelfProxi,
+    bindEffect,
+    delegateEvents,
+}) => {
     const proxi = getSelfProxi();
 
     return htmlObject({
-        tag: 'a',
-        attributes: { href: `./#${proxi.url}` },
-        modules: bindEffect({
-            toggleClass: { current: () => proxi.active },
-            toggleAttribute: {
-                'aria-label': () =>
-                    proxi.active ? `${proxi.label} current section` : null,
-            },
-        }),
+        tag: 'button',
+        attributes: { type: 'button', role: 'link' },
+        modules: [
+            delegateEvents({
+                click: () => {
+                    MobJs.loadUrl({ url: proxi.url });
+                },
+            }),
+            bindEffect({
+                toggleClass: { current: () => proxi.active },
+                toggleAttribute: {
+                    'aria-current': () => (proxi.active ? 'page' : null),
+                },
+            }),
+        ],
         content: proxi.label,
     });
 };

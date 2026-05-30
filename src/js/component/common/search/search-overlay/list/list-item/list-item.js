@@ -33,11 +33,18 @@ export const SearchOverlayListItemFn = ({
         content: {
             tag: 'button',
             attributes: { type: 'button', role: 'link' },
-            modules: delegateEvents({
-                click: () => {
-                    loadPage({ uri: proxi.uri });
-                },
-            }),
+            modules: [
+                delegateEvents({
+                    click: () => {
+                        loadPage({ uri: proxi.uri });
+                    },
+                }),
+                bindEffect({
+                    toggleAttribute: {
+                        'aria-current': () => (proxi.active ? 'page' : null),
+                    },
+                }),
+            ],
             content: [
                 {
                     className: 'item-section',

@@ -1,7 +1,10 @@
-import { htmlObject } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 
 /**
- * @import {MobComponent} from "@mobJsType"
+ * @import {
+ *   DelegateEvents,
+ *   MobComponent
+ * } from "@mobJsType"
  * @import {List} from "./type"
  */
 
@@ -9,18 +12,25 @@ import { htmlObject } from '@mobJs';
  * @param {object} params
  * @param {Record<'label' | 'url', string>[] | string[]} params.items
  * @param {boolean} [params.links]
+ * @param {DelegateEvents} params.delegateEvents
  * @returns {HTMLElement[]}
  */
-const getList = ({ items, links }) => {
+const getList = ({ items, links, delegateEvents }) => {
     return links
         ? /** @type{Record<'label' | 'url', string>[]} */ (items).map(
               ({ label, url }) =>
                   htmlObject({
                       tag: 'li',
                       content: {
-                          tag: 'a',
-                          attributes: { href: url },
+                          tag: 'button',
+                          attributes: { type: 'button', role: 'link' },
                           className: 'list-links',
+                          modules: delegateEvents({
+                              click: () => {
+                                  MobJs.loadUrl({ url });
+                              },
+                          }),
+
                           content: [
                               label,
                               {
@@ -49,7 +59,7 @@ const getList = ({ items, links }) => {
 };
 
 /** @type {MobComponent<List>} */
-export const ListFn = ({ getState }) => {
+export const ListFn = ({ getState, delegateEvents }) => {
     const { style, color, items, links } = getState();
 
     const colorClass = `is-${color}`;
@@ -58,6 +68,6 @@ export const ListFn = ({ getState }) => {
     return htmlObject({
         tag: 'ul',
         className: ['ul', `ul-${style}`, colorClass, linksClass],
-        content: getList({ items, links }),
+        content: getList({ items, links, delegateEvents }),
     });
 };

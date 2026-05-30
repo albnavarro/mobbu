@@ -52,8 +52,9 @@ export const FooterFn = ({
     });
 
     return htmlObject({
-        tag: 'footer',
-        className: 'js-footer',
+        tag: 'aside',
+        className: ['js-footer', 'l-bottom-bar'],
+        attributes: { 'aria-label': 'Bottom complementary utils' },
         modules: bindEffect({
             toggleClass: {
                 'is-visible': () => proxi.isMounted,

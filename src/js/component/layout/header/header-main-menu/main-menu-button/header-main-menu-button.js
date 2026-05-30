@@ -31,8 +31,7 @@ export const HeaderMainMenuButtonFn = ({
             bindEffect({
                 toggleClass: { current: () => proxi.active },
                 toggleAttribute: {
-                    'aria-label': () =>
-                        proxi.active ? `${proxi.label} current section` : null,
+                    'aria-current': () => (proxi.active ? 'page' : null),
                 },
             }),
             delegateEvents({

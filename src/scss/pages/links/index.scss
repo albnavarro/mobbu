@@ -151,11 +151,14 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            width: 100%;
             height: 100%;
             transition:
                 background 0.55s,
                 color 0.55s;
+            border: 0;
             outline-offset: -2px;
+            background: transparent;
             color: var(--dark);
             text-transform: capitalize;
 

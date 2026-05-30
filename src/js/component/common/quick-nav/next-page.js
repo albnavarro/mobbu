@@ -137,6 +137,7 @@ export const QuickNavFn = ({
                 className: 'c-quick-nav is-prev',
                 attributes: {
                     type: 'button',
+                    role: 'link',
                     'aria-label': 'previous showcase item',
                 },
                 modules: [
@@ -162,6 +163,7 @@ export const QuickNavFn = ({
                 className: 'c-quick-nav is-back',
                 attributes: {
                     type: 'button',
+                    role: 'link',
                     'aria-label': 'back to showcase list',
                 },
                 modules: [
@@ -191,6 +193,7 @@ export const QuickNavFn = ({
                 className: 'c-quick-nav is-next',
                 attributes: {
                     type: 'button',
+                    role: 'link',
                     'aria-label': 'next showcase item',
                 },
                 modules: [

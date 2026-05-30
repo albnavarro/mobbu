@@ -3,7 +3,6 @@
  * @import {NavigationButtonType} from "./type"
  */
 
-import { removeSpanTags } from '@componentLibs/utils/utils';
 import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 import { navigationStore } from '@stores/navigation';
@@ -99,10 +98,7 @@ export const NavigationButtonFn = ({
                     current: () => proxi.isCurrent,
                 },
                 toggleAttribute: {
-                    'aria-label': () =>
-                        proxi.isCurrent
-                            ? `${removeSpanTags(label)} current section`
-                            : null,
+                    'aria-current': () => (proxi.isCurrent ? 'page' : null),
                 },
             }),
         ],

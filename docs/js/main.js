@@ -25621,7 +25621,8 @@
     getRef,
     onMount,
     bindEffect,
-    getSelfProxi
+    getSelfProxi,
+    delegateEvents
   }) => {
     const proxi = getSelfProxi();
     let destroy3;
@@ -25676,16 +25677,21 @@
         tag: "li",
         className: "item",
         content: {
-          tag: "a",
+          tag: "button",
           className: getItemClass(index),
-          attributes: {
-            href: item.url
-          },
-          modules: bindEffect({
-            toggleClass: {
-              active: () => proxi.isMounted
-            }
-          }),
+          attributes: { type: "button", role: "link" },
+          modules: [
+            delegateEvents({
+              click: () => {
+                modules_exports2.loadUrl({ url: item.url });
+              }
+            }),
+            bindEffect({
+              toggleClass: {
+                active: () => proxi.isMounted
+              }
+            })
+          ],
           content: [
             {
               tag: "span",
@@ -40498,9 +40504,6 @@
     if (!activeElement) return;
     activeElement.focus({ preventScroll: true });
   };
-  var removeSpanTags = (value) => {
-    return value.replaceAll(/<span\b[^>]*>(.*?)<\/span>/gi, "$1");
-  };
 
   // src/js/component/common/debug/utils.js
   var setFcousToDebugBtn = () => {
@@ -40809,17 +40812,28 @@
   );
 
   // src/js/component/common/side-bar-links/side-bar-links-button/side-bar-links-button.js
-  var SideBarLinksButtonFn = ({ getSelfProxi, bindEffect }) => {
+  var SideBarLinksButtonFn = ({
+    getSelfProxi,
+    bindEffect,
+    delegateEvents
+  }) => {
     const proxi = getSelfProxi();
     return htmlObject({
-      tag: "a",
-      attributes: { href: `./#${proxi.url}` },
-      modules: bindEffect({
-        toggleClass: { current: () => proxi.active },
-        toggleAttribute: {
-          "aria-label": () => proxi.active ? `${proxi.label} current section` : null
-        }
-      }),
+      tag: "button",
+      attributes: { type: "button", role: "link" },
+      modules: [
+        delegateEvents({
+          click: () => {
+            modules_exports2.loadUrl({ url: proxi.url });
+          }
+        }),
+        bindEffect({
+          toggleClass: { current: () => proxi.active },
+          toggleAttribute: {
+            "aria-current": () => proxi.active ? "page" : null
+          }
+        })
+      ],
       content: proxi.label
     });
   };
@@ -41041,24 +41055,31 @@
   );
 
   // src/js/component/common/left-sidebar/left-sidebar.js
-  var getList = ({ proxi, boundedProxi, bindEffect }) => {
+  var getList = ({ proxi, boundedProxi, bindEffect, delegateEvents }) => {
     return proxi.data.map(({ label, url }) => {
       const urlParsed = url.replaceAll("#", "");
       return htmlObject({
         className: "item",
         tag: "li",
         content: {
-          tag: "a",
+          tag: "button",
           className: "link",
-          attributes: { href: url },
-          modules: bindEffect({
-            toggleClass: {
-              active: () => boundedProxi.activeRoute.route === urlParsed
-            },
-            toggleAttribute: {
-              "aria-label": () => boundedProxi.activeRoute.route === urlParsed ? `${label} current section` : null
-            }
-          }),
+          attributes: { type: "button", role: "link" },
+          modules: [
+            delegateEvents({
+              click: () => {
+                modules_exports2.loadUrl({ url });
+              }
+            }),
+            bindEffect({
+              toggleClass: {
+                active: () => boundedProxi.activeRoute.route === urlParsed
+              },
+              toggleAttribute: {
+                "aria-current": () => boundedProxi.activeRoute.route === urlParsed ? "page" : false
+              }
+            })
+          ],
           content: label
         }
       });
@@ -41070,7 +41091,8 @@
     invalidate,
     addMethod,
     computed,
-    bindEffect
+    bindEffect,
+    delegateEvents
   }) => {
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
@@ -41114,7 +41136,12 @@
             content: invalidate({
               observe: () => proxi.data,
               render: () => {
-                return getList({ proxi, boundedProxi, bindEffect });
+                return getList({
+                  proxi,
+                  boundedProxi,
+                  bindEffect,
+                  delegateEvents
+                });
               }
             })
           }
@@ -41413,11 +41440,18 @@
       content: {
         tag: "button",
         attributes: { type: "button", role: "link" },
-        modules: delegateEvents({
-          click: () => {
-            loadPage2({ uri: proxi.uri });
-          }
-        }),
+        modules: [
+          delegateEvents({
+            click: () => {
+              loadPage2({ uri: proxi.uri });
+            }
+          }),
+          bindEffect({
+            toggleAttribute: {
+              "aria-current": () => proxi.active ? "page" : null
+            }
+          })
+        ],
         content: [
           {
             className: "item-section",
@@ -42431,6 +42465,7 @@
           className: "c-quick-nav is-prev",
           attributes: {
             type: "button",
+            role: "link",
             "aria-label": "previous showcase item"
           },
           modules: [
@@ -42453,6 +42488,7 @@
           className: "c-quick-nav is-back",
           attributes: {
             type: "button",
+            role: "link",
             "aria-label": "back to showcase list"
           },
           modules: [
@@ -42475,6 +42511,7 @@
           className: "c-quick-nav is-next",
           attributes: {
             type: "button",
+            role: "link",
             "aria-label": "next showcase item"
           },
           modules: [
@@ -42586,8 +42623,9 @@
       }, getFrameDelay());
     });
     return htmlObject({
-      tag: "footer",
-      className: "js-footer",
+      tag: "aside",
+      className: ["js-footer", "l-bottom-bar"],
+      attributes: { "aria-label": "Bottom complementary utils" },
       modules: bindEffect({
         toggleClass: {
           "is-visible": () => proxi.isMounted
@@ -42698,7 +42736,7 @@
         bindEffect({
           toggleClass: { current: () => proxi.active },
           toggleAttribute: {
-            "aria-label": () => proxi.active ? `${proxi.label} current section` : null
+            "aria-current": () => proxi.active ? "page" : null
           }
         }),
         delegateEvents({
@@ -43190,7 +43228,7 @@
             current: () => proxi.isCurrent
           },
           toggleAttribute: {
-            "aria-label": () => proxi.isCurrent ? `${removeSpanTags(label)} current section` : null
+            "aria-current": () => proxi.isCurrent ? "page" : null
           }
         })
       ],
@@ -45031,16 +45069,21 @@
   );
 
   // src/js/component/common/typography/list/list.js
-  var getList2 = ({ items, links }) => {
+  var getList2 = ({ items, links, delegateEvents }) => {
     return links ? (
       /** @type{Record<'label' | 'url', string>[]} */
       items.map(
         ({ label, url }) => htmlObject({
           tag: "li",
           content: {
-            tag: "a",
-            attributes: { href: url },
+            tag: "button",
+            attributes: { type: "button", role: "link" },
             className: "list-links",
+            modules: delegateEvents({
+              click: () => {
+                modules_exports2.loadUrl({ url });
+              }
+            }),
             content: [
               label,
               {
@@ -45067,14 +45110,14 @@
       })
     );
   };
-  var ListFn = ({ getState }) => {
+  var ListFn = ({ getState, delegateEvents }) => {
     const { style, color, items, links } = getState();
     const colorClass = `is-${color}`;
     const linksClass = links ? "use-links" : "use-default";
     return htmlObject({
       tag: "ul",
       className: ["ul", `ul-${style}`, colorClass, linksClass],
-      content: getList2({ items, links })
+      content: getList2({ items, links, delegateEvents })
     });
   };
 

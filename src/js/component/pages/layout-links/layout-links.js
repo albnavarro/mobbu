@@ -1,4 +1,4 @@
-import { htmlObject } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { linksScroller } from './animation/links-scroller';
 import { MobCore } from '@mobCore';
 
@@ -27,6 +27,7 @@ export const LayoutLinksFn = ({
     onMount,
     bindEffect,
     getSelfProxi,
+    delegateEvents,
 }) => {
     const proxi = getSelfProxi();
 
@@ -109,16 +110,21 @@ export const LayoutLinksFn = ({
             tag: 'li',
             className: 'item',
             content: {
-                tag: 'a',
+                tag: 'button',
                 className: getItemClass(index),
-                attributes: {
-                    href: item.url,
-                },
-                modules: bindEffect({
-                    toggleClass: {
-                        active: () => proxi.isMounted,
-                    },
-                }),
+                attributes: { type: 'button', role: 'link' },
+                modules: [
+                    delegateEvents({
+                        click: () => {
+                            MobJs.loadUrl({ url: item.url });
+                        },
+                    }),
+                    bindEffect({
+                        toggleClass: {
+                            active: () => proxi.isMounted,
+                        },
+                    }),
+                ],
                 content: [
                     {
                         tag: 'span',

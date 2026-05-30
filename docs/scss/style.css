@@ -679,7 +679,7 @@ code.hljs {
   }
 }
 @layer layout {
-  @scope (footer) {
+  @scope (.l-bottom-bar) {
     :scope {
       display: none;
       position: fixed;
@@ -1757,9 +1757,12 @@ code.hljs {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      width: 100%;
       height: 100%;
       transition: background 0.55s, color 0.55s;
+      border: 0;
       outline-offset: -2px;
+      background: transparent;
       color: var(--dark);
       text-transform: capitalize;
     }
@@ -4437,6 +4440,7 @@ code.hljs {
     :scope {
       padding-right: var(--gap-size);
       padding-left: calc(var(--gap-size) / 2);
+      background: transparent;
       text-align: left;
       text-transform: capitalize;
     }
@@ -4722,10 +4726,14 @@ code.hljs {
       display: block;
       position: relative;
       min-width: 6.6666666667rem;
+      margin-left: calc(0.3333333333rem * -1);
       padding-right: 0.3333333333rem;
       padding-left: 0.3333333333rem;
       transition: opacity 0.35s;
+      border: 0;
       outline-offset: calc(0.0666666667em * -1);
+      background: transparent;
+      text-align: left;
     }
     .link::before {
       content: "";
@@ -5049,22 +5057,25 @@ code.hljs {
     li {
       max-width: 11.3333333333rem;
     }
-    a {
+    button {
       display: block;
       position: relative;
+      padding-right: 0.2666666667rem;
       padding-left: 0.2666666667rem;
       transition: color 0.35s;
+      border: 0;
       outline-offset: 0;
+      background: transparent;
       font-size: 0.8rem;
       line-height: 1.6;
       text-transform: capitalize;
     }
     @media (min-width: 75em) {
-      a {
+      button {
         font-size: 0.8666666667rem;
       }
     }
-    a::after {
+    button::after {
       content: "";
       position: absolute;
       top: 50%;
@@ -5077,11 +5088,11 @@ code.hljs {
       background: var(--dark);
     }
     @media screen and (height >= 200px) and (height <= 750px) {
-      a {
+      button {
         font-size: 0.7333333333rem;
       }
     }
-    a:hover::after {
+    button:hover::after {
       opacity: 1;
     }
     .current {

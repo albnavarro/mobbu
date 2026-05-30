@@ -61,10 +61,14 @@
             display: block;
             position: relative;
             min-width: rem(100);
+            margin-left: calc(#{rem(5)} * -1);
             padding-right: rem(5);
             padding-left: rem(5);
             transition: opacity 0.35s;
+            border: 0;
             outline-offset: calc(#{em(1)} * -1);
+            background: transparent;
+            text-align: left;
 
             &::before {
                 content: '';

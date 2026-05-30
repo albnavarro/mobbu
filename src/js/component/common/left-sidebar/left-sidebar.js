@@ -1,6 +1,7 @@
 /**
  * @import {
  *   BindEffect,
+ *   DelegateEvents,
  *   MobComponent,
  *   ProxiBoundedState,
  *   ProxiSelfState
@@ -16,9 +17,10 @@ import { docsTemplate } from '@pages/index';
  * @param {ProxiSelfState<LeftSidebar>} params.proxi
  * @param {ProxiBoundedState<LeftSidebar>} params.boundedProxi
  * @param {BindEffect<LeftSidebar>} params.bindEffect
+ * @param {DelegateEvents} params.delegateEvents
  * @returns {HTMLElement[]}
  */
-const getList = ({ proxi, boundedProxi, bindEffect }) => {
+const getList = ({ proxi, boundedProxi, bindEffect, delegateEvents }) => {
     return proxi.data.map(({ label, url }) => {
         const urlParsed = url.replaceAll('#', '');
 
@@ -26,21 +28,28 @@ const getList = ({ proxi, boundedProxi, bindEffect }) => {
             className: 'item',
             tag: 'li',
             content: {
-                tag: 'a',
+                tag: 'button',
                 className: 'link',
-                attributes: { href: url },
-                modules: bindEffect({
-                    toggleClass: {
-                        active: () =>
-                            boundedProxi.activeRoute.route === urlParsed,
-                    },
-                    toggleAttribute: {
-                        'aria-label': () =>
-                            boundedProxi.activeRoute.route === urlParsed
-                                ? `${label} current section`
-                                : null,
-                    },
-                }),
+                attributes: { type: 'button', role: 'link' },
+                modules: [
+                    delegateEvents({
+                        click: () => {
+                            MobJs.loadUrl({ url });
+                        },
+                    }),
+                    bindEffect({
+                        toggleClass: {
+                            active: () =>
+                                boundedProxi.activeRoute.route === urlParsed,
+                        },
+                        toggleAttribute: {
+                            'aria-current': () =>
+                                boundedProxi.activeRoute.route === urlParsed
+                                    ? 'page'
+                                    : false,
+                        },
+                    }),
+                ],
                 content: label,
             },
         });
@@ -55,6 +64,7 @@ export const LightSidebarFn = ({
     addMethod,
     computed,
     bindEffect,
+    delegateEvents,
 }) => {
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
@@ -108,7 +118,12 @@ export const LightSidebarFn = ({
                     content: invalidate({
                         observe: () => proxi.data,
                         render: () => {
-                            return getList({ proxi, boundedProxi, bindEffect });
+                            return getList({
+                                proxi,
+                                boundedProxi,
+                                bindEffect,
+                                delegateEvents,
+                            });
                         },
                     }),
                 },
