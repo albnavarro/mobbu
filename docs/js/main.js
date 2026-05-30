@@ -43696,8 +43696,10 @@
       });
     });
   }
-  function addMainHandler({ main }) {
-    main.addEventListener("click", () => {
+  function addMainHandler() {
+    modules_exports.usePointerDown(() => {
+      const navigationIsOpen = navigationStore.getProp("navigationIsOpen");
+      if (!navigationIsOpen) return;
       navigationStore.set("navigationIsOpen", false);
       UnFreezeMobPageScroll();
       setFcousToNavigationToggle();
@@ -43741,7 +43743,7 @@
         unsubscribeEscHandler11();
         unsubscribeTabHandler3();
       });
-      addMainHandler({ main });
+      addMainHandler();
       const { scrollNativationToTop, refreshScroller } = initNavigationScoller({
         root: element
       });

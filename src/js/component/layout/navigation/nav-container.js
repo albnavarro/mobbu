@@ -63,12 +63,13 @@ function openNavigation({ root, main, proxi }) {
 }
 
 /**
- * @param {object} params
- * @param {HTMLElement} params.main
  * @returns {void}
  */
-function addMainHandler({ main }) {
-    main.addEventListener('click', () => {
+function addMainHandler() {
+    MobCore.usePointerDown(() => {
+        const navigationIsOpen = navigationStore.getProp('navigationIsOpen');
+        if (!navigationIsOpen) return;
+
         navigationStore.set('navigationIsOpen', false);
         UnFreezeMobPageScroll();
         setFcousToNavigationToggle();
@@ -131,7 +132,7 @@ export const NavigationContainerFn = ({
             unsubscribeTabHandler();
         });
 
-        addMainHandler({ main });
+        addMainHandler();
 
         const { scrollNativationToTop, refreshScroller } =
             initNavigationScoller({
