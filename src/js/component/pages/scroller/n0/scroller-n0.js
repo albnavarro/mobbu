@@ -12,13 +12,14 @@
  */
 
 import { MobCore } from '@mobCore';
-import { htmlObject } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import {
     activateScrollDownArrow,
     deactivateScrollDownArrow,
 } from '../../../common/scroll-down-label/utils';
 import { scrollerN0Animation } from './animation/animation';
 import { params } from './variations';
+import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 
 /**
  * Component is a singleton
@@ -153,6 +154,14 @@ export const ScrollerN0Fn = ({
             {
                 className: 'c-canvas is-fixed',
                 content: [
+                    {
+                        component: H1Standalone,
+                        modules: MobJs.staticProps(
+                            /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */ ({
+                                text: 'Canvas: Scroller N0',
+                            })
+                        ),
+                    },
                     {
                         className: 'l-background-shape',
                         content: proxi.background,

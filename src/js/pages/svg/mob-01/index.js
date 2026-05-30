@@ -5,6 +5,7 @@ import { htmlObject, MobJs } from '@mobJs';
 import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_schema } from './data';
+import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 
 export const lettering01 = async () => {
     const { data: letteringMob } = await loadTextContent({
@@ -74,6 +75,14 @@ export const lettering01 = async () => {
         tag: 'main',
         className: 'l-mob-01',
         content: [
+            {
+                component: H1Standalone,
+                modules: MobJs.staticProps(
+                    /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */ ({
+                        text: 'Svg animation: Mob01',
+                    })
+                ),
+            },
             {
                 className: 'l-background-shape',
                 content: bg,

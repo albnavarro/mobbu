@@ -27756,6 +27756,31 @@
     }
   ];
 
+  // src/js/component/common/typography/h1-standalone/h1-standalone.js
+  var H1StandaloneFn = ({ getSelfProxi }) => {
+    const proxi = getSelfProxi();
+    return htmlObject({
+      tag: "h1",
+      className: "h1-standalone",
+      content: proxi.text
+    });
+  };
+
+  // src/js/component/common/typography/h1-standalone/definition.js
+  var H1Standalone = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').H1Standalone>} */
+    {
+      tag: "h1-standalone",
+      component: H1StandaloneFn,
+      props: {
+        text: {
+          __value: "",
+          __type: String
+        }
+      }
+    }
+  );
+
   // src/js/component/pages/animated-pattern/n0/animated-pattern-n0.js
   var unsubscribeEscHandler = () => {
   };
@@ -27846,6 +27871,15 @@
         {
           className: "c-canvas",
           content: [
+            {
+              component: H1Standalone,
+              modules: modules_exports2.staticProps(
+                /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+                {
+                  text: "Canvas: animated pattern N0"
+                }
+              )
+            },
             {
               className: "l-background-shape",
               content: proxi.background
@@ -28279,6 +28313,15 @@
         className: "c-canvas",
         content: [
           {
+            component: H1Standalone,
+            modules: modules_exports2.staticProps(
+              /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+              {
+                text: "Canvas: animated pattern N1"
+              }
+            )
+          },
+          {
             className: "l-background-shape",
             content: proxi.background
           },
@@ -28669,6 +28712,15 @@
         {
           className: "c-canvas",
           content: [
+            {
+              component: H1Standalone,
+              modules: modules_exports2.staticProps(
+                /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+                {
+                  text: "Canvas: Caterpillar N1"
+                }
+              )
+            },
             {
               className: "l-background-shape",
               content: proxi.background
@@ -29134,6 +29186,15 @@
         {
           className: "c-canvas",
           content: [
+            {
+              component: H1Standalone,
+              modules: modules_exports2.staticProps(
+                /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+                {
+                  text: "Canvas: caterpillar N2"
+                }
+              )
+            },
             {
               className: "l-background-shape is-light",
               content: proxi.background
@@ -29666,6 +29727,15 @@
           className: "c-canvas is-fixed",
           content: [
             {
+              component: H1Standalone,
+              modules: modules_exports2.staticProps(
+                /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+                {
+                  text: "Canvas: Scroller N0"
+                }
+              )
+            },
+            {
               className: "l-background-shape",
               content: proxi.background
             },
@@ -30104,6 +30174,15 @@
     });
     return htmlObject({
       content: [
+        {
+          component: H1Standalone,
+          modules: modules_exports2.staticProps(
+            /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+            {
+              text: "Canvas Scroller N1"
+            }
+          )
+        },
         {
           className: "c-canvas is-fixed",
           content: [
@@ -33545,6 +33624,15 @@
       className: "l-move3d-page",
       content: [
         {
+          component: H1Standalone,
+          modules: modules_exports2.staticProps(
+            /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+            {
+              text: "Mov3D css"
+            }
+          )
+        },
+        {
           tag: "button",
           attributes: {
             type: "button",
@@ -34626,6 +34714,15 @@
       className: "l-mob-01",
       content: [
         {
+          component: H1Standalone,
+          modules: modules_exports2.staticProps(
+            /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+            {
+              text: "Svg animation: Mob01"
+            }
+          )
+        },
+        {
           className: "l-background-shape",
           content: bg
         },
@@ -35241,6 +35338,15 @@
         className: "c-canvas",
         content: [
           {
+            component: H1Standalone,
+            modules: modules_exports2.staticProps(
+              /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+              {
+                text: "Sync timeline"
+              }
+            )
+          },
+          {
             tag: "button",
             className: "controls-open",
             attributes: {
@@ -35696,6 +35802,15 @@
       className: "l-rdp-01",
       content: [
         {
+          component: H1Standalone,
+          modules: modules_exports2.staticProps(
+            /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+            {
+              text: "Svg animation: RDP01"
+            }
+          )
+        },
+        {
           className: "l-background-shape",
           content: bg
         },
@@ -35851,6 +35966,15 @@
       tag: "main",
       className: "l-mob-02",
       content: [
+        {
+          component: H1Standalone,
+          modules: modules_exports2.staticProps(
+            /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+            {
+              text: "Svg animation: Mob02"
+            }
+          )
+        },
         {
           className: "l-background-shape",
           content: bg
@@ -36363,6 +36487,15 @@
       content: {
         className: "l-dragger",
         content: [
+          {
+            component: H1Standalone,
+            modules: modules_exports2.staticProps(
+              /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+              {
+                text: "Dragger"
+              }
+            )
+          },
           {
             className: "l-background-shape",
             content: bg
@@ -37168,12 +37301,23 @@
       tag: "main",
       content: {
         className: "l-math",
-        content: names.map((name) => {
-          return htmlObject({
-            component: MathAnimation,
-            modules: modules_exports2.staticProps({ name })
-          });
-        })
+        content: [
+          {
+            component: H1Standalone,
+            modules: modules_exports2.staticProps(
+              /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+              {
+                text: "Math animation"
+              }
+            )
+          },
+          ...names.map((name) => {
+            return htmlObject({
+              component: MathAnimation,
+              modules: modules_exports2.staticProps({ name })
+            });
+          })
+        ]
       }
     });
   };
@@ -37301,6 +37445,15 @@
     return htmlObject({
       className: "l-rosa",
       content: [
+        {
+          component: H1Standalone,
+          modules: modules_exports2.staticProps(
+            /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */
+            {
+              text: "Rosa di grandi"
+            }
+          )
+        },
         {
           tag: "button",
           className: "controls-open",
@@ -42338,7 +42491,6 @@
   );
 
   // src/js/component/common/quick-nav/next-page.js
-  var lastClicked;
   var QuickNavFn = ({
     getSelfProxi,
     bindEffect,
@@ -42358,30 +42510,6 @@
       duration: 300,
       ease: "easeOutQuad"
     });
-    watch(
-      () => proxi.nextRoute,
-      (val) => {
-        if (lastClicked !== "NEXT") return;
-        modules_exports.useFrameIndex(() => {
-          const { previousTemplate } = modules_exports2.mainStore.getProp("afterRouteChange");
-          if (previousTemplate !== PAGE_TEMPLATE_LINKS && val && val.length > 0) {
-            getRef().next.focus();
-          }
-        }, 10);
-      }
-    );
-    watch(
-      () => proxi.prevRoute,
-      (val) => {
-        if (lastClicked !== "PREV") return;
-        modules_exports.useFrameIndex(() => {
-          const { previousTemplate } = modules_exports2.mainStore.getProp("afterRouteChange");
-          if (previousTemplate !== PAGE_TEMPLATE_LINKS && val && val.length > 0) {
-            getRef().previous.focus();
-          }
-        }, 10);
-      }
-    );
     watch(
       () => proxi.currentLabelId,
       (currentId) => {
@@ -42444,7 +42572,6 @@
             delegateEvents({
               click: () => {
                 modules_exports2.loadUrl({ url: proxi.prevRoute });
-                lastClicked = "PREV";
               }
             }),
             bindEffect({
@@ -42489,7 +42616,6 @@
             delegateEvents({
               click: () => {
                 modules_exports2.loadUrl({ url: proxi.nextRoute });
-                lastClicked = "NEXT";
               }
             }),
             bindEffect({

@@ -1,6 +1,7 @@
 //@ts-check
 
 import { MathAnimation } from '@commonComponent/math-animation/definition';
+import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 
@@ -165,6 +166,14 @@ export const RosaDiGrandiPageFn = ({
     return htmlObject({
         className: 'l-rosa',
         content: [
+            {
+                component: H1Standalone,
+                modules: MobJs.staticProps(
+                    /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */ ({
+                        text: 'Rosa di grandi',
+                    })
+                ),
+            },
             {
                 tag: 'button',
                 className: 'controls-open',

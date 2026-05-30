@@ -1,6 +1,7 @@
 import { AnyComponent } from '@commonComponent/any-component/definition';
 import { Dragger } from '@commonComponent/dragger/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
+import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 import { htmlObject, MobJs } from '@mobJs';
 import { loadTextContent } from '@utils/utils';
 
@@ -59,6 +60,14 @@ export const DraggerRoute = async () => {
         content: {
             className: 'l-dragger',
             content: [
+                {
+                    component: H1Standalone,
+                    modules: MobJs.staticProps(
+                        /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */ ({
+                            text: 'Dragger',
+                        })
+                    ),
+                },
                 {
                     className: 'l-background-shape',
                     content: bg,

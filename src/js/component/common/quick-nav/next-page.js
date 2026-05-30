@@ -3,15 +3,8 @@
  * @import {QuickNav} from "./type"
  */
 
-import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
-import { PAGE_TEMPLATE_LINKS } from '@pages/index';
-
-/**
- * @type {'NEXT' | 'PREV'}
- */
-let lastClicked;
 
 /** @type {MobComponent<QuickNav>} */
 export const QuickNavFn = ({
@@ -35,58 +28,6 @@ export const QuickNavFn = ({
         duration: 300,
         ease: 'easeOutQuad',
     });
-
-    watch(
-        () => proxi.nextRoute,
-        (val) => {
-            if (lastClicked !== 'NEXT') return;
-
-            MobCore.useFrameIndex(() => {
-                const { previousTemplate } =
-                    MobJs.mainStore.getProp('afterRouteChange');
-
-                /**
-                 * Settiamo il focus sul precedente bottone attivo solo se:
-                 *
-                 * - Non arriviamo dal listing
-                 * - Abbiamo un elemento correlato
-                 */
-                if (
-                    previousTemplate !== PAGE_TEMPLATE_LINKS &&
-                    val &&
-                    val.length > 0
-                ) {
-                    getRef().next.focus();
-                }
-            }, 10);
-        }
-    );
-
-    watch(
-        () => proxi.prevRoute,
-        (val) => {
-            if (lastClicked !== 'PREV') return;
-
-            MobCore.useFrameIndex(() => {
-                const { previousTemplate } =
-                    MobJs.mainStore.getProp('afterRouteChange');
-
-                /**
-                 * Settiamo il focus sul precedente bottone attivo solo se:
-                 *
-                 * - Non arriviamo dal listing
-                 * - Abbiamo un elemento correlato
-                 */
-                if (
-                    previousTemplate !== PAGE_TEMPLATE_LINKS &&
-                    val &&
-                    val.length > 0
-                ) {
-                    getRef().previous.focus();
-                }
-            }, 10);
-        }
-    );
 
     watch(
         () => proxi.currentLabelId,
@@ -171,7 +112,6 @@ export const QuickNavFn = ({
                     delegateEvents({
                         click: () => {
                             MobJs.loadUrl({ url: proxi.prevRoute });
-                            lastClicked = 'PREV';
                         },
                     }),
                     bindEffect({
@@ -222,7 +162,6 @@ export const QuickNavFn = ({
                     delegateEvents({
                         click: () => {
                             MobJs.loadUrl({ url: proxi.nextRoute });
-                            lastClicked = 'NEXT';
                         },
                     }),
                     bindEffect({

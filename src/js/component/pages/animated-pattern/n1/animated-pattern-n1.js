@@ -6,8 +6,9 @@
  */
 
 import { MobCore } from '@mobCore';
-import { htmlObject } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { animatedPatternN1Animation } from './animation/animation';
+import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 
 /** @type {MobComponent<AnimatedPatternN1>} */
 export const AnimatedPatternN1Fn = ({
@@ -69,6 +70,14 @@ export const AnimatedPatternN1Fn = ({
         content: {
             className: 'c-canvas',
             content: [
+                {
+                    component: H1Standalone,
+                    modules: MobJs.staticProps(
+                        /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */ ({
+                            text: 'Canvas: animated pattern N1',
+                        })
+                    ),
+                },
                 {
                     className: 'l-background-shape',
                     content: proxi.background,

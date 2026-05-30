@@ -7,8 +7,9 @@
  */
 
 import { MobCore } from '@mobCore';
-import { htmlObject } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { asyncTimelineanimation } from './animation/animation';
+import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 
 /**
  * Component is a singleton
@@ -140,6 +141,14 @@ export const AsyncTimelineFn = ({
         content: {
             className: 'c-canvas',
             content: [
+                {
+                    component: H1Standalone,
+                    modules: MobJs.staticProps(
+                        /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */ ({
+                            text: 'Sync timeline',
+                        })
+                    ),
+                },
                 {
                     tag: 'button',
                     className: 'controls-open',

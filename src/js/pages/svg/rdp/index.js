@@ -5,6 +5,7 @@ import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_scehema } from './data';
 import { MouseTrail } from '@commonComponent/mouse-trail/definition';
+import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 
 export const rdp = async () => {
     const { data: lettering01 } = await loadTextContent({
@@ -60,6 +61,14 @@ export const rdp = async () => {
         tag: 'main',
         className: 'l-rdp-01',
         content: [
+            {
+                component: H1Standalone,
+                modules: MobJs.staticProps(
+                    /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */ ({
+                        text: 'Svg animation: RDP01',
+                    })
+                ),
+            },
             {
                 className: 'l-background-shape',
                 content: bg,

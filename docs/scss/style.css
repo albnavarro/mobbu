@@ -1690,7 +1690,6 @@ code.hljs {
       opacity: 1;
     }
     h1 {
-      border-radius: 1.3333333333em;
       outline-offset: 1.3333333333rem;
       outline-width: 3px;
     }
@@ -6066,6 +6065,19 @@ code.hljs {
     }
     .nav.active {
       display: block;
+    }
+  }
+}
+@layer layout {
+  @scope (.h1-standalone) {
+    :scope {
+      position: fixed;
+      top: calc(var(--header-height) + 2.3333333333rem);
+      left: calc(var(--header-height) / 2 + 2.6666666667rem);
+      outline-offset: 0.6666666667rem;
+      color: var(--dark);
+      font-size: 1.2rem;
+      text-box: trim-both cap alphabetic;
     }
   }
 }

@@ -1,0 +1,15 @@
+@use '../../abstract' as *;
+
+@layer layout {
+    @scope (.h1-standalone) {
+        :scope {
+            position: fixed;
+            top: calc(var(--header-height) + #{rem(35)});
+            left: calc(var(--header-height) / 2 + #{rem(40)});
+            outline-offset: rem(10);
+            color: var(--dark);
+            font-size: rem(18);
+            text-box: trim-both cap alphabetic;
+        }
+    }
+}

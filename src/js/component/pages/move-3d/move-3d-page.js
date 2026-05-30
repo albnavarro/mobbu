@@ -1,6 +1,7 @@
 import { Move3D } from '@commonComponent/move-3d/definition';
+import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 import { MobCore } from '@mobCore';
-import { htmlObject } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 
 /**
  * @import {
@@ -276,6 +277,14 @@ export const Move3DPagefn = ({
     return htmlObject({
         className: 'l-move3d-page',
         content: [
+            {
+                component: H1Standalone,
+                modules: MobJs.staticProps(
+                    /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */ ({
+                        text: 'Mov3D css',
+                    })
+                ),
+            },
             {
                 tag: 'button',
                 attributes: {

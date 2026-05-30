@@ -11,8 +11,9 @@
  */
 
 import { MobCore } from '@mobCore';
-import { htmlObject } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { caterpillarN2Animation } from './animation/animation';
+import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 
 /**
  * Component is a singleton
@@ -190,6 +191,14 @@ export const CaterpillarN2Fn = ({
             {
                 className: 'c-canvas',
                 content: [
+                    {
+                        component: H1Standalone,
+                        modules: MobJs.staticProps(
+                            /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */ ({
+                                text: 'Canvas: caterpillar N2',
+                            })
+                        ),
+                    },
                     {
                         className: 'l-background-shape is-light',
                         content: proxi.background,
