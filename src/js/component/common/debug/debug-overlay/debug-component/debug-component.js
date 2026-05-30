@@ -132,7 +132,7 @@ const getContent = ({ proxi, delegateEvents, setRef }) => {
                     tag: 'button',
                     className: ['back', 'active'],
                     attributes: { type: 'button' },
-                    content: 'Move focus to listing',
+                    content: 'Move focus to listing ( keyoard )',
                     modules: [
                         setRef('back'),
                         delegateEvents({
