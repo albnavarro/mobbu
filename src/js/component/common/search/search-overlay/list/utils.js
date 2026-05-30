@@ -19,3 +19,11 @@ export const resetOverlayList = () => {
     const listMethods = MobJs.useMethodByName(searchOverlayList);
     listMethods?.reset();
 };
+
+export const sctollSerachListToTop = () => {
+    /**
+     * @type {import('@mobJsType').UseMethodByName<import('./type').SearchOverlayList>}
+     */
+    const listMethods = MobJs.useMethodByName(searchOverlayList);
+    listMethods?.scrollTop();
+};

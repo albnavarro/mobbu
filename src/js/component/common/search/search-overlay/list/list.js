@@ -65,6 +65,9 @@ export const SearchOverlayListFn = ({
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let move = () => {};
+
     /**
      * TODO: fetch result and update proxi.list
      */
@@ -84,13 +87,15 @@ export const SearchOverlayListFn = ({
         getRef().screen.scrollTop = 0;
     });
 
+    addMethod('scrollTop', () => {
+        // @ts-ignore
+        move(0);
+    });
+
     addMethod('reset', () => {
         proxi.updatePrentSearchKey('');
         proxi.list = [];
     });
-
-    /** @type{(val:number) => void} */
-    let move;
 
     onMount(() => {
         const {
@@ -103,6 +108,7 @@ export const SearchOverlayListFn = ({
         });
 
         // update slide move reference
+        // @ts-ignore
         move = moveUpdated;
 
         watch(
@@ -113,6 +119,7 @@ export const SearchOverlayListFn = ({
 
                 refresh();
                 updateScroller();
+                // @ts-ignore
                 move(0);
 
                 /**

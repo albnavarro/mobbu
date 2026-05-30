@@ -25,6 +25,7 @@ export interface SearchOverlayList {
     methods: {
         update: (data: string) => Promise<void>;
         reset: () => void;
+        scrollTop: () => void;
     };
     ref: {
         screen: HTMLElement;

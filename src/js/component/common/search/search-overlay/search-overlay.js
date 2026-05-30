@@ -20,6 +20,7 @@ import {
     setExpandedToSerachBtn,
     setFcousToSearchBtn,
 } from '../cta-search/utils';
+import { sctollSerachListToTop } from './list/utils';
 
 /**
  * Component is a singleton
@@ -118,6 +119,7 @@ export const SearchOverlayFn = ({
                      * Set toggle buttona rial label to true
                      */
                     setExpandedToSerachBtn(true);
+                    sctollSerachListToTop();
 
                     /**
                      * Esc coltrol.
