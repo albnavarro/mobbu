@@ -82,6 +82,9 @@ export const DebugTreeFn = ({
                 getRef().screen.focus({
                     preventScroll: true,
                 });
+
+                // @ts-ignore
+                move(0);
             }, 10);
         });
 

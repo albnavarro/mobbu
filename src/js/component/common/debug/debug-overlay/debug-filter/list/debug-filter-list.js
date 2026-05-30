@@ -152,6 +152,9 @@ export const DebugFilterListFn = ({
         MobCore.useFrameIndex(() => {
             getRef().screen.focus({ preventScroll: true });
         }, 10);
+
+        // @ts-ignore
+        move(0);
     });
 
     /**
