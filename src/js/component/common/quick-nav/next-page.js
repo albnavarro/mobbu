@@ -7,6 +7,7 @@ import { setTemplateLinkFocus } from '@componentLibs/utils/set-template-links-fo
 import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
+import { PAGE_TEMPLATE_LINKS } from '@pages/index';
 
 /**
  * @type {'NEXT' | 'PREV'}
@@ -42,7 +43,20 @@ export const QuickNavFn = ({
             if (lastClicked !== 'NEXT') return;
 
             MobCore.useFrameIndex(() => {
-                if (val && val.length > 0) {
+                const { previousTemplate } =
+                    MobJs.mainStore.getProp('afterRouteChange');
+
+                /**
+                 * Settiamo il focus sul precedente bottone attivo solo se:
+                 *
+                 * - Non arriviamo dal listing
+                 * - Abbiamo un elemento correlato
+                 */
+                if (
+                    previousTemplate !== PAGE_TEMPLATE_LINKS &&
+                    val &&
+                    val.length > 0
+                ) {
                     getRef().next.focus();
                 }
             }, 10);
@@ -55,7 +69,20 @@ export const QuickNavFn = ({
             if (lastClicked !== 'PREV') return;
 
             MobCore.useFrameIndex(() => {
-                if (val && val.length > 0) {
+                const { previousTemplate } =
+                    MobJs.mainStore.getProp('afterRouteChange');
+
+                /**
+                 * Settiamo il focus sul precedente bottone attivo solo se:
+                 *
+                 * - Non arriviamo dal listing
+                 * - Abbiamo un elemento correlato
+                 */
+                if (
+                    previousTemplate !== PAGE_TEMPLATE_LINKS &&
+                    val &&
+                    val.length > 0
+                ) {
                     getRef().previous.focus();
                 }
             }, 10);
