@@ -14,6 +14,7 @@ import { DebugFilterHead } from './debug-filter/head/definition';
 import { tabLoopTrap } from '@componentLibs/utils/utils';
 import { MobCore } from '@mobCore';
 import { setExpandedToDebugBtn, setFcousToDebugBtn } from '../utils';
+import { resetSearchOverlayJustOpen, setSearchOverlayJustOpen } from './utils';
 
 /**
  * @import {
@@ -70,6 +71,18 @@ export const DebugOverlayFn = ({
         });
     });
 
+    /**
+     * Qui intercettiamo il cambio di visualizzazione dei risultati da un'azione interna.
+     *
+     * - DebugTree usara questa informazione per abilitare il focus sulla propia area.
+     */
+    watch(
+        () => proxi.listType,
+        () => {
+            resetSearchOverlayJustOpen();
+        }
+    );
+
     onMount(({ element }) => {
         watch(
             () => proxi.active,
@@ -79,6 +92,13 @@ export const DebugOverlayFn = ({
                      * Set toggle buttona rial label to true
                      */
                     setExpandedToDebugBtn(true);
+
+                    /**
+                     * Settiamo il flag globale che indica che la modale é stata appena aperta.
+                     *
+                     * - DebugTree usara questa informazione per non spostare il focus.
+                     */
+                    setSearchOverlayJustOpen();
 
                     /**
                      * Esc coltrol.
@@ -116,6 +136,11 @@ export const DebugOverlayFn = ({
                  * Set toggle buttona arial label to false.
                  */
                 setExpandedToDebugBtn(false);
+
+                /**
+                 * Resettiamo il flag globale che indica che la modale é stata appena aperta.
+                 */
+                resetSearchOverlayJustOpen();
             }
         );
 
@@ -151,7 +176,8 @@ export const DebugOverlayFn = ({
                         className: 'list-toggle',
                         attributes: {
                             type: 'button',
-                            'aria-label': 'Swow tree result',
+                            'aria-label': 'Show component in tree view',
+                            'aria-controls': 'debug-tree-list',
                         },
                         modules: [
                             delegateEvents({
@@ -164,6 +190,12 @@ export const DebugOverlayFn = ({
                                     active: () =>
                                         proxi.listType === DEBUG_USE_TREE,
                                 },
+                                toggleAttribute: {
+                                    'aria-expanded': () =>
+                                        proxi.listType === DEBUG_USE_TREE
+                                            ? 'true'
+                                            : 'false',
+                                },
                             }),
                         ],
                         content: 'Tree',
@@ -172,7 +204,9 @@ export const DebugOverlayFn = ({
                         tag: 'button',
                         attributes: {
                             type: 'button',
-                            'aria-label': 'Swow list result',
+                            'aria-label':
+                                'Swow and filter component in plain list',
+                            'aria-controls': 'filter-serach-list',
                         },
                         className: 'list-toggle',
                         modules: [
@@ -186,6 +220,13 @@ export const DebugOverlayFn = ({
                                     active: () =>
                                         proxi.listType ===
                                         DEBUG_USE_FILTER_COMPONENT,
+                                },
+                                toggleAttribute: {
+                                    'aria-expanded': () =>
+                                        proxi.listType ===
+                                        DEBUG_USE_FILTER_COMPONENT
+                                            ? 'true'
+                                            : 'false',
                                 },
                             }),
                         ],

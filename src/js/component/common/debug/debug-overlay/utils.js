@@ -12,3 +12,8 @@ export const openDebugOverlay = () => {
     const methods = MobJs.useMethodByName(debugOverlayName);
     methods?.open();
 };
+
+let overlayJustOpen = false;
+export const setSearchOverlayJustOpen = () => (overlayJustOpen = true);
+export const resetSearchOverlayJustOpen = () => (overlayJustOpen = false);
+export const getSearchOverlayJustOpen = () => overlayJustOpen;

@@ -151,7 +151,7 @@ export const DebugFilterListFn = ({
     /**
      * List data is controlled by DebugFilterHead component.
      */
-    addMethod('refreshList', async ({ testString }) => {
+    addMethod('refreshList', async ({ testString, setFocus = false }) => {
         /**
          * With very large result (800/1000 item) before create list set loading true. Await css con be applied before
          * large parse that block thread.
@@ -177,6 +177,17 @@ export const DebugFilterListFn = ({
             // Reset loading.
             proxi.isLoading = false;
         });
+
+        /**
+         * Abilitiomo il focus solo quando arriva dal campo ricerca
+         *
+         * - Di default il toggle per modulo sposta il focus nel campo ricerca.
+         */
+        if (setFocus) {
+            MobCore.useFrameIndex(() => {
+                getRef().screen.focus({ preventScroll: true });
+            }, 10);
+        }
     });
 
     onMount(() => {
@@ -230,7 +241,6 @@ export const DebugFilterListFn = ({
 
     return htmlObject({
         className: 'c-debug-filter-list',
-        attributes: { role: 'region', 'aria-label': 'Filtered list' },
         content: {
             className: 'list-container',
             content: [
@@ -251,9 +261,21 @@ export const DebugFilterListFn = ({
                 },
                 {
                     tag: 'nav',
-                    attributes: { 'aria-label': 'Debug filter result' },
                     className: 'list',
-                    modules: setRef('screen'),
+                    attributes: {
+                        role: 'region',
+                        id: 'debug-filter-list',
+                        tabindex: '-1',
+                    },
+                    modules: [
+                        setRef('screen'),
+                        bindEffect({
+                            toggleAttribute: {
+                                'aria-label': () =>
+                                    `Filtrable list ${proxi.data.length} occurrence funded `,
+                            },
+                        }),
+                    ],
                     content: [
                         {
                             tag: 'span',

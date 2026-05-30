@@ -5,6 +5,8 @@
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { htmlObject, MobJs } from '@mobJs';
 import { generateTreeComponents } from './recursive-tree';
+import { MobCore } from '@mobCore';
+import { getSearchOverlayJustOpen } from '../utils';
 
 /** @type {import('../debug-filter/list/type').DebugInitScroller} */
 const initScroller = async ({ getRef }) => {
@@ -102,10 +104,6 @@ export const DebugTreeFn = ({
 
     return htmlObject({
         className: 'c-debug-tree',
-        attributes: {
-            role: 'region',
-            'aria-label': 'Tree list',
-        },
         content: {
             className: 'tree-container',
             content: [
@@ -126,6 +124,12 @@ export const DebugTreeFn = ({
                 {
                     className: 'tree-list',
                     modules: setRef('screen'),
+                    attributes: {
+                        role: 'region',
+                        'aria-label': 'Tree list',
+                        id: 'debug-tree-list',
+                        tabindex: '-1',
+                    },
                     content: [
                         {
                             className: 'status',
@@ -140,6 +144,20 @@ export const DebugTreeFn = ({
                             modules: setRef('scroller'),
                             content: invalidate({
                                 observe: () => proxi.data,
+                                afterUpdate: () => {
+                                    /**
+                                     * Tree is the first result available.
+                                     *
+                                     * - Prevent focus on this region on first modal open
+                                     */
+                                    if (getSearchOverlayJustOpen()) return;
+
+                                    MobCore.useFrameIndex(() => {
+                                        getRef().screen.focus({
+                                            preventScroll: true,
+                                        });
+                                    }, 10);
+                                },
                                 render: () => {
                                     return generateTreeComponents({
                                         data: proxi.data,
