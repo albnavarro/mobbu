@@ -1394,6 +1394,10 @@ code.hljs {
     :scope.active {
       pointer-events: all;
     }
+    h1 {
+      outline-color: var(--dark);
+      outline-offset: -2px;
+    }
     .square {
       position: absolute;
       z-index: 11;

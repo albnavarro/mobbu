@@ -43,9 +43,9 @@ const block01 = ({ setRef, proxi, bindEffect }) => {
         className: 'section section--first ',
         attributes: {
             id: 'slide-1',
-            role: 'first item',
+            role: 'listitem',
             'aria-roledescription': 'slide',
-            'aria-label': '1 di 4',
+            'aria-label': 'Slide 1 di 4',
         },
         modules: bindEffect({
             toggleAttribute: {
@@ -65,7 +65,7 @@ const block01 = ({ setRef, proxi, bindEffect }) => {
             {
                 className: 'section-bottom u-has-overflow',
                 content: {
-                    tag: 'h1',
+                    tag: 'h2',
                     className: 'title-biggest',
                     modules: setRef('title_2'),
                     content: proxi.block_1.titleBottom,
@@ -86,9 +86,9 @@ const block02 = ({ setRef, proxi, bindEffect }) => {
         className: 'section',
         attributes: {
             id: 'slide-2',
-            role: 'second item',
+            role: 'listitem',
             'aria-roledescription': 'slide',
-            'aria-label': '2 di 4',
+            'aria-label': 'Slide 2 di 4',
         },
         modules: bindEffect({
             toggleAttribute: {
@@ -139,9 +139,9 @@ const block03 = ({ setRef, proxi, bindEffect }) => {
         className: 'section',
         attributes: {
             id: 'slide-3',
-            role: 'third item',
+            role: 'listitem',
             'aria-roledescription': 'slide',
-            'aria-label': '3 di 4',
+            'aria-label': 'Slide 3 di 4',
         },
         modules: bindEffect({
             toggleAttribute: {
@@ -192,9 +192,9 @@ const block04 = ({ setRef, proxi, bindEffect }) => {
         className: 'section section--last',
         attributes: {
             id: 'slide-4',
-            role: 'last item',
+            role: 'listitem',
             'aria-roledescription': 'slide',
-            'aria-label': '4 di 4',
+            'aria-label': 'Slide 4 di 4',
         },
         modules: bindEffect({
             toggleAttribute: {
@@ -513,6 +513,11 @@ export const AboutComponentFn = ({
             },
             {
                 className: 'screen',
+                attributes: {
+                    role: 'region',
+                    'aria-roledescription': 'carousel',
+                    'aria-label': 'informazioni sul progetto',
+                },
                 modules: setRef('screenElement'),
                 content: {
                     className: 'scrollable-element',
