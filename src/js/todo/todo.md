@@ -1,9 +1,8 @@
 # Accessibility:
 1. rs-annuncient : bozza logica allegata
+   - `Home` non ha heading, usare annucio quando si atterra in home, di base la home dovrebbe sezionare o il logo in header o la voce di menu.
    - `About` avrebbe bisogno si un annincio sul cambio item.
-   - Rispetto alla traccia non forziamo il focus sul main ma lasciamolo dove si trova.
-   - ?? Servireebe un annuncio per le suggestion.
-   - !! I risultato debug ( componente ) e search ( list ) sposta il focus sulla region che viene notificata, in questo caso annuncier é superfluo.
+   - `Search` annuncio per la tendina delle suggestion.
 2. aria-label su toggle degli snippet.
 
 ####
