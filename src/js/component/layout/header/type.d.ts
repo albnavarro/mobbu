@@ -4,5 +4,6 @@ export interface Header {
     };
     methods: {
         getHeaderHeight: () => number;
+        getHeader: () => HTMLElement;
     };
 }

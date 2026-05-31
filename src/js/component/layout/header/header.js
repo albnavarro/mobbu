@@ -40,6 +40,10 @@ export const HeaderFn = ({
             return outerHeight(element);
         });
 
+        addMethod('getHeader', () => {
+            return element;
+        });
+
         MobCore.useFrameIndex(() => {
             proxi.isMounted = true;
         }, getFrameDelay());

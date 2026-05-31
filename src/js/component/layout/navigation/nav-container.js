@@ -10,6 +10,7 @@ import { mobNavigationName } from '@instanceName';
 import { Navigation } from './navigation/definition';
 import { setFocusInsideElement, tabLoopTrap } from '@componentLibs/utils/utils';
 import { setFcousToNavigationToggle } from '@layoutComponent/header/nav-toggle/utils';
+import { getHeaderElement } from '@layoutComponent/header/utils';
 
 let unsubscribeTabHandler = () => {};
 let unsubscribeEscHandler = () => {};
@@ -63,12 +64,23 @@ function openNavigation({ root, main, proxi }) {
 }
 
 /**
+ * CLose nav on main Node click
+ *
+ * - Skip if target container in header, ( prevent double toggle ).
+ *
  * @returns {void}
  */
 function addMainHandler() {
-    MobCore.usePointerDown(() => {
+    MobCore.usePointerDown(({ target }) => {
         const navigationIsOpen = navigationStore.getProp('navigationIsOpen');
-        if (!navigationIsOpen) return;
+        const header = getHeaderElement();
+
+        if (
+            !navigationIsOpen ||
+            !target ||
+            header.contains(/** @type {HTMLElement} */ (target))
+        )
+            return;
 
         navigationStore.set('navigationIsOpen', false);
         UnFreezeMobPageScroll();
