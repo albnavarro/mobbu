@@ -1,11 +1,3 @@
-/**
- * @import {
- *   GetRef,
- *   MobComponent,
- *   ProxiSelfState
- * } from "@mobJsType"
- */
-
 import { htmlObject } from '@mobJs';
 import {
     closeSearchSuggestion,
@@ -18,6 +10,14 @@ import { SearchOverlayList } from './list/definition';
 import { SearchOverlayHeader } from './header/definition';
 import { MobCore } from '@mobCore';
 import { FreezeMobPageScroll, UnFreezeMobPageScroll } from '@mobMotionPlugin';
+
+/**
+ * @import {
+ *   GetRef,
+ *   MobComponent,
+ *   ProxiSelfState
+ * } from "@mobJsType"
+ */
 
 /**
  * @param {object} params
