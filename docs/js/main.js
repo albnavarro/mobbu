@@ -40651,7 +40651,7 @@
   );
 
   // src/js/component/common/debug/debug-overlay/debug-overlay.js
-  var closeOverlayAndSetFocusBack = ({ proxi, getRef }) => {
+  var closeOverlay = ({ proxi, getRef }) => {
     proxi.active = false;
     getRef().dialog.close();
     document.body.style.overflow = "";
@@ -40687,7 +40687,7 @@
     );
     onMount(() => {
       const unsubScribeBeforeRouterChange = modules_exports2.beforeRouteChange(() => {
-        proxi.active = false;
+        closeOverlay({ proxi, getRef });
         proxi.listType = DEBUG_USE_TREE;
       });
       return () => {
@@ -40880,7 +40880,7 @@
           },
           modules: delegateEvents({
             click: () => {
-              closeOverlayAndSetFocusBack({ proxi, getRef });
+              closeOverlay({ proxi, getRef });
               proxi.listType = DEBUG_USE_TREE;
             }
           })

@@ -29,7 +29,7 @@ import { resetSearchOverlayJustOpen, setSearchOverlayJustOpen } from './utils';
  * @param {ProxiSelfState<import('./type').DebugOverlayType>} params.proxi
  * @param {GetRef<import('./type').DebugOverlayType>} params.getRef
  */
-const closeOverlayAndSetFocusBack = ({ proxi, getRef }) => {
+const closeOverlay = ({ proxi, getRef }) => {
     proxi.active = false;
     getRef().dialog.close();
     document.body.style.overflow = '';
@@ -84,7 +84,7 @@ export const DebugOverlayFn = ({
          * avoid to count them.
          */
         const unsubScribeBeforeRouterChange = MobJs.beforeRouteChange(() => {
-            proxi.active = false;
+            closeOverlay({ proxi, getRef });
             proxi.listType = DEBUG_USE_TREE;
         });
 
@@ -311,7 +311,7 @@ export const DebugOverlayFn = ({
                 },
                 modules: delegateEvents({
                     click: () => {
-                        closeOverlayAndSetFocusBack({ proxi, getRef });
+                        closeOverlay({ proxi, getRef });
                         proxi.listType = DEBUG_USE_TREE;
                     },
                 }),
