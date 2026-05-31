@@ -12,6 +12,7 @@ const iconsPath = './asset/svg/icons/';
 const iconsToLoad = [
     { name: 'gitHubIcon', source: 'icon-github.svg' },
     { name: 'searchIcons', source: 'search.svg' },
+    { name: 'debugIcon', source: 'icon-debug.svg' },
     { name: 'historyIcons', source: 'history.svg' },
     { name: 'starOutline', source: 'star-outline.svg' },
     { name: 'previous', source: 'previous.svg' },

@@ -9,7 +9,7 @@
             padding: 0;
             list-style-type: none;
 
-            --sidebar-item-size: #{rem(24)};
+            --sidebar-item-size: #{rem(26)};
         }
 
         ul {
@@ -29,7 +29,7 @@
             display: block;
             width: 100%;
             height: 100%;
-            padding: em(24) em(16);
+            padding: 0 em(16);
             border: 0;
             outline-offset: -2px;
             background: transparent;

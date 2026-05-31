@@ -3,22 +3,7 @@
 @layer layout {
     @scope (.c-btn-debug) {
         :scope {
-            display: block;
             margin: 0;
-            margin-right: rem(10);
-            padding: 0 rem(30);
-            transition: background 0.35s;
-            border: 1px var(--grey-400) solid;
-            background: transparent;
-            color: var(--grey-400);
-            font-size: rem(14);
-            text-align: center;
-            text-decoration: none;
-
-            &:hover {
-                background: var(--white);
-                color: var(--dark);
-            }
         }
     }
 }

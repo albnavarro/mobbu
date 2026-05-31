@@ -11,7 +11,9 @@ import { htmlObject, MobJs } from '@mobJs';
 import { getCommonData, getIcons } from '@data/index';
 import { navigationStore } from '@stores/navigation';
 import { SearchCta } from '@commonComponent/search/cta-search/definition';
-import { searchOverlayCta } from '@instanceName';
+import { debugCtaName, searchOverlayCta } from '@instanceName';
+import { DebugButton } from '@commonComponent/debug/definition';
+import { openDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
 
 /**
  * @param {object} params
@@ -74,7 +76,7 @@ function additems({ delegateEvents }) {
 }
 
 /** @type {MobComponent} */
-export const HeaderUtilsFn = ({ delegateEvents }) => {
+export const HeaderUtilsFn = ({ delegateEvents, staticProps }) => {
     return htmlObject({
         tag: 'ul',
         className: 'l-header-utils',
@@ -85,6 +87,26 @@ export const HeaderUtilsFn = ({ delegateEvents }) => {
                     component: SearchCta,
                     attributes: { name: searchOverlayCta },
                 },
+            },
+            {
+                component: DebugButton,
+                attributes: {
+                    name: debugCtaName,
+                },
+                className: 'c-button-debug',
+                modules: [
+                    delegateEvents({
+                        click: () => {
+                            openDebugOverlay();
+                        },
+                    }),
+                    staticProps(
+                        /** @type {import('@commonComponent/debug/type').DebugOverlayCta['props']} */
+                        ({
+                            ariaControls: 'debug-dialog',
+                        })
+                    ),
+                ],
             },
             ...additems({ delegateEvents }),
         ],

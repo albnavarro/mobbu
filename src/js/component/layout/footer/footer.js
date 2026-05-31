@@ -2,10 +2,9 @@ import { consoleLogDebug } from '@commonComponent/debug/console-log';
 import { htmlObject } from '@mobJs';
 import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
-import { openDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
 import { DebugButton } from '@commonComponent/debug/definition';
 import { QuickNav } from '@commonComponent/quick-nav/definition';
-import { debugCtaName, quickNavName } from '@instanceName';
+import { quickNavName } from '@instanceName';
 
 /**
  * @import {MobComponent} from "@mobJsType"
@@ -41,7 +40,6 @@ export const FooterFn = ({
     getSelfProxi,
     onMount,
     bindEffect,
-    staticProps,
 }) => {
     const proxi = getSelfProxi();
 
@@ -72,35 +70,15 @@ export const FooterFn = ({
                             attributes: { name: quickNavName },
                         },
                         {
-                            component: DebugButton,
-                            attributes: {
-                                name: debugCtaName,
-                            },
-                            className: 'c-button-debug',
-                            modules: [
-                                delegateEvents({
-                                    click: () => {
-                                        openDebugOverlay();
-                                    },
-                                }),
-                                staticProps(
-                                    /** @type {import('@commonComponent/debug/type').DebugOverlayCta['props']} */
-                                    ({
-                                        ariaControls: 'debug-dialog',
-                                    })
-                                ),
-                            ],
-                            content: 'Debug App',
-                        },
-                        {
-                            component: DebugButton,
-                            className: 'c-button-console',
+                            tag: 'button',
+                            className: 'log',
+                            attributes: { type: 'button' },
                             modules: delegateEvents({
                                 click: () => {
                                     consoleLogDebug();
                                 },
                             }),
-                            content: 'Log',
+                            content: '[ log ]',
                         },
                     ],
                 },

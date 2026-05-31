@@ -1,3 +1,4 @@
+import { getIcons } from '@data/index';
 import { htmlObject } from '@mobJs';
 
 /**
@@ -7,6 +8,7 @@ import { htmlObject } from '@mobJs';
 /** @type {MobComponent<import('./type').DebugOverlayCta>} */
 export const DebugButtonFn = ({ onMount, addMethod, getProxi, bindEffect }) => {
     const proxi = getProxi();
+    const debugIcon = getIcons()['debugIcon'];
 
     addMethod('setExpanded', (value) => {
         proxi.expanded = value;
@@ -20,24 +22,22 @@ export const DebugButtonFn = ({ onMount, addMethod, getProxi, bindEffect }) => {
 
     return htmlObject({
         tag: 'button',
+        className: 'c-btn-debug',
         attributes: proxi.ariaControls
             ? {
                   type: 'button',
                   'aria-controls': proxi.ariaControls,
-                  'aria-label': 'open debug dialog',
+                  'aria-label': 'open debug app dialog',
                   'aria-haspopup': 'dialog',
               }
             : {
                   type: 'button',
               },
-        className: 'c-btn-debug',
         modules: bindEffect({
             toggleAttribute: {
                 'aria-expanded': () => (proxi.expanded ? 'true' : 'false'),
             },
         }),
-        content: {
-            tag: 'mobjs-slot',
-        },
+        content: debugIcon,
     });
 };

@@ -66,7 +66,8 @@ export const HomeComponentFn = ({ onMount, getSelfProxi }) => {
                             },
                             {
                                 tag: 'span',
-                                content: 'Trying to make it accessible',
+                                content:
+                                    'Trying to make it accessible and keyboard friendly',
                             },
                         ],
                     },

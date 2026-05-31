@@ -49,13 +49,20 @@
             font-size: rem(13);
         }
 
-        a {
-            padding: rem(2);
+        :is(a, .log) {
+            padding: rem(4);
             transition: opacity 0.35s;
+            font-size: rem(13);
 
             &:hover {
                 opacity: 0.5;
             }
+        }
+
+        .log {
+            border: 0;
+            background: transparent;
+            color: var(--white);
         }
 
         :scope.is-visible {
