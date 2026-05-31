@@ -99,6 +99,8 @@ export const SearchOverlayFn = ({
     staticProps,
     watch,
     onMount,
+    setRef,
+    getRef,
 }) => {
     const proxi = getSelfProxi();
 
@@ -140,6 +142,13 @@ export const SearchOverlayFn = ({
                         }
                     );
 
+                    /**
+                     * Set focus to title on Dialog open.
+                     */
+                    MobCore.useFrameIndex(() => {
+                        getRef()?.title?.focus();
+                    }, 2);
+
                     return;
                 }
 
@@ -167,6 +176,9 @@ export const SearchOverlayFn = ({
         {
             tag: 'h2',
             className: 'title',
+            attributes: { tabindex: '-1' },
+            modules: setRef('title'),
+            content: 'Serach in site',
         },
         {
             className: 'header',

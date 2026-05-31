@@ -46,6 +46,7 @@
             line-height: 1.7;
 
             @include on-event {
+                outline-color: var(--white);
                 background: var(--white);
                 color: var(--dark);
             }

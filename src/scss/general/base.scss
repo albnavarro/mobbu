@@ -135,13 +135,13 @@
         }
     }
 
-    :is(a, button, input, textarea, summary, [role='region'], h1) {
+    :is(a, button, input, textarea, summary, [role='region'], h1, h2) {
         --outline-size: 2px;
         --outline-style: dashed;
         --outline-color: currentcolor;
     }
 
-    :is(a, button, input, textarea, summary, [role='region'], h1):focus {
+    :is(a, button, input, textarea, summary, [role='region'], h1, h2):focus {
         outline: var(--outline-size) var(--outline-style) var(--outline-color);
         outline-offset: var(--outline-offset, var(--outline-size));
     }
@@ -159,7 +159,7 @@
         outline-offset: var(--outline-offset, var(--outline-size));
     }
 
-    :is(a, button, input, textarea, summary, [role='region'], h1):focus:not(
+    :is(a, button, input, textarea, summary, [role='region'], h1, h2):focus:not(
             :focus-visible
         ) {
         outline: none;

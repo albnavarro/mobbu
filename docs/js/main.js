@@ -41461,10 +41461,6 @@
   );
 
   // src/js/component/common/search/search-overlay/header/utils.js
-  var searchOverlaySetInputFocus = () => {
-    const headerMethods = modules_exports2.useMethodByName(searchOverlayHeader);
-    headerMethods?.setInputFocus();
-  };
   var updateSearchFromSuggestion = (word) => {
     const headerMethods = modules_exports2.useMethodByName(searchOverlayHeader);
     headerMethods?.updateCurrentSearchFromSuggestion(word);
@@ -41803,7 +41799,11 @@
         observe: () => proxi.list,
         afterUpdate: () => {
           modules_exports.useFrameIndex(() => {
-            getRef().screen.focus({ preventScroll: true });
+            const screen = getRef().screen;
+            if (!screen) return;
+            const firstLink = screen.querySelector("button");
+            if (!firstLink) return;
+            firstLink.focus({ preventScroll: true });
           }, 10);
         },
         render: ({ current }) => {
@@ -42122,9 +42122,9 @@
       });
       addMethod("suggestionIsActive", () => proxi.suggestionListActive);
       addMethod("setInputFocus", async () => {
-        setTimeout(() => {
+        modules_exports.useFrameIndex(() => {
           search_input.focus();
-        }, 300);
+        }, 20);
       });
     });
     const searchModules = [
@@ -42312,7 +42312,9 @@
     bindObject,
     staticProps: staticProps2,
     watch,
-    onMount
+    onMount,
+    setRef,
+    getRef
   }) => {
     const proxi = getSelfProxi();
     addMethod("open", () => {
@@ -42339,6 +42341,9 @@
                 tabLoopTrap({ element, direction: direction2, preventDefault });
               }
             );
+            modules_exports.useFrameIndex(() => {
+              getRef()?.title?.focus();
+            }, 2);
             return;
           }
           unsubscribeEscHandler10();
@@ -42354,7 +42359,10 @@
     const gridContent = [
       {
         tag: "h2",
-        className: "title"
+        className: "title",
+        attributes: { tabindex: "-1" },
+        modules: setRef("title"),
+        content: "Serach in site"
       },
       {
         className: "header",
@@ -42900,7 +42908,6 @@
   // src/js/component/common/search/cta-search/search-cta.js
   var onClick = () => {
     openSearchOverlay();
-    searchOverlaySetInputFocus();
   };
   var SearchCtaFn = ({
     delegateEvents,

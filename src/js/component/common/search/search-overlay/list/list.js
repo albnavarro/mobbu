@@ -171,7 +171,13 @@ export const SearchOverlayListFn = ({
             observe: () => proxi.list,
             afterUpdate: () => {
                 MobCore.useFrameIndex(() => {
-                    getRef().screen.focus({ preventScroll: true });
+                    const screen = getRef().screen;
+                    if (!screen) return;
+
+                    const firstLink = screen.querySelector('button');
+                    if (!firstLink) return;
+
+                    firstLink.focus({ preventScroll: true });
                 }, 10);
             },
             render: ({ current }) => {

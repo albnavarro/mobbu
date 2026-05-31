@@ -5,11 +5,9 @@
 import { htmlObject } from '@mobJs';
 import { getIcons } from '@data/index';
 import { openSearchOverlay } from '../search-overlay/utils';
-import { searchOverlaySetInputFocus } from '../search-overlay/header/utils';
 
 const onClick = () => {
     openSearchOverlay();
-    searchOverlaySetInputFocus();
 };
 
 /** @type {MobComponent<import('./type').SearchOverlayCta>} */

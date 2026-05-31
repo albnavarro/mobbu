@@ -431,12 +431,12 @@ code.hljs {
     visibility: visible;
     opacity: 1;
   }
-  :is(a, button, input, textarea, summary, [role=region], h1) {
+  :is(a, button, input, textarea, summary, [role=region], h1, h2) {
     --outline-size: 2px;
     --outline-style: dashed;
     --outline-color: currentcolor;
   }
-  :is(a, button, input, textarea, summary, [role=region], h1):focus {
+  :is(a, button, input, textarea, summary, [role=region], h1, h2):focus {
     outline: var(--outline-size) var(--outline-style) var(--outline-color);
     outline-offset: var(--outline-offset, var(--outline-size));
   }
@@ -444,7 +444,7 @@ code.hljs {
     outline: var(--outline-size) var(--outline-style) var(--outline-color);
     outline-offset: var(--outline-offset, var(--outline-size));
   }
-  :is(a, button, input, textarea, summary, [role=region], h1):focus:not(:focus-visible) {
+  :is(a, button, input, textarea, summary, [role=region], h1, h2):focus:not(:focus-visible) {
     outline: none;
   }
   #content {
@@ -5909,6 +5909,7 @@ code.hljs {
     .search-button:hover,
     .search-button:active,
     .search-button:focus {
+      outline-color: var(--white);
       background: var(--white);
       color: var(--dark);
     }

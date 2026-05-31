@@ -198,12 +198,9 @@ export const SearchOverlayHeaderFn = ({
          * Wait animation completed before set focus to input
          */
         addMethod('setInputFocus', async () => {
-            // reset input value
-            // search_input.value = '';
-
-            setTimeout(() => {
+            MobCore.useFrameIndex(() => {
                 search_input.focus();
-            }, 300);
+            }, 20);
         });
     });
 

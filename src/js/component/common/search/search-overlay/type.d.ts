@@ -7,4 +7,7 @@ export interface SearchOverlay {
         toggle: () => void;
         open: () => void;
     };
+    ref: {
+        title: HTMLHeadElement;
+    };
 }
