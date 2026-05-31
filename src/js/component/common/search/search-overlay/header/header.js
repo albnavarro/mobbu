@@ -202,6 +202,26 @@ export const SearchOverlayHeaderFn = ({
                 search_input.focus();
             }, 20);
         });
+
+        /**
+         * Close suggestion whwen focus in outside and is not search_input
+         */
+        const unsubscribeTabHandler = MobCore.useTabHandler(() => {
+            MobCore.useNextFrame(() => {
+                const activeElement = document.activeElement;
+
+                if (
+                    !suggestionElement.contains(activeElement) &&
+                    activeElement !== getRef()?.search_input
+                ) {
+                    proxi.suggestionListData = [];
+                }
+            });
+        });
+
+        return () => {
+            unsubscribeTabHandler();
+        };
     });
 
     /**
@@ -228,6 +248,7 @@ export const SearchOverlayHeaderFn = ({
                 const currentSearch = /** @type {HTMLInputElement} */ (
                     event.currentTarget
                 ).value;
+
                 filterSuggestion({
                     currentSearch,
                     proxi,
