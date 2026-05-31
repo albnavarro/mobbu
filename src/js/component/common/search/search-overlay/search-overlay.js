@@ -1,7 +1,6 @@
 import { htmlObject } from '@mobJs';
 import {
     closeSearchSuggestion,
-    searchOverlaySetInputFocus,
     shouldCloseSearchSuggestion,
     suggestioNsearchIsActive,
 } from './header/utils';
@@ -34,7 +33,6 @@ const onCalcelHandler = ({ proxi }) => {
 
         if (suggestionIsActive) {
             closeSearchSuggestion();
-            searchOverlaySetInputFocus();
             event.preventDefault();
             return;
         }
@@ -98,8 +96,8 @@ export const SearchOverlayFn = ({
         proxi.active = true;
 
         MobCore.useFrameIndex(() => {
-            getRef().header.focus();
-        }, 20);
+            getRef().title.focus();
+        }, 2);
     });
 
     addMethod('close', () => {
@@ -124,24 +122,25 @@ export const SearchOverlayFn = ({
      */
     const gridContent = [
         {
-            tag: 'h2',
-            className: 'title',
-            attributes: { tabindex: '-1' },
-            modules: setRef('title'),
-            content: 'Serach in site',
-        },
-        {
             className: 'header',
             attributes: {
                 tabindex: '-1',
                 role: 'region',
-                'aria-label': 'Search area Dialog',
+                'aria-label': 'Search area',
             },
-            modules: setRef('header'),
-            content: {
-                component: SearchOverlayHeader,
-                attributes: { name: searchOverlayHeader },
-            },
+            content: [
+                {
+                    tag: 'h2',
+                    className: 'title',
+                    attributes: { tabindex: '-1' },
+                    modules: setRef('title'),
+                    content: 'Serach in site',
+                },
+                {
+                    component: SearchOverlayHeader,
+                    attributes: { name: searchOverlayHeader },
+                },
+            ],
         },
         {
             className: 'result-query',
@@ -180,7 +179,7 @@ export const SearchOverlayFn = ({
     return htmlObject({
         tag: 'dialog',
         className: 'c-search-overlay',
-        attributes: { id: 'search-dialog', 'aria-label': 'Search dialog' },
+        attributes: { id: 'search-dialog' },
         modules: setRef('dialog'),
         content: [
             {

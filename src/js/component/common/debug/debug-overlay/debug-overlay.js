@@ -87,8 +87,8 @@ export const DebugOverlayFn = ({
          * Move focus to first area
          */
         MobCore.useFrameIndex(() => {
-            getRef().header.focus();
-        }, 10);
+            getRef().title.focus();
+        }, 2);
     });
 
     /**
@@ -264,11 +264,6 @@ export const DebugOverlayFn = ({
             {
                 className: 'grid',
                 content: [
-                    {
-                        tag: 'h2',
-                        className: 'main-title',
-                        content: 'Debug application',
-                    },
                     /**
                      * Top header
                      */
@@ -280,16 +275,24 @@ export const DebugOverlayFn = ({
                             'aria-label':
                                 'Debug Dialog: infos & specific component search',
                         },
-                        modules: setRef('header'),
-                        content: {
-                            component: DebugHead,
-                            modules: bindProps(
-                                /** @returns {ReturnBindProps<DebugHeadType>} */
-                                () => ({
-                                    active: proxi.active,
-                                })
-                            ),
-                        },
+                        content: [
+                            {
+                                tag: 'h2',
+                                className: 'main-title',
+                                attributes: { tabindex: '-1' },
+                                modules: setRef('title'),
+                                content: 'Debug application',
+                            },
+                            {
+                                component: DebugHead,
+                                modules: bindProps(
+                                    /** @returns {ReturnBindProps<DebugHeadType>} */
+                                    () => ({
+                                        active: proxi.active,
+                                    })
+                                ),
+                            },
+                        ],
                     },
                     /**
                      * Left column hider ( sitch list/tree & search in list ) & content

@@ -7,7 +7,7 @@ export interface DebugOverlayType {
         open: () => void;
     };
     ref: {
-        header: HTMLElement;
+        title: HTMLHeadElement;
         dialog: HTMLDialogElement;
     };
 }

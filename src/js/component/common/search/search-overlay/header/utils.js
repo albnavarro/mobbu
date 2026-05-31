@@ -1,14 +1,6 @@
 import { searchOverlayHeader } from '@instanceName';
 import { MobJs } from '@mobJs';
 
-export const searchOverlaySetInputFocus = () => {
-    /**
-     * @type {import('@mobJsType').UseMethodByName<import('./type').SearchOverlayHeader>}
-     */
-    const headerMethods = MobJs.useMethodByName(searchOverlayHeader);
-    headerMethods?.setInputFocus();
-};
-
 /**
  * @param {string} word
  */

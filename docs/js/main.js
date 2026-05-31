@@ -40690,8 +40690,8 @@
       document.body.style.overflow = "hidden";
       setSearchOverlayJustOpen();
       modules_exports.useFrameIndex(() => {
-        getRef().header.focus();
-      }, 10);
+        getRef().title.focus();
+      }, 2);
     });
     watch(
       () => proxi.listType,
@@ -40821,11 +40821,6 @@
         {
           className: "grid",
           content: [
-            {
-              tag: "h2",
-              className: "main-title",
-              content: "Debug application"
-            },
             /**
              * Top header
              */
@@ -40836,16 +40831,24 @@
                 role: "region",
                 "aria-label": "Debug Dialog: infos & specific component search"
               },
-              modules: setRef("header"),
-              content: {
-                component: DebugHead,
-                modules: bindProps(
-                  /** @returns {ReturnBindProps<DebugHeadType>} */
-                  () => ({
-                    active: proxi.active
-                  })
-                )
-              }
+              content: [
+                {
+                  tag: "h2",
+                  className: "main-title",
+                  attributes: { tabindex: "-1" },
+                  modules: setRef("title"),
+                  content: "Debug application"
+                },
+                {
+                  component: DebugHead,
+                  modules: bindProps(
+                    /** @returns {ReturnBindProps<DebugHeadType>} */
+                    () => ({
+                      active: proxi.active
+                    })
+                  )
+                }
+              ]
             },
             /**
              * Left column hider ( sitch list/tree & search in list ) & content
@@ -41381,10 +41384,6 @@
   );
 
   // src/js/component/common/search/search-overlay/header/utils.js
-  var searchOverlaySetInputFocus = () => {
-    const headerMethods = modules_exports2.useMethodByName(searchOverlayHeader);
-    headerMethods?.setInputFocus();
-  };
   var updateSearchFromSuggestion = (word) => {
     const headerMethods = modules_exports2.useMethodByName(searchOverlayHeader);
     headerMethods?.updateCurrentSearchFromSuggestion(word);
@@ -42189,7 +42188,6 @@
       const suggestionIsActive = suggestioNsearchIsActive();
       if (suggestionIsActive) {
         closeSearchSuggestion();
-        searchOverlaySetInputFocus();
         event.preventDefault();
         return;
       }
@@ -42231,8 +42229,8 @@
       document.body.style.overflow = "hidden";
       proxi.active = true;
       modules_exports.useFrameIndex(() => {
-        getRef().header.focus();
-      }, 20);
+        getRef().title.focus();
+      }, 2);
     });
     addMethod("close", () => {
       closeOverlayAndSuggestion({ getRef, proxi });
@@ -42249,24 +42247,25 @@
     });
     const gridContent = [
       {
-        tag: "h2",
-        className: "title",
-        attributes: { tabindex: "-1" },
-        modules: setRef("title"),
-        content: "Serach in site"
-      },
-      {
         className: "header",
         attributes: {
           tabindex: "-1",
           role: "region",
-          "aria-label": "Search area Dialog"
+          "aria-label": "Search area"
         },
-        modules: setRef("header"),
-        content: {
-          component: SearchOverlayHeader,
-          attributes: { name: searchOverlayHeader }
-        }
+        content: [
+          {
+            tag: "h2",
+            className: "title",
+            attributes: { tabindex: "-1" },
+            modules: setRef("title"),
+            content: "Serach in site"
+          },
+          {
+            component: SearchOverlayHeader,
+            attributes: { name: searchOverlayHeader }
+          }
+        ]
       },
       {
         className: "result-query",
@@ -42302,7 +42301,7 @@
     return htmlObject({
       tag: "dialog",
       className: "c-search-overlay",
-      attributes: { id: "search-dialog", "aria-label": "Search dialog" },
+      attributes: { id: "search-dialog" },
       modules: setRef("dialog"),
       content: [
         {
