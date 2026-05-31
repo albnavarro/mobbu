@@ -40906,6 +40906,11 @@
         {
           className: "grid",
           content: [
+            {
+              tag: "h2",
+              className: "main-title",
+              content: "Debug application"
+            },
             /**
              * Top header
              */
@@ -40914,7 +40919,7 @@
               attributes: {
                 tabindex: "-1",
                 role: "region",
-                "aria-label": "Infos and search"
+                "aria-label": "Debug Dialog: infos & specific component search"
               },
               modules: setRef("header"),
               content: {

@@ -72,6 +72,16 @@
             }
         }
 
+        .main-title {
+            position: absolute;
+            bottom: calc(100% - #{rem(4)});
+            left: var(--gap-size);
+            margin-bottom: 0;
+            color: var(--white);
+            font-size: var(--gap-size);
+            line-height: 1;
+        }
+
         .grid {
             display: grid;
             position: relative;
