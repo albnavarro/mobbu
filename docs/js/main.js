@@ -42470,59 +42470,6 @@
     return docsTemplate.has(templateName) ? 0 : 40;
   };
 
-  // src/js/component/common/debug/debug-button.js
-  var DebugButtonFn = ({ onMount, addMethod, getProxi, bindEffect }) => {
-    const proxi = getProxi();
-    const debugIcon = getIcons()["debugIcon"];
-    addMethod("setExpanded", (value) => {
-      proxi.expanded = value;
-    });
-    onMount(({ element }) => {
-      addMethod("setFocus", () => {
-        element.focus({ preventScroll: true, focusVisible: true });
-      });
-    });
-    return htmlObject({
-      tag: "button",
-      className: "c-btn-debug",
-      attributes: proxi.ariaControls ? {
-        type: "button",
-        "aria-controls": proxi.ariaControls,
-        "aria-label": "open debug app dialog",
-        "aria-haspopup": "dialog"
-      } : {
-        type: "button"
-      },
-      modules: bindEffect({
-        toggleAttribute: {
-          "aria-expanded": () => proxi.expanded ? "true" : "false"
-        }
-      }),
-      content: debugIcon
-    });
-  };
-
-  // src/js/component/common/debug/definition.js
-  var DebugButton = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugOverlayCta>} */
-    {
-      tag: "debug-button",
-      component: DebugButtonFn,
-      props: {
-        ariaControls: {
-          __value: "",
-          __type: String
-        }
-      },
-      state: {
-        expanded: {
-          __value: false,
-          __type: Boolean
-        }
-      }
-    }
-  );
-
   // src/js/component/common/quick-nav/next-page.js
   var QuickNavFn = ({
     getSelfProxi,
@@ -43008,6 +42955,59 @@
       }
     }
   });
+
+  // src/js/component/common/debug/debug-button.js
+  var DebugButtonFn = ({ onMount, addMethod, getProxi, bindEffect }) => {
+    const proxi = getProxi();
+    const debugIcon = getIcons()["debugIcon"];
+    addMethod("setExpanded", (value) => {
+      proxi.expanded = value;
+    });
+    onMount(({ element }) => {
+      addMethod("setFocus", () => {
+        element.focus({ preventScroll: true, focusVisible: true });
+      });
+    });
+    return htmlObject({
+      tag: "button",
+      className: "c-btn-debug",
+      attributes: proxi.ariaControls ? {
+        type: "button",
+        "aria-controls": proxi.ariaControls,
+        "aria-label": "open debug app dialog",
+        "aria-haspopup": "dialog"
+      } : {
+        type: "button"
+      },
+      modules: bindEffect({
+        toggleAttribute: {
+          "aria-expanded": () => proxi.expanded ? "true" : "false"
+        }
+      }),
+      content: debugIcon
+    });
+  };
+
+  // src/js/component/common/debug/definition.js
+  var DebugButton = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').DebugOverlayCta>} */
+    {
+      tag: "debug-button",
+      component: DebugButtonFn,
+      props: {
+        ariaControls: {
+          __value: "",
+          __type: String
+        }
+      },
+      state: {
+        expanded: {
+          __value: false,
+          __type: Boolean
+        }
+      }
+    }
+  );
 
   // src/js/component/layout/header/header-utils/header-utils.js
   var onClick2 = ({ event }) => {

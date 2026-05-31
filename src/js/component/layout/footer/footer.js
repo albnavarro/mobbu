@@ -2,7 +2,6 @@ import { consoleLogDebug } from '@commonComponent/debug/console-log';
 import { htmlObject } from '@mobJs';
 import { MobCore } from '@mobCore';
 import { getFrameDelay } from '@componentLibs/utils/get-first-animation-delay';
-import { DebugButton } from '@commonComponent/debug/definition';
 import { QuickNav } from '@commonComponent/quick-nav/definition';
 import { quickNavName } from '@instanceName';
 
