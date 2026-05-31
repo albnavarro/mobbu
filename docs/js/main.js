@@ -40651,11 +40651,20 @@
   );
 
   // src/js/component/common/debug/debug-overlay/debug-overlay.js
+  var onCalcelHandler = ({ proxi }) => {
+    return function onCancel() {
+      proxi.active = false;
+      document.body.style.overflow = "";
+      resetSearchOverlayJustOpen();
+      UnFreezeMobPageScroll();
+    };
+  };
   var closeOverlay = ({ proxi, getRef }) => {
     proxi.active = false;
     getRef().dialog.close();
     document.body.style.overflow = "";
     resetSearchOverlayJustOpen();
+    UnFreezeMobPageScroll();
   };
   var DebugOverlayFn = ({
     delegateEvents,
@@ -40675,6 +40684,7 @@
       getRef().dialog.showModal();
       document.body.style.overflow = "hidden";
       setSearchOverlayJustOpen();
+      FreezeMobPageScroll();
       modules_exports.useFrameIndex(() => {
         getRef().header.focus();
       }, 10);
@@ -40690,8 +40700,11 @@
         closeOverlay({ proxi, getRef });
         proxi.listType = DEBUG_USE_TREE;
       });
+      const onCancelSubscriber = onCalcelHandler({ proxi });
+      getRef().dialog.addEventListener("cancel", onCancelSubscriber);
       return () => {
         unsubScribeBeforeRouterChange();
+        getRef().dialog.removeEventListener("cancel", onCancelSubscriber);
       };
     });
     const listHeader = {
@@ -40795,18 +40808,8 @@
     return htmlObject({
       tag: "dialog",
       className: "c-debug-overlay",
-      attributes: {
-        id: "debug-dialog",
-        "aria-label": "Debug dialog",
-        "aria-modal": "true"
-      },
-      modules: [
-        setRef("dialog"),
-        bindEffect({
-          toggleClass: { active: () => proxi.active },
-          toggleAttribute: { inert: () => !proxi.active }
-        })
-      ],
+      attributes: { id: "debug-dialog", "aria-label": "Debug dialog" },
+      modules: setRef("dialog"),
       content: [
         {
           className: "grid",
@@ -42174,12 +42177,27 @@
   );
 
   // src/js/component/common/search/search-overlay/search-overlay.js
-  var unsubscribeEscHandler9 = () => {
+  var onCalcelHandler2 = ({ proxi }) => {
+    return function onCancel(event) {
+      const suggestionIsActive = suggestioNsearchIsActive();
+      if (suggestionIsActive) {
+        closeSearchSuggestion();
+        searchOverlaySetInputFocus();
+        event.preventDefault();
+        return;
+      }
+      document.body.style.overflow = "";
+      proxi.active = false;
+      closeSearchSuggestion();
+      UnFreezeMobPageScroll();
+    };
   };
   var closeOverlayAndSuggestion = ({ getRef, proxi }) => {
     getRef().dialog.close();
+    document.body.style.overflow = "";
     proxi.active = false;
     closeSearchSuggestion();
+    UnFreezeMobPageScroll();
   };
   var shouldCloseSuggestion = ({ target }) => {
     if (!target) return;
@@ -42193,46 +42211,26 @@
     setRef,
     getRef,
     invalidate,
-    onMount,
-    watch
+    onMount
   }) => {
     const proxi = getSelfProxi();
     addMethod("open", () => {
       getRef().dialog.showModal();
       document.body.style.overflow = "hidden";
       proxi.active = true;
+      FreezeMobPageScroll();
       modules_exports.useFrameIndex(() => {
         getRef().header.focus();
       }, 20);
     });
     addMethod("close", () => {
       closeOverlayAndSuggestion({ getRef, proxi });
-      document.body.style.overflow = "";
     });
     onMount(() => {
-      watch(
-        () => proxi.active,
-        (isActive2) => {
-          if (isActive2) {
-            unsubscribeEscHandler9 = modules_exports.useEscHandler(
-              ({ preventDefault }) => {
-                const suggestionIsActive = suggestioNsearchIsActive();
-                if (suggestionIsActive) {
-                  closeSearchSuggestion();
-                  searchOverlaySetInputFocus();
-                  preventDefault();
-                  return;
-                }
-                proxi.active = false;
-              }
-            );
-            return;
-          }
-          unsubscribeEscHandler9();
-        }
-      );
+      const onCancelSubscriber = onCalcelHandler2({ proxi });
+      getRef().dialog.addEventListener("cancel", onCancelSubscriber);
       return () => {
-        unsubscribeEscHandler9();
+        getRef().dialog.removeEventListener("cancel", onCancelSubscriber);
       };
     });
     const gridContent = [
@@ -43583,7 +43581,7 @@
   // src/js/component/layout/navigation/nav-container.js
   var unsubscribeTabHandler = () => {
   };
-  var unsubscribeEscHandler10 = () => {
+  var unsubscribeEscHandler9 = () => {
   };
   function closeNavigation({ main, proxi }) {
     proxi.isOpen = false;
@@ -43649,7 +43647,7 @@
               tabLoopTrap({ element, direction: direction2, preventDefault });
             }
           );
-          unsubscribeEscHandler10 = modules_exports.useEscHandler(() => {
+          unsubscribeEscHandler9 = modules_exports.useEscHandler(() => {
             navigationStore.set("navigationIsOpen", false);
             UnFreezeMobPageScroll();
             setFcousToNavigationToggle();
@@ -43657,7 +43655,7 @@
           return;
         }
         closeNavigation({ main, proxi });
-        unsubscribeEscHandler10();
+        unsubscribeEscHandler9();
         unsubscribeTabHandler();
       });
       addMainHandler();
@@ -43670,7 +43668,7 @@
         proxi.isMounted = true;
       }, getFrameDelay());
       return () => {
-        unsubscribeEscHandler10();
+        unsubscribeEscHandler9();
         unsubscribeTabHandler();
       };
     });

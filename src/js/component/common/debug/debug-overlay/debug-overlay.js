@@ -13,6 +13,7 @@ import { DebugHead } from './head/definition';
 import { DebugFilterHead } from './debug-filter/head/definition';
 import { MobCore } from '@mobCore';
 import { resetSearchOverlayJustOpen, setSearchOverlayJustOpen } from './utils';
+import { FreezeMobPageScroll, UnFreezeMobPageScroll } from '@mobMotionPlugin';
 
 /**
  * @import {
@@ -27,6 +28,19 @@ import { resetSearchOverlayJustOpen, setSearchOverlayJustOpen } from './utils';
 /**
  * @param {object} params
  * @param {ProxiSelfState<import('./type').DebugOverlayType>} params.proxi
+ */
+const onCalcelHandler = ({ proxi }) => {
+    return function onCancel() {
+        proxi.active = false;
+        document.body.style.overflow = '';
+        resetSearchOverlayJustOpen();
+        UnFreezeMobPageScroll();
+    };
+};
+
+/**
+ * @param {object} params
+ * @param {ProxiSelfState<import('./type').DebugOverlayType>} params.proxi
  * @param {GetRef<import('./type').DebugOverlayType>} params.getRef
  */
 const closeOverlay = ({ proxi, getRef }) => {
@@ -34,6 +48,7 @@ const closeOverlay = ({ proxi, getRef }) => {
     getRef().dialog.close();
     document.body.style.overflow = '';
     resetSearchOverlayJustOpen();
+    UnFreezeMobPageScroll();
 };
 
 /** @type {MobComponent<import('./type').DebugOverlayType>} */
@@ -57,6 +72,7 @@ export const DebugOverlayFn = ({
         getRef().dialog.showModal();
         document.body.style.overflow = 'hidden';
         setSearchOverlayJustOpen();
+        FreezeMobPageScroll();
 
         /**
          * Move focus to first area
@@ -88,8 +104,12 @@ export const DebugOverlayFn = ({
             proxi.listType = DEBUG_USE_TREE;
         });
 
+        const onCancelSubscriber = onCalcelHandler({ proxi });
+        getRef().dialog.addEventListener('cancel', onCancelSubscriber);
+
         return () => {
             unsubScribeBeforeRouterChange();
+            getRef().dialog.removeEventListener('cancel', onCancelSubscriber);
         };
     });
 
@@ -225,18 +245,8 @@ export const DebugOverlayFn = ({
     return htmlObject({
         tag: 'dialog',
         className: 'c-debug-overlay',
-        attributes: {
-            id: 'debug-dialog',
-            'aria-label': 'Debug dialog',
-            'aria-modal': 'true',
-        },
-        modules: [
-            setRef('dialog'),
-            bindEffect({
-                toggleClass: { active: () => proxi.active },
-                toggleAttribute: { inert: () => !proxi.active },
-            }),
-        ],
+        attributes: { id: 'debug-dialog', 'aria-label': 'Debug dialog' },
+        modules: setRef('dialog'),
         content: [
             {
                 className: 'grid',
