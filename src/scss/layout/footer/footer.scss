@@ -1,7 +1,7 @@
 @use '../../abstract' as *;
 
 @layer layout {
-    @scope (.l-bottom-bar) {
+    @scope (footer) {
         :scope {
             display: none;
             position: fixed;
@@ -11,7 +11,7 @@
             width: 100%;
             height: var(--footer-height);
             transition: background 0.35s;
-            background: black;
+            background: var(--dark);
             text-align: center;
 
             @include mq(desktop) {
@@ -50,6 +50,7 @@
         }
 
         a {
+            padding: rem(2);
             transition: opacity 0.35s;
 
             &:hover {

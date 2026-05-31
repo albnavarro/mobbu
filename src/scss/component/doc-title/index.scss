@@ -2,7 +2,7 @@
 
 @layer layout {
     @scope (.c-doc-title) {
-        h2 {
+        span {
             display: inline-block;
             position: absolute;
             top: 0;

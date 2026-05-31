@@ -60,7 +60,7 @@ export const HeaderFn = ({
                 content: '<span>Mob</span>Project',
             },
             {
-                tag: 'h5',
+                tag: 'h4',
                 modules: bindEffect({
                     toggleClass: {
                         'is-visible': () => proxi.isMounted,

@@ -177,7 +177,7 @@
     .main-app-content {
         position: relative;
         z-index: 1;
-        min-height: 100vh;
+        min-height: calc(100vh - var(--header-height) - var(--footer-height));
         padding-top: calc(var(--header-height));
         transition: opacity 0.55s;
 

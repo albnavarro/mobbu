@@ -6,7 +6,6 @@
             display: grid;
             position: relative;
             grid-template-columns: var(--doc-width) 1fr;
-            padding-bottom: var(--footer-height);
 
             @include mq(large) {
                 grid-template-columns: var(--left-sidebar) var(--doc-width) 1fr;
@@ -36,7 +35,6 @@
         main {
             position: relative;
             grid-column: 1 / span 1;
-            min-height: 100vh;
             background: rgba(var(--white-rgb), 0.4);
 
             &::after {

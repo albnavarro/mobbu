@@ -52,8 +52,8 @@ export const FooterFn = ({
     });
 
     return htmlObject({
-        tag: 'aside',
-        className: ['js-footer', 'l-bottom-bar'],
+        tag: 'footer',
+        className: 'js-footer',
         attributes: { 'aria-label': 'Bottom complementary utils' },
         modules: bindEffect({
             toggleClass: {

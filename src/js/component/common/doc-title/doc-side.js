@@ -5,7 +5,7 @@ export const DocTitleFn = () => {
     return htmlObject({
         className: 'c-doc-title',
         content: {
-            tag: 'h2',
+            tag: 'span',
             content: {
                 tag: 'mobjs-slot',
             },

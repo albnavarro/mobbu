@@ -123,6 +123,7 @@
             grid-area: head;
             border-bottom: 1px var(--white) solid;
             outline-color: var(--white);
+            outline-offset: -3px;
         }
 
         .list {
