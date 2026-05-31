@@ -263,6 +263,11 @@ export const DebugOverlayFn = ({
         content: [
             {
                 className: 'grid',
+                modules: bindEffect({
+                    toggleClass: {
+                        active: () => proxi.active,
+                    },
+                }),
                 content: [
                     /**
                      * Top header

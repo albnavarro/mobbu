@@ -4,7 +4,7 @@
     @scope (.c-debug-filter-list) {
         .list {
             position: absolute;
-            inset: var(--debug-list-header-height) 0 0;
+            inset: var(--debug-list-header-height) -1px 0;
             overflow: hidden;
             outline-color: var(--white);
             outline-offset: -3px;

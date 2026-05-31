@@ -40820,6 +40820,11 @@
       content: [
         {
           className: "grid",
+          modules: bindEffect({
+            toggleClass: {
+              active: () => proxi.active
+            }
+          }),
           content: [
             /**
              * Top header
@@ -42221,7 +42226,8 @@
     setRef,
     getRef,
     invalidate,
-    onMount
+    onMount,
+    bindEffect
   }) => {
     const proxi = getSelfProxi();
     addMethod("open", () => {
@@ -42322,16 +42328,23 @@
          */
         {
           className: "grid",
-          modules: delegateEvents({
-            click: (event) => {
-              shouldCloseSuggestion({
-                target: (
-                  /** @type {HTMLElement} */
-                  event.target
-                )
-              });
-            }
-          }),
+          modules: [
+            delegateEvents({
+              click: (event) => {
+                shouldCloseSuggestion({
+                  target: (
+                    /** @type {HTMLElement} */
+                    event.target
+                  )
+                });
+              }
+            }),
+            bindEffect({
+              toggleClass: {
+                active: () => proxi.active
+              }
+            })
+          ],
           content: gridContent
         }
       ]

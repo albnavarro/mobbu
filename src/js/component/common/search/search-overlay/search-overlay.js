@@ -87,6 +87,7 @@ export const SearchOverlayFn = ({
     getRef,
     invalidate,
     onMount,
+    bindEffect,
 }) => {
     const proxi = getSelfProxi();
 
@@ -201,13 +202,22 @@ export const SearchOverlayFn = ({
              */
             {
                 className: 'grid',
-                modules: delegateEvents({
-                    click: (/** @type {Event} */ event) => {
-                        shouldCloseSuggestion({
-                            target: /** @type {HTMLElement} */ (event.target),
-                        });
-                    },
-                }),
+                modules: [
+                    delegateEvents({
+                        click: (/** @type {Event} */ event) => {
+                            shouldCloseSuggestion({
+                                target: /** @type {HTMLElement} */ (
+                                    event.target
+                                ),
+                            });
+                        },
+                    }),
+                    bindEffect({
+                        toggleClass: {
+                            active: () => proxi.active,
+                        },
+                    }),
+                ],
                 content: gridContent,
             },
         ],

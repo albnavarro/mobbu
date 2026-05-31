@@ -3616,7 +3616,14 @@ code.hljs {
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: var(--debug-header-row-height) var(--debug-content-row-height);
       width: 100%;
+      transition: opacity 0.6s;
       border: 1px var(--white) solid;
+      opacity: 0;
+    }
+    .grid.active {
+      opacity: 1;
+    }
+    .grid {
       --debug-header-row-height: 9.3333333333rem;
       --debug-content-row-height: 40vh;
     }
@@ -4026,7 +4033,7 @@ code.hljs {
   @scope (.c-debug-filter-list) {
     .list {
       position: absolute;
-      inset: var(--debug-list-header-height) 0 0;
+      inset: var(--debug-list-header-height) -1px 0;
       overflow: hidden;
       outline-color: var(--white);
       outline-offset: -3px;
@@ -5697,7 +5704,12 @@ code.hljs {
       grid-template-areas: "head" "current" "list";
       grid-template-rows: 6.6666666667rem 3.3333333333rem 50vh;
       width: 100%;
+      transition: opacity 0.6s;
       border: 1px var(--white) solid;
+      opacity: 0;
+    }
+    .grid.active {
+      opacity: 1;
     }
     .title {
       position: absolute;

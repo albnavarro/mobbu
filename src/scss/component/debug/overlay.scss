@@ -83,7 +83,13 @@
                     --debug-content-row-height
                 );
             width: 100%;
+            transition: opacity 0.6s;
             border: 1px var(--white) solid;
+            opacity: 0;
+
+            &.active {
+                opacity: 1;
+            }
 
             --debug-header-row-height: #{rem(140)};
             --debug-content-row-height: 40vh;
