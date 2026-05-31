@@ -5928,16 +5928,6 @@ code.hljs {
       background: transparent;
       text-align: left;
     }
-    button:focus::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 0;
-      width: 2px;
-      height: 1rem;
-      transform: translateY(-50%);
-      background: var(--white);
-    }
   }
 }
 @layer layout {
