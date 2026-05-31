@@ -5738,6 +5738,7 @@ code.hljs {
       align-content: center;
       padding-left: var(--gap-size);
       border-bottom: 1px var(--white) solid;
+      outline-offset: -4px;
     }
     .result-query {
       grid-area: current;

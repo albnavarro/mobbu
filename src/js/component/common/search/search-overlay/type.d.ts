@@ -9,5 +9,6 @@ export interface SearchOverlay {
     };
     ref: {
         title: HTMLHeadElement;
+        header: HTMLElement;
     };
 }

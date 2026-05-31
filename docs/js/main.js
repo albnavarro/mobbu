@@ -42348,7 +42348,7 @@
               }
             );
             modules_exports.useFrameIndex(() => {
-              getRef()?.title?.focus();
+              getRef()?.header?.focus();
             }, 2);
             return;
           }
@@ -42372,7 +42372,12 @@
       },
       {
         className: "header",
-        attributes: { role: "region", "aria-label": "search area" },
+        attributes: {
+          tabindex: "-1",
+          role: "region",
+          "aria-label": "Search area Dialog"
+        },
+        modules: setRef("header"),
         content: {
           component: SearchOverlayHeader,
           attributes: { name: searchOverlayHeader }

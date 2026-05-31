@@ -146,7 +146,7 @@ export const SearchOverlayFn = ({
                      * Set focus to title on Dialog open.
                      */
                     MobCore.useFrameIndex(() => {
-                        getRef()?.title?.focus();
+                        getRef()?.header?.focus();
                     }, 2);
 
                     return;
@@ -182,7 +182,12 @@ export const SearchOverlayFn = ({
         },
         {
             className: 'header',
-            attributes: { role: 'region', 'aria-label': 'search area' },
+            attributes: {
+                tabindex: '-1',
+                role: 'region',
+                'aria-label': 'Search area Dialog',
+            },
+            modules: setRef('header'),
             content: {
                 component: SearchOverlayHeader,
                 attributes: { name: searchOverlayHeader },
