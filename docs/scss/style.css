@@ -340,7 +340,7 @@ code.hljs {
     --gap-size: 2.6666666667rem;
     --col-size: 9%;
     --header-height: calc(var(--gap-size) * 2);
-    --footer-height: calc(var(--gap-size) * 1.5);
+    --footer-height: calc(var(--gap-size) * 1.2);
     --nav-width: 22.6666666667rem;
     --doc-width: none;
     --left-sidebar: none;
