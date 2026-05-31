@@ -95,12 +95,12 @@ export const SearchOverlayFn = ({
     delegateEvents,
     bindEffect,
     addMethod,
-    bindObject,
     staticProps,
     watch,
     onMount,
     setRef,
     getRef,
+    invalidate,
 }) => {
     const proxi = getSelfProxi();
 
@@ -182,6 +182,7 @@ export const SearchOverlayFn = ({
         },
         {
             className: 'header',
+            attributes: { role: 'region', 'aria-label': 'search area' },
             content: {
                 component: SearchOverlayHeader,
                 attributes: { name: searchOverlayHeader },
@@ -190,12 +191,22 @@ export const SearchOverlayFn = ({
         {
             className: 'result-query',
             content: {
-                tag: 'p',
-                content: bindObject`search for: <strong>${() => proxi.currentSearch}</strong>`,
+                content: invalidate({
+                    observe: () => proxi.currentSearch,
+                    render: () => {
+                        return proxi.currentSearch.length > 0
+                            ? htmlObject({
+                                  tag: 'p',
+                                  content: `result for: <strong>${proxi.currentSearch}</strong>`,
+                              })
+                            : htmlObject({});
+                    },
+                }),
             },
         },
         {
             className: 'content',
+            attributes: { role: 'region', 'aria-label': 'search result' },
             content: {
                 component: SearchOverlayList,
                 attributes: { name: searchOverlayList },

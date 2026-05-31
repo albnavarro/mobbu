@@ -42169,6 +42169,7 @@
               className: "serach-input",
               attributes: {
                 name: "search_input",
+                id: "search_input",
                 "aria-controls": "suggestions"
               },
               modules: searchModules
@@ -42309,12 +42310,12 @@
     delegateEvents,
     bindEffect,
     addMethod,
-    bindObject,
     staticProps: staticProps2,
     watch,
     onMount,
     setRef,
-    getRef
+    getRef,
+    invalidate
   }) => {
     const proxi = getSelfProxi();
     addMethod("open", () => {
@@ -42366,6 +42367,7 @@
       },
       {
         className: "header",
+        attributes: { role: "region", "aria-label": "search area" },
         content: {
           component: SearchOverlayHeader,
           attributes: { name: searchOverlayHeader }
@@ -42374,12 +42376,20 @@
       {
         className: "result-query",
         content: {
-          tag: "p",
-          content: bindObject`search for: <strong>${() => proxi.currentSearch}</strong>`
+          content: invalidate({
+            observe: () => proxi.currentSearch,
+            render: () => {
+              return proxi.currentSearch.length > 0 ? htmlObject({
+                tag: "p",
+                content: `result for: <strong>${proxi.currentSearch}</strong>`
+              }) : htmlObject({});
+            }
+          })
         }
       },
       {
         className: "content",
+        attributes: { role: "region", "aria-label": "search result" },
         content: {
           component: SearchOverlayList,
           attributes: { name: searchOverlayList },

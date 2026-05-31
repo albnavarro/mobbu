@@ -253,6 +253,7 @@ export const SearchOverlayHeaderFn = ({
                         className: 'serach-input',
                         attributes: {
                             name: 'search_input',
+                            id: 'search_input',
                             'aria-controls': 'suggestions',
                         },
                         modules: searchModules,
