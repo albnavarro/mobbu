@@ -1,59 +1,29 @@
 /**
  * @import {
- *   MobComponent,
- *   ProxiSelfState
+ *   GetRef,
+ *   MobComponent
  * } from "@mobJsType"
  */
 
 import { htmlObject } from '@mobJs';
 import {
     closeSearchSuggestion,
+    searchOverlaySetInputFocus,
     shouldCloseSearchSuggestion,
     suggestioNsearchIsActive,
 } from './header/utils';
 import { searchOverlayHeader, searchOverlayList } from '@instanceName';
 import { SearchOverlayList } from './list/definition';
 import { SearchOverlayHeader } from './header/definition';
-import { tabLoopTrap } from '@componentLibs/utils/utils';
 import { MobCore } from '@mobCore';
-import {
-    setExpandedToSerachBtn,
-    setFcousToSearchBtn,
-} from '../cta-search/utils';
-import { sctollSerachListToTop } from './list/utils';
-
-/**
- * Component is a singleton
- */
-let unsubscribeTabHandler = () => {};
-let unsubscribeEscHandler = () => {};
 
 /**
  * @param {object} params
- * @param {ProxiSelfState<import('./type').SearchOverlay>} params.proxi
+ * @param {GetRef<import('./type').SearchOverlay>} params.getRef
  */
-const closeOverlayAndBackFocus = ({ proxi }) => {
-    proxi.active = false;
+const closeOverlayAndSuggestion = ({ getRef }) => {
+    getRef().dialog.close();
     closeSearchSuggestion();
-
-    MobCore.useNextLoop(() => {
-        setFcousToSearchBtn();
-    });
-};
-
-/**
- * @param {object} params
- * @param {ProxiSelfState<import('./type').SearchOverlay>} params.proxi
- * @param {boolean} [params.forceOpen]
- */
-const toggleOverlayAndBackFocus = ({ proxi, forceOpen = false }) => {
-    proxi.active = forceOpen ? true : !proxi.active;
-    closeSearchSuggestion();
-    if (proxi.active) return;
-
-    MobCore.useNextLoop(() => {
-        setFcousToSearchBtn();
-    });
 };
 
 /**
@@ -65,107 +35,51 @@ const shouldCloseSuggestion = ({ target }) => {
     shouldCloseSearchSuggestion(target);
 };
 
-/**
- * Close overlay
- *
- * @param {ProxiSelfState<import('./type').SearchOverlay>} proxi
- */
-function escHandler(proxi) {
-    /**
-     * If suggestion is open close
-     *
-     * - In tab cicly maybe focus is moved from suggestion to outside
-     * - First time close suggstion if is open always
-     */
-    const suggestionIsActive = suggestioNsearchIsActive();
-    if (suggestionIsActive) {
-        closeSearchSuggestion();
-        return;
-    }
-
-    /**
-     * Than when sggestion is closed close all overlay
-     */
-    closeOverlayAndBackFocus({ proxi });
-}
-
 /** @type {MobComponent<import('./type').SearchOverlay>} */
 export const SearchOverlayFn = ({
     getSelfProxi,
     delegateEvents,
-    bindEffect,
     addMethod,
     staticProps,
-    watch,
-    onMount,
     setRef,
     getRef,
     invalidate,
+    onMount,
 }) => {
     const proxi = getSelfProxi();
 
     addMethod('open', () => {
-        toggleOverlayAndBackFocus({ proxi, forceOpen: true });
+        getRef().dialog.showModal();
+        document.body.style.overflow = 'hidden';
+
+        MobCore.useFrameIndex(() => {
+            getRef().header.focus();
+        }, 20);
     });
 
-    addMethod('toggle', () => {
-        toggleOverlayAndBackFocus({ proxi });
+    addMethod('close', () => {
+        closeOverlayAndSuggestion({ getRef });
+        document.body.style.overflow = '';
     });
 
-    onMount(({ element }) => {
-        watch(
-            () => proxi.active,
-            (isActive) => {
-                if (isActive) {
-                    /**
-                     * Set toggle buttona rial label to true
-                     */
-                    setExpandedToSerachBtn(true);
-                    sctollSerachListToTop();
-
-                    /**
-                     * Esc coltrol.
-                     */
-                    unsubscribeEscHandler = MobCore.useEscHandler(
-                        ({ preventDefault }) => {
-                            escHandler(proxi);
-                            preventDefault();
-                        }
-                    );
-
-                    /**
-                     * Tab loop inside overlay
-                     */
-                    unsubscribeTabHandler = MobCore.useTabHandler(
-                        ({ direction, preventDefault }) => {
-                            tabLoopTrap({ element, direction, preventDefault });
-                        }
-                    );
-
-                    /**
-                     * Set focus to title on Dialog open.
-                     */
-                    MobCore.useFrameIndex(() => {
-                        getRef()?.header?.focus();
-                    }, 2);
-
-                    return;
-                }
-
-                unsubscribeEscHandler();
-                unsubscribeTabHandler();
-
-                /**
-                 * Set toggle buttona arial label to false.
-                 */
-                setExpandedToSerachBtn(false);
+    onMount(() => {
+        const unsubScribeEsc = MobCore.useEscHandler(({ preventDefault }) => {
+            /**
+             * If suggestion is open close
+             *
+             * - In tab cicly maybe focus is moved from suggestion to outside
+             * - First time close suggstion if is open always
+             */
+            const suggestionIsActive = suggestioNsearchIsActive();
+            if (suggestionIsActive) {
+                closeSearchSuggestion();
+                searchOverlaySetInputFocus();
+                preventDefault();
             }
-        );
+        });
 
-        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
-            unsubscribeEscHandler();
-            unsubscribeTabHandler();
+            unsubScribeEsc();
         };
     });
 
@@ -231,27 +145,8 @@ export const SearchOverlayFn = ({
         tag: 'dialog',
         className: 'c-search-overlay',
         attributes: { id: 'search-dialog', 'aria-label': 'Search dialog' },
-        modules: [
-            bindEffect({
-                toggleClass: {
-                    active: () => proxi.active,
-                },
-                toggleAttribute: {
-                    inert: () => !proxi.active,
-                },
-            }),
-        ],
+        modules: setRef('dialog'),
         content: [
-            {
-                tag: 'button',
-                className: 'background',
-                attributes: { type: 'button' },
-                modules: delegateEvents({
-                    click: () => {
-                        closeOverlayAndBackFocus({ proxi });
-                    },
-                }),
-            },
             {
                 tag: 'button',
                 className: 'close-button',
@@ -261,7 +156,7 @@ export const SearchOverlayFn = ({
                 },
                 modules: delegateEvents({
                     click: () => {
-                        closeOverlayAndBackFocus({ proxi });
+                        closeOverlayAndSuggestion({ getRef });
                     },
                 }),
             },

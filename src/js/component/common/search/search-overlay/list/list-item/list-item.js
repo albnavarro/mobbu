@@ -1,5 +1,5 @@
 import { htmlObject, MobJs } from '@mobJs';
-import { toggleSearchOverlay } from '../../utils';
+import { closeSearchOverlay } from '../../utils';
 
 /**
  * @param {object} params
@@ -7,7 +7,7 @@ import { toggleSearchOverlay } from '../../utils';
  */
 const loadPage = ({ uri }) => {
     MobJs.loadUrl({ url: uri });
-    toggleSearchOverlay();
+    closeSearchOverlay();
 };
 
 /**

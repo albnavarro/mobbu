@@ -4,11 +4,12 @@ export interface SearchOverlay {
         currentSearch: string;
     };
     methods: {
-        toggle: () => void;
+        close: () => void;
         open: () => void;
     };
     ref: {
         title: HTMLHeadElement;
         header: HTMLElement;
+        dialog: HTMLDialogElement;
     };
 }
