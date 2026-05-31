@@ -44,11 +44,40 @@ export const HomeComponentFn = ({ onMount, getSelfProxi }) => {
         tag: 'main',
         attributes: { tabindex: '-1' },
         className: 'l-index',
-        content: {
-            className: 'logo',
-            content: svg.map((item) => {
-                return item;
-            }),
-        },
+        content: [
+            {
+                className: 'text-container',
+                content: [
+                    {
+                        tag: 'h1',
+                        content: 'Welcome to MobProject:',
+                    },
+                    {
+                        tag: 'h2',
+                        content: [
+                            {
+                                tag: 'span',
+                                content: 'Dependencies free',
+                            },
+                            {
+                                tag: 'span',
+                                content:
+                                    'Graphics and vanilla Javascript experiment',
+                            },
+                            {
+                                tag: 'span',
+                                content: 'Trying to make it accessible',
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                className: 'logo',
+                content: svg.map((item) => {
+                    return item;
+                }),
+            },
+        ],
     });
 };

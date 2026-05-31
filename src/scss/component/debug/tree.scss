@@ -6,9 +6,8 @@
             position: absolute;
             overflow: hidden;
             outline-color: var(--white);
-            outline-offset: -4px;
-            outline-width: 4px;
             inset: var(--debug-list-header-height) 0 0;
+            outline-offset: -3px;
         }
 
         .scollable-element {
