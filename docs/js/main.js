@@ -40656,15 +40656,20 @@
       proxi.active = false;
       document.body.style.overflow = "";
       resetSearchOverlayJustOpen();
-      UnFreezeMobPageScroll();
     };
   };
+  function backDropHandler({ proxi, getRef }) {
+    return function onBackDrop(event) {
+      if (event.target === getRef().dialog) {
+        closeOverlay({ getRef, proxi });
+      }
+    };
+  }
   var closeOverlay = ({ proxi, getRef }) => {
     proxi.active = false;
     getRef().dialog.close();
     document.body.style.overflow = "";
     resetSearchOverlayJustOpen();
-    UnFreezeMobPageScroll();
   };
   var DebugOverlayFn = ({
     delegateEvents,
@@ -40684,7 +40689,6 @@
       getRef().dialog.showModal();
       document.body.style.overflow = "hidden";
       setSearchOverlayJustOpen();
-      FreezeMobPageScroll();
       modules_exports.useFrameIndex(() => {
         getRef().header.focus();
       }, 10);
@@ -40702,9 +40706,12 @@
       });
       const onCancelSubscriber = onCalcelHandler({ proxi });
       getRef().dialog.addEventListener("cancel", onCancelSubscriber);
+      const onBackDropSubscriber = backDropHandler({ proxi, getRef });
+      getRef().dialog.addEventListener("click", onBackDropSubscriber);
       return () => {
         unsubScribeBeforeRouterChange();
         getRef().dialog.removeEventListener("cancel", onCancelSubscriber);
+        getRef().dialog.removeEventListener("click", onBackDropSubscriber);
       };
     });
     const listHeader = {
@@ -42189,15 +42196,20 @@
       document.body.style.overflow = "";
       proxi.active = false;
       closeSearchSuggestion();
-      UnFreezeMobPageScroll();
     };
   };
+  function backDropHandler2({ proxi, getRef }) {
+    return function onBackDrop(event) {
+      if (event.target === getRef().dialog) {
+        closeOverlayAndSuggestion({ getRef, proxi });
+      }
+    };
+  }
   var closeOverlayAndSuggestion = ({ getRef, proxi }) => {
     getRef().dialog.close();
     document.body.style.overflow = "";
     proxi.active = false;
     closeSearchSuggestion();
-    UnFreezeMobPageScroll();
   };
   var shouldCloseSuggestion = ({ target }) => {
     if (!target) return;
@@ -42218,7 +42230,6 @@
       getRef().dialog.showModal();
       document.body.style.overflow = "hidden";
       proxi.active = true;
-      FreezeMobPageScroll();
       modules_exports.useFrameIndex(() => {
         getRef().header.focus();
       }, 20);
@@ -42229,8 +42240,11 @@
     onMount(() => {
       const onCancelSubscriber = onCalcelHandler2({ proxi });
       getRef().dialog.addEventListener("cancel", onCancelSubscriber);
+      const onBackDropSubscriber = backDropHandler2({ proxi, getRef });
+      getRef().dialog.addEventListener("click", onBackDropSubscriber);
       return () => {
         getRef().dialog.removeEventListener("cancel", onCancelSubscriber);
+        getRef().dialog.removeEventListener("click", onBackDropSubscriber);
       };
     });
     const gridContent = [

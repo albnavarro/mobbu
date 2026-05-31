@@ -9,7 +9,6 @@ import { searchOverlayHeader, searchOverlayList } from '@instanceName';
 import { SearchOverlayList } from './list/definition';
 import { SearchOverlayHeader } from './header/definition';
 import { MobCore } from '@mobCore';
-import { FreezeMobPageScroll, UnFreezeMobPageScroll } from '@mobMotionPlugin';
 
 /**
  * @import {
@@ -43,9 +42,21 @@ const onCalcelHandler = ({ proxi }) => {
         document.body.style.overflow = '';
         proxi.active = false;
         closeSearchSuggestion();
-        UnFreezeMobPageScroll();
     };
 };
+
+/**
+ * @param {object} params
+ * @param {ProxiSelfState<import('./type').SearchOverlay>} params.proxi
+ * @param {GetRef<import('./type').SearchOverlay>} params.getRef
+ */
+function backDropHandler({ proxi, getRef }) {
+    return function onBackDrop(/** @type {MouseEvent} */ event) {
+        if (event.target === getRef().dialog) {
+            closeOverlayAndSuggestion({ getRef, proxi });
+        }
+    };
+}
 
 /**
  * @param {object} params
@@ -57,7 +68,6 @@ const closeOverlayAndSuggestion = ({ getRef, proxi }) => {
     document.body.style.overflow = '';
     proxi.active = false;
     closeSearchSuggestion();
-    UnFreezeMobPageScroll();
 };
 
 /**
@@ -86,7 +96,6 @@ export const SearchOverlayFn = ({
         getRef().dialog.showModal();
         document.body.style.overflow = 'hidden';
         proxi.active = true;
-        FreezeMobPageScroll();
 
         MobCore.useFrameIndex(() => {
             getRef().header.focus();
@@ -101,8 +110,12 @@ export const SearchOverlayFn = ({
         const onCancelSubscriber = onCalcelHandler({ proxi });
         getRef().dialog.addEventListener('cancel', onCancelSubscriber);
 
+        const onBackDropSubscriber = backDropHandler({ proxi, getRef });
+        getRef().dialog.addEventListener('click', onBackDropSubscriber);
+
         return () => {
             getRef().dialog.removeEventListener('cancel', onCancelSubscriber);
+            getRef().dialog.removeEventListener('click', onBackDropSubscriber);
         };
     });
 

@@ -13,7 +13,6 @@ import { DebugHead } from './head/definition';
 import { DebugFilterHead } from './debug-filter/head/definition';
 import { MobCore } from '@mobCore';
 import { resetSearchOverlayJustOpen, setSearchOverlayJustOpen } from './utils';
-import { FreezeMobPageScroll, UnFreezeMobPageScroll } from '@mobMotionPlugin';
 
 /**
  * @import {
@@ -34,9 +33,21 @@ const onCalcelHandler = ({ proxi }) => {
         proxi.active = false;
         document.body.style.overflow = '';
         resetSearchOverlayJustOpen();
-        UnFreezeMobPageScroll();
     };
 };
+
+/**
+ * @param {object} params
+ * @param {ProxiSelfState<import('./type').DebugOverlayType>} params.proxi
+ * @param {GetRef<import('./type').DebugOverlayType>} params.getRef
+ */
+function backDropHandler({ proxi, getRef }) {
+    return function onBackDrop(/** @type {MouseEvent} */ event) {
+        if (event.target === getRef().dialog) {
+            closeOverlay({ getRef, proxi });
+        }
+    };
+}
 
 /**
  * @param {object} params
@@ -48,7 +59,6 @@ const closeOverlay = ({ proxi, getRef }) => {
     getRef().dialog.close();
     document.body.style.overflow = '';
     resetSearchOverlayJustOpen();
-    UnFreezeMobPageScroll();
 };
 
 /** @type {MobComponent<import('./type').DebugOverlayType>} */
@@ -72,7 +82,6 @@ export const DebugOverlayFn = ({
         getRef().dialog.showModal();
         document.body.style.overflow = 'hidden';
         setSearchOverlayJustOpen();
-        FreezeMobPageScroll();
 
         /**
          * Move focus to first area
@@ -107,9 +116,13 @@ export const DebugOverlayFn = ({
         const onCancelSubscriber = onCalcelHandler({ proxi });
         getRef().dialog.addEventListener('cancel', onCancelSubscriber);
 
+        const onBackDropSubscriber = backDropHandler({ proxi, getRef });
+        getRef().dialog.addEventListener('click', onBackDropSubscriber);
+
         return () => {
             unsubScribeBeforeRouterChange();
             getRef().dialog.removeEventListener('cancel', onCancelSubscriber);
+            getRef().dialog.removeEventListener('click', onBackDropSubscriber);
         };
     });
 

@@ -5,16 +5,13 @@
         :scope {
             display: flex;
             visibility: hidden;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 100%;
+            max-width: 80%;
             margin: auto;
-            overflow: hidden;
-            transition:
-                opacity 0.35s,
-                visibility 0.35s;
+            overflow: visible;
             border: 0;
             opacity: 0;
             background: transparent;
@@ -34,7 +31,7 @@
         }
 
         .close {
-            position: absolute;
+            position: fixed;
             z-index: 10;
             top: rem(20);
             right: rem(10);
@@ -86,15 +83,10 @@
                     --debug-content-row-height
                 );
             width: 100%;
-            max-width: 90%;
             border: 1px var(--white) solid;
 
             --debug-header-row-height: #{rem(140)};
             --debug-content-row-height: 40vh;
-
-            @include mq(large) {
-                max-width: 80%;
-            }
         }
 
         .log {

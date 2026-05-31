@@ -3552,14 +3552,13 @@ code.hljs {
     :scope {
       display: flex;
       visibility: hidden;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 100%;
+      max-width: 80%;
       margin: auto;
-      overflow: hidden;
-      transition: opacity 0.35s, visibility 0.35s;
+      overflow: visible;
       border: 0;
       opacity: 0;
       background: transparent;
@@ -3575,7 +3574,7 @@ code.hljs {
       background: rgba(var(--dark-rgb), 0.98);
     }
     .close {
-      position: absolute;
+      position: fixed;
       z-index: 10;
       top: 1.3333333333rem;
       right: 0.6666666667rem;
@@ -3617,15 +3616,9 @@ code.hljs {
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: var(--debug-header-row-height) var(--debug-content-row-height);
       width: 100%;
-      max-width: 90%;
       border: 1px var(--white) solid;
       --debug-header-row-height: 9.3333333333rem;
       --debug-content-row-height: 40vh;
-    }
-    @media (min-width: 75em) {
-      .grid {
-        max-width: 80%;
-      }
     }
     .log {
       display: inline-block;
@@ -5650,14 +5643,13 @@ code.hljs {
     :scope {
       display: flex;
       visibility: hidden;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 100%;
+      max-width: 80%;
       margin: auto;
-      overflow: hidden;
-      transition: opacity 0.35s, visibility 0.35s;
+      overflow: visible;
       border: 0;
       opacity: 0;
       background: transparent;
@@ -5674,7 +5666,7 @@ code.hljs {
       background: rgba(var(--dark-rgb), 0.98);
     }
     .close-button {
-      position: absolute;
+      position: fixed;
       z-index: 10;
       top: 1.3333333333rem;
       right: 0.6666666667rem;
@@ -5705,7 +5697,6 @@ code.hljs {
       grid-template-areas: "head" "current" "list";
       grid-template-rows: 6.6666666667rem 3.3333333333rem 50vh;
       width: 100%;
-      max-width: 80%;
       border: 1px var(--white) solid;
     }
     .title {
