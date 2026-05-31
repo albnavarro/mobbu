@@ -21,19 +21,6 @@
             border: 0;
             background: transparent;
             text-align: left;
-
-            &:focus {
-                &::after {
-                    content: '';
-                    position: absolute;
-                    top: 50%;
-                    left: 0;
-                    width: 2px;
-                    height: rem(15);
-                    transform: translateY(-50%);
-                    background: var(--white);
-                }
-            }
         }
     }
 }
