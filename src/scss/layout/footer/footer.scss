@@ -11,7 +11,7 @@
             width: 100%;
             height: var(--footer-height);
             transition: background 0.35s;
-            background: var(--dark);
+            background: black;
             text-align: center;
 
             @include mq(desktop) {
