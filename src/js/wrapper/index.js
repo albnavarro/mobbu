@@ -71,6 +71,10 @@ export const wrapper = async () => {
                 attributes: { name: searchOverlay },
             },
             {
+                component: DebugOverlay,
+                attributes: { name: debugOverlayName },
+            },
+            {
                 component: LeftSidebar,
                 attributes: { name: leftSidebarName },
             },
@@ -96,10 +100,6 @@ export const wrapper = async () => {
             },
             {
                 component: Footer,
-            },
-            {
-                component: DebugOverlay,
-                attributes: { name: debugOverlayName },
             },
         ],
     });
