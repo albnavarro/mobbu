@@ -11,13 +11,12 @@ import { DebugFilterList } from './debug-filter/list/definition';
 import { DebugComponent } from './debug-component/definition';
 import { DebugHead } from './head/definition';
 import { DebugFilterHead } from './debug-filter/head/definition';
-import { tabLoopTrap } from '@componentLibs/utils/utils';
 import { MobCore } from '@mobCore';
-import { setExpandedToDebugBtn, setFcousToDebugBtn } from '../utils';
 import { resetSearchOverlayJustOpen, setSearchOverlayJustOpen } from './utils';
 
 /**
  * @import {
+ *   GetRef,
  *   MobComponent,
  *   ProxiSelfState,
  *   ReturnBindProps
@@ -28,20 +27,14 @@ import { resetSearchOverlayJustOpen, setSearchOverlayJustOpen } from './utils';
 /**
  * @param {object} params
  * @param {ProxiSelfState<import('./type').DebugOverlayType>} params.proxi
+ * @param {GetRef<import('./type').DebugOverlayType>} params.getRef
  */
-const closeOverlayAndSetFocusBack = ({ proxi }) => {
+const closeOverlayAndSetFocusBack = ({ proxi, getRef }) => {
     proxi.active = false;
-
-    MobCore.useNextLoop(() => {
-        setFcousToDebugBtn();
-    });
+    getRef().dialog.close();
+    document.body.style.overflow = '';
+    resetSearchOverlayJustOpen();
 };
-
-/**
- * Component is a singleton
- */
-let unsubscribeTabHandler = () => {};
-let unsubscribeEscHandler = () => {};
 
 /** @type {MobComponent<import('./type').DebugOverlayType>} */
 export const DebugOverlayFn = ({
@@ -60,15 +53,17 @@ export const DebugOverlayFn = ({
 
     addMethod('open', () => {
         proxi.active = true;
-    });
 
-    addMethod('toggle', () => {
-        proxi.active = !proxi.active;
-        if (proxi.active) return;
+        getRef().dialog.showModal();
+        document.body.style.overflow = 'hidden';
+        setSearchOverlayJustOpen();
 
-        MobCore.useNextLoop(() => {
-            setFcousToDebugBtn();
-        });
+        /**
+         * Move focus to first area
+         */
+        MobCore.useFrameIndex(() => {
+            getRef().header.focus();
+        }, 10);
     });
 
     /**
@@ -83,67 +78,7 @@ export const DebugOverlayFn = ({
         }
     );
 
-    onMount(({ element }) => {
-        watch(
-            () => proxi.active,
-            (isActive) => {
-                if (isActive) {
-                    /**
-                     * Set toggle buttona rial label to true
-                     */
-                    setExpandedToDebugBtn(true);
-
-                    /**
-                     * Settiamo il flag globale che indica che la modale é stata appena aperta.
-                     *
-                     * - DebugTree usara questa informazione per non spostare il focus.
-                     */
-                    setSearchOverlayJustOpen();
-
-                    /**
-                     * Esc coltrol.
-                     */
-                    unsubscribeEscHandler = MobCore.useEscHandler(
-                        ({ preventDefault }) => {
-                            closeOverlayAndSetFocusBack({ proxi });
-                            preventDefault();
-                        }
-                    );
-
-                    /**
-                     * Tab loop inside overlay
-                     */
-                    unsubscribeTabHandler = MobCore.useTabHandler(
-                        ({ direction, preventDefault }) => {
-                            tabLoopTrap({ element, direction, preventDefault });
-                        }
-                    );
-
-                    /**
-                     * Move focus to first area
-                     */
-                    MobCore.useFrameIndex(() => {
-                        getRef().header.focus();
-                    }, 10);
-
-                    return;
-                }
-
-                unsubscribeEscHandler();
-                unsubscribeTabHandler();
-
-                /**
-                 * Set toggle buttona arial label to false.
-                 */
-                setExpandedToDebugBtn(false);
-
-                /**
-                 * Resettiamo il flag globale che indica che la modale é stata appena aperta.
-                 */
-                resetSearchOverlayJustOpen();
-            }
-        );
-
+    onMount(() => {
         /**
          * Close overlay on route change. Avoid infinite debuf overlay filter item increase. If filter list is visible
          * avoid to count them.
@@ -155,8 +90,6 @@ export const DebugOverlayFn = ({
 
         return () => {
             unsubScribeBeforeRouterChange();
-            unsubscribeEscHandler();
-            unsubscribeTabHandler();
         };
     });
 
@@ -297,22 +230,14 @@ export const DebugOverlayFn = ({
             'aria-label': 'Debug dialog',
             'aria-modal': 'true',
         },
-        modules: bindEffect({
-            toggleClass: { active: () => proxi.active },
-            toggleAttribute: { inert: () => !proxi.active },
-        }),
+        modules: [
+            setRef('dialog'),
+            bindEffect({
+                toggleClass: { active: () => proxi.active },
+                toggleAttribute: { inert: () => !proxi.active },
+            }),
+        ],
         content: [
-            {
-                tag: 'button',
-                className: 'background',
-                attributes: { type: 'button', tabindex: '-1' },
-                modules: delegateEvents({
-                    click: () => {
-                        closeOverlayAndSetFocusBack({ proxi });
-                        proxi.listType = DEBUG_USE_TREE;
-                    },
-                }),
-            },
             {
                 className: 'grid',
                 content: [
@@ -386,7 +311,7 @@ export const DebugOverlayFn = ({
                 },
                 modules: delegateEvents({
                     click: () => {
-                        closeOverlayAndSetFocusBack({ proxi });
+                        closeOverlayAndSetFocusBack({ proxi, getRef });
                         proxi.listType = DEBUG_USE_TREE;
                     },
                 }),

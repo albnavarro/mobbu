@@ -3552,15 +3552,13 @@ code.hljs {
     :scope {
       display: flex;
       visibility: hidden;
-      position: fixed;
-      z-index: 20;
-      top: 0;
-      bottom: 0;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       width: 100%;
       height: 100%;
+      margin: auto;
+      overflow: hidden;
       transition: opacity 0.35s, visibility 0.35s;
       border: 0;
       opacity: 0;
@@ -3568,18 +3566,12 @@ code.hljs {
       pointer-events: none;
       --debug-list-header-height: 3.3333333333rem;
     }
-    :scope.active {
+    :scope[open] {
       visibility: visible;
       opacity: 1;
       pointer-events: all;
     }
-    .background {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
+    &::backdrop {
       background: rgba(var(--dark-rgb), 0.98);
     }
     .close {
@@ -5664,6 +5656,7 @@ code.hljs {
       width: 100%;
       height: 100%;
       margin: auto;
+      overflow: hidden;
       transition: opacity 0.35s, visibility 0.35s;
       border: 0;
       opacity: 0;

@@ -4,10 +4,10 @@ export interface DebugOverlayType {
         listType: string;
     };
     methods: {
-        toggle: () => void;
         open: () => void;
     };
     ref: {
         header: HTMLElement;
+        dialog: HTMLDialogElement;
     };
 }

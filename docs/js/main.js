@@ -40650,68 +40650,12 @@
     }
   );
 
-  // src/js/component/lib/utils/utils.js
-  var focusableSelector = [
-    "a[href]",
-    'button:not([disabled]):not([tabindex="-1"])',
-    'input:not([disabled]):not([tabindex="-1"])',
-    "select:not([disabled])",
-    "textarea:not([disabled])",
-    '[tabindex]:not([tabindex="-1"])'
-  ].join(", ");
-  var tabLoopTrap = ({ element, direction: direction2, preventDefault }) => {
-    const innerElement = [...element.querySelectorAll(focusableSelector)];
-    if (innerElement.length === 0) return;
-    const firstElement = innerElement[0];
-    const lastElement = innerElement.at(-1);
-    const activeElement = document.activeElement;
-    if (direction2 === "BACKWARD") {
-      if (activeElement === firstElement) {
-        preventDefault();
-        if (lastElement)
-          lastElement.focus({
-            preventScroll: true
-          });
-      }
-    } else {
-      if (activeElement === lastElement) {
-        preventDefault();
-        if (firstElement)
-          firstElement.focus({
-            preventScroll: true
-          });
-      }
-    }
-  };
-  var setFocusInsideElement = ({ element, activeClass }) => {
-    const activeElement = (
-      /** @type {HTMLElement} */
-      element.querySelector(activeClass)
-    );
-    if (!activeElement) return;
-    activeElement.focus({ preventScroll: true });
-  };
-
-  // src/js/component/common/debug/utils.js
-  var setFcousToDebugBtn = () => {
-    const overlayMethods = modules_exports2.useMethodByName(debugCtaName);
-    overlayMethods?.setFocus();
-  };
-  var setExpandedToDebugBtn = (value) => {
-    const overlayMethods = modules_exports2.useMethodByName(debugCtaName);
-    overlayMethods?.setExpanded(value);
-  };
-
   // src/js/component/common/debug/debug-overlay/debug-overlay.js
-  var closeOverlayAndSetFocusBack = ({ proxi }) => {
+  var closeOverlayAndSetFocusBack = ({ proxi, getRef }) => {
     proxi.active = false;
-    modules_exports.useNextLoop(() => {
-      setFcousToDebugBtn();
-    });
-  };
-  var unsubscribeTabHandler = () => {
-  };
-  var unsubscribeEscHandler9 = () => {
+    getRef().dialog.close();
+    document.body.style.overflow = "";
+    resetSearchOverlayJustOpen();
   };
   var DebugOverlayFn = ({
     delegateEvents,
@@ -40728,13 +40672,12 @@
     const proxi = getSelfProxi();
     addMethod("open", () => {
       proxi.active = true;
-    });
-    addMethod("toggle", () => {
-      proxi.active = !proxi.active;
-      if (proxi.active) return;
-      modules_exports.useNextLoop(() => {
-        setFcousToDebugBtn();
-      });
+      getRef().dialog.showModal();
+      document.body.style.overflow = "hidden";
+      setSearchOverlayJustOpen();
+      modules_exports.useFrameIndex(() => {
+        getRef().header.focus();
+      }, 10);
     });
     watch(
       () => proxi.listType,
@@ -40742,43 +40685,13 @@
         resetSearchOverlayJustOpen();
       }
     );
-    onMount(({ element }) => {
-      watch(
-        () => proxi.active,
-        (isActive2) => {
-          if (isActive2) {
-            setExpandedToDebugBtn(true);
-            setSearchOverlayJustOpen();
-            unsubscribeEscHandler9 = modules_exports.useEscHandler(
-              ({ preventDefault }) => {
-                closeOverlayAndSetFocusBack({ proxi });
-                preventDefault();
-              }
-            );
-            unsubscribeTabHandler = modules_exports.useTabHandler(
-              ({ direction: direction2, preventDefault }) => {
-                tabLoopTrap({ element, direction: direction2, preventDefault });
-              }
-            );
-            modules_exports.useFrameIndex(() => {
-              getRef().header.focus();
-            }, 10);
-            return;
-          }
-          unsubscribeEscHandler9();
-          unsubscribeTabHandler();
-          setExpandedToDebugBtn(false);
-          resetSearchOverlayJustOpen();
-        }
-      );
+    onMount(() => {
       const unsubScribeBeforeRouterChange = modules_exports2.beforeRouteChange(() => {
         proxi.active = false;
         proxi.listType = DEBUG_USE_TREE;
       });
       return () => {
         unsubScribeBeforeRouterChange();
-        unsubscribeEscHandler9();
-        unsubscribeTabHandler();
       };
     });
     const listHeader = {
@@ -40887,22 +40800,14 @@
         "aria-label": "Debug dialog",
         "aria-modal": "true"
       },
-      modules: bindEffect({
-        toggleClass: { active: () => proxi.active },
-        toggleAttribute: { inert: () => !proxi.active }
-      }),
+      modules: [
+        setRef("dialog"),
+        bindEffect({
+          toggleClass: { active: () => proxi.active },
+          toggleAttribute: { inert: () => !proxi.active }
+        })
+      ],
       content: [
-        {
-          tag: "button",
-          className: "background",
-          attributes: { type: "button", tabindex: "-1" },
-          modules: delegateEvents({
-            click: () => {
-              closeOverlayAndSetFocusBack({ proxi });
-              proxi.listType = DEBUG_USE_TREE;
-            }
-          })
-        },
         {
           className: "grid",
           content: [
@@ -40975,7 +40880,7 @@
           },
           modules: delegateEvents({
             click: () => {
-              closeOverlayAndSetFocusBack({ proxi });
+              closeOverlayAndSetFocusBack({ proxi, getRef });
               proxi.listType = DEBUG_USE_TREE;
             }
           })
@@ -42269,8 +42174,11 @@
   );
 
   // src/js/component/common/search/search-overlay/search-overlay.js
-  var closeOverlayAndSuggestion = ({ getRef }) => {
+  var unsubscribeEscHandler9 = () => {
+  };
+  var closeOverlayAndSuggestion = ({ getRef, proxi }) => {
     getRef().dialog.close();
+    proxi.active = false;
     closeSearchSuggestion();
   };
   var shouldCloseSuggestion = ({ target }) => {
@@ -42285,31 +42193,46 @@
     setRef,
     getRef,
     invalidate,
-    onMount
+    onMount,
+    watch
   }) => {
     const proxi = getSelfProxi();
     addMethod("open", () => {
       getRef().dialog.showModal();
       document.body.style.overflow = "hidden";
+      proxi.active = true;
       modules_exports.useFrameIndex(() => {
         getRef().header.focus();
       }, 20);
     });
     addMethod("close", () => {
-      closeOverlayAndSuggestion({ getRef });
+      closeOverlayAndSuggestion({ getRef, proxi });
       document.body.style.overflow = "";
     });
     onMount(() => {
-      const unsubScribeEsc = modules_exports.useEscHandler(({ preventDefault }) => {
-        const suggestionIsActive = suggestioNsearchIsActive();
-        if (suggestionIsActive) {
-          closeSearchSuggestion();
-          searchOverlaySetInputFocus();
-          preventDefault();
+      watch(
+        () => proxi.active,
+        (isActive2) => {
+          if (isActive2) {
+            unsubscribeEscHandler9 = modules_exports.useEscHandler(
+              ({ preventDefault }) => {
+                const suggestionIsActive = suggestioNsearchIsActive();
+                if (suggestionIsActive) {
+                  closeSearchSuggestion();
+                  searchOverlaySetInputFocus();
+                  preventDefault();
+                  return;
+                }
+                proxi.active = false;
+              }
+            );
+            return;
+          }
+          unsubscribeEscHandler9();
         }
-      });
+      );
       return () => {
-        unsubScribeEsc();
+        unsubscribeEscHandler9();
       };
     });
     const gridContent = [
@@ -42379,7 +42302,7 @@
           },
           modules: delegateEvents({
             click: () => {
-              closeOverlayAndSuggestion({ getRef });
+              closeOverlayAndSuggestion({ getRef, proxi });
             }
           })
         },
@@ -42885,33 +42808,19 @@
   });
 
   // src/js/component/common/debug/debug-button.js
-  var DebugButtonFn = ({ onMount, addMethod, getProxi, bindEffect }) => {
+  var DebugButtonFn = ({ getProxi }) => {
     const proxi = getProxi();
     const debugIcon = getIcons()["debugIcon"];
-    addMethod("setExpanded", (value) => {
-      proxi.expanded = value;
-    });
-    onMount(({ element }) => {
-      addMethod("setFocus", () => {
-        element.focus({ preventScroll: true, focusVisible: true });
-      });
-    });
     return htmlObject({
       tag: "button",
       className: "c-btn-debug",
       attributes: proxi.ariaControls ? {
         type: "button",
-        "aria-controls": proxi.ariaControls,
-        "aria-label": "open debug app dialog",
+        "aria-label": "open debug application dialog",
         "aria-haspopup": "dialog"
       } : {
         type: "button"
       },
-      modules: bindEffect({
-        toggleAttribute: {
-          "aria-expanded": () => proxi.expanded ? "true" : "false"
-        }
-      }),
       content: debugIcon
     });
   };
@@ -43617,6 +43526,48 @@
     }
   );
 
+  // src/js/component/lib/utils/utils.js
+  var focusableSelector = [
+    "a[href]",
+    'button:not([disabled]):not([tabindex="-1"])',
+    'input:not([disabled]):not([tabindex="-1"])',
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    '[tabindex]:not([tabindex="-1"])'
+  ].join(", ");
+  var tabLoopTrap = ({ element, direction: direction2, preventDefault }) => {
+    const innerElement = [...element.querySelectorAll(focusableSelector)];
+    if (innerElement.length === 0) return;
+    const firstElement = innerElement[0];
+    const lastElement = innerElement.at(-1);
+    const activeElement = document.activeElement;
+    if (direction2 === "BACKWARD") {
+      if (activeElement === firstElement) {
+        preventDefault();
+        if (lastElement)
+          lastElement.focus({
+            preventScroll: true
+          });
+      }
+    } else {
+      if (activeElement === lastElement) {
+        preventDefault();
+        if (firstElement)
+          firstElement.focus({
+            preventScroll: true
+          });
+      }
+    }
+  };
+  var setFocusInsideElement = ({ element, activeClass }) => {
+    const activeElement = (
+      /** @type {HTMLElement} */
+      element.querySelector(activeClass)
+    );
+    if (!activeElement) return;
+    activeElement.focus({ preventScroll: true });
+  };
+
   // src/js/component/layout/header/nav-toggle/utils.js
   var setFcousToNavigationToggle = () => {
     const overlayMethods = modules_exports2.useMethodByName(mobNavigationToggleName);
@@ -43630,7 +43581,7 @@
   };
 
   // src/js/component/layout/navigation/nav-container.js
-  var unsubscribeTabHandler2 = () => {
+  var unsubscribeTabHandler = () => {
   };
   var unsubscribeEscHandler10 = () => {
   };
@@ -43693,7 +43644,7 @@
       navigationStore.watch("navigationIsOpen", (val) => {
         if (val && main) {
           openNavigation({ root: element, main, proxi });
-          unsubscribeTabHandler2 = modules_exports.useTabHandler(
+          unsubscribeTabHandler = modules_exports.useTabHandler(
             ({ direction: direction2, preventDefault }) => {
               tabLoopTrap({ element, direction: direction2, preventDefault });
             }
@@ -43707,7 +43658,7 @@
         }
         closeNavigation({ main, proxi });
         unsubscribeEscHandler10();
-        unsubscribeTabHandler2();
+        unsubscribeTabHandler();
       });
       addMainHandler();
       const { scrollNativationToTop, refreshScroller } = initNavigationScoller({
@@ -43720,7 +43671,7 @@
       }, getFrameDelay());
       return () => {
         unsubscribeEscHandler10();
-        unsubscribeTabHandler2();
+        unsubscribeTabHandler();
       };
     });
     return htmlObject({

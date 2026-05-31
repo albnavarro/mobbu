@@ -1,7 +1,8 @@
 /**
  * @import {
  *   GetRef,
- *   MobComponent
+ *   MobComponent,
+ *   ProxiSelfState
  * } from "@mobJsType"
  */
 
@@ -17,12 +18,16 @@ import { SearchOverlayList } from './list/definition';
 import { SearchOverlayHeader } from './header/definition';
 import { MobCore } from '@mobCore';
 
+let unsubscribeEscHandler = () => {};
+
 /**
  * @param {object} params
  * @param {GetRef<import('./type').SearchOverlay>} params.getRef
+ * @param {ProxiSelfState<import('./type').SearchOverlay>} params.proxi
  */
-const closeOverlayAndSuggestion = ({ getRef }) => {
+const closeOverlayAndSuggestion = ({ getRef, proxi }) => {
     getRef().dialog.close();
+    proxi.active = false;
     closeSearchSuggestion();
 };
 
@@ -45,12 +50,14 @@ export const SearchOverlayFn = ({
     getRef,
     invalidate,
     onMount,
+    watch,
 }) => {
     const proxi = getSelfProxi();
 
     addMethod('open', () => {
         getRef().dialog.showModal();
         document.body.style.overflow = 'hidden';
+        proxi.active = true;
 
         MobCore.useFrameIndex(() => {
             getRef().header.focus();
@@ -58,28 +65,50 @@ export const SearchOverlayFn = ({
     });
 
     addMethod('close', () => {
-        closeOverlayAndSuggestion({ getRef });
+        closeOverlayAndSuggestion({ getRef, proxi });
         document.body.style.overflow = '';
     });
 
     onMount(() => {
-        const unsubScribeEsc = MobCore.useEscHandler(({ preventDefault }) => {
-            /**
-             * If suggestion is open close
-             *
-             * - In tab cicly maybe focus is moved from suggestion to outside
-             * - First time close suggstion if is open always
-             */
-            const suggestionIsActive = suggestioNsearchIsActive();
-            if (suggestionIsActive) {
-                closeSearchSuggestion();
-                searchOverlaySetInputFocus();
-                preventDefault();
-            }
-        });
+        watch(
+            () => proxi.active,
+            (isActive) => {
+                if (isActive) {
+                    /**
+                     * Esc control.
+                     */
+                    unsubscribeEscHandler = MobCore.useEscHandler(
+                        ({ preventDefault }) => {
+                            /**
+                             * If suggestion is open close
+                             *
+                             * - In tab cicly maybe focus is moved from suggestion to outside
+                             * - First time close suggstion if is open always
+                             */
+                            const suggestionIsActive =
+                                suggestioNsearchIsActive();
 
+                            if (suggestionIsActive) {
+                                closeSearchSuggestion();
+                                searchOverlaySetInputFocus();
+                                preventDefault();
+                                return;
+                            }
+
+                            proxi.active = false;
+                        }
+                    );
+
+                    return;
+                }
+
+                unsubscribeEscHandler();
+            }
+        );
+
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
-            unsubScribeEsc();
+            unsubscribeEscHandler();
         };
     });
 
@@ -156,7 +185,7 @@ export const SearchOverlayFn = ({
                 },
                 modules: delegateEvents({
                     click: () => {
-                        closeOverlayAndSuggestion({ getRef });
+                        closeOverlayAndSuggestion({ getRef, proxi });
                     },
                 }),
             },
