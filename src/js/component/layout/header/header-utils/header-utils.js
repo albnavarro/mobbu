@@ -78,37 +78,44 @@ function additems({ delegateEvents }) {
 /** @type {MobComponent} */
 export const HeaderUtilsFn = ({ delegateEvents, staticProps }) => {
     return htmlObject({
-        tag: 'ul',
+        tag: 'nav',
         className: 'l-header-utils',
-        content: [
-            {
-                tag: 'li',
-                content: {
-                    component: SearchCta,
-                    attributes: { name: searchOverlayCta },
+        attributes: { 'arial-label': 'Utils manvigation' },
+        content: {
+            tag: 'ul',
+            content: [
+                {
+                    tag: 'li',
+                    content: {
+                        component: SearchCta,
+                        attributes: { name: searchOverlayCta },
+                    },
                 },
-            },
-            {
-                component: DebugButton,
-                attributes: {
-                    name: debugCtaName,
-                },
-                className: 'c-button-debug',
-                modules: [
-                    delegateEvents({
-                        click: () => {
-                            openDebugOverlay();
+                {
+                    tag: 'li',
+                    content: {
+                        component: DebugButton,
+                        attributes: {
+                            name: debugCtaName,
                         },
-                    }),
-                    staticProps(
-                        /** @type {import('@commonComponent/debug/type').DebugOverlayCta['props']} */
-                        ({
-                            ariaControls: 'debug-dialog',
-                        })
-                    ),
-                ],
-            },
-            ...additems({ delegateEvents }),
-        ],
+                        className: 'c-button-debug',
+                        modules: [
+                            delegateEvents({
+                                click: () => {
+                                    openDebugOverlay();
+                                },
+                            }),
+                            staticProps(
+                                /** @type {import('@commonComponent/debug/type').DebugOverlayCta['props']} */
+                                ({
+                                    ariaControls: 'debug-dialog',
+                                })
+                            ),
+                        ],
+                    },
+                },
+                ...additems({ delegateEvents }),
+            ],
+        },
     });
 };

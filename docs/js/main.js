@@ -42927,38 +42927,45 @@
   }
   var HeaderUtilsFn = ({ delegateEvents, staticProps: staticProps2 }) => {
     return htmlObject({
-      tag: "ul",
+      tag: "nav",
       className: "l-header-utils",
-      content: [
-        {
-          tag: "li",
-          content: {
-            component: SearchCta,
-            attributes: { name: searchOverlayCta }
-          }
-        },
-        {
-          component: DebugButton,
-          attributes: {
-            name: debugCtaName
+      attributes: { "arial-label": "Utils manvigation" },
+      content: {
+        tag: "ul",
+        content: [
+          {
+            tag: "li",
+            content: {
+              component: SearchCta,
+              attributes: { name: searchOverlayCta }
+            }
           },
-          className: "c-button-debug",
-          modules: [
-            delegateEvents({
-              click: () => {
-                openDebugOverlay();
-              }
-            }),
-            staticProps2(
-              /** @type {import('@commonComponent/debug/type').DebugOverlayCta['props']} */
-              {
-                ariaControls: "debug-dialog"
-              }
-            )
-          ]
-        },
-        ...additems({ delegateEvents })
-      ]
+          {
+            tag: "li",
+            content: {
+              component: DebugButton,
+              attributes: {
+                name: debugCtaName
+              },
+              className: "c-button-debug",
+              modules: [
+                delegateEvents({
+                  click: () => {
+                    openDebugOverlay();
+                  }
+                }),
+                staticProps2(
+                  /** @type {import('@commonComponent/debug/type').DebugOverlayCta['props']} */
+                  {
+                    ariaControls: "debug-dialog"
+                  }
+                )
+              ]
+            }
+          },
+          ...additems({ delegateEvents })
+        ]
+      }
     });
   };
 
