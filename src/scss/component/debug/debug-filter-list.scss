@@ -6,8 +6,7 @@
             position: absolute;
             inset: var(--debug-list-header-height) -1px 0;
             overflow: hidden;
-            outline-color: var(--white);
-            outline-offset: -3px;
+            outline-color: var(--dark);
         }
 
         .status {
@@ -17,8 +16,7 @@
             bottom: rem(15);
             margin-top: calc(var(--gap-size) / 2);
             padding: rem(5) rem(10);
-            border: 1px var(--white) solid;
-            background: rgba(var(--dark-rgb), 0.5);
+            background: var(--dark);
             color: var(--white);
             font-size: rem(12);
 
@@ -62,13 +60,13 @@
         width: var(--thumb-width);
         height: rem(10);
         border-radius: 0;
-        background-color: rgba(var(--grey-200-rgb), 0.3);
+        background-color: var(--grey-100);
     }
 
     &::-webkit-slider-thumb {
         width: var(--thumb-width);
         height: rem(10);
-        background-color: var(--white);
+        background-color: var(--dark);
         appearance: none;
     }
 
@@ -79,7 +77,7 @@
     &::-moz-range-track {
         height: rem(10);
         border-radius: 0;
-        background-color: rgba(var(--grey-200-rgb), 0.3);
+        background-color: var(--grey-100);
     }
 
     &::-moz-range-thumb {
@@ -87,7 +85,7 @@
         height: rem(10);
         border: none; /* Removes extra border that FF applies */
         border-radius: 0; /* Removes default border-radius that FF applies */
-        background-color: var(--white);
+        background-color: var(--dark);
     }
 
     &:focus::-moz-range-thumb {

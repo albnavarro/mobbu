@@ -3559,7 +3559,7 @@ code.hljs {
       margin: auto;
       overflow: visible;
       border: 0;
-      background: transparent;
+      background: var(--white);
       pointer-events: none;
       --debug-list-header-height: 3.3333333333rem;
     }
@@ -3568,7 +3568,8 @@ code.hljs {
       pointer-events: all;
     }
     &::backdrop {
-      background: rgba(var(--dark-rgb), 0.98);
+      opacity: 0.98;
+      background: var(--grey-100);
     }
     .close {
       position: fixed;
@@ -3578,7 +3579,6 @@ code.hljs {
       width: var(--gap-size);
       height: var(--gap-size);
       border: 0;
-      outline-color: var(--white);
       background: transparent;
     }
     .close::after,
@@ -3589,7 +3589,7 @@ code.hljs {
       left: 50%;
       width: calc(var(--gap-size) / 2);
       height: 2px;
-      background: var(--white);
+      background: var(--dark);
     }
     .close::before {
       transform: translate(-50%, -50%) rotate(45deg);
@@ -3602,7 +3602,7 @@ code.hljs {
       bottom: calc(100% - 0.2666666667rem);
       left: var(--gap-size);
       margin-bottom: 0;
-      color: var(--white);
+      color: var(--dark);
       font-size: var(--gap-size);
       line-height: 1;
     }
@@ -3614,7 +3614,7 @@ code.hljs {
       grid-template-rows: var(--debug-header-row-height) var(--debug-content-row-height);
       width: 100%;
       transition: opacity 0.6s;
-      border: 1px var(--white) solid;
+      border: 1px var(--grey-500) solid;
       opacity: 0;
     }
     .grid.active {
@@ -3634,28 +3634,28 @@ code.hljs {
       padding-bottom: 0;
       padding-inline: calc(var(--gap-size) / 2);
       transition: background 0.35s, color 0.35s;
-      border: 1px var(--white) solid;
+      border: 1px var(--dark) solid;
       background: transparent;
-      color: var(--white);
+      color: var(--dark);
       font-size: 0.9333333333rem;
       line-height: 1.7;
     }
     .log:hover,
     .log:active,
     .log:focus {
-      background: var(--white);
-      color: var(--dark);
+      background: var(--dark);
+      color: var(--white);
     }
     .header {
       grid-area: head;
-      border-bottom: 1px var(--white) solid;
-      outline-color: var(--white);
+      border-bottom: 1px var(--grey-500) solid;
+      outline-color: var(--grey-500);
       outline-offset: -3px;
     }
     .list {
       position: relative;
       grid-area: list;
-      border-right: 1px var(--white) solid;
+      border-right: 1px var(--grey-500) solid;
     }
     .list-header {
       display: flex;
@@ -3664,8 +3664,9 @@ code.hljs {
       height: var(--debug-list-header-height);
       padding-right: 1rem;
       padding-left: 2.6666666667rem;
-      border-bottom: 1px rgba(var(--white-rgb), 0.2) solid;
-      color: var(--white);
+      border-bottom: 1px var(--grey-500) solid;
+      background: var(--grey-100);
+      color: var(--dark);
       font-size: 1.0666666667rem;
     }
     .list-title {
@@ -3676,7 +3677,7 @@ code.hljs {
       display: inline-block;
       padding-inline: 0.6666666667rem;
       transition: background 0.35s, color 0.35s;
-      border: 1px var(--white) solid;
+      border: 1px var(--dark) solid;
       background: transparent;
       font-size: 0.8rem;
     }
@@ -3684,13 +3685,13 @@ code.hljs {
       margin-right: 0.3333333333rem;
     }
     .list-toggle.active {
-      outline-color: var(--white);
-      background: var(--white);
-      color: var(--dark);
+      outline-color: var(--dark);
+      background: var(--dark);
+      color: var(--white);
     }
     .list-toggle:hover {
-      background: var(--white);
-      color: var(--dark);
+      background: var(--dark);
+      color: var(--white);
     }
     .single-component {
       position: relative;
@@ -3703,9 +3704,8 @@ code.hljs {
     .tree-list {
       position: absolute;
       overflow: hidden;
-      outline-color: var(--white);
+      outline-color: var(--dark);
       inset: var(--debug-list-header-height) 0 0;
-      outline-offset: -3px;
     }
     .scollable-element {
       min-height: 100%;
@@ -3719,12 +3719,11 @@ code.hljs {
     .status {
       display: none;
       position: absolute;
-      right: var(--gap-size);
-      bottom: calc(var(--gap-size) / 2);
+      right: calc(var(--gap-size) / 2);
+      bottom: 1rem;
       margin-top: calc(var(--gap-size) / 2);
       padding: 0.3333333333rem 0.6666666667rem;
-      border: 1px var(--white) solid;
-      background: rgba(var(--dark-rgb), 0.5);
+      background: var(--dark);
       color: var(--white);
       font-size: 0.8rem;
     }
@@ -3756,12 +3755,12 @@ code.hljs {
   width: var(--thumb-width);
   height: 0.6666666667rem;
   border-radius: 0;
-  background-color: rgba(var(--grey-200-rgb), 0.3);
+  background-color: var(--grey-100);
 }
 .c-debug-tree .scrollbar::-webkit-slider-thumb {
   width: var(--thumb-width);
   height: 0.6666666667rem;
-  background-color: var(--white);
+  background-color: var(--dark);
   appearance: none;
 }
 .c-debug-tree .scrollbar:focus::-webkit-slider-thumb {
@@ -3770,14 +3769,14 @@ code.hljs {
 .c-debug-tree .scrollbar::-moz-range-track {
   height: 0.6666666667rem;
   border-radius: 0;
-  background-color: rgba(var(--grey-200-rgb), 0.3);
+  background-color: var(--grey-100);
 }
 .c-debug-tree .scrollbar::-moz-range-thumb {
   width: var(--thumb-width);
   height: 0.6666666667rem;
   border: none;
   border-radius: 0;
-  background-color: var(--white);
+  background-color: var(--dark);
 }
 .c-debug-tree .scrollbar:focus::-moz-range-thumb {
   outline-offset: 0;
@@ -3788,7 +3787,7 @@ code.hljs {
       display: flex;
       height: 100%;
       padding-top: calc(var(--gap-size) / 2);
-      color: var(--white);
+      color: var(--dark);
       font-size: 0.8rem;
     }
     .general,
@@ -3797,7 +3796,6 @@ code.hljs {
     }
     .general {
       padding-left: var(--gap-size);
-      border-right: 1px var(--dark) solid;
     }
     .search {
       padding-left: calc(var(--gap-size) / 2);
@@ -3807,7 +3805,7 @@ code.hljs {
 @layer layout {
   @scope (.c-debug-search) {
     :scope {
-      color: var(--white);
+      color: var(--dark);
     }
     .label {
       display: inline-block;
@@ -3823,7 +3821,7 @@ code.hljs {
       padding-bottom: 0;
       padding-inline: calc(var(--gap-size) / 2);
       transition: background 0.35s, color 0.35s;
-      border: 1px var(--white) solid;
+      border: 1px var(--dark) solid;
       background: transparent;
       line-height: 1.7;
       vertical-align: middle;
@@ -3831,9 +3829,9 @@ code.hljs {
     button:hover,
     button:active,
     button:focus {
-      outline-color: var(--white);
-      background: var(--white);
-      color: var(--dark);
+      outline-color: var(--dark);
+      background: var(--dark);
+      color: var(--white);
     }
   }
 }
@@ -3842,7 +3840,7 @@ code.hljs {
   height: 1.4666666667rem;
   margin-right: 0.3333333333rem;
   padding-left: 0.3333333333rem;
-  border: 1px var(--white) solid;
+  border: 1px var(--dark) solid;
   background: transparent;
   vertical-align: middle;
 }
@@ -3856,8 +3854,7 @@ code.hljs {
     .screen {
       position: absolute;
       overflow: hidden;
-      outline-offset: -3px;
-      color: var(--white);
+      color: var(--dark);
       font-size: 0.8rem;
       inset: 0;
     }
@@ -3877,7 +3874,7 @@ code.hljs {
       margin-right: 1.3333333333rem;
       margin-bottom: 0.6666666667rem;
       padding-top: 0.6666666667rem;
-      border-top: 1px rgba(var(--white-rgb), 0.2) solid;
+      border-top: 1px var(--grey-300) solid;
       font-size: 0.9333333333rem;
     }
     .section-subtitle {
@@ -3896,16 +3893,21 @@ code.hljs {
     .child,
     .parent-id-code {
       margin-bottom: 0.2666666667rem;
-      margin-left: 0.2666666667rem;
+      margin-left: 0.6666666667rem;
       padding: 0 0.4rem;
       transition: opacity 0.35s;
       border: 0;
       border-radius: 0.2666666667rem;
-      background: rgba(var(--white-rgb), 0.1);
+      background: var(--grey-200);
     }
     .child:hover,
-    .parent-id-code:hover {
-      opacity: 0.5;
+    .child:active,
+    .child:focus,
+    .parent-id-code:hover,
+    .parent-id-code:active,
+    .parent-id-code:focus {
+      outline-color: var(--dark);
+      background: var(--grey-400);
     }
     .back-block {
       margin-bottom: 1.4666666667rem;
@@ -3914,7 +3916,7 @@ code.hljs {
       display: inline-block;
       padding-inline: 0.6666666667rem;
       transition: background 0.35s, color 0.35s;
-      border: 1px var(--white) solid;
+      border: 1px var(--dark) solid;
       opacity: 0.2;
       background: transparent;
       font-size: 0.8rem;
@@ -3924,9 +3926,12 @@ code.hljs {
       opacity: 1;
       pointer-events: all;
     }
-    .back:hover {
-      background: var(--white);
-      color: var(--dark);
+    .back:hover,
+    .back:active,
+    .back:focus {
+      outline-color: var(--dark);
+      background: var(--dark);
+      color: var(--white);
     }
   }
 }
@@ -3953,12 +3958,12 @@ code.hljs {
   width: var(--thumb-width);
   height: 0.6666666667rem;
   border-radius: 0;
-  background-color: rgba(var(--grey-200-rgb), 0.3);
+  background-color: var(--grey-100);
 }
 .c-debug-component .scrollbar::-webkit-slider-thumb {
   width: var(--thumb-width);
   height: 0.6666666667rem;
-  background-color: var(--white);
+  background-color: var(--dark);
   appearance: none;
 }
 .c-debug-component .scrollbar:focus::-webkit-slider-thumb {
@@ -3967,14 +3972,14 @@ code.hljs {
 .c-debug-component .scrollbar::-moz-range-track {
   height: 0.6666666667rem;
   border-radius: 0;
-  background-color: rgba(var(--grey-200-rgb), 0.3);
+  background-color: var(--grey-100);
 }
 .c-debug-component .scrollbar::-moz-range-thumb {
   width: var(--thumb-width);
   height: 0.6666666667rem;
   border: none;
   border-radius: 0;
-  background-color: var(--white);
+  background-color: var(--dark);
 }
 .c-debug-component .scrollbar:focus::-moz-range-thumb {
   outline-offset: 0;
@@ -4003,7 +4008,7 @@ code.hljs {
       padding-bottom: 0;
       padding-inline: calc(var(--gap-size) / 2);
       transition: background 0.35s, color 0.35s;
-      border: 1px var(--white) solid;
+      border: 1px var(--dark) solid;
       background: transparent;
       font-size: 0.8rem;
       line-height: 1.7;
@@ -4011,9 +4016,9 @@ code.hljs {
     button:hover,
     button:active,
     button:focus {
-      outline-color: var(--white);
-      background: var(--white);
-      color: var(--dark);
+      outline-color: var(--dark);
+      background: var(--dark);
+      color: var(--white);
     }
   }
 }
@@ -4022,7 +4027,7 @@ code.hljs {
   width: 10rem;
   margin-right: 0.3333333333rem;
   padding-left: 0.3333333333rem;
-  border: 1px var(--white) solid;
+  border: 1px var(--dark) solid;
   background: transparent;
   font-size: 0.8rem;
 }
@@ -4032,8 +4037,7 @@ code.hljs {
       position: absolute;
       inset: var(--debug-list-header-height) -1px 0;
       overflow: hidden;
-      outline-color: var(--white);
-      outline-offset: -3px;
+      outline-color: var(--dark);
     }
     .status {
       display: none;
@@ -4042,8 +4046,7 @@ code.hljs {
       bottom: 1rem;
       margin-top: calc(var(--gap-size) / 2);
       padding: 0.3333333333rem 0.6666666667rem;
-      border: 1px var(--white) solid;
-      background: rgba(var(--dark-rgb), 0.5);
+      background: var(--dark);
       color: var(--white);
       font-size: 0.8rem;
     }
@@ -4080,12 +4083,12 @@ code.hljs {
   width: var(--thumb-width);
   height: 0.6666666667rem;
   border-radius: 0;
-  background-color: rgba(var(--grey-200-rgb), 0.3);
+  background-color: var(--grey-100);
 }
 .c-debug-filter-list .scrollbar::-webkit-slider-thumb {
   width: var(--thumb-width);
   height: 0.6666666667rem;
-  background-color: var(--white);
+  background-color: var(--dark);
   appearance: none;
 }
 .c-debug-filter-list .scrollbar:focus::-webkit-slider-thumb {
@@ -4094,14 +4097,14 @@ code.hljs {
 .c-debug-filter-list .scrollbar::-moz-range-track {
   height: 0.6666666667rem;
   border-radius: 0;
-  background-color: rgba(var(--grey-200-rgb), 0.3);
+  background-color: var(--grey-100);
 }
 .c-debug-filter-list .scrollbar::-moz-range-thumb {
   width: var(--thumb-width);
   height: 0.6666666667rem;
   border: none;
   border-radius: 0;
-  background-color: var(--white);
+  background-color: var(--dark);
 }
 .c-debug-filter-list .scrollbar:focus::-moz-range-thumb {
   outline-offset: 0;
@@ -4112,7 +4115,7 @@ code.hljs {
       display: flex;
       position: relative;
       padding-left: calc(var(--gap-size) / 2);
-      color: var(--white);
+      color: var(--dark);
       font-size: 0.8rem;
     }
     .is-whelling :scope {
@@ -4126,7 +4129,7 @@ code.hljs {
       bottom: 0;
       left: 0;
       width: 0.3333333333rem;
-      background: var(--white);
+      background: var(--dark);
     }
     .id {
       opacity: 0.8;
@@ -4138,7 +4141,7 @@ code.hljs {
       transition: background 0.35s;
       border: 0;
       border-radius: 0.2666666667rem;
-      background: rgba(var(--white-rgb), 0.1);
+      background: var(--grey-200);
       font-size: 0.6666666667rem;
       line-height: 1.8;
       vertical-align: middle;
@@ -4147,13 +4150,13 @@ code.hljs {
     .expand:hover,
     .expand:active,
     .expand:focus {
-      outline-color: var(--white);
-      background: rgba(var(--white-rgb), 0.02);
+      outline-color: var(--dark);
+      background: var(--grey-400);
     }
     .expand.active {
       opacity: 1;
-      background: var(--white);
-      color: var(--dark);
+      background: var(--dark);
+      color: var(--white);
     }
     .selected {
       display: none;
@@ -4161,7 +4164,7 @@ code.hljs {
       height: 0.6666666667rem;
       margin-left: 0.3333333333rem;
       border-radius: 100%;
-      background: var(--white);
+      background: var(--dark);
     }
     .selected.active {
       display: inline-block;
@@ -4175,7 +4178,7 @@ code.hljs {
       margin-top: 0.2666666667rem;
       margin-bottom: 0.2666666667rem;
       padding-left: 2.6666666667rem;
-      color: var(--white);
+      color: var(--dark);
       font-size: 0.8rem;
     }
     .is-whelling :scope {
@@ -4224,7 +4227,7 @@ code.hljs {
       transition: background 0.35s;
       border: 0;
       border-radius: 0.2666666667rem;
-      background: rgba(var(--white-rgb), 0.1);
+      background: var(--grey-200);
       font-size: 0.6666666667rem;
       line-height: 1.8;
       vertical-align: middle;
@@ -4232,13 +4235,13 @@ code.hljs {
     .tree-expand:hover,
     .tree-expand:active,
     .tree-expand:focus {
-      outline-color: var(--white);
-      background: rgba(var(--white-rgb), 0.02);
+      outline-color: var(--dark);
+      background: var(--grey-400);
     }
     .tree-expand.active {
       opacity: 1;
-      background: var(--white);
-      color: var(--dark);
+      background: var(--dark);
+      color: var(--white);
     }
     .tree-instance {
       margin-right: 0.3333333333rem;
@@ -4249,7 +4252,7 @@ code.hljs {
       height: 0.6666666667rem;
       margin-left: 0.3333333333rem;
       border-radius: 100%;
-      background: var(--white);
+      background: var(--dark);
     }
     .tree-selected.active {
       display: inline-block;
@@ -5654,8 +5657,8 @@ code.hljs {
       margin: auto;
       overflow: visible;
       border: 0;
-      background: transparent;
-      color: var(--white);
+      background: var(--white);
+      color: var(--dark);
       font-size: 0.8rem;
       pointer-events: none;
     }
@@ -5664,15 +5667,16 @@ code.hljs {
       pointer-events: all;
     }
     &::backdrop {
-      background: rgba(var(--dark-rgb), 0.98);
+      background: rgba(var(--white-rgb), 0.98);
+      background: var(--grey-100);
     }
     .close-button {
       position: fixed;
       z-index: 10;
       top: 1.3333333333rem;
       right: 0.6666666667rem;
-      width: 2.6666666667rem;
-      height: 2.6666666667rem;
+      width: var(--gap-size);
+      height: var(--gap-size);
       border: 0;
       background: transparent;
     }
@@ -5684,7 +5688,7 @@ code.hljs {
       left: 50%;
       width: 1.3333333333rem;
       height: 2px;
-      background: var(--white);
+      background: var(--dark);
     }
     .close-button::before {
       transform: translate(-50%, -50%) rotate(45deg);
@@ -5699,7 +5703,7 @@ code.hljs {
       grid-template-rows: 6.6666666667rem 3.3333333333rem 50vh;
       width: 100%;
       transition: opacity 0.6s;
-      border: 1px var(--white) solid;
+      border: 1px var(--grey-500) solid;
       opacity: 0;
     }
     .grid.active {
@@ -5710,7 +5714,7 @@ code.hljs {
       bottom: calc(100% - 0.2rem);
       left: var(--gap-size);
       margin-bottom: 0;
-      color: var(--white);
+      color: var(--dark);
       font-size: var(--gap-size);
       line-height: 1;
     }
@@ -5718,16 +5722,16 @@ code.hljs {
       grid-area: head;
       align-content: center;
       padding-left: var(--gap-size);
-      border-bottom: 1px var(--white) solid;
+      border-bottom: 1px var(--grey-500) solid;
       outline-offset: -4px;
     }
     .result-query {
       grid-area: current;
       align-content: center;
       padding-left: var(--gap-size);
-      border-bottom: 1px var(--white) solid;
-      background: var(--white);
-      color: var(--dark);
+      border-bottom: 1px var(--grey-500) solid;
+      background: var(--dark);
+      color: var(--white);
     }
     .content {
       position: relative;
@@ -5748,7 +5752,7 @@ code.hljs {
       position: absolute;
       overflow: hidden;
       outline-offset: -2px;
-      color: var(--white);
+      color: var(--dark);
       inset: 0;
     }
     .loader {
@@ -5759,8 +5763,8 @@ code.hljs {
       left: 50%;
       padding: calc(var(--gap-size) / 2) var(--gap-size);
       transform: translate(-50%, -50%);
-      border: 1px rgba(var(--white-rgb), 0.5) solid;
-      background: rgba(var(--dark-rgb), 0.8);
+      border: 1px rgba(var(--dark-rgb), 0.5) solid;
+      background: rgba(var(--white-rgb), 0.8);
       pointer-events: none;
     }
     .loader.active {
@@ -5771,13 +5775,14 @@ code.hljs {
       margin: 0;
       padding: var(--gap-size);
       padding-right: calc(var(--gap-size) * 2);
+      list-style: none;
     }
     li {
       position: relative;
       margin-bottom: calc(var(--gap-size) / 2);
       padding-bottom: calc(var(--gap-size) / 2);
       transition: opacity 0.35s;
-      border-bottom: 1px rgba(var(--white-rgb), 0.4) solid;
+      border-bottom: 1px var(--grey-300) solid;
     }
     li:hover {
       opacity: 0.5;
@@ -5788,8 +5793,8 @@ code.hljs {
       top: 0;
       bottom: calc(var(--gap-size) / 2);
       left: calc(0.6666666667rem * -1);
-      width: 0.1333333333rem;
-      background: var(--white);
+      width: 0.2666666667rem;
+      background: var(--dark);
     }
     ul.is-whelling li {
       pointer-events: none;
@@ -5833,12 +5838,12 @@ code.hljs {
   width: var(--thumb-width);
   height: 0.6666666667rem;
   border-radius: 0;
-  background-color: rgba(var(--grey-200-rgb), 0.3);
+  background-color: var(--grey-100);
 }
 .c-search-list .scrollbar::-webkit-slider-thumb {
   width: var(--thumb-width);
   height: 0.6666666667rem;
-  background-color: var(--white);
+  background-color: var(--dark);
   appearance: none;
 }
 .c-search-list .scrollbar:focus::-webkit-slider-thumb {
@@ -5847,14 +5852,14 @@ code.hljs {
 .c-search-list .scrollbar::-moz-range-track {
   height: 0.6666666667rem;
   border-radius: 0;
-  background-color: rgba(var(--grey-200-rgb), 0.3);
+  background-color: var(--grey-100);
 }
 .c-search-list .scrollbar::-moz-range-thumb {
   width: var(--thumb-width);
   height: 0.6666666667rem;
   border: none;
   border-radius: 0;
-  background-color: var(--white);
+  background-color: var(--dark);
 }
 .c-search-list .scrollbar:focus::-moz-range-thumb {
   outline-offset: 0;
@@ -5870,13 +5875,14 @@ code.hljs {
       position: absolute;
       z-index: 23;
       top: var(--gap-size);
-      right: 0;
+      right: 0.3333333333rem;
       left: 0;
       margin-left: 0;
       transition: opacity 0.35s, visibility 0.35s;
-      border: 1px var(--white) solid;
+      border: 1px var(--dark) solid;
       opacity: 0;
-      background: var(--dark);
+      background: var(--white);
+      color: var(--dark);
       pointer-events: none;
     }
     .suggestion-wrap.active {
@@ -5893,16 +5899,16 @@ code.hljs {
       padding-bottom: 0;
       padding-inline: calc(var(--gap-size) / 2);
       transition: background 0.35s, color 0.35s;
-      border: 1px var(--white) solid;
+      border: 1px var(--dark) solid;
       background: transparent;
       line-height: 1.7;
     }
     .search-button:hover,
     .search-button:active,
     .search-button:focus {
-      outline-color: var(--white);
-      background: var(--white);
-      color: var(--dark);
+      outline-color: var(--dark);
+      background: var(--dark);
+      color: var(--white);
     }
   }
 }
@@ -5911,7 +5917,7 @@ code.hljs {
   min-height: 2.4rem;
   margin-right: 0.3333333333rem;
   padding-left: 0.6666666667rem;
-  border: 1px var(--white) solid;
+  border: 1px var(--dark) solid;
   background: transparent;
 }
 @layer layout {

@@ -40826,6 +40826,20 @@
             }
           }),
           content: [
+            {
+              tag: "button",
+              className: "close",
+              attributes: {
+                type: "button",
+                "arial-label": "Close debug dialog"
+              },
+              modules: delegateEvents({
+                click: () => {
+                  closeOverlay({ proxi, getRef });
+                  proxi.listType = DEBUG_USE_TREE;
+                }
+              })
+            },
             /**
              * Top header
              */
@@ -40888,20 +40902,6 @@
               content: `console log`
             }
           ]
-        },
-        {
-          tag: "button",
-          className: "close",
-          attributes: {
-            type: "button",
-            "arial-label": "Close debug dialog"
-          },
-          modules: delegateEvents({
-            click: () => {
-              closeOverlay({ proxi, getRef });
-              proxi.listType = DEBUG_USE_TREE;
-            }
-          })
         }
       ]
     });

@@ -11,7 +11,7 @@
             position: absolute;
             overflow: hidden;
             outline-offset: -2px;
-            color: var(--white);
+            color: var(--dark);
             inset: 0;
         }
 
@@ -23,8 +23,8 @@
             left: 50%;
             padding: calc(var(--gap-size) / 2) var(--gap-size);
             transform: translate(-50%, -50%);
-            border: 1px rgba(var(--white-rgb), 0.5) solid;
-            background: rgba(var(--dark-rgb), 0.8);
+            border: 1px rgba(var(--dark-rgb), 0.5) solid;
+            background: rgba(var(--white-rgb), 0.8);
             pointer-events: none;
 
             &.active {
@@ -37,6 +37,7 @@
             margin: 0;
             padding: var(--gap-size);
             padding-right: calc(var(--gap-size) * 2);
+            list-style: none;
         }
 
         li {
@@ -44,7 +45,7 @@
             margin-bottom: calc(var(--gap-size) / 2);
             padding-bottom: calc(var(--gap-size) / 2);
             transition: opacity 0.35s;
-            border-bottom: 1px rgba(var(--white-rgb), 0.4) solid;
+            border-bottom: 1px var(--grey-300) solid;
 
             &:hover {
                 opacity: 0.5;
@@ -57,8 +58,8 @@
                     top: 0;
                     bottom: calc(var(--gap-size) / 2);
                     left: calc(#{rem(10)} * -1);
-                    width: rem(2);
-                    background: var(--white);
+                    width: rem(4);
+                    background: var(--dark);
                 }
             }
         }
@@ -117,13 +118,13 @@
         width: var(--thumb-width);
         height: rem(10);
         border-radius: 0;
-        background-color: rgba(var(--grey-200-rgb), 0.3);
+        background-color: var(--grey-100);
     }
 
     &::-webkit-slider-thumb {
         width: var(--thumb-width);
         height: rem(10);
-        background-color: var(--white);
+        background-color: var(--dark);
         appearance: none;
     }
 
@@ -134,7 +135,7 @@
     &::-moz-range-track {
         height: rem(10);
         border-radius: 0;
-        background-color: rgba(var(--grey-200-rgb), 0.3);
+        background-color: var(--grey-100);
     }
 
     &::-moz-range-thumb {
@@ -142,7 +143,7 @@
         height: rem(10);
         border: none; /* Removes extra border that FF applies */
         border-radius: 0; /* Removes default border-radius that FF applies */
-        background-color: var(--white);
+        background-color: var(--dark);
     }
 
     &:focus::-moz-range-thumb {

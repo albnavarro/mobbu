@@ -6,7 +6,7 @@
             display: flex;
             height: 100%;
             padding-top: calc(var(--gap-size) / 2);
-            color: var(--white);
+            color: var(--dark);
             font-size: rem(12);
         }
 
@@ -17,7 +17,6 @@
 
         .general {
             padding-left: var(--gap-size);
-            border-right: 1px var(--dark) solid;
         }
 
         .search {

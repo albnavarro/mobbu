@@ -29,15 +29,15 @@
             transition:
                 background 0.35s,
                 color 0.35s;
-            border: 1px var(--white) solid;
+            border: 1px var(--dark) solid;
             background: transparent;
             font-size: rem(12);
             line-height: 1.7;
 
             @include on-event {
-                outline-color: var(--white);
-                background: var(--white);
-                color: var(--dark);
+                outline-color: var(--dark);
+                background: var(--dark);
+                color: var(--white);
             }
         }
     }
@@ -49,7 +49,7 @@
     width: rem(150);
     margin-right: rem(5);
     padding-left: rem(5);
-    border: 1px var(--white) solid;
+    border: 1px var(--dark) solid;
     background: transparent;
     font-size: rem(12);
 }
