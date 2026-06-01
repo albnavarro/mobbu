@@ -2,8 +2,6 @@
 
 @layer layout {
     @scope (.l-links) {
-        outline-offset: -3px;
-
         :scope {
             position: relative;
             overflow: hidden;
@@ -184,7 +182,6 @@
                 background 0.55s,
                 color 0.55s;
             border: 0;
-            outline-offset: -3px;
             background: transparent;
             color: var(--dark);
             text-transform: capitalize;

@@ -44,7 +44,7 @@
                 right: 0;
                 bottom: 0;
                 width: 1px;
-                background: var(--dark);
+                background: var(--grey-400);
             }
 
             @include mq('large') {
@@ -53,7 +53,7 @@
 
             @include mq(large) {
                 grid-column: 2 / span 1;
-                border-left: 1px var(--dark) solid;
+                border-left: 1px var(--grey-400) solid;
             }
         }
 

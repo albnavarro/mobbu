@@ -50,7 +50,7 @@ export const HomeComponentFn = ({ onMount, getSelfProxi }) => {
                 content: [
                     {
                         tag: 'h1',
-                        content: 'Welcome to MobProject:',
+                        content: 'Welcome to MobProject',
                     },
                     {
                         tag: 'h2',

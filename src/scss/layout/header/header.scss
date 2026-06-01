@@ -21,7 +21,7 @@
                 height: 1px;
                 transform: scaleX(0);
                 transform-origin: top left;
-                background: var(--dark);
+                background: var(--grey-400);
             }
 
             &.is-visible {
@@ -39,6 +39,7 @@
 
                 &::after {
                     transition: transform 1s 0.2s;
+                    background: var(--dark);
                 }
             }
 
@@ -47,6 +48,7 @@
 
                 &::after {
                     transition: transform 1s 0.2s;
+                    background: var(--dark);
                 }
             }
 
@@ -55,6 +57,7 @@
 
                 &::after {
                     transition: transform 1s 0.2s;
+                    background: var(--dark);
                 }
             }
 
@@ -63,6 +66,7 @@
 
                 &::after {
                     transition: transform 1s 0.2s;
+                    background: var(--dark);
                 }
             }
         }
@@ -124,7 +128,7 @@
             height: 100%;
             transition: opacity 1s 0.55s;
             opacity: 0;
-            box-shadow: inset 1px 0 0 0 var(--dark);
+            box-shadow: inset 1px 0 0 0 var(--grey-400);
             text-align: right;
 
             &.is-visible {
