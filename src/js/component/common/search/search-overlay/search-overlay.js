@@ -8,6 +8,7 @@ import { searchOverlayHeader, searchOverlayList } from '@instanceName';
 import { SearchOverlayList } from './list/definition';
 import { SearchOverlayHeader } from './header/definition';
 import { MobCore } from '@mobCore';
+import { sctollSerachListToTop } from './list/utils';
 
 /**
  * @import {
@@ -95,6 +96,7 @@ export const SearchOverlayFn = ({
         getRef().dialog.showModal();
         document.body.style.overflow = 'hidden';
         proxi.active = true;
+        sctollSerachListToTop();
 
         MobCore.useFrameIndex(() => {
             getRef().title.focus();

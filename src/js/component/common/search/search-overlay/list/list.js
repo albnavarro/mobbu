@@ -65,9 +65,6 @@ export const SearchOverlayListFn = ({
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
 
-    /** @type {(arg0: number) => void} */
-    let move;
-
     /**
      * TODO: fetch result and update proxi.list
      */
@@ -87,28 +84,22 @@ export const SearchOverlayListFn = ({
         getRef().screen.scrollTop = 0;
     });
 
-    addMethod('scrollTop', () => {
-        // @ts-ignore
-        move?.(0);
-    });
-
     addMethod('reset', () => {
         proxi.updatePrentSearchKey('');
         proxi.list = [];
     });
 
     onMount(() => {
-        const {
-            destroy,
-            updateScroller,
-            move: moveUpdated,
-            refresh,
-        } = initScroller({
+        const { destroy, updateScroller, move, refresh } = initScroller({
             getRef,
         });
 
-        // update slide move reference
-        move = moveUpdated;
+        addMethod('scrollTop', () => {
+            refresh?.();
+
+            // @ts-ignore
+            move?.(0);
+        });
 
         watch(
             () => proxi.list,
