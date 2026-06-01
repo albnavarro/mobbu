@@ -1,3 +1,4 @@
+import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
 
 /**
@@ -9,7 +10,9 @@ const applyFocus = ({ root }) => {
     h1?.setAttribute('tabindex', '-1');
     if (!focus) return;
 
-    h1?.focus({ preventScroll: true });
+    MobCore.useFrameIndex(() => {
+        h1?.focus({ preventScroll: true });
+    }, 2);
 };
 
 /**
