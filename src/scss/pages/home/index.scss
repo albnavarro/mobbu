@@ -10,7 +10,7 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
             flex-direction: column;
             align-items: start;
             justify-content: start;
-            height: calc(100vh);
+            block-size: calc(100vh);
             overflow: hidden;
 
             @include when-inside('.is-firefox') {
@@ -23,13 +23,13 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
         .text-container {
             display: flex;
             position: absolute;
-            bottom: calc(var(--footer-height) + #{rem(35)});
-            left: calc(var(--header-height) / 2 + #{rem(20)});
+            inset-block-end: calc(var(--footer-height) + #{rem(35)});
+            inset-inline-start: calc(var(--header-height) / 2 + #{rem(20)});
             flex-direction: column;
         }
 
         h1 {
-            margin-bottom: rem(20);
+            margin-block-end: rem(20);
             outline-offset: rem(10);
             color: var(--dark);
             font-size: rem(30);
@@ -62,13 +62,13 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
             scale: 0;
 
             @media (aspect-ratio >= 3/2) {
-                width: min(1920px, calc(((1700 * 100) / 1920) * 1vw));
-                height: min($logo-max-height, calc(((800 * 100) / 1920) * 1vw));
+                block-size: min($logo-max-height, calc(((800 * 100) / 1920) * 1vw));
+                inline-size: min(1920px, calc(((1700 * 100) / 1920) * 1vw));
             }
 
             @media (aspect-ratio < 3/2) {
-                width: calc(((1700 * 100) / 1240) * 1vw);
-                height: calc(((800 * 100) / 1240) * 1vw);
+                block-size: calc(((800 * 100) / 1240) * 1vw);
+                inline-size: calc(((1700 * 100) / 1240) * 1vw);
             }
         }
     }

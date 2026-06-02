@@ -10,7 +10,7 @@
             }
 
             &.is-min-100 {
-                min-height: calc(100vh - var(--header-height) - #{rem(80)});
+                min-block-size: calc(100vh - var(--header-height) - #{rem(80)});
             }
         }
 
@@ -43,16 +43,16 @@
         }
 
         ul {
-            margin-top: 0;
+            margin-block-start: 0;
             padding: 0;
             list-style-type: none;
 
             &.use-links {
-                margin-left: 0;
+                margin-inline-start: 0;
             }
 
             &.use-button {
-                margin-left: 0;
+                margin-inline-start: 0;
 
                 li > a {
                     @include button;
@@ -73,12 +73,12 @@
                 content: '';
                 display: inline-block;
                 position: absolute;
-                top: rem(10);
-                left: calc(var(--gap-size) / 2 * -1);
-                width: 5px;
-                height: 5px;
+                block-size: 5px;
+                inline-size: 5px;
                 border-radius: 100%;
                 background: var(--grey-500);
+                inset-block-start: rem(10);
+                inset-inline-start: calc(var(--gap-size) / 2 * -1);
             }
         }
 
@@ -94,7 +94,7 @@
         @scope (h1) {
             :scope {
                 position: relative;
-                margin-bottom: 0;
+                margin-block-end: 0;
                 padding: calc(var(--gap-size) / 2);
                 overflow: hidden;
                 border: 2px var(--grey-300) solid;
@@ -115,16 +115,16 @@
         h2 {
             margin: var(--gap-size) calc(var(--gap-size) * -1)
                 calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
-            padding-left: var(--gap-size);
+            padding-inline-start: var(--gap-size);
         }
 
         @scope (h2.is-section) {
             :scope {
                 position: relative;
-                height: rem(60);
+                block-size: rem(60);
                 overflow: hidden;
                 transition: transform 0.35s;
-                border-bottom: 1px var(--dark) solid;
+                border-block-end: 1px var(--dark) solid;
                 color: var(--dark);
                 text-transform: capitalize;
 
@@ -139,17 +139,17 @@
 
             .title-content {
                 position: absolute;
-                bottom: calc(#{rem(2)} * -1);
-                left: rem(40);
+                inset-block-end: calc(#{rem(2)} * -1);
+                inset-inline-start: rem(40);
                 font-size: rem(40);
 
                 @include mq(large) {
-                    bottom: rem(4);
+                    inset-block-end: rem(4);
                     font-size: rem(60);
                 }
 
                 @include mq(xlarge) {
-                    bottom: rem(8);
+                    inset-block-end: rem(8);
                     font-size: rem(65);
                 }
             }
@@ -158,8 +158,8 @@
                 display: none;
                 position: absolute;
                 z-index: 1;
-                right: rem(40);
-                bottom: calc(#{rem(13)} * -1);
+                inset-inline-end: rem(40);
+                inset-block-end: calc(#{rem(13)} * -1);
                 color: var(--dark);
                 font-size: rem(14);
 
@@ -171,18 +171,17 @@
 
         h3 {
             position: relative;
-            margin-top: calc(var(--gap-size) / 4);
-            margin-bottom: 0;
-            margin-left: calc(calc(var(--gap-size) / 2) * -1);
-            padding-bottom: calc(var(--gap-size) / 4);
-            padding-left: calc(var(--gap-size) / 2);
+            margin-block: calc(var(--gap-size) / 4) 0;
+            margin-inline-start: calc(calc(var(--gap-size) / 2) * -1);
+            padding-block-end: calc(var(--gap-size) / 4);
+            padding-inline-start: calc(var(--gap-size) / 2);
             font-size: rem(26);
 
             &::after {
                 content: '*';
                 position: absolute;
-                top: 50%;
-                left: 0;
+                inset-block-start: 50%;
+                inset-inline-start: 0;
                 transform: translateY(-50%);
                 color: var(--dark);
                 font-size: rem(30);
@@ -196,43 +195,42 @@
         :scope {
             @include button;
 
-            padding-right: var(--gap-size);
-            padding-left: calc(var(--gap-size) / 2);
+            padding-inline: calc(var(--gap-size) / 2) var(--gap-size);
             background: transparent;
-            text-align: left;
+            text-align: start;
             text-transform: capitalize;
         }
 
         .arrow-container {
             display: block;
             position: absolute;
-            top: 50%;
-            right: rem(5);
-            width: calc(var(--gap-size) / 2);
-            height: calc(var(--gap-size) / 2);
+            block-size: calc(var(--gap-size) / 2);
+            inline-size: calc(var(--gap-size) / 2);
+            inset-block-start: 50%;
+            inset-inline-end: rem(5);
         }
 
         .arrow-start {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 2px;
-            height: rem(10);
+            block-size: rem(10);
+            inline-size: 2px;
             transform: translate(-50%, -50%) rotate(45deg);
             transition: background 0.35s;
             background: var(--dark);
+            inset-block-start: 0;
+            inset-inline-start: 0;
         }
 
         .arrow-end {
             position: absolute;
-            top: -1px;
-            left: 1px;
-            width: rem(7);
-            height: rem(7);
+            block-size: rem(7);
+            inline-size: rem(7);
             transform: translate(-50%, -50%) rotate(275deg);
             transition: border-color 0.35s;
-            border-right: 2px var(--dark) solid;
-            border-bottom: 2px var(--dark) solid;
+            inset-block-start: -1px;
+            inset-inline-start: 1px;
+            border-inline-end: 2px var(--dark) solid;
+            border-block-end: 2px var(--dark) solid;
         }
 
         :scope:hover {
@@ -241,8 +239,8 @@
             }
 
             .arrow-end {
-                border-right: 2px var(--white) solid;
-                border-bottom: 2px var(--white) solid;
+                border-inline-end: 2px var(--white) solid;
+                border-block-end: 2px var(--white) solid;
             }
         }
     }

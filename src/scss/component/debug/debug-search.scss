@@ -8,17 +8,16 @@
 
         .label {
             display: inline-block;
-            min-width: rem(200);
+            min-inline-size: rem(200);
             margin: 0;
             font-family: 'Fira Sans', sans-serif;
         }
 
         button {
             display: inline-block;
-            height: rem(22);
+            block-size: rem(22);
             margin: 0;
-            padding-top: 0;
-            padding-bottom: 0;
+            padding-block: 0;
             padding-inline: calc(var(--gap-size) / 2);
             transition:
                 background 0.35s,
@@ -39,15 +38,15 @@
 
 // Safari issue
 .c-debug-search input {
-    width: rem(100);
-    height: rem(22);
-    margin-right: rem(5);
-    padding-left: rem(5);
+    block-size: rem(22);
+    inline-size: rem(100);
+    margin-inline-end: rem(5);
+    padding-inline-start: rem(5);
     border: 1px var(--dark) solid;
     background: transparent;
     vertical-align: middle;
 
     @include mq(large) {
-        width: rem(150);
+        inline-size: rem(150);
     }
 }

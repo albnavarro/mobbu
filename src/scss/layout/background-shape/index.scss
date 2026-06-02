@@ -5,12 +5,12 @@
         :scope {
             position: absolute;
             z-index: -1;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            block-size: 100%;
+            inline-size: 100%;
             overflow: hidden;
             opacity: 0.05;
+            inset-block-start: 0;
+            inset-inline-start: 0;
 
             &.is-light {
                 opacity: 0.03;
@@ -19,15 +19,15 @@
 
         svg {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 500vw;
-            height: 500vh;
+            block-size: 500vh;
+            inline-size: 500vw;
             transform: translate(-50%, -50%);
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
 
             @include mq(desktop) {
-                width: 200vw;
-                height: 200vh;
+                block-size: 200vh;
+                inline-size: 200vw;
             }
         }
     }

@@ -5,9 +5,8 @@
         :scope {
             position: relative;
             z-index: 1;
-            margin-top: var(--gap-size);
-            margin-bottom: calc(var(--gap-size) / 2);
-            padding-left: calc(var(--gap-size) * 1.1);
+            margin-block: var(--gap-size) calc(var(--gap-size) / 2);
+            padding-inline-start: calc(var(--gap-size) * 1.1);
             color: var(--dark);
             font-size: rem(11);
             font-weight: 400;
@@ -27,7 +26,7 @@
     @scope (.c-breadcrumbs) {
         :scope {
             display: inline-block;
-            margin-left: 0;
+            margin-inline-start: 0;
         }
 
         li {
@@ -37,7 +36,7 @@
         span {
             display: inline-block;
             position: relative;
-            width: 80px;
+            inline-size: 80px;
             padding: em(2) em(10);
             overflow: clip;
             transition: opacity 0.35s;
@@ -54,7 +53,7 @@
         .link {
             display: inline-block;
             position: relative;
-            margin-right: rem(5);
+            margin-inline-end: rem(5);
             padding: em(2) em(10);
             transition:
                 background 0.35s,
@@ -77,33 +76,33 @@
         .arrows {
             display: block;
             position: absolute;
-            top: calc(#{rem(2)} * -1);
-            left: rem(7);
-            width: rem(30);
-            height: rem(30);
+            block-size: rem(30);
+            inline-size: rem(30);
+            inset-block-start: calc(#{rem(2)} * -1);
+            inset-inline-start: rem(7);
         }
 
         .arrow-start {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 2px;
-            height: rem(10);
+            block-size: rem(10);
+            inline-size: 2px;
             transform: translate(-50%, -50%) rotate(90deg);
             transition: background 0.35s;
             background: var(--dark);
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
         }
 
         .arrow-end {
             position: absolute;
-            top: 50%;
-            left: calc(50% + #{rem(2)} * -1);
-            width: rem(7);
-            height: rem(7);
+            block-size: rem(7);
+            inline-size: rem(7);
             transform: translate(-50%, -50%) rotate(135deg);
             transition: border-color 0.35s;
-            border-right: 2px var(--dark) solid;
-            border-bottom: 2px var(--dark) solid;
+            inset-block-start: 50%;
+            inset-inline-start: calc(50% + #{rem(2)} * -1);
+            border-inline-end: 2px var(--dark) solid;
+            border-block-end: 2px var(--dark) solid;
         }
     }
 }

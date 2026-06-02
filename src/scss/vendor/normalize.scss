@@ -76,7 +76,7 @@
 
     audio:not([controls]) {
         display: none;
-        height: 0;
+        block-size: 0;
     }
 
     /**
@@ -118,7 +118,7 @@
      */
 
     abbr[title] {
-        border-bottom: 1px dotted;
+        border-block-end: 1px dotted;
     }
 
     /**
@@ -178,11 +178,11 @@
     }
 
     sup {
-        top: -0.5em;
+        inset-block-start: -0.5em;
     }
 
     sub {
-        bottom: -0.25em;
+        inset-block-end: -0.25em;
     }
 
     /* Embedded content
@@ -221,7 +221,7 @@
 
     hr {
         box-sizing: content-box;
-        height: 0;
+        block-size: 0;
     }
 
     /**
@@ -355,7 +355,7 @@
 
     input[type='number']::-webkit-inner-spin-button,
     input[type='number']::-webkit-outer-spin-button {
-        height: auto;
+        block-size: auto;
     }
 
     /**

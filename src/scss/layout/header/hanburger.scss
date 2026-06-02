@@ -5,8 +5,8 @@
         :scope {
             display: inline-block;
             position: relative;
-            width: var(--header-height);
-            height: var(--header-height);
+            block-size: var(--header-height);
+            inline-size: var(--header-height);
             margin: 0;
             transform: translateX(-100%);
             transition: transform 0.55s;
@@ -51,22 +51,22 @@
         .lines {
             display: block;
             position: absolute;
-            top: 50%;
-            width: var(--width);
-            height: var(--height);
-            margin-top: -2px;
+            block-size: var(--height);
+            inline-size: var(--width);
+            margin-block-start: -2px;
             transition-property: transform;
             transition-duration: 0.15s;
             transition-timing-function: ease;
             background-color: var(--white);
+            inset-block-start: 50%;
 
             &::before,
             &::after {
                 content: '';
                 display: block;
                 position: absolute;
-                width: 100%;
-                height: var(--height);
+                block-size: var(--height);
+                inline-size: 100%;
                 transition-property: transform;
                 transition-duration: 0.15s;
                 transition-timing-function: ease;
@@ -74,19 +74,19 @@
             }
 
             &::before {
-                top: var(--offset);
+                inset-block-start: var(--offset);
             }
 
             &::after {
-                bottom: var(--offset);
+                inset-block-end: var(--offset);
             }
         }
 
         .wrapper {
             display: inline-block;
             position: relative;
-            width: var(--width);
-            height: var(--total-height);
+            block-size: var(--total-height);
+            inline-size: var(--width);
             transition: opacity 1s 0.5s;
         }
 
@@ -97,7 +97,7 @@
                 transition-delay: 0.12s;
 
                 &::before {
-                    top: 0;
+                    inset-block-start: 0;
                     transition:
                         top 0.075s ease,
                         opacity 0.075s 0.12s ease;
@@ -106,7 +106,7 @@
                 }
 
                 &::after {
-                    bottom: 0;
+                    inset-block-end: 0;
                     transform: rotate(-90deg);
                     transition:
                         bottom 0.075s ease,

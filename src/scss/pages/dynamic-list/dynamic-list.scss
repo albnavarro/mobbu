@@ -3,7 +3,7 @@
 @layer layout {
     @scope (.c-dynamic-list) to (.c-dynamic-list-repeater) {
         :scope {
-            padding-bottom: var(--footer-height);
+            padding-block-end: var(--footer-height);
             border: 0;
 
             @include when-inside('.is-whelling') {
@@ -14,32 +14,32 @@
         .header {
             position: sticky;
             z-index: 10;
-            top: var(--header-height);
+            inset-block-start: var(--header-height);
             padding: calc(var(--gap-size) / 2) var(--gap-size);
-            border-bottom: 1px var(--dark) solid;
+            border-block-end: 1px var(--dark) solid;
             background: rgba(var(--white-rgb), 0.8);
         }
 
         .dynamic-list-button {
             flex: 1;
-            max-width: rem(200);
+            max-inline-size: rem(200);
         }
 
         .header-top {
             gap: rem(10);
             display: flex;
             flex-wrap: wrap;
-            width: 100%;
+            inline-size: 100%;
         }
 
         .invalidate {
             display: flex;
             padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
-            border-bottom: 1px var(--dark) solid;
+            border-block-end: 1px var(--dark) solid;
         }
 
         .invalidate-title {
-            margin-right: calc(var(--gap-size) / 2);
+            margin-inline-end: calc(var(--gap-size) / 2);
         }
 
         .counter {
@@ -49,7 +49,7 @@
 
         .repeaters-container {
             box-sizing: border-box;
-            width: 100%;
+            inline-size: 100%;
             padding: var(--gap-size);
         }
 

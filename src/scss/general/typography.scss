@@ -11,7 +11,7 @@
      * Most of these are inherited from Base, but I want to change a few.
      */
     html {
-        height: 100%;
+        block-size: 100%;
         color: var(--dark);
         font-family: 'Fira Sans', sans-serif;
         font-weight: 400;
@@ -102,7 +102,7 @@
 
     .p {
         &-boxed {
-            margin-bottom: calc(var(--gap-size) / 2);
+            margin-block-end: calc(var(--gap-size) / 2);
             padding: calc(var(--gap-size) / 2);
             border: 2px var(--grey-300) solid;
             border-radius: rem(10);
@@ -111,13 +111,13 @@
 
         &-note {
             position: relative;
-            padding-top: calc(var(--gap-size) * 1.5);
+            padding-block-start: calc(var(--gap-size) * 1.5);
 
             &::after {
                 content: '!';
                 position: absolute;
-                top: rem(18);
-                left: rem(33);
+                inset-block-start: rem(18);
+                inset-inline-start: rem(33);
                 color: var(--red);
                 font-weight: 700;
             }
@@ -125,12 +125,12 @@
             &::before {
                 content: '';
                 position: absolute;
-                top: rem(20);
-                left: rem(24);
-                width: rem(22);
-                height: rem(22);
+                block-size: rem(22);
+                inline-size: rem(22);
                 border: 2px var(--red) solid;
                 border-radius: 100%;
+                inset-block-start: rem(20);
+                inset-inline-start: rem(24);
             }
         }
     }
@@ -152,11 +152,11 @@
     }
 
     ul {
-        margin-bottom: rem(15);
-        margin-left: rem(20);
+        margin-block-end: rem(15);
+        margin-inline-start: rem(20);
 
         &.hide-dots {
-            margin-left: 0;
+            margin-inline-start: 0;
             list-style-type: none;
         }
 

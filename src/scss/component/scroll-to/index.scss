@@ -3,8 +3,8 @@
 @layer layout {
     @scope (.c-scroll-to) {
         :scope {
-            margin-top: calc(var(--gap-size) / 2);
-            margin-left: var(--gap-size);
+            margin-block-start: calc(var(--gap-size) / 2);
+            margin-inline-start: var(--gap-size);
             color: var(--dark);
         }
 
@@ -14,19 +14,19 @@
             list-style-type: none;
 
             @media screen and (height <= 825px) {
-                margin-top: calc(#{rem(10)} * -1);
+                margin-block-start: calc(#{rem(10)} * -1);
             }
         }
 
         li {
-            margin-bottom: rem(2);
+            margin-block-end: rem(2);
         }
 
         button {
             display: block;
             position: relative;
-            min-width: rem(140);
-            margin-right: rem(10);
+            min-inline-size: rem(140);
+            margin-inline-end: rem(10);
             padding: 0;
             transition: opacity 0.55s;
             border: 0;
@@ -34,7 +34,7 @@
             background: transparent;
             font-size: rem(12);
             line-height: 1.5;
-            text-align: left;
+            text-align: start;
 
             @include mq(large) {
                 font-size: rem(13);
@@ -42,7 +42,7 @@
 
             span {
                 display: block;
-                padding-left: rem(5);
+                padding-inline-start: rem(5);
                 transition:
                     transform 0.55s,
                     opacity 0.55s;
@@ -54,8 +54,8 @@
             }
 
             &.is-section {
-                margin-top: calc(var(--gap-size) / 4);
-                margin-left: 0;
+                margin-block-start: calc(var(--gap-size) / 4);
+                margin-inline-start: 0;
                 font-weight: 600;
 
                 span {
@@ -66,14 +66,14 @@
             &::before {
                 content: '';
                 position: absolute;
-                top: 50%;
-                right: calc(100% + #{rem(10)});
-                width: rem(4);
-                height: rem(4);
+                block-size: rem(4);
+                inline-size: rem(4);
                 transform: translateY(-50%) rotate(45deg);
                 transition: transform 0.35s;
-                border-top: 1px rgba(var(--dark-rgb), 0.5) solid;
-                border-right: 1px rgba(var(--dark-rgb), 0.5) solid;
+                inset-block-start: 50%;
+                inset-inline-end: calc(100% + #{rem(10)});
+                border-block-start: 1px rgba(var(--dark-rgb), 0.5) solid;
+                border-inline-end: 1px rgba(var(--dark-rgb), 0.5) solid;
             }
 
             &:not(.active):hover {
@@ -104,7 +104,7 @@
             }
 
             &.is-note {
-                margin-left: 0;
+                margin-inline-start: 0;
                 opacity: 0.5;
                 font-size: rem(12);
                 cursor: auto;

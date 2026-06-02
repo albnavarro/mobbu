@@ -20,9 +20,9 @@
             display: none;
             position: sticky;
             z-index: 14;
-            top: var(--header-height);
+            inset-block-start: var(--header-height);
             align-self: start;
-            height: calc(100vh - var(--header-height) - var(--footer-height));
+            block-size: calc(100vh - var(--header-height) - var(--footer-height));
             padding: var(--gap-size);
             overflow: hidden;
 
@@ -40,20 +40,19 @@
             &::after {
                 content: '';
                 position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                width: 1px;
+                inset-block: 0;
+                inset-inline-end: 0;
+                inline-size: 1px;
                 background: var(--grey-400);
             }
 
             @include mq('large') {
-                width: auto;
+                inline-size: auto;
             }
 
             @include mq(large) {
                 grid-column: 2 / span 1;
-                border-left: 1px var(--grey-400) solid;
+                border-inline-start: 1px var(--grey-400) solid;
             }
         }
 
@@ -61,12 +60,12 @@
             display: none;
             position: sticky;
             z-index: 14;
-            top: var(--header-height);
             grid-column: 2 / span 1;
             align-self: start;
-            min-width: rem(250);
-            height: calc(100vh - var(--header-height) - var(--footer-height));
+            block-size: calc(100vh - var(--header-height) - var(--footer-height));
+            min-inline-size: rem(250);
             overflow: hidden;
+            inset-block-start: var(--header-height);
 
             @include mq('desktop') {
                 display: block;

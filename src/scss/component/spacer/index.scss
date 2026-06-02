@@ -6,29 +6,28 @@
             position: relative;
 
             &.is-x-small {
-                height: 1px;
+                block-size: 1px;
             }
 
             &.is-small {
-                height: calc(var(--gap-size) / 2);
+                block-size: calc(var(--gap-size) / 2);
             }
 
             &.is-medium {
-                height: var(--gap-size);
+                block-size: var(--gap-size);
             }
 
             &.is-big {
-                height: calc(var(--gap-size) * 2);
+                block-size: calc(var(--gap-size) * 2);
             }
 
             &.is-line {
                 &::after {
                     content: '';
                     position: absolute;
-                    top: 50%;
-                    right: 0;
-                    left: 0;
-                    height: 1px;
+                    inset-block-start: 50%;
+                    inset-inline: 0;
+                    block-size: 1px;
                     background: rgba(var(--white-rgb), 0.1);
                 }
             }

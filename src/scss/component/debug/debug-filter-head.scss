@@ -9,7 +9,7 @@
 
         .title {
             grid-area: title;
-            margin-right: calc(var(--gap-size) / 2);
+            margin-inline-end: calc(var(--gap-size) / 2);
             font-size: rem(14);
             font-weight: 600;
         }
@@ -23,8 +23,7 @@
             display: inline-block;
             grid-area: submit;
             margin: 0;
-            padding-top: 0;
-            padding-bottom: 0;
+            padding-block: 0;
             padding-inline: calc(var(--gap-size) / 2);
             transition:
                 background 0.35s,
@@ -46,9 +45,9 @@
 // Safari issue
 .c-debug-filter-head input {
     grid-area: input;
-    width: rem(150);
-    margin-right: rem(5);
-    padding-left: rem(5);
+    inline-size: rem(150);
+    margin-inline-end: rem(5);
+    padding-inline-start: rem(5);
     border: 1px var(--dark) solid;
     background: transparent;
     font-size: rem(12);

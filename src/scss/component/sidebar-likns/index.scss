@@ -7,15 +7,15 @@
 
             position: fixed;
             z-index: 14;
-            top: calc(var(--header-height) + var(--gap-size) * 2);
-            left: calc(var(--doc-width) + (var(--gap-size) / 2));
-            width: 100%;
-            height: var(--links-height);
-            border-top: 1px var(--grey-300) solid;
-            border-bottom: 1px var(--grey-300) solid;
+            block-size: var(--links-height);
+            inline-size: 100%;
+            inset-block-start: calc(var(--header-height) + var(--gap-size) * 2);
+            inset-inline-start: calc(var(--doc-width) + (var(--gap-size) / 2));
+            border-block-start: 1px var(--grey-300) solid;
+            border-block-end: 1px var(--grey-300) solid;
 
             @include mq(large) {
-                left: calc(
+                inset-inline-start: calc(
                     /* stylelint-disable-next-line  scss/operator-no-newline-after */
                         /* stylelint-disable-next-line  scss/operator-no-newline-after */
                         var(--doc-width) + var(--left-sidebar) +
@@ -38,27 +38,27 @@
         .screen {
             visibility: visible;
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            block-size: 100%;
+            inline-size: 100%;
             overflow: hidden;
             transition:
                 transform 0.55s,
                 opacity 0.55s,
                 visibility 0.55s;
             opacity: 1;
+            inset-block-start: 0;
+            inset-inline-start: 0;
         }
 
         ul {
-            min-height: var(--links-height);
+            min-block-size: var(--links-height);
             margin: 0;
-            padding-bottom: rem(100);
-            padding-left: rem(32);
+            padding-block-end: rem(100);
+            padding-inline-start: rem(32);
             list-style: none;
 
             @media screen and (height <= 825px) {
-                margin-top: calc(#{rem(10)} * -1);
+                margin-block-start: calc(#{rem(10)} * -1);
             }
 
             // Performance on scroll
@@ -71,14 +71,13 @@
         }
 
         li {
-            max-width: rem(170);
+            max-inline-size: rem(170);
         }
 
         button {
             display: block;
             position: relative;
-            padding-right: rem(4);
-            padding-left: rem(4);
+            padding-inline: rem(4);
             transition: color 0.35s;
             border: 0;
             outline-offset: 0;
@@ -94,14 +93,14 @@
             &::after {
                 content: '';
                 position: absolute;
-                top: 50%;
-                left: calc(#{rem(20)} * -1);
-                width: rem(4);
-                height: em(15);
+                block-size: em(15);
+                inline-size: rem(4);
                 transform: translateY(-50%);
                 transition: opacity 0.35s;
                 opacity: 0;
                 background: var(--dark);
+                inset-block-start: 50%;
+                inset-inline-start: calc(#{rem(20)} * -1);
             }
 
             @media screen and (height >= 200px) and (height <= 750px) {
@@ -124,9 +123,8 @@
         }
 
         .label {
-            margin-top: calc(var(--gap-size) / 2);
-            margin-bottom: rem(5);
-            padding-left: rem(4);
+            margin-block: calc(var(--gap-size) / 2) rem(5);
+            padding-inline-start: rem(4);
             font-size: rem(13);
             font-weight: 600;
             line-height: 1.2;
@@ -143,9 +141,9 @@
 .c-sidebar-links .scrollbar {
     position: absolute;
     z-index: 11;
-    top: rem(25);
-    left: rem(240);
-    width: calc(var(--links-height) - #{rem(60)});
+    inset-block-start: rem(25);
+    inset-inline-start: rem(240);
+    inline-size: calc(var(--links-height) - #{rem(60)});
     transform: rotate(90deg);
     transform-origin: left;
     background: transparent;
@@ -163,15 +161,15 @@
     }
 
     &::-webkit-slider-runnable-track {
-        width: var(--thumb-width);
-        height: rem(10);
+        block-size: rem(10);
+        inline-size: var(--thumb-width);
         border-radius: rem(10);
         background-color: var(--grey-100);
     }
 
     &::-webkit-slider-thumb {
-        width: var(--thumb-width);
-        height: rem(10);
+        block-size: rem(10);
+        inline-size: var(--thumb-width);
         border-radius: rem(10);
         background-color: var(--dark);
         appearance: none;
@@ -183,14 +181,14 @@
     }
 
     &::-moz-range-track {
-        height: rem(10);
+        block-size: rem(10);
         border-radius: rem(10);
         background-color: var(--grey-100);
     }
 
     &::-moz-range-thumb {
-        width: var(--thumb-width);
-        height: rem(10);
+        block-size: rem(10);
+        inline-size: var(--thumb-width);
         border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
         border-radius: rem(10);
         background-color: var(--dark);

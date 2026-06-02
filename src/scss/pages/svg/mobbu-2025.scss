@@ -4,9 +4,9 @@
     @scope (.mobbu2025) {
         :scope {
             position: relative;
-            width: calc(100vw - (var(--header-height) * 0.5) + 1px);
-            height: calc(100vh - var(--footer-height));
-            margin-left: calc((var(--header-height) * 0.5) - 1px);
+            block-size: calc(100vh - var(--footer-height));
+            inline-size: calc(100vw - (var(--header-height) * 0.5) + 1px);
+            margin-inline-start: calc((var(--header-height) * 0.5) - 1px);
             overflow: hidden;
 
             --mobbu2025-height: calc(
@@ -17,30 +17,30 @@
 
         .screen {
             position: relative;
-            top: var(--header-height);
-            width: 100%;
-            height: var(--mobbu2025-height);
+            block-size: var(--mobbu2025-height);
+            inline-size: 100%;
             overflow: hidden;
             cursor: grabbing;
+            inset-block-start: var(--header-height);
         }
 
         .scroller-element {
             position: absolute;
-            height: var(--mobbu2025-height);
+            block-size: var(--mobbu2025-height);
             aspect-ratio: 690/117;
         }
 
         .layer {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            height: var(--mobbu2025-height);
+            inset-block-end: 0;
+            inset-inline-start: 0;
+            block-size: var(--mobbu2025-height);
             aspect-ratio: 690/117;
         }
 
         svg {
-            width: var(--mobbu2025-width);
-            height: var(--mobbu2025-height);
+            block-size: var(--mobbu2025-height);
+            inline-size: var(--mobbu2025-width);
             pointer-events: none;
         }
 

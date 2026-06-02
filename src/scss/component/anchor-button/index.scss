@@ -5,42 +5,41 @@
         :scope {
             @include button;
 
-            padding-right: var(--gap-size);
-            padding-left: calc(var(--gap-size) / 2);
+            padding-inline: calc(var(--gap-size) / 2) var(--gap-size);
             background: transparent;
-            text-align: left;
+            text-align: start;
         }
 
         .arrows {
             display: block;
             position: absolute;
-            top: 50%;
-            right: rem(5);
-            width: rem(20);
-            height: rem(20);
+            block-size: rem(20);
+            inline-size: rem(20);
+            inset-block-start: 50%;
+            inset-inline-end: rem(5);
         }
 
         .arrow-start {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 2px;
-            height: rem(10);
+            block-size: rem(10);
+            inline-size: 2px;
             transform: translate(-50%, -50%);
             transition: background 0.35s;
             background: var(--dark);
+            inset-block-start: 0;
+            inset-inline-start: 0;
         }
 
         .arrow-end {
             position: absolute;
-            top: calc(#{rem(2)} * 1);
-            left: 0;
-            width: rem(7);
-            height: rem(7);
+            block-size: rem(7);
+            inline-size: rem(7);
             transform: translate(-50%, -50%) rotate(45deg);
             transition: border-color 0.35s;
-            border-right: 2px var(--dark) solid;
-            border-bottom: 2px var(--dark) solid;
+            inset-block-start: calc(#{rem(2)} * 1);
+            inset-inline-start: 0;
+            border-inline-end: 2px var(--dark) solid;
+            border-block-end: 2px var(--dark) solid;
         }
 
         :scope:hover {
@@ -49,8 +48,8 @@
             }
 
             .arrow-end {
-                border-right: 2px var(--white) solid;
-                border-bottom: 2px var(--white) solid;
+                border-inline-end: 2px var(--white) solid;
+                border-block-end: 2px var(--white) solid;
             }
         }
     }

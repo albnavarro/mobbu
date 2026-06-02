@@ -3,7 +3,7 @@
 @layer layout {
     @scope (.l-h-scroller) {
         :scope {
-            margin-top: calc(var(--header-height) * -1);
+            margin-block-start: calc(var(--header-height) * -1);
 
             @include when-inside('.is-whelling') {
                 pointer-events: none;
@@ -16,7 +16,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            block-size: 100vh;
             transition: background 0.55s;
             color: var(--dark);
             font-size: rem(25);
@@ -25,7 +25,7 @@
         }
 
         .top {
-            margin-top: var(--header-height);
+            margin-block-start: var(--header-height);
         }
 
         .bottom {
@@ -41,25 +41,25 @@
             pointer-events: all;
 
             &--last {
-                width: rem(100) !important;
+                inline-size: rem(100) !important;
             }
 
             &:last-of-type {
-                margin-right: 1px;
+                margin-inline-end: 1px;
             }
         }
 
         .wrap {
             position: relative;
-            height: 100%;
+            block-size: 100%;
             border: 1px var(--dark) solid;
         }
 
         .nav {
             position: fixed;
             z-index: 9;
-            top: calc(15% + var(--header-height) * 0.5 + 5px);
-            left: calc(var(--header-height) * 0.5);
+            inset-block-start: calc(15% + var(--header-height) * 0.5 + 5px);
+            inset-inline-start: calc(var(--header-height) * 0.5);
             margin: 0;
             padding: 0;
             list-style-type: none;
@@ -79,31 +79,31 @@
 
             &:hover {
                 button {
-                    border-bottom: rem(5) var(--dark) solid;
+                    border-block-end: rem(5) var(--dark) solid;
                 }
             }
         }
 
         .nav-button {
             position: relative;
-            width: rem(60);
-            height: rem(60);
+            block-size: rem(60);
+            inline-size: rem(60);
             margin: 0;
             transition:
                 background 0.55s,
                 border-top 0.55s;
             border: 0;
-            border-top: rem(5) transparent solid;
-            border-bottom: rem(5) transparent solid;
             background: transparent;
             font-size: rem(16);
+            border-block-start: rem(5) transparent solid;
+            border-block-end: rem(5) transparent solid;
         }
 
         .title {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: rem(200);
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+            inline-size: rem(200);
             transform: translate(-50%, -50%);
             border: rem(10px) rgba(var(--dark-rgb), 0.15) solid;
             text-align: center;
@@ -122,19 +122,19 @@
         :scope {
             display: block;
             z-index: 8;
-            width: rem(60);
-            height: 0;
+            block-size: 0;
+            inline-size: rem(60);
             margin: 0;
             padding: 0;
             transition:
                 background 0.15s,
                 opacity 0.15s;
             border: 0;
-            border-right: 1px var(--dark) solid;
             opacity: 0;
             color: var(--dark);
             font-size: rem(16);
             pointer-events: none;
+            border-inline-end: 1px var(--dark) solid;
 
             &.hidden {
                 visibility: hidden;
@@ -151,8 +151,8 @@
 
         span {
             display: block;
-            width: rem(60);
-            height: rem(10);
+            block-size: rem(10);
+            inline-size: rem(60);
             transform: translateY(-100%);
             background: var(--dark);
         }

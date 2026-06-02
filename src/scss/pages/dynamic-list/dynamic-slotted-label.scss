@@ -3,7 +3,7 @@
 @layer layout {
     @scope (.c-dynamic-list-slotted-label) {
         :scope {
-            margin-top: calc(var(--gap-size) / 4);
+            margin-block-start: calc(var(--gap-size) / 4);
             padding: rem(5);
             border: 1px rgba(var(--dark-rgb), 0.1) solid;
 

@@ -3,7 +3,7 @@
 @layer layout {
     @scope (.c-dynamic-list-empty) {
         :scope {
-            margin-top: rem(10);
+            margin-block-start: rem(10);
             padding: rem(5);
             border: 1px rgba(var(--dark-rgb), 0.1) solid;
 

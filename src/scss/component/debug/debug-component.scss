@@ -12,45 +12,43 @@
 
         .id-code {
             display: inline-block;
-            margin-left: rem(4);
+            margin-inline-start: rem(4);
             padding: 0 rem(6);
             border-radius: rem(4);
             line-height: 1.8;
         }
 
         .debug-container {
-            min-height: 100%;
+            min-block-size: 100%;
             padding: rem(14) rem(20) rem(20);
         }
 
         .section-title {
-            margin-top: rem(20);
-            margin-right: rem(20);
-            margin-bottom: rem(10);
-            padding-top: rem(10);
-            border-top: 1px var(--grey-300) solid;
+            margin-block: rem(20) rem(10);
+            margin-inline-end: rem(20);
+            padding-block-start: rem(10);
+            border-block-start: 1px var(--grey-300) solid;
             font-size: rem(14);
         }
 
         .section-subtitle {
-            margin-top: rem(20);
-            margin-right: rem(20);
-            margin-bottom: rem(10);
-            padding-top: rem(10);
+            margin-block: rem(20) rem(10);
+            margin-inline-end: rem(20);
+            padding-block-start: rem(10);
             font-size: rem(12);
         }
 
         ul {
             display: flex;
             flex-wrap: wrap;
-            margin-left: 0;
+            margin-inline-start: 0;
             list-style-type: none;
         }
 
         .child,
         .parent-id-code {
-            margin-bottom: rem(4);
-            margin-left: rem(10);
+            margin-block-end: rem(4);
+            margin-inline-start: rem(10);
             padding: 0 rem(6);
             transition: opacity 0.35s;
             border: 0;
@@ -64,7 +62,7 @@
         }
 
         .back-block {
-            margin-bottom: rem(22);
+            margin-block-end: rem(22);
         }
 
         .back {
@@ -97,9 +95,9 @@
 .c-debug-component .scrollbar {
     position: absolute;
     z-index: 14;
-    top: rem(20);
-    left: calc(100% - #{rem(20)});
-    width: calc(var(--debug-content-row-height) - #{rem(60)});
+    inset-block-start: rem(20);
+    inset-inline-start: calc(100% - #{rem(20)});
+    inline-size: calc(var(--debug-content-row-height) - #{rem(60)});
     transform: rotate(90deg);
     transform-origin: left;
     background: transparent;
@@ -117,15 +115,15 @@
     }
 
     &::-webkit-slider-runnable-track {
-        width: var(--thumb-width);
-        height: rem(10);
+        block-size: rem(10);
+        inline-size: var(--thumb-width);
         border-radius: 0;
         background-color: var(--grey-100);
     }
 
     &::-webkit-slider-thumb {
-        width: var(--thumb-width);
-        height: rem(10);
+        block-size: rem(10);
+        inline-size: var(--thumb-width);
         background-color: var(--dark);
         appearance: none;
     }
@@ -135,14 +133,14 @@
     }
 
     &::-moz-range-track {
-        height: rem(10);
+        block-size: rem(10);
         border-radius: 0;
         background-color: var(--grey-100);
     }
 
     &::-moz-range-thumb {
-        width: var(--thumb-width);
-        height: rem(10);
+        block-size: rem(10);
+        inline-size: var(--thumb-width);
         border: none; /* Removes extra border that FF applies */
         border-radius: 0; /* Removes default border-radius that FF applies */
         background-color: var(--dark);

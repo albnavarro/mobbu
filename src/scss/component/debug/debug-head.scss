@@ -4,8 +4,8 @@
     @scope (.c-debug-head) {
         :scope {
             display: flex;
-            height: 100%;
-            padding-top: calc(var(--gap-size) / 2);
+            block-size: 100%;
+            padding-block-start: calc(var(--gap-size) / 2);
             color: var(--dark);
             font-size: rem(12);
         }
@@ -16,11 +16,11 @@
         }
 
         .general {
-            padding-left: var(--gap-size);
+            padding-inline-start: var(--gap-size);
         }
 
         .search {
-            padding-left: calc(var(--gap-size) / 2);
+            padding-inline-start: calc(var(--gap-size) / 2);
         }
     }
 }

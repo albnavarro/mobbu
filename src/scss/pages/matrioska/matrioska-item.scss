@@ -11,8 +11,8 @@
 
             &.is-1,
             &.is-2 {
-                margin-bottom: calc(var(--gap-size) / 2);
-                padding-bottom: calc(var(--gap-size) / 2);
+                margin-block-end: calc(var(--gap-size) / 2);
+                padding-block-end: calc(var(--gap-size) / 2);
             }
 
             &.is-2 {
@@ -39,17 +39,17 @@
         }
 
         .info {
-            margin-bottom: rem(20);
+            margin-block-end: rem(20);
         }
 
         .item-level {
-            margin-bottom: 0;
+            margin-block-end: 0;
             padding: calc(var(--gap-size) / 2);
         }
 
         .key,
         .value {
-            margin-bottom: 0;
+            margin-block-end: 0;
             padding: 0 calc(var(--gap-size) / 2);
 
             span {

@@ -9,10 +9,8 @@
         .expand {
             display: inline-block;
             position: absolute;
-            top: rem(10);
-            right: 0;
-            margin-right: rem(10);
-            margin-bottom: rem(10);
+            margin-block-end: rem(10);
+            margin-inline-end: rem(10);
             padding: rem(2) rem(10);
             transition: background 0.35s;
             border: 0;
@@ -23,6 +21,8 @@
             font-size: rem(12);
             text-align: center;
             text-decoration: none;
+            inset-block-start: rem(10);
+            inset-inline-end: 0;
 
             &:hover {
                 background: var(--grey-200);
@@ -39,8 +39,8 @@
             display: block;
             position: relative;
             box-sizing: content-box;
-            width: 100%;
-            min-width: auto;
+            inline-size: 100%;
+            min-inline-size: auto;
             padding: 0;
             overflow: hidden;
             transition: height 0.35s;
@@ -54,10 +54,8 @@
             &::after {
                 content: '';
                 position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: rem(150);
+                block-size: rem(150);
+                inline-size: 100%;
                 transition: opacity 0.35s;
                 opacity: 0;
                 background: linear-gradient(
@@ -66,14 +64,16 @@
                     rgba(var(--white-rgb), 0) 100%
                 );
                 pointer-events: none;
+                inset-block-end: 0;
+                inset-inline-start: 0;
             }
 
             &.open {
-                height: calc(var(--snippet-height) + (var(--padding-pre) * 2));
+                block-size: calc(var(--snippet-height) + (var(--padding-pre) * 2));
             }
 
             &.close {
-                height: var(--closed-height);
+                block-size: var(--closed-height);
 
                 &::after {
                     opacity: 1;

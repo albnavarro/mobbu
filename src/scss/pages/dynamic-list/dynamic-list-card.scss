@@ -13,20 +13,20 @@
             color: var(--dark);
             font-size: rem(14);
             line-height: 1.4;
-            text-align: left;
+            text-align: start;
 
             &.active {
                 opacity: 1;
             }
 
             &.is-full {
-                width: 100%;
+                inline-size: 100%;
             }
         }
 
         @scope (.card-info) {
             p {
-                margin-bottom: 0;
+                margin-block-end: 0;
             }
         }
 
@@ -40,25 +40,25 @@
         }
 
         .card-title {
-            margin-bottom: rem(10);
+            margin-block-end: rem(10);
             color: var(--dark);
             font-weight: 600;
         }
 
         .repeater-card-button {
-            width: 100%;
-            margin-bottom: calc(var(--gap-size) / 4);
+            inline-size: 100%;
+            margin-block-end: calc(var(--gap-size) / 4);
             padding: rem(12);
         }
 
         .card-repeaters-wrap {
-            margin-top: calc(var(--gap-size) / 2);
+            margin-block-start: calc(var(--gap-size) / 2);
         }
 
         .card-repeater {
-            margin-bottom: calc(var(--gap-size) / 4);
-            padding-bottom: calc(var(--gap-size) / 4);
-            border-bottom: 1px rgba(var(--dark-rgb), 0.1) solid;
+            margin-block-end: calc(var(--gap-size) / 4);
+            padding-block-end: calc(var(--gap-size) / 4);
+            border-block-end: 1px rgba(var(--dark-rgb), 0.1) solid;
         }
 
         .card-invalidate-wrap {
@@ -77,7 +77,7 @@
             }
 
             .card-repeater {
-                border-bottom: 1px rgba(var(--white-rgb), 0.1) solid;
+                border-block-end: 1px rgba(var(--white-rgb), 0.1) solid;
             }
 
             .repeater-card-button {

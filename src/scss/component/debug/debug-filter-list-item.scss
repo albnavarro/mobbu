@@ -5,7 +5,7 @@
         :scope {
             display: flex;
             position: relative;
-            padding-left: calc(var(--gap-size) / 2);
+            padding-inline-start: calc(var(--gap-size) / 2);
             color: var(--dark);
             font-size: rem(12);
 
@@ -17,10 +17,9 @@
                 content: '';
                 display: none;
                 position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                width: rem(5);
+                inset-block: 0;
+                inset-inline-start: 0;
+                inline-size: rem(5);
                 background: var(--dark);
             }
         }
@@ -31,7 +30,7 @@
         }
 
         .expand {
-            margin-left: rem(5);
+            margin-inline-start: rem(5);
             padding: 0 rem(6);
             transition: background 0.35s;
             border: 0;
@@ -56,9 +55,9 @@
 
         .selected {
             display: none;
-            width: rem(10);
-            height: rem(10);
-            margin-left: rem(5);
+            block-size: rem(10);
+            inline-size: rem(10);
+            margin-inline-start: rem(5);
             border-radius: 100%;
             background: var(--dark);
 

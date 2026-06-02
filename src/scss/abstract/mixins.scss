@@ -165,7 +165,7 @@
     $grid-container-size: filter-nested-map($grid-map, size);
     $max-width: 0;
 
-    width: 100%;
+    inline-size: 100%;
     margin: auto;
 
     @if $spread == 'narrow' {
@@ -185,7 +185,7 @@
             $unit-misure: map.get($grid-unit-misure, $key);
 
             @if $unit-misure == 'px' {
-                max-width: min(rem($value, $key));
+                max-inline-size: min(rem($value, $key));
             }
 
             /*
@@ -196,7 +196,7 @@
                     @debug ('container: with % value only 100 is availbale');
                 }
 
-                max-width: none;
+                max-inline-size: none;
             }
         }
     }
@@ -226,9 +226,9 @@
 @mixin button() {
     display: inline-block;
     position: relative;
-    min-width: rem(250);
-    margin-right: rem(10);
-    margin-bottom: rem(10);
+    min-inline-size: rem(250);
+    margin-block-end: rem(10);
+    margin-inline-end: rem(10);
     padding: rem(5) rem(10);
     transition: background 0.35s;
     border: 1px var(--grey-500) solid;

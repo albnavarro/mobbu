@@ -8,13 +8,13 @@
 
         svg {
             @media (aspect-ratio >= 3/2) {
-                width: calc(((1098 * 100) / 1600) * 1vw);
-                height: calc(((466 * 100) / 1600) * 1vw);
+                block-size: calc(((466 * 100) / 1600) * 1vw);
+                inline-size: calc(((1098 * 100) / 1600) * 1vw);
             }
 
             @media (aspect-ratio < 3/2) {
-                width: calc(((1098 * 100) / 1240) * 1vw);
-                height: calc(((466 * 100) / 1240) * 1vw);
+                block-size: calc(((466 * 100) / 1240) * 1vw);
+                inline-size: calc(((1098 * 100) / 1240) * 1vw);
             }
         }
     }

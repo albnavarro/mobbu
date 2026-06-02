@@ -11,16 +11,16 @@
         .child {
             display: block;
             position: absolute;
-            top: calc(50% - var(--size) / 2);
-            left: calc(50% - var(--size) / 2);
-            width: var(--size);
-            height: var(--size);
+            block-size: var(--size);
+            inline-size: var(--size);
+            inset-block-start: calc(50% - var(--size) / 2);
+            inset-inline-start: calc(50% - var(--size) / 2);
 
             --size: #{rem(250)};
 
             svg {
-                width: 100%;
-                height: 100%;
+                block-size: 100%;
+                inline-size: 100%;
             }
 
             &:nth-of-type(2) {

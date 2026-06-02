@@ -2,18 +2,18 @@
 
 .test-grid {
     z-index: 12;
-    margin-top: rem(100);
+    margin-block-start: rem(100);
 
     &__grid {
-        height: rem(40);
-        margin-bottom: rem(20);
+        block-size: rem(40);
+        margin-block-end: rem(20);
         overflow: hidden;
 
         @include grid;
 
         span {
-            width: 100%;
-            height: rem(40);
+            block-size: rem(40);
+            inline-size: 100%;
             background: red;
         }
     }
@@ -23,8 +23,8 @@
 
         span {
             display: inline-block;
-            width: calc(var(--col-size) * 2);
-            height: rem(100);
+            block-size: rem(100);
+            inline-size: calc(var(--col-size) * 2);
             background: red;
         }
     }

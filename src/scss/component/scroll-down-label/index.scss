@@ -6,8 +6,8 @@
             visibility: hidden;
             position: fixed;
             z-index: 15;
-            top: calc(var(--header-height) + rem(20));
-            left: 50%;
+            inset-block-start: calc(var(--header-height) + rem(20));
+            inset-inline-start: 50%;
             padding: rem(6) rem(20) rem(10);
             transform: translateX(-50%);
             transition:
@@ -21,7 +21,7 @@
             text-align: center;
 
             @media screen and (height <= 700px) {
-                top: calc(var(--header-height) - 1px);
+                inset-block-start: calc(var(--header-height) - 1px);
                 font-size: rem(16);
             }
 

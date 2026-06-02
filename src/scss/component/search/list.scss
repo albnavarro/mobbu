@@ -4,7 +4,7 @@
     @scope (.c-search-list) {
         :scope {
             position: relative;
-            height: 100%;
+            block-size: 100%;
         }
 
         .screen {
@@ -19,8 +19,8 @@
             display: none;
             position: absolute;
             z-index: 10;
-            top: 50%;
-            left: 50%;
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
             padding: calc(var(--gap-size) / 2) var(--gap-size);
             transform: translate(-50%, -50%);
             border: 1px rgba(var(--dark-rgb), 0.5) solid;
@@ -33,19 +33,19 @@
         }
 
         ul {
-            min-height: 100%;
+            min-block-size: 100%;
             margin: 0;
             padding: var(--gap-size);
-            padding-right: calc(var(--gap-size) * 2);
+            padding-inline-end: calc(var(--gap-size) * 2);
             list-style: none;
         }
 
         li {
             position: relative;
-            margin-bottom: calc(var(--gap-size) / 2);
-            padding-bottom: calc(var(--gap-size) / 2);
+            margin-block-end: calc(var(--gap-size) / 2);
+            padding-block-end: calc(var(--gap-size) / 2);
             transition: opacity 0.35s;
-            border-bottom: 1px var(--grey-300) solid;
+            border-block-end: 1px var(--grey-300) solid;
 
             &:hover {
                 opacity: 0.5;
@@ -55,10 +55,9 @@
                 &::before {
                     content: '';
                     position: absolute;
-                    top: 0;
-                    bottom: calc(var(--gap-size) / 2);
-                    left: calc(#{rem(10)} * -1);
-                    width: rem(4);
+                    inset-block: 0 calc(var(--gap-size) / 2);
+                    inset-inline-start: calc(#{rem(10)} * -1);
+                    inline-size: rem(4);
                     background: var(--dark);
                 }
             }
@@ -71,22 +70,22 @@
         }
 
         button {
-            width: 100%;
+            inline-size: 100%;
             padding: rem(2) rem(4);
             border: 0;
             background: transparent;
-            text-align: left;
+            text-align: start;
         }
 
         .item-section {
             p {
-                margin-bottom: 0;
+                margin-block-end: 0;
             }
         }
 
         h6 {
             display: inline-block;
-            margin-bottom: 0;
+            margin-block-end: 0;
         }
     }
 }
@@ -95,9 +94,9 @@
 .c-search-list .scrollbar {
     position: absolute;
     z-index: 14;
-    top: 1vh;
-    left: calc(100% - (var(--gap-size) / 2));
-    width: 47vh;
+    inset-block-start: 1vh;
+    inset-inline-start: calc(100% - (var(--gap-size) / 2));
+    inline-size: 47vh;
     transform: rotate(90deg);
     transform-origin: left;
     background: transparent;
@@ -115,15 +114,15 @@
     }
 
     &::-webkit-slider-runnable-track {
-        width: var(--thumb-width);
-        height: rem(10);
+        block-size: rem(10);
+        inline-size: var(--thumb-width);
         border-radius: 0;
         background-color: var(--grey-100);
     }
 
     &::-webkit-slider-thumb {
-        width: var(--thumb-width);
-        height: rem(10);
+        block-size: rem(10);
+        inline-size: var(--thumb-width);
         background-color: var(--dark);
         appearance: none;
     }
@@ -133,14 +132,14 @@
     }
 
     &::-moz-range-track {
-        height: rem(10);
+        block-size: rem(10);
         border-radius: 0;
         background-color: var(--grey-100);
     }
 
     &::-moz-range-thumb {
-        width: var(--thumb-width);
-        height: rem(10);
+        block-size: rem(10);
+        inline-size: var(--thumb-width);
         border: none; /* Removes extra border that FF applies */
         border-radius: 0; /* Removes default border-radius that FF applies */
         background-color: var(--dark);

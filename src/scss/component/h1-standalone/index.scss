@@ -4,8 +4,8 @@
     @scope (.h1-standalone) {
         :scope {
             position: fixed;
-            top: calc(var(--header-height) + #{rem(35)});
-            left: calc(var(--header-height) / 2 + #{rem(40)});
+            inset-block-start: calc(var(--header-height) + #{rem(35)});
+            inset-inline-start: calc(var(--header-height) / 2 + #{rem(40)});
             outline-offset: rem(10);
             color: var(--dark);
             font-size: rem(18);

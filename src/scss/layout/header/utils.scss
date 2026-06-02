@@ -10,9 +10,9 @@
 
         ul {
             display: flex;
-            height: 100%;
-            margin-bottom: 0;
-            margin-left: 0;
+            block-size: 100%;
+            margin-block-end: 0;
+            margin-inline-start: 0;
             padding: 0;
             list-style-type: none;
         }
@@ -27,9 +27,10 @@
 
         button,
         a {
-            display: block;
-            width: 100%;
-            height: 100%;
+            display: flex;
+            align-items: center;
+            block-size: 100%;
+            inline-size: 100%;
             padding: 0 em(16);
             border: 0;
             outline-offset: -2px;
@@ -43,9 +44,9 @@
 
         /* stylelint-disable-next-line no-descending-specificity */
         svg {
-            width: var(--sidebar-item-size);
-            height: var(--sidebar-item-size);
-            height: 100%;
+            block-size: 100%;
+            block-size: var(--sidebar-item-size);
+            inline-size: var(--sidebar-item-size);
             transition: opacity 0.55s;
             fill: var(--dark);
         }

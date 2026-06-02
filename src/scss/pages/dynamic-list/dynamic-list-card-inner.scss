@@ -6,8 +6,8 @@
             display: inline-flex;
             flex-direction: column;
             justify-content: center;
-            width: rem(20);
-            height: rem(20);
+            block-size: rem(20);
+            inline-size: rem(20);
             margin: rem(1);
             padding: 0;
             border-radius: rem(4);

@@ -4,7 +4,7 @@
     @scope (.c-canvas-scroller) {
         :scope {
             position: relative;
-            height: 500vh;
+            block-size: 500vh;
             pointer-events: none;
         }
     }

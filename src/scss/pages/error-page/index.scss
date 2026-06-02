@@ -6,19 +6,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: calc(100vh - var(--header-height) - var(--footer-height));
+            block-size: calc(100vh - var(--header-height) - var(--footer-height));
             padding: rem(30);
             text-align: center;
         }
 
         .title {
-            margin-bottom: rem(40);
+            margin-block-end: rem(40);
         }
 
         .link {
             @include button;
 
-            max-width: rem(200);
+            max-inline-size: rem(200);
         }
     }
 }
