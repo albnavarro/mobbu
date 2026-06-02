@@ -1,5 +1,6 @@
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
+import { srNotice } from './sr-notice';
 
 /**
  * @param {object} params
@@ -10,9 +11,17 @@ const applyFocus = ({ root }) => {
     h1?.setAttribute('tabindex', '-1');
     if (!focus) return;
 
+    /**
+     * Set focus to H1
+     */
     MobCore.useFrameIndex(() => {
         h1?.focus({ preventScroll: true });
     }, 2);
+
+    /**
+     * Then annuncie new page
+     */
+    srNotice({ text: 'New page', frame: 4 });
 };
 
 /**
