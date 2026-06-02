@@ -1,0 +1,20 @@
+@use '../../abstract' as *;
+
+@layer layout {
+    @scope (#sr-notice) {
+        :scope {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            border: 0;
+            outline: none;
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+            clip-path: inset(50%);
+        }
+    }
+}
