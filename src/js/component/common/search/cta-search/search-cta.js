@@ -6,7 +6,7 @@ import { htmlObject } from '@mobJs';
 import { getIcons } from '@data/index';
 import { openSearchOverlay } from '../search-overlay/utils';
 
-/** @type {MobComponent<import('./type').SearchOverlayCta>} */
+/** @type {MobComponent} */
 export const SearchCtaFn = ({ delegateEvents }) => {
     const searchSvg = getIcons()['searchIcons'];
 
