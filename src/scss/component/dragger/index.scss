@@ -14,3 +14,9 @@
         }
     }
 }
+
+@layer direction {
+    [dir='rtl'] :where(.c-dragger) :where(.wrapper) {
+        transform: translate(50%, -50%);
+    }
+}

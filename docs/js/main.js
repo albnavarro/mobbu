@@ -26371,7 +26371,8 @@
     weakScrollerElement,
     wrapElement,
     setActiveItem,
-    weakScreenElement
+    weakScreenElement,
+    direction: direction2
   }) => {
     const sequencerData = {
       ax: 53,
@@ -26443,23 +26444,23 @@
       { start: 6, end: 10 }
     ).add(() => {
       setActiveItem(1);
-    }, 0).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "backward") return;
+    }, 0).add(({ direction: direction3, isForced }) => {
+      if (isForced || direction3 === "backward") return;
       setActiveItem(2);
-    }, 1.5).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "backward") return;
+    }, 1.5).add(({ direction: direction3, isForced }) => {
+      if (isForced || direction3 === "backward") return;
       setActiveItem(3);
-    }, 5.5).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "backward") return;
+    }, 5.5).add(({ direction: direction3, isForced }) => {
+      if (isForced || direction3 === "backward") return;
       setActiveItem(4);
-    }, 9.5).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "forward") return;
+    }, 9.5).add(({ direction: direction3, isForced }) => {
+      if (isForced || direction3 === "forward") return;
       setActiveItem(1);
-    }, 1.5).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "forward") return;
+    }, 1.5).add(({ direction: direction3, isForced }) => {
+      if (isForced || direction3 === "forward") return;
       setActiveItem(2);
-    }, 5).add(({ direction: direction2, isForced }) => {
-      if (isForced || direction2 === "forward") return;
+    }, 5).add(({ direction: direction3, isForced }) => {
+      if (isForced || direction3 === "forward") return;
       setActiveItem(3);
     }, 9);
     pathSequencer.subscribe(
@@ -26528,7 +26529,7 @@
     pathTimeline.play();
     let shouldLoop = true;
     const loop = () => {
-      if (!shouldLoop) return;
+      if (!shouldLoop || direction2 === "rtl") return;
       const a = {
         x: sequencerData.ax + timelineData.ax,
         y: sequencerData.ay + timelineData.ay
@@ -26696,6 +26697,7 @@
     onScrollEnd,
     snapPoints
   }) => {
+    const direction2 = document.documentElement.getAttribute("dir") ?? "";
     const weakScrollerElement = new WeakRef(scrollerElement);
     const weakSectio2Title = new WeakRef(section2_title);
     const weakSectio3Title = new WeakRef(section3_title);
@@ -26714,7 +26716,8 @@
       weakScrollerElement,
       wrapElement,
       setActiveItem,
-      weakScreenElement
+      weakScreenElement,
+      direction: direction2
     });
     const { title1parallax, title2parallax, title1tween, title2tween } = aboutSection1({ title_1, title_2 });
     const {
@@ -26744,7 +26747,7 @@
       breakpoint: "small",
       useHorizontalScroll: true,
       snapPoints,
-      children: [
+      children: direction2 === "rtl" ? [pathScroller] : [
         pathScroller,
         title1parallax,
         title2parallax,
@@ -35896,6 +35899,7 @@
     scrollerElement,
     layer02
   }) => {
+    const direction2 = document.documentElement.getAttribute("dir") ?? "";
     let parallax2 = scroller_exports.createParallax({
       item: layer02,
       align: "center",
@@ -35911,7 +35915,7 @@
       useHorizontalScroll: true,
       easeType: "lerp",
       breakpoint: "small",
-      children: [parallax2]
+      children: direction2 === "rtl" ? [] : [parallax2]
     });
     scroller.init();
     scroller.set(55);

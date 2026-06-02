@@ -31,3 +31,11 @@
         }
     }
 }
+
+@layer direction {
+    [dir='rtl'] :where(.u-center-inner-svg) {
+        svg {
+            transform: translate(50%, -50%);
+        }
+    }
+}

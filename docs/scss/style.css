@@ -679,6 +679,11 @@ code.hljs {
     transform: translate(-50%, -50%);
   }
 }
+@layer direction {
+  [dir=rtl] :where(.u-center-inner-svg) svg {
+    transform: translate(50%, -50%);
+  }
+}
 @layer layout {
   @scope (footer) {
     :scope {
@@ -1355,6 +1360,11 @@ code.hljs {
         inline-size: 200vw;
       }
     }
+  }
+}
+@layer direction {
+  [dir=rtl] :where(.l-background-shape) svg {
+    transform: translate(50%, -50%);
   }
 }
 @layer layout {
@@ -3323,6 +3333,11 @@ code.hljs {
       block-size: 40rem;
       inline-size: 53.3333333333rem;
     }
+  }
+}
+@layer direction {
+  [dir=rtl] :where(.dragger-component) :where(.title) {
+    transform: translateX(50%);
   }
 }
 @layer layout {
@@ -5764,6 +5779,11 @@ code.hljs {
       inset-inline-start: 50%;
       transform: translate(-50%, -50%);
     }
+  }
+}
+@layer direction {
+  [dir=rtl] :where(.c-dragger) :where(.wrapper) {
+    transform: translate(50%, -50%);
   }
 }
 @layer layout {

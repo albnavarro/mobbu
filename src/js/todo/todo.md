@@ -8,31 +8,6 @@
 
 ####
 
-Componente `sr-update`, che al cambio rotta cambia il suo contento con il titolo della rotta.
-
-- Il componente non deve essere visibile.
-- Prima si svuota il contenuto poi si inserisce il nuovo contenuto.
-
-```html
-<div id="sr-annuncio" aria-live="polite" aria-atomic="true" hidden></div>
-```
-
-```js
-this.el.textContent = '';
-
-requestAnimationFrame(() => {
-    this.el.textContent = 'Titolo';
-});
-```
-
-#### I componenti che usan `smooth-scroller` devono avere la cta per tornare in cima.
-
-#### `<Dialog>` per muovere velocemente il focus nelle macroaree del sito per template. ( non Accessibility, sviluppo personale )
-
-- `<M>-m`: shortcut generale per il component Accessibility.
-- Al primo tab eseguito dopo l'apertura il componente si apre.
-- Per ogni layout ( 3/4 variati ) schema di apertura.
-    - Ogni azione su una macroarea punta il focus sul container realatvo, usare `tabindex: -1` ( e corrispondente aria-label ) per dare il focus solo via javascript.
 
 # MobJs
 
@@ -89,6 +64,8 @@ return htmlObject({
 # Mobmotion
 
 ### MobScroller
+
+## 0. RTL. adeguare parallasse horizzontale.
 
 ## 1. Gap:
 

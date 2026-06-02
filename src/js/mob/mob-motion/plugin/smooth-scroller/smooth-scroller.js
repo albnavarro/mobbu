@@ -414,6 +414,9 @@ export class MobSmoothScroller {
         this.#unSubscribeDebounceWhell = NOOP;
         this.#unSubscribeHandleTab = NOOP;
 
+        /**
+         * Move in opposite direction with rtl
+         */
         const dir = document.documentElement.getAttribute('dir');
         this.#rtl = dir === 'rtl' ? -1 : 1;
 

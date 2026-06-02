@@ -7,6 +7,8 @@ export const mobbu2025Scroller = ({
     scrollerElement,
     layer02,
 }) => {
+    const direction = document.documentElement.getAttribute('dir') ?? '';
+
     let parallax2 = MobScroll.createParallax({
         item: layer02,
         align: 'center',
@@ -23,7 +25,7 @@ export const mobbu2025Scroller = ({
         useHorizontalScroll: true,
         easeType: 'lerp',
         breakpoint: 'small',
-        children: [parallax2],
+        children: direction === 'rtl' ? [] : [parallax2],
     });
 
     scroller.init();
