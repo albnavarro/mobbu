@@ -8,9 +8,9 @@ import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definitio
  * @import {
  *   MobComponent,
  *   ReturnBindProps
- * } from "@mobJsType"
- * @import {MatrioskaItemType} from "./item/type"
- * @import {Matrioska} from "./type"
+ * } from '@mobJsType'
+ * @import {MatrioskaItemType} from './item/type'
+ * @import {Matrioska} from './type'
  */
 
 /** @type {MobComponent<Matrioska>} */

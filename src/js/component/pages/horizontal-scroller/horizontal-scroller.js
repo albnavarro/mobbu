@@ -6,9 +6,9 @@
  *   MobComponent,
  *   ProxiSelfState,
  *   StaticProps
- * } from "@mobJsType"
- * @import {HorizontalScrollerButtonType} from "./button/type"
- * @import {HorizontalScroller} from "./type"
+ * } from '@mobJsType'
+ * @import {HorizontalScrollerButtonType} from './button/type'
+ * @import {HorizontalScroller} from './type'
  */
 
 import { offset, outerHeight } from '@mobCoreUtils';

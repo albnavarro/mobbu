@@ -6,7 +6,7 @@ import { QuickNav } from '@commonComponent/quick-nav/definition';
 import { quickNavName } from '@instanceName';
 
 /**
- * @import {MobComponent} from "@mobJsType"
+ * @import {MobComponent} from '@mobJsType'
  */
 
 const bioInfo = [

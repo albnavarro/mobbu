@@ -12,9 +12,9 @@ import { ScrollToButton } from './button/definition';
  *   MobComponent,
  *   ProxiSelfState,
  *   ReturnBindProps
- * } from "@mobJsType"
- * @import {ScrollToButtonType} from "./button/type"
- * @import {ScrollTo} from "./type"
+ * } from '@mobJsType'
+ * @import {ScrollToButtonType} from './button/type'
+ * @import {ScrollTo} from './type'
  */
 
 let disableObservereffect = false;

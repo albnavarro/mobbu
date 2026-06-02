@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { HtmlContentFn } from './html-content';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const HtmlContent = MobJs.createComponent(

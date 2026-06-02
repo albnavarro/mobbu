@@ -2,7 +2,7 @@ import { MobCore } from '@mobCore';
 import { defaultAmountOfCard } from '@pagesComponent/benchmark/partials/definition-partial';
 
 /**
- * @import {MobStoreParams} from "@mobStoreType"
+ * @import {MobStoreParams} from '@mobStoreType'
  */
 
 export const externalBenchmarkStore = MobCore.createStore(

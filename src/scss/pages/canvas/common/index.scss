@@ -37,7 +37,9 @@
             z-index: 0;
             flex-direction: column;
             align-items: flex-end;
-            block-size: calc(100vh - var(--header-height) - var(--footer-height));
+            block-size: calc(
+                100vh - var(--header-height) - var(--footer-height)
+            );
             inline-size: rem(250);
             margin: 0;
             padding: rem(60) rem(20) rem(20);
@@ -168,55 +170,64 @@
             inline-size: 100%;
             transition: opacity 2.55s;
         }
+
+        .controls-range {
+            position: relative;
+            margin: rem(16) auto 0;
+            pointer-events: none;
+
+            &::after {
+                content: '';
+                position: absolute;
+                z-index: 1;
+                block-size: 1px;
+                inline-size: 100%;
+                background: rgba(var(--white-rgb), 0.5);
+                inset-block-start: 50%;
+                inset-inline-start: 0;
+            }
+
+            input {
+                display: block;
+                position: relative;
+                inline-size: 100%;
+                margin: auto;
+                background: transparent;
+                color: var(--white);
+                cursor: pointer;
+                pointer-events: all;
+                appearance: none;
+
+                &::-webkit-slider-thumb {
+                    block-size: rem(15);
+                    inline-size: rem(15);
+                    border: 0;
+                    border-radius: 100%;
+                    background: var(--white);
+                    cursor: pointer;
+                    appearance: none;
+                }
+
+                &::-moz-range-thumb {
+                    block-size: rem(15);
+                    inline-size: rem(15);
+                    border: 0;
+                    border-radius: 100%;
+                    background: var(--white);
+                    cursor: pointer;
+                    appearance: none;
+                }
+            }
+        }
     }
 }
 
-// Safari issue
-.c-canvas .controls-range {
-    position: relative;
-    margin: rem(16) auto 0;
-    pointer-events: none;
+@layer direction {
+    [dir='rtl'] :where(.c-canvas) :where(.controls) {
+        transform: translateX(-100%);
 
-    &::after {
-        content: '';
-        position: absolute;
-        z-index: 1;
-        block-size: 1px;
-        inline-size: 100%;
-        background: rgba(var(--white-rgb), 0.5);
-        inset-block-start: 50%;
-        inset-inline-start: 0;
-    }
-
-    input {
-        display: block;
-        position: relative;
-        inline-size: 100%;
-        margin: auto;
-        background: transparent;
-        color: var(--white);
-        cursor: pointer;
-        pointer-events: all;
-        appearance: none;
-
-        &::-webkit-slider-thumb {
-            block-size: rem(15);
-            inline-size: rem(15);
-            border: 0;
-            border-radius: 100%;
-            background: var(--white);
-            cursor: pointer;
-            appearance: none;
-        }
-
-        &::-moz-range-thumb {
-            block-size: rem(15);
-            inline-size: rem(15);
-            border: 0;
-            border-radius: 100%;
-            background: var(--white);
-            cursor: pointer;
-            appearance: none;
+        &.active {
+            transform: translateX(0);
         }
     }
 }

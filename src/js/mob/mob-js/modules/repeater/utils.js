@@ -243,12 +243,12 @@ export const getOrderedChunkByCurrentRepeatValue = ({
      *
      * Nota sul `.filter(item !== undefined)`:
      *
-     * - Non é un filtro di "orfani DOM senza dati": gli orfani sono giá stati distrutti a monte da
-     *   `removeAndDestroyById` dentro `addWithKey` / `addWithoutKey`.
-     * - Il filtro copre l'unico caso opposto: un `data` item per cui `updateRepeaterWithtKey` ha
-     *   ritornato `undefined` a causa di `REPATE_PROXI_FAIL` (repeater distrutto durante l'update).
-     * - In quel caso il flusso downstream lavora su un repeater morto e gli effetti sono ininfluenti
-     *   perché il cleanup li sovrascriverá.
+     * - Non é un filtro di "orfani DOM senza dati": gli orfani sono giá stati distrutti a monte da `removeAndDestroyById`
+     *   dentro `addWithKey` / `addWithoutKey`.
+     * - Il filtro copre l'unico caso opposto: un `data` item per cui `updateRepeaterWithtKey` ha ritornato `undefined` a
+     *   causa di `REPATE_PROXI_FAIL` (repeater distrutto durante l'update).
+     * - In quel caso il flusso downstream lavora su un repeater morto e gli effetti sono ininfluenti perché il cleanup li
+     *   sovrascriverá.
      */
     return data
         .map((item) => childrenMap.get(item[key]))

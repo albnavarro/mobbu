@@ -3,7 +3,7 @@ import { refreshFilterList } from '../list/utils';
 import { MobCore } from '@mobCore';
 
 /**
- * @import {MobComponent} from "@mobJsType"
+ * @import {MobComponent} from '@mobJsType'
  */
 
 /**

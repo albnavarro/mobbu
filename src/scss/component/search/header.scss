@@ -50,15 +50,14 @@
                 color: var(--white);
             }
         }
-    }
-}
 
-// Safari issue
-.c-search-header .serach-input {
-    min-block-size: rem(36);
-    inline-size: rem(400);
-    margin-inline-end: rem(5);
-    padding-inline-start: rem(10);
-    border: 1px var(--dark) solid;
-    background: transparent;
+        .serach-input {
+            min-block-size: rem(36);
+            inline-size: rem(400);
+            margin-inline-end: rem(5);
+            padding-inline-start: rem(10);
+            border: 1px var(--dark) solid;
+            background: transparent;
+        }
+    }
 }

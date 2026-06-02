@@ -11,11 +11,11 @@ import { NavigationButton } from './navigation-button/definition';
  *   ProxiSelfState,
  *   ReturnBindProps,
  *   StaticProps
- * } from "@mobJsType"
- * @import {NavigationButtonType} from "./navigation-button/type"
- * @import {NavigationLabelType} from "./navigation-label/type"
- * @import {NavigationSubmenuType} from "./navigation-submenu/type"
- * @import {Navigation} from "./type"
+ * } from '@mobJsType'
+ * @import {NavigationButtonType} from './navigation-button/type'
+ * @import {NavigationLabelType} from './navigation-label/type'
+ * @import {NavigationSubmenuType} from './navigation-submenu/type'
+ * @import {Navigation} from './type'
  */
 
 /**

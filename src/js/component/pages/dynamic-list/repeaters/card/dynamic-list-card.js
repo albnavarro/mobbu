@@ -12,11 +12,11 @@ import { DynamicCounter } from './counter/definition';
  *   ProxiSelfState,
  *   ReturnBindProps,
  *   StaticProps
- * } from "@mobJsType"
- * @import {DynamicListButtonType} from "../../button/type"
- * @import {DynamicCounterType} from "./counter/type"
- * @import {DynamicListCardInnerType} from "./innerCard/type"
- * @import {DynamicListCardType} from "./type"
+ * } from '@mobJsType'
+ * @import {DynamicListButtonType} from '../../button/type'
+ * @import {DynamicCounterType} from './counter/type'
+ * @import {DynamicListCardInnerType} from './innerCard/type'
+ * @import {DynamicListCardType} from './type'
  */
 
 /** @param {number} numberOfItem */

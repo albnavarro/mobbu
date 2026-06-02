@@ -5,7 +5,7 @@ import { DEBUG_USE_TREE } from './constant';
 import { DebugOverlayFn } from './debug-overlay';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const DebugOverlay = MobJs.createComponent(

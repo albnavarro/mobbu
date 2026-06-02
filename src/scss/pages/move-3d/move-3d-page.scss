@@ -28,7 +28,9 @@
         .controls {
             position: fixed;
             z-index: 10;
-            block-size: calc(100vh - var(--header-height) - var(--footer-height));
+            block-size: calc(
+                100vh - var(--header-height) - var(--footer-height)
+            );
             min-inline-size: rem(250);
             padding: rem(60) rem(20) rem(20);
             transform: translateX(100%);
@@ -163,6 +165,16 @@
             background: var(--grey-200);
             cursor: pointer;
             appearance: none;
+        }
+    }
+}
+
+@layer direction {
+    [dir='rtl'] :where(.l-move3d-page) :where(.controls) {
+        transform: translateX(-100%);
+
+        &.active {
+            transform: translateX(0);
         }
     }
 }

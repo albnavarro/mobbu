@@ -6,8 +6,8 @@
  *   DelegateEvents,
  *   MobComponent,
  *   ProxiSelfState
- * } from "@mobJsType"
- * @import {ScrollerN1} from "./type"
+ * } from '@mobJsType'
+ * @import {ScrollerN1} from './type'
  */
 
 import { MobCore } from '@mobCore';

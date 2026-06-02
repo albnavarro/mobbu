@@ -15,7 +15,7 @@ import { sctollSerachListToTop } from './list/utils';
  *   GetRef,
  *   MobComponent,
  *   ProxiSelfState
- * } from "@mobJsType"
+ * } from '@mobJsType'
  */
 
 /**

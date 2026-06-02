@@ -2,7 +2,7 @@ import { getIcons } from '@data/index';
 import { htmlObject } from '@mobJs';
 
 /**
- * @import {MobComponent} from "@mobJsType"
+ * @import {MobComponent} from '@mobJsType'
  */
 
 /** @type {MobComponent} */

@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { HeaderUtilsFn } from './header-utils';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const HeaderUtils = MobJs.createComponent(

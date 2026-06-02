@@ -1,8 +1,8 @@
 import { htmlObject, MobJs } from '@mobJs';
 
 /**
- * @import {MobComponent} from "@mobJsType"
- * @import {SideBarLinksButtonType} from "./type"
+ * @import {MobComponent} from '@mobJsType'
+ * @import {SideBarLinksButtonType} from './type'
  */
 
 /**

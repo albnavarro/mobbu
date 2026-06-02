@@ -5,7 +5,7 @@ import { DynamicListCardFn } from './dynamic-list-card';
 import { innerData } from '@pagesComponent/dynamic-list/data';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const DynamicListCard = MobJs.createComponent(

@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { NavigationSubmenuFn } from './navigation-submenu';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const NavigationSubmenu = MobJs.createComponent(

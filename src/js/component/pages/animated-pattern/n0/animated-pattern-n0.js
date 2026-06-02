@@ -7,8 +7,8 @@
  *   GetRef,
  *   MobComponent,
  *   ProxiSelfState
- * } from "@mobJsType"
- * @import {AnimatedPatternN0} from "./type"
+ * } from '@mobJsType'
+ * @import {AnimatedPatternN0} from './type'
  */
 
 import { MobCore } from '@mobCore';

@@ -7,8 +7,8 @@ import { benchMarkUseProxi } from '../strategy';
  * @import {
  *   MobComponent,
  *   ReturnBindProps
- * } from "@mobJsType"
- * @import {BenchMarkFakeComponentType} from "../fake-component/type"
+ * } from '@mobJsType'
+ * @import {BenchMarkFakeComponentType} from '../fake-component/type'
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */

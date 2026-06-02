@@ -4,7 +4,7 @@ import { MobJs } from '@mobJs';
 import { CaterpillarN2Fn } from './caterpillar-n2';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 const buttons = {

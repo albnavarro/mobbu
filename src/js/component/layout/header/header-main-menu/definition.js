@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { headerMainMenuFn } from './header-main-menu';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const HeaderMainMenu = MobJs.createComponent(

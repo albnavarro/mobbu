@@ -14,7 +14,7 @@ import { defaultAmountOfCard } from '../partials/definition-partial';
  *   GetRef,
  *   ProxiBoundedState,
  *   SetRef
- * } from "@mobJsType"
+ * } from '@mobJsType'
  */
 
 /**

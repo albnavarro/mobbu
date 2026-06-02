@@ -4,7 +4,7 @@ import { MobJs } from '@mobJs';
 import { ScrollerN1Fn } from './scroller-n1';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const ScrollerN1 = MobJs.createComponent(

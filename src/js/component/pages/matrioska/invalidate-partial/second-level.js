@@ -9,9 +9,9 @@ import { MatrioskaItem } from '../item/definition';
  *   Invalidate,
  *   ProxiSelfState,
  *   StaticProps
- * } from "@mobJsType"
- * @import {MatrioskaItemType} from "../item/type"
- * @import {Matrioska} from "../type"
+ * } from '@mobJsType'
+ * @import {MatrioskaItemType} from '../item/type'
+ * @import {Matrioska} from '../type'
  */
 
 /**

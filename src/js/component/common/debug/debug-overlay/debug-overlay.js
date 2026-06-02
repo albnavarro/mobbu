@@ -20,8 +20,8 @@ import { resetSearchOverlayJustOpen, setSearchOverlayJustOpen } from './utils';
  *   MobComponent,
  *   ProxiSelfState,
  *   ReturnBindProps
- * } from "@mobJsType"
- * @import {DebugHeadType} from "./head/type"
+ * } from '@mobJsType'
+ * @import {DebugHeadType} from './head/type'
  */
 
 /**

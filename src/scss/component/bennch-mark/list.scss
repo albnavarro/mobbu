@@ -88,16 +88,15 @@
             margin-block-end: calc(var(--gap-size) / 2);
             font-weight: 600;
         }
-    }
-}
 
-// Safari issue
-.l-benchmark input {
-    inline-size: rem(300);
-    margin-inline-end: rem(5);
-    padding-block: 0;
-    padding-inline: rem(10);
-    border: 1px var(--dark) solid;
-    background: transparent;
-    line-height: 1.7;
+        input {
+            inline-size: rem(300);
+            margin-inline-end: rem(5);
+            padding-block: 0;
+            padding-inline: rem(10);
+            border: 1px var(--dark) solid;
+            background: transparent;
+            line-height: 1.7;
+        }
+    }
 }

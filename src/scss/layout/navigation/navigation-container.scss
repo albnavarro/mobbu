@@ -41,7 +41,9 @@
 
         .side-col {
             position: absolute;
-            block-size: calc(100vh - var(--footer-height) - var(--header-height));
+            block-size: calc(
+                100vh - var(--footer-height) - var(--header-height)
+            );
             inline-size: calc(var(--header-height) / 2);
             transition: background 0.35s;
             background: transparent;
@@ -69,7 +71,9 @@
         }
 
         .nav-col {
-            block-size: calc(100vh - var(--footer-height) - var(--header-height));
+            block-size: calc(
+                100vh - var(--footer-height) - var(--header-height)
+            );
             inline-size: var(--nav-width);
             max-inline-size: none;
             overflow: hidden;
@@ -135,6 +139,20 @@
                 transform: translateY(0);
                 opacity: 1;
             }
+        }
+    }
+}
+
+@layer direction {
+    [dir='rtl'] :where(.l-navcontainer) {
+        transform: translateX(101%);
+
+        &.active {
+            transform: translateX(0);
+        }
+
+        :where(.percent) {
+            transform-origin: right;
         }
     }
 }

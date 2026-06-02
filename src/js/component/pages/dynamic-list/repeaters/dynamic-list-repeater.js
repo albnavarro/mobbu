@@ -7,10 +7,10 @@
  *   ProxiSelfState,
  *   ReturnBindProps,
  *   StaticProps
- * } from "@mobJsType"
- * @import {DynamicListCardType} from "./card/type"
- * @import {DynamicListSlottedLabelType} from "./slotted-label/type"
- * @import {DynamicListRepeaterType} from "./type"
+ * } from '@mobJsType'
+ * @import {DynamicListCardType} from './card/type'
+ * @import {DynamicListSlottedLabelType} from './slotted-label/type'
+ * @import {DynamicListRepeaterType} from './type'
  */
 
 import { htmlObject } from '@mobJs';

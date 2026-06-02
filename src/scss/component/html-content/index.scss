@@ -245,3 +245,15 @@
         }
     }
 }
+
+@layer direction {
+    [dir='rtl'] :where(.list-links) {
+        :where(.arrow-start) {
+            transform: translate(50%, -50%) rotate(-45deg);
+        }
+
+        :where(.arrow-end) {
+            transform: translate(50%, -50%) rotate(-275deg);
+        }
+    }
+}

@@ -6,7 +6,7 @@ import { MatrioskaRepeatFn } from './matrioska-repeat';
 import { MatrioskaInvalidateFn } from './matrioska-invalidate';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 /**

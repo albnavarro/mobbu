@@ -7,8 +7,8 @@
  *   GetRef,
  *   MobComponent,
  *   ProxiSelfState
- * } from "@mobJsType"
- * @import {ScrollerN0} from "./type"
+ * } from '@mobJsType'
+ * @import {ScrollerN0} from './type'
  */
 
 import { MobCore } from '@mobCore';

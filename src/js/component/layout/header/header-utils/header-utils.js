@@ -2,7 +2,7 @@
  * @import {
  *   DelegateEvents,
  *   MobComponent
- * } from "@mobJsType"
+ * } from '@mobJsType'
  */
 
 import { htmlObject, MobJs } from '@mobJs';

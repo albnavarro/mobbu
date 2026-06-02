@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import {MobComponent} from "@mobJsType"
+ * @import {MobComponent} from '@mobJsType'
  */
 
 import { htmlObject } from '@mobJs';

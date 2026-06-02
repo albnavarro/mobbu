@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { SearchOverlayHeaderFn } from './header';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const SearchOverlayHeader = MobJs.createComponent(

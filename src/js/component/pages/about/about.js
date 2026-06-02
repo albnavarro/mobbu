@@ -5,7 +5,7 @@
  *   MobComponent,
  *   ProxiSelfState,
  *   SetRef
- * } from "@mobJsType"
+ * } from '@mobJsType'
  */
 
 import { MobCore } from '@mobCore';

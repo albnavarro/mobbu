@@ -9,8 +9,8 @@ import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definitio
  *   Invalidate,
  *   ProxiSelfState,
  *   UpdateState
- * } from "@mobJsType"
- * @import {Matrioska} from "../type"
+ * } from '@mobJsType'
+ * @import {Matrioska} from '../type'
  */
 
 /** @param {number} max */

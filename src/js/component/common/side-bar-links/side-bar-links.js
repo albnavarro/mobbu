@@ -11,9 +11,9 @@ import { SideBarLinksButton } from './side-bar-links-button/definition';
  *   MobComponent,
  *   ProxiSelfState,
  *   StaticProps
- * } from "@mobJsType"
- * @import {SideBarLinksButtonType} from "./side-bar-links-button/type"
- * @import {SideBarLinks} from "./type"
+ * } from '@mobJsType'
+ * @import {SideBarLinksButtonType} from './side-bar-links-button/type'
+ * @import {SideBarLinks} from './type'
  */
 
 /**

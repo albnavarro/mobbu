@@ -10,7 +10,7 @@ import { defaultAmountOfCard } from './definition-partial';
  *   ProxiSelfState,
  *   ProxiState,
  *   SetRef
- * } from "@mobJsType"
+ * } from '@mobJsType'
  */
 
 /**

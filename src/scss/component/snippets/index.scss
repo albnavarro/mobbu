@@ -69,7 +69,9 @@
             }
 
             &.open {
-                block-size: calc(var(--snippet-height) + (var(--padding-pre) * 2));
+                block-size: calc(
+                    var(--snippet-height) + (var(--padding-pre) * 2)
+                );
             }
 
             &.close {

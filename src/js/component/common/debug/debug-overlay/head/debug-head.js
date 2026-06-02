@@ -1,5 +1,5 @@
 /**
- * @import {MobComponent} from "@mobJsType"
+ * @import {MobComponent} from '@mobJsType'
  */
 
 import { htmlObject, MobJs, MobJsInternal } from '@mobJs';

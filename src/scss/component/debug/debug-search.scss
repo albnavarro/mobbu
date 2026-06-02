@@ -33,20 +33,19 @@
                 color: var(--white);
             }
         }
-    }
-}
 
-// Safari issue
-.c-debug-search input {
-    block-size: rem(22);
-    inline-size: rem(100);
-    margin-inline-end: rem(5);
-    padding-inline-start: rem(5);
-    border: 1px var(--dark) solid;
-    background: transparent;
-    vertical-align: middle;
+        input {
+            block-size: rem(22);
+            inline-size: rem(100);
+            margin-inline-end: rem(5);
+            padding-inline-start: rem(5);
+            border: 1px var(--dark) solid;
+            background: transparent;
+            vertical-align: middle;
 
-    @include mq(large) {
-        inline-size: rem(150);
+            @include mq(large) {
+                inline-size: rem(150);
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { H1StandaloneFn } from './h1-standalone';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const H1Standalone = MobJs.createComponent(

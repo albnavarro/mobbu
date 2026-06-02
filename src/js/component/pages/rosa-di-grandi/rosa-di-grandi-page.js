@@ -18,7 +18,7 @@ let unsubscribeEscHandler = () => {};
  *   MobComponent,
  *   ProxiSelfState,
  *   SetRef
- * } from "@mobJsType"
+ * } from '@mobJsType'
  */
 
 /**

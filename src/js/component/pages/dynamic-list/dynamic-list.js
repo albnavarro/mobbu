@@ -12,11 +12,11 @@ import { DynamicListCardInner } from './repeaters/card/innerCard/definition';
  *   ProxiSelfState,
  *   ReturnBindProps,
  *   StaticProps
- * } from "@mobJsType"
- * @import {DynamicListButtonType} from "./button/type"
- * @import {DynamicListCardInnerType} from "./repeaters/card/innerCard/type"
- * @import {DynamicListRepeaterType} from "./repeaters/type"
- * @import {DynamicList} from "./type"
+ * } from '@mobJsType'
+ * @import {DynamicListButtonType} from './button/type'
+ * @import {DynamicListCardInnerType} from './repeaters/card/innerCard/type'
+ * @import {DynamicListRepeaterType} from './repeaters/type'
+ * @import {DynamicList} from './type'
  */
 
 const buttons = [

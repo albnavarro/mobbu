@@ -1,9 +1,9 @@
 /**
- * @import {MobComponent} from "@mobJsType"
+ * @import {MobComponent} from '@mobJsType'
  * @import {
  *   AsyncTimeline,
  *   AsyncTimelineControls
- * } from "./type"
+ * } from './type'
  */
 
 import { MobCore } from '@mobCore';

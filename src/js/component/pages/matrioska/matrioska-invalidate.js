@@ -5,9 +5,9 @@ import { MatrioskaItem } from './item/definition';
 import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definition';
 
 /**
- * @import {MobComponent} from "@mobJsType"
- * @import {MatrioskaItemType} from "./item/type"
- * @import {Matrioska} from "./type"
+ * @import {MobComponent} from '@mobJsType'
+ * @import {MatrioskaItemType} from './item/type'
+ * @import {Matrioska} from './type'
  */
 
 /** @type {MobComponent<Matrioska>} */

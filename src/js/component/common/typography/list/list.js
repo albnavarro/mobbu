@@ -4,8 +4,8 @@ import { htmlObject, MobJs } from '@mobJs';
  * @import {
  *   DelegateEvents,
  *   MobComponent
- * } from "@mobJsType"
- * @import {List} from "./type"
+ * } from '@mobJsType'
+ * @import {List} from './type'
  */
 
 /**

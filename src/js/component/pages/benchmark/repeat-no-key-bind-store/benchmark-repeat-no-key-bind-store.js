@@ -8,8 +8,8 @@ import { BenchMarkFakeComponent } from '../fake-component/definition';
  * @import {
  *   MobComponent,
  *   ReturnBindProps
- * } from "@mobJsType"
- * @import {BenchMarkFakeComponentType} from "../fake-component/type"
+ * } from '@mobJsType'
+ * @import {BenchMarkFakeComponentType} from '../fake-component/type'
  */
 
 /** @type {MobComponent<import('./type').BenchMarkExternal>} */

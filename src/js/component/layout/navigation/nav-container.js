@@ -16,7 +16,7 @@ let unsubscribeTabHandler = () => {};
 let unsubscribeEscHandler = () => {};
 
 /**
- * @import {ProxiSelfState} from "@mobJsType"
+ * @import {ProxiSelfState} from '@mobJsType'
  */
 
 /**

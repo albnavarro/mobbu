@@ -3,7 +3,7 @@ import { DraggerFn } from './dragger';
 import { DRAGGER_CENTER } from './constant';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const Dragger = MobJs.createComponent(

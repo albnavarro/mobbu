@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { NavigationContainerFn } from './nav-container';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const NavigationContainer = MobJs.createComponent(

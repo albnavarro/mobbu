@@ -65,9 +65,9 @@ export default class MobSpring {
     #relative;
 
     /**
-     * @type {import('./type.js').SpringProps}
+     * @type {import('./type.js').SpringProps} This
      *
-     *   This value lives from user call ( goTo etc..) until next call
+     *   Value lives from user call ( goTo etc..) until next call
      */
     #configProps;
 

@@ -134,68 +134,79 @@
                 font-size: rem(11);
             }
         }
+
+        .scrollbar {
+            position: absolute;
+            z-index: 11;
+            inset-block-start: rem(25);
+            inset-inline-start: rem(240);
+            inline-size: calc(var(--links-height) - #{rem(60)});
+            transform: rotate(90deg);
+            transform-origin: left;
+            background: transparent;
+            cursor: pointer;
+            appearance: none;
+
+            @include when-inside('[dir="rtl"]') {
+                transform: rotate(-90deg);
+                transform-origin: right;
+            }
+
+            --thumb-width: #{rem(200)};
+
+            &.hide-scrollbar {
+                opacity: 0;
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &::-webkit-slider-runnable-track {
+                block-size: rem(10);
+                inline-size: var(--thumb-width);
+                border-radius: rem(10);
+                background-color: var(--grey-100);
+            }
+
+            &::-webkit-slider-thumb {
+                block-size: rem(10);
+                inline-size: var(--thumb-width);
+                border-radius: rem(10);
+                background-color: var(--dark);
+                appearance: none;
+            }
+
+            &:focus::-webkit-slider-thumb {
+                border-radius: rem(10);
+                outline-offset: 0;
+            }
+
+            &::-moz-range-track {
+                block-size: rem(10);
+                border-radius: rem(10);
+                background-color: var(--grey-100);
+            }
+
+            &::-moz-range-thumb {
+                block-size: rem(10);
+                inline-size: var(--thumb-width);
+                border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
+                border-radius: rem(10);
+                background-color: var(--dark);
+            }
+
+            &:focus::-moz-range-thumb {
+                border-radius: rem(10);
+                outline-offset: 0;
+            }
+        }
     }
 }
 
-// Safari issue
-.c-sidebar-links .scrollbar {
-    position: absolute;
-    z-index: 11;
-    inset-block-start: rem(25);
-    inset-inline-start: rem(240);
-    inline-size: calc(var(--links-height) - #{rem(60)});
-    transform: rotate(90deg);
-    transform-origin: left;
-    background: transparent;
-    cursor: pointer;
-    appearance: none;
-
-    --thumb-width: #{rem(200)};
-
-    &.hide-scrollbar {
-        opacity: 0;
-    }
-
-    &:focus {
-        outline: none;
-    }
-
-    &::-webkit-slider-runnable-track {
-        block-size: rem(10);
-        inline-size: var(--thumb-width);
-        border-radius: rem(10);
-        background-color: var(--grey-100);
-    }
-
-    &::-webkit-slider-thumb {
-        block-size: rem(10);
-        inline-size: var(--thumb-width);
-        border-radius: rem(10);
-        background-color: var(--dark);
-        appearance: none;
-    }
-
-    &:focus::-webkit-slider-thumb {
-        border-radius: rem(10);
-        outline-offset: 0;
-    }
-
-    &::-moz-range-track {
-        block-size: rem(10);
-        border-radius: rem(10);
-        background-color: var(--grey-100);
-    }
-
-    &::-moz-range-thumb {
-        block-size: rem(10);
-        inline-size: var(--thumb-width);
-        border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
-        border-radius: rem(10);
-        background-color: var(--dark);
-    }
-
-    &:focus::-moz-range-thumb {
-        border-radius: rem(10);
-        outline-offset: 0;
+@layer direction {
+    [dir='rtl'] :where(.c-sidebar-links) :where(.scrollbar) {
+        transform: rotate(-90deg);
+        transform-origin: right;
     }
 }

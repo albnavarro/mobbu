@@ -1,10 +1,11 @@
 # A classic store based on the pub/sub pattern.
+
 This module also powers the reactivity system in mobJs JavaScript components.
 
 ### Note:
+
 `MobCore.createStore` is an external reference that implement `mobStore`
 So in module:
-
 
 ```javascript
 // Module definition ( index.js of module level )
@@ -17,6 +18,7 @@ function createStore(data) {
 ```
 
 #### useNextLoop implementation:
+
 ```javascript
 /** @type{Set<() => any>} */
 const setTimeOutQueque = new Set();
@@ -41,6 +43,7 @@ export const useNextLoop = (fn) => {
 ```
 
 ### Feature
+
 - Optional Dynamic type check
 - Optional Transform function
 - Optional Validation function
@@ -59,7 +62,8 @@ const myStore = MobCore.createStore({
 ```
 
 ## Advanced implementations
-Each state can be declared by explicitly specifying the following properties: value, type, transform, validate, skipEqual, strict. To avoid confusion with a simple declaration, each of these properties must be preceded by the __ character. To enable an advanced state, at least the __value property must be present.
+
+Each state can be declared by explicitly specifying the following properties: value, type, transform, validate, skipEqual, strict. To avoid confusion with a simple declaration, each of these properties must be preceded by the ** character. To enable an advanced state, at least the **value property must be present.
 
 ```JavaScript
 import { MobCore } from '@mobCore';
@@ -85,6 +89,7 @@ const myStore = MobCore.createStore({
 ```
 
 ## Default ( controlled ) object:
+
 You can nest up to **two levels** (supporting both basic and advanced use cases) for properties, as demonstrated in example below.
 
 This implementation is designed to group multiple properties by `domain` rather than managing an object. It can only be used at the first level of property definition, as in the following example.
@@ -94,7 +99,6 @@ One of the advantages of this approach is the ability to use `set` or `update` t
 In this case, after the definition it will no longer be possible to add new properties; to add new properties dynamically use any
 
 When using a `controlled object` but nesting it more than two levels deep, the data will be added to the store, but its validation status will automatically be set to false.
-
 
 ```JavaScript
 import { MobCore } from '@mobCore';
@@ -120,6 +124,7 @@ const myStore = MobCore.createStore({
 ```
 
 ## Nested object
+
 To use an object with infinite insertions, employ the **any** type.
 With any every type of object will be accepted and no validation is applied.
 
@@ -150,10 +155,12 @@ const myStore = MobCore.createStore({
 
 Details of the parameters if defining a single state via an advanced implementation. Recall that in this case, the practice is to provide a function that returns an object with a `value` property and one of `validate`, `type`, `skipEqual` or `strict`.
 
-### __value
+### \_\_value
+
 Initial value
 
-### __type
+### \_\_type
+
 The type can be defined as a native JavaScript object or in the form of a string.<br/>
 The `object` type has been intentionally omitted. Please refer to the `default controlled object` section or the `any` type.
 
@@ -169,22 +176,27 @@ The `object` type has been intentionally omitted. Please refer to the `default c
 - `Map` | 'Map'
 - 'Any
 
-### __transform
+### \_\_transform
+
 Transformation function that processes values before validation.
 
-### __validate
+### \_\_validate
+
 Validation function that analyzes values. It receives both the current value and previous value as parameters, returning a boolean result. Each property's validation status appears as watch function parameters and can be retrieved via the `getValidation()` method.
 
-### __skipEqual
+### \_\_skipEqual
+
 If the value equals the previous one, the property won't update.
 This prevents watch execution and makes the property irrelevant to its related computed values.
 Default: `true`.
 
-### __strict
+### \_\_strict
+
 When true, the validation function acts as a blocker - the property updates only if validation succeeds.
 Default: `false`.
 
 ## Typescript support:
+
 Every store can implement an interface describing its state structure.
 This example demonstrates the pattern using jsDoc.
 Note: The type parameter (for dynamic type checking) operates outside TypeScript's validation system.
@@ -239,6 +251,7 @@ export const debugActiveComponentStore = MobCore.createStore<MyStoreType>({
 ## Methods:
 
 ### GetProxi
+
 Returns a proxy wrapper for the original object.
 
 - `get`: The object automatically reflects the current state values.
@@ -308,6 +321,7 @@ proxi.myObj.prop.subprop = 10;
 ```
 
 ### Set
+
 Set store value:
 
 Directly updates the state while maintaining reactivity.
@@ -342,8 +356,8 @@ myStore.set('myComplexObj', { prop: 10 });
 
 **Set options**
 
-- `emit`:  Modifies data without triggering reactions (no callbacks fired), with `false` relate computed will not trigger.
-Default: `true`.
+- `emit`: Modifies data without triggering reactions (no callbacks fired), with `false` relate computed will not trigger.
+  Default: `true`.
 
 ```JavaScript
 import { MobCore } from '@mobCore';
@@ -377,6 +391,7 @@ myStore.set(() => proxi.myObject, { prop: 10 });
 ```
 
 ### Update
+
 Update store value:
 
 update serves as a proxy alternative for state modifications,
@@ -412,8 +427,8 @@ myStore.update('myObject', (obj) => {
 
 **Update options**
 
-- `emit`:  Modifies data without triggering reactions (no callbacks fired), with `false` relate computed will not trigger.
-- `clone`:  Creates a copy of original data. Default: `false`.
+- `emit`: Modifies data without triggering reactions (no callbacks fired), with `false` relate computed will not trigger.
+- `clone`: Creates a copy of original data. Default: `false`.
 
 ```JavaScript
 import { MobCore } from '@mobCore';
@@ -439,6 +454,7 @@ myStore.update(
 ```
 
 **Attenzione alle mutazioni degli oggetti**
+
 ```javascript
 // Sbagliato: muta l'oggetto originale
 store.update('myObj', (obj) => {
@@ -449,16 +465,19 @@ store.update('myObj', (obj) => {
 // Corretto: nuovo oggetto
 store.update('myObj', (obj) => ({
     ...obj,
-    nested: 1
+    nested: 1,
 }));
 
 // Corretto: con clone
-store.update('myObj', (obj) => {
-    obj.nested = 1;
-    return obj;
-}, { clone: true });
+store.update(
+    'myObj',
+    (obj) => {
+        obj.nested = 1;
+        return obj;
+    },
+    { clone: true }
+);
 ```
-
 
 **With proxi**
 
@@ -486,6 +505,7 @@ myStore.update(
 ```
 
 ### Get
+
 Returns the entire store
 
 - use object destructuring to extract specific properties.
@@ -497,6 +517,7 @@ const { prop } = myStore.get();
 ```
 
 ### Get props
+
 Retrieves a specific property from the store.
 
 getProp offers a direct alternative to proxy-based state access for reading values.
@@ -506,6 +527,7 @@ const myProp = myStore.getProp('myProp');
 ```
 
 ### Watch
+
 Subscribes to state changes and provides an unsubscribe callback for cleanup.
 
 The watch system intentionally supports multiple watchers on the same property, regardless of whether the property’s
@@ -523,8 +545,8 @@ unsubscribe();
 
 **Watch options**
 
-- `wait`:  Defers callback execution until the current JavaScript event loop completes, using the latest value. Only effective when emit-async is not used. Default: `false`.
-- `immediate`:  Triggers the initial callback immediately on subscription. Default: `false`.
+- `wait`: Defers callback execution until the current JavaScript event loop completes, using the latest value. Only effective when emit-async is not used. Default: `false`.
+- `immediate`: Triggers the initial callback immediately on subscription. Default: `false`.
 
 ```JavaScript
 const unsubscribe = myStore.watch(
@@ -559,6 +581,7 @@ unsubscribe();
 ```
 
 ### Emit
+
 Triggers all property-specific callback functions.
 
 ```JavaScript
@@ -574,6 +597,7 @@ myStore.emit(() => proxi.prop);
 ```
 
 ### Emit async
+
 Processes all asynchronous property-related callbacks.
 
 ```JavaScript
@@ -612,6 +636,7 @@ await myStore.emitAsync(() => proxi.myProp);
 ```
 
 ### Computed
+
 Computed properties automatically update when their dependencies (store properties) change. These values are recalculated in the JavaScript event loop. Key behaviors:
 Batch processing: Multiple dependency changes trigger a single recomputation
 Initial values are determined during initialization using current dependency states
@@ -628,11 +653,13 @@ updates to the store are never allowed. This ensures the consistency of the modu
 **Explicit dependencies**
 
 Using a functional approach lets you:
+
 - Declare explicit dependencies
 - Pass current dependency values as callback parameters
 - Avoid relying on state values outside the callback context
 
 When dependencies are explicitly declared:
+
 - The callback receives only the specified dependencies
 - Alternative: Access proxies directly within the callback
 
@@ -721,6 +748,7 @@ myStore.computed(
 ```
 
 ### BindStore
+
 The module allows multiple stores to be linked, meaning that a specific store can be reactive to property mutations
 in external stores linked via the bindStore method. When using properties such as computed, properties of the linked
 store are explicitly referenced to leverage their reactivity. For this reason, in the store's lifecycle, it must
@@ -728,6 +756,7 @@ always be considered that any store linked via bindStore cannot be destroyed bef
 store using bindStore must always be able to access the properties of the linked store to maintain consistency.
 
 You can connect multiple stores to:
+
 - Access their properties reactively
 - Sync computations across stores
 
@@ -741,7 +770,6 @@ Connected stores will utilize these methods:
 - emitAsync
 
 Store that bind another store must be destroyed before binded store ( child store ) for consistency.
-
 
 ```JavaScript
 import { MobCore } from '@mobCore';
@@ -786,15 +814,19 @@ interface StoreOne extends WithSource<Store2> {
 ```
 
 ### getId
+
 Returns the unique ID of the store.
 
 ### quickSetProp
+
 With `quickSetProp`, you can mutate a property while skipping the entire validation cycle. This is useful for animations or situations where performance is a critical factor.
 
 ### setProxiReadOnlyProp
+
 Utility to define which properties, when used through a proxy, will be read-only. Useful for integrations with other modules.
 
 ### Built-in objects Map/Set
+
 Map and Set, if not reassigned, are treated as shallow copies, so they will always reference the original object, which is why it is important to pay attention to setting the skipEqual property to false. In this specific case, reassignment makes little sense, since by directly mutating the map, the previous value and the current value will always be equal.
 
 ```JavaScript
@@ -829,9 +861,8 @@ myStore.update(
 );
 ```
 
-
-
 ### Destroy
+
 Destroy store and remove all reference
 
 ```JavaScript
@@ -852,40 +883,42 @@ halt the script.
 In diversi punti del codice, lo stato viene gestito mediante shallow copy del wrapper object con mutazione diretta delle collection interne (Set/Map):
 
 ```javascript
-const state = getStateFromMainMap(instanceId);  // Shallow copy del wrapper
-state.internalSet.add(value);                    // Mutazione diretta
-updateMainMap(instanceId, state);                // Aggiornamento
+const state = getStateFromMainMap(instanceId); // Shallow copy del wrapper
+state.internalSet.add(value); // Mutazione diretta
+updateMainMap(instanceId, state); // Aggiornamento
 ```
 
 **Punti dove il Pattern è applicato**
+
 - `store-set.js` -> `addToComputedWaitLsit()` -> `computedPropsQueque` ( Set )
 - `store-set.js` -> `fireComputed()` -> `callBackComputed` ( iterazione )
 - `fire-queque.js` -> `runCallbackQueqe()` -> `waitMap` ( Map globale )
 - `store-watch.js` -> `subscribeWatch()` -> `watcherByProp`, `watcherMetadata`
 - `bind-store.js` -> `bindStoreEntryPoint()` -> `bindInstance` (array push implicito)
 
-
 **Perché è Sicuro**
+
 - JavaScript Single-Threaded
 
 ```javascript
 // Tutte le operazioni tra get e update sono atomiche
-const state = getStateFromMainMap(instanceId);  // Tick 1 - Inizio
-state.computedPropsQueque.add(prop);            // Tick 1 - Esecuzione
-updateMainMap(instanceId, state);               // Tick 1 - Fine
+const state = getStateFromMainMap(instanceId); // Tick 1 - Inizio
+state.computedPropsQueque.add(prop); // Tick 1 - Esecuzione
+updateMainMap(instanceId, state); // Tick 1 - Fine
 // Non esiste interleaving possibile
 ```
 
--  Nessuna Asincronicità nel Mezzo
-Non ci sono await, Promise o callback asincroni tra la lettura ( `getStateFromMainMap` ) e la scrittura ( `updateMainMap` ). Il flusso è puramente sincrono.
+- Nessuna Asincronicità nel Mezzo
+  Non ci sono await, Promise o callback asincroni tra la lettura ( `getStateFromMainMap` ) e la scrittura ( `updateMainMap` ). Il flusso è puramente sincrono.
 
 - Riferimento Condiviso Intenzionale
-La shallow copy restituisce un nuovo wrapper, ma le collection interne (Set/Map) sono riferimenti condivisi con l'oggetto nella mappa globale. Questo è intenzionale e sicuro perché:
-L'operazione di mutazione (`add`, `set`, `delete`) è immediata
-Non c'è yield del controllo tra la mutazione e l'aggiornamento della mappa
-L'ordine di esecuzione garantisce che ogni modifica sia visibile alle operazioni successive nello stesso tick
+  La shallow copy restituisce un nuovo wrapper, ma le collection interne (Set/Map) sono riferimenti condivisi con l'oggetto nella mappa globale. Questo è intenzionale e sicuro perché:
+  L'operazione di mutazione (`add`, `set`, `delete`) è immediata
+  Non c'è yield del controllo tra la mutazione e l'aggiornamento della mappa
+  L'ordine di esecuzione garantisce che ogni modifica sia visibile alle operazioni successive nello stesso tick
 
 - Isolamento dei Callback
+
 ```javascript
 // In fire-queque.js
 if (firstCycle) {
@@ -904,8 +937,8 @@ NON introdurre await o operazioni asincrone tra getStateFromMainMap e updateMain
 // ERRATO - Introduce race condition
 async function dangerousOperation(instanceId, value) {
     const state = getStateFromMainMap(instanceId);
-    await validateAsync(value);  // YIELD! Altro codice può modificare lo stato
-    state.store.prop = value;    // Sovrascrive modifiche intermedie
+    await validateAsync(value); // YIELD! Altro codice può modificare lo stato
+    state.store.prop = value; // Sovrascrive modifiche intermedie
     updateMainMap(instanceId, state);
 }
 
@@ -917,5 +950,3 @@ function safeOperation(instanceId, value) {
     // Eventuali operazioni async dopo l'update
 }
 ```
-
-

@@ -22,7 +22,9 @@
             z-index: 14;
             inset-block-start: var(--header-height);
             align-self: start;
-            block-size: calc(100vh - var(--header-height) - var(--footer-height));
+            block-size: calc(
+                100vh - var(--header-height) - var(--footer-height)
+            );
             padding: var(--gap-size);
             overflow: hidden;
 
@@ -62,7 +64,9 @@
             z-index: 14;
             grid-column: 2 / span 1;
             align-self: start;
-            block-size: calc(100vh - var(--header-height) - var(--footer-height));
+            block-size: calc(
+                100vh - var(--header-height) - var(--footer-height)
+            );
             min-inline-size: rem(250);
             overflow: hidden;
             inset-block-start: var(--header-height);

@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { DebugTreeFn } from './debug-tree';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const DebugTree = MobJs.createComponent(

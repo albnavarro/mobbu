@@ -7,8 +7,8 @@ import { DebugFilterListItem } from './item/definition';
  * @import {
  *   MobComponent,
  *   ReturnBindProps
- * } from "@mobJsType"
- * @import {DebugFilterListItemType} from "./item/type"
+ * } from '@mobJsType'
+ * @import {DebugFilterListItemType} from './item/type'
  */
 
 /** @type {import('./type').DebugInitScroller} */

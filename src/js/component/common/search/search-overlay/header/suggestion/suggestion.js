@@ -5,8 +5,8 @@ import { SearchOverlaySuggestionItem } from './suggestion-item/definition';
  * @import {
  *   MobComponent,
  *   ReturnBindProps
- * } from "@mobJsType"
- * @import {SearchOverlaySugestionItemType} from "./suggestion-item/type"
+ * } from '@mobJsType'
+ * @import {SearchOverlaySugestionItemType} from './suggestion-item/type'
  */
 
 /** @type {MobComponent<import('./type').SearchOverlaySuggestionType>} */

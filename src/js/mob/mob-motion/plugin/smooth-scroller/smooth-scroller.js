@@ -353,6 +353,11 @@ export class MobSmoothScroller {
     #eventKeyArrow;
 
     /**
+     * @type {number}
+     */
+    #rtl;
+
+    /**
      * Create new SmoothScroller instance.
      *
      *        Available methods:
@@ -408,6 +413,9 @@ export class MobSmoothScroller {
         this.#unSubscribeMouseClick = NOOP;
         this.#unSubscribeDebounceWhell = NOOP;
         this.#unSubscribeHandleTab = NOOP;
+
+        const dir = document.documentElement.getAttribute('dir');
+        this.#rtl = dir === 'rtl' ? -1 : 1;
 
         /**
          * Initialize tween param.
@@ -985,7 +993,7 @@ export class MobSmoothScroller {
             /** @type {HTMLElement} */ (this.#scroller).style.transform =
                 this.#direction == MobScrollerConstant.DIRECTION_VERTICAL
                     ? `translate3d(0px, 0px, 0px) translateY(${-Math.trunc(val)}px)`
-                    : `translate3d(0px, 0px, 0px) translateX(${-Math.trunc(val)}px)`;
+                    : `translate3d(0px, 0px, 0px) translateX(${-Math.trunc(val * this.#rtl)}px)`;
 
             /**
              * TODO:
@@ -1018,7 +1026,7 @@ export class MobSmoothScroller {
             /** @type {HTMLElement} */ (this.#scroller).style.transform =
                 this.#direction == MobScrollerConstant.DIRECTION_VERTICAL
                     ? `translateY(${-Math.trunc(val)}px)`
-                    : `translateX(${-Math.trunc(val)}px)`;
+                    : `translateX(${-Math.trunc(val * this.#rtl)}px)`;
 
             MobCore.useNextTick(() => {
                 this.#onTickCallback({

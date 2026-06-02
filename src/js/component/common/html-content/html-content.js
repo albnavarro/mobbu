@@ -2,8 +2,8 @@
  * @import {
  *   MobComponentAsync,
  *   StaticProps
- * } from "@mobJsType"
- * @import {HtmlContent} from "./type"
+ * } from '@mobJsType'
+ * @import {HtmlContent} from './type'
  */
 
 import { htmlObject } from '@mobJs';

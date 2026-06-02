@@ -4,7 +4,7 @@ import { MobJs } from '@mobJs';
 import { AnimatedPatternN1Fn } from './animated-pattern-n1';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const AnimatedPatternN1 = MobJs.createComponent(

@@ -6,7 +6,7 @@ import { htmlObject } from '@mobJs';
  *   ProxiSelfState,
  *   ReturnBindProps,
  *   StaticProps
- * } from "@mobJsType"
+ * } from '@mobJsType'
  */
 
 /**

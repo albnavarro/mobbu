@@ -7,7 +7,9 @@
             visibility: hidden;
             position: fixed;
             z-index: 9;
-            block-size: calc(100vh - var(--header-height) - var(--footer-height));
+            block-size: calc(
+                100vh - var(--header-height) - var(--footer-height)
+            );
             inline-size: var(--left-sidebar);
             padding: var(--gap-size);
             transition:

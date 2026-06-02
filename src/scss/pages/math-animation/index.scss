@@ -7,7 +7,9 @@
             position: relative;
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(2, 1fr);
-            block-size: calc(100vh - var(--header-height) - var(--footer-height));
+            block-size: calc(
+                100vh - var(--header-height) - var(--footer-height)
+            );
             inline-size: calc(100% - var(--header-height) / 2);
             inset-block-start: var(--header-height);
             inset-inline-start: calc(var(--header-height) / 2);

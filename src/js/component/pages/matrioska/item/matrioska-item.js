@@ -1,8 +1,8 @@
 import { htmlObject } from '@mobJs';
 
 /**
- * @import {MobComponent} from "@mobJsType"
- * @import {MatrioskaItemType} from "./type"
+ * @import {MobComponent} from '@mobJsType'
+ * @import {MatrioskaItemType} from './type'
  */
 
 /** @type {MobComponent<MatrioskaItemType>} */

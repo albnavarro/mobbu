@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { SideBarLinksButtonFn } from './side-bar-links-button';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const SideBarLinksButton = MobJs.createComponent(

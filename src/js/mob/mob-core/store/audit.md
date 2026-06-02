@@ -3,6 +3,7 @@
 Documento di lavoro: bug logici, problemi semantici e nice-to-have rilevati nel modulo `mob-core/store`. Ogni voce ha gravità, riferimento al file/righe e suggerimento di fix.
 
 Legenda gravità:
+
 - 🟠 media — bug latente, edge case o problema semantico
 - 🟡 bassa — DX / leggibilità / refactor
 
@@ -21,6 +22,7 @@ La dep-detection avviene una sola volta a definizione del computed eseguendo `ca
 **Effetto:** limitazione comune (Vue 2-style) ma non documentata. La readme suggerisce "automatic & complete tracking".
 
 **Decisione richiesta:**
+
 - (A) Documentare la limitazione in readme.
 - (B) Re-tracciare le dipendenze a ogni esecuzione del computed (cambiamento più invasivo, allinea a Vue 3 / Solid).
 
@@ -148,15 +150,15 @@ Annotati per memoria, **non sono bug**:
 
 ## Priorità di intervento
 
-| Ordine | Item | Severità | Effort |
-|--------|------|----------|--------|
-| 1 | #1 Circular check | 🔴 | xs (1 riga) |
-| 2 | #2 Wait + null/undefined | 🔴 | xs (rimuovere check) |
-| 3 | #3 emitAsync double fire | 🔴 | s |
-| 4 | #5 Proxy set warning | 🟠 | xs |
-| 5 | #6 watchEntryPoint local prop | 🟠 | xs |
-| 6 | #4 Bind override semantics | 🟠 | discussione |
-| 7 | #7 Dep tracking static | 🟠 | doc o refactor |
-| 8 | #9, #10 DX warnings | 🟡 | xs |
-| 9 | #11 callBackComputed → Map | 🟡 | m |
-| 10 | #12 Rename typos | 🟡 | s (mass rename) |
+| Ordine | Item                          | Severità | Effort               |
+| ------ | ----------------------------- | -------- | -------------------- |
+| 1      | #1 Circular check             | 🔴       | xs (1 riga)          |
+| 2      | #2 Wait + null/undefined      | 🔴       | xs (rimuovere check) |
+| 3      | #3 emitAsync double fire      | 🔴       | s                    |
+| 4      | #5 Proxy set warning          | 🟠       | xs                   |
+| 5      | #6 watchEntryPoint local prop | 🟠       | xs                   |
+| 6      | #4 Bind override semantics    | 🟠       | discussione          |
+| 7      | #7 Dep tracking static        | 🟠       | doc o refactor       |
+| 8      | #9, #10 DX warnings           | 🟡       | xs                   |
+| 9      | #11 callBackComputed → Map    | 🟡       | m                    |
+| 10     | #12 Rename typos              | 🟡       | s (mass rename)      |

@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { LightSidebarFn } from './left-sidebar';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const LeftSidebar = MobJs.createComponent(

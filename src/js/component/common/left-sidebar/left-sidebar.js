@@ -5,8 +5,8 @@
  *   MobComponent,
  *   ProxiBoundedState,
  *   ProxiSelfState
- * } from "@mobJsType"
- * @import {LeftSidebar} from "./type"
+ * } from '@mobJsType'
+ * @import {LeftSidebar} from './type'
  */
 
 import { htmlObject, MobJs } from '@mobJs';

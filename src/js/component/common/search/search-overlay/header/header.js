@@ -10,8 +10,8 @@ import { SearchOverlaySuggestion } from './suggestion/definition';
  *   MobComponent,
  *   ProxiSelfState,
  *   ReturnBindProps
- * } from "@mobJsType"
- * @import {SearchOverlaySuggestionType} from "./suggestion/type"
+ * } from '@mobJsType'
+ * @import {SearchOverlaySuggestionType} from './suggestion/type'
  */
 
 /**

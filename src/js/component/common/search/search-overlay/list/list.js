@@ -9,7 +9,7 @@ import { MobCore } from '@mobCore';
  *   GetRef,
  *   MobComponent,
  *   ReturnBindProps
- * } from "@mobJsType"
+ * } from '@mobJsType'
  */
 
 /**

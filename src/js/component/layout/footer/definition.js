@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { FooterFn } from './footer';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const Footer = MobJs.createComponent(

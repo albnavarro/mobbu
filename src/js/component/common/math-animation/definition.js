@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { MathAnimationFn } from './math-animation';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const MathAnimation = MobJs.createComponent(

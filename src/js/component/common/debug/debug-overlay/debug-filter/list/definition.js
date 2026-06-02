@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { DebugFilterListFn } from './debug-filter-list';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const DebugFilterList = MobJs.createComponent(

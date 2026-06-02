@@ -7,7 +7,7 @@
  *   MobComponent,
  *   ProxiSelfState,
  *   SetRef
- * } from "@mobJsType"
+ * } from '@mobJsType'
  */
 
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';

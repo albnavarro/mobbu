@@ -83,10 +83,9 @@ export const mouseTrailAnimation = ({ elements }) => {
             const targetAngle = Math.atan2(yDiff, xDiff) * RAD2DEG + 180 + 90;
 
             /**
-             * Calculate the shortest angular distance between current and target rotation.
-             * Normalize delta to [-180, 180] range to always take the shortest path.
-             * Example: rotating from 350° to 10° will use +20° instead of -340°.
-             * This prevents unwanted full rotations when crossing the 0°/360° boundary.
+             * Calculate the shortest angular distance between current and target rotation. Normalize delta to [-180,
+             * 180] range to always take the shortest path. Example: rotating from 350° to 10° will use +20° instead of
+             * -340°. This prevents unwanted full rotations when crossing the 0°/360° boundary.
              */
             let delta = targetAngle - currentRotation;
             while (delta > 180) delta -= 360;

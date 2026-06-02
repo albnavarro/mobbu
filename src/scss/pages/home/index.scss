@@ -62,7 +62,10 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
             scale: 0;
 
             @media (aspect-ratio >= 3/2) {
-                block-size: min($logo-max-height, calc(((800 * 100) / 1920) * 1vw));
+                block-size: min(
+                    $logo-max-height,
+                    calc(((800 * 100) / 1920) * 1vw)
+                );
                 inline-size: min(1920px, calc(((1700 * 100) / 1920) * 1vw));
             }
 

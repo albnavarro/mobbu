@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { DebugHeadFn } from './debug-head';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const DebugHead = MobJs.createComponent(

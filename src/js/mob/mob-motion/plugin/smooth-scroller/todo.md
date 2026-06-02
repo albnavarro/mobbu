@@ -1,7 +1,9 @@
 ## TODO:
 
 #### LastSpinY/X ( da testare )
+
 - Aggiornare lastSpinY/X subito dopo il loro uso
+
 ```javascript
 const spinValue = this.#useHorizontalScroll
     ? (() => {
@@ -14,6 +16,7 @@ this.#lastSpinX = spinX;
 ```
 
 #### Inertial limit: ( da testare )
+
 - All'interno di `onWheel`:
     - `checkSnapOpportunity` && `scheduleSnapTimeout`
     - Dovrebbero essere eseguite solo se `Math.abs(spinValue) > 1` `( 0.5 )` ?
@@ -23,6 +26,7 @@ this.#lastSpinX = spinX;
 ## Upgrade:
 
 ### Velocity;
+
 - Calcolare la velocitá a prescindere dallo snap attivo e passarla nella callback.
 
 ### triggerScrollStart.

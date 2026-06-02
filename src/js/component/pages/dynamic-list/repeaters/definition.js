@@ -2,7 +2,7 @@ import { MobJs } from '@mobJs';
 import { DynamicListRepeaterFn } from './dynamic-list-repeater';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const DynamicListRepeater = MobJs.createComponent(

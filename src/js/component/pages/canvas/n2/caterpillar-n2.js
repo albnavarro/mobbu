@@ -6,8 +6,8 @@
  *   DelegateEvents,
  *   MobComponent,
  *   ProxiSelfState
- * } from "@mobJsType"
- * @import {CaterpillarN2} from "./type"
+ * } from '@mobJsType'
+ * @import {CaterpillarN2} from './type'
  */
 
 import { MobCore } from '@mobCore';

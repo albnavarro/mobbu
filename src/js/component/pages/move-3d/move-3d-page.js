@@ -11,7 +11,7 @@ import { htmlObject, MobJs } from '@mobJs';
  *   MobComponent,
  *   ProxiSelfState,
  *   ReturnBindProps
- * } from "@mobJsType"
+ * } from '@mobJsType'
  */
 
 /**

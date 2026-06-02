@@ -5,7 +5,7 @@ import { startData } from './data';
 import { DynamicListFn } from './dynamic-list';
 
 /**
- * @import {CreateComponentParams} from "@mobJsType"
+ * @import {CreateComponentParams} from '@mobJsType'
  */
 
 export const DynamicList = MobJs.createComponent(

@@ -2,7 +2,7 @@
  * @import {
  *   MobComponent,
  *   StaticProps
- * } from "@mobJsType"
+ * } from '@mobJsType'
  */
 
 import { htmlObject } from '@mobJs';

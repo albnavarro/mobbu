@@ -1,6 +1,6 @@
 /**
- * @import {MobComponent} from "@mobJsType"
- * @import {QuickNav} from "./type"
+ * @import {MobComponent} from '@mobJsType'
+ * @import {QuickNav} from './type'
  */
 
 import { htmlObject, MobJs } from '@mobJs';

@@ -4,9 +4,9 @@
  *   ProxiSelfState,
  *   ReturnBindProps,
  *   StaticProps
- * } from "@mobJsType"
- * @import {NavigationButtonType} from "../navigation-button/type"
- * @import {NavigationSubmenuType} from "./type"
+ * } from '@mobJsType'
+ * @import {NavigationButtonType} from '../navigation-button/type'
+ * @import {NavigationSubmenuType} from './type'
  */
 
 import { htmlObject } from '@mobJs';
