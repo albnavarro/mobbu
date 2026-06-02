@@ -263,3 +263,14 @@
         }
     }
 }
+
+@layer direction {
+    [dir='rtl'] :where(.l-links) {
+        :where(.title) {
+            transform: translate(
+                calc((var(--gap-size) / 2 - 2px) * -1),
+                calc(-100% - #{rem(19)})
+            );
+        }
+    }
+}

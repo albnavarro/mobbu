@@ -111,3 +111,17 @@
         }
     }
 }
+
+@layer direction {
+    [dir='rtl'] :where(.c-math) {
+        :where(.play, .stop) {
+            &::after {
+                transform: translate(50%, -50%);
+            }
+        }
+
+        :where(.trail-item) {
+            transform: translate(50%, -50%);
+        }
+    }
+}

@@ -17,6 +17,9 @@ export const mathInfinite = ({ targets, container, canvas } = {}) => {
         willReadFrequently: false,
     });
 
+    const dir = document.documentElement.getAttribute('dir');
+    const rtl = dir === 'rtl' ? -1 : 1;
+
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
@@ -129,7 +132,7 @@ export const mathInfinite = ({ targets, container, canvas } = {}) => {
              * - Sottrae halfTagetHeight per centrare sia orizzontalmente che verticalmente
              * - I target partono già centrati (position: absolute al centro)
              */
-            item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetsHeight[index]}px, ${yr - halfTagetsHeight[index]}px)`;
+            item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetsHeight[index] * rtl}px, ${yr - halfTagetsHeight[index]}px)`;
             if (innerElement) innerElement.style.scale = `${scale}`;
         });
     });

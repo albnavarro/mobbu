@@ -28,6 +28,12 @@
     }
 }
 
+@layer direction {
+    [dir='rtl'] :where(.c-quick-nav-container) {
+        transform: translateX(50%);
+    }
+}
+
 @layer layout {
     @scope (.c-quick-nav) {
         :scope {
@@ -97,35 +103,51 @@
     }
 }
 
+@layer direction {
+    [dir='rtl'] :where(.c-quick-nav) {
+        &.is-next {
+            &::after {
+                transform: translate(75%, -50%) rotate(-45deg);
+            }
+        }
+
+        &.is-prev {
+            &::after {
+                transform: translate(25%, -50%) rotate(135deg);
+            }
+        }
+
+        &.is-back {
+            &::after {
+                transform: translate(50%, -75%) rotate(-135deg);
+            }
+        }
+    }
+}
+
 @layer layout {
     @scope (.quick-nav-labels) {
         :scope {
             position: absolute;
             block-size: var(--item-height);
-            inline-size: var(--item-width);
             overflow: hidden;
             inset-block-start: calc(#{rem(35)} * -1);
+            inset-inline: 0;
 
-            --item-width: #{rem(172)};
             --item-height: #{rem(30)};
-
-            @media screen and (height <= 700px) {
-                --item-width: #{rem(142)};
-            }
         }
 
         .labels {
             display: inline-block;
             z-index: -1;
             block-size: var(--item-height);
-            inline-size: var(--item-width);
+            inline-size: 100%;
             overflow: hidden;
             transform: translateY(100%);
             transition:
                 opacity 0.35s,
                 visibility 0.35s;
-            border: 1px black solid;
-            color: black;
+            color: var(--black);
             font-size: rem(13);
             line-height: 1;
             text-align: center;
@@ -136,7 +158,6 @@
                 flex-direction: column;
                 justify-content: center;
                 block-size: var(--item-height);
-                inline-size: var(--item-width);
                 padding-block-start: rem(4);
                 font-weight: 600;
                 text-transform: uppercase;

@@ -17,6 +17,9 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
         willReadFrequently: false,
     });
 
+    const dir = document.documentElement.getAttribute('dir');
+    const rtl = dir === 'rtl' ? -1 : 1;
+
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
@@ -98,7 +101,7 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
              */
             const y = Math.sin(x / pixelsPerRadian) * amplitude * direction;
 
-            item.style.transform = `translate3D(0px,0px,0px) translate(${x + xAxisAdjustValue}px, ${y - halfTagetsHeight[index]}px)`;
+            item.style.transform = `translate3D(0px,0px,0px) translate(${(x + xAxisAdjustValue) * rtl}px, ${y - halfTagetsHeight[index]}px)`;
             if (innerElement) innerElement.style.scale = `${scale}`;
             previousX = x;
         });

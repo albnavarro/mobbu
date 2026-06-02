@@ -12,6 +12,9 @@ export const mathCircle = ({ targets, container, canvas } = {}) => {
             destroy: () => {},
         };
 
+    const dir = document.documentElement.getAttribute('dir');
+    const rtl = dir === 'rtl' ? -1 : 1;
+
     let ctx = canvas.getContext('2d', {
         alpha: true,
         willReadFrequently: false,
@@ -38,7 +41,7 @@ export const mathCircle = ({ targets, container, canvas } = {}) => {
         tween.subscribeCache(({ x }) => {
             const xr = Math.sin(x * step) * radius;
             const yr = Math.cos(x * step) * radius;
-            item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetsHeight[index]}px, ${yr - halfTagetsHeight[index]}px)`;
+            item.style.transform = `translate3D(0px,0px,0px) translate(${(xr - halfTagetsHeight[index]) * rtl}px, ${yr - halfTagetsHeight[index]}px)`;
         });
     });
 

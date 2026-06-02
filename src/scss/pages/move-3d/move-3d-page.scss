@@ -170,11 +170,23 @@
 }
 
 @layer direction {
-    [dir='rtl'] :where(.l-move3d-page) :where(.controls) {
-        transform: translateX(-100%);
+    [dir='rtl'] :where(.l-move3d-page) {
+        :where(.controls) {
+            transform: translateX(-100%);
 
-        &.active {
-            transform: translateX(0);
+            &.active {
+                transform: translateX(0);
+            }
+        }
+
+        :where(.close-controls) {
+            &::before {
+                transform: translate(50%, -50%) rotate(-45deg);
+            }
+
+            &::after {
+                transform: translate(50%, -50%) rotate(-135deg);
+            }
         }
     }
 }
