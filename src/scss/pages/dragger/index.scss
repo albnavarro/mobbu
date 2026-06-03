@@ -231,4 +231,46 @@
     [dir='rtl'] :where(.dragger-component) :where(.title) {
         transform: translateX(50%);
     }
+
+    [theme='dark'] :where(.dragger-component) :where(.child) {
+        &.is-1 {
+            background: var(--white);
+        }
+
+        &.is-2 {
+            background: var(--white);
+        }
+
+        &.is-3 {
+            background: var(--white);
+        }
+
+        &.is-4 {
+            background: var(--white);
+        }
+
+        &.is-5 {
+            background: var(--white);
+        }
+
+        &.is-6 {
+            background: var(--white);
+        }
+
+        &.is-7 {
+            background: var(--white);
+        }
+
+        &.is-8 {
+            background: var(--white);
+        }
+
+        &.is-9 {
+            background: var(--white);
+        }
+
+        &.is-10 {
+            background: var(--white);
+        }
+    }
 }
