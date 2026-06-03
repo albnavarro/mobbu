@@ -722,7 +722,8 @@ code.hljs {
       block-size: var(--footer-height);
       inline-size: 100%;
       transition: background 0.35s;
-      background: black;
+      background: var(--black);
+      color: var(--white);
       text-align: center;
       inset-block-end: 0;
       inset-inline-start: 0;
@@ -755,7 +756,6 @@ code.hljs {
     .bio-item {
       display: inline-block;
       margin-inline: 0.3333333333rem;
-      color: var(--white);
       font-size: 0.8666666667rem;
     }
     :is(a, .log) {
@@ -769,11 +769,17 @@ code.hljs {
     .log {
       border: 0;
       background: transparent;
-      color: var(--white);
     }
     :scope.is-visible .debug-cell {
       opacity: 1;
     }
+  }
+}
+@layer direction {
+  [theme=dark] :where(footer) {
+    background: var(--white);
+    color: var(--dark);
+    border-block-start: 1px var(--grey-200) solid;
   }
 }
 @layer layout {
@@ -5460,6 +5466,19 @@ code.hljs {
       position: relative;
       block-size: calc(var(--item-height) * 3);
     }
+  }
+}
+@layer direction {
+  [theme=dark] :where(.quick-nav-labels) {
+    color: var(--black);
+  }
+}
+@layer direction {
+  [theme=dark] :where(.c-quick-nav) {
+    outline-color: var(--black);
+  }
+  [theme=dark] :where(.c-quick-nav)::after {
+    border-color: var(--black);
   }
 }
 @layer layout {

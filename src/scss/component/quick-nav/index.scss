@@ -170,3 +170,19 @@
         }
     }
 }
+
+@layer direction {
+    [theme='dark'] :where(.quick-nav-labels) {
+        color: var(--black);
+    }
+}
+
+@layer direction {
+    [theme='dark'] :where(.c-quick-nav) {
+        outline-color: var(--black);
+
+        &::after {
+            border-color: var(--black);
+        }
+    }
+}

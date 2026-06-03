@@ -9,7 +9,8 @@
             block-size: var(--footer-height);
             inline-size: 100%;
             transition: background 0.35s;
-            background: black;
+            background: var(--black);
+            color: var(--white);
             text-align: center;
             inset-block-end: 0;
             inset-inline-start: 0;
@@ -45,7 +46,6 @@
         .bio-item {
             display: inline-block;
             margin-inline: rem(5);
-            color: var(--white);
             font-size: rem(13);
         }
 
@@ -62,7 +62,6 @@
         .log {
             border: 0;
             background: transparent;
-            color: var(--white);
         }
 
         :scope.is-visible {
@@ -70,5 +69,13 @@
                 opacity: 1;
             }
         }
+    }
+}
+
+@layer direction {
+    [theme='dark'] :where(footer) {
+        background: var(--white);
+        color: var(--dark);
+        border-block-start: 1px var(--grey-200) solid;
     }
 }
