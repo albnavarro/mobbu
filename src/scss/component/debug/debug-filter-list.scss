@@ -91,7 +91,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.c-debug-filter-list) :where(.scrollbar) {
         transform: rotate(-90deg);
         transform-origin: right;

@@ -15,7 +15,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.c-dragger) :where(.wrapper) {
         transform: translate(50%, -50%);
     }

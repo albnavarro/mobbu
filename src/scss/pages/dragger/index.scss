@@ -227,7 +227,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.dragger-component) :where(.title) {
         transform: translateX(50%);
     }

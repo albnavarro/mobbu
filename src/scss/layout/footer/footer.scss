@@ -72,7 +72,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [theme='dark'] :where(footer) {
         background: var(--white);
         color: var(--dark);

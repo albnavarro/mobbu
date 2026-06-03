@@ -143,7 +143,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.l-navcontainer) {
         transform: translateX(101%);
 

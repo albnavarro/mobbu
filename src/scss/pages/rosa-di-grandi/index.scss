@@ -169,7 +169,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.l-rosa) {
         :where(.controls) {
             transform: translateX(-100%);

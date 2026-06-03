@@ -222,7 +222,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.c-canvas) {
         :where(.controls) {
             transform: translateX(-100%);

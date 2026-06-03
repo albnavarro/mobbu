@@ -33,7 +33,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.l-background-shape) {
         svg {
             transform: translate(50%, -50%);

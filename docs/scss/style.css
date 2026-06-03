@@ -1,5 +1,5 @@
 /* src/scss/style.scss */
-@layer reset, base, typography, layout, user, utilities, direction;
+@layer reset, base, typography, user, layout, utilities, override;
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -708,7 +708,7 @@ code.hljs {
     transform: translate(-50%, -50%);
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.u-center-inner-svg) svg {
     transform: translate(50%, -50%);
   }
@@ -775,7 +775,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [theme=dark] :where(footer) {
     background: var(--white);
     color: var(--dark);
@@ -1355,7 +1355,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.l-navcontainer) {
     transform: translateX(101%);
   }
@@ -1397,7 +1397,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.l-background-shape) svg {
     transform: translate(50%, -50%);
   }
@@ -1730,7 +1730,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.l-about) :where(.nav, .square) {
     transform: translateX(50%);
   }
@@ -2104,7 +2104,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.l-links) :where(.title) {
     transform: translate(calc((var(--gap-size) / 2 - 2px) * -1), calc(-100% - 1.2666666667rem));
   }
@@ -2299,7 +2299,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.c-canvas) :where(.controls) {
     transform: translateX(-100%);
   }
@@ -3370,7 +3370,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.dragger-component) :where(.title) {
     transform: translateX(50%);
   }
@@ -3550,7 +3550,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.l-rosa) :where(.controls) {
     transform: translateX(-100%);
   }
@@ -3923,7 +3923,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.c-debug-tree) :where(.scrollbar) {
     transform: rotate(-90deg);
     transform-origin: right;
@@ -4129,7 +4129,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.c-debug-component) :where(.scrollbar) {
     transform: rotate(-90deg);
     transform-origin: right;
@@ -4258,7 +4258,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.c-debug-filter-list) :where(.scrollbar) {
     transform: rotate(-90deg);
     transform-origin: right;
@@ -4657,7 +4657,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.list-links) :where(.arrow-start) {
     transform: translate(50%, -50%) rotate(-45deg);
   }
@@ -5334,7 +5334,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.c-sidebar-links) :where(.scrollbar) {
     transform: rotate(-90deg);
     transform-origin: right;
@@ -5363,7 +5363,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.c-quick-nav-container) {
     transform: translateX(50%);
   }
@@ -5418,7 +5418,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.c-quick-nav).is-next::after {
     transform: translate(75%, -50%) rotate(-45deg);
   }
@@ -5468,12 +5468,12 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [theme=dark] :where(.quick-nav-labels) {
     color: var(--black);
   }
 }
-@layer direction {
+@layer override {
   [theme=dark] :where(.c-quick-nav) {
     outline-color: var(--black);
   }
@@ -5574,7 +5574,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.anchor-button) :where(.arrow-start) {
     transform: translate(50%, -50%);
   }
@@ -5813,7 +5813,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.c-dragger) :where(.wrapper) {
     transform: translate(50%, -50%);
   }
@@ -6043,7 +6043,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.c-search-list) :where(.scrollbar) {
     transform: rotate(-90deg);
     transform-origin: right;
@@ -6256,7 +6256,7 @@ code.hljs {
     }
   }
 }
-@layer direction {
+@layer override {
   [dir=rtl] :where(.c-math) :where(.play, .stop)::after {
     transform: translate(50%, -50%);
   }

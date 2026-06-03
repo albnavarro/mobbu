@@ -264,7 +264,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.l-links) {
         :where(.title) {
             transform: translate(

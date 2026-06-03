@@ -28,7 +28,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.c-quick-nav-container) {
         transform: translateX(50%);
     }
@@ -103,7 +103,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.c-quick-nav) {
         &.is-next {
             &::after {
@@ -171,13 +171,13 @@
     }
 }
 
-@layer direction {
+@layer override {
     [theme='dark'] :where(.quick-nav-labels) {
         color: var(--black);
     }
 }
 
-@layer direction {
+@layer override {
     [theme='dark'] :where(.c-quick-nav) {
         outline-color: var(--black);
 

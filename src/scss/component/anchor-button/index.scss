@@ -55,7 +55,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.anchor-button) {
         :where(.arrow-start) {
             transform: translate(50%, -50%);

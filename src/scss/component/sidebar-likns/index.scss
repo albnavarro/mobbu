@@ -204,7 +204,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.c-sidebar-links) :where(.scrollbar) {
         transform: rotate(-90deg);
         transform-origin: right;

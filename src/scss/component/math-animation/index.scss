@@ -112,7 +112,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.c-math) {
         :where(.play, .stop) {
             &::after {

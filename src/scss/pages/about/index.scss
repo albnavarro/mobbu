@@ -323,7 +323,7 @@
     }
 }
 
-@layer direction {
+@layer override {
     [dir='rtl'] :where(.l-about) {
         :where(.nav, .square) {
             transform: translateX(50%);
