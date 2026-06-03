@@ -49,7 +49,7 @@
                 transform: scaleY(0);
                 transform-origin: bottom;
                 transition: transform 0.55s;
-                background: var(--black);
+                background: var(--dark);
             }
 
             @include mq(xlarge) {
@@ -63,6 +63,21 @@
                 &::after {
                     transform: scaleY(1);
                 }
+            }
+        }
+    }
+}
+
+@layer override {
+    [theme='dark'] :where(.l-header-menu) {
+        :where(button) {
+            &::after {
+                background: var(--white);
+            }
+
+            &:hover,
+            &.current {
+                color: var(--dark);
             }
         }
     }
