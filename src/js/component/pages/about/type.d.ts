@@ -71,7 +71,7 @@ export type CreatePathAnimation = (ar0: {
     wrapElement: HTMLElement;
     weakScreenElement: WeakRef<HTMLElement>;
     setActiveItem: (value: number) => void;
-    direction: string;
+    isRtl: boolean;
 }) => {
     pathScroller: MobScroller;
     pathSequencer: MobSequencer;

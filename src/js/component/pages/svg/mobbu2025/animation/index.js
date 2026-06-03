@@ -1,3 +1,4 @@
+import { isRtlDirection } from '@componentLibs/utils/is-rtl';
 import { MobScroll } from '@mobMotion';
 import { MobSmoothScroller } from '@mobMotionPlugin';
 
@@ -7,8 +8,6 @@ export const mobbu2025Scroller = ({
     scrollerElement,
     layer02,
 }) => {
-    const direction = document.documentElement.getAttribute('dir') ?? '';
-
     let parallax2 = MobScroll.createParallax({
         item: layer02,
         align: 'center',
@@ -25,7 +24,7 @@ export const mobbu2025Scroller = ({
         useHorizontalScroll: true,
         easeType: 'lerp',
         breakpoint: 'small',
-        children: direction === 'rtl' ? [] : [parallax2],
+        children: isRtlDirection() ? [] : [parallax2],
     });
 
     scroller.init();

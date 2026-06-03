@@ -12,7 +12,7 @@ export const createPathAnimation = ({
     wrapElement,
     setActiveItem,
     weakScreenElement,
-    direction,
+    isRtl,
 }) => {
     /**
      * Data
@@ -214,7 +214,7 @@ export const createPathAnimation = ({
      */
     let shouldLoop = true;
     const loop = () => {
-        if (!shouldLoop || direction === 'rtl') return;
+        if (!shouldLoop || isRtl) return;
 
         const a = {
             x: sequencerData.ax + timelineData.ax,

@@ -2,6 +2,7 @@ import { MobSmoothScroller } from '@mobMotionPlugin';
 import { createPathAnimation } from './path-animation';
 import { aboutSection1 } from './section1';
 import { sectionContentAnimation } from './section-content';
+import { isRtlDirection } from '@componentLibs/utils/is-rtl';
 
 /** @type {import('../type').AboutScroller} */
 export const aboutAnimation = ({
@@ -19,8 +20,6 @@ export const aboutAnimation = ({
     onScrollEnd,
     snapPoints,
 }) => {
-    const direction = document.documentElement.getAttribute('dir') ?? '';
-
     /**
      * Garbage collector utils for path svg Prevent path loop inside to not collected
      */
@@ -44,7 +43,7 @@ export const aboutAnimation = ({
         wrapElement,
         setActiveItem,
         weakScreenElement,
-        direction,
+        isRtl: isRtlDirection(),
     });
 
     const { title1parallax, title2parallax, title1tween, title2tween } =
@@ -80,17 +79,16 @@ export const aboutAnimation = ({
         breakpoint: 'small',
         useHorizontalScroll: true,
         snapPoints,
-        children:
-            direction === 'rtl'
-                ? [pathScroller]
-                : [
-                      pathScroller,
-                      title1parallax,
-                      title2parallax,
-                      sectionContentScroller_1,
-                      sectionContentScroller_2,
-                      sectionContentScroller_3,
-                  ],
+        children: isRtlDirection()
+            ? [pathScroller]
+            : [
+                  pathScroller,
+                  title1parallax,
+                  title2parallax,
+                  sectionContentScroller_1,
+                  sectionContentScroller_2,
+                  sectionContentScroller_3,
+              ],
         onUpdate: ({ value }) => {
             onMove(value);
             onScrollEnd();

@@ -26372,7 +26372,7 @@
     wrapElement,
     setActiveItem,
     weakScreenElement,
-    direction: direction2
+    isRtl
   }) => {
     const sequencerData = {
       ax: 53,
@@ -26444,23 +26444,23 @@
       { start: 6, end: 10 }
     ).add(() => {
       setActiveItem(1);
-    }, 0).add(({ direction: direction3, isForced }) => {
-      if (isForced || direction3 === "backward") return;
+    }, 0).add(({ direction: direction2, isForced }) => {
+      if (isForced || direction2 === "backward") return;
       setActiveItem(2);
-    }, 1.5).add(({ direction: direction3, isForced }) => {
-      if (isForced || direction3 === "backward") return;
+    }, 1.5).add(({ direction: direction2, isForced }) => {
+      if (isForced || direction2 === "backward") return;
       setActiveItem(3);
-    }, 5.5).add(({ direction: direction3, isForced }) => {
-      if (isForced || direction3 === "backward") return;
+    }, 5.5).add(({ direction: direction2, isForced }) => {
+      if (isForced || direction2 === "backward") return;
       setActiveItem(4);
-    }, 9.5).add(({ direction: direction3, isForced }) => {
-      if (isForced || direction3 === "forward") return;
+    }, 9.5).add(({ direction: direction2, isForced }) => {
+      if (isForced || direction2 === "forward") return;
       setActiveItem(1);
-    }, 1.5).add(({ direction: direction3, isForced }) => {
-      if (isForced || direction3 === "forward") return;
+    }, 1.5).add(({ direction: direction2, isForced }) => {
+      if (isForced || direction2 === "forward") return;
       setActiveItem(2);
-    }, 5).add(({ direction: direction3, isForced }) => {
-      if (isForced || direction3 === "forward") return;
+    }, 5).add(({ direction: direction2, isForced }) => {
+      if (isForced || direction2 === "forward") return;
       setActiveItem(3);
     }, 9);
     pathSequencer.subscribe(
@@ -26529,7 +26529,7 @@
     pathTimeline.play();
     let shouldLoop = true;
     const loop = () => {
-      if (!shouldLoop || direction2 === "rtl") return;
+      if (!shouldLoop || isRtl) return;
       const a = {
         x: sequencerData.ax + timelineData.ax,
         y: sequencerData.ay + timelineData.ay
@@ -26681,6 +26681,12 @@
     };
   };
 
+  // src/js/component/lib/utils/is-rtl.js
+  var isRtlDirection = () => {
+    const direction2 = document.documentElement.getAttribute("dir");
+    return direction2 === "rtl";
+  };
+
   // src/js/component/pages/about/animation/index.js
   var aboutAnimation = ({
     screenElement,
@@ -26697,7 +26703,6 @@
     onScrollEnd,
     snapPoints
   }) => {
-    const direction2 = document.documentElement.getAttribute("dir") ?? "";
     const weakScrollerElement = new WeakRef(scrollerElement);
     const weakSectio2Title = new WeakRef(section2_title);
     const weakSectio3Title = new WeakRef(section3_title);
@@ -26717,7 +26722,7 @@
       wrapElement,
       setActiveItem,
       weakScreenElement,
-      direction: direction2
+      isRtl: isRtlDirection()
     });
     const { title1parallax, title2parallax, title1tween, title2tween } = aboutSection1({ title_1, title_2 });
     const {
@@ -26747,7 +26752,7 @@
       breakpoint: "small",
       useHorizontalScroll: true,
       snapPoints,
-      children: direction2 === "rtl" ? [pathScroller] : [
+      children: isRtlDirection() ? [pathScroller] : [
         pathScroller,
         title1parallax,
         title2parallax,
@@ -35899,7 +35904,6 @@
     scrollerElement,
     layer02
   }) => {
-    const direction2 = document.documentElement.getAttribute("dir") ?? "";
     let parallax2 = scroller_exports.createParallax({
       item: layer02,
       align: "center",
@@ -35915,7 +35919,7 @@
       useHorizontalScroll: true,
       easeType: "lerp",
       breakpoint: "small",
-      children: direction2 === "rtl" ? [] : [parallax2]
+      children: isRtlDirection() ? [] : [parallax2]
     });
     scroller.init();
     scroller.set(55);
@@ -36610,8 +36614,7 @@
       alpha: true,
       willReadFrequently: false
     });
-    const dir = document.documentElement.getAttribute("dir");
-    const rtl = dir === "rtl" ? -1 : 1;
+    const directionMultiplier = isRtlDirection() ? -1 : 1;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     const maxRadius = (outerHeight(container) - 100) / 2;
@@ -36638,7 +36641,7 @@
         const radius = initialRadius + radiusGrowthRate * angleInRadian;
         const x = radius * Math.cos(angleInRadian);
         const y = radius * Math.sin(angleInRadian);
-        item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index] * rtl}px, ${y - halfTagetsHeight[index]}px)`;
+        item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index] * directionMultiplier}px, ${y - halfTagetsHeight[index]}px)`;
         if (innerElement) innerElement.style.scale = `${scale}`;
       });
     });
@@ -36712,8 +36715,7 @@
         destroy: () => {
         }
       };
-    const dir = document.documentElement.getAttribute("dir");
-    const rtl = dir === "rtl" ? -1 : 1;
+    const directionMultiplier = isRtlDirection() ? -1 : 1;
     let ctx = canvas.getContext("2d", {
       alpha: true,
       willReadFrequently: false
@@ -36731,7 +36733,7 @@
       tween2.subscribeCache(({ x }) => {
         const xr = Math.sin(x * step) * radius;
         const yr = Math.cos(x * step) * radius;
-        item.style.transform = `translate3D(0px,0px,0px) translate(${(xr - halfTagetsHeight[index]) * rtl}px, ${yr - halfTagetsHeight[index]}px)`;
+        item.style.transform = `translate3D(0px,0px,0px) translate(${(xr - halfTagetsHeight[index]) * directionMultiplier}px, ${yr - halfTagetsHeight[index]}px)`;
       });
     });
     tween2.set({ x: 0 });
@@ -36804,8 +36806,7 @@
       alpha: true,
       willReadFrequently: false
     });
-    const dir = document.documentElement.getAttribute("dir");
-    const rtl = dir === "rtl" ? -1 : 1;
+    const directionMultiplier = isRtlDirection() ? -1 : 1;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     const halfTagetsHeight = targets.map((target) => outerHeight(target) / 2);
@@ -36831,7 +36832,7 @@
         const distanceFromCenter = 2 / (3 - Math.cos(2 * angleInRadian));
         const xr = distanceFromCenter * Math.cos(angleInRadian) * xAmplitude;
         const yr = distanceFromCenter * Math.sin(2 * angleInRadian) / 2 * yAmplitude;
-        item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetsHeight[index] * rtl}px, ${yr - halfTagetsHeight[index]}px)`;
+        item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetsHeight[index] * directionMultiplier}px, ${yr - halfTagetsHeight[index]}px)`;
         if (innerElement) innerElement.style.scale = `${scale}`;
       });
     });
@@ -36931,8 +36932,7 @@
       alpha: true,
       willReadFrequently: false
     });
-    const dir = document.documentElement.getAttribute("dir");
-    const rtl = dir === "rtl" ? -1 : 1;
+    const directionMultiplier = isRtlDirection() ? -1 : 1;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     const maxRadius = (outerHeight(container) - 100) / 2;
@@ -36985,7 +36985,7 @@
         const radius = maxRadius * Math.cos(k * angleInRadian);
         const x = radius * Math.cos(angleInRadian);
         const y = radius * Math.sin(angleInRadian);
-        item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index] * rtl}px, ${y - halfTagetsHeight[index]}px)`;
+        item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index] * directionMultiplier}px, ${y - halfTagetsHeight[index]}px)`;
         if (innerElement) innerElement.style.scale = `${scale}`;
       });
     });
@@ -37064,8 +37064,7 @@
       alpha: true,
       willReadFrequently: false
     });
-    const dir = document.documentElement.getAttribute("dir");
-    const rtl = dir === "rtl" ? -1 : 1;
+    const directionMultiplier = isRtlDirection() ? -1 : 1;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     const distance = outerWidth(container) - 200;
@@ -37095,7 +37094,7 @@
       tween2.subscribeCache(({ x, scale }) => {
         const direction2 = Math.sign(x - previousX) || 1;
         const y = Math.sin(x / pixelsPerRadian) * amplitude * direction2;
-        item.style.transform = `translate3D(0px,0px,0px) translate(${(x + xAxisAdjustValue) * rtl}px, ${y - halfTagetsHeight[index]}px)`;
+        item.style.transform = `translate3D(0px,0px,0px) translate(${(x + xAxisAdjustValue) * directionMultiplier}px, ${y - halfTagetsHeight[index]}px)`;
         if (innerElement) innerElement.style.scale = `${scale}`;
         previousX = x;
       });

@@ -1,3 +1,4 @@
+import { isRtlDirection } from '@componentLibs/utils/is-rtl';
 import { MobCore } from '@mobCore';
 import { outerHeight } from '@mobCoreUtils';
 import { MobTimeline, MobTween } from '@mobMotion';
@@ -125,8 +126,7 @@ export const mathRosaDiGrandi = (
         willReadFrequently: false,
     });
 
-    const dir = document.documentElement.getAttribute('dir');
-    const rtl = dir === 'rtl' ? -1 : 1;
+    const directionMultiplier = isRtlDirection() ? -1 : 1;
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
@@ -233,7 +233,7 @@ export const mathRosaDiGrandi = (
             const x = radius * Math.cos(angleInRadian);
             const y = radius * Math.sin(angleInRadian);
 
-            item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index] * rtl}px, ${y - halfTagetsHeight[index]}px)`;
+            item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index] * directionMultiplier}px, ${y - halfTagetsHeight[index]}px)`;
             if (innerElement) innerElement.style.scale = `${scale}`;
         });
     });
