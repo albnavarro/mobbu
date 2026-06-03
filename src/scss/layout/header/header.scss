@@ -134,6 +134,12 @@
         }
     }
 
+    [data-template='template-test'] {
+        :where(.utils-cell) {
+            border-inline-start: 1px solid var(--grey-400);
+        }
+    }
+
     [data-template='home'] :where(header) {
         background: transparent;
 

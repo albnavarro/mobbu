@@ -32,3 +32,9 @@
         }
     }
 }
+
+@layer override {
+    [dir='rtl'] :where(.c-scroller-down-label) {
+        transform: translateX(50%);
+    }
+}
