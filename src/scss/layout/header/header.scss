@@ -32,42 +32,6 @@
             @include mq(desktop) {
                 display: block;
             }
-
-            @include when-inside('[data-template="home"]') {
-                background: transparent;
-
-                &::after {
-                    transition: transform 1s 0.2s;
-                    background: var(--dark);
-                }
-            }
-
-            @include when-inside('[data-template="about"]') {
-                background: transparent;
-
-                &::after {
-                    transition: transform 1s 0.2s;
-                    background: var(--dark);
-                }
-            }
-
-            @include when-inside('[data-template="template-listing"]') {
-                background: transparent;
-
-                &::after {
-                    transition: transform 1s 0.2s;
-                    background: var(--dark);
-                }
-            }
-
-            @include when-inside('[data-template="template-animation"]') {
-                background: transparent;
-
-                &::after {
-                    transition: transform 1s 0.2s;
-                    background: var(--dark);
-                }
-            }
         }
 
         .grid {
@@ -126,7 +90,7 @@
             block-size: 100%;
             transition: opacity 1s 0.55s;
             opacity: 0;
-            border-inline-start: 1px solid var(--grey-400);
+            border-inline-start: 1px solid var(--black);
             text-align: end;
 
             &.is-visible {
@@ -159,6 +123,50 @@
                 transform: translateY(0);
                 pointer-events: all;
             }
+        }
+    }
+}
+
+@layer override {
+    [data-template='template-doc-default'] {
+        :where(.utils-cell) {
+            border-inline-start: 1px solid var(--grey-400);
+        }
+    }
+
+    [data-template='home'] :where(header) {
+        background: transparent;
+
+        &::after {
+            transition: transform 1s 0.2s;
+            background: var(--dark);
+        }
+    }
+
+    [data-template='about'] :where(header) {
+        background: transparent;
+
+        &::after {
+            transition: transform 1s 0.2s;
+            background: var(--dark);
+        }
+    }
+
+    [data-template='template-listing'] :where(header) {
+        background: transparent;
+
+        &::after {
+            transition: transform 1s 0.2s;
+            background: var(--dark);
+        }
+    }
+
+    [data-template='template-animation'] :where(header) {
+        background: transparent;
+
+        &::after {
+            transition: transform 1s 0.2s;
+            background: var(--dark);
         }
     }
 }

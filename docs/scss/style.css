@@ -832,34 +832,6 @@
         display: block;
       }
     }
-    [data-template=home] :scope {
-      background: transparent;
-    }
-    [data-template=home] :scope::after {
-      transition: transform 1s 0.2s;
-      background: var(--dark);
-    }
-    [data-template=about] :scope {
-      background: transparent;
-    }
-    [data-template=about] :scope::after {
-      transition: transform 1s 0.2s;
-      background: var(--dark);
-    }
-    [data-template=template-listing] :scope {
-      background: transparent;
-    }
-    [data-template=template-listing] :scope::after {
-      transition: transform 1s 0.2s;
-      background: var(--dark);
-    }
-    [data-template=template-animation] :scope {
-      background: transparent;
-    }
-    [data-template=template-animation] :scope::after {
-      transition: transform 1s 0.2s;
-      background: var(--dark);
-    }
     .grid {
       display: grid;
       grid-template-areas: "toggle title menu utils";
@@ -912,7 +884,7 @@
       block-size: 100%;
       transition: opacity 1s 0.55s;
       opacity: 0;
-      border-inline-start: 1px solid var(--grey-400);
+      border-inline-start: 1px solid var(--black);
       text-align: end;
     }
     .utils-cell.is-visible {
@@ -941,6 +913,39 @@
       transform: translateY(0);
       pointer-events: all;
     }
+  }
+}
+@layer override {
+  [data-template=template-doc-default] :where(.utils-cell) {
+    border-inline-start: 1px solid var(--grey-400);
+  }
+  [data-template=home] :where(header) {
+    background: transparent;
+  }
+  [data-template=home] :where(header)::after {
+    transition: transform 1s 0.2s;
+    background: var(--dark);
+  }
+  [data-template=about] :where(header) {
+    background: transparent;
+  }
+  [data-template=about] :where(header)::after {
+    transition: transform 1s 0.2s;
+    background: var(--dark);
+  }
+  [data-template=template-listing] :where(header) {
+    background: transparent;
+  }
+  [data-template=template-listing] :where(header)::after {
+    transition: transform 1s 0.2s;
+    background: var(--dark);
+  }
+  [data-template=template-animation] :where(header) {
+    background: transparent;
+  }
+  [data-template=template-animation] :where(header)::after {
+    transition: transform 1s 0.2s;
+    background: var(--dark);
   }
 }
 @layer layout {
