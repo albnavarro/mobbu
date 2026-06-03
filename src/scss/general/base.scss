@@ -11,19 +11,37 @@
      * Set up a decent box model on the root element
      */
     :root {
-        --white: #fff;
-        --white-rgb: 255, 255, 255;
-        --dark: #2e3440;
-        --dark-rgb: 46, 52, 64;
-        --red: #a86464;
-        --grey-100: #f6f6f6;
-        --grey-100-rgb: 246, 246, 246;
-        --grey-200: #eee;
-        --grey-200-rgb: 238, 238, 238;
-        --grey-300: #e8e8e8;
-        --grey-400: #ccc;
-        --grey-500: #a4a4b3;
-        --black: #000;
+        &[theme='light'] {
+            --white: #fff;
+            --white-rgb: 255, 255, 255;
+            --dark: #2e3440;
+            --dark-rgb: 46, 52, 64;
+            --red: #a86464;
+            --grey-100: #f6f6f6;
+            --grey-100-rgb: 246, 246, 246;
+            --grey-200: #eee;
+            --grey-200-rgb: 238, 238, 238;
+            --grey-300: #e8e8e8;
+            --grey-400: #ccc;
+            --grey-500: #a4a4b3;
+            --black: #000;
+        }
+
+        &[theme='dark'] {
+            --white: #2e3440;
+            --white-rgb: 46, 52, 64;
+            --dark: #eceff4;
+            --dark-rgb: 236, 239, 244;
+            --red: #c98080;
+            --grey-100: #353b48;
+            --grey-100-rgb: 53, 59, 72;
+            --grey-200: #3b4252;
+            --grey-200-rgb: 59, 66, 82;
+            --grey-300: #434c5e;
+            --grey-400: #4c566a;
+            --grey-500: #8b919f;
+            --black: #fff;
+        }
 
         // Instead grid-context
         --gap-size: #{rem(40)};

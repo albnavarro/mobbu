@@ -51,23 +51,6 @@
 
             --padding-pre: var(--gap-size);
 
-            &::after {
-                content: '';
-                position: absolute;
-                block-size: rem(150);
-                inline-size: 100%;
-                transition: opacity 0.35s;
-                opacity: 0;
-                background: linear-gradient(
-                    360deg,
-                    rgba(var(--white-rgb), 1) 0%,
-                    rgba(var(--white-rgb), 0) 100%
-                );
-                pointer-events: none;
-                inset-block-end: 0;
-                inset-inline-start: 0;
-            }
-
             &.open {
                 block-size: calc(
                     var(--snippet-height) + (var(--padding-pre) * 2)
