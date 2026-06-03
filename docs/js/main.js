@@ -46778,6 +46778,26 @@
     });
   };
 
+  // src/js/component/lib/utils/is-dark.js
+  var isDarkTheme = () => {
+    const theme = document.documentElement.getAttribute("theme");
+    return theme === "dark";
+  };
+  var updateHighlightTheme = () => {
+    const lightAsset = (
+      /** @type {HTMLLinkElement} */
+      document.querySelector("#hljs-theme-light")
+    );
+    const darkAsset = (
+      /** @type {HTMLLinkElement} */
+      document.querySelector("#hljs-theme-dark")
+    );
+    if (!lightAsset || !darkAsset) return;
+    const isDark = isDarkTheme();
+    lightAsset.disabled = isDark;
+    darkAsset.disabled = !isDark;
+  };
+
   // src/js/main.js
   var fpsLoopNumber = 60;
   var shouldRedirect = () => {
@@ -46851,6 +46871,7 @@
       deferredNextTick: true,
       throttle: 100
     });
+    updateHighlightTheme();
     initApp();
     usePageScroll();
     setFocusToH1();

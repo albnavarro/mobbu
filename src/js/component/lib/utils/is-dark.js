@@ -2,6 +2,25 @@
  * @returns {boolean}
  */
 export const isDarkTheme = () => {
-    const direction = document.documentElement.getAttribute('theme');
-    return direction === 'dark';
+    const theme = document.documentElement.getAttribute('theme');
+    return theme === 'dark';
+};
+
+/**
+ * @returns {void}
+ */
+export const updateHighlightTheme = () => {
+    const lightAsset = /** @type {HTMLLinkElement} */ (
+        document.querySelector('#hljs-theme-light')
+    );
+
+    const darkAsset = /** @type {HTMLLinkElement} */ (
+        document.querySelector('#hljs-theme-dark')
+    );
+
+    if (!lightAsset || !darkAsset) return;
+    const isDark = isDarkTheme();
+
+    lightAsset.disabled = isDark;
+    darkAsset.disabled = !isDark;
 };
