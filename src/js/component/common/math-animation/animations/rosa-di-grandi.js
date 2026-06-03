@@ -1,3 +1,4 @@
+import { isDarkTheme } from '@componentLibs/utils/is-dark';
 import { isRtlDirection } from '@componentLibs/utils/is-rtl';
 import { MobCore } from '@mobCore';
 import { outerHeight } from '@mobCoreUtils';
@@ -131,6 +132,8 @@ export const mathRosaDiGrandi = (
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
+    const darkStroke = isDarkTheme() ? '#e8e8e8' : 'rgba(0, 0, 0, 0.5)';
+
     /**
      * Raggio massimo della curva
      */
@@ -257,7 +260,7 @@ export const mathRosaDiGrandi = (
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.setLineDash([3, 7]);
         ctx.lineDashOffset = 3;
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.strokeStyle = darkStroke;
         ctx.lineWidth = 1;
         ctx.beginPath();
 

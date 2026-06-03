@@ -1,5 +1,6 @@
 // @ts-check
 
+import { isDarkTheme } from '@componentLibs/utils/is-dark';
 import { MobCore } from '@mobCore';
 import { outerHeight } from '@mobCoreUtils';
 import { MobJs } from '@mobJs';
@@ -59,6 +60,10 @@ export const scrollerN0Animation = ({
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
+
+    const darkFill = isDarkTheme()
+        ? 'rgba(46, 52, 64, 1)'
+        : 'rgba(255, 255, 255, 1)';
 
     /**
      * Create basic grid.
@@ -189,7 +194,7 @@ export const scrollerN0Animation = ({
                     context.fill();
                 } else {
                     context.strokeStyle = `#000`;
-                    context.fillStyle = `rgb(238, 238, 238)`;
+                    context.fillStyle = darkFill;
                     context.fill();
 
                     if (!useRadius) {

@@ -1,5 +1,6 @@
 //@ts-check
 
+import { isDarkTheme } from '@componentLibs/utils/is-dark';
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
 import { MobTimeline, MobTween } from '@mobMotion';
@@ -49,6 +50,10 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     const cellWidth = window.innerWidth / 20;
     const cellHeight = window.innerHeight / 20;
     const gutter = 1;
+
+    const darkFill = isDarkTheme()
+        ? 'rgb(46, 52, 64)'
+        : 'rgba(238, 238, 238, 0.9 )';
 
     /**
      * Create basic grid.
@@ -356,7 +361,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                     context.rect(rx, ry, width, height);
                 }
 
-                context.fillStyle = `rgba(238, 238, 238, 0.9)`;
+                context.fillStyle = darkFill;
                 context.fill();
             }
         );

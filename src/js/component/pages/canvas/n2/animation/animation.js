@@ -1,5 +1,6 @@
 //@ts-check
 
+import { isDarkTheme } from '@componentLibs/utils/is-dark';
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
 import { MobTimeline, MobTween } from '@mobMotion';
@@ -34,6 +35,9 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
     const yAmplitude = 400;
     const duration = 10;
     const friction = duration / 2 / Math.PI;
+
+    const fillColor = isDarkTheme() ? '#fff' : '#000';
+    const strokeColor = isDarkTheme() ? '255, 255, 255,' : '0, 0, 0,';
 
     /**
      * Check if offscrennCanvas can be used.
@@ -205,9 +209,9 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
                 }
 
                 if (hasFill) {
-                    context.fillStyle = `#000000`;
+                    context.fillStyle = fillColor;
                 } else {
-                    context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
+                    context.strokeStyle = `rgba(${strokeColor} ${opacity})`;
                     context.fillStyle = `rgba(238, 238, 238, 0)`;
                     context.stroke();
                 }

@@ -1,5 +1,6 @@
 //@ts-check
 
+import { isDarkTheme } from '@componentLibs/utils/is-dark';
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
 import { MobTimeline, MobTween } from '@mobMotion';
@@ -54,6 +55,10 @@ export const animatedPatternN0Animation = ({
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
+
+    const darkFill = isDarkTheme()
+        ? 'rgba(46, 52, 64, 0.9)'
+        : 'rgba(238, 238, 238, 0.9)';
 
     /**
      * Create basic grid.
@@ -181,7 +186,7 @@ export const animatedPatternN0Animation = ({
                     context.fillStyle = `#000000`;
                     context.fill();
                 } else {
-                    context.fillStyle = `rgba(255, 255, 255, 1)`;
+                    context.fillStyle = darkFill;
                     context.fill();
                 }
             }

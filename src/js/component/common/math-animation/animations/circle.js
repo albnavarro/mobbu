@@ -1,3 +1,4 @@
+import { isDarkTheme } from '@componentLibs/utils/is-dark';
 import { isRtlDirection } from '@componentLibs/utils/is-rtl';
 import { MobCore } from '@mobCore';
 import { outerHeight } from '@mobCoreUtils';
@@ -22,6 +23,8 @@ export const mathCircle = ({ targets, container, canvas } = {}) => {
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
+
+    const darkStroke = isDarkTheme() ? '#e8e8e8' : 'rgba(0, 0, 0, 0.5)';
 
     let tween = MobTween.createSpring({
         stagger: { each: 6 },
@@ -76,7 +79,7 @@ export const mathCircle = ({ targets, container, canvas } = {}) => {
         const centerY = canvas.height / 2;
 
         ctx.setLineDash([2, 5, 2, 5]);
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.strokeStyle = darkStroke;
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.arc(centerX, centerY, Math.abs(radius), 0, 2 * Math.PI);

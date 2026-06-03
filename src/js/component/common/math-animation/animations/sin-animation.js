@@ -1,3 +1,4 @@
+import { isDarkTheme } from '@componentLibs/utils/is-dark';
 import { isRtlDirection } from '@componentLibs/utils/is-rtl';
 import { MobCore } from '@mobCore';
 import { outerHeight, outerWidth } from '@mobCoreUtils';
@@ -22,6 +23,8 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
+
+    const darkStroke = isDarkTheme() ? '#e8e8e8' : 'rgba(0, 0, 0, 0.5)';
 
     const distance = outerWidth(container) - 200;
 
@@ -134,7 +137,7 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
          * Setup line.
          */
         ctx.setLineDash([2, 5, 2, 5]);
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.strokeStyle = darkStroke;
         ctx.lineWidth = 1;
         ctx.beginPath();
 
