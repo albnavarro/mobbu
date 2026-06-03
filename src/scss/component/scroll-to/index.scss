@@ -112,3 +112,13 @@
         }
     }
 }
+
+@layer override {
+    [dir='rtl'] :where(.c-scroll-to) {
+        :where(button) {
+            &::before {
+                transform: translateY(50%) rotate(-45deg);
+            }
+        }
+    }
+}

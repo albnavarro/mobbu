@@ -98,3 +98,13 @@
         }
     }
 }
+
+@layer override {
+    [dir='rtl'] :where(.left-sidebar) {
+        :where(.link) {
+            &::before {
+                transform: translateY(-50%) rotate(-45deg);
+            }
+        }
+    }
+}

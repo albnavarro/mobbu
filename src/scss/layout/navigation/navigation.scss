@@ -149,3 +149,27 @@
         }
     }
 }
+
+@layer override {
+    [dir='rtl'] :where(.l-navigation) {
+        :where(.link) {
+            &:not(.has-arrow) {
+                &::after {
+                    transform: translateY(-50%) rotate(-45deg);
+                }
+            }
+
+            &.has-arrow {
+                &::after {
+                    transform: translateY(-50%) rotate(-45deg);
+                }
+
+                &.active {
+                    &::after {
+                        transform: translateY(-50%) rotate(135deg);
+                    }
+                }
+            }
+        }
+    }
+}

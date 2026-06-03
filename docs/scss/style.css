@@ -1004,7 +1004,7 @@ code.hljs {
       block-size: 100%;
       transition: opacity 1s 0.55s;
       opacity: 0;
-      box-shadow: inset 1px 0 0 0 var(--grey-400);
+      border-inline-start: 1px solid var(--grey-400);
       text-align: end;
     }
     .utils-cell.is-visible {
@@ -1261,6 +1261,17 @@ code.hljs {
     .submenu-item {
       padding: 0.2666666667rem;
     }
+  }
+}
+@layer override {
+  [dir=rtl] :where(.l-navigation) :where(.link):not(.has-arrow)::after {
+    transform: translateY(-50%) rotate(-45deg);
+  }
+  [dir=rtl] :where(.l-navigation) :where(.link).has-arrow::after {
+    transform: translateY(-50%) rotate(-45deg);
+  }
+  [dir=rtl] :where(.l-navigation) :where(.link).has-arrow.active::after {
+    transform: translateY(-50%) rotate(135deg);
   }
 }
 @layer layout {
@@ -4943,6 +4954,11 @@ code.hljs {
     }
   }
 }
+@layer override {
+  [dir=rtl] :where(.left-sidebar) :where(.link)::before {
+    transform: translateY(-50%) rotate(-45deg);
+  }
+}
 @layer layout {
   @scope (.c-doc-title) {
     span {
@@ -5057,6 +5073,14 @@ code.hljs {
       border-inline-end: 2px var(--dark) solid;
       border-block-end: 2px var(--dark) solid;
     }
+  }
+}
+@layer override {
+  [dir=rtl] :where(.l-doc-breadcrumbs) :where(.arrow-start) {
+    transform: translate(50%, -50%) rotate(-90deg);
+  }
+  [dir=rtl] :where(.l-doc-breadcrumbs) :where(.arrow-end) {
+    transform: translate(50%, -50%) rotate(-135deg);
   }
 }
 @layer layout {
@@ -5180,6 +5204,11 @@ code.hljs {
       font-size: 0.8rem;
       cursor: auto;
     }
+  }
+}
+@layer override {
+  [dir=rtl] :where(.c-scroll-to) :where(button)::before {
+    transform: translateY(50%) rotate(-45deg);
   }
 }
 @layer layout {
