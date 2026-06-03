@@ -5,7 +5,12 @@ import browserSync from 'browser-sync';
 const bs = browserSync.create();
 
 const ctx = await esbuild.context({
-    entryPoints: ['src/scss/style.scss', 'src/js/main.js'],
+    entryPoints: [
+        'src/scss/style.scss',
+        'src/scss/highlight-light.scss',
+        'src/scss/highlight-dark.scss',
+        'src/js/main.js',
+    ],
     bundle: true,
     sourcemap: true,
     outdir: 'docs',

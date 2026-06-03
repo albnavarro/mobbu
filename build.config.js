@@ -2,7 +2,12 @@ import * as esbuild from 'esbuild';
 import { sassPlugin } from 'esbuild-sass-plugin';
 
 esbuild.build({
-    entryPoints: ['src/scss/style.scss', 'src/js/main.js'],
+    entryPoints: [
+        'src/scss/style.scss',
+        'src/scss/highlight-light.scss',
+        'src/scss/highlight-dark.scss',
+        'src/js/main.js',
+    ],
     bundle: true,
     minify: true,
     sourcemap: false,
