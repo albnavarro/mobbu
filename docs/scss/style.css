@@ -3877,6 +3877,14 @@ code.hljs {
     }
   }
 }
+@layer override {
+  [dir=rtl] :where(.close)::before {
+    transform: translate(50%, -50%) rotate(-45deg);
+  }
+  [dir=rtl] :where(.close)::after {
+    transform: translate(50%, -50%) rotate(-135deg);
+  }
+}
 @layer layout {
   @scope (.c-debug-tree) {
     .tree-list {
@@ -5973,6 +5981,14 @@ code.hljs {
     p {
       margin-block-end: 0;
     }
+  }
+}
+@layer override {
+  [dir=rtl] :where(.close-button)::before {
+    transform: translate(50%, -50%) rotate(-45deg);
+  }
+  [dir=rtl] :where(.close-button)::after {
+    transform: translate(50%, -50%) rotate(-135deg);
   }
 }
 @layer layout {
