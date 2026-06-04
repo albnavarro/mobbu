@@ -5,27 +5,19 @@
         :scope {
             display: none;
             position: relative;
-            inline-size: calc(100% - var(--doc-width) - #{rem(10)});
-            min-inline-size: rem(140);
+            inline-size: rem(233);
             margin-inline: auto 0;
             padding: rem(12);
             overflow: visible;
             border: 0;
-            border-block-end: 1px var(--black) solid;
-            border-inline-start: 1px var(--black) solid;
-            background: var(--grey-100);
+            background: var(--dark);
+            color: var(--white);
             pointer-events: none;
-            inset-block-start: var(--header-height);
+            inset-block-start: calc(var(--header-height) - 1px);
 
             &[open] {
                 display: block;
                 pointer-events: all;
-            }
-
-            @include mq(large) {
-                inline-size: calc(
-                    100% - var(--left-sidebar) - var(--doc-width) - #{rem(14)}
-                );
             }
         }
 
@@ -50,7 +42,7 @@
                 position: absolute;
                 block-size: 2px;
                 inline-size: calc(var(--gap-size) / 2);
-                background: var(--dark);
+                background: var(--white);
                 inset-block-start: 50%;
                 inset-inline-start: 50%;
             }
@@ -75,11 +67,10 @@
     }
 }
 
-@layer override {
-    [data-template='template-doc-default'] {
-        :where(.c-accessibility-overlay) {
-            border-inline-start: 1px solid var(--grey-400);
-            border-block-end: 1px solid var(--grey-400);
-        }
-    }
-}
+// @layer override {
+//     [data-template='template-doc-default'] {
+//         :where(.c-accessibility-overlay) {
+//
+//         }
+//     }
+// }

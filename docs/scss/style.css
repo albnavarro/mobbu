@@ -4403,26 +4403,19 @@
     :scope {
       display: none;
       position: relative;
-      inline-size: calc(100% - var(--doc-width) - 0.625rem);
-      min-inline-size: 8.75rem;
+      inline-size: 14.5625rem;
       margin-inline: auto 0;
       padding: 0.75rem;
       overflow: visible;
       border: 0;
-      border-block-end: 1px var(--black) solid;
-      border-inline-start: 1px var(--black) solid;
-      background: var(--grey-100);
+      background: var(--dark);
+      color: var(--white);
       pointer-events: none;
-      inset-block-start: var(--header-height);
+      inset-block-start: calc(var(--header-height) - 1px);
     }
     :scope[open] {
       display: block;
       pointer-events: all;
-    }
-    @media (min-width: 75em) {
-      :scope {
-        inline-size: calc(100% - var(--left-sidebar) - var(--doc-width) - 0.875rem);
-      }
     }
     &::backdrop {
       opacity: 0;
@@ -4444,7 +4437,7 @@
       position: absolute;
       block-size: 2px;
       inline-size: calc(var(--gap-size) / 2);
-      background: var(--dark);
+      background: var(--white);
       inset-block-start: 50%;
       inset-inline-start: 50%;
     }
@@ -4461,12 +4454,6 @@
     .header {
       margin-block-start: 4rem;
     }
-  }
-}
-@layer override {
-  [data-template=template-doc-default] :where(.c-accessibility-overlay) {
-    border-inline-start: 1px solid var(--grey-400);
-    border-block-end: 1px solid var(--grey-400);
   }
 }
 @layer layout {
