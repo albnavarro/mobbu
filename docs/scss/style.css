@@ -4856,13 +4856,8 @@
       }
     }
     .item {
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       text-transform: capitalize;
-    }
-    @media (min-width: 75em) {
-      .item {
-        font-size: 0.8125rem;
-      }
     }
     .link {
       display: block;
@@ -5082,14 +5077,9 @@
       border: 0;
       outline-offset: 0;
       background: transparent;
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       line-height: 1.5;
       text-align: start;
-    }
-    @media (min-width: 75em) {
-      button {
-        font-size: 0.8125rem;
-      }
     }
     button span {
       display: block;
@@ -5223,14 +5213,9 @@
       border: 0;
       outline-offset: 0;
       background: transparent;
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       line-height: 1.6;
       text-transform: capitalize;
-    }
-    @media (min-width: 75em) {
-      button {
-        font-size: 0.8125rem;
-      }
     }
     button::after {
       content: "";

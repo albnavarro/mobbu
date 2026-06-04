@@ -82,13 +82,9 @@
             border: 0;
             outline-offset: 0;
             background: transparent;
-            font-size: rem(12);
+            font-size: rem(14);
             line-height: 1.6;
             text-transform: capitalize;
-
-            @include mq(large) {
-                font-size: rem(13);
-            }
 
             &::after {
                 content: '';

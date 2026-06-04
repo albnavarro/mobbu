@@ -51,12 +51,8 @@
         }
 
         .item {
-            font-size: rem(12);
+            font-size: rem(14);
             text-transform: capitalize;
-
-            @include mq(large) {
-                font-size: rem(13);
-            }
         }
 
         .link {
