@@ -30,7 +30,6 @@
         }
 
         &::backdrop {
-            inset-block-start: var(--header-height);
             opacity: 0;
             background: var(--grey-100);
         }
