@@ -3,6 +3,7 @@ export const debugCtaName = 'debug_component_cta';
 export const debugComponentName = 'debug_component';
 export const debugFilterListName = 'debug_filter_list';
 export const debugOverlayName = 'debug_overlay';
+export const accessibilityOverlayName = 'accessibility_overlay';
 export const debugTreeName = 'debug_tree';
 export const quickNavName = 'quick_nav';
 export const scrollDownLabelName = 'scroll_down_label';

@@ -5,6 +5,7 @@ import { RouteLoader } from '@commonComponent/route-loader/definition';
 import { ScrollDownLabel } from '@commonComponent/scroll-down-label/definition';
 import { SearchOverlay } from '@commonComponent/search/search-overlay/definition';
 import {
+    accessibilityOverlayName,
     debugOverlayName,
     headerName,
     leftSidebarName,
@@ -32,6 +33,7 @@ import { BenchMarkRepeatWithNoKeyNested } from '@pagesComponent/benchmark/repeat
 import { BenchMarkRepeatNoKeyBindStore } from '@pagesComponent/benchmark/repeat-no-key-bind-store/definition';
 import { BenchMarkRepeatNoComponentNoKey } from '@pagesComponent/benchmark/repeat-no-component-no-key/definition';
 import { BenchMarkRepeatNoComponentWithKey } from '@pagesComponent/benchmark/repeat-no-component-key/definition';
+import { AccessibilityOverlay } from '@commonComponent/accesibility/overlay/definition';
 
 /**
  * Preload component used by tag and not loaded by default with htmlObject.component props
@@ -65,6 +67,10 @@ export const wrapper = async () => {
             {
                 component: Header,
                 attributes: { name: headerName },
+            },
+            {
+                component: AccessibilityOverlay,
+                attributes: { name: accessibilityOverlayName },
             },
             {
                 component: SearchOverlay,

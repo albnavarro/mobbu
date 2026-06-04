@@ -26251,6 +26251,7 @@
   var debugComponentName = "debug_component";
   var debugFilterListName = "debug_filter_list";
   var debugOverlayName = "debug_overlay";
+  var accessibilityOverlayName = "accessibility_overlay";
   var debugTreeName = "debug_tree";
   var quickNavName = "quick_nav";
   var scrollDownLabelName = "scroll_down_label";
@@ -42913,8 +42914,14 @@
     component: DebugButtonFn
   });
 
+  // src/js/component/common/accesibility/overlay/utils.js
+  var openAccessibilityOverlay = () => {
+    const methods = modules_exports2.useMethodByName(accessibilityOverlayName);
+    methods?.open();
+  };
+
   // src/js/component/common/accesibility/cta/accessibility-button.js
-  var AccessibilityButtonFn = () => {
+  var AccessibilityButtonFn = ({ delegateEvents }) => {
     const icon = getIcons()["accessibilityIcons"];
     return htmlObject({
       tag: "button",
@@ -42924,6 +42931,13 @@
         "aria-label": "open accessibility dialog",
         "aria-haspopup": "dialog"
       },
+      modules: [
+        delegateEvents({
+          click: () => {
+            openAccessibilityOverlay();
+          }
+        })
+      ],
       content: icon
     });
   };
@@ -46695,6 +46709,104 @@
     }
   );
 
+  // src/js/component/common/accesibility/overlay/accessibility-overlay.js
+  var closeOverlay2 = ({ proxi, getRef }) => {
+    proxi.active = false;
+    getRef().dialog.close();
+  };
+  function backDropHandler3({ proxi, getRef }) {
+    return function onBackDrop(event) {
+      if (event.target === getRef().dialog) {
+        closeOverlay2({ getRef, proxi });
+      }
+    };
+  }
+  var AccessibilityOverlayFn = ({
+    delegateEvents,
+    addMethod,
+    bindEffect,
+    getSelfProxi,
+    onMount,
+    setRef,
+    getRef
+  }) => {
+    const proxi = getSelfProxi();
+    addMethod("open", () => {
+      proxi.active = true;
+      getRef().dialog.showModal();
+    });
+    onMount(() => {
+      const onBackDropSubscriber = backDropHandler3({ proxi, getRef });
+      getRef().dialog.addEventListener("click", onBackDropSubscriber);
+      return () => {
+        getRef().dialog.removeEventListener("click", onBackDropSubscriber);
+      };
+    });
+    return htmlObject({
+      tag: "dialog",
+      className: "c-accessibility-overlay",
+      attributes: {
+        id: "accessibility-dialog",
+        "aria-label": "Accesibility dialog"
+      },
+      modules: setRef("dialog"),
+      content: [
+        {
+          className: "grid",
+          modules: bindEffect({
+            toggleClass: {
+              active: () => proxi.active
+            }
+          }),
+          content: [
+            {
+              tag: "button",
+              className: "close",
+              attributes: {
+                type: "button",
+                "arial-label": "Close debug dialog"
+              },
+              modules: delegateEvents({
+                click: () => {
+                  closeOverlay2({ proxi, getRef });
+                }
+              })
+            },
+            /**
+             * Top header
+             */
+            {
+              className: "header",
+              attributes: {
+                tabindex: "-1",
+                role: "region",
+                "aria-label": "Debug Dialog: infos & specific component search"
+              }
+            },
+            {
+              content: "pippo e pluto"
+            }
+          ]
+        }
+      ]
+    });
+  };
+
+  // src/js/component/common/accesibility/overlay/definition.js
+  var AccessibilityOverlay = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').AccessibilityOverlayType>} */
+    {
+      tag: "accessibility-overlay",
+      component: AccessibilityOverlayFn,
+      state: {
+        active: {
+          __value: false,
+          __type: Boolean
+        }
+      }
+    }
+  );
+
   // src/js/wrapper/index.js
   modules_exports2.useComponent([
     StarSvg,
@@ -46723,6 +46835,10 @@
         {
           component: Header,
           attributes: { name: headerName }
+        },
+        {
+          component: AccessibilityOverlay,
+          attributes: { name: accessibilityOverlayName }
         },
         {
           component: SearchOverlay,

@@ -1,0 +1,89 @@
+@use '../../abstract' as *;
+
+@layer layout {
+    @scope (.c-accessibility-overlay) {
+        :scope {
+            display: none;
+
+            /* ... tuo stile dialog ... */
+            position: relative; /* per il pseudo-elemento */
+            // inline-size: rem(360);
+            inline-size: calc(100% - var(--doc-width) - #{rem(10)});
+            min-inline-size: rem(140);
+            margin-inline: auto 0;
+            padding: rem(12);
+            overflow: visible;
+            border: 0;
+            border-block-end: 1px var(--black) solid;
+            border-inline-start: 1px var(--black) solid;
+            background: var(--grey-100);
+            pointer-events: none;
+            inset-block-start: var(--header-height);
+
+            &[open] {
+                display: block;
+                pointer-events: all;
+            }
+
+            @include mq(large) {
+                inline-size: calc(
+                    100% - var(--left-sidebar) - var(--doc-width) - #{rem(14)}
+                );
+            }
+        }
+
+        &::backdrop {
+            inset-block-start: var(--header-height);
+            opacity: 0;
+            background: var(--grey-100);
+        }
+
+        .close {
+            position: absolute;
+            z-index: 10;
+            block-size: var(--gap-size);
+            inline-size: var(--gap-size);
+            border: 0;
+            background: transparent;
+            inset-block-start: rem(20);
+            inset-inline-end: rem(10);
+
+            &::after,
+            &::before {
+                content: '';
+                position: absolute;
+                block-size: 2px;
+                inline-size: calc(var(--gap-size) / 2);
+                background: var(--dark);
+                inset-block-start: 50%;
+                inset-inline-start: 50%;
+            }
+
+            &::before {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+
+            &::after {
+                transform: translate(-50%, -50%) rotate(135deg);
+            }
+        }
+
+        .main-title {
+            color: var(--dark);
+            font-size: rem(20);
+        }
+
+        .header {
+            margin-block-start: rem(64);
+        }
+    }
+}
+
+@layer override {
+    [data-template='template-doc-default'] {
+        :where(.c-accessibility-overlay) {
+            border-inline-start: 1px solid var(--grey-400);
+            border-block-end: 1px solid var(--grey-400);
+        }
+    }
+}
