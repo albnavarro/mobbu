@@ -43,6 +43,9 @@
             --black: #fff;
         }
 
+        --immutable-black: #000;
+        --immutable-white: #fff;
+
         // Instead grid-context
         --gap-size: #{rem(40)};
         --col-size: 9%;

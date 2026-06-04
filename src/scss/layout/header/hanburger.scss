@@ -120,19 +120,21 @@
 }
 
 @layer override {
-    [theme='dark'] :where(.c-hamburger) {
-        background-color: var(--white);
+    [theme='dark'] {
+        :where(.c-hamburger) {
+            background-color: var(--immutable-black);
 
-        &::after {
-            background: var(--white);
-        }
-
-        :where(.lines) {
-            background-color: var(--dark);
-
-            &::before,
             &::after {
+                background-color: var(--immutable-black);
+            }
+
+            :where(.lines) {
                 background-color: var(--dark);
+
+                &::before,
+                &::after {
+                    background-color: var(--dark);
+                }
             }
         }
     }

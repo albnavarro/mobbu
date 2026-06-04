@@ -69,15 +69,17 @@
 }
 
 @layer override {
-    [theme='dark'] :where(.l-header-menu) {
-        :where(button) {
-            &::after {
-                background: var(--white);
-            }
+    [theme='dark'] {
+        :where(.l-header-menu) {
+            :where(button) {
+                &::after {
+                    background: var(--immutable-black);
+                }
 
-            &:hover,
-            &.current {
-                color: var(--dark);
+                &:hover,
+                &.current {
+                    color: var(--dark);
+                }
             }
         }
     }

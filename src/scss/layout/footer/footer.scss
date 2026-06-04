@@ -9,8 +9,8 @@
             block-size: var(--footer-height);
             inline-size: 100%;
             transition: background 0.35s;
-            background: var(--black);
-            color: var(--white);
+            background: var(--immutable-black);
+            color: var(--immutable-white);
             text-align: center;
             inset-block-end: 0;
             inset-inline-start: 0;
@@ -69,13 +69,5 @@
                 opacity: 1;
             }
         }
-    }
-}
-
-@layer override {
-    [theme='dark'] :where(footer) {
-        background: var(--white);
-        color: var(--dark);
-        border-block-start: 1px var(--grey-200) solid;
     }
 }
