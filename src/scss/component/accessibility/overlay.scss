@@ -4,10 +4,7 @@
     @scope (.c-accessibility-overlay) {
         :scope {
             display: none;
-
-            /* ... tuo stile dialog ... */
-            position: relative; /* per il pseudo-elemento */
-            // inline-size: rem(360);
+            position: relative;
             inline-size: calc(100% - var(--doc-width) - #{rem(10)});
             min-inline-size: rem(140);
             margin-inline: auto 0;
