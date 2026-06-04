@@ -11,9 +11,14 @@ import { htmlObject, MobJs } from '@mobJs';
 import { getCommonData, getIcons } from '@data/index';
 import { navigationStore } from '@stores/navigation';
 import { SearchCta } from '@commonComponent/search/cta-search/definition';
-import { debugCtaName, searchOverlayCta } from '@instanceName';
+import {
+    accessibilityOverlayCta,
+    debugCtaName,
+    searchOverlayCta,
+} from '@instanceName';
 import { openDebugOverlay } from '@commonComponent/debug/debug-overlay/utils';
 import { DebugButton } from '@commonComponent/debug/cta-debug/definition';
+import { AccessibilityButton } from '@commonComponent/accesibility/cta/definition';
 
 /**
  * @param {object} params
@@ -84,6 +89,13 @@ export const HeaderUtilsFn = ({ delegateEvents }) => {
         content: {
             tag: 'ul',
             content: [
+                {
+                    tag: 'li',
+                    content: {
+                        component: AccessibilityButton,
+                        attributes: { name: accessibilityOverlayCta },
+                    },
+                },
                 {
                     tag: 'li',
                     content: {

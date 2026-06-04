@@ -1,0 +1,9 @@
+@use '../../abstract' as *;
+
+@layer layout {
+    @scope (.c-btn-accessibility) {
+        :scope {
+            margin: 0;
+        }
+    }
+}

@@ -13,6 +13,7 @@ export const mobNavigationName = 'mob_navigation';
 export const mobNavigationContainerName = 'mob_navigation_container';
 export const searchOverlay = 'search_overlay';
 export const searchOverlayCta = 'search_overlay_cta';
+export const accessibilityOverlayCta = 'accesibility_overlay_cta';
 export const searchOverlayList = 'search_overlay_list';
 export const searchOverlayHeader = 'search_overlay_header';
 export const leftSidebarName = 'right-sidebar';

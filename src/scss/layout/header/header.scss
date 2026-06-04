@@ -37,9 +37,7 @@
         .grid {
             display: grid;
             grid-template-areas: 'toggle title menu utils';
-            grid-template-columns: calc(var(--header-height) * 2) 1fr calc(
-                    var(--header-height) * 2
-                );
+            grid-template-columns: calc(var(--header-height) * 2) 1fr auto;
             align-items: center;
             block-size: var(--header-height);
 
