@@ -33230,9 +33230,7 @@
   );
 
   // src/js/component/pages/move-3d/move-3d-page.js
-  var unsubscribeEscHandler = () => {
-  };
-  var getControls6 = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
+  var getControls6 = ({ delegateEvents, bindObject, proxi }) => {
     const controlFactor = {
       className: "controls-range",
       content: [
@@ -33321,96 +33319,74 @@
       })
     };
     return htmlObject({
-      className: "controls",
-      attributes: {
-        id: "animation-control",
-        role: "dialog",
-        "aria-label": "Animation controls",
-        "aria-modal": "false"
-      },
-      modules: bindEffect({
-        toggleClass: {
-          active: () => proxi.controlsActive
-        },
-        toggleAttribute: {
-          inert: () => !proxi.controlsActive
-        }
-      }),
       content: [
         {
-          tag: "button",
-          className: "close-controls",
-          attributes: {
-            type: "button"
-          },
-          modules: delegateEvents({
-            click: () => {
-              proxi.controlsActive = false;
-            }
-          })
-        },
-        {
-          className: "controls-block",
+          className: "controls-item",
           content: [
             {
               className: "controls-range",
               content: controlFactor
             },
             {
+              className: "dynamic-result",
               content: bindObject`factor: ${() => proxi.factor}`
             }
           ]
         },
         {
-          className: "controls-block",
+          className: "controls-item",
           content: [
             {
               className: "controls-range",
               content: controlXDepth
             },
             {
+              className: "dynamic-result",
               content: bindObject`xDepth: ${() => proxi.xDepth}`
             }
           ]
         },
         {
-          className: "controls-block",
+          className: "controls-item",
           content: [
             {
               className: "controls-range",
               content: controlXLimit
             },
             {
+              className: "dynamic-result",
               content: bindObject`xLimit: ${() => proxi.xLimit}`
             }
           ]
         },
         {
-          className: "controls-block",
+          className: "controls-item",
           content: [
             {
               className: "controls-range",
               content: controlYDepth
             },
             {
+              className: "dynamic-result",
               content: bindObject`yDepth: ${() => proxi.yDepth}`
             }
           ]
         },
         {
-          className: "controls-block",
+          className: "controls-item",
           content: [
             {
               className: "controls-range",
               content: controlYLimit
             },
             {
+              className: "dynamic-result",
               content: bindObject`yLimit: ${() => proxi.yLimit}`
             }
           ]
         },
         {
-          className: "controls-block",
+          className: "controls-item",
           content: {
             tag: "button",
             attributes: { type: "button" },
@@ -33430,32 +33406,9 @@
     bindProps,
     delegateEvents,
     bindObject,
-    getSelfProxi,
-    bindEffect,
-    onMount,
-    watch
+    getSelfProxi
   }) => {
     const proxi = getSelfProxi();
-    onMount(() => {
-      watch(
-        () => proxi.controlsActive,
-        (isActive2) => {
-          if (isActive2) {
-            unsubscribeEscHandler = modules_exports.useEscHandler(
-              ({ preventDefault }) => {
-                proxi.controlsActive = false;
-                preventDefault();
-              }
-            );
-            return;
-          }
-          unsubscribeEscHandler();
-        }
-      );
-      return () => {
-        unsubscribeEscHandler();
-      };
-    });
     return htmlObject({
       className: "l-move3d-page",
       content: [
@@ -33469,28 +33422,13 @@
           )
         },
         {
-          tag: "button",
-          attributes: {
-            type: "button",
-            "aria-controls": "animation-control",
-            "aria-haspopup": "dialog"
-          },
-          className: "show-controls",
-          modules: [
-            delegateEvents({
-              click: () => {
-                proxi.controlsActive = true;
-              }
-            }),
-            bindEffect({
-              toggleAttribute: {
-                tabindex: () => proxi.controlsActive ? "-1" : "0"
-              }
-            })
-          ],
-          content: "show controls"
+          component: DetailOffcanvas,
+          content: getControls6({
+            delegateEvents,
+            bindObject,
+            proxi
+          })
         },
-        getControls6({ delegateEvents, bindEffect, bindObject, proxi }),
         {
           component: Move3D,
           modules: bindProps(
@@ -37103,7 +37041,7 @@
   };
 
   // src/js/component/pages/rosa-di-grandi/rosa-di-grandi-page.js
-  var unsubscribeEscHandler2 = () => {
+  var unsubscribeEscHandler = () => {
   };
   var getControls8 = ({ proxi, delegateEvents, bindObject }) => {
     const numerators = htmlObject({
@@ -37207,7 +37145,7 @@
         () => proxi.controlsActive,
         (isActive2) => {
           if (isActive2) {
-            unsubscribeEscHandler2 = modules_exports.useEscHandler(
+            unsubscribeEscHandler = modules_exports.useEscHandler(
               ({ preventDefault }) => {
                 proxi.controlsActive = false;
                 preventDefault();
@@ -37215,11 +37153,11 @@
             );
             return;
           }
-          unsubscribeEscHandler2();
+          unsubscribeEscHandler();
         }
       );
       return () => {
-        unsubscribeEscHandler2();
+        unsubscribeEscHandler();
       };
     });
     return htmlObject({
@@ -43386,7 +43324,7 @@
   // src/js/component/layout/navigation/nav-container.js
   var unsubscribeTabHandler = () => {
   };
-  var unsubscribeEscHandler3 = () => {
+  var unsubscribeEscHandler2 = () => {
   };
   function closeNavigation({ main, proxi }) {
     proxi.isOpen = false;
@@ -43452,7 +43390,7 @@
               tabLoopTrap({ element, direction: direction2, preventDefault });
             }
           );
-          unsubscribeEscHandler3 = modules_exports.useEscHandler(() => {
+          unsubscribeEscHandler2 = modules_exports.useEscHandler(() => {
             navigationStore.set("navigationIsOpen", false);
             UnFreezeMobPageScroll();
             setFcousToNavigationToggle();
@@ -43460,7 +43398,7 @@
           return;
         }
         closeNavigation({ main, proxi });
-        unsubscribeEscHandler3();
+        unsubscribeEscHandler2();
         unsubscribeTabHandler();
       });
       addMainHandler();
@@ -43473,7 +43411,7 @@
         proxi.isMounted = true;
       }, getFrameDelay());
       return () => {
-        unsubscribeEscHandler3();
+        unsubscribeEscHandler2();
         unsubscribeTabHandler();
       };
     });

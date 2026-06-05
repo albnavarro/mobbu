@@ -78,6 +78,7 @@
             display: block;
             flex: 0 0 auto;
             inline-size: 100%;
+            margin-block-end: rem(24);
             text-align: center;
 
             &:last-of-type {
@@ -177,6 +178,11 @@
                     appearance: none;
                 }
             }
+        }
+
+        .dynamic-result {
+            color: var(--white);
+            text-align: end;
         }
     }
 }

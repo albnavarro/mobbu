@@ -1,11 +1,10 @@
+import { DetailOffcanvas } from '@commonComponent/detail-off-canvas/definition';
 import { Move3D } from '@commonComponent/move-3d/definition';
 import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
-import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 
 /**
  * @import {
- *   BindEffect,
  *   BindObject,
  *   DelegateEvents,
  *   MobComponent,
@@ -15,18 +14,12 @@ import { htmlObject, MobJs } from '@mobJs';
  */
 
 /**
- * Component is a singleton
- */
-let unsubscribeEscHandler = () => {};
-
-/**
  * @param {object} params
  * @param {DelegateEvents} params.delegateEvents
- * @param {BindEffect<import('./type').Move3DPage>} params.bindEffect
  * @param {BindObject} params.bindObject
  * @param {ProxiSelfState<import('./type').Move3DPage>} params.proxi
  */
-const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
+const getControls = ({ delegateEvents, bindObject, proxi }) => {
     /**
      * Input range element
      */
@@ -132,96 +125,74 @@ const getControls = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
     };
 
     return htmlObject({
-        className: 'controls',
-        attributes: {
-            id: 'animation-control',
-            role: 'dialog',
-            'aria-label': 'Animation controls',
-            'aria-modal': 'false',
-        },
-        modules: bindEffect({
-            toggleClass: {
-                active: () => proxi.controlsActive,
-            },
-            toggleAttribute: {
-                inert: () => !proxi.controlsActive,
-            },
-        }),
         content: [
             {
-                tag: 'button',
-                className: 'close-controls',
-                attributes: {
-                    type: 'button',
-                },
-                modules: delegateEvents({
-                    click: () => {
-                        proxi.controlsActive = false;
-                    },
-                }),
-            },
-            {
-                className: 'controls-block',
+                className: 'controls-item',
                 content: [
                     {
                         className: 'controls-range',
                         content: controlFactor,
                     },
                     {
+                        className: 'dynamic-result',
                         content: bindObject`factor: ${() => proxi.factor}`,
                     },
                 ],
             },
             {
-                className: 'controls-block',
+                className: 'controls-item',
                 content: [
                     {
                         className: 'controls-range',
                         content: controlXDepth,
                     },
                     {
+                        className: 'dynamic-result',
                         content: bindObject`xDepth: ${() => proxi.xDepth}`,
                     },
                 ],
             },
             {
-                className: 'controls-block',
+                className: 'controls-item',
                 content: [
                     {
                         className: 'controls-range',
                         content: controlXLimit,
                     },
                     {
+                        className: 'dynamic-result',
                         content: bindObject`xLimit: ${() => proxi.xLimit}`,
                     },
                 ],
             },
             {
-                className: 'controls-block',
+                className: 'controls-item',
                 content: [
                     {
                         className: 'controls-range',
                         content: controlYDepth,
                     },
                     {
+                        className: 'dynamic-result',
                         content: bindObject`yDepth: ${() => proxi.yDepth}`,
                     },
                 ],
             },
             {
-                className: 'controls-block',
+                className: 'controls-item',
                 content: [
                     {
                         className: 'controls-range',
                         content: controlYLimit,
                     },
                     {
+                        className: 'dynamic-result',
                         content: bindObject`yLimit: ${() => proxi.yLimit}`,
                     },
                 ],
             },
             {
-                className: 'controls-block',
+                className: 'controls-item',
                 content: {
                     tag: 'button',
                     attributes: { type: 'button' },
@@ -244,35 +215,8 @@ export const Move3DPagefn = ({
     delegateEvents,
     bindObject,
     getSelfProxi,
-    bindEffect,
-    onMount,
-    watch,
 }) => {
     const proxi = getSelfProxi();
-
-    onMount(() => {
-        watch(
-            () => proxi.controlsActive,
-            (isActive) => {
-                if (isActive) {
-                    unsubscribeEscHandler = MobCore.useEscHandler(
-                        ({ preventDefault }) => {
-                            proxi.controlsActive = false;
-                            preventDefault();
-                        }
-                    );
-                    return;
-                }
-
-                unsubscribeEscHandler();
-            }
-        );
-
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        return () => {
-            unsubscribeEscHandler();
-        };
-    });
 
     return htmlObject({
         className: 'l-move3d-page',
@@ -286,28 +230,13 @@ export const Move3DPagefn = ({
                 ),
             },
             {
-                tag: 'button',
-                attributes: {
-                    type: 'button',
-                    'aria-controls': 'animation-control',
-                    'aria-haspopup': 'dialog',
-                },
-                className: 'show-controls',
-                modules: [
-                    delegateEvents({
-                        click: () => {
-                            proxi.controlsActive = true;
-                        },
-                    }),
-                    bindEffect({
-                        toggleAttribute: {
-                            tabindex: () => (proxi.controlsActive ? '-1' : '0'),
-                        },
-                    }),
-                ],
-                content: 'show controls',
+                component: DetailOffcanvas,
+                content: getControls({
+                    delegateEvents,
+                    bindObject,
+                    proxi,
+                }),
             },
-            getControls({ delegateEvents, bindEffect, bindObject, proxi }),
             {
                 component: Move3D,
                 modules: bindProps(

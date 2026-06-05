@@ -6303,6 +6303,7 @@
       display: block;
       flex: 0 0 auto;
       inline-size: 100%;
+      margin-block-end: 1.5rem;
       text-align: center;
     }
     .controls-item:last-of-type {
@@ -6388,6 +6389,10 @@
       background: var(--white);
       cursor: pointer;
       appearance: none;
+    }
+    .dynamic-result {
+      color: var(--white);
+      text-align: end;
     }
   }
 }
