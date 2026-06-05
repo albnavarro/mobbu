@@ -11,7 +11,7 @@ import { wrapper } from './wrapper';
 import { initMainLoader } from './main-loader';
 import { skipRouteLoader } from '@commonComponent/route-loader/utils';
 import { setFocusToH1 } from '@componentLibs/utils/set-focus-to-h1';
-import { updateHighlightTheme } from '@componentLibs/utils/is-dark';
+import { updateHighlightTheme } from '@componentLibs/utils/theme-color';
 // import { testModule } from './test';
 
 const fpsLoopNumber = 60;

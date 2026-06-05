@@ -1,5 +1,6 @@
 import { htmlObject } from '@mobJs';
 import { AccessibilityToggle } from '../toggle/definition';
+import { setTheme } from '@componentLibs/utils/theme-color';
 
 /**
  * @import {
@@ -118,7 +119,9 @@ export const AccessibilityOverlayFn = ({
                                                 ariaLabel: 'light theme',
                                                 default: true,
                                                 callback: () => {
-                                                    console.log('light');
+                                                    setTheme({
+                                                        theme: 'light',
+                                                    });
                                                 },
                                             },
                                             {
@@ -126,7 +129,9 @@ export const AccessibilityOverlayFn = ({
                                                 id: 'dark',
                                                 ariaLabel: 'dark theme',
                                                 callback: () => {
-                                                    console.log('dark');
+                                                    setTheme({
+                                                        theme: 'dark',
+                                                    });
                                                 },
                                             },
                                         ],

@@ -1,4 +1,4 @@
-import { isDarkTheme } from '@componentLibs/utils/is-dark';
+import { isDarkTheme } from '@componentLibs/utils/theme-color';
 import { isRtlDirection } from '@componentLibs/utils/is-rtl';
 import { MobCore } from '@mobCore';
 import { outerHeight, outerWidth } from '@mobCoreUtils';

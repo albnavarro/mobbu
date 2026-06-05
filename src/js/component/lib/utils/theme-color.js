@@ -24,3 +24,12 @@ export const updateHighlightTheme = () => {
     lightAsset.disabled = isDark;
     darkAsset.disabled = !isDark;
 };
+
+/**
+ * @param {object} [params]
+ * @param {'light' | 'dark'} [params.theme='light'] Default is `'light'`
+ */
+export const setTheme = ({ theme = 'light' } = {}) => {
+    document.documentElement.setAttribute('theme', theme);
+    updateHighlightTheme();
+};

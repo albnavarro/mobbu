@@ -1,6 +1,6 @@
 // @ts-check
 
-import { isDarkTheme } from '@componentLibs/utils/is-dark';
+import { isDarkTheme } from '@componentLibs/utils/theme-color';
 import { MobCore } from '@mobCore';
 import { outerHeight } from '@mobCoreUtils';
 import { MobJs } from '@mobJs';

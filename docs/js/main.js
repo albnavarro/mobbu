@@ -27412,7 +27412,7 @@
     methods.update("backRoute", "");
   });
 
-  // src/js/component/lib/utils/is-dark.js
+  // src/js/component/lib/utils/theme-color.js
   var isDarkTheme = () => {
     const theme = document.documentElement.getAttribute("theme");
     return theme === "dark";
@@ -27430,6 +27430,10 @@
     const isDark = isDarkTheme();
     lightAsset.disabled = isDark;
     darkAsset.disabled = !isDark;
+  };
+  var setTheme = ({ theme = "light" } = {}) => {
+    document.documentElement.setAttribute("theme", theme);
+    updateHighlightTheme();
   };
 
   // src/js/stores/navigation/index.js
@@ -46906,7 +46910,9 @@
                           ariaLabel: "light theme",
                           default: true,
                           callback: () => {
-                            console.log("light");
+                            setTheme({
+                              theme: "light"
+                            });
                           }
                         },
                         {
@@ -46914,7 +46920,9 @@
                           id: "dark",
                           ariaLabel: "dark theme",
                           callback: () => {
-                            console.log("dark");
+                            setTheme({
+                              theme: "dark"
+                            });
                           }
                         }
                       ]
