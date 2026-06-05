@@ -6,6 +6,5 @@ export interface RosaDiGrandiPage {
         denominatorLabel: number;
         duration: number;
         staggerEach: number;
-        controlsActive: boolean;
     };
 }

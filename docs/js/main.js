@@ -37041,8 +37041,6 @@
   };
 
   // src/js/component/pages/rosa-di-grandi/rosa-di-grandi-page.js
-  var unsubscribeEscHandler = () => {
-  };
   var getControls8 = ({ proxi, delegateEvents, bindObject }) => {
     const numerators = htmlObject({
       tag: "li",
@@ -37132,34 +37130,11 @@
     getSelfProxi,
     delegateEvents,
     invalidate,
-    bindEffect,
     getRef,
     setRef,
-    bindObject,
-    onMount,
-    watch
+    bindObject
   }) => {
     const proxi = getSelfProxi();
-    onMount(() => {
-      watch(
-        () => proxi.controlsActive,
-        (isActive2) => {
-          if (isActive2) {
-            unsubscribeEscHandler = modules_exports.useEscHandler(
-              ({ preventDefault }) => {
-                proxi.controlsActive = false;
-                preventDefault();
-              }
-            );
-            return;
-          }
-          unsubscribeEscHandler();
-        }
-      );
-      return () => {
-        unsubscribeEscHandler();
-      };
-    });
     return htmlObject({
       className: "l-rosa",
       content: [
@@ -37173,63 +37148,14 @@
           )
         },
         {
-          tag: "button",
-          className: "controls-open",
-          attributes: {
-            type: "button",
-            "aria-controls": "animation-control",
-            "aria-haspopup": "dialog"
-          },
-          modules: [
-            delegateEvents({
-              click: () => {
-                proxi.controlsActive = true;
-              }
-            }),
-            bindEffect({
-              toggleAttribute: {
-                tabindex: () => proxi.controlsActive ? "-1" : "0"
-              }
-            })
-          ],
-          content: "show controls"
-        },
-        {
-          tag: "ul",
-          className: "controls",
-          attributes: {
-            id: "animation-control",
-            role: "dialog",
-            "aria-label": "Animation controls",
-            "aria-modal": "false"
-          },
-          modules: bindEffect({
-            toggleClass: {
-              active: () => proxi.controlsActive
-            },
-            toggleAttribute: {
-              inert: () => !proxi.controlsActive
-            }
-          }),
-          content: [
-            {
-              tag: "button",
-              className: "controls-close",
-              attributes: { type: "button" },
-              modules: delegateEvents({
-                click: () => {
-                  proxi.controlsActive = false;
-                }
-              })
-            },
-            ...getControls8({
-              proxi,
-              getRef,
-              setRef,
-              delegateEvents,
-              bindObject
-            })
-          ]
+          component: DetailOffcanvas,
+          content: getControls8({
+            proxi,
+            getRef,
+            setRef,
+            delegateEvents,
+            bindObject
+          })
         },
         {
           className: "animation-container",
@@ -43324,7 +43250,7 @@
   // src/js/component/layout/navigation/nav-container.js
   var unsubscribeTabHandler = () => {
   };
-  var unsubscribeEscHandler2 = () => {
+  var unsubscribeEscHandler = () => {
   };
   function closeNavigation({ main, proxi }) {
     proxi.isOpen = false;
@@ -43390,7 +43316,7 @@
               tabLoopTrap({ element, direction: direction2, preventDefault });
             }
           );
-          unsubscribeEscHandler2 = modules_exports.useEscHandler(() => {
+          unsubscribeEscHandler = modules_exports.useEscHandler(() => {
             navigationStore.set("navigationIsOpen", false);
             UnFreezeMobPageScroll();
             setFcousToNavigationToggle();
@@ -43398,7 +43324,7 @@
           return;
         }
         closeNavigation({ main, proxi });
-        unsubscribeEscHandler2();
+        unsubscribeEscHandler();
         unsubscribeTabHandler();
       });
       addMainHandler();
@@ -43411,7 +43337,7 @@
         proxi.isMounted = true;
       }, getFrameDelay());
       return () => {
-        unsubscribeEscHandler2();
+        unsubscribeEscHandler();
         unsubscribeTabHandler();
       };
     });

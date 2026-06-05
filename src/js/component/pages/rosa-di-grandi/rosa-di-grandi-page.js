@@ -1,14 +1,9 @@
 //@ts-check
 
+import { DetailOffcanvas } from '@commonComponent/detail-off-canvas/definition';
 import { MathAnimation } from '@commonComponent/math-animation/definition';
 import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
-import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
-
-/**
- * Component is a singleton
- */
-let unsubscribeEscHandler = () => {};
 
 /**
  * @import {
@@ -130,38 +125,11 @@ export const RosaDiGrandiPageFn = ({
     getSelfProxi,
     delegateEvents,
     invalidate,
-    bindEffect,
     getRef,
     setRef,
     bindObject,
-    onMount,
-    watch,
 }) => {
     const proxi = getSelfProxi();
-
-    onMount(() => {
-        watch(
-            () => proxi.controlsActive,
-            (isActive) => {
-                if (isActive) {
-                    unsubscribeEscHandler = MobCore.useEscHandler(
-                        ({ preventDefault }) => {
-                            proxi.controlsActive = false;
-                            preventDefault();
-                        }
-                    );
-                    return;
-                }
-
-                unsubscribeEscHandler();
-            }
-        );
-
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        return () => {
-            unsubscribeEscHandler();
-        };
-    });
 
     return htmlObject({
         className: 'l-rosa',
@@ -175,63 +143,14 @@ export const RosaDiGrandiPageFn = ({
                 ),
             },
             {
-                tag: 'button',
-                className: 'controls-open',
-                attributes: {
-                    type: 'button',
-                    'aria-controls': 'animation-control',
-                    'aria-haspopup': 'dialog',
-                },
-                modules: [
-                    delegateEvents({
-                        click: () => {
-                            proxi.controlsActive = true;
-                        },
-                    }),
-                    bindEffect({
-                        toggleAttribute: {
-                            tabindex: () => (proxi.controlsActive ? '-1' : '0'),
-                        },
-                    }),
-                ],
-                content: 'show controls',
-            },
-            {
-                tag: 'ul',
-                className: 'controls',
-                attributes: {
-                    id: 'animation-control',
-                    role: 'dialog',
-                    'aria-label': 'Animation controls',
-                    'aria-modal': 'false',
-                },
-                modules: bindEffect({
-                    toggleClass: {
-                        active: () => proxi.controlsActive,
-                    },
-                    toggleAttribute: {
-                        inert: () => !proxi.controlsActive,
-                    },
+                component: DetailOffcanvas,
+                content: getControls({
+                    proxi,
+                    getRef,
+                    setRef,
+                    delegateEvents,
+                    bindObject,
                 }),
-                content: [
-                    {
-                        tag: 'button',
-                        className: 'controls-close',
-                        attributes: { type: 'button' },
-                        modules: delegateEvents({
-                            click: () => {
-                                proxi.controlsActive = false;
-                            },
-                        }),
-                    },
-                    ...getControls({
-                        proxi,
-                        getRef,
-                        setRef,
-                        delegateEvents,
-                        bindObject,
-                    }),
-                ],
             },
             {
                 className: 'animation-container',

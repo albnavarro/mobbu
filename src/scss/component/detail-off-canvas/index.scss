@@ -5,8 +5,7 @@
         .open {
             display: block;
             position: absolute;
-            inset-block-start: calc(var(--header-height) + rem(20));
-            inset-inline-end: rem(20);
+            z-index: 10;
             margin-block-start: 0;
             padding: rem(5) rem(20);
             transition:
@@ -18,6 +17,8 @@
             color: var(--white);
             font-size: rem(14);
             text-align: end;
+            inset-block-start: calc(var(--header-height) + rem(20));
+            inset-inline-end: rem(20);
 
             &:hover {
                 background: var(--white);
@@ -183,6 +184,15 @@
         .dynamic-result {
             color: var(--white);
             text-align: end;
+        }
+    }
+}
+
+@layer override {
+    :where(.l-rosa) {
+        .open {
+            inset-block-start: rem(20);
+            inset-inline-end: rem(20);
         }
     }
 }
