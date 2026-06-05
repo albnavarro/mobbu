@@ -10,8 +10,8 @@
             padding: rem(12);
             overflow: visible;
             border: 0;
-            background: var(--dark);
-            color: var(--white);
+            background: var(--immutable-black);
+            color: var(--immutable-white);
             pointer-events: none;
             inset-block-start: calc(var(--header-height) - 1px);
 
@@ -42,7 +42,7 @@
                 position: absolute;
                 block-size: 2px;
                 inline-size: calc(var(--gap-size) / 2);
-                background: var(--white);
+                background: var(--immutable-white);
                 inset-block-start: 50%;
                 inset-inline-start: 50%;
             }
