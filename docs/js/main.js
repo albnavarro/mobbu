@@ -27835,9 +27835,101 @@
     }
   );
 
-  // src/js/component/pages/animated-pattern/n0/animated-pattern-n0.js
-  var unsubscribeEscHandler = () => {
+  // src/js/component/common/detail-off-canvas/detail-offcanvas.js
+  var closeOverlay = ({ proxi, getRef }) => {
+    proxi.active = false;
+    getRef().dialog.close();
   };
+  var openOverlay = ({ proxi, getRef }) => {
+    proxi.active = true;
+    getRef().dialog.showModal();
+  };
+  function backDropHandler({ proxi, getRef }) {
+    return function onBackDrop(event) {
+      if (event.target === getRef().dialog) {
+        closeOverlay({ getRef, proxi });
+      }
+    };
+  }
+  var DetailOffCanvasFn = ({
+    delegateEvents,
+    setRef,
+    getRef,
+    onMount,
+    getSelfProxi
+  }) => {
+    const proxi = getSelfProxi();
+    onMount(() => {
+      const onBackDropSubscriber = backDropHandler({ proxi, getRef });
+      getRef().dialog.addEventListener("click", onBackDropSubscriber);
+      return () => {
+        getRef().dialog.removeEventListener("click", onBackDropSubscriber);
+      };
+    });
+    return htmlObject({
+      className: "c-detail-offcanvas",
+      attributes: {
+        id: "detail-control",
+        "aria-label": "Detail controls"
+      },
+      content: [
+        {
+          tag: "button",
+          className: "open",
+          attributes: {
+            type: "button",
+            "aria-controls": "detail-control",
+            "aria-haspopup": "dialog"
+          },
+          modules: delegateEvents({
+            click: () => {
+              openOverlay({ getRef, proxi });
+            }
+          }),
+          content: "detail controls:"
+        },
+        {
+          tag: "dialog",
+          modules: setRef("dialog"),
+          content: {
+            className: "container",
+            content: [
+              {
+                tag: "button",
+                className: "close",
+                attributes: { type: "button" },
+                modules: delegateEvents({
+                  click: () => {
+                    closeOverlay({ getRef, proxi });
+                  }
+                })
+              },
+              {
+                tag: "mobjs-slot"
+              }
+            ]
+          }
+        }
+      ]
+    });
+  };
+
+  // src/js/component/common/detail-off-canvas/definition.js
+  var DetailOffcanvas = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').DetailOffcanvasType>} */
+    {
+      tag: "detail-off-canvas",
+      component: DetailOffCanvasFn,
+      state: {
+        active: {
+          __value: false,
+          __type: Boolean
+        }
+      }
+    }
+  );
+
+  // src/js/component/pages/animated-pattern/n0/animated-pattern-n0.js
   var createAnimation = ({ proxi, getRef }) => {
     proxi.destroy();
     proxi.destroy = animatedPatternN0Animation({
@@ -27880,8 +27972,7 @@
     getRef,
     bindEffect,
     getSelfProxi,
-    delegateEvents,
-    watch
+    delegateEvents
   }) => {
     const proxi = getSelfProxi();
     onMount(() => {
@@ -27897,27 +27988,11 @@
         if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       });
-      watch(
-        () => proxi.controlsActive,
-        (isActive2) => {
-          if (isActive2) {
-            unsubscribeEscHandler = modules_exports.useEscHandler(
-              ({ preventDefault }) => {
-                proxi.controlsActive = false;
-                preventDefault();
-              }
-            );
-            return;
-          }
-          unsubscribeEscHandler();
-        }
-      );
       return () => {
         proxi.destroy();
         proxi.destroy = () => {
         };
         unsubscribeResize();
-        unsubscribeEscHandler();
       };
     });
     return htmlObject({
@@ -27939,62 +28014,13 @@
               content: proxi.background
             },
             {
-              tag: "button",
-              className: "controls-open",
-              attributes: {
-                type: "button",
-                "aria-controls": "animation-control",
-                "aria-haspopup": "dialog"
-              },
-              modules: [
-                delegateEvents({
-                  click: () => {
-                    proxi.controlsActive = true;
-                  }
-                }),
-                bindEffect({
-                  toggleAttribute: {
-                    tabindex: () => proxi.controlsActive ? "-1" : "0"
-                  }
-                })
-              ],
-              content: "variations"
-            },
-            {
-              tag: "ul",
-              className: "controls",
-              attributes: {
-                id: "animation-control",
-                role: "dialog",
-                "aria-label": "Animation controls",
-                "aria-modal": "false"
-              },
-              modules: bindEffect({
-                toggleClass: {
-                  active: () => proxi.controlsActive
-                },
-                toggleAttribute: {
-                  inert: () => !proxi.controlsActive
-                }
-              }),
-              content: [
-                {
-                  tag: "button",
-                  className: "controls-close",
-                  attributes: { type: "button" },
-                  modules: delegateEvents({
-                    click: () => {
-                      proxi.controlsActive = false;
-                    }
-                  })
-                },
-                ...getControls({
-                  delegateEvents,
-                  bindEffect,
-                  proxi,
-                  getRef
-                })
-              ]
+              component: DetailOffcanvas,
+              content: getControls({
+                delegateEvents,
+                bindEffect,
+                proxi,
+                getRef
+              })
             },
             {
               className: "canvas-container",
@@ -28670,7 +28696,7 @@
   };
 
   // src/js/component/pages/canvas/n1/caterpillar-n1.js
-  var unsubscribeEscHandler2 = () => {
+  var unsubscribeEscHandler = () => {
   };
   function getControls2({ delegateEvents, bindEffect, bindObject, proxi }) {
     return htmlObject({
@@ -28741,7 +28767,7 @@
         () => proxi.controlsActive,
         (isActive2) => {
           if (isActive2) {
-            unsubscribeEscHandler2 = modules_exports.useEscHandler(
+            unsubscribeEscHandler = modules_exports.useEscHandler(
               ({ preventDefault }) => {
                 proxi.controlsActive = false;
                 preventDefault();
@@ -28749,7 +28775,7 @@
             );
             return;
           }
-          unsubscribeEscHandler2();
+          unsubscribeEscHandler();
         }
       );
       return () => {
@@ -28759,7 +28785,7 @@
         proxi.stopBlackOne = () => {
         };
         methods = null;
-        unsubscribeEscHandler2();
+        unsubscribeEscHandler();
       };
     });
     return htmlObject({
@@ -29115,8 +29141,6 @@
   };
 
   // src/js/component/pages/canvas/n2/caterpillar-n2.js
-  var unsubscribeEscHandler3 = () => {
-  };
   function getControls3({ proxi, delegateEvents, bindObject }) {
     const buttons5 = Object.entries(proxi.buttons).map(([className, value]) => {
       const { label } = value;
@@ -29191,8 +29215,7 @@
     bindEffect,
     getSelfProxi,
     delegateEvents,
-    bindObject,
-    watch
+    bindObject
   }) => {
     const proxi = getSelfProxi();
     onMount(({ element }) => {
@@ -29216,26 +29239,10 @@
         if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       });
-      watch(
-        () => proxi.controlsActive,
-        (isActive2) => {
-          if (isActive2) {
-            unsubscribeEscHandler3 = modules_exports.useEscHandler(
-              ({ preventDefault }) => {
-                proxi.controlsActive = false;
-                preventDefault();
-              }
-            );
-            return;
-          }
-          unsubscribeEscHandler3();
-        }
-      );
       return () => {
         destroy3?.();
         destroy3 = () => {
         };
-        unsubscribeEscHandler3();
       };
     });
     return htmlObject({
@@ -29257,61 +29264,12 @@
               content: proxi.background
             },
             {
-              tag: "button",
-              className: "controls-open",
-              attributes: {
-                type: "button",
-                "aria-controls": "animation-control",
-                "aria-haspopup": "dialog"
-              },
-              modules: [
-                delegateEvents({
-                  click: () => {
-                    proxi.controlsActive = true;
-                  }
-                }),
-                bindEffect({
-                  toggleAttribute: {
-                    tabindex: () => proxi.controlsActive ? "-1" : "0"
-                  }
-                })
-              ],
-              content: "show controls"
-            },
-            {
-              tag: "ul",
-              className: "controls",
-              attributes: {
-                id: "animation-control",
-                role: "dialog",
-                "aria-label": "Animation controls",
-                "aria-modal": "false"
-              },
-              modules: bindEffect({
-                toggleClass: {
-                  active: () => proxi.controlsActive
-                },
-                toggleAttribute: {
-                  inert: () => !proxi.controlsActive
-                }
-              }),
-              content: [
-                {
-                  tag: "button",
-                  className: "controls-close",
-                  attributes: { type: "button" },
-                  modules: delegateEvents({
-                    click: () => {
-                      proxi.controlsActive = false;
-                    }
-                  })
-                },
-                ...getControls3({
-                  proxi,
-                  delegateEvents,
-                  bindObject
-                })
-              ]
+              component: DetailOffcanvas,
+              content: getControls3({
+                proxi,
+                delegateEvents,
+                bindObject
+              })
             },
             {
               className: "canvas-container",
@@ -29692,7 +29650,7 @@
   ];
 
   // src/js/component/pages/scroller/n0/scroller-n0.js
-  var unsubscribeEscHandler4 = () => {
+  var unsubscribeEscHandler2 = () => {
   };
   var createAnimation2 = ({ proxi, getRef, resetScroll = true }) => {
     if (resetScroll) window.scrollTo(0, 0);
@@ -29759,7 +29717,7 @@
         () => proxi.controlsActive,
         (isActive2) => {
           if (isActive2) {
-            unsubscribeEscHandler4 = modules_exports.useEscHandler(
+            unsubscribeEscHandler2 = modules_exports.useEscHandler(
               ({ preventDefault }) => {
                 proxi.controlsActive = false;
                 preventDefault();
@@ -29767,7 +29725,7 @@
             );
             return;
           }
-          unsubscribeEscHandler4();
+          unsubscribeEscHandler2();
         }
       );
       return () => {
@@ -29776,7 +29734,7 @@
         };
         deactivateScrollDownArrow();
         unsubscribeResize();
-        unsubscribeEscHandler4();
+        unsubscribeEscHandler2();
       };
     });
     return htmlObject({
@@ -30126,100 +30084,6 @@
       context = null;
     };
   };
-
-  // src/js/component/common/detail-off-canvas/detail-offcanvas.js
-  var closeOverlay = ({ proxi, getRef }) => {
-    proxi.active = false;
-    getRef().dialog.close();
-  };
-  var openOverlay = ({ proxi, getRef }) => {
-    proxi.active = true;
-    getRef().dialog.showModal();
-  };
-  function backDropHandler({ proxi, getRef }) {
-    return function onBackDrop(event) {
-      if (event.target === getRef().dialog) {
-        closeOverlay({ getRef, proxi });
-      }
-    };
-  }
-  var DetailOffCanvasFn = ({
-    delegateEvents,
-    setRef,
-    getRef,
-    onMount,
-    getSelfProxi
-  }) => {
-    const proxi = getSelfProxi();
-    onMount(() => {
-      const onBackDropSubscriber = backDropHandler({ proxi, getRef });
-      getRef().dialog.addEventListener("click", onBackDropSubscriber);
-      return () => {
-        getRef().dialog.removeEventListener("click", onBackDropSubscriber);
-      };
-    });
-    return htmlObject({
-      className: "c-detail-offcanvas",
-      attributes: {
-        id: "detail-control",
-        "aria-label": "Detail controls"
-      },
-      content: [
-        {
-          tag: "button",
-          className: "open",
-          attributes: {
-            type: "button",
-            "aria-controls": "detail-control",
-            "aria-haspopup": "dialog"
-          },
-          modules: delegateEvents({
-            click: () => {
-              openOverlay({ getRef, proxi });
-            }
-          }),
-          content: "detail controls:"
-        },
-        {
-          tag: "dialog",
-          modules: setRef("dialog"),
-          content: {
-            className: "container",
-            content: [
-              {
-                tag: "button",
-                className: "close",
-                attributes: { type: "button" },
-                modules: delegateEvents({
-                  click: () => {
-                    closeOverlay({ getRef, proxi });
-                  }
-                })
-              },
-              {
-                tag: "mobjs-slot"
-              }
-            ]
-          }
-        }
-      ]
-    });
-  };
-
-  // src/js/component/common/detail-off-canvas/definition.js
-  var DetailOffcanvas = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').DetailOffcanvasType>} */
-    {
-      tag: "detail-off-canvas",
-      component: DetailOffCanvasFn,
-      state: {
-        active: {
-          __value: false,
-          __type: Boolean
-        }
-      }
-    }
-  );
 
   // src/js/component/pages/scroller/n1/scroller-n1.js
   function getControls5({ proxi, delegateEvents, bindObject }) {
@@ -33502,7 +33366,7 @@
   );
 
   // src/js/component/pages/move-3d/move-3d-page.js
-  var unsubscribeEscHandler5 = () => {
+  var unsubscribeEscHandler3 = () => {
   };
   var getControls6 = ({ delegateEvents, bindEffect, bindObject, proxi }) => {
     const controlFactor = {
@@ -33713,7 +33577,7 @@
         () => proxi.controlsActive,
         (isActive2) => {
           if (isActive2) {
-            unsubscribeEscHandler5 = modules_exports.useEscHandler(
+            unsubscribeEscHandler3 = modules_exports.useEscHandler(
               ({ preventDefault }) => {
                 proxi.controlsActive = false;
                 preventDefault();
@@ -33721,11 +33585,11 @@
             );
             return;
           }
-          unsubscribeEscHandler5();
+          unsubscribeEscHandler3();
         }
       );
       return () => {
-        unsubscribeEscHandler5();
+        unsubscribeEscHandler3();
       };
     });
     return htmlObject({
@@ -35362,8 +35226,6 @@
   };
 
   // src/js/component/pages/async-timeline/async-timeline.js
-  var unsubscribeEscHandler6 = () => {
-  };
   function getControls7({ buttons: buttons5 }) {
     return Object.entries(buttons5).map(([className, value]) => {
       const { label } = value;
@@ -35385,9 +35247,7 @@
     setRef,
     getRef,
     bindEffect,
-    getSelfProxi,
-    delegateEvents,
-    watch
+    getSelfProxi
   }) => {
     const proxi = getSelfProxi();
     let methods = {};
@@ -35423,25 +35283,9 @@
         if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
       });
-      watch(
-        () => proxi.controlsActive,
-        (isActive2) => {
-          if (isActive2) {
-            unsubscribeEscHandler6 = modules_exports.useEscHandler(
-              ({ preventDefault }) => {
-                proxi.controlsActive = false;
-                preventDefault();
-              }
-            );
-            return;
-          }
-          unsubscribeEscHandler6();
-        }
-      );
       return () => {
         unsubscribeResize();
         destroy3?.();
-        unsubscribeEscHandler6();
       };
     });
     return htmlObject({
@@ -35458,57 +35302,8 @@
             )
           },
           {
-            tag: "button",
-            className: "controls-open",
-            attributes: {
-              type: "button",
-              "aria-controls": "animation-control",
-              "aria-haspopup": "dialog"
-            },
-            modules: [
-              delegateEvents({
-                click: () => {
-                  proxi.controlsActive = true;
-                }
-              }),
-              bindEffect({
-                toggleAttribute: {
-                  tabindex: () => proxi.controlsActive ? "-1" : "0"
-                }
-              })
-            ],
-            content: "show controls"
-          },
-          {
-            tag: "ul",
-            className: "controls",
-            attributes: {
-              id: "animation-control",
-              role: "dialog",
-              "aria-label": "Animation controls",
-              "aria-modal": "false"
-            },
-            modules: bindEffect({
-              toggleClass: {
-                active: () => proxi.controlsActive
-              },
-              toggleAttribute: {
-                inert: () => !proxi.controlsActive
-              }
-            }),
-            content: [
-              {
-                tag: "button",
-                className: "controls-close",
-                attributes: { type: "button" },
-                modules: delegateEvents({
-                  click: () => {
-                    proxi.controlsActive = false;
-                  }
-                })
-              },
-              ...getControls7({ buttons: proxi.buttons })
-            ]
+            component: DetailOffcanvas,
+            content: getControls7({ buttons: proxi.buttons })
           },
           {
             className: "l-background-shape",
@@ -37444,7 +37239,7 @@
   };
 
   // src/js/component/pages/rosa-di-grandi/rosa-di-grandi-page.js
-  var unsubscribeEscHandler7 = () => {
+  var unsubscribeEscHandler4 = () => {
   };
   var getControls8 = ({ proxi, delegateEvents, bindObject }) => {
     const numerators = htmlObject({
@@ -37548,7 +37343,7 @@
         () => proxi.controlsActive,
         (isActive2) => {
           if (isActive2) {
-            unsubscribeEscHandler7 = modules_exports.useEscHandler(
+            unsubscribeEscHandler4 = modules_exports.useEscHandler(
               ({ preventDefault }) => {
                 proxi.controlsActive = false;
                 preventDefault();
@@ -37556,11 +37351,11 @@
             );
             return;
           }
-          unsubscribeEscHandler7();
+          unsubscribeEscHandler4();
         }
       );
       return () => {
-        unsubscribeEscHandler7();
+        unsubscribeEscHandler4();
       };
     });
     return htmlObject({
@@ -43727,7 +43522,7 @@
   // src/js/component/layout/navigation/nav-container.js
   var unsubscribeTabHandler = () => {
   };
-  var unsubscribeEscHandler8 = () => {
+  var unsubscribeEscHandler5 = () => {
   };
   function closeNavigation({ main, proxi }) {
     proxi.isOpen = false;
@@ -43793,7 +43588,7 @@
               tabLoopTrap({ element, direction: direction2, preventDefault });
             }
           );
-          unsubscribeEscHandler8 = modules_exports.useEscHandler(() => {
+          unsubscribeEscHandler5 = modules_exports.useEscHandler(() => {
             navigationStore.set("navigationIsOpen", false);
             UnFreezeMobPageScroll();
             setFcousToNavigationToggle();
@@ -43801,7 +43596,7 @@
           return;
         }
         closeNavigation({ main, proxi });
-        unsubscribeEscHandler8();
+        unsubscribeEscHandler5();
         unsubscribeTabHandler();
       });
       addMainHandler();
@@ -43814,7 +43609,7 @@
         proxi.isMounted = true;
       }, getFrameDelay());
       return () => {
-        unsubscribeEscHandler8();
+        unsubscribeEscHandler5();
         unsubscribeTabHandler();
       };
     });

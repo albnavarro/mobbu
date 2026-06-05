@@ -18,7 +18,6 @@ export interface CaterpillarN2 {
         buttons: CaterpillarN2Button;
         rotation: number;
         rotationlabel: number;
-        controlsActive: boolean;
     };
     ref: {
         canvas: HTMLCanvasElement;
