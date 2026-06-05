@@ -909,6 +909,9 @@
   [data-template=template-doc-default] :where(.utils-cell) {
     border-inline-start: 1px solid var(--grey-400);
   }
+  [data-template=template-mobJs-component] :where(.utils-cell) {
+    border-inline-start: 1px solid var(--grey-400);
+  }
   [data-template=template-test] :where(.utils-cell) {
     border-inline-start: 1px solid var(--grey-400);
   }
