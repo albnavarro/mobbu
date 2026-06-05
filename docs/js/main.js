@@ -25537,7 +25537,9 @@
     { name: "close", source: "close.svg" },
     { name: "up", source: "up.svg" },
     { name: "swap", source: "swap.svg" },
-    { name: "selectAll", source: "select-all.svg" }
+    { name: "selectAll", source: "select-all.svg" },
+    { name: "sun", source: "sun.svg" },
+    { name: "moon", source: "moon.svg" }
   ];
   var getCommonData = () => commonData;
   var getIcons = () => icons;
@@ -46710,14 +46712,57 @@
   );
 
   // src/js/component/common/accesibility/toggle/accessibility-toggle.js
-  var AccessibilityToggleFn = ({ getSelfProxi }) => {
+  var AccessibilityToggleFn = ({
+    getSelfProxi,
+    delegateEvents,
+    bindEffect
+  }) => {
     const proxi = getSelfProxi();
-    console.log(proxi.option_a);
-    console.log(proxi.option_b);
     return htmlObject({
-      className: "c-accessibility-toggle",
-      attributes: {},
-      content: "toggle"
+      className: ["c-accessibility-toggle", proxi.className],
+      attributes: {
+        role: "radiogroup"
+      },
+      content: [
+        {
+          content: proxi.options.map((option) => {
+            const icon = getIcons()[option?.icon ?? ""];
+            console.log(option);
+            return htmlObject({
+              content: [
+                {
+                  tag: "button",
+                  className: option.default ? "active" : "",
+                  attributes: {
+                    type: "button"
+                  },
+                  modules: [
+                    delegateEvents({
+                      click: () => {
+                        proxi.activeId = option.id;
+                        option.callback();
+                      }
+                    }),
+                    bindEffect({
+                      toggleClass: {
+                        active: () => proxi.activeId === option.id
+                      }
+                    })
+                  ],
+                  content: {
+                    tag: "span",
+                    className: [
+                      "content",
+                      option.icon ? "icon" : "label"
+                    ],
+                    content: icon.length > 0 ? icon : option.value
+                  }
+                }
+              ]
+            });
+          })
+        }
+      ]
     });
   };
 
@@ -46728,43 +46773,23 @@
       tag: "accessibility-toggle",
       component: AccessibilityToggleFn,
       props: {
-        option_a: {
-          label: {
-            __value: "",
-            __type: String
-          },
-          icon: {
-            __value: "",
-            __type: String
-          },
-          id: {
-            __value: "",
-            __type: String
-          },
-          callback: {
-            __value: () => {
-            },
-            __type: Function
-          }
+        className: {
+          __value: "",
+          __type: String
         },
-        option_b: {
-          label: {
-            __value: "",
-            __type: String
-          },
-          icon: {
-            __value: "",
-            __type: String
-          },
-          id: {
-            __value: "",
-            __type: String
-          },
-          callback: {
-            __value: () => {
-            },
-            __type: Function
-          }
+        name: {
+          __value: "",
+          __type: String
+        },
+        options: {
+          __value: [],
+          __type: Array
+        }
+      },
+      state: {
+        activeId: {
+          __value: "",
+          __type: String
         }
       }
     }
@@ -46852,20 +46877,27 @@
                   modules: staticProps2(
                     /** @type {import('../toggle/type').AccessibilityToggleType['props']} */
                     {
-                      option_a: {
-                        label: "light",
-                        id: "light",
-                        callback: () => {
-                          console.log("light");
+                      className: "is-accessibility",
+                      name: "theme",
+                      options: [
+                        {
+                          icon: "sun",
+                          id: "light",
+                          value: "light",
+                          default: true,
+                          callback: () => {
+                            console.log("light");
+                          }
+                        },
+                        {
+                          icon: "moon",
+                          id: "dark",
+                          value: "dark",
+                          callback: () => {
+                            console.log("dark");
+                          }
                         }
-                      },
-                      option_b: {
-                        label: "dark",
-                        id: "dark",
-                        callback: () => {
-                          console.log("dark");
-                        }
-                      }
+                      ]
                     }
                   )
                 }

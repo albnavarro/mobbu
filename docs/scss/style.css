@@ -4459,7 +4459,22 @@
 @layer layout {
   @scope (.c-accessibility-toggle) {
     :scope {
-      background: pink;
+      display: inline-block;
+      display: grid;
+      align-items: center;
+      justify-content: space-between;
+    }
+    button {
+      border: 0;
+      background: transparent;
+    }
+    button.active {
+      background: red;
+    }
+    .icon svg {
+      block-size: 1.25rem;
+      inline-size: 1.25rem;
+      fill: var(--white);
     }
   }
 }

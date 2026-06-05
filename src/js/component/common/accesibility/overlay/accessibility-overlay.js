@@ -108,20 +108,27 @@ export const AccessibilityOverlayFn = ({
                                 modules: staticProps(
                                     /** @type {import('../toggle/type').AccessibilityToggleType['props']} */
                                     ({
-                                        option_a: {
-                                            label: 'light',
-                                            id: 'light',
-                                            callback: () => {
-                                                console.log('light');
+                                        className: 'is-accessibility',
+                                        name: 'theme',
+                                        options: [
+                                            {
+                                                icon: 'sun',
+                                                id: 'light',
+                                                value: 'light',
+                                                default: true,
+                                                callback: () => {
+                                                    console.log('light');
+                                                },
                                             },
-                                        },
-                                        option_b: {
-                                            label: 'dark',
-                                            id: 'dark',
-                                            callback: () => {
-                                                console.log('dark');
+                                            {
+                                                icon: 'moon',
+                                                id: 'dark',
+                                                value: 'dark',
+                                                callback: () => {
+                                                    console.log('dark');
+                                                },
                                             },
-                                        },
+                                        ],
                                     })
                                 ),
                             },

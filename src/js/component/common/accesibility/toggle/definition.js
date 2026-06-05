@@ -13,41 +13,23 @@ export const AccessibilityToggle = MobJs.createComponent(
         tag: 'accessibility-toggle',
         component: AccessibilityToggleFn,
         props: {
-            option_a: {
-                label: {
-                    __value: '',
-                    __type: String,
-                },
-                icon: {
-                    __value: '',
-                    __type: String,
-                },
-                id: {
-                    __value: '',
-                    __type: String,
-                },
-                callback: {
-                    __value: () => {},
-                    __type: Function,
-                },
+            className: {
+                __value: '',
+                __type: String,
             },
-            option_b: {
-                label: {
-                    __value: '',
-                    __type: String,
-                },
-                icon: {
-                    __value: '',
-                    __type: String,
-                },
-                id: {
-                    __value: '',
-                    __type: String,
-                },
-                callback: {
-                    __value: () => {},
-                    __type: Function,
-                },
+            name: {
+                __value: '',
+                __type: String,
+            },
+            options: {
+                __value: [],
+                __type: Array,
+            },
+        },
+        state: {
+            activeId: {
+                __value: '',
+                __type: String,
             },
         },
     })

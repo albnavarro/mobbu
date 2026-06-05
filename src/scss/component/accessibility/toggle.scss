@@ -3,7 +3,27 @@
 @layer layout {
     @scope (.c-accessibility-toggle) {
         :scope {
-            background: pink;
+            display: inline-block;
+            display: grid;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        button {
+            border: 0;
+            background: transparent;
+
+            &.active {
+                background: red;
+            }
+        }
+
+        .icon {
+            svg {
+                block-size: rem(20);
+                inline-size: rem(20);
+                fill: var(--white);
+            }
         }
     }
 }
