@@ -13,11 +13,7 @@ import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 import { caterpillarN1Animation } from './animation/animation';
 import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
-
-/**
- * Component is a singleton
- */
-let unsubscribeEscHandler = () => {};
+import { DetailOffcanvas } from '@commonComponent/detail-off-canvas/definition';
 
 /**
  * @param {object} params
@@ -68,7 +64,6 @@ export const CaterpillarN1Fn = ({
     getSelfProxi,
     delegateEvents,
     bindObject,
-    watch,
 }) => {
     const proxi = getSelfProxi();
 
@@ -101,26 +96,8 @@ export const CaterpillarN1Fn = ({
              * Here proxi can be destroyed;
              */
             if (!('isMounted' in proxi)) return;
-
             proxi.isMounted = true;
         });
-
-        watch(
-            () => proxi.controlsActive,
-            (isActive) => {
-                if (isActive) {
-                    unsubscribeEscHandler = MobCore.useEscHandler(
-                        ({ preventDefault }) => {
-                            proxi.controlsActive = false;
-                            preventDefault();
-                        }
-                    );
-                    return;
-                }
-
-                unsubscribeEscHandler();
-            }
-        );
 
         return () => {
             proxi.destroy();
@@ -128,7 +105,6 @@ export const CaterpillarN1Fn = ({
             proxi.stopBlackOne = () => {};
             // @ts-ignore
             methods = null;
-            unsubscribeEscHandler();
         };
     });
 
@@ -150,63 +126,13 @@ export const CaterpillarN1Fn = ({
                         content: proxi.background,
                     },
                     {
-                        tag: 'button',
-                        className: 'controls-open',
-                        attributes: {
-                            type: 'button',
-                            'aria-controls': 'animation-control',
-                            'aria-haspopup': 'dialog',
-                        },
-                        modules: [
-                            delegateEvents({
-                                click: () => {
-                                    proxi.controlsActive = true;
-                                },
-                            }),
-                            bindEffect({
-                                toggleAttribute: {
-                                    tabindex: () =>
-                                        proxi.controlsActive ? '-1' : '0',
-                                },
-                            }),
-                        ],
-                        content: 'show controls',
-                    },
-                    {
-                        tag: 'ul',
-                        className: 'controls',
-                        attributes: {
-                            id: 'animation-control',
-                            role: 'dialog',
-                            'aria-label': 'Animation controls',
-                            'aria-modal': 'false',
-                        },
-                        modules: bindEffect({
-                            toggleClass: {
-                                active: () => proxi.controlsActive,
-                            },
-                            toggleAttribute: {
-                                inert: () => !proxi.controlsActive,
-                            },
+                        component: DetailOffcanvas,
+                        content: getControls({
+                            delegateEvents,
+                            bindEffect,
+                            bindObject,
+                            proxi,
                         }),
-                        content: [
-                            {
-                                tag: 'button',
-                                className: 'controls-close',
-                                attributes: { type: 'button' },
-                                modules: delegateEvents({
-                                    click: () => {
-                                        proxi.controlsActive = false;
-                                    },
-                                }),
-                            },
-                            getControls({
-                                delegateEvents,
-                                bindEffect,
-                                bindObject,
-                                proxi,
-                            }),
-                        ],
                     },
                     {
                         className: 'canvas-container',

@@ -8,7 +8,6 @@ export interface ScrollerN0 {
     };
     state: {
         isMounted: boolean;
-        controlsActive: boolean;
         destroy: () => void;
         currentParamsId: number;
     };

@@ -5,7 +5,6 @@ export interface CaterpillarN1 {
     };
     state: {
         isMounted: boolean;
-        controlsActive: boolean;
         destroy: () => void;
         stopBlackOne: () => void;
         blackOneIsStopped: boolean;
