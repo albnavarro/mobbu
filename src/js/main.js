@@ -17,7 +17,7 @@ import { updateHighlightTheme } from '@componentLibs/utils/theme-color';
 const fpsLoopNumber = 60;
 
 const shouldRedirect = () => {
-    return /** @type {boolean} */ (MobMotionCore.mq('max', 'desktop'));
+    return /** @type {boolean} */ (MobMotionCore.mq('max', 'tablet'));
 };
 
 /**

@@ -7,3 +7,13 @@
         }
     }
 }
+
+@layer override {
+    .is-debug-open-button {
+        display: none;
+
+        @include mq(desktop) {
+            display: block;
+        }
+    }
+}

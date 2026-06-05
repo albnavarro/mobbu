@@ -29,7 +29,7 @@
                 }
             }
 
-            @include mq(desktop) {
+            @include mq(tablet) {
                 display: block;
             }
         }
@@ -37,13 +37,9 @@
         .grid {
             display: grid;
             grid-template-areas: 'toggle title menu utils';
-            grid-template-columns: calc(var(--header-height) * 2) 1fr auto;
+            grid-template-columns: var(--header-height) 1fr auto;
             align-items: center;
             block-size: var(--header-height);
-
-            @include mq(large) {
-                grid-template-columns: var(--header-height) auto 1fr auto;
-            }
         }
 
         .toggle-cell {
@@ -145,6 +141,15 @@
     }
 
     [data-template='home'] :where(header) {
+        background: transparent;
+
+        &::after {
+            transition: transform 1s 0.2s;
+            background: var(--dark);
+        }
+    }
+
+    [data-template='template-only-desktop'] :where(header) {
         background: transparent;
 
         &::after {

@@ -74,9 +74,13 @@
 
     .title-big {
         margin: 0;
-        font-size: rem(60);
+        font-size: rem(40);
         line-height: 1;
         text-transform: uppercase;
+
+        @include mq(desktop) {
+            font-size: rem(60);
+        }
     }
 
     .title-biggest {

@@ -32,9 +32,9 @@ export const onlyDesktop = async () => {
                 {
                     tag: 'p',
                     content: /* HTML */ `This site is designed<br />
-                        for a desktop experience,<br />
+                        for a desktop/tablet experience,<br />
                         the minimum resolution is
-                        <strong>992px</strong>.<br /><br />
+                        <strong>768px</strong>.<br /><br />
                         <strong>
                             Please resize your browser<br />
                             or use a different device.

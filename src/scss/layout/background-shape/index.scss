@@ -25,7 +25,7 @@
             inset-block-start: 50%;
             inset-inline-start: 50%;
 
-            @include mq(desktop) {
+            @include mq(tablet) {
                 block-size: 200vh;
                 inline-size: 200vw;
             }

@@ -5,7 +5,11 @@
         :scope {
             display: grid;
 
-            --sidebar-item-size: #{rem(26)};
+            --sidebar-item-size: #{rem(20)};
+
+            @include mq(desktop) {
+                --sidebar-item-size: #{rem(26)};
+            }
         }
 
         ul {
@@ -31,7 +35,7 @@
             align-items: center;
             block-size: 100%;
             inline-size: 100%;
-            padding: 0 em(16);
+            padding: 0 em(8);
             border: 0;
             outline-offset: -2px;
             background: transparent;
@@ -40,9 +44,12 @@
             &:focus {
                 outline-color: var(--dark);
             }
+
+            @include mq(desktop) {
+                padding: 0 em(16);
+            }
         }
 
-        /* stylelint-disable-next-line no-descending-specificity */
         svg {
             block-size: 100%;
             block-size: var(--sidebar-item-size);

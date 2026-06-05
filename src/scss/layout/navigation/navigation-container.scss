@@ -14,7 +14,7 @@
             border-inline-end: 1px var(--dark) solid;
             background: var(--white);
 
-            @include mq(desktop) {
+            @include mq(tablet) {
                 display: block;
             }
 

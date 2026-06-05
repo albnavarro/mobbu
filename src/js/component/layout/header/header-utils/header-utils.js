@@ -105,6 +105,7 @@ export const HeaderUtilsFn = ({ delegateEvents }) => {
                 },
                 {
                     tag: 'li',
+                    className: 'is-debug-open-button',
                     content: {
                         component: DebugButton,
                         attributes: {

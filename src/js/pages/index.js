@@ -30,6 +30,7 @@ export const PAGE_TEMPLATE_ABOUT = 'about';
 export const PAGE_TEMPLATE_COMPONENT_MOBJS = 'template-mobJs-component';
 export const PAGE_TEMPLATE_DOCS_DEFAULT = 'template-doc-default';
 export const PAGE_TEMPLATE_LINKS = 'template-listing';
+export const PAGE_TEMPLATE_ONLY_DESKTOP = 'template-only-desktop';
 export const PAGE_TEMPLATE_ANIMATION = 'template-animation';
 export const PAGE_TEMPLATE_TEST = 'template-test';
 
@@ -177,6 +178,7 @@ export const routes = [
         hash: 'onlyDesktop',
         layout: onlyDesktop,
         pageName: 'onlyDesktop',
+        templateName: PAGE_TEMPLATE_ONLY_DESKTOP,
         props: {},
     },
     {

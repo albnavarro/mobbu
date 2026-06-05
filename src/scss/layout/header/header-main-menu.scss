@@ -28,7 +28,7 @@
             position: relative;
             block-size: var(--header-height);
             margin: 0;
-            padding-inline: rem(15);
+            padding-inline: rem(10);
             transition: opacity 0.55s;
             transition:
                 background 0.35s,
@@ -37,7 +37,7 @@
             outline-offset: -2px;
             background: transparent;
             color: var(--dark);
-            font-size: rem(14);
+            font-size: rem(13);
 
             &::after {
                 content: '';
@@ -50,6 +50,11 @@
                 transform-origin: bottom;
                 transition: transform 0.55s;
                 background: var(--dark);
+            }
+
+            @include mq(desktop) {
+                padding-inline: rem(15);
+                font-size: rem(14);
             }
 
             @include mq(xlarge) {

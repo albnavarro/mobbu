@@ -93,7 +93,7 @@ $svg-max-height: calc(((1400 * 571) / 1098) * 1px);
             position: relative;
             justify-content: center;
 
-            @include mq(desktop) {
+            @include mq(tablet) {
                 display: none;
             }
 
@@ -105,7 +105,7 @@ $svg-max-height: calc(((1400 * 571) / 1098) * 1px);
                 );
                 inline-size: min(1920px, calc(((1098 * 100) / 800) * 1vw));
 
-                @include mq(desktop) {
+                @include mq(tablet) {
                     block-size: min(
                         $svg-max-height,
                         calc(((466 * 100) / 2200) * 1vw)
