@@ -17,7 +17,11 @@ export const AccessibilityToggle = MobJs.createComponent(
                 __value: '',
                 __type: String,
             },
-            name: {
+            label: {
+                __value: '',
+                __type: String,
+            },
+            ariaLabel: {
                 __value: '',
                 __type: String,
             },

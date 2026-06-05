@@ -1,9 +1,11 @@
 export interface AccessibilityToggleType {
     props: {
         className: string;
-        name: string;
+        label: string;
+        ariaLabel: string;
         options: {
-            value: string;
+            text: string;
+            ariaLabel: string;
             icon?: string;
             id: string;
             default?: boolean;

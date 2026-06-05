@@ -3,6 +3,10 @@
 @layer layout {
     @scope (.c-accessibility-toggle) {
         :scope {
+            margin-block-end: rem(16);
+        }
+
+        .cta-group {
             display: flex;
             align-items: center;
             justify-content: space-evenly;
@@ -11,14 +15,9 @@
             gap: rem(20);
         }
 
-        button {
-            padding: rem(5);
-            border: 0;
-            background: transparent;
-
-            &.active {
-                border-block-end: 4px var(--white) solid;
-            }
+        h2 {
+            font-family: 'Fira Sans', sans-serif;
+            font-size: rem(18);
         }
 
         .content {
@@ -29,6 +28,17 @@
 
 @layer user {
     @scope (.is-accessibility) {
+        button {
+            padding: rem(5);
+            border: 0;
+            background: transparent;
+            border-block-end: 4px transparent solid;
+
+            &.active {
+                border-block-end: 4px var(--white) solid;
+            }
+        }
+
         .icon {
             block-size: rem(30);
             inline-size: rem(30);

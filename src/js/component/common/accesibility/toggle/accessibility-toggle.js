@@ -19,44 +19,73 @@ export const AccessibilityToggleFn = ({
     const activeOption = proxi.options.find((option) => option.default);
     if (activeOption) proxi.activeId = activeOption.id;
 
+    console.log(proxi.label);
+
     return htmlObject({
         className: ['c-accessibility-toggle', proxi.className],
-        attributes: {},
-        content: proxi.options.map((option) => {
-            const icon = getIcons()[option?.icon ?? ''];
-
-            return htmlObject({
-                className: 'item',
-                content: [
-                    {
-                        tag: 'button',
-                        attributes: {
-                            type: 'button',
-                        },
-                        modules: [
-                            delegateEvents({
-                                click: () => {
-                                    proxi.activeId = option.id;
-                                    option.callback();
-                                },
-                            }),
-                            bindEffect({
-                                toggleClass: {
-                                    active: () => proxi.activeId === option.id,
-                                },
-                            }),
-                        ],
-                        content: {
-                            tag: 'span',
-                            className: [
-                                'content',
-                                option.icon ? 'icon' : 'label',
-                            ],
-                            content: icon.length > 0 ? icon : option.value,
-                        },
+        content: {
+            className: 'grid',
+            content: [
+                {
+                    tag: 'h2',
+                    content: proxi.label,
+                },
+                {
+                    className: 'cta-group',
+                    attributes: {
+                        role: 'group',
+                        'aria-label': proxi.ariaLabel,
                     },
-                ],
-            });
-        }),
+                    content: proxi.options.map((option) => {
+                        const icon = getIcons()[option?.icon ?? ''];
+
+                        return htmlObject({
+                            className: 'item',
+                            content: [
+                                {
+                                    tag: 'button',
+                                    attributes: {
+                                        type: 'button',
+                                        'aria-label': option.ariaLabel,
+                                    },
+                                    modules: [
+                                        delegateEvents({
+                                            click: () => {
+                                                proxi.activeId = option.id;
+                                                option.callback();
+                                            },
+                                        }),
+                                        bindEffect({
+                                            toggleClass: {
+                                                active: () =>
+                                                    proxi.activeId ===
+                                                    option.id,
+                                            },
+                                            toggleAttribute: {
+                                                'aria-pressed': () =>
+                                                    proxi.activeId === option.id
+                                                        ? 'true'
+                                                        : 'false',
+                                            },
+                                        }),
+                                    ],
+                                    content: {
+                                        tag: 'span',
+                                        className: [
+                                            'content',
+                                            option.icon ? 'icon' : 'label',
+                                        ],
+                                        content:
+                                            icon.length > 0
+                                                ? icon
+                                                : option.text,
+                                    },
+                                },
+                            ],
+                        });
+                    }),
+                },
+            ],
+        },
     });
 };

@@ -109,12 +109,13 @@ export const AccessibilityOverlayFn = ({
                                     /** @type {import('../toggle/type').AccessibilityToggleType['props']} */
                                     ({
                                         className: 'is-accessibility',
-                                        name: 'theme',
+                                        label: 'theme color:',
+                                        ariaLabel: 'select theme',
                                         options: [
                                             {
                                                 icon: 'sun',
                                                 id: 'light',
-                                                value: 'light',
+                                                ariaLabel: 'light theme',
                                                 default: true,
                                                 callback: () => {
                                                     console.log('light');
@@ -123,7 +124,7 @@ export const AccessibilityOverlayFn = ({
                                             {
                                                 icon: 'moon',
                                                 id: 'dark',
-                                                value: 'dark',
+                                                ariaLabel: 'dark theme',
                                                 callback: () => {
                                                     console.log('dark');
                                                 },
