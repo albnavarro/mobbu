@@ -213,6 +213,13 @@
 }
 
 @layer override {
+    :where(.l-rosa) {
+        .open {
+            inset-block-start: rem(20);
+            inset-inline-end: rem(20);
+        }
+    }
+
     [theme='light'] :where(.c-detail-offcanvas) {
         :where(.controls-button) {
             border: 1px rgba(var(--white-rgb), 0.2) solid;
@@ -220,13 +227,6 @@
     }
 
     [dir='rtl'] {
-        :where(.l-rosa) {
-            .open {
-                inset-block-start: rem(20);
-                inset-inline-end: rem(20);
-            }
-        }
-
         :where(.c-detail-offcanvas) {
             :where(dialog) {
                 &[open] {
