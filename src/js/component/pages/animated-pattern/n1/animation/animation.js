@@ -1,5 +1,6 @@
 //@ts-check
 
+import { isDarkTheme } from '@componentLibs/utils/theme-color';
 import { MobCore } from '@mobCore';
 import { offset } from '@mobCoreUtils';
 import { MobJs } from '@mobJs';
@@ -27,6 +28,8 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
     const numberOfRow = 7;
     const numberOfColumn = 15;
     const gutter = window.innerHeight / 150;
+
+    const mainFill = isDarkTheme() ? '#fff' : '#000';
 
     // eslint-disable-next-line unicorn/prefer-set-has
     const fill = [
@@ -231,7 +234,7 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
                     width,
                     height
                 );
-                context.fillStyle = `#000000`;
+                context.fillStyle = mainFill;
                 context.fill();
             }
         );

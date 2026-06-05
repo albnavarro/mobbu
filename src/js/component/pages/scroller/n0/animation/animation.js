@@ -48,6 +48,9 @@ export const scrollerN0Animation = ({
     let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = MobJs.getActiveRoute();
 
+    const mainFill = isDarkTheme() ? '#2e3440' : '#fff';
+    const exeptionFill = isDarkTheme() ? '#fff' : '#000';
+
     /**
      * If offscreen is supported use.
      */
@@ -60,10 +63,6 @@ export const scrollerN0Animation = ({
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-
-    const darkFill = isDarkTheme()
-        ? 'rgba(46, 52, 64, 1)'
-        : 'rgba(255, 255, 255, 1)';
 
     /**
      * Create basic grid.
@@ -190,15 +189,14 @@ export const scrollerN0Animation = ({
                 }
 
                 if (hasFill) {
-                    context.fillStyle = `#000000`;
+                    context.fillStyle = exeptionFill;
                     context.fill();
                 } else {
-                    context.strokeStyle = `#000`;
-                    context.fillStyle = darkFill;
+                    context.fillStyle = mainFill;
                     context.fill();
 
                     if (!useRadius) {
-                        context.strokeStyle = '#ccc';
+                        context.strokeStyle = mainFill;
                     }
                 }
             }

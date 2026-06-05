@@ -51,9 +51,9 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     const cellHeight = window.innerHeight / 20;
     const gutter = 1;
 
-    const darkFill = isDarkTheme()
-        ? 'rgb(46, 52, 64)'
-        : 'rgba(238, 238, 238, 0.9 )';
+    const mainFill = isDarkTheme() ? '#2e3440' : '#fff';
+    const pillarFill = isDarkTheme() ? '#fff' : '#000';
+    const exeptionFill = isDarkTheme() ? '#fff' : '#a86464';
 
     /**
      * Create basic grid.
@@ -323,7 +323,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                             );
                         }
 
-                        context.fillStyle = '#000000';
+                        context.fillStyle = pillarFill;
                         context.fill();
                     }
                 }
@@ -361,7 +361,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                     context.rect(rx, ry, width, height);
                 }
 
-                context.fillStyle = darkFill;
+                context.fillStyle = mainFill;
                 context.fill();
             }
         );
@@ -412,7 +412,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                 );
             }
 
-            context.fillStyle = '#a86464';
+            context.fillStyle = exeptionFill;
             context.fill();
         }
 

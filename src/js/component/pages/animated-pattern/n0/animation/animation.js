@@ -56,9 +56,8 @@ export const animatedPatternN0Animation = ({
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    const darkFill = isDarkTheme()
-        ? 'rgba(46, 52, 64, 0.9)'
-        : 'rgba(238, 238, 238, 0.9)';
+    const mainFill = isDarkTheme() ? '#2e3440' : '#fff';
+    const exeptionFill = isDarkTheme() ? '#fff' : '#000';
 
     /**
      * Create basic grid.
@@ -183,10 +182,10 @@ export const animatedPatternN0Animation = ({
                 }
 
                 if (hasFill) {
-                    context.fillStyle = `#000000`;
+                    context.fillStyle = exeptionFill;
                     context.fill();
                 } else {
-                    context.fillStyle = darkFill;
+                    context.fillStyle = mainFill;
                     context.fill();
                 }
             }
