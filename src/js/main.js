@@ -118,6 +118,7 @@ MobCore.useLoad(() => {
     MobMotionCore.setDefault({
         deferredNextTick: true,
         throttle: 100,
+        defaultMq: { type: 'min', value: 'tablet' },
     });
 
     // MobMotionCore.printDefault();
