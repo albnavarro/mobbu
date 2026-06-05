@@ -11,7 +11,9 @@
             max-inline-size: 80%;
             margin: auto;
             overflow: visible;
+            transition: opacity 0.35s;
             border: 0;
+            opacity: 1;
             background: var(--white);
             color: var(--dark);
             font-size: rem(12);
@@ -20,6 +22,12 @@
             &[open] {
                 display: flex;
                 pointer-events: all;
+            }
+        }
+
+        @starting-style {
+            :scope[open] {
+                opacity: 0;
             }
         }
 
@@ -67,13 +75,7 @@
                 'list';
             grid-template-rows: rem(100) rem(50) 50vh;
             inline-size: 100%;
-            transition: opacity 0.6s;
             border: 1px var(--grey-500) solid;
-            opacity: 0;
-
-            &.active {
-                opacity: 1;
-            }
         }
 
         .title {

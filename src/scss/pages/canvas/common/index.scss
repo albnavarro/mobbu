@@ -38,25 +38,3 @@
         }
     }
 }
-
-@layer override {
-    [dir='rtl'] :where(.c-canvas) {
-        :where(.controls) {
-            transform: translateX(-100%);
-
-            &.active {
-                transform: translateX(0);
-            }
-        }
-
-        :where(.controls-close) {
-            &::before {
-                transform: translate(50%, -50%) rotate(-45deg);
-            }
-
-            &::after {
-                transform: translate(50%, -50%) rotate(-135deg);
-            }
-        }
-    }
-}
