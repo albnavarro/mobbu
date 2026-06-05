@@ -57,22 +57,20 @@
         --nav-width: #{rem(340)};
         --doc-width: none;
         --left-sidebar: none;
+        --right-sidebar: #{rem(290)};
 
         // snippet, global value for height pre-calc.
         --snippet-rem-value: #{strip-unit(rem(14))};
         --snippet-line-height-value: #{strip-unit(rem(18))};
 
         @include mq(tablet) {
-            --doc-width: calc(var(--col-size) * 7);
+            --doc-width: calc(100% - var(--right-sidebar));
             --left-sidebar: #{rem(200)};
-
-            @media screen and (height <= 700px) {
-                --footer-height: #{rem(50)};
-            }
         }
 
         @include mq(desktop) {
             --doc-width: calc(var(--col-size) * 8);
+            --right-sidebar: none;
         }
 
         @include mq(large) {
