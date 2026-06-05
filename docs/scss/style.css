@@ -4421,7 +4421,7 @@
       pointer-events: all;
     }
     &::backdrop {
-      opacity: 0;
+      opacity: 0.5;
       background: var(--grey-100);
     }
     .close {
