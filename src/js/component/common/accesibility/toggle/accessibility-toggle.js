@@ -19,8 +19,6 @@ export const AccessibilityToggleFn = ({
     const activeOption = proxi.options.find((option) => option.default);
     if (activeOption) proxi.activeId = activeOption.id;
 
-    console.log(proxi.label);
-
     return htmlObject({
         className: ['c-accessibility-toggle', proxi.className],
         content: {
@@ -76,7 +74,7 @@ export const AccessibilityToggleFn = ({
                                             option.icon ? 'icon' : 'label',
                                         ],
                                         content:
-                                            icon.length > 0
+                                            icon?.length > 0
                                                 ? icon
                                                 : option.text,
                                     },

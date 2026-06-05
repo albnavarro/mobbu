@@ -1,6 +1,7 @@
 import { htmlObject } from '@mobJs';
 import { AccessibilityToggle } from '../toggle/definition';
 import { setTheme } from '@componentLibs/utils/theme-color';
+import { setSiteDirection } from '@componentLibs/utils/site-direction';
 
 /**
  * @import {
@@ -60,6 +61,71 @@ export const AccessibilityOverlayFn = ({
         };
     });
 
+    const ctas = {
+        content: [
+            {
+                component: AccessibilityToggle,
+                modules: staticProps(
+                    /** @type {import('../toggle/type').AccessibilityToggleType['props']} */
+                    ({
+                        className: 'is-accessibility',
+                        label: 'theme color:',
+                        ariaLabel: 'select theme',
+                        options: [
+                            {
+                                icon: 'sun',
+                                id: 'light',
+                                ariaLabel: 'light theme',
+                                default: true,
+                                callback: () => {
+                                    setTheme({ theme: 'light' });
+                                },
+                            },
+                            {
+                                icon: 'moon',
+                                id: 'dark',
+                                ariaLabel: 'dark theme',
+                                callback: () => {
+                                    setTheme({ theme: 'dark' });
+                                },
+                            },
+                        ],
+                    })
+                ),
+            },
+            {
+                component: AccessibilityToggle,
+                modules: staticProps(
+                    /** @type {import('../toggle/type').AccessibilityToggleType['props']} */
+                    ({
+                        className: 'is-accessibility',
+                        label: 'text direction:',
+                        ariaLabel: 'text direction',
+                        options: [
+                            {
+                                id: 'ltr',
+                                text: 'ltr',
+                                ariaLabel: 'ltr direction',
+                                default: true,
+                                callback: () => {
+                                    setSiteDirection({ direction: 'ltr' });
+                                },
+                            },
+                            {
+                                id: 'rtl',
+                                text: 'rtl',
+                                ariaLabel: 'rtl direction',
+                                callback: () => {
+                                    setSiteDirection({ direction: 'rtl' });
+                                },
+                            },
+                        ],
+                    })
+                ),
+            },
+        ],
+    };
+
     return htmlObject({
         tag: 'dialog',
         className: 'c-accessibility-overlay',
@@ -102,44 +168,7 @@ export const AccessibilityOverlayFn = ({
                                 'Debug Dialog: infos & specific component search',
                         },
                     },
-                    {
-                        content: [
-                            {
-                                component: AccessibilityToggle,
-                                modules: staticProps(
-                                    /** @type {import('../toggle/type').AccessibilityToggleType['props']} */
-                                    ({
-                                        className: 'is-accessibility',
-                                        label: 'theme color:',
-                                        ariaLabel: 'select theme',
-                                        options: [
-                                            {
-                                                icon: 'sun',
-                                                id: 'light',
-                                                ariaLabel: 'light theme',
-                                                default: true,
-                                                callback: () => {
-                                                    setTheme({
-                                                        theme: 'light',
-                                                    });
-                                                },
-                                            },
-                                            {
-                                                icon: 'moon',
-                                                id: 'dark',
-                                                ariaLabel: 'dark theme',
-                                                callback: () => {
-                                                    setTheme({
-                                                        theme: 'dark',
-                                                    });
-                                                },
-                                            },
-                                        ],
-                                    })
-                                ),
-                            },
-                        ],
-                    },
+                    ctas,
                 ],
             },
         ],

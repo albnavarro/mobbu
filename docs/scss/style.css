@@ -4504,6 +4504,10 @@
       fill: none;
       stroke-linejoin: round;
     }
+    .label {
+      letter-spacing: 0.125rem;
+      text-transform: uppercase;
+    }
   }
 }
 @layer layout {

@@ -1,5 +1,5 @@
 import { isDarkTheme } from '@componentLibs/utils/theme-color';
-import { isRtlDirection } from '@componentLibs/utils/is-rtl';
+import { isRtlDirection } from '@componentLibs/utils/site-direction';
 import { MobCore } from '@mobCore';
 import { outerHeight } from '@mobCoreUtils';
 import { MobTween } from '@mobMotion';

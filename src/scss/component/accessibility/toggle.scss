@@ -52,5 +52,10 @@
             fill: none;
             stroke-linejoin: round;
         }
+
+        .label {
+            letter-spacing: rem(2);
+            text-transform: uppercase;
+        }
     }
 }

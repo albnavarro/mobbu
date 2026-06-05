@@ -1,4 +1,4 @@
-import { isRtlDirection } from '@componentLibs/utils/is-rtl';
+import { isRtlDirection } from '@componentLibs/utils/site-direction';
 import { MobScroll } from '@mobMotion';
 import { MobSmoothScroller } from '@mobMotionPlugin';
 
