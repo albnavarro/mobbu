@@ -25,10 +25,6 @@ export const ScrollerN1 = MobJs.createComponent(
         },
         state: {
             isMounted: false,
-            controlsActive: {
-                __value: false,
-                __type: Boolean,
-            },
             rotation: {
                 __value: 720,
                 __type: Number,

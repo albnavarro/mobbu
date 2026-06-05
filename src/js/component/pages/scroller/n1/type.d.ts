@@ -7,7 +7,6 @@ export interface ScrollerN1 {
     };
     state: {
         isMounted: boolean;
-        controlsActive: boolean;
         rotation: number;
         rotationlabel: number;
     };
