@@ -32,7 +32,7 @@
             block-size: rem(40);
             inline-size: rem(40);
             border: 0;
-            outline-color: var(--white);
+            outline-color: var(--immutable-white);
             background: transparent;
             inset-block-start: rem(10);
             inset-inline-end: rem(10);
@@ -43,7 +43,7 @@
                 position: absolute;
                 block-size: 2px;
                 inline-size: rem(20);
-                background: var(--white);
+                background: var(--immutable-white);
                 inset-block-start: 50%;
                 inset-inline-start: 50%;
             }
@@ -58,28 +58,49 @@
         }
 
         dialog {
-            flex-direction: column;
-            align-items: flex-end;
             block-size: calc(
                 100vh - var(--header-height) - var(--footer-height)
             );
             inline-size: rem(250);
             margin: 0;
             margin-inline-start: auto;
-            padding: rem(60) rem(20) rem(20);
-            transition: transform 0.35s;
+            transform: translateX(100%);
+            transition:
+                transform 0.3s ease,
+                overlay 0.3s ease;
             border: 0;
-            background: var(--dark);
+            background: var(--immutable-dark);
+            color: var(--immutable-white);
             list-style: none;
             inset-block-start: var(--header-height);
             inset-inline-end: 0;
+
+            &[open] {
+                transform: translateX(0);
+            }
+
+            &::backdrop {
+                opacity: 0.1;
+                background: var(--grey-100);
+            }
+        }
+
+        @starting-style {
+            dialog[open] {
+                transform: translateX(100%);
+            }
+        }
+
+        .container {
+            block-size: 100%;
+            padding: rem(60) rem(20) rem(20);
         }
 
         .controls-item {
             display: block;
             flex: 0 0 auto;
             inline-size: 100%;
-            margin-block-end: rem(24);
+            margin-block-end: rem(12);
             text-align: center;
 
             &:last-of-type {
@@ -95,16 +116,21 @@
             transition:
                 background 0.35s,
                 color 0.35s;
-            border: 1px rgba(var(--white-rgb), 0.3) solid;
+            border: 1px var(--grey-300) solid;
             background: transparent;
-            color: var(--white);
             font-size: rem(14);
             text-align: end;
 
             &:hover,
             &.active {
-                background: var(--white);
-                color: var(--dark);
+                background: var(--immutable-white);
+                color: var(--immutable-dark);
+            }
+
+            @include on-event {
+                outline-color: var(--immutable-white);
+                background: var(--immutable-white);
+                color: var(--immutable-dark);
             }
 
             &[disabled] {
@@ -114,21 +140,20 @@
         }
 
         .controls-label {
+            display: block;
             margin-block-end: 0;
-            color: var(--white);
             font-size: rem(14);
             font-weight: 400;
+            text-align: end;
         }
 
         .controls-status {
-            color: var(--white);
             text-align: end;
         }
 
         .controls-range-value {
             display: block;
             margin-block-start: rem(16);
-            color: var(--white);
             text-align: start;
         }
 
@@ -143,7 +168,8 @@
                 z-index: 1;
                 block-size: 1px;
                 inline-size: 100%;
-                background: rgba(var(--white-rgb), 0.5);
+                opacity: 0.2;
+                background: var(--immutable-white);
                 inset-block-start: 50%;
                 inset-inline-start: 0;
             }
@@ -154,7 +180,7 @@
                 inline-size: 100%;
                 margin: auto;
                 background: transparent;
-                color: var(--white);
+                color: var(--immutable-white);
                 cursor: pointer;
                 pointer-events: all;
                 appearance: none;
@@ -164,7 +190,7 @@
                     inline-size: rem(15);
                     border: 0;
                     border-radius: 100%;
-                    background: var(--white);
+                    background: var(--immutable-white);
                     cursor: pointer;
                     appearance: none;
                 }
@@ -174,7 +200,7 @@
                     inline-size: rem(15);
                     border: 0;
                     border-radius: 100%;
-                    background: var(--white);
+                    background: var(--immutable-white);
                     cursor: pointer;
                     appearance: none;
                 }
@@ -182,13 +208,18 @@
         }
 
         .dynamic-result {
-            color: var(--white);
             text-align: end;
         }
     }
 }
 
 @layer override {
+    [theme='light'] :where(.c-detail-offcanvas) {
+        :where(.controls-button) {
+            border: 1px rgba(var(--white-rgb), 0.2) solid;
+        }
+    }
+
     :where(.l-rosa) {
         .open {
             inset-block-start: rem(20);

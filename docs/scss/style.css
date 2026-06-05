@@ -2817,63 +2817,6 @@
     }
   }
 }
-.l-move3d-page .controls-range {
-  position: relative;
-  margin-block-end: 0.3125rem;
-  pointer-events: none;
-}
-.l-move3d-page .controls-range::after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  block-size: 1px;
-  inline-size: 100%;
-  background: var(--grey-200);
-  inset-block-start: 50%;
-  inset-inline-start: 0;
-}
-.l-move3d-page .controls-range input {
-  display: block;
-  position: relative;
-  inline-size: 100%;
-  margin: auto;
-  background: transparent;
-  cursor: pointer;
-  pointer-events: all;
-  appearance: none;
-}
-.l-move3d-page .controls-range input::-webkit-slider-thumb {
-  block-size: 0.9375rem;
-  inline-size: 0.9375rem;
-  border: 0;
-  border-radius: 100%;
-  background: var(--grey-200);
-  cursor: pointer;
-  appearance: none;
-}
-.l-move3d-page .controls-range input::-moz-range-thumb {
-  block-size: 0.9375rem;
-  inline-size: 0.9375rem;
-  border: 0;
-  border-radius: 100%;
-  background: var(--grey-200);
-  cursor: pointer;
-  appearance: none;
-}
-@layer direction {
-  [dir=rtl] :where(.l-move3d-page) :where(.controls) {
-    transform: translateX(-100%);
-  }
-  [dir=rtl] :where(.l-move3d-page) :where(.controls).active {
-    transform: translateX(0);
-  }
-  [dir=rtl] :where(.l-move3d-page) :where(.close-controls)::before {
-    transform: translate(50%, -50%) rotate(-45deg);
-  }
-  [dir=rtl] :where(.l-move3d-page) :where(.close-controls)::after {
-    transform: translate(50%, -50%) rotate(-135deg);
-  }
-}
 @layer layout {
   @scope (.l-dragger) to (.c-dragger) {
     :scope {
@@ -6036,7 +5979,7 @@
       block-size: 2.5rem;
       inline-size: 2.5rem;
       border: 0;
-      outline-color: var(--white);
+      outline-color: var(--immutable-white);
       background: transparent;
       inset-block-start: 0.625rem;
       inset-inline-end: 0.625rem;
@@ -6047,7 +5990,7 @@
       position: absolute;
       block-size: 2px;
       inline-size: 1.25rem;
-      background: var(--white);
+      background: var(--immutable-white);
       inset-block-start: 50%;
       inset-inline-start: 50%;
     }
@@ -6058,25 +6001,40 @@
       transform: translate(-50%, -50%) rotate(135deg);
     }
     dialog {
-      flex-direction: column;
-      align-items: flex-end;
       block-size: calc(100vh - var(--header-height) - var(--footer-height));
       inline-size: 15.625rem;
       margin: 0;
       margin-inline-start: auto;
-      padding: 3.75rem 1.25rem 1.25rem;
-      transition: transform 0.35s;
+      transform: translateX(100%);
+      transition: transform 0.3s ease, overlay 0.3s ease;
       border: 0;
-      background: var(--dark);
+      background: var(--immutable-dark);
+      color: var(--immutable-white);
       list-style: none;
       inset-block-start: var(--header-height);
       inset-inline-end: 0;
+    }
+    dialog[open] {
+      transform: translateX(0);
+    }
+    dialog::backdrop {
+      opacity: 0.1;
+      background: var(--grey-100);
+    }
+    @starting-style {
+      dialog[open] {
+        transform: translateX(100%);
+      }
+    }
+    .container {
+      block-size: 100%;
+      padding: 3.75rem 1.25rem 1.25rem;
     }
     .controls-item {
       display: block;
       flex: 0 0 auto;
       inline-size: 100%;
-      margin-block-end: 1.5rem;
+      margin-block-end: 0.75rem;
       text-align: center;
     }
     .controls-item:last-of-type {
@@ -6088,35 +6046,40 @@
       margin-block: 0 calc(var(--gap-size) / 5);
       padding: 0.3125rem 0.625rem;
       transition: background 0.35s, color 0.35s;
-      border: 1px rgba(var(--white-rgb), 0.3) solid;
+      border: 1px var(--grey-300) solid;
       background: transparent;
-      color: var(--white);
       font-size: 0.875rem;
       text-align: end;
     }
     .controls-button:hover,
     .controls-button.active {
-      background: var(--white);
-      color: var(--dark);
+      background: var(--immutable-white);
+      color: var(--immutable-dark);
+    }
+    .controls-button:hover,
+    .controls-button:active,
+    .controls-button:focus {
+      outline-color: var(--immutable-white);
+      background: var(--immutable-white);
+      color: var(--immutable-dark);
     }
     .controls-button[disabled] {
       opacity: 0.4;
       pointer-events: none;
     }
     .controls-label {
+      display: block;
       margin-block-end: 0;
-      color: var(--white);
       font-size: 0.875rem;
       font-weight: 400;
+      text-align: end;
     }
     .controls-status {
-      color: var(--white);
       text-align: end;
     }
     .controls-range-value {
       display: block;
       margin-block-start: 1rem;
-      color: var(--white);
       text-align: start;
     }
     .controls-range {
@@ -6130,7 +6093,8 @@
       z-index: 1;
       block-size: 1px;
       inline-size: 100%;
-      background: rgba(var(--white-rgb), 0.5);
+      opacity: 0.2;
+      background: var(--immutable-white);
       inset-block-start: 50%;
       inset-inline-start: 0;
     }
@@ -6140,7 +6104,7 @@
       inline-size: 100%;
       margin: auto;
       background: transparent;
-      color: var(--white);
+      color: var(--immutable-white);
       cursor: pointer;
       pointer-events: all;
       appearance: none;
@@ -6150,7 +6114,7 @@
       inline-size: 0.9375rem;
       border: 0;
       border-radius: 100%;
-      background: var(--white);
+      background: var(--immutable-white);
       cursor: pointer;
       appearance: none;
     }
@@ -6159,17 +6123,19 @@
       inline-size: 0.9375rem;
       border: 0;
       border-radius: 100%;
-      background: var(--white);
+      background: var(--immutable-white);
       cursor: pointer;
       appearance: none;
     }
     .dynamic-result {
-      color: var(--white);
       text-align: end;
     }
   }
 }
 @layer override {
+  [theme=light] :where(.c-detail-offcanvas) :where(.controls-button) {
+    border: 1px rgba(var(--white-rgb), 0.2) solid;
+  }
   :where(.l-rosa) .open {
     inset-block-start: 1.25rem;
     inset-inline-end: 1.25rem;
