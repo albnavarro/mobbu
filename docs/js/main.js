@@ -46718,6 +46718,8 @@
     bindEffect
   }) => {
     const proxi = getSelfProxi();
+    const activeOption = proxi.options.find((option) => option.default);
+    if (activeOption) proxi.activeId = activeOption.id;
     return htmlObject({
       className: ["c-accessibility-toggle", proxi.className],
       attributes: {
@@ -46727,12 +46729,10 @@
         {
           content: proxi.options.map((option) => {
             const icon = getIcons()[option?.icon ?? ""];
-            console.log(option);
             return htmlObject({
               content: [
                 {
                   tag: "button",
-                  className: option.default ? "active" : "",
                   attributes: {
                     type: "button"
                   },

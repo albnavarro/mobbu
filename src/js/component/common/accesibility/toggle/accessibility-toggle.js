@@ -13,6 +13,12 @@ export const AccessibilityToggleFn = ({
 }) => {
     const proxi = getSelfProxi();
 
+    /**
+     * Get first active id to set initial state.
+     */
+    const activeOption = proxi.options.find((option) => option.default);
+    if (activeOption) proxi.activeId = activeOption.id;
+
     return htmlObject({
         className: ['c-accessibility-toggle', proxi.className],
         attributes: {
@@ -22,13 +28,11 @@ export const AccessibilityToggleFn = ({
             {
                 content: proxi.options.map((option) => {
                     const icon = getIcons()[option?.icon ?? ''];
-                    console.log(option);
 
                     return htmlObject({
                         content: [
                             {
                                 tag: 'button',
-                                className: option.default ? 'active' : '',
                                 attributes: {
                                     type: 'button',
                                 },
