@@ -91,7 +91,10 @@ export const DetailOffCanvasFn = ({
                         {
                             tag: 'button',
                             className: 'close',
-                            attributes: { type: 'button' },
+                            attributes: {
+                                type: 'button',
+                                'aria-label': 'close detail dialog',
+                            },
                             modules: delegateEvents({
                                 click: () => {
                                     closeOverlay({ getRef, proxi });
