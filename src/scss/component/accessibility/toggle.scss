@@ -3,27 +3,45 @@
 @layer layout {
     @scope (.c-accessibility-toggle) {
         :scope {
-            display: inline-block;
-            display: grid;
+            display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: space-evenly;
+            padding: rem(10);
+            border: 1px rgba(var(--white-rgb), 0.2) solid;
+            gap: rem(20);
         }
 
         button {
+            padding: rem(5);
             border: 0;
             background: transparent;
 
             &.active {
-                background: red;
+                border-block-end: 4px var(--white) solid;
             }
         }
 
+        .content {
+            display: block;
+        }
+    }
+}
+
+@layer user {
+    @scope (.is-accessibility) {
         .icon {
-            svg {
-                block-size: rem(20);
-                inline-size: rem(20);
-                fill: var(--white);
-            }
+            block-size: rem(30);
+            inline-size: rem(30);
+        }
+
+        svg {
+            block-size: 100%;
+            inline-size: 100%;
+            stroke-width: 1;
+            stroke-linecap: round;
+            stroke: var(--white);
+            fill: none;
+            stroke-linejoin: round;
         }
     }
 }

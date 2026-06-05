@@ -21,49 +21,42 @@ export const AccessibilityToggleFn = ({
 
     return htmlObject({
         className: ['c-accessibility-toggle', proxi.className],
-        attributes: {
-            role: 'radiogroup',
-        },
-        content: [
-            {
-                content: proxi.options.map((option) => {
-                    const icon = getIcons()[option?.icon ?? ''];
+        attributes: {},
+        content: proxi.options.map((option) => {
+            const icon = getIcons()[option?.icon ?? ''];
 
-                    return htmlObject({
-                        content: [
-                            {
-                                tag: 'button',
-                                attributes: {
-                                    type: 'button',
+            return htmlObject({
+                className: 'item',
+                content: [
+                    {
+                        tag: 'button',
+                        attributes: {
+                            type: 'button',
+                        },
+                        modules: [
+                            delegateEvents({
+                                click: () => {
+                                    proxi.activeId = option.id;
+                                    option.callback();
                                 },
-                                modules: [
-                                    delegateEvents({
-                                        click: () => {
-                                            proxi.activeId = option.id;
-                                            option.callback();
-                                        },
-                                    }),
-                                    bindEffect({
-                                        toggleClass: {
-                                            active: () =>
-                                                proxi.activeId === option.id,
-                                        },
-                                    }),
-                                ],
-                                content: {
-                                    tag: 'span',
-                                    className: [
-                                        'content',
-                                        option.icon ? 'icon' : 'label',
-                                    ],
-                                    content:
-                                        icon.length > 0 ? icon : option.value,
+                            }),
+                            bindEffect({
+                                toggleClass: {
+                                    active: () => proxi.activeId === option.id,
                                 },
-                            },
+                            }),
                         ],
-                    });
-                }),
-            },
-        ],
+                        content: {
+                            tag: 'span',
+                            className: [
+                                'content',
+                                option.icon ? 'icon' : 'label',
+                            ],
+                            content: icon.length > 0 ? icon : option.value,
+                        },
+                    },
+                ],
+            });
+        }),
     });
 };

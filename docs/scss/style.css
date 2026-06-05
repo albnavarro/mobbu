@@ -4459,22 +4459,40 @@
 @layer layout {
   @scope (.c-accessibility-toggle) {
     :scope {
-      display: inline-block;
-      display: grid;
+      display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-evenly;
+      padding: 0.625rem;
+      border: 1px rgba(var(--white-rgb), 0.2) solid;
+      gap: 1.25rem;
     }
     button {
+      padding: 0.3125rem;
       border: 0;
       background: transparent;
     }
     button.active {
-      background: red;
+      border-block-end: 4px var(--white) solid;
     }
-    .icon svg {
-      block-size: 1.25rem;
-      inline-size: 1.25rem;
-      fill: var(--white);
+    .content {
+      display: block;
+    }
+  }
+}
+@layer user {
+  @scope (.is-accessibility) {
+    .icon {
+      block-size: 1.875rem;
+      inline-size: 1.875rem;
+    }
+    svg {
+      block-size: 100%;
+      inline-size: 100%;
+      stroke-width: 1;
+      stroke-linecap: round;
+      stroke: var(--white);
+      fill: none;
+      stroke-linejoin: round;
     }
   }
 }
