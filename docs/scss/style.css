@@ -4457,6 +4457,13 @@
   }
 }
 @layer layout {
+  @scope (.c-accessibility-toggle) {
+    :scope {
+      background: pink;
+    }
+  }
+}
+@layer layout {
   @scope (.html-content) {
     :scope {
       position: relative;

@@ -46709,6 +46709,67 @@
     }
   );
 
+  // src/js/component/common/accesibility/toggle/accessibility-toggle.js
+  var AccessibilityToggleFn = ({ getSelfProxi }) => {
+    const proxi = getSelfProxi();
+    console.log(proxi.option_a);
+    console.log(proxi.option_b);
+    return htmlObject({
+      className: "c-accessibility-toggle",
+      attributes: {},
+      content: "toggle"
+    });
+  };
+
+  // src/js/component/common/accesibility/toggle/definition.js
+  var AccessibilityToggle = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').AccessibilityToggleType>} */
+    {
+      tag: "accessibility-toggle",
+      component: AccessibilityToggleFn,
+      props: {
+        option_a: {
+          label: {
+            __value: "",
+            __type: String
+          },
+          icon: {
+            __value: "",
+            __type: String
+          },
+          id: {
+            __value: "",
+            __type: String
+          },
+          callback: {
+            __value: () => {
+            },
+            __type: Function
+          }
+        },
+        option_b: {
+          label: {
+            __value: "",
+            __type: String
+          },
+          icon: {
+            __value: "",
+            __type: String
+          },
+          id: {
+            __value: "",
+            __type: String
+          },
+          callback: {
+            __value: () => {
+            },
+            __type: Function
+          }
+        }
+      }
+    }
+  );
+
   // src/js/component/common/accesibility/overlay/accessibility-overlay.js
   var closeOverlay2 = ({ proxi, getRef }) => {
     proxi.active = false;
@@ -46728,7 +46789,8 @@
     getSelfProxi,
     onMount,
     setRef,
-    getRef
+    getRef,
+    staticProps: staticProps2
   }) => {
     const proxi = getSelfProxi();
     addMethod("open", () => {
@@ -46784,7 +46846,30 @@
               }
             },
             {
-              content: "pippo e pluto"
+              content: [
+                {
+                  component: AccessibilityToggle,
+                  modules: staticProps2(
+                    /** @type {import('../toggle/type').AccessibilityToggleType['props']} */
+                    {
+                      option_a: {
+                        label: "light",
+                        id: "light",
+                        callback: () => {
+                          console.log("light");
+                        }
+                      },
+                      option_b: {
+                        label: "dark",
+                        id: "dark",
+                        callback: () => {
+                          console.log("dark");
+                        }
+                      }
+                    }
+                  )
+                }
+              ]
             }
           ]
         }

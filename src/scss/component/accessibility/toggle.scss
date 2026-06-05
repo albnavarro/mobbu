@@ -1,0 +1,9 @@
+@use '../../abstract' as *;
+
+@layer layout {
+    @scope (.c-accessibility-toggle) {
+        :scope {
+            background: pink;
+        }
+    }
+}

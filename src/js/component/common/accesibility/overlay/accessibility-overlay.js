@@ -1,4 +1,5 @@
 import { htmlObject } from '@mobJs';
+import { AccessibilityToggle } from '../toggle/definition';
 
 /**
  * @import {
@@ -40,6 +41,7 @@ export const AccessibilityOverlayFn = ({
     onMount,
     setRef,
     getRef,
+    staticProps,
 }) => {
     const proxi = getSelfProxi();
 
@@ -100,7 +102,30 @@ export const AccessibilityOverlayFn = ({
                         },
                     },
                     {
-                        content: 'pippo e pluto',
+                        content: [
+                            {
+                                component: AccessibilityToggle,
+                                modules: staticProps(
+                                    /** @type {import('../toggle/type').AccessibilityToggleType['props']} */
+                                    ({
+                                        option_a: {
+                                            label: 'light',
+                                            id: 'light',
+                                            callback: () => {
+                                                console.log('light');
+                                            },
+                                        },
+                                        option_b: {
+                                            label: 'dark',
+                                            id: 'dark',
+                                            callback: () => {
+                                                console.log('dark');
+                                            },
+                                        },
+                                    })
+                                ),
+                            },
+                        ],
                     },
                 ],
             },
