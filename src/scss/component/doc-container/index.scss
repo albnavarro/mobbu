@@ -71,7 +71,7 @@
             overflow: hidden;
             inset-block-start: var(--header-height);
 
-            @include mq('desktop') {
+            @include mq(tablet) {
                 display: block;
             }
 

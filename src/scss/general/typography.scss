@@ -41,8 +41,13 @@
     }
 
     h1 {
-        font-size: rem(40px);
-        line-height: line-height(40, 55);
+        font-size: rem(25px);
+        line-height: line-height(25, 45);
+
+        @include mq(desktop) {
+            font-size: rem(40px);
+            line-height: line-height(40, 55);
+        }
     }
 
     h2 {

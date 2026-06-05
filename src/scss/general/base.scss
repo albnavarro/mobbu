@@ -63,12 +63,16 @@
         --snippet-line-height-value: #{strip-unit(rem(18))};
 
         @include mq(tablet) {
-            --doc-width: calc(var(--col-size) * 8);
+            --doc-width: calc(var(--col-size) * 7);
             --left-sidebar: #{rem(200)};
 
             @media screen and (height <= 700px) {
                 --footer-height: #{rem(50)};
             }
+        }
+
+        @include mq(desktop) {
+            --doc-width: calc(var(--col-size) * 8);
         }
 
         @include mq(large) {

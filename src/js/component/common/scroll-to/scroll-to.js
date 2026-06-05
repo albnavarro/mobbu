@@ -1,7 +1,6 @@
 import { MobCore } from '@mobCore';
 import { offset } from '@mobCoreUtils';
 import { htmlObject, MobJs } from '@mobJs';
-import { MobMotionCore } from '@mobMotion';
 import { MobBodyScroll } from '@mobMotionPlugin';
 import { ScrollToButton } from './button/definition';
 
@@ -145,8 +144,6 @@ export const ScrollToFn = ({
     });
 
     onMount(() => {
-        if (MobMotionCore.mq('max', 'desktop')) return;
-
         /**
          * SpacerAnchor add label in different time during render. Use computed to get last array of label completed.
          *

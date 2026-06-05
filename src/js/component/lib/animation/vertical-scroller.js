@@ -23,7 +23,7 @@ export const verticalScroller = ({
                 direction: 'vertical',
                 drag: true,
                 scopedEvent: false,
-                breakpoint: 'desktop',
+                breakpoint: 'tablet',
                 syncTab: true,
                 fixedTab,
                 syncArrow: true,
