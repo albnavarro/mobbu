@@ -1,7 +1,4 @@
-import {
-    getSideBarLinkRoot,
-    openSideBarLinkTablet,
-} from '@commonComponent/side-bar-links/utils';
+import { openSideBarLinkTablet } from '@commonComponent/side-bar-links/utils';
 import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
@@ -17,8 +14,6 @@ export const DocContainerFn = ({
     bindEffect,
     onMount,
     watch,
-    setRef,
-    getRef,
 }) => {
     const proxi = getSelfProxi();
 
@@ -56,29 +51,10 @@ export const DocContainerFn = ({
             proxi.rightSidebarVisible = false;
         });
 
-        /**
-         * Close sidebar when click outside
-         */
-        const unsubScribePointer = MobCore.usePointerDown((event) => {
-            const target = /** @type {HTMLElement} */ (event.target);
-
-            const aside = getRef().asideRight;
-            const sideBarLinks = getSideBarLinkRoot();
-
-            if (
-                target !== aside &&
-                target !== sideBarLinks &&
-                !aside.contains(target) &&
-                !sideBarLinks.contains(target)
-            )
-                proxi.rightSidebarVisible = false;
-        });
-
         return () => {
             unsubscribeResize();
             unsubScribeRoute();
             unsubscribeEscHandler();
-            unsubScribePointer();
             openSideBarLinkTablet(false);
         };
     });
@@ -104,7 +80,6 @@ export const DocContainerFn = ({
                     'aria-label': 'right section utils',
                 },
                 modules: [
-                    setRef('asideRight'),
                     bindEffect({
                         toggleClass: {
                             visible: () => proxi.rightSidebarVisible,
@@ -152,11 +127,19 @@ export const DocContainerFn = ({
                             },
                             {
                                 className: 'off-canvas-backdrop',
-                                modules: bindEffect({
-                                    toggleClass: {
-                                        active: () => proxi.rightSidebarVisible,
-                                    },
-                                }),
+                                modules: [
+                                    bindEffect({
+                                        toggleClass: {
+                                            active: () =>
+                                                proxi.rightSidebarVisible,
+                                        },
+                                    }),
+                                    delegateEvents({
+                                        click: () => {
+                                            proxi.rightSidebarVisible = false;
+                                        },
+                                    }),
+                                ],
                             },
                         ],
                     },

@@ -25848,10 +25848,6 @@
     const methods = modules_exports2.useMethodByName(sideBarLinksName);
     methods.toggleTablet(visible);
   };
-  var getSideBarLinkRoot = () => {
-    const methods = modules_exports2.useMethodByName(sideBarLinksName);
-    return methods.getRoot();
-  };
 
   // src/js/component/common/doc-container/doc-container.js
   var DocContainerFn = ({
@@ -25859,9 +25855,7 @@
     delegateEvents,
     bindEffect,
     onMount,
-    watch,
-    setRef,
-    getRef
+    watch
   }) => {
     const proxi = getSelfProxi();
     watch(
@@ -25882,21 +25876,10 @@
         if (!proxi.rightSidebarVisible) return;
         proxi.rightSidebarVisible = false;
       });
-      const unsubScribePointer = modules_exports.usePointerDown((event) => {
-        const target = (
-          /** @type {HTMLElement} */
-          event.target
-        );
-        const aside = getRef().asideRight;
-        const sideBarLinks = getSideBarLinkRoot();
-        if (target !== aside && target !== sideBarLinks && !aside.contains(target) && !sideBarLinks.contains(target))
-          proxi.rightSidebarVisible = false;
-      });
       return () => {
         unsubscribeResize();
         unsubScribeRoute();
         unsubscribeEscHandler2();
-        unsubScribePointer();
         openSideBarLinkTablet(false);
       };
     });
@@ -25921,7 +25904,6 @@
             "aria-label": "right section utils"
           },
           modules: [
-            setRef("asideRight"),
             bindEffect({
               toggleClass: {
                 visible: () => proxi.rightSidebarVisible
@@ -25961,11 +25943,18 @@
                 },
                 {
                   className: "off-canvas-backdrop",
-                  modules: bindEffect({
-                    toggleClass: {
-                      active: () => proxi.rightSidebarVisible
-                    }
-                  })
+                  modules: [
+                    bindEffect({
+                      toggleClass: {
+                        active: () => proxi.rightSidebarVisible
+                      }
+                    }),
+                    delegateEvents({
+                      click: () => {
+                        proxi.rightSidebarVisible = false;
+                      }
+                    })
+                  ]
                 }
               ]
             },
@@ -40761,7 +40750,6 @@
     onMount(({ element }) => {
       const { screenEl, scrollerEl, scrollbar } = getRef();
       let isActive2 = false;
-      addMethod("getRoot", () => element);
       scrollbar.addEventListener("input", () => {
         move2?.(scrollbar.value);
       });

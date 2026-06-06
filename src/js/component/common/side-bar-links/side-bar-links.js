@@ -91,8 +91,6 @@ export const SideBarLinksFn = ({
         const { screenEl, scrollerEl, scrollbar } = getRef();
         let isActive = false;
 
-        addMethod('getRoot', () => element);
-
         scrollbar.addEventListener('input', () => {
             // @ts-ignore
             move?.(scrollbar.value);

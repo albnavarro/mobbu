@@ -13,12 +13,3 @@ export const openSideBarLinkTablet = (visible) => {
     const methods = MobJs.useMethodByName(sideBarLinksName);
     methods.toggleTablet(visible);
 };
-
-/**
- * @returns {HTMLElement}
- */
-export const getSideBarLinkRoot = () => {
-    /** @type {UseMethodByName<import('./type').SideBarLinks>} */
-    const methods = MobJs.useMethodByName(sideBarLinksName);
-    return methods.getRoot();
-};

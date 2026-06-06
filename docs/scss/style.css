@@ -4546,7 +4546,7 @@
     }
     .off-canvas-backdrop {
       position: absolute;
-      inline-size: 1000px;
+      inline-size: 125rem;
       transition: opacity 0.35s;
       opacity: 0;
       background: rgba(var(--white-rgb), 0.7);
@@ -4556,6 +4556,7 @@
     }
     .off-canvas-backdrop.active {
       opacity: 1;
+      pointer-events: all;
     }
     .right {
       position: sticky;
