@@ -4534,7 +4534,7 @@
       grid-column: 2/span 1;
       align-self: start;
       block-size: calc(100vh - var(--header-height) - var(--footer-height));
-      min-inline-size: 15.625rem;
+      min-inline-size: 18.75rem;
       transform: translateX(var(--gap-size));
       transition: transform 0.35s;
       background: var(--white);
@@ -4548,6 +4548,7 @@
       .right {
         border-inline-start: 0;
         transform: translateX(0);
+        min-inline-size: 15.625rem;
       }
     }
     @media (min-width: 75em) {
