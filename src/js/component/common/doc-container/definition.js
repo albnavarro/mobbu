@@ -6,9 +6,15 @@ import { DocContainerFn } from './doc-container';
  */
 
 export const DocContainer = MobJs.createComponent(
-    /** @type {CreateComponentParams<any>} */
+    /** @type {CreateComponentParams<import('./type').DocContainerType>} */
     ({
         tag: 'doc-container',
         component: DocContainerFn,
+        state: {
+            rightSidebarVisible: {
+                __value: false,
+                __type: Boolean,
+            },
+        },
     })
 );

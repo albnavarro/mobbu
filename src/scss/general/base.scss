@@ -55,7 +55,7 @@
         --header-height: calc(var(--gap-size) * 2);
         --footer-height: calc(var(--gap-size) * 1.2);
         --nav-width: #{rem(340)};
-        --doc-width: none;
+        --doc-width: calc(100% - var(--gap-size));
         --left-sidebar: none;
         --right-sidebar: #{rem(290)};
 
@@ -64,7 +64,6 @@
         --snippet-line-height-value: #{strip-unit(rem(18))};
 
         @include mq(tablet) {
-            --doc-width: calc(100% - var(--right-sidebar));
             --left-sidebar: #{rem(200)};
         }
 

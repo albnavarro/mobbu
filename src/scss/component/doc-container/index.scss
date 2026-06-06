@@ -5,7 +5,11 @@
         :scope {
             display: grid;
             position: relative;
-            grid-template-columns: var(--doc-width) 1fr;
+            grid-template-columns: var(--doc-width);
+
+            @include mq(desktop) {
+                grid-template-columns: var(--doc-width) 1fr;
+            }
 
             @include mq(large) {
                 grid-template-columns: var(--left-sidebar) var(--doc-width) 1fr;
@@ -58,8 +62,20 @@
             }
         }
 
+        .off-canvas-control {
+            position: absolute;
+            inset-block: 0;
+            inset-inline-end: 100%;
+            inline-size: var(--gap-size);
+            border: 0;
+            background: var(--grey-100);
+
+            @include mq(desktop) {
+                display: none;
+            }
+        }
+
         .right {
-            display: none;
             position: sticky;
             z-index: 14;
             grid-column: 2 / span 1;
@@ -68,11 +84,19 @@
                 100vh - var(--header-height) - var(--footer-height)
             );
             min-inline-size: rem(250);
-            overflow: hidden;
+            transform: translateX(var(--gap-size));
+            transition: transform 0.35s;
+            background: var(--white);
             inset-block-start: var(--header-height);
+            border-inline-start: 1px var(--grey-400) solid;
 
-            @include mq(tablet) {
-                display: block;
+            &.visible {
+                transform: translateX(-100%);
+            }
+
+            @include mq(desktop) {
+                border-inline-start: 0;
+                transform: translateX(0);
             }
 
             @include mq(large) {
