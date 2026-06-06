@@ -69,7 +69,7 @@
             justify-content: center;
             inline-size: var(--gap-size);
             border: 0;
-            background: var(--grey-100);
+            background: var(--dark);
             inset-block: 0;
             inset-inline-end: 100%;
 
@@ -81,11 +81,11 @@
         .off-canvas-icon {
             block-size: rem(16);
             inline-size: rem(16);
-            transform: translateX(50%) rotate(135deg);
+            transform: translateX(calc(50% + #{rem(8)})) rotate(135deg);
             inset-block-start: -1px;
             inset-inline-start: 1px;
-            border-inline-end: 4px var(--dark) solid;
-            border-block-end: 4px var(--dark) solid;
+            border-inline-end: 4px var(--white) solid;
+            border-block-end: 4px var(--white) solid;
             transition: transform 0.35s;
 
             &.active {
@@ -140,7 +140,7 @@
         }
 
         :where(.off-canvas-icon) {
-            transform: translateX(-50%) rotate(-135deg);
+            transform: translateX(calc(-50% - #{rem(8)})) rotate(-135deg);
 
             &.active {
                 transform: translateX(-50%) rotate(45deg);
