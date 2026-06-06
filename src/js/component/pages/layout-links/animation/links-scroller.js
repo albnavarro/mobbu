@@ -14,6 +14,7 @@ export const linksScroller = ({
         useHorizontalScroll: true,
         easeType: 'lerp',
         breakpoint: 'small',
+        syncTab: true,
         afterInit: ({ shouldScroll }) => {
             hideControls(shouldScroll);
         },
