@@ -1,14 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -62,7 +54,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "initialization",
                 "label": "Initialization"
             }
@@ -113,7 +104,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "component",
                 "label": "Component"
             }
@@ -149,7 +139,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "htmlObject",
                 "label": "htmlObject"
             }
@@ -185,7 +174,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "routing",
                 "label": "Routing"
             }
@@ -221,7 +209,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "tick",
                 "label": "Tick"
             }
@@ -252,7 +239,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "memory",
                 "label": "Memory management"
             }
@@ -288,7 +274,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "utils",
                 "label": "Utils"
             }
@@ -319,7 +304,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "debug",
                 "label": "Debug"
             }

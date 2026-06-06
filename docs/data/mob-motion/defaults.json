@@ -1,14 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -53,7 +45,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "example",
                 "label": "Example"
             }
@@ -81,7 +72,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "get",
                 "label": "Debug"
             }
@@ -109,7 +99,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "usePassive",
                 "label": "usePassive"
             }
@@ -151,7 +140,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "deferredNextTick",
                 "label": "deferredNextTick"
             }
@@ -193,7 +181,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "throttle",
                 "label": "throttle"
             }
@@ -235,7 +222,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "breakpoint",
                 "label": "breakpoint"
             }
@@ -270,7 +256,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "sequencer",
                 "label": "sequencer"
             }
@@ -305,7 +290,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "scrollTrigger",
                 "label": "scrollTrigger"
             }
@@ -340,7 +324,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "parallax",
                 "label": "parallax"
             }
@@ -375,7 +358,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "tween",
                 "label": "tween"
             }
@@ -410,7 +392,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "spring",
                 "label": "spring"
             }
@@ -445,7 +426,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "lerp",
                 "label": "lerp"
             }

@@ -1,14 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -85,15 +77,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
                 "id": "basicfunction",
                 "label": "Route function"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -121,7 +106,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "Export routes",
                 "label": "Export routes"
             }
@@ -201,15 +185,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
                 "id": "navigate_via_link",
                 "label": "Navigate via link"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -244,7 +221,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "javascript_navigate",
                 "label": "Navigate via javascript"
             }
@@ -281,7 +257,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "page-transition",
                 "label": "Functions"
             }
@@ -400,7 +375,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "Redirect",
                 "label": "Redirect"
             }
@@ -451,7 +425,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "events",
                 "label": "Events/mainStore"
             }
@@ -491,7 +464,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big",
                 "id": "beforeRouteChange",
                 "label": "beforeRouteChange"
             }
@@ -520,7 +492,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big",
                 "id": "afterRouteChange",
                 "label": "afterRouteChange"
             }
@@ -549,7 +520,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big",
                 "id": "activeRoute",
                 "label": "activeRoute"
             }
@@ -589,7 +559,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big",
                 "id": "params",
                 "label": "activeParams"
             }

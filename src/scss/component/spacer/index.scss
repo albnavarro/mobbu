@@ -5,6 +5,11 @@
         :scope {
             position: relative;
 
+            &.has-anchor {
+                display: inline-block;
+                margin-block-start: rem(44);
+            }
+
             &.is-x-small {
                 block-size: 1px;
             }
@@ -30,6 +35,13 @@
                     block-size: 1px;
                     background: rgba(var(--white-rgb), 0.1);
                 }
+            }
+
+            svg {
+                display: block;
+                block-size: rem(16);
+                inline-size: rem(16);
+                fill: var(--dark);
             }
         }
     }

@@ -1,14 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -25,7 +17,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "use_velocity",
                 "label": "useVelocity"
             }

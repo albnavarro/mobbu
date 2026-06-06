@@ -11,7 +11,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "start",
                 "label": "Top"
             }
@@ -96,7 +95,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "component",
                 "label": "component"
             }
@@ -134,7 +132,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "tag",
                 "label": "tag"
             }
@@ -163,7 +160,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "className",
                 "label": "className"
             }
@@ -192,7 +188,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "style",
                 "label": "style"
             }
@@ -221,7 +216,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "attributes",
                 "label": "attributes"
             }
@@ -250,7 +244,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "dataAttributes",
                 "label": "dataAttributes"
             }
@@ -279,7 +272,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "modules",
                 "label": "modules"
             }
@@ -321,7 +313,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "content",
                 "label": "content"
             }

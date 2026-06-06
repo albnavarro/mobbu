@@ -1,14 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -39,7 +31,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "initialize",
                 "label": "Initialize"
             }
@@ -238,7 +229,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "params",
                 "label": "State params"
             }
@@ -420,7 +410,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "store-typescript",
                 "label": "Typescript support"
             }
@@ -528,7 +517,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "store-get-proxi",
                 "label": "GetProxi"
             }
@@ -630,7 +618,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "store-set",
                 "label": "Set"
             }
@@ -732,7 +719,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "store-update",
                 "label": "Update"
             }
@@ -855,7 +841,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "store-get",
                 "label": "Get"
             }
@@ -893,7 +878,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "store-get-props",
                 "label": "Get-props"
             }
@@ -931,7 +915,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "store-watch",
                 "label": "Watch"
             }
@@ -1018,7 +1001,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "store-emit",
                 "label": "Emit"
             }
@@ -1074,7 +1056,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "store-emit-async",
                 "label": "Emit-async"
             }
@@ -1130,7 +1111,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "store-computed",
                 "label": "Computed"
             }
@@ -1290,7 +1270,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "store-bind",
                 "label": "BindStore"
             }
@@ -1391,7 +1370,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "store-map-set",
                 "label": "Built-in objects Map/Set"
             }
@@ -1432,7 +1410,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "store-destroy",
                 "label": "Destroy"
             }

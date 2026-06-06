@@ -1,14 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -46,7 +38,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "usePassive",
                 "label": "usePassive"
             }
@@ -68,7 +59,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "deferredNextTick",
                 "label": "deferredNextTick"
             }
@@ -99,7 +89,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "throttle",
                 "label": "throttle"
             }
@@ -127,7 +116,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "spinYMaxValue",
                 "label": "spinYMaxValue"
             }
@@ -155,7 +143,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "spinXMaxValue",
                 "label": "spinXMaxValue"
             }

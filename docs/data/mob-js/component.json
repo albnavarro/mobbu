@@ -1,14 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -171,15 +163,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
                 "id": "component-definition",
                 "label": "Component definition"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -403,15 +388,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
                 "id": "function",
                 "label": "function component"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -503,15 +481,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
                 "id": "type",
                 "label": "Typescript support"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -708,7 +679,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "lifecycle",
                 "label": "Life cycle"
             }
@@ -759,15 +729,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "state_managment",
                 "label": "State management"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -822,15 +785,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "side-effect",
                 "label": "Side effect"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -864,15 +820,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "props",
                 "label": "props"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -914,15 +863,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "dom_manipulation",
                 "label": "DOM manipulation"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -968,15 +910,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "events",
                 "label": "Events"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -1020,15 +955,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "methods",
                 "label": "External Component API"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -1082,15 +1010,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "blocks",
                 "label": "Blocks & cycle"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -1136,15 +1057,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "web-component",
                 "label": "Web Component"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -1178,15 +1092,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "slot",
                 "label": "Slot"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -1221,14 +1128,7 @@
             "component": "mob-spacer",
             "props": {
                 "id": "static",
-                "style": "medium",
                 "label": "Static params"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -1263,14 +1163,7 @@
             "component": "mob-spacer",
             "props": {
                 "id": "utils",
-                "style": "medium",
                 "label": "Utils params"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {

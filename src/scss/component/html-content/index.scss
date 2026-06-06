@@ -113,8 +113,7 @@
         }
 
         h2 {
-            margin: var(--gap-size) calc(var(--gap-size) * -1)
-                calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
+            margin: calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
             padding-inline-start: var(--gap-size);
         }
 
@@ -171,7 +170,7 @@
 
         h3 {
             position: relative;
-            margin-block: calc(var(--gap-size) / 4) 0;
+            margin-block-end: calc(var(--gap-size) / 4);
             margin-inline-start: calc(calc(var(--gap-size) / 2) * -1);
             padding-block-end: calc(var(--gap-size) / 4);
             padding-inline-start: calc(var(--gap-size) / 2);

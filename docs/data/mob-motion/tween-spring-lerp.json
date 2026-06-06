@@ -1,14 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -163,7 +155,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "common_example",
                 "label": "Common params"
             }
@@ -234,7 +225,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "tween",
                 "label": "TimeTween"
             }
@@ -324,7 +314,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "Spring",
                 "label": "Spring"
             }
@@ -427,7 +416,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "lerp",
                 "label": "Lerp"
             }
@@ -518,7 +506,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "set",
                 "label": "Set"
             }
@@ -577,7 +564,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "goto",
                 "label": "GoTo"
             }
@@ -606,7 +592,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "gofrom",
                 "label": "GoFrom"
             }
@@ -635,7 +620,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "gofromto",
                 "label": "GoFromTo"
             }
@@ -664,7 +648,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "stop",
                 "label": "Stop"
             }
@@ -693,7 +676,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "pause",
                 "label": "Pause/Resume"
             }
@@ -722,7 +704,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "subscribe",
                 "label": "Subscribe"
             }
@@ -769,7 +750,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "subscribeCache",
                 "label": "SubscribeCache"
             }
@@ -817,7 +797,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "onComplete",
                 "label": "OnComplete"
             }
@@ -855,7 +834,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "destroy",
                 "label": "Destroy"
             }

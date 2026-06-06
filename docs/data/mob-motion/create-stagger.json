@@ -1,14 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -72,7 +64,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "schema",
                 "label": "Schema"
             }
@@ -114,7 +105,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "initialization",
                 "label": "code"
             }
@@ -151,15 +141,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
                 "id": "main",
                 "label": "Main params"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
             }
         },
         {
@@ -248,7 +231,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
                 "id": "type",
                 "label": "type"
             }
@@ -376,15 +358,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "each",
                 "label": "each"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -404,15 +379,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "waitComplete",
                 "label": "waitComplete"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -432,15 +400,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "from",
                 "label": "from"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -460,15 +421,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "grid",
                 "label": "grid"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {

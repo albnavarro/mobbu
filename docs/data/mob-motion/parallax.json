@@ -1,14 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -62,7 +54,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "initialization",
                 "label": "code"
             }
@@ -117,7 +108,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "schema",
                 "label": "Schema"
             }
@@ -153,7 +143,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "target",
                 "label": "DOM Element props"
             }
@@ -268,7 +257,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "breakpoint",
                 "label": "breakpoint props"
             }
@@ -323,7 +311,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "propierties",
                 "label": "propierties"
             }
@@ -391,7 +378,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "range",
                 "label": "range"
             }
@@ -440,7 +426,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "opacity",
                 "label": "opacity&nbspspecial&nbspprops."
             }
@@ -497,7 +482,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "scrollerTween",
                 "label": "scrollerTween"
             }
@@ -614,7 +598,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "align",
                 "label": "align"
             }
@@ -761,7 +744,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "onSwitch",
                 "label": "onSwitch"
             }
@@ -802,7 +784,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "reverse",
                 "label": "reverse"
             }
@@ -824,7 +805,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "ease",
                 "label": "ease props"
             }
@@ -922,7 +902,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "utils",
                 "label": "utils&nbsp;parameters"
             }
@@ -1020,7 +999,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "init",
                 "label": "init"
             }
@@ -1070,7 +1048,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "refresh",
                 "label": "refresh"
             }
@@ -1105,7 +1082,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "destroy",
                 "label": "destroy"
             }

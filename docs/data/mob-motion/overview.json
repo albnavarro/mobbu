@@ -1,22 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "label": "&nbsp",
-                "isNote": true
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -106,7 +90,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
                 "id": "async",
                 "label": "Async modules"
             }
@@ -233,7 +216,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
                 "id": "sync",
                 "label": "Sync modules"
             }
@@ -387,7 +369,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
                 "id": "stagger",
                 "label": "Stagger"
             }
@@ -437,7 +418,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "defaults",
                 "label": "Defaults"
             }

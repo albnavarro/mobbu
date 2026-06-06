@@ -1,14 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -109,7 +101,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "schema",
                 "label": "Schema"
             }
@@ -139,15 +130,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "all",
                 "label": "All params"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
             }
         },
         {
@@ -223,7 +207,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "initialization",
                 "label": "code"
             }
@@ -273,7 +256,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
                 "id": "goto",
                 "label": "Goto"
             }
@@ -351,7 +333,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "goFrom",
                 "label": "goFrom"
             }
@@ -380,7 +361,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "goFromTo",
                 "label": "goFromTo"
             }
@@ -409,7 +389,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "add",
                 "label": "add"
             }
@@ -462,7 +441,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "label",
                 "label": "label"
             }
@@ -491,7 +469,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "subscribe",
                 "label": "subscribe"
             }
@@ -538,7 +515,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "subscribeCache",
                 "label": "subscribeCache"
             }
@@ -586,7 +562,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "onstop",
                 "label": "onStop"
             }
@@ -624,7 +599,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "masterSequencer",
                 "label": "masterSequencer"
             }
@@ -653,7 +627,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "createStagger",
                 "label": "createStagger"
             }

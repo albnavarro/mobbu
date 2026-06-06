@@ -1,14 +1,6 @@
 {
     "data": [
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "id": "start",
-                "label": "Top"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h1",
@@ -39,7 +31,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useFrame",
                 "label": "useFrame"
             }
@@ -83,7 +74,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useNextTick",
                 "label": "useNextTick"
             }
@@ -118,7 +108,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useNextFrame",
                 "label": "useNextFrame"
             }
@@ -153,7 +142,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useFrameIndex",
                 "label": "useFrameIndex"
             }
@@ -188,7 +176,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useFps",
                 "label": "useFps"
             }
@@ -232,7 +219,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useLoad",
                 "label": "useLoad"
             }
@@ -267,7 +253,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useResize",
                 "label": "useResize"
             }
@@ -315,7 +300,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useVisibilityChange",
                 "label": "useVisibilityChange"
             }
@@ -358,7 +342,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useMouseEvent",
                 "label": "Mouse/Touch event"
             }
@@ -419,7 +402,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useMouseWheel",
                 "label": "useMouseWheel"
             }
@@ -464,7 +446,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "usePointerEvent",
                 "label": "usePointerEvent"
             }
@@ -524,7 +505,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useScroll",
                 "label": "useScroll"
             }
@@ -568,7 +548,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useScrollImmediate",
                 "label": "useScrollImmediate"
             }
@@ -612,7 +591,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useScrollThrottle",
                 "label": "useScrollThrottle"
             }
@@ -656,7 +634,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "useScrollStart",
                 "label": "useScrollStart/End"
             }
@@ -699,7 +676,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
                 "id": "checkType",
                 "label": "checkType"
             }

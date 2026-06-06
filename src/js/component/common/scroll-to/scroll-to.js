@@ -40,14 +40,16 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
                           const { id: scroll, label, element } = item;
 
                           const offsetTop =
-                              scroll === 'start' ? 0 : offset(element).top - 50;
+                              scroll === 'start'
+                                  ? 0
+                                  : offset(element).top - 100;
 
                           /**
                            * Disable spacerAnchor observer effect during scroll.
                            */
                           disableObservereffect = true;
                           proxi.activeLabel = label;
-                          await MobBodyScroll.to(offsetTop);
+                          await MobBodyScroll.to(offsetTop, { duration: 10 });
 
                           if (MobMotionCore.mq('max', 'desktop')) {
                               closeSidebarleft();

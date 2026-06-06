@@ -9,6 +9,7 @@ import {
     addItemToScrollSideBar,
     setScrollToActiveLabel,
 } from '@commonComponent/scroll-to/utils';
+import { getIcons } from '@data/index';
 
 /**
  * @param {object} params
@@ -52,6 +53,7 @@ const addItemToScrollComponent = async ({
 /** @type {MobComponent<SpacerAnchor>} */
 export const SpacerAnchorFn = ({ getState, onMount }) => {
     const { style, id, label, isSection, isNote } = getState();
+    const { link: linkIcon } = getIcons();
 
     onMount(({ element }) => {
         const shouldAddToAnchor = hasAnchor({ label });
@@ -60,9 +62,16 @@ export const SpacerAnchorFn = ({ getState, onMount }) => {
         addItemToScrollComponent({ id, label, element, isSection, isNote });
     });
 
+    if (id?.length > 0)
+        return htmlObject({
+            className: ['spacer', 'has-anchor'],
+            attributes: { id, tabindex: '-1' },
+            content: linkIcon,
+        });
+
     return htmlObject({
         className: ['spacer', `is-${style}`],
-        attributes: { id, tabindex: '-1' },
+        attributes: { id },
         content: {
             tag: 'span',
         },
