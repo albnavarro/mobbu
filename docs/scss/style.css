@@ -4541,8 +4541,10 @@
       inset-block-start: var(--header-height);
       border-inline-start: 1px var(--grey-400) solid;
     }
-    .right.visible {
-      transform: translateX(-100%);
+    @media (max-width: 61.99em) {
+      .right.visible {
+        transform: translateX(-100%);
+      }
     }
     @media (min-width: 62em) {
       .right {
@@ -4898,15 +4900,24 @@
       position: fixed;
       z-index: 14;
       block-size: var(--links-height);
-      inline-size: 100%;
+      inline-size: 18.75rem;
+      transform: translateX(var(--gap-size));
       inset-block-start: calc(var(--header-height) + var(--gap-size) * 2);
       inset-inline-start: calc(var(--doc-width) + var(--gap-size) / 2);
       border-block-start: 1px var(--grey-300) solid;
       border-block-end: 1px var(--grey-300) solid;
+      pointer-events: none;
     }
     @media (min-width: 75em) {
       :scope {
         inset-inline-start: calc(var(--doc-width) + var(--left-sidebar) + var(--gap-size) / 2);
+      }
+    }
+    @media (max-width: 61.99em) {
+      :scope.visible {
+        transform: translateX(-100%);
+        transition: transform 0.35s;
+        pointer-events: all;
       }
     }
     :scope.hide {
@@ -4917,6 +4928,13 @@
     :scope.shift {
       opacity: 0.1;
       pointer-events: none;
+    }
+    @media (min-width: 62em) {
+      :scope {
+        inline-size: 100%;
+        transform: translateX(0);
+        pointer-events: all;
+      }
     }
     .screen {
       visibility: visible;

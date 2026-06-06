@@ -25820,14 +25820,50 @@
     });
   };
 
+  // src/js/component-instance-name/index.js
+  var debugCtaName = "debug_component_cta";
+  var debugComponentName = "debug_component";
+  var debugFilterListName = "debug_filter_list";
+  var debugOverlayName = "debug_overlay";
+  var accessibilityOverlayName = "accessibility_overlay";
+  var debugTreeName = "debug_tree";
+  var quickNavName = "quick_nav";
+  var scrollDownLabelName = "scroll_down_label";
+  var scrollToName = "scroll_to";
+  var headerName = "header";
+  var mobNavigationToggleName = "mob_navigation_toggle";
+  var mobNavigationName = "mob_navigation";
+  var mobNavigationContainerName = "mob_navigation_container";
+  var searchOverlay = "search_overlay";
+  var searchOverlayCta = "search_overlay_cta";
+  var accessibilityOverlayCta = "accesibility_overlay_cta";
+  var searchOverlayList = "search_overlay_list";
+  var searchOverlayHeader = "search_overlay_header";
+  var leftSidebarName = "right-sidebar";
+  var routeLoader = "route-loader";
+  var sideBarLinksName = "side-bar-links";
+
+  // src/js/component/common/side-bar-links/utils.js
+  var openSideBarLinkTablet = (visible) => {
+    const methods = modules_exports2.useMethodByName(sideBarLinksName);
+    methods.toggleTablet(visible);
+  };
+
   // src/js/component/common/doc-container/doc-container.js
   var DocContainerFn = ({
     getSelfProxi,
     delegateEvents,
     bindEffect,
-    onMount
+    onMount,
+    watch
   }) => {
     const proxi = getSelfProxi();
+    watch(
+      () => proxi.rightSidebarVisible,
+      (shoulVisible) => {
+        openSideBarLinkTablet(shoulVisible);
+      }
+    );
     onMount(() => {
       const unsubscribeResize = modules_exports.useResize(() => {
         const shouldCloseRight = core_exports.mq("min", "desktop");
@@ -25839,6 +25875,7 @@
       return () => {
         unsubscribeResize();
         unsubScribeRoute();
+        openSideBarLinkTablet(false);
       };
     });
     return htmlObject({
@@ -26299,28 +26336,6 @@
     }).join("");
     return `${backArrow}${items}`;
   };
-
-  // src/js/component-instance-name/index.js
-  var debugCtaName = "debug_component_cta";
-  var debugComponentName = "debug_component";
-  var debugFilterListName = "debug_filter_list";
-  var debugOverlayName = "debug_overlay";
-  var accessibilityOverlayName = "accessibility_overlay";
-  var debugTreeName = "debug_tree";
-  var quickNavName = "quick_nav";
-  var scrollDownLabelName = "scroll_down_label";
-  var scrollToName = "scroll_to";
-  var headerName = "header";
-  var mobNavigationToggleName = "mob_navigation_toggle";
-  var mobNavigationName = "mob_navigation";
-  var mobNavigationContainerName = "mob_navigation_container";
-  var searchOverlay = "search_overlay";
-  var searchOverlayCta = "search_overlay_cta";
-  var accessibilityOverlayCta = "accesibility_overlay_cta";
-  var searchOverlayList = "search_overlay_list";
-  var searchOverlayHeader = "search_overlay_header";
-  var leftSidebarName = "right-sidebar";
-  var routeLoader = "route-loader";
 
   // src/js/component/common/left-sidebar/utils.js
   var updateLeftSidebarList = (data) => {
@@ -34602,7 +34617,7 @@
   var shouldActivateCta = () => {
     return (
       /** @type {boolean} */
-      core_exports.mq("min", "desktop")
+      core_exports.mq("min", "tablet")
     );
   };
   var lastValidRoute = "#home";
@@ -40687,13 +40702,17 @@
     bindProps,
     invalidate,
     bindEffect,
-    getSelfProxi
+    getSelfProxi,
+    addMethod
   }) => {
     const mainData = getCommonData();
     const proxi = getSelfProxi();
     const templateData = {
       [PAGE_TEMPLATE_COMPONENT_MOBJS]: mainData.sideBarLinks.mobJsComponentParams
     };
+    addMethod("toggleTablet", (visible) => {
+      proxi.tabletVisible = visible;
+    });
     onMount(({ element }) => {
       const { screenEl, scrollerEl, scrollbar } = getRef();
       let isActive2 = false;
@@ -40762,7 +40781,8 @@
       modules: bindEffect({
         toggleClass: {
           hide: () => proxi.hide,
-          shift: () => proxi.shift
+          shift: () => proxi.shift,
+          visible: () => proxi.tabletVisible
         }
       }),
       content: [
@@ -40829,6 +40849,10 @@
           __type: Boolean
         },
         shift: {
+          __value: false,
+          __type: Boolean
+        },
+        tabletVisible: {
           __value: false,
           __type: Boolean
         }
@@ -46652,7 +46676,8 @@
           attributes: { name: scrollDownLabelName }
         },
         {
-          component: SideBarLinks
+          component: SideBarLinks,
+          attributes: { name: sideBarLinksName }
         },
         {
           component: Footer

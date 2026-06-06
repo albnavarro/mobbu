@@ -1,3 +1,4 @@
+import { openSideBarLinkTablet } from '@commonComponent/side-bar-links/utils';
 import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
@@ -12,8 +13,19 @@ export const DocContainerFn = ({
     delegateEvents,
     bindEffect,
     onMount,
+    watch,
 }) => {
     const proxi = getSelfProxi();
+
+    /**
+     * Control sidebar links visibility on tablet.
+     */
+    watch(
+        () => proxi.rightSidebarVisible,
+        (shoulVisible) => {
+            openSideBarLinkTablet(shoulVisible);
+        }
+    );
 
     onMount(() => {
         const unsubscribeResize = MobCore.useResize(() => {
@@ -28,6 +40,7 @@ export const DocContainerFn = ({
         return () => {
             unsubscribeResize();
             unsubScribeRoute();
+            openSideBarLinkTablet(false);
         };
     });
 

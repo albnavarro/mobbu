@@ -91,7 +91,9 @@
             border-inline-start: 1px var(--grey-400) solid;
 
             &.visible {
-                transform: translateX(-100%);
+                @include mq($until: desktop) {
+                    transform: translateX(-100%);
+                }
             }
 
             @include mq(desktop) {

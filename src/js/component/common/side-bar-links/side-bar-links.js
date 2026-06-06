@@ -72,6 +72,7 @@ export const SideBarLinksFn = ({
     invalidate,
     bindEffect,
     getSelfProxi,
+    addMethod,
 }) => {
     const mainData = getCommonData();
     const proxi = getSelfProxi();
@@ -81,6 +82,10 @@ export const SideBarLinksFn = ({
         [PAGE_TEMPLATE_COMPONENT_MOBJS]:
             mainData.sideBarLinks.mobJsComponentParams,
     };
+
+    addMethod('toggleTablet', (visible) => {
+        proxi.tabletVisible = visible;
+    });
 
     onMount(({ element }) => {
         const { screenEl, scrollerEl, scrollbar } = getRef();
@@ -174,6 +179,7 @@ export const SideBarLinksFn = ({
             toggleClass: {
                 hide: () => proxi.hide,
                 shift: () => proxi.shift,
+                visible: () => proxi.tabletVisible,
             },
         }),
         content: [

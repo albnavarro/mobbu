@@ -7,7 +7,7 @@ import { htmlObject, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 
 const shouldActivateCta = () => {
-    return /** @type {boolean} */ (MobMotionCore.mq('min', 'desktop'));
+    return /** @type {boolean} */ (MobMotionCore.mq('min', 'tablet'));
 };
 
 let lastValidRoute = '#home';

@@ -27,6 +27,10 @@ export const SideBarLinks = MobJs.createComponent(
                 __value: false,
                 __type: Boolean,
             },
+            tabletVisible: {
+                __value: false,
+                __type: Boolean,
+            },
         },
     })
 );

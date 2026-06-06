@@ -12,6 +12,7 @@ import {
     routeLoader,
     scrollDownLabelName,
     searchOverlay,
+    sideBarLinksName,
 } from '@instanceName';
 import { Footer } from '@layoutComponent/footer/definition';
 import { Header } from '@layoutComponent/header/definition';
@@ -103,6 +104,7 @@ export const wrapper = async () => {
             },
             {
                 component: SideBarLinks,
+                attributes: { name: sideBarLinksName },
             },
             {
                 component: Footer,
