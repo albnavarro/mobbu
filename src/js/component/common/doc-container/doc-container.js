@@ -14,6 +14,8 @@ export const DocContainerFn = ({
     bindEffect,
     onMount,
     watch,
+    setRef,
+    getRef,
 }) => {
     const proxi = getSelfProxi();
 
@@ -31,6 +33,10 @@ export const DocContainerFn = ({
 
             docContainerStore.set('shouldApplyInert', !shoulVisible);
             docContainerStore.set('leftSidebarIsVisible', shoulVisible);
+
+            if (!shoulVisible) {
+                getRef().asideToggleButton.focus({ preventScroll: true });
+            }
         },
         { wait: true, immediate: true }
     );
@@ -113,6 +119,7 @@ export const DocContainerFn = ({
                             'aria-controls': 'right-sidbar',
                         },
                         modules: [
+                            setRef('asideToggleButton'),
                             delegateEvents({
                                 click: () => {
                                     proxi.rightSidebarVisible =

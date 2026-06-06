@@ -4,5 +4,6 @@ export interface DocContainerType {
     };
     ref: {
         asideRight: HTMLElement;
+        asideToggleButton: HTMLButtonElement;
     };
 }
