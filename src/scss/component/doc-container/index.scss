@@ -110,7 +110,7 @@
         }
 
         .right {
-            position: sticky;
+            position: fixed;
             z-index: 14;
             grid-column: 2 / span 1;
             align-self: start;
