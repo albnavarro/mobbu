@@ -175,7 +175,7 @@ export const SideBarLinksFn = ({
             toggleClass: {
                 hide: () => proxi.hide,
                 shift: () => proxi.shift,
-                visible: () => !bindProxi.shouldApplyInert,
+                visible: () => bindProxi.leftSidebarIsVisible,
             },
             toggleAttribute: {
                 inert: () => (bindProxi.shouldApplyInert ? true : null),

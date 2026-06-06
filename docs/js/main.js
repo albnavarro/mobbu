@@ -25828,6 +25828,11 @@
         __value: true,
         __type: Boolean,
         __skipEqual: false
+      },
+      leftSidebarIsVisible: {
+        __value: true,
+        __type: Boolean,
+        __skipEqual: false
       }
     }
   );
@@ -25844,26 +25849,37 @@
     watch(
       () => proxi.rightSidebarVisible,
       (shoulVisible) => {
+        if (core_exports.mq("min", "desktop")) {
+          docContainerStore.set("leftSidebarIsVisible", true);
+          docContainerStore.set("shouldApplyInert", false);
+          return;
+        }
         docContainerStore.set("shouldApplyInert", !shoulVisible);
-      }
+        docContainerStore.set("leftSidebarIsVisible", shoulVisible);
+      },
+      { wait: true, immediate: true }
     );
     onMount(() => {
       const unsubscribeResize = modules_exports.useResize(() => {
-        const shouldCloseRight = core_exports.mq("min", "desktop");
-        if (shouldCloseRight) proxi.rightSidebarVisible = false;
+        if (core_exports.mq("min", "desktop")) {
+          proxi.rightSidebarVisible = true;
+          return;
+        }
+        proxi.rightSidebarVisible = false;
       });
       const unsubScribeRoute = modules_exports2.afterRouteChange(() => {
+        if (core_exports.mq("min", "desktop")) return;
         proxi.rightSidebarVisible = false;
       });
       const unsubscribeEscHandler2 = modules_exports.useEscHandler(() => {
-        if (!proxi.rightSidebarVisible) return;
+        if (!proxi.rightSidebarVisible || core_exports.mq("min", "desktop"))
+          return;
         proxi.rightSidebarVisible = false;
       });
       return () => {
         unsubscribeResize();
         unsubScribeRoute();
         unsubscribeEscHandler2();
-        openSideBarLinkTablet(false);
       };
     });
     return htmlObject({
@@ -40831,7 +40847,7 @@
         toggleClass: {
           hide: () => proxi.hide,
           shift: () => proxi.shift,
-          visible: () => !bindProxi.shouldApplyInert
+          visible: () => bindProxi.leftSidebarIsVisible
         },
         toggleAttribute: {
           inert: () => bindProxi.shouldApplyInert ? true : null

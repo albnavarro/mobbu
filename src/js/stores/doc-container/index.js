@@ -12,5 +12,10 @@ export const docContainerStore = MobCore.createStore(
             __type: Boolean,
             __skipEqual: false,
         },
+        leftSidebarIsVisible: {
+            __value: true,
+            __type: Boolean,
+            __skipEqual: false,
+        },
     })
 );

@@ -23,8 +23,16 @@ export const DocContainerFn = ({
     watch(
         () => proxi.rightSidebarVisible,
         (shoulVisible) => {
+            if (MobMotionCore.mq('min', 'desktop')) {
+                docContainerStore.set('leftSidebarIsVisible', true);
+                docContainerStore.set('shouldApplyInert', false);
+                return;
+            }
+
             docContainerStore.set('shouldApplyInert', !shoulVisible);
-        }
+            docContainerStore.set('leftSidebarIsVisible', shoulVisible);
+        },
+        { wait: true, immediate: true }
     );
 
     onMount(() => {
@@ -32,14 +40,20 @@ export const DocContainerFn = ({
          * Close sidebar on resize.
          */
         const unsubscribeResize = MobCore.useResize(() => {
-            const shouldCloseRight = MobMotionCore.mq('min', 'desktop');
-            if (shouldCloseRight) proxi.rightSidebarVisible = false;
+            if (MobMotionCore.mq('min', 'desktop')) {
+                proxi.rightSidebarVisible = true;
+                return;
+            }
+
+            proxi.rightSidebarVisible = false;
         });
 
         /**
          * Close sidebar on route change.
          */
         const unsubScribeRoute = MobJs.afterRouteChange(() => {
+            if (MobMotionCore.mq('min', 'desktop')) return;
+
             proxi.rightSidebarVisible = false;
         });
 
@@ -47,7 +61,12 @@ export const DocContainerFn = ({
          * Close sidebar on esc.
          */
         const unsubscribeEscHandler = MobCore.useEscHandler(() => {
-            if (!proxi.rightSidebarVisible) return;
+            if (
+                !proxi.rightSidebarVisible ||
+                MobMotionCore.mq('min', 'desktop')
+            )
+                return;
+
             proxi.rightSidebarVisible = false;
         });
 
@@ -55,7 +74,6 @@ export const DocContainerFn = ({
             unsubscribeResize();
             unsubScribeRoute();
             unsubscribeEscHandler();
-            openSideBarLinkTablet(false);
         };
     });
 
