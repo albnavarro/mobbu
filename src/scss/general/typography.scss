@@ -186,7 +186,6 @@
             position: absolute;
             z-index: -1;
             inset: 0 calc(#{rem(2)} * -1) 0 calc(#{rem(2)} * -1);
-            /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
             border-radius: rem(4);
             background: rgba(var(--dark-rgb), 0.1);
         }

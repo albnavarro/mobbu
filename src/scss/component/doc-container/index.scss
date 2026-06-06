@@ -69,7 +69,7 @@
             justify-content: center;
             inline-size: var(--gap-size);
             border: 0;
-            background: var(--immutable-black);
+            background: var(--grey-300);
             inset-block: 0;
             inset-inline-end: 100%;
 
@@ -84,8 +84,8 @@
             transform: translateX(calc(50% + #{rem(12)})) rotate(135deg);
             inset-block-start: -1px;
             inset-inline-start: 1px;
-            border-inline-end: 3px var(--immutable-white) solid;
-            border-block-end: 3px var(--immutable-white) solid;
+            border-inline-end: 3px var(--dark) solid;
+            border-block-end: 3px var(--dark) solid;
             transition: transform 0.35s;
 
             &.active {
@@ -144,6 +144,12 @@
 }
 
 @layer override {
+    [theme='dark'] :where(.c-doc-container) {
+        :where(.off-canvas-control) {
+            background: var(--immutable-black);
+        }
+    }
+
     [dir='rtl'] :where(.c-doc-container) {
         :where(.right) {
             transform: translateX(calc(var(--gap-size) * -1));
