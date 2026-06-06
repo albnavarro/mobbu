@@ -6,6 +6,7 @@ import { htmlObject, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
 import { updateLeftSidebarList } from '@commonComponent/left-sidebar/utils';
+import { docContainerName } from '@instanceName';
 
 /** @type {import('@mobJsType').PageAsync} */
 export const layoutSidebarLinks = async ({ props }) => {
@@ -15,6 +16,7 @@ export const layoutSidebarLinks = async ({ props }) => {
 
     return htmlObject({
         component: DocContainer,
+        attributes: { name: docContainerName },
         content: [
             {
                 component: HtmlContent,

@@ -16,8 +16,13 @@ export const DocContainerFn = ({
     watch,
     setRef,
     getRef,
+    addMethod,
 }) => {
     const proxi = getSelfProxi();
+
+    addMethod('closeSidebarLeft', () => {
+        proxi.rightSidebarVisible = false;
+    });
 
     /**
      * Control sidebar links visibility on tablet.
@@ -33,10 +38,6 @@ export const DocContainerFn = ({
 
             docContainerStore.set('shouldApplyInert', !shoulVisible);
             docContainerStore.set('leftSidebarIsVisible', shoulVisible);
-
-            if (!shoulVisible) {
-                getRef().asideToggleButton.focus({ preventScroll: true });
-            }
         },
         { wait: true, immediate: true }
     );
@@ -74,6 +75,7 @@ export const DocContainerFn = ({
                 return;
 
             proxi.rightSidebarVisible = false;
+            getRef().asideToggleButton.focus({ preventScroll: true });
         });
 
         return () => {

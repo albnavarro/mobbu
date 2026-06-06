@@ -7,7 +7,7 @@ import { htmlObject, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
 import { updateLeftSidebarList } from '@commonComponent/left-sidebar/utils';
-import { scrollToName } from '@instanceName';
+import { docContainerName, scrollToName } from '@instanceName';
 
 /** @type {import('@mobJsType').PageAsync<{}, import('./type').LayoutSidebarAnchor['props']>} */
 export const layoutSidebarAnchor = async ({ props }) => {
@@ -17,6 +17,7 @@ export const layoutSidebarAnchor = async ({ props }) => {
 
     return htmlObject({
         component: DocContainer,
+        attributes: { name: docContainerName },
         content: [
             {
                 component: HtmlContent,

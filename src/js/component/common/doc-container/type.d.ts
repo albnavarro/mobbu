@@ -6,4 +6,7 @@ export interface DocContainerType {
         asideRight: HTMLElement;
         asideToggleButton: HTMLButtonElement;
     };
+    methods: {
+        closeSidebarLeft: () => void;
+    };
 }

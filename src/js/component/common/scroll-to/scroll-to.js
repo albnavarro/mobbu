@@ -3,6 +3,8 @@ import { offset } from '@mobCoreUtils';
 import { htmlObject, MobJs } from '@mobJs';
 import { MobBodyScroll } from '@mobMotionPlugin';
 import { ScrollToButton } from './button/definition';
+import { MobMotionCore } from '@mobMotion';
+import { closeSidebarleft } from '@commonComponent/doc-container/utils';
 
 /**
  * @import {
@@ -46,6 +48,17 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
                           disableObservereffect = true;
                           proxi.activeLabel = label;
                           await MobBodyScroll.to(offsetTop);
+
+                          if (MobMotionCore.mq('max', 'desktop')) {
+                              closeSidebarleft();
+                          }
+
+                          /**
+                           * Set focus to anchor element
+                           */
+                          /** @type {HTMLElement} */ (element).focus({
+                              preventScroll: true,
+                          });
 
                           setTimeout(() => {
                               /**

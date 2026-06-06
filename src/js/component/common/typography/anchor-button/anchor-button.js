@@ -24,6 +24,10 @@ export const AnchorButtonFn = ({ getState, delegateEvents }) => {
                     // @ts-ignore
                     const offsetTop = offset(target).top - 50;
                     await MobBodyScroll.to(offsetTop);
+
+                    /**
+                     * Set focus to anchor element
+                     */
                     /** @type {HTMLElement} */ (target).focus({
                         preventScroll: true,
                     });
