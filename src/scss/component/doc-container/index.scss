@@ -63,15 +63,33 @@
         }
 
         .off-canvas-control {
+            display: flex;
             position: absolute;
-            inset-block: 0;
-            inset-inline-end: 100%;
+            flex-direction: column;
+            justify-content: center;
             inline-size: var(--gap-size);
             border: 0;
             background: var(--grey-100);
+            inset-block: 0;
+            inset-inline-end: 100%;
 
             @include mq(desktop) {
                 display: none;
+            }
+        }
+
+        .off-canvas-icon {
+            block-size: rem(16);
+            inline-size: rem(16);
+            transform: translateX(50%) rotate(135deg);
+            inset-block-start: -1px;
+            inset-inline-start: 1px;
+            border-inline-end: 4px var(--dark) solid;
+            border-block-end: 4px var(--dark) solid;
+            transition: transform 0.35s;
+
+            &.active {
+                transform: translateX(50%) rotate(-45deg);
             }
         }
 

@@ -25922,7 +25922,16 @@
                     "aria-expanded": () => proxi.rightSidebarVisible ? "true" : "false"
                   }
                 })
-              ]
+              ],
+              content: {
+                tag: "span",
+                className: "off-canvas-icon",
+                modules: bindEffect({
+                  toggleClass: {
+                    active: () => proxi.rightSidebarVisible
+                  }
+                })
+              }
             },
             {
               tag: "mobjs-slot",
