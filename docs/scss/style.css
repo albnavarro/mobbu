@@ -4546,9 +4546,9 @@
     }
     @media (min-width: 62em) {
       .right {
-        border-inline-start: 0;
-        transform: translateX(0);
         min-inline-size: 15.625rem;
+        transform: translateX(0);
+        border-inline-start: 0;
       }
     }
     @media (min-width: 75em) {

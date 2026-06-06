@@ -95,9 +95,9 @@
             }
 
             @include mq(desktop) {
-                border-inline-start: 0;
-                transform: translateX(0);
                 min-inline-size: rem(250);
+                transform: translateX(0);
+                border-inline-start: 0;
             }
 
             @include mq(large) {
