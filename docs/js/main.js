@@ -25824,12 +25824,22 @@
   var DocContainerFn = ({
     getSelfProxi,
     delegateEvents,
-    bindEffect
+    bindEffect,
+    onMount
   }) => {
     const proxi = getSelfProxi();
-    modules_exports.useResize(() => {
-      const shouldCloseRight = core_exports.mq("min", "desktop");
-      if (shouldCloseRight) proxi.rightSidebarVisible = false;
+    onMount(() => {
+      const unsubscribeResize = modules_exports.useResize(() => {
+        const shouldCloseRight = core_exports.mq("min", "desktop");
+        if (shouldCloseRight) proxi.rightSidebarVisible = false;
+      });
+      const unsubScribeRoute = modules_exports2.afterRouteChange(() => {
+        proxi.rightSidebarVisible = false;
+      });
+      return () => {
+        unsubscribeResize();
+        unsubScribeRoute();
+      };
     });
     return htmlObject({
       className: "c-doc-container",

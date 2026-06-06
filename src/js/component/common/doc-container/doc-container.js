@@ -1,5 +1,5 @@
 import { MobCore } from '@mobCore';
-import { htmlObject } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 
 /**
@@ -11,12 +11,24 @@ export const DocContainerFn = ({
     getSelfProxi,
     delegateEvents,
     bindEffect,
+    onMount,
 }) => {
     const proxi = getSelfProxi();
 
-    MobCore.useResize(() => {
-        const shouldCloseRight = MobMotionCore.mq('min', 'desktop');
-        if (shouldCloseRight) proxi.rightSidebarVisible = false;
+    onMount(() => {
+        const unsubscribeResize = MobCore.useResize(() => {
+            const shouldCloseRight = MobMotionCore.mq('min', 'desktop');
+            if (shouldCloseRight) proxi.rightSidebarVisible = false;
+        });
+
+        const unsubScribeRoute = MobJs.afterRouteChange(() => {
+            proxi.rightSidebarVisible = false;
+        });
+
+        return () => {
+            unsubscribeResize();
+            unsubScribeRoute();
+        };
     });
 
     return htmlObject({
