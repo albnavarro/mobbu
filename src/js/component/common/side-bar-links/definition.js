@@ -1,5 +1,6 @@
 import { MobJs } from '@mobJs';
 import { SideBarLinksFn } from './side-bar-links';
+import { docContainerStore } from '@stores/doc-container';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -10,6 +11,7 @@ export const SideBarLinks = MobJs.createComponent(
     ({
         tag: 'side-bar-links',
         component: SideBarLinksFn,
+        bindStore: docContainerStore,
         state: {
             data: {
                 __value: [],
@@ -24,10 +26,6 @@ export const SideBarLinks = MobJs.createComponent(
                 __type: Boolean,
             },
             shift: {
-                __value: false,
-                __type: Boolean,
-            },
-            tabletVisible: {
                 __value: false,
                 __type: Boolean,
             },

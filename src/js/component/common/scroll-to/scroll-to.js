@@ -122,9 +122,11 @@ export const ScrollToFn = ({
     addMethod,
     updateState,
     getSelfProxi,
+    getBoundedProxi,
     bindEffect,
 }) => {
     const proxi = getSelfProxi();
+    const bindProxi = getBoundedProxi();
 
     /**
      * @type {'DOWN' | 'UP'}
@@ -236,6 +238,7 @@ export const ScrollToFn = ({
         modules: bindEffect({
             toggleAttribute: {
                 hidden: () => proxi.anchorItems.length === 0,
+                inert: () => (bindProxi.shouldApplyInert ? true : null),
             },
         }),
         content: {

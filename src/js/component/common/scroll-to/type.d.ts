@@ -1,3 +1,6 @@
+import { DocContainerStore } from '@stores/doc-container/type';
+import { WithSource } from '@mobJsType';
+
 export interface ScrollToItemsToAdd {
     id: string;
     label: string;
@@ -26,6 +29,7 @@ export interface ScrollTo {
             top: number;
         }[];
     };
+    bindStore: WithSource<DocContainerStore>;
     methods: {
         addItem: (arg0: ScrollToItemsToAdd) => void;
         setActiveLabel: (arg0: string) => void;

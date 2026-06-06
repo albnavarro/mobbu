@@ -1,7 +1,7 @@
-import { openSideBarLinkTablet } from '@commonComponent/side-bar-links/utils';
 import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
+import { docContainerStore } from '@stores/doc-container';
 
 /**
  * @import {MobComponent} from '@mobJsType'
@@ -23,7 +23,7 @@ export const DocContainerFn = ({
     watch(
         () => proxi.rightSidebarVisible,
         (shoulVisible) => {
-            openSideBarLinkTablet(shoulVisible);
+            docContainerStore.set('shouldApplyInert', !shoulVisible);
         }
     );
 
