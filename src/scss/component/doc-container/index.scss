@@ -126,3 +126,25 @@
         }
     }
 }
+
+@layer override {
+    [dir='rtl'] :where(.c-doc-container) {
+        :where(.right) {
+            transform: translateX(calc(var(--gap-size) * -1));
+
+            &.visible {
+                @include mq($until: desktop) {
+                    transform: translateX(100%);
+                }
+            }
+        }
+
+        :where(.off-canvas-icon) {
+            transform: translateX(-50%) rotate(-135deg);
+
+            &.active {
+                transform: translateX(-50%) rotate(45deg);
+            }
+        }
+    }
+}

@@ -474,8 +474,8 @@
     text-rendering: optimizelegibility;
   }
   h1 {
-    font-size: 1.5625rem;
-    line-height: 1.8em;
+    font-size: 2rem;
+    line-height: 1.125em;
   }
   @media (min-width: 62em) {
     h1 {
@@ -4574,6 +4574,22 @@
         grid-column: 3/span 1;
       }
     }
+  }
+}
+@layer override {
+  [dir=rtl] :where(.c-doc-container) :where(.right) {
+    transform: translateX(calc(var(--gap-size) * -1));
+  }
+  @media (max-width: 61.99em) {
+    [dir=rtl] :where(.c-doc-container) :where(.right).visible {
+      transform: translateX(100%);
+    }
+  }
+  [dir=rtl] :where(.c-doc-container) :where(.off-canvas-icon) {
+    transform: translateX(-50%) rotate(-135deg);
+  }
+  [dir=rtl] :where(.c-doc-container) :where(.off-canvas-icon).active {
+    transform: translateX(-50%) rotate(45deg);
   }
 }
 @layer layout {
