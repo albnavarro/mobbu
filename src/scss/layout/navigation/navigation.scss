@@ -22,8 +22,8 @@
         .label {
             padding: rem(10) rem(20);
             transition: background 0.35s;
-            background: var(--grey-200);
-            color: var(--dark);
+            background: var(--dark);
+            color: var(--white);
 
             &.hide {
                 display: none;
