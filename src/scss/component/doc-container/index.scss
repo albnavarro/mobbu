@@ -93,6 +93,21 @@
             }
         }
 
+        .off-canvas-backdrop {
+            position: absolute;
+            inline-size: 1000px;
+            transition: opacity 0.35s;
+            opacity: 0;
+            background: rgba(var(--white-rgb), 0.7);
+            pointer-events: none;
+            inset-block: 0;
+            inset-inline-end: 100%;
+
+            &.active {
+                opacity: 1;
+            }
+        }
+
         .right {
             position: sticky;
             z-index: 14;

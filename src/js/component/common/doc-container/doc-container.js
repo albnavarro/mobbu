@@ -140,15 +140,25 @@ export const DocContainerFn = ({
                                 },
                             }),
                         ],
-                        content: {
-                            tag: 'span',
-                            className: 'off-canvas-icon',
-                            modules: bindEffect({
-                                toggleClass: {
-                                    active: () => proxi.rightSidebarVisible,
-                                },
-                            }),
-                        },
+                        content: [
+                            {
+                                tag: 'span',
+                                className: 'off-canvas-icon',
+                                modules: bindEffect({
+                                    toggleClass: {
+                                        active: () => proxi.rightSidebarVisible,
+                                    },
+                                }),
+                            },
+                            {
+                                className: 'off-canvas-backdrop',
+                                modules: bindEffect({
+                                    toggleClass: {
+                                        active: () => proxi.rightSidebarVisible,
+                                    },
+                                }),
+                            },
+                        ],
                     },
                     {
                         tag: 'mobjs-slot',
