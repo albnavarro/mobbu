@@ -37,9 +37,15 @@ export const DocContainerFn = ({
             proxi.rightSidebarVisible = false;
         });
 
+        const unsubscribeEscHandler = MobCore.useEscHandler(() => {
+            if (!proxi.rightSidebarVisible) return;
+            proxi.rightSidebarVisible = false;
+        });
+
         return () => {
             unsubscribeResize();
             unsubScribeRoute();
+            unsubscribeEscHandler();
             openSideBarLinkTablet(false);
         };
     });

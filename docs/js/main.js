@@ -25872,9 +25872,14 @@
       const unsubScribeRoute = modules_exports2.afterRouteChange(() => {
         proxi.rightSidebarVisible = false;
       });
+      const unsubscribeEscHandler2 = modules_exports.useEscHandler(() => {
+        if (!proxi.rightSidebarVisible) return;
+        proxi.rightSidebarVisible = false;
+      });
       return () => {
         unsubscribeResize();
         unsubScribeRoute();
+        unsubscribeEscHandler2();
         openSideBarLinkTablet(false);
       };
     });
