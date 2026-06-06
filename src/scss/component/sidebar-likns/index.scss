@@ -217,8 +217,18 @@
 }
 
 @layer override {
-    [dir='rtl'] :where(.c-sidebar-links) :where(.scrollbar) {
-        transform: rotate(-90deg);
-        transform-origin: right;
+    [dir='rtl'] :where(.c-sidebar-links) {
+        transform: translateX(calc(var(--gap-size) * -1));
+
+        &.visible {
+            @include mq($until: desktop) {
+                transform: translateX(100%);
+            }
+        }
+
+        :where(.scrollbar) {
+            transform: rotate(-90deg);
+            transform-origin: right;
+        }
     }
 }

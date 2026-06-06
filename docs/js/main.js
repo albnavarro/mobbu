@@ -25848,6 +25848,10 @@
     const methods = modules_exports2.useMethodByName(sideBarLinksName);
     methods.toggleTablet(visible);
   };
+  var getSideBarLinkRoot = () => {
+    const methods = modules_exports2.useMethodByName(sideBarLinksName);
+    return methods.getRoot();
+  };
 
   // src/js/component/common/doc-container/doc-container.js
   var DocContainerFn = ({
@@ -25855,7 +25859,9 @@
     delegateEvents,
     bindEffect,
     onMount,
-    watch
+    watch,
+    setRef,
+    getRef
   }) => {
     const proxi = getSelfProxi();
     watch(
@@ -25876,10 +25882,21 @@
         if (!proxi.rightSidebarVisible) return;
         proxi.rightSidebarVisible = false;
       });
+      const unsubScribePointer = modules_exports.usePointerDown((event) => {
+        const target = (
+          /** @type {HTMLElement} */
+          event.target
+        );
+        const aside = getRef().asideRight;
+        const sideBarLinks = getSideBarLinkRoot();
+        if (target !== aside && target !== sideBarLinks && !aside.contains(target) && !sideBarLinks.contains(target))
+          proxi.rightSidebarVisible = false;
+      });
       return () => {
         unsubscribeResize();
         unsubScribeRoute();
         unsubscribeEscHandler2();
+        unsubScribePointer();
         openSideBarLinkTablet(false);
       };
     });
@@ -25903,11 +25920,14 @@
             id: "right-sidbar",
             "aria-label": "right section utils"
           },
-          modules: bindEffect({
-            toggleClass: {
-              visible: () => proxi.rightSidebarVisible
-            }
-          }),
+          modules: [
+            setRef("asideRight"),
+            bindEffect({
+              toggleClass: {
+                visible: () => proxi.rightSidebarVisible
+              }
+            })
+          ],
           content: [
             {
               tag: "button",
@@ -25924,7 +25944,8 @@
                 }),
                 bindEffect({
                   toggleAttribute: {
-                    "aria-expanded": () => proxi.rightSidebarVisible ? "true" : "false"
+                    "aria-expanded": () => proxi.rightSidebarVisible ? "true" : "false",
+                    "aria-label": () => proxi.rightSidebarVisible ? "close sidebar" : "open sidebar"
                   }
                 })
               ],
@@ -40730,6 +40751,7 @@
     onMount(({ element }) => {
       const { screenEl, scrollerEl, scrollbar } = getRef();
       let isActive2 = false;
+      addMethod("getRoot", () => element);
       scrollbar.addEventListener("input", () => {
         move2?.(scrollbar.value);
       });

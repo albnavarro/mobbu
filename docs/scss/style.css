@@ -5113,6 +5113,14 @@
   }
 }
 @layer override {
+  [dir=rtl] :where(.c-sidebar-links) {
+    transform: translateX(calc(var(--gap-size) * -1));
+  }
+  @media (max-width: 61.99em) {
+    [dir=rtl] :where(.c-sidebar-links).visible {
+      transform: translateX(100%);
+    }
+  }
   [dir=rtl] :where(.c-sidebar-links) :where(.scrollbar) {
     transform: rotate(-90deg);
     transform-origin: right;

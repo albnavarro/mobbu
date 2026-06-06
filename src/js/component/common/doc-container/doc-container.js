@@ -1,4 +1,7 @@
-import { openSideBarLinkTablet } from '@commonComponent/side-bar-links/utils';
+import {
+    getSideBarLinkRoot,
+    openSideBarLinkTablet,
+} from '@commonComponent/side-bar-links/utils';
 import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
@@ -14,6 +17,8 @@ export const DocContainerFn = ({
     bindEffect,
     onMount,
     watch,
+    setRef,
+    getRef,
 }) => {
     const proxi = getSelfProxi();
 
@@ -28,24 +33,52 @@ export const DocContainerFn = ({
     );
 
     onMount(() => {
+        /**
+         * Close sidebar on resize.
+         */
         const unsubscribeResize = MobCore.useResize(() => {
             const shouldCloseRight = MobMotionCore.mq('min', 'desktop');
             if (shouldCloseRight) proxi.rightSidebarVisible = false;
         });
 
+        /**
+         * Close sidebar on route change.
+         */
         const unsubScribeRoute = MobJs.afterRouteChange(() => {
             proxi.rightSidebarVisible = false;
         });
 
+        /**
+         * Close sidebar on esc.
+         */
         const unsubscribeEscHandler = MobCore.useEscHandler(() => {
             if (!proxi.rightSidebarVisible) return;
             proxi.rightSidebarVisible = false;
+        });
+
+        /**
+         * Close sidebar when click outside
+         */
+        const unsubScribePointer = MobCore.usePointerDown((event) => {
+            const target = /** @type {HTMLElement} */ (event.target);
+
+            const aside = getRef().asideRight;
+            const sideBarLinks = getSideBarLinkRoot();
+
+            if (
+                target !== aside &&
+                target !== sideBarLinks &&
+                !aside.contains(target) &&
+                !sideBarLinks.contains(target)
+            )
+                proxi.rightSidebarVisible = false;
         });
 
         return () => {
             unsubscribeResize();
             unsubScribeRoute();
             unsubscribeEscHandler();
+            unsubScribePointer();
             openSideBarLinkTablet(false);
         };
     });
@@ -70,11 +103,14 @@ export const DocContainerFn = ({
                     id: 'right-sidbar',
                     'aria-label': 'right section utils',
                 },
-                modules: bindEffect({
-                    toggleClass: {
-                        visible: () => proxi.rightSidebarVisible,
-                    },
-                }),
+                modules: [
+                    setRef('asideRight'),
+                    bindEffect({
+                        toggleClass: {
+                            visible: () => proxi.rightSidebarVisible,
+                        },
+                    }),
+                ],
                 content: [
                     {
                         tag: 'button',
@@ -96,6 +132,11 @@ export const DocContainerFn = ({
                                         proxi.rightSidebarVisible
                                             ? 'true'
                                             : 'false',
+
+                                    'aria-label': () =>
+                                        proxi.rightSidebarVisible
+                                            ? 'close sidebar'
+                                            : 'open sidebar',
                                 },
                             }),
                         ],
