@@ -4532,17 +4532,17 @@
       }
     }
     .off-canvas-icon {
-      block-size: 1rem;
-      inline-size: 1rem;
-      transform: translateX(calc(50% + 0.5rem)) rotate(135deg);
+      block-size: 0.5rem;
+      inline-size: 0.5rem;
+      transform: translateX(calc(50% + 0.75rem)) rotate(135deg);
       inset-block-start: -1px;
       inset-inline-start: 1px;
-      border-inline-end: 4px var(--white) solid;
-      border-block-end: 4px var(--white) solid;
+      border-inline-end: 3px var(--white) solid;
+      border-block-end: 3px var(--white) solid;
       transition: transform 0.35s;
     }
     .off-canvas-icon.active {
-      transform: translateX(50%) rotate(-45deg);
+      transform: translateX(calc(50% + 0.75rem)) rotate(-45deg);
     }
     .off-canvas-backdrop {
       position: absolute;
@@ -4600,10 +4600,10 @@
     }
   }
   [dir=rtl] :where(.c-doc-container) :where(.off-canvas-icon) {
-    transform: translateX(calc(-50% - 0.5rem)) rotate(-135deg);
+    transform: translateX(calc(-50% - 0.75rem)) rotate(-135deg);
   }
   [dir=rtl] :where(.c-doc-container) :where(.off-canvas-icon).active {
-    transform: translateX(-50%) rotate(45deg);
+    transform: translateX(calc(-50% - 0.75rem)) rotate(45deg);
   }
 }
 @layer layout {
