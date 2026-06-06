@@ -1,4 +1,5 @@
 import { MobCore } from '@mobCore';
+import { MobMotionCore } from '@mobMotion';
 
 /**
  * @import {MobStoreParams} from '@mobStoreType'
@@ -13,7 +14,7 @@ export const docContainerStore = MobCore.createStore(
             __skipEqual: false,
         },
         leftSidebarIsVisible: {
-            __value: true,
+            __value: MobMotionCore.mq('min', 'desktop') ? true : false,
             __type: Boolean,
             __skipEqual: false,
         },

@@ -14,6 +14,7 @@ export const DocContainer = MobJs.createComponent(
             rightSidebarVisible: {
                 __value: false,
                 __type: Boolean,
+                __skipEqual: false,
             },
         },
     })

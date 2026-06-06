@@ -25830,7 +25830,7 @@
         __skipEqual: false
       },
       leftSidebarIsVisible: {
-        __value: true,
+        __value: core_exports.mq("min", "desktop") ? true : false,
         __type: Boolean,
         __skipEqual: false
       }
@@ -25984,7 +25984,8 @@
       state: {
         rightSidebarVisible: {
           __value: false,
-          __type: Boolean
+          __type: Boolean,
+          __skipEqual: false
         }
       }
     }
