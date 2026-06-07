@@ -29,6 +29,14 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true
+            },
+            "content": "All params:"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
