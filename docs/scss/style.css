@@ -4564,15 +4564,15 @@
     }
     .off-canvas-backdrop {
       position: absolute;
+      z-index: -1;
       block-size: calc(100vh - var(--header-height) - var(--footer-height));
       inline-size: 125rem;
       transition: opacity 0.35s;
       opacity: 0;
-      background: rgba(var(--white-rgb), 0.7);
+      background: rgba(var(--white-rgb), 0.9);
       pointer-events: none;
       inset-block: 0;
       inset-inline-end: calc(100% - var(--gap-size));
-      z-index: -1;
     }
     .off-canvas-backdrop.active {
       opacity: 1;
@@ -4589,7 +4589,7 @@
       transition: transform 0.35s;
       background: var(--white);
       inset-block-start: var(--header-height);
-      border-inline-start: 1px var(--grey-400) solid;
+      border-inline-start: 1px var(--immutable-black) solid;
     }
     @media (max-width: 61.99em) {
       .right.visible {
@@ -4879,7 +4879,6 @@
       transform: translateX(var(--gap-size));
       inset-block-start: var(--header-height);
       inset-inline-start: calc(var(--doc-width) + var(--gap-size) / 2);
-      border-block-end: 1px var(--grey-300) solid;
       pointer-events: none;
     }
     @media (min-width: 75em) {
