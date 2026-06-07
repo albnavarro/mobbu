@@ -187,7 +187,7 @@ export const SideBarLinksFn = ({
         content: [
             {
                 className: 'title',
-                content: 'All params:',
+                content: 'Component params:',
             },
             {
                 tag: 'input',
