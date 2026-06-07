@@ -271,7 +271,7 @@
                         "component": "mob-spacer",
                         "props": {
                             "id": "page-transition",
-                            "label": "Functions"
+                            "label": "Page transition"
                         }
                     }
                 ]
