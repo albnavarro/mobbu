@@ -57,6 +57,7 @@ const block01 = ({ setRef, proxi, bindEffect }) => {
                 className: 'section-top u-has-overflow',
                 content: {
                     tag: 'h1',
+                    attributes: { tabindex: '-1' },
                     className: 'title-big',
                     modules: setRef('title_1'),
                     content: proxi.block_1.titleTop,
@@ -105,7 +106,8 @@ const block02 = ({ setRef, proxi, bindEffect }) => {
                     {
                         className: 'section-right',
                         content: {
-                            tag: 'h1',
+                            tag: 'h2',
+                            attributes: { tabindex: '-1' },
                             className: 'title-biggest',
                             modules: setRef('section2_title'),
                             content: proxi.block_2.title,
@@ -158,7 +160,8 @@ const block03 = ({ setRef, proxi, bindEffect }) => {
                     {
                         className: 'section-right',
                         content: {
-                            tag: 'h1',
+                            tag: 'h2',
+                            attributes: { tabindex: '-1' },
                             className: 'title-biggest',
                             modules: setRef('section3_title'),
                             content: proxi.block_3.title,
@@ -205,7 +208,8 @@ const block04 = ({ setRef, proxi, bindEffect }) => {
             {
                 className: 'section-top u-has-overflow',
                 content: {
-                    tag: 'h1',
+                    tag: 'h2',
+                    attributes: { tabindex: '-1' },
                     className: 'title-biggest',
                     modules: setRef('section4_title'),
                     content: proxi.block_4.title,
@@ -324,6 +328,7 @@ export const AboutComponentFn = ({
     bindEffect,
     delegateEvents,
     getSelfProxi,
+    watch,
 }) => {
     const proxi = getSelfProxi();
     const numberOfSection = 4;
@@ -331,6 +336,28 @@ export const AboutComponentFn = ({
     let freezeOnLag = false;
 
     onMount(() => {
+        /**
+         * Which focus for each section ?
+         */
+        const focusMap = new Map([
+            [1, getRef().title_1],
+            [2, getRef().section2_title],
+            [3, getRef().section3_title],
+            [4, getRef().section4_title],
+        ]);
+
+        /**
+         * Move focus inside slider.
+         */
+        watch(
+            () => proxi.activenavItem,
+            (value) => {
+                const currentTile = focusMap.get(value);
+                if (!currentTile) return;
+                currentTile.focus({ preventScroll: true });
+            }
+        );
+
         const {
             screenElement,
             scrollerElement,
@@ -429,6 +456,7 @@ export const AboutComponentFn = ({
             _goTo = () => {};
             destroy();
             destroySvgSpring();
+            focusMap.clear();
         };
     });
 

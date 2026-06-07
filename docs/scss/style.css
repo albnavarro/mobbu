@@ -1462,7 +1462,8 @@
     :scope.active {
       pointer-events: all;
     }
-    h1 {
+    h1,
+    h2 {
       display: inline-block;
       padding: 0.25rem 1.25rem;
       outline-color: var(--dark);
