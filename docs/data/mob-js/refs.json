@@ -20,16 +20,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "HTML nodes can be accessed through the ref and refs functions."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium",
-                "boxed": true,
-                "note": true
-            },
-            "content": "It is possible to use components or simple HTML nodes as targets."
+            "content": "HTML nodes can be accessed through the ref and refs functions.<br/> It is possible to use components or simple HTML nodes as targets. "
         },
         {
             "component": "mob-spacer",
@@ -60,6 +51,20 @@
                 "source": "./snippets/mob-js/refs.js",
                 "numLines": 71
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true
+            },
+            "content": "Etras:"
         },
         {
             "component": "mob-spacer",

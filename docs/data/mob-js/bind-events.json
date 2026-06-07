@@ -31,6 +31,20 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h2",
+                "isSection": true
+            },
+            "content": "Usage:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h3"
             },
             "content": "Params:"
@@ -38,7 +52,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6"
+                "tag": "h4"
             },
             "content": "event"
         },
@@ -78,7 +92,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6"
+                "tag": "h4"
             },
             "content": "value/index"
         },
