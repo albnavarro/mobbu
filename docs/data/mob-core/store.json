@@ -260,6 +260,13 @@
                     {
                         "component": "mob-title",
                         "props": {
+                            "tag": "h3"
+                        },
+                        "content": "All params:"
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
                             "tag": "h4"
                         },
                         "content": "__value"
@@ -671,7 +678,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "Set Options: ( optional )"
                     },
@@ -701,7 +708,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "With proxi"
                     },
@@ -772,7 +779,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "Update Options: ( optional )"
                     },
@@ -803,7 +810,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "Pay attention to mutations."
                     },
@@ -823,7 +830,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "With proxi"
                     },
@@ -952,7 +959,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "Watch Options: ( optional )"
                     },
@@ -983,7 +990,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "With proxi"
                     },
@@ -1038,7 +1045,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "With proxi"
                     },
@@ -1093,7 +1100,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "With proxi"
                     },
@@ -1171,7 +1178,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "Explicit dependencies:"
                     },
@@ -1205,7 +1212,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "With proxy ( auto detect dependencies )"
                     },
@@ -1232,7 +1239,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "With proxi ( explicit dependencies)"
                     },
@@ -1259,7 +1266,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "Cascade computed"
                     },
@@ -1454,7 +1461,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "debugStore()"
                     },
@@ -1474,7 +1481,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "debugValidate()"
                     },

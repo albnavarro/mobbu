@@ -32,6 +32,20 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h2",
+                "isSection": true
+            },
+            "content": "Main sections:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h3"
             },
             "content": "Component basic"
@@ -229,6 +243,13 @@
                         "props": {
                             "style": "small"
                         }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "Propierties:"
                     },
                     {
                         "component": "mob-title",
@@ -448,7 +469,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h3"
                         },
                         "content": "Async"
                     },
