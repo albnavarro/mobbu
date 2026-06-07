@@ -38,9 +38,12 @@ const getItems = ({ staticProps, bindProps, proxi }) => {
 
         return isLabel
             ? htmlObject({
-                  tag: 'p',
-                  className: 'label',
-                  content: label,
+                  tag: 'li',
+                  content: {
+                      tag: 'p',
+                      className: 'label',
+                      content: label,
+                  },
               })
             : htmlObject({
                   tag: 'li',
@@ -198,6 +201,7 @@ export const SideBarLinksFn = ({
                     value: 0,
                     step: 0.5,
                     tabindex: '-1',
+                    'aria-hidden': true,
                 },
                 modules: setRef('scrollbar'),
             },
