@@ -45,6 +45,20 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h2",
+                "isSection": true
+            },
+            "content": "Usage:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h3"
             },
             "content": "createComponent additional params:"
@@ -91,11 +105,11 @@
             "content": "<p>Each parameter automatically receives the web component context (the custom element's instance), and optionally - as shown in the example below - can accept a utility object containing all our function's helper methods.</p>"
         },
         {
-            "component": "mob-title",
+            "component": "mob-paragraph",
             "props": {
-                "tag": "h6"
+                "style": "medium"
             },
-            "content": "context ( native webComponent context ):"
+            "content": "<strong>context ( native webComponent context ):</strong>"
         },
         {
             "component": "mob-paragraph",
@@ -105,11 +119,11 @@
             "content": "webComponent context"
         },
         {
-            "component": "mob-title",
+            "component": "mob-paragraph",
             "props": {
-                "tag": "h6"
+                "style": "medium"
             },
-            "content": "params"
+            "content": "<strong>params</strong>"
         },
         {
             "component": "mob-paragraph",
@@ -181,6 +195,12 @@
             "props": {
                 "source": "./snippets/mob-js/box-sizing.scss",
                 "numLines": 5
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]
