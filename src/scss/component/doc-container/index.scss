@@ -72,6 +72,8 @@
             background: var(--grey-300);
             inset-block: 0;
             inset-inline-end: 100%;
+            border-start-start-radius: rem(24);
+            border-end-start-radius: rem(24);
 
             @include mq(desktop) {
                 display: none;
