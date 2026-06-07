@@ -26023,38 +26023,6 @@
     }
   );
 
-  // src/js/component/common/doc-title-small/doc-title-small.js
-  var DocTitleSmallFn = ({ getBoundedProxi, bindEffect }) => {
-    const bindProxi = getBoundedProxi();
-    return htmlObject({
-      tag: "nav",
-      attributes: { "aria-label": "BreadCrumbs" },
-      className: "l-doc-breadcrumbs",
-      modules: bindEffect({
-        toggleAttribute: {
-          inert: () => bindProxi.shouldApplyInert ? true : null
-        }
-      }),
-      content: {
-        tag: "ul",
-        className: "c-breadcrumbs",
-        content: {
-          tag: "mobjs-slot"
-        }
-      }
-    });
-  };
-
-  // src/js/component/common/doc-title-small/definition.js
-  var DocsTitleSmall = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('@stores/doc-container/type').DocContainerStore>} */
-    {
-      tag: "doc-title-small",
-      component: DocTitleSmallFn,
-      bindStore: docContainerStore
-    }
-  );
-
   // src/js/component/common/html-content/html-content.js
   var getComponents = ({ data, staticProps: staticProps2, awaitLoadSnippet }) => {
     return data.map((item) => {
@@ -26078,13 +26046,22 @@
     const { awaitLoadSnippet, usePadding } = getState();
     const usePaddingClass = usePadding ? "use-padding" : "";
     return htmlObject({
-      tag: "section",
-      className: ["html-content", usePaddingClass],
-      content: getComponents({
-        data: currentData,
-        staticProps: staticProps2,
-        awaitLoadSnippet
-      })
+      content: [
+        {
+          tag: "mobjs-slot"
+        },
+        {
+          tag: "section",
+          className: ["html-content", usePaddingClass],
+          content: [
+            getComponents({
+              data: currentData,
+              staticProps: staticProps2,
+              awaitLoadSnippet
+            })
+          ]
+        }
+      ]
     });
   };
 
@@ -26413,17 +26390,7 @@
 
   // src/js/pages/layout/utils.js
   var getBreadCrumbs = ({ breadCrumbs }) => {
-    let backArrow = "";
-    const items = breadCrumbs.map((item, index) => {
-      if (index === breadCrumbs.length - 1) {
-        backArrow = /* HTML */
-        `<li>
-                    <a href="${item.url}" class="arrows">
-                        <div class="arrow-start"></div>
-                        <div class="arrow-end"></div>
-                    </a>
-                </li>`;
-      }
+    const items = breadCrumbs.map((item) => {
       return (
         /* HTML */
         `<li>
@@ -26431,7 +26398,7 @@
             </li> `
       );
     }).join("");
-    return `${backArrow}${items}`;
+    return items;
   };
 
   // src/js/component/common/left-sidebar/utils.js
@@ -26445,6 +26412,19 @@
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
     updateLeftSidebarList(rightSidebar ?? []);
+    const breadCrumbsContent = [
+      getBreadCrumbs({
+        breadCrumbs
+      }),
+      {
+        tag: "li",
+        content: {
+          tag: "span",
+          content: title,
+          attributes: { "aria-current": "page" }
+        }
+      }
+    ];
     return htmlObject({
       component: DocContainer,
       attributes: { name: docContainerName },
@@ -26458,24 +26438,12 @@
               data: data.data,
               useMaxWidth: true
             }
-          )
-        },
-        {
-          component: DocsTitleSmall,
-          attributes: { slot: "section-title-small" },
-          content: [
-            getBreadCrumbs({
-              breadCrumbs
-            }),
-            {
-              tag: "li",
-              content: {
-                tag: "span",
-                content: title,
-                attributes: { "aria-current": "page" }
-              }
-            }
-          ]
+          ),
+          content: {
+            tag: "ul",
+            className: "c-breadCrumbs",
+            content: breadCrumbsContent
+          }
         },
         {
           component: ScrollTo,
@@ -26495,6 +26463,19 @@
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
     updateLeftSidebarList(rightSidebar ?? []);
+    const breadCrumbsContent = [
+      getBreadCrumbs({
+        breadCrumbs
+      }),
+      {
+        tag: "li",
+        content: {
+          tag: "span",
+          content: title,
+          attributes: { "aria-current": "page" }
+        }
+      }
+    ];
     return htmlObject({
       component: DocContainer,
       attributes: { name: docContainerName },
@@ -26508,24 +26489,12 @@
               data: data.data,
               useMaxWidth: true
             }
-          )
-        },
-        {
-          component: DocsTitleSmall,
-          attributes: { slot: "section-title-small" },
-          content: [
-            getBreadCrumbs({
-              breadCrumbs
-            }),
-            {
-              tag: "li",
-              content: {
-                tag: "span",
-                content: title,
-                attributes: { "aria-current": "page" }
-              }
-            }
-          ]
+          ),
+          content: {
+            tag: "ul",
+            className: "c-breadCrumbs",
+            content: breadCrumbsContent
+          }
         },
         {
           component: DocTitle,

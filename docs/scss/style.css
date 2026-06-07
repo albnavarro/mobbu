@@ -4113,12 +4113,38 @@
   }
 }
 @layer layout {
+  @scope (.c-breadCrumbs) {
+    margin: 0;
+    padding-block-start: var(--gap-size);
+    padding-inline-start: var(--gap-size);
+    font-size: 0.875rem;
+    list-style: none;
+    li {
+      display: inline-block;
+    }
+    a {
+      display: inline-block;
+      position: relative;
+      margin-inline-end: 0.25rem;
+      padding-inline-end: 0.25rem;
+      text-decoration: underline;
+    }
+    a::after {
+      content: "/";
+      position: absolute;
+      font-size: 0.75rem;
+      inset-block-start: 0.125rem;
+      inset-inline-end: calc(0.375rem * -1);
+    }
+  }
+}
+@layer layout {
   @scope (.html-content) {
     :scope {
       position: relative;
     }
     :scope.use-padding {
-      padding: var(--gap-size) var(--gap-size) var(--col-size);
+      padding: 0.5rem var(--gap-size) var(--col-size);
     }
     :scope.is-min-100 {
       min-block-size: calc(100vh - var(--header-height) - 5rem);
@@ -4719,111 +4745,6 @@
   }
 }
 @layer layout {
-  @scope (.l-doc-breadcrumbs) {
-    :scope {
-      position: relative;
-      z-index: 1;
-      margin-block: var(--gap-size) calc(var(--gap-size) / 2);
-      padding-inline-start: calc(var(--gap-size) * 1.1);
-      color: var(--dark);
-      font-size: 0.6875rem;
-      font-weight: 400;
-    }
-    @media (min-width: 75em) {
-      :scope {
-        font-size: 0.75rem;
-      }
-    }
-    @media (min-width: 100em) {
-      :scope {
-        font-size: 0.875rem;
-      }
-    }
-  }
-}
-@layer layout {
-  @scope (.c-breadcrumbs) {
-    :scope {
-      display: inline-block;
-      margin-inline-start: 0;
-    }
-    li {
-      display: inline-block;
-    }
-    span {
-      display: inline-block;
-      position: relative;
-      inline-size: 80px;
-      padding: 0.125em 0.625em;
-      overflow: clip;
-      transition: opacity 0.35s;
-      border-radius: 1.25em;
-      background: var(--dark);
-      color: var(--white);
-      text-align: center;
-      text-overflow: ellipsis;
-      text-transform: capitalize;
-      vertical-align: middle;
-      white-space: nowrap;
-    }
-    .link {
-      display: inline-block;
-      position: relative;
-      margin-inline-end: 0.3125rem;
-      padding: 0.125em 0.625em;
-      transition: background 0.35s, color 0.35s;
-      border-radius: 1.25em;
-      background: var(--grey-200);
-      color: var(--dark);
-      text-transform: capitalize;
-    }
-    .link:hover {
-      background: var(--dark);
-      color: var(--white);
-    }
-    .link:hover::after {
-      opacity: 1;
-    }
-    .arrows {
-      display: block;
-      position: absolute;
-      block-size: 1.875rem;
-      inline-size: 1.875rem;
-      inset-block-start: calc(0.125rem * -1);
-      inset-inline-start: 0.4375rem;
-    }
-    .arrow-start {
-      position: absolute;
-      block-size: 0.625rem;
-      inline-size: 2px;
-      transform: translate(-50%, -50%) rotate(90deg);
-      transition: background 0.35s;
-      background: var(--dark);
-      inset-block-start: 50%;
-      inset-inline-start: 50%;
-    }
-    .arrow-end {
-      position: absolute;
-      block-size: 0.4375rem;
-      inline-size: 0.4375rem;
-      transform: translate(-50%, -50%) rotate(135deg);
-      transition: border-color 0.35s;
-      inset-block-start: 50%;
-      inset-inline-start: calc(50% + 0.125rem * -1);
-      border-inline-end: 2px var(--dark) solid;
-      border-block-end: 2px var(--dark) solid;
-    }
-  }
-}
-@layer override {
-  [dir=rtl] :where(.l-doc-breadcrumbs) :where(.arrow-start) {
-    transform: translate(50%, -50%) rotate(-90deg);
-  }
-  [dir=rtl] :where(.l-doc-breadcrumbs) :where(.arrow-end) {
-    transform: translate(50%, -50%) rotate(-135deg);
-  }
-}
-@layer layout {
   @scope (.c-doc-svg) {
     :scope {
       position: relative;
@@ -4851,7 +4772,7 @@
 @layer layout {
   @scope (.c-scroll-to) {
     :scope {
-      margin-block-start: 0;
+      margin-block-start: var(--gap-size);
       margin-inline-start: var(--gap-size);
       color: var(--dark);
     }
@@ -4948,16 +4869,15 @@
 @layer layout {
   @scope (.c-sidebar-links) {
     :scope {
-      --links-height: 54vh;
-      --title-height: 2.75rem;
+      --links-height: 65vh;
+      --title-height: 4.625rem;
       position: fixed;
       z-index: 14;
       block-size: var(--links-height);
       inline-size: 18.75rem;
       transform: translateX(var(--gap-size));
-      inset-block-start: calc(var(--header-height) + var(--gap-size) * 2);
+      inset-block-start: var(--header-height);
       inset-inline-start: calc(var(--doc-width) + var(--gap-size) / 2);
-      border-block-start: 1px var(--grey-300) solid;
       border-block-end: 1px var(--grey-300) solid;
       pointer-events: none;
     }
@@ -4993,6 +4913,7 @@
       display: flex;
       align-items: end;
       block-size: var(--title-height);
+      padding-block-end: 0.5rem;
       padding-inline-start: 2.25rem;
       font-weight: 600;
       text-transform: uppercase;
@@ -5078,9 +4999,9 @@
     .scrollbar {
       position: absolute;
       z-index: 11;
-      inset-block-start: 2.75rem;
+      inset-block-start: 4rem;
       inset-inline-start: 15rem;
-      inline-size: calc(var(--links-height) - 3.75rem);
+      inline-size: calc(var(--links-height) - var(--title-height));
       transform: rotate(90deg);
       transform-origin: left;
       background: transparent;

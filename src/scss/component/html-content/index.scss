@@ -1,12 +1,42 @@
 @use '../../abstract' as *;
 
 @layer layout {
+    @scope (.c-breadCrumbs) {
+        margin: 0;
+        padding-block-start: var(--gap-size);
+        padding-inline-start: var(--gap-size);
+        font-size: rem(14);
+        list-style: none;
+
+        li {
+            display: inline-block;
+        }
+
+        a {
+            display: inline-block;
+            position: relative;
+            margin-inline-end: rem(4);
+            padding-inline-end: rem(4);
+            text-decoration: underline;
+
+            &::after {
+                content: '/';
+                position: absolute;
+                font-size: rem(12);
+                inset-block-start: rem(2);
+                inset-inline-end: calc(#{rem(6)} * -1);
+            }
+        }
+    }
+}
+
+@layer layout {
     @scope (.html-content) {
         :scope {
             position: relative;
 
             &.use-padding {
-                padding: var(--gap-size) var(--gap-size) var(--col-size);
+                padding: rem(8) var(--gap-size) var(--col-size);
             }
 
             &.is-min-100 {

@@ -3,17 +3,16 @@
 @layer layout {
     @scope (.c-sidebar-links) {
         :scope {
-            --links-height: 54vh;
-            --title-height: #{rem(44)};
+            --links-height: 65vh;
+            --title-height: #{rem(74)};
 
             position: fixed;
             z-index: 14;
             block-size: var(--links-height);
             inline-size: rem(300);
             transform: translateX(var(--gap-size));
-            inset-block-start: calc(var(--header-height) + var(--gap-size) * 2);
+            inset-block-start: var(--header-height);
             inset-inline-start: calc(var(--doc-width) + (var(--gap-size) / 2));
-            border-block-start: 1px var(--grey-300) solid;
             border-block-end: 1px var(--grey-300) solid;
             pointer-events: none;
 
@@ -56,6 +55,7 @@
             display: flex;
             align-items: end;
             block-size: var(--title-height);
+            padding-block-end: rem(8);
             padding-inline-start: rem(36);
             font-weight: 600;
             text-transform: uppercase;
@@ -155,9 +155,9 @@
         .scrollbar {
             position: absolute;
             z-index: 11;
-            inset-block-start: rem(44);
+            inset-block-start: rem(64);
             inset-inline-start: rem(240);
-            inline-size: calc(var(--links-height) - #{rem(60)});
+            inline-size: calc(var(--links-height) - var(--title-height));
             transform: rotate(90deg);
             transform-origin: left;
             background: transparent;

@@ -1,6 +1,5 @@
 import { DocContainer } from '@commonComponent/doc-container/definition';
 import { DocTitle } from '@commonComponent/doc-title/definition';
-import { DocsTitleSmall } from '@commonComponent/doc-title-small/definition';
 import { HtmlContent } from '@commonComponent/html-content/definition';
 import { ScrollTo } from '@commonComponent/scroll-to/definition';
 import { htmlObject, MobJs } from '@mobJs';
@@ -14,6 +13,20 @@ export const layoutSidebarAnchor = async ({ props }) => {
     const { source, title, breadCrumbs, rightSidebar } = props;
     const { data } = await loadJsonContent({ source });
     updateLeftSidebarList(rightSidebar ?? []);
+
+    const breadCrumbsContent = [
+        getBreadCrumbs({
+            breadCrumbs,
+        }),
+        {
+            tag: 'li',
+            content: {
+                tag: 'span',
+                content: title,
+                attributes: { 'aria-current': 'page' },
+            },
+        },
+    ];
 
     return htmlObject({
         component: DocContainer,
@@ -29,23 +42,11 @@ export const layoutSidebarAnchor = async ({ props }) => {
                         useMaxWidth: true,
                     })
                 ),
-            },
-            {
-                component: DocsTitleSmall,
-                attributes: { slot: 'section-title-small' },
-                content: [
-                    getBreadCrumbs({
-                        breadCrumbs,
-                    }),
-                    {
-                        tag: 'li',
-                        content: {
-                            tag: 'span',
-                            content: title,
-                            attributes: { 'aria-current': 'page' },
-                        },
-                    },
-                ],
+                content: {
+                    tag: 'ul',
+                    className: 'c-breadCrumbs',
+                    content: breadCrumbsContent,
+                },
             },
             {
                 component: ScrollTo,

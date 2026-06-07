@@ -53,12 +53,21 @@ export const HtmlContentFn = async ({ getState, staticProps }) => {
     const usePaddingClass = usePadding ? 'use-padding' : '';
 
     return htmlObject({
-        tag: 'section',
-        className: ['html-content', usePaddingClass],
-        content: getComponents({
-            data: currentData,
-            staticProps,
-            awaitLoadSnippet,
-        }),
+        content: [
+            {
+                tag: 'mobjs-slot',
+            },
+            {
+                tag: 'section',
+                className: ['html-content', usePaddingClass],
+                content: [
+                    getComponents({
+                        data: currentData,
+                        staticProps,
+                        awaitLoadSnippet,
+                    }),
+                ],
+            },
+        ],
     });
 };

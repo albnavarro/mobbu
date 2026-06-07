@@ -3,7 +3,7 @@
 @layer layout {
     @scope (.c-scroll-to) {
         :scope {
-            margin-block-start: 0;
+            margin-block-start: var(--gap-size);
             margin-inline-start: var(--gap-size);
             color: var(--dark);
         }
