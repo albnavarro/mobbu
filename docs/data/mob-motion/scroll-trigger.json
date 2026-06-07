@@ -23,11 +23,11 @@
             "content": "Related group: <span class='quote'><a href='#mobMotion-sequencer'>sequencer</a></span> | <span class='quote'><a href='#mobMotion-sync-timeline'>syncTimeline</a></span> | <span class='quote'><a href='#mobMotion-create-stagger'>createStagger</a></span> | <span class='quote'><a href='#mobMotion-scrolltrigger'>scrollTrigger</a></span> | <span class='quote'><a href='#mobMotion-parallax'>parallax</a></span><br/><br/>To be activated, the <span class='quote'>init method</span> must be executed. Unlike parallax which reasons by speed/multipliers, scrollTrigger allows you to reason in absolute values from point A (start) to point B (end)."
         },
         {
-            "component": "mob-title",
+            "component": "mob-paragraph",
             "props": {
-                "tag": "h6"
+                "style": "medium"
             },
-            "content": "Example:"
+            "content": "<strong>Examples:</strong>"
         },
         {
             "component": "mob-list",
@@ -148,7 +148,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "item"
                     },
@@ -168,7 +168,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "trigger"
                     },
@@ -188,7 +188,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "applyTo"
                     },
@@ -208,7 +208,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "scroller"
                     },
@@ -228,7 +228,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "screen"
                     },
@@ -262,7 +262,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "breakpoint"
                     },
@@ -282,7 +282,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "queryType"
                     },
@@ -390,7 +390,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "1) x | y"
                     },
@@ -415,7 +415,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "2) rotate | rotateY | rotateX | rotateZ"
                     },
@@ -437,7 +437,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "3) scale | scaleX | scaleY"
                     },
@@ -459,7 +459,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "4) opacity"
                     },
@@ -481,7 +481,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "5) customCssProperties"
                     },
@@ -503,7 +503,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "6) tween"
                     },
@@ -566,7 +566,7 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "small"
+                            "style": "medium"
                         }
                     },
                     {
@@ -672,7 +672,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "1) bottom | top | left | right"
                     },
@@ -713,7 +713,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "2) +/-<value>vh | vw | px"
                     },
@@ -736,7 +736,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "3) +/- height | halfHeight | width | halfWidth"
                     },
@@ -821,7 +821,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "1) position:"
                     },
@@ -841,7 +841,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "2) value:"
                     },
@@ -984,7 +984,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "ease"
                     },
@@ -998,7 +998,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "easeType"
                     },
@@ -1012,7 +1012,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "lerpConfig"
                     },
@@ -1026,7 +1026,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "springConfig"
                     },
@@ -1084,7 +1084,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "pin"
                     },
@@ -1098,7 +1098,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "animatePin"
                     },
@@ -1112,7 +1112,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "forceTranspond"
                     },
@@ -1126,7 +1126,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "anticipatePinOnLoad"
                     },
@@ -1181,7 +1181,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "onEnter"
                     },
@@ -1195,7 +1195,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "onEnterBack"
                     },
@@ -1209,7 +1209,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "onLeave"
                     },
@@ -1223,7 +1223,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "onLeaveBack"
                     },
@@ -1237,7 +1237,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "onTick"
                     },
@@ -1281,7 +1281,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "disableForce3D"
                     },
@@ -1295,7 +1295,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "useThrottle"
                     },
@@ -1309,7 +1309,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "perspective"
                     },
@@ -1323,7 +1323,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "useWillChange"
                     },
@@ -1444,7 +1444,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "Horizontal scroller example:"
                     },
