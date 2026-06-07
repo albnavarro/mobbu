@@ -2,10 +2,14 @@
 
 @layer layout {
     @scope (.c-doc-title) {
+        position: absolute;
+        block-size: 100%;
+        inline-size: 100%;
+        overflow: hidden;
+
         span {
             display: inline-block;
-            position: absolute;
-            inset-block-start: 0;
+            position: relative;
             overflow: hidden;
             transform: translate(calc(rem(50) * -1), calc(rem(320) * -1))
                 rotate(90deg);
@@ -17,6 +21,7 @@
             line-height: 1;
             white-space: nowrap;
             pointer-events: none;
+            inset-block-start: 0;
         }
     }
 }
