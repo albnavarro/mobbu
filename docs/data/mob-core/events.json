@@ -29,699 +29,718 @@
             }
         },
         {
-            "component": "mob-spacer",
+            "component": "html-content",
             "props": {
-                "id": "useFrame",
-                "label": "useFrame"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useFrame"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Utilizes the first available <span class='quote'>requestAnimationFrame</span> callback."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>fps</span>: current fps value: number",
-                    "<span class='quote'>time</span>: current time: number"
+                "usePadding": false,
+                "data": [
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isBold": true,
+                            "isSection": true
+                        },
+                        "content": "All event"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useFrame",
+                            "label": "useFrame"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useFrame"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Utilizes the first available <span class='quote'>requestAnimationFrame</span> callback."
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>fps</span>: current fps value: number",
+                                "<span class='quote'>time</span>: current time: number"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-frame.js",
+                            "numLines": 5
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useNextTick",
+                            "label": "useNextTick"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useNextTick"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Fires after the current <span class='quote'>requestAnimationFrame</span> rendering completes, but before the next frame's callbacks execute."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-next-tick.js",
+                            "numLines": 22
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useNextFrame",
+                            "label": "useNextFrame"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useNextFrame"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Dispatches during the next available <span class='quote'>requestAnimationFrame</span> cycle, enabling RAF-based animation loops."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-next-frame.js",
+                            "numLines": 10
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useFrameIndex",
+                            "label": "useFrameIndex"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useFrameIndex"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Precisely schedules execution during a specific <span class='quote'>requestAnimationFrame</span> cycle."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-frame-index.js",
+                            "numLines": 6
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useFps",
+                            "label": "useFps"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useFps"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "It runs a cycle of <span class='quote'>30 frames ( default )</span> to determine the value of <span class='quote'>frames per second</span> supported by the monitor."
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>force</span>: Force the recalculation of FPS even if they have already been calculated.",
+                                "<span class='quote'>deration</span>: Number of cycles used to determine the FPS value; by default, it is 30."
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-fps.js",
+                            "numLines": 3
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useLoad",
+                            "label": "useLoad"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useLoad"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Triggers immediately when the DOM finishes loading."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-load.js",
+                            "numLines": 5
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useResize",
+                            "label": "useResize"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useResize"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Triggers on each window resize with built-in debounce to prevent performance issues."
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>horizontalResize</span>: boolean",
+                                "<span class='quote'>verticalResize</span>: boolean",
+                                "<span class='quote'>documentHeight</span>: number",
+                                "<span class='quote'>scrollY</span>: number",
+                                "<span class='quote'>windowsHeight</span>: number",
+                                "<span class='quote'>windowsWidth</span>: number"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-resize.js",
+                            "numLines": 16
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useVisibilityChange",
+                            "label": "useVisibilityChange"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useVisibilityChange"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Listens for browser tab focus changes using the Page Visibility API."
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>visibilityState</span>: hidden | visible"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-visibility-change.js",
+                            "numLines": 7
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useMouseEvent",
+                            "label": "Mouse/Touch event"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useMouseEvent"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>useMouseClick</span>",
+                                "<span class='quote'>useMouseDown</span>",
+                                "<span class='quote'>useMouseUp</span>",
+                                "<span class='quote'>useTouchMove</span>",
+                                "<span class='quote'>useTouchStart</span>",
+                                "<span class='quote'>useTouchMove</span>",
+                                "<span class='quote'>useTouchEnd</span>"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Handles both mouse and touch interactions through a unified interface."
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>page</span>: { x: number y: number }",
+                                "<span class='quote'>client</span>: { x: number y: number }",
+                                "<span class='quote'>target</span>: Element",
+                                "<span class='quote'>type</span>: mouseEvent",
+                                "<span class='quote'>preventDefault</span>: function"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-mouse-click.js",
+                            "numLines": 19
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useMouseWheel",
+                            "label": "useMouseWheel"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useMouseWheel"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Handles mouse wheel/pad scroll interactions"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>page</span>: { x: number; y: number; }",
+                                "<span class='quote'>client</span>: { x: number; y: number; }",
+                                "<span class='quote'>target</span>: Element",
+                                "<span class='quote'>type</span>: mouseEvent",
+                                "<span class='quote'>preventDefault</span>: function",
+                                "<span class='quote'>spinX</span>: number",
+                                "<span class='quote'>spinY</span>: number",
+                                "<span class='quote'>pixelX</span>: number",
+                                "<span class='quote'>pixelY</span>: number"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-mouse-wheel.js",
+                            "numLines": 19
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "usePointerEvent",
+                            "label": "usePointerEvent"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "usePointerEvent"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>usePointerMove</span>",
+                                "<span class='quote'>usePointerOver</span>",
+                                "<span class='quote'>usePointerDown</span>",
+                                "<span class='quote'>usePointerUp</span>",
+                                "<span class='quote'>usePointerOut</span>",
+                                "<span class='quote'>usePointerLeave</span>"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Handles unified input from mouse, touch, and pen/stylus devices."
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": ["native event"]
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-pointer-event.js",
+                            "numLines": 7
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useScroll",
+                            "label": "useScroll"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useScroll"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Schedules execution on the first available nextTick after scrolling completes."
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>scrollY</span>: number",
+                                "<span class='quote'>direction</span>: scrollDirection"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-scroll.js",
+                            "numLines": 7
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useScrollImmediate",
+                            "label": "useScrollImmediate"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useScrollImmediate"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Executes synchronously during each scroll event dispatch."
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>scrollY</span>: number",
+                                "<span class='quote'>direction</span>: scrollDirection"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-scroll-immediate.js",
+                            "numLines": 7
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useScrollThrottle",
+                            "label": "useScrollThrottle"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useScrollThrottle"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Executes at controlled intervals during scrolling to optimize performance.  "
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>scrollY</span>: number",
+                                "<span class='quote'>direction</span>: scrollDirection"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-scroll-throttle.js",
+                            "numLines": 7
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "useScrollStart",
+                            "label": "useScrollStart/End"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "useScrollStart | useScrollEnd"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>Scroll</span> Start: Triggers when scrolling is first detected",
+                                "<span class='quote'>Scroll</span> End: Executes after scrolling stops"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>scrollY</span>: number"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/use-scroll-start.js",
+                            "numLines": 13
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "checkType",
+                            "label": "checkType"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "Checktype"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Checks if variable matches specified type (String/Number/etc.), returning boolean."
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>Function</span>",
+                                "<span class='quote'>String</span>",
+                                "<span class='quote'>Number</span>",
+                                "<span class='quote'>Boolean</span>",
+                                "<span class='quote'>Array</span>",
+                                "<span class='quote'>Element</span>",
+                                "<span class='quote'>HTMLElement</span>",
+                                "<span class='quote'>NodeList</span>",
+                                "<span class='quote'>Set</span>",
+                                "<span class='quote'>Map</span>"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-core/check-type.js",
+                            "numLines": 3
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    }
                 ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-frame.js",
-                "numLines": 5
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useNextTick",
-                "label": "useNextTick"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useNextTick"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Fires after the current <span class='quote'>requestAnimationFrame</span> rendering completes, but before the next frame's callbacks execute."
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-next-tick.js",
-                "numLines": 22
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useNextFrame",
-                "label": "useNextFrame"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useNextFrame"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Dispatches during the next available <span class='quote'>requestAnimationFrame</span> cycle, enabling RAF-based animation loops."
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-next-frame.js",
-                "numLines": 10
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useFrameIndex",
-                "label": "useFrameIndex"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useFrameIndex"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Precisely schedules execution during a specific <span class='quote'>requestAnimationFrame</span> cycle."
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-frame-index.js",
-                "numLines": 6
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useFps",
-                "label": "useFps"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useFps"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "It runs a cycle of <span class='quote'>30 frames ( default )</span> to determine the value of <span class='quote'>frames per second</span> supported by the monitor."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>force</span>: Force the recalculation of FPS even if they have already been calculated.",
-                    "<span class='quote'>deration</span>: Number of cycles used to determine the FPS value; by default, it is 30."
-                ]
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-fps.js",
-                "numLines": 3
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useLoad",
-                "label": "useLoad"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useLoad"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Triggers immediately when the DOM finishes loading."
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-load.js",
-                "numLines": 5
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useResize",
-                "label": "useResize"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useResize"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Triggers on each window resize with built-in debounce to prevent performance issues."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>horizontalResize</span>: boolean",
-                    "<span class='quote'>verticalResize</span>: boolean",
-                    "<span class='quote'>documentHeight</span>: number",
-                    "<span class='quote'>scrollY</span>: number",
-                    "<span class='quote'>windowsHeight</span>: number",
-                    "<span class='quote'>windowsWidth</span>: number"
-                ]
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-resize.js",
-                "numLines": 16
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useVisibilityChange",
-                "label": "useVisibilityChange"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useVisibilityChange"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Listens for browser tab focus changes using the Page Visibility API."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>visibilityState</span>: hidden | visible"
-                ]
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-visibility-change.js",
-                "numLines": 7
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useMouseEvent",
-                "label": "Mouse/Touch event"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useMouseEvent"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>useMouseClick</span>",
-                    "<span class='quote'>useMouseDown</span>",
-                    "<span class='quote'>useMouseUp</span>",
-                    "<span class='quote'>useTouchMove</span>",
-                    "<span class='quote'>useTouchStart</span>",
-                    "<span class='quote'>useTouchMove</span>",
-                    "<span class='quote'>useTouchEnd</span>"
-                ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Handles both mouse and touch interactions through a unified interface."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>page</span>: { x: number y: number }",
-                    "<span class='quote'>client</span>: { x: number y: number }",
-                    "<span class='quote'>target</span>: Element",
-                    "<span class='quote'>type</span>: mouseEvent",
-                    "<span class='quote'>preventDefault</span>: function"
-                ]
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-mouse-click.js",
-                "numLines": 19
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useMouseWheel",
-                "label": "useMouseWheel"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useMouseWheel"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Handles mouse wheel/pad scroll interactions"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>page</span>: { x: number; y: number; }",
-                    "<span class='quote'>client</span>: { x: number; y: number; }",
-                    "<span class='quote'>target</span>: Element",
-                    "<span class='quote'>type</span>: mouseEvent",
-                    "<span class='quote'>preventDefault</span>: function",
-                    "<span class='quote'>spinX</span>: number",
-                    "<span class='quote'>spinY</span>: number",
-                    "<span class='quote'>pixelX</span>: number",
-                    "<span class='quote'>pixelY</span>: number"
-                ]
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-mouse-wheel.js",
-                "numLines": 19
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "usePointerEvent",
-                "label": "usePointerEvent"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "usePointerEvent"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>usePointerMove</span>",
-                    "<span class='quote'>usePointerOver</span>",
-                    "<span class='quote'>usePointerDown</span>",
-                    "<span class='quote'>usePointerUp</span>",
-                    "<span class='quote'>usePointerOut</span>",
-                    "<span class='quote'>usePointerLeave</span>"
-                ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Handles unified input from mouse, touch, and pen/stylus devices."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": ["native event"]
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-pointer-event.js",
-                "numLines": 7
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useScroll",
-                "label": "useScroll"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useScroll"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Schedules execution on the first available nextTick after scrolling completes."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>scrollY</span>: number",
-                    "<span class='quote'>direction</span>: scrollDirection"
-                ]
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-scroll.js",
-                "numLines": 7
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useScrollImmediate",
-                "label": "useScrollImmediate"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useScrollImmediate"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Executes synchronously during each scroll event dispatch."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>scrollY</span>: number",
-                    "<span class='quote'>direction</span>: scrollDirection"
-                ]
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-scroll-immediate.js",
-                "numLines": 7
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useScrollThrottle",
-                "label": "useScrollThrottle"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useScrollThrottle"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Executes at controlled intervals during scrolling to optimize performance.  "
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>scrollY</span>: number",
-                    "<span class='quote'>direction</span>: scrollDirection"
-                ]
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-scroll-throttle.js",
-                "numLines": 7
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "useScrollStart",
-                "label": "useScrollStart/End"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "useScrollStart | useScrollEnd"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>Scroll</span> Start: Triggers when scrolling is first detected",
-                    "<span class='quote'>Scroll</span> End: Executes after scrolling stops"
-                ]
-            }
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": ["<span class='quote'>scrollY</span>: number"]
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/use-scroll-start.js",
-                "numLines": 13
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "checkType",
-                "label": "checkType"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "Checktype"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Checks if variable matches specified type (String/Number/etc.), returning boolean."
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>Function</span>",
-                    "<span class='quote'>String</span>",
-                    "<span class='quote'>Number</span>",
-                    "<span class='quote'>Boolean</span>",
-                    "<span class='quote'>Array</span>",
-                    "<span class='quote'>Element</span>",
-                    "<span class='quote'>HTMLElement</span>",
-                    "<span class='quote'>NodeList</span>",
-                    "<span class='quote'>Set</span>",
-                    "<span class='quote'>Map</span>"
-                ]
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mob-core/check-type.js",
-                "numLines": 3
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         }
     ]

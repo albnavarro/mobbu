@@ -39,6 +39,7 @@ export const layoutSidebarLinks = async ({ props }) => {
                     ({
                         data: data.data,
                         useMaxWidth: true,
+                        isSection: false,
                     })
                 ),
                 content: {

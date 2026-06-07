@@ -23,11 +23,11 @@ export const HtmlContent = MobJs.createComponent(
                 __value: false,
                 __type: Boolean,
             },
-            useTriangle: {
+            usePadding: {
                 __value: true,
                 __type: Boolean,
             },
-            usePadding: {
+            isSection: {
                 __value: true,
                 __type: Boolean,
             },

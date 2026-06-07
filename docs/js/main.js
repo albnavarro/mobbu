@@ -26041,26 +26041,24 @@
     return currentData.data;
   };
   var HtmlContentFn = async ({ getState, staticProps: staticProps2 }) => {
-    const { source, data } = getState();
+    const { isSection, source, data } = getState();
     const currentData = await getData2({ source, data });
     const { awaitLoadSnippet, usePadding } = getState();
     const usePaddingClass = usePadding ? "use-padding" : "";
     return htmlObject({
+      tag: isSection ? "section" : "div",
+      className: ["html-content", usePaddingClass],
       content: [
         {
           tag: "mobjs-slot"
         },
-        {
-          tag: "section",
-          className: ["html-content", usePaddingClass],
-          content: [
-            getComponents({
-              data: currentData,
-              staticProps: staticProps2,
-              awaitLoadSnippet
-            })
-          ]
-        }
+        [
+          getComponents({
+            data: currentData,
+            staticProps: staticProps2,
+            awaitLoadSnippet
+          })
+        ]
       ]
     });
   };
@@ -26084,11 +26082,11 @@
           __value: false,
           __type: Boolean
         },
-        useTriangle: {
+        usePadding: {
           __value: true,
           __type: Boolean
         },
-        usePadding: {
+        isSection: {
           __value: true,
           __type: Boolean
         }
@@ -26437,7 +26435,8 @@
             /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
             {
               data: data.data,
-              useMaxWidth: true
+              useMaxWidth: true,
+              isSection: false
             }
           ),
           content: {
@@ -26494,7 +26493,8 @@
             /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
             {
               data: data.data,
-              useMaxWidth: true
+              useMaxWidth: true,
+              isSection: false
             }
           ),
           content: {
@@ -44881,39 +44881,37 @@
   var AnchorButtonFn = ({ getState, delegateEvents }) => {
     const { content: label, anchor } = getState();
     return htmlObject({
-      content: {
-        tag: "button",
-        className: "anchor-button",
-        attributes: { type: "button", role: "link" },
-        modules: delegateEvents({
-          click: async () => {
-            const target = document.querySelector(anchor);
-            if (!target) return;
-            const offsetTop = offset(target).top - 100;
-            await MobBodyScroll.to(offsetTop, { duration: 10 });
-            target.focus({
-              preventScroll: true
-            });
-          }
-        }),
-        content: [
-          label,
-          {
-            tag: "span",
-            className: "arrows",
-            content: [
-              {
-                tag: "span",
-                className: "arrow-start"
-              },
-              {
-                tag: "span",
-                className: "arrow-end"
-              }
-            ]
-          }
-        ]
-      }
+      tag: "button",
+      className: "anchor-button",
+      attributes: { type: "button", role: "link" },
+      modules: delegateEvents({
+        click: async () => {
+          const target = document.querySelector(anchor);
+          if (!target) return;
+          const offsetTop = offset(target).top - 100;
+          await MobBodyScroll.to(offsetTop, { duration: 10 });
+          target.focus({
+            preventScroll: true
+          });
+        }
+      }),
+      content: [
+        label,
+        {
+          tag: "span",
+          className: "arrows",
+          content: [
+            {
+              tag: "span",
+              className: "arrow-start"
+            },
+            {
+              tag: "span",
+              className: "arrow-end"
+            }
+          ]
+        }
+      ]
     });
   };
 

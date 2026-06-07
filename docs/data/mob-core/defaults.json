@@ -29,142 +29,160 @@
                 "numLines": 8
             }
         },
+
         {
-            "component": "mob-spacer",
+            "component": "html-content",
             "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "usePassive",
-                "label": "usePassive"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "usePassive"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Use passive event listeners for wheel, touch, and other high-frequency events."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "deferredNextTick",
-                "label": "deferredNextTick"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "deferredNextTick"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "nextTick Execution Timing:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "items": [
-                    "<span class='quote'>Enabled</span> (true): Callbacks run <em>after</em> render completion but <em>before next RAF</em>",
-                    "<span class='quote'>Disabled</span> (false): Executes <em>pre-render</em> in the current frame"
+                "usePadding": false,
+                "data": [
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h2",
+                            "isBold": true,
+                            "isSection": true
+                        },
+                        "content": "All value"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "usePassive",
+                            "label": "usePassive"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "usePassive"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Use passive event listeners for wheel, touch, and other high-frequency events."
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "deferredNextTick",
+                            "label": "deferredNextTick"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "deferredNextTick"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "nextTick Execution Timing:"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'>Enabled</span> (true): Callbacks run <em>after</em> render completion but <em>before next RAF</em>",
+                                "<span class='quote'>Disabled</span> (false): Executes <em>pre-render</em> in the current frame"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "throttle",
+                            "label": "throttle"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "throttle"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "<span class='quote'>Throttle</span> value in milliseconds, used by useScrollThrottle"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "spinYMaxValue",
+                            "label": "spinYMaxValue"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "spinYMaxValue"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Limits the value of <span class='quote'>spinY</span> to a maximum in both negative and positive"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "spinXMaxValue",
+                            "label": "spinXMaxValue"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "spinXMaxValue"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Limits the value of <span class='quote'>spinX</span> to a maximum in both negative and positive"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "medium"
+                        }
+                    }
                 ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "throttle",
-                "label": "throttle"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "throttle"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "<span class='quote'>Throttle</span> value in milliseconds, used by useScrollThrottle"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "spinYMaxValue",
-                "label": "spinYMaxValue"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "spinYMaxValue"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Limits the value of <span class='quote'>spinY</span> to a maximum in both negative and positive"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "id": "spinXMaxValue",
-                "label": "spinXMaxValue"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "spinXMaxValue"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Limits the value of <span class='quote'>spinX</span> to a maximum in both negative and positive"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
             }
         }
     ]

@@ -40,6 +40,7 @@ export const layoutSidebarAnchor = async ({ props }) => {
                     ({
                         data: data.data,
                         useMaxWidth: true,
+                        isSection: false,
                     })
                 ),
                 content: {

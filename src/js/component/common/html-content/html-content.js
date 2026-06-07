@@ -46,28 +46,26 @@ const getData = async ({ source, data }) => {
  * @type {MobComponentAsync<HtmlContent>}
  */
 export const HtmlContentFn = async ({ getState, staticProps }) => {
-    const { source, data } = getState();
+    const { isSection, source, data } = getState();
     const currentData = await getData({ source, data });
 
     const { awaitLoadSnippet, usePadding } = getState();
     const usePaddingClass = usePadding ? 'use-padding' : '';
 
     return htmlObject({
+        tag: isSection ? 'section' : 'div',
+        className: ['html-content', usePaddingClass],
         content: [
             {
                 tag: 'mobjs-slot',
             },
-            {
-                tag: 'section',
-                className: ['html-content', usePaddingClass],
-                content: [
-                    getComponents({
-                        data: currentData,
-                        staticProps,
-                        awaitLoadSnippet,
-                    }),
-                ],
-            },
+            [
+                getComponents({
+                    data: currentData,
+                    staticProps,
+                    awaitLoadSnippet,
+                }),
+            ],
         ],
     });
 };

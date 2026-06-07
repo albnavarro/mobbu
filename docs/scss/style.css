@@ -4115,8 +4115,8 @@
 @layer layout {
   @scope (.c-breadCrumbs) {
     margin: 0;
-    padding-block-start: var(--gap-size);
-    padding-inline-start: var(--gap-size);
+    margin-block-end: 0.5rem;
+    padding-block-start: 2rem;
     font-size: 0.875rem;
     list-style: none;
     li {
@@ -4139,7 +4139,7 @@
   }
 }
 @layer layout {
-  @scope (.html-content) {
+  @scope (.html-content) to (.c-breadCrumbs) {
     :scope {
       position: relative;
     }
