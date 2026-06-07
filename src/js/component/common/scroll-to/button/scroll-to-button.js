@@ -11,6 +11,7 @@ export const ScrollToButtonFn = ({ bindEffect, getSelfProxi }) => {
         attributes: {
             type: 'button',
             tabindex: proxi.isSection || proxi.isNote ? '-1' : '0',
+            role: 'link',
         },
         className: [isSectionClass, isNoteClass],
         modules: bindEffect({

@@ -15,7 +15,7 @@ export const AnchorButtonFn = ({ getState, delegateEvents }) => {
         content: {
             tag: 'button',
             className: 'anchor-button',
-            attributes: { type: 'button' },
+            attributes: { type: 'button', role: 'link' },
             modules: delegateEvents({
                 click: async () => {
                     const target = document.querySelector(anchor);

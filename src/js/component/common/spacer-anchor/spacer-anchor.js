@@ -65,7 +65,11 @@ export const SpacerAnchorFn = ({ getState, onMount }) => {
     if (id?.length > 0)
         return htmlObject({
             className: ['spacer', 'has-anchor'],
-            attributes: { id, tabindex: '-1' },
+            attributes: {
+                id,
+                tabindex: '-1',
+                'aria-label': `section: ${label}`,
+            },
             content: linkIcon,
         });
 
