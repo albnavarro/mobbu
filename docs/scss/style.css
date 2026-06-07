@@ -4715,7 +4715,7 @@
     block-size: 100%;
     inline-size: 100%;
     overflow: hidden;
-    span {
+    text {
       display: inline-block;
       position: relative;
       overflow: hidden;
@@ -4781,7 +4781,7 @@
       }
     }
     li {
-      margin-block-end: 0.125rem;
+      margin-block-end: 0.25rem;
     }
     button {
       display: block;

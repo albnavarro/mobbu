@@ -68,7 +68,6 @@ export const SpacerAnchorFn = ({ getState, onMount }) => {
             attributes: {
                 id,
                 tabindex: '-1',
-                'aria-label': `section: ${label}`,
             },
             content: linkIcon,
         });
