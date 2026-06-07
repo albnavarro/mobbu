@@ -25759,7 +25759,7 @@
               content: [bottonRow, backgroundTitle, scrollerBlock]
             },
             {
-              tag: "h6",
+              tag: "h2",
               className: "scroll-label",
               modules: bindEffect({
                 toggleClass: {

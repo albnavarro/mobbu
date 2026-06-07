@@ -1875,9 +1875,10 @@
       inset-inline-start: 0.9375rem;
       font-size: 0.6875rem;
     }
-    h6 {
+    h2 {
       margin: 0;
       pointer-events: none;
+      font-size: 1.25rem;
     }
     .link {
       display: flex;
