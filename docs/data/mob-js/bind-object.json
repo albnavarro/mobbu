@@ -29,11 +29,11 @@
             }
         },
         {
-            "component": "mob-title",
+            "component": "mob-paragraph",
             "props": {
-                "tag": "h6"
+                "style": "medium"
             },
-            "content": "params"
+            "content": "<strong>Params</strong>"
         },
         {
             "component": "mob-list",
@@ -53,11 +53,11 @@
             }
         },
         {
-            "component": "mob-title",
+            "component": "mob-paragraph",
             "props": {
-                "tag": "h6"
+                "style": "medium"
             },
-            "content": "miscellaneous"
+            "content": "<strong>Miscellaneous</strong>"
         },
         {
             "component": "mob-list",
@@ -78,6 +78,14 @@
             "props": {
                 "style": "small"
             }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true
+            },
+            "content": "Usage:"
         },
         {
             "component": "mob-spacer",

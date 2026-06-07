@@ -54,7 +54,21 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<ul> <li>Universal DOM control: <ul> <li>Works on both component and regular HTML elements</li> <li>Manages: <ul> <li>Classes</li> <li>Styles</li> <li>Attributes</li> </ul><br/> </li> </ul> </li> <li>Modular architecture: <ul> <li>Independent monitoring groups</li> <li>Flexible returns (object or array)</li> </ul> </li> </ul>"
+            "content": "Universal DOM control: it works seamlessly on both components and regular HTML elements, handling classes, styles, and attributes all in one go."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true
+            },
+            "content": "Usage:"
         },
         {
             "component": "mob-spacer",

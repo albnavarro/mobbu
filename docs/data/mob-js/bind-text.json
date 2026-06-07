@@ -29,11 +29,11 @@
             }
         },
         {
-            "component": "mob-title",
+            "component": "mob-paragraph",
             "props": {
-                "tag": "h6"
+                "style": "medium"
             },
-            "content": "miscellaneous"
+            "content": "<strong>Miscellaneous</strong>"
         },
         {
             "component": "mob-list",
