@@ -42,7 +42,7 @@
             inline-size: 100%;
             min-inline-size: auto;
             padding: 0;
-            overflow: hidden;
+            overflow: auto hidden;
             transition: height 0.35s;
             border: 2px var(--grey-200) solid;
             border-radius: rem(10);
@@ -68,6 +68,7 @@
 
         pre {
             box-sizing: inherit;
+            min-inline-size: rem(340);
             margin: 0;
             padding: var(--padding-pre);
             overflow: hidden;
