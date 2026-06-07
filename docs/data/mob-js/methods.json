@@ -44,9 +44,16 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2",
+                "isSection": true
             },
             "content": "Related:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         },
         {
             "component": "mob-list",
@@ -64,6 +71,12 @@
                         "url": "./#mobJs-useMethodArrayByName"
                     }
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]

@@ -20,7 +20,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": " <ul> <li>Key Requirement: <ul> <li>Component must have unique instance name</li> </ul> </li> <li>Global Availability: <ul> <li>Callable from anywhere in application</li> </ul> </li> <li>Name Collision Handling: <ul> <li>With multiple instances of same name</li> <li>Uses first match found</li> </ul> </li> </ul>"
+            "content": "Key Requirement: every component needs its own unique instance name so it can be told apart from the others. Once that's set, it becomes globally available and can be called from anywhere in the application. If you end up with multiple instances sharing the same name, the system will simply go with the first match it finds."
         },
         {
             "component": "mob-spacer",
@@ -64,9 +64,16 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2",
+                "isSection": true
             },
-            "content": "Reference:"
+            "content": "Related:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         },
         {
             "component": "mob-list",
@@ -93,7 +100,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "big"
             }
         }
     ]
