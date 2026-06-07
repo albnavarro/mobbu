@@ -23,11 +23,11 @@
             "content": "Related group: <span class='quote'><a href='#mobMotion-sequencer'>sequencer</a></span> | <span class='quote'><a href='#mobMotion-sync-timeline'>syncTimeline</a></span> | <span class='quote'><a href='#mobMotion-create-stagger'>createStagger</a></span> | <span class='quote'><a href='#mobMotion-scrolltrigger'>scrollTrigger</a></span> | <span class='quote'><a href='#mobMotion-parallax'>parallax</a></span><br/><br/>syncTimeline is a powerful timing controller that manages one or more <a href='./#mobMotion-sequencer'>sequencers</a>. It handles playback control (play, stop, pause) while regulating animation duration and sequencing."
         },
         {
-            "component": "mob-title",
+            "component": "mob-paragraph",
             "props": {
-                "tag": "h6"
+                "style": "medium"
             },
-            "content": "Example:"
+            "content": "<strong>Example:</strong>"
         },
         {
             "component": "mob-list",
@@ -112,7 +112,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "repeat:"
                     },
@@ -126,7 +126,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "yoyo:"
                     },
@@ -140,7 +140,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "duration:"
                     },
@@ -423,7 +423,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "Parameters:"
                     },
@@ -496,7 +496,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "Parameters:"
                     },

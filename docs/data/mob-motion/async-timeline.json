@@ -23,11 +23,11 @@
             "content": "Related group: <span class='quote'><a href='#mobMotion-tween-spring-lerp'>async tween</a></span> | <span class='quote'><a href='#mobMotion-async-timeline'>asyncTimeline</a></span><br/><br/>Async timeline is a promise-based animation coordinator that manages <span class='quote'>timetweens</span>, <span class='quote'>lerps</span>, and <span class='quote'>springs</span>. It handles single animations or groups, supports looping, and allows custom functions between animations."
         },
         {
-            "component": "mob-title",
+            "component": "mob-paragraph",
             "props": {
-                "tag": "h6"
+                "style": "medium"
             },
-            "content": "Example:"
+            "content": "<strong>Example:</strong>"
         },
         {
             "component": "mob-list",
@@ -106,7 +106,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "repeat:"
                     },
@@ -120,7 +120,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "yoyo:"
                     },
@@ -134,7 +134,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "freeMode:"
                     },
@@ -148,7 +148,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "autoSet:"
                     },
@@ -162,7 +162,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "inheritProps:"
                     },
@@ -176,7 +176,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "forceFromTo:"
                     },
@@ -292,11 +292,11 @@
                         }
                     },
                     {
-                        "component": "mob-title",
+                        "component": "mob-paragraph",
                         "props": {
-                            "tag": "h5"
+                            "style": "medium"
                         },
-                        "content": "tween params and override"
+                        "content": "<strong>tween params and override</strong>"
                     },
                     {
                         "component": "mob-paragraph",
@@ -754,7 +754,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "onLoopEnd params:"
                     },

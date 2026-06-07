@@ -38,11 +38,11 @@
             }
         },
         {
-            "component": "mob-title",
+            "component": "mob-paragraph",
             "props": {
-                "tag": "h6"
+                "style": "medium"
             },
-            "content": "Example:"
+            "content": "<strong>Example:</strong>"
         },
         {
             "component": "mob-list",
@@ -61,15 +61,22 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2",
+                "isSection": true
             },
             "content": "How it works"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         },
         {
             "component": "doc-svg",
@@ -134,7 +141,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "duration"
                     },
@@ -148,7 +155,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "data:"
                     },
@@ -162,7 +169,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "ease:"
                     },
@@ -176,7 +183,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h4"
+                            "tag": "h3"
                         },
                         "content": "stagger:"
                     },
@@ -413,7 +420,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "Callback Parameters:"
                     },
