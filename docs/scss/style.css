@@ -1877,8 +1877,8 @@
     }
     h2 {
       margin: 0;
-      pointer-events: none;
       font-size: 1.25rem;
+      pointer-events: none;
     }
     .link {
       display: flex;
