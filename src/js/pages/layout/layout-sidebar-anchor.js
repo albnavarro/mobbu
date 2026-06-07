@@ -43,9 +43,15 @@ export const layoutSidebarAnchor = async ({ props }) => {
                     })
                 ),
                 content: {
-                    tag: 'ul',
-                    className: 'c-breadCrumbs',
-                    content: breadCrumbsContent,
+                    tag: 'nav',
+                    attributes: {
+                        'aria-label': 'breadCrumbs',
+                    },
+                    content: {
+                        tag: 'ul',
+                        className: 'c-breadCrumbs',
+                        content: breadCrumbsContent,
+                    },
                 },
             },
             {
