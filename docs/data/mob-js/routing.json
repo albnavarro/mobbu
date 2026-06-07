@@ -30,9 +30,15 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
+                "tag": "h2",
                 "isBold": true
             },
             "content": "Route Definition:"
@@ -51,12 +57,11 @@
             }
         },
         {
-            "component": "mob-title",
+            "component": "mob-paragraph",
             "props": {
-                "tag": "h6",
-                "isBold": true
+                "style": "medium"
             },
-            "content": "The function has as parameter an object with:"
+            "content": "<strong>The function has as parameter an object with:</strong>"
         },
         {
             "component": "mob-list",
@@ -205,13 +210,26 @@
                     {
                         "component": "mob-spacer",
                         "props": {
-                            "style": "medium"
+                            "style": "small"
                         }
                     },
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h3"
+                        },
+                        "content": "Navigate options:"
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "style": "small"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h4"
                         },
                         "content": "Navigate via link"
                     },
@@ -232,7 +250,7 @@
                     {
                         "component": "mob-title",
                         "props": {
-                            "tag": "h6"
+                            "tag": "h4"
                         },
                         "content": "Navigate via javascript ( loadUrl )"
                     },
