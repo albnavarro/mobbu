@@ -11,6 +11,20 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "big"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "isSection": true
+            },
+            "content": "All utils:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "small"
             }
         },
@@ -43,9 +57,15 @@
             "content": "The calculated values start from a minimum of 1, this to facilitate use as a <span class='quote'>multiplier</span>.<br/>The value is interpolated by a spring to handle the easing."
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h4"
             },
             "content": "params:"
         },
