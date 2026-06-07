@@ -27005,7 +27005,7 @@
       className: "section section--first ",
       attributes: {
         id: "slide-1",
-        role: "listitem",
+        role: "group",
         "aria-roledescription": "slide",
         "aria-label": "Slide 1 di 4"
       },
@@ -27041,7 +27041,7 @@
       className: "section",
       attributes: {
         id: "slide-2",
-        role: "listitem",
+        role: "group",
         "aria-roledescription": "slide",
         "aria-label": "Slide 2 di 4"
       },
@@ -27087,7 +27087,7 @@
       className: "section",
       attributes: {
         id: "slide-3",
-        role: "listitem",
+        role: "group",
         "aria-roledescription": "slide",
         "aria-label": "Slide 3 di 4"
       },
@@ -27133,7 +27133,7 @@
       className: "section section--last",
       attributes: {
         id: "slide-4",
-        role: "listitem",
+        role: "group",
         "aria-roledescription": "slide",
         "aria-label": "Slide 4 di 4"
       },
@@ -27171,7 +27171,7 @@
   };
   var navigation = ({ proxi, delegateEvents, bindEffect }) => {
     return htmlObject({
-      tag: "ul",
+      tag: "nav",
       attributes: {
         role: "tablist",
         "aria-label": "Select a slide"
@@ -27179,36 +27179,32 @@
       className: "nav",
       content: proxi.navItem.map(({ index, label }) => {
         return htmlObject({
-          tag: "li",
-          className: "nav-item",
-          content: {
-            tag: "button",
-            className: "nav-button",
-            attributes: {
-              type: "button",
-              role: "tab",
-              "aria-controls": `slide-${index}`,
-              "aria-label": `Go to slide ${index}: ${label}`
-            },
-            modules: [
-              delegateEvents({
-                click: () => {
-                  _goTo(goToPercentage[index]);
-                  moveSvgFromNav();
-                }
-              }),
-              bindEffect({
-                toggleClass: {
-                  active: () => proxi.activenavItem === index
-                },
-                toggleAttribute: {
-                  "aria-selected": () => proxi.activenavItem === index ? "true" : "false",
-                  tabindex: () => proxi.activenavItem === index ? "-1" : "0"
-                }
-              })
-            ],
-            content: label
-          }
+          tag: "button",
+          className: "nav-button",
+          attributes: {
+            type: "button",
+            role: "tab",
+            "aria-controls": `slide-${index}`,
+            "aria-label": `Go to slide ${index}: ${label}`
+          },
+          modules: [
+            delegateEvents({
+              click: () => {
+                _goTo(goToPercentage[index]);
+                moveSvgFromNav();
+              }
+            }),
+            bindEffect({
+              toggleClass: {
+                active: () => proxi.activenavItem === index
+              },
+              toggleAttribute: {
+                "aria-selected": () => proxi.activenavItem === index ? "true" : "false",
+                tabindex: () => proxi.activenavItem === index ? "-1" : "0"
+              }
+            })
+          ],
+          content: label
         });
       })
     });
@@ -27410,8 +27406,7 @@
             content: {
               className: "scollable-container",
               attributes: {
-                id: "carousel-track",
-                role: "list"
+                id: "carousel-track"
               },
               modules: setRef("wrapElement"),
               content: [

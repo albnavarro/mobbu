@@ -1680,15 +1680,11 @@
       display: flex;
       position: absolute;
       z-index: 11;
-      inset-block-end: var(--vertical-gap);
-      inset-inline-start: 50%;
-      margin-inline-start: 0;
-      padding-inline-start: 0;
+      padding: 1rem;
       transform: translateX(-50%);
       list-style: none;
-    }
-    .nav-item {
-      margin-inline: 0;
+      inset-block-end: var(--vertical-gap);
+      inset-inline-start: 50%;
     }
     .nav-button {
       display: inline-block;
