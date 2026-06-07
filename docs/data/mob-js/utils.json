@@ -11,14 +11,14 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "big"
             }
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-title",
             "props": {
-                "style": "medium",
-                "boxed": true
+                "tag": "h2",
+                "isSection": true
             },
             "content": "Common use utils"
         },
