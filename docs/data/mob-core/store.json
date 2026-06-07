@@ -84,12 +84,6 @@
             "content": "Basic implementations:"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-core/basic-use.js",
@@ -110,12 +104,6 @@
             "content": "Advanced implementations:"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium",
@@ -134,7 +122,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "big"
             }
         },
         {

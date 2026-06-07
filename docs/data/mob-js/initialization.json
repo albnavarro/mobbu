@@ -65,12 +65,6 @@
             "content": "Initialization"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/initialization.js",
