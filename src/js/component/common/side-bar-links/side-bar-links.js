@@ -183,6 +183,10 @@ export const SideBarLinksFn = ({
         }),
         content: [
             {
+                className: 'title',
+                content: 'All params:',
+            },
+            {
                 tag: 'input',
                 className: 'scrollbar hide-scrollbar',
                 attributes: {

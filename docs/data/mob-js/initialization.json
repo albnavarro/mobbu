@@ -53,14 +53,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
-                "label": "Entry point",
-                "isSection": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "id": "main",
                 "label": "Initialization"
             }
@@ -89,14 +81,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "label": "Parameters",
-                "isSection": true
             }
         },
         {

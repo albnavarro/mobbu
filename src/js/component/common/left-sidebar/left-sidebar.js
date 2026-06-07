@@ -105,7 +105,7 @@ export const LightSidebarFn = ({
         content: [
             {
                 className: 'title',
-                content: 'Sections:',
+                content: 'Realated pages:',
             },
             {
                 tag: 'nav',

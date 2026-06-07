@@ -256,18 +256,24 @@ export const ScrollToFn = ({
                 inert: () => (bindProxi.shouldApplyInert ? true : null),
             },
         }),
-        content: {
-            tag: 'ul',
-            content: invalidate({
-                observe: () => proxi.anchorItems,
-                render: () => {
-                    return getButtons({
-                        delegateEvents,
-                        bindProps,
-                        proxi,
-                    });
-                },
-            }),
-        },
+        content: [
+            {
+                className: 'title',
+                content: 'In this page:',
+            },
+            {
+                tag: 'ul',
+                content: invalidate({
+                    observe: () => proxi.anchorItems,
+                    render: () => {
+                        return getButtons({
+                            delegateEvents,
+                            bindProps,
+                            proxi,
+                        });
+                    },
+                }),
+            },
+        ],
     });
 };

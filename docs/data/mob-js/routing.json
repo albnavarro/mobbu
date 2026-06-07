@@ -173,15 +173,6 @@
                 "style": "medium"
             }
         },
-
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "label": "Navigate",
-                "isSection": true
-            }
-        },
         {
             "component": "mob-spacer",
             "props": {
@@ -243,15 +234,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
-            }
-        },
-
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "label": "Page transition",
-                "isSection": true
             }
         },
         {
@@ -363,15 +345,6 @@
                 "style": "big"
             }
         },
-
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "label": "Redirect",
-                "isSection": true
-            }
-        },
         {
             "component": "mob-spacer",
             "props": {
@@ -412,14 +385,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "big"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "label": "Events",
-                "isSection": true
             }
         },
         {

@@ -52,14 +52,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
-                "label": "Params",
-                "isSection": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "id": "schema",
                 "label": "Schema"
             }
@@ -232,14 +224,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
-                "label": "Initialization",
-                "isSection": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "id": "initialization",
                 "label": "code"
             }
@@ -263,14 +247,6 @@
             "props": {
                 "source": "./snippets/mob-motion/async-timeline-example.js",
                 "numLines": 72
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "label": "Override",
-                "isSection": true
             }
         },
         {
@@ -325,15 +301,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
-            }
-        },
-
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "label": "Methods",
-                "isSection": true
             }
         },
         {

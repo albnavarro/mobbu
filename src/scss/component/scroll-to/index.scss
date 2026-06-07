@@ -3,9 +3,16 @@
 @layer layout {
     @scope (.c-scroll-to) {
         :scope {
-            margin-block-start: calc(var(--gap-size) / 2);
+            margin-block-start: 0;
             margin-inline-start: var(--gap-size);
             color: var(--dark);
+        }
+
+        .title {
+            margin-block-end: calc(var(--gap-size) / 4);
+            padding-inline-start: rem(4);
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
         ul {
@@ -42,11 +49,6 @@
                 transition:
                     transform 0.55s,
                     opacity 0.55s;
-                text-transform: capitalize;
-
-                @media screen and (height >= 200px) and (height <= 900px) {
-                    font-size: rem(11);
-                }
             }
 
             &.is-section {
@@ -101,8 +103,7 @@
 
             &.is-note {
                 margin-inline-start: 0;
-                opacity: 0.5;
-                font-size: rem(12);
+                opacity: 0.7;
                 cursor: auto;
             }
         }

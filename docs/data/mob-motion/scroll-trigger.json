@@ -46,14 +46,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
-                "label": "Initialization",
-                "isSection": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "id": "initialization",
                 "label": "code"
             }
@@ -89,14 +81,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "label": "Params",
-                "isSection": true
             }
         },
         {
@@ -1348,15 +1332,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
-            }
-        },
-
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "x-small",
-                "label": "Methods",
-                "isSection": true
             }
         },
         {

@@ -4,6 +4,7 @@
     @scope (.c-sidebar-links) {
         :scope {
             --links-height: 54vh;
+            --title-height: #{rem(44)};
 
             position: fixed;
             z-index: 14;
@@ -51,10 +52,19 @@
             }
         }
 
+        .title {
+            display: flex;
+            align-items: end;
+            block-size: var(--title-height);
+            padding-inline-start: rem(36);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
         .screen {
             visibility: visible;
             position: absolute;
-            block-size: 100%;
+            block-size: calc(var(--links-height) - var(--title-height));
             inline-size: 100%;
             overflow: hidden;
             transition:
@@ -62,7 +72,6 @@
                 opacity 0.55s,
                 visibility 0.55s;
             opacity: 1;
-            inset-block-start: 0;
             inset-inline-start: 0;
         }
 
@@ -115,10 +124,6 @@
                 inset-inline-start: calc(#{rem(20)} * -1);
             }
 
-            @media screen and (height >= 200px) and (height <= 750px) {
-                font-size: rem(11);
-            }
-
             &:hover {
                 &::after {
                     opacity: 1;
@@ -150,7 +155,7 @@
         .scrollbar {
             position: absolute;
             z-index: 11;
-            inset-block-start: rem(25);
+            inset-block-start: rem(44);
             inset-inline-start: rem(240);
             inline-size: calc(var(--links-height) - #{rem(60)});
             transform: rotate(90deg);

@@ -671,14 +671,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "x-small",
-                "label": "Component params:",
-                "isSection": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "id": "lifecycle",
                 "label": "Life cycle"
             }
