@@ -26058,7 +26058,8 @@
       className: ["html-content", usePaddingClass],
       content: [
         {
-          tag: "mobjs-slot"
+          tag: "mobjs-slot",
+          attributes: { name: "html-content-top" }
         },
         [
           getComponents({
@@ -26066,7 +26067,11 @@
             staticProps: staticProps2,
             awaitLoadSnippet
           })
-        ]
+        ],
+        {
+          tag: "mobjs-slot",
+          attributes: { name: "html-content-bottom" }
+        }
       ]
     });
   };
@@ -26414,6 +26419,42 @@
     navContainerMethods?.updateList(data ?? []);
   };
 
+  // src/js/component/common/scroll-top/scroll-top.js
+  var ScrollTopFn = ({ delegateEvents }) => {
+    const topSvg = getIcons()["up"];
+    return htmlObject({
+      tag: "button",
+      attributes: {
+        type: "button",
+        "aria-label": "Scroll to top"
+      },
+      className: "c-scroll-top",
+      modules: [
+        delegateEvents({
+          click: () => {
+            scrollTo({ top: 0 });
+            const root2 = modules_exports2.getRoot();
+            if (!root2) return;
+            const h1 = (
+              /** @type {HTMLElement | null} */
+              root2.querySelector("h1")
+            );
+            h1?.setAttribute("tabindex", "-1");
+            if (!focus) return;
+            h1?.focus({ preventScroll: true });
+          }
+        })
+      ],
+      content: topSvg
+    });
+  };
+
+  // src/js/component/common/scroll-top/definition.js
+  var ScrollTop = modules_exports2.createComponent({
+    tag: "scroll-top",
+    component: ScrollTopFn
+  });
+
   // src/js/pages/layout/layout-sidebar-anchor.js
   var layoutSidebarAnchor = async ({ props }) => {
     const { source, title, breadCrumbs, rightSidebar } = props;
@@ -26447,17 +26488,26 @@
               isSection: false
             }
           ),
-          content: {
-            tag: "nav",
-            attributes: {
-              "aria-label": "breadCrumbs"
+          content: [
+            {
+              tag: "nav",
+              attributes: {
+                "aria-label": "breadCrumbs",
+                slot: "html-content-top"
+              },
+              content: {
+                tag: "ul",
+                className: "c-breadCrumbs",
+                content: breadCrumbsContent
+              }
             },
-            content: {
-              tag: "ul",
-              className: "c-breadCrumbs",
-              content: breadCrumbsContent
+            {
+              component: ScrollTop,
+              attributes: {
+                slot: "html-content-bottom"
+              }
             }
-          }
+          ]
         },
         {
           component: ScrollTo,
@@ -26505,17 +26555,26 @@
               isSection: false
             }
           ),
-          content: {
-            tag: "nav",
-            attributes: {
-              "aria-label": "breadCrumbs"
+          content: [
+            {
+              tag: "nav",
+              attributes: {
+                "aria-label": "breadCrumbs",
+                slot: "html-content-top"
+              },
+              content: {
+                tag: "ul",
+                className: "c-breadCrumbs",
+                content: breadCrumbsContent
+              }
             },
-            content: {
-              tag: "ul",
-              className: "c-breadCrumbs",
-              content: breadCrumbsContent
+            {
+              component: ScrollTop,
+              attributes: {
+                slot: "html-content-bottom"
+              }
             }
-          }
+          ]
         },
         {
           component: DocTitle,

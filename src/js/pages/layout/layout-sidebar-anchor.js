@@ -7,6 +7,7 @@ import { loadJsonContent } from '@utils/utils';
 import { getBreadCrumbs } from './utils';
 import { updateLeftSidebarList } from '@commonComponent/left-sidebar/utils';
 import { docContainerName, scrollToName } from '@instanceName';
+import { ScrollTop } from '@commonComponent/scroll-top/definition';
 
 /** @type {import('@mobJsType').PageAsync<{}, import('./type').LayoutSidebarAnchor['props']>} */
 export const layoutSidebarAnchor = async ({ props }) => {
@@ -43,17 +44,26 @@ export const layoutSidebarAnchor = async ({ props }) => {
                         isSection: false,
                     })
                 ),
-                content: {
-                    tag: 'nav',
-                    attributes: {
-                        'aria-label': 'breadCrumbs',
+                content: [
+                    {
+                        tag: 'nav',
+                        attributes: {
+                            'aria-label': 'breadCrumbs',
+                            slot: 'html-content-top',
+                        },
+                        content: {
+                            tag: 'ul',
+                            className: 'c-breadCrumbs',
+                            content: breadCrumbsContent,
+                        },
                     },
-                    content: {
-                        tag: 'ul',
-                        className: 'c-breadCrumbs',
-                        content: breadCrumbsContent,
+                    {
+                        component: ScrollTop,
+                        attributes: {
+                            slot: 'html-content-bottom',
+                        },
                     },
-                },
+                ],
             },
             {
                 component: ScrollTo,

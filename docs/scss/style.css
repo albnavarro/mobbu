@@ -5247,6 +5247,37 @@
   }
 }
 @layer layout {
+  @scope (.c-scroll-top) {
+    :scope {
+      position: fixed;
+      z-index: 20;
+      block-size: 3.75rem;
+      inline-size: 2.5rem;
+      margin: 0;
+      padding: 0;
+      transform: translateY(0.75rem);
+      transition: transform 0.35s;
+      border: 0;
+      background: var(--black);
+      inset-block-end: var(--footer-height);
+      inset-inline-end: 0;
+    }
+    :scope:hover {
+      transform: translateY(0);
+    }
+    @media (min-width: 62em) {
+      :scope {
+        inset-inline-end: 1rem;
+      }
+    }
+    svg {
+      block-size: 1.25rem;
+      inline-size: 1.25rem;
+      fill: var(--white);
+    }
+  }
+}
+@layer layout {
   @scope (.anchor-button) {
     :scope {
       display: inline-block;

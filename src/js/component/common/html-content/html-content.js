@@ -58,6 +58,7 @@ export const HtmlContentFn = async ({ getState, staticProps }) => {
         content: [
             {
                 tag: 'mobjs-slot',
+                attributes: { name: 'html-content-top' },
             },
             [
                 getComponents({
@@ -66,6 +67,10 @@ export const HtmlContentFn = async ({ getState, staticProps }) => {
                     awaitLoadSnippet,
                 }),
             ],
+            {
+                tag: 'mobjs-slot',
+                attributes: { name: 'html-content-bottom' },
+            },
         ],
     });
 };

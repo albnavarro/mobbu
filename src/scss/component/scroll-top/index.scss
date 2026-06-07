@@ -1,0 +1,34 @@
+@use '../../abstract' as *;
+
+@layer layout {
+    @scope (.c-scroll-top) {
+        :scope {
+            position: fixed;
+            z-index: 20;
+            block-size: rem(60);
+            inline-size: rem(40);
+            margin: 0;
+            padding: 0;
+            transform: translateY(#{rem(12)});
+            transition: transform 0.35s;
+            border: 0;
+            background: var(--black);
+            inset-block-end: var(--footer-height);
+            inset-inline-end: 0;
+
+            &:hover {
+                transform: translateY(0);
+            }
+
+            @include mq(desktop) {
+                inset-inline-end: rem(16);
+            }
+        }
+
+        svg {
+            block-size: rem(20);
+            inline-size: rem(20);
+            fill: var(--white);
+        }
+    }
+}
