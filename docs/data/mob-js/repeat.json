@@ -46,7 +46,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
             "content": "observe:"
         },
@@ -66,7 +66,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
             "content": "clean (optional):"
         },
@@ -86,7 +86,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
             "content": "key ( optional ):"
         },
@@ -106,7 +106,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
             "content": "beforeUpdate ( optional )"
         },
@@ -135,7 +135,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
             "content": "afterUpdate ( optional )"
         },
@@ -155,7 +155,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
             "content": "render"
         },
@@ -190,7 +190,7 @@
                 "boxed": true,
                 "note": true
             },
-            "content": "<ul> <li>Container Requirement: <ul> <li>Each repeater requires initialization within a dedicated HTML node</li> </ul> </li> <li>DOM Structure Rules: <ul> <li>Returned DOM must have a single root node as first element</li> <li>Root can be either: <ul> <li>A generic DOM element</li> <li>A component</li> </ul> </li> </ul> </li> <li>Nested Element Handling: <ul> <li>Supports nested invalidate/repeaters within same component/scope</li> <li>Nested repeaters reference parent component's main state</li> For complex nested states: create new components instead </ul> </li> </ul>"
+            "content": "Container Requirement: every repeater needs to be initialized inside its own dedicated HTML node, so make sure you have a proper container ready before setting it up. DOM Structure Rules: whatever the repeater returns must have exactly one root node as its very first element. That root can be either a plain DOM element or a full component—both work fine. Nested Element Handling: you can absolutely nest invalidate calls and repeaters within the same component or scope, no problem. When you do, nested repeaters will automatically reference the parent component's main state. That said, if you find yourself dealing with a particularly complex nested state, it's usually cleaner to spin up a new component instead of trying to cram everything into the same scope."
         },
         {
             "component": "mob-spacer",
