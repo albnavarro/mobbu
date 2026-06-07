@@ -168,19 +168,9 @@
 
             .title-content {
                 position: absolute;
-                inset-block-end: calc(#{rem(2)} * -1);
+                inset-block-end: 0;
                 inset-inline-start: rem(40);
-                font-size: rem(40);
-
-                @include mq(large) {
-                    inset-block-end: rem(4);
-                    font-size: rem(60);
-                }
-
-                @include mq(xlarge) {
-                    inset-block-end: rem(8);
-                    font-size: rem(65);
-                }
+                font-size: rem(50);
             }
 
             .title-index {

@@ -474,14 +474,8 @@
     text-rendering: optimizelegibility;
   }
   h1 {
-    font-size: 2rem;
-    line-height: 1.125em;
-  }
-  @media (min-width: 62em) {
-    h1 {
-      font-size: 2.5rem;
-      line-height: 1.375em;
-    }
+    font-size: 3.4375rem;
+    line-height: 1em;
   }
   h2 {
     font-size: 1.875rem;
@@ -4269,21 +4263,9 @@
       }
       .title-content {
         position: absolute;
-        inset-block-end: calc(0.125rem * -1);
+        inset-block-end: 0;
         inset-inline-start: 2.5rem;
-        font-size: 2.5rem;
-      }
-      @media (min-width: 75em) {
-        .title-content {
-          inset-block-end: 0.25rem;
-          font-size: 3.75rem;
-        }
-      }
-      @media (min-width: 100em) {
-        .title-content {
-          inset-block-end: 0.5rem;
-          font-size: 4.0625rem;
-        }
+        font-size: 3.125rem;
       }
       .title-index {
         display: none;
