@@ -24,7 +24,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6"
+                "tag": "h3"
             },
             "content": "Philosophy:"
         },

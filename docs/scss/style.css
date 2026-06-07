@@ -4783,7 +4783,8 @@
     li {
       margin-block-end: 0.25rem;
     }
-    button {
+    button,
+    .is-note {
       display: block;
       position: relative;
       min-inline-size: 8.75rem;
@@ -4797,20 +4798,24 @@
       line-height: 1.5;
       text-align: start;
     }
-    button span {
+    button span,
+    .is-note span {
       display: block;
       padding-inline-start: 0.3125rem;
       transition: transform 0.55s, opacity 0.55s;
     }
-    button.is-section {
+    button.is-section,
+    .is-note.is-section {
       margin-block-start: calc(var(--gap-size) / 4);
       margin-inline-start: 0;
       font-weight: 600;
     }
-    button.is-section span {
+    button.is-section span,
+    .is-note.is-section span {
       text-transform: uppercase;
     }
-    button::before {
+    button::before,
+    .is-note::before {
       content: "";
       position: absolute;
       block-size: 0.25rem;
@@ -4822,27 +4827,38 @@
       border-block-start: 1px rgba(var(--dark-rgb), 0.5) solid;
       border-inline-end: 1px rgba(var(--dark-rgb), 0.5) solid;
     }
-    button:not(.active):hover::before {
+    button:not(.active):hover::before,
+    .is-note:not(.active):hover::before {
       transform: translateY(-50%) translateX(calc(-50% + 0.125rem * -1)) rotate(45deg);
     }
-    button.active {
+    button.active,
+    .is-note.active {
       font-weight: 600;
     }
     button.is-section,
-    button.is-note {
+    button.is-note,
+    .is-note.is-section,
+    .is-note.is-note {
       pointer-events: none;
     }
     button.is-section::before,
-    button.is-note::before {
+    button.is-note::before,
+    .is-note.is-section::before,
+    .is-note.is-note::before {
       content: none;
     }
     button.is-section:hover::after,
     button.is-section.active::after,
     button.is-note:hover::after,
-    button.is-note.active::after {
+    button.is-note.active::after,
+    .is-note.is-section:hover::after,
+    .is-note.is-section.active::after,
+    .is-note.is-note:hover::after,
+    .is-note.is-note.active::after {
       content: none;
     }
-    button.is-note {
+    button.is-note,
+    .is-note.is-note {
       margin-inline-start: 0;
       opacity: 0.7;
       cursor: auto;

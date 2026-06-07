@@ -7,11 +7,11 @@ export const ScrollToButtonFn = ({ bindEffect, getSelfProxi }) => {
     const isNoteClass = proxi.isNote ? 'is-note' : '';
 
     return htmlObject({
-        tag: 'button',
+        tag: proxi.isNote ? 'span' : 'button',
         attributes: {
-            type: 'button',
-            tabindex: proxi.isSection || proxi.isNote ? '-1' : '0',
-            role: 'link',
+            type: proxi.isNote ? null : 'button',
+            tabindex: proxi.isSection ? '-1' : null,
+            role: proxi.isNote ? null : 'link',
         },
         className: [isSectionClass, isNoteClass],
         modules: bindEffect({

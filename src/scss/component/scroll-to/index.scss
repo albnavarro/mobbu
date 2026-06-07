@@ -29,7 +29,8 @@
             margin-block-end: rem(4);
         }
 
-        button {
+        button,
+        .is-note {
             display: block;
             position: relative;
             min-inline-size: rem(140);
