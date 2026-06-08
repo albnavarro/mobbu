@@ -10,13 +10,7 @@
             position: absolute;
             inset-block-start: 50%;
             inset-inline-start: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(calc(-50% * var(--dir)), -50%);
         }
-    }
-}
-
-@layer override {
-    [dir='rtl'] :where(.c-dragger) :where(.wrapper) {
-        transform: translate(50%, -50%);
     }
 }

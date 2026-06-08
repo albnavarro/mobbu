@@ -73,7 +73,7 @@
                     position: absolute;
                     block-size: rem(5);
                     inline-size: rem(5);
-                    transform: translateY(-50%) rotate(45deg);
+                    transform: translateY(-50%) rotate(calc(45deg * var(--dir)));
                     transition: opacity 0.35s;
                     opacity: 0;
                     inset-block-start: 50%;
@@ -95,7 +95,7 @@
                     position: absolute;
                     block-size: rem(7);
                     inline-size: rem(7);
-                    transform: translateY(-50%) rotate(45deg);
+                    transform: translateY(-50%) rotate(calc(45deg * var(--dir)));
                     transition:
                         border-color 0.55s,
                         transform 0.35s opacity 0.35s;
@@ -107,7 +107,8 @@
 
                 &.active {
                     &::after {
-                        transform: translateY(-50%) rotate(-135deg);
+                        transform: translateY(-50%)
+                            rotate(calc(-135deg * var(--dir)));
                     }
 
                     &::before {
@@ -146,30 +147,6 @@
 
         .submenu-item {
             padding: rem(4);
-        }
-    }
-}
-
-@layer override {
-    [dir='rtl'] :where(.l-navigation) {
-        :where(.link) {
-            &:not(.has-arrow) {
-                &::after {
-                    transform: translateY(-50%) rotate(-45deg);
-                }
-            }
-
-            &.has-arrow {
-                &::after {
-                    transform: translateY(-50%) rotate(-45deg);
-                }
-
-                &.active {
-                    &::after {
-                        transform: translateY(-50%) rotate(135deg);
-                    }
-                }
-            }
         }
     }
 }

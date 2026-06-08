@@ -11,8 +11,8 @@
                 100vh - var(--header-height) - var(--footer-height)
             );
             inline-size: var(--left-sidebar);
-            padding: var(--gap-size) calc(var(--gap-size) / 2) var(--gap-size)
-                var(--gap-size);
+            padding-block: var(--gap-size);
+            padding-inline: var(--gap-size) calc(var(--gap-size) / 2);
             transition:
                 opacity 0.35s,
                 visibility 0.35s;
@@ -68,7 +68,7 @@
                 position: absolute;
                 block-size: rem(5);
                 inline-size: rem(5);
-                transform: translateY(-50%) rotate(45deg);
+                transform: translateY(-50%) rotate(calc(45deg * var(--dir)));
                 transition: opacity 0.35s;
                 opacity: 0;
                 inset-block-start: 50%;
@@ -86,16 +86,6 @@
                 &::before {
                     opacity: 1;
                 }
-            }
-        }
-    }
-}
-
-@layer override {
-    [dir='rtl'] :where(.left-sidebar) {
-        :where(.link) {
-            &::before {
-                transform: translateY(-50%) rotate(-45deg);
             }
         }
     }

@@ -8,7 +8,7 @@
             align-items: center;
             justify-content: center;
             inline-size: 100%;
-            max-inline-size: 80%;
+            max-inline-size: 90%;
             margin: auto;
             overflow: visible;
             transition: opacity 0.35s;
@@ -22,6 +22,10 @@
             &[open] {
                 display: flex;
                 pointer-events: all;
+            }
+
+            @include mq(desktop) {
+                max-inline-size: 80%;
             }
         }
 
@@ -58,11 +62,13 @@
             }
 
             &::before {
-                transform: translate(-50%, -50%) rotate(45deg);
+                transform: translate(calc(-50% * var(--dir)), -50%)
+                    rotate(45deg);
             }
 
             &::after {
-                transform: translate(-50%, -50%) rotate(135deg);
+                transform: translate(calc(-50% * var(--dir)), -50%)
+                    rotate(135deg);
             }
         }
 
@@ -176,18 +182,6 @@
         .single-component {
             position: relative;
             grid-area: component;
-        }
-    }
-}
-
-@layer override {
-    [dir='rtl'] :where(.close) {
-        &::before {
-            transform: translate(50%, -50%) rotate(-45deg);
-        }
-
-        &::after {
-            transform: translate(50%, -50%) rotate(-135deg);
         }
     }
 }

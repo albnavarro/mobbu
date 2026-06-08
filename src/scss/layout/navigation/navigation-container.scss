@@ -7,7 +7,7 @@
             position: fixed;
             z-index: 10;
             inset-block-start: var(--header-height);
-            transform: translateX(-101%);
+            transform: translateX(calc(-101% * var(--dir)));
             transition:
                 transform 0.55s,
                 background 0.55s;
@@ -144,15 +144,7 @@
 }
 
 @layer override {
-    [dir='rtl'] :where(.l-navcontainer) {
-        transform: translateX(101%);
-
-        &.active {
-            transform: translateX(0);
-        }
-
-        :where(.percent) {
-            transform-origin: right;
-        }
+    [dir='rtl'] :where(.l-navcontainer .percent) {
+        transform-origin: right;
     }
 }

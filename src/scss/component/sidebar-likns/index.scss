@@ -10,7 +10,7 @@
             z-index: 14;
             block-size: var(--links-height);
             inline-size: rem(300);
-            transform: translateX(var(--gap-size));
+            transform: translateX(calc(var(--gap-size) * var(--dir)));
             inset-block-start: var(--header-height);
             inset-inline-start: calc(var(--doc-width) + (var(--gap-size) / 2));
             pointer-events: none;
@@ -26,7 +26,7 @@
 
             &.visible {
                 @include mq($until: desktop) {
-                    transform: translateX(-100%);
+                    transform: translateX(calc(-100% * var(--dir)));
                     transition: transform 0.35s;
                     pointer-events: all;
                 }
@@ -157,16 +157,11 @@
             inset-block-start: rem(64);
             inset-inline-start: rem(240);
             inline-size: calc(var(--links-height) - var(--title-height));
-            transform: rotate(90deg);
+            transform: rotate(calc(90deg * var(--dir)));
             transform-origin: left;
             background: transparent;
             cursor: pointer;
             appearance: none;
-
-            @include when-inside('[dir="rtl"]') {
-                transform: rotate(-90deg);
-                transform-origin: right;
-            }
 
             --thumb-width: #{rem(200)};
 
@@ -221,18 +216,7 @@
 }
 
 @layer override {
-    [dir='rtl'] :where(.c-sidebar-links) {
-        transform: translateX(calc(var(--gap-size) * -1));
-
-        &.visible {
-            @include mq($until: desktop) {
-                transform: translateX(100%);
-            }
-        }
-
-        :where(.scrollbar) {
-            transform: rotate(-90deg);
-            transform-origin: right;
-        }
+    [dir='rtl'] :where(.c-sidebar-links .scrollbar) {
+        transform-origin: right;
     }
 }

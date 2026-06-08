@@ -38,7 +38,7 @@
             position: absolute;
             inset-block-start: 50%;
             inset-inline-start: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(calc(-50% * var(--dir)), -50%);
         }
 
         .trail-item-inner {
@@ -58,7 +58,7 @@
             &::after {
                 block-size: 0;
                 inline-size: 0;
-                transform: translate(-50%, -50%);
+                transform: translate(calc(-50% * var(--dir)), -50%);
                 inset-block-start: 50%;
                 inset-inline-start: 50%;
                 border-block-start: rem(8) solid transparent;
@@ -74,7 +74,7 @@
             &::after {
                 block-size: rem(12);
                 inline-size: rem(12);
-                transform: translate(-50%, -50%);
+                transform: translate(calc(-50% * var(--dir)), -50%);
                 background: var(--dark);
             }
         }
@@ -108,20 +108,6 @@
             &.active {
                 display: block;
             }
-        }
-    }
-}
-
-@layer override {
-    [dir='rtl'] :where(.c-math) {
-        :where(.play, .stop) {
-            &::after {
-                transform: translate(50%, -50%);
-            }
-        }
-
-        :where(.trail-item) {
-            transform: translate(50%, -50%);
         }
     }
 }

@@ -27,7 +27,7 @@
             inset-block-start: 50%;
             inset-inline-start: 50%;
             overflow: visible;
-            transform: translate(-50%, -50%);
+            transform: translate(calc(-50% * var(--dir)), -50%);
         }
     }
 
@@ -36,14 +36,6 @@
 
         @include mq(desktop) {
             display: block;
-        }
-    }
-}
-
-@layer override {
-    [dir='rtl'] :where(.u-center-inner-svg) {
-        svg {
-            transform: translate(50%, -50%);
         }
     }
 }

@@ -43,6 +43,14 @@
             --black: #fff;
         }
 
+        &[dir='rtl'] {
+            --dir: -1;
+        }
+
+        &[dir='ltr'] {
+            --dir: 1;
+        }
+
         --immutable-black: #000;
         --immutable-white: #fff;
         --immutable-dark: #2e3440;

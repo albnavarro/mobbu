@@ -65,20 +65,19 @@
             &::before {
                 content: '';
                 position: absolute;
-                block-size: rem(4);
-                inline-size: rem(4);
-                transform: translateY(-50%) rotate(45deg);
+                block-size: rem(5);
+                inline-size: rem(5);
+                transform: translateY(-50%) rotate(calc(45deg * var(--dir)));
                 transition: transform 0.35s;
                 inset-block-start: 50%;
                 inset-inline-end: calc(100% + #{rem(10)});
-                border-block-start: 1px rgba(var(--dark-rgb), 0.5) solid;
-                border-inline-end: 1px rgba(var(--dark-rgb), 0.5) solid;
+                border-block-start: 2px rgba(var(--dark-rgb), 0.5) solid;
+                border-inline-end: 2px rgba(var(--dark-rgb), 0.5) solid;
             }
 
             &:not(.active):hover {
                 &::before {
-                    transform: translateY(-50%)
-                        translateX(calc(-50% + #{rem(2)} * -1)) rotate(45deg);
+                    border-color: var(--black);
                 }
             }
 
@@ -106,16 +105,6 @@
                 margin-inline-start: 0;
                 opacity: 0.7;
                 cursor: auto;
-            }
-        }
-    }
-}
-
-@layer override {
-    [dir='rtl'] :where(.c-scroll-to) {
-        :where(button) {
-            &::before {
-                transform: translateY(50%) rotate(-45deg);
             }
         }
     }

@@ -233,7 +233,8 @@
             position: absolute;
             block-size: rem(10);
             inline-size: 2px;
-            transform: translate(-50%, -50%) rotate(45deg);
+            transform: translate(calc(-50% * var(--dir)), -50%)
+                rotate(calc(45deg * var(--dir)));
             transition: background 0.35s;
             background: var(--dark);
             inset-block-start: 0;
@@ -244,7 +245,8 @@
             position: absolute;
             block-size: rem(7);
             inline-size: rem(7);
-            transform: translate(-50%, -50%) rotate(275deg);
+            transform: translate(calc(-50% * var(--dir)), -50%)
+                rotate(calc(275deg * var(--dir)));
             transition: border-color 0.35s;
             inset-block-start: -1px;
             inset-inline-start: 1px;
@@ -261,18 +263,6 @@
                 border-inline-end: 2px var(--white) solid;
                 border-block-end: 2px var(--white) solid;
             }
-        }
-    }
-}
-
-@layer override {
-    [dir='rtl'] :where(.list-links) {
-        :where(.arrow-start) {
-            transform: translate(50%, -50%) rotate(-45deg);
-        }
-
-        :where(.arrow-end) {
-            transform: translate(50%, -50%) rotate(-275deg);
         }
     }
 }

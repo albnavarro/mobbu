@@ -174,15 +174,8 @@
         z-index: 1;
         margin-inline: rem(2);
         padding: em(2) em(3);
+        border-radius: rem(4);
+        background: rgba(var(--dark-rgb), 0.1);
         font-size: 0.8em;
-
-        &::after {
-            content: '';
-            position: absolute;
-            z-index: -1;
-            inset: 0 calc(#{rem(2)} * -1) 0 calc(#{rem(2)} * -1);
-            border-radius: rem(4);
-            background: rgba(var(--dark-rgb), 0.1);
-        }
     }
 }

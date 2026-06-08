@@ -58,11 +58,13 @@
             }
 
             &::before {
-                transform: translate(-50%, -50%) rotate(45deg);
+                transform: translate(calc(-50% * var(--dir)), -50%)
+                    rotate(calc(45deg * var(--dir)));
             }
 
             &::after {
-                transform: translate(-50%, -50%) rotate(135deg);
+                transform: translate(calc(-50% * var(--dir)), -50%)
+                    rotate(calc(135deg * var(--dir)));
             }
         }
 
@@ -112,18 +114,6 @@
 
         p {
             margin-block-end: 0;
-        }
-    }
-}
-
-@layer override {
-    [dir='rtl'] :where(.close-button) {
-        &::before {
-            transform: translate(50%, -50%) rotate(-45deg);
-        }
-
-        &::after {
-            transform: translate(50%, -50%) rotate(-135deg);
         }
     }
 }

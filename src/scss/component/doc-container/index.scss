@@ -82,7 +82,8 @@
         .off-canvas-icon {
             block-size: rem(8);
             inline-size: rem(8);
-            transform: translateX(calc(50% + #{rem(12)})) rotate(135deg);
+            transform: translateX(calc((50% + #{rem(12)}) * var(--dir)))
+                rotate(calc(135deg * var(--dir)));
             inset-block-start: -1px;
             inset-inline-start: 1px;
             border-inline-end: 3px var(--immutable-white) solid;
@@ -90,7 +91,8 @@
             transition: transform 0.35s;
 
             &.active {
-                transform: translateX(calc(50% + #{rem(12)})) rotate(-45deg);
+                transform: translateX(calc((50% + #{rem(12)}) * var(--dir)))
+                    rotate(calc(-45deg * var(--dir)));
             }
         }
 
@@ -123,7 +125,7 @@
                 100vh - var(--header-height) - var(--footer-height)
             );
             min-inline-size: rem(300);
-            transform: translateX(var(--gap-size));
+            transform: translateX(calc(var(--gap-size) * var(--dir)));
             transition: transform 0.35s;
             background: var(--white);
             inset-block-start: var(--header-height);
@@ -131,7 +133,7 @@
 
             &.visible {
                 @include mq($until: desktop) {
-                    transform: translateX(-100%);
+                    transform: translateX(calc(-100% * var(--dir)));
                 }
             }
 
@@ -143,28 +145,6 @@
 
             @include mq(large) {
                 grid-column: 3 / span 1;
-            }
-        }
-    }
-}
-
-@layer override {
-    [dir='rtl'] :where(.c-doc-container) {
-        :where(.right) {
-            transform: translateX(calc(var(--gap-size) * -1));
-
-            &.visible {
-                @include mq($until: desktop) {
-                    transform: translateX(100%);
-                }
-            }
-        }
-
-        :where(.off-canvas-icon) {
-            transform: translateX(calc(-50% - #{rem(12)})) rotate(-135deg);
-
-            &.active {
-                transform: translateX(calc(-50% - #{rem(12)})) rotate(45deg);
             }
         }
     }

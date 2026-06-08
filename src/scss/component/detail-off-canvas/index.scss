@@ -49,11 +49,13 @@
             }
 
             &::before {
-                transform: translate(-50%, -50%) rotate(45deg);
+                transform: translate(calc(-50% * var(--dir)), -50%)
+                    rotate(45deg);
             }
 
             &::after {
-                transform: translate(-50%, -50%) rotate(135deg);
+                transform: translate(calc(-50% * var(--dir)), -50%)
+                    rotate(135deg);
             }
         }
 
@@ -86,7 +88,7 @@
 
         @starting-style {
             dialog[open] {
-                transform: translateX(100%);
+                transform: translateX(calc(100% * var(--dir)));
             }
         }
 
@@ -213,32 +215,12 @@
 }
 
 @layer override {
-    :where(.l-rosa) {
-        .open {
-            inset-block-start: rem(20);
-            inset-inline-end: rem(20);
-        }
+    :where(.l-rosa .open) {
+        inset-block-start: rem(20);
+        inset-inline-end: rem(20);
     }
 
-    [theme='light'] :where(.c-detail-offcanvas) {
-        :where(.controls-button) {
-            border: 1px rgba(var(--white-rgb), 0.2) solid;
-        }
-    }
-
-    [dir='rtl'] {
-        :where(.c-detail-offcanvas) {
-            :where(dialog) {
-                &[open] {
-                    transform: translateX(0);
-                }
-            }
-
-            @starting-style {
-                dialog[open] {
-                    transform: translateX(-100%);
-                }
-            }
-        }
+    [theme='light'] :where(.c-detail-offcanvas .controls-button) {
+        border: 1px rgba(var(--white-rgb), 0.2) solid;
     }
 }

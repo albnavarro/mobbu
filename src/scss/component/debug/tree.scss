@@ -41,7 +41,7 @@
             inset-block-start: rem(56);
             inset-inline-start: calc(100% - #{rem(20)});
             inline-size: calc(var(--debug-content-row-height) - #{rem(80)});
-            transform: rotate(90deg);
+            transform: rotate(calc(90deg * var(--dir)));
             transform-origin: left;
             background: transparent;
             cursor: pointer;
@@ -97,8 +97,7 @@
 }
 
 @layer override {
-    [dir='rtl'] :where(.c-debug-tree) :where(.scrollbar) {
-        transform: rotate(-90deg);
+    [dir='rtl'] :where(.c-debug-tree .scrollbar) {
         transform-origin: right;
     }
 }

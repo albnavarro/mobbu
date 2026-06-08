@@ -10,7 +10,7 @@
             inset-block-end: 2px;
             inset-inline-start: 50%;
             block-size: calc(var(--footer-height) - var(--gap));
-            transform: translateX(-50%);
+            transform: translateX(calc(-50% * var(--dir)));
             transition:
                 opacity 0.35s,
                 visibility 0.35s;
@@ -25,12 +25,6 @@
                 pointer-events: all;
             }
         }
-    }
-}
-
-@layer override {
-    [dir='rtl'] :where(.c-quick-nav-container) {
-        transform: translateX(50%);
     }
 }
 
@@ -63,19 +57,22 @@
 
             &.is-next {
                 &::after {
-                    transform: translate(-75%, -50%) rotate(45deg);
+                    transform: translate(calc(-75% * var(--dir)), -50%)
+                        rotate(calc(45deg * var(--dir)));
                 }
             }
 
             &.is-prev {
                 &::after {
-                    transform: translate(-25%, -50%) rotate(-135deg);
+                    transform: translate(calc(-25% * var(--dir)), -50%)
+                        rotate(calc(-135deg * var(--dir)));
                 }
             }
 
             &.is-back {
                 &::after {
-                    transform: translate(-50%, -75%) rotate(135deg);
+                    transform: translate(calc(-50% * var(--dir)), -75%)
+                        rotate(calc(135deg * var(--dir)));
                 }
             }
 
@@ -98,28 +95,6 @@
             .labels {
                 visibility: visible;
                 opacity: 1;
-            }
-        }
-    }
-}
-
-@layer override {
-    [dir='rtl'] :where(.c-quick-nav) {
-        &.is-next {
-            &::after {
-                transform: translate(75%, -50%) rotate(-45deg);
-            }
-        }
-
-        &.is-prev {
-            &::after {
-                transform: translate(25%, -50%) rotate(135deg);
-            }
-        }
-
-        &.is-back {
-            &::after {
-                transform: translate(50%, -75%) rotate(-135deg);
             }
         }
     }
