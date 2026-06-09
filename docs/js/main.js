@@ -31315,49 +31315,58 @@
         {
           className: "header-top",
           content: [
-            ...getButton({
-              delegateEvents,
-              staticProps: staticProps2,
-              bindProps,
-              proxi
-            }),
             {
-              component: DynamicListButton,
-              className: "dynamic-list-button",
-              modules: [
-                staticProps2(
-                  /** @type {DynamicListButtonType['props']} */
-                  {
-                    label: "+ counter ( max: 10 )"
-                  }
-                ),
-                delegateEvents({
-                  click: async () => {
-                    updateState("counter", (prev) => {
-                      return prev + 1;
-                    });
-                  }
-                })
-              ]
+              className: "variant-block",
+              content: getButton({
+                delegateEvents,
+                staticProps: staticProps2,
+                bindProps,
+                proxi
+              })
             },
             {
-              component: DynamicListButton,
-              className: "dynamic-list-button",
-              modules: [
-                staticProps2(
-                  /** @type {DynamicListButtonType['props']} */
-                  {
-                    label: "- counter: ( min 0 )"
-                  }
-                ),
-                delegateEvents({
-                  click: async () => {
-                    updateState("counter", (prev) => {
-                      if (prev > 0) return prev -= 1;
-                      return prev;
-                    });
-                  }
-                })
+              className: "counter-block",
+              content: [
+                {
+                  component: DynamicListButton,
+                  className: "dynamic-list-button",
+                  modules: [
+                    staticProps2(
+                      /** @type {DynamicListButtonType['props']} */
+                      {
+                        label: "+ counter ( max: 10 )"
+                      }
+                    ),
+                    delegateEvents({
+                      click: async () => {
+                        updateState("counter", (prev) => {
+                          return prev + 1;
+                        });
+                      }
+                    })
+                  ]
+                },
+                {
+                  component: DynamicListButton,
+                  className: "dynamic-list-button",
+                  modules: [
+                    staticProps2(
+                      /** @type {DynamicListButtonType['props']} */
+                      {
+                        label: "- counter: ( min 0 )"
+                      }
+                    ),
+                    delegateEvents({
+                      click: async () => {
+                        updateState("counter", (prev) => {
+                          if (prev > 0)
+                            return prev -= 1;
+                          return prev;
+                        });
+                      }
+                    })
+                  ]
+                }
               ]
             }
           ]

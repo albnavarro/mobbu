@@ -2324,15 +2324,30 @@
       border-block-end: 1px var(--grey-400) solid;
       background: rgba(var(--white-rgb), 0.8);
     }
-    .dynamic-list-button {
-      flex: 1;
-      max-inline-size: 12.5rem;
-    }
     .header-top {
-      gap: 0.625rem;
-      display: flex;
-      flex-wrap: wrap;
-      inline-size: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 4rem minmax(0, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 0.75rem 1.5rem;
+    }
+    @media (min-width: 75em) {
+      .header-top {
+        max-inline-size: 50rem;
+      }
+    }
+    .variant-block {
+      display: grid;
+      grid-column: 1/span 2;
+      grid-row: 1/span 2;
+      grid-template-columns: subgrid;
+      grid-template-rows: subgrid;
+    }
+    .counter-block {
+      display: grid;
+      grid-column: 4/span 1;
+      grid-row: 1/span1;
+      grid-template-columns: subgrid;
+      grid-template-rows: subgrid;
     }
     .invalidate {
       display: flex;

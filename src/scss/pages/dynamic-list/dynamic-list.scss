@@ -20,16 +20,48 @@
             background: rgba(var(--white-rgb), 0.8);
         }
 
-        .dynamic-list-button {
-            flex: 1;
-            max-inline-size: rem(200);
+        /**
+         * Main grid
+         */
+        .header-top {
+            display: grid;
+
+            /**
+            * Di base 1fr is minmax(auto, 1fr)
+            * - minmax(0, 1fr) -> annulla il limit della larghezza propia del contenuto
+            * - in questo modo le colonne con 1fr sono tutte le rghe uguali.
+            */
+            grid-template-columns:
+                minmax(0, 1fr) minmax(0, 1fr) rem(64)
+                minmax(0, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: rem(12) rem(24);
+
+            @include mq(large) {
+                max-inline-size: rem(800);
+            }
         }
 
-        .header-top {
-            gap: rem(10);
-            display: flex;
-            flex-wrap: wrap;
-            inline-size: 100%;
+        /**
+         * Subgrid left
+         */
+        .variant-block {
+            display: grid;
+            grid-column: 1 / span 2;
+            grid-row: 1 / span 2;
+            grid-template-columns: subgrid;
+            grid-template-rows: subgrid;
+        }
+
+        /**
+         * Subgrid right
+         */
+        .counter-block {
+            display: grid;
+            grid-column: 4 / span 1;
+            grid-row: 1 / span1;
+            grid-template-columns: subgrid;
+            grid-template-rows: subgrid;
         }
 
         .invalidate {
