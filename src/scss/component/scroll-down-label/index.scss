@@ -6,9 +6,8 @@
             visibility: hidden;
             position: fixed;
             z-index: 15;
-            inset-block-start: calc(var(--header-height) + rem(20));
-            inset-inline-start: 50%;
-            padding: rem(6) rem(20) rem(10);
+            padding-block: rem(6) rem(10);
+            padding-inline: rem(20);
             transform: translateX(calc(-50% * var(--dir)));
             transition:
                 opacity 0.35s,
@@ -19,6 +18,8 @@
             color: var(--dark);
             line-height: 1;
             text-align: center;
+            inset-block-start: calc(var(--header-height) + rem(20));
+            inset-inline-start: 50%;
 
             @media screen and (height <= 700px) {
                 inset-block-start: calc(var(--header-height) - 1px);

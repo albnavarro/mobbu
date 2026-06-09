@@ -36,7 +36,8 @@
             position: relative;
 
             &.use-padding {
-                padding: rem(8) var(--gap-size) var(--col-size);
+                padding-block: rem(8) var(--col-size);
+                padding-inline: var(--gap-size);
             }
 
             &.is-min-100 {

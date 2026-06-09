@@ -94,7 +94,8 @@
 
         .container {
             block-size: 100%;
-            padding: rem(60) rem(20) rem(20);
+            padding-block: rem(60) rem(20);
+            padding-inline: rem(20);
         }
 
         .controls-item {

@@ -20,7 +20,8 @@
 
         .debug-container {
             min-block-size: 100%;
-            padding: rem(14) rem(20) rem(20);
+            padding-block: rem(14) rem(20);
+            padding-inline: rem(20);
         }
 
         .section-title {

@@ -34,7 +34,8 @@
 
         .invalidate {
             display: flex;
-            padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
+            padding-block: calc(var(--gap-size) / 2) 0;
+            padding-inline: var(--gap-size);
             border-block-end: 1px var(--grey-400) solid;
         }
 
@@ -43,7 +44,8 @@
         }
 
         .counter {
-            padding: calc(var(--gap-size) / 2) var(--gap-size) 0;
+            padding-block: calc(var(--gap-size) / 2) 0;
+            padding-inline: var(--gap-size);
             color: var(--dark);
         }
 
