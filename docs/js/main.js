@@ -25873,16 +25873,20 @@
       if (activeElement === firstElement) {
         preventDefault();
         if (lastElement)
-          lastElement.focus({
-            preventScroll: true
+          modules_exports.useFrame(() => {
+            lastElement.focus({
+              preventScroll: true
+            });
           });
       }
     } else {
       if (activeElement === lastElement) {
         preventDefault();
         if (firstElement)
-          firstElement.focus({
-            preventScroll: true
+          modules_exports.useFrame(() => {
+            firstElement.focus({
+              preventScroll: true
+            });
           });
       }
     }

@@ -1,3 +1,5 @@
+import { MobCore } from '@mobCore';
+
 /**
  * Close overlay
  *
@@ -43,16 +45,31 @@ export const tabLoopTrap = ({ elements, direction, preventDefault }) => {
         if (activeElement === firstElement) {
             preventDefault();
             if (lastElement)
-                /** @type {HTMLElement} */ (lastElement).focus({
-                    preventScroll: true,
+                /**
+                 * Moduli come snoothScroll controllano il focus al loro interno.
+                 *
+                 * - Gestiamo il focus al prossimo frame per avere precedenza.
+                 */
+                MobCore.useFrame(() => {
+                    /** @type {HTMLElement} */ (lastElement).focus({
+                        preventScroll: true,
+                    });
                 });
         }
     } else {
         if (activeElement === lastElement) {
             preventDefault();
+
             if (firstElement)
-                /** @type {HTMLElement} */ (firstElement).focus({
-                    preventScroll: true,
+                /**
+                 * Moduli come snoothScroll controllano il focus al loro interno.
+                 *
+                 * - Gestiamo il focus al prossimo frame per avere precedenza.
+                 */
+                MobCore.useFrame(() => {
+                    /** @type {HTMLElement} */ (firstElement).focus({
+                        preventScroll: true,
+                    });
                 });
         }
     }
