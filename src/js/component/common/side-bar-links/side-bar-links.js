@@ -76,6 +76,7 @@ export const SideBarLinksFn = ({
     bindEffect,
     getSelfProxi,
     getBoundedProxi,
+    addMethod,
 }) => {
     const mainData = getCommonData();
     const proxi = getSelfProxi();
@@ -90,6 +91,8 @@ export const SideBarLinksFn = ({
     onMount(({ element }) => {
         const { screenEl, scrollerEl, scrollbar } = getRef();
         let isActive = false;
+
+        addMethod('getRoot', () => element);
 
         scrollbar.addEventListener('input', () => {
             // @ts-ignore
@@ -174,16 +177,19 @@ export const SideBarLinksFn = ({
         attributes: {
             'aria-label': 'Secondary navigation right',
         },
-        modules: bindEffect({
-            toggleClass: {
-                hide: () => proxi.hide,
-                shift: () => proxi.shift,
-                visible: () => bindProxi.leftSidebarIsVisible,
-            },
-            toggleAttribute: {
-                inert: () => (bindProxi.shouldApplyInert ? true : null),
-            },
-        }),
+        modules: [
+            setRef('rootEl'),
+            bindEffect({
+                toggleClass: {
+                    hide: () => proxi.hide,
+                    shift: () => proxi.shift,
+                    visible: () => bindProxi.leftSidebarIsVisible,
+                },
+                toggleAttribute: {
+                    inert: () => (bindProxi.shouldApplyInert ? true : null),
+                },
+            }),
+        ],
         content: [
             {
                 className: 'title',

@@ -9,12 +9,13 @@ export interface SideBarLinks {
         shift: boolean;
     };
     ref: {
+        rootEl: HTMLElement;
         screenEl: HTMLElement;
         scrollerEl: HTMLElement;
         scrollbar: HTMLInputElement;
     };
     bindStore: WithSource<DocContainerStore>;
     methods: {
-        toggleTablet: (visible: boolean) => void;
+        getRoot: () => HTMLElement;
     };
 }

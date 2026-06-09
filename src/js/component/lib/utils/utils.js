@@ -24,16 +24,19 @@ const focusableSelector = [
 
 /**
  * @param {object} params
- * @param {HTMLElement} params.element
+ * @param {HTMLElement[]} params.elements
  * @param {import('../../../mob/mob-core/events/tab-handler/type').TabDirection} params.direction
  * @param {() => void} params.preventDefault
  */
-export const tabLoopTrap = ({ element, direction, preventDefault }) => {
-    const innerElement = [...element.querySelectorAll(focusableSelector)];
-    if (innerElement.length === 0) return;
+export const tabLoopTrap = ({ elements, direction, preventDefault }) => {
+    const innerElements = elements.flatMap((element) => [
+        ...element.querySelectorAll(focusableSelector),
+    ]);
 
-    const firstElement = innerElement[0];
-    const lastElement = innerElement.at(-1);
+    if (innerElements.length === 0) return;
+
+    const firstElement = innerElements[0];
+    const lastElement = innerElements.at(-1);
     const activeElement = document.activeElement;
 
     if (direction === 'BACKWARD') {

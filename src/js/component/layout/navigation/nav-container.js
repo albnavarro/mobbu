@@ -123,7 +123,11 @@ export const NavigationContainerFn = ({
                  */
                 unsubscribeTabHandler = MobCore.useTabHandler(
                     ({ direction, preventDefault }) => {
-                        tabLoopTrap({ element, direction, preventDefault });
+                        tabLoopTrap({
+                            elements: [element],
+                            direction,
+                            preventDefault,
+                        });
                     }
                 );
 

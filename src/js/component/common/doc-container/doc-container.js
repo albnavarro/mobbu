@@ -1,11 +1,43 @@
+import { getSideBarLinksRoot } from '@commonComponent/side-bar-links/utils';
+import { tabLoopTrap } from '@componentLibs/utils/utils';
 import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 import { docContainerStore } from '@stores/doc-container';
 
 /**
- * @import {MobComponent} from '@mobJsType'
+ * @import {
+ *   GetRef,
+ *   MobComponent
+ * } from '@mobJsType'
  */
+
+/**
+ * Component is a singleton
+ */
+let unsubscribeTabHandler = () => {};
+
+/**
+ * @param {object} params
+ * @param {GetRef<import('./type').DocContainerType>} params.getRef
+ */
+const createTabHandler = ({ getRef }) => {
+    unsubscribeTabHandler = MobCore.useTabHandler(
+        ({ direction, preventDefault }) => {
+            if (MobMotionCore.mq('min', 'desktop')) return;
+
+            const aside = getRef().asideRight;
+            const sideBarLinks = getSideBarLinksRoot();
+            if (!aside) return;
+
+            tabLoopTrap({
+                elements: [aside, sideBarLinks],
+                direction,
+                preventDefault,
+            });
+        }
+    );
+};
 
 /** @type {MobComponent<import('./type').DocContainerType>} */
 export const DocContainerFn = ({
@@ -33,11 +65,19 @@ export const DocContainerFn = ({
             if (MobMotionCore.mq('min', 'desktop')) {
                 docContainerStore.set('leftSidebarIsVisible', true);
                 docContainerStore.set('shouldApplyInert', false);
+                unsubscribeTabHandler();
                 return;
             }
 
             docContainerStore.set('shouldApplyInert', !shoulVisible);
             docContainerStore.set('leftSidebarIsVisible', shoulVisible);
+
+            if (shoulVisible) {
+                createTabHandler({ getRef });
+                return;
+            }
+
+            unsubscribeTabHandler();
         },
         { wait: true, immediate: true }
     );
@@ -82,6 +122,7 @@ export const DocContainerFn = ({
             unsubscribeResize();
             unsubScribeRoute();
             unsubscribeEscHandler();
+            unsubscribeTabHandler();
         };
     });
 
@@ -106,6 +147,7 @@ export const DocContainerFn = ({
                     'aria-label': 'right section utils',
                 },
                 modules: [
+                    setRef('asideRight'),
                     bindEffect({
                         toggleClass: {
                             visible: () => proxi.rightSidebarVisible,
