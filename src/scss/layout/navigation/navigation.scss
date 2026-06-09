@@ -22,8 +22,9 @@
         .label {
             padding: rem(10) rem(20);
             transition: background 0.35s;
-            background: var(--dark);
-            color: var(--white);
+            background: var(--grey-200);
+            color: var(--dark);
+            border-block-end: rem(2) var(--dark) solid;
 
             &.hide {
                 display: none;
@@ -54,7 +55,7 @@
             display: block;
             position: relative;
             inline-size: 100%;
-            padding: rem(10) rem(20);
+            padding: rem(8) rem(20);
             transition:
                 background 0.35s,
                 color 0.35s,
@@ -63,7 +64,7 @@
             transition: opacity 0.35s;
             border: 0;
             background: transparent;
-            color: rgba(var(--dark-rgb), 0.7);
+            color: rgba(var(--dark-rgb), 0.8);
             text-align: start;
             text-decoration: none;
 
@@ -131,7 +132,7 @@
 
             &.is-submenu {
                 position: relative;
-                padding-inline-start: rem(20);
+                padding-inline-start: rem(10);
             }
 
             span {
