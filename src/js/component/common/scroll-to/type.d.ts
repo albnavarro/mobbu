@@ -34,4 +34,9 @@ export interface ScrollTo {
         addItem: (arg0: ScrollToItemsToAdd) => void;
         setActiveLabel: (arg0: string) => void;
     };
+    ref: {
+        screen: HTMLElement;
+        scroller: HTMLElement;
+        scrollbar: HTMLInputElement;
+    };
 }

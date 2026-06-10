@@ -6,6 +6,13 @@
             margin-block-start: var(--gap-size);
             margin-inline-start: var(--gap-size);
             color: var(--dark);
+            pointer-events: all;
+
+            --block-height: calc(
+                /* stylelint-disable-next-line  scss/operator-no-newline-after */
+                    100dvh - var(--header-height) - var(--footer-height) -
+                    #{rem(200)}
+            );
         }
 
         .title {
@@ -15,13 +22,26 @@
             text-transform: uppercase;
         }
 
+        .screen {
+            position: absolute;
+            block-size: var(--block-height);
+            inline-size: 100%;
+            padding-inline-start: var(--gap-size);
+            overflow: hidden;
+            inset-inline-start: 0;
+        }
+
         ul {
+            min-block-size: var(--block-height);
             margin: 0;
             padding: 0;
             list-style-type: none;
 
-            @media screen and (height <= 825px) {
-                margin-block-start: calc(#{rem(10)} * -1);
+            // Performance on scroll
+            &.is-whelling {
+                button {
+                    pointer-events: none;
+                }
             }
         }
 
@@ -105,6 +125,68 @@
                 margin-inline-start: 0;
                 opacity: 0.7;
                 cursor: auto;
+            }
+        }
+
+        .scrollbar {
+            position: absolute;
+            z-index: 11;
+            inset-block-start: rem(64);
+            inset-inline-start: rem(240);
+            inline-size: var(--block-height);
+            transform: rotate(calc(90deg * var(--dir)));
+            transform-origin: left;
+            background: transparent;
+            cursor: pointer;
+            appearance: none;
+
+            --thumb-width: #{rem(200)};
+
+            &.hide-scrollbar {
+                opacity: 0;
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &::-webkit-slider-runnable-track {
+                block-size: rem(10);
+                inline-size: var(--thumb-width);
+                border-radius: rem(10);
+                background-color: var(--grey-100);
+            }
+
+            &::-webkit-slider-thumb {
+                block-size: rem(10);
+                inline-size: var(--thumb-width);
+                border-radius: rem(10);
+                background-color: var(--dark);
+                appearance: none;
+            }
+
+            &:focus::-webkit-slider-thumb {
+                border-radius: rem(10);
+                outline-offset: 0;
+            }
+
+            &::-moz-range-track {
+                block-size: rem(10);
+                border-radius: rem(10);
+                background-color: var(--grey-100);
+            }
+
+            &::-moz-range-thumb {
+                block-size: rem(10);
+                inline-size: var(--thumb-width);
+                border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
+                border-radius: rem(10);
+                background-color: var(--dark);
+            }
+
+            &:focus::-moz-range-thumb {
+                border-radius: rem(10);
+                outline-offset: 0;
             }
         }
     }

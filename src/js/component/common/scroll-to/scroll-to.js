@@ -5,11 +5,13 @@ import { MobBodyScroll } from '@mobMotionPlugin';
 import { ScrollToButton } from './button/definition';
 import { MobMotionCore } from '@mobMotion';
 import { closeSidebarleft } from '@commonComponent/doc-container/utils';
+import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 
 /**
  * @import {
  *   BindProps,
  *   DelegateEvents,
+ *   GetRef,
  *   MobComponent,
  *   ProxiSelfState,
  *   ReturnBindProps
@@ -127,6 +129,49 @@ const setActiveLabelOnScroll = ({ proxi, direction, winHeight }) => {
     });
 };
 
+/**
+ * @param {object} params
+ * @param {GetRef<import('./type').ScrollTo>} params.getRef
+ */
+const initScroller = ({ getRef }) => {
+    const { screen, scroller, scrollbar } = getRef();
+
+    function inputHandler() {
+        move(Number(scrollbar.value));
+    }
+
+    scrollbar.addEventListener('input', inputHandler);
+
+    const methods = verticalScroller({
+        screen,
+        scroller,
+        scrollbar,
+        fixedTab: false,
+    });
+
+    const init = methods.init;
+    const destroy = methods.destroy;
+    const refresh = methods.refresh;
+    const move = methods.move;
+    const updateScroller = methods.updateScroller;
+    init();
+    updateScroller();
+    move(0);
+
+    return {
+        destroy: () => {
+            scrollbar.removeEventListener('input', inputHandler);
+            destroy();
+        },
+        move,
+        refresh,
+        updateScroller,
+    };
+};
+
+/** @type{() => void} */
+let destroy = () => {};
+
 /** @type {MobComponent<ScrollTo>} */
 export const ScrollToFn = ({
     onMount,
@@ -139,6 +184,8 @@ export const ScrollToFn = ({
     getSelfProxi,
     getBoundedProxi,
     bindEffect,
+    setRef,
+    getRef,
 }) => {
     const proxi = getSelfProxi();
     const bindProxi = getBoundedProxi();
@@ -241,38 +288,76 @@ export const ScrollToFn = ({
             resizeObserver.disconnect();
             // @ts-ignore
             resizeObserver = null;
+            destroy();
         };
     });
 
     return htmlObject({
-        tag: 'nav',
         className: 'c-scroll-to',
-        attributes: {
-            'aria-label': 'page anchor',
-        },
-        modules: bindEffect({
-            toggleAttribute: {
-                hidden: () => proxi.anchorItems.length === 0,
-                inert: () => (bindProxi.shouldApplyInert ? true : null),
-            },
-        }),
         content: [
             {
                 className: 'title',
                 content: 'In this page:',
             },
             {
-                tag: 'ul',
-                content: invalidate({
-                    observe: () => proxi.anchorItems,
-                    render: () => {
-                        return getButtons({
-                            delegateEvents,
-                            bindProps,
-                            proxi,
-                        });
+                tag: 'input',
+                className: 'scrollbar hide-scrollbar',
+                attributes: {
+                    type: 'range',
+                    id: 'test',
+                    name: 'test',
+                    min: 0,
+                    max: 100,
+                    value: 0,
+                    step: 0.5,
+                    tabindex: '-1',
+                },
+                modules: setRef('scrollbar'),
+            },
+            {
+                tag: 'nav',
+                className: 'screen',
+                attributes: {
+                    'aria-label': 'page anchor',
+                },
+                modules: [
+                    setRef('screen'),
+                    bindEffect({
+                        toggleAttribute: {
+                            hidden: () => proxi.anchorItems.length === 0,
+                            inert: () =>
+                                bindProxi.shouldApplyInert ? true : null,
+                        },
+                    }),
+                ],
+                content: [
+                    {
+                        tag: 'ul',
+                        modules: setRef('scroller'),
+                        content: invalidate({
+                            observe: () => proxi.anchorItems,
+                            beforeUpdate: async () => {
+                                destroy();
+                            },
+                            afterUpdate: () => {
+                                if (proxi.anchorItems.length === 0) return;
+
+                                MobCore.useFrameIndex(() => {
+                                    ({ destroy } = initScroller({
+                                        getRef,
+                                    }));
+                                }, 2);
+                            },
+                            render: () => {
+                                return getButtons({
+                                    delegateEvents,
+                                    bindProps,
+                                    proxi,
+                                });
+                            },
+                        }),
                     },
-                }),
+                ],
             },
         ],
     });
