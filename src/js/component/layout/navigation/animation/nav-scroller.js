@@ -29,7 +29,7 @@ export const initNavigationScoller = ({ root }) => {
         scroller: scrollerEl,
         direction: 'vertical',
         drag: true,
-        scopedEvent: false,
+        scopedEvent: true,
         syncTab: true,
         fixedTab: false,
         syncArrow: true,

@@ -24757,22 +24757,12 @@
             passive: true
           }
         );
-        this.#scroller.addEventListener(
-          "touchmove",
-          this.#scopedTouchMove,
-          {
-            passive: true
-          }
-        );
       }
       if (!this.#scopedEvent) {
         this.#unSubscribeMouseWheel = modules_exports.useMouseWheel((data) => {
           this.#onWhell(data);
         });
         this.#unSubscribeMouseMove = modules_exports.useMouseMove((data) => {
-          this.#onTouchMove(data);
-        });
-        this.#unSubscribeTouchMove = modules_exports.useTouchMove((data) => {
           this.#onTouchMove(data);
         });
       }
@@ -24795,6 +24785,9 @@
       this.#unSubscribeMouseUp = modules_exports.useMouseUp(
         (data) => this.#onMouseUp(data)
       );
+      this.#unSubscribeTouchMove = modules_exports.useTouchMove((data) => {
+        this.#onTouchMove(data);
+      });
       this.#scroller.addEventListener(
         "mouseleave",
         this.#unSubscribeMouseLeave
@@ -25029,6 +25022,7 @@
      */
     #onScopedWhell({ spinY = 0 }) {
       if (!mq[this.#queryType](this.#breakpoint)) return;
+      FreezeMobPageScroll();
       this.#dragEnable = false;
       this.#clearSnapTimeout();
       const spinYParsed = clamp3(spinY, -1, 1);
@@ -25061,6 +25055,7 @@
       )) {
         this.#firstTouchValue = this.#endValue;
         this.#dragEnable = true;
+        FreezeMobPageScroll();
         if (this.#snapPoints.length > 0) this.#clearSnapTimeout();
         this.#prevTouchVal = this.#getMousePos({
           x: client?.x ?? 0,
@@ -25077,6 +25072,7 @@
      */
     #onMouseUp() {
       this.#dragEnable = false;
+      UnFreezeMobPageScroll();
       if (this.#snapPoints.length > 0) {
         this.#goToNextSnap();
         this.#scheduleSnapTimeout();
@@ -25086,12 +25082,12 @@
      * @type {import('./type.js').MobSmoothScrollerOnMouseEvent}
      */
     #onTouchMove({ target, client, preventDefault }) {
-      if ((target === this.#scroller || isDescendant(
+      if (this.#dragEnable && this.#drag && (target === this.#scroller || isDescendant(
         /** @type {HTMLElement} */
         this.#scroller,
         /** @type {HTMLElement} */
         target
-      )) && this.#dragEnable && this.#drag) {
+      ))) {
         preventDefault();
         this.#prevTouchVal = this.#touchVal;
         this.#touchVal = this.#getMousePos({
@@ -25379,6 +25375,7 @@
       this.#onUpdateCallback = NOOP;
       this.#onAfterRefresh = NOOP;
       this.#afterInit = NOOP;
+      UnFreezeMobPageScroll();
       if (this.#snapResetDebounce) {
         clearTimeout(this.#snapResetDebounce);
         this.#snapResetDebounce = null;
@@ -25413,6 +25410,7 @@
       }
       modules_exports.useFrameIndex(() => {
         modules_exports.useNextTick(() => {
+          this.#scroller.style.transform = "";
           this.#scroller = null;
           this.#screen = null;
         });
@@ -26282,7 +26280,7 @@
           scroller,
           direction: "vertical",
           drag: true,
-          scopedEvent: false,
+          scopedEvent: true,
           breakpoint: "tablet",
           syncTab: true,
           fixedTab,
@@ -26389,11 +26387,29 @@
       });
     });
   };
+  var destroy2 = () => {
+  };
   var initScroller = ({ getRef }) => {
     const { screen, scroller, scrollbar } = getRef();
+    const screenHeight = screen.offsetHeight;
+    const scrollerHeight = scroller.offsetHeight;
+    if (screenHeight >= scrollerHeight) {
+      getRef().scrollbar.classList.add("hide-scrollbar");
+      return {
+        destroy: () => {
+        },
+        move: () => {
+        },
+        refresh: () => {
+        },
+        updateScroller: () => {
+        }
+      };
+    }
     function inputHandler() {
       move3(Number(scrollbar.value));
     }
+    getRef().scrollbar.classList.remove("hide-scrollbar");
     scrollbar.addEventListener("input", inputHandler);
     const methods = verticalScroller({
       screen,
@@ -26418,8 +26434,6 @@
       refresh,
       updateScroller: updateScroller2
     };
-  };
-  var destroy2 = () => {
   };
   var ScrollToFn = ({
     onMount,
@@ -26488,14 +26502,26 @@
         if (disableObservereffect) return;
         setActiveLabelOnScroll({ proxi, direction: direction2, winHeight });
       });
+      const unsubScribeResize = modules_exports.useResize(() => {
+        destroy2();
+        if (proxi.anchorItems.length === 0) return;
+        modules_exports.useFrameIndex(() => {
+          ({ destroy: destroy2 } = initScroller({
+            getRef
+          }));
+        }, 2);
+      });
       return () => {
         unsubscribeMouseWheel();
         unsubscribeThrottle();
         unsubScribeScrollEnd();
+        unsubScribeResize();
         resizeObserver.unobserve(modules_exports2.getRoot());
         resizeObserver.disconnect();
         resizeObserver = null;
         destroy2();
+        destroy2 = () => {
+        };
       };
     });
     return htmlObject({
@@ -43114,7 +43140,7 @@
       scroller: scrollerEl,
       direction: "vertical",
       drag: true,
-      scopedEvent: false,
+      scopedEvent: true,
       syncTab: true,
       fixedTab: false,
       syncArrow: true,

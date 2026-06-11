@@ -725,13 +725,16 @@ export class MobSmoothScroller {
                 }
             );
 
-            /** @type {HTMLElement} */ (this.#scroller).addEventListener(
-                'touchmove',
-                this.#scopedTouchMove,
-                {
-                    passive: true,
-                }
-            );
+            /**
+             * See global `MobCore.useTouchMove` issue
+             */
+            // /** @type {HTMLElement} */ (this.#scroller).addEventListener(
+            //     'touchmove',
+            //     this.#scopedTouchMove,
+            //     {
+            //         passive: true,
+            //     }
+            // );
         }
 
         /**
@@ -746,9 +749,12 @@ export class MobSmoothScroller {
                 this.#onTouchMove(data);
             });
 
-            this.#unSubscribeTouchMove = MobCore.useTouchMove((data) => {
-                this.#onTouchMove(data);
-            });
+            /**
+             * See global `MobCore.useTouchMove` issue
+             */
+            // this.#unSubscribeTouchMove = MobCore.useTouchMove((data) => {
+            //     this.#onTouchMove(data);
+            // });
         }
 
         /**
@@ -779,6 +785,18 @@ export class MobSmoothScroller {
         this.#unSubscribeMouseUp = MobCore.useMouseUp((data) =>
             this.#onMouseUp(data)
         );
+
+        /**
+         * TouchMove at moment do not use scoped vs !norScoped logic.
+         *
+         * - With scped logc FreezeMobPageScroll is ok.
+         * - But we does not now when fire UnFreezeMobPageScroll.
+         * - Event similar to mouseleave is missed from touch logix.
+         * - TODO: how fire UnFreezeMobPageScroll with scoped touch.
+         */
+        this.#unSubscribeTouchMove = MobCore.useTouchMove((data) => {
+            this.#onTouchMove(data);
+        });
 
         /**
          * UnFreeze page scroller
@@ -1103,6 +1121,7 @@ export class MobSmoothScroller {
      */
     #onScopedWhell({ spinY = 0 }) {
         if (!mq[this.#queryType](this.#breakpoint)) return;
+        FreezeMobPageScroll();
 
         this.#dragEnable = false;
 
@@ -1177,6 +1196,7 @@ export class MobSmoothScroller {
         ) {
             this.#firstTouchValue = this.#endValue;
             this.#dragEnable = true;
+            FreezeMobPageScroll();
 
             /**
              * Clear pending snap timeout.
@@ -1200,6 +1220,7 @@ export class MobSmoothScroller {
      */
     #onMouseUp() {
         this.#dragEnable = false;
+        UnFreezeMobPageScroll();
 
         if (this.#snapPoints.length > 0) {
             /**
@@ -1226,13 +1247,13 @@ export class MobSmoothScroller {
      */
     #onTouchMove({ target, client, preventDefault }) {
         if (
+            this.#dragEnable &&
+            this.#drag &&
             (target === this.#scroller ||
                 isDescendant(
                     /** @type {HTMLElement} */ (this.#scroller),
                     /** @type {HTMLElement} */ (target)
-                )) &&
-            this.#dragEnable &&
-            this.#drag
+                ))
         ) {
             // @ts-ignore
             preventDefault();
@@ -1789,6 +1810,7 @@ export class MobSmoothScroller {
         this.#onUpdateCallback = NOOP;
         this.#onAfterRefresh = NOOP;
         this.#afterInit = NOOP;
+        UnFreezeMobPageScroll();
 
         if (this.#snapResetDebounce) {
             clearTimeout(this.#snapResetDebounce);
@@ -1833,6 +1855,8 @@ export class MobSmoothScroller {
 
         MobCore.useFrameIndex(() => {
             MobCore.useNextTick(() => {
+                /** @type {HTMLElement} */ (this.#scroller).style.transform =
+                    '';
                 this.#scroller = null;
                 this.#screen = null;
             });

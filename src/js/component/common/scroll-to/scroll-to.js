@@ -129,17 +129,34 @@ const setActiveLabelOnScroll = ({ proxi, direction, winHeight }) => {
     });
 };
 
+/** @type{() => void} */
+let destroy = () => {};
+
 /**
  * @param {object} params
  * @param {GetRef<import('./type').ScrollTo>} params.getRef
  */
 const initScroller = ({ getRef }) => {
     const { screen, scroller, scrollbar } = getRef();
+    const screenHeight = screen.offsetHeight;
+    const scrollerHeight = scroller.offsetHeight;
+
+    if (screenHeight >= scrollerHeight) {
+        getRef().scrollbar.classList.add('hide-scrollbar');
+
+        return {
+            destroy: () => {},
+            move: () => {},
+            refresh: () => {},
+            updateScroller: () => {},
+        };
+    }
 
     function inputHandler() {
         move(Number(scrollbar.value));
     }
 
+    getRef().scrollbar.classList.remove('hide-scrollbar');
     scrollbar.addEventListener('input', inputHandler);
 
     const methods = verticalScroller({
@@ -168,9 +185,6 @@ const initScroller = ({ getRef }) => {
         updateScroller,
     };
 };
-
-/** @type{() => void} */
-let destroy = () => {};
 
 /** @type {MobComponent<ScrollTo>} */
 export const ScrollToFn = ({
@@ -280,15 +294,28 @@ export const ScrollToFn = ({
             setActiveLabelOnScroll({ proxi, direction, winHeight });
         });
 
+        const unsubScribeResize = MobCore.useResize(() => {
+            destroy();
+            if (proxi.anchorItems.length === 0) return;
+
+            MobCore.useFrameIndex(() => {
+                ({ destroy } = initScroller({
+                    getRef,
+                }));
+            }, 2);
+        });
+
         return () => {
             unsubscribeMouseWheel();
             unsubscribeThrottle();
             unsubScribeScrollEnd();
+            unsubScribeResize();
             resizeObserver.unobserve(MobJs.getRoot());
             resizeObserver.disconnect();
             // @ts-ignore
             resizeObserver = null;
             destroy();
+            destroy = () => {};
         };
     });
 
