@@ -120,7 +120,7 @@
 }
 
 @layer override {
-    [theme='dark'] {
+    [data-theme='dark'] {
         :where(.c-hamburger) {
             background-color: var(--immutable-black);
 

@@ -221,7 +221,7 @@
         inset-inline-end: rem(20);
     }
 
-    [theme='light'] :where(.c-detail-offcanvas .controls-button) {
+    [data-theme='light'] :where(.c-detail-offcanvas .controls-button) {
         border: 1px rgba(var(--white-rgb), 0.2) solid;
     }
 }

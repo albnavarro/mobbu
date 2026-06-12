@@ -147,13 +147,13 @@
 }
 
 @layer override {
-    [theme='dark'] :where(.quick-nav-labels) {
+    [data-theme='dark'] :where(.quick-nav-labels) {
         color: var(--black);
     }
 }
 
 @layer override {
-    [theme='dark'] :where(.c-quick-nav) {
+    [data-theme='dark'] :where(.c-quick-nav) {
         outline-color: var(--black);
 
         &::after {

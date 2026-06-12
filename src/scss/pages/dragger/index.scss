@@ -229,7 +229,7 @@
 }
 
 @layer override {
-    [theme='dark'] :where(.dragger-component .child) {
+    [data-theme='dark'] :where(.dragger-component .child) {
         &.is-1 {
             background: var(--white);
         }

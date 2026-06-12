@@ -74,7 +74,7 @@
 }
 
 @layer override {
-    [theme='dark'] {
+    [data-theme='dark'] {
         :where(.l-header-menu button) {
             &::after {
                 background: var(--immutable-black);

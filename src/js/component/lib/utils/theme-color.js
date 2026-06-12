@@ -2,7 +2,7 @@
  * @returns {boolean}
  */
 export const isDarkTheme = () => {
-    const theme = document.documentElement.getAttribute('theme');
+    const theme = document.documentElement.dataset['theme'];
     return theme === 'dark';
 };
 
@@ -30,6 +30,6 @@ export const updateHighlightTheme = () => {
  * @param {'light' | 'dark'} [params.theme='light'] Default is `'light'`
  */
 export const setTheme = ({ theme = 'light' } = {}) => {
-    document.documentElement.setAttribute('theme', theme);
+    document.documentElement.dataset['theme'] = theme;
     updateHighlightTheme();
 };

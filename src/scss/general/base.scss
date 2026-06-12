@@ -11,7 +11,7 @@
      * Set up a decent box model on the root element
      */
     :root {
-        &[theme='light'] {
+        &[data-theme='light'] {
             --white: #fff;
             --white-rgb: 255, 255, 255;
             --dark: #2e3440;
@@ -27,7 +27,7 @@
             --black: #000;
         }
 
-        &[theme='dark'] {
+        &[data-theme='dark'] {
             --white: #2e3440;
             --white-rgb: 46, 52, 64;
             --dark: #eceff4;
