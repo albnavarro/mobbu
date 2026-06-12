@@ -261,7 +261,8 @@
         padding-block-start: 0;
     }
 
-    :where([data-template='template-animation']) .container {
+    :where([data-template='template-animation'] .main-app-content)
+        > .container {
         padding-inline-start: 0;
     }
 }
