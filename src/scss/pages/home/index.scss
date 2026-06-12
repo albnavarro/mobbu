@@ -12,12 +12,6 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
             justify-content: start;
             block-size: calc(100vh);
             overflow: hidden;
-
-            @include when-inside('.is-firefox') {
-                svg {
-                    transform: translateZ(0.5px);
-                }
-            }
         }
 
         .text-container {
@@ -74,5 +68,11 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
                 inline-size: calc(((1700 * 100) / 1240) * 1vw);
             }
         }
+    }
+}
+
+@layer override {
+    :where(.is-firefox .l-index) svg {
+        transform: translateZ(0.5px);
     }
 }

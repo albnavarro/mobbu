@@ -5,10 +5,6 @@
         :scope {
             position: relative;
             padding: rem(40);
-
-            @include when-inside('.is-whelling') {
-                pointer-events: none;
-            }
         }
 
         .header {
@@ -92,6 +88,14 @@
             border: 1px var(--dark) solid;
             background: transparent;
             line-height: 1.7;
+        }
+    }
+}
+
+@layer override {
+    .is-whelling {
+        :where(.l-benchmark) {
+            pointer-events: none;
         }
     }
 }

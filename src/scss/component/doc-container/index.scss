@@ -14,10 +14,6 @@
             @include mq(large) {
                 grid-template-columns: var(--left-sidebar) var(--doc-width) 1fr;
             }
-
-            @include when-inside('.is-whelling') {
-                pointer-events: none;
-            }
         }
 
         .left-placeholder {
@@ -147,5 +143,11 @@
                 grid-column: 3 / span 1;
             }
         }
+    }
+}
+
+@layer override {
+    :where(.is-whelling) .c-doc-container {
+        pointer-events: none;
     }
 }

@@ -6,10 +6,12 @@
             margin-block-start: calc(var(--gap-size) / 4);
             padding: rem(5);
             border: 1px rgba(var(--dark-rgb), 0.1) solid;
-
-            @include when-inside('.is-selected') {
-                border-color: rgba(var(--white-rgb), 0.3);
-            }
         }
+    }
+}
+
+@layer override {
+    :where(.is-selected) .c-dynamic-list-slotted-label {
+        border-color: rgba(var(--white-rgb), 0.3);
     }
 }

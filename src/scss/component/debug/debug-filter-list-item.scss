@@ -9,10 +9,6 @@
             color: var(--dark);
             font-size: rem(12);
 
-            @include when-inside('.is-whelling') {
-                pointer-events: none;
-            }
-
             &::after {
                 content: '';
                 display: none;
@@ -65,5 +61,11 @@
                 display: inline-block;
             }
         }
+    }
+}
+
+@layer override {
+    :where(.is-whelling) .c-debug-filter-list-item {
+        pointer-events: none;
     }
 }

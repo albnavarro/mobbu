@@ -409,12 +409,6 @@
     padding-block-start: calc(var(--header-height));
     transition: opacity 0.55s;
   }
-  [data-template=home] .main-app-content {
-    padding-block-start: 0;
-  }
-  [data-template=template-animation] .main-app-content {
-    padding-block-start: 0;
-  }
   .main-app-content.shift {
     opacity: 0.1;
     cursor: pointer;
@@ -423,7 +417,15 @@
     margin: auto;
     padding-inline-start: var(--gap-size);
   }
-  [data-template=template-animation] .container {
+}
+@layer override {
+  :where([data-template=home]) .main-app-content {
+    padding-block-start: 0;
+  }
+  :where([data-template=template-animation]) .main-app-content {
+    padding-block-start: 0;
+  }
+  :where([data-template=template-animation]) .container {
     padding-inline-start: 0;
   }
 }
@@ -1092,9 +1094,6 @@
       inline-size: 100%;
       margin: auto;
     }
-    .is-whelling :scope .link {
-      pointer-events: none;
-    }
     .list {
       margin: 0;
       padding: 0;
@@ -1109,18 +1108,6 @@
     }
     .label.hide {
       display: none;
-    }
-    [data-template=home] .label {
-      background: rgba(var(--dark-rgb), 0.1);
-    }
-    [data-template=about] .label {
-      background: rgba(var(--dark-rgb), 0.1);
-    }
-    [data-template=template-listing] .label {
-      background: rgba(var(--dark-rgb), 0.1);
-    }
-    [data-template=template-animation] .label {
-      background: rgba(var(--dark-rgb), 0.1);
     }
     .label.active {
       font-weight: 800;
@@ -1202,6 +1189,11 @@
     }
   }
 }
+@layer override {
+  :where(.is-whelling .l-navigation) .link {
+    pointer-events: none;
+  }
+}
 @layer layout {
   @scope (.l-navcontainer) {
     :scope {
@@ -1218,18 +1210,6 @@
       :scope {
         display: block;
       }
-    }
-    [data-template=template-doc-default] :scope .side-col {
-      background: rgba(var(--dark-rgb), 0.05);
-    }
-    [data-template=template-doc-default] :scope .side-col::after {
-      display: none;
-    }
-    [data-template=template-mobJs-component] :scope .side-col {
-      background: rgba(var(--dark-rgb), 0.05);
-    }
-    [data-template=template-mobJs-component] :scope .side-col::after {
-      display: none;
     }
     .side-col {
       position: absolute;
@@ -1322,6 +1302,18 @@
   [dir=rtl] :where(.l-navcontainer .percent) {
     transform-origin: right;
   }
+  [data-template=template-doc-default] :where(.l-navcontainer .side-col) {
+    background: rgba(var(--dark-rgb), 0.05);
+  }
+  [data-template=template-doc-default] :where(.l-navcontainer .side-col)::after {
+    display: none;
+  }
+  [data-template=template-mobJs-component] :where(.l-navcontainer .side-col) {
+    background: rgba(var(--dark-rgb), 0.05);
+  }
+  [data-template=template-mobJs-component] :where(.l-navcontainer .side-col)::after {
+    display: none;
+  }
 }
 @layer layout {
   @scope (.l-background-shape) {
@@ -1364,9 +1356,6 @@
       justify-content: start;
       block-size: 100vh;
       overflow: hidden;
-    }
-    .is-firefox :scope svg {
-      transform: translateZ(0.5px);
     }
     .text-container {
       display: flex;
@@ -1416,6 +1405,11 @@
         inline-size: 137.0967741935vw;
       }
     }
+  }
+}
+@layer override {
+  :where(.is-firefox .l-index) svg {
+    transform: translateZ(0.5px);
   }
 }
 @layer layout {
@@ -2313,9 +2307,6 @@
       padding-block-end: var(--footer-height);
       border: 0;
     }
-    .is-whelling :scope {
-      pointer-events: none;
-    }
     .header {
       position: sticky;
       z-index: 10;
@@ -2373,6 +2364,11 @@
       grid-template-columns: repeat(3, 1fr);
       gap: var(--gap-size);
     }
+  }
+}
+@layer override {
+  :where(.is-whelling) .c-dynamic-list {
+    pointer-events: none;
   }
 }
 @layer layout {
@@ -2466,9 +2462,11 @@
       padding: 0.3125rem;
       border: 1px rgba(var(--dark-rgb), 0.1) solid;
     }
-    .is-selected :scope {
-      border-color: rgba(var(--white-rgb), 0.3);
-    }
+  }
+}
+@layer override {
+  :where(.is-selected) .c-dynamic-list-empty {
+    border-color: rgba(var(--white-rgb), 0.3);
   }
 }
 @layer layout {
@@ -2478,9 +2476,11 @@
       padding: 0.3125rem;
       border: 1px rgba(var(--dark-rgb), 0.1) solid;
     }
-    .is-selected :scope {
-      border-color: rgba(var(--white-rgb), 0.3);
-    }
+  }
+}
+@layer override {
+  :where(.is-selected) .c-dynamic-list-slotted-label {
+    border-color: rgba(var(--white-rgb), 0.3);
   }
 }
 @layer layout {
@@ -2520,6 +2520,11 @@
     }
   }
 }
+@layer override {
+  :where(.l-matrioska) .c-dynamic-list-button {
+    margin-inline: 0.5rem;
+  }
+}
 @layer layout {
   @scope (.c-dynamic-list-card-inner) {
     :scope {
@@ -2536,10 +2541,12 @@
       font-size: 0.75rem;
       text-align: center;
     }
-    .is-selected :scope {
-      background: var(--white);
-      color: var(--dark);
-    }
+  }
+}
+@layer override {
+  :where(.is-selected) .c-dynamic-list-card-inner {
+    background: var(--white);
+    color: var(--dark);
   }
 }
 @layer layout {
@@ -2548,9 +2555,6 @@
       box-sizing: border-box;
       padding-block-end: var(--footer-height);
       border: 0;
-    }
-    .is-whelling :scope {
-      pointer-events: none;
     }
     .header {
       display: flex;
@@ -2624,6 +2628,11 @@
     }
   }
 }
+@layer override {
+  :where(.is-whelling) .l-matrioska {
+    pointer-events: none;
+  }
+}
 @layer layout {
   @scope (.c-matrioska-item) {
     :scope {
@@ -2677,9 +2686,6 @@
   @scope (.l-h-scroller) {
     :scope {
       margin-block-start: calc(var(--header-height) * -1);
-    }
-    .is-whelling :scope {
-      pointer-events: none;
     }
     .top,
     .bottom {
@@ -2802,6 +2808,11 @@
       transform: translateY(-100%);
       background: var(--dark);
     }
+  }
+}
+@layer override {
+  :where(.is-whelling) .l-h-scroller {
+    pointer-events: none;
   }
 }
 @layer user {
@@ -3822,9 +3833,6 @@
       color: var(--dark);
       font-size: 0.75rem;
     }
-    .is-whelling :scope {
-      pointer-events: none;
-    }
     :scope::after {
       content: "";
       display: none;
@@ -3874,6 +3882,11 @@
     }
   }
 }
+@layer override {
+  :where(.is-whelling) .c-debug-filter-list-item {
+    pointer-events: none;
+  }
+}
 @layer layout {
   @scope (.c-debug-tree-item) {
     :scope {
@@ -3882,9 +3895,6 @@
       padding-inline-start: 2.5rem;
       color: var(--dark);
       font-size: 0.75rem;
-    }
-    .is-whelling :scope {
-      pointer-events: none;
     }
     .tree-header {
       display: flex;
@@ -3959,6 +3969,11 @@
     .tree-selected.active {
       display: inline-block;
     }
+  }
+}
+@layer override {
+  :where(.is-whelling) .c-debug-tree-item {
+    pointer-events: none;
   }
 }
 @layer layout {
@@ -4462,9 +4477,6 @@
         grid-template-columns: var(--left-sidebar) var(--doc-width) 1fr;
       }
     }
-    .is-whelling :scope {
-      pointer-events: none;
-    }
     .left-placeholder {
       display: none;
       position: sticky;
@@ -4583,6 +4595,11 @@
     }
   }
 }
+@layer override {
+  :where(.is-whelling) .c-doc-container {
+    pointer-events: none;
+  }
+}
 @layer layout {
   @scope (.left-sidebar) {
     :scope {
@@ -4598,9 +4615,6 @@
       opacity: 0;
       inset-block-start: var(--header-height);
       inset-inline-start: calc(var(--header-height) / 2);
-    }
-    .is-whelling :scope {
-      pointer-events: none;
     }
     :scope.visible {
       visibility: visible;
@@ -4657,6 +4671,11 @@
     .link.active::before {
       opacity: 1;
     }
+  }
+}
+@layer override {
+  :where(.is-whelling) .left-sidebar {
+    pointer-events: none;
   }
 }
 @layer layout {
@@ -5354,9 +5373,6 @@
       position: relative;
       padding: 2.5rem;
     }
-    .is-whelling :scope {
-      pointer-events: none;
-    }
     .header {
       margin-block-end: 1.875rem;
     }
@@ -5423,6 +5439,11 @@
       background: transparent;
       line-height: 1.7;
     }
+  }
+}
+@layer override {
+  .is-whelling :where(.l-benchmark) {
+    pointer-events: none;
   }
 }
 @layer layout {

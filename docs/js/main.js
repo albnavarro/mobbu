@@ -26305,7 +26305,7 @@
         instance?.refresh();
       },
       updateScroller: () => {
-        if (!instance) return;
+        if (!instance || !scrollbar) return;
         const scrollerHeight = outerHeight(scroller);
         const screenHeight = outerHeight(screen);
         const scrollBarHeight = outerWidth(scrollbar);

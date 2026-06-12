@@ -8,10 +8,6 @@
             padding-inline-start: rem(40);
             color: var(--dark);
             font-size: rem(12);
-
-            @include when-inside('.is-whelling') {
-                pointer-events: none;
-            }
         }
 
         .tree-header {
@@ -103,5 +99,11 @@
                 display: inline-block;
             }
         }
+    }
+}
+
+@layer override {
+    :where(.is-whelling) .c-debug-tree-item {
+        pointer-events: none;
     }
 }

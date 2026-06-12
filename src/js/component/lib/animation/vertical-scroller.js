@@ -49,7 +49,7 @@ export const verticalScroller = ({
             instance?.refresh();
         },
         updateScroller: () => {
-            if (!instance) return;
+            if (!instance || !scrollbar) return;
 
             /**
              * Get thumb width.

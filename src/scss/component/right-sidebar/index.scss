@@ -20,10 +20,6 @@
             inset-block-start: var(--header-height);
             inset-inline-start: calc(var(--header-height) / 2);
 
-            @include when-inside('.is-whelling') {
-                pointer-events: none;
-            }
-
             &.visible {
                 visibility: visible;
                 opacity: 1;
@@ -88,5 +84,11 @@
                 }
             }
         }
+    }
+}
+
+@layer override {
+    :where(.is-whelling) .left-sidebar {
+        pointer-events: none;
     }
 }

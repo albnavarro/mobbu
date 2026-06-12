@@ -240,14 +240,6 @@
         padding-block-start: calc(var(--header-height));
         transition: opacity 0.55s;
 
-        @include when-inside('[data-template="home"]') {
-            padding-block-start: 0;
-        }
-
-        @include when-inside('[data-template="template-animation"]') {
-            padding-block-start: 0;
-        }
-
         &.shift {
             opacity: 0.1;
             cursor: pointer;
@@ -257,9 +249,19 @@
     .container {
         margin: auto;
         padding-inline-start: var(--gap-size);
+    }
+}
 
-        @include when-inside('[data-template="template-animation"]') {
-            padding-inline-start: 0;
-        }
+@layer override {
+    :where([data-template='home']) .main-app-content {
+        padding-block-start: 0;
+    }
+
+    :where([data-template='template-animation']) .main-app-content {
+        padding-block-start: 0;
+    }
+
+    :where([data-template='template-animation']) .container {
+        padding-inline-start: 0;
     }
 }

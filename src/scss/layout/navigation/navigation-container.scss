@@ -17,26 +17,6 @@
             @include mq(tablet) {
                 display: block;
             }
-
-            @include when-inside('[data-template="template-doc-default"]') {
-                .side-col {
-                    background: rgba(var(--dark-rgb), 0.05);
-
-                    &::after {
-                        display: none;
-                    }
-                }
-            }
-
-            @include when-inside('[data-template="template-mobJs-component"]') {
-                .side-col {
-                    background: rgba(var(--dark-rgb), 0.05);
-
-                    &::after {
-                        display: none;
-                    }
-                }
-            }
         }
 
         .side-col {
@@ -146,5 +126,22 @@
 @layer override {
     [dir='rtl'] :where(.l-navcontainer .percent) {
         transform-origin: right;
+    }
+
+    [data-template='template-doc-default'] :where(.l-navcontainer .side-col) {
+        background: rgba(var(--dark-rgb), 0.05);
+
+        &::after {
+            display: none;
+        }
+    }
+
+    [data-template='template-mobJs-component']
+        :where(.l-navcontainer .side-col) {
+        background: rgba(var(--dark-rgb), 0.05);
+
+        &::after {
+            display: none;
+        }
     }
 }

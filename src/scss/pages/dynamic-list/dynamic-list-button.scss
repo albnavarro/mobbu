@@ -23,3 +23,9 @@
         }
     }
 }
+
+@layer override {
+    :where(.l-matrioska) .c-dynamic-list-button {
+        margin-inline: rem(8);
+    }
+}

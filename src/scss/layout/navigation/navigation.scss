@@ -5,12 +5,6 @@
         :scope {
             inline-size: 100%;
             margin: auto;
-
-            @include when-inside('.is-whelling') {
-                .link {
-                    pointer-events: none;
-                }
-            }
         }
 
         .list {
@@ -28,22 +22,6 @@
 
             &.hide {
                 display: none;
-            }
-
-            @include when-inside('[data-template="home"]') {
-                background: rgba(var(--dark-rgb), 0.1);
-            }
-
-            @include when-inside('[data-template="about"]') {
-                background: rgba(var(--dark-rgb), 0.1);
-            }
-
-            @include when-inside('[data-template="template-listing"]') {
-                background: rgba(var(--dark-rgb), 0.1);
-            }
-
-            @include when-inside('[data-template="template-animation"]') {
-                background: rgba(var(--dark-rgb), 0.1);
             }
 
             &.active {
@@ -149,5 +127,11 @@
         .submenu-item {
             padding: rem(4);
         }
+    }
+}
+
+@layer override {
+    :where(.is-whelling .l-navigation) .link {
+        pointer-events: none;
     }
 }
