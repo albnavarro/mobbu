@@ -26326,6 +26326,8 @@
 
   // src/js/component/common/scroll-to/scroll-to.js
   var disableObservereffect = false;
+  var destroy2 = () => {
+  };
   function getButtons({ delegateEvents, bindProps, proxi }) {
     return proxi.anchorItems.map((item) => {
       const delegateEventsFn = item.isSection || item.isNote ? "" : delegateEvents({
@@ -26386,8 +26388,6 @@
         }
       });
     });
-  };
-  var destroy2 = () => {
   };
   var initScroller = ({ getRef }) => {
     const { screen, scroller, scrollbar } = getRef();

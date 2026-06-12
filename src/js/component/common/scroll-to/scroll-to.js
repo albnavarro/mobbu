@@ -20,7 +20,11 @@ import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
  * @import {ScrollTo} from './type'
  */
 
+/** @type {boolean} */
 let disableObservereffect = false;
+
+/** @type{() => void} */
+let destroy = () => {};
 
 /**
  * @param {Object} param
@@ -128,9 +132,6 @@ const setActiveLabelOnScroll = ({ proxi, direction, winHeight }) => {
         });
     });
 };
-
-/** @type{() => void} */
-let destroy = () => {};
 
 /**
  * @param {object} params
