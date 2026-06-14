@@ -2288,16 +2288,11 @@
     :scope {
       position: relative;
       block-size: calc(100vh - var(--footer-height));
-      inline-size: 100%;
+      inline-size: calc(100vw - var(--header-height) * 0.5 + 1px);
+      margin-inline-start: calc(var(--header-height) * 0.5 - 1px);
       overflow: hidden;
       --mobbu2025-height: calc( 100vh - var(--header-height) - var(--footer-height) );
       --mobbu2025-width: calc((var(--mobbu2025-height) * 690) / 112);
-    }
-    @media (min-width: 48em) {
-      :scope {
-        inline-size: calc(100vw - var(--header-height) * 0.5 + 1px);
-        margin-inline-start: calc(var(--header-height) * 0.5 - 1px);
-      }
     }
     .screen {
       position: relative;
