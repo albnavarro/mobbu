@@ -32,3 +32,11 @@
         }
     }
 }
+
+@layer override {
+    [data-template='about'] :where(.l-background-shape) {
+        svg {
+            opacity: 0.5;
+        }
+    }
+}

@@ -39,9 +39,11 @@
         }
 
         svg {
-            position: absolute;
-            inset-block-end: calc(#{rem(120)} * -1);
+            position: fixed;
+            block-size: rem(600);
+            inline-size: rem(600);
             transform: translateX(-25%);
+            inset-block-end: calc(#{rem(220)} * -1);
         }
     }
 }
