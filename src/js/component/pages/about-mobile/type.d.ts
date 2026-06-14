@@ -16,6 +16,5 @@ export interface About {
             title: string;
             items: string[];
         };
-        aboutSvg: string;
     };
 }

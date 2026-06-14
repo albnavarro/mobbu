@@ -7,7 +7,7 @@
             min-block-size: calc(
                 100vh - var(--header-height) - var(--footer-height)
             );
-            padding: rem(64) 0 0;
+            padding: rem(64) 0 rem(64);
         }
 
         .section-one {
@@ -30,20 +30,6 @@
         h1,
         h3 {
             text-transform: capitalize;
-        }
-
-        .section-svg {
-            position: relative;
-            block-size: rem(260);
-            overflow: hidden;
-        }
-
-        svg {
-            position: fixed;
-            block-size: rem(600);
-            inline-size: rem(600);
-            transform: translateX(-25%);
-            inset-block-end: calc(#{rem(220)} * -1);
         }
     }
 }

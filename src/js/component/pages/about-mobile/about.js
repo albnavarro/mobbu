@@ -2,7 +2,7 @@
  * @import {MobComponent} from '@mobJsType'
  */
 
-import { htmlObject, htmlString } from '@mobJs';
+import { htmlObject } from '@mobJs';
 
 /** @type {MobComponent<import('./type').About>} */
 export const AboutMobileComponentFn = ({ getSelfProxi }) => {
@@ -70,20 +70,8 @@ export const AboutMobileComponentFn = ({ getSelfProxi }) => {
         ],
     };
 
-    const sectionBottom = htmlObject({
-        tag: 'section',
-        className: 'section-svg',
-        content: htmlString(proxi.aboutSvg),
-    });
-
     return htmlObject({
         className: 'l-about-mobile',
-        content: [
-            sectionOne,
-            sectionTwo,
-            sectionThree,
-            sectionFour,
-            sectionBottom,
-        ],
+        content: [sectionOne, sectionTwo, sectionThree, sectionFour],
     });
 };
