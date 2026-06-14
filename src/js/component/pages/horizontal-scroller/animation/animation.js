@@ -21,6 +21,7 @@ const createPins = ({ indicators, proxi }) => {
             animatePin: true,
             useThrottle: true,
             ease: false,
+            breakpoint: 'small',
             dynamicStart: {
                 position: 'right',
                 value: () => {
@@ -148,7 +149,7 @@ export const horizontalScrollerAnimation = ({
         columnWidth: 100,
         columnAlign: 'center',
         animatePin,
-        breakpoint: 'tablet',
+        breakpoint: 'xSmall',
         children: [...pins, ...titlesParallax],
         onEnter: () => {
             refreshPins({ pins });
