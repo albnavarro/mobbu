@@ -21,7 +21,11 @@
             grid-template-columns: 1fr auto;
             align-items: center;
             block-size: 100%;
-            padding: 0 var(--gap-size);
+            padding: 0;
+
+            @include mq(tablet) {
+                padding: 0 var(--gap-size);
+            }
         }
 
         .debug-cell {
@@ -55,8 +59,13 @@
         }
 
         .log {
+            display: none;
             border: 0;
             background: transparent;
+
+            @include mq(tablet) {
+                display: block;
+            }
         }
 
         :scope.is-visible {

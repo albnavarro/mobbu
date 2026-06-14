@@ -19,14 +19,14 @@
 
         svg {
             position: absolute;
-            block-size: 500dvh;
+            block-size: 500vh;
             inline-size: 500vw;
             transform: translate(calc(-50% * var(--dir)), -50%);
             inset-block-start: 50%;
             inset-inline-start: 50%;
 
             @include mq(tablet) {
-                block-size: 200dvh;
+                block-size: 200vh;
                 inline-size: 200vw;
             }
         }

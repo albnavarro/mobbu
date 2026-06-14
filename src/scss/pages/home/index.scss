@@ -50,6 +50,11 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
             inset: 0;
             grid-template-areas: 'svg';
             place-content: center center;
+            transform: translateY(calc(#{rem(44)} * -1));
+
+            @include mq(tablet) {
+                transform: translateY(0);
+            }
         }
 
         svg {
