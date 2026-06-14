@@ -144,8 +144,6 @@
 
 @layer override {
     [data-template='about'] :where(header) {
-        @include noise-bg;
-
         @include mq(tablet) {
             background: transparent;
         }

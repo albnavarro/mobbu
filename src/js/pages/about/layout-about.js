@@ -11,17 +11,9 @@ export const layoutAbout = async () => {
     });
 
     if (MobMotionCore.mq('max', 'tablet')) {
-        const { data: bg } = await loadTextContent({
-            source: './asset/svg/rdp.svg?v=1.3',
-        });
-
         return htmlObject({
             tag: 'main',
             content: [
-                {
-                    className: 'l-background-shape',
-                    content: bg,
-                },
                 {
                     component: AboutMobileComponent,
                     modules: MobJs.staticProps(

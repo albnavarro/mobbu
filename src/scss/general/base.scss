@@ -159,11 +159,13 @@
         }
 
         &[data-template='about'] {
-            background: var(--grey-200);
+            @include mq(tablet) {
+                background: var(--grey-200);
 
-            &::after {
-                visibility: visible;
-                opacity: 1;
+                &::after {
+                    visibility: visible;
+                    opacity: 1;
+                }
             }
         }
     }

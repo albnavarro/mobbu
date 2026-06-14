@@ -15,7 +15,11 @@ export const AboutMobileComponentFn = ({ getSelfProxi }) => {
         content: [
             {
                 tag: 'h1',
-                content: `${proxi.block_1.titleTop} ${proxi.block_1.titleBottom}`,
+                content: proxi.block_1.titleTop,
+            },
+            {
+                tag: 'h2',
+                content: proxi.block_1.titleBottom,
             },
         ],
     };
