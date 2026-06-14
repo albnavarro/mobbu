@@ -15,6 +15,10 @@
             inset-inline-start: calc(var(--doc-width) + (var(--gap-size) / 2));
             pointer-events: none;
 
+            @include mq(tablet) {
+                --links-height: 65vh;
+            }
+
             @include mq(large) {
                 inset-inline-start: calc(
                     /* stylelint-disable-next-line  scss/operator-no-newline-after */
@@ -63,7 +67,11 @@
         .screen {
             visibility: visible;
             position: absolute;
-            block-size: calc(var(--links-height) - var(--title-height));
+            block-size: calc(
+                /* stylelint-disable-next-line  scss/operator-no-newline-after */
+                    100vh - var(--header-height) - var(--footer-height) -
+                    #{rem(100)}
+            );
             inline-size: 100%;
             overflow: hidden auto;
             transition:
@@ -74,6 +82,7 @@
             inset-inline-start: 0;
 
             @include mq(tablet) {
+                block-size: calc(var(--links-height) - var(--title-height));
                 overflow: hidden;
             }
         }

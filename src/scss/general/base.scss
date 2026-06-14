@@ -94,10 +94,15 @@
     html {
         box-sizing: border-box;
 
-        --scrollbar-color-thumb: white;
-        --scrollbar-color-track: black;
+        --scrollbar-color-thumb: var(--dark);
+        --scrollbar-color-track: var(--white);
         --scrollbar-width: thin;
         --scrollbar-width-legacy: 10px;
+
+        @include mq(tablet) {
+            --scrollbar-color-thumb: var(--white);
+            --scrollbar-color-track: var(--dark);
+        }
 
         /* Modern browsers with `scrollbar-*` support */
         @supports (scrollbar-width: auto) {

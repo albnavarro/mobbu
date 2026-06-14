@@ -320,10 +320,18 @@
   }
   html {
     box-sizing: border-box;
-    --scrollbar-color-thumb: white;
-    --scrollbar-color-track: black;
+    --scrollbar-color-thumb: var(--dark);
+    --scrollbar-color-track: var(--white);
     --scrollbar-width: thin;
     --scrollbar-width-legacy: 10px;
+  }
+  @media (min-width: 48em) {
+    html {
+      --scrollbar-color-thumb: var(--white);
+      --scrollbar-color-track: var(--dark);
+    }
+  }
+  html {
   }
   @supports (scrollbar-width: auto) {
     html {
@@ -4256,7 +4264,7 @@
       block-size: 5px;
       inline-size: 5px;
       border-radius: 100%;
-      background: var(--grey-500);
+      background: var(--dark);
       inset-block-start: 0.625rem;
       inset-inline-start: calc(var(--gap-size) / 2 * -1);
     }
@@ -4980,6 +4988,11 @@
       inset-inline-start: calc(var(--doc-width) + var(--gap-size) / 2);
       pointer-events: none;
     }
+    @media (min-width: 48em) {
+      :scope {
+        --links-height: 65vh;
+      }
+    }
     @media (min-width: 75em) {
       :scope {
         inset-inline-start: calc(var(--doc-width) + var(--left-sidebar) + var(--gap-size) / 2);
@@ -5020,7 +5033,7 @@
     .screen {
       visibility: visible;
       position: absolute;
-      block-size: calc(var(--links-height) - var(--title-height));
+      block-size: calc(100vh - var(--header-height) - var(--footer-height) - 6.25rem);
       inline-size: 100%;
       overflow: hidden auto;
       transition:
@@ -5032,6 +5045,7 @@
     }
     @media (min-width: 48em) {
       .screen {
+        block-size: calc(var(--links-height) - var(--title-height));
         overflow: hidden;
       }
     }
