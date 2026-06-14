@@ -3,8 +3,14 @@
 @layer layout {
     @scope (.c-search-header) {
         .search-wrap {
-            display: inline-block;
+            display: block;
             position: relative;
+            margin-block-end: rem(8);
+
+            @include mq(tablet) {
+                display: inline-block;
+                margin-block-end: 0;
+            }
         }
 
         .suggestion-wrap {
@@ -53,11 +59,15 @@
 
         .serach-input {
             min-block-size: rem(36);
-            inline-size: rem(400);
+            inline-size: 100%;
             margin-inline-end: rem(5);
             padding-inline-start: rem(10);
             border: 1px var(--dark) solid;
             background: transparent;
+
+            @include mq(tablet) {
+                inline-size: rem(400);
+            }
         }
     }
 }

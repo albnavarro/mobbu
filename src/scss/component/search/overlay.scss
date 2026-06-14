@@ -75,9 +75,13 @@
                 'head'
                 'current'
                 'list';
-            grid-template-rows: rem(100) rem(50) 50vh;
+            grid-template-rows: rem(120) rem(50) 50vh;
             inline-size: 100%;
             border: 1px var(--grey-500) solid;
+
+            @include mq(tablet) {
+                grid-template-rows: rem(100) rem(50) 50vh;
+            }
         }
 
         .title {
@@ -93,9 +97,13 @@
         .header {
             grid-area: head;
             align-content: center;
-            padding-inline-start: var(--gap-size);
+            padding-inline: calc(var(--gap-size) / 2);
             border-block-end: 1px var(--grey-500) solid;
             outline-offset: -4px;
+
+            @include mq(tablet) {
+                padding-inline-start: var(--gap-size);
+            }
         }
 
         .result-query {

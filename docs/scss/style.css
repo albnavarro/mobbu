@@ -4825,8 +4825,13 @@
       block-size: var(--block-height);
       inline-size: 100%;
       padding-inline-start: var(--gap-size);
-      overflow: hidden;
+      overflow: hidden auto;
       inset-inline-start: 0;
+    }
+    @media (min-width: 48em) {
+      .screen {
+        overflow: hidden;
+      }
     }
     ul {
       min-block-size: var(--block-height);
@@ -4921,17 +4926,23 @@
       cursor: auto;
     }
     .scrollbar {
+      display: none;
       position: absolute;
       z-index: 11;
-      inset-block-start: 4rem;
-      inset-inline-start: 15rem;
       inline-size: var(--block-height);
       transform: rotate(calc(90deg * var(--dir)));
       transform-origin: left;
       background: transparent;
       cursor: pointer;
+      inset-block-start: 4rem;
+      inset-inline-start: 15rem;
       appearance: none;
       --thumb-width: 12.5rem;
+    }
+    @media (min-width: 48em) {
+      .scrollbar {
+        display: block;
+      }
     }
     .scrollbar.hide-scrollbar {
       opacity: 0;
@@ -5727,9 +5738,14 @@
       display: grid;
       position: relative;
       grid-template-areas: "head" "current" "list";
-      grid-template-rows: 6.25rem 3.125rem 50vh;
+      grid-template-rows: 7.5rem 3.125rem 50vh;
       inline-size: 100%;
       border: 1px var(--grey-500) solid;
+    }
+    @media (min-width: 48em) {
+      .grid {
+        grid-template-rows: 6.25rem 3.125rem 50vh;
+      }
     }
     .title {
       position: absolute;
@@ -5743,9 +5759,14 @@
     .header {
       grid-area: head;
       align-content: center;
-      padding-inline-start: var(--gap-size);
+      padding-inline: calc(var(--gap-size) / 2);
       border-block-end: 1px var(--grey-500) solid;
       outline-offset: -4px;
+    }
+    @media (min-width: 48em) {
+      .header {
+        padding-inline-start: var(--gap-size);
+      }
     }
     .result-query {
       grid-area: current;
@@ -5772,10 +5793,15 @@
     }
     .screen {
       position: absolute;
-      overflow: hidden;
+      overflow: hidden auto;
       outline-offset: -2px;
       color: var(--dark);
       inset: 0;
+    }
+    @media (min-width: 48em) {
+      .screen {
+        overflow: hidden;
+      }
     }
     .loader {
       display: none;
@@ -5795,9 +5821,14 @@
     ul {
       min-block-size: 100%;
       margin: 0;
-      padding: var(--gap-size);
-      padding-inline-end: calc(var(--gap-size) * 2);
+      padding: calc(var(--gap-size) / 2);
       list-style: none;
+    }
+    @media (min-width: 48em) {
+      ul {
+        padding: var(--gap-size);
+        padding-inline-end: calc(var(--gap-size) * 2);
+      }
     }
     li {
       position: relative;
@@ -5835,17 +5866,23 @@
       margin-block-end: 0;
     }
     .scrollbar {
+      display: none;
       position: absolute;
       z-index: 14;
-      inset-block-start: 1vh;
-      inset-inline-start: calc(100% - var(--gap-size) / 2);
       inline-size: 47vh;
       transform: rotate(calc(90deg * var(--dir)));
       transform-origin: left;
       background: transparent;
       cursor: pointer;
+      inset-block-start: 1vh;
+      inset-inline-start: calc(100% - var(--gap-size) / 2);
       appearance: none;
       --thumb-width: 12.5rem;
+    }
+    @media (min-width: 48em) {
+      .scrollbar {
+        display: block;
+      }
     }
     .scrollbar.hide-scrollbar {
       opacity: 0;
@@ -5893,8 +5930,15 @@
 @layer layout {
   @scope (.c-search-header) {
     .search-wrap {
-      display: inline-block;
+      display: block;
       position: relative;
+      margin-block-end: 0.5rem;
+    }
+    @media (min-width: 48em) {
+      .search-wrap {
+        display: inline-block;
+        margin-block-end: 0;
+      }
     }
     .suggestion-wrap {
       visibility: hidden;
@@ -5936,11 +5980,16 @@
     }
     .serach-input {
       min-block-size: 2.25rem;
-      inline-size: 25rem;
+      inline-size: 100%;
       margin-inline-end: 0.3125rem;
       padding-inline-start: 0.625rem;
       border: 1px var(--dark) solid;
       background: transparent;
+    }
+    @media (min-width: 48em) {
+      .serach-input {
+        inline-size: 25rem;
+      }
     }
   }
 }
