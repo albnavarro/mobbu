@@ -25427,7 +25427,7 @@
       document.querySelector("#root")
     );
     if (!rootElement) return;
-    InitMobPageScroll({ rootElement });
+    if (core_exports.mq("min", "tablet")) InitMobPageScroll({ rootElement });
     modules_exports2.mainStore.watch("beforeRouteChange", () => {
       FreezeMobPageScroll();
       enebalePreventScroll();
@@ -25440,7 +25440,7 @@
           DestroyMobPageScroll();
           return;
         }
-        const shouldInizialize = !getActiveStateScroll();
+        const shouldInizialize = !getActiveStateScroll() && core_exports.mq("min", "tablet");
         if (shouldInizialize) InitMobPageScroll({ rootElement });
         UnFreezeAndUPdateMobPageScroll();
       }, 30);

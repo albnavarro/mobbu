@@ -17,8 +17,7 @@
     @scope (.dragger-component) {
         :scope {
             block-size: 60vh;
-            inline-size: calc(100% - var(--header-height) * 2);
-            max-inline-size: rem(1240);
+            inline-size: calc(100% - var(--gap-size) * 2);
             overflow: hidden;
 
             &::after {
@@ -28,6 +27,11 @@
                 inset: 0;
                 border: 1px rgba(var(--dark-rgb), 0.2) solid;
                 pointer-events: none;
+            }
+
+            @include mq(tablet) {
+                inline-size: calc(100% - var(--header-height) * 2);
+                max-inline-size: rem(1240);
             }
         }
 

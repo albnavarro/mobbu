@@ -5,11 +5,15 @@
         :scope {
             position: fixed;
             inset-block-start: calc(var(--header-height) + #{rem(35)});
-            inset-inline-start: calc(var(--header-height) / 2 + #{rem(40)});
+            inset-inline-start: var(--gap-size);
             outline-offset: rem(10);
             color: var(--dark);
             font-size: rem(18);
             text-box: trim-both cap alphabetic;
+
+            @include mq(tablet) {
+                inset-inline-start: calc(var(--header-height) / 2 + #{rem(40)});
+            }
         }
     }
 }

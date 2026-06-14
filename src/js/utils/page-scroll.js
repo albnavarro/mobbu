@@ -10,6 +10,7 @@ import {
     getActiveStateScroll,
 } from '../mob/mob-motion/plugin/page-scroll/page-scroller';
 import { MobCore } from '@mobCore';
+import { MobMotionCore } from '@mobMotion';
 
 let shouldFreezePageScroll = false;
 
@@ -21,7 +22,7 @@ export const usePageScroll = () => {
     );
 
     if (!rootElement) return;
-    InitMobPageScroll({ rootElement });
+    if (MobMotionCore.mq('min', 'tablet')) InitMobPageScroll({ rootElement });
 
     MobJs.mainStore.watch('beforeRouteChange', () => {
         FreezeMobPageScroll();
@@ -44,7 +45,8 @@ export const usePageScroll = () => {
                 return;
             }
 
-            const shouldInizialize = !getActiveStateScroll();
+            const shouldInizialize =
+                !getActiveStateScroll() && MobMotionCore.mq('min', 'tablet');
 
             /**
              * Come from route that use page-scroll and current route use too.
