@@ -243,7 +243,6 @@
             100dvh - var(--header-height) - var(--footer-height)
         );
         padding-block-start: calc(var(--header-height));
-        overflow: clip;
         transition: opacity 0.55s;
 
         &.shift {
