@@ -26820,6 +26820,53 @@
     });
   };
 
+  // src/js/component/pages/about-mobile/about.js
+  var AboutMobileComponentFn = () => {
+    return htmlObject({
+      className: "l-about-mobile",
+      content: "pluto"
+    });
+  };
+
+  // src/js/component/pages/about-mobile/definition.js
+  var AboutMobileComponent = modules_exports2.createComponent(
+    /** @type{import('@mobJsType').CreateComponentParams<import ('./type').About>} */
+    {
+      tag: "about-mobile-component",
+      component: AboutMobileComponentFn,
+      props: {
+        block_1: {
+          __value: {
+            titleTop: "",
+            titleBottom: ""
+          },
+          __type: "any"
+        },
+        block_2: {
+          __value: {
+            title: "",
+            copy: ""
+          },
+          __type: "any"
+        },
+        block_3: {
+          __value: {
+            title: "",
+            copy: ""
+          },
+          __type: "any"
+        },
+        block_4: {
+          __value: {
+            title: "",
+            items: [""]
+          },
+          __type: "any"
+        }
+      }
+    }
+  );
+
   // src/js/component/pages/about/animation/path-animation.js
   var createPathAnimation = ({
     weakPathElement,
@@ -27828,6 +27875,32 @@
     const { data } = await loadJsonContent({
       source: "./data/about/index.json"
     });
+    if (core_exports.mq("max", "tablet")) {
+      const { data: bg } = await loadTextContent({
+        source: "./asset/svg/rdp.svg?v=1.3"
+      });
+      return htmlObject({
+        tag: "main",
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: AboutMobileComponent,
+            modules: modules_exports2.staticProps(
+              /** @type {import('@pagesComponent/about-mobile/type').About['props']} */
+              {
+                block_1: data.block_1,
+                block_2: data.block_2,
+                block_3: data.block_3,
+                block_4: data.block_4
+              }
+            )
+          }
+        ]
+      });
+    }
     const { data: aboutSvg } = await loadTextContent({
       source: "./asset/svg/about.svg?v=0.1"
     });

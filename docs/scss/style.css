@@ -1444,17 +1444,19 @@
     svg {
       position: relative;
       grid-area: svg;
+      block-size: 138.8888888889vw;
+      inline-size: 138.8888888889vw;
       overflow: visible;
       transform-origin: center;
       scale: 0;
     }
-    @media (aspect-ratio >= 3/2) {
+    @media (min-width: 48em) and (aspect-ratio >= 3/2) {
       svg {
         block-size: min(978.3439490446px, 41.6666666667vw);
         inline-size: min(1920px, 88.5416666667vw);
       }
     }
-    @media (aspect-ratio < 3/2) {
+    @media (min-width: 48em) and (aspect-ratio < 3/2) {
       svg {
         block-size: 64.5161290323vw;
         inline-size: 137.0967741935vw;
@@ -1766,6 +1768,15 @@
   }
   [dir=rtl] :where(.l-about) :where(.next):hover {
     transform: translateX(calc(100% - 2px + var(--sreen-size) / 2 * -1)) scale(1.2);
+  }
+}
+@layer layout {
+  @scope (.l-about-mobile) {
+    :scope {
+      position: relative;
+      min-block-size: calc(100vh - var(--header-height) - var(--footer-height));
+      padding: 3.75rem calc(var(--gap-size) / 2);
+    }
   }
 }
 @layer layout {

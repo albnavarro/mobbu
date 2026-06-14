@@ -1,4 +1,6 @@
 import { htmlObject, MobJs } from '@mobJs';
+import { MobMotionCore } from '@mobMotion';
+import { AboutMobileComponent } from '@pagesComponent/about-mobile/definition';
 import { AboutComponent } from '@pagesComponent/about/definition';
 import { loadJsonContent, loadTextContent } from '@utils/utils';
 
@@ -7,6 +9,34 @@ export const layoutAbout = async () => {
     const { data } = await loadJsonContent({
         source: './data/about/index.json',
     });
+
+    if (MobMotionCore.mq('max', 'tablet')) {
+        const { data: bg } = await loadTextContent({
+            source: './asset/svg/rdp.svg?v=1.3',
+        });
+
+        return htmlObject({
+            tag: 'main',
+            content: [
+                {
+                    className: 'l-background-shape',
+                    content: bg,
+                },
+                {
+                    component: AboutMobileComponent,
+                    modules: MobJs.staticProps(
+                        /** @type {import('@pagesComponent/about-mobile/type').About['props']} */
+                        ({
+                            block_1: data.block_1,
+                            block_2: data.block_2,
+                            block_3: data.block_3,
+                            block_4: data.block_4,
+                        })
+                    ),
+                },
+            ],
+        });
+    }
 
     const { data: aboutSvg } = await loadTextContent({
         source: './asset/svg/about.svg?v=0.1',
