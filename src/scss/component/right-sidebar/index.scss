@@ -8,7 +8,7 @@
             position: fixed;
             z-index: 9;
             block-size: calc(
-                100vh - var(--header-height) - var(--footer-height)
+                100dvh - var(--header-height) - var(--footer-height)
             );
             inline-size: var(--left-sidebar);
             padding-block: var(--gap-size);

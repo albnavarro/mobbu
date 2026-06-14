@@ -3,7 +3,7 @@
 @layer layout {
     @scope (.c-sidebar-links) {
         :scope {
-            --links-height: 65vh;
+            --links-height: 65dvh;
             --title-height: #{rem(74)};
 
             position: fixed;
@@ -16,7 +16,7 @@
             pointer-events: none;
 
             @include mq(tablet) {
-                --links-height: 65vh;
+                --links-height: 65dvh;
             }
 
             @include mq(large) {
@@ -69,7 +69,7 @@
             position: absolute;
             block-size: calc(
                 /* stylelint-disable-next-line  scss/operator-no-newline-after */
-                    100vh - var(--header-height) - var(--footer-height) -
+                    100dvh - var(--header-height) - var(--footer-height) -
                     #{rem(100)}
             );
             inline-size: 100%;

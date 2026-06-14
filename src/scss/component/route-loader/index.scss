@@ -23,7 +23,7 @@
 
             &.center-viewport {
                 position: fixed;
-                inset-block-start: calc(50vh - #{rem(24)});
+                inset-block-start: calc(50dvh - #{rem(24)});
             }
 
             &.center-component {

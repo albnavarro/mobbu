@@ -75,12 +75,12 @@
                 'head'
                 'current'
                 'list';
-            grid-template-rows: rem(120) rem(50) 50vh;
+            grid-template-rows: rem(120) rem(50) 50dvh;
             inline-size: 100%;
             border: 1px var(--grey-500) solid;
 
             @include mq(tablet) {
-                grid-template-rows: rem(100) rem(50) 50vh;
+                grid-template-rows: rem(100) rem(50) 50dvh;
             }
         }
 

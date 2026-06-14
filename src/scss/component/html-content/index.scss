@@ -45,7 +45,9 @@
             }
 
             &.is-min-100 {
-                min-block-size: calc(100vh - var(--header-height) - #{rem(80)});
+                min-block-size: calc(
+                    100dvh - var(--header-height) - #{rem(80)}
+                );
             }
         }
 
