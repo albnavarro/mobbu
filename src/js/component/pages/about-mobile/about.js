@@ -14,12 +14,19 @@ export const AboutMobileComponentFn = ({ getSelfProxi }) => {
         className: 'section-one',
         content: [
             {
-                tag: 'h1',
-                content: proxi.block_1.titleTop,
+                content: proxi.svg,
             },
             {
-                tag: 'h2',
-                content: proxi.block_1.titleBottom,
+                content: [
+                    {
+                        tag: 'h1',
+                        content: proxi.block_1.titleTop,
+                    },
+                    {
+                        tag: 'h2',
+                        content: proxi.block_1.titleBottom,
+                    },
+                ],
             },
         ],
     };

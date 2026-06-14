@@ -16,5 +16,6 @@ export interface About {
             title: string;
             items: string[];
         };
+        svg: string;
     };
 }

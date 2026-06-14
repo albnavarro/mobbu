@@ -4,14 +4,20 @@
     @scope (.l-about-mobile) {
         :scope {
             position: relative;
-            min-block-size: calc(
-                100vh - var(--header-height) - var(--footer-height)
-            );
             padding-block-end: rem(120);
+            overflow: hidden;
         }
 
         .section-one {
-            margin-block-end: rem(64);
+            display: flex;
+            position: relative;
+            z-index: 1;
+            flex-direction: column;
+            justify-content: end;
+            block-size: calc(
+                100vh - var(--header-height) - var(--footer-height)
+            );
+            margin-block-end: rem(120);
             padding-block: rem(34);
             border-block-end: 1px var(--grey-400) solid;
         }
@@ -24,24 +30,43 @@
         }
 
         h1 {
-            margin-block-end: 0;
+            margin-block-end: rem(12);
             font-size: rem(74);
-            line-height: 1;
+            line-height: 1.2;
         }
 
         h2 {
             font-size: rem(60);
-            line-height: 1;
+            line-height: 1.4;
         }
 
         h1,
         h2 {
+            display: inline-block;
             padding-inline: calc(var(--gap-size) / 2);
+            background: rgba(var(--dark-rgb), 0.9);
+            color: var(--white);
         }
 
         h1,
         h3 {
             text-transform: capitalize;
+        }
+
+        svg {
+            position: absolute;
+            z-index: -1;
+            block-size: 500vh;
+            inline-size: 500vw;
+            transform: translate(calc(-50% * var(--dir)), -50%);
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+        }
+
+        g {
+            &:first-of-type {
+                display: none;
+            }
         }
     }
 }

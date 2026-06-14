@@ -11,6 +11,10 @@ export const layoutAbout = async () => {
     });
 
     if (MobMotionCore.mq('max', 'tablet')) {
+        const { data: svg } = await loadTextContent({
+            source: './asset/svg/lettering-mob.svg?v=0.9',
+        });
+
         return htmlObject({
             tag: 'main',
             content: [
@@ -23,6 +27,7 @@ export const layoutAbout = async () => {
                             block_2: data.block_2,
                             block_3: data.block_3,
                             block_4: data.block_4,
+                            svg,
                         })
                     ),
                 },
