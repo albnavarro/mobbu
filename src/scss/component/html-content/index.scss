@@ -162,12 +162,13 @@
         @scope (h2.is-section) {
             :scope {
                 position: relative;
-                block-size: rem(60);
+                block-size: rem(30);
+                margin-block-start: 0;
                 overflow: hidden;
                 transition: transform 0.35s;
-                border-block-end: 1px var(--dark) solid;
                 color: var(--dark);
                 text-transform: capitalize;
+                border-block-end: 1px var(--dark) solid;
 
                 &.pinned {
                     box-shadow: 0 calc(#{rem(30)} * -1) 0 var(--dark);
@@ -175,6 +176,10 @@
 
                 &.hide.pinned {
                     transform: translateY(-100%);
+                }
+
+                @include mq(tablet) {
+                    block-size: rem(50);
                 }
             }
 
