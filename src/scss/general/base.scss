@@ -243,6 +243,7 @@
             100dvh - var(--header-height) - var(--footer-height)
         );
         padding-block-start: calc(var(--header-height));
+        overflow: clip;
         transition: opacity 0.55s;
 
         &.shift {
@@ -272,5 +273,13 @@
     :where([data-template='template-animation'] .main-app-content)
         > .container {
         padding-inline-start: 0;
+    }
+
+    :where([data-template='template-doc-default'] .main-app-content) {
+        overflow: clip;
+    }
+
+    :where([data-template='template-mobJs-component'] .main-app-content) {
+        overflow: clip;
     }
 }

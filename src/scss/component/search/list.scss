@@ -50,13 +50,18 @@
 
         li {
             position: relative;
-            margin-block-end: calc(var(--gap-size) / 2);
-            padding-block-end: calc(var(--gap-size) / 2);
+            margin-block-end: calc(var(--gap-size) / 4);
+            padding-block-end: calc(var(--gap-size) / 4);
             transition: opacity 0.35s;
             border-block-end: 1px var(--grey-300) solid;
 
             &:hover {
                 opacity: 0.5;
+            }
+
+            @include mq(tablet) {
+                margin-block-end: calc(var(--gap-size) / 2);
+                padding-block-end: calc(var(--gap-size) / 2);
             }
 
             &.current {

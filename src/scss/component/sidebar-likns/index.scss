@@ -12,7 +12,7 @@
             inline-size: rem(300);
             transform: translateX(calc(var(--gap-size) * var(--dir)));
             inset-block-start: var(--header-height);
-            inset-inline-start: calc(var(--doc-width) + (var(--gap-size) / 2));
+            inset-inline-start: calc(var(--doc-width) + var(--gap-size));
             pointer-events: none;
 
             @include mq(tablet) {
