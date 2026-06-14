@@ -555,7 +555,7 @@
   .p-boxed {
     margin-block-end: calc(var(--gap-size) / 2);
     padding: calc(var(--gap-size) / 2);
-    border: 2px var(--grey-300) solid;
+    border: 1px var(--grey-300) solid;
     border-radius: 0.625rem;
     background: var(--grey-100);
   }
@@ -2288,11 +2288,16 @@
     :scope {
       position: relative;
       block-size: calc(100vh - var(--footer-height));
-      inline-size: calc(100vw - var(--header-height) * 0.5 + 1px);
-      margin-inline-start: calc(var(--header-height) * 0.5 - 1px);
+      inline-size: 100%;
       overflow: hidden;
       --mobbu2025-height: calc( 100vh - var(--header-height) - var(--footer-height) );
       --mobbu2025-width: calc((var(--mobbu2025-height) * 690) / 112);
+    }
+    @media (min-width: 48em) {
+      :scope {
+        inline-size: calc(100vw - var(--header-height) * 0.5 + 1px);
+        margin-inline-start: calc(var(--header-height) * 0.5 - 1px);
+      }
     }
     .screen {
       position: relative;
@@ -4190,7 +4195,12 @@
     }
     :scope.use-padding {
       padding-block: 0.5rem var(--col-size);
-      padding-inline: var(--gap-size);
+      padding-inline: calc(var(--gap-size) / 2);
+    }
+    @media (min-width: 48em) {
+      :scope.use-padding {
+        padding-inline: var(--gap-size);
+      }
     }
     :scope.is-min-100 {
       min-block-size: calc(100vh - var(--header-height) - 5rem);
@@ -4281,7 +4291,7 @@
         margin-block-end: 0;
         padding: calc(var(--gap-size) / 2);
         overflow: hidden;
-        border: 2px var(--grey-300) solid;
+        border: 1px var(--grey-300) solid;
         border-radius: 0.625rem;
         background: var(--grey-100);
       }
@@ -4295,8 +4305,13 @@
       }
     }
     h2 {
-      margin: calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
+      margin: calc(var(--gap-size) / 2) calc(var(--gap-size) * -0.5);
       padding-inline: var(--gap-size) var(--gap-size);
+    }
+    @media (min-width: 48em) {
+      h2 {
+        margin: calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
+      }
     }
     @scope (h2.is-section) {
       :scope {
@@ -4317,13 +4332,14 @@
       .title-content {
         position: absolute;
         inset-block-end: calc(0.3125rem * -1);
-        inset-inline-start: 2.5rem;
+        inset-inline-start: calc(var(--gap-size) / 2);
         font-size: 1.75rem;
       }
       @media (min-width: 48em) {
         .title-content {
           font-size: 3.125rem;
           inset-block-end: 0;
+          inset-inline-start: var(--gap-size);
         }
       }
       .title-index {
@@ -4350,13 +4366,15 @@
       font-size: 1.625rem;
       line-height: 1.2307692308em;
     }
-    h3::after {
-      content: "*";
-      position: absolute;
-      inset-block-start: 0;
-      inset-inline-start: 0;
-      color: var(--dark);
-      font-size: 1.875rem;
+    @media (min-width: 48em) {
+      h3::after {
+        content: "*";
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        color: var(--dark);
+        font-size: 1.875rem;
+      }
     }
   }
 }
@@ -4444,16 +4462,20 @@
       font-size: 0.75rem;
       text-align: center;
       text-decoration: none;
-      inset-block-start: 0.625rem;
+      inset-block-start: -0.9375rem;
       inset-inline-end: 0;
+    }
+    @media (min-width: 48em) {
+      .expand {
+        inset-block-start: 0.625rem;
+      }
     }
     .expand:hover {
       background: var(--grey-200);
       color: var(--dark);
     }
     .expand:disabled {
-      opacity: 0.4;
-      pointer-events: none;
+      display: none;
     }
     code {
       display: block;
@@ -4468,7 +4490,12 @@
       border-radius: 0.625rem;
       font-size: calc(var(--snippet-rem-value) * 1rem);
       line-height: calc(var(--snippet-line-height-value) * 1rem);
-      --padding-pre: var(--gap-size);
+      --padding-pre: calc(var(--gap-size) / 2);
+    }
+    @media (min-width: 48em) {
+      code {
+        --padding-pre: var(--gap-size);
+      }
     }
     code.open {
       block-size: calc(var(--snippet-height) + var(--padding-pre) * 2);

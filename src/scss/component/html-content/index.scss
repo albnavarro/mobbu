@@ -37,7 +37,11 @@
 
             &.use-padding {
                 padding-block: rem(8) var(--col-size);
-                padding-inline: var(--gap-size);
+                padding-inline: calc(var(--gap-size) / 2);
+
+                @include mq(tablet) {
+                    padding-inline: var(--gap-size);
+                }
             }
 
             &.is-min-100 {
@@ -128,7 +132,7 @@
                 margin-block-end: 0;
                 padding: calc(var(--gap-size) / 2);
                 overflow: hidden;
-                border: 2px var(--grey-300) solid;
+                border: 1px var(--grey-300) solid;
                 border-radius: rem(10);
                 background: var(--grey-100);
             }
@@ -145,8 +149,12 @@
         }
 
         h2 {
-            margin: calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
+            margin: calc(var(--gap-size) / 2) calc(var(--gap-size) * -0.5);
             padding-inline: var(--gap-size) var(--gap-size);
+
+            @include mq(tablet) {
+                margin: calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
+            }
         }
 
         @scope (h2.is-section) {
@@ -171,12 +179,13 @@
             .title-content {
                 position: absolute;
                 inset-block-end: calc(#{rem(5)} * -1);
-                inset-inline-start: rem(40);
+                inset-inline-start: calc(var(--gap-size) / 2);
                 font-size: rem(28);
 
                 @include mq(tablet) {
                     font-size: rem(50);
                     inset-block-end: 0;
+                    inset-inline-start: var(--gap-size);
                 }
             }
 
@@ -204,13 +213,15 @@
             font-size: rem(26);
             line-height: line-height(26, 32);
 
-            &::after {
-                content: '*';
-                position: absolute;
-                inset-block-start: 0;
-                inset-inline-start: 0;
-                color: var(--dark);
-                font-size: rem(30);
+            @include mq(tablet) {
+                &::after {
+                    content: '*';
+                    position: absolute;
+                    inset-block-start: 0;
+                    inset-inline-start: 0;
+                    color: var(--dark);
+                    font-size: rem(30);
+                }
             }
         }
     }

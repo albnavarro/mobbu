@@ -21,8 +21,12 @@
             font-size: rem(12);
             text-align: center;
             text-decoration: none;
-            inset-block-start: rem(10);
+            inset-block-start: calc(rem(15) * -1);
             inset-inline-end: 0;
+
+            @include mq(tablet) {
+                inset-block-start: rem(10);
+            }
 
             &:hover {
                 background: var(--grey-200);
@@ -30,8 +34,7 @@
             }
 
             &:disabled {
-                opacity: 0.4;
-                pointer-events: none;
+                display: none;
             }
         }
 
@@ -49,7 +52,11 @@
             font-size: calc(var(--snippet-rem-value) * 1rem);
             line-height: calc(var(--snippet-line-height-value) * 1rem);
 
-            --padding-pre: var(--gap-size);
+            --padding-pre: calc(var(--gap-size) / 2);
+
+            @include mq(tablet) {
+                --padding-pre: var(--gap-size);
+            }
 
             &.open {
                 block-size: calc(
