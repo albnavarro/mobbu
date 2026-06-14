@@ -22,3 +22,9 @@
         }
     }
 }
+
+@layer override {
+    :where([data-template='template-test']) .c-only-tablet {
+        margin-block-start: 0;
+    }
+}

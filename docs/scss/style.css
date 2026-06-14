@@ -2217,6 +2217,11 @@
     }
   }
 }
+@layer override {
+  :where([data-template=template-test]) .c-only-tablet {
+    margin-block-start: 0;
+  }
+}
 @layer layout {
   @scope (.mobbu2025) {
     :scope {

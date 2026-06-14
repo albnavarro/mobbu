@@ -27849,17 +27849,6 @@
     });
   };
 
-  // src/js/pages/benchmark/index.js
-  var benchMark = async ({ props }) => {
-    const { rootComponent } = props;
-    return htmlObject({
-      tag: "main",
-      content: {
-        tag: rootComponent
-      }
-    });
-  };
-
   // src/js/component/common/only-tablet/only-tablet.js
   var lastValidRoute = "home";
   var lastValidParams = null;
@@ -27909,6 +27898,26 @@
     tag: "only-tablet",
     component: OnlyTabletFn
   });
+
+  // src/js/pages/benchmark/index.js
+  var benchMark = async ({ props }) => {
+    if (core_exports.mq("max", "tablet")) {
+      return htmlObject({
+        content: [
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
+    const { rootComponent } = props;
+    return htmlObject({
+      tag: "main",
+      content: {
+        tag: rootComponent
+      }
+    });
+  };
 
   // src/js/component/common/quick-nav/utils.js
   var updateQuickNavState = ({
@@ -31747,6 +31756,15 @@
 
   // src/js/pages/dynamic-list/index.js
   var dynamic_list = () => {
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     return htmlObject({
       tag: "main",
       content: {
@@ -32703,6 +32721,15 @@
 
   // src/js/pages/matrioska/index.js
   var matrioska_repeat_page = () => {
+    if (core_exports.mq("max", "tablet")) {
+      return htmlObject({
+        content: [
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     return htmlObject({
       tag: "main",
       content: {
@@ -32711,6 +32738,15 @@
     });
   };
   var matrioska_invalidate_page = () => {
+    if (core_exports.mq("max", "tablet")) {
+      return htmlObject({
+        content: [
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     return htmlObject({
       tag: "main",
       content: {
