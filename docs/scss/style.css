@@ -4107,7 +4107,7 @@
       position: relative;
     }
     :scope.use-padding {
-      padding-block: 0.5rem var(--col-size);
+      padding: 0.5rem var(--col-size) 7.75rem;
       padding-inline: calc(var(--gap-size) / 2);
     }
     @media (min-width: 48em) {
@@ -4218,11 +4218,12 @@
     }
     h2 {
       margin: calc(var(--gap-size) / 2) calc(var(--gap-size) * -0.5);
-      padding-inline: var(--gap-size) var(--gap-size);
+      padding-inline: calc(var(--gap-size) / 2) var(--gap-size);
     }
     @media (min-width: 48em) {
       h2 {
         margin: calc(var(--gap-size) / 2) calc(var(--gap-size) * -1);
+        padding-inline: var(--gap-size) var(--gap-size);
       }
     }
     @scope (h2.is-section) {
@@ -4275,10 +4276,12 @@
       margin-inline-start: calc(var(--gap-size) / 2 * -1);
       padding-block-end: calc(var(--gap-size) / 4);
       padding-inline-start: calc(var(--gap-size) / 2);
-      font-size: 1.625rem;
       line-height: 1.2307692308em;
     }
     @media (min-width: 48em) {
+      h3 {
+        font-size: 1.625rem;
+      }
       h3::after {
         content: "*";
         position: absolute;
@@ -4358,6 +4361,12 @@
   @scope (.snippet) {
     :scope {
       position: relative;
+      margin-block-start: 2.75rem;
+    }
+    @media (min-width: 48em) {
+      :scope {
+        margin-block-start: 0;
+      }
     }
     .expand {
       display: inline-block;
@@ -4375,11 +4384,6 @@
       text-decoration: none;
       inset-block-start: -0.9375rem;
       inset-inline-end: 0;
-    }
-    @media (min-width: 48em) {
-      .expand {
-        inset-block-start: 0.625rem;
-      }
     }
     .expand:hover {
       background: var(--grey-200);
@@ -4418,10 +4422,15 @@
     }
     pre {
       box-sizing: inherit;
-      min-inline-size: 21.25rem;
+      min-inline-size: 37.5rem;
       margin: 0;
       padding: var(--padding-pre);
       overflow: hidden;
+    }
+    @media (min-width: 48em) {
+      pre {
+        min-inline-size: 21.25rem;
+      }
     }
   }
 }

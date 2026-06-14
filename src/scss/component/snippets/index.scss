@@ -4,6 +4,11 @@
     @scope (.snippet) {
         :scope {
             position: relative;
+            margin-block-start: rem(44);
+
+            @include mq(tablet) {
+                margin-block-start: 0;
+            }
         }
 
         .expand {
@@ -22,10 +27,6 @@
             text-decoration: none;
             inset-block-start: calc(rem(15) * -1);
             inset-inline-end: 0;
-
-            @include mq(tablet) {
-                inset-block-start: rem(10);
-            }
 
             &:hover {
                 background: var(--grey-200);
@@ -73,10 +74,14 @@
 
         pre {
             box-sizing: inherit;
-            min-inline-size: rem(340);
+            min-inline-size: rem(600);
             margin: 0;
             padding: var(--padding-pre);
             overflow: hidden;
+
+            @include mq(tablet) {
+                min-inline-size: rem(340);
+            }
         }
     }
 }
