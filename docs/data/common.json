@@ -334,117 +334,6 @@
             "children": null
         },
         {
-            "label": "Illustration",
-            "section": true,
-            "sectioName": "svg"
-        },
-        {
-            "label": "Overview",
-            "url": "svg-overview",
-            "scrollToSection": "svg",
-            "children": null
-        },
-        {
-            "label": "rdp 01",
-            "url": "rdp-01",
-            "scrollToSection": "svg",
-            "children": null
-        },
-        {
-            "label": "mob 01",
-            "url": "mob-01",
-            "scrollToSection": "svg",
-            "children": null
-        },
-        {
-            "label": "mob 02",
-            "url": "mob-02",
-            "scrollToSection": "svg",
-            "children": null
-        },
-        {
-            "label": "Canvas 2d animations:",
-            "section": true,
-            "sectioName": "canvas"
-        },
-        {
-            "label": "Overview",
-            "url": "canvas-overview",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
-            "label": "caterpillar n.1",
-            "url": "caterpillarN1",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
-            "label": "ScrollerTrigger n.1",
-            "url": "scrollerN1",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
-            "label": "caterpillar n.2",
-            "url": "caterpillarN2",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
-            "label": "Async timeline",
-            "url": "async-timeline",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
-            "label": "animated pattern",
-            "scrollToSection": "canvas",
-            "url": "animatedPatternN0"
-        },
-        {
-            "label": "Animated mask",
-            "url": "animatedPatternN1",
-            "scrollToSection": "canvas",
-            "children": null
-        },
-        {
-            "label": "ScrollerTrigger n.0",
-            "scrollToSection": "canvas",
-            "url": "scrollerN0",
-            "activeId": 0
-        },
-        {
-            "label": "extras",
-            "section": true,
-            "sectioName": "extras"
-        },
-        {
-            "label": "overview",
-            "scrollToSection": "extras",
-            "url": "plugin-overview"
-        },
-        {
-            "label": "move3D shape 1",
-            "scrollToSection": "extras",
-            "url": "move3D-shape1"
-        },
-        {
-            "label": "dragger",
-            "scrollToSection": "extras",
-            "url": "plugin-dragger"
-        },
-        {
-            "label": "Math 01",
-            "scrollToSection": "extras",
-            "url": "math-animation-01"
-        },
-        {
-            "label": "Rosa di Grandi",
-            "scrollToSection": "extras",
-            "url": "rosa-di-grandi"
-        },
-        {
             "label": "mobCore",
             "section": true,
             "sectioName": "mobCore"
@@ -682,6 +571,117 @@
             "label": "Defaults",
             "scrollToSection": "mobMotion",
             "url": "mobMotion-defaults"
+        },
+        {
+            "label": "Illustration",
+            "section": true,
+            "sectioName": "svg"
+        },
+        {
+            "label": "Overview",
+            "url": "svg-overview",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
+            "label": "rdp 01",
+            "url": "rdp-01",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
+            "label": "mob 01",
+            "url": "mob-01",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
+            "label": "mob 02",
+            "url": "mob-02",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
+            "label": "Canvas 2d animations:",
+            "section": true,
+            "sectioName": "canvas"
+        },
+        {
+            "label": "Overview",
+            "url": "canvas-overview",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
+            "label": "caterpillar n.1",
+            "url": "caterpillarN1",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
+            "label": "ScrollerTrigger n.1",
+            "url": "scrollerN1",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
+            "label": "caterpillar n.2",
+            "url": "caterpillarN2",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
+            "label": "Async timeline",
+            "url": "async-timeline",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
+            "label": "animated pattern",
+            "scrollToSection": "canvas",
+            "url": "animatedPatternN0"
+        },
+        {
+            "label": "Animated mask",
+            "url": "animatedPatternN1",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
+            "label": "ScrollerTrigger n.0",
+            "scrollToSection": "canvas",
+            "url": "scrollerN0",
+            "activeId": 0
+        },
+        {
+            "label": "extras",
+            "section": true,
+            "sectioName": "extras"
+        },
+        {
+            "label": "overview",
+            "scrollToSection": "extras",
+            "url": "plugin-overview"
+        },
+        {
+            "label": "move3D shape 1",
+            "scrollToSection": "extras",
+            "url": "move3D-shape1"
+        },
+        {
+            "label": "dragger",
+            "scrollToSection": "extras",
+            "url": "plugin-dragger"
+        },
+        {
+            "label": "Math 01",
+            "scrollToSection": "extras",
+            "url": "math-animation-01"
+        },
+        {
+            "label": "Rosa di Grandi",
+            "scrollToSection": "extras",
+            "url": "rosa-di-grandi"
         }
     ],
     "suggestion": [

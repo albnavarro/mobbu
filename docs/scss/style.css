@@ -2894,7 +2894,8 @@
   @scope (.dragger-component) {
     :scope {
       block-size: 60vh;
-      inline-size: calc(100% - var(--gap-size) * 2);
+      inline-size: calc(100% - var(--header-height) * 2);
+      max-inline-size: 77.5rem;
       overflow: hidden;
     }
     :scope::after {
@@ -2904,12 +2905,6 @@
       inset: 0;
       border: 1px rgba(var(--dark-rgb), 0.2) solid;
       pointer-events: none;
-    }
-    @media (min-width: 48em) {
-      :scope {
-        inline-size: calc(100% - var(--header-height) * 2);
-        max-inline-size: 77.5rem;
-      }
     }
     @scope (.borders) {
       :scope {
@@ -3119,10 +3114,14 @@
 @layer layout {
   @scope (.l-math) to (.c-math) {
     :scope {
+      display: grid;
       position: relative;
-      block-size: calc(50vh - var(--header-height) - var(--footer-height));
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      block-size: calc(100vh - var(--header-height) - var(--footer-height));
+      inline-size: calc(100% - var(--header-height) / 2);
       inset-block-start: var(--header-height);
-      inline-size: 100%;
+      inset-inline-start: calc(var(--header-height) / 2);
     }
     :scope::after {
       content: "";
@@ -3132,23 +3131,13 @@
       inline-size: 1px;
       background: var(--dark);
     }
-    @media (min-width: 48em) {
-      :scope {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        block-size: calc(100vh - var(--header-height) - var(--footer-height));
-        inline-size: calc(100% - var(--header-height) / 2);
-        inset-inline-start: calc(var(--header-height) / 2);
-      }
-      :scope::before {
-        content: "";
-        position: absolute;
-        inset-block-start: 50%;
-        inset-inline: 0;
-        block-size: 1px;
-        background: var(--dark);
-      }
+    :scope::before {
+      content: "";
+      position: absolute;
+      inset-block-start: 50%;
+      inset-inline: 0;
+      block-size: 1px;
+      background: var(--dark);
     }
   }
 }
@@ -3159,17 +3148,12 @@
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(2, 1fr);
       block-size: calc(100vh - var(--header-height) - var(--footer-height));
-      inline-size: 100%;
+      inline-size: calc(100% - var(--header-height) / 2);
       inset-block-start: var(--header-height);
-    }
-    @media (min-width: 48em) {
-      :scope {
-        inline-size: calc(100% - var(--header-height) / 2);
-      }
+      inset-inline-start: calc(var(--header-height) / 2);
     }
     .animation-container {
       block-size: 100%;
-      inset-inline-start: calc(var(--header-height) / 2);
     }
   }
 }
