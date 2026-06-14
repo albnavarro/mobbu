@@ -1,20 +1,36 @@
 import { AnyComponent } from '@commonComponent/any-component/definition';
 import { Dragger } from '@commonComponent/dragger/definition';
+import { OnlyTablet } from '@commonComponent/only-tablet/definition';
 import { updateQuickNavState } from '@commonComponent/quick-nav/utils';
 import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 import { htmlObject, MobJs } from '@mobJs';
+import { MobMotionCore } from '@mobMotion';
 import { loadTextContent } from '@utils/utils';
 
 const useLog = false;
 
 /** @type {import('@mobJsType').Page} */
 export const DraggerRoute = async () => {
-    const { data: svg } = await loadTextContent({
-        source: './asset/svg/ms_nord_compact.svg?v=1.3',
-    });
-
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',
+    });
+
+    if (MobMotionCore.mq('max', 'medium')) {
+        return htmlObject({
+            content: [
+                {
+                    className: 'l-background-shape',
+                    content: bg,
+                },
+                {
+                    component: OnlyTablet,
+                },
+            ],
+        });
+    }
+
+    const { data: svg } = await loadTextContent({
+        source: './asset/svg/ms_nord_compact.svg?v=1.3',
     });
 
     /** Quicknav */

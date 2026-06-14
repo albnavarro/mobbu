@@ -1,6 +1,6 @@
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
-import { MobTimeline, MobTween } from '@mobMotion';
+import { MobMotionCore, MobTimeline, MobTween } from '@mobMotion';
 import {
     PAGE_TEMPLATE_ABOUT,
     PAGE_TEMPLATE_COMPONENT_MOBJS,
@@ -44,9 +44,10 @@ export const beforePageTransition = async ({ oldNode, oldTemplateName }) => {
     oldNode.style.top = useTopPosition.has(oldTemplateName)
         ? 'var(--header-height)'
         : '0';
-    oldNode.style.left = useLetPosition.has(oldTemplateName)
-        ? `calc(var(--header-height)/2)`
-        : '0';
+    oldNode.style.left =
+        useLetPosition.has(oldTemplateName) && MobMotionCore.mq('min', 'medium')
+            ? `calc(var(--header-height)/2)`
+            : '0';
     oldNode.style.right = `0`;
     oldNode.style.transform = `translateY(-${scrollY}px)`;
     oldNode.style.minHeight =

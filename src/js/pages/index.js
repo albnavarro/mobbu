@@ -17,7 +17,6 @@ import { horizontalScroller } from './plugin/horizontal-scroller';
 import { move3DRoute } from './plugin/move-3d';
 import { move3DrouteProps } from './plugin/move-3d/props';
 import { lettering01 } from './svg/mob-01';
-import { onlyDesktop } from './onlyDesktop';
 import { asyncTimeline } from './canvas/async-timeline';
 import { rdp } from './svg/rdp';
 import { mob_02 } from './svg/mob-02';
@@ -172,13 +171,6 @@ export const routes = [
         hash: 'pageNotFound',
         layout: pageNotFound,
         pageName: 'page not found',
-        props: {},
-    },
-    {
-        hash: 'onlyDesktop',
-        layout: onlyDesktop,
-        pageName: 'onlyDesktop',
-        templateName: PAGE_TEMPLATE_ONLY_DESKTOP,
         props: {},
     },
     {

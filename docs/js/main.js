@@ -27860,6 +27860,56 @@
     });
   };
 
+  // src/js/component/common/only-tablet/only-tablet.js
+  var lastValidRoute = "home";
+  var lastValidParams = null;
+  modules_exports2.afterRouteChange(({ currentRoute, previousRoute }) => {
+    lastValidParams = modules_exports2.getActiveParams();
+    lastValidRoute = currentRoute === previousRoute ? "home" : previousRoute;
+  });
+  var OnlyTabletFn = ({ delegateEvents }) => {
+    return htmlObject({
+      className: "c-only-tablet",
+      content: [
+        {
+          tag: "section",
+          content: [
+            {
+              tag: "h1",
+              content: "! warning"
+            },
+            {
+              tag: "p",
+              content: (
+                /* HTML */
+                "Animation content is available<br/> from <strong>tablet resolution ( 768px )</strong>"
+              )
+            },
+            {
+              tag: "button",
+              attributes: { type: "button", role: "link" },
+              modules: delegateEvents({
+                click: () => {
+                  modules_exports2.loadUrl({
+                    url: lastValidRoute,
+                    params: lastValidParams ?? {}
+                  });
+                }
+              }),
+              content: "back"
+            }
+          ]
+        }
+      ]
+    });
+  };
+
+  // src/js/component/common/only-tablet/definition.js
+  var OnlyTablet = modules_exports2.createComponent({
+    tag: "only-tablet",
+    component: OnlyTabletFn
+  });
+
   // src/js/component/common/quick-nav/utils.js
   var updateQuickNavState = ({
     active: active2 = true,
@@ -28546,6 +28596,19 @@
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
     });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     updateQuickNavState({
       active: true,
       prevRoute: "#async-timeline",
@@ -28918,6 +28981,19 @@
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
     });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     updateQuickNavState({
       active: true,
       prevRoute: "#animatedPatternN0",
@@ -29327,6 +29403,19 @@
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
     });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     updateQuickNavState({
       active: true,
       prevRoute: "",
@@ -29774,6 +29863,19 @@
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
     });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     updateQuickNavState({
       active: true,
       prevRoute: "#scrollerN1",
@@ -30205,6 +30307,19 @@
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
     });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     updateQuickNavState({
       active: true,
       prevRoute: "#animatedPatternN1",
@@ -30582,8 +30697,21 @@
   // src/js/pages/canvas/scroller-n1/index.js
   var scrollerN1 = async () => {
     const { data: bg } = await loadTextContent({
-      source: "./asset/svg/lettering-mob.svg?v=1.3"
+      source: "./asset/svg/rdp.svg?v=1.3"
     });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     updateQuickNavState({
       active: true,
       prevRoute: "#caterpillarN1",
@@ -33990,6 +34118,19 @@
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
     });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     updateQuickNavState({
       active: true,
       prevRoute,
@@ -34903,11 +35044,24 @@
 
   // src/js/pages/svg/mob-01/index.js
   var lettering01 = async () => {
-    const { data: letteringMob } = await loadTextContent({
-      source: "./asset/svg/lettering-mob.svg?v=0.9"
-    });
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/rdp.svg?v=1.3"
+    });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
+    const { data: letteringMob } = await loadTextContent({
+      source: "./asset/svg/lettering-mob.svg?v=0.9"
     });
     const [
       u0,
@@ -35018,58 +35172,6 @@
           )
         }
       ]
-    });
-  };
-
-  // src/js/pages/onlyDesktop/index.js
-  var onlyDesktop = async () => {
-    const { data: letteringMob } = await loadTextContent({
-      source: "./asset/svg/lettering-mob-only-desktop.svg?v=0.1"
-    });
-    const { data: bg } = await loadTextContent({
-      source: "./asset/svg/lettering-mob.svg?v=1.3"
-    });
-    return htmlObject({
-      className: "l-only-desktop",
-      content: {
-        className: "content",
-        content: [
-          {
-            className: "l-background-shape",
-            content: bg
-          },
-          {
-            tag: "h1",
-            content: "MobProject v0.1"
-          },
-          {
-            tag: "h2",
-            content: "ops...<br />"
-          },
-          {
-            tag: "p",
-            content: (
-              /* HTML */
-              `This site is designed<br />
-                        for a desktop/tablet experience,<br />
-                        the minimum resolution is
-                        <strong>768px</strong>.<br /><br />
-                        <strong>
-                            Please resize your browser<br />
-                            or use a different device.
-                        </strong> `
-            )
-          },
-          {
-            tag: "h3",
-            content: "My apologies ..."
-          },
-          {
-            className: "svg",
-            content: letteringMob
-          }
-        ]
-      }
     });
   };
 
@@ -35595,6 +35697,19 @@
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
     });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     updateQuickNavState({
       active: true,
       prevRoute: "#caterpillarN2",
@@ -35863,11 +35978,24 @@
 
   // src/js/pages/svg/rdp/index.js
   var rdp = async () => {
-    const { data: lettering012 } = await loadTextContent({
-      source: "./asset/svg/rdp.svg?v=0.4"
-    });
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
+    });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
+    const { data: lettering012 } = await loadTextContent({
+      source: "./asset/svg/rdp.svg?v=0.4"
     });
     const [
       letter_d,
@@ -36054,11 +36182,24 @@
 
   // src/js/pages/svg/mob-02/index.js
   var mob_02 = async () => {
-    const { data: letteringMob } = await loadTextContent({
-      source: "./asset/svg/lettering-mob-2025-pure-optimized.svg?v=0.3"
-    });
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.4"
+    });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
+    const { data: letteringMob } = await loadTextContent({
+      source: "./asset/svg/lettering-mob-2025-pure-optimized.svg?v=0.3"
     });
     const [layer02, layer03] = ["layer-02", "layer-03"].map((id) => {
       return parseSvg({
@@ -36552,11 +36693,24 @@
   // src/js/pages/plugin/dragger/index.js
   var useLog = false;
   var DraggerRoute = async () => {
-    const { data: svg } = await loadTextContent({
-      source: "./asset/svg/ms_nord_compact.svg?v=1.3"
-    });
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
+    });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
+    const { data: svg } = await loadTextContent({
+      source: "./asset/svg/ms_nord_compact.svg?v=1.3"
     });
     updateQuickNavState({
       active: true,
@@ -37406,6 +37560,22 @@
 
   // src/js/pages/plugin/math-animation/index.js
   var mathAnimationRoute = async ({ props }) => {
+    const { data: bg } = await loadTextContent({
+      source: "./asset/svg/lettering-mob.svg?v=1.3"
+    });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     const { names } = (
       /** @type{{names: string[]}} */
       props
@@ -37626,6 +37796,22 @@
 
   // src/js/pages/plugin/rosa-di-grandi/index.js
   var rosaDiGrandiRoute = async () => {
+    const { data: bg } = await loadTextContent({
+      source: "./asset/svg/lettering-mob.svg?v=1.3"
+    });
+    if (core_exports.mq("max", "medium")) {
+      return htmlObject({
+        content: [
+          {
+            className: "l-background-shape",
+            content: bg
+          },
+          {
+            component: OnlyTablet
+          }
+        ]
+      });
+    }
     updateQuickNavState({
       active: true,
       prevRoute: "#math-animation-01",
@@ -37646,7 +37832,6 @@
   var PAGE_TEMPLATE_COMPONENT_MOBJS = "template-mobJs-component";
   var PAGE_TEMPLATE_DOCS_DEFAULT = "template-doc-default";
   var PAGE_TEMPLATE_LINKS = "template-listing";
-  var PAGE_TEMPLATE_ONLY_DESKTOP = "template-only-desktop";
   var PAGE_TEMPLATE_ANIMATION = "template-animation";
   var PAGE_TEMPLATE_TEST = "template-test";
   var docsTemplate = /* @__PURE__ */ new Set([
@@ -37776,13 +37961,6 @@
       hash: "pageNotFound",
       layout: pageNotFound2,
       pageName: "page not found",
-      props: {}
-    },
-    {
-      hash: "onlyDesktop",
-      layout: onlyDesktop,
-      pageName: "onlyDesktop",
-      templateName: PAGE_TEMPLATE_ONLY_DESKTOP,
       props: {}
     },
     {
@@ -39012,7 +39190,7 @@
     oldNode.style.position = "fixed";
     oldNode.style.zIndex = "10";
     oldNode.style.top = useTopPosition.has(oldTemplateName) ? "var(--header-height)" : "0";
-    oldNode.style.left = useLetPosition.has(oldTemplateName) ? `calc(var(--header-height)/2)` : "0";
+    oldNode.style.left = useLetPosition.has(oldTemplateName) && core_exports.mq("min", "medium") ? `calc(var(--header-height)/2)` : "0";
     oldNode.style.right = `0`;
     oldNode.style.transform = `translateY(-${scrollY}px)`;
     oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";

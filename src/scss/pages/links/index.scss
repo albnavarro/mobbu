@@ -76,8 +76,8 @@
         .scroll-label {
             position: absolute;
             z-index: 2;
-            inset-block-end: calc((var(--scroller-height) * 0.5) + #{rem(90)});
-            inset-inline-start: rem(24);
+            inset-block-end: calc((var(--scroller-height) * 0.5) + #{rem(64)});
+            inset-inline-start: rem(20);
             transform: translateX(20%);
             transition:
                 opacity 1.5s,
@@ -88,6 +88,13 @@
             &.active {
                 transform: translateX(0);
                 opacity: 1;
+            }
+
+            @include mq(tablet) {
+                inset-inline-start: rem(24);
+                inset-block-end: calc(
+                    (var(--scroller-height) * 0.5) + #{rem(90)}
+                );
             }
         }
 

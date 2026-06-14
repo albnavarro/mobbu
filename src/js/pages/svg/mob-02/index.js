@@ -4,14 +4,30 @@ import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { Mobbu2025 } from '@pagesComponent/svg/mobbu2025/definition';
 import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
+import { MobMotionCore } from '@mobMotion';
+import { OnlyTablet } from '@commonComponent/only-tablet/definition';
 
 export const mob_02 = async () => {
-    const { data: letteringMob } = await loadTextContent({
-        source: './asset/svg/lettering-mob-2025-pure-optimized.svg?v=0.3',
-    });
-
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.4',
+    });
+
+    if (MobMotionCore.mq('max', 'medium')) {
+        return htmlObject({
+            content: [
+                {
+                    className: 'l-background-shape',
+                    content: bg,
+                },
+                {
+                    component: OnlyTablet,
+                },
+            ],
+        });
+    }
+
+    const { data: letteringMob } = await loadTextContent({
+        source: './asset/svg/lettering-mob-2025-pure-optimized.svg?v=0.3',
     });
 
     const [layer02, layer03] = ['layer-02', 'layer-03'].map((id) => {

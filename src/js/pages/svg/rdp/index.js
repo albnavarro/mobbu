@@ -6,14 +6,30 @@ import { loadTextContent } from '@utils/utils';
 import { rdp_01_scehema } from './data';
 import { MouseTrail } from '@commonComponent/mouse-trail/definition';
 import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
+import { MobMotionCore } from '@mobMotion';
+import { OnlyTablet } from '@commonComponent/only-tablet/definition';
 
 export const rdp = async () => {
-    const { data: lettering01 } = await loadTextContent({
-        source: './asset/svg/rdp.svg?v=0.4',
-    });
-
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',
+    });
+
+    if (MobMotionCore.mq('max', 'medium')) {
+        return htmlObject({
+            content: [
+                {
+                    className: 'l-background-shape',
+                    content: bg,
+                },
+                {
+                    component: OnlyTablet,
+                },
+            ],
+        });
+    }
+
+    const { data: lettering01 } = await loadTextContent({
+        source: './asset/svg/rdp.svg?v=0.4',
     });
 
     const [

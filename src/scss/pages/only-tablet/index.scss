@@ -1,0 +1,24 @@
+@use '../../abstract' as *;
+
+@layer layout {
+    @scope (.c-only-tablet) {
+        :scope {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-block-size: calc(
+                100dvh - var(--header-height) - var(--footer-height)
+            );
+            margin-block-start: var(--header-height);
+            padding-inline: var(--gap-size);
+            text-align: center;
+        }
+
+        button {
+            @include button;
+
+            background: transparent;
+        }
+    }
+}

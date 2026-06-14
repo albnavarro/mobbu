@@ -6,14 +6,30 @@ import { parseSvg } from '@utils/parse-svg';
 import { loadTextContent } from '@utils/utils';
 import { rdp_01_schema } from './data';
 import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
+import { MobMotionCore } from '@mobMotion';
+import { OnlyTablet } from '@commonComponent/only-tablet/definition';
 
 export const lettering01 = async () => {
-    const { data: letteringMob } = await loadTextContent({
-        source: './asset/svg/lettering-mob.svg?v=0.9',
-    });
-
     const { data: bg } = await loadTextContent({
         source: './asset/svg/rdp.svg?v=1.3',
+    });
+
+    if (MobMotionCore.mq('max', 'medium')) {
+        return htmlObject({
+            content: [
+                {
+                    className: 'l-background-shape',
+                    content: bg,
+                },
+                {
+                    component: OnlyTablet,
+                },
+            ],
+        });
+    }
+
+    const { data: letteringMob } = await loadTextContent({
+        source: './asset/svg/lettering-mob.svg?v=0.9',
     });
 
     const [
