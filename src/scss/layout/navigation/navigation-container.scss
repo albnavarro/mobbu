@@ -18,7 +18,7 @@
             display: none;
             position: absolute;
             block-size: calc(
-                100vh - var(--footer-height) - var(--header-height)
+                100dvh - var(--footer-height) - var(--header-height)
             );
             inline-size: calc(var(--header-height) / 2);
             transition: background 0.35s;
@@ -52,7 +52,7 @@
 
         .nav-col {
             block-size: calc(
-                100vh - var(--footer-height) - var(--header-height)
+                100dvh - var(--footer-height) - var(--header-height)
             );
             inline-size: var(--nav-width);
             max-inline-size: none;
@@ -108,7 +108,11 @@
         }
 
         .scroll-element {
-            padding-block-end: 70vh;
+            padding-block-end: 30dvh;
+
+            @include mq(tablet) {
+                padding-block-end: 70dvh;
+            }
         }
 
         :scope.active {

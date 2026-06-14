@@ -240,7 +240,7 @@
         position: relative;
         z-index: 1;
         min-block-size: calc(
-            100vh - var(--header-height) - var(--footer-height)
+            100dvh - var(--header-height) - var(--footer-height)
         );
         padding-block-start: calc(var(--header-height));
         transition: opacity 0.55s;
