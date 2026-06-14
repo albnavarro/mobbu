@@ -15,10 +15,10 @@
             flex-direction: column;
             justify-content: end;
             block-size: calc(
-                100dvh - var(--header-height) - var(--footer-height)
+                100vh - var(--header-height) - var(--footer-height)
             );
             margin-block-end: rem(44);
-            padding-block: rem(34);
+            padding-block: rem(34) rem(84);
             border-block-end: 1px var(--grey-400) solid;
             overflow: hidden;
 
@@ -57,7 +57,7 @@
         svg {
             position: absolute;
             z-index: -1;
-            block-size: 500dvh;
+            block-size: 500vh;
             inline-size: 500vw;
             transform: translate(calc(-50% * var(--dir)), -50%);
             inset-block-start: 50%;
