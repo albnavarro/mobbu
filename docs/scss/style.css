@@ -564,7 +564,6 @@
     margin-block-end: calc(var(--gap-size) / 2);
     padding: calc(var(--gap-size) / 2);
     border: 1px var(--grey-300) solid;
-    border-radius: 0.625rem;
     background: var(--grey-100);
   }
   .p-note {
@@ -4279,7 +4278,6 @@
         padding: calc(var(--gap-size) / 2);
         overflow: hidden;
         border: 1px var(--grey-300) solid;
-        border-radius: 0.625rem;
         background: var(--grey-100);
       }
       .title-content {
@@ -4442,7 +4440,6 @@
       padding: 0.125rem 0.625rem;
       transition: background 0.35s;
       border: 0;
-      border-radius: 0.625rem;
       outline-color: var(--dark);
       background: var(--dark);
       color: var(--white);
@@ -4474,7 +4471,6 @@
       overflow: auto hidden;
       transition: height 0.35s;
       border: 2px var(--grey-200) solid;
-      border-radius: 0.625rem;
       font-size: calc(var(--snippet-rem-value) * 1rem);
       line-height: calc(var(--snippet-line-height-value) * 1rem);
       --padding-pre: calc(var(--gap-size) / 2);
