@@ -5105,8 +5105,8 @@
     button {
       display: block;
       position: relative;
-      padding-inline: 0.25rem;
       padding-block: 0.125rem;
+      padding-inline: 0.25rem;
       transition: color 0.35s;
       border: 0;
       outline-offset: 0;
