@@ -26826,22 +26826,20 @@
     console.log(proxi.block_1.titleTop);
     const sectionOne = {
       tag: "section",
+      className: "section-one",
       content: [
         {
           tag: "h1",
-          content: proxi.block_1.titleTop
-        },
-        {
-          tag: "h2",
-          content: proxi.block_1.titleBottom
+          content: `${proxi.block_1.titleTop} ${proxi.block_1.titleBottom}`
         }
       ]
     };
     const sectionTwo = {
       tag: "section",
+      className: "section-two",
       content: [
         {
-          tag: "h2",
+          tag: "h3",
           content: proxi.block_2.title
         },
         {
@@ -26852,9 +26850,10 @@
     };
     const sectionThree = {
       tag: "section",
+      className: "section-three",
       content: [
         {
-          tag: "h2",
+          tag: "h3",
           content: proxi.block_3.title
         },
         {
@@ -26865,9 +26864,10 @@
     };
     const sectionFour = {
       tag: "section",
+      className: "section-four",
       content: [
         {
-          tag: "h2",
+          tag: "h3",
           content: proxi.block_4.title
         },
         {
@@ -26881,9 +26881,20 @@
         }
       ]
     };
+    const sectionBottom = htmlObject({
+      tag: "section",
+      className: "section-svg",
+      content: htmlString(proxi.aboutSvg)
+    });
     return htmlObject({
       className: "l-about-mobile",
-      content: [sectionOne, sectionTwo, sectionThree, sectionFour]
+      content: [
+        sectionOne,
+        sectionTwo,
+        sectionThree,
+        sectionFour,
+        sectionBottom
+      ]
     });
   };
 
@@ -26921,6 +26932,10 @@
             items: [""]
           },
           __type: "any"
+        },
+        aboutSvg: {
+          __value: "",
+          __type: String
         }
       }
     }
@@ -27934,6 +27949,9 @@
     const { data } = await loadJsonContent({
       source: "./data/about/index.json"
     });
+    const { data: aboutSvg } = await loadTextContent({
+      source: "./asset/svg/about.svg?v=0.1"
+    });
     if (core_exports.mq("max", "tablet")) {
       const { data: bg } = await loadTextContent({
         source: "./asset/svg/rdp.svg?v=1.3"
@@ -27953,16 +27971,14 @@
                 block_1: data.block_1,
                 block_2: data.block_2,
                 block_3: data.block_3,
-                block_4: data.block_4
+                block_4: data.block_4,
+                aboutSvg
               }
             )
           }
         ]
       });
     }
-    const { data: aboutSvg } = await loadTextContent({
-      source: "./asset/svg/about.svg?v=0.1"
-    });
     return htmlObject({
       tag: "main",
       content: {

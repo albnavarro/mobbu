@@ -7,7 +7,41 @@
             min-block-size: calc(
                 100vh - var(--header-height) - var(--footer-height)
             );
-            padding: rem(60) calc(var(--gap-size) / 2);
+            padding: rem(64) 0 0;
+        }
+
+        .section-one {
+            margin-block-end: rem(52);
+        }
+
+        .section-one,
+        .section-two,
+        .section-three,
+        .section-four {
+            padding-inline: calc(var(--gap-size) / 2);
+        }
+
+        .section-two,
+        .section-three,
+        .section-four {
+            margin-block-end: rem(22);
+        }
+
+        h1,
+        h3 {
+            text-transform: capitalize;
+        }
+
+        .section-svg {
+            position: relative;
+            block-size: rem(260);
+            overflow: hidden;
+        }
+
+        svg {
+            position: absolute;
+            inset-block-end: calc(#{rem(120)} * -1);
+            transform: translateX(-25%);
         }
     }
 }

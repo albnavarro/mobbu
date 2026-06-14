@@ -10,6 +10,10 @@ export const layoutAbout = async () => {
         source: './data/about/index.json',
     });
 
+    const { data: aboutSvg } = await loadTextContent({
+        source: './asset/svg/about.svg?v=0.1',
+    });
+
     if (MobMotionCore.mq('max', 'tablet')) {
         const { data: bg } = await loadTextContent({
             source: './asset/svg/rdp.svg?v=1.3',
@@ -31,16 +35,13 @@ export const layoutAbout = async () => {
                             block_2: data.block_2,
                             block_3: data.block_3,
                             block_4: data.block_4,
+                            aboutSvg,
                         })
                     ),
                 },
             ],
         });
     }
-
-    const { data: aboutSvg } = await loadTextContent({
-        source: './asset/svg/about.svg?v=0.1',
-    });
 
     return htmlObject({
         tag: 'main',

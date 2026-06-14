@@ -131,7 +131,7 @@
             pointer-events: none;
 
             @include mq(tablet) {
-                display: block;
+                display: inline-block;
             }
 
             &.is-visible {
@@ -143,6 +143,19 @@
 }
 
 @layer override {
+    [data-template='about'] :where(header) {
+        @include noise-bg;
+
+        @include mq(tablet) {
+            background: transparent;
+        }
+
+        &::after {
+            transition: transform 1s 0.2s;
+            background: var(--dark);
+        }
+    }
+
     [data-template='template-doc-default'] {
         :where(.utils-cell) {
             border-inline-start: 1px solid var(--grey-400);
@@ -171,15 +184,6 @@
     }
 
     [data-template='template-only-desktop'] :where(header) {
-        background: transparent;
-
-        &::after {
-            transition: transform 1s 0.2s;
-            background: var(--dark);
-        }
-    }
-
-    [data-template='about'] :where(header) {
         background: transparent;
 
         &::after {

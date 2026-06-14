@@ -37,6 +37,10 @@ export const AboutMobileComponent = MobJs.createComponent(
                 },
                 __type: 'any',
             },
+            aboutSvg: {
+                __value: '',
+                __type: String,
+            },
         },
     })
 );

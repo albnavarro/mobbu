@@ -2,7 +2,7 @@
  * @import {MobComponent} from '@mobJsType'
  */
 
-import { htmlObject } from '@mobJs';
+import { htmlObject, htmlString } from '@mobJs';
 
 /** @type {MobComponent<import('./type').About>} */
 export const AboutMobileComponentFn = ({ getSelfProxi }) => {
@@ -11,23 +11,21 @@ export const AboutMobileComponentFn = ({ getSelfProxi }) => {
 
     const sectionOne = {
         tag: 'section',
+        className: 'section-one',
         content: [
             {
                 tag: 'h1',
-                content: proxi.block_1.titleTop,
-            },
-            {
-                tag: 'h2',
-                content: proxi.block_1.titleBottom,
+                content: `${proxi.block_1.titleTop} ${proxi.block_1.titleBottom}`,
             },
         ],
     };
 
     const sectionTwo = {
         tag: 'section',
+        className: 'section-two',
         content: [
             {
-                tag: 'h2',
+                tag: 'h3',
                 content: proxi.block_2.title,
             },
             {
@@ -39,9 +37,10 @@ export const AboutMobileComponentFn = ({ getSelfProxi }) => {
 
     const sectionThree = {
         tag: 'section',
+        className: 'section-three',
         content: [
             {
-                tag: 'h2',
+                tag: 'h3',
                 content: proxi.block_3.title,
             },
             {
@@ -53,9 +52,10 @@ export const AboutMobileComponentFn = ({ getSelfProxi }) => {
 
     const sectionFour = {
         tag: 'section',
+        className: 'section-four',
         content: [
             {
-                tag: 'h2',
+                tag: 'h3',
                 content: proxi.block_4.title,
             },
             {
@@ -70,8 +70,20 @@ export const AboutMobileComponentFn = ({ getSelfProxi }) => {
         ],
     };
 
+    const sectionBottom = htmlObject({
+        tag: 'section',
+        className: 'section-svg',
+        content: htmlString(proxi.aboutSvg),
+    });
+
     return htmlObject({
         className: 'l-about-mobile',
-        content: [sectionOne, sectionTwo, sectionThree, sectionFour],
+        content: [
+            sectionOne,
+            sectionTwo,
+            sectionThree,
+            sectionFour,
+            sectionBottom,
+        ],
     });
 };

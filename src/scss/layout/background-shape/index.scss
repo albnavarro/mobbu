@@ -3,7 +3,7 @@
 @layer layout {
     @scope (.l-background-shape) {
         :scope {
-            position: absolute;
+            position: fixed;
             z-index: -1;
             block-size: 100%;
             inline-size: 100%;
