@@ -108,7 +108,7 @@
             transition: transform 1s;
             font-size: rem(18);
             font-weight: 600;
-            line-height: line-height(18, 24);
+            line-height: line-height(16, 20);
             pointer-events: none;
 
             @include mq(tablet) {
@@ -124,10 +124,15 @@
 
         h4 {
             display: inline-block;
+            display: none;
             margin-inline-start: rem(10);
             transform: translateY(200%);
             transition: transform 1s;
             pointer-events: none;
+
+            @include mq(tablet) {
+                display: block;
+            }
 
             &.is-visible {
                 transform: translateY(0);

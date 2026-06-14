@@ -4,7 +4,7 @@
     @scope (.snippet) {
         :scope {
             position: relative;
-            margin-block-start: rem(44);
+            margin-block-start: rem(30);
 
             @include mq(tablet) {
                 margin-block-start: 0;

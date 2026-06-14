@@ -120,7 +120,7 @@
             block-size: calc(
                 100vh - var(--header-height) - var(--footer-height)
             );
-            min-inline-size: rem(300);
+            min-inline-size: rem(260);
             transform: translateX(calc(var(--gap-size) * var(--dir)));
             transition: transform 0.35s;
             background: var(--white);

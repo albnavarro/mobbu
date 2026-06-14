@@ -925,7 +925,7 @@
       transition: transform 1s;
       font-size: 1.125rem;
       font-weight: 600;
-      line-height: 1.3333333333em;
+      line-height: 1.25em;
       pointer-events: none;
     }
     @media (min-width: 48em) {
@@ -940,10 +940,16 @@
     }
     h4 {
       display: inline-block;
+      display: none;
       margin-inline-start: 0.625rem;
       transform: translateY(200%);
       transition: transform 1s;
       pointer-events: none;
+    }
+    @media (min-width: 48em) {
+      h4 {
+        display: block;
+      }
     }
     h4.is-visible {
       transform: translateY(0);
@@ -4366,7 +4372,7 @@
   @scope (.snippet) {
     :scope {
       position: relative;
-      margin-block-start: 2.75rem;
+      margin-block-start: 1.875rem;
     }
     @media (min-width: 48em) {
       :scope {
@@ -4585,7 +4591,7 @@
       grid-column: 2/span 1;
       align-self: start;
       block-size: calc(100vh - var(--header-height) - var(--footer-height));
-      min-inline-size: 18.75rem;
+      min-inline-size: 16.25rem;
       transform: translateX(calc(var(--gap-size) * var(--dir)));
       transition: transform 0.35s;
       background: var(--white);
