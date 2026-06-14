@@ -4,20 +4,25 @@
     @scope (.c-quick-nav-container) {
         :scope {
             display: flex;
+            display: none;
             visibility: hidden;
             position: fixed;
             z-index: 12;
-            inset-block-end: 2px;
-            inset-inline-start: 50%;
             block-size: calc(var(--footer-height) - var(--gap));
             transform: translateX(calc(-50% * var(--dir)));
             transition:
                 opacity 0.35s,
                 visibility 0.35s;
             opacity: 0;
+            inset-block-end: 2px;
+            inset-inline-start: 50%;
             gap: var(--gap);
 
             --gap: #{rem(8px)};
+
+            @include mq(tablet) {
+                display: block;
+            }
 
             &.active {
                 visibility: visible;

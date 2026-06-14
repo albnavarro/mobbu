@@ -17,9 +17,13 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
         .text-container {
             display: flex;
             position: absolute;
+            inset-inline-start: calc(var(--gap-size) / 2);
             inset-block-end: calc(var(--footer-height) + #{rem(35)});
-            inset-inline-start: calc(var(--header-height) / 2 + #{rem(20)});
             flex-direction: column;
+
+            @include mq(tablet) {
+                inset-inline-start: calc(var(--header-height) / 2 + #{rem(20)});
+            }
         }
 
         h1 {

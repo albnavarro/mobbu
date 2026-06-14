@@ -1,4 +1,3 @@
-import { OnlyDesktopCta } from '@commonComponent/only-desktop-cta/definition';
 import { htmlObject } from '@mobJs';
 import { loadTextContent } from '@utils/utils';
 
@@ -43,11 +42,6 @@ export const onlyDesktop = async () => {
                 {
                     tag: 'h3',
                     content: 'My apologies ...',
-                },
-                {
-                    content: {
-                        component: OnlyDesktopCta,
-                    },
                 },
                 {
                     className: 'svg',

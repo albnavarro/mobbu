@@ -3,7 +3,6 @@
 @layer layout {
     @scope (header) {
         :scope {
-            display: none;
             position: fixed;
             z-index: 14;
             inset-block-start: 0;
@@ -28,18 +27,18 @@
                     transform: scaleX(100%);
                 }
             }
-
-            @include mq(tablet) {
-                display: block;
-            }
         }
 
         .grid {
             display: grid;
-            grid-template-areas: 'toggle title menu utils';
+            grid-template-areas: 'toggle title utils';
             grid-template-columns: var(--header-height) 1fr auto;
             align-items: center;
             block-size: var(--header-height);
+
+            @include mq(tablet) {
+                grid-template-areas: 'toggle title menu utils';
+            }
         }
 
         .toggle-cell {
@@ -50,7 +49,7 @@
         }
 
         .logo-cell {
-            display: none;
+            display: inline-block;
             grid-area: title;
             block-size: 100%;
             inline-size: auto;
@@ -61,6 +60,10 @@
             background: transparent;
             color: var(--dark);
             text-align: start;
+
+            @include mq(tablet) {
+                display: none;
+            }
 
             @include mq(large) {
                 display: inline-block;
@@ -73,6 +76,11 @@
 
         .menu-cell {
             justify-self: center;
+            display: none;
+
+            @include mq(tablet) {
+                display: block;
+            }
 
             @include mq(large) {
                 justify-self: end;
@@ -86,6 +94,7 @@
             opacity: 0;
             border-inline-start: 1px solid var(--black);
             text-align: end;
+            justify-self: end;
 
             &.is-visible {
                 opacity: 1;
@@ -97,8 +106,15 @@
             margin: 0;
             transform: translateY(100%);
             transition: transform 1s;
+            font-size: rem(18);
             font-weight: 600;
+            line-height: line-height(18, 24);
             pointer-events: none;
+
+            @include mq(tablet) {
+                font-size: rem(25);
+                line-height: line-height(25, 40);
+            }
 
             &.is-visible {
                 transform: translateY(0);

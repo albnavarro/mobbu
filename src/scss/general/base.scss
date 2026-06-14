@@ -62,7 +62,7 @@
         // Stadard css var
         --header-height: calc(var(--gap-size) * 2);
         --footer-height: calc(var(--gap-size) * 1.2);
-        --nav-width: #{rem(340)};
+        --nav-width: 100%;
         --doc-width: calc(100% - var(--gap-size));
         --left-sidebar: none;
         --right-sidebar: #{rem(290)};
@@ -73,6 +73,7 @@
 
         @include mq(tablet) {
             --left-sidebar: #{rem(200)};
+            --nav-width: #{rem(340)};
         }
 
         @include mq(desktop) {
@@ -248,7 +249,10 @@
 
     .container {
         margin: auto;
-        padding-inline-start: var(--gap-size);
+
+        @include mq(tablet) {
+            padding-inline-start: var(--gap-size);
+        }
     }
 }
 

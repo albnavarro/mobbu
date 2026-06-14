@@ -16,21 +16,6 @@ import { updateHighlightTheme } from '@componentLibs/utils/theme-color';
 
 const fpsLoopNumber = 60;
 
-const shouldRedirect = () => {
-    return /** @type {boolean} */ (MobMotionCore.mq('max', 'tablet'));
-};
-
-/**
- * Temp: Redirect every page to `onlyDesktop` route in tablet/mobile TODO: should be removed.
- */
-const redirectOnResize = () => {
-    MobCore.useResize(() => {
-        if (!shouldRedirect()) return;
-
-        MobJs.loadUrl({ url: 'onlyDesktop' });
-    });
-};
-
 /**
  * Query main loader && background inside index.html outside app.
  */
@@ -94,12 +79,9 @@ const initApp = async () => {
             jsMainLoaderBackground = null;
 
             getScrollbarWith();
-            redirectOnResize();
             skipRouteLoader(false);
         },
-        redirect: ({ route }) => {
-            return shouldRedirect() ? 'onlyDesktop' : route;
-        },
+        // redirect: ({ route }) => { },
         restoreScroll: true,
         componentDefaultProps: {
             scoped: false,

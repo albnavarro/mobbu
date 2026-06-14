@@ -3,7 +3,6 @@
 @layer layout {
     @scope (footer) {
         :scope {
-            display: none;
             position: fixed;
             z-index: 12;
             block-size: var(--footer-height);
@@ -14,10 +13,6 @@
             text-align: center;
             inset-block-end: 0;
             inset-inline-start: 0;
-
-            @include mq(tablet) {
-                display: block;
-            }
         }
 
         .grid {

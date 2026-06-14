@@ -6,7 +6,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "<span>mobJs</span>/Initialization"
+            "content": "<span>mobJs/</span>Initialization"
         },
         {
             "component": "mob-spacer",

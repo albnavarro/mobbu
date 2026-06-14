@@ -65,13 +65,17 @@
             position: absolute;
             block-size: calc(var(--links-height) - var(--title-height));
             inline-size: 100%;
-            overflow: hidden;
+            overflow: hidden auto;
             transition:
                 transform 0.55s,
                 opacity 0.55s,
                 visibility 0.55s;
             opacity: 1;
             inset-inline-start: 0;
+
+            @include mq(tablet) {
+                overflow: hidden;
+            }
         }
 
         ul {
@@ -152,18 +156,23 @@
         }
 
         .scrollbar {
+            display: none;
             position: absolute;
             z-index: 11;
-            inset-block-start: rem(64);
-            inset-inline-start: rem(240);
             inline-size: calc(var(--links-height) - var(--title-height));
             transform: rotate(calc(90deg * var(--dir)));
             transform-origin: left;
             background: transparent;
             cursor: pointer;
+            inset-block-start: rem(64);
+            inset-inline-start: rem(240);
             appearance: none;
 
             --thumb-width: #{rem(200)};
+
+            @include mq(tablet) {
+                display: block;
+            }
 
             &.hide-scrollbar {
                 opacity: 0;

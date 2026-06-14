@@ -3,7 +3,6 @@
 @layer layout {
     @scope (.l-navcontainer) {
         :scope {
-            display: none;
             position: fixed;
             z-index: 10;
             inset-block-start: var(--header-height);
@@ -13,13 +12,10 @@
                 background 0.55s;
             border-inline-end: 1px var(--dark) solid;
             background: var(--white);
-
-            @include mq(tablet) {
-                display: block;
-            }
         }
 
         .side-col {
+            display: none;
             position: absolute;
             block-size: calc(
                 100vh - var(--footer-height) - var(--header-height)
@@ -43,6 +39,10 @@
                 inset-inline-end: 0;
             }
 
+            @include mq(tablet) {
+                display: block;
+            }
+
             &.is-visible {
                 &::after {
                     transform: scaleY(100%);
@@ -56,8 +56,12 @@
             );
             inline-size: var(--nav-width);
             max-inline-size: none;
-            overflow: hidden;
+            overflow: hidden auto;
             inset-inline-start: 0;
+
+            @include mq(tablet) {
+                overflow: hidden;
+            }
         }
 
         .totop {
