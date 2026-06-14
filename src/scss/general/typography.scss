@@ -61,8 +61,8 @@
     }
 
     h3 {
-        font-size: rem(22px);
-        line-height: line-height(22, 30);
+        font-size: rem(20px);
+        line-height: line-height(20, 24);
 
         @include mq(tablet) {
             font-size: rem(25px);
