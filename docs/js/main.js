@@ -26882,7 +26882,6 @@
   // src/js/component/pages/about-mobile/about.js
   var AboutMobileComponentFn = ({ getSelfProxi }) => {
     const proxi = getSelfProxi();
-    console.log(proxi.block_1.titleTop);
     const sectionOne = {
       tag: "section",
       className: "section-one",

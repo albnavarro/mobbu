@@ -7,7 +7,6 @@ import { htmlObject } from '@mobJs';
 /** @type {MobComponent<import('./type').About>} */
 export const AboutMobileComponentFn = ({ getSelfProxi }) => {
     const proxi = getSelfProxi();
-    console.log(proxi.block_1.titleTop);
 
     const sectionOne = {
         tag: 'section',
