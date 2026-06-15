@@ -11,7 +11,7 @@
             --block-height: calc(
                 /* stylelint-disable-next-line  scss/operator-no-newline-after */
                     100dvh - var(--header-height) - var(--footer-height) -
-                    #{rem(200)}
+                    #{rem(150)}
             );
         }
 
