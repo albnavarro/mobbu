@@ -162,22 +162,26 @@
             &::-webkit-slider-runnable-track {
                 block-size: rem(10);
                 inline-size: var(--thumb-width);
+                border-radius: rem(10);
                 background-color: var(--grey-100);
             }
 
             &::-webkit-slider-thumb {
                 block-size: rem(10);
                 inline-size: var(--thumb-width);
+                border-radius: rem(10);
                 background-color: var(--dark);
                 appearance: none;
             }
 
             &:focus::-webkit-slider-thumb {
+                border-radius: rem(10);
                 outline-offset: 0;
             }
 
             &::-moz-range-track {
                 block-size: rem(10);
+                border-radius: rem(10);
                 background-color: var(--grey-100);
             }
 
@@ -185,10 +189,12 @@
                 block-size: rem(10);
                 inline-size: var(--thumb-width);
                 border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
+                border-radius: rem(10);
                 background-color: var(--dark);
             }
 
             &:focus::-moz-range-thumb {
+                border-radius: rem(10);
                 outline-offset: 0;
             }
         }

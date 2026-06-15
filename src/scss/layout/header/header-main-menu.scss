@@ -37,7 +37,6 @@
             outline-offset: -2px;
             background: transparent;
             color: var(--dark);
-            font-size: rem(16);
 
             &::after {
                 content: '';
@@ -54,10 +53,12 @@
 
             @include mq(desktop) {
                 padding-inline: rem(15);
+                font-size: rem(14);
             }
 
             @include mq(xlarge) {
                 padding-inline: rem(25);
+                font-size: rem(15);
             }
 
             &:hover,
