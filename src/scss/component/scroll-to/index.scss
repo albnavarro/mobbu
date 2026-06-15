@@ -58,6 +58,7 @@
             display: block;
             position: relative;
             min-inline-size: rem(140);
+            margin-block-end: rem(6);
             margin-inline-end: rem(10);
             padding: 0;
             transition: opacity 0.55s;
@@ -67,6 +68,10 @@
             font-size: rem(14);
             line-height: 1.5;
             text-align: start;
+
+            @include mq(desktop) {
+                margin-block-end: 0;
+            }
 
             span {
                 display: block;
