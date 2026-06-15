@@ -41366,7 +41366,7 @@
       navigationStore.watch("navigationIsOpen", (value) => {
         const { templateName } = modules_exports2.getActiveRoute();
         if (!(templateName in templateData)) return;
-        proxi.shift = value;
+        proxi.disable = value;
       });
       const unsubscribeRoute = modules_exports2.afterRouteChange(
         async ({ currentTemplate, currentRoute }) => {
@@ -41427,7 +41427,7 @@
         bindEffect({
           toggleClass: {
             hide: () => proxi.hide,
-            shift: () => proxi.shift,
+            disable: () => proxi.disable,
             visible: () => bindProxi.leftSidebarIsVisible
           },
           toggleAttribute: {
@@ -41503,7 +41503,7 @@
           __value: true,
           __type: Boolean
         },
-        shift: {
+        disable: {
           __value: false,
           __type: Boolean
         }
@@ -43946,10 +43946,10 @@
   };
   function closeNavigation({ main, proxi }) {
     proxi.isOpen = false;
-    modules_exports.useFrame(() => {
+    modules_exports.useFrameIndex(() => {
       document.body.style.overflow = "";
-      main.classList.remove("shift");
-    });
+      main.classList.remove("disable");
+    }, 10);
   }
   function openNavigation({ root: root2, main, proxi }) {
     refreshNavigationScroller();
@@ -43957,7 +43957,7 @@
     proxi.isOpen = true;
     modules_exports.useFrame(() => {
       document.body.style.overflow = "hidden";
-      main.classList.add("shift");
+      main.classList.add("disable");
       modules_exports.useNextTick(() => {
         modules_exports.useFrameIndex(() => {
           setFocusInsideElement({

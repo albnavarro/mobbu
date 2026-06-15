@@ -56,6 +56,7 @@
             border: 0;
             outline-offset: calc(#{em(1)} * -1);
             background: transparent;
+            font-size: rem(14);
             text-align: start;
 
             &::before {

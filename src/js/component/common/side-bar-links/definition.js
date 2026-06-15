@@ -25,7 +25,7 @@ export const SideBarLinks = MobJs.createComponent(
                 __value: true,
                 __type: Boolean,
             },
-            shift: {
+            disable: {
                 __value: false,
                 __type: Boolean,
             },

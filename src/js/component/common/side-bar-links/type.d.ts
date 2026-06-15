@@ -6,7 +6,7 @@ export interface SideBarLinks {
         data: { label: string; url: string; isLabel: boolean }[];
         activeSection: string;
         hide: boolean;
-        shift: boolean;
+        disable: boolean;
     };
     ref: {
         rootEl: HTMLElement;

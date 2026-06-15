@@ -29,10 +29,15 @@ let unsubscribeEscHandler = () => {};
 function closeNavigation({ main, proxi }) {
     proxi.isOpen = false;
 
-    MobCore.useFrame(() => {
+    /**
+     * Wait some frame before normalize main content.
+     *
+     * - Prevent click in main content ( eg: right sibar on mobile )
+     */
+    MobCore.useFrameIndex(() => {
         document.body.style.overflow = '';
-        main.classList.remove('shift');
-    });
+        main.classList.remove('disable');
+    }, 10);
 }
 
 /**
@@ -49,7 +54,7 @@ function openNavigation({ root, main, proxi }) {
 
     MobCore.useFrame(() => {
         document.body.style.overflow = 'hidden';
-        main.classList.add('shift');
+        main.classList.add('disable');
 
         /**
          * After redraw move focus to active menu element.

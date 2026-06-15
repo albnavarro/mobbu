@@ -420,9 +420,10 @@
     padding-block-start: calc(var(--header-height));
     transition: opacity 0.55s;
   }
-  .main-app-content.shift {
+  .main-app-content.disable {
     opacity: 0.1;
     cursor: pointer;
+    pointer-events: none;
   }
   .container {
     margin: auto;
@@ -2281,6 +2282,7 @@
       transition: background 0.35s;
       border: 1px var(--grey-500) solid;
       color: var(--dark);
+      font-size: 0.875rem;
       text-align: center;
       text-decoration: none;
     }
@@ -2315,6 +2317,7 @@
       transition: background 0.35s;
       border: 1px var(--grey-500) solid;
       color: var(--dark);
+      font-size: 0.875rem;
       text-align: center;
       text-decoration: none;
     }
@@ -4295,6 +4298,7 @@
       transition: background 0.35s;
       border: 1px var(--grey-500) solid;
       color: var(--dark);
+      font-size: 0.875rem;
       text-align: center;
       text-decoration: none;
     }
@@ -4435,6 +4439,7 @@
       transition: background 0.35s;
       border: 1px var(--grey-500) solid;
       color: var(--dark);
+      font-size: 0.875rem;
       text-align: center;
       text-decoration: none;
     }
@@ -4782,6 +4787,7 @@
       border: 0;
       outline-offset: calc(0.0625em * -1);
       background: transparent;
+      font-size: 0.875rem;
       text-align: start;
     }
     .link::before {
@@ -4914,6 +4920,7 @@
       border: 0;
       outline-offset: 0;
       background: transparent;
+      font-size: 0.875rem;
       line-height: 1.5;
       text-align: start;
     }
@@ -5010,34 +5017,28 @@
     .scrollbar::-webkit-slider-runnable-track {
       block-size: 0.625rem;
       inline-size: var(--thumb-width);
-      border-radius: 0.625rem;
       background-color: var(--grey-100);
     }
     .scrollbar::-webkit-slider-thumb {
       block-size: 0.625rem;
       inline-size: var(--thumb-width);
-      border-radius: 0.625rem;
       background-color: var(--dark);
       appearance: none;
     }
     .scrollbar:focus::-webkit-slider-thumb {
-      border-radius: 0.625rem;
       outline-offset: 0;
     }
     .scrollbar::-moz-range-track {
       block-size: 0.625rem;
-      border-radius: 0.625rem;
       background-color: var(--grey-100);
     }
     .scrollbar::-moz-range-thumb {
       block-size: 0.625rem;
       inline-size: var(--thumb-width);
       border: none;
-      border-radius: 0.625rem;
       background-color: var(--dark);
     }
     .scrollbar:focus::-moz-range-thumb {
-      border-radius: 0.625rem;
       outline-offset: 0;
     }
   }
@@ -5052,9 +5053,10 @@
       block-size: var(--links-height);
       inline-size: 18.75rem;
       transform: translateX(calc(var(--gap-size) * var(--dir)));
+      transition: opacity 0.35s;
+      pointer-events: none;
       inset-block-start: var(--header-height);
       inset-inline-start: calc(var(--doc-width) + var(--gap-size));
-      pointer-events: none;
     }
     @media (min-width: 48em) {
       :scope {
@@ -5078,7 +5080,7 @@
       opacity: 0;
       pointer-events: none;
     }
-    :scope.shift {
+    :scope.disable {
       opacity: 0.1;
       pointer-events: none;
     }
@@ -5145,6 +5147,7 @@
       border: 0;
       outline-offset: 0;
       background: transparent;
+      font-size: 0.875rem;
       line-height: 1.6;
       text-transform: capitalize;
     }
@@ -5204,34 +5207,28 @@
     .scrollbar::-webkit-slider-runnable-track {
       block-size: 0.625rem;
       inline-size: var(--thumb-width);
-      border-radius: 0.625rem;
       background-color: var(--grey-100);
     }
     .scrollbar::-webkit-slider-thumb {
       block-size: 0.625rem;
       inline-size: var(--thumb-width);
-      border-radius: 0.625rem;
       background-color: var(--dark);
       appearance: none;
     }
     .scrollbar:focus::-webkit-slider-thumb {
-      border-radius: 0.625rem;
       outline-offset: 0;
     }
     .scrollbar::-moz-range-track {
       block-size: 0.625rem;
-      border-radius: 0.625rem;
       background-color: var(--grey-100);
     }
     .scrollbar::-moz-range-thumb {
       block-size: 0.625rem;
       inline-size: var(--thumb-width);
       border: none;
-      border-radius: 0.625rem;
       background-color: var(--dark);
     }
     .scrollbar:focus::-moz-range-thumb {
-      border-radius: 0.625rem;
       outline-offset: 0;
     }
   }
@@ -5445,6 +5442,7 @@
       transition: background 0.35s;
       border: 1px var(--grey-500) solid;
       color: var(--dark);
+      font-size: 0.875rem;
       text-align: center;
       text-decoration: none;
     }

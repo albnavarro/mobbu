@@ -11,9 +11,10 @@
             block-size: var(--links-height);
             inline-size: rem(300);
             transform: translateX(calc(var(--gap-size) * var(--dir)));
+            transition: opacity 0.35s;
+            pointer-events: none;
             inset-block-start: var(--header-height);
             inset-inline-start: calc(var(--doc-width) + var(--gap-size));
-            pointer-events: none;
 
             @include mq(tablet) {
                 --links-height: 65dvh;
@@ -42,7 +43,7 @@
                 pointer-events: none;
             }
 
-            &.shift {
+            &.disable {
                 opacity: 0.1;
                 pointer-events: none;
             }
@@ -120,6 +121,7 @@
             border: 0;
             outline-offset: 0;
             background: transparent;
+            font-size: rem(14);
             line-height: 1.6;
             text-transform: capitalize;
 
@@ -189,26 +191,22 @@
             &::-webkit-slider-runnable-track {
                 block-size: rem(10);
                 inline-size: var(--thumb-width);
-                border-radius: rem(10);
                 background-color: var(--grey-100);
             }
 
             &::-webkit-slider-thumb {
                 block-size: rem(10);
                 inline-size: var(--thumb-width);
-                border-radius: rem(10);
                 background-color: var(--dark);
                 appearance: none;
             }
 
             &:focus::-webkit-slider-thumb {
-                border-radius: rem(10);
                 outline-offset: 0;
             }
 
             &::-moz-range-track {
                 block-size: rem(10);
-                border-radius: rem(10);
                 background-color: var(--grey-100);
             }
 
@@ -216,12 +214,10 @@
                 block-size: rem(10);
                 inline-size: var(--thumb-width);
                 border: none; /* Removes extra border that FF applies */ /* Removes default border-radius that FF applies */
-                border-radius: rem(10);
                 background-color: var(--dark);
             }
 
             &:focus::-moz-range-thumb {
-                border-radius: rem(10);
                 outline-offset: 0;
             }
         }

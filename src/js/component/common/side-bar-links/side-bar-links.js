@@ -102,7 +102,7 @@ export const SideBarLinksFn = ({
         navigationStore.watch('navigationIsOpen', (value) => {
             const { templateName } = MobJs.getActiveRoute();
             if (!(templateName in templateData)) return;
-            proxi.shift = value;
+            proxi.disable = value;
         });
 
         const unsubscribeRoute = MobJs.afterRouteChange(
@@ -182,7 +182,7 @@ export const SideBarLinksFn = ({
             bindEffect({
                 toggleClass: {
                     hide: () => proxi.hide,
-                    shift: () => proxi.shift,
+                    disable: () => proxi.disable,
                     visible: () => bindProxi.leftSidebarIsVisible,
                 },
                 toggleAttribute: {

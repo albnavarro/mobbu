@@ -247,9 +247,10 @@
         padding-block-start: calc(var(--header-height));
         transition: opacity 0.55s;
 
-        &.shift {
+        &.disable {
             opacity: 0.1;
             cursor: pointer;
+            pointer-events: none;
         }
     }
 
