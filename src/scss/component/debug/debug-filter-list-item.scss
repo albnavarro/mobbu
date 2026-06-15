@@ -7,7 +7,6 @@
             position: relative;
             padding-inline-start: calc(var(--gap-size) / 2);
             color: var(--dark);
-            font-size: rem(12);
 
             &::after {
                 content: '';
@@ -32,7 +31,7 @@
             border: 0;
             border-radius: rem(4);
             background: var(--grey-200);
-            font-size: rem(10);
+            font-size: rem(14);
             line-height: 1.8;
             vertical-align: middle;
             cursor: pointer;

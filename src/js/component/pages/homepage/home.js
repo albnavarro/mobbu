@@ -52,25 +52,6 @@ export const HomeComponentFn = ({ onMount, getSelfProxi }) => {
                         tag: 'h1',
                         content: 'Welcome to MobProject',
                     },
-                    {
-                        tag: 'h2',
-                        content: [
-                            {
-                                tag: 'span',
-                                content: 'Dependencies free',
-                            },
-                            {
-                                tag: 'span',
-                                content:
-                                    'Graphics and vanilla Javascript experiment',
-                            },
-                            {
-                                tag: 'span',
-                                content:
-                                    'Trying to make it accessible and keyboard friendly',
-                            },
-                        ],
-                    },
                 ],
             },
             {

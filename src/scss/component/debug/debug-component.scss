@@ -6,7 +6,6 @@
             position: absolute;
             overflow: hidden;
             color: var(--dark);
-            font-size: rem(12);
             inset: 0;
         }
 
@@ -29,14 +28,12 @@
             margin-inline-end: rem(20);
             padding-block-start: rem(10);
             border-block-start: 1px var(--grey-300) solid;
-            font-size: rem(14);
         }
 
         .section-subtitle {
             margin-block: rem(20) rem(10);
             margin-inline-end: rem(20);
             padding-block-start: rem(10);
-            font-size: rem(12);
         }
 
         ul {
@@ -75,7 +72,6 @@
             border: 1px var(--dark) solid;
             opacity: 0.2;
             background: transparent;
-            font-size: rem(12);
             pointer-events: none;
 
             &.active {

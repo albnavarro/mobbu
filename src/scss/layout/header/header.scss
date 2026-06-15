@@ -36,7 +36,7 @@
             align-items: center;
             block-size: var(--header-height);
 
-            @include mq(tablet) {
+            @include mq(xlarge) {
                 grid-template-areas: 'toggle title menu utils';
             }
         }
@@ -61,11 +61,11 @@
             color: var(--dark);
             text-align: start;
 
-            @include mq(tablet) {
+            @include mq(desktop) {
                 display: none;
             }
 
-            @include mq(large) {
+            @include mq(xlarge) {
                 display: inline-block;
             }
 
@@ -78,11 +78,11 @@
             justify-self: center;
             display: none;
 
-            @include mq(tablet) {
+            @include mq(desktop) {
                 display: block;
             }
 
-            @include mq(large) {
+            @include mq(xlarge) {
                 justify-self: end;
             }
         }

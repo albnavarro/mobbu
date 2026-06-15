@@ -12,7 +12,7 @@
     .is-debug-open-button {
         display: none;
 
-        @include mq(desktop) {
+        @include mq(large) {
             display: block;
         }
     }

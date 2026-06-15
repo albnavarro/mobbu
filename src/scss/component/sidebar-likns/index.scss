@@ -120,7 +120,6 @@
             border: 0;
             outline-offset: 0;
             background: transparent;
-            font-size: rem(14);
             line-height: 1.6;
             text-transform: capitalize;
 
@@ -155,14 +154,9 @@
         .label {
             margin-block: calc(var(--gap-size) / 2) rem(5);
             padding-inline-start: rem(4);
-            font-size: rem(13);
             font-weight: 600;
             line-height: 1.2;
             text-transform: uppercase;
-
-            @media screen and (height >= 200px) and (height <= 750px) {
-                font-size: rem(11);
-            }
         }
 
         .scrollbar {

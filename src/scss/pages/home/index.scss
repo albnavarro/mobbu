@@ -17,29 +17,26 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
         .text-container {
             display: flex;
             position: absolute;
-            inset-inline-start: calc(var(--gap-size) / 2);
+            inset-inline: calc(var(--gap-size) / 2);
             inset-block-end: calc(var(--footer-height) + #{rem(35)});
             flex-direction: column;
 
             @include mq(tablet) {
-                inset-inline-start: calc(var(--header-height) / 2 + #{rem(20)});
+                inset-inline: calc(var(--header-height) / 2 + #{rem(20)}) auto;
             }
         }
 
         h1 {
-            margin-block-end: rem(20);
+            margin-block-end: rem(12);
             outline-offset: rem(10);
             color: var(--dark);
             font-size: rem(30);
             line-height: 1.6;
-        }
+            text-align: center;
 
-        h2 {
-            font-size: rem(14);
-            line-height: 1.4;
-
-            span {
-                display: block;
+            @include mq(tablet) {
+                margin-block-end: rem(20);
+                font-size: rem(40);
             }
         }
 

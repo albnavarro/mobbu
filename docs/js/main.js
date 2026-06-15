@@ -32026,23 +32026,6 @@
             {
               tag: "h1",
               content: "Welcome to MobProject"
-            },
-            {
-              tag: "h2",
-              content: [
-                {
-                  tag: "span",
-                  content: "Dependencies free"
-                },
-                {
-                  tag: "span",
-                  content: "Graphics and vanilla Javascript experiment"
-                },
-                {
-                  tag: "span",
-                  content: "Trying to make it accessible and keyboard friendly"
-                }
-              ]
             }
           ]
         },
@@ -40819,6 +40802,7 @@
   // src/js/component/common/debug/debug-overlay/head/debug-head.js
   var leftContent = () => [
     {
+      className: "general-item",
       content: [
         {
           tag: "strong",
@@ -40837,6 +40821,7 @@
       ]
     },
     {
+      className: "general-item",
       content: [
         {
           tag: "strong",
@@ -40846,6 +40831,7 @@
       ]
     },
     {
+      className: "general-item",
       content: [
         {
           tag: "strong",

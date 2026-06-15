@@ -7,6 +7,7 @@ import { DebugSearch } from './search/definition';
 
 const leftContent = () => [
     {
+        className: 'general-item',
         content: [
             {
                 tag: 'strong',
@@ -25,6 +26,7 @@ const leftContent = () => [
         ],
     },
     {
+        className: 'general-item',
         content: [
             {
                 tag: 'strong',
@@ -34,6 +36,7 @@ const leftContent = () => [
         ],
     },
     {
+        className: 'general-item',
         content: [
             {
                 tag: 'strong',

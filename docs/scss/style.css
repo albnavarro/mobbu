@@ -874,7 +874,7 @@
       align-items: center;
       block-size: var(--header-height);
     }
-    @media (min-width: 48em) {
+    @media (min-width: 100em) {
       .grid {
         grid-template-areas: "toggle title menu utils";
       }
@@ -898,12 +898,12 @@
       color: var(--dark);
       text-align: start;
     }
-    @media (min-width: 48em) {
+    @media (min-width: 62em) {
       .logo-cell {
         display: none;
       }
     }
-    @media (min-width: 75em) {
+    @media (min-width: 100em) {
       .logo-cell {
         display: inline-block;
       }
@@ -915,12 +915,12 @@
       justify-self: center;
       display: none;
     }
-    @media (min-width: 48em) {
+    @media (min-width: 62em) {
       .menu-cell {
         display: block;
       }
     }
-    @media (min-width: 75em) {
+    @media (min-width: 100em) {
       .menu-cell {
         justify-self: end;
       }
@@ -1065,7 +1065,7 @@
       outline-offset: -2px;
       background: transparent;
       color: var(--dark);
-      font-size: 0.8125rem;
+      font-size: 1rem;
     }
     button::after {
       content: "";
@@ -1082,7 +1082,6 @@
     @media (min-width: 62em) {
       button {
         padding-inline: 0.9375rem;
-        font-size: 0.875rem;
       }
     }
     @media (min-width: 100em) {
@@ -1137,7 +1136,7 @@
       align-items: center;
       block-size: 100%;
       inline-size: 100%;
-      padding: 0 0.5em;
+      padding: 0 0.75em;
       border: 0;
       outline-offset: -2px;
       background: transparent;
@@ -1249,9 +1248,6 @@
     .link.is-submenu {
       position: relative;
       padding-inline-start: 0.625rem;
-    }
-    .link span {
-      font-size: 0.75rem;
     }
     .submenu {
       margin-block-end: 0;
@@ -1449,28 +1445,28 @@
     .text-container {
       display: flex;
       position: absolute;
-      inset-inline-start: calc(var(--gap-size) / 2);
+      inset-inline: calc(var(--gap-size) / 2);
       inset-block-end: calc(var(--footer-height) + 2.1875rem);
       flex-direction: column;
     }
     @media (min-width: 48em) {
       .text-container {
-        inset-inline-start: calc(var(--header-height) / 2 + 1.25rem);
+        inset-inline: calc(var(--header-height) / 2 + 1.25rem) auto;
       }
     }
     h1 {
-      margin-block-end: 1.25rem;
+      margin-block-end: 0.75rem;
       outline-offset: 0.625rem;
       color: var(--dark);
       font-size: 1.875rem;
       line-height: 1.6;
+      text-align: center;
     }
-    h2 {
-      font-size: 0.875rem;
-      line-height: 1.4;
-    }
-    h2 span {
-      display: block;
+    @media (min-width: 48em) {
+      h1 {
+        margin-block-end: 1.25rem;
+        font-size: 2.5rem;
+      }
     }
     .logo {
       display: grid;
@@ -1765,7 +1761,6 @@
       transition: background 0.55s, color 0.55s;
       border: 1px rgba(var(--dark-rgb), 0.2) solid;
       background: transparent;
-      font-size: 0.8125rem;
       line-height: 1;
     }
     .nav-button.active,
@@ -2286,7 +2281,6 @@
       transition: background 0.35s;
       border: 1px var(--grey-500) solid;
       color: var(--dark);
-      font-size: 0.875rem;
       text-align: center;
       text-decoration: none;
     }
@@ -2321,7 +2315,6 @@
       transition: background 0.35s;
       border: 1px var(--grey-500) solid;
       color: var(--dark);
-      font-size: 0.875rem;
       text-align: center;
       text-decoration: none;
     }
@@ -3360,7 +3353,7 @@
   .is-debug-open-button {
     display: none;
   }
-  @media (min-width: 62em) {
+  @media (min-width: 75em) {
     .is-debug-open-button {
       display: block;
     }
@@ -3680,7 +3673,6 @@
       position: absolute;
       overflow: hidden;
       color: var(--dark);
-      font-size: 0.75rem;
       inset: 0;
     }
     .id-code {
@@ -3700,13 +3692,11 @@
       margin-inline-end: 1.25rem;
       padding-block-start: 0.625rem;
       border-block-start: 1px var(--grey-300) solid;
-      font-size: 0.875rem;
     }
     .section-subtitle {
       margin-block: 1.25rem 0.625rem;
       margin-inline-end: 1.25rem;
       padding-block-start: 0.625rem;
-      font-size: 0.75rem;
     }
     ul {
       display: flex;
@@ -3743,7 +3733,6 @@
       border: 1px var(--dark) solid;
       opacity: 0.2;
       background: transparent;
-      font-size: 0.75rem;
       pointer-events: none;
     }
     .back.active {
@@ -3948,7 +3937,6 @@
       position: relative;
       padding-inline-start: calc(var(--gap-size) / 2);
       color: var(--dark);
-      font-size: 0.75rem;
     }
     :scope::after {
       content: "";
@@ -3970,7 +3958,7 @@
       border: 0;
       border-radius: 0.25rem;
       background: var(--grey-200);
-      font-size: 0.625rem;
+      font-size: 0.875rem;
       line-height: 1.8;
       vertical-align: middle;
       cursor: pointer;
@@ -4220,7 +4208,6 @@
     margin: 0;
     margin-block-end: 0.5rem;
     padding-block-start: 2rem;
-    font-size: 0.875rem;
     list-style: none;
     li {
       display: inline-block;
@@ -4235,7 +4222,6 @@
     a::after {
       content: "/";
       position: absolute;
-      font-size: 0.75rem;
       inset-block-start: 0.125rem;
       inset-inline-end: calc(0.375rem * -1);
     }
@@ -4309,7 +4295,6 @@
       transition: background 0.35s;
       border: 1px var(--grey-500) solid;
       color: var(--dark);
-      font-size: 0.875rem;
       text-align: center;
       text-decoration: none;
     }
@@ -4406,9 +4391,8 @@
         position: absolute;
         z-index: 1;
         inset-inline-end: 2.5rem;
-        inset-block-end: calc(0.8125rem * -1);
+        inset-block-end: calc(0.5rem * -1);
         color: var(--dark);
-        font-size: 0.875rem;
       }
       @media (min-width: 75em) {
         .title-index {
@@ -4451,7 +4435,6 @@
       transition: background 0.35s;
       border: 1px var(--grey-500) solid;
       color: var(--dark);
-      font-size: 0.875rem;
       text-align: center;
       text-decoration: none;
     }
@@ -4509,11 +4492,6 @@
       position: relative;
       margin-block-start: 1.875rem;
     }
-    @media (min-width: 48em) {
-      :scope {
-        margin-block-start: 0;
-      }
-    }
     .expand {
       display: inline-block;
       position: absolute;
@@ -4525,7 +4503,6 @@
       outline-color: var(--dark);
       background: var(--dark);
       color: var(--white);
-      font-size: 0.75rem;
       text-align: center;
       text-decoration: none;
       inset-block-start: -0.9375rem;
@@ -4793,7 +4770,6 @@
       text-transform: uppercase;
     }
     .item {
-      font-size: 0.875rem;
       text-transform: capitalize;
     }
     .link {
@@ -4862,7 +4838,6 @@
   @scope (.c-doc-svg) {
     :scope {
       position: relative;
-      padding: 2.5rem;
       overflow: hidden;
       border: 2px var(--white) solid;
       border-radius: 0.625rem;
@@ -4870,6 +4845,11 @@
     :scope.start-end-svg {
       inline-size: 100%;
       aspect-ratio: 713/467;
+    }
+    @media (min-width: 48em) {
+      :scope {
+        padding: 2.5rem;
+      }
     }
     svg {
       block-size: 100%;
@@ -4934,7 +4914,6 @@
       border: 0;
       outline-offset: 0;
       background: transparent;
-      font-size: 0.875rem;
       line-height: 1.5;
       text-align: start;
     }
@@ -5166,7 +5145,6 @@
       border: 0;
       outline-offset: 0;
       background: transparent;
-      font-size: 0.875rem;
       line-height: 1.6;
       text-transform: capitalize;
     }
@@ -5194,15 +5172,9 @@
     .label {
       margin-block: calc(var(--gap-size) / 2) 0.3125rem;
       padding-inline-start: 0.25rem;
-      font-size: 0.8125rem;
       font-weight: 600;
       line-height: 1.2;
       text-transform: uppercase;
-    }
-    @media screen and (height >= 200px) and (height <= 750px) {
-      .label {
-        font-size: 0.6875rem;
-      }
     }
     .scrollbar {
       display: none;
@@ -5367,7 +5339,6 @@
       transform: translateY(100%);
       transition: opacity 0.35s, visibility 0.35s;
       color: var(--black);
-      font-size: 0.8125rem;
       line-height: 1;
       text-align: center;
     }
@@ -5474,7 +5445,6 @@
       transition: background 0.35s;
       border: 1px var(--grey-500) solid;
       color: var(--dark);
-      font-size: 0.875rem;
       text-align: center;
       text-decoration: none;
     }
@@ -5771,7 +5741,6 @@
       opacity: 1;
       background: var(--white);
       color: var(--dark);
-      font-size: 0.75rem;
       pointer-events: none;
     }
     :scope[open] {
@@ -6262,7 +6231,6 @@
       outline-color: var(--dark);
       background: var(--dark);
       color: var(--white);
-      font-size: 0.875rem;
       text-align: end;
       inset-block-start: calc(var(--header-height) + 1.25rem);
       inset-inline-end: 1.25rem;
@@ -6346,7 +6314,6 @@
       transition: background 0.35s, color 0.35s;
       border: 1px var(--grey-300) solid;
       background: transparent;
-      font-size: 0.875rem;
       text-align: end;
     }
     .controls-button:hover,
@@ -6368,7 +6335,6 @@
     .controls-label {
       display: block;
       margin-block-end: 0;
-      font-size: 0.875rem;
       font-weight: 400;
       text-align: end;
     }
