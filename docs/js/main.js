@@ -41645,22 +41645,14 @@
     );
     computed(
       () => selfProxi.baseRoutes,
-      () => {
-        return selfProxi.data.flatMap(({ url, children }) => {
-          return [
-            {
-              baseRoute: removeHashFromRoute(url),
-              currentRoute: removeHashFromRoute(url)
-            },
-            ...children.map((child) => {
-              return {
-                baseRoute: removeHashFromRoute(url),
-                currentRoute: removeHashFromRoute(child)
-              };
-            })
-          ];
-        });
-      }
+      () => selfProxi.data.flatMap(
+        ({ url, children }) => [url, ...children].map((current) => ({
+          // Parent url, uguale per tutti.
+          baseRoute: removeHashFromRoute(url),
+          // La rotta corrente, un figlio o il parente stesso ( url ).
+          currentRoute: removeHashFromRoute(current)
+        }))
+      )
     );
     return htmlObject({
       tag: "aside",
