@@ -18,7 +18,9 @@
             transition: background 0.35s;
             background: var(--grey-200);
             color: var(--dark);
-            border-block-end: rem(2) var(--dark) solid;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-block-end: rem(2) transparent solid;
 
             &.hide {
                 display: none;
@@ -26,6 +28,7 @@
 
             &.active {
                 font-weight: 800;
+                border-block-end: rem(2) var(--dark) solid;
             }
         }
 
@@ -101,6 +104,7 @@
             }
 
             &.current {
+                color: rgba(var(--dark-rgb), 1);
                 font-weight: 600;
 
                 &::before {
