@@ -100,13 +100,15 @@
                 transition: transform 0.35s;
                 inset-block-start: 50%;
                 inset-inline-end: calc(100% + #{rem(10)});
-                border-block-start: 2px rgba(var(--dark-rgb), 0.5) solid;
-                border-inline-end: 2px rgba(var(--dark-rgb), 0.5) solid;
+                border-block-start: 2px var(--dark) solid;
+                border-inline-end: 2px var(--dark) solid;
+                opacity: 0;
             }
 
-            &:not(.active):hover {
+            &.active,
+            &:hover {
                 &::before {
-                    border-color: var(--black);
+                    opacity: 1;
                 }
             }
 

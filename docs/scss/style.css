@@ -1176,19 +1176,15 @@
     }
     .label {
       padding: 0.625rem 1.25rem;
-      transition: background 0.35s;
-      background: var(--grey-200);
+      background: var(--grey-100);
       color: var(--dark);
       font-weight: 700;
       text-transform: uppercase;
-      border-block-end: 0.125rem transparent solid;
+      border-block-end: 1px var(--grey-400) solid;
+      border-block-start: 1px var(--grey-400) solid;
     }
     .label.hide {
       display: none;
-    }
-    .label.active {
-      font-weight: 800;
-      border-block-end: 0.125rem var(--dark) solid;
     }
     .link {
       display: block;
@@ -1220,6 +1216,7 @@
       border-block-start: 2px var(--dark) solid;
       border-inline-end: 2px var(--dark) solid;
     }
+    .link:not(.has-arrow).current::after,
     .link:not(.has-arrow):hover::after {
       opacity: 1;
     }
@@ -1234,6 +1231,7 @@
       inset-inline-end: 1.25rem;
       border-inline-end: 2px var(--dark) solid;
       border-block-end: 2px var(--dark) solid;
+      opacity: 0.8;
     }
     .link.has-arrow.active::after {
       transform: translateY(-50%) rotate(calc(-135deg * var(--dir)));
@@ -4802,6 +4800,7 @@
       background: transparent;
       font-size: 0.875rem;
       text-align: start;
+      text-transform: capitalize;
     }
     .link::before {
       content: "";
@@ -4970,12 +4969,15 @@
       transition: transform 0.35s;
       inset-block-start: 50%;
       inset-inline-end: calc(100% + 0.625rem);
-      border-block-start: 2px rgba(var(--dark-rgb), 0.5) solid;
-      border-inline-end: 2px rgba(var(--dark-rgb), 0.5) solid;
+      border-block-start: 2px var(--dark) solid;
+      border-inline-end: 2px var(--dark) solid;
+      opacity: 0;
     }
-    button:not(.active):hover::before,
-    .is-note:not(.active):hover::before {
-      border-color: var(--black);
+    button.active::before,
+    button:hover::before,
+    .is-note.active::before,
+    .is-note:hover::before {
+      opacity: 1;
     }
     button.active,
     .is-note.active {
@@ -5180,14 +5182,15 @@
     button::after {
       content: "";
       position: absolute;
-      block-size: 0.9375em;
-      inline-size: 0.25rem;
-      transform: translateY(-50%);
+      block-size: 0.3125rem;
+      inline-size: 0.3125rem;
+      transform: translateY(-50%) rotate(calc(45deg * var(--dir)));
       transition: opacity 0.35s;
       opacity: 0;
-      background: var(--dark);
       inset-block-start: 50%;
-      inset-inline-start: calc(1.25rem * -1);
+      inset-inline-start: calc(0.75rem * -1);
+      border-block-start: 2px var(--dark) solid;
+      border-inline-end: 2px var(--dark) solid;
     }
     button:hover::after {
       opacity: 1;

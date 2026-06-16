@@ -128,14 +128,15 @@
             &::after {
                 content: '';
                 position: absolute;
-                block-size: em(15);
-                inline-size: rem(4);
-                transform: translateY(-50%);
+                block-size: rem(5);
+                inline-size: rem(5);
+                transform: translateY(-50%) rotate(calc(45deg * var(--dir)));
                 transition: opacity 0.35s;
                 opacity: 0;
-                background: var(--dark);
                 inset-block-start: 50%;
-                inset-inline-start: calc(#{rem(20)} * -1);
+                inset-inline-start: calc(#{rem(12)} * -1);
+                border-block-start: 2px var(--dark) solid;
+                border-inline-end: 2px var(--dark) solid;
             }
 
             &:hover {

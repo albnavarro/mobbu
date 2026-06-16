@@ -15,20 +15,15 @@
 
         .label {
             padding: rem(10) rem(20);
-            transition: background 0.35s;
-            background: var(--grey-200);
+            background: var(--grey-100);
             color: var(--dark);
             font-weight: 700;
             text-transform: uppercase;
-            border-block-end: rem(2) transparent solid;
+            border-block-end: 1px var(--grey-400) solid;
+            border-block-start: 1px var(--grey-400) solid;
 
             &.hide {
                 display: none;
-            }
-
-            &.active {
-                font-weight: 800;
-                border-block-end: rem(2) var(--dark) solid;
             }
         }
 
@@ -64,6 +59,7 @@
                     border-inline-end: 2px var(--dark) solid;
                 }
 
+                &.current,
                 &:hover {
                     &::after {
                         opacity: 1;
@@ -85,6 +81,7 @@
                     inset-inline-end: rem(20);
                     border-inline-end: 2px var(--dark) solid;
                     border-block-end: 2px var(--dark) solid;
+                    opacity: 0.8;
                 }
 
                 &.active {

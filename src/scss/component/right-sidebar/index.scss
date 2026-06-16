@@ -58,6 +58,7 @@
             background: transparent;
             font-size: rem(14);
             text-align: start;
+            text-transform: capitalize;
 
             &::before {
                 content: '';
