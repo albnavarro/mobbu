@@ -5,7 +5,7 @@ export interface LayoutSidebarAnchor {
         source: string;
         title: string;
         breadCrumbs: LayoutSidebarAnchorBreadCrumbs[];
-        rightSidebar?: RightSideBarList[];
+        leftSidebar?: RightSideBarList[];
     };
 }
 

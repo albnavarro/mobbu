@@ -10,9 +10,9 @@ import { ScrollTop } from '@commonComponent/scroll-top/definition';
 
 /** @type {import('@mobJsType').PageAsync} */
 export const layoutSidebarLinks = async ({ props }) => {
-    const { source, title, breadCrumbs, rightSidebar } = props;
+    const { source, title, breadCrumbs, leftSidebar } = props;
     const { data } = await loadJsonContent({ source });
-    updateLeftSidebarList(rightSidebar ?? []);
+    updateLeftSidebarList(leftSidebar ?? []);
 
     const breadCrumbsContent = [
         getBreadCrumbs({

@@ -11,9 +11,9 @@ import { ScrollTop } from '@commonComponent/scroll-top/definition';
 
 /** @type {import('@mobJsType').PageAsync<{}, import('./type').LayoutSidebarAnchor['props']>} */
 export const layoutSidebarAnchor = async ({ props }) => {
-    const { source, title, breadCrumbs, rightSidebar } = props;
+    const { source, title, breadCrumbs, leftSidebar } = props;
     const { data } = await loadJsonContent({ source });
-    updateLeftSidebarList(rightSidebar ?? []);
+    updateLeftSidebarList(leftSidebar ?? []);
 
     const breadCrumbsContent = [
         getBreadCrumbs({

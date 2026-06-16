@@ -26751,9 +26751,9 @@
 
   // src/js/pages/layout/layout-sidebar-anchor.js
   var layoutSidebarAnchor = async ({ props }) => {
-    const { source, title, breadCrumbs, rightSidebar } = props;
+    const { source, title, breadCrumbs, leftSidebar } = props;
     const { data } = await loadJsonContent({ source });
-    updateLeftSidebarList(rightSidebar ?? []);
+    updateLeftSidebarList(leftSidebar ?? []);
     const breadCrumbsContent = [
       getBreadCrumbs({
         breadCrumbs
@@ -26818,9 +26818,9 @@
 
   // src/js/pages/layout/layout-sidebar-links.js
   var layoutSidebarLinks = async ({ props }) => {
-    const { source, title, breadCrumbs, rightSidebar } = props;
+    const { source, title, breadCrumbs, leftSidebar } = props;
     const { data } = await loadJsonContent({ source });
-    updateLeftSidebarList(rightSidebar ?? []);
+    updateLeftSidebarList(leftSidebar ?? []);
     const breadCrumbsContent = [
       getBreadCrumbs({
         breadCrumbs
@@ -38054,94 +38054,156 @@
       title: "mobMotion"
     }
   ];
-  var mobCoreRightSidebar = [
+  var mobCoreLeftSidebar = [
     {
       label: "store",
-      url: "#mobCore-store"
+      url: "#mobCore-store",
+      children: []
     },
     {
       label: "events",
-      url: "#mobCore-events"
+      url: "#mobCore-events",
+      children: []
     },
     {
       label: "defaults",
-      url: "#mobCore-defaults"
+      url: "#mobCore-defaults",
+      children: []
     }
   ];
-  var mobJsRightSidebar = [
+  var mobJsLeftSidebar = [
     {
       label: "initialization",
-      url: "#mobJs-initialization"
+      url: "#mobJs-initialization",
+      children: []
     },
     {
       label: "component",
-      url: "#mobJs-component"
+      url: "#mobJs-component",
+      children: [
+        "#mobJs-onMount",
+        "#mobJs-getProxi",
+        "#mobJs-getState",
+        "#mobJs-setState",
+        "#mobJs-updateState",
+        "#mobJs-computed",
+        "#mobJs-bindStore",
+        "#mobJs-watch",
+        "#mobJs-dataAttribute",
+        "#mobJs-staticProps",
+        "#mobJs-bindProps",
+        "#mobJs-bindtext",
+        "#mobJs-bindObject",
+        "#mobJs-bind-effect",
+        "#mobJs-refs",
+        "#mobJs-bindEvents",
+        "#mobJs-delegateEvents",
+        "#mobJs-instanceName",
+        "#mobJs-methods",
+        "#mobJs-useMethodByName",
+        "#mobJs-useMethodArrayByName",
+        "#mobJs-setStateByName",
+        "#mobJs-updateStateByName",
+        "#mobJs-runtime",
+        "#mobJs-invalidate",
+        "#mobJs-repeat",
+        "#mobJs-invalidate-vs-repeater",
+        "#mobJs-web-component",
+        "#mobJs-slot",
+        "#mobJs-class-list",
+        "#mobJs-unBind",
+        "#mobJs-emit",
+        "#mobJs-emitAsync",
+        "#mobJs-removeDom",
+        "#mobJs-remove",
+        "#mobJs-getChildren",
+        "#mobJs-freezeProp",
+        "#mobJs-unFreezeProp",
+        "#mobJs-getParentId",
+        "#mobJs-watchParent"
+      ]
     },
     {
       label: "htmlObject",
-      url: "#mobJs-html-object"
+      url: "#mobJs-html-object",
+      children: []
     },
     {
       label: "routing",
-      url: "#mobJs-routing"
+      url: "#mobJs-routing",
+      children: []
     },
     {
       label: "tick",
-      url: "#mobJs-tick"
+      url: "#mobJs-tick",
+      children: []
     },
     {
       label: "memory management",
-      url: "#mobJs-memory-management"
+      url: "#mobJs-memory-management",
+      children: []
     },
     {
       label: "utils",
-      url: "#mobJs-utils"
+      url: "#mobJs-utils",
+      children: []
     },
     {
       label: "debug",
-      url: "#mobJs-debug"
+      url: "#mobJs-debug",
+      children: []
     }
   ];
-  var mobMotionRightSidebar = [
+  var mobMotionLeftSidebar = [
     {
       label: "tween/spring/lerp",
-      url: "#mobMotion-tween-spring-lerp"
+      url: "#mobMotion-tween-spring-lerp",
+      children: []
     },
     {
       label: "AsyncTimeline",
-      url: "#mobMotion-async-timeline"
+      url: "#mobMotion-async-timeline",
+      children: []
     },
     {
       label: "sequencer",
-      url: "#mobMotion-sequencer"
+      url: "#mobMotion-sequencer",
+      children: []
     },
     {
       label: "SyncTimeline",
-      url: "#mobMotion-sync-timeline"
+      url: "#mobMotion-sync-timeline",
+      children: []
     },
     {
       label: "CreateStagger",
-      url: "#mobMotion-create-stagger"
+      url: "#mobMotion-create-stagger",
+      children: []
     },
     {
       label: "ScrollTrigger",
-      url: "#mobMotion-scrolltrigger"
+      url: "#mobMotion-scrolltrigger",
+      children: []
     },
     {
       label: "Parallax",
-      url: "#mobMotion-parallax"
+      url: "#mobMotion-parallax",
+      children: []
     },
     {
       label: "Stagger",
-      url: "#mobMotion-stagger"
+      url: "#mobMotion-stagger",
+      children: []
     },
     {
       label: "Default",
-      url: "#mobMotion-defaults"
+      url: "#mobMotion-defaults",
+      children: []
     },
     {
       label: "Utils",
-      url: "#mobMotion-utils"
+      url: "#mobMotion-utils",
+      children: []
     }
   ];
   var routes = [
@@ -38273,7 +38335,7 @@
         title: "mobCore",
         breadCrumbs: [],
         section: "mobCore",
-        rightSidebar: mobCoreRightSidebar
+        leftSidebar: mobCoreLeftSidebar
       }
     },
     {
@@ -38287,7 +38349,7 @@
         title: "Defaults",
         breadCrumbs: mobCoreOverviewBreadCrumbs,
         section: "mobCore",
-        rightSidebar: mobCoreRightSidebar
+        leftSidebar: mobCoreLeftSidebar
       }
     },
     {
@@ -38301,7 +38363,7 @@
         title: "Events",
         breadCrumbs: mobCoreOverviewBreadCrumbs,
         section: "mobCore",
-        rightSidebar: mobCoreRightSidebar
+        leftSidebar: mobCoreLeftSidebar
       }
     },
     {
@@ -38315,7 +38377,7 @@
         title: "Store",
         breadCrumbs: mobCoreOverviewBreadCrumbs,
         section: "mobCore",
-        rightSidebar: mobCoreRightSidebar
+        leftSidebar: mobCoreLeftSidebar
       }
     },
     {
@@ -38329,7 +38391,7 @@
         title: "mobJs",
         breadCrumbs: [],
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38343,7 +38405,7 @@
         title: "initialization",
         breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38357,7 +38419,7 @@
         title: "component",
         breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38371,7 +38433,7 @@
         title: "routing",
         breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38497,7 +38559,7 @@
         title: "tick",
         breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38511,7 +38573,7 @@
         title: "utils",
         breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38525,7 +38587,7 @@
         title: "memory management",
         breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38539,7 +38601,7 @@
         title: "htmlObject",
         breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38553,7 +38615,7 @@
         title: "debug",
         breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38567,7 +38629,7 @@
         title: "onMount",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38581,7 +38643,7 @@
         title: "getState",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38595,7 +38657,7 @@
         title: "setState",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38609,7 +38671,7 @@
         title: "updateState",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38623,7 +38685,7 @@
         title: "getProxi",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38637,7 +38699,7 @@
         title: "watch",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38651,7 +38713,7 @@
         title: "staticProps",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38665,7 +38727,7 @@
         title: "dataAttribute",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38679,7 +38741,7 @@
         title: "bindProps",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38693,7 +38755,7 @@
         title: "bindEvents",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38707,7 +38769,7 @@
         title: "delegateEvents",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38721,7 +38783,7 @@
         title: "bindText",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38735,7 +38797,7 @@
         title: "bindObject",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38749,7 +38811,7 @@
         title: "bindEffect",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38763,7 +38825,7 @@
         title: "add methods",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38777,7 +38839,7 @@
         title: "useMethodByName",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38791,7 +38853,7 @@
         title: "useMethodArrayByName",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38805,7 +38867,7 @@
         title: "setStateByName",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38819,7 +38881,7 @@
         title: "updateStateByName",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38833,7 +38895,7 @@
         title: "refs",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38847,7 +38909,7 @@
         title: "renderComponent",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38861,7 +38923,7 @@
         title: "repeat",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38875,7 +38937,7 @@
         title: "invalidate",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38889,7 +38951,7 @@
         title: "invalidate vs repeater",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38903,7 +38965,7 @@
         title: "webComponent",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38917,7 +38979,7 @@
         title: "slot",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38931,7 +38993,7 @@
         title: "unBind",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38945,7 +39007,7 @@
         title: "emit",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38959,7 +39021,7 @@
         title: "emitAsync",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38973,7 +39035,7 @@
         title: "computed",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -38987,7 +39049,7 @@
         title: "bindStore",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -39001,7 +39063,7 @@
         title: "removeDom",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -39015,7 +39077,7 @@
         title: "remove",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -39029,7 +39091,7 @@
         title: "getChildren",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -39043,7 +39105,7 @@
         title: "freezeProp",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -39057,7 +39119,7 @@
         title: "unFreezeProp",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -39071,7 +39133,7 @@
         title: "getParentId",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -39085,7 +39147,7 @@
         title: "watchParent",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -39099,7 +39161,7 @@
         title: "instanceName",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -39113,7 +39175,7 @@
         title: "classList",
         breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
-        rightSidebar: mobJsRightSidebar
+        leftSidebar: mobJsLeftSidebar
       }
     },
     {
@@ -39127,7 +39189,7 @@
         title: "Stagger",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
-        rightSidebar: mobMotionRightSidebar
+        leftSidebar: mobMotionLeftSidebar
       }
     },
     {
@@ -39141,7 +39203,7 @@
         title: "Defaults",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
-        rightSidebar: mobMotionRightSidebar
+        leftSidebar: mobMotionLeftSidebar
       }
     },
     {
@@ -39155,7 +39217,7 @@
         title: "Utils",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
-        rightSidebar: mobMotionRightSidebar
+        leftSidebar: mobMotionLeftSidebar
       }
     },
     {
@@ -39169,7 +39231,7 @@
         title: "mobMotion",
         breadCrumbs: [],
         section: "mobMotion",
-        rightSidebar: mobMotionRightSidebar
+        leftSidebar: mobMotionLeftSidebar
       }
     },
     {
@@ -39183,7 +39245,7 @@
         title: "Parallax",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
-        rightSidebar: mobMotionRightSidebar
+        leftSidebar: mobMotionLeftSidebar
       }
     },
     {
@@ -39197,7 +39259,7 @@
         title: "Sequencer",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
-        rightSidebar: mobMotionRightSidebar
+        leftSidebar: mobMotionLeftSidebar
       }
     },
     {
@@ -39211,7 +39273,7 @@
         title: "ScrollTrigger",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
-        rightSidebar: mobMotionRightSidebar
+        leftSidebar: mobMotionLeftSidebar
       }
     },
     {
@@ -39225,7 +39287,7 @@
         title: "Synctimeline",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
-        rightSidebar: mobMotionRightSidebar
+        leftSidebar: mobMotionLeftSidebar
       }
     },
     {
@@ -39239,7 +39301,7 @@
         title: "CreateStagger",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
-        rightSidebar: mobMotionRightSidebar
+        leftSidebar: mobMotionLeftSidebar
       }
     },
     {
@@ -39253,7 +39315,7 @@
         title: "Asynctimeline",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
-        rightSidebar: mobMotionRightSidebar
+        leftSidebar: mobMotionLeftSidebar
       }
     },
     {
@@ -39267,7 +39329,7 @@
         title: "TimeTween Spring Lerp",
         breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
-        rightSidebar: mobMotionRightSidebar
+        leftSidebar: mobMotionLeftSidebar
       }
     },
     {
@@ -41512,9 +41574,11 @@
   );
 
   // src/js/component/common/left-sidebar/left-sidebar.js
-  var getList = ({ proxi, boundedProxi, bindEffect, delegateEvents }) => {
-    return proxi.data.map(({ label, url }) => {
-      const urlParsed = url.replaceAll("#", "");
+  var removeHashFromRoute = (value) => value.replaceAll("#", "");
+  var getCurrentRouteData = ({ activeRoute, baseRoutes }) => baseRoutes.find(({ currentRoute }) => activeRoute === currentRoute);
+  var getList = ({ selfProxi, boundedProxi, bindEffect, delegateEvents }) => {
+    return selfProxi.data.map(({ label, url }) => {
+      const urlParsed = removeHashFromRoute(url);
       return htmlObject({
         className: "item",
         tag: "li",
@@ -41530,10 +41594,26 @@
             }),
             bindEffect({
               toggleClass: {
-                active: () => boundedProxi.activeRoute.route === urlParsed
+                active: () => {
+                  const currentItem = getCurrentRouteData({
+                    activeRoute: boundedProxi.activeRoute.route,
+                    baseRoutes: selfProxi.baseRoutes
+                  });
+                  return currentItem?.baseRoute === urlParsed;
+                }
               },
               toggleAttribute: {
-                "aria-current": () => boundedProxi.activeRoute.route === urlParsed ? "page" : false
+                "aria-current": () => {
+                  const currentItem = getCurrentRouteData({
+                    activeRoute: boundedProxi.activeRoute.route,
+                    baseRoutes: selfProxi.baseRoutes
+                  });
+                  if (currentItem?.baseRoute !== urlParsed)
+                    return null;
+                  if (currentItem?.currentRoute === urlParsed)
+                    return "page";
+                  return "true";
+                }
               }
             })
           ],
@@ -41551,17 +41631,36 @@
     bindEffect,
     delegateEvents
   }) => {
-    const proxi = getSelfProxi();
+    const selfProxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
     addMethod("updateList", (data) => {
-      proxi.data = data;
+      selfProxi.data = data;
     });
     modules_exports2.afterRouteChange(({ currentTemplate }) => {
-      if (!docsTemplate.has(currentTemplate)) proxi.data = [];
+      if (!docsTemplate.has(currentTemplate)) selfProxi.data = [];
     });
     computed(
-      () => proxi.isVisible,
-      () => proxi.data.length > 0
+      () => selfProxi.isVisible,
+      () => selfProxi.data.length > 0
+    );
+    computed(
+      () => selfProxi.baseRoutes,
+      () => {
+        return selfProxi.data.flatMap(({ url, children }) => {
+          return [
+            {
+              baseRoute: removeHashFromRoute(url),
+              currentRoute: removeHashFromRoute(url)
+            },
+            ...children.map((child) => {
+              return {
+                baseRoute: removeHashFromRoute(url),
+                currentRoute: removeHashFromRoute(child)
+              };
+            })
+          ];
+        });
+      }
     );
     return htmlObject({
       tag: "aside",
@@ -41571,10 +41670,10 @@
       },
       modules: bindEffect({
         toggleClass: {
-          visible: () => proxi.isVisible
+          visible: () => selfProxi.isVisible
         },
         toggleAttribute: {
-          hidden: () => !proxi.isVisible
+          hidden: () => !selfProxi.isVisible
         }
       }),
       content: [
@@ -41591,10 +41690,10 @@
             tag: "ul",
             className: "list",
             content: invalidate({
-              observe: () => proxi.data,
+              observe: () => selfProxi.data,
               render: () => {
                 return getList({
-                  proxi,
+                  selfProxi,
                   boundedProxi,
                   bindEffect,
                   delegateEvents
@@ -41616,6 +41715,10 @@
       bindStore: modules_exports2.mainStore,
       state: {
         data: {
+          __value: [],
+          __type: Array
+        },
+        baseRoutes: {
           __value: [],
           __type: Array
         },
