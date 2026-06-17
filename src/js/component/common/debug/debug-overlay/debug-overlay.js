@@ -330,10 +330,21 @@ export const DebugOverlayFn = ({
                      */
                     {
                         className: 'single-component',
-                        content: {
-                            component: DebugComponent,
-                            attributes: { name: debugComponentName },
-                        },
+                        content: invalidate({
+                            observe: () => proxi.active,
+                            render: () => {
+                                return proxi.active
+                                    ? htmlObject({
+                                          content: {
+                                              component: DebugComponent,
+                                              attributes: {
+                                                  name: debugComponentName,
+                                              },
+                                          },
+                                      })
+                                    : htmlObject({});
+                            },
+                        }),
                     },
                     {
                         tag: 'button',

@@ -19,6 +19,8 @@ import { MobCore } from '@mobCore';
 import { focusDebugTree } from '../tree/utils';
 import { focusFilterList } from '../debug-filter/list/utils';
 
+let lastActiveId = RESET_FILTER_DEBUG;
+
 /**
  * @param {DOMTokenList | undefined} value
  * @returns {string}
@@ -119,7 +121,7 @@ const getContent = ({ proxi, delegateEvents, setRef }) => {
     const item = MobJsInternal.componentMap.get(proxi.id);
     if (!item)
         return htmlObject({
-            content: 'component not found',
+            content: `component <strong>${proxi.id}</strong> not found`,
         });
 
     proxi.parentId = item.parentId ?? '';
@@ -461,6 +463,11 @@ export const DebugComponentFn = ({
 }) => {
     const proxi = getSelfProxi();
 
+    /**
+     * Restore last active component on component creation.
+     */
+    proxi.id = lastActiveId;
+
     addMethod('updateId', (id) => {
         proxi.id = id;
         debugActiveComponentStore.set('currentId', id);
@@ -501,6 +508,13 @@ export const DebugComponentFn = ({
                  * Restore position of element scrolled with tab.
                  */
                 getRef().screen.scrollTop = 0;
+
+                /**
+                 * Save last active component.
+                 *
+                 * - When component is recreated load last usable component.
+                 */
+                lastActiveId = proxi.id;
             }
         );
 
