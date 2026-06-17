@@ -10,6 +10,10 @@
             transition: background 0.35s;
             background: var(--white);
 
+            @include mq(tablet) {
+                background: var(--grey-100);
+            }
+
             &::after {
                 content: '';
                 position: absolute;
