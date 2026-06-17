@@ -52,6 +52,14 @@ export const HomeComponentFn = ({ onMount, getSelfProxi }) => {
                         tag: 'h1',
                         content: 'Welcome to MobProject',
                     },
+                    {
+                        tag: 'p',
+                        content: 'Made with <strong>MobJs</strong>',
+                    },
+                    {
+                        tag: 'p',
+                        content: 'Animated with <strong>MobMotion</strong>',
+                    },
                 ],
             },
             {
