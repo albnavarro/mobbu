@@ -20,6 +20,7 @@ import { focusDebugTree } from '../tree/utils';
 import { focusFilterList } from '../debug-filter/list/utils';
 
 let lastActiveId = RESET_FILTER_DEBUG;
+let justCreated = false;
 
 /**
  * @param {DOMTokenList | undefined} value
@@ -467,6 +468,7 @@ export const DebugComponentFn = ({
      * Restore last active component on component creation.
      */
     proxi.id = lastActiveId;
+    justCreated = true;
 
     addMethod('updateId', (id) => {
         proxi.id = id;
@@ -515,10 +517,12 @@ export const DebugComponentFn = ({
                  * - When component is recreated load last usable component.
                  */
                 lastActiveId = proxi.id;
+                justCreated = false;
             }
         );
 
         return () => {
+            justCreated = false;
             destroy?.();
         };
     });
@@ -558,6 +562,18 @@ export const DebugComponentFn = ({
                             observe: () => proxi.id,
                             afterUpdate: () => {
                                 MobCore.useFrameIndex(() => {
+                                    /**
+                                     * Skip focus if:
+                                     *
+                                     * - Component is just created.
+                                     * - There is no valid component.
+                                     */
+                                    if (
+                                        justCreated ||
+                                        proxi.id === RESET_FILTER_DEBUG
+                                    )
+                                        return;
+
                                     getRef().screen.focus({
                                         preventScroll: true,
                                     });
