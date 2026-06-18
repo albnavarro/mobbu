@@ -1,15 +1,72 @@
-# Accessibility:
-
-1. rs-annuncient : bozza logica allegata
-    - `Home` non ha heading, usare annucio quando si atterra in home, di base la home dovrebbe sezionare o il logo in header o la voce di menu.
-    - `About` avrebbe bisogno si un annincio sul cambio item.
-    - `Search` annuncio per la tendina delle suggestion.
-2. aria-label su toggle degli snippet.
-
-####
-
-
 # MobJs
+
+## Route parent.
+
+### Aggiungere parent nella definizione della rotta:
+```js
+{
+    hash: 'animatedPatternN0',
+    layout: animatedPatternN0,
+    templateName: PAGE_TEMPLATE_ANIMATION,
+    pageName: 'animatedPatternN0',
+    parent: 'canvas-overview',
+    props: {},
+},
+```
+
+### Estrarre un oggetto alberatura:
+```js
+[
+    {
+        page: 'canvas-overview',
+        children: [
+            {
+                page: 'animatedPatternN0',
+                children: []
+            },
+            {
+                page: 'animatedPatternN1',
+                children: []
+            }
+        ]
+    }
+]
+```
+
+### Funzioni utils:
+
+##### Page parent ( ritorna un array di rotta in ordine di profondiá )
+```js
+getPageParent({page: 'animatedPatternN1'})
+
+// ['parent-level0', 'parent-level1']
+```
+
+##### Page children ( ritorna semplicemente l'array children di una rotta.
+```js
+getPageChildren({page: 'canvas-overview'})
+
+/**
+*    [
+*        {
+*            page: 'animatedPatternN0',
+*            children: []
+*        },
+*        {
+*            page: 'animatedPatternN1',
+*            children: []
+*        }
+*    ]
+*/
+```
+
+### Sidebar left.
+- Eliminare il `vecchio` `mobJsLeftSidebar` children props.
+- Recuperare la voce di `secondo/primo` livello con `getPageParent()`.
+
+### Main menu.
+- Applicare quello fatto in sidebrarLeft al menu principale.
+- Fare riferimento sempre all avoce di livello 0.
 
 ## InstanceName
 
@@ -30,7 +87,7 @@ return htmlObject({
 
 ## Attributes:
 
-- AL momento non si possono applicare attributi statici ai componenti.
+- Al momento non si possono applicare attributi statici ai componenti.
 
 ## 1. Repat proxi
 
