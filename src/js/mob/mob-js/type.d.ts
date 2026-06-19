@@ -265,6 +265,7 @@ export interface Route {
     skipTransition?: boolean;
     pageName?: string;
     props: any;
+    parent?: string;
 }
 
 export type PageAsync<
