@@ -5291,6 +5291,8 @@
     getComponentNameById: () => getComponentNameById,
     getDebugMode: () => getDebugMode,
     getIdByInstanceName: () => getIdByInstanceName,
+    getPagePath: () => getPagePath,
+    getPageTree: () => getPageTree,
     getParentIdById: () => getParentIdById,
     getPropsFromParent: () => getPropsFromParent,
     getRoot: () => getRoot,
@@ -7095,13 +7097,34 @@
         })
       };
     });
-    console.log(parentList);
   };
+  var getPageTree = () => parentList;
 
   // src/js/mob/mob-js/route/route-list/index.js
   var routeList = [];
   var indexPage = "";
   var pageNotFound = "";
+  var getPagePathRecursive = ({ currentHash, parentHash }) => {
+    const parentPage = routeList.find(({ hash }) => hash === parentHash);
+    if (!parentPage) return [currentHash];
+    return [
+      currentHash,
+      ...getPagePathRecursive({
+        currentHash: parentPage.hash,
+        parentHash: parentPage?.parent ?? ""
+      })
+    ];
+  };
+  var getPagePath = ({ hash }) => {
+    const lastDepthNode = routeList.find(
+      ({ hash: firstlevelhash }) => firstlevelhash === hash
+    );
+    if (!lastDepthNode) return [];
+    return getPagePathRecursive({
+      parentHash: lastDepthNode?.parent ?? "",
+      currentHash: lastDepthNode.hash
+    }).toReversed();
+  };
   var setRouteList = (list) => {
     routeList = [...list];
     setParentList(list);
@@ -47667,6 +47690,10 @@
         jsMainLoaderBackground = null;
         getScrollbarWith();
         skipRouteLoader(false);
+        console.log(modules_exports2.getPageTree());
+        console.log(modules_exports2.getPagePath({ hash: "mobCore-overview" }));
+        console.log(modules_exports2.getPagePath({ hash: "move3D-shape1" }));
+        console.log(modules_exports2.getPagePath({ hash: "mobJs-setState" }));
       },
       // redirect: ({ route }) => { },
       restoreScroll: true,

@@ -16,6 +16,45 @@ let indexPage = '';
 let pageNotFound = '';
 
 /**
+ * @param {object} params
+ * @param {string} params.currentHash
+ * @param {string} params.parentHash
+ * @returns {string[]}
+ */
+const getPagePathRecursive = ({ currentHash, parentHash }) => {
+    const parentPage = routeList.find(({ hash }) => hash === parentHash);
+    if (!parentPage) return [currentHash];
+
+    return [
+        currentHash,
+        ...getPagePathRecursive({
+            currentHash: parentPage.hash,
+            parentHash: parentPage?.parent ?? '',
+        }),
+    ];
+};
+
+/**
+ * Get page path from hash
+ *
+ * @param {object} params
+ * @param {string} params.hash
+ * @returns {string[]}
+ */
+export const getPagePath = ({ hash }) => {
+    const lastDepthNode = routeList.find(
+        ({ hash: firstlevelhash }) => firstlevelhash === hash
+    );
+
+    if (!lastDepthNode) return [];
+
+    return getPagePathRecursive({
+        parentHash: lastDepthNode?.parent ?? '',
+        currentHash: lastDepthNode.hash,
+    }).toReversed();
+};
+
+/**
  * Add route list to store.
  *
  * @param {import('../../type').Route[]} list

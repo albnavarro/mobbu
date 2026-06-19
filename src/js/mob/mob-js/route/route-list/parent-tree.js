@@ -52,16 +52,7 @@ export const setParentList = (routes) => {
             }),
         };
     });
-
-    console.log(parentList);
 };
 
 /** @returns {ParentList[]} */
-export const getParentList = () => parentList;
-
-/**
- * @param {string} hash
- */
-// export const getPageParents = (hash) => {
-//     //
-// };
+export const getPageTree = () => parentList;
