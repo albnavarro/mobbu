@@ -1,4 +1,5 @@
 interface ParentList {
-    page: string;
+    hash: string;
+    name: string;
     children: ParentList[];
 }

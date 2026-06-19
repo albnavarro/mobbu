@@ -4,24 +4,31 @@ let parentList = [];
 /**
  * @param {object} params
  * @param {string} params.hash
+ * @param {string} params.name
  * @param {import('../../type').Route[]} params.routes
  * @returns {ParentList[]}
  */
-export const recursiveParentList = ({ hash, routes }) => {
+export const recursiveParentList = ({ hash, name, routes }) => {
     const children = routes.filter(({ parent }) => parent === hash);
 
     if (!children)
         return [
             {
-                page: hash,
+                hash: hash,
+                name,
                 children: [],
             },
         ];
 
-    return children.map(({ hash: currentHash }) => {
+    return children.map(({ hash: currentHash, pageName: currentPageName }) => {
         return {
-            page: currentHash,
-            children: recursiveParentList({ hash: currentHash, routes }),
+            hash: currentHash,
+            name: currentPageName ?? '',
+            children: recursiveParentList({
+                hash: currentHash,
+                name: currentPageName ?? '',
+                routes,
+            }),
         };
     });
 };
@@ -34,10 +41,15 @@ export const setParentList = (routes) => {
         ({ parent }) => !parent || parent?.length === 0
     );
 
-    parentList = firstLevel.map(({ hash }) => {
+    parentList = firstLevel.map(({ hash, pageName }) => {
         return {
-            page: hash,
-            children: recursiveParentList({ hash, routes }),
+            hash: hash,
+            name: pageName ?? '',
+            children: recursiveParentList({
+                hash,
+                name: pageName ?? '',
+                routes,
+            }),
         };
     });
 

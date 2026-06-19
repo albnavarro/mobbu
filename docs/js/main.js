@@ -7058,19 +7058,25 @@
 
   // src/js/mob/mob-js/route/route-list/parent-tree.js
   var parentList = [];
-  var recursiveParentList = ({ hash, routes: routes2 }) => {
+  var recursiveParentList = ({ hash, name, routes: routes2 }) => {
     const children = routes2.filter(({ parent }) => parent === hash);
     if (!children)
       return [
         {
-          page: hash,
+          hash,
+          name,
           children: []
         }
       ];
-    return children.map(({ hash: currentHash }) => {
+    return children.map(({ hash: currentHash, pageName: currentPageName }) => {
       return {
-        page: currentHash,
-        children: recursiveParentList({ hash: currentHash, routes: routes2 })
+        hash: currentHash,
+        name: currentPageName ?? "",
+        children: recursiveParentList({
+          hash: currentHash,
+          name: currentPageName ?? "",
+          routes: routes2
+        })
       };
     });
   };
@@ -7078,10 +7084,15 @@
     const firstLevel = routes2.filter(
       ({ parent }) => !parent || parent?.length === 0
     );
-    parentList = firstLevel.map(({ hash }) => {
+    parentList = firstLevel.map(({ hash, pageName }) => {
       return {
-        page: hash,
-        children: recursiveParentList({ hash, routes: routes2 })
+        hash,
+        name: pageName ?? "",
+        children: recursiveParentList({
+          hash,
+          name: pageName ?? "",
+          routes: routes2
+        })
       };
     });
     console.log(parentList);
