@@ -7056,12 +7056,44 @@
     return comp;
   };
 
+  // src/js/mob/mob-js/route/route-list/parent-tree.js
+  var parentList = [];
+  var recursiveParentList = ({ hash, routes: routes2 }) => {
+    const children = routes2.filter(({ parent }) => parent === hash);
+    if (!children)
+      return [
+        {
+          page: hash,
+          children: []
+        }
+      ];
+    return children.map(({ hash: currentHash }) => {
+      return {
+        page: currentHash,
+        children: recursiveParentList({ hash: currentHash, routes: routes2 })
+      };
+    });
+  };
+  var setParentList = (routes2) => {
+    const firstLevel = routes2.filter(
+      ({ parent }) => !parent || parent?.length === 0
+    );
+    parentList = firstLevel.map(({ hash }) => {
+      return {
+        page: hash,
+        children: recursiveParentList({ hash, routes: routes2 })
+      };
+    });
+    console.log(parentList);
+  };
+
   // src/js/mob/mob-js/route/route-list/index.js
   var routeList = [];
   var indexPage = "";
   var pageNotFound = "";
   var setRouteList = (list) => {
     routeList = [...list];
+    setParentList(list);
   };
   var getRouteByHash = ({ hash = "" }) => {
     return routeList.find(({ hash: currentHash }) => hash === currentHash);
@@ -39441,6 +39473,7 @@
       hash: "plugin-dragger",
       pageName: "plugin dragger",
       layout: DraggerRoute,
+      parent: "plugin-overview",
       templateName: PAGE_TEMPLATE_ANIMATION,
       props: {}
     },

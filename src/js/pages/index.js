@@ -1455,6 +1455,7 @@ export const routes = [
         hash: 'plugin-dragger',
         pageName: 'plugin dragger',
         layout: DraggerRoute,
+        parent: 'plugin-overview',
         templateName: PAGE_TEMPLATE_ANIMATION,
         props: {},
     },

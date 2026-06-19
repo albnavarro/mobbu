@@ -1,3 +1,5 @@
+import { setParentList } from './parent-tree';
+
 /**
  * @type {import('../../type').Route[]}
  */
@@ -21,6 +23,7 @@ let pageNotFound = '';
  */
 export const setRouteList = (list) => {
     routeList = [...list];
+    setParentList(list);
 };
 
 /**

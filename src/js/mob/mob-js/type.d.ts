@@ -265,6 +265,9 @@ export interface Route {
     skipTransition?: boolean;
     pageName?: string;
     props: any;
+    /**
+     * Parent hash
+     */
     parent?: string;
 }
 
