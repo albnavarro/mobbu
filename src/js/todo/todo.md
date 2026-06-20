@@ -83,7 +83,8 @@ return htmlObject({
 ## Doc
 
 - Aggiungere `basePageName` ( `MobJs.inizializeApp` )
-- Aggiungere `pageName` ( `routes[...]` )
+- Aggiungere `pageName, parent` ( `routes[...]` )
+- Aggiungere `MobJs.getPagePath` & `MobJs.getPageTree`.
 
 ## Attributes:
 

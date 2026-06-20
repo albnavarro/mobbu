@@ -3,29 +3,44 @@ import { DocTitle } from '@commonComponent/doc-title/definition';
 import { HtmlContent } from '@commonComponent/html-content/definition';
 import { htmlObject, MobJs } from '@mobJs';
 import { loadJsonContent } from '@utils/utils';
-import { getBreadCrumbs } from './utils';
 import { updateLeftSidebarList } from '@commonComponent/left-sidebar/utils';
 import { docContainerName } from '@instanceName';
 import { ScrollTop } from '@commonComponent/scroll-top/definition';
 
 /** @type {import('@mobJsType').PageAsync} */
-export const layoutSidebarLinks = async ({ props }) => {
-    const { source, title, breadCrumbs, leftSidebar } = props;
-    const { data } = await loadJsonContent({ source });
+export const layoutSidebarLinks = async ({ props, data }) => {
+    const { source, title, leftSidebar } = props;
+    const { data: jsonData } = await loadJsonContent({ source });
     updateLeftSidebarList(leftSidebar ?? []);
 
+    /**
+     * Create bradcrumbs
+     */
+    const path = MobJs.getPagePath({ hash: data.hash });
+
     const breadCrumbsContent = [
-        getBreadCrumbs({
-            breadCrumbs,
+        path.map((page, index) => {
+            return index === path.length - 1
+                ? htmlObject({
+                      tag: 'li',
+                      content: {
+                          tag: 'span',
+                          content: data.pageName,
+                          attributes: { 'aria-current': 'page' },
+                      },
+                  })
+                : htmlObject({
+                      tag: 'li',
+                      content: {
+                          tag: 'a',
+                          className: 'link',
+                          attributes: {
+                              href: `./#${page.hash}`,
+                          },
+                          content: page.name,
+                      },
+                  });
         }),
-        {
-            tag: 'li',
-            content: {
-                tag: 'span',
-                content: title,
-                attributes: { 'aria-current': 'page' },
-            },
-        },
     ];
 
     return htmlObject({
@@ -38,7 +53,7 @@ export const layoutSidebarLinks = async ({ props }) => {
                 modules: MobJs.staticProps(
                     /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
                     ({
-                        data: data.data,
+                        data: jsonData.data,
                         useMaxWidth: true,
                         isSection: false,
                     })
@@ -48,7 +63,6 @@ export const layoutSidebarLinks = async ({ props }) => {
                         tag: 'nav',
                         attributes: {
                             'aria-label': 'breadCrumbs',
-                            slot: 'html-content-top',
                         },
                         content: {
                             tag: 'ul',

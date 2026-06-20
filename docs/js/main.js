@@ -7104,14 +7104,15 @@
   var routeList = [];
   var indexPage = "";
   var pageNotFound = "";
-  var getPagePathRecursive = ({ currentHash, parentHash }) => {
+  var getPagePathRecursive = ({ currentHash, currentName, parentHash }) => {
     const parentPage = routeList.find(({ hash }) => hash === parentHash);
-    if (!parentPage) return [currentHash];
+    if (!parentPage) return [{ name: currentName, hash: currentHash }];
     return [
-      currentHash,
+      { name: currentName, hash: currentHash },
       ...getPagePathRecursive({
         currentHash: parentPage.hash,
-        parentHash: parentPage?.parent ?? ""
+        parentHash: parentPage?.parent ?? "",
+        currentName: parentPage.pageName ?? ""
       })
     ];
   };
@@ -7122,6 +7123,7 @@
     if (!lastDepthNode) return [];
     return getPagePathRecursive({
       parentHash: lastDepthNode?.parent ?? "",
+      currentName: lastDepthNode?.pageName ?? "",
       currentHash: lastDepthNode.hash
     }).toReversed();
   };
@@ -10257,7 +10259,12 @@
     const routeObejct = getRouteByHash({ hash: route });
     const skipTransitionParsed = skipTransition || routeObejct?.skipTransition;
     const props = routeObejct?.props ?? {};
-    const content = await routeObejct?.layout?.({ params: params3, props }) ?? "";
+    const routeData = {
+      hash: routeObejct?.hash ?? "",
+      pageName: routeObejct?.pageName ?? "",
+      templateName: routeObejct?.templateName ?? ""
+    };
+    const content = await routeObejct?.layout?.({ data: routeData, params: params3, props }) ?? "";
     const beforePageTransition3 = getBeforePageTransition();
     let clone = contentElement.cloneNode(true);
     if (beforePageTransition3 && clone && !skipTransitionParsed) {
@@ -26283,10 +26290,6 @@
       tag: isSection ? "section" : "div",
       className: ["html-content", usePaddingClass],
       content: [
-        {
-          tag: "mobjs-slot",
-          attributes: { name: "html-content-top" }
-        },
         [
           getComponents({
             data: currentData,
@@ -26760,19 +26763,6 @@
     }
   );
 
-  // src/js/pages/layout/utils.js
-  var getBreadCrumbs = ({ breadCrumbs }) => {
-    const items = breadCrumbs.map((item) => {
-      return (
-        /* HTML */
-        `<li>
-                <a class="link" href="${item.url}">${item.title}</a>
-            </li> `
-      );
-    }).join("");
-    return items;
-  };
-
   // src/js/component/common/left-sidebar/utils.js
   var updateLeftSidebarList = (data) => {
     const navContainerMethods = modules_exports2.useMethodByName(leftSidebarName);
@@ -26816,22 +26806,32 @@
   });
 
   // src/js/pages/layout/layout-sidebar-anchor.js
-  var layoutSidebarAnchor = async ({ props }) => {
-    const { source, title, breadCrumbs, leftSidebar } = props;
-    const { data } = await loadJsonContent({ source });
+  var layoutSidebarAnchor = async ({ props, data }) => {
+    const { source, title, leftSidebar } = props;
+    const { data: jsonData } = await loadJsonContent({ source });
     updateLeftSidebarList(leftSidebar ?? []);
+    const path = modules_exports2.getPagePath({ hash: data.hash });
     const breadCrumbsContent = [
-      getBreadCrumbs({
-        breadCrumbs
-      }),
-      {
-        tag: "li",
-        content: {
-          tag: "span",
-          content: title,
-          attributes: { "aria-current": "page" }
-        }
-      }
+      modules_exports2.getPagePath({ hash: data.hash }).map((page, index) => {
+        return index === path.length - 1 ? htmlObject({
+          tag: "li",
+          content: {
+            tag: "span",
+            content: data.pageName,
+            attributes: { "aria-current": "page" }
+          }
+        }) : htmlObject({
+          tag: "li",
+          content: {
+            tag: "a",
+            className: "link",
+            attributes: {
+              href: `./#${page.hash}`
+            },
+            content: page.name
+          }
+        });
+      })
     ];
     return htmlObject({
       component: DocContainer,
@@ -26843,7 +26843,7 @@
           modules: modules_exports2.staticProps(
             /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
             {
-              data: data.data,
+              data: jsonData.data,
               useMaxWidth: true,
               isSection: false
             }
@@ -26852,8 +26852,7 @@
             {
               tag: "nav",
               attributes: {
-                "aria-label": "breadCrumbs",
-                slot: "html-content-top"
+                "aria-label": "breadCrumbs"
               },
               content: {
                 tag: "ul",
@@ -26883,22 +26882,32 @@
   };
 
   // src/js/pages/layout/layout-sidebar-links.js
-  var layoutSidebarLinks = async ({ props }) => {
-    const { source, title, breadCrumbs, leftSidebar } = props;
-    const { data } = await loadJsonContent({ source });
+  var layoutSidebarLinks = async ({ props, data }) => {
+    const { source, title, leftSidebar } = props;
+    const { data: jsonData } = await loadJsonContent({ source });
     updateLeftSidebarList(leftSidebar ?? []);
+    const path = modules_exports2.getPagePath({ hash: data.hash });
     const breadCrumbsContent = [
-      getBreadCrumbs({
-        breadCrumbs
-      }),
-      {
-        tag: "li",
-        content: {
-          tag: "span",
-          content: title,
-          attributes: { "aria-current": "page" }
-        }
-      }
+      path.map((page, index) => {
+        return index === path.length - 1 ? htmlObject({
+          tag: "li",
+          content: {
+            tag: "span",
+            content: data.pageName,
+            attributes: { "aria-current": "page" }
+          }
+        }) : htmlObject({
+          tag: "li",
+          content: {
+            tag: "a",
+            className: "link",
+            attributes: {
+              href: `./#${page.hash}`
+            },
+            content: page.name
+          }
+        });
+      })
     ];
     return htmlObject({
       component: DocContainer,
@@ -26910,7 +26919,7 @@
           modules: modules_exports2.staticProps(
             /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
             {
-              data: data.data,
+              data: jsonData.data,
               useMaxWidth: true,
               isSection: false
             }
@@ -26919,8 +26928,7 @@
             {
               tag: "nav",
               attributes: {
-                "aria-label": "breadCrumbs",
-                slot: "html-content-top"
+                "aria-label": "breadCrumbs"
               },
               content: {
                 tag: "ul",
@@ -38100,34 +38108,6 @@
     PAGE_TEMPLATE_COMPONENT_MOBJS,
     PAGE_TEMPLATE_DOCS_DEFAULT
   ]);
-  var mobJsComponentBreadCrumbs = [
-    {
-      url: "./#mobJs-overview",
-      title: "mobJs"
-    },
-    {
-      url: "./#mobJs-component",
-      title: "component"
-    }
-  ];
-  var mobJsOverviewBreadCrumbs = [
-    {
-      url: "./#mobJs-overview",
-      title: "mobJs"
-    }
-  ];
-  var mobCoreOverviewBreadCrumbs = [
-    {
-      url: "./#mobCore-overview",
-      title: "mobCore"
-    }
-  ];
-  var mobMotionOverviewBreadCrumbs = [
-    {
-      url: "./#mobMotion-overview",
-      title: "mobMotion"
-    }
-  ];
   var mobCoreLeftSidebar = [
     {
       label: "store",
@@ -38284,7 +38264,7 @@
     {
       hash: "pageNotFound",
       layout: pageNotFound2,
-      pageName: "page not found",
+      pageName: "404",
       props: {}
     },
     {
@@ -38305,7 +38285,7 @@
       hash: "canvas-overview",
       layout: layoutLinksPage,
       templateName: PAGE_TEMPLATE_LINKS,
-      pageName: "canvas overview",
+      pageName: "canvas",
       props: {
         source: "./data/canvas/data.json"
       }
@@ -38374,8 +38354,6 @@
       skipTransition: true,
       props: {
         source: "./data/mob-js/general-repeat-test.json",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
-        title: "( test ) repeat & invalidate",
         section: "mobJs"
       }
     },
@@ -38387,8 +38365,6 @@
       pageName: "matrioska repeat",
       props: {
         source: "./data/mob-js/matrioska.json",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
-        title: "( test ) matrioska repeat",
         section: "mobJs"
       }
     },
@@ -38400,8 +38376,6 @@
       skipTransition: true,
       props: {
         source: "./data/mob-js/matrioska.json",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
-        title: "( test ) matrioska invalidate",
         section: "mobJs"
       }
     },
@@ -38413,9 +38387,7 @@
       skipTransition: true,
       props: {
         rootComponent: "benchmark-invalidate",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         source: "./data/mob-js/benchmark-invalidate.json",
-        title: "( test ) benchmark invalidate",
         section: "mobJs"
       }
     },
@@ -38427,9 +38399,7 @@
       skipTransition: true,
       props: {
         rootComponent: "benchmark-repeat-no-key",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         source: "./data/mob-js/benchmark-repeat-without-key.json",
-        title: "( test ) benchmark repeat without key",
         section: "mobJs"
       }
     },
@@ -38441,9 +38411,7 @@
       skipTransition: true,
       props: {
         rootComponent: "benchmark-repeat-key",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         source: "./data/mob-js/benchmark-repeat-key.json",
-        title: "( test ) benchmark repeat key",
         section: "mobJs"
       }
     },
@@ -38455,9 +38423,7 @@
       skipTransition: true,
       props: {
         rootComponent: "benchmark-repeat-no-component-no-key",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         source: "./data/mob-js/benchmark-repeat-no-component-no-key.json",
-        title: "( test ) benchmark repeat no component no key",
         section: "mobJs"
       }
     },
@@ -38469,9 +38435,7 @@
       skipTransition: true,
       props: {
         rootComponent: "benchmark-repeat-no-component-with-key",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         source: "./data/mob-js/benchmark-repeat-no-component-with-key.json",
-        title: "( test ) benchmark repeat no component with key",
         section: "mobJs"
       }
     },
@@ -38483,9 +38447,7 @@
       skipTransition: true,
       props: {
         rootComponent: "benchmark-repeat-key-no-nested",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         source: "./data/mob-js/benchmark-repeat-without-key-nested.json",
-        title: "( test ) benchmark repeat nested without key",
         section: "mobJs"
       }
     },
@@ -38497,9 +38459,7 @@
       skipTransition: true,
       props: {
         rootComponent: "benchmark-repeat-key-nested",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         source: "./data/mob-js/benchmark-repeat-key-nested.json",
-        title: "( test ) benchmark repeat nested with key",
         section: "mobJs"
       }
     },
@@ -38511,9 +38471,7 @@
       skipTransition: true,
       props: {
         rootComponent: "benchmark-repeat-no-key-bind-store",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         source: "./data/mob-js/benchmark-repeat-external.json",
-        title: "( test ) benchmark repeat bindStore",
         section: "mobJs"
       }
     },
@@ -38522,7 +38480,7 @@
       layout: layoutSidebarAnchor,
       skipTransition: true,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
-      pageName: "mobCore overview",
+      pageName: "mobCore",
       props: {
         source: "./data/mob-core/overview.json",
         title: "mobCore",
@@ -38533,52 +38491,46 @@
     },
     {
       hash: "mobCore-defaults",
-      pageName: "mobCore defaults",
+      pageName: "defaults",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobCore-overview",
       props: {
         source: "./data/mob-core/defaults.json",
-        title: "Defaults",
-        breadCrumbs: mobCoreOverviewBreadCrumbs,
         section: "mobCore",
         leftSidebar: mobCoreLeftSidebar
       }
     },
     {
       hash: "mobCore-events",
-      pageName: "mobCore events",
+      pageName: "events",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobCore-overview",
       props: {
         source: "./data/mob-core/events.json",
-        title: "Events",
-        breadCrumbs: mobCoreOverviewBreadCrumbs,
         section: "mobCore",
         leftSidebar: mobCoreLeftSidebar
       }
     },
     {
       hash: "mobCore-store",
-      pageName: "mobCore store",
+      pageName: "store",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobCore-overview",
       props: {
         source: "./data/mob-core/store.json",
-        title: "Store",
-        breadCrumbs: mobCoreOverviewBreadCrumbs,
         section: "mobCore",
         leftSidebar: mobCoreLeftSidebar
       }
     },
     {
       hash: "mobJs-overview",
-      pageName: "mobJs overview",
+      pageName: "mobJs",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
@@ -38592,727 +38544,631 @@
     },
     {
       hash: "mobJs-initialization",
-      pageName: "mobJs initialization",
+      pageName: "initialization",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobJs-overview",
       props: {
         source: "./data/mob-js/initialization.json",
-        title: "initialization",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-component",
-      pageName: "mobJs component",
+      pageName: "component",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobJs-overview",
       props: {
         source: "./data/mob-js/component.json",
-        title: "component",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-routing",
-      pageName: "mobJs routing",
+      pageName: "routing",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobJs-overview",
       props: {
         source: "./data/mob-js/routing.json",
-        title: "routing",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-tick",
-      pageName: "mobJs tick",
+      pageName: "tick",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobJs-overview",
       props: {
         source: "./data/mob-js/tick.json",
-        title: "tick",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-utils",
-      pageName: "mobJs utils",
+      pageName: "utils",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobJs-overview",
       props: {
         source: "./data/mob-js/utils.json",
-        title: "utils",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-memory-management",
-      pageName: "mobJs memory management",
+      pageName: "memory management",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobJs-overview",
       props: {
         source: "./data/mob-js/memory-management.json",
-        title: "memory management",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-html-object",
-      pageName: "mobJs html object",
+      pageName: "htmlObject",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobJs-overview",
       props: {
         source: "./data/mob-js/html-object.json",
-        title: "htmlObject",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-debug",
-      pageName: "mobJs debug",
+      pageName: "debug",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobJs-overview",
       props: {
         source: "./data/mob-js/debug.json",
-        title: "debug",
-        breadCrumbs: mobJsOverviewBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-onMount",
-      pageName: "mobJs onMount",
+      pageName: "onMount",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/on-mount.json",
-        title: "onMount",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-getState",
-      pageName: "mobJs getState",
+      pageName: "getState",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/get-state.json",
-        title: "getState",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-setState",
-      pageName: "mobJs setState",
+      pageName: "setState",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/set-state.json",
-        title: "setState",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-updateState",
-      pageName: "mobJs updateState",
+      pageName: "updateState",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       parent: "mobJs-component",
       skipTransition: true,
       props: {
         source: "./data/mob-js/update-state.json",
-        title: "updateState",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-getProxi",
-      pageName: "mobJs getProxi",
+      pageName: "getProxi",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/get-proxi.json",
-        title: "getProxi",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-watch",
-      pageName: "mobJs watch",
+      pageName: "watch",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/watch.json",
-        title: "watch",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-staticProps",
-      pageName: "mobJs staticProps",
+      pageName: "staticProps",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/static-props.json",
-        title: "staticProps",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-dataAttribute",
-      pageName: "mobJs dataAttribute",
+      pageName: "dataAttribute",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/data-attribute.json",
-        title: "dataAttribute",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-bindProps",
-      pageName: "mobJs bindProps",
+      pageName: "bindProps",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/bind-props.json",
-        title: "bindProps",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-bindEvents",
-      pageName: "mobJs bindEvents",
+      pageName: "bindEvents",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/bind-events.json",
-        title: "bindEvents",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-delegateEvents",
-      pageName: "mobJs delegateEvents",
+      pageName: "delegateEvents",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/delegate-events.json",
-        title: "delegateEvents",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-bindtext",
-      pageName: "mobJs bindtext",
+      pageName: "bindText",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/bind-text.json",
-        title: "bindText",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-bindObject",
-      pageName: "mobJs bindObject",
+      pageName: "bindObject",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/bind-object.json",
-        title: "bindObject",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-bind-effect",
-      pageName: "mobJs bind effect",
+      pageName: "bindEffect",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/bind-effect.json",
-        title: "bindEffect",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-methods",
-      pageName: "mobJs methods",
+      pageName: "methods",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/methods.json",
-        title: "add methods",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-useMethodByName",
-      pageName: "mobJs useMethodByName",
+      pageName: "useMethodByName",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/use-method-by-name.json",
-        title: "useMethodByName",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-useMethodArrayByName",
-      pageName: "mobJs useMethodArrayByName",
+      pageName: "useMethodArrayByName",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/use-method-array-by-name.json",
-        title: "useMethodArrayByName",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-setStateByName",
-      pageName: "mobJs setStateByName",
+      pageName: "setStateByName",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/set-state-by-name.json",
-        title: "setStateByName",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-updateStateByName",
-      pageName: "mobJs updateStateByName",
+      pageName: "updateStateByName",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/update-state-by-name.json",
-        title: "updateStateByName",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-refs",
-      pageName: "mobJs refs",
+      pageName: "refs",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/refs.json",
-        title: "refs",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-runtime",
-      pageName: "mobJs runtime",
+      pageName: "runtime",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/runtime.json",
-        title: "renderComponent",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-repeat",
-      pageName: "mobJs repeat",
+      pageName: "repeat",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/repeat.json",
-        title: "repeat",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-invalidate",
-      pageName: "mobJs invalidate",
+      pageName: "invalidate",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/invalidate.json",
-        title: "invalidate",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-invalidate-vs-repeater",
-      pageName: "mobJs invalidate vs repeater",
+      pageName: "invalidate vs repeater",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/invalidate-vs-repeater.json",
-        title: "invalidate vs repeater",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-web-component",
-      pageName: "mobJs web component",
+      pageName: "webComponent",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/web-component.json",
-        title: "webComponent",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-slot",
-      pageName: "mobJs slot",
+      pageName: "slot",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/slot.json",
-        title: "slot",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-unBind",
-      pageName: "mobJs unBind",
+      pageName: "unBind",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/unbind.json",
-        title: "unBind",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-emit",
-      pageName: "mobJs emit",
+      pageName: "emit",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/emit.json",
-        title: "emit",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-emitAsync",
-      pageName: "mobJs emitAsync",
+      pageName: "emitAsync",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/emit-async.json",
-        title: "emitAsync",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-computed",
-      pageName: "mobJs computed",
+      pageName: "computed",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/computed.json",
-        title: "computed",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-bindStore",
-      pageName: "mobJs bindStore",
+      pageName: "bindStore",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/bind-store.json",
-        title: "bindStore",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-removeDom",
-      pageName: "mobJs removeDom",
+      pageName: "removeDom",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/remove-dom.json",
-        title: "removeDom",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-remove",
-      pageName: "mobJs remove",
+      pageName: "remove",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/remove.json",
-        title: "remove",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-getChildren",
-      pageName: "mobJs getChildren",
+      pageName: "getChildren",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/get-children.json",
-        title: "getChildren",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-freezeProp",
-      pageName: "mobJs freezeProp",
+      pageName: "freezeProp",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/freeze-prop.json",
-        title: "freezeProp",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-unFreezeProp",
-      pageName: "mobJs unFreezeProp",
+      pageName: "unFreezeProp",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/unfreeze-prop.json",
-        title: "unFreezeProp",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-getParentId",
-      pageName: "mobJs getParentId",
+      pageName: "getParentId",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/get-parent-id.json",
-        title: "getParentId",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-watchParent",
-      pageName: "mobJs watchParent",
+      pageName: "watchParent",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/watch-parent.json",
-        title: "watchParent",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-instanceName",
-      pageName: "mobJs instanceName",
+      pageName: "instanceName",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/instance-name.json",
-        title: "instanceName",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobJs-class-list",
-      pageName: "mobJs class list",
+      pageName: "classList",
       templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
       layout: layoutSidebarLinks,
       skipTransition: true,
       parent: "mobJs-component",
       props: {
         source: "./data/mob-js/class-list.json",
-        title: "classList",
-        breadCrumbs: mobJsComponentBreadCrumbs,
         section: "mobJs",
         leftSidebar: mobJsLeftSidebar
       }
     },
     {
       hash: "mobMotion-overview",
-      pageName: "mobMotion overview",
+      pageName: "mobMotion",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
@@ -39326,150 +39182,130 @@
     },
     {
       hash: "mobMotion-stagger",
-      pageName: "mobMotion stagger",
+      pageName: "stagger",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobMotion-overview",
       props: {
         source: "./data/mob-motion/stagger.json",
-        title: "Stagger",
-        breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
         leftSidebar: mobMotionLeftSidebar
       }
     },
     {
       hash: "mobMotion-defaults",
-      pageName: "mobMotion defaults",
+      pageName: "defaults",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobMotion-overview",
       props: {
         source: "./data/mob-motion/defaults.json",
-        title: "Defaults",
-        breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
         leftSidebar: mobMotionLeftSidebar
       }
     },
     {
       hash: "mobMotion-utils",
-      pageName: "mobMotion utils",
+      pageName: "utils",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobMotion-overview",
       props: {
         source: "./data/mob-motion/utils.json",
-        title: "Utils",
-        breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
         leftSidebar: mobMotionLeftSidebar
       }
     },
     {
       hash: "mobMotion-parallax",
-      pageName: "mobMotion parallax",
+      pageName: "parallax",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobMotion-overview",
       props: {
         source: "./data/mob-motion/parallax.json",
-        title: "Parallax",
-        breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
         leftSidebar: mobMotionLeftSidebar
       }
     },
     {
       hash: "mobMotion-sequencer",
-      pageName: "mobMotion sequencer",
+      pageName: "sequencer",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobMotion-overview",
       props: {
         source: "./data/mob-motion/sequencer.json",
-        title: "Sequencer",
-        breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
         leftSidebar: mobMotionLeftSidebar
       }
     },
     {
       hash: "mobMotion-scrolltrigger",
-      pageName: "mobMotion scrolltrigger",
+      pageName: "scrolltrigger",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobMotion-overview",
       props: {
         source: "./data/mob-motion/scroll-trigger.json",
-        title: "ScrollTrigger",
-        breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
         leftSidebar: mobMotionLeftSidebar
       }
     },
     {
       hash: "mobMotion-sync-timeline",
-      pageName: "mobMotion sync timeline",
+      pageName: "syncTimeline",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobMotion-overview",
       props: {
         source: "./data/mob-motion/sync-timeline.json",
-        title: "Synctimeline",
-        breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
         leftSidebar: mobMotionLeftSidebar
       }
     },
     {
       hash: "mobMotion-create-stagger",
-      pageName: "mobMotion create stagger",
+      pageName: "createStagger",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobMotion-overview",
       props: {
         source: "./data/mob-motion/create-stagger.json",
-        title: "CreateStagger",
-        breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
         leftSidebar: mobMotionLeftSidebar
       }
     },
     {
       hash: "mobMotion-async-timeline",
-      pageName: "mobMotion async timeline",
+      pageName: "asyncTimeline",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobMotion-overview",
       props: {
         source: "./data/mob-motion/async-timeline.json",
-        title: "Asynctimeline",
-        breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
         leftSidebar: mobMotionLeftSidebar
       }
     },
     {
       hash: "mobMotion-tween-spring-lerp",
-      pageName: "mobMotion tween spring lerp",
+      pageName: "tween/spring/lerp",
       layout: layoutSidebarAnchor,
       templateName: PAGE_TEMPLATE_DOCS_DEFAULT,
       skipTransition: true,
       parent: "mobMotion-overview",
       props: {
         source: "./data/mob-motion/tween-spring-lerp.json",
-        title: "TimeTween Spring Lerp",
-        breadCrumbs: mobMotionOverviewBreadCrumbs,
         section: "mobMotion",
         leftSidebar: mobMotionLeftSidebar
       }
@@ -39482,13 +39318,12 @@
       restoreScroll: false,
       parent: "mobMotion-overview",
       props: {
-        source: "./data/plugin/horizontal-scroller.json",
-        title: "HorizontalScroller"
+        source: "./data/plugin/horizontal-scroller.json"
       }
     },
     {
       hash: "plugin-overview",
-      pageName: "plugin overview",
+      pageName: "plugin",
       layout: layoutLinksPage,
       templateName: PAGE_TEMPLATE_LINKS,
       props: {
@@ -39497,7 +39332,7 @@
     },
     {
       hash: "move3D-shape1",
-      pageName: "move3D shape1",
+      pageName: "move3D",
       templateName: PAGE_TEMPLATE_ANIMATION,
       layout: move3DRoute,
       parent: "plugin-overview",
@@ -39505,7 +39340,7 @@
     },
     {
       hash: "plugin-dragger",
-      pageName: "plugin dragger",
+      pageName: "dragger",
       layout: DraggerRoute,
       parent: "plugin-overview",
       templateName: PAGE_TEMPLATE_ANIMATION,
@@ -39531,7 +39366,7 @@
     },
     {
       hash: "svg-overview",
-      pageName: "svg overview",
+      pageName: "svg",
       layout: layoutLinksPage,
       templateName: PAGE_TEMPLATE_LINKS,
       props: {
@@ -47690,10 +47525,6 @@
         jsMainLoaderBackground = null;
         getScrollbarWith();
         skipRouteLoader(false);
-        console.log(modules_exports2.getPageTree());
-        console.log(modules_exports2.getPagePath({ hash: "mobCore-overview" }));
-        console.log(modules_exports2.getPagePath({ hash: "move3D-shape1" }));
-        console.log(modules_exports2.getPagePath({ hash: "mobJs-setState" }));
       },
       // redirect: ({ route }) => { },
       restoreScroll: true,

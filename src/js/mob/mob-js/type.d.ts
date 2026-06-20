@@ -259,8 +259,16 @@ export interface Route {
     hash: string;
     templateName?: string;
     layout:
-        | ((arg0: { params: any; props: any }) => Promise<HTMLElement>)
-        | ((arg0: { params: any; props: any }) => HTMLElement);
+        | ((arg0: {
+              data: { hash: string; pageName: string; templateName: string };
+              params: any;
+              props: any;
+          }) => Promise<HTMLElement>)
+        | ((arg0: {
+              data: { hash: string; pageName: string; templateName: string };
+              params: any;
+              props: any;
+          }) => HTMLElement);
     restoreScroll?: boolean;
     skipTransition?: boolean;
     pageName?: string;
@@ -274,9 +282,14 @@ export interface Route {
 export type PageAsync<
     T = Record<string, any>,
     P = Record<string, any>,
-> = (arg0: { params: T; props: P }) => Promise<HTMLElement>;
+> = (arg0: {
+    data: { hash: string; pageName: string; templateName: string };
+    params: T;
+    props: P;
+}) => Promise<HTMLElement>;
 
 export type Page<T = Record<string, any>, P = Record<string, any>> = (arg0: {
+    data: { hash: string; pageName: string; templateName: string };
     params: T;
     props: P;
 }) => HTMLElement;

@@ -56,10 +56,6 @@ export const HtmlContentFn = async ({ getState, staticProps }) => {
         tag: isSection ? 'section' : 'div',
         className: ['html-content', usePaddingClass],
         content: [
-            {
-                tag: 'mobjs-slot',
-                attributes: { name: 'html-content-top' },
-            },
             [
                 getComponents({
                     data: currentData,

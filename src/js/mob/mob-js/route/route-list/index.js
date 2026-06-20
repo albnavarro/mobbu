@@ -18,18 +18,20 @@ let pageNotFound = '';
 /**
  * @param {object} params
  * @param {string} params.currentHash
+ * @param {string} params.currentName
  * @param {string} params.parentHash
- * @returns {string[]}
+ * @returns {{ hash: string; name: string }[]}
  */
-const getPagePathRecursive = ({ currentHash, parentHash }) => {
+const getPagePathRecursive = ({ currentHash, currentName, parentHash }) => {
     const parentPage = routeList.find(({ hash }) => hash === parentHash);
-    if (!parentPage) return [currentHash];
+    if (!parentPage) return [{ name: currentName, hash: currentHash }];
 
     return [
-        currentHash,
+        { name: currentName, hash: currentHash },
         ...getPagePathRecursive({
             currentHash: parentPage.hash,
             parentHash: parentPage?.parent ?? '',
+            currentName: parentPage.pageName ?? '',
         }),
     ];
 };
@@ -39,7 +41,7 @@ const getPagePathRecursive = ({ currentHash, parentHash }) => {
  *
  * @param {object} params
  * @param {string} params.hash
- * @returns {string[]}
+ * @returns {{ hash: string; name: string }[]}
  */
 export const getPagePath = ({ hash }) => {
     const lastDepthNode = routeList.find(
@@ -50,6 +52,7 @@ export const getPagePath = ({ hash }) => {
 
     return getPagePathRecursive({
         parentHash: lastDepthNode?.parent ?? '',
+        currentName: lastDepthNode?.pageName ?? '',
         currentHash: lastDepthNode.hash,
     }).toReversed();
 };

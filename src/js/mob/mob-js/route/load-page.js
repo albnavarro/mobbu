@@ -144,9 +144,19 @@ export const loadPage = async ({
     const props = routeObejct?.props ?? {};
 
     /**
+     * Get route data,
+     */
+    const routeData = {
+        hash: routeObejct?.hash ?? '',
+        pageName: routeObejct?.pageName ?? '',
+        templateName: routeObejct?.templateName ?? '',
+    };
+
+    /**
      * Get route DOM,
      */
-    const content = (await routeObejct?.layout?.({ params, props })) ?? '';
+    const content =
+        (await routeObejct?.layout?.({ data: routeData, params, props })) ?? '';
 
     /**
      * Clone old route. Execute function to manipulate old Node.

@@ -80,14 +80,6 @@ const initApp = async () => {
 
             getScrollbarWith();
             skipRouteLoader(false);
-
-            /**
-             * Test
-             */
-            console.log(MobJs.getPageTree());
-            console.log(MobJs.getPagePath({ hash: 'mobCore-overview' }));
-            console.log(MobJs.getPagePath({ hash: 'move3D-shape1' }));
-            console.log(MobJs.getPagePath({ hash: 'mobJs-setState' }));
         },
         // redirect: ({ route }) => { },
         restoreScroll: true,
