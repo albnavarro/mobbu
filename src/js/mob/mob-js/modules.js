@@ -33,4 +33,5 @@ export { loadUrl } from './route/router';
 export { staticProps } from './utils';
 export { getRoot } from './route/dom-ref/root';
 export { getPageTree } from './route/route-list/parent-tree';
+export { getPageTreeFromPath } from './route/route-list/parent-tree';
 export { getPagePath } from './route/route-list';

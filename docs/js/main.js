@@ -5293,6 +5293,7 @@
     getIdByInstanceName: () => getIdByInstanceName,
     getPagePath: () => getPagePath,
     getPageTree: () => getPageTree,
+    getPageTreeFromPath: () => getPageTreeFromPath,
     getParentIdById: () => getParentIdById,
     getPropsFromParent: () => getPropsFromParent,
     getRoot: () => getRoot,
@@ -7099,6 +7100,26 @@
     });
   };
   var getPageTree = () => parentList;
+  var getPageTreeFromPathRecursive = ({ hash, children }) => {
+    for (const node of children) {
+      if (node.hash === hash) return node.children;
+      if (node.children.length > 0) {
+        getPageTreeFromPathRecursive({ hash, children: node.children });
+      }
+    }
+  };
+  var getPageTreeFromPath = (hash) => {
+    for (const node of parentList) {
+      if (node.hash === hash) return node.children;
+      if (node.children.length > 0) {
+        const result = getPageTreeFromPathRecursive({
+          hash,
+          children: node.children
+        });
+        if (result) return result;
+      }
+    }
+  };
 
   // src/js/mob/mob-js/route/route-list/index.js
   var routeList = [];

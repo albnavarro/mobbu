@@ -56,3 +56,41 @@ export const setParentList = (routes) => {
 
 /** @returns {ParentList[]} */
 export const getPageTree = () => parentList;
+
+/**
+ * @param {object} params
+ * @param {string} params.hash
+ * @param {ParentList[]} params.children
+ * @returns {ParentList[] | undefined}
+ */
+export const getPageTreeFromPathRecursive = ({ hash, children }) => {
+    for (const node of children) {
+        if (node.hash === hash) return node.children;
+
+        if (node.children.length > 0) {
+            getPageTreeFromPathRecursive({ hash, children: node.children });
+        }
+    }
+};
+
+/**
+ * @param {string} hash
+ * @returns {ParentList[] | undefined}
+ */
+export const getPageTreeFromPath = (hash) => {
+    for (const node of parentList) {
+        if (node.hash === hash) return node.children;
+
+        /**
+         * Return first valid result from nested pages
+         */
+        if (node.children.length > 0) {
+            const result = getPageTreeFromPathRecursive({
+                hash,
+                children: node.children,
+            });
+
+            if (result) return result;
+        }
+    }
+};

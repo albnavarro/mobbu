@@ -12,6 +12,7 @@ import { initMainLoader } from './main-loader';
 import { skipRouteLoader } from '@commonComponent/route-loader/utils';
 import { setFocusToH1 } from '@componentLibs/utils/set-focus-to-h1';
 import { updateHighlightTheme } from '@componentLibs/utils/theme-color';
+import { getPageTreeFromPath } from './mob/mob-js/route/route-list/parent-tree';
 // import { testModule } from './test';
 
 const fpsLoopNumber = 60;
