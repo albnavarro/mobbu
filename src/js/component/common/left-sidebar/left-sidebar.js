@@ -12,18 +12,6 @@
 import { htmlObject, MobJs } from '@mobJs';
 import { docsTemplate } from '@pages/index';
 
-/** @type{(value: string) => string} */
-const removeHashFromRoute = (value) => value.replaceAll('#', '');
-
-/**
- * @param {object} params
- * @param {string} params.activeRoute
- * @param {{ baseRoute: string; currentRoute: string }[]} params.baseRoutes
- * @returns {{ baseRoute: string; currentRoute: string } | undefined}
- */
-const getCurrentRouteData = ({ activeRoute, baseRoutes }) =>
-    baseRoutes.find(({ currentRoute }) => activeRoute === currentRoute);
-
 /**
  * @param {object} params
  * @param {ProxiSelfState<LeftSidebar>} params.selfProxi
@@ -33,9 +21,7 @@ const getCurrentRouteData = ({ activeRoute, baseRoutes }) =>
  * @returns {HTMLElement[]}
  */
 const getList = ({ selfProxi, boundedProxi, bindEffect, delegateEvents }) => {
-    return selfProxi.data.map(({ label, url }) => {
-        const urlParsed = removeHashFromRoute(url);
-
+    return selfProxi.data.map(({ name, hash }) => {
         return htmlObject({
             className: 'item',
             tag: 'li',
@@ -46,48 +32,65 @@ const getList = ({ selfProxi, boundedProxi, bindEffect, delegateEvents }) => {
                 modules: [
                     delegateEvents({
                         click: () => {
-                            MobJs.loadUrl({ url });
+                            MobJs.loadUrl({ url: hash });
                         },
                     }),
                     bindEffect({
                         toggleClass: {
                             active: () => {
-                                const currentItem = getCurrentRouteData({
-                                    activeRoute: boundedProxi.activeRoute.route,
-                                    baseRoutes: selfProxi.baseRoutes,
+                                /**
+                                 * Check id current button hash match to some routes path
+                                 */
+                                const paths = MobJs.getPagePath({
+                                    hash: boundedProxi.activeRoute.route,
                                 });
 
-                                return currentItem?.baseRoute === urlParsed;
+                                /**
+                                 * Current route math with one of current path tree
+                                 */
+                                return paths.some(
+                                    ({ hash: currentHash }) =>
+                                        currentHash === hash
+                                );
                             },
                         },
                         toggleAttribute: {
                             'aria-current': () => {
-                                const currentItem = getCurrentRouteData({
-                                    activeRoute: boundedProxi.activeRoute.route,
-                                    baseRoutes: selfProxi.baseRoutes,
+                                /**
+                                 * Check id current button hash match to some routes path
+                                 */
+                                const paths = MobJs.getPagePath({
+                                    hash: boundedProxi.activeRoute.route,
                                 });
 
                                 /**
-                                 * Non é la pagina corrente
+                                 * Current route math with one of current path tree
                                  */
-                                if (currentItem?.baseRoute !== urlParsed)
-                                    return null;
+                                const isMatched = paths.some(
+                                    ({ hash: currentHash }) =>
+                                        currentHash === hash
+                                );
 
                                 /**
-                                 * E la pagina esatta.
+                                 * No matches with current route
                                  */
-                                if (currentItem?.currentRoute === urlParsed)
+                                if (!isMatched) return null;
+
+                                /**
+                                 * Exact page
+                                 */
+                                if (boundedProxi.activeRoute.route === hash)
                                     return 'page';
 
                                 /**
-                                 * E' un sottolivello
+                                 * Is children page
                                  */
                                 return 'true';
                             },
                         },
                     }),
                 ],
-                content: label,
+                content: name,
             },
         });
     });
@@ -123,26 +126,6 @@ export const LightSidebarFn = ({
     computed(
         () => selfProxi.isVisible,
         () => selfProxi.data.length > 0
-    );
-
-    /**
-     * Creiamo un array con l' associazione baseRoute ( parent ) e currentRoute.
-     *
-     * - Ci servirá per seleziona la voce attiva anche quando siamo in un sottolivello.
-     * - Il primo livello avrá baseRoute e currentRoute uguali.
-     * - Mappiamo tutti i child si ogni item + l'item stesso abbinando l'url del parente a tutti.
-     */
-    computed(
-        () => selfProxi.baseRoutes,
-        () =>
-            selfProxi.data.flatMap(({ url, children }) =>
-                [url, ...children].map((current) => ({
-                    // Parent url, uguale per tutti.
-                    baseRoute: removeHashFromRoute(url),
-                    // La rotta corrente, un figlio o il parente stesso ( url ).
-                    currentRoute: removeHashFromRoute(current),
-                }))
-            )
     );
 
     return htmlObject({

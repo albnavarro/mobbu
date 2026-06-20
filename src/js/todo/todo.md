@@ -35,34 +35,6 @@
 
 ### Funzioni utils:
 
-##### Page parent ( ritorna un array di rotta in ordine di profondiá )
-```js
-getPageParent({page: 'animatedPatternN1'})
-
-// ['parent-level0', 'parent-level1']
-```
-
-##### Page children ( ritorna semplicemente l'array children di una rotta.
-```js
-getPageChildren({page: 'canvas-overview'})
-
-/**
-*    [
-*        {
-*            page: 'animatedPatternN0',
-*            children: []
-*        },
-*        {
-*            page: 'animatedPatternN1',
-*            children: []
-*        }
-*    ]
-*/
-```
-
-### Sidebar left.
-- Eliminare il `vecchio` `mobJsLeftSidebar` children props.
-- Recuperare la voce di `secondo/primo` livello con `getPageParent()`.
 
 ### Main menu.
 - Applicare quello fatto in sidebrarLeft al menu principale.
@@ -84,7 +56,7 @@ return htmlObject({
 
 - Aggiungere `basePageName` ( `MobJs.inizializeApp` )
 - Aggiungere `pageName, parent` ( `routes[...]` )
-- Aggiungere `MobJs.getPagePath` & `MobJs.getPageTree`.
+- Aggiungere `MobJs.getPagePath` & `MobJs.getPageTree` & `MobJs.getPageTreeFromPath`.
 
 ## Attributes:
 

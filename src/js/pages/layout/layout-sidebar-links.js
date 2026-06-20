@@ -10,9 +10,12 @@ import { getBreadCrumbs } from './get-breadcrumbs';
 
 /** @type {import('@mobJsType').PageAsync} */
 export const layoutSidebarLinks = async ({ props, data }) => {
-    const { source, title, leftSidebar } = props;
+    const { source, title } = props;
     const { data: jsonData } = await loadJsonContent({ source });
-    updateLeftSidebarList(leftSidebar ?? []);
+
+    const path = MobJs.getPagePath({ hash: data.hash });
+    const tree = MobJs.getPageTreeFromPath(path[0].hash);
+    if (tree) updateLeftSidebarList(tree);
 
     return htmlObject({
         component: DocContainer,

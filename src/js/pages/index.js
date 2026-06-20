@@ -38,161 +38,6 @@ export const docsTemplate = new Set([
     PAGE_TEMPLATE_DOCS_DEFAULT,
 ]);
 
-const mobCoreLeftSidebar = [
-    {
-        label: 'store',
-        url: '#mobCore-store',
-        children: [],
-    },
-    {
-        label: 'events',
-        url: '#mobCore-events',
-        children: [],
-    },
-    {
-        label: 'defaults',
-        url: '#mobCore-defaults',
-        children: [],
-    },
-];
-
-const mobJsLeftSidebar = [
-    {
-        label: 'initialization',
-        url: '#mobJs-initialization',
-        children: [],
-    },
-    {
-        label: 'component',
-        url: '#mobJs-component',
-        children: [
-            '#mobJs-onMount',
-            '#mobJs-getProxi',
-            '#mobJs-getState',
-            '#mobJs-setState',
-            '#mobJs-updateState',
-            '#mobJs-computed',
-            '#mobJs-bindStore',
-            '#mobJs-watch',
-            '#mobJs-dataAttribute',
-            '#mobJs-staticProps',
-            '#mobJs-bindProps',
-            '#mobJs-bindtext',
-            '#mobJs-bindObject',
-            '#mobJs-bind-effect',
-            '#mobJs-refs',
-            '#mobJs-bindEvents',
-            '#mobJs-delegateEvents',
-            '#mobJs-instanceName',
-            '#mobJs-methods',
-            '#mobJs-useMethodByName',
-            '#mobJs-useMethodArrayByName',
-            '#mobJs-setStateByName',
-            '#mobJs-updateStateByName',
-            '#mobJs-runtime',
-            '#mobJs-invalidate',
-            '#mobJs-repeat',
-            '#mobJs-invalidate-vs-repeater',
-            '#mobJs-web-component',
-            '#mobJs-slot',
-            '#mobJs-class-list',
-            '#mobJs-unBind',
-            '#mobJs-emit',
-            '#mobJs-emitAsync',
-            '#mobJs-removeDom',
-            '#mobJs-remove',
-            '#mobJs-getChildren',
-            '#mobJs-freezeProp',
-            '#mobJs-unFreezeProp',
-            '#mobJs-getParentId',
-            '#mobJs-watchParent',
-        ],
-    },
-    {
-        label: 'htmlObject',
-        url: '#mobJs-html-object',
-        children: [],
-    },
-    {
-        label: 'routing',
-        url: '#mobJs-routing',
-        children: [],
-    },
-    {
-        label: 'tick',
-        url: '#mobJs-tick',
-        children: [],
-    },
-    {
-        label: 'memory management',
-        url: '#mobJs-memory-management',
-        children: [],
-    },
-    {
-        label: 'utils',
-        url: '#mobJs-utils',
-        children: [],
-    },
-    {
-        label: 'debug',
-        url: '#mobJs-debug',
-        children: [],
-    },
-];
-
-const mobMotionLeftSidebar = [
-    {
-        label: 'tween/spring/lerp',
-        url: '#mobMotion-tween-spring-lerp',
-        children: [],
-    },
-    {
-        label: 'AsyncTimeline',
-        url: '#mobMotion-async-timeline',
-        children: [],
-    },
-    {
-        label: 'sequencer',
-        url: '#mobMotion-sequencer',
-        children: [],
-    },
-    {
-        label: 'SyncTimeline',
-        url: '#mobMotion-sync-timeline',
-        children: [],
-    },
-    {
-        label: 'CreateStagger',
-        url: '#mobMotion-create-stagger',
-        children: [],
-    },
-    {
-        label: 'ScrollTrigger',
-        url: '#mobMotion-scrolltrigger',
-        children: [],
-    },
-    {
-        label: 'Parallax',
-        url: '#mobMotion-parallax',
-        children: [],
-    },
-    {
-        label: 'Stagger',
-        url: '#mobMotion-stagger',
-        children: [],
-    },
-    {
-        label: 'Default',
-        url: '#mobMotion-defaults',
-        children: [],
-    },
-    {
-        label: 'Utils',
-        url: '#mobMotion-utils',
-        children: [],
-    },
-];
-
 /**
  * @type {import('@mobJsType').Route[]}
  */
@@ -422,7 +267,6 @@ export const routes = [
             title: 'mobCore',
             breadCrumbs: [],
             section: 'mobCore',
-            leftSidebar: mobCoreLeftSidebar,
         },
     },
     {
@@ -435,7 +279,6 @@ export const routes = [
         props: {
             source: './data/mob-core/defaults.json',
             section: 'mobCore',
-            leftSidebar: mobCoreLeftSidebar,
         },
     },
     {
@@ -448,7 +291,6 @@ export const routes = [
         props: {
             source: './data/mob-core/events.json',
             section: 'mobCore',
-            leftSidebar: mobCoreLeftSidebar,
         },
     },
     {
@@ -461,7 +303,6 @@ export const routes = [
         props: {
             source: './data/mob-core/store.json',
             section: 'mobCore',
-            leftSidebar: mobCoreLeftSidebar,
         },
     },
     {
@@ -475,7 +316,6 @@ export const routes = [
             title: 'mobJs',
             breadCrumbs: [],
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -488,7 +328,6 @@ export const routes = [
         props: {
             source: './data/mob-js/initialization.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -501,7 +340,6 @@ export const routes = [
         props: {
             source: './data/mob-js/component.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -514,7 +352,6 @@ export const routes = [
         props: {
             source: './data/mob-js/routing.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -527,7 +364,6 @@ export const routes = [
         props: {
             source: './data/mob-js/tick.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -540,7 +376,6 @@ export const routes = [
         props: {
             source: './data/mob-js/utils.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -553,7 +388,6 @@ export const routes = [
         props: {
             source: './data/mob-js/memory-management.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -566,7 +400,6 @@ export const routes = [
         props: {
             source: './data/mob-js/html-object.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -579,7 +412,6 @@ export const routes = [
         props: {
             source: './data/mob-js/debug.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -592,7 +424,6 @@ export const routes = [
         props: {
             source: './data/mob-js/on-mount.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -605,7 +436,6 @@ export const routes = [
         props: {
             source: './data/mob-js/get-state.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -618,7 +448,6 @@ export const routes = [
         props: {
             source: './data/mob-js/set-state.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -631,7 +460,6 @@ export const routes = [
         props: {
             source: './data/mob-js/update-state.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -644,7 +472,6 @@ export const routes = [
         props: {
             source: './data/mob-js/get-proxi.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -657,7 +484,6 @@ export const routes = [
         props: {
             source: './data/mob-js/watch.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -670,7 +496,6 @@ export const routes = [
         props: {
             source: './data/mob-js/static-props.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -683,7 +508,6 @@ export const routes = [
         props: {
             source: './data/mob-js/data-attribute.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -696,7 +520,6 @@ export const routes = [
         props: {
             source: './data/mob-js/bind-props.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -709,7 +532,6 @@ export const routes = [
         props: {
             source: './data/mob-js/bind-events.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -722,7 +544,6 @@ export const routes = [
         props: {
             source: './data/mob-js/delegate-events.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -735,7 +556,6 @@ export const routes = [
         props: {
             source: './data/mob-js/bind-text.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -748,7 +568,6 @@ export const routes = [
         props: {
             source: './data/mob-js/bind-object.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -761,7 +580,6 @@ export const routes = [
         props: {
             source: './data/mob-js/bind-effect.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -774,7 +592,6 @@ export const routes = [
         props: {
             source: './data/mob-js/methods.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -787,7 +604,6 @@ export const routes = [
         props: {
             source: './data/mob-js/use-method-by-name.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -800,7 +616,6 @@ export const routes = [
         props: {
             source: './data/mob-js/use-method-array-by-name.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -813,7 +628,6 @@ export const routes = [
         props: {
             source: './data/mob-js/set-state-by-name.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -826,7 +640,6 @@ export const routes = [
         props: {
             source: './data/mob-js/update-state-by-name.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -839,7 +652,6 @@ export const routes = [
         props: {
             source: './data/mob-js/refs.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -852,7 +664,6 @@ export const routes = [
         props: {
             source: './data/mob-js/runtime.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -865,7 +676,6 @@ export const routes = [
         props: {
             source: './data/mob-js/repeat.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -878,7 +688,6 @@ export const routes = [
         props: {
             source: './data/mob-js/invalidate.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -891,7 +700,6 @@ export const routes = [
         props: {
             source: './data/mob-js/invalidate-vs-repeater.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -904,7 +712,6 @@ export const routes = [
         props: {
             source: './data/mob-js/web-component.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -917,7 +724,6 @@ export const routes = [
         props: {
             source: './data/mob-js/slot.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -930,7 +736,6 @@ export const routes = [
         props: {
             source: './data/mob-js/unbind.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -943,7 +748,6 @@ export const routes = [
         props: {
             source: './data/mob-js/emit.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -956,7 +760,6 @@ export const routes = [
         props: {
             source: './data/mob-js/emit-async.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -969,7 +772,6 @@ export const routes = [
         props: {
             source: './data/mob-js/computed.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -982,7 +784,6 @@ export const routes = [
         props: {
             source: './data/mob-js/bind-store.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -995,7 +796,6 @@ export const routes = [
         props: {
             source: './data/mob-js/remove-dom.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -1008,7 +808,6 @@ export const routes = [
         props: {
             source: './data/mob-js/remove.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -1021,7 +820,6 @@ export const routes = [
         props: {
             source: './data/mob-js/get-children.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -1034,7 +832,6 @@ export const routes = [
         props: {
             source: './data/mob-js/freeze-prop.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -1047,7 +844,6 @@ export const routes = [
         props: {
             source: './data/mob-js/unfreeze-prop.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -1060,7 +856,6 @@ export const routes = [
         props: {
             source: './data/mob-js/get-parent-id.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -1073,7 +868,6 @@ export const routes = [
         props: {
             source: './data/mob-js/watch-parent.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -1086,7 +880,6 @@ export const routes = [
         props: {
             source: './data/mob-js/instance-name.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -1099,7 +892,6 @@ export const routes = [
         props: {
             source: './data/mob-js/class-list.json',
             section: 'mobJs',
-            leftSidebar: mobJsLeftSidebar,
         },
     },
     {
@@ -1113,7 +905,6 @@ export const routes = [
             title: 'mobMotion',
             breadCrumbs: [],
             section: 'mobMotion',
-            leftSidebar: mobMotionLeftSidebar,
         },
     },
     {
@@ -1126,7 +917,6 @@ export const routes = [
         props: {
             source: './data/mob-motion/stagger.json',
             section: 'mobMotion',
-            leftSidebar: mobMotionLeftSidebar,
         },
     },
     {
@@ -1139,7 +929,6 @@ export const routes = [
         props: {
             source: './data/mob-motion/defaults.json',
             section: 'mobMotion',
-            leftSidebar: mobMotionLeftSidebar,
         },
     },
     {
@@ -1152,7 +941,6 @@ export const routes = [
         props: {
             source: './data/mob-motion/utils.json',
             section: 'mobMotion',
-            leftSidebar: mobMotionLeftSidebar,
         },
     },
     {
@@ -1165,7 +953,6 @@ export const routes = [
         props: {
             source: './data/mob-motion/parallax.json',
             section: 'mobMotion',
-            leftSidebar: mobMotionLeftSidebar,
         },
     },
     {
@@ -1178,7 +965,6 @@ export const routes = [
         props: {
             source: './data/mob-motion/sequencer.json',
             section: 'mobMotion',
-            leftSidebar: mobMotionLeftSidebar,
         },
     },
     {
@@ -1191,7 +977,6 @@ export const routes = [
         props: {
             source: './data/mob-motion/scroll-trigger.json',
             section: 'mobMotion',
-            leftSidebar: mobMotionLeftSidebar,
         },
     },
     {
@@ -1204,7 +989,6 @@ export const routes = [
         props: {
             source: './data/mob-motion/sync-timeline.json',
             section: 'mobMotion',
-            leftSidebar: mobMotionLeftSidebar,
         },
     },
     {
@@ -1217,7 +1001,6 @@ export const routes = [
         props: {
             source: './data/mob-motion/create-stagger.json',
             section: 'mobMotion',
-            leftSidebar: mobMotionLeftSidebar,
         },
     },
     {
@@ -1230,7 +1013,6 @@ export const routes = [
         props: {
             source: './data/mob-motion/async-timeline.json',
             section: 'mobMotion',
-            leftSidebar: mobMotionLeftSidebar,
         },
     },
     {
@@ -1243,7 +1025,6 @@ export const routes = [
         props: {
             source: './data/mob-motion/tween-spring-lerp.json',
             section: 'mobMotion',
-            leftSidebar: mobMotionLeftSidebar,
         },
     },
     {

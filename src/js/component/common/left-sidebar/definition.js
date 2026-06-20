@@ -16,10 +16,6 @@ export const LeftSidebar = MobJs.createComponent(
                 __value: [],
                 __type: Array,
             },
-            baseRoutes: {
-                __value: [],
-                __type: Array,
-            },
             isVisible: {
                 __value: false,
                 __type: Boolean,
