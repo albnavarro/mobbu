@@ -1,45 +1,5 @@
 # MobJs
 
-## Route parent.
-
-### Aggiungere parent nella definizione della rotta:
-```js
-{
-    hash: 'animatedPatternN0',
-    layout: animatedPatternN0,
-    templateName: PAGE_TEMPLATE_ANIMATION,
-    pageName: 'animatedPatternN0',
-    parent: 'canvas-overview',
-    props: {},
-},
-```
-
-### Estrarre un oggetto alberatura:
-```js
-[
-    {
-        page: 'canvas-overview',
-        children: [
-            {
-                page: 'animatedPatternN0',
-                children: []
-            },
-            {
-                page: 'animatedPatternN1',
-                children: []
-            }
-        ]
-    }
-]
-```
-
-### Funzioni utils:
-
-
-### Main menu.
-- Applicare quello fatto in sidebrarLeft al menu principale.
-- Fare riferimento sempre all avoce di livello 0.
-
 ## InstanceName
 
 - Spstare l'ttributo all' interno di `htmlObject`
@@ -55,8 +15,6 @@ return htmlObject({
 ## Doc
 
 - Aggiungere `basePageName` ( `MobJs.inizializeApp` )
-- Aggiungere `pageName, parent` ( `routes[...]` )
-- Aggiungere `MobJs.getPagePath` & `MobJs.getPageTree` & `MobJs.getPageTreeFromPath`.
 
 ## Attributes:
 
