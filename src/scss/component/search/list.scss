@@ -1,7 +1,7 @@
 @use '../../abstract' as *;
 
 @layer layout {
-    @scope (.c-search-list) {
+    @scope (.c-search-list) to (.search-list-item > *) {
         :scope {
             position: relative;
             block-size: 100%;

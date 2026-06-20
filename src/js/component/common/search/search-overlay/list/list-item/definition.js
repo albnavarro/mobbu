@@ -16,8 +16,8 @@ export const SearchOverlayListItem = MobJs.createComponent(
                 __type: String,
             },
             breadCrumbs: {
-                __value: '',
-                __type: String,
+                __value: [],
+                __type: Array,
             },
             title: {
                 __value: '',

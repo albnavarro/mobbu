@@ -41643,7 +41643,7 @@
     const data = await response.json();
     return {
       success: true,
-      data: data.data,
+      data: data?.data ?? [{ component: "", props: {} }],
       uri,
       title,
       section,
@@ -41654,14 +41654,14 @@
   var componentWithContent = /* @__PURE__ */ new Set(["mob-title", "mob-paragraph"]);
   var listComponent = /* @__PURE__ */ new Set(["mob-list"]);
   var fetchSearchResult = async ({ currentSearch = "" }) => {
-    const pageList = routes.filter(({ props }) => {
-      return props?.source && props?.title;
-    }).map(({ hash, props }) => {
+    const pageList = routes.filter(({ pageName, props }) => {
+      return props?.source && pageName;
+    }).map(({ hash, pageName, props }) => {
       return {
         fn: executeFetch({
           source: props.source ?? "",
           uri: hash ?? "uri not forud",
-          title: props.title ?? "title not found",
+          title: pageName ?? "title not found",
           section: props.section ?? "title not found",
           breadCrumbs: props.breadCrumbs ?? []
         })
@@ -41669,7 +41669,7 @@
     });
     const result = await Promise.all(pageList.map(({ fn }) => fn));
     const initialState = [];
-    const resultParsed = result.filter(({ success }) => success).map(({ data, uri, title, section, breadCrumbs }) => {
+    const resultParsed = result.filter(({ success }) => success).map(({ data, uri, title, section }) => {
       const dataParsed = data.reduce((previous, current) => {
         if (!current) return previous;
         const { component } = current;
@@ -41702,7 +41702,7 @@
         uri,
         title,
         section,
-        breadCrumbs,
+        breadCrumbs: modules_exports2.getPagePath({ hash: uri }),
         data: filterDataByContent
       };
     });
@@ -41718,15 +41718,11 @@
       return 1;
     }).map(({ title, uri, section, breadCrumbs, data }) => {
       const count = data.join("").toLowerCase().split(currentSearch.toLowerCase());
-      const breadCrumbsParsed = breadCrumbs.length > 0 ? breadCrumbs.reduce((previous, current, index) => {
-        const slash = index > 0 ? "/" : "";
-        return `${previous}${slash}${current.title}`;
-      }, "") : title;
       return {
         title,
         uri,
         section,
-        breadCrumbs: breadCrumbsParsed,
+        breadCrumbs,
         count: count?.length ?? 0
       };
     });
@@ -41752,11 +41748,32 @@
     getSelfProxi,
     bindEffect,
     delegateEvents,
-    bindObject
+    bindObject,
+    invalidate
   }) => {
     const proxi = getSelfProxi();
+    const breadCrumbs = invalidate({
+      observe: () => proxi.breadCrumbs,
+      render: () => {
+        return htmlObject({
+          tag: "ul",
+          content: [
+            proxi.breadCrumbs.map((item, index) => {
+              const slash = index === 0 ? "" : "/";
+              return htmlObject({
+                tag: "li",
+                className: "path-item",
+                content: `${slash}${item.name}`
+              });
+            }),
+            `<li class='counter'> (${proxi.count})</li>`
+          ]
+        });
+      }
+    });
     return htmlObject({
       tag: "li",
+      className: "search-list-item",
       modules: bindEffect({
         toggleClass: {
           current: () => proxi.active
@@ -41781,8 +41798,7 @@
           {
             className: "item-section",
             content: {
-              tag: "p",
-              content: bindObject`<strong>${() => proxi.breadCrumbs}</strong> (${() => proxi.count})`
+              content: breadCrumbs
             }
           },
           {
@@ -41806,8 +41822,8 @@
           __type: String
         },
         breadCrumbs: {
-          __value: "",
-          __type: String
+          __value: [],
+          __type: Array
         },
         title: {
           __value: "",

@@ -20,11 +20,34 @@ export const SearchOverlayListItemFn = ({
     bindEffect,
     delegateEvents,
     bindObject,
+    invalidate,
 }) => {
     const proxi = getSelfProxi();
 
+    const breadCrumbs = invalidate({
+        observe: () => proxi.breadCrumbs,
+        render: () => {
+            return htmlObject({
+                tag: 'ul',
+                content: [
+                    proxi.breadCrumbs.map((item, index) => {
+                        const slash = index === 0 ? '' : '/';
+
+                        return htmlObject({
+                            tag: 'li',
+                            className: 'path-item',
+                            content: `${slash}${item.name}`,
+                        });
+                    }),
+                    `<li class='counter'> (${proxi.count})</li>`,
+                ],
+            });
+        },
+    });
+
     return htmlObject({
         tag: 'li',
+        className: 'search-list-item',
         modules: bindEffect({
             toggleClass: {
                 current: () => proxi.active,
@@ -49,8 +72,7 @@ export const SearchOverlayListItemFn = ({
                 {
                     className: 'item-section',
                     content: {
-                        tag: 'p',
-                        content: bindObject`<strong>${() => proxi.breadCrumbs}</strong> (${() => proxi.count})`,
+                        content: breadCrumbs,
                     },
                 },
                 {

@@ -8,7 +8,7 @@ export interface SearchListItem {
     title: string;
     uri: string;
     section: string;
-    breadCrumbs: string;
+    breadCrumbs: { hash: string; name: string }[];
     count: number;
 }
 

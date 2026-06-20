@@ -1,3 +1,4 @@
+import { MobJs } from '@mobJs';
 import { routes } from '@pages/index';
 
 /**
@@ -40,7 +41,7 @@ export const executeFetch = async ({
 
     return {
         success: true,
-        data: data.data,
+        data: data?.data ?? [{ component: '', props: {} }],
         uri,
         title,
         section,
@@ -58,15 +59,15 @@ const listComponent = new Set(['mob-list']);
  */
 export const fetchSearchResult = async ({ currentSearch = '' }) => {
     const pageList = routes
-        .filter(({ props }) => {
-            return props?.source && props?.title;
+        .filter(({ pageName, props }) => {
+            return props?.source && pageName;
         })
-        .map(({ hash, props }) => {
+        .map(({ hash, pageName, props }) => {
             return {
                 fn: executeFetch({
                     source: props.source ?? '',
                     uri: hash ?? 'uri not forud',
-                    title: props.title ?? 'title not found',
+                    title: pageName ?? 'title not found',
                     section: props.section ?? 'title not found',
                     breadCrumbs: props.breadCrumbs ?? [],
                 }),
@@ -82,7 +83,7 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
 
     const resultParsed = result
         .filter(({ success }) => success)
-        .map(({ data, uri, title, section, breadCrumbs }) => {
+        .map(({ data, uri, title, section }) => {
             /**
              * Extract HTMl-content
              */
@@ -148,7 +149,7 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
                 uri,
                 title,
                 section,
-                breadCrumbs,
+                breadCrumbs: MobJs.getPagePath({ hash: uri }),
                 data: filterDataByContent,
             };
         });
@@ -183,19 +184,11 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
                 .toLowerCase()
                 .split(currentSearch.toLowerCase());
 
-            const breadCrumbsParsed =
-                breadCrumbs.length > 0
-                    ? breadCrumbs.reduce((previous, current, index) => {
-                          const slash = index > 0 ? '/' : '';
-                          return `${previous}${slash}${current.title}`;
-                      }, '')
-                    : title;
-
             return {
                 title,
                 uri,
                 section,
-                breadCrumbs: breadCrumbsParsed,
+                breadCrumbs,
                 count: count?.length ?? 0,
             };
         });

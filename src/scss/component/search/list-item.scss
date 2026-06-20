@@ -1,0 +1,40 @@
+@use '../../abstract' as *;
+
+@layer layout {
+    @scope (.search-list-item) {
+        button {
+            inline-size: 100%;
+            padding: rem(2) rem(4);
+            border: 0;
+            background: transparent;
+            text-align: start;
+        }
+
+        .item-section {
+            p {
+                margin-block-end: 0;
+            }
+        }
+
+        h6 {
+            display: inline-block;
+            margin-block-end: 0;
+        }
+
+        ul {
+            margin-block-end: 0;
+            margin-inline-start: 0;
+            list-style: none;
+        }
+
+        li {
+            display: inline-block;
+            font-size: rem(12);
+            font-weight: 700;
+        }
+
+        .counter {
+            margin-inline-start: rem(6);
+        }
+    }
+}
