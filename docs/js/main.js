@@ -26805,13 +26805,10 @@
     component: ScrollTopFn
   });
 
-  // src/js/pages/layout/layout-sidebar-anchor.js
-  var layoutSidebarAnchor = async ({ props, data }) => {
-    const { source, title, leftSidebar } = props;
-    const { data: jsonData } = await loadJsonContent({ source });
-    updateLeftSidebarList(leftSidebar ?? []);
+  // src/js/pages/layout/get-breadcrumbs.js
+  var getBreadCrumbs = (data) => {
     const path = modules_exports2.getPagePath({ hash: data.hash });
-    const breadCrumbsContent = [
+    return [
       modules_exports2.getPagePath({ hash: data.hash }).map((page, index) => {
         return index === path.length - 1 ? htmlObject({
           tag: "li",
@@ -26833,6 +26830,13 @@
         });
       })
     ];
+  };
+
+  // src/js/pages/layout/layout-sidebar-anchor.js
+  var layoutSidebarAnchor = async ({ props, data }) => {
+    const { source, title, leftSidebar } = props;
+    const { data: jsonData } = await loadJsonContent({ source });
+    updateLeftSidebarList(leftSidebar ?? []);
     return htmlObject({
       component: DocContainer,
       attributes: { name: docContainerName },
@@ -26857,7 +26861,7 @@
               content: {
                 tag: "ul",
                 className: "c-breadCrumbs",
-                content: breadCrumbsContent
+                content: getBreadCrumbs(data)
               }
             },
             {
@@ -26886,29 +26890,6 @@
     const { source, title, leftSidebar } = props;
     const { data: jsonData } = await loadJsonContent({ source });
     updateLeftSidebarList(leftSidebar ?? []);
-    const path = modules_exports2.getPagePath({ hash: data.hash });
-    const breadCrumbsContent = [
-      path.map((page, index) => {
-        return index === path.length - 1 ? htmlObject({
-          tag: "li",
-          content: {
-            tag: "span",
-            content: data.pageName,
-            attributes: { "aria-current": "page" }
-          }
-        }) : htmlObject({
-          tag: "li",
-          content: {
-            tag: "a",
-            className: "link",
-            attributes: {
-              href: `./#${page.hash}`
-            },
-            content: page.name
-          }
-        });
-      })
-    ];
     return htmlObject({
       component: DocContainer,
       attributes: { name: docContainerName },
@@ -26933,7 +26914,7 @@
               content: {
                 tag: "ul",
                 className: "c-breadCrumbs",
-                content: breadCrumbsContent
+                content: getBreadCrumbs(data)
               }
             },
             {

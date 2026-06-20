@@ -6,42 +6,13 @@ import { loadJsonContent } from '@utils/utils';
 import { updateLeftSidebarList } from '@commonComponent/left-sidebar/utils';
 import { docContainerName } from '@instanceName';
 import { ScrollTop } from '@commonComponent/scroll-top/definition';
+import { getBreadCrumbs } from './get-breadcrumbs';
 
 /** @type {import('@mobJsType').PageAsync} */
 export const layoutSidebarLinks = async ({ props, data }) => {
     const { source, title, leftSidebar } = props;
     const { data: jsonData } = await loadJsonContent({ source });
     updateLeftSidebarList(leftSidebar ?? []);
-
-    /**
-     * Create bradcrumbs
-     */
-    const path = MobJs.getPagePath({ hash: data.hash });
-
-    const breadCrumbsContent = [
-        path.map((page, index) => {
-            return index === path.length - 1
-                ? htmlObject({
-                      tag: 'li',
-                      content: {
-                          tag: 'span',
-                          content: data.pageName,
-                          attributes: { 'aria-current': 'page' },
-                      },
-                  })
-                : htmlObject({
-                      tag: 'li',
-                      content: {
-                          tag: 'a',
-                          className: 'link',
-                          attributes: {
-                              href: `./#${page.hash}`,
-                          },
-                          content: page.name,
-                      },
-                  });
-        }),
-    ];
 
     return htmlObject({
         component: DocContainer,
@@ -67,7 +38,7 @@ export const layoutSidebarLinks = async ({ props, data }) => {
                         content: {
                             tag: 'ul',
                             className: 'c-breadCrumbs',
-                            content: breadCrumbsContent,
+                            content: getBreadCrumbs(data),
                         },
                     },
                     {
