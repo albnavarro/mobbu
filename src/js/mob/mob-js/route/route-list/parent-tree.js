@@ -4,21 +4,13 @@ let parentList = [];
 /**
  * @param {object} params
  * @param {string} params.hash
- * @param {string} params.name
  * @param {import('../../type').Route[]} params.routes
  * @returns {ParentList[]}
  */
-export const recursiveParentList = ({ hash, name, routes }) => {
+export const recursiveParentList = ({ hash, routes }) => {
     const children = routes.filter(({ parent }) => parent === hash);
 
-    if (!children)
-        return [
-            {
-                hash: hash,
-                name,
-                children: [],
-            },
-        ];
+    if (children.length === 0) return [];
 
     return children.map(({ hash: currentHash, pageName: currentPageName }) => {
         return {
@@ -26,7 +18,6 @@ export const recursiveParentList = ({ hash, name, routes }) => {
             name: currentPageName ?? '',
             children: recursiveParentList({
                 hash: currentHash,
-                name: currentPageName ?? '',
                 routes,
             }),
         };
@@ -47,7 +38,6 @@ export const setParentList = (routes) => {
             name: pageName ?? '',
             children: recursiveParentList({
                 hash,
-                name: pageName ?? '',
                 routes,
             }),
         };
@@ -60,32 +50,18 @@ export const getPageTree = () => parentList;
 /**
  * @param {object} params
  * @param {string} params.hash
- * @param {ParentList[]} params.children
+ * @param {ParentList[]} [params.children]
  * @returns {ParentList[] | undefined}
  */
-export const getPageTreeFromPathRecursive = ({ hash, children }) => {
+export const getPageTreeFromPath = ({ hash, children = parentList }) => {
     for (const node of children) {
-        if (node.hash === hash) return node.children;
-
-        if (node.children.length > 0) {
-            getPageTreeFromPathRecursive({ hash, children: node.children });
-        }
-    }
-};
-
-/**
- * @param {string} hash
- * @returns {ParentList[] | undefined}
- */
-export const getPageTreeFromPath = (hash) => {
-    for (const node of parentList) {
         if (node.hash === hash) return node.children;
 
         /**
          * Return first valid result from nested pages
          */
         if (node.children.length > 0) {
-            const result = getPageTreeFromPathRecursive({
+            const result = getPageTreeFromPath({
                 hash,
                 children: node.children,
             });

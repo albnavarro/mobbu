@@ -7061,23 +7061,15 @@
 
   // src/js/mob/mob-js/route/route-list/parent-tree.js
   var parentList = [];
-  var recursiveParentList = ({ hash, name, routes: routes2 }) => {
+  var recursiveParentList = ({ hash, routes: routes2 }) => {
     const children = routes2.filter(({ parent }) => parent === hash);
-    if (!children)
-      return [
-        {
-          hash,
-          name,
-          children: []
-        }
-      ];
+    if (children.length === 0) return [];
     return children.map(({ hash: currentHash, pageName: currentPageName }) => {
       return {
         hash: currentHash,
         name: currentPageName ?? "",
         children: recursiveParentList({
           hash: currentHash,
-          name: currentPageName ?? "",
           routes: routes2
         })
       };
@@ -7093,26 +7085,17 @@
         name: pageName ?? "",
         children: recursiveParentList({
           hash,
-          name: pageName ?? "",
           routes: routes2
         })
       };
     });
   };
   var getPageTree = () => parentList;
-  var getPageTreeFromPathRecursive = ({ hash, children }) => {
+  var getPageTreeFromPath = ({ hash, children = parentList }) => {
     for (const node of children) {
       if (node.hash === hash) return node.children;
       if (node.children.length > 0) {
-        getPageTreeFromPathRecursive({ hash, children: node.children });
-      }
-    }
-  };
-  var getPageTreeFromPath = (hash) => {
-    for (const node of parentList) {
-      if (node.hash === hash) return node.children;
-      if (node.children.length > 0) {
-        const result = getPageTreeFromPathRecursive({
+        const result = getPageTreeFromPath({
           hash,
           children: node.children
         });
@@ -26858,7 +26841,7 @@
     const { source, title } = props;
     const { data: jsonData } = await loadJsonContent({ source });
     const path = modules_exports2.getPagePath({ hash: data.hash });
-    const tree = modules_exports2.getPageTreeFromPath(path[0].hash);
+    const tree = modules_exports2.getPageTreeFromPath({ hash: path[0].hash });
     if (tree) updateLeftSidebarList(tree);
     return htmlObject({
       component: DocContainer,
@@ -26913,7 +26896,7 @@
     const { source, title } = props;
     const { data: jsonData } = await loadJsonContent({ source });
     const path = modules_exports2.getPagePath({ hash: data.hash });
-    const tree = modules_exports2.getPageTreeFromPath(path[0].hash);
+    const tree = modules_exports2.getPageTreeFromPath({ hash: path[0].hash });
     if (tree) updateLeftSidebarList(tree);
     return htmlObject({
       component: DocContainer,

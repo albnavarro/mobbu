@@ -14,7 +14,7 @@ export const layoutSidebarLinks = async ({ props, data }) => {
     const { data: jsonData } = await loadJsonContent({ source });
 
     const path = MobJs.getPagePath({ hash: data.hash });
-    const tree = MobJs.getPageTreeFromPath(path[0].hash);
+    const tree = MobJs.getPageTreeFromPath({ hash: path[0].hash });
     if (tree) updateLeftSidebarList(tree);
 
     return htmlObject({
