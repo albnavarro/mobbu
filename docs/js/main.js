@@ -42927,7 +42927,12 @@
     computed(
       () => proxi.active,
       () => {
-        return proxi.section === boundedProxi.activeNavigationSection;
+        const paths = modules_exports2.getPagePath({
+          hash: boundedProxi.activeRoute.route
+        });
+        return paths.some(
+          ({ hash: currentHash }) => currentHash === proxi.url
+        );
       }
     );
     return htmlObject({
@@ -42937,7 +42942,18 @@
         bindEffect({
           toggleClass: { current: () => proxi.active },
           toggleAttribute: {
-            "aria-current": () => proxi.active ? "page" : null
+            "aria-current": () => {
+              const paths = modules_exports2.getPagePath({
+                hash: boundedProxi.activeRoute.route
+              });
+              const isMatched = paths.some(
+                ({ hash: currentHash }) => currentHash === proxi.url
+              );
+              if (!isMatched) return null;
+              if (boundedProxi.activeRoute.route === proxi.url)
+                return "page";
+              return "true";
+            }
           }
         }),
         delegateEvents({
@@ -42957,7 +42973,7 @@
     {
       tag: "header-main-menu-button",
       component: HeaderMainMenuButtonFn,
-      bindStore: navigationStore,
+      bindStore: modules_exports2.mainStore,
       props: {
         label: {
           __value: "",

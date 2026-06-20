@@ -1,6 +1,5 @@
 import { MobJs } from '@mobJs';
 import { HeaderMainMenuButtonFn } from './header-main-menu-button';
-import { navigationStore } from '@stores/navigation';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -11,7 +10,7 @@ export const HeaderMainMenuButton = MobJs.createComponent(
     ({
         tag: 'header-main-menu-button',
         component: HeaderMainMenuButtonFn,
-        bindStore: navigationStore,
+        bindStore: MobJs.mainStore,
         props: {
             label: {
                 __value: '',

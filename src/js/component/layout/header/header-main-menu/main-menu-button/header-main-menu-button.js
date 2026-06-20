@@ -20,7 +20,13 @@ export const HeaderMainMenuButtonFn = ({
     computed(
         () => proxi.active,
         () => {
-            return proxi.section === boundedProxi.activeNavigationSection;
+            const paths = MobJs.getPagePath({
+                hash: boundedProxi.activeRoute.route,
+            });
+
+            return paths.some(
+                ({ hash: currentHash }) => currentHash === proxi.url
+            );
         }
     );
 
@@ -31,7 +37,37 @@ export const HeaderMainMenuButtonFn = ({
             bindEffect({
                 toggleClass: { current: () => proxi.active },
                 toggleAttribute: {
-                    'aria-current': () => (proxi.active ? 'page' : null),
+                    'aria-current': () => {
+                        /**
+                         * Check id current button hash match to some routes path
+                         */
+                        const paths = MobJs.getPagePath({
+                            hash: boundedProxi.activeRoute.route,
+                        });
+
+                        /**
+                         * Current route math with one of current path tree
+                         */
+                        const isMatched = paths.some(
+                            ({ hash: currentHash }) => currentHash === proxi.url
+                        );
+
+                        /**
+                         * No matches with current route
+                         */
+                        if (!isMatched) return null;
+
+                        /**
+                         * Exact page
+                         */
+                        if (boundedProxi.activeRoute.route === proxi.url)
+                            return 'page';
+
+                        /**
+                         * Is children page
+                         */
+                        return 'true';
+                    },
                 },
             }),
             delegateEvents({
