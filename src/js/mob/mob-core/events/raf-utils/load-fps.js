@@ -16,7 +16,7 @@ let pendingPromise = null;
  * @param {number} [params.duration]
  * @returns {Promise<import('./type').LoadFps>} The promise launched after the loop
  */
-export const loadFps = ({ force = false, duration = 1 } = {}) => {
+export const loadFps = ({ force = false, duration = 30 } = {}) => {
     if (loadFpsIsReady && !force) {
         const { instantFps } = eventStore.get();
         return Promise.resolve({ averageFPS: instantFps });
