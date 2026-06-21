@@ -50,7 +50,7 @@ if (jsMainLoader && jsMainLoaderBackground) {
 const initApp = async () => {
     await loadData();
     await loadIcons();
-    initMainLoader(fpsLoopNumber);
+    // initMainLoader(fpsLoopNumber);
 
     MobJs.inizializeApp({
         rootId: '#root',
