@@ -51,7 +51,6 @@ const initApp = async () => {
     await loadData();
     await loadIcons();
     initMainLoader(fpsLoopNumber);
-    // await MobCore.useFps({ duration: fpsLoopNumber, force: true });
 
     MobJs.inizializeApp({
         rootId: '#root',
