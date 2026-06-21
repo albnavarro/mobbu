@@ -1,17 +1,5 @@
 # MobJs
 
-## InstanceName
-
-- Spstare l'ttributo all' interno di `htmlObject`
-- l'attributo diventerá `__name`.
-
-```js
-return htmlObject({
-    className: MyComponent,
-    InstanceName: 'my_conponent',
-});
-```
-
 ## Doc
 
 - Aggiungere `basePageName` ( `MobJs.inizializeApp` )

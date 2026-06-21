@@ -34,11 +34,11 @@ export const MyComponent = () => {
         content: [
             {
                 component: MyContent,
-                attributes: { slot: 'left' },
+                slotPosition: 'left',
             },
             {
                 component: MySidebar,
-                attributes: { slot: 'right' },
+                slotPosition: 'right',
             },
         ],
     });

@@ -4,7 +4,7 @@ import { MobJs } from '@mobjs';
  * @import {
  *   MobComponent,
  *   UseMethodByName
- * } from "@mobJsType"
+ * } from '@mobJsType'
  */
 
 /**
@@ -28,7 +28,7 @@ export const MyComponent = ({ onMount }) => {
     return htmlObject({
         content: {
             component: MyChildComponent,
-            attributes: { name: otherComponentName },
+            instanceName: otherComponentName,
         },
     });
 };

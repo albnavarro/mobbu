@@ -12,7 +12,7 @@ export const MyComponent = () => {
     return htmlObject({
         content: {
             component: MyChildComponent,
-            attributes: { name: childInstanceName },
+            instanceName: childInstanceName,
         },
     });
 };

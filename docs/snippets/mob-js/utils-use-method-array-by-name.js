@@ -1,7 +1,7 @@
 import { MobJs } from '@mobjs';
 
 /**
- * @import {UseMethodArrayByName} from "@mobJsType"
+ * @import {UseMethodArrayByName} from '@mobJsType'
  */
 
 /**
@@ -35,27 +35,27 @@ export const MyComponent = ({ onMount }) => {
         content: [
             {
                 component: MyChildComponent,
-                attributes: { name: otherComponentName },
+                instanceName: otherComponentName,
             },
             {
                 component: MyChildComponent,
-                attributes: { name: otherComponentName },
+                instanceName: otherComponentName,
             },
             {
                 component: MyChildComponent,
-                attributes: { name: otherComponentName },
+                instanceName: otherComponentName,
             },
             {
                 component: MyChildComponent,
-                attributes: { name: otherComponentName },
+                instanceName: otherComponentName,
             },
             {
                 component: MyChildComponent,
-                attributes: { name: otherComponentName },
+                instanceName: otherComponentName,
             },
             {
                 component: MyChildComponent,
-                attributes: { name: otherComponentName },
+                instanceName: otherComponentName,
             },
         ],
     });
