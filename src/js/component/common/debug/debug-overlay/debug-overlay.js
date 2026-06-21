@@ -238,7 +238,7 @@ export const DebugOverlayFn = ({
                 if (proxi.listType === DEBUG_USE_TREE && proxi.active)
                     return htmlObject({
                         component: DebugTree,
-                        attributes: { name: debugTreeName },
+                        instanceName: debugTreeName,
                     });
 
                 if (
@@ -247,7 +247,7 @@ export const DebugOverlayFn = ({
                 )
                     return htmlObject({
                         component: DebugFilterList,
-                        attributes: { name: debugFilterListName },
+                        instanceName: debugFilterListName,
                     });
 
                 return htmlObject({});
@@ -337,9 +337,7 @@ export const DebugOverlayFn = ({
                                     ? htmlObject({
                                           content: {
                                               component: DebugComponent,
-                                              attributes: {
-                                                  name: debugComponentName,
-                                              },
+                                              instanceName: debugComponentName,
                                           },
                                       })
                                     : htmlObject({});

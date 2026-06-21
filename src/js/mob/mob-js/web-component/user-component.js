@@ -64,7 +64,7 @@ export const defineUserComponent = (componentList) => {
                 /**
                  * @type {string | undefined | null}
                  */
-                #name;
+                #instanceName;
 
                 /**
                  * @type {string | undefined | null}
@@ -228,7 +228,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 getInstanceName() {
-                    return this.#name;
+                    return this.#instanceName;
                 }
 
                 getStaticPropsId() {
@@ -367,7 +367,7 @@ export const defineUserComponent = (componentList) => {
                         if (host) {
                             /** Get all attribute */
                             [
-                                this.#name,
+                                this.#instanceName,
                                 this.#staticPropsId,
                                 this.#dynamicPropsId,
                                 this.#currentKey,

@@ -22,7 +22,7 @@ export const Recursive3Dshape = ({ data, root, childrenId, debug }) => {
     return data.map(({ children, props }) => {
         return htmlObject({
             component: Move3DItem,
-            attributes: { name: childrenId },
+            instanceName: childrenId,
             modules: MobJs.staticProps(
                 /** @type {import('../move-3d-item/type').Move3DItem['state']} */ ({
                     root,

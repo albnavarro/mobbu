@@ -93,14 +93,14 @@ export const HeaderUtilsFn = ({ delegateEvents }) => {
                     tag: 'li',
                     content: {
                         component: AccessibilityButton,
-                        attributes: { name: accessibilityOverlayCta },
+                        instanceName: accessibilityOverlayCta,
                     },
                 },
                 {
                     tag: 'li',
                     content: {
                         component: SearchCta,
-                        attributes: { name: searchOverlayCta },
+                        instanceName: searchOverlayCta,
                     },
                 },
                 {
@@ -108,9 +108,7 @@ export const HeaderUtilsFn = ({ delegateEvents }) => {
                     className: 'is-debug-open-button',
                     content: {
                         component: DebugButton,
-                        attributes: {
-                            name: debugCtaName,
-                        },
+                        instanceName: debugCtaName,
                         modules: [
                             delegateEvents({
                                 click: () => {

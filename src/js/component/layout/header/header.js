@@ -91,12 +91,12 @@ export const HeaderFn = ({
                         className: 'toggle-cell',
                         content: {
                             component: HeaderToggle,
-                            attributes: { name: mobNavigationToggleName },
+                            instanceName: mobNavigationToggleName,
                         },
                     },
                     {
                         component: NavigationContainer,
-                        attributes: { name: mobNavigationContainerName },
+                        instanceName: mobNavigationContainerName,
                     },
                     {
                         tag: 'button',

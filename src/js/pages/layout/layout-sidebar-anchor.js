@@ -20,7 +20,7 @@ export const layoutSidebarAnchor = async ({ props, data }) => {
 
     return htmlObject({
         component: DocContainer,
-        attributes: { name: docContainerName },
+        instanceName: docContainerName,
         content: [
             {
                 component: HtmlContent,
@@ -55,7 +55,8 @@ export const layoutSidebarAnchor = async ({ props, data }) => {
             },
             {
                 component: ScrollTo,
-                attributes: { name: scrollToName, slot: 'section-links' },
+                attributes: { slot: 'section-links' },
+                instanceName: scrollToName,
             },
             {
                 component: DocTitle,

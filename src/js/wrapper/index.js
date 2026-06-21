@@ -67,23 +67,23 @@ export const wrapper = async () => {
             useScssTestGrid ? '<test-scss-grid></test-scss-grid>' : '',
             {
                 component: Header,
-                attributes: { name: headerName },
+                instanceName: headerName,
             },
             {
                 component: AccessibilityOverlay,
-                attributes: { name: accessibilityOverlayName },
+                instanceName: accessibilityOverlayName,
             },
             {
                 component: SearchOverlay,
-                attributes: { name: searchOverlay },
+                instanceName: searchOverlay,
             },
             {
                 component: DebugOverlay,
-                attributes: { name: debugOverlayName },
+                instanceName: debugOverlayName,
             },
             {
                 component: LeftSidebar,
-                attributes: { name: leftSidebarName },
+                instanceName: leftSidebarName,
             },
             {
                 className: 'main-app-content',
@@ -96,15 +96,15 @@ export const wrapper = async () => {
             },
             {
                 component: RouteLoader,
-                attributes: { name: routeLoader },
+                instanceName: routeLoader,
             },
             {
                 component: ScrollDownLabel,
-                attributes: { name: scrollDownLabelName },
+                instanceName: scrollDownLabelName,
             },
             {
                 component: SideBarLinks,
-                attributes: { name: sideBarLinksName },
+                instanceName: sideBarLinksName,
             },
             {
                 component: Footer,

@@ -66,7 +66,7 @@ export const FooterFn = ({
                     content: [
                         {
                             component: QuickNav,
-                            attributes: { name: quickNavName },
+                            instanceName: quickNavName,
                         },
                         {
                             tag: 'button',

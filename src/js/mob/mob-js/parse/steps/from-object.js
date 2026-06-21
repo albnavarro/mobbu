@@ -1,6 +1,10 @@
 import { MobCore } from '@mobCore';
 import { tagShouldBeComponent } from '../../component/component-tag';
-import { ATTR_BIND_EFFECT, ATTR_BIND_EFFECT_INSTANCE } from '../../constant';
+import {
+    ATTR_BIND_EFFECT,
+    ATTR_BIND_EFFECT_INSTANCE,
+    ATTR_INSTANCENAME,
+} from '../../constant';
 import { mainStore } from '../../modules';
 import { MAIN_STORE_ROUTE_IS_LOADING } from '../../main-store/constant';
 
@@ -111,6 +115,12 @@ export const htmlObject = (data) => {
 
         rootElement.setAttribute(`data-${key}`, /** @type {any} */ (value));
     }
+
+    /**
+     * Add instance name
+     */
+    const instanceName = data?.instanceName;
+    if (instanceName) rootElement.setAttribute(ATTR_INSTANCENAME, instanceName);
 
     /**
      * Modules

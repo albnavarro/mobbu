@@ -141,7 +141,7 @@ export const SearchOverlayFn = ({
                 },
                 {
                     component: SearchOverlayHeader,
-                    attributes: { name: searchOverlayHeader },
+                    instanceName: searchOverlayHeader,
                 },
             ],
         },
@@ -166,7 +166,7 @@ export const SearchOverlayFn = ({
             attributes: { role: 'region', 'aria-label': 'search result' },
             content: {
                 component: SearchOverlayList,
-                attributes: { name: searchOverlayList },
+                instanceName: searchOverlayList,
                 modules: staticProps(
                     /** @type {import('./list/type').SearchOverlayList['props']} */
                     ({

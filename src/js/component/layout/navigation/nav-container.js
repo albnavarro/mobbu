@@ -192,7 +192,7 @@ export const NavigationContainerFn = ({
                     className: 'scroll-element js-nav-scroll',
                     content: {
                         component: Navigation,
-                        attributes: { name: mobNavigationName },
+                        instanceName: mobNavigationName,
                     },
                 },
             },

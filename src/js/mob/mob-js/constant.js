@@ -11,7 +11,7 @@ export const ATTR_IS_COMPONENT = 'data-mobjs';
 /**
  * @type {string} ;
  */
-export const ATTR_INSTANCENAME = 'name';
+export const ATTR_INSTANCENAME = '__instance_name';
 
 /**
  * @type {string} ;
