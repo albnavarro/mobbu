@@ -105,6 +105,8 @@
                                 "<span class='quote'>className</span>",
                                 "<span class='quote'>style</span>",
                                 "<span class='quote'>attributes</span>",
+                                "<span class='quote'>instanceName</span>",
+                                "<span class='quote'>slotPosition</span>",
                                 "<span class='quote'>dataAttributes</span>",
                                 "<span class='quote'>modules</span>",
                                 "<span class='quote'>content</span>"
@@ -286,6 +288,73 @@
                         "props": {
                             "source": "./snippets/mob-js/html-object-data-attributes.js",
                             "numLines": 13
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "instanceName",
+                            "label": "instanceName"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "instanceName"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Here we assign an instance name to a component; the methods of the associated component will be accessible using the utilities:"
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "items": [
+                                "<span class='quote'><a href='#mobJs-useMethodByName'>UseMethodByName</a></span>",
+                                "<span class='quote'><a href='#mobJs-useMethodArrayByName'>UseMethodArrayByName</a></span>",
+                                "<span class='quote'><a href='#mobJs-setStateByName'>SetStateByName</a></span>",
+                                "<span class='quote'><a href='#mobJs-updateStateByName'>UpdateStateByName</a></span>"
+                            ]
+                        }
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/html-object-instance-name.js",
+                            "numLines": 9
+                        }
+                    },
+                    {
+                        "component": "mob-spacer",
+                        "props": {
+                            "id": "slotPosition",
+                            "label": "slotPosition"
+                        }
+                    },
+                    {
+                        "component": "mob-title",
+                        "props": {
+                            "tag": "h3"
+                        },
+                        "content": "slotPosition"
+                    },
+                    {
+                        "component": "mob-paragraph",
+                        "props": {
+                            "style": "medium"
+                        },
+                        "content": "Here we define which <span class='quote'>named slot</span> the component will be placed into."
+                    },
+                    {
+                        "component": "mob-snippet",
+                        "props": {
+                            "source": "./snippets/mob-js/html-object-slot-position.js",
+                            "numLines": 8
                         }
                     },
                     {
