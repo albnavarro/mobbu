@@ -263,7 +263,7 @@ export const router = () => {
     /**
      * Prevent browser to force scroll position.
      */
-    // globalThis.history.scrollRestoration = 'manual';
+    globalThis.history.scrollRestoration = 'manual';
 
     /**
      * Intercetta il popstate (navigazione history del browser).
