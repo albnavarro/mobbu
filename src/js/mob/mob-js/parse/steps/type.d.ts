@@ -89,6 +89,7 @@ export interface FromObjectNodeDescriptor {
     tag?: keyof HTMLElementTagNameMap | (string & {});
     className?: string | string[];
     instanceName?: string;
+    slotPosition?: string;
     style?: Record<string, string>;
     dataAttributes?: Record<
         string,

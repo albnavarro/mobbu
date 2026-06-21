@@ -115,7 +115,7 @@ export const DraggerRoute = async () => {
                          */
                         {
                             component: AnyComponent,
-                            attributes: { slot: 'root-slot' },
+                            slotPosition: 'root-slot',
                             modules: MobJs.staticProps({
                                 content: rootContent,
                             }),
@@ -126,7 +126,7 @@ export const DraggerRoute = async () => {
                          */
                         {
                             component: AnyComponent,
-                            attributes: { slot: 'child-slot' },
+                            slotPosition: 'child-slot',
                             modules: MobJs.staticProps({
                                 content: childContent,
                             }),

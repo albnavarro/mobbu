@@ -23,7 +23,7 @@ export const layoutSidebarLinks = async ({ props, data }) => {
         content: [
             {
                 component: HtmlContent,
-                attributes: { slot: 'docs' },
+                slotPosition: 'docs',
                 modules: MobJs.staticProps(
                     /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
                     ({
@@ -46,15 +46,13 @@ export const layoutSidebarLinks = async ({ props, data }) => {
                     },
                     {
                         component: ScrollTop,
-                        attributes: {
-                            slot: 'html-content-bottom',
-                        },
+                        slotPosition: 'html-content-bottom',
                     },
                 ],
             },
             {
                 component: DocTitle,
-                attributes: { slot: 'section-title' },
+                slotPosition: 'section-title',
                 content: title,
             },
         ],

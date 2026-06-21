@@ -135,7 +135,7 @@ export const DynamicListCardFn = ({
              */
             content: {
                 component: DynamicCounter,
-                attributes: { slot: 'empty-slot' },
+                slotPosition: 'empty-slot',
                 modules: [
                     staticProps(
                         /** @type {DynamicCounterType['props']} */ ({

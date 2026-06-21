@@ -58,7 +58,7 @@ function getRepeaterCard({
                 ],
                 content: {
                     component: DynamicListSlottedLabel,
-                    attributes: { slot: 'card-label-slot' },
+                    slotPosition: 'card-label-slot',
                     modules: bindProps(
                         /** @returns {ReturnBindProps<DynamicListSlottedLabelType>} */
                         () => ({

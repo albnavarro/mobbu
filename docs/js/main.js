@@ -5953,8 +5953,8 @@
   var frameDelayAfterParse = 5;
   var ATTR_IS_COMPONENT = "data-mobjs";
   var ATTR_INSTANCENAME = "__instance_name";
-  var ATTR_COMPONENT_NAME = "name";
-  var ATTR_SLOT = "slot";
+  var ATTR_SLOT_NAME = "name";
+  var ATTR_SLOT_POSITION_NAME = "__slot_position";
   var ATTR_COMPONENT_ID = "__component_id";
   var ATTR_BIND_TEXT_ID = "__bindtext_id";
   var ATTR_BIND_OBJECT_ID = "__bindobject_id";
@@ -6136,7 +6136,7 @@
           if (!useSlotQuery) addSlotPlaceholder(host);
           const { dataset } = this.shadowRoot?.host ?? {};
           if (dataset) {
-            this.#slotName = this.shadowRoot?.host.getAttribute(ATTR_COMPONENT_NAME);
+            this.#slotName = this.shadowRoot?.host.getAttribute(ATTR_SLOT_NAME);
           }
         }
         removeCustomComponent() {
@@ -6432,7 +6432,7 @@
                   ATTR_KEY,
                   ATTR_BIND_EVENTS,
                   ATTR_CURRENT_LIST_VALUE,
-                  ATTR_SLOT,
+                  ATTR_SLOT_POSITION_NAME,
                   ATTR_PARENT_ID,
                   ATTR_CHILD_REPEATID,
                   ATTR_WEAK_BIND_EVENTS,
@@ -10608,6 +10608,9 @@
     }
     const instanceName = data?.instanceName;
     if (instanceName) rootElement.setAttribute(ATTR_INSTANCENAME, instanceName);
+    const slotPosition = data?.slotPosition;
+    if (slotPosition)
+      rootElement.setAttribute(ATTR_SLOT_POSITION_NAME, slotPosition);
     const modules = data?.modules ?? {};
     const modulesArray = modules_exports.checkType(Array, modules) ? modules : [modules];
     if (shouldBeComponent) {
@@ -26851,7 +26854,7 @@
       content: [
         {
           component: HtmlContent,
-          attributes: { slot: "docs" },
+          slotPosition: "docs",
           modules: modules_exports2.staticProps(
             /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
             {
@@ -26874,20 +26877,18 @@
             },
             {
               component: ScrollTop,
-              attributes: {
-                slot: "html-content-bottom"
-              }
+              slotPosition: "html-content-bottom"
             }
           ]
         },
         {
           component: ScrollTo,
-          attributes: { slot: "section-links" },
+          slotPosition: "section-links",
           instanceName: scrollToName
         },
         {
           component: DocTitle,
-          attributes: { slot: "section-title" },
+          slotPosition: "section-title",
           content: title
         }
       ]
@@ -26907,7 +26908,7 @@
       content: [
         {
           component: HtmlContent,
-          attributes: { slot: "docs" },
+          slotPosition: "docs",
           modules: modules_exports2.staticProps(
             /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
             {
@@ -26930,15 +26931,13 @@
             },
             {
               component: ScrollTop,
-              attributes: {
-                slot: "html-content-bottom"
-              }
+              slotPosition: "html-content-bottom"
             }
           ]
         },
         {
           component: DocTitle,
-          attributes: { slot: "section-title" },
+          slotPosition: "section-title",
           content: title
         }
       ]
@@ -31352,7 +31351,7 @@
          */
         content: {
           component: DynamicCounter,
-          attributes: { slot: "empty-slot" },
+          slotPosition: "empty-slot",
           modules: [
             staticProps2(
               /** @type {DynamicCounterType['props']} */
@@ -31631,7 +31630,7 @@
           ],
           content: {
             component: DynamicListSlottedLabel,
-            attributes: { slot: "card-label-slot" },
+            slotPosition: "card-label-slot",
             modules: bindProps(
               /** @returns {ReturnBindProps<DynamicListSlottedLabelType>} */
               () => ({
@@ -37053,7 +37052,7 @@
                */
               {
                 component: AnyComponent,
-                attributes: { slot: "root-slot" },
+                slotPosition: "root-slot",
                 modules: modules_exports2.staticProps({
                   content: rootContent
                 })
@@ -37063,7 +37062,7 @@
                */
               {
                 component: AnyComponent,
-                attributes: { slot: "child-slot" },
+                slotPosition: "child-slot",
                 modules: modules_exports2.staticProps({
                   content: childContent
                 })

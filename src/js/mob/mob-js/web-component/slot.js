@@ -1,4 +1,4 @@
-import { ATTR_COMPONENT_NAME } from '../constant';
+import { ATTR_SLOT_NAME } from '../constant';
 import { useSlotQuery } from '../parse/strategy';
 import { addSlotPlaceholder } from '../modules/slot';
 
@@ -30,7 +30,7 @@ export const defineSlotComponent = () => {
 
                 if (dataset) {
                     this.#slotName =
-                        this.shadowRoot?.host.getAttribute(ATTR_COMPONENT_NAME);
+                        this.shadowRoot?.host.getAttribute(ATTR_SLOT_NAME);
                 }
             }
 

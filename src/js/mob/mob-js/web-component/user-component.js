@@ -11,7 +11,7 @@ import {
     ATTR_PARENT_ID,
     ATTR_PROPS,
     ATTR_REPEATER_PROP_BIND,
-    ATTR_SLOT,
+    ATTR_SLOT_POSITION_NAME,
     ATTR_WEAK_BIND_EVENTS,
     ATTR_BIND_EFFECT_INSTANCE,
 } from '../constant';
@@ -388,7 +388,7 @@ export const defineUserComponent = (componentList) => {
                                 ATTR_KEY,
                                 ATTR_BIND_EVENTS,
                                 ATTR_CURRENT_LIST_VALUE,
-                                ATTR_SLOT,
+                                ATTR_SLOT_POSITION_NAME,
                                 ATTR_PARENT_ID,
                                 ATTR_CHILD_REPEATID,
                                 ATTR_WEAK_BIND_EVENTS,

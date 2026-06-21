@@ -1256,7 +1256,7 @@
     }
     .link.is-submenu {
       position: relative;
-      padding-inline-start: 0.625rem;
+      padding-inline-start: 1.25rem;
     }
     .submenu {
       margin-block-end: 0;

@@ -16,12 +16,12 @@ export const ATTR_INSTANCENAME = '__instance_name';
 /**
  * @type {string} ;
  */
-export const ATTR_COMPONENT_NAME = 'name';
+export const ATTR_SLOT_NAME = 'name';
 
 /**
  * @type {string} ;
  */
-export const ATTR_SLOT = 'slot';
+export const ATTR_SLOT_POSITION_NAME = '__slot_position';
 
 /**
  * @type {string} ;

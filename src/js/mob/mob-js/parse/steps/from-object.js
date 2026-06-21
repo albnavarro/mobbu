@@ -4,6 +4,7 @@ import {
     ATTR_BIND_EFFECT,
     ATTR_BIND_EFFECT_INSTANCE,
     ATTR_INSTANCENAME,
+    ATTR_SLOT_POSITION_NAME,
 } from '../../constant';
 import { mainStore } from '../../modules';
 import { MAIN_STORE_ROUTE_IS_LOADING } from '../../main-store/constant';
@@ -121,6 +122,13 @@ export const htmlObject = (data) => {
      */
     const instanceName = data?.instanceName;
     if (instanceName) rootElement.setAttribute(ATTR_INSTANCENAME, instanceName);
+
+    /**
+     * Add slot position
+     */
+    const slotPosition = data?.slotPosition;
+    if (slotPosition)
+        rootElement.setAttribute(ATTR_SLOT_POSITION_NAME, slotPosition);
 
     /**
      * Modules

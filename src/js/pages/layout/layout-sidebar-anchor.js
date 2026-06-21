@@ -24,7 +24,7 @@ export const layoutSidebarAnchor = async ({ props, data }) => {
         content: [
             {
                 component: HtmlContent,
-                attributes: { slot: 'docs' },
+                slotPosition: 'docs',
                 modules: MobJs.staticProps(
                     /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
                     ({
@@ -47,20 +47,18 @@ export const layoutSidebarAnchor = async ({ props, data }) => {
                     },
                     {
                         component: ScrollTop,
-                        attributes: {
-                            slot: 'html-content-bottom',
-                        },
+                        slotPosition: 'html-content-bottom',
                     },
                 ],
             },
             {
                 component: ScrollTo,
-                attributes: { slot: 'section-links' },
+                slotPosition: 'section-links',
                 instanceName: scrollToName,
             },
             {
                 component: DocTitle,
-                attributes: { slot: 'section-title' },
+                slotPosition: 'section-title',
                 content: title,
             },
         ],
