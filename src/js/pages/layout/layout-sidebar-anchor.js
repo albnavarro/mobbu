@@ -11,7 +11,7 @@ import { getBreadCrumbs } from './get-breadcrumbs';
 
 /** @type {import('@mobJsType').PageAsync<{}, import('./type').LayoutSidebarAnchor['props']>} */
 export const layoutSidebarAnchor = async ({ props, data }) => {
-    const { source, title } = props;
+    const { source } = props;
     const { data: jsonData } = await loadJsonContent({ source });
 
     const path = MobJs.getPagePath({ hash: data.hash });
@@ -59,7 +59,7 @@ export const layoutSidebarAnchor = async ({ props, data }) => {
             {
                 component: DocTitle,
                 slotPosition: 'section-title',
-                content: title,
+                content: path[0]?.name,
             },
         ],
     });

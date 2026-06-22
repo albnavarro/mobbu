@@ -264,7 +264,6 @@ export const routes = [
         pageName: 'mobCore',
         props: {
             source: './data/mob-core/overview.json',
-            title: 'mobCore',
             breadCrumbs: [],
             section: 'mobCore',
         },
@@ -313,7 +312,6 @@ export const routes = [
         skipTransition: true,
         props: {
             source: './data/mob-js/overview.json',
-            title: 'mobJs',
             breadCrumbs: [],
             section: 'mobJs',
         },
@@ -902,7 +900,6 @@ export const routes = [
         skipTransition: true,
         props: {
             source: './data/mob-motion/overview.json',
-            title: 'mobMotion',
             breadCrumbs: [],
             section: 'mobMotion',
         },
