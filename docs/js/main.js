@@ -26893,7 +26893,7 @@
         {
           component: DocTitle,
           slotPosition: "section-title",
-          content: path[0]?.name
+          content: path[0]?.name ?? ""
         }
       ]
     });
@@ -26942,7 +26942,7 @@
         {
           component: DocTitle,
           slotPosition: "section-title",
-          content: path[0]?.name
+          content: path[0]?.name ?? ""
         }
       ]
     });

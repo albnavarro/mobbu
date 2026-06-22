@@ -53,7 +53,7 @@ export const layoutSidebarLinks = async ({ props, data }) => {
             {
                 component: DocTitle,
                 slotPosition: 'section-title',
-                content: path[0]?.name,
+                content: path[0]?.name ?? '',
             },
         ],
     });
