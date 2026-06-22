@@ -2,10 +2,12 @@
 
 @layer layout {
     @scope (.c-breadCrumbs) {
-        margin: 0;
-        margin-block-end: rem(8);
-        padding-block-start: rem(32);
-        list-style: none;
+        :scope {
+            margin: 0;
+            margin-block-end: rem(8);
+            padding-block-start: rem(32);
+            list-style: none;
+        }
 
         li {
             display: inline-block;

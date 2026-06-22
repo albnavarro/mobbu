@@ -2,10 +2,12 @@
 
 @layer layout {
     @scope (.c-doc-title) {
-        position: absolute;
-        block-size: 100%;
-        inline-size: 100%;
-        overflow: hidden;
+        :scope {
+            position: absolute;
+            block-size: 100%;
+            inline-size: 100%;
+            overflow: hidden;
+        }
 
         text {
             display: inline-block;
