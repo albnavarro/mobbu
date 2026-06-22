@@ -21,8 +21,8 @@ export const updateHighlightTheme = () => {
     if (!lightAsset || !darkAsset) return;
     const isDark = isDarkTheme();
 
-    lightAsset.disabled = isDark;
-    darkAsset.disabled = !isDark;
+    lightAsset.media = isDark ? 'not all' : 'all';
+    darkAsset.media = isDark ? 'all' : 'not all';
 };
 
 /**
