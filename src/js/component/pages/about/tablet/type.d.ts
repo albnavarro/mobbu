@@ -25,7 +25,7 @@ export interface About {
             title: string;
             items: string[];
         };
-        aboutSvg: string;
+        svg: string;
     };
     state: {
         navItem: { index: number; label: string }[];

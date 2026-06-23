@@ -520,20 +520,20 @@ export const AboutComponentFn = ({
                 content: {
                     className: 'svg-container svg-container--bottom',
                     modules: setRef('svg'),
-                    content: proxi.aboutSvg,
+                    content: proxi.svg,
                 },
             },
             {
                 className: 'svg-container svg-container--back',
                 modules: setRef('svg'),
-                content: proxi.aboutSvg,
+                content: proxi.svg,
             },
             {
                 className: 'shape',
                 modules: setRef('pathElement'),
                 content: {
                     className: 'svg-container svg-container--front',
-                    content: proxi.aboutSvg,
+                    content: proxi.svg,
                 },
             },
             {

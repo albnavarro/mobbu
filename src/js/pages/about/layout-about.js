@@ -1,7 +1,5 @@
 import { htmlObject, MobJs } from '@mobJs';
-import { MobMotionCore } from '@mobMotion';
-import { AboutMobileComponent } from '@pagesComponent/about-mobile/definition';
-import { AboutComponent } from '@pagesComponent/about/definition';
+import { AboutSwitcher } from '@pagesComponent/about/switcher/definition';
 import { loadJsonContent, loadTextContent } from '@utils/utils';
 
 /** @type {import('@mobJsType').PageAsync} */
@@ -10,47 +8,27 @@ export const layoutAbout = async () => {
         source: './data/about/index.json',
     });
 
-    if (MobMotionCore.mq('max', 'tablet')) {
-        const { data: svg } = await loadTextContent({
-            source: './asset/svg/lettering-mob.svg?v=0.9',
-        });
+    const { data: mobileSvg } = await loadTextContent({
+        source: './asset/svg/lettering-mob.svg?v=0.9',
+    });
 
-        return htmlObject({
-            tag: 'main',
-            content: [
-                {
-                    component: AboutMobileComponent,
-                    modules: MobJs.staticProps(
-                        /** @type {import('@pagesComponent/about-mobile/type').About['props']} */
-                        ({
-                            block_1: data.block_1,
-                            block_2: data.block_2,
-                            block_3: data.block_3,
-                            block_4: data.block_4,
-                            svg,
-                        })
-                    ),
-                },
-            ],
-        });
-    }
-
-    const { data: aboutSvg } = await loadTextContent({
+    const { data: tabletSvg } = await loadTextContent({
         source: './asset/svg/about.svg?v=0.1',
     });
 
     return htmlObject({
         tag: 'main',
         content: {
-            component: AboutComponent,
+            component: AboutSwitcher,
             modules: MobJs.staticProps(
-                /** @type {import('@pagesComponent/about/type').About['props']} */
+                /** @type {import('@pagesComponent/about/switcher/type').AboutSwitcher['props']} */
                 ({
                     block_1: data.block_1,
                     block_2: data.block_2,
                     block_3: data.block_3,
                     block_4: data.block_4,
-                    aboutSvg,
+                    mobileSvg,
+                    tabletSvg,
                 })
             ),
         },

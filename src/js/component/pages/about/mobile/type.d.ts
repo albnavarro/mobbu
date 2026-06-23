@@ -1,4 +1,4 @@
-export interface About {
+export interface AboutMobile {
     props: {
         block_1: {
             titleTop: string;

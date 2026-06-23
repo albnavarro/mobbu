@@ -42,7 +42,7 @@ export const AboutComponent = MobJs.createComponent(
                 },
                 __type: 'any',
             },
-            aboutSvg: {
+            svg: {
                 __value: '',
                 __type: String,
             },
