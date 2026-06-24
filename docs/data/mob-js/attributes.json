@@ -20,7 +20,7 @@
                 "style": "medium",
                 "boxed": true
             },
-            "content": "<p>You can absolutely apply class attributes directly to components, just like regular DOM elements - the styling gets passed through to the rendered output.</p>"
+            "content": "All attributes, including <span class='quote'>CSS classes</span> and <span class='quote'>standard attributes</span>, can be defined on component nodes as well as on native DOM nodes."
         },
         {
             "component": "mob-spacer",
@@ -32,7 +32,7 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mob-js/attributes.js",
-                "numLines": 11
+                "numLines": 15
             }
         }
     ]
