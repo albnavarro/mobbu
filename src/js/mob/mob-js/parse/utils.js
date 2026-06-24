@@ -21,3 +21,38 @@ export const getCurrentIterationCounter = () => currentIterationCounter;
 export const resetCurrentIterationCounter = () => {
     currentIterationCounter = 0;
 };
+
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.source
+ * @param {HTMLElement} params.target
+ * @returns {void}
+ */
+export const transferAllAttributes = ({ source, target }) => {
+    for (const attr of source.attributes) {
+        if (attr.name.startsWith('__')) continue;
+
+        /**
+         * Style attribute should be added to existet.
+         */
+        if (attr.name === 'style') {
+            target.style.cssText += ';' + attr.value;
+            continue;
+        }
+
+        /**
+         * Class attribute should be added to existet.
+         */
+        if (attr.name === 'class') {
+            attr.value.split(/\s+/).forEach((cls) => {
+                if (cls) target.classList.add(cls);
+            });
+            continue;
+        }
+
+        /**
+         * Generic attribute override original if exist.
+         */
+        target.setAttribute(attr.name, attr.value);
+    }
+};

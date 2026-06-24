@@ -6,7 +6,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "<span>component</span>/classList"
+            "content": "<span>component</span>/attributes"
         },
         {
             "component": "mob-spacer",
@@ -31,7 +31,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mob-js/class-list.js",
+                "source": "./snippets/mob-js/attributes.js",
                 "numLines": 11
             }
         }

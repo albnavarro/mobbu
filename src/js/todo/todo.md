@@ -4,10 +4,6 @@
 
 - Aggiungere `basePageName` ( `MobJs.inizializeApp` )
 
-## Attributes:
-
-- Al momento non si possono applicare attributi statici ai componenti.
-
 ## 1. Repat proxi
 
 - il `proxi` repeater potrebbe tornare un oggetto `frezzed` per evutare accidentali mutazioni.

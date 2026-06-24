@@ -881,14 +881,14 @@ export const routes = [
         },
     },
     {
-        hash: 'mobJs-class-list',
-        pageName: 'classList',
+        hash: 'mobJs-attributes',
+        pageName: 'attributes',
         templateName: PAGE_TEMPLATE_COMPONENT_MOBJS,
         layout: layoutSidebarLinks,
         skipTransition: true,
         parent: 'mobJs-component',
         props: {
-            source: './data/mob-js/class-list.json',
+            source: './data/mob-js/attributes.json',
             section: 'mobJs',
         },
     },

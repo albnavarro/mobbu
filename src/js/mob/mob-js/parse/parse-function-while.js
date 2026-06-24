@@ -4,6 +4,7 @@ import { getDefaultComponent } from '../component/create-component';
 import {
     getCurrentIterationCounter,
     incrementCurrentIterationCounter,
+    transferAllAttributes,
 } from './utils';
 import { fireOnMountCallBack } from '../modules/on-mount';
 import { applyBindEvents } from '../modules/bind-events';
@@ -227,12 +228,11 @@ export const parseComponentsWhile = async ({
         if (!useSlotQuery) clearSlotPlaceHolder();
 
         /**
-         * Copy all classes in new component.
+         * Transfer attributes from placeholder to newElement
+         *
+         * - Skip private attributes startsWith '__'
          */
-        const classList = componentToParse.classList;
-        if (classList.length > 0) {
-            newElement?.classList.add(...classList);
-        }
+        transferAllAttributes({ source: componentToParse, target: newElement });
 
         /**
          * Controlliamo che il DOM riestituito dalla funzione-componente sia un customComponent
