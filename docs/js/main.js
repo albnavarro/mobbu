@@ -33613,11 +33613,12 @@
     if (component?.tagName.length === 0) {
       return htmlObject({});
     }
+    const isCustomComponent = component.tagName.includes("-");
     return htmlObject({
       className: ["component", component?.className],
       content: {
         tag: component.tagName,
-        modules: modules_exports2.staticProps(component?.props ?? {}),
+        modules: isCustomComponent ? modules_exports2.staticProps(component?.props ?? {}) : null,
         content: component?.props
       }
     });

@@ -12,11 +12,18 @@ const getComponent = (component) => {
         return htmlObject({});
     }
 
+    /**
+     * Use modules only inside Mobjs component
+     */
+    const isCustomComponent = component.tagName.includes('-');
+
     return htmlObject({
         className: ['component', component?.className],
         content: {
             tag: component.tagName,
-            modules: MobJs.staticProps(component?.props ?? {}),
+            modules: isCustomComponent
+                ? MobJs.staticProps(component?.props ?? {})
+                : null,
             content: component?.props,
         },
     });
