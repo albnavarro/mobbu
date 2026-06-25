@@ -32,7 +32,7 @@ const initScroller = async ({ getRef }) => {
     /**
      * Restore position of element scrolled with tab.
      */
-    getRef().screen.scrollTop = 0;
+    if (screen) getRef().screen.scrollTop = 0;
 
     return {
         destroy,
@@ -91,17 +91,17 @@ export const DebugTreeFn = ({
         });
 
         (async () => {
-            proxi.isLoading = true;
+            if ('isLoading' in proxi) proxi.isLoading = true;
             await MobJs.tick();
 
             destroy?.();
-            proxi.data = MobJs.getTree();
+            if ('data' in proxi) proxi.data = MobJs.getTree();
 
             ({ destroy, move, refresh, updateScroller } = await initScroller({
                 getRef,
             }));
 
-            proxi.isLoading = false;
+            if ('isLoading' in proxi) proxi.isLoading = false;
         })();
 
         // eslint-disable-next-line unicorn/consistent-function-scoping

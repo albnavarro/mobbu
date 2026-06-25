@@ -574,7 +574,7 @@ export const DebugComponentFn = ({
                                     )
                                         return;
 
-                                    getRef().screen.focus({
+                                    getRef().screen?.focus?.({
                                         preventScroll: true,
                                     });
                                 }, 10);
