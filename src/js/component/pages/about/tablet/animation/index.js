@@ -1,7 +1,5 @@
 import { MobSmoothScroller } from '@mobMotionPlugin';
 import { createPathAnimation } from './path-animation';
-import { aboutSection1 } from './section1';
-import { sectionContentAnimation } from './section-content';
 import { isRtlDirection } from '@componentLibs/utils/site-direction';
 
 /** @type {import('../type').AboutScroller} */
@@ -10,11 +8,6 @@ export const aboutAnimation = ({
     scrollerElement,
     pathElement,
     wrapElement,
-    title_1,
-    title_2,
-    section2_title,
-    section3_title,
-    section4_title,
     setActiveItem,
     onMove,
     onScrollEnd,
@@ -24,9 +17,6 @@ export const aboutAnimation = ({
      * Garbage collector utils for path svg Prevent path loop inside to not collected
      */
     const weakScrollerElement = new WeakRef(scrollerElement);
-    const weakSectio2Title = new WeakRef(section2_title);
-    const weakSectio3Title = new WeakRef(section3_title);
-    const weakSectio4Title = new WeakRef(section4_title);
     const weakPathElement = new WeakRef(pathElement);
     const weakScreenElement = new WeakRef(screenElement);
 
@@ -46,30 +36,6 @@ export const aboutAnimation = ({
         isRtl: isRtlDirection(),
     });
 
-    const { title1parallax, title2parallax, title1tween, title2tween } =
-        aboutSection1({ title_1, title_2 });
-
-    const {
-        sectionContentScroller: sectionContentScroller_1,
-        destroy: destroyContentAnimation1,
-    } = sectionContentAnimation({
-        title: weakSectio2Title,
-    });
-
-    const {
-        sectionContentScroller: sectionContentScroller_2,
-        destroy: destroyContentAnimation2,
-    } = sectionContentAnimation({
-        title: weakSectio3Title,
-    });
-
-    const {
-        sectionContentScroller: sectionContentScroller_3,
-        destroy: destroyContentAnimation3,
-    } = sectionContentAnimation({
-        title: weakSectio4Title,
-    });
-
     let aboutScroller = new MobSmoothScroller({
         screen: screenElement,
         scroller: scrollerElement,
@@ -79,16 +45,7 @@ export const aboutAnimation = ({
         breakpoint: 'small',
         useHorizontalScroll: true,
         snapPoints,
-        children: isRtlDirection()
-            ? [pathScroller]
-            : [
-                  pathScroller,
-                  title1parallax,
-                  title2parallax,
-                  sectionContentScroller_1,
-                  sectionContentScroller_2,
-                  sectionContentScroller_3,
-              ],
+        children: isRtlDirection() ? [pathScroller] : [pathScroller],
         onUpdate: ({ value }) => {
             onMove(value);
             onScrollEnd();
@@ -118,17 +75,8 @@ export const aboutAnimation = ({
             pathScroller.destroy();
             pathTimeline.destroy();
             pathTween.destroy();
-            title1parallax.destroy();
-            title2parallax.destroy();
-            title1tween.destroy();
-            title2tween.destroy();
-            sectionContentScroller_1.destroy();
-            sectionContentScroller_2.destroy();
             stopLoop();
             destroypathAnimation();
-            destroyContentAnimation1();
-            destroyContentAnimation2();
-            destroyContentAnimation3();
         },
     };
 };

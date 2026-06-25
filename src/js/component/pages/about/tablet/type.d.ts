@@ -1,9 +1,7 @@
 import {
     MobAsyncTimeline,
     MobScroller,
-    MobScrollerTween,
     MobSequencer,
-    MobSpring,
     MobTimeTween,
 } from '@mobMotionType';
 
@@ -42,7 +40,6 @@ export interface About {
         section2_title: HTMLElement;
         section3_title: HTMLElement;
         section4_title: HTMLElement;
-        svg: HTMLElement;
     };
 }
 
@@ -51,11 +48,6 @@ export type AboutScroller = (arg0: {
     scrollerElement: HTMLElement;
     pathElement: HTMLSpanElement;
     wrapElement: HTMLElement;
-    title_1: HTMLElement;
-    title_2: HTMLElement;
-    section2_title: HTMLElement;
-    section3_title: HTMLElement;
-    section4_title: HTMLElement;
     snapPoints: number[];
     setActiveItem: (value: number) => void;
     onMove: (value: number) => void;
@@ -79,24 +71,4 @@ export type CreatePathAnimation = (ar0: {
     pathTimeline: MobAsyncTimeline;
     stopLoop: () => void;
     destroy: () => void;
-};
-
-export type AboutSection1 = (arg0: {
-    title_1: HTMLElement;
-    title_2: HTMLElement;
-}) => {
-    title1parallax: MobScroller;
-    title2parallax: MobScroller;
-    title1tween: MobScrollerTween;
-    title2tween: MobScrollerTween;
-};
-
-export type AboutSection2 = (arg0: { title: WeakRef<HTMLElement> }) => {
-    sectionContentScroller: MobScroller;
-    destroy: () => void;
-};
-
-export type AboutSvgAnimation = (arg0: { elements: HTMLElement[] }) => {
-    svgSpring: MobSpring;
-    destroySvgSpring: () => void;
 };

@@ -12,7 +12,6 @@ import { MobCore } from '@mobCore';
 import { htmlObject } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 import { aboutAnimation } from './animation';
-import { aboutSvgAnimation } from './animation/svg-animation';
 
 /** @type{(value: number) => void} */
 let _goTo = () => {};
@@ -324,7 +323,6 @@ export const AboutComponentFn = ({
     onMount,
     setRef,
     getRef,
-    getRefs,
     bindEffect,
     delegateEvents,
     getSelfProxi,
@@ -359,30 +357,12 @@ export const AboutComponentFn = ({
             }
         );
 
-        const {
-            screenElement,
-            scrollerElement,
-            wrapElement,
-            title_1,
-            title_2,
-            section2_title,
-            section3_title,
-            section4_title,
-            pathElement,
-        } = getRef();
-
-        const { svg } = getRefs();
+        const { screenElement, scrollerElement, wrapElement, pathElement } =
+            getRef();
 
         let startpercent = 0;
         let isMoving = false;
         let svgShiftAmount = 0;
-
-        /**
-         * About svg animation
-         */
-        const { svgSpring, destroySvgSpring } = aboutSvgAnimation({
-            elements: svg,
-        });
 
         /**
          * Move about svg 1:1 with drag. Stop on fps slowdown.
@@ -391,7 +371,6 @@ export const AboutComponentFn = ({
             const shouldStop = MobCore.shouldMakeSomething();
 
             if (shouldStop || freezeOnLag) {
-                svgSpring.stop();
                 freezeOnLag = true;
                 setTimeout(() => {
                     freezeOnLag = false;
@@ -402,8 +381,6 @@ export const AboutComponentFn = ({
 
             const valueParsed = -Math.abs(value / 30);
             if (Number.isNaN(valueParsed)) return;
-
-            await svgSpring.goTo({ x: valueParsed }).catch(() => {});
         };
 
         /**
@@ -422,11 +399,6 @@ export const AboutComponentFn = ({
             scrollerElement,
             pathElement,
             wrapElement,
-            title_1,
-            title_2,
-            section2_title,
-            section3_title,
-            section4_title,
             snapPoints: Object.values(goToPercentage),
             setActiveItem: (value) => {
                 proxi.activenavItem = value;
@@ -456,7 +428,6 @@ export const AboutComponentFn = ({
         return () => {
             _goTo = () => {};
             destroy();
-            destroySvgSpring();
             focusMap.clear();
         };
     });
@@ -519,13 +490,11 @@ export const AboutComponentFn = ({
                 className: 'background',
                 content: {
                     className: 'svg-container svg-container--bottom',
-                    modules: setRef('svg'),
                     content: proxi.svg,
                 },
             },
             {
                 className: 'svg-container svg-container--back',
-                modules: setRef('svg'),
                 content: proxi.svg,
             },
             {
