@@ -800,7 +800,7 @@ export default class MobLerp {
 
         return shouldInitializeRAF && this.#currentPromise
             ? this.#currentPromise
-            : Promise.reject(MobCore.ANIMATION_STOP_REJECT);
+            : Promise.reject(MobCore.ANIMATION_STOP_REJECT).catch(() => {});
     }
 
     /**
@@ -1032,8 +1032,6 @@ export default class MobLerp {
         ];
 
         this.#externalValidations = valuesUpdated;
-
-        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => (this.#externalValidations = []);
     }
 

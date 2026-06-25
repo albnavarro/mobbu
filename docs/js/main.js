@@ -14092,7 +14092,8 @@
           this.#startRaf(resolve, reject);
         });
       }
-      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
+      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT).catch(() => {
+      });
     }
     /**
      * Get current values, If the single value is a function it returns the result of the function.
@@ -15186,7 +15187,8 @@
           this.#startRaf(resolve, reject);
         });
       }
-      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
+      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT).catch(() => {
+      });
     }
     /**
      * Get current values, If the single value is a function it returns the result of the function.
@@ -17341,7 +17343,8 @@
           this.#startRaf(resolve, reject);
         });
       }
-      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
+      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT).catch(() => {
+      });
     }
     /**
      * Get current values, If the single value is a function it returns the result of the function.
