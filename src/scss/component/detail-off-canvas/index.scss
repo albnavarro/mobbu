@@ -59,15 +59,22 @@
         }
 
         dialog {
+            display: none;
             block-size: calc(
                 100dvh - var(--header-height) - var(--footer-height)
             );
             inline-size: rem(250);
             margin: 0;
             margin-inline-start: auto;
+            transform: translateX(calc(100% * var(--dir)));
+
+            /*
+             * Fallback: Safari, Firefox, etc.
+             * Safari non gestisce overlay ( TODO: check ).
+             */
             transition:
-                transform 0.3s ease,
-                overlay 0.3s ease;
+                transform 0.3s allow-discrete,
+                display 0.35s allow-discrete;
             border: 0;
             background: var(--immutable-dark);
             color: var(--immutable-white);
@@ -75,7 +82,16 @@
             inset-block-start: var(--header-height);
             inset-inline-end: 0;
 
+            @supports (overlay: auto) {
+                // Chrome/Edge: dealy sull' uscita dal top layer
+                transition:
+                    transform 0.3s allow-discrete,
+                    display 0.35s allow-discrete,
+                    overlay 0.3s allow-discrete;
+            }
+
             &[open] {
+                display: block;
                 transform: translateX(0);
             }
 

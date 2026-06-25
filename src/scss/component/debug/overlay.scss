@@ -11,16 +11,20 @@
             max-inline-size: 90%;
             margin: auto;
             overflow: visible;
-            transition: opacity 0.35s;
+            transition:
+                opacity 0.35s,
+                display 0.35s allow-discrete,
+                overlay 0.35s allow-discrete;
             border: 0;
-            opacity: 1;
+            opacity: 0;
             background: var(--white);
             pointer-events: none;
 
             --debug-list-header-height: #{rem(50)};
 
             &[open] {
-                display: flex;
+                display: block;
+                opacity: 1;
                 pointer-events: all;
             }
 
@@ -36,8 +40,21 @@
         }
 
         &::backdrop {
-            opacity: 0.98;
+            transition:
+                opacity 0.35s,
+                display 0.35s allow-discrete;
+            opacity: 0;
             background: var(--grey-100);
+        }
+
+        :scope[open]::backdrop {
+            opacity: 0.98;
+        }
+
+        @starting-style {
+            :scope[open]::backdrop {
+                opacity: 0;
+            }
         }
 
         .close {
