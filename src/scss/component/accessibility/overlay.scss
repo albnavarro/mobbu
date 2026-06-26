@@ -8,16 +8,28 @@
             margin-inline: auto 0;
             padding: rem(12);
             overflow: visible;
+
+            /*
+             * Fallback: Safari, Firefox, etc.
+             * Safari non gestisce overlay ( TODO: check ).
+             */
             transition:
                 opacity 0.35s,
-                display 0.35s allow-discrete,
-                overlay 0.35s allow-discrete;
+                display 0.35s allow-discrete;
             border: 0;
             opacity: 0;
             background: var(--immutable-dark);
             color: var(--immutable-white);
             pointer-events: none;
             inset-block-start: calc(var(--header-height) - 1px);
+
+            @supports (overlay: auto) {
+                // Chrome/Edge: delay sull' uscita dal top layer
+                transition:
+                    opacity 0.35s,
+                    display 0.35s allow-discrete,
+                    overlay 0.35s allow-discrete;
+            }
 
             &[open] {
                 display: block;
