@@ -74,7 +74,8 @@
             --icon-opacity: 1;
 
             &:disabled {
-                background: var(--grey-200);
+                background: var(--grey-100);
+                border-block-end: 1px var(--grey-400) solid;
 
                 --icon-opacity: 0;
             }
