@@ -163,6 +163,14 @@ export const DocContainerFn = ({
                         attributes: {
                             type: 'button',
                             'aria-controls': 'right-sidbar',
+                            /**
+                             * Avoid visual jump.
+                             *
+                             * - Set immediately disable state
+                             */
+                            disabled: boundedProxi.rightSidebarIsEmpty
+                                ? true
+                                : null,
                         },
                         modules: [
                             setRef('asideToggleButton'),
@@ -174,6 +182,11 @@ export const DocContainerFn = ({
                             }),
                             bindEffect({
                                 toggleAttribute: {
+                                    /**
+                                     * Avoid vousal jump.
+                                     *
+                                     * - Update previous ( static ) disabled value
+                                     */
                                     disabled: () =>
                                         boundedProxi.rightSidebarIsEmpty
                                             ? true
