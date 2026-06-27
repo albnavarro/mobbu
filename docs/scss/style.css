@@ -4731,9 +4731,11 @@
       background: var(--immutable-black);
       inset-block-start: 0;
       inset-inline-end: 100%;
+      --icon-opacity: 1;
     }
     .off-canvas-control-button:disabled {
       background: var(--grey-200);
+      --icon-opacity: 0;
     }
     @media (min-width: 62em) {
       .off-canvas-control-button {
@@ -4749,12 +4751,10 @@
       border-inline-end: 3px var(--immutable-white) solid;
       border-block-end: 3px var(--immutable-white) solid;
       transition: transform 0.35s, opacity 0.35s;
+      opacity: var(--icon-opacity);
     }
     .off-canvas-icon.active {
       transform: translateX(calc((50% + 0.75rem) * var(--dir))) rotate(calc(-45deg * var(--dir)));
-    }
-    .off-canvas-control-button:disabled .off-canvas-icon {
-      opacity: 0;
     }
     .off-canvas-backdrop {
       position: absolute;

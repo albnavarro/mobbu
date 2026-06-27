@@ -71,8 +71,12 @@
             inset-block-start: 0;
             inset-inline-end: 100%;
 
+            --icon-opacity: 1;
+
             &:disabled {
                 background: var(--grey-200);
+
+                --icon-opacity: 0;
             }
 
             @include mq(desktop) {
@@ -92,16 +96,11 @@
             transition:
                 transform 0.35s,
                 opacity 0.35s;
+            opacity: var(--icon-opacity);
 
             &.active {
                 transform: translateX(calc((50% + #{rem(12)}) * var(--dir)))
                     rotate(calc(-45deg * var(--dir)));
-            }
-        }
-
-        .off-canvas-control-button:disabled {
-            .off-canvas-icon {
-                opacity: 0;
             }
         }
 
