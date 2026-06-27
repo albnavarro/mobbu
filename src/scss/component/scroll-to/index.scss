@@ -13,6 +13,10 @@
                     100dvh - var(--header-height) - var(--footer-height) -
                     #{rem(150)}
             );
+
+            &.hidden {
+                display: none;
+            }
         }
 
         .title {

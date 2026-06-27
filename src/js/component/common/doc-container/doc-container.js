@@ -42,6 +42,7 @@ const createTabHandler = ({ getRef }) => {
 /** @type {MobComponent<import('./type').DocContainerType>} */
 export const DocContainerFn = ({
     getSelfProxi,
+    getBoundedProxi,
     delegateEvents,
     bindEffect,
     onMount,
@@ -51,6 +52,7 @@ export const DocContainerFn = ({
     addMethod,
 }) => {
     const proxi = getSelfProxi();
+    const boundedProxi = getBoundedProxi();
 
     addMethod('closeSidebarLeft', () => {
         proxi.rightSidebarVisible = false;
@@ -63,14 +65,14 @@ export const DocContainerFn = ({
         () => proxi.rightSidebarVisible,
         (shoulVisible) => {
             if (MobMotionCore.mq('min', 'desktop')) {
-                docContainerStore.set('leftSidebarIsVisible', true);
-                docContainerStore.set('shouldApplyInert', false);
+                docContainerStore.set('rightSidebarIsVisible', true);
+                docContainerStore.set('rightSidebarIsInert', false);
                 unsubscribeTabHandler();
                 return;
             }
 
-            docContainerStore.set('shouldApplyInert', !shoulVisible);
-            docContainerStore.set('leftSidebarIsVisible', shoulVisible);
+            docContainerStore.set('rightSidebarIsInert', !shoulVisible);
+            docContainerStore.set('rightSidebarIsVisible', shoulVisible);
 
             if (shoulVisible) {
                 createTabHandler({ getRef });
@@ -157,7 +159,7 @@ export const DocContainerFn = ({
                 content: [
                     {
                         tag: 'button',
-                        className: 'off-canvas-control',
+                        className: 'off-canvas-control-button',
                         attributes: {
                             type: 'button',
                             'aria-controls': 'right-sidbar',
@@ -172,11 +174,14 @@ export const DocContainerFn = ({
                             }),
                             bindEffect({
                                 toggleAttribute: {
+                                    disabled: () =>
+                                        boundedProxi.rightSidebarIsEmpty
+                                            ? true
+                                            : null,
                                     'aria-expanded': () =>
                                         proxi.rightSidebarVisible
                                             ? 'true'
                                             : 'false',
-
                                     'aria-label': () =>
                                         proxi.rightSidebarVisible
                                             ? 'close sidebar'

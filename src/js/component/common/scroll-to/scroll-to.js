@@ -6,6 +6,7 @@ import { ScrollToButton } from './button/definition';
 import { MobMotionCore } from '@mobMotion';
 import { closeSidebarleft } from '@commonComponent/doc-container/utils';
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
+import { docContainerStore } from '@stores/doc-container';
 
 /**
  * @import {
@@ -201,6 +202,7 @@ export const ScrollToFn = ({
     bindEffect,
     setRef,
     getRef,
+    watch,
 }) => {
     const proxi = getSelfProxi();
     const bindProxi = getBoundedProxi();
@@ -221,6 +223,18 @@ export const ScrollToFn = ({
         if (disableObservereffect) return;
         proxi.activeLabel = label;
     });
+
+    /**
+     * Set global anchor status
+     *
+     * - Update sidebar store anchorEmpty.
+     */
+    watch(
+        () => proxi.anchorItems,
+        (value) => {
+            docContainerStore.set('anchorIsEmpty', value.length === 0);
+        }
+    );
 
     onMount(() => {
         /**
@@ -322,6 +336,11 @@ export const ScrollToFn = ({
 
     return htmlObject({
         className: 'c-scroll-to',
+        modules: bindEffect({
+            toggleClass: {
+                hidden: () => proxi.anchorItems.length === 0,
+            },
+        }),
         content: [
             {
                 className: 'title',
@@ -354,7 +373,7 @@ export const ScrollToFn = ({
                         toggleAttribute: {
                             hidden: () => proxi.anchorItems.length === 0,
                             inert: () =>
-                                bindProxi.shouldApplyInert ? true : null,
+                                bindProxi.rightSidebarIsInert ? true : null,
                         },
                     }),
                 ],

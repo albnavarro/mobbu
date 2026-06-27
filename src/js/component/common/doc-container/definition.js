@@ -1,5 +1,6 @@
 import { MobJs } from '@mobJs';
 import { DocContainerFn } from './doc-container';
+import { docContainerStore } from '@stores/doc-container';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -10,6 +11,7 @@ export const DocContainer = MobJs.createComponent(
     ({
         tag: 'doc-container',
         component: DocContainerFn,
+        bindStore: docContainerStore,
         state: {
             rightSidebarVisible: {
                 __value: false,

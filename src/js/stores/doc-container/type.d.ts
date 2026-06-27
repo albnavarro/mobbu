@@ -1,4 +1,7 @@
 export interface DocContainerStore {
-    shouldApplyInert: boolean;
-    leftSidebarIsVisible: boolean;
+    rightSidebarIsInert: boolean;
+    rightSidebarIsVisible: boolean;
+    rightSidebarIsEmpty: boolean;
+    anchorIsEmpty: boolean;
+    linksIsEmpty: boolean;
 }

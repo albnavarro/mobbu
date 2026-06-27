@@ -4,6 +4,7 @@ import { htmlObject, MobJs } from '@mobJs';
 import { PAGE_TEMPLATE_COMPONENT_MOBJS } from '../../../pages';
 import { navigationStore } from '@stores/navigation';
 import { SideBarLinksButton } from './side-bar-links-button/definition';
+import { docContainerStore } from '@stores/doc-container';
 
 /**
  * @import {
@@ -115,6 +116,7 @@ export const SideBarLinksFn = ({
                  */
                 await MobJs.tick();
                 proxi.activeSection = currentRoute;
+                docContainerStore.set('linksIsEmpty', currentData.length === 0);
 
                 if (currentData.length > 0) {
                     proxi.hide = false;
@@ -183,10 +185,10 @@ export const SideBarLinksFn = ({
                 toggleClass: {
                     hide: () => proxi.hide,
                     disable: () => proxi.disable,
-                    visible: () => bindProxi.leftSidebarIsVisible,
+                    visible: () => bindProxi.rightSidebarIsVisible,
                 },
                 toggleAttribute: {
-                    inert: () => (bindProxi.shouldApplyInert ? true : null),
+                    inert: () => (bindProxi.rightSidebarIsInert ? true : null),
                 },
             }),
         ],

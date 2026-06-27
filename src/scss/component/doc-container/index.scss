@@ -58,17 +58,22 @@
             }
         }
 
-        .off-canvas-control {
+        .off-canvas-control-button {
             display: flex;
             position: absolute;
             flex-direction: column;
             justify-content: center;
             block-size: rem(200);
             inline-size: var(--gap-size);
+            transition: background 0.55s;
             border: 0;
             background: var(--immutable-black);
             inset-block-start: 0;
             inset-inline-end: 100%;
+
+            &:disabled {
+                background: var(--grey-200);
+            }
 
             @include mq(desktop) {
                 display: none;
@@ -84,11 +89,19 @@
             inset-inline-start: 1px;
             border-inline-end: 3px var(--immutable-white) solid;
             border-block-end: 3px var(--immutable-white) solid;
-            transition: transform 0.35s;
+            transition:
+                transform 0.35s,
+                opacity 0.35s;
 
             &.active {
                 transform: translateX(calc((50% + #{rem(12)}) * var(--dir)))
                     rotate(calc(-45deg * var(--dir)));
+            }
+        }
+
+        .off-canvas-control-button:disabled {
+            .off-canvas-icon {
+                opacity: 0;
             }
         }
 
