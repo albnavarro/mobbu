@@ -43109,7 +43109,12 @@
   };
 
   // src/js/component/common/accesibility/cta/accessibility-button.js
-  var AccessibilityButtonFn = ({ delegateEvents }) => {
+  var AccessibilityButtonFn = ({
+    delegateEvents,
+    getBoundedProxi,
+    bindEffect
+  }) => {
+    const boundedProxi = getBoundedProxi();
     const icon = getIcons()["accessibilityIcons"];
     return htmlObject({
       tag: "button",
@@ -43124,17 +43129,37 @@
           click: () => {
             openAccessibilityOverlay();
           }
+        }),
+        bindEffect({
+          toggleClass: {
+            active: () => boundedProxi.accessibilityDialogOpen === true
+          }
         })
       ],
       content: icon
     });
   };
 
+  // src/js/stores/accessibility/index.js
+  var accessibilityStore = modules_exports.createStore(
+    /** @type {MobStoreParams<import('./type').accessibilityStore>} */
+    {
+      accessibilityDialogOpen: {
+        __value: false,
+        ___type: Boolean
+      }
+    }
+  );
+
   // src/js/component/common/accesibility/cta/definition.js
-  var AccessibilityButton = modules_exports2.createComponent({
-    tag: "accessibility-button",
-    component: AccessibilityButtonFn
-  });
+  var AccessibilityButton = modules_exports2.createComponent(
+    /** @type {CreateComponentParams<import('./type').AccessibilityCtaType>} */
+    {
+      tag: "accessibility-button",
+      component: AccessibilityButtonFn,
+      bindStore: accessibilityStore
+    }
+  );
 
   // src/js/component/layout/header/header-utils/header-utils.js
   var onClick = ({ event }) => {
@@ -46976,6 +47001,7 @@
   var closeOverlay3 = ({ proxi, getRef }) => {
     proxi.active = false;
     getRef().dialog.close();
+    accessibilityStore.set("accessibilityDialogOpen", false);
   };
   function backDropHandler4({ proxi, getRef }) {
     return function onBackDrop(event) {
@@ -46984,6 +47010,11 @@
       }
     };
   }
+  var onCalcelHandler3 = ({ getRef, proxi }) => {
+    return function onCancel() {
+      closeOverlay3({ getRef, proxi });
+    };
+  };
   var AccessibilityOverlayFn = ({
     delegateEvents,
     addMethod,
@@ -46998,11 +47029,15 @@
     addMethod("open", () => {
       proxi.active = true;
       getRef().dialog.showModal();
+      accessibilityStore.set("accessibilityDialogOpen", true);
     });
     onMount(() => {
+      const onCancelSubscriber = onCalcelHandler3({ getRef, proxi });
+      getRef().dialog.addEventListener("cancel", onCancelSubscriber);
       const onBackDropSubscriber = backDropHandler4({ proxi, getRef });
       getRef().dialog.addEventListener("click", onBackDropSubscriber);
       return () => {
+        getRef().dialog.removeEventListener("cancel", onCancelSubscriber);
         getRef().dialog.removeEventListener("click", onBackDropSubscriber);
       };
     });

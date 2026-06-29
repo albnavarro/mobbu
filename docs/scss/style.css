@@ -1123,6 +1123,7 @@
     :scope {
       display: grid;
       --sidebar-item-size: 1.25rem;
+      --svg-fill: var(--black);
     }
     @media (min-width: 62em) {
       :scope {
@@ -1137,8 +1138,8 @@
       padding: 0;
       list-style-type: none;
     }
-    li:hover svg {
-      opacity: 0.2;
+    li {
+      position: relative;
     }
     button,
     a {
@@ -1151,6 +1152,32 @@
       outline-offset: -2px;
       background: transparent;
       color: var(--white);
+    }
+    button::after,
+    a::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset-inline: 0;
+      inset-block-end: 0;
+      block-size: 100%;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.55s;
+      background: var(--immutable-dark);
+    }
+    button:hover::after,
+    a:hover::after {
+      transform: scaleY(0.1);
+      transition-duration: 0.35s;
+    }
+    button.active,
+    a.active {
+      --svg-fill: var(--immutable-white);
+    }
+    button.active::after,
+    a.active::after {
+      transform: scaleY(1);
     }
     button:focus,
     a:focus {
@@ -1167,8 +1194,13 @@
       block-size: var(--sidebar-item-size);
       inline-size: var(--sidebar-item-size);
       transition: opacity 0.55s;
-      fill: var(--dark);
+      fill: var(--svg-fill);
     }
+  }
+}
+@layer override {
+  [data-theme=dark] :where(.l-header-utils button, .l-header-utils a)::after {
+    background: var(--immutable-black);
   }
 }
 @layer layout {
@@ -4209,6 +4241,24 @@
     }
   }
 }
+@layer override {
+  [data-theme=dark] :where(.c-accessibility-overlay) {
+    border-block-end: 1px var(--immutable-white) solid;
+    border-inline-start: 1px var(--immutable-white) solid;
+  }
+  [data-theme=dark] [data-template=template-doc-default] :where(.c-accessibility-overlay) {
+    border-block-end: 1px var(--grey-400) solid;
+    border-inline-start: 1px var(--grey-400) solid;
+  }
+  [data-theme=dark] [data-template=template-mobJs-component] :where(.utils-cell) {
+    border-block-end: 1px var(--grey-400) solid;
+    border-inline-start: 1px var(--grey-400) solid;
+  }
+  [data-theme=dark] [data-template=template-test] :where(.utils-cell) {
+    border-block-end: 1px var(--grey-400) solid;
+    border-inline-start: 1px var(--grey-400) solid;
+  }
+}
 @layer layout {
   @scope (.c-accessibility-toggle) {
     :scope {
@@ -6383,6 +6433,7 @@
       border-inline-end: 0;
       border-block-end: 1px var(--dark) solid;
       border-block-start: 0;
+      text-transform: capitalize;
       --arrow-color: var(--dark);
     }
     .open .arrows {
@@ -6595,6 +6646,9 @@
   }
   [data-theme=light] :where(.c-detail-offcanvas .controls-button) {
     border: 1px rgba(var(--white-rgb), 0.2) solid;
+  }
+  [data-theme=dark] :where(.c-detail-offcanvas .detail-container) {
+    border-inline-start: 1px var(--immutable-white) solid;
   }
 }
 @layer layout {

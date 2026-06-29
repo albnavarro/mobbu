@@ -24,6 +24,7 @@
             border-inline-end: 0;
             border-block-end: 1px var(--dark) solid;
             border-block-start: 0;
+            text-transform: capitalize;
 
             --arrow-color: var(--dark);
 
@@ -280,5 +281,9 @@
 
     [data-theme='light'] :where(.c-detail-offcanvas .controls-button) {
         border: 1px rgba(var(--white-rgb), 0.2) solid;
+    }
+
+    [data-theme='dark'] :where(.c-detail-offcanvas .detail-container) {
+        border-inline-start: 1px var(--immutable-white) solid;
     }
 }

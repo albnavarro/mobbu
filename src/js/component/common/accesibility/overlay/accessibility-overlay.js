@@ -2,6 +2,7 @@ import { htmlObject } from '@mobJs';
 import { AccessibilityToggle } from '../toggle/definition';
 import { setTheme } from '@componentLibs/utils/theme-color';
 import { setSiteDirection } from '@componentLibs/utils/site-direction';
+import { accessibilityStore } from '@stores/accessibility';
 
 /**
  * @import {
@@ -19,6 +20,7 @@ import { setSiteDirection } from '@componentLibs/utils/site-direction';
 const closeOverlay = ({ proxi, getRef }) => {
     proxi.active = false;
     getRef().dialog.close();
+    accessibilityStore.set('accessibilityDialogOpen', false);
 };
 
 /**
@@ -33,6 +35,17 @@ function backDropHandler({ proxi, getRef }) {
         }
     };
 }
+
+/**
+ * @param {object} params
+ * @param {ProxiSelfState<import('./type').AccessibilityOverlayType>} params.proxi
+ * @param {GetRef<import('./type').AccessibilityOverlayType>} params.getRef
+ */
+const onCalcelHandler = ({ getRef, proxi }) => {
+    return function onCancel() {
+        closeOverlay({ getRef, proxi });
+    };
+};
 
 /** @type {MobComponent<import('./type').AccessibilityOverlayType>} */
 export const AccessibilityOverlayFn = ({
@@ -50,13 +63,18 @@ export const AccessibilityOverlayFn = ({
     addMethod('open', () => {
         proxi.active = true;
         getRef().dialog.showModal();
+        accessibilityStore.set('accessibilityDialogOpen', true);
     });
 
     onMount(() => {
+        const onCancelSubscriber = onCalcelHandler({ getRef, proxi });
+        getRef().dialog.addEventListener('cancel', onCancelSubscriber);
+
         const onBackDropSubscriber = backDropHandler({ proxi, getRef });
         getRef().dialog.addEventListener('click', onBackDropSubscriber);
 
         return () => {
+            getRef().dialog.removeEventListener('cancel', onCancelSubscriber);
             getRef().dialog.removeEventListener('click', onBackDropSubscriber);
         };
     });

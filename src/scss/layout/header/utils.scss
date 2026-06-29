@@ -6,6 +6,7 @@
             display: grid;
 
             --sidebar-item-size: #{rem(20)};
+            --svg-fill: var(--black);
 
             @include mq(desktop) {
                 --sidebar-item-size: #{rem(26)};
@@ -22,11 +23,7 @@
         }
 
         li {
-            &:hover {
-                svg {
-                    opacity: 0.2;
-                }
-            }
+            position: relative;
         }
 
         button,
@@ -40,6 +37,34 @@
             outline-offset: -2px;
             background: transparent;
             color: var(--white);
+
+            &::after {
+                content: '';
+                position: absolute;
+                z-index: -1;
+                inset-inline: 0;
+                inset-block-end: 0;
+                block-size: 100%;
+                transform: scaleY(0);
+                transform-origin: bottom;
+                transition: transform 0.55s;
+                background: var(--immutable-dark);
+            }
+
+            &:hover {
+                &::after {
+                    transform: scaleY(0.1);
+                    transition-duration: 0.35s;
+                }
+            }
+
+            &.active {
+                --svg-fill: var(--immutable-white);
+
+                &::after {
+                    transform: scaleY(1);
+                }
+            }
 
             &:focus {
                 outline-color: var(--dark);
@@ -55,7 +80,17 @@
             block-size: var(--sidebar-item-size);
             inline-size: var(--sidebar-item-size);
             transition: opacity 0.55s;
-            fill: var(--dark);
+            fill: var(--svg-fill);
+        }
+    }
+}
+
+@layer override {
+    [data-theme='dark'] {
+        :where(.l-header-utils button, .l-header-utils a) {
+            &::after {
+                background: var(--immutable-black);
+            }
         }
     }
 }

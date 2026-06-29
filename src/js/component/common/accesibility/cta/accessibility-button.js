@@ -6,8 +6,13 @@ import { openAccessibilityOverlay } from '../overlay/utils';
  * @import {MobComponent} from '@mobJsType'
  */
 
-/** @type {MobComponent} */
-export const AccessibilityButtonFn = ({ delegateEvents }) => {
+/** @type {MobComponent<import('./type').AccessibilityCtaType>} */
+export const AccessibilityButtonFn = ({
+    delegateEvents,
+    getBoundedProxi,
+    bindEffect,
+}) => {
+    const boundedProxi = getBoundedProxi();
     const icon = getIcons()['accessibilityIcons'];
 
     return htmlObject({
@@ -22,6 +27,11 @@ export const AccessibilityButtonFn = ({ delegateEvents }) => {
             delegateEvents({
                 click: () => {
                     openAccessibilityOverlay();
+                },
+            }),
+            bindEffect({
+                toggleClass: {
+                    active: () => boundedProxi.accessibilityDialogOpen === true,
                 },
             }),
         ],

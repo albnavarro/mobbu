@@ -92,3 +92,33 @@
         }
     }
 }
+
+@layer override {
+    [data-theme='dark'] {
+        :where(.c-accessibility-overlay) {
+            border-block-end: 1px var(--immutable-white) solid;
+            border-inline-start: 1px var(--immutable-white) solid;
+        }
+
+        [data-template='template-doc-default'] {
+            :where(.c-accessibility-overlay) {
+                border-block-end: 1px var(--grey-400) solid;
+                border-inline-start: 1px var(--grey-400) solid;
+            }
+        }
+
+        [data-template='template-mobJs-component'] {
+            :where(.utils-cell) {
+                border-block-end: 1px var(--grey-400) solid;
+                border-inline-start: 1px var(--grey-400) solid;
+            }
+        }
+
+        [data-template='template-test'] {
+            :where(.utils-cell) {
+                border-block-end: 1px var(--grey-400) solid;
+                border-inline-start: 1px var(--grey-400) solid;
+            }
+        }
+    }
+}
