@@ -1,18 +1,13 @@
 import { getIcons } from '@data/index';
 import { htmlObject } from '@mobJs';
-import { toggleAccessibilityOverlay } from '../overlay/utils';
+import { openAccessibilityOverlay } from '../overlay/utils';
 
 /**
  * @import {MobComponent} from '@mobJsType'
  */
 
-/** @type {MobComponent<import('./type').AccessibilityButtonType>} */
-export const AccessibilityButtonFn = ({
-    delegateEvents,
-    getBoundedProxi,
-    bindEffect,
-}) => {
-    const boundedProxi = getBoundedProxi();
+/** @type {MobComponent} */
+export const AccessibilityButtonFn = ({ delegateEvents }) => {
     const icon = getIcons()['accessibilityIcons'];
 
     return htmlObject({
@@ -20,18 +15,13 @@ export const AccessibilityButtonFn = ({
         className: 'c-btn-accessibility',
         attributes: {
             type: 'button',
-            'aria-label': 'open accessibility popover',
+            'aria-label': 'open accessibility dialog',
+            'aria-haspopup': 'dialog',
         },
         modules: [
             delegateEvents({
                 click: () => {
-                    toggleAccessibilityOverlay();
-                },
-            }),
-            bindEffect({
-                toggleAttribute: {
-                    'aria-expanded': () =>
-                        boundedProxi.accessibilityIsOpen ? 'true' : 'false',
+                    openAccessibilityOverlay();
                 },
             }),
         ],

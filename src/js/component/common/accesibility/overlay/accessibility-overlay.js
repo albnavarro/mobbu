@@ -2,8 +2,6 @@ import { htmlObject } from '@mobJs';
 import { AccessibilityToggle } from '../toggle/definition';
 import { setTheme } from '@componentLibs/utils/theme-color';
 import { setSiteDirection } from '@componentLibs/utils/site-direction';
-import { accessibilityStore } from '@stores/accessibility';
-import { MobCore } from '@mobCore';
 
 /**
  * @import {
@@ -13,8 +11,6 @@ import { MobCore } from '@mobCore';
  * } from '@mobJsType'
  */
 
-let unsubscribeEscHandler = () => {};
-
 /**
  * @param {object} params
  * @param {ProxiSelfState<import('./type').AccessibilityOverlayType>} params.proxi
@@ -23,8 +19,20 @@ let unsubscribeEscHandler = () => {};
 const closeOverlay = ({ proxi, getRef }) => {
     proxi.active = false;
     getRef().dialog.close();
-    accessibilityStore.set('accessibilityIsOpen', false);
 };
+
+/**
+ * @param {object} params
+ * @param {ProxiSelfState<import('./type').AccessibilityOverlayType>} params.proxi
+ * @param {GetRef<import('./type').AccessibilityOverlayType>} params.getRef
+ */
+function backDropHandler({ proxi, getRef }) {
+    return function onBackDrop(/** @type {MouseEvent} */ event) {
+        if (event.target === getRef().dialog) {
+            closeOverlay({ getRef, proxi });
+        }
+    };
+}
 
 /** @type {MobComponent<import('./type').AccessibilityOverlayType>} */
 export const AccessibilityOverlayFn = ({
@@ -32,43 +40,24 @@ export const AccessibilityOverlayFn = ({
     addMethod,
     bindEffect,
     getSelfProxi,
+    onMount,
     setRef,
     getRef,
     staticProps,
-    onMount,
-    watch,
 }) => {
     const proxi = getSelfProxi();
 
-    addMethod('toggle', () => {
-        proxi.active = !proxi.active;
-
-        if (proxi.active) getRef().dialog.show();
-        if (!proxi.active) getRef().dialog.close();
-        accessibilityStore.set('accessibilityIsOpen', proxi.active);
+    addMethod('open', () => {
+        proxi.active = true;
+        getRef().dialog.showModal();
     });
 
     onMount(() => {
-        /**
-         * With dialog + popover + <dialog>.show() esc handler should be trigger manually
-         */
-        watch(
-            () => proxi.active,
-            (active) => {
-                if (active) {
-                    unsubscribeEscHandler = MobCore.useEscHandler(() => {
-                        closeOverlay({ getRef, proxi });
-                    });
-                    return;
-                }
+        const onBackDropSubscriber = backDropHandler({ proxi, getRef });
+        getRef().dialog.addEventListener('click', onBackDropSubscriber);
 
-                unsubscribeEscHandler();
-            }
-        );
-
-        // eslint-disable-next-line unicorn/consistent-function-scoping
         return () => {
-            unsubscribeEscHandler();
+            getRef().dialog.removeEventListener('click', onBackDropSubscriber);
         };
     });
 
@@ -141,9 +130,8 @@ export const AccessibilityOverlayFn = ({
         tag: 'dialog',
         className: 'c-accessibility-overlay',
         attributes: {
-            id: 'accessibility-popover',
-            'aria-label': 'Accesibility popover',
-            popover: '',
+            id: 'accessibility-dialog',
+            'aria-label': 'Accesibility dialog',
         },
         modules: setRef('dialog'),
         content: [

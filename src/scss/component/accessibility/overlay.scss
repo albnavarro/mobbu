@@ -4,8 +4,7 @@
     @scope (.c-accessibility-overlay) {
         :scope {
             display: none;
-            z-index: 10;
-            inline-size: rem(233);
+            inline-size: var(--header-icons);
             margin-inline: auto 0;
             padding: rem(12);
             overflow: visible;
@@ -17,9 +16,7 @@
             transition:
                 opacity 0.35s,
                 display 0.35s allow-discrete;
-            border-block-end: 1px var(--grey-400) solid;
-            border-block-start: 0;
-            border-inline: 1px var(--grey-400) solid;
+            border: 0;
             opacity: 0;
             background: var(--immutable-dark);
             color: var(--immutable-white);
@@ -44,6 +41,25 @@
 
         @starting-style {
             :scope[open] {
+                opacity: 0;
+            }
+        }
+
+        &::backdrop {
+            transition:
+                opacity 0.35s,
+                display 0.35s allow-discrete;
+            opacity: 0;
+            background: var(--white);
+            cursor: pointer;
+        }
+
+        :scope[open]::backdrop {
+            opacity: 0;
+        }
+
+        @starting-style {
+            :scope[open]::backdrop {
                 opacity: 0;
             }
         }

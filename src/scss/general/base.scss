@@ -66,6 +66,7 @@
         --doc-width: calc(100% - var(--gap-size));
         --left-sidebar: none;
         --right-sidebar: #{rem(290)};
+        --header-icons: #{rem(233)};
 
         // snippet, global value for height pre-calc.
         --snippet-rem-value: #{strip-unit(rem(14))};

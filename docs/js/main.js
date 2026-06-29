@@ -26160,7 +26160,7 @@
         if (core_exports.mq("min", "desktop")) return;
         proxi.rightSidebarVisible = false;
       });
-      const unsubscribeEscHandler3 = modules_exports.useEscHandler(() => {
+      const unsubscribeEscHandler2 = modules_exports.useEscHandler(() => {
         if (!proxi.rightSidebarVisible || core_exports.mq("min", "desktop"))
           return;
         proxi.rightSidebarVisible = false;
@@ -26169,7 +26169,7 @@
       return () => {
         unsubscribeResize();
         unsubScribeRoute();
-        unsubscribeEscHandler3();
+        unsubscribeEscHandler2();
         unsubscribeTabHandler();
       };
     });
@@ -28630,7 +28630,7 @@
           tag: "dialog",
           modules: setRef("dialog"),
           content: {
-            className: "container",
+            className: "detail-container",
             content: [
               {
                 tag: "button",
@@ -43087,35 +43087,26 @@
   });
 
   // src/js/component/common/accesibility/overlay/utils.js
-  var toggleAccessibilityOverlay = () => {
+  var openAccessibilityOverlay = () => {
     const methods = modules_exports2.useMethodByName(accessibilityOverlayName);
-    methods?.toggle();
+    methods?.open();
   };
 
   // src/js/component/common/accesibility/cta/accessibility-button.js
-  var AccessibilityButtonFn = ({
-    delegateEvents,
-    getBoundedProxi,
-    bindEffect
-  }) => {
-    const boundedProxi = getBoundedProxi();
+  var AccessibilityButtonFn = ({ delegateEvents }) => {
     const icon = getIcons()["accessibilityIcons"];
     return htmlObject({
       tag: "button",
       className: "c-btn-accessibility",
       attributes: {
         type: "button",
-        "aria-label": "open accessibility popover"
+        "aria-label": "open accessibility dialog",
+        "aria-haspopup": "dialog"
       },
       modules: [
         delegateEvents({
           click: () => {
-            toggleAccessibilityOverlay();
-          }
-        }),
-        bindEffect({
-          toggleAttribute: {
-            "aria-expanded": () => boundedProxi.accessibilityIsOpen ? "true" : "false"
+            openAccessibilityOverlay();
           }
         })
       ],
@@ -43123,26 +43114,11 @@
     });
   };
 
-  // src/js/stores/accessibility/index.js
-  var accessibilityStore = modules_exports.createStore(
-    /** @type {MobStoreParams<import('./type').accessibilityStore>} */
-    {
-      accessibilityIsOpen: {
-        __value: false,
-        ___type: Boolean
-      }
-    }
-  );
-
   // src/js/component/common/accesibility/cta/definition.js
-  var AccessibilityButton = modules_exports2.createComponent(
-    /** @type {CreateComponentParams<import('./type').AccessibilityButtonType>} */
-    {
-      tag: "accessibility-button",
-      component: AccessibilityButtonFn,
-      bindStore: accessibilityStore
-    }
-  );
+  var AccessibilityButton = modules_exports2.createComponent({
+    tag: "accessibility-button",
+    component: AccessibilityButtonFn
+  });
 
   // src/js/component/layout/header/header-utils/header-utils.js
   var onClick = ({ event }) => {
@@ -46981,46 +46957,37 @@
   );
 
   // src/js/component/common/accesibility/overlay/accessibility-overlay.js
-  var unsubscribeEscHandler2 = () => {
-  };
   var closeOverlay3 = ({ proxi, getRef }) => {
     proxi.active = false;
     getRef().dialog.close();
-    accessibilityStore.set("accessibilityIsOpen", false);
   };
+  function backDropHandler4({ proxi, getRef }) {
+    return function onBackDrop(event) {
+      if (event.target === getRef().dialog) {
+        closeOverlay3({ getRef, proxi });
+      }
+    };
+  }
   var AccessibilityOverlayFn = ({
     delegateEvents,
     addMethod,
     bindEffect,
     getSelfProxi,
+    onMount,
     setRef,
     getRef,
-    staticProps: staticProps2,
-    onMount,
-    watch
+    staticProps: staticProps2
   }) => {
     const proxi = getSelfProxi();
-    addMethod("toggle", () => {
-      proxi.active = !proxi.active;
-      if (proxi.active) getRef().dialog.show();
-      if (!proxi.active) getRef().dialog.close();
-      accessibilityStore.set("accessibilityIsOpen", proxi.active);
+    addMethod("open", () => {
+      proxi.active = true;
+      getRef().dialog.showModal();
     });
     onMount(() => {
-      watch(
-        () => proxi.active,
-        (active2) => {
-          if (active2) {
-            unsubscribeEscHandler2 = modules_exports.useEscHandler(() => {
-              closeOverlay3({ getRef, proxi });
-            });
-            return;
-          }
-          unsubscribeEscHandler2();
-        }
-      );
+      const onBackDropSubscriber = backDropHandler4({ proxi, getRef });
+      getRef().dialog.addEventListener("click", onBackDropSubscriber);
       return () => {
-        unsubscribeEscHandler2();
+        getRef().dialog.removeEventListener("click", onBackDropSubscriber);
       };
     });
     const ctas = {
@@ -47091,9 +47058,8 @@
       tag: "dialog",
       className: "c-accessibility-overlay",
       attributes: {
-        id: "accessibility-popover",
-        "aria-label": "Accesibility popover",
-        popover: ""
+        id: "accessibility-dialog",
+        "aria-label": "Accesibility dialog"
       },
       modules: setRef("dialog"),
       content: [

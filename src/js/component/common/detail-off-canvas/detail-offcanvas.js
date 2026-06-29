@@ -86,7 +86,7 @@ export const DetailOffCanvasFn = ({
                 tag: 'dialog',
                 modules: setRef('dialog'),
                 content: {
-                    className: 'container',
+                    className: 'detail-container',
                     content: [
                         {
                             tag: 'button',

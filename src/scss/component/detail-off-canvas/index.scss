@@ -63,7 +63,7 @@
             block-size: calc(
                 100dvh - var(--header-height) - var(--footer-height)
             );
-            inline-size: rem(250);
+            inline-size: var(--header-icons);
             margin: 0;
             margin-inline-start: auto;
             transform: translateX(calc(100% * var(--dir)));
@@ -96,8 +96,22 @@
             }
 
             &::backdrop {
-                opacity: 0.1;
-                background: var(--grey-100);
+                transition:
+                    opacity 0.35s,
+                    display 0.35s allow-discrete;
+                opacity: 0;
+                background: var(--white);
+                cursor: pointer;
+            }
+
+            &[open]::backdrop {
+                opacity: 0;
+            }
+
+            @starting-style {
+                &[open]::backdrop {
+                    opacity: 0;
+                }
             }
         }
 
@@ -107,7 +121,7 @@
             }
         }
 
-        .container {
+        .detail-container {
             block-size: 100%;
             padding-block: rem(60) rem(20);
             padding-inline: rem(20);
@@ -135,6 +149,7 @@
                 color 0.35s;
             border: 1px var(--grey-300) solid;
             background: transparent;
+            font-size: rem(14);
             text-align: end;
 
             &:hover,
