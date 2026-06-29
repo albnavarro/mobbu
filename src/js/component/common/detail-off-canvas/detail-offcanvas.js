@@ -80,7 +80,23 @@ export const DetailOffCanvasFn = ({
                         openOverlay({ getRef, proxi });
                     },
                 }),
-                content: 'detail controls:',
+                content: [
+                    'open detail controls',
+                    {
+                        tag: 'span',
+                        className: 'arrows',
+                        content: [
+                            {
+                                tag: 'span',
+                                className: 'arrow-start',
+                            },
+                            {
+                                tag: 'span',
+                                className: 'arrow-end',
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 tag: 'dialog',

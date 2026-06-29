@@ -6,22 +6,65 @@
             display: block;
             position: absolute;
             z-index: 10;
+            inline-size: var(--header-icons);
             margin-block-start: 0;
-            padding: rem(5) rem(20);
+            padding: rem(10) rem(20);
             transition:
                 background 0.35s,
                 color 0.35s;
-            border: 0;
             outline-color: var(--dark);
-            background: var(--dark);
-            color: var(--white);
+            background: transparent;
+            color: var(--dark);
+            font-weight: 900;
             text-align: end;
-            inset-block-start: calc(var(--header-height) + rem(20));
-            inset-inline-end: rem(20);
+            text-align: center;
+            inset-block-start: calc(var(--header-height));
+            inset-inline-end: 0;
+            border-inline-start: 1px var(--dark) solid;
+            border-inline-end: 0;
+            border-block-end: 1px var(--dark) solid;
+            border-block-start: 0;
+
+            --arrow-color: var(--dark);
+
+            .arrows {
+                display: block;
+                position: absolute;
+                block-size: rem(20);
+                inline-size: rem(20);
+                inset-block-start: 50%;
+                inset-inline-end: rem(5);
+            }
+
+            .arrow-start {
+                position: absolute;
+                block-size: rem(10);
+                inline-size: 2px;
+                transform: translate(calc(-50% * var(--dir)), -50%);
+                transition: background 0.35s;
+                background: var(--arrow-color);
+                inset-block-start: 0;
+                inset-inline-start: 0;
+            }
+
+            .arrow-end {
+                position: absolute;
+                block-size: rem(7);
+                inline-size: rem(7);
+                transform: translate(calc(-50% * var(--dir)), -50%)
+                    rotate(calc(45deg * var(--dir)));
+                transition: border-color 0.35s;
+                inset-block-start: calc(#{rem(2)} * 1);
+                inset-inline-start: 0;
+                border-inline-end: 2px var(--arrow-color) solid;
+                border-block-end: 2px var(--arrow-color) solid;
+            }
 
             &:hover {
-                background: var(--white);
-                color: var(--dark);
+                background: var(--dark);
+                color: var(--white);
+
+                --arrow-color: var(--white);
             }
         }
 
@@ -231,8 +274,8 @@
 
 @layer override {
     :where(.l-rosa .open) {
-        inset-block-start: rem(20);
-        inset-inline-end: rem(20);
+        inset-block-start: 0;
+        inset-inline-end: 0;
     }
 
     [data-theme='light'] :where(.c-detail-offcanvas .controls-button) {
