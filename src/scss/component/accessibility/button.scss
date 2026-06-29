@@ -4,6 +4,7 @@
     @scope (.c-btn-accessibility) {
         :scope {
             margin: 0;
+            anchor-name: --accessibility-button;
         }
     }
 }

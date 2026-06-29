@@ -3,7 +3,7 @@ export interface AccessibilityOverlayType {
         active: boolean;
     };
     methods: {
-        open: () => void;
+        toggle: () => void;
     };
     ref: {
         dialog: HTMLDialogElement;

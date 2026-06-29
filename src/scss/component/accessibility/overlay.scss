@@ -4,6 +4,7 @@
     @scope (.c-accessibility-overlay) {
         :scope {
             display: none;
+            z-index: 10;
             inline-size: rem(233);
             margin-inline: auto 0;
             padding: rem(12);
@@ -16,12 +17,15 @@
             transition:
                 opacity 0.35s,
                 display 0.35s allow-discrete;
-            border: 0;
+            border-block-end: 1px var(--grey-400) solid;
+            border-block-start: 0;
+            border-inline: 1px var(--grey-400) solid;
             opacity: 0;
             background: var(--immutable-dark);
             color: var(--immutable-white);
             pointer-events: none;
-            inset-block-start: calc(var(--header-height) - 1px);
+            position-anchor: --accessibility-button;
+            inset-block-start: anchor(end);
 
             @supports (overlay: auto) {
                 // Chrome/Edge: delay sull' uscita dal top layer
@@ -40,24 +44,6 @@
 
         @starting-style {
             :scope[open] {
-                opacity: 0;
-            }
-        }
-
-        &::backdrop {
-            transition:
-                opacity 0.35s,
-                display 0.35s allow-discrete;
-            opacity: 0;
-            background: var(--grey-100);
-        }
-
-        :scope[open]::backdrop {
-            opacity: 0.7;
-        }
-
-        @starting-style {
-            :scope[open]::backdrop {
                 opacity: 0;
             }
         }
