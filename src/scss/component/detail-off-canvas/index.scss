@@ -96,22 +96,8 @@
             }
 
             &::backdrop {
-                transition:
-                    opacity 0.35s,
-                    display 0.35s allow-discrete;
                 opacity: 0;
-                background: var(--white);
                 cursor: pointer;
-            }
-
-            &[open]::backdrop {
-                opacity: 0;
-            }
-
-            @starting-style {
-                &[open]::backdrop {
-                    opacity: 0;
-                }
             }
         }
 

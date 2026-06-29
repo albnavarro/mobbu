@@ -4171,18 +4171,8 @@
       }
     }
     &::backdrop {
-      transition: opacity 0.35s, display 0.35s allow-discrete;
       opacity: 0;
-      background: var(--white);
       cursor: pointer;
-    }
-    :scope[open]::backdrop {
-      opacity: 0;
-    }
-    @starting-style {
-      :scope[open]::backdrop {
-        opacity: 0;
-      }
     }
     .close {
       position: absolute;
@@ -6447,18 +6437,8 @@
       transform: translateX(0);
     }
     dialog::backdrop {
-      transition: opacity 0.35s, display 0.35s allow-discrete;
       opacity: 0;
-      background: var(--white);
       cursor: pointer;
-    }
-    dialog[open]::backdrop {
-      opacity: 0;
-    }
-    @starting-style {
-      dialog[open]::backdrop {
-        opacity: 0;
-      }
     }
     @starting-style {
       dialog[open] {
