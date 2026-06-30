@@ -54,10 +54,11 @@
         --immutable-black: #000;
         --immutable-white: #fff;
         --immutable-dark: #2e3440;
-
-        // Instead grid-context
+        --immutable-grey-300: #434c5e;
+        --line: rgba(var(--dark-rgb), 0.3); // Instead grid-context
         --gap-size: #{rem(40)};
         --col-size: 9%;
+        --sub-header-block: #{rem(48)};
 
         // Stadard css var
         --header-height: calc(var(--gap-size) * 2);

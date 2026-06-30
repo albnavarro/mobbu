@@ -40,7 +40,7 @@
             );
             inline-size: var(--sreen-size);
             transform: translateX(-50%);
-            border: 1px rgba(var(--dark-rgb), 0.2) solid;
+            border: 1px var(--line) solid;
             pointer-events: none;
             inset-block-start: var(--vertical-gap);
             inset-inline-start: 50%;
@@ -305,7 +305,7 @@
             transition:
                 background 0.55s,
                 color 0.55s;
-            border: 1px rgba(var(--dark-rgb), 0.2) solid;
+            border: 1px var(--line) solid;
             background: transparent;
             font-size: rem(13);
             line-height: 1;

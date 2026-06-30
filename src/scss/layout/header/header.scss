@@ -21,7 +21,7 @@
                 inline-size: 100%;
                 transform: scaleX(0);
                 transform-origin: top left;
-                background: var(--grey-400);
+                background: var(--line);
                 inset-block-end: 0;
                 inset-inline-start: 0;
             }
@@ -96,7 +96,7 @@
             block-size: 100%;
             transition: opacity 1s 0.55s;
             opacity: 0;
-            border-inline-start: 1px solid var(--black);
+            border-inline-start: 1px solid var(--line);
             text-align: end;
             justify-self: end;
 
@@ -153,64 +153,21 @@
         @include mq(tablet) {
             background: transparent;
         }
-
-        &::after {
-            transition: transform 1s 0.2s;
-            background: var(--dark);
-        }
-    }
-
-    [data-template='template-doc-default'] {
-        :where(.utils-cell) {
-            border-inline-start: 1px solid var(--grey-400);
-        }
-    }
-
-    [data-template='template-mobJs-component'] {
-        :where(.utils-cell) {
-            border-inline-start: 1px solid var(--grey-400);
-        }
-    }
-
-    [data-template='template-test'] {
-        :where(.utils-cell) {
-            border-inline-start: 1px solid var(--grey-400);
-        }
     }
 
     [data-template='home'] :where(header) {
         background: transparent;
-
-        &::after {
-            transition: transform 1s 0.2s;
-            background: var(--dark);
-        }
     }
 
     [data-template='template-only-desktop'] :where(header) {
         background: transparent;
-
-        &::after {
-            transition: transform 1s 0.2s;
-            background: var(--dark);
-        }
     }
 
     [data-template='template-listing'] :where(header) {
         background: transparent;
-
-        &::after {
-            transition: transform 1s 0.2s;
-            background: var(--dark);
-        }
     }
 
     [data-template='template-animation'] :where(header) {
         background: transparent;
-
-        &::after {
-            transition: transform 1s 0.2s;
-            background: var(--dark);
-        }
     }
 }

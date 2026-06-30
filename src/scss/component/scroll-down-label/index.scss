@@ -3,28 +3,29 @@
 @layer layout {
     @scope (.c-scroller-down-label) {
         :scope {
+            display: flex;
             visibility: hidden;
             position: fixed;
             z-index: 15;
-            padding-block: rem(6) rem(10);
-            padding-inline: rem(20);
+            align-items: center;
+            justify-content: center;
+            block-size: var(--sub-header-block);
+            margin: 0;
+            padding: 0 rem(10);
             transform: translateX(calc(-50% * var(--dir)));
             transition:
                 opacity 0.35s,
                 visibility 0.35s;
             border: 0;
-            border: 1px var(--dark) solid;
             opacity: 0;
             color: var(--dark);
+            font-family: 'Fira Sans', sans-serif;
+            font-size: rem(18);
+            font-weight: 400;
             line-height: 1;
             text-align: center;
-            inset-block-start: calc(var(--header-height) + rem(20));
+            inset-block-start: var(--header-height);
             inset-inline-start: 50%;
-
-            @media screen and (height <= 700px) {
-                inset-block-start: calc(var(--header-height) - 1px);
-                font-size: rem(16);
-            }
 
             &.active {
                 visibility: visible;

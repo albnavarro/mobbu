@@ -10,7 +10,7 @@
             transition:
                 transform 0.55s,
                 background 0.55s;
-            border-inline-end: 1px var(--dark) solid;
+            border-inline-end: 1px var(--line) solid;
             background: var(--white);
         }
 
@@ -34,7 +34,7 @@
                 transform: scaleY(0);
                 transform-origin: top right;
                 transition: transform 1s 0.5s;
-                background: var(--dark);
+                background: var(--line);
                 inset-block-start: 0;
                 inset-inline-end: 0;
             }

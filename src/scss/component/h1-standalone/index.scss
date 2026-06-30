@@ -3,16 +3,28 @@
 @layer layout {
     @scope (.h1-standalone) {
         :scope {
+            display: flex;
             position: fixed;
-            inset-block-start: calc(var(--header-height) + #{rem(35)});
-            inset-inline-start: var(--gap-size);
+            align-items: center;
+            justify-content: center;
+            block-size: var(--sub-header-block);
+            min-inline-size: rem(400);
+            padding: 0 rem(20);
             outline-offset: rem(10);
             color: var(--dark);
+            font-family: 'Fira Sans', sans-serif;
             font-size: rem(18);
+            font-weight: 400;
+            inset-block-start: var(--header-height);
+            inset-inline-start: var(--gap-size);
             text-box: trim-both cap alphabetic;
+            border-inline-end: 1px var(--line) solid;
+            border-inline-start: 0;
+            border-block-end: 1px var(--line) solid;
+            border-block-start: 0;
 
             @include mq(tablet) {
-                inset-inline-start: calc(var(--header-height) / 2 + #{rem(40)});
+                inset-inline-start: calc(var(--header-height) / 2);
             }
         }
     }
