@@ -4,7 +4,6 @@
  */
 
 import { htmlObject, MobJs } from '@mobJs';
-import { MobTween } from '@mobMotion';
 
 /** @type {MobComponent<QuickNav>} */
 export const QuickNavFn = ({
@@ -12,80 +11,12 @@ export const QuickNavFn = ({
     bindEffect,
     addMethod,
     setRef,
-    getRef,
-    onMount,
-    watch,
     delegateEvents,
 }) => {
     const proxi = getSelfProxi();
 
     addMethod('update', (prop, value) => {
         proxi[prop] = value;
-    });
-
-    let spring = MobTween.createTimeTween({
-        data: { y: 0, yContainer: 100 },
-        duration: 300,
-        ease: 'easeOutQuad',
-    });
-
-    watch(
-        () => proxi.currentLabelId,
-        (currentId) => {
-            if (currentId === -1) {
-                spring.goTo({ yContainer: 100 });
-                return;
-            }
-
-            spring.goTo({ y: (100 / 3) * -currentId, yContainer: 0 });
-        }
-    );
-
-    onMount(({ element }) => {
-        let { back, next, previous, labelList, labels } = getRef();
-
-        spring.subscribe(({ y, yContainer }) => {
-            labelList.style.transform = `translateY(${y}%)`;
-            labels.style.transform = `translateY(${yContainer}%)`;
-        });
-
-        element.addEventListener('mouseleave', () => {
-            proxi.currentLabelId = -1;
-        });
-
-        previous.addEventListener('mouseenter', () => {
-            proxi.currentLabelId = 0;
-        });
-
-        back.addEventListener('mouseenter', () => {
-            proxi.currentLabelId = 1;
-        });
-
-        next.addEventListener('mouseenter', () => {
-            proxi.currentLabelId = 2;
-        });
-
-        return () => {
-            spring.destroy();
-
-            // @ts-ignore
-            spring = null;
-
-            // @ts-ignore
-            previous = null;
-
-            // @ts-ignore
-            back = null;
-
-            // @ts-ignore
-            next = null;
-
-            // @ts-ignore
-            labelList = null;
-
-            // @ts-ignore
-            labels = null;
-        };
     });
 
     return htmlObject({
@@ -173,31 +104,6 @@ export const QuickNavFn = ({
                         },
                     }),
                 ],
-            },
-            {
-                className: 'quick-nav-labels',
-                content: {
-                    className: 'labels',
-                    modules: setRef('labels'),
-                    content: {
-                        className: 'labels-container',
-                        modules: setRef('labelList'),
-                        content: [
-                            {
-                                tag: 'span',
-                                content: 'previous item',
-                            },
-                            {
-                                tag: 'span',
-                                content: 'all items',
-                            },
-                            {
-                                tag: 'span',
-                                content: 'next item',
-                            },
-                        ],
-                    },
-                },
             },
         ],
     });

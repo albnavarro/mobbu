@@ -3,7 +3,6 @@ interface State {
     prevRoute: string;
     nextRoute: string;
     backRoute: string;
-    currentLabelId: number;
 }
 
 export interface QuickNav {
@@ -12,8 +11,6 @@ export interface QuickNav {
         previous: HTMLLinkElement;
         back: HTMLLinkElement;
         next: HTMLLinkElement;
-        labelList: HTMLElement;
-        labels: HTMLElement;
     };
     methods: {
         update: <K extends keyof State>(prop: K, value: State[K]) => void;

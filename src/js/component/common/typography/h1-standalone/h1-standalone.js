@@ -5,8 +5,12 @@ export const H1StandaloneFn = ({ getSelfProxi }) => {
     const proxi = getSelfProxi();
 
     return htmlObject({
-        tag: 'h1',
         className: 'h1-standalone',
-        content: proxi.text,
+        content: [
+            {
+                tag: 'h1',
+                content: proxi.text,
+            },
+        ],
     });
 };

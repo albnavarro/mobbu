@@ -96,63 +96,7 @@
                 scale: 1.2;
                 border-width: 3px;
             }
-
-            .labels {
-                visibility: visible;
-                opacity: 1;
-            }
         }
-    }
-}
-
-@layer layout {
-    @scope (.quick-nav-labels) {
-        :scope {
-            position: absolute;
-            block-size: var(--item-height);
-            overflow: hidden;
-            inset-block-start: calc(#{rem(35)} * -1);
-            inset-inline: 0;
-
-            --item-height: #{rem(30)};
-        }
-
-        .labels {
-            display: inline-block;
-            z-index: -1;
-            block-size: var(--item-height);
-            inline-size: 100%;
-            overflow: hidden;
-            transform: translateY(100%);
-            transition:
-                opacity 0.35s,
-                visibility 0.35s;
-            color: var(--black);
-            line-height: 1;
-            text-align: center;
-
-            span {
-                display: block;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                block-size: var(--item-height);
-                padding-block-start: rem(4);
-                font-weight: 600;
-                text-transform: uppercase;
-            }
-        }
-
-        .labels-container {
-            position: relative;
-            block-size: calc(var(--item-height) * 3);
-        }
-    }
-}
-
-@layer override {
-    [data-theme='dark'] :where(.quick-nav-labels) {
-        color: var(--black);
     }
 }
 
