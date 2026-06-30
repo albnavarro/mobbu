@@ -45,7 +45,7 @@ export const getThirdLevel = ({
                             {
                                 component: MatrioskaItem,
                                 className: 'is-3',
-                                attributes: { name },
+                                instanceName: name,
                                 modules: [
                                     staticProps(
                                         /** @type {MatrioskaItemType['props']} */ ({
@@ -70,7 +70,7 @@ export const getThirdLevel = ({
                             {
                                 component: MatrioskaItem,
                                 className: 'is-3',
-                                attributes: { name: name2 },
+                                instanceName: name2,
                                 modules: [
                                     staticProps(
                                         /** @type {MatrioskaItemType['props']} */ ({
