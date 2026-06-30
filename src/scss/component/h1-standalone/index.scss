@@ -10,16 +10,16 @@
             position: fixed;
             margin-block-end: 0;
             color: var(--immutable-black);
-            font-size: rem(54);
+            font-size: rem(42);
             line-height: 1;
             text-wrap: nowrap;
-            inset-block-start: calc(100svh - var(--footer-height) - rem(32));
+            inset-block-start: calc(100dvh - var(--footer-height) - rem(28));
             inset-inline-start: var(--gap-size);
             text-box: cap alphabetic;
 
             @include mq(desktop) {
-                inset-block-start: calc(100svh - var(--footer-height) * 2);
-                font-size: rem(80);
+                inset-block-start: calc(100vh - var(--footer-height) - rem(38));
+                font-size: rem(60);
             }
         }
     }
