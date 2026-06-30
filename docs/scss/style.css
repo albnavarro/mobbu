@@ -1478,6 +1478,7 @@
       }
     }
     h1 {
+      position: relative;
       margin-block-end: 0;
       color: var(--immutable-black);
       font-size: 2.625rem;
@@ -1492,6 +1493,16 @@
     @media (min-width: 62em) {
       h1 {
         font-size: 3.75rem;
+      }
+      h1::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        block-size: 1px;
+        inline-size: 100vw;
+        background: var(--line);
+        inset-inline-start: calc(var(--gap-size) * -1);
+        inset-block-start: 1.5rem;
       }
     }
     .logo {
@@ -1532,6 +1543,9 @@
   }
 }
 @layer override {
+  [data-theme=dark] :where(.l-index h1)::after {
+    background: var(--white);
+  }
   :where(.is-firefox .l-index) svg {
     transform: translateZ(0.5px);
   }
@@ -6321,12 +6335,29 @@
       inset-inline-start: var(--gap-size);
       text-box: cap alphabetic;
     }
+    @media (min-width: 48em) {
+      h1::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset-inline-start: calc(var(--gap-size) * -1);
+        inset-block-start: 0.625rem;
+        block-size: 1px;
+        inline-size: 100vw;
+        background: var(--line);
+      }
+    }
     @media (min-width: 62em) {
       h1 {
         inset-block-start: calc(100vh - var(--footer-height) - 2.375rem);
         font-size: 3.75rem;
       }
     }
+  }
+}
+@layer override {
+  [data-theme=dark] :where(.h1-standalone h1)::after {
+    background: var(--white);
   }
 }
 @layer layout {

@@ -33,6 +33,7 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
         }
 
         h1 {
+            position: relative;
             margin-block-end: 0;
             color: var(--immutable-black);
             font-size: rem(42);
@@ -45,6 +46,17 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
 
             @include mq(desktop) {
                 font-size: rem(60);
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    z-index: -1;
+                    block-size: 1px;
+                    inline-size: 100vw;
+                    background: var(--line);
+                    inset-inline-start: calc(var(--gap-size) * -1);
+                    inset-block-start: rem(24);
+                }
             }
         }
 
@@ -90,6 +102,12 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
 }
 
 @layer override {
+    [data-theme='dark'] :where(.l-index h1) {
+        &::after {
+            background: var(--white);
+        }
+    }
+
     :where(.is-firefox .l-index) svg {
         transform: translateZ(0.5px);
     }
