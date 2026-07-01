@@ -25,7 +25,7 @@ export const AccessibilityToggleFn = ({
             className: 'grid',
             content: [
                 {
-                    tag: 'h2',
+                    tag: 'p',
                     content: proxi.label,
                 },
                 {

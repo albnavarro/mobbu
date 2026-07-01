@@ -2,11 +2,15 @@ import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
 import { srNotice } from './sr-notice';
 
+let shouldUseFocus = false;
+
 /**
  * @param {object} params
  * @param {HTMLElement} params.root
  */
 const applyFocus = ({ root }) => {
+    if (!shouldUseFocus) return;
+
     const h1 = /** @type {HTMLElement | null} */ (root.querySelector('h1'));
     h1?.setAttribute('tabindex', '-1');
     if (!focus) return;
@@ -39,6 +43,7 @@ export const setFocusToH1 = () => {
          */
         if (!isLoading) {
             applyFocus({ root });
+            shouldUseFocus = true;
             return;
         }
 
@@ -50,6 +55,7 @@ export const setFocusToH1 = () => {
             (val) => {
                 if (!val) {
                     applyFocus({ root });
+                    shouldUseFocus = true;
                 }
 
                 unsubscribeRouteIsLoading();

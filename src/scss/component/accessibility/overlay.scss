@@ -18,7 +18,7 @@
                 display 0.35s allow-discrete;
             border: 0;
             opacity: 0;
-            background: var(--immutable-dark);
+            background: var(--dark);
             color: var(--immutable-white);
             pointer-events: none;
             position-anchor: --accessibility-button;
@@ -89,6 +89,14 @@
 
         .header {
             margin-block-start: rem(64);
+        }
+    }
+}
+
+@layer override {
+    [data-theme='dark'] {
+        :where(.c-accessibility-overlay) {
+            background: var(--immutable-black);
         }
     }
 }

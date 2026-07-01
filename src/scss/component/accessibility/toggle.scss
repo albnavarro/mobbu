@@ -3,7 +3,9 @@
 @layer layout {
     @scope (.c-accessibility-toggle) {
         :scope {
-            margin-block-end: rem(16);
+            margin-block-end: rem(10);
+            padding-block-end: rem(10);
+            border-block-end: 1px var(--immutable-grey-300) solid;
         }
 
         .cta-group {
@@ -14,9 +16,9 @@
             gap: rem(20);
         }
 
-        h2 {
-            font-family: 'Fira Sans', sans-serif;
-            font-size: rem(18);
+        p {
+            margin-block-end: rem(5);
+            text-transform: capitalize;
         }
 
         .content {
@@ -27,14 +29,19 @@
 
 @layer user {
     @scope (.is-accessibility) {
+        --icon-opacity: 1;
+
         button {
             padding: rem(5);
-            border: 0;
+            border: 1px transparent solid;
             background: transparent;
-            border-block-end: 4px transparent solid;
+
+            &:hover {
+                --icon-opacity: 0.3;
+            }
 
             &.active {
-                border-block-end: 4px var(--immutable-white) solid;
+                border: 1px var(--immutable-grey-300) solid;
             }
         }
 
@@ -46,9 +53,11 @@
         svg {
             block-size: 100%;
             inline-size: 100%;
+            transition: opacity 0.35s;
             stroke-width: 1;
             stroke-linecap: round;
             stroke: var(--immutable-white);
+            opacity: var(--icon-opacity);
             fill: none;
             stroke-linejoin: round;
         }

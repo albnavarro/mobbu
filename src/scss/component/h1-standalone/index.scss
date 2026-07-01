@@ -13,9 +13,8 @@
             font-size: rem(42);
             line-height: 1;
             text-wrap: nowrap;
-            inset-block-start: calc(100dvh - var(--footer-height) - rem(28));
+            inset-block-start: calc(100dvh - var(--footer-height) - rem(38));
             inset-inline-start: var(--gap-size);
-            text-box: cap alphabetic;
 
             @include mq(tablet) {
                 &::after {
@@ -23,7 +22,7 @@
                     position: absolute;
                     z-index: -1;
                     inset-inline-start: calc(var(--gap-size) * -1);
-                    inset-block-start: rem(10);
+                    inset-block-start: rem(18);
                     block-size: 1px;
                     inline-size: 100vw;
                     background: var(--line);
@@ -31,8 +30,14 @@
             }
 
             @include mq(desktop) {
-                inset-block-start: calc(100vh - var(--footer-height) - rem(38));
+                inset-block-start: calc(
+                    100dvh - var(--footer-height) - rem(54)
+                );
                 font-size: rem(60);
+
+                &::after {
+                    inset-block-start: rem(24);
+                }
             }
         }
     }
