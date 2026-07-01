@@ -5,7 +5,7 @@
         :scope {
             display: none;
             inline-size: calc(var(--header-icons) - 1px);
-            margin-inline: auto 0;
+            margin: auto;
             padding: rem(12);
             overflow: visible;
 
@@ -21,8 +21,8 @@
             background: var(--dark);
             color: var(--immutable-white);
             pointer-events: none;
-            position-anchor: --accessibility-button;
-            inset-block-start: anchor(end);
+            inset: 0;
+            filter: drop-shadow(0 0 1.25rem var(--immutable-black));
 
             @supports (overlay: auto) {
                 // Chrome/Edge: delay sull' uscita dal top layer
@@ -30,6 +30,14 @@
                     opacity 0.35s,
                     display 0.35s allow-discrete,
                     overlay 0.35s allow-discrete;
+            }
+
+            @include mq(tablet) {
+                margin-block: 0;
+                margin-inline: auto 0;
+                position-anchor: --accessibility-button;
+                inset-block-start: anchor(end);
+                filter: none;
             }
 
             &[open] {
