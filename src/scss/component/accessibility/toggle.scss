@@ -29,7 +29,9 @@
 
 @layer user {
     @scope (.is-accessibility) {
-        --icon-opacity: 1;
+        :scope {
+            --icon-opacity: 1;
+        }
 
         button {
             padding: rem(5);
