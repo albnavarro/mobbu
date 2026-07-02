@@ -12,6 +12,8 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
             justify-content: start;
             block-size: calc(100dvh);
             overflow: hidden;
+
+            --animation-delay: 0.5s;
         }
 
         .text-container {
@@ -47,6 +49,7 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
         }
 
         h1 {
+            visibility: hidden;
             position: relative;
             margin-block-end: 0;
             color: var(--black);
