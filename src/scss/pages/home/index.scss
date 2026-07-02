@@ -49,7 +49,6 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
         }
 
         h1 {
-            visibility: hidden;
             position: relative;
             margin-block-end: 0;
             color: var(--black);
@@ -62,6 +61,7 @@ $logo-max-height: calc(((1920 * 800) / 1570) * 1px);
             }
 
             @include mq(desktop) {
+                visibility: hidden;
                 animation: reveal 1s forwards;
                 animation-delay: var(--animation-delay);
                 font-size: rem(60);
