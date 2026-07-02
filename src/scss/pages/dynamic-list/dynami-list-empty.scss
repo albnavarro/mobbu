@@ -5,13 +5,13 @@
         :scope {
             margin-block-start: rem(10);
             padding: rem(5);
-            border: 1px rgba(var(--dark-rgb), 0.1) solid;
+            border: 1px color-mix(in oklch, var(--dark) 10%, transparent) solid;
         }
     }
 }
 
 @layer override {
     :where(.is-selected) .c-dynamic-list-empty {
-        border-color: rgba(var(--white-rgb), 0.3);
+        border-color: color-mix(in oklch, var(--white) 30%, transparent);
     }
 }

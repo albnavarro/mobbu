@@ -194,7 +194,7 @@
         margin-inline: rem(2);
         padding: em(2) em(3);
         border-radius: rem(4);
-        background: rgba(var(--dark-rgb), 0.1);
+        background: color-mix(in oklch, var(--dark) 10%, transparent);
         font-size: 0.8em;
     }
 }

@@ -86,7 +86,7 @@
             inline-size: rem(30);
             margin: 0;
             padding: 0;
-            border: 1px rgba(var(--dark-rgb), 0.3) solid;
+            border: 1px color-mix(in oklch, var(--dark) 30%, transparent) solid;
             background: transparent;
 
             &::after {

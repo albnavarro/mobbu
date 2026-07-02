@@ -6,7 +6,7 @@
  */
 
 import { simpleIntroAnimation } from '@componentLibs/animation/simple-intro';
-import { htmlObject } from '@mobJs';
+import { htmlObject, MobJs } from '@mobJs';
 
 /**
  * @param {object} params
@@ -35,6 +35,14 @@ export const HomeComponentFn = ({ onMount, getSelfProxi }) => {
             playAnimation({ playIntro, playSvg });
         }, 500);
 
+        /**
+         * Prevent component is visible when route is cloned during page-transition.
+         */
+        const unsubscribeRouteChange = MobJs.beforeRouteChange(() => {
+            element.style.display = 'none';
+            unsubscribeRouteChange();
+        });
+
         return () => {
             destroy();
         };
@@ -48,6 +56,10 @@ export const HomeComponentFn = ({ onMount, getSelfProxi }) => {
             {
                 className: 'text-container',
                 content: [
+                    {
+                        tag: 'span',
+                        className: 'mask',
+                    },
                     {
                         tag: 'h1',
                         content: 'Welcome to MobProject',

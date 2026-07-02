@@ -16,7 +16,7 @@
     .u-match-string {
         display: inline;
         position: relative;
-        background: rgba(var(--white-rgb), 0.2);
+        background: color-mix(in oklch, var(--white) 20%, transparent);
     }
 
     .u-center-inner-svg {

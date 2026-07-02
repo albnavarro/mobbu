@@ -16,7 +16,7 @@
             flex-wrap: wrap;
             padding: calc(var(--gap-size) / 4);
             border-block-end: 1px var(--grey-400) solid;
-            background: rgba(var(--white-rgb), 0.8);
+            background: color-mix(in oklch, var(--white) 80%, transparent);
         }
 
         .header-button {

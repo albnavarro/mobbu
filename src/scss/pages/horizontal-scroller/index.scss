@@ -110,7 +110,7 @@
             inset-inline-start: 50%;
             inline-size: rem(200);
             transform: translate(-50%, -50%);
-            border: rem(10px) rgba(var(--dark-rgb), 0.15) solid;
+            border: rem(10px) color-mix(in oklch, var(--dark) 15%, transparent) solid;
             text-align: center;
 
             h1 {

@@ -42,7 +42,7 @@
                 padding-block: rem(6) rem(10);
                 padding-inline: rem(20);
                 transform: translateX(calc(-50% * var(--dir)));
-                border: 1px rgba(var(--dark-rgb), 0.3) solid;
+                border: 1px color-mix(in oklch, var(--dark) 30%, transparent) solid;
                 line-height: 1;
                 pointer-events: none;
                 inset-block-start: rem(20);

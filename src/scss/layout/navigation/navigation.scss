@@ -40,7 +40,7 @@
             transition: opacity 0.35s;
             border: 0;
             background: transparent;
-            color: rgba(var(--dark-rgb), 0.8);
+            color: color-mix(in oklch, var(--dark) 80%, transparent);
             text-align: start;
             text-decoration: none;
 
@@ -101,7 +101,7 @@
             }
 
             &.current {
-                color: rgba(var(--dark-rgb), 1);
+                color: var(--dark);
                 font-weight: 600;
 
                 &::before {

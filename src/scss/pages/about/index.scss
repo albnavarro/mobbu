@@ -210,7 +210,7 @@
                 transform: translate(-48.8%, -40.2%) rotateX(180deg);
 
                 svg {
-                    fill: rgba(var(--grey-100-rgb), 0.5);
+                    fill: color-mix(in oklch, var(--grey-100) 50%, transparent);
                 }
             }
         }

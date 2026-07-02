@@ -33,7 +33,7 @@
                     inset-block-start: 50%;
                     inset-inline: 0;
                     block-size: 1px;
-                    background: rgba(var(--white-rgb), 0.1);
+                    background: color-mix(in oklch, var(--white) 10%, transparent);
                 }
             }
 

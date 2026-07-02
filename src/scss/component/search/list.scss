@@ -27,8 +27,8 @@
             inset-inline-start: 50%;
             padding: calc(var(--gap-size) / 2) var(--gap-size);
             transform: translate(-50%, -50%);
-            border: 1px rgba(var(--dark-rgb), 0.5) solid;
-            background: rgba(var(--white-rgb), 0.8);
+            border: 1px color-mix(in oklch, var(--dark) 50%, transparent) solid;
+            background: color-mix(in oklch, var(--white) 80%, transparent);
             pointer-events: none;
 
             &.active {
