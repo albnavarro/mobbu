@@ -220,10 +220,16 @@
   font-display: swap;
 }
 @layer base {
+  html {
+    container-type: normal;
+    container-name: root;
+  }
   body {
     position: relative;
     overflow-x: hidden;
     background: var(--white);
+    container-type: normal;
+    container-name: body;
   }
   body::after {
     content: "";
@@ -272,6 +278,26 @@
     cursor: pointer;
     pointer-events: none;
   }
+  @container body style(--template: home) {
+    .main-app-content {
+      padding-block-start: 0;
+    }
+  }
+  @container body style(--template: animation) {
+    .main-app-content {
+      padding-block-start: 0;
+    }
+  }
+  @container body style(--template: doc-default) {
+    .main-app-content {
+      overflow: clip;
+    }
+  }
+  @container body style(--template: mobjs-component) {
+    .main-app-content {
+      overflow: clip;
+    }
+  }
   .main-container {
     margin: auto;
   }
@@ -279,27 +305,15 @@
     .main-container {
       padding-inline-start: var(--gap-size);
     }
+    @container body style(--template: animation) {
+      .main-container {
+        padding-inline-start: 0;
+      }
+    }
   }
   img {
     block-size: auto;
     max-inline-size: 100%;
-  }
-}
-@layer override {
-  :where([data-template=home]) .main-app-content {
-    padding-block-start: 0;
-  }
-  :where([data-template=template-animation]) .main-app-content {
-    padding-block-start: 0;
-  }
-  :where([data-template=template-doc-default] .main-app-content) {
-    overflow: clip;
-  }
-  :where([data-template=template-animation]) .main-container {
-    padding-inline-start: 0;
-  }
-  :where([data-template=template-mobJs-component] .main-app-content) {
-    overflow: clip;
   }
 }
 @layer base {
@@ -316,8 +330,6 @@
     --header-icons: 14.5625rem;
     --snippet-rem-value: 0.875;
     --snippet-line-height-value: 1.125;
-    container-type: normal;
-    container-name: root;
   }
   @media (min-width: 48em) {
     :root {
@@ -651,6 +663,32 @@
     font-size: 0.8em;
   }
 }
+@layer base {
+  body[data-template=home] {
+    --template: home;
+  }
+  body[data-template=about] {
+    --template: about;
+  }
+  body[data-template=template-listing] {
+    --template: listing;
+  }
+  body[data-template=template-animation] {
+    --template: animation;
+  }
+  body[data-template=template-doc-default] {
+    --template: doc-default;
+  }
+  body[data-template=template-mobJs-component] {
+    --template: mobjs-component;
+  }
+  body[data-template=template-test] {
+    --template: test;
+  }
+  body[data-template=template-only-desktop] {
+    --template: only-desktop;
+  }
+}
 @layer utilities {
   .u-weight-bold {
     font-weight: 600;
@@ -886,6 +924,41 @@
     :scope.is-visible::after {
       transform: scaleX(100%);
     }
+    @container body style(--template: home) {
+      :scope {
+        background: transparent;
+      }
+    }
+    @container body style(--template: only-desktop) {
+      :scope {
+        background: transparent;
+      }
+    }
+    @container body style(--template: listing) {
+      :scope {
+        background: transparent;
+      }
+    }
+    @container body style(--template: animation) {
+      :scope {
+        background: transparent;
+      }
+    }
+    @container body style(--template: about) {
+      :scope {
+        background:
+          url(data:image/png;base64,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),
+          radial-gradient(
+            circle,
+            var(--grey-100) 0%,
+            var(--grey-400) 93%);
+      }
+      @media (min-width: 48em) {
+        :scope {
+          background: transparent;
+        }
+      }
+    }
     .grid {
       display: grid;
       grid-template-areas: "toggle title utils";
@@ -993,33 +1066,6 @@
       transform: translateY(0);
       pointer-events: all;
     }
-  }
-}
-@layer override {
-  [data-template=about] :where(header) {
-    background:
-      url(data:image/png;base64,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),
-      radial-gradient(
-        circle,
-        var(--grey-100) 0%,
-        var(--grey-400) 93%);
-  }
-  @media (min-width: 48em) {
-    [data-template=about] :where(header) {
-      background: transparent;
-    }
-  }
-  [data-template=home] :where(header) {
-    background: transparent;
-  }
-  [data-template=template-only-desktop] :where(header) {
-    background: transparent;
-  }
-  [data-template=template-listing] :where(header) {
-    background: transparent;
-  }
-  [data-template=template-animation] :where(header) {
-    background: transparent;
   }
 }
 @layer layout {
@@ -1335,6 +1381,22 @@
     .side-col.is-visible::after {
       transform: scaleY(100%);
     }
+    @container body style(--template: doc-default) {
+      .side-col {
+        background: color-mix(in oklch, var(--dark) 5%, transparent);
+      }
+      .side-col::after {
+        display: none;
+      }
+    }
+    @container body style(--template: mobjs-component) {
+      .side-col {
+        background: color-mix(in oklch, var(--dark) 5%, transparent);
+      }
+      .side-col::after {
+        display: none;
+      }
+    }
     .nav-col {
       block-size: calc(100dvh - var(--footer-height) - var(--header-height));
       inline-size: var(--nav-width);
@@ -1413,20 +1475,6 @@
     }
   }
 }
-@layer override {
-  [data-template=template-doc-default] :where(.l-navcontainer .side-col) {
-    background: color-mix(in oklch, var(--dark) 5%, transparent);
-  }
-  [data-template=template-doc-default] :where(.l-navcontainer .side-col)::after {
-    display: none;
-  }
-  [data-template=template-mobJs-component] :where(.l-navcontainer .side-col) {
-    background: color-mix(in oklch, var(--dark) 5%, transparent);
-  }
-  [data-template=template-mobJs-component] :where(.l-navcontainer .side-col)::after {
-    display: none;
-  }
-}
 @layer layout {
   @scope (.l-background-shape) {
     :scope {
@@ -1456,11 +1504,6 @@
         inline-size: 200vw;
       }
     }
-  }
-}
-@layer override {
-  [data-template=about] :where(.l-background-shape) svg {
-    opacity: 0.5;
   }
 }
 @layer layout {
@@ -2362,6 +2405,16 @@
       padding-inline: var(--gap-size);
       text-align: center;
     }
+    @container body style(--template: test) {
+      :scope {
+        margin-block-start: 0;
+      }
+    }
+    @container body style(--template: listing) {
+      :scope {
+        margin-block-start: 0;
+      }
+    }
     button {
       display: inline-block;
       position: relative;
@@ -2383,14 +2436,6 @@
     button {
       background: transparent;
     }
-  }
-}
-@layer override {
-  :where([data-template=template-test]) .c-only-tablet {
-    margin-block-start: 0;
-  }
-  :where([data-template=template-listing]) .c-only-tablet {
-    margin-block-start: 0;
   }
 }
 @layer layout {

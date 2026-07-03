@@ -1,0 +1,37 @@
+@use '../abstract' as *;
+
+@layer base {
+    body {
+        &[data-template='home'] {
+            --template: home;
+        }
+
+        &[data-template='about'] {
+            --template: about;
+        }
+
+        &[data-template='template-listing'] {
+            --template: listing;
+        }
+
+        &[data-template='template-animation'] {
+            --template: animation;
+        }
+
+        &[data-template='template-doc-default'] {
+            --template: doc-default;
+        }
+
+        &[data-template='template-mobJs-component'] {
+            --template: mobjs-component;
+        }
+
+        &[data-template='template-test'] {
+            --template: test;
+        }
+
+        &[data-template='template-only-desktop'] {
+            --template: only-desktop;
+        }
+    }
+}

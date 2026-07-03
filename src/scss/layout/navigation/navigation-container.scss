@@ -48,6 +48,22 @@
                     transform: scaleY(100%);
                 }
             }
+
+            @container body style(--template: doc-default) {
+                background: color-mix(in oklch, var(--dark) 5%, transparent);
+
+                &::after {
+                    display: none;
+                }
+            }
+
+            @container body style(--template: mobjs-component) {
+                background: color-mix(in oklch, var(--dark) 5%, transparent);
+
+                &::after {
+                    display: none;
+                }
+            }
         }
 
         .nav-col {
@@ -131,25 +147,6 @@
                 transform: translateY(0);
                 opacity: 1;
             }
-        }
-    }
-}
-
-@layer override {
-    [data-template='template-doc-default'] :where(.l-navcontainer .side-col) {
-        background: color-mix(in oklch, var(--dark) 5%, transparent);
-
-        &::after {
-            display: none;
-        }
-    }
-
-    [data-template='template-mobJs-component']
-        :where(.l-navcontainer .side-col) {
-        background: color-mix(in oklch, var(--dark) 5%, transparent);
-
-        &::after {
-            display: none;
         }
     }
 }

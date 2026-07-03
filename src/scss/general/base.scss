@@ -1,10 +1,17 @@
 @use '../abstract' as *;
 
 @layer base {
+    html {
+        container-type: normal;
+        container-name: root;
+    }
+
     body {
         position: relative;
         overflow-x: hidden;
         background: var(--white);
+        container-type: normal;
+        container-name: body;
 
         &::after {
             content: '';
@@ -61,6 +68,22 @@
             cursor: pointer;
             pointer-events: none;
         }
+
+        @container body style(--template: home) {
+            padding-block-start: 0;
+        }
+
+        @container body style(--template: animation) {
+            padding-block-start: 0;
+        }
+
+        @container body style(--template: doc-default) {
+            overflow: clip;
+        }
+
+        @container body style(--template: mobjs-component) {
+            overflow: clip;
+        }
     }
 
     .main-container {
@@ -68,33 +91,15 @@
 
         @include mq(tablet) {
             padding-inline-start: var(--gap-size);
+
+            @container body style(--template: animation) {
+                padding-inline-start: 0;
+            }
         }
     }
 
     img {
         block-size: auto;
         max-inline-size: 100%;
-    }
-}
-
-@layer override {
-    :where([data-template='home']) .main-app-content {
-        padding-block-start: 0;
-    }
-
-    :where([data-template='template-animation']) .main-app-content {
-        padding-block-start: 0;
-    }
-
-    :where([data-template='template-doc-default'] .main-app-content) {
-        overflow: clip;
-    }
-
-    :where([data-template='template-animation']) .main-container {
-        padding-inline-start: 0;
-    }
-
-    :where([data-template='template-mobJs-component'] .main-app-content) {
-        overflow: clip;
     }
 }

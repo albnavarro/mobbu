@@ -13,6 +13,14 @@
             margin-block-start: var(--header-height);
             padding-inline: var(--gap-size);
             text-align: center;
+
+            @container body style(--template: test) {
+                margin-block-start: 0;
+            }
+
+            @container body style(--template: listing) {
+                margin-block-start: 0;
+            }
         }
 
         button {
@@ -20,15 +28,5 @@
 
             background: transparent;
         }
-    }
-}
-
-@layer override {
-    :where([data-template='template-test']) .c-only-tablet {
-        margin-block-start: 0;
-    }
-
-    :where([data-template='template-listing']) .c-only-tablet {
-        margin-block-start: 0;
     }
 }
