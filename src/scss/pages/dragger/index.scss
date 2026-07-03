@@ -42,7 +42,8 @@
                 padding-block: rem(6) rem(10);
                 padding-inline: rem(20);
                 transform: translateX(calc(-50% * var(--dir)));
-                border: 1px color-mix(in oklch, var(--dark) 30%, transparent) solid;
+                border: 1px color-mix(in oklch, var(--dark) 30%, transparent)
+                    solid;
                 line-height: 1;
                 pointer-events: none;
                 inset-block-start: rem(20);
@@ -118,7 +119,6 @@
                 block-size: rem(200);
                 inline-size: rem(200);
                 border-radius: 100%;
-                background: var(--dark);
                 inset-block-start: 0;
                 inset-inline-start: 0;
             }
@@ -127,7 +127,6 @@
                 block-size: rem(200);
                 inline-size: rem(200);
                 border-radius: 100%;
-                background: var(--dark);
                 inset-inline-end: 0;
                 inset-block-end: 0;
             }
@@ -137,7 +136,6 @@
                 inline-size: rem(80);
                 transform: translateZ(-50px);
                 border-radius: 100%;
-                background: var(--dark);
                 inset-block-start: rem(350);
                 inset-inline-start: rem(230);
             }
@@ -147,7 +145,6 @@
                 inline-size: rem(200);
                 transform: translateZ(-70px);
                 border-radius: 100%;
-                background: var(--dark);
                 inset-block-start: rem(50);
                 inset-inline-end: rem(100);
             }
@@ -157,7 +154,6 @@
                 inline-size: rem(200);
                 transform: translateZ(-90px);
                 border-radius: 100%;
-                background: var(--dark);
                 inset-block-end: rem(0);
                 inset-inline-start: rem(0);
             }
@@ -167,7 +163,6 @@
                 inline-size: rem(100);
                 transform: translateZ(-150px);
                 border-radius: 100%;
-                background: var(--dark);
                 inset-block-end: rem(40);
                 inset-inline-start: rem(600);
             }
@@ -177,7 +172,6 @@
                 inline-size: rem(1000);
                 transform: translateZ(20px);
                 border-radius: 100%;
-                background: var(--dark);
                 inset-block-start: rem(400);
                 inset-inline-start: calc(rem(600) * -1);
             }
@@ -187,7 +181,6 @@
                 inline-size: rem(800);
                 transform: translateZ(20px);
                 border-radius: 100%;
-                background: var(--dark);
                 inset-block-start: rem(200);
                 inset-inline-end: calc(rem(800) * -1);
             }
@@ -197,7 +190,6 @@
                 inline-size: rem(600);
                 transform: translateZ(20px);
                 border-radius: 100%;
-                background: var(--dark);
                 inset-inline-end: calc(rem(500) * -1);
                 inset-block-end: rem(400);
             }
@@ -207,9 +199,21 @@
                 inline-size: rem(800);
                 transform: translateZ(20px);
                 border-radius: 100%;
-                background: var(--dark);
                 inset-block-end: rem(500);
                 inset-inline-start: calc(rem(800) * -1);
+            }
+
+            &.is-1,
+            &.is-2,
+            &.is-3,
+            &.is-4,
+            &.is-5,
+            &.is-6,
+            &.is-7,
+            &.is-8,
+            &.is-9,
+            &.is-10 {
+                background: var(--immutable-dark);
             }
 
             &.is-svg {
@@ -224,50 +228,6 @@
                     inline-size: rem(800);
                 }
             }
-        }
-    }
-}
-
-@layer override {
-    [data-theme='dark'] :where(.dragger-component .child) {
-        &.is-1 {
-            background: var(--white);
-        }
-
-        &.is-2 {
-            background: var(--white);
-        }
-
-        &.is-3 {
-            background: var(--white);
-        }
-
-        &.is-4 {
-            background: var(--white);
-        }
-
-        &.is-5 {
-            background: var(--white);
-        }
-
-        &.is-6 {
-            background: var(--white);
-        }
-
-        &.is-7 {
-            background: var(--white);
-        }
-
-        &.is-8 {
-            background: var(--white);
-        }
-
-        &.is-9 {
-            background: var(--white);
-        }
-
-        &.is-10 {
-            background: var(--white);
         }
     }
 }

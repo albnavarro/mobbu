@@ -22,6 +22,10 @@
             --total-height: 10px;
             --offset: -8px;
 
+            @container root style(--theme-style: dark) {
+                background-color: var(--immutable-black);
+            }
+
             &::after {
                 content: '';
                 position: absolute;
@@ -29,6 +33,10 @@
                 transition: transform 0.55s;
                 background: var(--dark);
                 inset: 0;
+
+                @container root style(--theme-style: dark) {
+                    background-color: var(--immutable-black);
+                }
             }
 
             &.is-mounted {
@@ -57,7 +65,7 @@
             transition-property: transform;
             transition-duration: 0.15s;
             transition-timing-function: ease;
-            background-color: var(--white);
+            background-color: var(--immutable-white);
             inset-block-start: 50%;
 
             &::before,
@@ -70,7 +78,7 @@
                 transition-property: transform;
                 transition-duration: 0.15s;
                 transition-timing-function: ease;
-                background-color: var(--white);
+                background-color: var(--immutable-white);
             }
 
             &::before {
@@ -102,7 +110,6 @@
                         top 0.075s ease,
                         opacity 0.075s 0.12s ease;
                     opacity: 0;
-                    background-color: var(--white);
                 }
 
                 &::after {
@@ -112,28 +119,6 @@
                         bottom 0.075s ease,
                         transform 0.075s 0.12s
                             cubic-bezier(0.215, 0.61, 0.355, 1);
-                    background-color: var(--white);
-                }
-            }
-        }
-    }
-}
-
-@layer override {
-    [data-theme='dark'] {
-        :where(.c-hamburger) {
-            background-color: var(--immutable-black);
-
-            &::after {
-                background-color: var(--immutable-black);
-            }
-
-            :where(.lines) {
-                background-color: var(--dark);
-
-                &::before,
-                &::after {
-                    background-color: var(--dark);
                 }
             }
         }

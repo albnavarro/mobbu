@@ -226,12 +226,10 @@
             &:focus::-moz-range-thumb {
                 outline-offset: 0;
             }
-        }
-    }
-}
 
-@layer override {
-    [dir='rtl'] :where(.c-sidebar-links .scrollbar) {
-        transform-origin: right;
+            @container root style(--direction: rtl) {
+                transform-origin: right;
+            }
+        }
     }
 }

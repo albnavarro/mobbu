@@ -61,17 +61,3 @@
         }
     }
 }
-
-@layer override {
-    [data-theme='dark'] :where(.mask) {
-        &::after {
-            background: var(--white);
-        }
-    }
-
-    [data-theme='dark'] :where(h1) {
-        &::after {
-            color: var(--white);
-        }
-    }
-}

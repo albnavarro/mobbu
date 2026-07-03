@@ -56,8 +56,8 @@
                 transition: scale 0.35s;
                 inset-block-start: 50%;
                 inset-inline-start: 50%;
-                border-block-start: 2px var(--white) solid;
-                border-inline-end: 2px var(--white) solid;
+                border-block-start: 2px var(--immutable-white) solid;
+                border-inline-end: 2px var(--immutable-white) solid;
             }
 
             &.is-next {
@@ -87,7 +87,7 @@
             }
 
             &:focus {
-                outline-color: var(--white);
+                outline-color: var(--immutable-white);
             }
         }
 
@@ -96,16 +96,6 @@
                 scale: 1.2;
                 border-width: 3px;
             }
-        }
-    }
-}
-
-@layer override {
-    [data-theme='dark'] :where(.c-quick-nav) {
-        outline-color: var(--black);
-
-        &::after {
-            border-color: var(--black);
         }
     }
 }

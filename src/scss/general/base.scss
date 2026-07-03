@@ -11,6 +11,8 @@
      * Set up a decent box model on the root element
      */
     :root {
+        --theme-style: light;
+
         &[data-theme='light'] {
             --white: oklch(100% 0 0deg); // #fff
             --dark: oklch(32.4% 0.0229 264.18deg); // #2e3440
@@ -33,10 +35,14 @@
             --grey-400: oklch(45.2% 0.0352 264.13deg); // #4c566a
             --grey-500: oklch(65.6% 0.0219 267.19deg); // #8b919f
             --black: oklch(100% 0 0deg); // #fff
+            --theme-style: dark;
         }
+
+        --direction: ltr;
 
         &[dir='rtl'] {
             --dir: -1;
+            --direction: rtl;
         }
 
         &[dir='ltr'] {
@@ -64,6 +70,10 @@
         // snippet, global value for height pre-calc.
         --snippet-rem-value: #{strip-unit(rem(14))};
         --snippet-line-height-value: #{strip-unit(rem(18))};
+
+        // Root container for @container style().
+        container-type: normal;
+        container-name: root;
 
         @include mq(tablet) {
             --left-sidebar: #{rem(200)};

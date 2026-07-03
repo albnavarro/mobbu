@@ -105,6 +105,10 @@
             background: var(--dark);
             inset-block-start: 0;
             inset-inline-start: 100%;
+
+            @container root style(--direction: rtl) {
+                transform-origin: right;
+            }
         }
 
         .scroll-element {
@@ -132,10 +136,6 @@
 }
 
 @layer override {
-    [dir='rtl'] :where(.l-navcontainer .percent) {
-        transform-origin: right;
-    }
-
     [data-template='template-doc-default'] :where(.l-navcontainer .side-col) {
         background: color-mix(in oklch, var(--dark) 5%, transparent);
 

@@ -36,6 +36,10 @@
             &:popover-open {
                 opacity: 1;
             }
+
+            @container root style(--theme-style: dark) {
+                background: var(--immutable-black);
+            }
         }
 
         @starting-style {
@@ -83,14 +87,6 @@
 
         .header {
             margin-block-start: rem(64);
-        }
-    }
-}
-
-@layer override {
-    [data-theme='dark'] {
-        :where(.c-accessibility-overlay) {
-            background: var(--immutable-black);
         }
     }
 }

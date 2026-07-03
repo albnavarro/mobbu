@@ -49,6 +49,10 @@
                 transform-origin: bottom;
                 transition: transform 0.55s;
                 background: var(--dark);
+
+                @container root style(--theme-style: dark) {
+                    background: var(--immutable-black);
+                }
             }
 
             @include mq(desktop) {
@@ -75,20 +79,12 @@
                     transform: scaleY(1);
                 }
             }
-        }
-    }
-}
 
-@layer override {
-    [data-theme='dark'] {
-        :where(.l-header-menu button) {
-            &::after {
-                background: var(--immutable-black);
-            }
-
-            &:hover,
+            &.hover,
             &.current {
-                color: var(--dark);
+                @container root style(--theme-style: dark) {
+                    color: var(--dark);
+                }
             }
         }
     }

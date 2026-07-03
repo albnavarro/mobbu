@@ -48,7 +48,11 @@
                 transform: scaleY(0);
                 transform-origin: bottom;
                 transition: transform 0.55s;
-                background: var(--immutable-dark);
+                background: var(--dark);
+
+                @container root style(--theme-style: dark) {
+                    background: var(--immutable-black);
+                }
             }
 
             &:hover {
@@ -81,16 +85,6 @@
             inline-size: var(--sidebar-item-size);
             transition: opacity 0.55s;
             fill: var(--svg-fill);
-        }
-    }
-}
-
-@layer override {
-    [data-theme='dark'] {
-        :where(.l-header-utils button, .l-header-utils a) {
-            &::after {
-                background: var(--immutable-black);
-            }
         }
     }
 }
