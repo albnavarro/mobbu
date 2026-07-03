@@ -49,7 +49,7 @@
             }
 
             @container body style(--template: about) {
-                @include noise-bg;
+                @include noise-bg-flat;
 
                 @include mq(tablet) {
                     background: transparent;

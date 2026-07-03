@@ -27,6 +27,10 @@
             inset-inline-start: 0;
 
             @include noise-bg;
+
+            @container root style(--theme-style: dark) {
+                @include noise-bg-inverse;
+            }
         }
 
         &[data-template='home'],
