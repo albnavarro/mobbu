@@ -5,6 +5,7 @@
         :scope {
             block-size: var(--item-height);
             inline-size: var(--item-width);
+            border-radius: 100%;
             background: var(--dark);
 
             &.is-small {

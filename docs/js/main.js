@@ -41582,7 +41582,7 @@
       modules: bindEffect({
         toggleClass: { active: () => proxi.active }
       }),
-      content: "Scroll down"
+      content: "Action: Scroll down"
     });
   };
 

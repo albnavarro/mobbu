@@ -8,10 +8,10 @@
             position: fixed;
             z-index: 15;
             align-items: center;
-            justify-content: center;
+            justify-content: start;
             block-size: var(--sub-header-block);
             margin: 0;
-            padding: 0 0 0 calc(var(--header-icons));
+            padding: 0 0 0 calc(var(--gap-size) + #{rem(20)});
             transition:
                 opacity 0.35s,
                 visibility 0.35s;
@@ -22,7 +22,6 @@
             font-size: rem(18);
             font-weight: 400;
             line-height: 1;
-            text-align: center;
             inset-block-start: var(--header-height);
             inset-inline: var(--gap-size) var(--header-icons);
             border-block-end: 1px var(--line) solid;

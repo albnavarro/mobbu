@@ -20,6 +20,6 @@ export const ScrollDownLabelFn = ({ getSelfProxi, bindEffect, addMethod }) => {
         modules: bindEffect({
             toggleClass: { active: () => proxi.active },
         }),
-        content: 'Scroll down',
+        content: 'Action: Scroll down',
     });
 };

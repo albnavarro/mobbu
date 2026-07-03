@@ -2988,6 +2988,7 @@
     :scope {
       block-size: var(--item-height);
       inline-size: var(--item-width);
+      border-radius: 100%;
       background: var(--dark);
     }
     :scope.is-small {
@@ -5483,10 +5484,10 @@
       position: fixed;
       z-index: 15;
       align-items: center;
-      justify-content: center;
+      justify-content: start;
       block-size: var(--sub-header-block);
       margin: 0;
-      padding: 0 0 0 calc(var(--header-icons));
+      padding: 0 0 0 calc(var(--gap-size) + 1.25rem);
       transition: opacity 0.35s, visibility 0.35s;
       border: 0;
       opacity: 0;
@@ -5495,7 +5496,6 @@
       font-size: 1.125rem;
       font-weight: 400;
       line-height: 1;
-      text-align: center;
       inset-block-start: var(--header-height);
       inset-inline: var(--gap-size) var(--header-icons);
       border-block-end: 1px var(--line) solid;
@@ -6475,9 +6475,7 @@
       border-block-end: 2px var(--arrow-color) solid;
     }
     .open:hover {
-      background: var(--dark);
-      color: var(--white);
-      --arrow-color: var(--white);
+      background: var(--black);
     }
     .close {
       position: absolute;
