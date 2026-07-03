@@ -29,14 +29,6 @@
                     overlay 0.35s allow-discrete;
             }
 
-            @include mq(tablet) {
-                margin-block: 0;
-                margin-inline: auto 0;
-                position-anchor: --accessibility-button;
-                inset-block-start: anchor(end);
-                filter: none;
-            }
-
             &:not(:popover-open) {
                 opacity: 0;
             }
