@@ -98,15 +98,13 @@
             }
         }
 
-        dialog {
-            display: none;
+        .pop-over {
             block-size: calc(
                 100dvh - var(--header-height) - var(--footer-height)
             );
             inline-size: var(--header-icons);
             margin: 0;
             margin-inline-start: auto;
-            transform: translateX(calc(100% * var(--dir)));
 
             /*
              * Fallback: Safari, Firefox, etc.
@@ -130,19 +128,18 @@
                     overlay 0.3s allow-discrete;
             }
 
-            &[open] {
-                display: block;
-                transform: translateX(0);
+            &:not(:popover-open) {
+                transform: translateX(calc(100% * var(--dir)));
             }
 
-            &::backdrop {
-                opacity: 0;
-                cursor: pointer;
+            &:popover-open {
+                display: block;
+                transform: translateX(0);
             }
         }
 
         @starting-style {
-            dialog[open] {
+            .pop-over:popover-open {
                 transform: translateX(calc(100% * var(--dir)));
             }
         }
