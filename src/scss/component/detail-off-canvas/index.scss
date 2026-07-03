@@ -14,8 +14,8 @@
                 background 0.35s,
                 color 0.35s;
             outline-color: var(--dark);
-            background: transparent;
-            color: var(--dark);
+            background: var(--dark);
+            color: var(--white);
             text-align: center;
             text-transform: capitalize;
             inset-block-start: calc(var(--header-height));
@@ -25,7 +25,7 @@
             border-block-end: 1px var(--line) solid;
             border-block-start: 0;
 
-            --arrow-color: var(--dark);
+            --arrow-color: var(--white);
 
             .arrows {
                 display: block;

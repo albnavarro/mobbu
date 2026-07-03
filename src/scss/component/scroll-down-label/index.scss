@@ -11,8 +11,7 @@
             justify-content: center;
             block-size: var(--sub-header-block);
             margin: 0;
-            padding: 0 rem(10);
-            transform: translateX(calc(-50% * var(--dir)));
+            padding: 0 0 0 calc(var(--header-icons));
             transition:
                 opacity 0.35s,
                 visibility 0.35s;
@@ -25,7 +24,8 @@
             line-height: 1;
             text-align: center;
             inset-block-start: var(--header-height);
-            inset-inline-start: 50%;
+            inset-inline: var(--gap-size) var(--header-icons);
+            border-block-end: 1px var(--line) solid;
 
             &.active {
                 visibility: visible;
