@@ -1,137 +1,6 @@
 @use '../abstract' as *;
 
 @layer base {
-    /**
-     * Global columns/gap definition.
-     * for testing, for now is overriding below
-     */
-    // @include grid-context;
-
-    /**
-     * Set up a decent box model on the root element
-     */
-    :root {
-        --theme-style: light;
-
-        &[data-theme='light'] {
-            --white: oklch(100% 0 0deg); // #fff
-            --dark: oklch(32.4% 0.0229 264.18deg); // #2e3440
-            --red: oklch(57.9% 0.0883 20.12deg); // #a86464
-            --grey-100: oklch(97.3% 0 0deg); // #f6f6f6
-            --grey-200: oklch(94.9% 0 0deg); // #eee
-            --grey-300: oklch(93.1% 0 0deg); // #e8e8e8
-            --grey-400: oklch(84.5% 0 0deg); // #ccc
-            --grey-500: oklch(72.3% 0.0215 285.85deg); // #a4a4b3
-            --black: oklch(0% 0 0deg); // #000
-        }
-
-        &[data-theme='dark'] {
-            --white: oklch(32.4% 0.0229 264.18deg); // #2e3440
-            --dark: oklch(95.1% 0.0074 260.73deg); // #eceff4
-            --red: oklch(67.6% 0.0909 19.71deg); // #c98080
-            --grey-100: oklch(35.2% 0.0241 265.63deg); // #353b48
-            --grey-200: oklch(37.9% 0.029 266.47deg); // #3b4252
-            --grey-300: oklch(41.6% 0.0324 264.13deg); // #434c5e
-            --grey-400: oklch(45.2% 0.0352 264.13deg); // #4c566a
-            --grey-500: oklch(65.6% 0.0219 267.19deg); // #8b919f
-            --black: oklch(100% 0 0deg); // #fff
-            --theme-style: dark;
-        }
-
-        --direction: ltr;
-
-        &[dir='rtl'] {
-            --dir: -1;
-            --direction: rtl;
-        }
-
-        &[dir='ltr'] {
-            --dir: 1;
-        }
-
-        --immutable-black: oklch(0% 0 0deg); // #000
-        --immutable-white: oklch(100% 0 0deg); // #fff
-        --immutable-dark: oklch(32.4% 0.0229 264.18deg); // #2e3440
-        --immutable-grey-300: oklch(41.6% 0.0324 264.13deg); // #434c5e
-        --line: color-mix(in oklch, var(--dark) 30%, transparent);
-        --gap-size: #{rem(40)};
-        --col-size: 9%;
-        --sub-header-block: #{rem(48)};
-
-        // Stadard css var
-        --header-height: calc(var(--gap-size) * 2);
-        --footer-height: calc(var(--gap-size) * 1.2);
-        --nav-width: 100%;
-        --doc-width: calc(100% - var(--gap-size));
-        --left-sidebar: none;
-        --right-sidebar: #{rem(290)};
-        --header-icons: #{rem(233)};
-
-        // snippet, global value for height pre-calc.
-        --snippet-rem-value: #{strip-unit(rem(14))};
-        --snippet-line-height-value: #{strip-unit(rem(18))};
-
-        // Root container for @container style().
-        container-type: normal;
-        container-name: root;
-
-        @include mq(tablet) {
-            --left-sidebar: #{rem(200)};
-            --nav-width: #{rem(340)};
-        }
-
-        @include mq(desktop) {
-            --doc-width: calc(var(--col-size) * 8);
-            --right-sidebar: none;
-        }
-
-        @include mq(large) {
-            --doc-width: calc(var(--col-size) * 6.5);
-        }
-
-        @include mq(xlarge) {
-            --doc-width: calc(var(--col-size) * 7);
-            --left-sidebar: #{rem(250)};
-        }
-    }
-
-    html {
-        box-sizing: border-box;
-
-        --scrollbar-color-thumb: var(--dark);
-        --scrollbar-color-track: var(--white);
-        --scrollbar-width: thin;
-        --scrollbar-width-legacy: 10px;
-
-        @include mq(tablet) {
-            --scrollbar-color-thumb: var(--white);
-            --scrollbar-color-track: var(--dark);
-        }
-
-        /* Modern browsers with `scrollbar-*` support */
-        @supports (scrollbar-width: auto) {
-            scrollbar-color: var(--scrollbar-color-thumb)
-                var(--scrollbar-color-track);
-            scrollbar-width: var(--scrollbar-width);
-        }
-
-        /* Legacy browsers with `::-webkit-scrollbar-*` support */
-        @supports selector(::-webkit-scrollbar) {
-            ::-webkit-scrollbar-thumb {
-                background: var(--scrollbar-color-thumb);
-            }
-
-            ::-webkit-scrollbar-track {
-                background: var(--scrollbar-color-track);
-            }
-
-            ::-webkit-scrollbar {
-                max-block-size: var(--scrollbar-width-legacy);
-                max-inline-size: var(--scrollbar-width-legacy);
-            }
-        }
-    }
-
     body {
         position: relative;
         overflow-x: hidden;
@@ -174,72 +43,8 @@
         }
     }
 
-    :is(
-        a,
-        button,
-        input,
-        textarea,
-        summary,
-        [role='region'],
-        [tabindex='-1'],
-        h1,
-        h2
-    ) {
-        --outline-size: 2px;
-        --outline-style: dashed;
-        --outline-color: currentcolor;
-    }
-
-    :is(
-        a,
-        button,
-        input,
-        textarea,
-        summary,
-        [role='region'],
-        [tabindex='-1'],
-        h1,
-        h2
-    ):focus {
-        outline: var(--outline-size) var(--outline-style) var(--outline-color);
-        outline-offset: var(--outline-offset, var(--outline-size));
-    }
-
-    :is(
-        a,
-        button,
-        input,
-        textarea,
-        summary,
-        [role='region'],
-        [tabindex='-1'],
-        h1
-    ):focus-visible {
-        outline: var(--outline-size) var(--outline-style) var(--outline-color);
-        outline-offset: var(--outline-offset, var(--outline-size));
-    }
-
-    :is(
-            a,
-            button,
-            input,
-            textarea,
-            summary,
-            [role='region'],
-            [tabindex='-1'],
-            h1,
-            h2
-        ):focus:not(:focus-visible) {
-        outline: none;
-    }
-
     #content {
         position: relative;
-    }
-
-    img {
-        block-size: auto;
-        max-inline-size: 100%;
     }
 
     .main-app-content {
@@ -258,12 +63,17 @@
         }
     }
 
-    .container {
+    .main-container {
         margin: auto;
 
         @include mq(tablet) {
             padding-inline-start: var(--gap-size);
         }
+    }
+
+    img {
+        block-size: auto;
+        max-inline-size: 100%;
     }
 }
 
@@ -276,13 +86,12 @@
         padding-block-start: 0;
     }
 
-    :where([data-template='template-animation'] .main-app-content)
-        > .container {
-        padding-inline-start: 0;
-    }
-
     :where([data-template='template-doc-default'] .main-app-content) {
         overflow: clip;
+    }
+
+    :where([data-template='template-animation']) .main-container {
+        padding-inline-start: 0;
     }
 
     :where([data-template='template-mobJs-component'] .main-app-content) {

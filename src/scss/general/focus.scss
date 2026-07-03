@@ -1,0 +1,66 @@
+@use '../abstract' as *;
+
+@layer base {
+    body {
+        :is(
+            a,
+            button,
+            input,
+            textarea,
+            summary,
+            [role='region'],
+            [tabindex='-1'],
+            h1,
+            h2
+        ) {
+            --outline-size: 2px;
+            --outline-style: dashed;
+            --outline-color: currentcolor;
+        }
+
+        :is(
+            a,
+            button,
+            input,
+            textarea,
+            summary,
+            [role='region'],
+            [tabindex='-1'],
+            h1,
+            h2
+        ):focus {
+            outline: var(--outline-size) var(--outline-style)
+                var(--outline-color);
+            outline-offset: var(--outline-offset, var(--outline-size));
+        }
+
+        :is(
+            a,
+            button,
+            input,
+            textarea,
+            summary,
+            [role='region'],
+            [tabindex='-1'],
+            h1
+        ):focus-visible {
+            outline: var(--outline-size) var(--outline-style)
+                var(--outline-color);
+            outline-offset: var(--outline-offset, var(--outline-size));
+        }
+
+        :is(
+                a,
+                button,
+                input,
+                textarea,
+                summary,
+                [role='region'],
+                [tabindex='-1'],
+                h1,
+                h2
+            ):focus:not(:focus-visible) {
+            outline: none;
+        }
+    }
+}

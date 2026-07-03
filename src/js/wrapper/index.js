@@ -88,7 +88,7 @@ export const wrapper = async () => {
             {
                 className: 'main-app-content',
                 content: {
-                    className: 'container',
+                    className: 'main-container',
                     content: {
                         attributes: { id: 'content' },
                     },

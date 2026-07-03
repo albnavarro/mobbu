@@ -1,0 +1,38 @@
+@use '../abstract' as *;
+
+@layer base {
+    html {
+        --scrollbar-color-thumb: var(--dark);
+        --scrollbar-color-track: var(--white);
+        --scrollbar-width: thin;
+        --scrollbar-width-legacy: 10px;
+
+        @include mq(tablet) {
+            --scrollbar-color-thumb: var(--white);
+            --scrollbar-color-track: var(--dark);
+        }
+
+        /* Modern browsers with `scrollbar-*` support */
+        @supports (scrollbar-width: auto) {
+            scrollbar-color: var(--scrollbar-color-thumb)
+                var(--scrollbar-color-track);
+            scrollbar-width: var(--scrollbar-width);
+        }
+
+        /* Legacy browsers with `::-webkit-scrollbar-*` support */
+        @supports selector(::-webkit-scrollbar) {
+            ::-webkit-scrollbar-thumb {
+                background: var(--scrollbar-color-thumb);
+            }
+
+            ::-webkit-scrollbar-track {
+                background: var(--scrollbar-color-track);
+            }
+
+            ::-webkit-scrollbar {
+                max-block-size: var(--scrollbar-width-legacy);
+                max-inline-size: var(--scrollbar-width-legacy);
+            }
+        }
+    }
+}

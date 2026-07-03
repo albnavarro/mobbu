@@ -1,0 +1,16 @@
+@use '../abstract' as *;
+
+@layer base {
+    :root {
+        --direction: ltr;
+
+        &[dir='rtl'] {
+            --dir: -1;
+            --direction: rtl;
+        }
+
+        &[dir='ltr'] {
+            --dir: 1;
+        }
+    }
+}

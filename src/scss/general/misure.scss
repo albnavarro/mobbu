@@ -1,0 +1,45 @@
+@use '../abstract' as *;
+
+@layer base {
+    :root {
+        --gap-size: #{rem(40)};
+        --col-size: 9%;
+        --sub-header-block: #{rem(48)};
+
+        // Stadard css var
+        --header-height: calc(var(--gap-size) * 2);
+        --footer-height: calc(var(--gap-size) * 1.2);
+        --nav-width: 100%;
+        --doc-width: calc(100% - var(--gap-size));
+        --left-sidebar: none;
+        --right-sidebar: #{rem(290)};
+        --header-icons: #{rem(233)};
+
+        // snippet, global value for height pre-calc.
+        --snippet-rem-value: #{strip-unit(rem(14))};
+        --snippet-line-height-value: #{strip-unit(rem(18))};
+
+        // Root container for @container style().
+        container-type: normal;
+        container-name: root;
+
+        @include mq(tablet) {
+            --left-sidebar: #{rem(200)};
+            --nav-width: #{rem(340)};
+        }
+
+        @include mq(desktop) {
+            --doc-width: calc(var(--col-size) * 8);
+            --right-sidebar: none;
+        }
+
+        @include mq(large) {
+            --doc-width: calc(var(--col-size) * 6.5);
+        }
+
+        @include mq(xlarge) {
+            --doc-width: calc(var(--col-size) * 7);
+            --left-sidebar: #{rem(250)};
+        }
+    }
+}
