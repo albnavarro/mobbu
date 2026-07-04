@@ -2,6 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { HomeComponentFn } from './home';
+import { mqStore } from '@stores/mq';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -12,6 +13,7 @@ export const HomeComponent = MobJs.createComponent(
     ({
         tag: 'home-component',
         component: HomeComponentFn,
+        bindStore: mqStore,
         props: {
             svg: {
                 __value: [],

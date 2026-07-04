@@ -5,6 +5,7 @@
  * @import {HomeComponent} from './type'
  */
 
+import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 import { simpleIntroAnimation } from '@componentLibs/animation/simple-intro';
 import { htmlObject, MobJs } from '@mobJs';
 
@@ -20,8 +21,15 @@ const playAnimation = async ({ playIntro, playSvg }) => {
 };
 
 /** @type {MobComponent<HomeComponent>} */
-export const HomeComponentFn = ({ onMount, getSelfProxi }) => {
+export const HomeComponentFn = ({
+    onMount,
+    getSelfProxi,
+    invalidate,
+    getBoundedProxi,
+}) => {
     const proxi = getSelfProxi();
+    const boundedProxi = getBoundedProxi();
+
     const { svg } = proxi;
 
     onMount(({ element }) => {
@@ -61,8 +69,21 @@ export const HomeComponentFn = ({ onMount, getSelfProxi }) => {
                         className: 'mask',
                     },
                     {
-                        tag: 'h1',
-                        content: 'Welcome to MobProject',
+                        content: invalidate({
+                            observe: () => boundedProxi.fromTablet,
+                            render: () => {
+                                return boundedProxi.fromTablet
+                                    ? htmlObject({
+                                          component: H1Standalone,
+                                          modules: MobJs.staticProps(
+                                              /** @type {import('@commonComponent/typography/h1-standalone/type').H1Standalone['props']} */ ({
+                                                  text: 'MobProject v1.0',
+                                              })
+                                          ),
+                                      })
+                                    : htmlObject({});
+                            },
+                        }),
                     },
                 ],
             },
