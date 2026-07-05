@@ -228,7 +228,8 @@ export const applyDelegationBindEvent = (root) => {
      */
     const parent = root.parentNode;
     const elements =
-        parent?.querySelectorAll(`[${ATTR_WEAK_BIND_EVENTS}]`) ?? [];
+        parent?.querySelectorAll(`[${CSS.escape(ATTR_WEAK_BIND_EVENTS)}]`) ??
+        [];
 
     /**
      * Create event object associated to DOM element.

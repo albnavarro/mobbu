@@ -966,7 +966,7 @@ export class MobHorizontalScroller {
                      */
                     const shadowTransitionEl =
                         this.#mainContainer.querySelector(
-                            `.${this.#shadowMainClassTransition}[data-shadow="${shadowData}"]`
+                            `.${this.#shadowMainClassTransition}[data-shadow="${CSS.escape(shadowData ?? '')}"]`
                         );
 
                     /**

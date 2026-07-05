@@ -7942,7 +7942,7 @@
     const occurrences = (
       /** @type {HTMLElement[]} */
       [
-        ...element.querySelectorAll(`[${ATTR_BIND_EFFECT}]`)
+        ...element.querySelectorAll(`[${CSS.escape(ATTR_BIND_EFFECT)}]`)
       ]
     );
     for (const target of occurrences) {
@@ -8061,7 +8061,7 @@
 
   // src/js/mob/mob-js/modules/bind-refs/index.js
   var getBindRefs = ({ element }) => {
-    const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
+    const refs = element.querySelectorAll(`[${CSS.escape(ATTR_BIND_REFS_ID)}]`);
     const initialValue = {};
     return [...refs].reduce((previous, current) => {
       const refId = current.getAttribute(ATTR_BIND_REFS_ID);
@@ -8218,7 +8218,7 @@
   };
   var applyDelegationBindEvent = (root2) => {
     const parent = root2.parentNode;
-    const elements = parent?.querySelectorAll(`[${ATTR_WEAK_BIND_EVENTS}]`) ?? [];
+    const elements = parent?.querySelectorAll(`[${CSS.escape(ATTR_WEAK_BIND_EVENTS)}]`) ?? [];
     for (const element of elements) {
       const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS) ?? "";
       element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
@@ -23937,7 +23937,7 @@
             const widthAmount = offset2 / screenRatio;
             const diffAmount = offset2 - offset2 / screenRatio;
             const shadowTransitionEl = this.#mainContainer.querySelector(
-              `.${this.#shadowMainClassTransition}[data-shadow="${shadowData}"]`
+              `.${this.#shadowMainClassTransition}[data-shadow="${CSS.escape(shadowData ?? "")}"]`
             );
             const inCenterMarker = shadowTransitionEl?.querySelector(
               `.${this.#shadowMainClassTransition}--in-center`
@@ -43268,7 +43268,9 @@
     navigationStore.watch("activeNavigationSection", (section) => {
       const currentSection = (
         /** @type {HTMLElement} */
-        document.querySelector(`[data-sectionname='${section}']`)
+        document.querySelector(
+          `[data-sectionname='${CSS.escape(section)}']`
+        )
       );
       if (!currentSection) return;
       const header = (

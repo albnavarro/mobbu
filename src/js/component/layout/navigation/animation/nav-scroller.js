@@ -51,7 +51,9 @@ export const initNavigationScoller = ({ root }) => {
      */
     navigationStore.watch('activeNavigationSection', (section) => {
         const currentSection = /** @type {HTMLElement} */ (
-            document.querySelector(`[data-sectionname='${section}']`)
+            document.querySelector(
+                `[data-sectionname='${CSS.escape(section)}']`
+            )
         );
 
         if (!currentSection) return;

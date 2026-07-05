@@ -72,7 +72,6 @@ export default defineConfig([
             'unicorn/prefer-split-limit': 'off',
             'unicorn/prefer-unary-minus': 'off',
             'unicorn/prefer-dom-node-replace-children': 'off',
-            'unicorn/require-css-escape': 'off',
             'unicorn/prefer-direct-iteration': 'off',
             'unicorn/prefer-set-has': 'off',
             'unicorn/no-useless-continue': 'off',

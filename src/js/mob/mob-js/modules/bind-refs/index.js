@@ -12,7 +12,7 @@ import { ATTR_BIND_REFS_ID, ATTR_BIND_REFS_NAME } from '../../constant';
  * @returns {{ [key: string]: { element: HTMLElement; scopeId: string }[] }}
  */
 export const getBindRefs = ({ element }) => {
-    const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
+    const refs = element.querySelectorAll(`[${CSS.escape(ATTR_BIND_REFS_ID)}]`);
 
     /** @type{Record<string, any>} */
     const initialValue = {};

@@ -91,7 +91,7 @@ export const setBindEffect = ({ data, id }) => {
  */
 export const applyBindEffect = (element) => {
     const occurrences = /** @type {HTMLElement[]} */ ([
-        ...element.querySelectorAll(`[${ATTR_BIND_EFFECT}]`),
+        ...element.querySelectorAll(`[${CSS.escape(ATTR_BIND_EFFECT)}]`),
     ]);
 
     /**
