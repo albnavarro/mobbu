@@ -31,10 +31,10 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
 
     const mainFill = isDarkTheme() ? '#fff' : '#000';
 
-    const fill = [
-        2, 18, 10, 27, 21, 22, 23, 24, 25, 25, 26, 37, 42, 53, 58, 69, 74, 85,
-        86, 87, 88, 89, 90, 44, 60, 65, 98, 108,
-    ];
+    const fill = new Set([
+        2, 18, 10, 27, 21, 22, 23, 24, 25, 26, 37, 42, 53, 58, 69, 74, 85, 86,
+        87, 88, 89, 90, 44, 60, 65, 98, 108,
+    ]);
 
     /**
      * Check if offscrennCanvas can be used.
@@ -82,7 +82,7 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
                 scale: 0,
                 mouseX: 0,
                 mouseY: 0,
-                hasFill: fill.includes(i),
+                hasFill: fill.has(i),
             };
         })
         .toSorted((value) => (value.hasFill ? -1 : 1));

@@ -28,9 +28,9 @@ export const scrollerN0Animation = ({
     const numberOfColumn = 10;
     const reorder = false;
 
-    const fill = [
+    const fill = new Set([
         36, 37, 38, 39, 40, 47, 51, 58, 62, 69, 73, 80, 81, 82, 83, 84,
-    ];
+    ]);
 
     /**
      * Check if offscrennCanvas can be used.
@@ -85,7 +85,7 @@ export const scrollerN0Animation = ({
                       ...item,
                       scale: 1,
                       rotate: 0,
-                      hasFill: fill.includes(i),
+                      hasFill: fill.has(i),
                   };
               })
               .toSorted((value) => (value.hasFill ? -1 : 1))
@@ -94,7 +94,7 @@ export const scrollerN0Animation = ({
                   ...item,
                   scale: 1,
                   rotate: 0,
-                  hasFill: fill.includes(i),
+                  hasFill: fill.has(i),
               };
           });
 

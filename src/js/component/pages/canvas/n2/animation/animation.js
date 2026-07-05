@@ -27,7 +27,7 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
     const numItems = 20;
     const width = window.innerHeight / 13;
     const height = window.innerHeight / 13;
-    const fill = [2];
+    const fill = new Set([2]);
     const opacity = 0.03;
     const xAmplitude = 500;
     const yAmplitude = 400;
@@ -71,14 +71,14 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
 
             const itemWidth = width + (width / 3) * relativeIndex;
             const itemHeight = height + (height / 3) * relativeIndex;
-            const opacityVal = fill.includes(i) ? 1 : (numItems - i) * opacity;
+            const opacityVal = fill.has(i) ? 1 : (numItems - i) * opacity;
 
             return {
                 width: itemWidth,
                 height: itemHeight,
                 x: 0,
                 y: 0,
-                hasFill: fill.includes(i),
+                hasFill: fill.has(i),
                 opacity: opacityVal,
                 rotate: 0,
             };

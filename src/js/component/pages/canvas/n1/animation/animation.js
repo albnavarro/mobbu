@@ -16,7 +16,7 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
     const numItems = 19;
     const width = window.innerHeight / 30;
     const height = window.innerHeight / 60;
-    const fill = [14, 5];
+    const fill = new Set([14, 5]);
     const opacity = 0.1;
     const radius = 0;
     const rotationEach = 10;
@@ -59,14 +59,14 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
             const relativeIndex =
                 i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
-            const opacityVal = fill.includes(i) ? 1 : relativeIndex * opacity;
+            const opacityVal = fill.has(i) ? 1 : relativeIndex * opacity;
 
             return {
                 width: relativeIndex * width,
                 height: relativeIndex * height,
                 x: 0,
                 y: 0,
-                hasFill: fill.includes(i),
+                hasFill: fill.has(i),
                 opacity: opacityVal,
                 radius,
                 rotate: 0,

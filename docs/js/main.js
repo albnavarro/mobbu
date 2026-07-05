@@ -28871,7 +28871,7 @@
     const numberOfColumn = 15;
     const gutter = window.innerHeight / 150;
     const mainFill = isDarkTheme() ? "#fff" : "#000";
-    const fill = [
+    const fill = /* @__PURE__ */ new Set([
       2,
       18,
       10,
@@ -28880,7 +28880,6 @@
       22,
       23,
       24,
-      25,
       25,
       26,
       37,
@@ -28900,7 +28899,7 @@
       65,
       98,
       108
-    ];
+    ]);
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     const { top, left } = offset(canvas);
@@ -28923,7 +28922,7 @@
         scale: 0,
         mouseX: 0,
         mouseY: 0,
-        hasFill: fill.includes(i)
+        hasFill: fill.has(i)
       };
     }).toSorted((value) => value.hasFill ? -1 : 1);
     let centerTween = tween_exports.createLerp({
@@ -29244,7 +29243,7 @@
     const numItems = 19;
     const width = window.innerHeight / 30;
     const height = window.innerHeight / 60;
-    const fill = [14, 5];
+    const fill = /* @__PURE__ */ new Set([14, 5]);
     const opacity = 0.1;
     const radius = 0;
     const rotationEach = 10;
@@ -29262,13 +29261,13 @@
     canvas.height = canvas.clientHeight;
     let squareData = Array.from({ length: numItems }).keys().map((_item, i) => {
       const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
-      const opacityVal = fill.includes(i) ? 1 : relativeIndex * opacity;
+      const opacityVal = fill.has(i) ? 1 : relativeIndex * opacity;
       return {
         width: relativeIndex * width,
         height: relativeIndex * height,
         x: 0,
         y: 0,
-        hasFill: fill.includes(i),
+        hasFill: fill.has(i),
         opacity: opacityVal,
         radius,
         rotate: 0,
@@ -29664,7 +29663,7 @@
     const numItems = 20;
     const width = window.innerHeight / 13;
     const height = window.innerHeight / 13;
-    const fill = [2];
+    const fill = /* @__PURE__ */ new Set([2]);
     const opacity = 0.03;
     const xAmplitude = 500;
     const yAmplitude = 400;
@@ -29684,13 +29683,13 @@
       const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
       const itemWidth = width + width / 3 * relativeIndex;
       const itemHeight = height + height / 3 * relativeIndex;
-      const opacityVal = fill.includes(i) ? 1 : (numItems - i) * opacity;
+      const opacityVal = fill.has(i) ? 1 : (numItems - i) * opacity;
       return {
         width: itemWidth,
         height: itemHeight,
         x: 0,
         y: 0,
-        hasFill: fill.includes(i),
+        hasFill: fill.has(i),
         opacity: opacityVal,
         rotate: 0
       };
@@ -30135,7 +30134,7 @@
     const numberOfRow = 10;
     const numberOfColumn = 10;
     const reorder = false;
-    const fill = [
+    const fill = /* @__PURE__ */ new Set([
       36,
       37,
       38,
@@ -30152,7 +30151,7 @@
       82,
       83,
       84
-    ];
+    ]);
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive2 = true;
     let masterSequencer = tween_exports.createMasterSequencer();
@@ -30182,14 +30181,14 @@
         ...item,
         scale: 1,
         rotate: 0,
-        hasFill: fill.includes(i)
+        hasFill: fill.has(i)
       };
     }).toSorted((value) => value.hasFill ? -1 : 1) : gridData.map((item, i) => {
       return {
         ...item,
         scale: 1,
         rotate: 0,
-        hasFill: fill.includes(i)
+        hasFill: fill.has(i)
       };
     });
     let staggers = tween_exports.createStaggers({
