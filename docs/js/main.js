@@ -8184,8 +8184,10 @@
       const currentRepeaterState = componentId ? getRepeaterStateById({
         id: componentId
       }) : DEFAULT_CURRENT_REPEATER_STATE;
-      Object.defineProperty(event, "target", { value: target });
-      Object.defineProperty(event, "currentTarget", { value: targetParsed });
+      Object.defineProperties(event, {
+        target: { value: target },
+        currentTarget: { value: targetParsed }
+      });
       callback2(
         event,
         currentRepeaterState?.current,

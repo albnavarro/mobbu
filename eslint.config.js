@@ -73,7 +73,6 @@ export default defineConfig([
             'unicorn/prefer-direct-iteration': 'off',
             'unicorn/prefer-set-has': 'off',
             'unicorn/no-useless-continue': 'off',
-            'unicorn/prefer-object-define-properties': 'off',
             //
             'no-useless-assignment': 'off',
             'unicorn/template-indent': 'off',
