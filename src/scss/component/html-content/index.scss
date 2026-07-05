@@ -205,7 +205,7 @@
                 inset-block-end: calc(#{rem(8)} * -1);
                 color: var(--dark);
 
-                @container (width > 750px) {
+                @container (width > #{rem(750)}) {
                     display: block;
                 }
             }
