@@ -228,12 +228,12 @@ const getItemsByRow = (arrayDefault, stagger, chunckSizeCol) => {
     if (stagger.grid.direction === DIRECTION_ROW) {
         const chunkByCol = sliceIntoChunks(arrayDefault, chunckSizeCol);
 
-        const colToRowArray = [
-            ...Array.from({ length: stagger.grid.col }).keys(),
+        const colToRowArray = Array.from({ length: stagger.grid.col })
+            .keys()
             // @ts-ignore
-        ].reduce((p, _c, i) => {
-            return [...p, ...arrayColumn(chunkByCol, i)];
-        }, []);
+            .reduce((previous, _, index) => {
+                return [...previous, ...arrayColumn(chunkByCol, index)];
+            }, []);
 
         // @ts-ignore
         return [...colToRowArray].flat();

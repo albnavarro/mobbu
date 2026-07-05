@@ -82,48 +82,48 @@ export const createGrid = ({
     /** @type {import('./type').GridType} */
     const initValue = { row: 0, col: -1, items: [] };
 
-    return [
-        ...Array.from({
-            length: numberOfRow * numberOfColumn + numberOfRow,
-        }).keys(),
-    ].reduce((previous) => {
-        const { row, col, items: previousItems } = previous;
-        const newCol = col < numberOfColumn ? col + 1 : 0;
-        const newRow = newCol === 0 ? row + 1 : row;
+    return Array.from({
+        length: numberOfRow * numberOfColumn + numberOfRow,
+    })
+        .keys()
+        .reduce((previous) => {
+            const { row, col, items: previousItems } = previous;
+            const newCol = col < numberOfColumn ? col + 1 : 0;
+            const newRow = newCol === 0 ? row + 1 : row;
 
-        const x = (cellWidth + gutter) * newCol;
-        const y = (cellHeight + gutter) * newRow;
+            const x = (cellWidth + gutter) * newCol;
+            const y = (cellHeight + gutter) * newRow;
 
-        return {
-            row: newRow,
-            col: newCol,
-            items: [
-                ...previousItems,
-                {
-                    width: cellWidth,
-                    height: cellHeight,
-                    x,
-                    y,
-                    centerX: x + cellWidth / 2,
-                    centerY: y + cellHeight / 2,
-                    offsetXCenter: getOffsetXCenter({
-                        canvasWidth: canvas.width,
+            return {
+                row: newRow,
+                col: newCol,
+                items: [
+                    ...previousItems,
+                    {
                         width: cellWidth,
+                        height: cellHeight,
+                        x,
+                        y,
+                        centerX: x + cellWidth / 2,
+                        centerY: y + cellHeight / 2,
+                        offsetXCenter: getOffsetXCenter({
+                            canvasWidth: canvas.width,
+                            width: cellWidth,
+                            gutter,
+                            numberOfColumn,
+                        }),
+                        offsetYCenter: getOffsetYCenter({
+                            canvasHeight: canvas.height,
+                            height: cellHeight,
+                            gutter,
+                            numberOfRow,
+                        }),
                         gutter,
                         numberOfColumn,
-                    }),
-                    offsetYCenter: getOffsetYCenter({
-                        canvasHeight: canvas.height,
-                        height: cellHeight,
-                        gutter,
-                        numberOfRow,
-                    }),
-                    gutter,
-                    numberOfColumn,
-                },
-            ],
-        };
-    }, initValue);
+                    },
+                ],
+            };
+        }, initValue);
 };
 
 /**

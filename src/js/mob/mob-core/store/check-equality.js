@@ -7,7 +7,7 @@ import { ARRAY, MAP, SET, TYPE_IS_ANY } from './store-type';
  */
 const mapsAreEqual = (m1, m2) =>
     m1.size === m2.size &&
-    [...m1.keys()].every((key) => m1.get(key) === m2.get(key));
+    m1.keys().every((key) => m1.get(key) === m2.get(key));
 
 /**
  * @param {Set<any>} a
