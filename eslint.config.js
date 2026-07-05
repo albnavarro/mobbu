@@ -69,7 +69,6 @@ export default defineConfig([
             'unicorn/prefer-type-literal-last': 'off',
             'unicorn/prefer-continue': 'off',
             'unicorn/prefer-split-limit': 'off',
-            'unicorn/prefer-direct-iteration': 'off',
             'unicorn/prefer-set-has': 'off',
             'unicorn/no-useless-continue': 'off',
             //
