@@ -131,8 +131,8 @@ export const Move3DFunction = ({
         lastX = x;
         lastY = y;
 
-        const xLimitReached = ax > proxi.xLimit || ax < -proxi.xLimit;
-        const yLimitReached = ay > proxi.yLimit || ay < -proxi.yLimit;
+        const xLimitReached = Math.abs(ax) > proxi.xLimit;
+        const yLimitReached = Math.abs(ay) > proxi.yLimit;
 
         if (xLimitReached) dragX -= xgap;
         if (yLimitReached) dragY -= ygap;

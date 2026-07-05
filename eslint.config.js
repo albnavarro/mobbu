@@ -64,7 +64,6 @@ export default defineConfig([
             'unicorn/filename-case': 'off',
             'unicorn/no-unsafe-string-replacement': 'off',
             'unicorn/prefer-array-from-map': 'off',
-            'unicorn/prefer-math-abs': 'off',
             'unicorn/prefer-scoped-selector': 'off',
             'unicorn/explicit-timer-delay': 'off',
             'unicorn/numeric-separators-style': 'off',
