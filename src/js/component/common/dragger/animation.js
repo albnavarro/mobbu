@@ -380,61 +380,59 @@ export const draggerAnimation = ({
     });
 
     /**
+     * @param {PointerEvent} event
+     */
+    const clickHandler = (event) => {
+        const { x, y } = firstTouchValue;
+        const xChecker = Math.abs(lastX - x) > threshold;
+        const yChecker = Math.abs(lastY - y) > threshold;
+        if (xChecker || yChecker) event.preventDefault();
+    };
+
+    /**
+     * @param {WheelEvent} event
+     */
+    const wheelHandler = (event) => {
+        const { spinY } = MobCore.normalizeWheel(event);
+        depth = MobMotionCore.clamp(
+            depth + spinY * depthFactor,
+            maxLowDepth,
+            maxHightDepth
+        );
+
+        /**
+         * Update dragLimitY && dragLimitY based on current scale value.
+         */
+        updatePerspectiveLimits();
+
+        /**
+         * Clamp current position to new limits
+         *
+         * - We need to maintain constrain while zoom action si active.
+         */
+        dragX =
+            dragLimitX > 0
+                ? MobMotionCore.clamp(dragX, -dragLimitX, dragLimitX)
+                : MobMotionCore.clamp(dragX, dragLimitX, -dragLimitX);
+
+        dragY =
+            dragLimitY > 0
+                ? MobMotionCore.clamp(dragY, -dragLimitY, dragLimitY)
+                : MobMotionCore.clamp(dragY, dragLimitY, -dragLimitY);
+
+        onDepthChange({ depth });
+
+        spring.goTo({ x: dragX, y: dragY, z: depth }).catch(() => {});
+    };
+
+    /**
      * PreventChecker - prevent default if scroll difference from dow to up is less thshold value
      */
     if (containerEl)
-        containerEl.addEventListener(
-            'click',
-            (event) => {
-                const { x, y } = firstTouchValue;
-
-                const xChecker = Math.abs(lastX - x) > threshold;
-                const yChecker = Math.abs(lastY - y) > threshold;
-
-                if (xChecker || yChecker) {
-                    event.preventDefault();
-                }
-            },
-            false
-        );
+        containerEl.addEventListener('click', clickHandler, { capture: false });
 
     if (usePrespective && containerEl) {
-        containerEl.addEventListener(
-            'wheel',
-            (event) => {
-                const { spinY } = MobCore.normalizeWheel(event);
-                depth = MobMotionCore.clamp(
-                    depth + spinY * depthFactor,
-                    maxLowDepth,
-                    maxHightDepth
-                );
-
-                /**
-                 * Update dragLimitY && dragLimitY based on current scale value.
-                 */
-                updatePerspectiveLimits();
-
-                /**
-                 * Clamp current position to new limits
-                 *
-                 * - We need to maintain constrain while zoom action si active.
-                 */
-                dragX =
-                    dragLimitX > 0
-                        ? MobMotionCore.clamp(dragX, -dragLimitX, dragLimitX)
-                        : MobMotionCore.clamp(dragX, dragLimitX, -dragLimitX);
-
-                dragY =
-                    dragLimitY > 0
-                        ? MobMotionCore.clamp(dragY, -dragLimitY, dragLimitY)
-                        : MobMotionCore.clamp(dragY, dragLimitY, -dragLimitY);
-
-                onDepthChange({ depth });
-
-                spring.goTo({ x: dragX, y: dragY, z: depth }).catch(() => {});
-            },
-            { passive: true }
-        );
+        containerEl.addEventListener('wheel', wheelHandler, { passive: true });
     }
 
     const unsubScribeMouseWheel = MobCore.useMouseWheel(
@@ -487,6 +485,16 @@ export const draggerAnimation = ({
 
             // @ts-ignore
             child = null;
+
+            if (containerEl) {
+                containerEl.removeEventListener('click', clickHandler, {
+                    capture: false,
+                });
+            }
+
+            if (usePrespective && containerEl) {
+                containerEl.removeEventListener('wheel', wheelHandler);
+            }
         },
     };
 };

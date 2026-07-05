@@ -78,7 +78,6 @@ export default defineConfig([
             'unicorn/prefer-dom-node-replace-children': 'off',
             'unicorn/require-css-escape': 'off',
             'unicorn/prefer-direct-iteration': 'off',
-            'unicorn/prefer-add-event-listener-options': 'off',
             'unicorn/prefer-set-has': 'off',
             'unicorn/no-useless-continue': 'off',
             'unicorn/prefer-object-define-properties': 'off',
