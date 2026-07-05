@@ -1084,7 +1084,7 @@ export class MobSmoothScroller {
      * @type {import('./type.js').MobSmoothScrollerOnMouseEvent}
      */
     #onTouchMove({ target, client, preventDefault }) {
-        if (
+        if (!(
             this.#dragEnable &&
             this.#drag &&
             (target === this.#scroller ||
@@ -1092,23 +1092,24 @@ export class MobSmoothScroller {
                     /** @type {HTMLElement} */ (this.#scroller),
                     /** @type {HTMLElement} */ (target)
                 ))
-        ) {
-            // @ts-ignore
-            preventDefault();
-
-            this.#prevTouchVal = this.#touchVal;
-            this.#touchVal = this.#getMousePos({
-                x: client?.x ?? 0,
-                y: client?.y ?? 0,
-            });
-
-            const result = Math.round(this.#prevTouchVal - this.#touchVal);
-            this.#endValue += result;
-            this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
-
-            this.#updateScrollState();
-            this.#executeScroll();
+        )) {
+            return;
         }
+
+        // @ts-ignore
+        preventDefault();
+
+        this.#prevTouchVal = this.#touchVal;
+        this.#touchVal = this.#getMousePos({
+            x: client?.x ?? 0,
+            y: client?.y ?? 0,
+        });
+
+        const result = Math.round(this.#prevTouchVal - this.#touchVal);
+        this.#endValue += result;
+        this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
+        this.#updateScrollState();
+        this.#executeScroll();
     }
 
     /**
@@ -1241,19 +1242,21 @@ export class MobSmoothScroller {
     }
 
     #clearSnapTimeout() {
-        if (this.#snapResetDebounce) {
-            /**
-             * 1. CANCELLIAMO il timeout di reset pending
-             *
-             * - Se il timer scadesse ora, resetterebbe velocity a 1.
-             * - Con velocity = 1, il check successivo `this.#velocity < X` in goToNextSnap() fallirebbe.
-             * - Impedirebbe cosi l'attivazione dello snap nonostante l'utente stia scrollando velocemente.
-             *
-             * Il clearTimeout mantiene la velocity accumulata per permettere la valutazione corretta del prossimo snap.
-             */
-            clearTimeout(this.#snapResetDebounce);
-            this.#snapResetDebounce = null;
+        if (!this.#snapResetDebounce) {
+            return;
         }
+
+        /**
+         * 1. CANCELLIAMO il timeout di reset pending
+         *
+         * - Se il timer scadesse ora, resetterebbe velocity a 1.
+         * - Con velocity = 1, il check successivo `this.#velocity < X` in goToNextSnap() fallirebbe.
+         * - Impedirebbe cosi l'attivazione dello snap nonostante l'utente stia scrollando velocemente.
+         *
+         * Il clearTimeout mantiene la velocity accumulata per permettere la valutazione corretta del prossimo snap.
+         */
+        clearTimeout(this.#snapResetDebounce);
+        this.#snapResetDebounce = null;
     }
 
     /**

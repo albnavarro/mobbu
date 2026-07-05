@@ -178,10 +178,12 @@ export const Move3DFunction = ({
 
     /** @type{(arg0: {page: { x: number, y:number }} ) => void } */
     const onMouseDown = ({ page }) => {
-        if (draggable({ page })) {
-            onDrag = true;
-            firstDrag = true;
+        if (!draggable({ page })) {
+            return;
         }
+
+        onDrag = true;
+        firstDrag = true;
     };
 
     /** @type{() => void } */

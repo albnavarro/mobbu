@@ -285,10 +285,12 @@ const initPointerMove = () => {
  * Clear pending debounce
  */
 const clearPendingDebounce = () => {
-    if (debounceTimeoutId) {
-        clearTimeout(debounceTimeoutId);
-        debounceTimeoutId = null;
+    if (!debounceTimeoutId) {
+        return;
     }
+
+    clearTimeout(debounceTimeoutId);
+    debounceTimeoutId = null;
 };
 
 /**

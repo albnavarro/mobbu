@@ -1081,22 +1081,24 @@ export default class MobScroller {
     }
 
     #setMarker() {
-        if (this.#marker) {
-            // Add Marker
-            const { startMarker, endMarker } = MobScrollerMarker({
-                startMarker: this.#startMarker,
-                endMarker: this.#endMarker,
-                startPoint: this.#startPoint,
-                endPoint: this.#endPoint,
-                screen: this.#screen,
-                direction: this.#direction,
-                invertSide: this.#invertSide,
-                label: this.#marker,
-            });
-
-            this.#startMarker = startMarker;
-            this.#endMarker = endMarker;
+        if (!this.#marker) {
+            return;
         }
+
+        // Add Marker
+        const { startMarker, endMarker } = MobScrollerMarker({
+            startMarker: this.#startMarker,
+            endMarker: this.#endMarker,
+            startPoint: this.#startPoint,
+            endPoint: this.#endPoint,
+            screen: this.#screen,
+            direction: this.#direction,
+            invertSide: this.#invertSide,
+            label: this.#marker,
+        });
+
+        this.#startMarker = startMarker;
+        this.#endMarker = endMarker;
     }
 
     #calcOffset() {
@@ -2077,15 +2079,17 @@ export default class MobScroller {
      * @private
      */
     setPerspective() {
-        if (this.#perspective && this.#item && this.#item.parentNode) {
-            const style = {
-                perspective: `${this.#perspective}px`,
-                'transform-style': 'preserve-3d',
-            };
-            const parent = this.#item.parentNode;
-            // @ts-ignore
-            Object.assign(parent.style, style);
+        if (!(this.#perspective && this.#item && this.#item.parentNode)) {
+            return;
         }
+
+        const style = {
+            perspective: `${this.#perspective}px`,
+            'transform-style': 'preserve-3d',
+        };
+        const parent = this.#item.parentNode;
+        // @ts-ignore
+        Object.assign(parent.style, style);
     }
 
     /**

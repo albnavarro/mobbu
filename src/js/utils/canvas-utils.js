@@ -35,10 +35,12 @@ export const getOffsetCanvas = ({ useOffscreen, canvas }) => {
  * @returns {void}
  */
 export const copyCanvasBitmap = ({ useOffscreen, offscreen, ctx }) => {
-    if (useOffscreen && offscreen && ctx) {
-        const bitmap = offscreen.transferToImageBitmap();
-        ctx.transferFromImageBitmap(bitmap);
+    if (!(useOffscreen && offscreen && ctx)) {
+        return;
     }
+
+    const bitmap = offscreen.transferToImageBitmap();
+    ctx.transferFromImageBitmap(bitmap);
 };
 
 /**

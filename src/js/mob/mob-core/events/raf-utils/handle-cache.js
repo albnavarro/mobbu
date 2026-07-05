@@ -35,20 +35,22 @@ const add = (fn = () => {}) => {
     return {
         id,
         unsubscribe: () => {
-            if (subscriberMap.has(id)) {
-                /*
-                 * When we remove some items before fired we have to update the
-                 * cachecounter so handleFrame can stop
-                 */
-                const item = subscriberMap.get(id);
-                if (!item) return;
-
-                const frameToSubstract = item.data.size;
-                subscriberMap.delete(id);
-                if (!frameToSubstract) return;
-
-                cacheCoutner = cacheCoutner - frameToSubstract;
+            if (!subscriberMap.has(id)) {
+                return;
             }
+
+            /*
+             * When we remove some items before fired we have to update the
+             * cachecounter so handleFrame can stop
+             */
+            const item = subscriberMap.get(id);
+            if (!item) return;
+
+            const frameToSubstract = item.data.size;
+            subscriberMap.delete(id);
+            if (!frameToSubstract) return;
+
+            cacheCoutner = cacheCoutner - frameToSubstract;
         },
     };
 };

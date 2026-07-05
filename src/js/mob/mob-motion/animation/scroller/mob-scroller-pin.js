@@ -717,27 +717,29 @@ export class MobScrollerPin {
      * @returns {void}
      */
     #activateTrasponder() {
-        if (this.#shoulTranspond) {
-            /**
-             * Interrogato DOM before rendering, avoid recalculation sryle inside RAF
-             */
-            const requiredStyleToAdd = this.#addRquiredStyle();
-            const pinStyleFromItem = this.#addPinStyleFromItem();
-            const styleToAdd = this.#addStyleToItem();
-
-            MobCore.useFrame(() => {
-                if (!this.#pin) return;
-
-                Object.assign(this.#pin.style, {
-                    ...pinStyleFromItem,
-                    ...requiredStyleToAdd,
-                });
-
-                if (this.#item) Object.assign(this.#item.style, styleToAdd);
-
-                document.body.append(this.#pin);
-            });
+        if (!this.#shoulTranspond) {
+            return;
         }
+
+        /**
+         * Interrogato DOM before rendering, avoid recalculation sryle inside RAF
+         */
+        const requiredStyleToAdd = this.#addRquiredStyle();
+        const pinStyleFromItem = this.#addPinStyleFromItem();
+        const styleToAdd = this.#addStyleToItem();
+
+        MobCore.useFrame(() => {
+            if (!this.#pin) return;
+
+            Object.assign(this.#pin.style, {
+                ...pinStyleFromItem,
+                ...requiredStyleToAdd,
+            });
+
+            if (this.#item) Object.assign(this.#item.style, styleToAdd);
+
+            document.body.append(this.#pin);
+        });
     }
 
     /**

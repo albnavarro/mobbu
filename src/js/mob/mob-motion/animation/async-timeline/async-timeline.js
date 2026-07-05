@@ -1150,10 +1150,12 @@ export default class MobAsyncTimeline {
      * Reject promise without error in console ( Firefix do not ).
      */
     #rejectPromise() {
-        if (this.#currentReject) {
-            this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
-            this.#currentReject = undefined;
+        if (!this.#currentReject) {
+            return;
         }
+
+        this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
+        this.#currentReject = undefined;
     }
 
     /**

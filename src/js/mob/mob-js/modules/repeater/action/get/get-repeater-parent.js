@@ -10,13 +10,15 @@ import { repeatInstancesMap } from '../../repeat-id-intances-map';
  * @param {string} params.id - Repeat Id
  */
 export const removeRepeaterWebComponent = ({ id }) => {
-    if (repeatIdHostMap.has(id)) {
-        const host = repeatIdHostMap.get(id);
-        // @ts-ignore
-        host?.removeCustomComponent();
-        host?.remove();
-        repeatIdHostMap.delete(id);
+    if (!repeatIdHostMap.has(id)) {
+        return;
     }
+
+    const host = repeatIdHostMap.get(id);
+    // @ts-ignore
+    host?.removeCustomComponent();
+    host?.remove();
+    repeatIdHostMap.delete(id);
 };
 
 /**

@@ -62,15 +62,15 @@ export const DebugFilterHeadFunction = ({
                     setRef('input'),
                     delegateEvents({
                         keydown: (/** @type {KeyboardEvent} */ event) => {
-                            if (event?.code?.toLowerCase() === 'enter') {
-                                event.preventDefault();
-
-                                const testString =
-                                    /** @type {HTMLInputElement} */ (
-                                        event.currentTarget
-                                    ).value;
-                                refreshList({ testString, setFocus: true });
+                            if (!(event?.code?.toLowerCase() === 'enter')) {
+                                return;
                             }
+
+                            event.preventDefault();
+                            const testString = /** @type {HTMLInputElement} */ (
+                                event.currentTarget
+                            ).value;
+                            refreshList({ testString, setFocus: true });
                         },
                     }),
                 ],

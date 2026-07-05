@@ -126,17 +126,18 @@ export const benchMarkListPartial = ({
                             delegateEvents({
                                 keydown: (/** @type {Event} */ event) => {
                                     // @ts-ignore
-                                    if (event?.keyCode === 13) {
-                                        event.preventDefault();
-
-                                        const value = Number(
-                                            /** @type {HTMLInputElement} */ (
-                                                event.currentTarget
-                                            )?.value ?? 0
-                                        );
-
-                                        setData({ proxi, value });
+                                    if (!(event?.keyCode === 13)) {
+                                        return;
                                     }
+
+                                    event.preventDefault();
+                                    const value = Number(
+                                        /** @type {HTMLInputElement} */ (
+                                            event.currentTarget
+                                        )?.value ?? 0
+                                    );
+
+                                    setData({ proxi, value });
                                 },
                             }),
                         ],

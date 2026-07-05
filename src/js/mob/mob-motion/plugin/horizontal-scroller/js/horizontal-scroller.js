@@ -1193,79 +1193,81 @@ export class MobHorizontalScroller {
      * @type {(arg0: { destroyAll?: boolean }) => void}
      */
     #killScroller({ destroyAll = false }) {
-        if (this.#moduleisActive || destroyAll) {
-            this.#scrollTriggerInstance?.destroy?.();
-            // @ts-ignore
-            this.#scrollTriggerInstance = null;
-            if (this.#trigger) this.#trigger.style.height = '';
-            if (this.#mainContainer) this.#mainContainer.style.height = '';
-            if (this.#trigger) this.#trigger.style.marginTop = '';
-            this.#removeShadow();
-            this.#removeLinkAttribute();
-            this.#moduleisActive = false;
-
-            // Make sure that if component is running with ease the style is removed.
-            MobCore.useFrameIndex(() => {
-                if (this.#row) {
-                    this.#row.style.width = '';
-                    this.#row.style.transform = '';
-                }
-
-                if (destroyAll && this.#mainContainer) {
-                    if (this.#useDrag) this.#removeDragListener();
-
-                    const styleDiv =
-                        this.#mainContainer.querySelector('.scroller-style');
-                    if (styleDiv) styleDiv.remove();
-
-                    /**
-                     * All element is null only on Destroy. Avoid to use union type with null.
-                     */
-
-                    // @ts-ignore
-                    this.#mainContainer = null;
-                    // @ts-ignore
-                    this.#trigger = null;
-                    // @ts-ignore
-                    this.#row = null;
-                    // @ts-ignore
-                    this.#columns = [];
-                    // @ts-ignore
-                    this.#shadows = [];
-                    this.#afterInit = NOOP;
-                    this.#afterRefresh = NOOP;
-                    this.#onTick = NOOP;
-                    this.#onEnter = NOOP;
-                    this.#onEnterBack = NOOP;
-                    this.#onLeave = NOOP;
-                    this.#onLeaveBack = NOOP;
-                    // @ts-ignore
-                    this.#scrollTriggerInstance = null;
-                    this.#moduleisActive = false;
-                    this.#buttons = [];
-
-                    // @ts-ignore
-                    this.#mainContainer = null;
-                    // @ts-ignore
-                    this.#container = null;
-                    // @ts-ignore
-                    this.#trigger = null;
-                    // @ts-ignore
-                    this.#row = null;
-
-                    MobCore.useNextTick(() => {
-                        this.#afterDestroy?.();
-                        this.#afterDestroy = NOOP;
-                        for (let element of this.#children) {
-                            element?.destroy?.();
-                            // @ts-ignore
-                            element = null;
-                        }
-                        this.#children = [];
-                    });
-                }
-            }, 3);
+        if (!(this.#moduleisActive || destroyAll)) {
+            return;
         }
+
+        this.#scrollTriggerInstance?.destroy?.();
+        // @ts-ignore
+        this.#scrollTriggerInstance = null;
+        if (this.#trigger) this.#trigger.style.height = '';
+        if (this.#mainContainer) this.#mainContainer.style.height = '';
+        if (this.#trigger) this.#trigger.style.marginTop = '';
+        this.#removeShadow();
+        this.#removeLinkAttribute();
+        this.#moduleisActive = false;
+
+        // Make sure that if component is running with ease the style is removed.
+        MobCore.useFrameIndex(() => {
+            if (this.#row) {
+                this.#row.style.width = '';
+                this.#row.style.transform = '';
+            }
+
+            if (destroyAll && this.#mainContainer) {
+                if (this.#useDrag) this.#removeDragListener();
+
+                const styleDiv =
+                    this.#mainContainer.querySelector('.scroller-style');
+                if (styleDiv) styleDiv.remove();
+
+                /**
+                 * All element is null only on Destroy. Avoid to use union type with null.
+                 */
+
+                // @ts-ignore
+                this.#mainContainer = null;
+                // @ts-ignore
+                this.#trigger = null;
+                // @ts-ignore
+                this.#row = null;
+                // @ts-ignore
+                this.#columns = [];
+                // @ts-ignore
+                this.#shadows = [];
+                this.#afterInit = NOOP;
+                this.#afterRefresh = NOOP;
+                this.#onTick = NOOP;
+                this.#onEnter = NOOP;
+                this.#onEnterBack = NOOP;
+                this.#onLeave = NOOP;
+                this.#onLeaveBack = NOOP;
+                // @ts-ignore
+                this.#scrollTriggerInstance = null;
+                this.#moduleisActive = false;
+                this.#buttons = [];
+
+                // @ts-ignore
+                this.#mainContainer = null;
+                // @ts-ignore
+                this.#container = null;
+                // @ts-ignore
+                this.#trigger = null;
+                // @ts-ignore
+                this.#row = null;
+
+                MobCore.useNextTick(() => {
+                    this.#afterDestroy?.();
+                    this.#afterDestroy = NOOP;
+                    for (let element of this.#children) {
+                        element?.destroy?.();
+                        // @ts-ignore
+                        element = null;
+                    }
+                    this.#children = [];
+                });
+            }
+        }, 3);
     }
 
     /**

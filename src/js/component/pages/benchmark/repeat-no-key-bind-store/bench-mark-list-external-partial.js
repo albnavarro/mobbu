@@ -104,18 +104,22 @@ export const benchMarkListExternalPartial = ({
                                     /** @type {KeyboardEvent} */ event
                                 ) => {
                                     if (
-                                        event?.code?.toLowerCase() === 'enter'
+                                        !(
+                                            event?.code?.toLowerCase() ===
+                                            'enter'
+                                        )
                                     ) {
-                                        event.preventDefault();
-
-                                        const value = Number(
-                                            /** @type {HTMLInputElement} */ (
-                                                event.currentTarget
-                                            )?.value ?? 0
-                                        );
-
-                                        setData({ value });
+                                        return;
                                     }
+
+                                    event.preventDefault();
+                                    const value = Number(
+                                        /** @type {HTMLInputElement} */ (
+                                            event.currentTarget
+                                        )?.value ?? 0
+                                    );
+
+                                    setData({ value });
                                 },
                             }),
                         ],

@@ -144,39 +144,41 @@ export default class MobScrollerTween {
      * @returns {void}
      */
     inzializeStagger() {
-        if (
+        if (!(
             this.#stagger.each > 0 &&
             (this.#callbackCache.length > 0 || this.#callback.length > 0)
-        ) {
-            const cb = getStaggerArray(this.#callbackCache, this.#callback);
-
-            if (this.#stagger.grid.col > cb.length) {
-                staggerIsOutOfRangeWarning(cb.length);
-                return;
-            }
-
-            const { staggerArray, staggerArrayOnComplete } = setStagger({
-                arrayDefault: cb,
-                arrayOnStop: this.#callbackOnStop,
-                stagger: this.#stagger,
-                slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doesn't support fastestStagger
-                fastestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doesn't support fastestStagger
-            });
-
-            if (this.#callbackCache.length > this.#callback.length) {
-                this.#callbackCache =
-                    /** @type {import('../utils/callbacks/type.js').CallbackCache} */ (
-                        staggerArray
-                    );
-            } else {
-                this.#callback =
-                    /** @type {import('../utils/callbacks/type.js').CallbackDefault} */ (
-                        staggerArray
-                    );
-            }
-
-            this.#callbackOnStop = staggerArrayOnComplete;
+        )) {
+            return;
         }
+
+        const cb = getStaggerArray(this.#callbackCache, this.#callback);
+
+        if (this.#stagger.grid.col > cb.length) {
+            staggerIsOutOfRangeWarning(cb.length);
+            return;
+        }
+
+        const { staggerArray, staggerArrayOnComplete } = setStagger({
+            arrayDefault: cb,
+            arrayOnStop: this.#callbackOnStop,
+            stagger: this.#stagger,
+            slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doesn't support fastestStagger
+            fastestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doesn't support fastestStagger
+        });
+
+        if (this.#callbackCache.length > this.#callback.length) {
+            this.#callbackCache =
+                /** @type {import('../utils/callbacks/type.js').CallbackCache} */ (
+                    staggerArray
+                );
+        } else {
+            this.#callback =
+                /** @type {import('../utils/callbacks/type.js').CallbackDefault} */ (
+                    staggerArray
+                );
+        }
+
+        this.#callbackOnStop = staggerArrayOnComplete;
     }
 
     /**

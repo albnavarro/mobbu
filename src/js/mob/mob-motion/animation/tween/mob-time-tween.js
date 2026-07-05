@@ -556,13 +556,15 @@ export default class MobTimeTween {
      * @returns {void}
      */
     clearCurretPromise() {
-        if (!this.#pauseStatus) {
-            this.#currentReject?.(MobCore.ANIMATION_STOP_REJECT);
-            this.#currentPromise = undefined;
-            this.#currentReject = undefined;
-            this.#currentResolve = undefined;
-            this.#isRunning = false;
+        if (this.#pauseStatus) {
+            return;
         }
+
+        this.#currentReject?.(MobCore.ANIMATION_STOP_REJECT);
+        this.#currentPromise = undefined;
+        this.#currentReject = undefined;
+        this.#currentResolve = undefined;
+        this.#isRunning = false;
     }
 
     /**

@@ -339,21 +339,22 @@ export default class MobSyncTimeline {
              * Prevent error from cycle that start from end
              * in reverse mode
              **/
-            if (
+            if (!(
                 !this.#fpsIsInLoading &&
                 !this.#completed &&
                 this.#loopIteration > this.#minLoopIteration
-            ) {
-                this.#completed = true;
-                this.#loopCounter++;
-                // this callback is fired after a frame so
-                // check end timeline use the right value not reset
-                this.#loopIteration = 0;
-
-                this.#loopData.direction = direction;
-                this.#loopData.loop = this.#loopCounter;
-                for (const { cb } of this.#callbackLoop) cb(this.#loopData);
+            )) {
+                return;
             }
+
+            this.#completed = true;
+            this.#loopCounter++;
+            // this callback is fired after a frame so
+            // check end timeline use the right value not reset
+            this.#loopIteration = 0;
+            this.#loopData.direction = direction;
+            this.#loopData.loop = this.#loopCounter;
+            for (const { cb } of this.#callbackLoop) cb(this.#loopData);
         });
 
         /**
@@ -496,10 +497,12 @@ export default class MobSyncTimeline {
      * @returns {void}
      */
     #rejectPromise() {
-        if (this.#currentReject) {
-            this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
-            this.#currentReject = undefined;
+        if (!this.#currentReject) {
+            return;
         }
+
+        this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
+        this.#currentReject = undefined;
     }
 
     /**

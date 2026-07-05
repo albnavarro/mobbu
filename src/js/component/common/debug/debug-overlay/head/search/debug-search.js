@@ -35,15 +35,16 @@ export const DebugSearchFunction = ({ setRef, getRef, delegateEvents }) => {
                 setRef('id_input'),
                 delegateEvents({
                     keydown: (/** @type {KeyboardEvent} */ event) => {
-                        if (event?.code?.toLowerCase() === 'enter') {
-                            event.preventDefault();
-
-                            const id = /** @type {HTMLInputElement} */ (
-                                event.currentTarget
-                            ).value;
-
-                            updateDebugComponentById(id ?? '');
+                        if (!(event?.code?.toLowerCase() === 'enter')) {
+                            return;
                         }
+
+                        event.preventDefault();
+                        const id = /** @type {HTMLInputElement} */ (
+                            event.currentTarget
+                        ).value;
+
+                        updateDebugComponentById(id ?? '');
                     },
                 }),
             ],
@@ -91,17 +92,18 @@ export const DebugSearchFunction = ({ setRef, getRef, delegateEvents }) => {
                 setRef('instance_input'),
                 delegateEvents({
                     keydown: (/** @type {KeyboardEvent} */ event) => {
-                        if (event?.code?.toLowerCase() === 'enter') {
-                            event.preventDefault();
-
-                            const instanceName =
-                                /** @type {HTMLInputElement} */ (
-                                    event.currentTarget
-                                ).value;
-
-                            const id = MobJs.getIdByInstanceName(instanceName);
-                            updateDebugComponentById(id ?? '');
+                        if (!(event?.code?.toLowerCase() === 'enter')) {
+                            return;
                         }
+
+                        event.preventDefault();
+
+                        const instanceName = /** @type {HTMLInputElement} */ (
+                            event.currentTarget
+                        ).value;
+
+                        const id = MobJs.getIdByInstanceName(instanceName);
+                        updateDebugComponentById(id ?? '');
                     },
                 }),
             ],

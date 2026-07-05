@@ -12,23 +12,25 @@ import { invalidateInstancesMap } from '../../invalidate-id-instances-map';
  */
 
 export const removeInvalidateId = ({ id }) => {
-    if (invalidateIdsMap.has(id)) {
-        const value = invalidateIdsMap.get(id);
-
-        if (!value) return;
-
-        /**
-         * Remove reference to parent Id taken from invalidate web component.
-         */
-        for (const { invalidateId } of value) {
-            if (invalidateInstancesMap.has(invalidateId)) {
-                invalidateInstancesMap.delete(invalidateId);
-            }
-        }
-
-        /**
-         * Delete all
-         */
-        invalidateIdsMap.delete(id);
+    if (!invalidateIdsMap.has(id)) {
+        return;
     }
+
+    const value = invalidateIdsMap.get(id);
+
+    if (!value) return;
+
+    /**
+     * Remove reference to parent Id taken from invalidate web component.
+     */
+    for (const { invalidateId } of value) {
+        if (invalidateInstancesMap.has(invalidateId)) {
+            invalidateInstancesMap.delete(invalidateId);
+        }
+    }
+
+    /**
+     * Delete all
+     */
+    invalidateIdsMap.delete(id);
 };

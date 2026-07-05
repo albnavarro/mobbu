@@ -12,22 +12,24 @@ import { repeatInstancesMap } from '../../repeat-id-intances-map';
  */
 
 export const removeRepeaterId = ({ id }) => {
-    if (repeatIdsMap.has(id)) {
-        const value = repeatIdsMap.get(id);
-        if (!value) return;
-
-        /**
-         * Remove reference to parent Id taken from repeat web component.
-         */
-        for (const { repeatId } of value) {
-            if (repeatInstancesMap.has(repeatId)) {
-                repeatInstancesMap.delete(repeatId);
-            }
-        }
-
-        /**
-         * Delete all
-         */
-        repeatIdsMap.delete(id);
+    if (!repeatIdsMap.has(id)) {
+        return;
     }
+
+    const value = repeatIdsMap.get(id);
+    if (!value) return;
+
+    /**
+     * Remove reference to parent Id taken from repeat web component.
+     */
+    for (const { repeatId } of value) {
+        if (repeatInstancesMap.has(repeatId)) {
+            repeatInstancesMap.delete(repeatId);
+        }
+    }
+
+    /**
+     * Delete all
+     */
+    repeatIdsMap.delete(id);
 };
