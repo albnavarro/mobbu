@@ -55,7 +55,6 @@ export default defineConfig([
             'unicorn/no-unnecessary-global-this': 'off',
             'unicorn/no-unreadable-array-destructuring': 'off',
             'unicorn/prefer-else-if': 'off',
-            'unicorn/prefer-smaller-scope': 'off',
             'unicorn/no-negated-comparison': 'off',
             'unicorn/prefer-boolean-return': 'off',
             'unicorn/no-late-event-control': 'off',

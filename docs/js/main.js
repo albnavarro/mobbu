@@ -7503,9 +7503,8 @@
   };
   var fireOnMountCallBack = async ({ id, element }) => {
     const callback2 = onMountCallbackMap.get(id);
-    let destroyCallback;
     try {
-      destroyCallback = await callback2?.({ element });
+      const destroyCallback = await callback2?.({ element });
       setDestroyCallback({ cb: destroyCallback, id });
     } catch (error) {
       console.error(`[MobJs] onMount error for component ${id}:`, error);

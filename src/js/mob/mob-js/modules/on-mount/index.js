@@ -29,15 +29,15 @@ export const addOnMoutCallback = ({ id, cb = () => {} }) => {
 export const fireOnMountCallBack = async ({ id, element }) => {
     const callback = onMountCallbackMap.get(id);
 
-    /**
-     * OnMount callback can be async. Pass root component HTMLElement as parameter.
-     *
-     * @type {() => void} destroy Callback
-     */
-    let destroyCallback;
-
     try {
-        destroyCallback = await callback?.({ element });
+        /**
+         * OnMount callback can be async.
+         *
+         * - Pass root component HTMLElement as parameter.
+         *
+         * @type {() => void} destroy Callback
+         */
+        const destroyCallback = await callback?.({ element });
 
         /**
          * Update destroy callback
