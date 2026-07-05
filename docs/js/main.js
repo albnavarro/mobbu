@@ -12656,7 +12656,12 @@
         );
       return isValid2 ? value : "0px";
     }
-    if (properties === MobScrollerConstant.PROP_ROTATE || properties === MobScrollerConstant.PROP_ROTATEX || properties === MobScrollerConstant.PROP_ROTATEY || properties === MobScrollerConstant.PROP_ROTATEZ) {
+    if ([
+      MobScrollerConstant.PROP_ROTATE,
+      MobScrollerConstant.PROP_ROTATEX,
+      MobScrollerConstant.PROP_ROTATEY,
+      MobScrollerConstant.PROP_ROTATEZ
+    ].includes(properties)) {
       const isValid2 = exactMatchInsesitiveNumberPropArray(
         [MobScrollerConstant.DEGREE],
         value
@@ -12667,7 +12672,11 @@
         ]);
       return isValid2 ? value : "0";
     }
-    if (properties === MobScrollerConstant.PROP_SCALE || properties === MobScrollerConstant.PROP_SCALE_X || properties === MobScrollerConstant.PROP_SCALE_Y) {
+    if ([
+      MobScrollerConstant.PROP_SCALE,
+      MobScrollerConstant.PROP_SCALE_X,
+      MobScrollerConstant.PROP_SCALE_Y
+    ].includes(properties)) {
       const isValid2 = checkIfIsOnlyNumberPositiveNegative(value);
       if (!isValid2) scrollTriggerRangeScaleWarning(value, properties);
       return isValid2 ? value : "0";
@@ -17688,7 +17697,11 @@
             eachByNumItem
           });
         }
-        if (stagger.type === STAGGER_TYPE_START || stagger.type === STAGGER_TYPE_END || stagger.type === STAGGER_TYPE_CENTER) {
+        if ([
+          STAGGER_TYPE_START,
+          STAGGER_TYPE_END,
+          STAGGER_TYPE_CENTER
+        ].includes(stagger.type)) {
           return getStaggerSpecial({
             duration,
             numItem,

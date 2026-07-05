@@ -44,7 +44,6 @@ export default defineConfig([
             'unicorn/prefer-minimal-ternary': 'off',
             'unicorn/prefer-number-coercion': 'off',
             'unicorn/no-useless-else': 'off',
-            'unicorn/prefer-includes-over-repeated-comparisons': 'off',
             'unicorn/consistent-compound-words': 'off',
             'unicorn/require-array-sort-compare': 'off',
             'unicorn/no-declarations-before-early-exit': 'off',

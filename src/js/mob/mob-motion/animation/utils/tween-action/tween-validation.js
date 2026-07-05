@@ -1227,10 +1227,12 @@ export const checkStringRangeOnPropierties = (value, properties) => {
      * Check ROTATE PROP
      */
     if (
-        properties === MobScrollerConstant.PROP_ROTATE ||
-        properties === MobScrollerConstant.PROP_ROTATEX ||
-        properties === MobScrollerConstant.PROP_ROTATEY ||
-        properties === MobScrollerConstant.PROP_ROTATEZ
+        [
+            MobScrollerConstant.PROP_ROTATE,
+            MobScrollerConstant.PROP_ROTATEX,
+            MobScrollerConstant.PROP_ROTATEY,
+            MobScrollerConstant.PROP_ROTATEZ,
+        ].includes(properties)
     ) {
         const isValid = exactMatchInsesitiveNumberPropArray(
             [MobScrollerConstant.DEGREE],
@@ -1248,9 +1250,11 @@ export const checkStringRangeOnPropierties = (value, properties) => {
      * Check SCALE PROP
      */
     if (
-        properties === MobScrollerConstant.PROP_SCALE ||
-        properties === MobScrollerConstant.PROP_SCALE_X ||
-        properties === MobScrollerConstant.PROP_SCALE_Y
+        [
+            MobScrollerConstant.PROP_SCALE,
+            MobScrollerConstant.PROP_SCALE_X,
+            MobScrollerConstant.PROP_SCALE_Y,
+        ].includes(properties)
     ) {
         const isValid = checkIfIsOnlyNumberPositiveNegative(value);
         if (!isValid) scrollTriggerRangeScaleWarning(value, properties);
