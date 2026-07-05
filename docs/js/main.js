@@ -11185,8 +11185,8 @@
     return (1 - amt) * start + amt * end;
   };
   var compareKeys = (a, b) => {
-    const aKeys = Object.keys(a).toSorted();
-    const bKeys = Object.keys(b).toSorted();
+    const aKeys = Object.keys(a).toSorted((a2, b2) => a2.localeCompare(b2));
+    const bKeys = Object.keys(b).toSorted((a2, b2) => a2.localeCompare(b2));
     return aKeys.length === bKeys.length && aKeys.every((element, index) => element === bKeys[index]);
   };
   var sliceIntoChunks = (arr, chunkSize) => {

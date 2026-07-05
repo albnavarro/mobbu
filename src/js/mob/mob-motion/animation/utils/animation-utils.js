@@ -58,8 +58,8 @@ export const lerp = (start, end, amt) => {
  * @returns {boolean}
  */
 export const compareKeys = (a, b) => {
-    const aKeys = Object.keys(a).toSorted();
-    const bKeys = Object.keys(b).toSorted();
+    const aKeys = Object.keys(a).toSorted((a, b) => a.localeCompare(b));
+    const bKeys = Object.keys(b).toSorted((a, b) => a.localeCompare(b));
 
     return (
         aKeys.length === bKeys.length &&

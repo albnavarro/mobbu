@@ -45,7 +45,6 @@ export default defineConfig([
             'unicorn/prefer-number-coercion': 'off',
             'unicorn/no-useless-else': 'off',
             'unicorn/consistent-compound-words': 'off',
-            'unicorn/require-array-sort-compare': 'off',
             'unicorn/no-declarations-before-early-exit': 'off',
             'unicorn/no-useless-template-literals': 'off',
             'unicorn/no-useless-spread': 'off',
