@@ -1,8 +1,8 @@
 import { docContainerName } from '@instanceName';
 import { MobJs } from '@mobJs';
 
-export const closeSidebarleft = () => {
+export const closeSidebarRight = () => {
     /** @type {import('@mobJsType').UseMethodByName<import('./type').DocContainerType>} */
     const methods = MobJs.useMethodByName(docContainerName);
-    methods?.closeSidebarLeft();
+    methods?.closeSidebarRight();
 };

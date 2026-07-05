@@ -19,7 +19,7 @@ export const layoutSidebarLinks = async ({ props, data }) => {
 
     return htmlObject({
         component: DocContainer,
-        attributes: { name: docContainerName },
+        instanceName: docContainerName,
         content: [
             {
                 component: HtmlContent,

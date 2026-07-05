@@ -11,6 +11,6 @@ export interface DocContainerType {
     };
     bindStore: WithSource<DocContainerStore>;
     methods: {
-        closeSidebarLeft: () => void;
+        closeSidebarRight: () => void;
     };
 }

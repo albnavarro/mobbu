@@ -26120,7 +26120,7 @@
   }) => {
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
-    addMethod("closeSidebarLeft", () => {
+    addMethod("closeSidebarRight", () => {
       proxi.rightSidebarVisible = false;
     });
     watch(
@@ -26444,9 +26444,9 @@
   );
 
   // src/js/component/common/doc-container/utils.js
-  var closeSidebarleft = () => {
+  var closeSidebarRight = () => {
     const methods = modules_exports2.useMethodByName(docContainerName);
-    methods?.closeSidebarLeft();
+    methods?.closeSidebarRight();
   };
 
   // src/js/component/lib/animation/vertical-scroller.js
@@ -26523,7 +26523,7 @@
           proxi.activeLabel = label;
           await MobBodyScroll.to(offsetTop, { duration: 10 });
           if (core_exports.mq("max", "desktop")) {
-            closeSidebarleft();
+            closeSidebarRight();
           }
           element.focus({
             preventScroll: true
@@ -26964,7 +26964,7 @@
     if (tree) updateLeftSidebarList(tree);
     return htmlObject({
       component: DocContainer,
-      attributes: { name: docContainerName },
+      instanceName: docContainerName,
       content: [
         {
           component: HtmlContent,
@@ -43743,7 +43743,7 @@
   }
   function openNavigation({ root: root2, main, proxi }) {
     refreshNavigationScroller();
-    closeSidebarleft();
+    closeSidebarRight();
     proxi.isOpen = true;
     modules_exports.useFrame(() => {
       document.body.style.overflow = "hidden";

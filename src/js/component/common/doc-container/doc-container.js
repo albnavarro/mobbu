@@ -54,7 +54,7 @@ export const DocContainerFunction = ({
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
 
-    addMethod('closeSidebarLeft', () => {
+    addMethod('closeSidebarRight', () => {
         proxi.rightSidebarVisible = false;
     });
 

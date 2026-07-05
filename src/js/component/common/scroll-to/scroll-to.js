@@ -4,7 +4,7 @@ import { htmlObject, MobJs } from '@mobJs';
 import { MobBodyScroll } from '@mobMotionPlugin';
 import { ScrollToButton } from './button/definition';
 import { MobMotionCore } from '@mobMotion';
-import { closeSidebarleft } from '@commonComponent/doc-container/utils';
+import { closeSidebarRight } from '@commonComponent/doc-container/utils';
 import { verticalScroller } from '@componentLibs/animation/vertical-scroller';
 import { docContainerStore } from '@stores/doc-container';
 
@@ -59,7 +59,7 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
                           await MobBodyScroll.to(offsetTop, { duration: 10 });
 
                           if (MobMotionCore.mq('max', 'desktop')) {
-                              closeSidebarleft();
+                              closeSidebarRight();
                           }
 
                           /**

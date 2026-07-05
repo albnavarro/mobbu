@@ -11,7 +11,7 @@ import { Navigation } from './navigation/definition';
 import { setFocusInsideElement, tabLoopTrap } from '@componentLibs/utils/utils';
 import { setFcousToNavigationToggle } from '@layoutComponent/header/nav-toggle/utils';
 import { getHeaderElement } from '@layoutComponent/header/utils';
-import { closeSidebarleft } from '@commonComponent/doc-container/utils';
+import { closeSidebarRight } from '@commonComponent/doc-container/utils';
 
 let unsubscribeTabHandler = () => {};
 let unsubscribeEscHandler = () => {};
@@ -49,7 +49,7 @@ function closeNavigation({ main, proxi }) {
  */
 function openNavigation({ root, main, proxi }) {
     refreshNavigationScroller();
-    closeSidebarleft();
+    closeSidebarRight();
     proxi.isOpen = true;
 
     MobCore.useFrame(() => {
