@@ -54,7 +54,8 @@ export const removeAndDestroyById = ({ id = '' }) => {
     /**
      * Destroy children.
      */
-    for (const childId of Object.values(child ?? {}).flat()) {
+    const flatChildren = Object.values(child ?? {}).flat();
+    for (const childId of flatChildren) {
         try {
             removeAndDestroyById({ id: childId });
         } catch (error) {

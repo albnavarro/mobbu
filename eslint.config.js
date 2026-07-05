@@ -66,7 +66,6 @@ export default defineConfig([
             'unicorn/prefer-array-from-map': 'off',
             'unicorn/prefer-math-abs': 'off',
             'unicorn/prefer-scoped-selector': 'off',
-            'unicorn/no-unreadable-for-of-expression': 'off',
             'unicorn/explicit-timer-delay': 'off',
             'unicorn/prefer-early-return': 'off',
             'unicorn/no-useless-delete-check': 'off',
