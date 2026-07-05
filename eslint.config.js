@@ -67,7 +67,6 @@ export default defineConfig([
             'unicorn/prefer-math-abs': 'off',
             'unicorn/prefer-scoped-selector': 'off',
             'unicorn/explicit-timer-delay': 'off',
-            'unicorn/no-useless-delete-check': 'off',
             'unicorn/numeric-separators-style': 'off',
             'unicorn/prefer-type-literal-last': 'off',
             'unicorn/prefer-continue': 'off',

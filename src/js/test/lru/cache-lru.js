@@ -44,9 +44,7 @@ export const get = (key) => {
  * @param {any} value
  */
 export const put = (key, value) => {
-    if (cache.has(key)) {
-        cache.delete(key);
-    }
+    cache.delete(key);
 
     /**
      * Se piena, rimuovi il primo (meno recente)

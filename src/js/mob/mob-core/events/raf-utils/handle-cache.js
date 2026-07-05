@@ -95,7 +95,7 @@ const update = ({ id, callBackObject, frame }) => {
  * @returns {void}
  */
 const remove = (id) => {
-    if (subscriberMap.has(id)) subscriberMap.delete(id);
+    subscriberMap.delete(id);
 };
 
 /**

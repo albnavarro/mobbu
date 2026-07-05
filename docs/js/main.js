@@ -3807,7 +3807,7 @@
     cacheCoutner++;
   };
   var remove = (id) => {
-    if (subscriberMap.has(id)) subscriberMap.delete(id);
+    subscriberMap.delete(id);
   };
   var freeze = (id) => {
     const item = subscriberMap.get(id);
