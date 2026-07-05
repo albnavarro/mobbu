@@ -11,7 +11,7 @@ const indexCallbackMap = new Map();
  * @param {number} currentFrameLimit
  */
 const updateKeys = (currentFrameLimit) => {
-    const oldMapToArray = [...indexCallbackMap.entries()];
+    const oldMapToArray = indexCallbackMap.entries().toArray();
     indexCallbackMap.clear();
 
     for (const [index, value] of oldMapToArray) {

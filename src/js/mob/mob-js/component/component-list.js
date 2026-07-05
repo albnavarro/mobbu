@@ -34,7 +34,7 @@ const availableComponent = new Set();
  */
 export const setComponentList = () => {
     componentListMap = Object.fromEntries(
-        [...availableComponent.values()].flatMap((item) => Object.entries(item))
+        availableComponent.values().flatMap((item) => Object.entries(item))
     );
 
     /**

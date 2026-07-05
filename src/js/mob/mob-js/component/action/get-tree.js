@@ -51,9 +51,10 @@ export const getTree = () => {
     /**
      * Get first level component with parentId = ''
      */
-    const chunk = [...componentMap.entries()].filter(
-        ([, value]) => !value?.parentId || value?.parentId === ''
-    );
+    const chunk = componentMap
+        .entries()
+        .filter(([, value]) => !value?.parentId || value?.parentId === '')
+        .toArray();
 
     return getTreeRecursive({ chunk });
 };

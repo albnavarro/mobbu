@@ -81,7 +81,9 @@ export const getLRU = () => cache.keys().next().value;
 /**
  * MRU -> Most Recently Used
  */
+// eslint-disable-next-line unicorn/prefer-iterator-to-array
 export const getMRU = () => [...cache.keys()].pop();
+// eslint-disable-next-line unicorn/prefer-iterator-to-array
 export const getAll = () => [...cache.values()];
 export const size = () => cache.size;
 export const clear = () => cache.clear();

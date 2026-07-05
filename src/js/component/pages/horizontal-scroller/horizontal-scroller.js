@@ -37,17 +37,20 @@ const getScrollAdjustment = (id, total) => {
 const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
     const pinClass = pinIsVisible ? '' : 'hidden';
 
-    return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
-        return htmlObject({
-            component: HorizontalScrollerSection,
-            modules: staticProps(
-                /** @type {import('./section/type').HorizontalScrollerSectionType['props']} */ ({
-                    id: i,
-                    pinClass,
-                })
-            ),
-        });
-    });
+    return Array.from({ length: numOfCol })
+        .keys()
+        .map((_col, i) => {
+            return htmlObject({
+                component: HorizontalScrollerSection,
+                modules: staticProps(
+                    /** @type {import('./section/type').HorizontalScrollerSectionType['props']} */ ({
+                        id: i,
+                        pinClass,
+                    })
+                ),
+            });
+        })
+        .toArray();
 };
 
 /**
@@ -58,21 +61,24 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
  * @param {DelegateEvents} param.delegateEvents
  */
 const getNav = ({ numOfCol, proxi, staticProps, delegateEvents }) => {
-    return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
-        return htmlObject({
-            component: HorizontalScrollerButton,
-            modules: [
-                staticProps(
-                    /** @type {HorizontalScrollerButtonType['props']} */ ({
-                        id: i,
-                    })
-                ),
-                delegateEvents({
-                    click: () => (proxi.currentId = i),
-                }),
-            ],
-        });
-    });
+    return Array.from({ length: numOfCol })
+        .keys()
+        .map((_col, i) => {
+            return htmlObject({
+                component: HorizontalScrollerButton,
+                modules: [
+                    staticProps(
+                        /** @type {HorizontalScrollerButtonType['props']} */ ({
+                            id: i,
+                        })
+                    ),
+                    delegateEvents({
+                        click: () => (proxi.currentId = i),
+                    }),
+                ],
+            });
+        })
+        .toArray();
 };
 
 /** @type {MobComponent<HorizontalScroller>} */

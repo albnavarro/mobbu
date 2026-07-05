@@ -26,8 +26,9 @@ export const updateRepeaterWitoutKey = ({
     /**
      * Create palcehodler component
      */
-    const renderedDOM = [...Array.from({ length: diff }).keys()].map(
-        (_item, index) => {
+    const renderedDOM = Array.from({ length: diff })
+        .keys()
+        .map((_item, index) => {
             const initialValue = current?.[index + previousLenght];
             const initialIndex = index + previousLenght;
 
@@ -79,8 +80,8 @@ export const updateRepeaterWitoutKey = ({
              * Remove fragment as soon as possible from GC. TODO Is really necessary ?
              */
             return rawRender;
-        }
-    );
+        })
+        .toArray();
 
     return renderedDOM.filter(
         (element) => element !== null && element !== undefined

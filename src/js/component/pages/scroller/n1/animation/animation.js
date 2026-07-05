@@ -99,8 +99,9 @@ export const scrollerN1Animation = ({
     /**
      * Setup data.
      */
-    let stemData = [...Array.from({ length: amountOfPath }).keys()].map(
-        (_item, i) => {
+    let stemData = Array.from({ length: amountOfPath })
+        .keys()
+        .map((_item, i) => {
             const relativeIndex =
                 i >= amountOfPath / 2
                     ? amountOfPath / 2 + (amountOfPath / 2 - i)
@@ -119,8 +120,8 @@ export const scrollerN1Animation = ({
                 relativeIndex,
                 index: i,
             };
-        }
-    );
+        })
+        .toArray();
 
     /**
      * Create tween.

@@ -37,7 +37,6 @@ export default defineConfig([
             // TODO: Realign new rules from v70.
             'unicorn/name-replacements': 'off',
             'unicorn/consistent-boolean-name': 'off',
-            'unicorn/prefer-iterator-to-array': 'off',
             'unicorn/no-top-level-assignment-in-function': 'off',
             'unicorn/no-top-level-side-effects': 'off',
             'unicorn/operator-assignment': 'off',

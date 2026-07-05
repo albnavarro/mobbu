@@ -9,9 +9,10 @@ export const externalBenchmarkStore = MobCore.createStore(
     /** @type {MobStoreParams<import('./type').ExternalStore>} */
     ({
         data: {
-            __value: [
-                ...Array.from({ length: defaultAmountOfCard }).keys(),
-            ].map((item) => ({ label: `comp-${item + 1}` })),
+            __value: Array.from({ length: defaultAmountOfCard })
+                .keys()
+                .map((item) => ({ label: `comp-${item + 1}` }))
+                .toArray(),
             __type: Array,
             __validate: (value) => value.length < 1001,
             __strict: true,

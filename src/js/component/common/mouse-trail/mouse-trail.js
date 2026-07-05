@@ -11,14 +11,17 @@ const numberOfStar = 5;
 /** @type {MobComponent<import('./type').MouseRotate>} */
 export const MouseTrailFunction = ({ onMount, getRefs, setRef }) => {
     const { starOutline } = getIcons();
-    const stars = [...Array.from({ length: numberOfStar }).keys()].map(() => {
-        return htmlObject({
-            tag: 'span',
-            className: 'child',
-            modules: setRef('star'),
-            content: starOutline,
-        });
-    });
+    const stars = Array.from({ length: numberOfStar })
+        .keys()
+        .map(() => {
+            return htmlObject({
+                tag: 'span',
+                className: 'child',
+                modules: setRef('star'),
+                content: starOutline,
+            });
+        })
+        .toArray();
 
     onMount(() => {
         const { star } = getRefs();

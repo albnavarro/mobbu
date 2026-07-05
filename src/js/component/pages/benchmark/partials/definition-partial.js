@@ -7,9 +7,10 @@ export const benchMarkDefinitionPartial = (maxItem = 1001) => ({
             __type: Number,
         },
         data: {
-            __value: [
-                ...Array.from({ length: defaultAmountOfCard }).keys(),
-            ].map((item) => ({ label: `comp-${item + 1}` })),
+            __value: Array.from({ length: defaultAmountOfCard })
+                .keys()
+                .map((item) => ({ label: `comp-${item + 1}` }))
+                .toArray(),
             __type: Array,
             __validate: (/** @type {any[]} */ value) => value.length < maxItem,
             __strict: true,

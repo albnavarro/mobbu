@@ -21,7 +21,10 @@ import { DynamicCounter } from './counter/definition';
 
 /** @param {number} numberOfItem */
 function createArray(numberOfItem) {
-    return [...Array.from({ length: numberOfItem }).keys()].map((i) => i + 1);
+    return Array.from({ length: numberOfItem })
+        .keys()
+        .map((i) => i + 1)
+        .toArray();
 }
 
 /**

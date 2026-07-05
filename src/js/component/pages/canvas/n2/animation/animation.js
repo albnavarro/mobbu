@@ -63,8 +63,9 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
 
     const useRadius = true;
 
-    let squareData = [...Array.from({ length: numItems }).keys()].map(
-        (_item, i) => {
+    let squareData = Array.from({ length: numItems })
+        .keys()
+        .map((_item, i) => {
             const relativeIndex =
                 i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
@@ -81,8 +82,8 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
                 opacity: opacityVal,
                 rotate: 0,
             };
-        }
-    );
+        })
+        .toArray();
 
     /**
      * Initial misure.

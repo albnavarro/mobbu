@@ -23,11 +23,14 @@ export const updateStateByProp = ({
     update,
     effect,
 }) => {
-    const items = [...map.entries()].filter(([currentKey, currentValue]) => {
-        const keyToExclude = exclude ?? [];
-        const keyIsValid = !keyToExclude.includes(currentKey);
-        return currentValue?.[prop] === value && keyIsValid;
-    });
+    const items = map
+        .entries()
+        .filter(([currentKey, currentValue]) => {
+            const keyToExclude = exclude ?? [];
+            const keyIsValid = !keyToExclude.includes(currentKey);
+            return currentValue?.[prop] === value && keyIsValid;
+        })
+        .toArray();
 
     for (const [key, currentValue] of items) {
         const stateUpdated = update({ key, map, state: currentValue });

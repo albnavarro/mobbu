@@ -3968,7 +3968,7 @@
   // src/js/mob/mob-core/events/raf-utils/handle-frame-index.js
   var indexCallbackMap = /* @__PURE__ */ new Map();
   var updateKeys = (currentFrameLimit2) => {
-    const oldMapToArray = [...indexCallbackMap.entries()];
+    const oldMapToArray = indexCallbackMap.entries().toArray();
     indexCallbackMap.clear();
     for (const [index, value] of oldMapToArray) {
       indexCallbackMap.set(index - currentFrameLimit2, value);
@@ -5568,9 +5568,7 @@
     }, []);
   };
   var getTree = () => {
-    const chunk = [...componentMap.entries()].filter(
-      ([, value]) => !value?.parentId || value?.parentId === ""
-    );
+    const chunk = componentMap.entries().filter(([, value]) => !value?.parentId || value?.parentId === "").toArray();
     return getTreeRecursive({ chunk });
   };
 
@@ -6890,7 +6888,7 @@
   var availableComponent = /* @__PURE__ */ new Set();
   var setComponentList = () => {
     componentListMap = Object.fromEntries(
-      [...availableComponent.values()].flatMap((item) => Object.entries(item))
+      availableComponent.values().flatMap((item) => Object.entries(item))
     );
     defineUserComponent(componentListMap);
     defineSlotComponent();
@@ -8765,38 +8763,36 @@
     state,
     repeatId
   }) => {
-    const renderedDOM = [...Array.from({ length: diff }).keys()].map(
-      (_item, index) => {
-        const initialValue = current?.[index + previousLenght];
-        const initialIndex = index + previousLenght;
-        const proxiObject = getRepeatProxi({
-          observe: state,
-          hasKey: false,
-          index: initialIndex,
-          repeatId
-        });
-        if (proxiObject?.["value"] === REPATE_PROXI_FAIL) return;
-        const rawRender = render2({
-          initialIndex,
-          initialValue,
-          current: proxiObject
-        });
-        const components = queryAllFutureComponent(rawRender, false).map(
-          (element) => {
-            return new WeakRef(element);
-          }
-        );
-        setRepeatAttribute({
-          components,
-          current: initialValue,
-          index: initialIndex,
-          observe: state,
-          repeatId,
-          key: void 0
-        });
-        return rawRender;
-      }
-    );
+    const renderedDOM = Array.from({ length: diff }).keys().map((_item, index) => {
+      const initialValue = current?.[index + previousLenght];
+      const initialIndex = index + previousLenght;
+      const proxiObject = getRepeatProxi({
+        observe: state,
+        hasKey: false,
+        index: initialIndex,
+        repeatId
+      });
+      if (proxiObject?.["value"] === REPATE_PROXI_FAIL) return;
+      const rawRender = render2({
+        initialIndex,
+        initialValue,
+        current: proxiObject
+      });
+      const components = queryAllFutureComponent(rawRender, false).map(
+        (element) => {
+          return new WeakRef(element);
+        }
+      );
+      setRepeatAttribute({
+        components,
+        current: initialValue,
+        index: initialIndex,
+        observe: state,
+        repeatId,
+        key: void 0
+      });
+      return rawRender;
+    }).toArray();
     return renderedDOM.filter(
       (element) => element !== null && element !== void 0
     );
@@ -29226,24 +29222,22 @@
     const useRadius = true;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-    let squareData = [...Array.from({ length: numItems }).keys()].map(
-      (_item, i) => {
-        const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
-        const opacityVal = fill.includes(i) ? 1 : relativeIndex * opacity;
-        return {
-          width: relativeIndex * width,
-          height: relativeIndex * height,
-          x: 0,
-          y: 0,
-          hasFill: fill.includes(i),
-          opacity: opacityVal,
-          radius,
-          rotate: 0,
-          relativeIndex,
-          scale: 1
-        };
-      }
-    );
+    let squareData = Array.from({ length: numItems }).keys().map((_item, i) => {
+      const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
+      const opacityVal = fill.includes(i) ? 1 : relativeIndex * opacity;
+      return {
+        width: relativeIndex * width,
+        height: relativeIndex * height,
+        x: 0,
+        y: 0,
+        hasFill: fill.includes(i),
+        opacity: opacityVal,
+        radius,
+        rotate: 0,
+        relativeIndex,
+        scale: 1
+      };
+    }).toArray();
     let rotationTween = tween_exports.createTimeTween({
       data: { rotate: 0 },
       stagger: { each: rotationEach, from: "center" },
@@ -29648,23 +29642,21 @@
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     const useRadius = true;
-    let squareData = [...Array.from({ length: numItems }).keys()].map(
-      (_item, i) => {
-        const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
-        const itemWidth = width + width / 3 * relativeIndex;
-        const itemHeight = height + height / 3 * relativeIndex;
-        const opacityVal = fill.includes(i) ? 1 : (numItems - i) * opacity;
-        return {
-          width: itemWidth,
-          height: itemHeight,
-          x: 0,
-          y: 0,
-          hasFill: fill.includes(i),
-          opacity: opacityVal,
-          rotate: 0
-        };
-      }
-    );
+    let squareData = Array.from({ length: numItems }).keys().map((_item, i) => {
+      const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
+      const itemWidth = width + width / 3 * relativeIndex;
+      const itemHeight = height + height / 3 * relativeIndex;
+      const opacityVal = fill.includes(i) ? 1 : (numItems - i) * opacity;
+      return {
+        width: itemWidth,
+        height: itemHeight,
+        x: 0,
+        y: 0,
+        hasFill: fill.includes(i),
+        opacity: opacityVal,
+        rotate: 0
+      };
+    }).toArray();
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     let infiniteTween = tween_exports.createSequencer({
@@ -30571,24 +30563,22 @@
     wichContext = null;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-    let stemData = [...Array.from({ length: amountOfPath }).keys()].map(
-      (_item, i) => {
-        const relativeIndex = i >= amountOfPath / 2 ? amountOfPath / 2 + (amountOfPath / 2 - i) : i;
-        return {
-          width: Math.floor(
-            getWithRounded({ width, relativeIndex, amountOfPath })
-          ),
-          height: Math.floor(
-            getHeightRounded({ height, relativeIndex, amountOfPath })
-          ),
-          opacity: relativeIndex * opacity,
-          hasFill: fill.has(i),
-          rotate: 0,
-          relativeIndex,
-          index: i
-        };
-      }
-    );
+    let stemData = Array.from({ length: amountOfPath }).keys().map((_item, i) => {
+      const relativeIndex = i >= amountOfPath / 2 ? amountOfPath / 2 + (amountOfPath / 2 - i) : i;
+      return {
+        width: Math.floor(
+          getWithRounded({ width, relativeIndex, amountOfPath })
+        ),
+        height: Math.floor(
+          getHeightRounded({ height, relativeIndex, amountOfPath })
+        ),
+        opacity: relativeIndex * opacity,
+        hasFill: fill.has(i),
+        rotate: 0,
+        relativeIndex,
+        index: i
+      };
+    }).toArray();
     let scrollerTween = tween_exports.createScrollerTween({
       from: { rotate: 0 },
       to: { rotate: () => proxi.rotation },
@@ -31225,7 +31215,7 @@
 
   // src/js/component/pages/dynamic-list/repeaters/card/dynamic-list-card.js
   function createArray(numberOfItem) {
-    return [...Array.from({ length: numberOfItem }).keys()].map((i) => i + 1);
+    return Array.from({ length: numberOfItem }).keys().map((i) => i + 1).toArray();
   }
   var getInvalidateRender = ({ staticProps: staticProps2, delegateEvents, proxi }) => {
     return createArray(proxi.counter).map((item) => {
@@ -33167,7 +33157,7 @@
   };
   var getColumns = ({ numOfCol, pinIsVisible, staticProps: staticProps2 }) => {
     const pinClass = pinIsVisible ? "" : "hidden";
-    return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
+    return Array.from({ length: numOfCol }).keys().map((_col, i) => {
       return htmlObject({
         component: HorizontalScrollerSection,
         modules: staticProps2(
@@ -33178,10 +33168,10 @@
           }
         )
       });
-    });
+    }).toArray();
   };
   var getNav = ({ numOfCol, proxi, staticProps: staticProps2, delegateEvents }) => {
-    return [...Array.from({ length: numOfCol }).keys()].map((_col, i) => {
+    return Array.from({ length: numOfCol }).keys().map((_col, i) => {
       return htmlObject({
         component: HorizontalScrollerButton,
         modules: [
@@ -33196,7 +33186,7 @@
           })
         ]
       });
-    });
+    }).toArray();
   };
   var HorizontalScrollerFunction = ({
     onMount,
@@ -34873,14 +34863,14 @@
   var numberOfStar = 5;
   var MouseTrailFunction = ({ onMount, getRefs, setRef }) => {
     const { starOutline } = getIcons();
-    const stars = [...Array.from({ length: numberOfStar }).keys()].map(() => {
+    const stars = Array.from({ length: numberOfStar }).keys().map(() => {
       return htmlObject({
         tag: "span",
         className: "child",
         modules: setRef("star"),
         content: starOutline
       });
-    });
+    }).toArray();
     onMount(() => {
       const { star } = getRefs();
       const { destroy: destroy4 } = mouseTrailAnimation({ elements: star });
@@ -45519,9 +45509,7 @@
         __type: Number
       },
       data: {
-        __value: [
-          ...Array.from({ length: defaultAmountOfCard }).keys()
-        ].map((item) => ({ label: `comp-${item + 1}` })),
+        __value: Array.from({ length: defaultAmountOfCard }).keys().map((item) => ({ label: `comp-${item + 1}` })).toArray(),
         __type: Array,
         __validate: (value) => value.length < maxItem,
         __strict: true,
@@ -45554,9 +45542,9 @@
   };
   var createBenchMarkArray = (numberOfItem) => {
     const valueSanitized = modules_exports.checkType(Number, numberOfItem) ? numberOfItem : 0;
-    return [...Array.from({ length: valueSanitized }).keys()].map((i) => ({
+    return Array.from({ length: valueSanitized }).keys().map((i) => ({
       label: `comp-${i + 1}`
-    }));
+    })).toArray();
   };
   var setData = ({ proxi, value, useShuffle = false }) => {
     proxi.isLoading = true;
@@ -46283,9 +46271,7 @@
     /** @type {MobStoreParams<import('./type').ExternalStore>} */
     {
       data: {
-        __value: [
-          ...Array.from({ length: defaultAmountOfCard }).keys()
-        ].map((item) => ({ label: `comp-${item + 1}` })),
+        __value: Array.from({ length: defaultAmountOfCard }).keys().map((item) => ({ label: `comp-${item + 1}` })).toArray(),
         __type: Array,
         __validate: (value) => value.length < 1001,
         __strict: true,

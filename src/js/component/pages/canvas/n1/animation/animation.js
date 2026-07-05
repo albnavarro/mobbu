@@ -53,8 +53,9 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    let squareData = [...Array.from({ length: numItems }).keys()].map(
-        (_item, i) => {
+    let squareData = Array.from({ length: numItems })
+        .keys()
+        .map((_item, i) => {
             const relativeIndex =
                 i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
@@ -72,8 +73,8 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
                 relativeIndex,
                 scale: 1,
             };
-        }
-    );
+        })
+        .toArray();
 
     /**
      * Create rotation tween.
