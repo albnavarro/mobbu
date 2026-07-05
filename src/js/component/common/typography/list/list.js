@@ -67,7 +67,7 @@ export const ListFn = ({ getState, delegateEvents }) => {
 
     return htmlObject({
         tag: 'ul',
-        className: ['ul', `ul-${style}`, colorClass, linksClass],
+        className: [`is-${style}`, colorClass, linksClass],
         content: getList({ items, links, delegateEvents }),
     });
 };

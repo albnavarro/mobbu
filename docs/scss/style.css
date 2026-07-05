@@ -608,20 +608,17 @@
     margin: 0 0 1em;
     padding: 0;
   }
-  p a {
-    text-decoration: underline;
-  }
-  .p-boxed {
+  p.is-boxed {
     margin-block-end: calc(var(--gap-size) / 2);
     padding: calc(var(--gap-size) / 2);
     border: 1px var(--grey-300) solid;
     background: var(--grey-100);
   }
-  .p-note {
+  p.is-note {
     position: relative;
     padding-block-start: calc(var(--gap-size) * 1.5);
   }
-  .p-note::after {
+  p.is-note::after {
     content: "!";
     position: absolute;
     inset-block-start: 1.125rem;
@@ -629,7 +626,7 @@
     color: var(--red);
     font-weight: 700;
   }
-  .p-note::before {
+  p.is-note::before {
     content: "";
     position: absolute;
     block-size: 1.375rem;
@@ -639,18 +636,8 @@
     inset-block-start: 1.25rem;
     inset-inline-start: 1.5rem;
   }
-  .p-small,
-  .ul-small {
-    font-size: 0.75rem;
-  }
-  .p-medium,
-  .ul-medium {
-    font-size: 1rem;
-    line-height: 1.5625em;
-  }
-  .p-big,
-  .ul-big {
-    font-size: 1.375rem;
+  p a {
+    text-decoration: underline;
   }
   ul {
     margin-block-end: 0.9375rem;
@@ -662,6 +649,19 @@
   }
   ul li::marker {
     color: var(--dark);
+  }
+  p.is-small,
+  ul.is-small {
+    font-size: 0.75rem;
+  }
+  p.is-medium,
+  ul.is-medium {
+    font-size: 1rem;
+    line-height: 1.5625em;
+  }
+  p.is-big,
+  ul.is-big {
+    font-size: 1.375rem;
   }
   .quote {
     position: relative;

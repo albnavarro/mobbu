@@ -119,20 +119,14 @@
         margin: 0 0 1em;
         padding: 0;
 
-        a {
-            text-decoration: underline;
-        }
-    }
-
-    .p {
-        &-boxed {
+        &.is-boxed {
             margin-block-end: calc(var(--gap-size) / 2);
             padding: calc(var(--gap-size) / 2);
             border: 1px var(--grey-300) solid;
             background: var(--grey-100);
         }
 
-        &-note {
+        &.is-note {
             position: relative;
             padding-block-start: calc(var(--gap-size) * 1.5);
 
@@ -156,21 +150,9 @@
                 inset-inline-start: rem(24);
             }
         }
-    }
 
-    .p,
-    .ul {
-        &-small {
-            font-size: rem(12);
-        }
-
-        &-medium {
-            font-size: rem(16);
-            line-height: line-height(16, 25);
-        }
-
-        &-big {
-            font-size: rem(22);
+        a {
+            text-decoration: underline;
         }
     }
 
@@ -185,6 +167,22 @@
 
         li::marker {
             color: var(--dark);
+        }
+    }
+
+    p,
+    ul {
+        &.is-small {
+            font-size: rem(12);
+        }
+
+        &.is-medium {
+            font-size: rem(16);
+            line-height: line-height(16, 25);
+        }
+
+        &.is-big {
+            font-size: rem(22);
         }
     }
 
