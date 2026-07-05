@@ -442,6 +442,68 @@ export default class MobLerp {
     }
 
     /**
+     * @type {import('./type.js').LerpMergeProps}
+     */
+    #mergeProps(props) {
+        const newProps = { ...this.#defaultProps, ...props };
+        const { velocity, precision, relative } = newProps;
+        this.#relative = relativeIsValid(relative, 'lerp');
+        this.#velocity = lerpVelocityIsValid(velocity);
+        this.#precision = lerpPrecisionIsValid(precision);
+
+        return newProps;
+    }
+
+    /**
+     * @type {import('../../utils/type.js').DoAction<import('./type.js').LerpActions>} obj To Values
+     */
+    #doAction(newObjectparsed, newObjectRaw, spacialProps = {}) {
+        this.#values = mergeArray(newObjectparsed, this.#values);
+
+        const { reverse, immediate } = this.#mergeProps(spacialProps ?? {});
+
+        /**
+         * Check reverse.
+         */
+        if (valueIsBooleanAndTrue(reverse, 'reverse'))
+            this.#values = setReverseValues(newObjectRaw, this.#values);
+
+        /**
+         * Update relative.
+         */
+        this.#values = setRelative(this.#values, this.#relative);
+
+        /**
+         * Execute immediate if settled and exit.
+         */
+        if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
+            if (this.#isRunning) this.stop({ updateValues: false });
+            this.#values = setFromCurrentByTo(this.#values);
+            return Promise.resolve();
+        }
+
+        /**
+         * Condition to create promise. Promise is created first time. If is calling when isRunning reject, so only one
+         * promise is resolved. this.#currentPromise is necessary to avoid wrong fps calculation ( async stagger
+         * function ).
+         */
+        const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
+
+        /**
+         * Avery time is called while is running return the previous promise.
+         */
+        if (shouldInitializeRAF) {
+            this.#currentPromise = new Promise((resolve, reject) => {
+                this.#startRaf(resolve, reject);
+            });
+        }
+
+        return shouldInitializeRAF && this.#currentPromise
+            ? this.#currentPromise
+            : Promise.reject(MobCore.ANIMATION_STOP_REJECT).catch(() => {});
+    }
+
+    /**
      * AsyncTimeline utils.
      *
      * - We perform a Promise.reject() of the tween. We are sure that the tween can start with a new promise to resolve.
@@ -474,7 +536,8 @@ export default class MobLerp {
          * Clear stagger cache if needed.
          */
         if (clearCache)
-            for (const { cb } of this.#callbackCache) MobCore.useCache.clean(cb);
+            for (const { cb } of this.#callbackCache)
+                MobCore.useCache.clean(cb);
 
         // Reject promise
         if (this.#currentReject) {
@@ -505,8 +568,8 @@ export default class MobLerp {
     unFreezeStagger({ updateFrame = true } = {}) {
         if (!this.#staggerIsFreezed) return;
 
-        for (const { cb } of this.#callbackCache) MobCore.useCache.unFreeze({ id: cb, update: updateFrame })
-        ;
+        for (const { cb } of this.#callbackCache)
+            MobCore.useCache.unFreeze({ id: cb, update: updateFrame });
 
         this.#staggerIsFreezed = false;
     }
@@ -577,19 +640,6 @@ export default class MobLerp {
      */
     resetData() {
         this.#values = mergeDeep(this.#values, this.#initialData);
-    }
-
-    /**
-     * @type {import('./type.js').LerpMergeProps}
-     */
-    #mergeProps(props) {
-        const newProps = { ...this.#defaultProps, ...props };
-        const { velocity, precision, relative } = newProps;
-        this.#relative = relativeIsValid(relative, 'lerp');
-        this.#velocity = lerpVelocityIsValid(velocity);
-        this.#precision = lerpPrecisionIsValid(precision);
-
-        return newProps;
     }
 
     /**
@@ -751,55 +801,6 @@ export default class MobLerp {
          */
         this.#values = setFromCurrentByTo(this.#values);
         return;
-    }
-
-    /**
-     * @type {import('../../utils/type.js').DoAction<import('./type.js').LerpActions>} obj To Values
-     */
-    #doAction(newObjectparsed, newObjectRaw, spacialProps = {}) {
-        this.#values = mergeArray(newObjectparsed, this.#values);
-
-        const { reverse, immediate } = this.#mergeProps(spacialProps ?? {});
-
-        /**
-         * Check reverse.
-         */
-        if (valueIsBooleanAndTrue(reverse, 'reverse'))
-            this.#values = setReverseValues(newObjectRaw, this.#values);
-
-        /**
-         * Update relative.
-         */
-        this.#values = setRelative(this.#values, this.#relative);
-
-        /**
-         * Execute immediate if settled and exit.
-         */
-        if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
-            if (this.#isRunning) this.stop({ updateValues: false });
-            this.#values = setFromCurrentByTo(this.#values);
-            return Promise.resolve();
-        }
-
-        /**
-         * Condition to create promise. Promise is created first time. If is calling when isRunning reject, so only one
-         * promise is resolved. this.#currentPromise is necessary to avoid wrong fps calculation ( async stagger
-         * function ).
-         */
-        const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
-
-        /**
-         * Avery time is called while is running return the previous promise.
-         */
-        if (shouldInitializeRAF) {
-            this.#currentPromise = new Promise((resolve, reject) => {
-                this.#startRaf(resolve, reject);
-            });
-        }
-
-        return shouldInitializeRAF && this.#currentPromise
-            ? this.#currentPromise
-            : Promise.reject(MobCore.ANIMATION_STOP_REJECT).catch(() => {});
     }
 
     /**

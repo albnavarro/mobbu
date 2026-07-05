@@ -311,89 +311,6 @@ export class MobScrollerPin {
         this.#numeCycleToFreeze = 3;
     }
 
-    /**
-     * @param {import('./type.js').PinParams} data
-     */
-    init(data) {
-        this.#item = data.item;
-        this.#marker = data.marker;
-        this.#screen = data.screen;
-        this.#animatePin = data.animatePin;
-        this.#anticipatePinOnLoad = data.anticipatePinOnLoad;
-        this.#forceTranspond = data.forceTranspond;
-        this.#invertSide = data.invertSide;
-        this.#direction = data.direction;
-        this.#getStart = data.getStart;
-        this.#getEnd = data.getEnd;
-        this.#start = this.#getStart();
-        this.#end = this.#getEnd();
-        this.#prevscrollY = window.scrollY;
-        this.#scrollerHeight = data?.scrollerHeight;
-        this.#refreshCollisionPoint();
-
-        this.#collisionStyleProp =
-            this.#direction === MobScrollerConstant.DIRECTION_VERTICAL
-                ? 'top'
-                : 'left';
-        this.#isInizialized = true;
-        this.#firstTime = true;
-
-        this.#createPin();
-        this.#addStyleFromPinToWrapper();
-        this.#setPinSize();
-        this.#setUpMotion();
-
-        /**
-         * Update pix top position when use custom screen ad scroll outside on window
-         */
-        this.#unsubscribeScrollStart = MobCore.useScrollStart(() => {
-            if (!this.#isInizialized) return;
-
-            if (this.#screen !== globalThis && this.#isInner && this.#pin) {
-                MobCore.useFrame(() => {
-                    if (this.#pin)
-                        this.#pin.style.transition = `transform .85s cubic-bezier(0, 0.68, 0.45, 1.1)`;
-                });
-            }
-        });
-
-        this.#unsubscribeScroll = MobCore.useScroll(({ scrollY }) => {
-            if (!this.#isInizialized) return;
-
-            if (
-                this.#screen !== globalThis &&
-                this.#screen !== document.documentElement
-            ) {
-                if (
-                    this.#direction === MobScrollerConstant.DIRECTION_VERTICAL
-                ) {
-                    this.#refreshCollisionPoint();
-                }
-
-                const gap = scrollY - this.#prevscrollY;
-                this.#prevscrollY = scrollY;
-
-                if (this.#isInner && this.#pin && this.#spring) {
-                    const { verticalGap } = this.#spring.get();
-                    const translateValue = verticalGap - gap;
-
-                    /**
-                     * No need animation update data and apply style directly
-                     */
-                    this.#spring.setData({
-                        collision: 0,
-                        verticalGap: translateValue,
-                    });
-
-                    MobCore.useFrame(() => {
-                        if (this.#pin)
-                            this.#pin.style.transform = `translate(0px,${translateValue}px)`;
-                    });
-                }
-            }
-        });
-    }
-
     #setUpMotion() {
         this.#spring = new MobSpring({
             data: { collision: 0, verticalGap: 0 },
@@ -626,35 +543,6 @@ export class MobScrollerPin {
         this.#compesateValue = this.#invertSide
             ? -Math.trunc(this.#end)
             : Math.trunc(this.#end);
-    }
-
-    /**
-     * @returns {void}
-     */
-    destroy() {
-        if (!this.#isInizialized) return;
-
-        this.#spring?.stop?.();
-        this.#unsubscribeSpring();
-        this.#unsubscribeScroll();
-        this.#unsubscribeScrollStart();
-        this.#spring?.destroy?.();
-        this.#spring = null;
-        this.#afterPinCounter = 0;
-        this.#justPinned = false;
-        this.#isUnder = false;
-        this.#isInner = false;
-        this.#isOver = false;
-
-        if (this.#pin && this.#wrapper) {
-            // @ts-ignore
-            this.#wrapper.parentNode?.insertBefore(this.#item, this.#wrapper);
-            this.#pin.remove();
-            this.#wrapper.remove();
-            this.#wrapper = undefined;
-            this.#pin = undefined;
-            this.#isInizialized = false;
-        }
     }
 
     /**
@@ -963,6 +851,118 @@ export class MobScrollerPin {
             anticipateInnerIn: anticipateInnerIn,
             anticipateInnerOut: anticipateInnerOut,
         };
+    }
+
+    /**
+     * @param {import('./type.js').PinParams} data
+     */
+    init(data) {
+        this.#item = data.item;
+        this.#marker = data.marker;
+        this.#screen = data.screen;
+        this.#animatePin = data.animatePin;
+        this.#anticipatePinOnLoad = data.anticipatePinOnLoad;
+        this.#forceTranspond = data.forceTranspond;
+        this.#invertSide = data.invertSide;
+        this.#direction = data.direction;
+        this.#getStart = data.getStart;
+        this.#getEnd = data.getEnd;
+        this.#start = this.#getStart();
+        this.#end = this.#getEnd();
+        this.#prevscrollY = window.scrollY;
+        this.#scrollerHeight = data?.scrollerHeight;
+        this.#refreshCollisionPoint();
+
+        this.#collisionStyleProp =
+            this.#direction === MobScrollerConstant.DIRECTION_VERTICAL
+                ? 'top'
+                : 'left';
+        this.#isInizialized = true;
+        this.#firstTime = true;
+
+        this.#createPin();
+        this.#addStyleFromPinToWrapper();
+        this.#setPinSize();
+        this.#setUpMotion();
+
+        /**
+         * Update pix top position when use custom screen ad scroll outside on window
+         */
+        this.#unsubscribeScrollStart = MobCore.useScrollStart(() => {
+            if (!this.#isInizialized) return;
+
+            if (this.#screen !== globalThis && this.#isInner && this.#pin) {
+                MobCore.useFrame(() => {
+                    if (this.#pin)
+                        this.#pin.style.transition = `transform .85s cubic-bezier(0, 0.68, 0.45, 1.1)`;
+                });
+            }
+        });
+
+        this.#unsubscribeScroll = MobCore.useScroll(({ scrollY }) => {
+            if (!this.#isInizialized) return;
+
+            if (
+                this.#screen !== globalThis &&
+                this.#screen !== document.documentElement
+            ) {
+                if (
+                    this.#direction === MobScrollerConstant.DIRECTION_VERTICAL
+                ) {
+                    this.#refreshCollisionPoint();
+                }
+
+                const gap = scrollY - this.#prevscrollY;
+                this.#prevscrollY = scrollY;
+
+                if (this.#isInner && this.#pin && this.#spring) {
+                    const { verticalGap } = this.#spring.get();
+                    const translateValue = verticalGap - gap;
+
+                    /**
+                     * No need animation update data and apply style directly
+                     */
+                    this.#spring.setData({
+                        collision: 0,
+                        verticalGap: translateValue,
+                    });
+
+                    MobCore.useFrame(() => {
+                        if (this.#pin)
+                            this.#pin.style.transform = `translate(0px,${translateValue}px)`;
+                    });
+                }
+            }
+        });
+    }
+
+    /**
+     * @returns {void}
+     */
+    destroy() {
+        if (!this.#isInizialized) return;
+
+        this.#spring?.stop?.();
+        this.#unsubscribeSpring();
+        this.#unsubscribeScroll();
+        this.#unsubscribeScrollStart();
+        this.#spring?.destroy?.();
+        this.#spring = null;
+        this.#afterPinCounter = 0;
+        this.#justPinned = false;
+        this.#isUnder = false;
+        this.#isInner = false;
+        this.#isOver = false;
+
+        if (this.#pin && this.#wrapper) {
+            // @ts-ignore
+            this.#wrapper.parentNode?.insertBefore(this.#item, this.#wrapper);
+            this.#pin.remove();
+            this.#wrapper.remove();
+            this.#wrapper = undefined;
+            this.#pin = undefined;
+            this.#isInizialized = false;
+        }
     }
 
     /**

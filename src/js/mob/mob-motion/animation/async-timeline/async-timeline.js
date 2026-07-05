@@ -928,11 +928,11 @@ export default class MobAsyncTimeline {
          */
         if (this.#loopCounter > 0) {
             const direction = this.getDirection();
-            for (const { cb } of this.#callbackLoop) cb({
+            for (const { cb } of this.#callbackLoop)
+                cb({
                     direction,
                     loop: this.#loopCounter,
-                })
-            ;
+                });
         }
 
         this.#loopCounter++;
@@ -1076,6 +1076,213 @@ export default class MobAsyncTimeline {
      */
     #resetAllTween() {
         for (const { tween } of this.#tweenStore) tween.resetData();
+    }
+
+    /**
+     * AutoSet: Add a set 'tween' at start and end of timeline.
+     *
+     * @type {() => void}
+     */
+    #addSetBlocks() {
+        // Create set only one time
+        if (this.#autoSetIsJustCreated) return;
+        this.#autoSetIsJustCreated = true;
+
+        /*
+         * END Blocks
+         * Add set block at the end of timeline for every tween with last toValue
+         */
+        for (const { tween } of this.#tweenStore) {
+            const setValueTo = tween.getInitialData();
+
+            this.#currentTweenCounter++;
+
+            this.#tweenList = [
+                [
+                    {
+                        group: undefined,
+                        data: {
+                            ...this.#defaultObj,
+                            id: this.#currentTweenCounter,
+                            tween,
+                            action: 'set',
+                            valuesFrom: setValueTo,
+                            valuesTo: setValueTo,
+                            groupProps: { waitComplete: this.#waitComplete },
+                        },
+                    },
+                ],
+                ...this.#tweenList,
+            ];
+        }
+
+        /*
+         * END Blocks
+         * Add set block at the end of timeline for every tween with last toValue
+         */
+        for (const { tween } of this.#tweenStore) {
+            const setValueTo = reduceTweenUntilIndex({
+                timeline: this.#tweenList,
+                tween,
+                index: this.#tweenList.length,
+            });
+
+            this.#currentTweenCounter++;
+
+            this.#tweenList.push([
+                {
+                    group: undefined,
+                    data: {
+                        ...this.#defaultObj,
+                        id: this.#currentTweenCounter,
+                        tween,
+                        action: 'set',
+                        valuesFrom: setValueTo,
+                        valuesTo: setValueTo,
+                        groupProps: { waitComplete: this.#waitComplete },
+                    },
+                },
+            ]);
+        }
+    }
+
+    /**
+     * Reject promise without error in console ( Firefix do not ).
+     */
+    #rejectPromise() {
+        if (this.#currentReject) {
+            this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
+            this.#currentReject = undefined;
+        }
+    }
+
+    /**
+     * Utils for play() / playReverse() / etc...
+     */
+    async #waitFps() {
+        /**
+         * Always play after FPS is ready. Reject every tentative to run timeline while fps is loading after first call.
+         * Ensure timeline return only first resolve created.
+         */
+        if (this.#fpsIsInLoading)
+            // eslint-disable-next-line unicorn/no-useless-promise-resolve-reject
+            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
+
+        this.#fpsIsInLoading = true;
+
+        /**
+         * Await fps check.
+         */
+        await MobCore.useFps();
+        this.#fpsIsInLoading = false;
+    }
+
+    /**
+     * FLow:
+     *
+     * 2. Execute test loop via this.playReverse() to set `prevValueSettled`.
+     * 3. Then when timeline reach the end useLabel is reassigned, so walk thru right label.
+     *
+     * @type {import('./type.js').AsyncTimelinePlayUpeDown}
+     */
+    #playFromUpDown(label, isReverse) {
+        return new Promise((resolve, reject) => {
+            /**
+             * RUN
+             *
+             * Always do a test loop to get right prevValueSettled value Than redefine useLabel inside callback to reach
+             * right label index In this case no other callback after label is needed.
+             */
+            this.playReverse({
+                forceYoYo: false,
+                resolve,
+                reject,
+                callback: () => {
+                    /**
+                     * Skip of there is nothing to run
+                     */
+                    if (this.#tweenList.length === 0 || this.#addAsyncIsActive)
+                        return;
+
+                    /**
+                     * Normalize reverse status.
+                     */
+                    if (this.#isReverse) this.#revertTween();
+
+                    /*
+                     * Reset currentIndex.
+                     */
+                    this.#currentIndex = 0;
+
+                    /**
+                     * Define condition to go to right timeline index after first test loop. When playReverse loop is
+                     * ended, this.#useLabel is reassigned here, this time no callback is needed.
+                     */
+                    this.#useLabel = {
+                        isReverse,
+                        active: true,
+                        index: MobCore.checkType(String, label)
+                            ? this.#tweenList.findIndex((item) => {
+                                  const [firstItem] = item;
+                                  const labelCheck =
+                                      firstItem.data.labelProps?.name;
+                                  return labelCheck === label;
+                              })
+                            : label,
+                        callback: undefined,
+                    };
+
+                    /**
+                     * Check if label index is valid
+                     */
+                    if (MobCore.checkType(String, label))
+                        playLabelIsValid(this.#useLabel.index, label);
+
+                    this.#run();
+                },
+            });
+        });
+    }
+
+    /**
+     * @returns {void}
+     */
+    #pauseAllTween() {
+        for (const { tween } of this.#currentTween) {
+            tween?.pause?.();
+        }
+    }
+
+    /**
+     * @returns {void}
+     */
+    #resumeAllTween() {
+        for (const { tween } of this.#currentTween) {
+            tween?.resume?.();
+        }
+    }
+
+    /**
+     * Unfreeze stagger used with subscribeCache. Use es: play after pause need restore stagger cache
+     *
+     * @returns {void}
+     */
+    // #unFreezeAllTweenStagger() {
+    //     this.#currentTween.forEach(({ tween }) => {
+    //         tween?.unFreezeStagger?.();
+    //     });
+    // }
+
+    /**
+     * @type {() => void}
+     */
+    #resetUseLabel() {
+        this.#useLabel = {
+            active: false,
+            index: -1,
+            isReverse: false,
+            callback: undefined,
+        };
     }
 
     /**
@@ -1400,74 +1607,6 @@ export default class MobAsyncTimeline {
     }
 
     /**
-     * AutoSet: Add a set 'tween' at start and end of timeline.
-     *
-     * @type {() => void}
-     */
-    #addSetBlocks() {
-        // Create set only one time
-        if (this.#autoSetIsJustCreated) return;
-        this.#autoSetIsJustCreated = true;
-
-        /*
-         * END Blocks
-         * Add set block at the end of timeline for every tween with last toValue
-         */
-        for (const { tween } of this.#tweenStore) {
-            const setValueTo = tween.getInitialData();
-
-            this.#currentTweenCounter++;
-
-            this.#tweenList = [
-                [
-                    {
-                        group: undefined,
-                        data: {
-                            ...this.#defaultObj,
-                            id: this.#currentTweenCounter,
-                            tween,
-                            action: 'set',
-                            valuesFrom: setValueTo,
-                            valuesTo: setValueTo,
-                            groupProps: { waitComplete: this.#waitComplete },
-                        },
-                    },
-                ],
-                ...this.#tweenList,
-            ];
-        }
-
-        /*
-         * END Blocks
-         * Add set block at the end of timeline for every tween with last toValue
-         */
-        for (const { tween } of this.#tweenStore) {
-            const setValueTo = reduceTweenUntilIndex({
-                timeline: this.#tweenList,
-                tween,
-                index: this.#tweenList.length,
-            });
-
-            this.#currentTweenCounter++;
-
-            this.#tweenList.push([
-                {
-                    group: undefined,
-                    data: {
-                        ...this.#defaultObj,
-                        id: this.#currentTweenCounter,
-                        tween,
-                        action: 'set',
-                        valuesFrom: setValueTo,
-                        valuesTo: setValueTo,
-                        groupProps: { waitComplete: this.#waitComplete },
-                    },
-                },
-            ]);
-        }
-    }
-
-    /**
      * Execute a set() method of specified tweens at specified label
      *
      * @type {import('./type.js').AsyncTimelineSetTween}
@@ -1536,37 +1675,6 @@ export default class MobAsyncTimeline {
     }
 
     /**
-     * Reject promise without error in console ( Firefix do not ).
-     */
-    #rejectPromise() {
-        if (this.#currentReject) {
-            this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
-            this.#currentReject = undefined;
-        }
-    }
-
-    /**
-     * Utils for play() / playReverse() / etc...
-     */
-    async #waitFps() {
-        /**
-         * Always play after FPS is ready. Reject every tentative to run timeline while fps is loading after first call.
-         * Ensure timeline return only first resolve created.
-         */
-        if (this.#fpsIsInLoading)
-            // eslint-disable-next-line unicorn/no-useless-promise-resolve-reject
-            return Promise.reject(MobCore.ANIMATION_STOP_REJECT);
-
-        this.#fpsIsInLoading = true;
-
-        /**
-         * Await fps check.
-         */
-        await MobCore.useFps();
-        this.#fpsIsInLoading = false;
-    }
-
-    /**
      * @type {import('./type.js').AsyncTimelinePlayFrom}
      */
     async playFrom(label) {
@@ -1580,73 +1688,6 @@ export default class MobAsyncTimeline {
     async playFromReverse(label) {
         await this.#waitFps();
         return this.#playFromUpDown(label, true);
-    }
-
-    /**
-     * FLow:
-     *
-     * 2. Execute test loop via this.playReverse() to set `prevValueSettled`.
-     * 3. Then when timeline reach the end useLabel is reassigned, so walk thru right label.
-     *
-     * @type {import('./type.js').AsyncTimelinePlayUpeDown}
-     */
-    #playFromUpDown(label, isReverse) {
-        return new Promise((resolve, reject) => {
-            /**
-             * RUN
-             *
-             * Always do a test loop to get right prevValueSettled value Than redefine useLabel inside callback to reach
-             * right label index In this case no other callback after label is needed.
-             */
-            this.playReverse({
-                forceYoYo: false,
-                resolve,
-                reject,
-                callback: () => {
-                    /**
-                     * Skip of there is nothing to run
-                     */
-                    if (this.#tweenList.length === 0 || this.#addAsyncIsActive)
-                        return;
-
-                    /**
-                     * Normalize reverse status.
-                     */
-                    if (this.#isReverse) this.#revertTween();
-
-                    /*
-                     * Reset currentIndex.
-                     */
-                    this.#currentIndex = 0;
-
-                    /**
-                     * Define condition to go to right timeline index after first test loop. When playReverse loop is
-                     * ended, this.#useLabel is reassigned here, this time no callback is needed.
-                     */
-                    this.#useLabel = {
-                        isReverse,
-                        active: true,
-                        index: MobCore.checkType(String, label)
-                            ? this.#tweenList.findIndex((item) => {
-                                  const [firstItem] = item;
-                                  const labelCheck =
-                                      firstItem.data.labelProps?.name;
-                                  return labelCheck === label;
-                              })
-                            : label,
-                        callback: undefined,
-                    };
-
-                    /**
-                     * Check if label index is valid
-                     */
-                    if (MobCore.checkType(String, label))
-                        playLabelIsValid(this.#useLabel.index, label);
-
-                    this.#run();
-                },
-            });
-        });
     }
 
     /**
@@ -1912,47 +1953,6 @@ export default class MobAsyncTimeline {
                 this.#run();
             }
         }
-    }
-
-    /**
-     * @returns {void}
-     */
-    #pauseAllTween() {
-        for (const { tween } of this.#currentTween) {
-            tween?.pause?.();
-        }
-    }
-
-    /**
-     * @returns {void}
-     */
-    #resumeAllTween() {
-        for (const { tween } of this.#currentTween) {
-            tween?.resume?.();
-        }
-    }
-
-    /**
-     * Unfreeze stagger used with subscribeCache. Use es: play after pause need restore stagger cache
-     *
-     * @returns {void}
-     */
-    // #unFreezeAllTweenStagger() {
-    //     this.#currentTween.forEach(({ tween }) => {
-    //         tween?.unFreezeStagger?.();
-    //     });
-    // }
-
-    /**
-     * @type {() => void}
-     */
-    #resetUseLabel() {
-        this.#useLabel = {
-            active: false,
-            index: -1,
-            isReverse: false,
-            callback: undefined,
-        };
     }
 
     /**

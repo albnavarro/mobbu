@@ -466,6 +466,33 @@ export default class MobSyncTimeline {
     }
 
     /**
+     * @param {number} time
+     */
+    #playFromTime(time = 0) {
+        // Reset sequancer callback add function state
+        this.#resetSequencerLastValue();
+        this.#resetTime();
+
+        /*
+         * Set time
+         */
+        this.#currentTime = time;
+        this.#timeAtReverseBack = -this.#currentTime;
+
+        /*
+         * Generic prop
+         */
+        this.#isPlayngReverse = false;
+        this.#loopIteration = 0;
+
+        /*
+         * Prevent multiple firing
+         */
+        this.#fpsIsInLoading = true;
+        this.#startAnimation(time);
+    }
+
+    /**
      * @returns {void}
      */
     #rejectPromise() {
@@ -473,6 +500,82 @@ export default class MobSyncTimeline {
             this.#currentReject(MobCore.ANIMATION_STOP_REJECT);
             this.#currentReject = undefined;
         }
+    }
+
+    /**
+     * @param {number} time
+     * @returns {void}
+     */
+    #playFromTimeReverse(time = 0) {
+        // Reset sequancer callback add function state
+        this.#resetSequencerLastValue();
+
+        /*
+         * Set time
+         */
+        this.#timeElapsed = time;
+        this.#currentTime = time;
+        this.#pauseTime = time;
+        this.#timeAtReverse = 0;
+        this.#timeAtReverseBack = 0;
+
+        /*
+         * Generic prop
+         */
+        this.#startReverse = true;
+        this.#isPlayngReverse = true;
+        this.#skipFirstRender = true;
+        this.#loopIteration = 0;
+
+        /*
+         * Prevent multiple firing
+         */
+        this.#fpsIsInLoading = true;
+        this.#startAnimation(time);
+    }
+
+    /**
+     * Find label than match the occurrency and return the time
+     *
+     * @param {number} partial
+     * @returns {Promise<any>}
+     */
+    async #startAnimation(partial) {
+        if (this.#repeat === 0) return;
+
+        const { averageFPS } = await MobCore.useFps();
+
+        fpsLoadedLog('sequencer', averageFPS);
+        this.#isReverse = false;
+
+        for (const item of this.#sequencers) {
+            item.inzializeStagger();
+            item.disableStagger();
+            item.draw({
+                partial,
+                isLastDraw: false,
+                useFrame: true,
+                direction: this.getDirection(),
+            });
+        }
+
+        MobCore.useFrame(() => {
+            MobCore.useNextTick(({ time, fps }) => {
+                this.#startTime = time;
+                this.#fpsIsInLoading = false;
+                this.#isStopped = false;
+                this.#isInPause = false;
+                this.#loopCounter = 0;
+                this.#updateTime(time, fps);
+            });
+        });
+    }
+
+    /**
+     * @returns {void}
+     */
+    #resetSequencerLastValue() {
+        for (const item of this.#sequencers) item.resetLastValue();
     }
 
     /**
@@ -547,33 +650,6 @@ export default class MobSyncTimeline {
             // @ts-ignore
             this.#playFromTime(labelTime);
         });
-    }
-
-    /**
-     * @param {number} time
-     */
-    #playFromTime(time = 0) {
-        // Reset sequancer callback add function state
-        this.#resetSequencerLastValue();
-        this.#resetTime();
-
-        /*
-         * Set time
-         */
-        this.#currentTime = time;
-        this.#timeAtReverseBack = -this.#currentTime;
-
-        /*
-         * Generic prop
-         */
-        this.#isPlayngReverse = false;
-        this.#loopIteration = 0;
-
-        /*
-         * Prevent multiple firing
-         */
-        this.#fpsIsInLoading = true;
-        this.#startAnimation(time);
     }
 
     /**
@@ -659,75 +735,6 @@ export default class MobSyncTimeline {
 
             // @ts-ignore
             this.#playFromTimeReverse(this.#duration, true);
-        });
-    }
-
-    /**
-     * @param {number} time
-     * @returns {void}
-     */
-    #playFromTimeReverse(time = 0) {
-        // Reset sequancer callback add function state
-        this.#resetSequencerLastValue();
-
-        /*
-         * Set time
-         */
-        this.#timeElapsed = time;
-        this.#currentTime = time;
-        this.#pauseTime = time;
-        this.#timeAtReverse = 0;
-        this.#timeAtReverseBack = 0;
-
-        /*
-         * Generic prop
-         */
-        this.#startReverse = true;
-        this.#isPlayngReverse = true;
-        this.#skipFirstRender = true;
-        this.#loopIteration = 0;
-
-        /*
-         * Prevent multiple firing
-         */
-        this.#fpsIsInLoading = true;
-        this.#startAnimation(time);
-    }
-
-    /**
-     * Find label than match the occurrency and return the time
-     *
-     * @param {number} partial
-     * @returns {Promise<any>}
-     */
-    async #startAnimation(partial) {
-        if (this.#repeat === 0) return;
-
-        const { averageFPS } = await MobCore.useFps();
-
-        fpsLoadedLog('sequencer', averageFPS);
-        this.#isReverse = false;
-
-        for (const item of this.#sequencers) {
-            item.inzializeStagger();
-            item.disableStagger();
-            item.draw({
-                partial,
-                isLastDraw: false,
-                useFrame: true,
-                direction: this.getDirection(),
-            });
-        }
-
-        MobCore.useFrame(() => {
-            MobCore.useNextTick(({ time, fps }) => {
-                this.#startTime = time;
-                this.#fpsIsInLoading = false;
-                this.#isStopped = false;
-                this.#isInPause = false;
-                this.#loopCounter = 0;
-                this.#updateTime(time, fps);
-            });
         });
     }
 
@@ -844,13 +851,6 @@ export default class MobSyncTimeline {
         this.#duration = duration;
 
         return this;
-    }
-
-    /**
-     * @returns {void}
-     */
-    #resetSequencerLastValue() {
-        for (const item of this.#sequencers) item.resetLastValue();
     }
 
     /**

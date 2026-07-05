@@ -38,6 +38,10 @@ export const defineUserComponent = (componentList) => {
         customElements.define(
             key,
             class extends HTMLElement {
+                static get observedAttributes() {
+                    return attributeToObserve;
+                }
+
                 /**
                  * @type {string}
                  */
@@ -140,10 +144,6 @@ export const defineUserComponent = (componentList) => {
                  * @type {string | undefined | null}
                  */
                 #bindEffectInstance;
-
-                static get observedAttributes() {
-                    return attributeToObserve;
-                }
 
                 constructor() {
                     super();

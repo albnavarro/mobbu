@@ -6170,6 +6170,9 @@
       customElements.define(
         key,
         class extends HTMLElement {
+          static get observedAttributes() {
+            return attributeToObserve;
+          }
           /**
            * @type {string}
            */
@@ -6253,9 +6256,6 @@
            * @type {string | undefined | null}
            */
           #bindEffectInstance;
-          static get observedAttributes() {
-            return attributeToObserve;
-          }
           constructor() {
             super();
             this.attachShadow({ mode: "open" });
@@ -13775,6 +13775,54 @@
       });
     }
     /**
+     * Merge special props with default props
+     *
+     * @type {import('./type.js').SpringMergeProps}
+     */
+    #mergeProps(props) {
+      const springParams = handleSetUp.get("spring");
+      const allPresetConfig = springParams.config;
+      const configPreset = springConfigIsValid(props?.config) ? allPresetConfig?.[props?.config ?? "default"] ?? springPresetConfig.default : this.#defaultProps.configProps;
+      const configPropsToMerge = springConfigPropIsValid(props?.configProps);
+      const configProps = {
+        ...configPreset,
+        ...configPropsToMerge
+      };
+      const newProps = {
+        reverse: props?.reverse ?? this.#defaultProps.reverse,
+        relative: props?.relative ?? this.#defaultProps.relative,
+        immediate: props?.immediate ?? this.#defaultProps.immediate,
+        configProps
+      };
+      const { relative } = newProps;
+      this.#configProps = configProps;
+      this.#relative = relative;
+      return newProps;
+    }
+    /**
+     * @type {import('../../utils/type.js').DoAction<import('./type.js').SpringActions>} obj To Values
+     */
+    #doAction(newObjectParsed, newObjectRaw, spacialProps = {}) {
+      this.#values = mergeArray(newObjectParsed, this.#values);
+      const { reverse, immediate } = this.#mergeProps(spacialProps);
+      if (valueIsBooleanAndTrue(reverse, "reverse"))
+        this.#values = setReverseValues(newObjectRaw, this.#values);
+      this.#values = setRelative(this.#values, this.#relative);
+      if (valueIsBooleanAndTrue(immediate, "immediate ")) {
+        if (this.#isRunning) this.stop({ updateValues: false });
+        this.#values = setFromCurrentByTo(this.#values);
+        return Promise.resolve();
+      }
+      const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
+      if (shouldInitializeRAF) {
+        this.#currentPromise = new Promise((resolve, reject) => {
+          this.#startRaf(resolve, reject);
+        });
+      }
+      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT).catch(() => {
+      });
+    }
+    /**
      * @param {number} time Current global time
      * @param {number} fps Current FPS
      */
@@ -13880,7 +13928,8 @@
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
       this.unFreezeStagger();
       if (clearCache)
-        for (const { cb } of this.#callbackCache) modules_exports.useCache.clean(cb);
+        for (const { cb } of this.#callbackCache)
+          modules_exports.useCache.clean(cb);
       if (this.#currentReject) {
         this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
         this.#currentPromise = void 0;
@@ -13904,7 +13953,8 @@
      */
     unFreezeStagger({ updateFrame = true } = {}) {
       if (!this.#staggerIsFreezed) return;
-      for (const { cb } of this.#callbackCache) modules_exports.useCache.unFreeze({ id: cb, update: updateFrame });
+      for (const { cb } of this.#callbackCache)
+        modules_exports.useCache.unFreeze({ id: cb, update: updateFrame });
       this.#staggerIsFreezed = false;
     }
     /**
@@ -13978,31 +14028,6 @@
       this.#values = mergeDeep(this.#values, this.#initialData);
     }
     /**
-     * Merge special props with default props
-     *
-     * @type {import('./type.js').SpringMergeProps}
-     */
-    #mergeProps(props) {
-      const springParams = handleSetUp.get("spring");
-      const allPresetConfig = springParams.config;
-      const configPreset = springConfigIsValid(props?.config) ? allPresetConfig?.[props?.config ?? "default"] ?? springPresetConfig.default : this.#defaultProps.configProps;
-      const configPropsToMerge = springConfigPropIsValid(props?.configProps);
-      const configProps = {
-        ...configPreset,
-        ...configPropsToMerge
-      };
-      const newProps = {
-        reverse: props?.reverse ?? this.#defaultProps.reverse,
-        relative: props?.relative ?? this.#defaultProps.relative,
-        immediate: props?.immediate ?? this.#defaultProps.immediate,
-        configProps
-      };
-      const { relative } = newProps;
-      this.#configProps = configProps;
-      this.#relative = relative;
-      return newProps;
-    }
-    /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').SpringActions>} obj To Values
      */
     goTo(toObject, specialProps = {}) {
@@ -14062,29 +14087,6 @@
       this.#values = setRelative(this.#values, this.#relative);
       this.#values = setFromCurrentByTo(this.#values);
       return;
-    }
-    /**
-     * @type {import('../../utils/type.js').DoAction<import('./type.js').SpringActions>} obj To Values
-     */
-    #doAction(newObjectParsed, newObjectRaw, spacialProps = {}) {
-      this.#values = mergeArray(newObjectParsed, this.#values);
-      const { reverse, immediate } = this.#mergeProps(spacialProps);
-      if (valueIsBooleanAndTrue(reverse, "reverse"))
-        this.#values = setReverseValues(newObjectRaw, this.#values);
-      this.#values = setRelative(this.#values, this.#relative);
-      if (valueIsBooleanAndTrue(immediate, "immediate ")) {
-        if (this.#isRunning) this.stop({ updateValues: false });
-        this.#values = setFromCurrentByTo(this.#values);
-        return Promise.resolve();
-      }
-      const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
-      if (shouldInitializeRAF) {
-        this.#currentPromise = new Promise((resolve, reject) => {
-          this.#startRaf(resolve, reject);
-        });
-      }
-      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT).catch(() => {
-      });
     }
     /**
      * Get current values, If the single value is a function it returns the result of the function.
@@ -14969,6 +14971,40 @@
       });
     }
     /**
+     * @type {import('./type.js').LerpMergeProps}
+     */
+    #mergeProps(props) {
+      const newProps = { ...this.#defaultProps, ...props };
+      const { velocity, precision, relative } = newProps;
+      this.#relative = relativeIsValid(relative, "lerp");
+      this.#velocity = lerpVelocityIsValid(velocity);
+      this.#precision = lerpPrecisionIsValid(precision);
+      return newProps;
+    }
+    /**
+     * @type {import('../../utils/type.js').DoAction<import('./type.js').LerpActions>} obj To Values
+     */
+    #doAction(newObjectparsed, newObjectRaw, spacialProps = {}) {
+      this.#values = mergeArray(newObjectparsed, this.#values);
+      const { reverse, immediate } = this.#mergeProps(spacialProps ?? {});
+      if (valueIsBooleanAndTrue(reverse, "reverse"))
+        this.#values = setReverseValues(newObjectRaw, this.#values);
+      this.#values = setRelative(this.#values, this.#relative);
+      if (valueIsBooleanAndTrue(immediate, "immediate ")) {
+        if (this.#isRunning) this.stop({ updateValues: false });
+        this.#values = setFromCurrentByTo(this.#values);
+        return Promise.resolve();
+      }
+      const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
+      if (shouldInitializeRAF) {
+        this.#currentPromise = new Promise((resolve, reject) => {
+          this.#startRaf(resolve, reject);
+        });
+      }
+      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT).catch(() => {
+      });
+    }
+    /**
      * AsyncTimeline utils.
      *
      * - We perform a Promise.reject() of the tween. We are sure that the tween can start with a new promise to resolve.
@@ -14995,7 +15031,8 @@
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
       this.unFreezeStagger();
       if (clearCache)
-        for (const { cb } of this.#callbackCache) modules_exports.useCache.clean(cb);
+        for (const { cb } of this.#callbackCache)
+          modules_exports.useCache.clean(cb);
       if (this.#currentReject) {
         this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
         this.#currentPromise = void 0;
@@ -15019,7 +15056,8 @@
      */
     unFreezeStagger({ updateFrame = true } = {}) {
       if (!this.#staggerIsFreezed) return;
-      for (const { cb } of this.#callbackCache) modules_exports.useCache.unFreeze({ id: cb, update: updateFrame });
+      for (const { cb } of this.#callbackCache)
+        modules_exports.useCache.unFreeze({ id: cb, update: updateFrame });
       this.#staggerIsFreezed = false;
     }
     /**
@@ -15085,17 +15123,6 @@
       this.#values = mergeDeep(this.#values, this.#initialData);
     }
     /**
-     * @type {import('./type.js').LerpMergeProps}
-     */
-    #mergeProps(props) {
-      const newProps = { ...this.#defaultProps, ...props };
-      const { velocity, precision, relative } = newProps;
-      this.#relative = relativeIsValid(relative, "lerp");
-      this.#velocity = lerpVelocityIsValid(velocity);
-      this.#precision = lerpPrecisionIsValid(precision);
-      return newProps;
-    }
-    /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').LerpActions>} obj To Values
      */
     goTo(toObject, spacialProps = {}) {
@@ -15155,29 +15182,6 @@
       this.#values = setRelative(this.#values, this.#relative);
       this.#values = setFromCurrentByTo(this.#values);
       return;
-    }
-    /**
-     * @type {import('../../utils/type.js').DoAction<import('./type.js').LerpActions>} obj To Values
-     */
-    #doAction(newObjectparsed, newObjectRaw, spacialProps = {}) {
-      this.#values = mergeArray(newObjectparsed, this.#values);
-      const { reverse, immediate } = this.#mergeProps(spacialProps ?? {});
-      if (valueIsBooleanAndTrue(reverse, "reverse"))
-        this.#values = setReverseValues(newObjectRaw, this.#values);
-      this.#values = setRelative(this.#values, this.#relative);
-      if (valueIsBooleanAndTrue(immediate, "immediate ")) {
-        if (this.#isRunning) this.stop({ updateValues: false });
-        this.#values = setFromCurrentByTo(this.#values);
-        return Promise.resolve();
-      }
-      const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
-      if (shouldInitializeRAF) {
-        this.#currentPromise = new Promise((resolve, reject) => {
-          this.#startRaf(resolve, reject);
-        });
-      }
-      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT).catch(() => {
-      });
     }
     /**
      * Get current values, If the single value is a function it returns the result of the function.
@@ -15556,6 +15560,20 @@
       }
     }
     /**
+     * Return the new array maeged with main array created in setData
+     *
+     * @param {import('../utils/tween-action/type.js').GoToParamsType[]} newData New datato merge
+     * @returns {void}
+     */
+    #mergeData(newData) {
+      this.#values = this.#values.map((item) => {
+        const itemToMerge = newData.find((newItem) => {
+          return newItem.prop === item.prop;
+        });
+        return itemToMerge ? { ...item, ...itemToMerge } : { ...item };
+      });
+    }
+    /**
      * Inzialize stagger array
      *
      * @returns {void}
@@ -15652,20 +15670,6 @@
         };
       });
       return this;
-    }
-    /**
-     * Return the new array maeged with main array created in setData
-     *
-     * @param {import('../utils/tween-action/type.js').GoToParamsType[]} newData New datato merge
-     * @returns {void}
-     */
-    #mergeData(newData) {
-      this.#values = this.#values.map((item) => {
-        const itemToMerge = newData.find((newItem) => {
-          return newItem.prop === item.prop;
-        });
-        return itemToMerge ? { ...item, ...itemToMerge } : { ...item };
-      });
     }
     /**
      * Transform some properties of your choice from the `current value` to the `entered value`. The target value can be
@@ -16261,6 +16265,86 @@
       if (props) this.setData(props);
     }
     /**
+     * @param {object} obj
+     * @param {number} obj.partial
+     * @param {boolean} obj.isLastDraw
+     * @param {import('../utils/timeline/type.js').DirectionType} [obj.direction]
+     */
+    #onDraw({
+      partial = 0,
+      isLastDraw = false,
+      direction: direction2 = directionConstant.NONE
+    }) {
+      if (this.#firstRun) {
+        this.#lastPartial = partial;
+        this.#actionAtFirstRender(partial);
+      }
+      if (!this.#firstRun && this.#lastPartial && (!direction2 || direction2 === directionConstant.NONE)) {
+        this.#direction = partial >= this.#lastPartial ? directionConstant.FORWARD : directionConstant.BACKWARD;
+      }
+      if (!this.#firstRun && (direction2 === directionConstant.BACKWARD || direction2 === directionConstant.FORWARD)) {
+        this.#direction = direction2;
+      }
+      this.#values = sequencerGetValusOnDraw({
+        timeline: this.#timeline,
+        valuesState: this.#values,
+        partial
+      });
+      const callBackObject = getValueObj(this.#values, "currentValue");
+      syncCallback({
+        each: this.#stagger.each,
+        useStagger: this.#useStagger,
+        isLastDraw,
+        callBackObject,
+        callback: this.#callback,
+        callbackCache: this.#callbackCache,
+        callbackOnStop: this.#callbackOnStop
+      });
+      this.#fireAddCallBack(partial);
+      this.#useStagger = true;
+      this.#lastPartial = partial;
+      this.#firstRun = false;
+    }
+    /**
+     * Fire addCallback first time without check the previous position. because first time we can start from any
+     * position and we doesn't a have previous position So we fire the callback once To skip this callback, check
+     * isForce prop in callback
+     *
+     * @property {number} [time=0] Default is `0`
+     */
+    #actionAtFirstRender(time2 = 0) {
+      if (!this.#forceAddFnAtFirstRun) return;
+      for (const { fn, time: fnTime } of this.#callbackAdd) {
+        const mustFireForward = {
+          shouldFire: time2 >= fnTime,
+          direction: directionConstant.FORWARD
+        };
+        const mustFireBackward = {
+          shouldFire: time2 <= fnTime,
+          direction: directionConstant.BACKWARD
+        };
+        const mustFire = mustFireForward.shouldFire || mustFireBackward.shouldFire;
+        if (!mustFire) continue;
+        const direction2 = mustFireForward.shouldFire ? mustFireForward.direction : mustFireBackward.direction;
+        fn({ direction: direction2, value: time2, isForced: true });
+      }
+      this.#forceAddFnAtFirstRun = false;
+    }
+    /**
+     * Fire callBack at specific time
+     *
+     * @property {number} [time=0] Default is `0`
+     */
+    #fireAddCallBack(time2 = 0) {
+      for (const { fn, time: fnTime } of this.#callbackAdd) {
+        const mustFireForward = this.#direction === directionConstant.FORWARD && time2 > fnTime && this.#lastPartial <= fnTime;
+        const mustFireBackward = this.#direction === directionConstant.BACKWARD && time2 < fnTime && this.#lastPartial >= fnTime;
+        const mustFire = mustFireForward || mustFireBackward;
+        if (!mustFire) continue;
+        fn({ direction: this.#direction, value: time2, isForced: false });
+      }
+    }
+    /**
      * Inzialize stagger array
      */
     inzializeStagger() {
@@ -16333,92 +16417,12 @@
       );
     }
     /**
-     * @param {object} obj
-     * @param {number} obj.partial
-     * @param {boolean} obj.isLastDraw
-     * @param {import('../utils/timeline/type.js').DirectionType} [obj.direction]
-     */
-    #onDraw({
-      partial = 0,
-      isLastDraw = false,
-      direction: direction2 = directionConstant.NONE
-    }) {
-      if (this.#firstRun) {
-        this.#lastPartial = partial;
-        this.#actionAtFirstRender(partial);
-      }
-      if (!this.#firstRun && this.#lastPartial && (!direction2 || direction2 === directionConstant.NONE)) {
-        this.#direction = partial >= this.#lastPartial ? directionConstant.FORWARD : directionConstant.BACKWARD;
-      }
-      if (!this.#firstRun && (direction2 === directionConstant.BACKWARD || direction2 === directionConstant.FORWARD)) {
-        this.#direction = direction2;
-      }
-      this.#values = sequencerGetValusOnDraw({
-        timeline: this.#timeline,
-        valuesState: this.#values,
-        partial
-      });
-      const callBackObject = getValueObj(this.#values, "currentValue");
-      syncCallback({
-        each: this.#stagger.each,
-        useStagger: this.#useStagger,
-        isLastDraw,
-        callBackObject,
-        callback: this.#callback,
-        callbackCache: this.#callbackCache,
-        callbackOnStop: this.#callbackOnStop
-      });
-      this.#fireAddCallBack(partial);
-      this.#useStagger = true;
-      this.#lastPartial = partial;
-      this.#firstRun = false;
-    }
-    /**
      * Methods call by syncTimeline, everty time user use play, playFrom etc.. or loop end. Reset the data that control
      * add callback to have a new clean state
      */
     resetLastValue() {
       this.#firstRun = true;
       this.#lastPartial = 0;
-    }
-    /**
-     * Fire addCallback first time without check the previous position. because first time we can start from any
-     * position and we doesn't a have previous position So we fire the callback once To skip this callback, check
-     * isForce prop in callback
-     *
-     * @property {number} [time=0] Default is `0`
-     */
-    #actionAtFirstRender(time2 = 0) {
-      if (!this.#forceAddFnAtFirstRun) return;
-      for (const { fn, time: fnTime } of this.#callbackAdd) {
-        const mustFireForward = {
-          shouldFire: time2 >= fnTime,
-          direction: directionConstant.FORWARD
-        };
-        const mustFireBackward = {
-          shouldFire: time2 <= fnTime,
-          direction: directionConstant.BACKWARD
-        };
-        const mustFire = mustFireForward.shouldFire || mustFireBackward.shouldFire;
-        if (!mustFire) continue;
-        const direction2 = mustFireForward.shouldFire ? mustFireForward.direction : mustFireBackward.direction;
-        fn({ direction: direction2, value: time2, isForced: true });
-      }
-      this.#forceAddFnAtFirstRun = false;
-    }
-    /**
-     * Fire callBack at specific time
-     *
-     * @property {number} [time=0] Default is `0`
-     */
-    #fireAddCallBack(time2 = 0) {
-      for (const { fn, time: fnTime } of this.#callbackAdd) {
-        const mustFireForward = this.#direction === directionConstant.FORWARD && time2 > fnTime && this.#lastPartial <= fnTime;
-        const mustFireBackward = this.#direction === directionConstant.BACKWARD && time2 < fnTime && this.#lastPartial >= fnTime;
-        const mustFire = mustFireForward || mustFireBackward;
-        if (!mustFire) continue;
-        fn({ direction: this.#direction, value: time2, isForced: false });
-      }
     }
     /**
      * Set factor between timeline duration and sequencer getDuration So start and end propierties will be proportionate
@@ -16724,7 +16728,8 @@
      * ...
      */
     unFreezeCachedId() {
-      for (const { cb } of this.#callbackCache) modules_exports.useCache.unFreeze({ id: cb, update: true });
+      for (const { cb } of this.#callbackCache)
+        modules_exports.useCache.unFreeze({ id: cb, update: true });
     }
     /**
      * Disable stagger for one run
@@ -17108,6 +17113,57 @@
       });
     }
     /**
+     * Reject promise and update form value with current
+     *
+     * @returns {void}
+     */
+    #updateDataWhileRunning() {
+      for (const item of this.#values) {
+        if (item.shouldUpdate) {
+          item.fromValue = item.currentValue;
+        }
+      }
+    }
+    /**
+     * Merge special props with default props
+     *
+     * @type {import('./type.js').TimeTweenMergeProps}
+     */
+    #mergeProps(props) {
+      const newProps = { ...this.#defaultProps, ...props };
+      const { ease, duration, relative } = newProps;
+      this.#ease = easeTweenIsValidGetFunction(ease);
+      this.#relative = relativeIsValid(relative, "tween");
+      this.#duration = durationIsNumberOrFunctionIsValid(duration);
+      return newProps;
+    }
+    /**
+     * @type {import('../../utils/type.js').DoAction<import('./type.js').TimeTweenAction>} obj To Values
+     */
+    #doAction(newObjectParsed, newObjectRaw, specialProps = {}) {
+      this.#values = mergeArrayTween(newObjectParsed, this.#values);
+      const { reverse, immediate } = this.#mergeProps(specialProps);
+      if (valueIsBooleanAndTrue(reverse, "reverse"))
+        this.#values = setReverseValues(newObjectRaw, this.#values);
+      this.#values = setRelativeTween(this.#values, this.#relative);
+      if (valueIsBooleanAndTrue(immediate, "immediate ")) {
+        if (this.#isRunning) {
+          this.stop({ clearCache: false, updateValues: false });
+          this.#updateDataWhileRunning();
+        }
+        this.#values = setFromCurrentByTo(this.#values);
+        return Promise.resolve();
+      }
+      const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
+      if (shouldInitializeRAF) {
+        this.#currentPromise = new Promise((resolve, reject) => {
+          this.#startRaf(resolve, reject);
+        });
+      }
+      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT).catch(() => {
+      });
+    }
+    /**
      * AsyncTimeline utils.
      *
      * - We perform a Promise.reject() of the tween. We are sure that the tween can start with a new promise to resolve.
@@ -17135,7 +17191,8 @@
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
       this.unFreezeStagger();
       if (clearCache)
-        for (const { cb } of this.#callbackCache) modules_exports.useCache.clean(cb);
+        for (const { cb } of this.#callbackCache)
+          modules_exports.useCache.clean(cb);
       if (this.#currentReject) {
         this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
         this.#currentPromise = void 0;
@@ -17159,7 +17216,8 @@
      */
     unFreezeStagger({ updateFrame = true } = {}) {
       if (!this.#staggerIsFreezed) return;
-      for (const { cb } of this.#callbackCache) modules_exports.useCache.unFreeze({ id: cb, update: updateFrame });
+      for (const { cb } of this.#callbackCache)
+        modules_exports.useCache.unFreeze({ id: cb, update: updateFrame });
       this.#staggerIsFreezed = false;
     }
     /**
@@ -17223,31 +17281,6 @@
       this.#values = mergeDeep(this.#values, this.#initialData);
     }
     /**
-     * Reject promise and update form value with current
-     *
-     * @returns {void}
-     */
-    #updateDataWhileRunning() {
-      for (const item of this.#values) {
-        if (item.shouldUpdate) {
-          item.fromValue = item.currentValue;
-        }
-      }
-    }
-    /**
-     * Merge special props with default props
-     *
-     * @type {import('./type.js').TimeTweenMergeProps}
-     */
-    #mergeProps(props) {
-      const newProps = { ...this.#defaultProps, ...props };
-      const { ease, duration, relative } = newProps;
-      this.#ease = easeTweenIsValidGetFunction(ease);
-      this.#relative = relativeIsValid(relative, "tween");
-      this.#duration = durationIsNumberOrFunctionIsValid(duration);
-      return newProps;
-    }
-    /**
      * @type {import('../../utils/type.js').GoTo<import('./type.js').TimeTweenAction>} obj To Values
      */
     goTo(toObject, specialProps = {}) {
@@ -17304,32 +17337,6 @@
       this.#values = setRelativeTween(this.#values, this.#relative);
       this.#values = setFromCurrentByTo(this.#values);
       return;
-    }
-    /**
-     * @type {import('../../utils/type.js').DoAction<import('./type.js').TimeTweenAction>} obj To Values
-     */
-    #doAction(newObjectParsed, newObjectRaw, specialProps = {}) {
-      this.#values = mergeArrayTween(newObjectParsed, this.#values);
-      const { reverse, immediate } = this.#mergeProps(specialProps);
-      if (valueIsBooleanAndTrue(reverse, "reverse"))
-        this.#values = setReverseValues(newObjectRaw, this.#values);
-      this.#values = setRelativeTween(this.#values, this.#relative);
-      if (valueIsBooleanAndTrue(immediate, "immediate ")) {
-        if (this.#isRunning) {
-          this.stop({ clearCache: false, updateValues: false });
-          this.#updateDataWhileRunning();
-        }
-        this.#values = setFromCurrentByTo(this.#values);
-        return Promise.resolve();
-      }
-      const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
-      if (shouldInitializeRAF) {
-        this.#currentPromise = new Promise((resolve, reject) => {
-          this.#startRaf(resolve, reject);
-        });
-      }
-      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT).catch(() => {
-      });
     }
     /**
      * Get current values, If the single value is a function it returns the result of the function.
@@ -18396,10 +18403,11 @@
     #onRepeat() {
       if (this.#loopCounter > 0) {
         const direction2 = this.getDirection();
-        for (const { cb } of this.#callbackLoop) cb({
-          direction: direction2,
-          loop: this.#loopCounter
-        });
+        for (const { cb } of this.#callbackLoop)
+          cb({
+            direction: direction2,
+            loop: this.#loopCounter
+          });
       }
       this.#loopCounter++;
       this.#currentIndex = 0;
@@ -18516,6 +18524,150 @@
      */
     #resetAllTween() {
       for (const { tween: tween2 } of this.#tweenStore) tween2.resetData();
+    }
+    /**
+     * AutoSet: Add a set 'tween' at start and end of timeline.
+     *
+     * @type {() => void}
+     */
+    #addSetBlocks() {
+      if (this.#autoSetIsJustCreated) return;
+      this.#autoSetIsJustCreated = true;
+      for (const { tween: tween2 } of this.#tweenStore) {
+        const setValueTo = tween2.getInitialData();
+        this.#currentTweenCounter++;
+        this.#tweenList = [
+          [
+            {
+              group: void 0,
+              data: {
+                ...this.#defaultObj,
+                id: this.#currentTweenCounter,
+                tween: tween2,
+                action: "set",
+                valuesFrom: setValueTo,
+                valuesTo: setValueTo,
+                groupProps: { waitComplete: this.#waitComplete }
+              }
+            }
+          ],
+          ...this.#tweenList
+        ];
+      }
+      for (const { tween: tween2 } of this.#tweenStore) {
+        const setValueTo = reduceTweenUntilIndex({
+          timeline: this.#tweenList,
+          tween: tween2,
+          index: this.#tweenList.length
+        });
+        this.#currentTweenCounter++;
+        this.#tweenList.push([
+          {
+            group: void 0,
+            data: {
+              ...this.#defaultObj,
+              id: this.#currentTweenCounter,
+              tween: tween2,
+              action: "set",
+              valuesFrom: setValueTo,
+              valuesTo: setValueTo,
+              groupProps: { waitComplete: this.#waitComplete }
+            }
+          }
+        ]);
+      }
+    }
+    /**
+     * Reject promise without error in console ( Firefix do not ).
+     */
+    #rejectPromise() {
+      if (this.#currentReject) {
+        this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
+        this.#currentReject = void 0;
+      }
+    }
+    /**
+     * Utils for play() / playReverse() / etc...
+     */
+    async #waitFps() {
+      if (this.#fpsIsInLoading)
+        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
+      this.#fpsIsInLoading = true;
+      await modules_exports.useFps();
+      this.#fpsIsInLoading = false;
+    }
+    /**
+     * FLow:
+     *
+     * 2. Execute test loop via this.playReverse() to set `prevValueSettled`.
+     * 3. Then when timeline reach the end useLabel is reassigned, so walk thru right label.
+     *
+     * @type {import('./type.js').AsyncTimelinePlayUpeDown}
+     */
+    #playFromUpDown(label, isReverse) {
+      return new Promise((resolve, reject) => {
+        this.playReverse({
+          forceYoYo: false,
+          resolve,
+          reject,
+          callback: () => {
+            if (this.#tweenList.length === 0 || this.#addAsyncIsActive)
+              return;
+            if (this.#isReverse) this.#revertTween();
+            this.#currentIndex = 0;
+            this.#useLabel = {
+              isReverse,
+              active: true,
+              index: modules_exports.checkType(String, label) ? this.#tweenList.findIndex((item) => {
+                const [firstItem] = item;
+                const labelCheck = firstItem.data.labelProps?.name;
+                return labelCheck === label;
+              }) : label,
+              callback: void 0
+            };
+            if (modules_exports.checkType(String, label))
+              playLabelIsValid(this.#useLabel.index, label);
+            this.#run();
+          }
+        });
+      });
+    }
+    /**
+     * @returns {void}
+     */
+    #pauseAllTween() {
+      for (const { tween: tween2 } of this.#currentTween) {
+        tween2?.pause?.();
+      }
+    }
+    /**
+     * @returns {void}
+     */
+    #resumeAllTween() {
+      for (const { tween: tween2 } of this.#currentTween) {
+        tween2?.resume?.();
+      }
+    }
+    /**
+     * Unfreeze stagger used with subscribeCache. Use es: play after pause need restore stagger cache
+     *
+     * @returns {void}
+     */
+    // #unFreezeAllTweenStagger() {
+    //     this.#currentTween.forEach(({ tween }) => {
+    //         tween?.unFreezeStagger?.();
+    //     });
+    // }
+    /**
+     * @type {() => void}
+     */
+    #resetUseLabel() {
+      this.#useLabel = {
+        active: false,
+        index: -1,
+        isReverse: false,
+        callback: void 0
+      };
     }
     /**
      * @type {import('./type.js').AsyncTimelineSet}
@@ -18758,58 +18910,6 @@
       return this;
     }
     /**
-     * AutoSet: Add a set 'tween' at start and end of timeline.
-     *
-     * @type {() => void}
-     */
-    #addSetBlocks() {
-      if (this.#autoSetIsJustCreated) return;
-      this.#autoSetIsJustCreated = true;
-      for (const { tween: tween2 } of this.#tweenStore) {
-        const setValueTo = tween2.getInitialData();
-        this.#currentTweenCounter++;
-        this.#tweenList = [
-          [
-            {
-              group: void 0,
-              data: {
-                ...this.#defaultObj,
-                id: this.#currentTweenCounter,
-                tween: tween2,
-                action: "set",
-                valuesFrom: setValueTo,
-                valuesTo: setValueTo,
-                groupProps: { waitComplete: this.#waitComplete }
-              }
-            }
-          ],
-          ...this.#tweenList
-        ];
-      }
-      for (const { tween: tween2 } of this.#tweenStore) {
-        const setValueTo = reduceTweenUntilIndex({
-          timeline: this.#tweenList,
-          tween: tween2,
-          index: this.#tweenList.length
-        });
-        this.#currentTweenCounter++;
-        this.#tweenList.push([
-          {
-            group: void 0,
-            data: {
-              ...this.#defaultObj,
-              id: this.#currentTweenCounter,
-              tween: tween2,
-              action: "set",
-              valuesFrom: setValueTo,
-              valuesTo: setValueTo,
-              groupProps: { waitComplete: this.#waitComplete }
-            }
-          }
-        ]);
-      }
-    }
-    /**
      * Execute a set() method of specified tweens at specified label
      *
      * @type {import('./type.js').AsyncTimelineSetTween}
@@ -18856,25 +18956,6 @@
       });
     }
     /**
-     * Reject promise without error in console ( Firefix do not ).
-     */
-    #rejectPromise() {
-      if (this.#currentReject) {
-        this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
-        this.#currentReject = void 0;
-      }
-    }
-    /**
-     * Utils for play() / playReverse() / etc...
-     */
-    async #waitFps() {
-      if (this.#fpsIsInLoading)
-        return Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
-      this.#fpsIsInLoading = true;
-      await modules_exports.useFps();
-      this.#fpsIsInLoading = false;
-    }
-    /**
      * @type {import('./type.js').AsyncTimelinePlayFrom}
      */
     async playFrom(label) {
@@ -18887,42 +18968,6 @@
     async playFromReverse(label) {
       await this.#waitFps();
       return this.#playFromUpDown(label, true);
-    }
-    /**
-     * FLow:
-     *
-     * 2. Execute test loop via this.playReverse() to set `prevValueSettled`.
-     * 3. Then when timeline reach the end useLabel is reassigned, so walk thru right label.
-     *
-     * @type {import('./type.js').AsyncTimelinePlayUpeDown}
-     */
-    #playFromUpDown(label, isReverse) {
-      return new Promise((resolve, reject) => {
-        this.playReverse({
-          forceYoYo: false,
-          resolve,
-          reject,
-          callback: () => {
-            if (this.#tweenList.length === 0 || this.#addAsyncIsActive)
-              return;
-            if (this.#isReverse) this.#revertTween();
-            this.#currentIndex = 0;
-            this.#useLabel = {
-              isReverse,
-              active: true,
-              index: modules_exports.checkType(String, label) ? this.#tweenList.findIndex((item) => {
-                const [firstItem] = item;
-                const labelCheck = firstItem.data.labelProps?.name;
-                return labelCheck === label;
-              }) : label,
-              callback: void 0
-            };
-            if (modules_exports.checkType(String, label))
-              playLabelIsValid(this.#useLabel.index, label);
-            this.#run();
-          }
-        });
-      });
     }
     /**
      * 1. Execute test loop via this.playReverse() to set `prevValueSettled`.
@@ -19074,43 +19119,6 @@
           this.#run();
         }
       }
-    }
-    /**
-     * @returns {void}
-     */
-    #pauseAllTween() {
-      for (const { tween: tween2 } of this.#currentTween) {
-        tween2?.pause?.();
-      }
-    }
-    /**
-     * @returns {void}
-     */
-    #resumeAllTween() {
-      for (const { tween: tween2 } of this.#currentTween) {
-        tween2?.resume?.();
-      }
-    }
-    /**
-     * Unfreeze stagger used with subscribeCache. Use es: play after pause need restore stagger cache
-     *
-     * @returns {void}
-     */
-    // #unFreezeAllTweenStagger() {
-    //     this.#currentTween.forEach(({ tween }) => {
-    //         tween?.unFreezeStagger?.();
-    //     });
-    // }
-    /**
-     * @type {() => void}
-     */
-    #resetUseLabel() {
-      this.#useLabel = {
-        active: false,
-        index: -1,
-        isReverse: false,
-        callback: void 0
-      };
     }
     /**
      * Get an array of active instance.
@@ -19573,6 +19581,19 @@
       return labelObj.time;
     }
     /**
+     * @param {number} time
+     */
+    #playFromTime(time2 = 0) {
+      this.#resetSequencerLastValue();
+      this.#resetTime();
+      this.#currentTime = time2;
+      this.#timeAtReverseBack = -this.#currentTime;
+      this.#isPlayngReverse = false;
+      this.#loopIteration = 0;
+      this.#fpsIsInLoading = true;
+      this.#startAnimation(time2);
+    }
+    /**
      * @returns {void}
      */
     #rejectPromise() {
@@ -19580,6 +19601,62 @@
         this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
         this.#currentReject = void 0;
       }
+    }
+    /**
+     * @param {number} time
+     * @returns {void}
+     */
+    #playFromTimeReverse(time2 = 0) {
+      this.#resetSequencerLastValue();
+      this.#timeElapsed = time2;
+      this.#currentTime = time2;
+      this.#pauseTime = time2;
+      this.#timeAtReverse = 0;
+      this.#timeAtReverseBack = 0;
+      this.#startReverse = true;
+      this.#isPlayngReverse = true;
+      this.#skipFirstRender = true;
+      this.#loopIteration = 0;
+      this.#fpsIsInLoading = true;
+      this.#startAnimation(time2);
+    }
+    /**
+     * Find label than match the occurrency and return the time
+     *
+     * @param {number} partial
+     * @returns {Promise<any>}
+     */
+    async #startAnimation(partial) {
+      if (this.#repeat === 0) return;
+      const { averageFPS } = await modules_exports.useFps();
+      fpsLoadedLog("sequencer", averageFPS);
+      this.#isReverse = false;
+      for (const item of this.#sequencers) {
+        item.inzializeStagger();
+        item.disableStagger();
+        item.draw({
+          partial,
+          isLastDraw: false,
+          useFrame: true,
+          direction: this.getDirection()
+        });
+      }
+      modules_exports.useFrame(() => {
+        modules_exports.useNextTick(({ time: time2, fps: fps2 }) => {
+          this.#startTime = time2;
+          this.#fpsIsInLoading = false;
+          this.#isStopped = false;
+          this.#isInPause = false;
+          this.#loopCounter = 0;
+          this.#updateTime(time2, fps2);
+        });
+      });
+    }
+    /**
+     * @returns {void}
+     */
+    #resetSequencerLastValue() {
+      for (const item of this.#sequencers) item.resetLastValue();
     }
     /**
      * Plays the timeline starting from the initial value With useCurrent set to true and with the timeline active, it
@@ -19638,19 +19715,6 @@
         this.#currentReject = reject;
         this.#playFromTime(labelTime);
       });
-    }
-    /**
-     * @param {number} time
-     */
-    #playFromTime(time2 = 0) {
-      this.#resetSequencerLastValue();
-      this.#resetTime();
-      this.#currentTime = time2;
-      this.#timeAtReverseBack = -this.#currentTime;
-      this.#isPlayngReverse = false;
-      this.#loopIteration = 0;
-      this.#fpsIsInLoading = true;
-      this.#startAnimation(time2);
     }
     /**
      * Plays the timeline backward starting from the specific time or from a label defined in a Handle Sequencer |
@@ -19720,56 +19784,6 @@
           return;
         }
         this.#playFromTimeReverse(this.#duration, true);
-      });
-    }
-    /**
-     * @param {number} time
-     * @returns {void}
-     */
-    #playFromTimeReverse(time2 = 0) {
-      this.#resetSequencerLastValue();
-      this.#timeElapsed = time2;
-      this.#currentTime = time2;
-      this.#pauseTime = time2;
-      this.#timeAtReverse = 0;
-      this.#timeAtReverseBack = 0;
-      this.#startReverse = true;
-      this.#isPlayngReverse = true;
-      this.#skipFirstRender = true;
-      this.#loopIteration = 0;
-      this.#fpsIsInLoading = true;
-      this.#startAnimation(time2);
-    }
-    /**
-     * Find label than match the occurrency and return the time
-     *
-     * @param {number} partial
-     * @returns {Promise<any>}
-     */
-    async #startAnimation(partial) {
-      if (this.#repeat === 0) return;
-      const { averageFPS } = await modules_exports.useFps();
-      fpsLoadedLog("sequencer", averageFPS);
-      this.#isReverse = false;
-      for (const item of this.#sequencers) {
-        item.inzializeStagger();
-        item.disableStagger();
-        item.draw({
-          partial,
-          isLastDraw: false,
-          useFrame: true,
-          direction: this.getDirection()
-        });
-      }
-      modules_exports.useFrame(() => {
-        modules_exports.useNextTick(({ time: time2, fps: fps2 }) => {
-          this.#startTime = time2;
-          this.#fpsIsInLoading = false;
-          this.#isStopped = false;
-          this.#isInPause = false;
-          this.#loopCounter = 0;
-          this.#updateTime(time2, fps2);
-        });
       });
     }
     /**
@@ -19860,12 +19874,6 @@
     setDuration(duration) {
       this.#duration = duration;
       return this;
-    }
-    /**
-     * @returns {void}
-     */
-    #resetSequencerLastValue() {
-      for (const item of this.#sequencers) item.resetLastValue();
     }
     /**
      * Return active status
@@ -20532,64 +20540,6 @@
       this.#afterJustPinnedCounter = 0;
       this.#numeCycleToFreeze = 3;
     }
-    /**
-     * @param {import('./type.js').PinParams} data
-     */
-    init(data) {
-      this.#item = data.item;
-      this.#marker = data.marker;
-      this.#screen = data.screen;
-      this.#animatePin = data.animatePin;
-      this.#anticipatePinOnLoad = data.anticipatePinOnLoad;
-      this.#forceTranspond = data.forceTranspond;
-      this.#invertSide = data.invertSide;
-      this.#direction = data.direction;
-      this.#getStart = data.getStart;
-      this.#getEnd = data.getEnd;
-      this.#start = this.#getStart();
-      this.#end = this.#getEnd();
-      this.#prevscrollY = window.scrollY;
-      this.#scrollerHeight = data?.scrollerHeight;
-      this.#refreshCollisionPoint();
-      this.#collisionStyleProp = this.#direction === MobScrollerConstant.DIRECTION_VERTICAL ? "top" : "left";
-      this.#isInizialized = true;
-      this.#firstTime = true;
-      this.#createPin();
-      this.#addStyleFromPinToWrapper();
-      this.#setPinSize();
-      this.#setUpMotion();
-      this.#unsubscribeScrollStart = modules_exports.useScrollStart(() => {
-        if (!this.#isInizialized) return;
-        if (this.#screen !== globalThis && this.#isInner && this.#pin) {
-          modules_exports.useFrame(() => {
-            if (this.#pin)
-              this.#pin.style.transition = `transform .85s cubic-bezier(0, 0.68, 0.45, 1.1)`;
-          });
-        }
-      });
-      this.#unsubscribeScroll = modules_exports.useScroll(({ scrollY: scrollY2 }) => {
-        if (!this.#isInizialized) return;
-        if (this.#screen !== globalThis && this.#screen !== document.documentElement) {
-          if (this.#direction === MobScrollerConstant.DIRECTION_VERTICAL) {
-            this.#refreshCollisionPoint();
-          }
-          const gap = scrollY2 - this.#prevscrollY;
-          this.#prevscrollY = scrollY2;
-          if (this.#isInner && this.#pin && this.#spring) {
-            const { verticalGap } = this.#spring.get();
-            const translateValue = verticalGap - gap;
-            this.#spring.setData({
-              collision: 0,
-              verticalGap: translateValue
-            });
-            modules_exports.useFrame(() => {
-              if (this.#pin)
-                this.#pin.style.transform = `translate(0px,${translateValue}px)`;
-            });
-          }
-        }
-      });
-    }
     #setUpMotion() {
       this.#spring = new MobSpring({
         data: { collision: 0, verticalGap: 0 },
@@ -20739,31 +20689,6 @@
       }
       this.#startFromTop = this.#invertSide ? this.#start : this.#scrollerHeight - this.#start;
       this.#compesateValue = this.#invertSide ? -Math.trunc(this.#end) : Math.trunc(this.#end);
-    }
-    /**
-     * @returns {void}
-     */
-    destroy() {
-      if (!this.#isInizialized) return;
-      this.#spring?.stop?.();
-      this.#unsubscribeSpring();
-      this.#unsubscribeScroll();
-      this.#unsubscribeScrollStart();
-      this.#spring?.destroy?.();
-      this.#spring = null;
-      this.#afterPinCounter = 0;
-      this.#justPinned = false;
-      this.#isUnder = false;
-      this.#isInner = false;
-      this.#isOver = false;
-      if (this.#pin && this.#wrapper) {
-        this.#wrapper.parentNode?.insertBefore(this.#item, this.#wrapper);
-        this.#pin.remove();
-        this.#wrapper.remove();
-        this.#wrapper = void 0;
-        this.#pin = void 0;
-        this.#isInizialized = false;
-      }
     }
     /**
      * @returns {number}
@@ -20975,6 +20900,89 @@
         anticipateInnerIn,
         anticipateInnerOut
       };
+    }
+    /**
+     * @param {import('./type.js').PinParams} data
+     */
+    init(data) {
+      this.#item = data.item;
+      this.#marker = data.marker;
+      this.#screen = data.screen;
+      this.#animatePin = data.animatePin;
+      this.#anticipatePinOnLoad = data.anticipatePinOnLoad;
+      this.#forceTranspond = data.forceTranspond;
+      this.#invertSide = data.invertSide;
+      this.#direction = data.direction;
+      this.#getStart = data.getStart;
+      this.#getEnd = data.getEnd;
+      this.#start = this.#getStart();
+      this.#end = this.#getEnd();
+      this.#prevscrollY = window.scrollY;
+      this.#scrollerHeight = data?.scrollerHeight;
+      this.#refreshCollisionPoint();
+      this.#collisionStyleProp = this.#direction === MobScrollerConstant.DIRECTION_VERTICAL ? "top" : "left";
+      this.#isInizialized = true;
+      this.#firstTime = true;
+      this.#createPin();
+      this.#addStyleFromPinToWrapper();
+      this.#setPinSize();
+      this.#setUpMotion();
+      this.#unsubscribeScrollStart = modules_exports.useScrollStart(() => {
+        if (!this.#isInizialized) return;
+        if (this.#screen !== globalThis && this.#isInner && this.#pin) {
+          modules_exports.useFrame(() => {
+            if (this.#pin)
+              this.#pin.style.transition = `transform .85s cubic-bezier(0, 0.68, 0.45, 1.1)`;
+          });
+        }
+      });
+      this.#unsubscribeScroll = modules_exports.useScroll(({ scrollY: scrollY2 }) => {
+        if (!this.#isInizialized) return;
+        if (this.#screen !== globalThis && this.#screen !== document.documentElement) {
+          if (this.#direction === MobScrollerConstant.DIRECTION_VERTICAL) {
+            this.#refreshCollisionPoint();
+          }
+          const gap = scrollY2 - this.#prevscrollY;
+          this.#prevscrollY = scrollY2;
+          if (this.#isInner && this.#pin && this.#spring) {
+            const { verticalGap } = this.#spring.get();
+            const translateValue = verticalGap - gap;
+            this.#spring.setData({
+              collision: 0,
+              verticalGap: translateValue
+            });
+            modules_exports.useFrame(() => {
+              if (this.#pin)
+                this.#pin.style.transform = `translate(0px,${translateValue}px)`;
+            });
+          }
+        }
+      });
+    }
+    /**
+     * @returns {void}
+     */
+    destroy() {
+      if (!this.#isInizialized) return;
+      this.#spring?.stop?.();
+      this.#unsubscribeSpring();
+      this.#unsubscribeScroll();
+      this.#unsubscribeScrollStart();
+      this.#spring?.destroy?.();
+      this.#spring = null;
+      this.#afterPinCounter = 0;
+      this.#justPinned = false;
+      this.#isUnder = false;
+      this.#isInner = false;
+      this.#isOver = false;
+      if (this.#pin && this.#wrapper) {
+        this.#wrapper.parentNode?.insertBefore(this.#item, this.#wrapper);
+        this.#pin.remove();
+        this.#wrapper.remove();
+        this.#wrapper = void 0;
+        this.#pin = void 0;
+        this.#isInizialized = false;
+      }
     }
     /**
      * @param {number} scrollTop
@@ -21906,94 +21914,6 @@
       } : { precision: MobScrollerConstant.EASE_PRECISION };
       this.#motion = this.#easeType === MobScrollerConstant.EASE_SPRING ? new MobSpring() : new MobLerp();
     }
-    /**
-     * Initialize instance
-     */
-    init() {
-      if (this.#isInzialized) {
-        console.warn(
-          "Parallax/scrollTrigger: The init() method cannot be launched more than once. If you are passing the instance to components like horizontalScroller or smoothScroller via the children property, they will initialize the instance."
-        );
-        return;
-      }
-      this.#isInzialized = true;
-      this.#setMotion();
-      this.#calcScreenPosition();
-      this.#calcOffset();
-      this.#calcHeight();
-      this.#calcWidth();
-      this.#getScreenHeight();
-      this.setPerspective();
-      if (this.#propierties === MobScrollerConstant.PROP_TWEEN) {
-        this.#range = this.#tween?.getDuration ? this.#tween.getDuration() : 0;
-        this.#dynamicRange = () => this.#range;
-        this.#tween?.inzializeStagger?.();
-      }
-      if (this.#type == MobScrollerConstant.TYPE_SCROLLTRIGGER) {
-        this.#limiterOff = true;
-        this.#calcRangeAndUnitMiusure();
-        this.#calcFixedLimit();
-      }
-      if (this.#ease) {
-        this.#unsubscribeScrollStart = modules_exports.useScrollStart(() => {
-          if (!this.#disableForce3D) this.#force3D = true;
-        });
-        this.#unsubscribeScrollEnd = modules_exports.useScrollEnd(() => {
-          modules_exports.useFrame(() => {
-            modules_exports.useNextTick(() => {
-              this.#easeRender();
-            });
-          });
-        });
-        if (this.#scroller === globalThis) {
-          this.#unsubscribeScroll = getScrollFunction({
-            pin: this.#pin,
-            ease: this.#ease,
-            useThrottle: this.#useThrottle,
-            callback: () => {
-              this.#easeRender();
-            }
-          });
-        }
-        this.#easeRender();
-      }
-      if (!this.#ease) {
-        if (this.#scroller === globalThis) {
-          this.#unsubscribeScroll = getScrollFunction({
-            pin: this.#pin,
-            ease: this.#ease,
-            useThrottle: this.#useThrottle,
-            callback: () => {
-              this.#updateEndValue();
-              this.#noEasingRender();
-            }
-          });
-        }
-        this.#updateEndValue();
-        this.#noEasingRender();
-        this.#unsubscribeScrollEnd = modules_exports.useScrollEnd(() => {
-          this.#noEasingRender({ forceRender: true });
-        });
-      }
-      if (this.#scroller !== globalThis && this.#marker) {
-        this.#unsubscribeMarker = modules_exports.useScroll(() => {
-          this.#calcFixedLimit();
-        });
-      }
-      this.#unsubscribeResize = modules_exports.useResize(({ horizontalResize }) => {
-        if (horizontalResize) this.refresh();
-      });
-      if (this.#pin) {
-        this.#pinInstance = new MobScrollerPin();
-        if (mq[this.#queryType](this.#breakpoint)) {
-          modules_exports.useNextTick(() => {
-            this.#getScrollerOffset();
-            this.#pinInstance?.init(this.#getPinParams());
-            this.#pinInstance?.onScroll(this.#scrollerScroll);
-          });
-        }
-      }
-    }
     #getPinParams() {
       return {
         item: this.#item,
@@ -22008,57 +21928,6 @@
         getStart: () => this.#startPoint,
         getEnd: () => this.#endPoint
       };
-    }
-    /**
-     * @param {HTMLElement | globalThis} scroller
-     */
-    setScroller(scroller) {
-      this.#scroller = domNodeIsValidAndReturnElOrWin(scroller, true);
-    }
-    /**
-     * @param {HTMLElement | globalThis} screen
-     */
-    setScreen(screen) {
-      this.#screen = domNodeIsValidAndReturnElOrWin(screen, true);
-    }
-    /**
-     * @param {string} direction
-     */
-    setDirection(direction2) {
-      this.#direction = directionIsValid(direction2, "Parallax/Scrolltrigger");
-    }
-    /**
-     * @param {import('../../utils/type.js').MqValues} breakpoint
-     */
-    setBreakPoint(breakpoint) {
-      this.#breakpoint = breakpointIsValid(
-        breakpoint,
-        "breakpoint",
-        "Parallax/Scrolltrigger"
-      );
-    }
-    /**
-     * @param {import('../../utils/type.js').MqAction} queryType
-     */
-    setQueryType(queryType) {
-      this.#queryType = breakpointTypeIsValid(
-        queryType,
-        "queryType",
-        "Parallax/Scrolltrigger"
-      );
-    }
-    /**
-     * @private
-     */
-    setPerspective() {
-      if (this.#perspective && this.#item && this.#item.parentNode) {
-        const style = {
-          perspective: `${this.#perspective}px`,
-          "transform-style": "preserve-3d"
-        };
-        const parent = this.#item.parentNode;
-        Object.assign(parent.style, style);
-      }
     }
     #setMotion() {
       const initialValue = MobScrollerConstant.PROP_SCALE || MobScrollerConstant.PROP_SCALE_X || MobScrollerConstant.PROP_SCALE_Y || MobScrollerConstant.PROP_OPACITY ? 1 : 0;
@@ -22295,154 +22164,12 @@
       }
     }
     /**
-     * Recalculate positions and align all values
-     */
-    refresh() {
-      if (this.#pin && this.#pinInstance) this.#pinInstance.destroy();
-      this.#calcScreenPosition();
-      this.#calcOffset();
-      this.#calcHeight();
-      this.#calcWidth();
-      this.#getScreenHeight();
-      if (this.#type == MobScrollerConstant.TYPE_SCROLLTRIGGER) {
-        this.#calcFixedLimit();
-        if (this.#dynamicRange) this.#calcRangeAndUnitMiusure();
-        if (this.#pin && this.#pinInstance && mq[this.#queryType](this.#breakpoint)) {
-          this.#pinInstance?.init(this.#getPinParams());
-        }
-      }
-      this.#lastValue = void 0;
-      this.#firstTime = true;
-      if (mq[this.#queryType](this.#breakpoint)) {
-        if (this.#ease) {
-          this.#easeRender();
-        } else {
-          this.#updateEndValue();
-          this.#noEasingRender({ forceRender: true });
-        }
-      } else {
-        if (this.#ease) this.#motion?.stop?.();
-        modules_exports.useFrameIndex(() => {
-          if (this.#applyTo) {
-            this.#resetTweenStyle(this.#applyTo);
-            Object.assign(this.#applyTo.style, this.#getResetStyle());
-          } else {
-            this.#resetTweenStyle(this.#item);
-            if (this.#item)
-              Object.assign(this.#item.style, this.#getResetStyle());
-          }
-        }, 3);
-      }
-    }
-    /**
-     * Permette di pilotare un'istanza MobScroller da un'altra istanza (parent), tipicamente utilizzato in scenari come
-     * horizontal scrolling con parallax interni, smooth scroll virtuali che controllano animazioni interne, o timeline
-     * sincronizzate.
-     *
-     * **Meccanismo Force3D e Ottimizzazione GPU**
-     *
-     * Quando un'istanza è controllata esternamente (iSControlledFromOutside = true), la gestione del force3D
-     * (translateZ(0)) viene delegata al parent attraverso il parametro parentIsMoving:
-     *
-     * 1. ParentIsMoving = true + isInViewport = true:
-     *
-     *    - Attiva this.#force3D = true
-     *    - Applica transform: translate3d(...) forzando il layer compositing GPU
-     *    - Previene tearing e jitter durante lo scroll rapido
-     * 2. ParentIsMoving = false (scroll fermo):
-     *
-     *    - Disattiva force3D (this.#force3D = false)
-     *    - Il browser può liberare risorse GPU
-     *    - Permette il repainting ottimizzato per interazioni statiche (hover, click)
-     *
-     * Questo meccanismo è essenziale perché in uno scenario con molti elementi animati (es. 50+ parallax in una
-     * sezione), tenere force3D sempre attivo saturerebbe la GPU. Invece, lo attiviamo selettivamente solo quando il
-     * parent segnala "sto scorrendo".
-     *
-     * **Flusso di rendering**
-     *
-     * - Se ease = true: il valore viene passato a #easeRender() che lo usa come target per MobLerp/MobSpring.
-     *   L'interpolazione smooth garantisce fluidità anche a FPS variabili del parent. In questo caso parentIsMoving è
-     *   ignorato perché il force3D viene gestito dal motore di interpolazione che mantiene force3D attivo durante tutta
-     *   la transizione.
-     * - Se ease = false: il valore viene processato immediatamente da #noEasingRender(). In questo caso force3D dipende
-     *   esclusivamente da parentIsMoving, diversamente dalla modalità autonoma dove force3D si attiva su scroll nativo
-     *   e si disattiva su scroll end rilevato dal DOM.
-     *
-     * **Vantaggi architetturali**
-     *
-     * 1. Single Source of Truth: solo il parent legge il DOM (scrollLeft/Top/getBoundingClientRect), i figli ricevono
-     *    valori pre-calcolati eliminando layout thrashing.
-     * 2. Sync perfetta: parent e figli aggiornano nello stesso frame RAF, eliminando il lag tipico di sistemi basati su
-     *    eventi scroll separati.
-     * 3. Risparmio computazionale: se il child è fuori viewport (isInViewport = false), move() ritorna immediatamente
-     *    senza calcolare valori o applicare stili, anche se chiamato ad ogni frame dal parent.
-     *
-     * **Note tecniche**
-     *
-     * - Se l'istanza ha un breakpoint disattivato (mq check fallito), move() ritorna immediatamente senza elaborare il
-     *   valore.
-     * - Il refresh del parent non refresha automaticamente i figli: ogni istanza mantiene la propria geometria e deve
-     *   essere refreshata separatamente su resize.
-     * - Se l'istanza ha uno screen custom diverso da window, il valore passato dal parent viene automaticamente
-     *   compensato aggiungendo #screenPosition.
-     *
-     * @example
-     *     ```javascript
-     *
-     *
-     *     Control the instance from another scrollTrigger:
-     *
-     *     const myScroller = mobbu.createScrollTrigger({
-     *         ...
-     *         onTick: ({ value, parentIsMoving }) => {
-     *             myInstance.move({ value, parentIsMoving });
-     *         },
-     *         ...
-     *     });
-     *     ```;
-     *
-     * @param {import('./type.js').MobScrollerMove} obj
-     */
-    move({ value, parentIsMoving = false }) {
-      if (!mq[this.#queryType](this.#breakpoint) || !value) return;
-      this.#iSControlledFromOutside = true;
-      const scrollVal = this.#getScrollValueOnMove(value);
-      if (this.#ease) {
-        this.#easeRender(scrollVal);
-      } else {
-        this.#updateEndValue(scrollVal);
-        const forceRender = this.#isInViewport || this.#firstTime || void 0;
-        this.#noEasingRender({ forceRender, parentIsMoving });
-      }
-    }
-    /**
-     * Trigger scrollStart event Used by smoothScroll to activate 3D if child (this) have ease = true
-     */
-    triggerScrollStart() {
-      if (!this.#ease) return;
-      if (!this.#disableForce3D) this.#force3D = true;
-    }
-    /**
-     * Trigger scrollEnd event Used by smoothScroll to deactivate 3D if child (this) have ease = false
-     */
-    triggerScrollEnd() {
-      if (this.#ease) return;
-      this.#noEasingRender({ forceRender: true });
-    }
-    /**
      * @param {number | undefined} value
      */
     #getScrollValueOnMove(value) {
       if (value === void 0) return;
       if (this.#screen !== globalThis) return value + this.#screenPosition;
       return value;
-    }
-    /**
-     * Stop lerp|spring tween.
-     */
-    stopMotion() {
-      this.#motion?.stop?.();
     }
     /**
      * @param {number} [scrollVal]
@@ -22764,6 +22491,287 @@
           return { [this.#propierties.toLowerCase()]: `` };
         }
       }
+    }
+    /**
+     * Initialize instance
+     */
+    init() {
+      if (this.#isInzialized) {
+        console.warn(
+          "Parallax/scrollTrigger: The init() method cannot be launched more than once. If you are passing the instance to components like horizontalScroller or smoothScroller via the children property, they will initialize the instance."
+        );
+        return;
+      }
+      this.#isInzialized = true;
+      this.#setMotion();
+      this.#calcScreenPosition();
+      this.#calcOffset();
+      this.#calcHeight();
+      this.#calcWidth();
+      this.#getScreenHeight();
+      this.setPerspective();
+      if (this.#propierties === MobScrollerConstant.PROP_TWEEN) {
+        this.#range = this.#tween?.getDuration ? this.#tween.getDuration() : 0;
+        this.#dynamicRange = () => this.#range;
+        this.#tween?.inzializeStagger?.();
+      }
+      if (this.#type == MobScrollerConstant.TYPE_SCROLLTRIGGER) {
+        this.#limiterOff = true;
+        this.#calcRangeAndUnitMiusure();
+        this.#calcFixedLimit();
+      }
+      if (this.#ease) {
+        this.#unsubscribeScrollStart = modules_exports.useScrollStart(() => {
+          if (!this.#disableForce3D) this.#force3D = true;
+        });
+        this.#unsubscribeScrollEnd = modules_exports.useScrollEnd(() => {
+          modules_exports.useFrame(() => {
+            modules_exports.useNextTick(() => {
+              this.#easeRender();
+            });
+          });
+        });
+        if (this.#scroller === globalThis) {
+          this.#unsubscribeScroll = getScrollFunction({
+            pin: this.#pin,
+            ease: this.#ease,
+            useThrottle: this.#useThrottle,
+            callback: () => {
+              this.#easeRender();
+            }
+          });
+        }
+        this.#easeRender();
+      }
+      if (!this.#ease) {
+        if (this.#scroller === globalThis) {
+          this.#unsubscribeScroll = getScrollFunction({
+            pin: this.#pin,
+            ease: this.#ease,
+            useThrottle: this.#useThrottle,
+            callback: () => {
+              this.#updateEndValue();
+              this.#noEasingRender();
+            }
+          });
+        }
+        this.#updateEndValue();
+        this.#noEasingRender();
+        this.#unsubscribeScrollEnd = modules_exports.useScrollEnd(() => {
+          this.#noEasingRender({ forceRender: true });
+        });
+      }
+      if (this.#scroller !== globalThis && this.#marker) {
+        this.#unsubscribeMarker = modules_exports.useScroll(() => {
+          this.#calcFixedLimit();
+        });
+      }
+      this.#unsubscribeResize = modules_exports.useResize(({ horizontalResize }) => {
+        if (horizontalResize) this.refresh();
+      });
+      if (this.#pin) {
+        this.#pinInstance = new MobScrollerPin();
+        if (mq[this.#queryType](this.#breakpoint)) {
+          modules_exports.useNextTick(() => {
+            this.#getScrollerOffset();
+            this.#pinInstance?.init(this.#getPinParams());
+            this.#pinInstance?.onScroll(this.#scrollerScroll);
+          });
+        }
+      }
+    }
+    /**
+     * @param {HTMLElement | globalThis} scroller
+     */
+    setScroller(scroller) {
+      this.#scroller = domNodeIsValidAndReturnElOrWin(scroller, true);
+    }
+    /**
+     * @param {HTMLElement | globalThis} screen
+     */
+    setScreen(screen) {
+      this.#screen = domNodeIsValidAndReturnElOrWin(screen, true);
+    }
+    /**
+     * @param {string} direction
+     */
+    setDirection(direction2) {
+      this.#direction = directionIsValid(direction2, "Parallax/Scrolltrigger");
+    }
+    /**
+     * @param {import('../../utils/type.js').MqValues} breakpoint
+     */
+    setBreakPoint(breakpoint) {
+      this.#breakpoint = breakpointIsValid(
+        breakpoint,
+        "breakpoint",
+        "Parallax/Scrolltrigger"
+      );
+    }
+    /**
+     * @param {import('../../utils/type.js').MqAction} queryType
+     */
+    setQueryType(queryType) {
+      this.#queryType = breakpointTypeIsValid(
+        queryType,
+        "queryType",
+        "Parallax/Scrolltrigger"
+      );
+    }
+    /**
+     * @private
+     */
+    setPerspective() {
+      if (this.#perspective && this.#item && this.#item.parentNode) {
+        const style = {
+          perspective: `${this.#perspective}px`,
+          "transform-style": "preserve-3d"
+        };
+        const parent = this.#item.parentNode;
+        Object.assign(parent.style, style);
+      }
+    }
+    /**
+     * Recalculate positions and align all values
+     */
+    refresh() {
+      if (this.#pin && this.#pinInstance) this.#pinInstance.destroy();
+      this.#calcScreenPosition();
+      this.#calcOffset();
+      this.#calcHeight();
+      this.#calcWidth();
+      this.#getScreenHeight();
+      if (this.#type == MobScrollerConstant.TYPE_SCROLLTRIGGER) {
+        this.#calcFixedLimit();
+        if (this.#dynamicRange) this.#calcRangeAndUnitMiusure();
+        if (this.#pin && this.#pinInstance && mq[this.#queryType](this.#breakpoint)) {
+          this.#pinInstance?.init(this.#getPinParams());
+        }
+      }
+      this.#lastValue = void 0;
+      this.#firstTime = true;
+      if (mq[this.#queryType](this.#breakpoint)) {
+        if (this.#ease) {
+          this.#easeRender();
+        } else {
+          this.#updateEndValue();
+          this.#noEasingRender({ forceRender: true });
+        }
+      } else {
+        if (this.#ease) this.#motion?.stop?.();
+        modules_exports.useFrameIndex(() => {
+          if (this.#applyTo) {
+            this.#resetTweenStyle(this.#applyTo);
+            Object.assign(this.#applyTo.style, this.#getResetStyle());
+          } else {
+            this.#resetTweenStyle(this.#item);
+            if (this.#item)
+              Object.assign(this.#item.style, this.#getResetStyle());
+          }
+        }, 3);
+      }
+    }
+    /**
+     * Permette di pilotare un'istanza MobScroller da un'altra istanza (parent), tipicamente utilizzato in scenari come
+     * horizontal scrolling con parallax interni, smooth scroll virtuali che controllano animazioni interne, o timeline
+     * sincronizzate.
+     *
+     * **Meccanismo Force3D e Ottimizzazione GPU**
+     *
+     * Quando un'istanza è controllata esternamente (iSControlledFromOutside = true), la gestione del force3D
+     * (translateZ(0)) viene delegata al parent attraverso il parametro parentIsMoving:
+     *
+     * 1. ParentIsMoving = true + isInViewport = true:
+     *
+     *    - Attiva this.#force3D = true
+     *    - Applica transform: translate3d(...) forzando il layer compositing GPU
+     *    - Previene tearing e jitter durante lo scroll rapido
+     * 2. ParentIsMoving = false (scroll fermo):
+     *
+     *    - Disattiva force3D (this.#force3D = false)
+     *    - Il browser può liberare risorse GPU
+     *    - Permette il repainting ottimizzato per interazioni statiche (hover, click)
+     *
+     * Questo meccanismo è essenziale perché in uno scenario con molti elementi animati (es. 50+ parallax in una
+     * sezione), tenere force3D sempre attivo saturerebbe la GPU. Invece, lo attiviamo selettivamente solo quando il
+     * parent segnala "sto scorrendo".
+     *
+     * **Flusso di rendering**
+     *
+     * - Se ease = true: il valore viene passato a #easeRender() che lo usa come target per MobLerp/MobSpring.
+     *   L'interpolazione smooth garantisce fluidità anche a FPS variabili del parent. In questo caso parentIsMoving è
+     *   ignorato perché il force3D viene gestito dal motore di interpolazione che mantiene force3D attivo durante tutta
+     *   la transizione.
+     * - Se ease = false: il valore viene processato immediatamente da #noEasingRender(). In questo caso force3D dipende
+     *   esclusivamente da parentIsMoving, diversamente dalla modalità autonoma dove force3D si attiva su scroll nativo
+     *   e si disattiva su scroll end rilevato dal DOM.
+     *
+     * **Vantaggi architetturali**
+     *
+     * 1. Single Source of Truth: solo il parent legge il DOM (scrollLeft/Top/getBoundingClientRect), i figli ricevono
+     *    valori pre-calcolati eliminando layout thrashing.
+     * 2. Sync perfetta: parent e figli aggiornano nello stesso frame RAF, eliminando il lag tipico di sistemi basati su
+     *    eventi scroll separati.
+     * 3. Risparmio computazionale: se il child è fuori viewport (isInViewport = false), move() ritorna immediatamente
+     *    senza calcolare valori o applicare stili, anche se chiamato ad ogni frame dal parent.
+     *
+     * **Note tecniche**
+     *
+     * - Se l'istanza ha un breakpoint disattivato (mq check fallito), move() ritorna immediatamente senza elaborare il
+     *   valore.
+     * - Il refresh del parent non refresha automaticamente i figli: ogni istanza mantiene la propria geometria e deve
+     *   essere refreshata separatamente su resize.
+     * - Se l'istanza ha uno screen custom diverso da window, il valore passato dal parent viene automaticamente
+     *   compensato aggiungendo #screenPosition.
+     *
+     * @example
+     *     ```javascript
+     *
+     *
+     *     Control the instance from another scrollTrigger:
+     *
+     *     const myScroller = mobbu.createScrollTrigger({
+     *         ...
+     *         onTick: ({ value, parentIsMoving }) => {
+     *             myInstance.move({ value, parentIsMoving });
+     *         },
+     *         ...
+     *     });
+     *     ```;
+     *
+     * @param {import('./type.js').MobScrollerMove} obj
+     */
+    move({ value, parentIsMoving = false }) {
+      if (!mq[this.#queryType](this.#breakpoint) || !value) return;
+      this.#iSControlledFromOutside = true;
+      const scrollVal = this.#getScrollValueOnMove(value);
+      if (this.#ease) {
+        this.#easeRender(scrollVal);
+      } else {
+        this.#updateEndValue(scrollVal);
+        const forceRender = this.#isInViewport || this.#firstTime || void 0;
+        this.#noEasingRender({ forceRender, parentIsMoving });
+      }
+    }
+    /**
+     * Trigger scrollStart event Used by smoothScroll to activate 3D if child (this) have ease = true
+     */
+    triggerScrollStart() {
+      if (!this.#ease) return;
+      if (!this.#disableForce3D) this.#force3D = true;
+    }
+    /**
+     * Trigger scrollEnd event Used by smoothScroll to deactivate 3D if child (this) have ease = false
+     */
+    triggerScrollEnd() {
+      if (this.#ease) return;
+      this.#noEasingRender({ forceRender: true });
+    }
+    /**
+     * Stop lerp|spring tween.
+     */
+    stopMotion() {
+      this.#motion?.stop?.();
     }
     /**
      * Destroy instance
@@ -23707,41 +23715,11 @@
       };
     }
     /**
-     * Initialize insatance
-     *
-     * @example
-     *     myInstance.init();
-     *
-     * @type {() => void}
-     */
-    init() {
-      if (!this.#propsisValid) return;
-      pipe(
-        this.#getWidth.bind(this),
-        this.#setDimension.bind(this),
-        this.#createShadow.bind(this),
-        this.#updateShadow.bind(this)
-      )().then(() => {
-        this.#initScroller();
-        if (this.#useDrag) this.#addDragListener();
-        modules_exports.useResize(
-          ({ horizontalResize }) => this.onResize(horizontalResize)
-        );
-        modules_exports.useFrameIndex(() => {
-          modules_exports.useNextTick(() => {
-            this.#afterInit?.();
-            for (const element of this.#children) {
-              element.refresh();
-            }
-          });
-        }, 3);
-      });
-    }
-    /**
      * @type {() => void}
      */
     #setLinkAttribute() {
-      for (const item of this.#buttons) item.setAttribute("draggable", "false");
+      for (const item of this.#buttons)
+        item.setAttribute("draggable", "false");
     }
     /**
      * @type {() => void}
@@ -24094,33 +24072,6 @@
       }, 3);
     }
     /**
-     * Refresh instance
-     *
-     * @example
-     *     myInstance.refresh();
-     *
-     * @type {() => Promise<boolean>}
-     */
-    refresh() {
-      if (!this.#moduleisActive || !mq[this.#queryType](this.#breakpoint))
-        return new Promise((resolve) => resolve(true));
-      return new Promise((resolve) => {
-        pipe(
-          this.#getWidth.bind(this),
-          this.#setDimension.bind(this),
-          this.#updateShadow.bind(this)
-        )().then(() => {
-          this.#scrollTriggerInstance?.stopMotion?.();
-          this.#triggerTopPosition = offset(this.#trigger).top;
-          if (this.#moduleisActive) {
-            this.#scrollTriggerInstance?.refresh?.();
-            this.#refreshChildren();
-          }
-          resolve(true);
-        });
-      });
-    }
-    /**
      * @type {(arg0: { destroyAll?: boolean }) => void}
      */
     #killScroller({ destroyAll = false }) {
@@ -24173,6 +24124,64 @@
           }
         }, 3);
       }
+    }
+    /**
+     * Initialize insatance
+     *
+     * @example
+     *     myInstance.init();
+     *
+     * @type {() => void}
+     */
+    init() {
+      if (!this.#propsisValid) return;
+      pipe(
+        this.#getWidth.bind(this),
+        this.#setDimension.bind(this),
+        this.#createShadow.bind(this),
+        this.#updateShadow.bind(this)
+      )().then(() => {
+        this.#initScroller();
+        if (this.#useDrag) this.#addDragListener();
+        modules_exports.useResize(
+          ({ horizontalResize }) => this.onResize(horizontalResize)
+        );
+        modules_exports.useFrameIndex(() => {
+          modules_exports.useNextTick(() => {
+            this.#afterInit?.();
+            for (const element of this.#children) {
+              element.refresh();
+            }
+          });
+        }, 3);
+      });
+    }
+    /**
+     * Refresh instance
+     *
+     * @example
+     *     myInstance.refresh();
+     *
+     * @type {() => Promise<boolean>}
+     */
+    refresh() {
+      if (!this.#moduleisActive || !mq[this.#queryType](this.#breakpoint))
+        return new Promise((resolve) => resolve(true));
+      return new Promise((resolve) => {
+        pipe(
+          this.#getWidth.bind(this),
+          this.#setDimension.bind(this),
+          this.#updateShadow.bind(this)
+        )().then(() => {
+          this.#scrollTriggerInstance?.stopMotion?.();
+          this.#triggerTopPosition = offset(this.#trigger).top;
+          if (this.#moduleisActive) {
+            this.#scrollTriggerInstance?.refresh?.();
+            this.#refreshChildren();
+          }
+          resolve(true);
+        });
+      });
     }
     /**
      * @type {(horizontalResize: boolean) => void}
@@ -24799,108 +24808,6 @@
       return this.#maxValue > 0;
     }
     /**
-     * Initialize insatance
-     *
-     * @example
-     *     myInstance.init();
-     *
-     * @type {() => void}
-     */
-    init() {
-      if (!this.#propsIsValid) return;
-      switch (this.#easeType) {
-        case MobScrollerConstant.EASE_SPRING: {
-          this.#motion = new MobSpring({
-            data: { val: 0 },
-            config: "scroller",
-            configProps: {
-              tension: 15
-            }
-          });
-          break;
-        }
-        default: {
-          this.#motion = new MobLerp({ data: { val: 0 } });
-          this.#motion.updateVelocity(0.1);
-          break;
-        }
-      }
-      if (this.#scopedEvent) {
-        this.#scroller.addEventListener(
-          "wheel",
-          this.#scopedWhell,
-          {
-            passive: true
-          }
-        );
-        this.#scroller.addEventListener(
-          "mousemove",
-          this.#scopedTouchMove,
-          {
-            passive: true
-          }
-        );
-      }
-      if (!this.#scopedEvent) {
-        this.#unSubscribeMouseWheel = modules_exports.useMouseWheel((data) => {
-          this.#onWhell(data);
-        });
-        this.#unSubscribeMouseMove = modules_exports.useMouseMove((data) => {
-          this.#onTouchMove(data);
-        });
-      }
-      this.#unSubscribeResize = modules_exports.useResize(() => this.refresh());
-      this.#unSubscribeScrollStart = modules_exports.useScrollStart(
-        () => this.#refreshScroller()
-      );
-      this.#unSubscribeScrollEnd = modules_exports.useScrollEnd(
-        () => this.#refreshScroller()
-      );
-      this.#unSubscribeTouchStart = modules_exports.useTouchStart(
-        (data) => this.#onMouseDown(data)
-      );
-      this.#unSubscribeTouchEnd = modules_exports.useTouchEnd(
-        (data) => this.#onMouseUp(data)
-      );
-      this.#unSubscribeMouseDown = modules_exports.useMouseDown(
-        (data) => this.#onMouseDown(data)
-      );
-      this.#unSubscribeMouseUp = modules_exports.useMouseUp(
-        (data) => this.#onMouseUp(data)
-      );
-      this.#unSubscribeTouchMove = modules_exports.useTouchMove((data) => {
-        this.#onTouchMove(data);
-      });
-      this.#scroller.addEventListener(
-        "mouseleave",
-        this.#unSubscribeMouseLeave
-      );
-      if (this.#drag) {
-        this.#unSubscribeMouseClick = modules_exports.useMouseClick(
-          ({ target, preventDefault }) => {
-            this.#preventChecker({ target, preventDefault });
-          }
-        );
-      }
-      this.#initMotion();
-      this.#setUsability();
-      if (mq[this.#queryType](this.#breakpoint)) {
-        this.#setScrolerStyle();
-        this.#refreshScroller();
-      }
-      modules_exports.useFrameIndex(() => {
-        modules_exports.useNextTick(() => {
-          if (this.#isDestroyed) return;
-          this.#afterInit?.({
-            shouldScroll: this.#getScrollableStatus()
-          });
-          for (const element of this.#children) {
-            element.refresh();
-          }
-        });
-      }, 3);
-    }
-    /**
      * @param {HTMLElement} focusedElement
      */
     #checkIfElementIsInsideScreen(focusedElement) {
@@ -25283,44 +25190,6 @@
       this.move(percentTarget);
       return true;
     }
-    /**
-     * Move scroller
-     *
-     * @example
-     *     myInstance.move(val);
-     *
-     * @param {number} percent Position in percent, from 0 to 100
-     * @returns {Promise<void>} Percent position in percent, from 0 to 100
-     */
-    move(percent) {
-      if (!mq[this.#queryType](this.#breakpoint))
-        return new Promise((resolve) => resolve());
-      this.#percent = percent;
-      this.#endValue = clamp3(
-        this.#percent * this.#maxValue / 100,
-        0,
-        this.#maxValue
-      );
-      return this.#motion.goTo({ val: this.#endValue });
-    }
-    /**
-     * Move scroller immediatr
-     *
-     * @example
-     *     myInstance.set(val);
-     *
-     * @param {number} percent Position in percent, from 0 to 100
-     */
-    set(percent) {
-      if (!mq[this.#queryType](this.#breakpoint)) return;
-      this.#percent = percent;
-      this.#endValue = clamp3(
-        this.#percent * this.#maxValue / 100,
-        0,
-        this.#maxValue
-      );
-      this.#motion.set({ val: this.#endValue });
-    }
     #setVelocity() {
       const time2 = modules_exports.getTime();
       const diffTime = time2 - this.#previousTime;
@@ -25389,6 +25258,146 @@
     #getMousePos({ x, y }) {
       if (!x || !y) return 0;
       return this.#direction === MobScrollerConstant.DIRECTION_VERTICAL ? y : x;
+    }
+    /**
+     * Initialize insatance
+     *
+     * @example
+     *     myInstance.init();
+     *
+     * @type {() => void}
+     */
+    init() {
+      if (!this.#propsIsValid) return;
+      switch (this.#easeType) {
+        case MobScrollerConstant.EASE_SPRING: {
+          this.#motion = new MobSpring({
+            data: { val: 0 },
+            config: "scroller",
+            configProps: {
+              tension: 15
+            }
+          });
+          break;
+        }
+        default: {
+          this.#motion = new MobLerp({ data: { val: 0 } });
+          this.#motion.updateVelocity(0.1);
+          break;
+        }
+      }
+      if (this.#scopedEvent) {
+        this.#scroller.addEventListener(
+          "wheel",
+          this.#scopedWhell,
+          {
+            passive: true
+          }
+        );
+        this.#scroller.addEventListener(
+          "mousemove",
+          this.#scopedTouchMove,
+          {
+            passive: true
+          }
+        );
+      }
+      if (!this.#scopedEvent) {
+        this.#unSubscribeMouseWheel = modules_exports.useMouseWheel((data) => {
+          this.#onWhell(data);
+        });
+        this.#unSubscribeMouseMove = modules_exports.useMouseMove((data) => {
+          this.#onTouchMove(data);
+        });
+      }
+      this.#unSubscribeResize = modules_exports.useResize(() => this.refresh());
+      this.#unSubscribeScrollStart = modules_exports.useScrollStart(
+        () => this.#refreshScroller()
+      );
+      this.#unSubscribeScrollEnd = modules_exports.useScrollEnd(
+        () => this.#refreshScroller()
+      );
+      this.#unSubscribeTouchStart = modules_exports.useTouchStart(
+        (data) => this.#onMouseDown(data)
+      );
+      this.#unSubscribeTouchEnd = modules_exports.useTouchEnd(
+        (data) => this.#onMouseUp(data)
+      );
+      this.#unSubscribeMouseDown = modules_exports.useMouseDown(
+        (data) => this.#onMouseDown(data)
+      );
+      this.#unSubscribeMouseUp = modules_exports.useMouseUp(
+        (data) => this.#onMouseUp(data)
+      );
+      this.#unSubscribeTouchMove = modules_exports.useTouchMove((data) => {
+        this.#onTouchMove(data);
+      });
+      this.#scroller.addEventListener(
+        "mouseleave",
+        this.#unSubscribeMouseLeave
+      );
+      if (this.#drag) {
+        this.#unSubscribeMouseClick = modules_exports.useMouseClick(
+          ({ target, preventDefault }) => {
+            this.#preventChecker({ target, preventDefault });
+          }
+        );
+      }
+      this.#initMotion();
+      this.#setUsability();
+      if (mq[this.#queryType](this.#breakpoint)) {
+        this.#setScrolerStyle();
+        this.#refreshScroller();
+      }
+      modules_exports.useFrameIndex(() => {
+        modules_exports.useNextTick(() => {
+          if (this.#isDestroyed) return;
+          this.#afterInit?.({
+            shouldScroll: this.#getScrollableStatus()
+          });
+          for (const element of this.#children) {
+            element.refresh();
+          }
+        });
+      }, 3);
+    }
+    /**
+     * Move scroller
+     *
+     * @example
+     *     myInstance.move(val);
+     *
+     * @param {number} percent Position in percent, from 0 to 100
+     * @returns {Promise<void>} Percent position in percent, from 0 to 100
+     */
+    move(percent) {
+      if (!mq[this.#queryType](this.#breakpoint))
+        return new Promise((resolve) => resolve());
+      this.#percent = percent;
+      this.#endValue = clamp3(
+        this.#percent * this.#maxValue / 100,
+        0,
+        this.#maxValue
+      );
+      return this.#motion.goTo({ val: this.#endValue });
+    }
+    /**
+     * Move scroller immediatr
+     *
+     * @example
+     *     myInstance.set(val);
+     *
+     * @param {number} percent Position in percent, from 0 to 100
+     */
+    set(percent) {
+      if (!mq[this.#queryType](this.#breakpoint)) return;
+      this.#percent = percent;
+      this.#endValue = clamp3(
+        this.#percent * this.#maxValue / 100,
+        0,
+        this.#maxValue
+      );
+      this.#motion.set({ val: this.#endValue });
     }
     /**
      * Refresh instance

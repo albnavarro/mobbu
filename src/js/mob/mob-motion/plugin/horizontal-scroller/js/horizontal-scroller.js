@@ -702,46 +702,11 @@ export class MobHorizontalScroller {
     }
 
     /**
-     * Initialize insatance
-     *
-     * @example
-     *     myInstance.init();
-     *
-     * @type {() => void}
-     */
-    init() {
-        if (!this.#propsisValid) return;
-
-        pipe(
-            this.#getWidth.bind(this),
-            this.#setDimension.bind(this),
-            this.#createShadow.bind(this),
-            this.#updateShadow.bind(this)
-        )().then(() => {
-            this.#initScroller();
-            if (this.#useDrag) this.#addDragListener();
-
-            MobCore.useResize(({ horizontalResize }) =>
-                this.onResize(horizontalResize)
-            );
-
-            MobCore.useFrameIndex(() => {
-                MobCore.useNextTick(() => {
-                    this.#afterInit?.();
-                    for (const element of this.#children) {
-                        element.refresh();
-                    }
-                });
-            }, 3);
-        });
-    }
-
-    /**
      * @type {() => void}
      */
     #setLinkAttribute() {
-        for (const item of this.#buttons) item.setAttribute('draggable', 'false')
-        ;
+        for (const item of this.#buttons)
+            item.setAttribute('draggable', 'false');
     }
 
     /**
@@ -917,31 +882,36 @@ export class MobHorizontalScroller {
                             : '';
 
                         return /* HTML */ ` <div
-                            class="${this.#shadowMainClassTransition} ${this
-                                .#shadowMainClassTransition}--${shadowLabel}"
+                            class="${this.#shadowMainClassTransition} ${
+                                this.#shadowMainClassTransition
+                            }--${shadowLabel}"
                             data-shadow="${shadowLabel}"
                         >
                             <span
-                                class="${this
-                                    .#shadowMainClassTransition}--in-center ${debugClass}"
+                                class="${
+                                    this.#shadowMainClassTransition
+                                }--in-center ${debugClass}"
                             >
                                 ${inCenterLabel}
                             </span>
                             <span
-                                class="${this
-                                    .#shadowMainClassTransition}--out-center ${debugClass}"
+                                class="${
+                                    this.#shadowMainClassTransition
+                                }--out-center ${debugClass}"
                             >
                                 ${outCenterlabel}
                             </span>
                             <span
-                                class="${this
-                                    .#shadowMainClassTransition}--left ${debugClass}"
+                                class="${
+                                    this.#shadowMainClassTransition
+                                }--left ${debugClass}"
                             >
                                 ${leftLabel}
                             </span>
                             <span
-                                class="${this
-                                    .#shadowMainClassTransition}--end ${debugClass}"
+                                class="${
+                                    this.#shadowMainClassTransition
+                                }--end ${debugClass}"
                             >
                                 ${endLabel}
                             </span>
@@ -1220,36 +1190,6 @@ export class MobHorizontalScroller {
     }
 
     /**
-     * Refresh instance
-     *
-     * @example
-     *     myInstance.refresh();
-     *
-     * @type {() => Promise<boolean>}
-     */
-    refresh() {
-        if (!this.#moduleisActive || !mq[this.#queryType](this.#breakpoint))
-            return new Promise((resolve) => resolve(true));
-
-        return new Promise((resolve) => {
-            pipe(
-                this.#getWidth.bind(this),
-                this.#setDimension.bind(this),
-                this.#updateShadow.bind(this)
-            )().then(() => {
-                this.#scrollTriggerInstance?.stopMotion?.();
-                this.#triggerTopPosition = offset(this.#trigger).top;
-
-                if (this.#moduleisActive) {
-                    this.#scrollTriggerInstance?.refresh?.();
-                    this.#refreshChildren();
-                }
-                resolve(true);
-            });
-        });
-    }
-
-    /**
      * @type {(arg0: { destroyAll?: boolean }) => void}
      */
     #killScroller({ destroyAll = false }) {
@@ -1326,6 +1266,71 @@ export class MobHorizontalScroller {
                 }
             }, 3);
         }
+    }
+
+    /**
+     * Initialize insatance
+     *
+     * @example
+     *     myInstance.init();
+     *
+     * @type {() => void}
+     */
+    init() {
+        if (!this.#propsisValid) return;
+
+        pipe(
+            this.#getWidth.bind(this),
+            this.#setDimension.bind(this),
+            this.#createShadow.bind(this),
+            this.#updateShadow.bind(this)
+        )().then(() => {
+            this.#initScroller();
+            if (this.#useDrag) this.#addDragListener();
+
+            MobCore.useResize(({ horizontalResize }) =>
+                this.onResize(horizontalResize)
+            );
+
+            MobCore.useFrameIndex(() => {
+                MobCore.useNextTick(() => {
+                    this.#afterInit?.();
+                    for (const element of this.#children) {
+                        element.refresh();
+                    }
+                });
+            }, 3);
+        });
+    }
+
+    /**
+     * Refresh instance
+     *
+     * @example
+     *     myInstance.refresh();
+     *
+     * @type {() => Promise<boolean>}
+     */
+    refresh() {
+        if (!this.#moduleisActive || !mq[this.#queryType](this.#breakpoint))
+            return new Promise((resolve) => resolve(true));
+
+        return new Promise((resolve) => {
+            pipe(
+                this.#getWidth.bind(this),
+                this.#setDimension.bind(this),
+                this.#updateShadow.bind(this)
+            )().then(() => {
+                this.#scrollTriggerInstance?.stopMotion?.();
+                this.#triggerTopPosition = offset(this.#trigger).top;
+
+                if (this.#moduleisActive) {
+                    this.#scrollTriggerInstance?.refresh?.();
+                    this.#refreshChildren();
+                }
+                resolve(true);
+            });
+        });
     }
 
     /**

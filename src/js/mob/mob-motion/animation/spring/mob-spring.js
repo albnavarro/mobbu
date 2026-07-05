@@ -359,6 +359,107 @@ export default class MobSpring {
     }
 
     /**
+     * Merge special props with default props
+     *
+     * @type {import('./type.js').SpringMergeProps}
+     */
+    #mergeProps(props) {
+        const springParams = handleSetUp.get('spring');
+
+        /**
+         * Step 1 Get news confic props ( mass, friction etc... ) Get props from new config ( wobble etc.. ) or get each
+         * default prop.
+         *
+         * @type {import('./type.js').SpringPresentConfigType}
+         */
+        const allPresetConfig = springParams.config;
+        const configPreset = springConfigIsValid(props?.config)
+            ? (allPresetConfig?.[props?.config ?? 'default'] ??
+              springPresetConfig.default)
+            : this.#defaultProps.configProps;
+
+        /*
+         * Step 2
+         * Modify previuos confic ( newConfigPreset ) single value ( mass ... )
+         * Merge single prop or {}
+         */
+        const configPropsToMerge = springConfigPropIsValid(props?.configProps);
+        const configProps = {
+            ...configPreset,
+            ...configPropsToMerge,
+        };
+
+        /*
+         * Current config for spring for current cycle.
+         */
+        const newProps = {
+            reverse: props?.reverse ?? this.#defaultProps.reverse,
+            relative: props?.relative ?? this.#defaultProps.relative,
+            immediate: props?.immediate ?? this.#defaultProps.immediate,
+            configProps,
+        };
+
+        const { relative } = newProps;
+
+        /**
+         * Current spring config used in current cycle. Current relative value used in current cycle.
+         */
+        this.#configProps = configProps;
+        this.#relative = relative;
+
+        return newProps;
+    }
+
+    /**
+     * @type {import('../../utils/type.js').DoAction<import('./type.js').SpringActions>} obj To Values
+     */
+    #doAction(newObjectParsed, newObjectRaw, spacialProps = {}) {
+        this.#values = mergeArray(newObjectParsed, this.#values);
+
+        const { reverse, immediate } = this.#mergeProps(spacialProps);
+
+        /**
+         * Check reverse.
+         */
+        if (valueIsBooleanAndTrue(reverse, 'reverse'))
+            this.#values = setReverseValues(newObjectRaw, this.#values);
+
+        /**
+         * Update relative.
+         */
+        this.#values = setRelative(this.#values, this.#relative);
+
+        /**
+         * Execute immediate if settled and exit.
+         */
+        if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
+            if (this.#isRunning) this.stop({ updateValues: false });
+            this.#values = setFromCurrentByTo(this.#values);
+            return Promise.resolve();
+        }
+
+        /**
+         * Condition to create promise. Promise is created first time. If is calling when isRunning reject, so only one
+         * promise is resolved. this.#currentPromise is necessary to avoid wrong fps calculation ( async stagger
+         * function ).
+         */
+        const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
+
+        /**
+         * Avery time is called while is running return the previous promise.
+         */
+        if (shouldInitializeRAF) {
+            this.#currentPromise = new Promise((resolve, reject) => {
+                this.#startRaf(resolve, reject);
+            });
+        }
+
+        return shouldInitializeRAF && this.#currentPromise
+            ? this.#currentPromise
+            : Promise.reject(MobCore.ANIMATION_STOP_REJECT).catch(() => {});
+    }
+
+    /**
      * @param {number} time Current global time
      * @param {number} fps Current FPS
      */
@@ -501,7 +602,8 @@ export default class MobSpring {
          * Clear stagger cache if needed.
          */
         if (clearCache)
-            for (const { cb } of this.#callbackCache) MobCore.useCache.clean(cb);
+            for (const { cb } of this.#callbackCache)
+                MobCore.useCache.clean(cb);
 
         // Reject promise
         if (this.#currentReject) {
@@ -532,8 +634,8 @@ export default class MobSpring {
     unFreezeStagger({ updateFrame = true } = {}) {
         if (!this.#staggerIsFreezed) return;
 
-        for (const { cb } of this.#callbackCache) MobCore.useCache.unFreeze({ id: cb, update: updateFrame })
-        ;
+        for (const { cb } of this.#callbackCache)
+            MobCore.useCache.unFreeze({ id: cb, update: updateFrame });
 
         this.#staggerIsFreezed = false;
     }
@@ -612,58 +714,6 @@ export default class MobSpring {
      */
     resetData() {
         this.#values = mergeDeep(this.#values, this.#initialData);
-    }
-
-    /**
-     * Merge special props with default props
-     *
-     * @type {import('./type.js').SpringMergeProps}
-     */
-    #mergeProps(props) {
-        const springParams = handleSetUp.get('spring');
-
-        /**
-         * Step 1 Get news confic props ( mass, friction etc... ) Get props from new config ( wobble etc.. ) or get each
-         * default prop.
-         *
-         * @type {import('./type.js').SpringPresentConfigType}
-         */
-        const allPresetConfig = springParams.config;
-        const configPreset = springConfigIsValid(props?.config)
-            ? (allPresetConfig?.[props?.config ?? 'default'] ??
-              springPresetConfig.default)
-            : this.#defaultProps.configProps;
-
-        /*
-         * Step 2
-         * Modify previuos confic ( newConfigPreset ) single value ( mass ... )
-         * Merge single prop or {}
-         */
-        const configPropsToMerge = springConfigPropIsValid(props?.configProps);
-        const configProps = {
-            ...configPreset,
-            ...configPropsToMerge,
-        };
-
-        /*
-         * Current config for spring for current cycle.
-         */
-        const newProps = {
-            reverse: props?.reverse ?? this.#defaultProps.reverse,
-            relative: props?.relative ?? this.#defaultProps.relative,
-            immediate: props?.immediate ?? this.#defaultProps.immediate,
-            configProps,
-        };
-
-        const { relative } = newProps;
-
-        /**
-         * Current spring config used in current cycle. Current relative value used in current cycle.
-         */
-        this.#configProps = configProps;
-        this.#relative = relative;
-
-        return newProps;
     }
 
     /**
@@ -821,55 +871,6 @@ export default class MobSpring {
          */
         this.#values = setFromCurrentByTo(this.#values);
         return;
-    }
-
-    /**
-     * @type {import('../../utils/type.js').DoAction<import('./type.js').SpringActions>} obj To Values
-     */
-    #doAction(newObjectParsed, newObjectRaw, spacialProps = {}) {
-        this.#values = mergeArray(newObjectParsed, this.#values);
-
-        const { reverse, immediate } = this.#mergeProps(spacialProps);
-
-        /**
-         * Check reverse.
-         */
-        if (valueIsBooleanAndTrue(reverse, 'reverse'))
-            this.#values = setReverseValues(newObjectRaw, this.#values);
-
-        /**
-         * Update relative.
-         */
-        this.#values = setRelative(this.#values, this.#relative);
-
-        /**
-         * Execute immediate if settled and exit.
-         */
-        if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
-            if (this.#isRunning) this.stop({ updateValues: false });
-            this.#values = setFromCurrentByTo(this.#values);
-            return Promise.resolve();
-        }
-
-        /**
-         * Condition to create promise. Promise is created first time. If is calling when isRunning reject, so only one
-         * promise is resolved. this.#currentPromise is necessary to avoid wrong fps calculation ( async stagger
-         * function ).
-         */
-        const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
-
-        /**
-         * Avery time is called while is running return the previous promise.
-         */
-        if (shouldInitializeRAF) {
-            this.#currentPromise = new Promise((resolve, reject) => {
-                this.#startRaf(resolve, reject);
-            });
-        }
-
-        return shouldInitializeRAF && this.#currentPromise
-            ? this.#currentPromise
-            : Promise.reject(MobCore.ANIMATION_STOP_REJECT).catch(() => {});
     }
 
     /**

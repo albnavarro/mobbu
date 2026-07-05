@@ -676,168 +676,6 @@ export class MobSmoothScroller {
     }
 
     /**
-     * Initialize insatance
-     *
-     * @example
-     *     myInstance.init();
-     *
-     * @type {() => void}
-     */
-    init() {
-        if (!this.#propsIsValid) return;
-
-        switch (this.#easeType) {
-            case MobScrollerConstant.EASE_SPRING: {
-                this.#motion = new MobSpring({
-                    data: { val: 0 },
-                    config: 'scroller',
-                    configProps: {
-                        tension: 15,
-                    },
-                });
-                break;
-            }
-
-            default: {
-                this.#motion = new MobLerp({ data: { val: 0 } });
-                this.#motion.updateVelocity(0.1);
-                break;
-            }
-        }
-
-        /**
-         * Scoped event
-         */
-        if (this.#scopedEvent) {
-            /** @type {HTMLElement} */ (this.#scroller).addEventListener(
-                'wheel',
-                this.#scopedWhell,
-                {
-                    passive: true,
-                }
-            );
-
-            /** @type {HTMLElement} */ (this.#scroller).addEventListener(
-                'mousemove',
-                this.#scopedTouchMove,
-                {
-                    passive: true,
-                }
-            );
-
-            /**
-             * See global `MobCore.useTouchMove` issue
-             */
-            // /** @type {HTMLElement} */ (this.#scroller).addEventListener(
-            //     'touchmove',
-            //     this.#scopedTouchMove,
-            //     {
-            //         passive: true,
-            //     }
-            // );
-        }
-
-        /**
-         * Non scoped event
-         */
-        if (!this.#scopedEvent) {
-            this.#unSubscribeMouseWheel = MobCore.useMouseWheel((data) => {
-                this.#onWhell(data);
-            });
-
-            this.#unSubscribeMouseMove = MobCore.useMouseMove((data) => {
-                this.#onTouchMove(data);
-            });
-
-            /**
-             * See global `MobCore.useTouchMove` issue
-             */
-            // this.#unSubscribeTouchMove = MobCore.useTouchMove((data) => {
-            //     this.#onTouchMove(data);
-            // });
-        }
-
-        /**
-         * Common event
-         */
-        this.#unSubscribeResize = MobCore.useResize(() => this.refresh());
-
-        this.#unSubscribeScrollStart = MobCore.useScrollStart(() =>
-            this.#refreshScroller()
-        );
-
-        this.#unSubscribeScrollEnd = MobCore.useScrollEnd(() =>
-            this.#refreshScroller()
-        );
-
-        this.#unSubscribeTouchStart = MobCore.useTouchStart((data) =>
-            this.#onMouseDown(data)
-        );
-
-        this.#unSubscribeTouchEnd = MobCore.useTouchEnd((data) =>
-            this.#onMouseUp(data)
-        );
-
-        this.#unSubscribeMouseDown = MobCore.useMouseDown((data) =>
-            this.#onMouseDown(data)
-        );
-
-        this.#unSubscribeMouseUp = MobCore.useMouseUp((data) =>
-            this.#onMouseUp(data)
-        );
-
-        /**
-         * TouchMove at moment do not use scoped vs !norScoped logic.
-         *
-         * - With scped logc FreezeMobPageScroll is ok.
-         * - But we does not now when fire UnFreezeMobPageScroll.
-         * - Event similar to mouseleave is missed from touch logix.
-         * - TODO: how fire UnFreezeMobPageScroll with scoped touch.
-         */
-        this.#unSubscribeTouchMove = MobCore.useTouchMove((data) => {
-            this.#onTouchMove(data);
-        });
-
-        /**
-         * UnFreeze page scroller
-         */
-        /** @type {HTMLElement} */ (this.#scroller).addEventListener(
-            'mouseleave',
-            this.#unSubscribeMouseLeave
-        );
-
-        if (this.#drag) {
-            this.#unSubscribeMouseClick = MobCore.useMouseClick(
-                ({ target, preventDefault }) => {
-                    this.#preventChecker({ target, preventDefault });
-                }
-            );
-        }
-
-        this.#initMotion();
-        this.#setUsability();
-
-        if (mq[this.#queryType](this.#breakpoint)) {
-            this.#setScrolerStyle();
-            this.#refreshScroller();
-        }
-
-        MobCore.useFrameIndex(() => {
-            MobCore.useNextTick(() => {
-                if (this.#isDestroyed) return;
-
-                this.#afterInit?.({
-                    shouldScroll: this.#getScrollableStatus(),
-                });
-
-                for (const element of this.#children) {
-                    element.refresh();
-                }
-            });
-        }, 3);
-    }
-
-    /**
      * @param {HTMLElement} focusedElement
      */
     #checkIfElementIsInsideScreen(focusedElement) {
@@ -1483,62 +1321,6 @@ export class MobSmoothScroller {
         return true;
     }
 
-    /**
-     * Move scroller
-     *
-     * @example
-     *     myInstance.move(val);
-     *
-     * @param {number} percent Position in percent, from 0 to 100
-     * @returns {Promise<void>} Percent position in percent, from 0 to 100
-     */
-    move(percent) {
-        if (!mq[this.#queryType](this.#breakpoint))
-            return new Promise((resolve) => resolve());
-
-        this.#percent = percent;
-        this.#endValue = clamp(
-            (this.#percent * this.#maxValue) / 100,
-            0,
-            this.#maxValue
-        );
-
-        /**
-         * This.motion use spring or lerp, so goTo generic type is not the same. But we don't use props here, so skip ts
-         * error
-         */
-
-        // @ts-ignore
-        return this.#motion.goTo({ val: this.#endValue });
-    }
-
-    /**
-     * Move scroller immediatr
-     *
-     * @example
-     *     myInstance.set(val);
-     *
-     * @param {number} percent Position in percent, from 0 to 100
-     */
-    set(percent) {
-        if (!mq[this.#queryType](this.#breakpoint)) return;
-
-        this.#percent = percent;
-        this.#endValue = clamp(
-            (this.#percent * this.#maxValue) / 100,
-            0,
-            this.#maxValue
-        );
-
-        /**
-         * This.motion use spring or lerp, so set generic type is not the same. But we don't use props here, so skip ts
-         * error
-         */
-
-        // @ts-ignore
-        this.#motion.set({ val: this.#endValue });
-    }
-
     #setVelocity() {
         const time = MobCore.getTime();
         const diffTime = time - this.#previousTime;
@@ -1732,6 +1514,224 @@ export class MobSmoothScroller {
         return this.#direction === MobScrollerConstant.DIRECTION_VERTICAL
             ? y
             : x;
+    }
+
+    /**
+     * Initialize insatance
+     *
+     * @example
+     *     myInstance.init();
+     *
+     * @type {() => void}
+     */
+    init() {
+        if (!this.#propsIsValid) return;
+
+        switch (this.#easeType) {
+            case MobScrollerConstant.EASE_SPRING: {
+                this.#motion = new MobSpring({
+                    data: { val: 0 },
+                    config: 'scroller',
+                    configProps: {
+                        tension: 15,
+                    },
+                });
+                break;
+            }
+
+            default: {
+                this.#motion = new MobLerp({ data: { val: 0 } });
+                this.#motion.updateVelocity(0.1);
+                break;
+            }
+        }
+
+        /**
+         * Scoped event
+         */
+        if (this.#scopedEvent) {
+            /** @type {HTMLElement} */ (this.#scroller).addEventListener(
+                'wheel',
+                this.#scopedWhell,
+                {
+                    passive: true,
+                }
+            );
+
+            /** @type {HTMLElement} */ (this.#scroller).addEventListener(
+                'mousemove',
+                this.#scopedTouchMove,
+                {
+                    passive: true,
+                }
+            );
+
+            /**
+             * See global `MobCore.useTouchMove` issue
+             */
+            // /** @type {HTMLElement} */ (this.#scroller).addEventListener(
+            //     'touchmove',
+            //     this.#scopedTouchMove,
+            //     {
+            //         passive: true,
+            //     }
+            // );
+        }
+
+        /**
+         * Non scoped event
+         */
+        if (!this.#scopedEvent) {
+            this.#unSubscribeMouseWheel = MobCore.useMouseWheel((data) => {
+                this.#onWhell(data);
+            });
+
+            this.#unSubscribeMouseMove = MobCore.useMouseMove((data) => {
+                this.#onTouchMove(data);
+            });
+
+            /**
+             * See global `MobCore.useTouchMove` issue
+             */
+            // this.#unSubscribeTouchMove = MobCore.useTouchMove((data) => {
+            //     this.#onTouchMove(data);
+            // });
+        }
+
+        /**
+         * Common event
+         */
+        this.#unSubscribeResize = MobCore.useResize(() => this.refresh());
+
+        this.#unSubscribeScrollStart = MobCore.useScrollStart(() =>
+            this.#refreshScroller()
+        );
+
+        this.#unSubscribeScrollEnd = MobCore.useScrollEnd(() =>
+            this.#refreshScroller()
+        );
+
+        this.#unSubscribeTouchStart = MobCore.useTouchStart((data) =>
+            this.#onMouseDown(data)
+        );
+
+        this.#unSubscribeTouchEnd = MobCore.useTouchEnd((data) =>
+            this.#onMouseUp(data)
+        );
+
+        this.#unSubscribeMouseDown = MobCore.useMouseDown((data) =>
+            this.#onMouseDown(data)
+        );
+
+        this.#unSubscribeMouseUp = MobCore.useMouseUp((data) =>
+            this.#onMouseUp(data)
+        );
+
+        /**
+         * TouchMove at moment do not use scoped vs !norScoped logic.
+         *
+         * - With scped logc FreezeMobPageScroll is ok.
+         * - But we does not now when fire UnFreezeMobPageScroll.
+         * - Event similar to mouseleave is missed from touch logix.
+         * - TODO: how fire UnFreezeMobPageScroll with scoped touch.
+         */
+        this.#unSubscribeTouchMove = MobCore.useTouchMove((data) => {
+            this.#onTouchMove(data);
+        });
+
+        /**
+         * UnFreeze page scroller
+         */
+        /** @type {HTMLElement} */ (this.#scroller).addEventListener(
+            'mouseleave',
+            this.#unSubscribeMouseLeave
+        );
+
+        if (this.#drag) {
+            this.#unSubscribeMouseClick = MobCore.useMouseClick(
+                ({ target, preventDefault }) => {
+                    this.#preventChecker({ target, preventDefault });
+                }
+            );
+        }
+
+        this.#initMotion();
+        this.#setUsability();
+
+        if (mq[this.#queryType](this.#breakpoint)) {
+            this.#setScrolerStyle();
+            this.#refreshScroller();
+        }
+
+        MobCore.useFrameIndex(() => {
+            MobCore.useNextTick(() => {
+                if (this.#isDestroyed) return;
+
+                this.#afterInit?.({
+                    shouldScroll: this.#getScrollableStatus(),
+                });
+
+                for (const element of this.#children) {
+                    element.refresh();
+                }
+            });
+        }, 3);
+    }
+
+    /**
+     * Move scroller
+     *
+     * @example
+     *     myInstance.move(val);
+     *
+     * @param {number} percent Position in percent, from 0 to 100
+     * @returns {Promise<void>} Percent position in percent, from 0 to 100
+     */
+    move(percent) {
+        if (!mq[this.#queryType](this.#breakpoint))
+            return new Promise((resolve) => resolve());
+
+        this.#percent = percent;
+        this.#endValue = clamp(
+            (this.#percent * this.#maxValue) / 100,
+            0,
+            this.#maxValue
+        );
+
+        /**
+         * This.motion use spring or lerp, so goTo generic type is not the same. But we don't use props here, so skip ts
+         * error
+         */
+
+        // @ts-ignore
+        return this.#motion.goTo({ val: this.#endValue });
+    }
+
+    /**
+     * Move scroller immediatr
+     *
+     * @example
+     *     myInstance.set(val);
+     *
+     * @param {number} percent Position in percent, from 0 to 100
+     */
+    set(percent) {
+        if (!mq[this.#queryType](this.#breakpoint)) return;
+
+        this.#percent = percent;
+        this.#endValue = clamp(
+            (this.#percent * this.#maxValue) / 100,
+            0,
+            this.#maxValue
+        );
+
+        /**
+         * This.motion use spring or lerp, so set generic type is not the same. But we don't use props here, so skip ts
+         * error
+         */
+
+        // @ts-ignore
+        this.#motion.set({ val: this.#endValue });
     }
 
     /**

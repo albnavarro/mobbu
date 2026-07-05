@@ -462,6 +462,90 @@ export default class MobTimeTween {
     }
 
     /**
+     * Reject promise and update form value with current
+     *
+     * @returns {void}
+     */
+    #updateDataWhileRunning() {
+        for (const item of this.#values) {
+            if (item.shouldUpdate) {
+                item.fromValue = item.currentValue;
+            }
+        }
+    }
+
+    /**
+     * Merge special props with default props
+     *
+     * @type {import('./type.js').TimeTweenMergeProps}
+     */
+    #mergeProps(props) {
+        const newProps = { ...this.#defaultProps, ...props };
+        const { ease, duration, relative } = newProps;
+        this.#ease = easeTweenIsValidGetFunction(ease);
+        this.#relative = relativeIsValid(relative, 'tween');
+        this.#duration = durationIsNumberOrFunctionIsValid(duration);
+        return newProps;
+    }
+
+    /**
+     * @type {import('../../utils/type.js').DoAction<import('./type.js').TimeTweenAction>} obj To Values
+     */
+    #doAction(newObjectParsed, newObjectRaw, specialProps = {}) {
+        this.#values = mergeArrayTween(newObjectParsed, this.#values);
+
+        const { reverse, immediate } = this.#mergeProps(specialProps);
+
+        /**
+         * Check reverse.
+         */
+        if (valueIsBooleanAndTrue(reverse, 'reverse'))
+            this.#values = setReverseValues(newObjectRaw, this.#values);
+
+        /**
+         * Update relative.
+         */
+        this.#values = setRelativeTween(this.#values, this.#relative);
+
+        /**
+         * Execute immediate if settled and exit.
+         */
+        if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
+            /**
+             * Time tween need restart if called while running. this.#value is updated below At stop by default from/to
+             * value is updated, for next if only set/goTo is used without define from value.
+             */
+            if (this.#isRunning) {
+                this.stop({ clearCache: false, updateValues: false });
+                this.#updateDataWhileRunning();
+            }
+
+            this.#values = setFromCurrentByTo(this.#values);
+            return Promise.resolve();
+        }
+
+        /**
+         * Condition to create promise. Promise is created first time. If is calling when isRunning reject, so only one
+         * promise is resolved. this.#currentPromise is necessary to avoid wrong fps calculation ( async stagger
+         * function ).
+         */
+        const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
+
+        /**
+         * Avery time is called while is running return the previous promise.
+         */
+        if (shouldInitializeRAF) {
+            this.#currentPromise = new Promise((resolve, reject) => {
+                this.#startRaf(resolve, reject);
+            });
+        }
+
+        return shouldInitializeRAF && this.#currentPromise
+            ? this.#currentPromise
+            : Promise.reject(MobCore.ANIMATION_STOP_REJECT).catch(() => {});
+    }
+
+    /**
      * AsyncTimeline utils.
      *
      * - We perform a Promise.reject() of the tween. We are sure that the tween can start with a new promise to resolve.
@@ -496,7 +580,8 @@ export default class MobTimeTween {
          * Clear stagger cache if needed.
          */
         if (clearCache)
-            for (const { cb } of this.#callbackCache) MobCore.useCache.clean(cb);
+            for (const { cb } of this.#callbackCache)
+                MobCore.useCache.clean(cb);
 
         // Abort promise
         if (this.#currentReject) {
@@ -527,8 +612,8 @@ export default class MobTimeTween {
     unFreezeStagger({ updateFrame = true } = {}) {
         if (!this.#staggerIsFreezed) return;
 
-        for (const { cb } of this.#callbackCache) MobCore.useCache.unFreeze({ id: cb, update: updateFrame })
-        ;
+        for (const { cb } of this.#callbackCache)
+            MobCore.useCache.unFreeze({ id: cb, update: updateFrame });
 
         this.#staggerIsFreezed = false;
     }
@@ -594,33 +679,6 @@ export default class MobTimeTween {
      */
     resetData() {
         this.#values = mergeDeep(this.#values, this.#initialData);
-    }
-
-    /**
-     * Reject promise and update form value with current
-     *
-     * @returns {void}
-     */
-    #updateDataWhileRunning() {
-        for (const item of this.#values) {
-            if (item.shouldUpdate) {
-                item.fromValue = item.currentValue;
-            }
-        }
-    }
-
-    /**
-     * Merge special props with default props
-     *
-     * @type {import('./type.js').TimeTweenMergeProps}
-     */
-    #mergeProps(props) {
-        const newProps = { ...this.#defaultProps, ...props };
-        const { ease, duration, relative } = newProps;
-        this.#ease = easeTweenIsValidGetFunction(ease);
-        this.#relative = relativeIsValid(relative, 'tween');
-        this.#duration = durationIsNumberOrFunctionIsValid(duration);
-        return newProps;
     }
 
     /**
@@ -791,63 +849,6 @@ export default class MobTimeTween {
          */
         this.#values = setFromCurrentByTo(this.#values);
         return;
-    }
-
-    /**
-     * @type {import('../../utils/type.js').DoAction<import('./type.js').TimeTweenAction>} obj To Values
-     */
-    #doAction(newObjectParsed, newObjectRaw, specialProps = {}) {
-        this.#values = mergeArrayTween(newObjectParsed, this.#values);
-
-        const { reverse, immediate } = this.#mergeProps(specialProps);
-
-        /**
-         * Check reverse.
-         */
-        if (valueIsBooleanAndTrue(reverse, 'reverse'))
-            this.#values = setReverseValues(newObjectRaw, this.#values);
-
-        /**
-         * Update relative.
-         */
-        this.#values = setRelativeTween(this.#values, this.#relative);
-
-        /**
-         * Execute immediate if settled and exit.
-         */
-        if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
-            /**
-             * Time tween need restart if called while running. this.#value is updated below At stop by default from/to
-             * value is updated, for next if only set/goTo is used without define from value.
-             */
-            if (this.#isRunning) {
-                this.stop({ clearCache: false, updateValues: false });
-                this.#updateDataWhileRunning();
-            }
-
-            this.#values = setFromCurrentByTo(this.#values);
-            return Promise.resolve();
-        }
-
-        /**
-         * Condition to create promise. Promise is created first time. If is calling when isRunning reject, so only one
-         * promise is resolved. this.#currentPromise is necessary to avoid wrong fps calculation ( async stagger
-         * function ).
-         */
-        const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
-
-        /**
-         * Avery time is called while is running return the previous promise.
-         */
-        if (shouldInitializeRAF) {
-            this.#currentPromise = new Promise((resolve, reject) => {
-                this.#startRaf(resolve, reject);
-            });
-        }
-
-        return shouldInitializeRAF && this.#currentPromise
-            ? this.#currentPromise
-            : Promise.reject(MobCore.ANIMATION_STOP_REJECT).catch(() => {});
     }
 
     /**

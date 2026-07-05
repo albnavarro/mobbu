@@ -122,6 +122,23 @@ export default class MobScrollerTween {
     }
 
     /**
+     * Return the new array maeged with main array created in setData
+     *
+     * @param {import('../utils/tween-action/type.js').GoToParamsType[]} newData New datato merge
+     * @returns {void}
+     */
+    #mergeData(newData) {
+        this.#values = this.#values.map((item) => {
+            const itemToMerge = newData.find((newItem) => {
+                return newItem.prop === item.prop;
+            });
+
+            // If exist merge
+            return itemToMerge ? { ...item, ...itemToMerge } : { ...item };
+        });
+    }
+
+    /**
      * Inzialize stagger array
      *
      * @returns {void}
@@ -239,23 +256,6 @@ export default class MobScrollerTween {
         });
 
         return this;
-    }
-
-    /**
-     * Return the new array maeged with main array created in setData
-     *
-     * @param {import('../utils/tween-action/type.js').GoToParamsType[]} newData New datato merge
-     * @returns {void}
-     */
-    #mergeData(newData) {
-        this.#values = this.#values.map((item) => {
-            const itemToMerge = newData.find((newItem) => {
-                return newItem.prop === item.prop;
-            });
-
-            // If exist merge
-            return itemToMerge ? { ...item, ...itemToMerge } : { ...item };
-        });
     }
 
     /**
