@@ -18,7 +18,7 @@ const storeEmit = ({ instanceId, prop }) => {
 
     if (!store) return;
 
-    if (prop in store) {
+    if (Object.hasOwn(store, prop)) {
         runCallbackQueqe({
             watcherByProp,
             prop,
@@ -66,7 +66,7 @@ export const storeEmitEntryPoint = ({ instanceId, prop }) => {
     const currentBindId =
         [instanceId, ...bindInstance].find((id) => {
             const store = storeMap.get(id)?.store;
-            return store && prop in store;
+            return store && Object.hasOwn(store, prop);
         }) ?? '';
 
     /**
@@ -90,7 +90,7 @@ const storeEmitAsync = async ({ instanceId, prop }) => {
 
     if (!store) return new Promise((resolve) => resolve({ success: false }));
 
-    if (prop in store) {
+    if (Object.hasOwn(store, prop)) {
         await runCallbackQueqeAsync({
             watcherByProp,
             prop,
@@ -130,7 +130,7 @@ export const storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
     const currentBindId =
         [instanceId, ...bindInstance].find((id) => {
             const store = storeMap.get(id)?.store;
-            return store && prop in store;
+            return store && Object.hasOwn(store, prop);
         }) ?? '';
 
     return storeEmitAsync({

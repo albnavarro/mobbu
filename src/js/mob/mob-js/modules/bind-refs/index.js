@@ -25,10 +25,9 @@ export const getBindRefs = ({ element }) => {
 
         if (!refName) return previous;
 
-        const newRefsByName =
-            refName in previous
-                ? [...previous[refName], { element: current, scopeId: refId }]
-                : [{ element: current, scopeId: refId }];
+        const newRefsByName = Object.hasOwn(previous, refName)
+            ? [...previous[refName], { element: current, scopeId: refId }]
+            : [{ element: current, scopeId: refId }];
 
         return { ...previous, [refName]: newRefsByName };
     }, initialValue);
@@ -78,10 +77,9 @@ export const addBindRefsToComponent = (refs) => {
             const { refs: previousRef } = item;
             if (!previousRef) continue;
 
-            const newRefs =
-                refName in previousRef
-                    ? mergeRefsAndOrder({ refs: previousRef, refName, element })
-                    : { ...previousRef, [refName]: [element] };
+            const newRefs = Object.hasOwn(previousRef, refName)
+                ? mergeRefsAndOrder({ refs: previousRef, refName, element })
+                : { ...previousRef, [refName]: [element] };
 
             componentMap.set(scopeId, {
                 ...item,

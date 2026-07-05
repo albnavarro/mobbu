@@ -17,7 +17,7 @@ export const addMethodById = ({ id, name, fn }) => {
 
     if (!methods) return;
 
-    if (name in methods) {
+    if (Object.hasOwn(methods, name)) {
         console.warn(`Method ${name}, is already used by ${id}`);
         return;
     }

@@ -147,7 +147,7 @@ export const repeatIsValid = (repeat) => {
  * @returns {import('../../tween/type').EaseTypes}
  */
 export const easeIsValid = (ease) => {
-    const isValid = ease && ease in tweenConfig;
+    const isValid = ease && Object.hasOwn(tweenConfig, ease);
     if (!isValid && ease) tweenEaseWarning(ease);
 
     return isValid ? ease : handleSetUp.get('sequencer').ease;
@@ -160,7 +160,7 @@ export const easeIsValid = (ease) => {
  * @returns {Function}
  */
 export const easeScrollerTweenIsValid = (ease) => {
-    const isValid = ease && ease in tweenConfig;
+    const isValid = ease && Object.hasOwn(tweenConfig, ease);
     if (!isValid && ease) tweenEaseWarning(ease);
 
     return isValid
@@ -350,7 +350,7 @@ export const relativeIsValid = (val, tweenType) => {
  * @returns {Function}
  */
 export const easeTweenIsValidGetFunction = (ease) => {
-    const isValid = ease && ease in tweenConfig;
+    const isValid = ease && Object.hasOwn(tweenConfig, ease);
     if (!isValid && ease) tweenEaseWarning(ease);
 
     return isValid
@@ -365,7 +365,7 @@ export const easeTweenIsValidGetFunction = (ease) => {
  * @returns {import('../../tween/type').EaseTypes}
  */
 export const easeTweenIsValid = (ease) => {
-    const isValid = ease && ease in tweenConfig;
+    const isValid = ease && Object.hasOwn(tweenConfig, ease);
     if (!isValid && ease) tweenEaseWarning(ease);
 
     return isValid ? ease : handleSetUp.get('tween').ease;
@@ -381,7 +381,7 @@ export const springConfigIsValidAndGetNew = (config) => {
     const { config: allConfig } = handleSetUp.get('spring');
 
     //Get config from store
-    const isInConfig = config && config in allConfig;
+    const isInConfig = config && Object.hasOwn(allConfig, config);
 
     // Get obj config
     const obj = isInConfig ? allConfig[config] : {};
@@ -426,7 +426,7 @@ export const springConfigIsValidAndGetNew = (config) => {
  */
 export const springConfigIsValid = (config) => {
     const { config: allConfig } = handleSetUp.get('spring');
-    const isValid = config && config in allConfig;
+    const isValid = config && Object.hasOwn(allConfig, config);
     if (!isValid && config) springPresetWarning(config);
 
     return isValid;

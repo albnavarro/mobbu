@@ -70,7 +70,7 @@ export const mixPreviousAndCurrentData = (
  */
 const arrayhaskey = ({ arr = [], key = '' }) => {
     return arr.every((/** @type {object} */ item) => {
-        return MobCore.checkType(Object, item) && key in item;
+        return MobCore.checkType(Object, item) && Object.hasOwn(item, key);
     });
 };
 
@@ -184,7 +184,7 @@ export const chunkIdsByCurrentValue = ({
                 ? `_${index}`
                 : index;
 
-        if (groups[key]) {
+        if (Object.hasOwn(groups, key)) {
             groups[key].push(child);
         } else {
             groups[key] = [child];

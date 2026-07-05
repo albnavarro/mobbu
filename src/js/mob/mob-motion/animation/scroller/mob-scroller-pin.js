@@ -450,7 +450,10 @@ export class MobScrollerPin {
             /** @type {Record<string, any>} */
             const style = getComputedStyle(/** @type {Element} */ (node));
 
-            if (style[rule] && !this.#nonRelevantRule.includes(style[rule])) {
+            if (
+                Object.hasOwn(style, rule) &&
+                !this.#nonRelevantRule.includes(style[rule])
+            ) {
                 return { [rule]: style[rule] };
             }
             node = node.parentNode;

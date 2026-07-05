@@ -77,7 +77,7 @@ const createDynamicProxy = (instanceId, strategy) => {
                 /**
                  * Set operation is applied only in `self` store.
                  */
-                if (!(prop in mainState.store)) {
+                if (!Object.hasOwn(mainState.store, prop)) {
                     storePropInProxiWarning(prop, logStyle);
                     return false;
                 }
@@ -114,16 +114,19 @@ const createDynamicProxy = (instanceId, strategy) => {
                  * Cerca prima in self, poi nei binded
                  */
                 if (strategy === PROXI_ALL) {
-                    if (prop in state.store) {
+                    if (Object.hasOwn(state.store, prop)) {
                         value = state.store[prop];
                         setCurrentDependencies(prop);
                     }
 
-                    if (!(prop in state.store)) {
+                    if (!Object.hasOwn(state.store, prop)) {
                         for (const bindId of state.bindInstance) {
                             const bindState = storeMap.get(bindId);
 
-                            if (bindState && prop in bindState.store) {
+                            if (
+                                bindState &&
+                                Object.hasOwn(bindState.store, prop)
+                            ) {
                                 value = bindState.store[prop];
                                 setCurrentDependencies(prop);
                                 break;
@@ -135,7 +138,10 @@ const createDynamicProxy = (instanceId, strategy) => {
                 /**
                  * Only self store
                  */
-                if (strategy === PROXI_SELF && prop in state.store) {
+                if (
+                    strategy === PROXI_SELF &&
+                    Object.hasOwn(state.store, prop)
+                ) {
                     value = state.store[prop];
                     setCurrentDependencies(prop);
                 }
@@ -143,11 +149,14 @@ const createDynamicProxy = (instanceId, strategy) => {
                 /**
                  * Only bounded store
                  */
-                if (strategy === PROXI_BOUNDED && !(prop in state.store)) {
+                if (
+                    strategy === PROXI_BOUNDED &&
+                    !Object.hasOwn(state.store, prop)
+                ) {
                     for (const bindId of state.bindInstance) {
                         const bindState = storeMap.get(bindId);
 
-                        if (bindState && prop in bindState.store) {
+                        if (bindState && Object.hasOwn(bindState.store, prop)) {
                             value = bindState.store[prop];
                             setCurrentDependencies(prop);
                             break;
@@ -201,18 +210,20 @@ const createDynamicProxy = (instanceId, strategy) => {
                     /**
                      * HAS: cerca prima in self, poi nei binded
                      */
-                    if (prop in state.store) return true;
+                    if (Object.hasOwn(state.store, prop)) return true;
 
                     for (const bindId of state.bindInstance) {
                         const bindState = storeMap.get(bindId);
-                        if (bindState && prop in bindState.store) return true;
+                        if (bindState && Object.hasOwn(bindState.store, prop))
+                            return true;
                     }
                 }
 
                 /**
                  * Self stores
                  */
-                if (strategy === PROXI_SELF && prop in state.store) return true;
+                if (strategy === PROXI_SELF && Object.hasOwn(state.store, prop))
+                    return true;
 
                 /**
                  * Bounded stores
@@ -220,7 +231,8 @@ const createDynamicProxy = (instanceId, strategy) => {
                 if (strategy === PROXI_BOUNDED) {
                     for (const bindId of state.bindInstance) {
                         const bindState = storeMap.get(bindId);
-                        if (bindState && prop in bindState.store) return true;
+                        if (bindState && Object.hasOwn(bindState.store, prop))
+                            return true;
                     }
                 }
 

@@ -102,7 +102,7 @@ export const SideBarLinksFunction = ({
 
         navigationStore.watch('navigationIsOpen', (value) => {
             const { templateName } = MobJs.getActiveRoute();
-            if (!(templateName in templateData)) return;
+            if (!Object.hasOwn(templateData, templateName)) return;
             proxi.disable = value;
         });
 

@@ -2309,7 +2309,7 @@
   };
   var isComplexState = (data) => {
     const isObject = storeType.isObject(data);
-    return isObject && STORE_VALUE_KEY in data;
+    return isObject && Object.hasOwn(data, STORE_VALUE_KEY);
   };
   var getDataRecursive = (data, shouldRecursive = true) => {
     return Object.fromEntries(
@@ -2335,7 +2335,7 @@
         if (!isComplex && storeType.isObject(value) && shouldRecursive) {
           return [key, getPropRecursive(value, prop, fallback, false)];
         }
-        if (isComplex && prop in value) {
+        if (isComplex && Object.hasOwn(value, prop)) {
           const propParsed = storeType.isString(value[prop]) ? value[prop].toUpperCase() : value[prop];
           return [key, propParsed];
         }
@@ -2426,9 +2426,9 @@
     if (!isValidated && initalizeStep) {
       storeValidationFailInCreation(prop, logStyle2);
     }
-    if (strict[prop] && !isValidated && useStrict) return;
+    if (strict[prop] === true && !isValidated && useStrict) return;
     validationStatusObject[prop] = isValidated;
-    const isEqual = skipEqual[prop] ? checkEquality(type[prop], oldVal, valueTransformed) : false;
+    const isEqual = skipEqual[prop] === true ? checkEquality(type[prop], oldVal, valueTransformed) : false;
     if (isEqual && !initalizeStep) return;
     store2[prop] = valueTransformed;
     updateMainMap(instanceId, { ...state, store: store2, validationStatusObject });
@@ -2516,7 +2516,7 @@
     const strictObjectResult = Object.entries(valueTransformed).map((item) => {
       const [subProp, subVal] = item;
       const subValOld = store2[prop][subProp];
-      return strict[prop][subProp] && useStrict ? {
+      return strict[prop][subProp] === true && useStrict ? {
         strictCheck: fnValidate[prop][subProp]?.(
           subVal,
           subValOld
@@ -2603,7 +2603,7 @@
     const { store: store2, type } = state;
     if (!store2) return;
     const logStyle2 = getLogStyle();
-    if (!(prop in store2)) {
+    if (!Object.hasOwn(store2, prop)) {
       storeSetWarning(prop, logStyle2);
       return;
     }
@@ -2634,7 +2634,7 @@
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
     const { store: store2, watcherByProp } = state;
-    if (!(prop in store2)) return;
+    if (!Object.hasOwn(store2, prop)) return;
     const oldVal = store2[prop];
     store2[prop] = value;
     updateMainMap(instanceId, { ...state, store: store2 });
@@ -2761,7 +2761,8 @@
     const storeMerged = mergeStoreFromBindInstance({ store: store2, bindInstance });
     const valuesObject = Object.fromEntries(
       keys.map((key) => {
-        if (key in storeMerged) return [key, storeMerged[key]];
+        if (Object.hasOwn(storeMerged, key))
+          return [key, storeMerged[key]];
         return;
       }).filter((item) => item !== void 0)
     );
@@ -2842,7 +2843,7 @@
         state: void 0,
         unsubscribeId: ""
       };
-    if (!(prop in store2)) {
+    if (!Object.hasOwn(store2, prop)) {
       storeWatchWarning(prop, logStyle2);
       return {
         state: void 0,
@@ -2894,13 +2895,13 @@
     const state = getStateFromMainMap(instanceId);
     if (!state) return () => {
     };
-    if (prop in state.store) {
+    if (Object.hasOwn(state.store, prop)) {
       return watchMobStore({ instanceId, prop, callback: callback2, wait });
     }
     const { bindInstance, unsubscribeBindInstance } = state;
     const currentBindId = bindInstance.find((id) => {
       const store2 = getStateFromMainMap(id)?.store;
-      return store2 && prop in store2;
+      return store2 && Object.hasOwn(store2, prop);
     }) ?? "";
     const innerUnsubscribe = watchMobStore({
       instanceId: currentBindId,
@@ -3001,7 +3002,7 @@
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
     const store2 = state?.store;
-    if (store2 && prop in store2) {
+    if (store2 && Object.hasOwn(store2, prop)) {
       return store2[prop];
     } else {
       storeGetPropWarning(prop, getLogStyle());
@@ -3017,7 +3018,7 @@
     }
     const currentBindId = [instanceId, ...bindInstance].find((id) => {
       const store2 = storeMap.get(id)?.store;
-      return store2 && prop in store2;
+      return store2 && Object.hasOwn(store2, prop);
     }) ?? "";
     return storeGetProp({ instanceId: currentBindId, prop });
   };
@@ -3028,7 +3029,7 @@
     if (!state) return;
     const { store: store2, watcherByProp, validationStatusObject, bindInstanceBy } = state;
     if (!store2) return;
-    if (prop in store2) {
+    if (Object.hasOwn(store2, prop)) {
       runCallbackQueqe({
         watcherByProp,
         prop,
@@ -3055,7 +3056,7 @@
     }
     const currentBindId = [instanceId, ...bindInstance].find((id) => {
       const store2 = storeMap.get(id)?.store;
-      return store2 && prop in store2;
+      return store2 && Object.hasOwn(store2, prop);
     }) ?? "";
     storeEmit({ instanceId: currentBindId, prop });
   };
@@ -3064,7 +3065,7 @@
     if (!state) return new Promise((resolve) => resolve({ success: false }));
     const { store: store2, watcherByProp, validationStatusObject, bindInstanceBy } = state;
     if (!store2) return new Promise((resolve) => resolve({ success: false }));
-    if (prop in store2) {
+    if (Object.hasOwn(store2, prop)) {
       await runCallbackQueqeAsync({
         watcherByProp,
         prop,
@@ -3091,7 +3092,7 @@
     }
     const currentBindId = [instanceId, ...bindInstance].find((id) => {
       const store2 = storeMap.get(id)?.store;
-      return store2 && prop in store2;
+      return store2 && Object.hasOwn(store2, prop);
     }) ?? "";
     return storeEmitAsync({
       instanceId: currentBindId,
@@ -3141,7 +3142,7 @@
         set(_, prop, value) {
           const mainState = storeMap.get(instanceId);
           if (!mainState) return false;
-          if (!(prop in mainState.store)) {
+          if (!Object.hasOwn(mainState.store, prop)) {
             storePropInProxiWarning(prop, logStyle2);
             return false;
           }
@@ -3166,14 +3167,14 @@
           if (!state) return;
           let value;
           if (strategy === PROXI_ALL) {
-            if (prop in state.store) {
+            if (Object.hasOwn(state.store, prop)) {
               value = state.store[prop];
               setCurrentDependencies(prop);
             }
-            if (!(prop in state.store)) {
+            if (!Object.hasOwn(state.store, prop)) {
               for (const bindId of state.bindInstance) {
                 const bindState = storeMap.get(bindId);
-                if (bindState && prop in bindState.store) {
+                if (bindState && Object.hasOwn(bindState.store, prop)) {
                   value = bindState.store[prop];
                   setCurrentDependencies(prop);
                   break;
@@ -3181,14 +3182,14 @@
               }
             }
           }
-          if (strategy === PROXI_SELF && prop in state.store) {
+          if (strategy === PROXI_SELF && Object.hasOwn(state.store, prop)) {
             value = state.store[prop];
             setCurrentDependencies(prop);
           }
-          if (strategy === PROXI_BOUNDED && !(prop in state.store)) {
+          if (strategy === PROXI_BOUNDED && !Object.hasOwn(state.store, prop)) {
             for (const bindId of state.bindInstance) {
               const bindState = storeMap.get(bindId);
-              if (bindState && prop in bindState.store) {
+              if (bindState && Object.hasOwn(bindState.store, prop)) {
                 value = bindState.store[prop];
                 setCurrentDependencies(prop);
                 break;
@@ -3207,17 +3208,20 @@
           const state = storeMap.get(instanceId);
           if (!state) return false;
           if (strategy === PROXI_ALL) {
-            if (prop in state.store) return true;
+            if (Object.hasOwn(state.store, prop)) return true;
             for (const bindId of state.bindInstance) {
               const bindState = storeMap.get(bindId);
-              if (bindState && prop in bindState.store) return true;
+              if (bindState && Object.hasOwn(bindState.store, prop))
+                return true;
             }
           }
-          if (strategy === PROXI_SELF && prop in state.store) return true;
+          if (strategy === PROXI_SELF && Object.hasOwn(state.store, prop))
+            return true;
           if (strategy === PROXI_BOUNDED) {
             for (const bindId of state.bindInstance) {
               const bindState = storeMap.get(bindId);
-              if (bindState && prop in bindState.store) return true;
+              if (bindState && Object.hasOwn(bindState.store, prop))
+                return true;
             }
           }
           return false;
@@ -5578,7 +5582,7 @@
     const item = componentMap.get(id);
     const methods = item?.methods;
     if (!methods) return;
-    if (name in methods) {
+    if (Object.hasOwn(methods, name)) {
       console.warn(`Method ${name}, is already used by ${id}`);
       return;
     }
@@ -6796,7 +6800,7 @@
   };
   var renderBindObject = (strings, ...values) => {
     return strings.raw.reduce((accumulator, currentText, i) => {
-      return values?.[i] && "value" in values[i] ? accumulator + currentText + (values?.[i]?.value?.() ?? "") : accumulator + currentText + (values?.[i]?.() ?? "");
+      return Object.hasOwn(values, i) && Object.hasOwn(values[i], "value") ? accumulator + currentText + (values?.[i]?.value?.() ?? "") : accumulator + currentText + (values?.[i]?.() ?? "");
     }, "");
   };
   var switchBindObjectMap = () => {
@@ -8058,7 +8062,7 @@
       current.removeAttribute(ATTR_BIND_REFS_ID);
       current.removeAttribute(ATTR_BIND_REFS_NAME);
       if (!refName) return previous;
-      const newRefsByName = refName in previous ? [...previous[refName], { element: current, scopeId: refId }] : [{ element: current, scopeId: refId }];
+      const newRefsByName = Object.hasOwn(previous, refName) ? [...previous[refName], { element: current, scopeId: refId }] : [{ element: current, scopeId: refId }];
       return { ...previous, [refName]: newRefsByName };
     }, initialValue);
   };
@@ -8088,7 +8092,7 @@
         if (!item) continue;
         const { refs: previousRef } = item;
         if (!previousRef) continue;
-        const newRefs = refName in previousRef ? mergeRefsAndOrder({ refs: previousRef, refName, element }) : { ...previousRef, [refName]: [element] };
+        const newRefs = Object.hasOwn(previousRef, refName) ? mergeRefsAndOrder({ refs: previousRef, refName, element }) : { ...previousRef, [refName]: [element] };
         componentMap.set(scopeId, {
           ...item,
           refs: newRefs
@@ -8594,7 +8598,7 @@
   };
   var arrayhaskey = ({ arr = [], key = "" }) => {
     return arr.every((item) => {
-      return modules_exports.checkType(Object, item) && key in item;
+      return modules_exports.checkType(Object, item) && Object.hasOwn(item, key);
     });
   };
   var listKeyExist = ({ current, previous, key }) => {
@@ -8623,7 +8627,7 @@
     for (const child of children) {
       const { index } = getRepeaterStateById({ id: child });
       const key = hasKey && hasPrevious && !previousSet.has(child) ? `_${index}` : index;
-      if (groups[key]) {
+      if (Object.hasOwn(groups, key)) {
         groups[key].push(child);
       } else {
         groups[key] = [child];
@@ -11114,7 +11118,7 @@
       if ("throttle" in obj) modules_exports.store.set("throttle", data.throttle);
     };
     const get3 = (prop) => {
-      if (!(prop in data)) {
+      if (!Object.hasOwn(data, prop)) {
         console.warn(`handleSetUp: ${prop} is not a setup propierties`);
       }
       return data[prop];
@@ -12053,7 +12057,7 @@
     }
   };
   var getTweenFn = (prop) => {
-    if (prop in tweenConfig) {
+    if (Object.hasOwn(tweenConfig, prop)) {
       return tweenConfig[prop];
     } else {
       tweenEaseWarning(prop);
@@ -12185,12 +12189,12 @@
     return isValid && repeat ? repeat : 1;
   };
   var easeIsValid = (ease) => {
-    const isValid = ease && ease in tweenConfig;
+    const isValid = ease && Object.hasOwn(tweenConfig, ease);
     if (!isValid && ease) tweenEaseWarning(ease);
     return isValid ? ease : handleSetUp.get("sequencer").ease;
   };
   var easeScrollerTweenIsValid = (ease) => {
-    const isValid = ease && ease in tweenConfig;
+    const isValid = ease && Object.hasOwn(tweenConfig, ease);
     if (!isValid && ease) tweenEaseWarning(ease);
     return isValid ? getTweenFn(ease) : getTweenFn(handleSetUp.get("parallaxTween").ease);
   };
@@ -12275,18 +12279,18 @@
     ) : handleSetUp.get(tweenType).relative;
   };
   var easeTweenIsValidGetFunction = (ease) => {
-    const isValid = ease && ease in tweenConfig;
+    const isValid = ease && Object.hasOwn(tweenConfig, ease);
     if (!isValid && ease) tweenEaseWarning(ease);
     return isValid ? getTweenFn(ease) : getTweenFn(handleSetUp.get("tween").ease);
   };
   var easeTweenIsValid = (ease) => {
-    const isValid = ease && ease in tweenConfig;
+    const isValid = ease && Object.hasOwn(tweenConfig, ease);
     if (!isValid && ease) tweenEaseWarning(ease);
     return isValid ? ease : handleSetUp.get("tween").ease;
   };
   var springConfigIsValidAndGetNew = (config) => {
     const { config: allConfig } = handleSetUp.get("spring");
-    const isInConfig = config && config in allConfig;
+    const isInConfig = config && Object.hasOwn(allConfig, config);
     const obj = isInConfig ? allConfig[config] : {};
     const isValidPropsKey = isInConfig ? (() => {
       return modules_exports.checkType(Object, obj) && "tension" in obj && "mass" in obj && "friction" in obj && "velocity" in obj && "precision" in obj;
@@ -12301,7 +12305,7 @@
   };
   var springConfigIsValid = (config) => {
     const { config: allConfig } = handleSetUp.get("spring");
-    const isValid = config && config in allConfig;
+    const isValid = config && Object.hasOwn(allConfig, config);
     if (!isValid && config) springPresetWarning(config);
     return isValid;
   };
@@ -17735,7 +17739,7 @@
   var filterActiveProps = ({ data, filterBy }) => {
     return Object.entries(data).map((item) => {
       const [prop, val] = item;
-      const valueIsValid = prop in filterBy;
+      const valueIsValid = Object.hasOwn(filterBy, prop);
       return { data: { [prop]: val }, active: valueIsValid };
     }).filter(({ active: active2 }) => active2).map(({ data: data2 }) => data2).reduce((p, c) => {
       return { ...p, ...c };
@@ -20627,7 +20631,7 @@
           /** @type {Element} */
           node
         );
-        if (style[rule] && !this.#nonRelevantRule.includes(style[rule])) {
+        if (Object.hasOwn(style, rule) && !this.#nonRelevantRule.includes(style[rule])) {
           return { [rule]: style[rule] };
         }
         node = node.parentNode;
@@ -41179,7 +41183,7 @@
       });
       navigationStore.watch("navigationIsOpen", (value) => {
         const { templateName } = modules_exports2.getActiveRoute();
-        if (!(templateName in templateData)) return;
+        if (!Object.hasOwn(templateData, templateName)) return;
         proxi.disable = value;
       });
       const unsubscribeRoute = modules_exports2.afterRouteChange(

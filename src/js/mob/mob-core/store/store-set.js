@@ -127,7 +127,7 @@ const setProp = ({
     /**
      * In strict mode return is prop is not valid
      */
-    if (strict[prop] && !isValidated && useStrict) return;
+    if (strict[prop] === true && !isValidated && useStrict) return;
 
     /**
      * Update validation array.
@@ -137,9 +137,10 @@ const setProp = ({
     /**
      * Check if last value is equal new value. if true and skipEqual is true for this prop return.
      */
-    const isEqual = skipEqual[prop]
-        ? checkEquality(type[prop], oldVal, valueTransformed)
-        : false;
+    const isEqual =
+        skipEqual[prop] === true
+            ? checkEquality(type[prop], oldVal, valueTransformed)
+            : false;
 
     if (isEqual && !initalizeStep) return;
 
@@ -300,7 +301,7 @@ const setObj = ({
             const [subProp, subVal] = item;
             const subValOld = store[prop][subProp];
 
-            return strict[prop][subProp] && useStrict
+            return strict[prop][subProp] === true && useStrict
                 ? {
                       strictCheck: fnValidate[prop][subProp]?.(
                           subVal,
@@ -488,7 +489,7 @@ export const storeSetEntryPoint = ({
     /**
      * Check if prop exist in store
      */
-    if (!(prop in store)) {
+    if (!Object.hasOwn(store, prop)) {
         storeSetWarning(prop, logStyle);
         return;
     }
@@ -552,7 +553,7 @@ export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
 
     const { store, watcherByProp } = state;
 
-    if (!(prop in store)) return;
+    if (!Object.hasOwn(store, prop)) return;
 
     /**
      * Update value and fire callback associated
@@ -877,7 +878,8 @@ const initializeCompuntedProp = ({ instanceId, prop, keys, callback }) => {
     const valuesObject = Object.fromEntries(
         keys
             .map((key) => {
-                if (key in storeMerged) return [key, storeMerged[key]];
+                if (Object.hasOwn(storeMerged, key))
+                    return [key, storeMerged[key]];
                 return;
             })
             .filter((item) => item !== undefined)

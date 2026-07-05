@@ -27,7 +27,7 @@ export const maxDepth = (object) => {
  */
 const isComplexState = (data) => {
     const isObject = storeType.isObject(data);
-    return isObject && STORE_VALUE_KEY in data;
+    return isObject && Object.hasOwn(data, STORE_VALUE_KEY);
 };
 
 /**
@@ -107,7 +107,7 @@ export const getPropRecursive = (
             /**
              * - Return value for specific KEY in complex state.
              */
-            if (isComplex && prop in value) {
+            if (isComplex && Object.hasOwn(value, prop)) {
                 const propParsed = storeType.isString(value[prop])
                     ? value[prop].toUpperCase()
                     : value[prop];
