@@ -72,7 +72,7 @@ function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
 }
 
 /** @type {MobComponent<AnimatedPatternN0>} */
-export const AnimatedPatternN0Fn = ({
+export const AnimatedPatternN0Function = ({
     onMount,
     setRef,
     getRef,

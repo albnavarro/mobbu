@@ -6,7 +6,7 @@ import { htmlObject, MobJs } from '@mobJs';
 import { getIcons } from '@data/index';
 
 /** @type {MobComponent} */
-export const ScrollTopFn = ({ delegateEvents }) => {
+export const ScrollTopFunction = ({ delegateEvents }) => {
     const topSvg = getIcons()['up'];
 
     return htmlObject({

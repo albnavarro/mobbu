@@ -451,7 +451,7 @@ const initScroller = ({ getRef }) => {
 };
 
 /** @type {MobComponent<import('./type').DebugComponentType>} */
-export const DebugComponentFn = ({
+export const DebugComponentFunction = ({
     onMount,
     addMethod,
     invalidate,

@@ -1,7 +1,5 @@
-//@ts-check
-
 import { MobJs } from '@mobJs';
-import { HorizontalScrollerFn } from './horizontal-scroller';
+import { HorizontalScrollerFunction } from './horizontal-scroller';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -11,7 +9,7 @@ export const HorizontalScroller = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').HorizontalScroller>} */
     ({
         tag: 'horizontal-scroller',
-        component: HorizontalScrollerFn,
+        component: HorizontalScrollerFunction,
         props: {
             animatePin: {
                 __value: false,

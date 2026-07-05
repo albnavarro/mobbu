@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { DynamicListRepeaterFn } from './dynamic-list-repeater';
+import { DynamicListRepeaterFunction } from './dynamic-list-repeater';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const DynamicListRepeater = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DynamicListRepeaterType>} */
     ({
         tag: 'dynamic-list-repeater',
-        component: DynamicListRepeaterFn,
+        component: DynamicListRepeaterFunction,
         props: {
             data: {
                 __value: [],

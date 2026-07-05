@@ -3,7 +3,7 @@
 import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').DynamicCounterType>} */
-export const DynamicListCounterFn = ({ getState, bindText }) => {
+export const DynamicListCounterFunction = ({ getState, bindText }) => {
     const { parentListId } = getState();
 
     return htmlObject({

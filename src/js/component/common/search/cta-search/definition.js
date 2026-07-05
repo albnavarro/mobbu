@@ -1,7 +1,7 @@
 import { MobJs } from '@mobJs';
-import { SearchCtaFn } from './search-cta';
+import { SearchCtaFunction } from './search-cta';
 
 export const SearchCta = MobJs.createComponent({
     tag: 'search-cta',
-    component: SearchCtaFn,
+    component: SearchCtaFunction,
 });

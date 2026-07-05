@@ -7,7 +7,7 @@ import { htmlObject, MobJs } from '@mobJs';
 import { navigationStore } from '@stores/navigation';
 
 /** @type {MobComponent<HeaderMainMenuButton>} */
-export const HeaderMainMenuButtonFn = ({
+export const HeaderMainMenuButtonFunction = ({
     getSelfProxi,
     getBoundedProxi,
     bindEffect,

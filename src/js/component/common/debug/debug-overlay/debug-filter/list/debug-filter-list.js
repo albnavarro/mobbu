@@ -115,7 +115,7 @@ const getDataFiltered = ({ testString }) => {
 };
 
 /** @type {MobComponent<import('./type').DebugFilterListType>} */
-export const DebugFilterListFn = ({
+export const DebugFilterListFunction = ({
     onMount,
     setRef,
     getRef,

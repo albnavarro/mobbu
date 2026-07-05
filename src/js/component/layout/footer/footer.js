@@ -34,7 +34,7 @@ const getBio = () => {
 };
 
 /** @type {MobComponent<import('./type').Footer>} */
-export const FooterFn = ({
+export const FooterFunction = ({
     delegateEvents,
     getSelfProxi,
     onMount,

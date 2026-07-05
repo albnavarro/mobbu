@@ -51,7 +51,7 @@ const addItemToScrollComponent = async ({
 };
 
 /** @type {MobComponent<SpacerAnchor>} */
-export const SpacerAnchorFn = ({ getState, onMount }) => {
+export const SpacerAnchorFunction = ({ getState, onMount }) => {
     const { style, id, label, isSection, isNote } = getState();
     const { link: linkIcon } = getIcons();
 

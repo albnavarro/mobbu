@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { AccessibilityToggleFn } from './accessibility-toggle';
+import { AccessibilityToggleFunction } from './accessibility-toggle';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -11,7 +11,7 @@ export const AccessibilityToggle = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').AccessibilityToggleType>} */
     ({
         tag: 'accessibility-toggle',
-        component: AccessibilityToggleFn,
+        component: AccessibilityToggleFunction,
         props: {
             className: {
                 __value: '',

@@ -1,7 +1,7 @@
 import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').DynamicListButtonType>} */
-export const DynamicListButtonFn = ({ getSelfProxi, bindEffect }) => {
+export const DynamicListButtonFunction = ({ getSelfProxi, bindEffect }) => {
     const proxi = getSelfProxi();
 
     return htmlObject({

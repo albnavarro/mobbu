@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { DocSvgFn } from './doc-svg';
+import { DocSvgFunction } from './doc-svg';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const DocSvg = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DocSvg>} */
     ({
         tag: 'doc-svg',
-        component: DocSvgFn,
+        component: DocSvgFunction,
         props: {
             className: {
                 __value: '',

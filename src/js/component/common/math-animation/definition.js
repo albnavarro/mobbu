@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { MathAnimationFn } from './math-animation';
+import { MathAnimationFunction } from './math-animation';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const MathAnimation = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').MathAnimationType>} */
     ({
         tag: 'math-animation',
-        component: MathAnimationFn,
+        component: MathAnimationFunction,
         props: {
             name: {
                 __value: '',

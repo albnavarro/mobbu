@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { DebugFilterListItemFn } from './debug-filter-list-item';
+import { DebugFilterListItemFunction } from './debug-filter-list-item';
 import { debugActiveComponentStore } from '@stores/debug';
 
 /**
@@ -10,7 +10,7 @@ export const DebugFilterListItem = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DebugFilterListItemType>} */
     ({
         tag: 'debug-filter-list-item',
-        component: DebugFilterListItemFn,
+        component: DebugFilterListItemFunction,
         bindStore: debugActiveComponentStore,
         props: {
             id: {

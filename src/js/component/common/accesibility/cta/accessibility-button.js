@@ -6,7 +6,7 @@ import { htmlObject } from '@mobJs';
  */
 
 /** @type {MobComponent<import('./type').AccessibilityCtaType>} */
-export const AccessibilityButtonFn = () => {
+export const AccessibilityButtonFunction = () => {
     const icon = getIcons()['accessibilityIcons'];
 
     return htmlObject({

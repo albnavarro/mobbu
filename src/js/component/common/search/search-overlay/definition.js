@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { SearchOverlayFn } from './search-overlay';
+import { SearchOverlayFunction } from './search-overlay';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const SearchOverlay = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').SearchOverlay>} */
     ({
         tag: 'search-overlay',
-        component: SearchOverlayFn,
+        component: SearchOverlayFunction,
         state: {
             active: {
                 __value: false,

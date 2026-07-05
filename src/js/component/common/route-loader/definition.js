@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { RouteLoaderFn } from './route-loader';
+import { RouteLoaderFunction } from './route-loader';
 /**
  * @import {CreateComponentParams} from '@mobJsType'
  */
@@ -8,7 +8,7 @@ export const RouteLoader = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').RouteLoader>} */
     ({
         tag: 'route-loader',
-        component: RouteLoaderFn,
+        component: RouteLoaderFunction,
         state: {
             isLoading: {
                 __value: false,

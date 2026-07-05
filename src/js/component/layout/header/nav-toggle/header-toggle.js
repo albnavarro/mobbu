@@ -9,7 +9,7 @@ import { UnFreezeMobPageScroll } from '@mobMotionPlugin';
 import { navigationStore } from '@stores/navigation';
 
 /** @type {MobComponent<import('./type').HeaderToggle>} */
-export const HeaderToggleFn = ({
+export const HeaderToggleFunction = ({
     delegateEvents,
     bindEffect,
     getSelfProxi,

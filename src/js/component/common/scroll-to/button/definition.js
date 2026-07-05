@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { ScrollToButtonFn } from './scroll-to-button';
+import { ScrollToButtonFunction } from './scroll-to-button';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const ScrollToButton = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').ScrollToButtonType>} */
     ({
         tag: 'scroll-to-button',
-        component: ScrollToButtonFn,
+        component: ScrollToButtonFunction,
         props: {
             label: {
                 __value: '',

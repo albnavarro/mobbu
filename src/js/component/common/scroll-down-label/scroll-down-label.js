@@ -7,7 +7,11 @@
 import { htmlObject } from '@mobJs';
 
 /** @type {MobComponent<ScrollDownLabel>} */
-export const ScrollDownLabelFn = ({ getSelfProxi, bindEffect, addMethod }) => {
+export const ScrollDownLabelFunction = ({
+    getSelfProxi,
+    bindEffect,
+    addMethod,
+}) => {
     const proxi = getSelfProxi();
 
     addMethod('update', (value) => {

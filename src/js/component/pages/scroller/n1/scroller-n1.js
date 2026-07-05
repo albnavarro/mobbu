@@ -82,7 +82,7 @@ function getControls({ proxi, delegateEvents, bindObject }) {
 }
 
 /** @type {MobComponent<ScrollerN1>} */
-export const ScrollerN1Fn = ({
+export const ScrollerN1Function = ({
     onMount,
     setRef,
     getRef,

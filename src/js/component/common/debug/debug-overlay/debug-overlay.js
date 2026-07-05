@@ -62,7 +62,7 @@ const closeOverlay = ({ proxi, getRef }) => {
 };
 
 /** @type {MobComponent<import('./type').DebugOverlayType>} */
-export const DebugOverlayFn = ({
+export const DebugOverlayFunction = ({
     delegateEvents,
     addMethod,
     bindProps,

@@ -72,7 +72,7 @@ function getRepeaterCard({
 }
 
 /** @type {MobComponent<DynamicListRepeaterType>} */
-export const DynamicListRepeaterFn = ({
+export const DynamicListRepeaterFunction = ({
     staticProps,
     bindProps,
     delegateEvents,

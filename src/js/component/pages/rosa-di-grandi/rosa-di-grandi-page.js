@@ -121,7 +121,7 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
 };
 
 /** @type {MobComponent<import('./type').RosaDiGrandiPage>} */
-export const RosaDiGrandiPageFn = ({
+export const RosaDiGrandiPageFunction = ({
     getSelfProxi,
     delegateEvents,
     invalidate,

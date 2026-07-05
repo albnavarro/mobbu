@@ -104,7 +104,7 @@ function getControls({ proxi, delegateEvents, bindObject }) {
 }
 
 /** @type {MobComponent<CaterpillarN2>} */
-export const CaterpillarN2Fn = ({
+export const CaterpillarN2Function = ({
     onMount,
     setRef,
     getRef,

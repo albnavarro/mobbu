@@ -13,7 +13,7 @@ import { BenchMarkFakeComponent } from '../fake-component/definition';
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */
-export const BenchMarkRepeatWithKyFn = ({
+export const BenchMarkRepeatWithKyFunction = ({
     onMount,
     delegateEvents,
     bindObject,

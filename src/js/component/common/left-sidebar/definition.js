@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { LightSidebarFn } from './left-sidebar';
+import { LightSidebarFunction } from './left-sidebar';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const LeftSidebar = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').LeftSidebar>} */
     ({
         tag: 'left-sidebar',
-        component: LightSidebarFn,
+        component: LightSidebarFunction,
         bindStore: MobJs.mainStore,
         state: {
             data: {

@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { SearchOverlayListItemFn } from './list-item';
+import { SearchOverlayListItemFunction } from './list-item';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const SearchOverlayListItem = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').SearchOverlayListItemType>} */
     ({
         tag: 'search-overlay-list-item',
-        component: SearchOverlayListItemFn,
+        component: SearchOverlayListItemFunction,
         props: {
             uri: {
                 __value: '',

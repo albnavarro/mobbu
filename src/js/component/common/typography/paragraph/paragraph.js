@@ -1,7 +1,7 @@
 import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Paragraph>} */
-export const ParagraphFn = ({ getState }) => {
+export const ParagraphFunction = ({ getState }) => {
     const { style, color, boxed, note } = getState();
     const colorClass = color === 'inherit' ? '' : `is-${color}`;
     const boxedClass = boxed ? `is-boxed` : '';

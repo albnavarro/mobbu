@@ -35,7 +35,7 @@ function getControls({ buttons }) {
 }
 
 /** @type {MobComponent<AsyncTimeline>} */
-export const AsyncTimelineFn = ({
+export const AsyncTimelineFunction = ({
     onMount,
     getState,
     setRef,

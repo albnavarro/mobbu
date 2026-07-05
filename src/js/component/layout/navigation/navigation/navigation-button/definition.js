@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { NavigationButtonFn } from './navigation-button';
+import { NavigationButtonFunction } from './navigation-button';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const NavigationButton = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').NavigationButtonType>} */
     ({
         tag: 'mob-navigation-button',
-        component: NavigationButtonFn,
+        component: NavigationButtonFunction,
         props: {
             label: {
                 __value: '',

@@ -8,7 +8,7 @@ import { setSiteDirection } from '@componentLibs/utils/site-direction';
  */
 
 /** @type {MobComponent<import('./type').AccessibilityOverlayType>} */
-export const AccessibilityOverlayFn = ({
+export const AccessibilityOverlayFunction = ({
     bindEffect,
     getSelfProxi,
     setRef,

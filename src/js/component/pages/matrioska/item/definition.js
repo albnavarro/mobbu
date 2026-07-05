@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { MatrioskaItemFn } from './matrioska-item';
+import { MatrioskaItemFunction } from './matrioska-item';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -11,7 +11,7 @@ export const MatrioskaItem = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').MatrioskaItemType>} */
     ({
         tag: 'matrioska-item',
-        component: MatrioskaItemFn,
+        component: MatrioskaItemFunction,
         props: {
             level: {
                 __value: '',

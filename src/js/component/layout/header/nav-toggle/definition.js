@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { HeaderToggleFn } from './header-toggle';
+import { HeaderToggleFunction } from './header-toggle';
 import { navigationStore } from '@stores/navigation';
 
 /**
@@ -10,7 +10,7 @@ export const HeaderToggle = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').HeaderToggle>} */
     ({
         tag: 'mob-header-toggle',
-        component: HeaderToggleFn,
+        component: HeaderToggleFunction,
         bindStore: navigationStore,
         state: {
             isMounted: {

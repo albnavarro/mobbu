@@ -15,7 +15,7 @@ const getIndex = (index) => {
 };
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Title>} */
-export const TitleFn = ({ getSelfProxi }) => {
+export const TitleFunction = ({ getSelfProxi }) => {
     const proxi = getSelfProxi();
 
     const colorClass = proxi.color === 'inherit' ? '' : `is-${proxi.color}`;

@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { ListFn } from './list';
+import { ListFunction } from './list';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const List = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').List>} */
     ({
         tag: 'mob-list',
-        component: ListFn,
+        component: ListFunction,
         props: {
             style: {
                 __value: 'medium',

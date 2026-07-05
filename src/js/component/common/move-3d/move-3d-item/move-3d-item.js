@@ -66,7 +66,7 @@ const move = ({
 };
 
 /** @type {MobComponent<import('./type').Move3DItem>} */
-export const Move3DItemfn = ({ getState, addMethod, onMount }) => {
+export const Move3DItemFunction = ({ getState, addMethod, onMount }) => {
     const {
         root,
         anchorPoint,

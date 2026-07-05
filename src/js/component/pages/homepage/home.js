@@ -21,7 +21,7 @@ const playAnimation = async ({ playIntro, playSvg }) => {
 };
 
 /** @type {MobComponent<HomeComponent>} */
-export const HomeComponentFn = ({
+export const HomeComponentFunction = ({
     onMount,
     getSelfProxi,
     invalidate,

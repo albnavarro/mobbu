@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { NavigationSubmenuFn } from './navigation-submenu';
+import { NavigationSubmenuFunction } from './navigation-submenu';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const NavigationSubmenu = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').NavigationSubmenuType>} */
     ({
         tag: 'mob-navigation-submenu',
-        component: NavigationSubmenuFn,
+        component: NavigationSubmenuFunction,
         props: {
             callback: {
                 __value: () => {},

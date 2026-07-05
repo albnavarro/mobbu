@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { DebugFilterListFn } from './debug-filter-list';
+import { DebugFilterListFunction } from './debug-filter-list';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const DebugFilterList = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DebugFilterListType>} */
     ({
         tag: 'debug-filter-list',
-        component: DebugFilterListFn,
+        component: DebugFilterListFunction,
         state: {
             data: {
                 __value: [],

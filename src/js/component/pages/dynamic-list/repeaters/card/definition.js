@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DynamicListCardFn } from './dynamic-list-card';
+import { DynamicListCardFunction } from './dynamic-list-card';
 import { innerData } from '@pagesComponent/dynamic-list/data';
 
 /**
@@ -12,7 +12,7 @@ export const DynamicListCard = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DynamicListCardType>} */
     ({
         tag: 'dynamic-list-card',
-        component: DynamicListCardFn,
+        component: DynamicListCardFunction,
         props: {
             parentListId: {
                 __value: -1,

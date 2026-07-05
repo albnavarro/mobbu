@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { HtmlContentFn } from './html-content';
+import { HtmlContentFunction } from './html-content';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const HtmlContent = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').HtmlContent>} */
     ({
         tag: 'html-content',
-        component: HtmlContentFn,
+        component: HtmlContentFunction,
         props: {
             source: {
                 __value: '',

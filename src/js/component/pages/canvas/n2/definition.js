@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { CaterpillarN2Fn } from './caterpillar-n2';
+import { CaterpillarN2Function } from './caterpillar-n2';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -54,7 +54,7 @@ export const CaterpillarN2 = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').CaterpillarN2>} */
     ({
         tag: 'caterpillar-n2',
-        component: CaterpillarN2Fn,
+        component: CaterpillarN2Function,
         props: {
             background: {
                 __value: '',

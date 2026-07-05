@@ -67,7 +67,7 @@ const getItems = ({ staticProps, bindProps, proxi }) => {
 };
 
 /** @type {MobComponent<SideBarLinks>} */
-export const SideBarLinksFn = ({
+export const SideBarLinksFunction = ({
     staticProps,
     setRef,
     getRef,

@@ -39,7 +39,7 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
         /**
          * Skip click if is section title
          */
-        const delegateEventsFn =
+        const delegateEventsFunction =
             item.isSection || item.isNote
                 ? ''
                 : delegateEvents({
@@ -83,7 +83,7 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
             content: {
                 component: ScrollToButton,
                 modules: [
-                    delegateEventsFn,
+                    delegateEventsFunction,
                     bindProps(
                         /** @returns {ReturnBindProps<ScrollToButtonType>} */
                         () => ({
@@ -189,7 +189,7 @@ const initScroller = ({ getRef }) => {
 };
 
 /** @type {MobComponent<ScrollTo>} */
-export const ScrollToFn = ({
+export const ScrollToFunction = ({
     onMount,
     delegateEvents,
     bindProps,

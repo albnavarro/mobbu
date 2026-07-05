@@ -6,7 +6,7 @@ import { htmlObject } from '@mobJs';
  */
 
 /** @type {MobComponent<import('./type').AccessibilityToggleType>} */
-export const AccessibilityToggleFn = ({
+export const AccessibilityToggleFunction = ({
     getSelfProxi,
     delegateEvents,
     bindEffect,

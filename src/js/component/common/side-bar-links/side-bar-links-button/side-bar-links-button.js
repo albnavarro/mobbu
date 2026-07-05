@@ -8,7 +8,7 @@ import { htmlObject, MobJs } from '@mobJs';
 /**
  * @type {MobComponent<SideBarLinksButtonType>}
  */
-export const SideBarLinksButtonFn = ({
+export const SideBarLinksButtonFunction = ({
     getSelfProxi,
     bindEffect,
     delegateEvents,

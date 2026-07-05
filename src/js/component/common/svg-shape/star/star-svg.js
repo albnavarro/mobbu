@@ -5,7 +5,7 @@ import { htmlObject } from '@mobJs';
  */
 
 /** @type {MobComponent<import('./type').StarSvg>} */
-export const StarSvgFn = ({ getState }) => {
+export const StarSvgFunction = ({ getState }) => {
     const { fill } = getState();
 
     return htmlObject({

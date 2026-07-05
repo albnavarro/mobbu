@@ -43,7 +43,7 @@ const initScroller = async ({ getRef }) => {
 };
 
 /** @type {MobComponent<import('./type').DebugTreeType>} */
-export const DebugTreeFn = ({
+export const DebugTreeFunction = ({
     onMount,
     invalidate,
     staticProps,

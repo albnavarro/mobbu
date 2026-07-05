@@ -17,7 +17,7 @@ const refreshList = async ({ testString = '', setFocus = false } = {}) => {
 };
 
 /** @type {MobComponent<import('./type').DebugFilterHead>} */
-export const DebugFilterHeadFn = ({
+export const DebugFilterHeadFunction = ({
     onMount,
     setRef,
     getRef,

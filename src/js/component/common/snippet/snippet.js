@@ -49,7 +49,7 @@ const getLineHeight = () => {
 };
 
 /** @type {MobComponent<Snippet>} */
-export const SnippetFn = ({
+export const SnippetFunction = ({
     onMount,
     setRef,
     getRef,

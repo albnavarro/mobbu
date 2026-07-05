@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { ParagraphFn } from './paragraph';
+import { ParagraphFunction } from './paragraph';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const Paragraph = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Paragraph>} */
     ({
         tag: 'mob-paragraph',
-        component: ParagraphFn,
+        component: ParagraphFunction,
         props: {
             style: {
                 __value: 'medium',

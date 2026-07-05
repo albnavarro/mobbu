@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { DocContainerFn } from './doc-container';
+import { DocContainerFunction } from './doc-container';
 import { docContainerStore } from '@stores/doc-container';
 
 /**
@@ -10,7 +10,7 @@ export const DocContainer = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DocContainerType>} */
     ({
         tag: 'doc-container',
-        component: DocContainerFn,
+        component: DocContainerFunction,
         bindStore: docContainerStore,
         state: {
             rightSidebarVisible: {

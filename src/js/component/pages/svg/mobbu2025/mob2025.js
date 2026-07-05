@@ -8,7 +8,7 @@ import { htmlObject } from '@mobJs';
 import { mobbu2025Scroller } from './animation';
 
 /** @type {MobComponent<import('./type').Mobbu2025>} */
-export const Mobbu2025fn = ({ getState, onMount, setRef, getRef }) => {
+export const Mobbu2025Function = ({ getState, onMount, setRef, getRef }) => {
     const { layer02, layer03 } = getState();
 
     onMount(() => {

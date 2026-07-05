@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { AsyncTimelineFn } from './async-timeline';
+import { AsyncTimelineFunction } from './async-timeline';
 
 const buttons = {
     'js-async-timeline-play': {
@@ -46,7 +46,7 @@ export const AsyncTimeline = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').AsyncTimeline>} */
     ({
         tag: 'async-timeline',
-        component: AsyncTimelineFn,
+        component: AsyncTimelineFunction,
         props: {
             background: '',
             disableOffcanvas: {

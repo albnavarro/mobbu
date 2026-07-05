@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { Move3Dfn } from './move-3d';
+import { Move3DFunction } from './move-3d';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const Move3D = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Move3DType>} */
     ({
         tag: 'move-3d',
-        component: Move3Dfn,
+        component: Move3DFunction,
         props: {
             drag: {
                 __value: false,

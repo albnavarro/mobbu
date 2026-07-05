@@ -1,7 +1,7 @@
 import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent} */
-export const TestScssGridFn = () => {
+export const TestScssGridFunction = () => {
     return htmlObject({
         content: /* HTML */ `
             <div class="test-grid">

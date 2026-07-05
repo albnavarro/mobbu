@@ -9,7 +9,7 @@ import { benchMarkVanillaGarbagePartial } from '../partials/bench-mark-vanilla-g
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */
-export const BenchMarkRepeatNoComponentNoKeyFn = ({
+export const BenchMarkRepeatNoComponentNoKeyFunction = ({
     onMount,
     delegateEvents,
     setRef,

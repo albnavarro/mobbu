@@ -2,8 +2,8 @@
 
 import { MobCore } from '@mobCore';
 import { MobJs } from '@mobJs';
-import { MatrioskaRepeatFn } from './matrioska-repeat';
-import { MatrioskaInvalidateFn } from './matrioska-invalidate';
+import { MatrioskaRepeatFunction } from './matrioska-repeat';
+import { MatrioskaInvalidateFunction } from './matrioska-invalidate';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -62,7 +62,7 @@ export const MatrioskaRepeat = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Matrioska>} */
     ({
         tag: 'page-matrioska-repeat',
-        component: MatrioskaRepeatFn,
+        component: MatrioskaRepeatFunction,
         ...commonParams,
     })
 );
@@ -71,7 +71,7 @@ export const MatrioskaInvalidate = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Matrioska>} */
     ({
         tag: 'page-matrioska-invalidate',
-        component: MatrioskaInvalidateFn,
+        component: MatrioskaInvalidateFunction,
         ...commonParams,
     })
 );

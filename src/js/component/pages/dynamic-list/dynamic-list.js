@@ -127,7 +127,7 @@ function getRepeaters({ bindProps, staticProps, proxi }) {
 }
 
 /** @type {MobComponent<DynamicList>} */
-export const DynamicListFn = ({
+export const DynamicListFunction = ({
     updateState,
     staticProps,
     bindProps,

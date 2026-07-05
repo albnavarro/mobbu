@@ -125,7 +125,7 @@ const filterSuggestion = ({ currentSearch, proxi }) => {
 };
 
 /** @type {MobComponent<import('./type').SearchOverlayHeader>} */
-export const SearchOverlayHeaderFn = ({
+export const SearchOverlayHeaderFunction = ({
     delegateEvents,
     getRef,
     setRef,

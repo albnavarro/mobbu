@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * @import {
  *   DelegateEvents,
@@ -78,7 +76,7 @@ const getNav = ({ numOfCol, proxi, staticProps, delegateEvents }) => {
 };
 
 /** @type {MobComponent<HorizontalScroller>} */
-export const HorizontalScrollerFn = ({
+export const HorizontalScrollerFunction = ({
     onMount,
     watch,
     staticProps,

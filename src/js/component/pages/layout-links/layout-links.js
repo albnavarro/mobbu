@@ -21,7 +21,7 @@ const getItemClass = (index) => {
 };
 
 /** @type {MobComponent<import('./type').LayoutLinks>} */
-export const LayoutLinksFn = ({
+export const LayoutLinksFunction = ({
     setRef,
     getRef,
     onMount,

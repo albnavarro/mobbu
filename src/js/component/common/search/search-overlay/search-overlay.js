@@ -79,7 +79,7 @@ const shouldCloseSuggestion = ({ target }) => {
 };
 
 /** @type {MobComponent<import('./type').SearchOverlay>} */
-export const SearchOverlayFn = ({
+export const SearchOverlayFunction = ({
     getSelfProxi,
     delegateEvents,
     addMethod,

@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { headerMainMenuFn } from './header-main-menu';
+import { HeaderMainMenuFunction } from './header-main-menu';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const HeaderMainMenu = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').HeaderMainMenu>} */
     ({
         tag: 'header-main-menu',
-        component: headerMainMenuFn,
+        component: HeaderMainMenuFunction,
         state: {
             isMounted: {
                 __value: false,

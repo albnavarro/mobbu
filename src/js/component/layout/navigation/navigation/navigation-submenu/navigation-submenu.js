@@ -60,7 +60,7 @@ function getSubmenu({ proxi, staticProps }) {
 /**
  * @type {MobComponent<NavigationSubmenuType>}
  */
-export const NavigationSubmenuFn = ({
+export const NavigationSubmenuFunction = ({
     onMount,
     staticProps,
     bindProps,

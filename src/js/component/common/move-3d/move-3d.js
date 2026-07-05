@@ -11,7 +11,7 @@ const NOOP = () => {};
  */
 
 /** @type {MobComponent<import('./type').Move3DType>} */
-export const Move3Dfn = ({
+export const Move3DFunction = ({
     onMount,
     setRef,
     getRef,

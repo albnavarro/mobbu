@@ -6,7 +6,7 @@ import { htmlObject } from '@mobJs';
  */
 
 /** @type {MobComponent} */
-export const DebugButtonFn = () => {
+export const DebugButtonFunction = () => {
     const debugIcon = getIcons()['debugIcon'];
 
     return htmlObject({

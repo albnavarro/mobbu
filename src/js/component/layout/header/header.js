@@ -26,7 +26,7 @@ function titleHandler() {
 }
 
 /** @type {MobComponent<import('./type').Header>} */
-export const HeaderFn = ({
+export const HeaderFunction = ({
     delegateEvents,
     bindEffect,
     getSelfProxi,

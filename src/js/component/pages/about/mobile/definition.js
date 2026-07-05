@@ -1,13 +1,13 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { AboutMobileComponentFn } from './about';
+import { AboutMobileComponentFunction } from './about';
 
 export const AboutMobileComponent = MobJs.createComponent(
     /** @type{import('@mobJsType').CreateComponentParams<import ('./type').AboutMobile>} */
     ({
         tag: 'about-mobile-component',
-        component: AboutMobileComponentFn,
+        component: AboutMobileComponentFunction,
         props: {
             block_1: {
                 __value: {

@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { startData } from './data';
-import { DynamicListFn } from './dynamic-list';
+import { DynamicListFunction } from './dynamic-list';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -12,7 +12,7 @@ export const DynamicList = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DynamicList>} */
     ({
         tag: 'dynamic-list',
-        component: DynamicListFn,
+        component: DynamicListFunction,
         state: {
             counter: {
                 __value: 1,

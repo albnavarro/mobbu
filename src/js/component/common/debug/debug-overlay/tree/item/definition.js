@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { DebugTreeItemFn } from './debug-tree-item';
+import { DebugTreeItemFunction } from './debug-tree-item';
 import { debugActiveComponentStore } from '@stores/debug';
 
 /**
@@ -10,7 +10,7 @@ export const DebugTreeItem = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DebugTreeItemType>} */
     ({
         tag: 'debug-tree-item',
-        component: DebugTreeItemFn,
+        component: DebugTreeItemFunction,
         bindStore: debugActiveComponentStore,
         props: {
             id: {

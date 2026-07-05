@@ -14,7 +14,7 @@ import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definitio
  */
 
 /** @type {MobComponent<Matrioska>} */
-export const MatrioskaRepeatFn = ({
+export const MatrioskaRepeatFunction = ({
     delegateEvents,
     updateState,
     repeat,

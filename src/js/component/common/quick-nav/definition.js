@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { QuickNavFn } from './next-page';
+import { QuickNavFunction } from './next-page';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const QuickNav = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').QuickNav>} */
     ({
         tag: 'quick-nav',
-        component: QuickNavFn,
+        component: QuickNavFunction,
         state: {
             active: {
                 __value: false,

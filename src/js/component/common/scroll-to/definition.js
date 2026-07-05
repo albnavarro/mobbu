@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { ScrollToFn } from './scroll-to';
+import { ScrollToFunction } from './scroll-to';
 import { docContainerStore } from '@stores/doc-container';
 
 /**
@@ -10,7 +10,7 @@ export const ScrollTo = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').ScrollTo>} */
     ({
         tag: 'scroll-to',
-        component: ScrollToFn,
+        component: ScrollToFunction,
         bindStore: docContainerStore,
         state: {
             activeLabel: {

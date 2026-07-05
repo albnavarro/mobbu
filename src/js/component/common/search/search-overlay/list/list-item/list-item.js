@@ -15,7 +15,7 @@ const loadPage = ({ uri }) => {
  */
 
 /** @type {MobComponent<import('./type').SearchOverlayListItemType>} */
-export const SearchOverlayListItemFn = ({
+export const SearchOverlayListItemFunction = ({
     getSelfProxi,
     bindEffect,
     delegateEvents,

@@ -37,7 +37,7 @@ const getItems = ({ staticProps }) => {
 };
 
 /** @type {MobComponent} */
-export const headerMainMenuFn = ({
+export const HeaderMainMenuFunction = ({
     staticProps,
     getSelfProxi,
     onMount,

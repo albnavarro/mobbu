@@ -7,7 +7,7 @@ import { AboutComponent } from '../tablet/definition';
 import { AboutMobileComponent } from '../mobile/definition';
 
 /** @type {MobComponent<import('./type').AboutSwitcher>} */
-export const AboutSwitcherFn = ({
+export const AboutSwitcherFunction = ({
     invalidate,
     staticProps,
     getBoundedProxi,

@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { ScrollerN0Fn } from './scroller-n0';
+import { ScrollerN0Function } from './scroller-n0';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -11,7 +11,7 @@ export const ScrollerN0 = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').ScrollerN0>} */
     ({
         tag: 'scroller-n0',
-        component: ScrollerN0Fn,
+        component: ScrollerN0Function,
         props: {
             background: {
                 __value: '',

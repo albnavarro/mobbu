@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { DraggerFn } from './dragger';
+import { DraggerFunction } from './dragger';
 import { DRAGGER_CENTER } from './constant';
 
 /**
@@ -10,7 +10,7 @@ export const Dragger = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Dragger>} */
     ({
         tag: 'c-dragger',
-        component: DraggerFn,
+        component: DraggerFunction,
         props: {
             rootClass: {
                 __value: '',

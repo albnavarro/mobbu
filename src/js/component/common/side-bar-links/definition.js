@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { SideBarLinksFn } from './side-bar-links';
+import { SideBarLinksFunction } from './side-bar-links';
 import { docContainerStore } from '@stores/doc-container';
 
 /**
@@ -10,7 +10,7 @@ export const SideBarLinks = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').SideBarLinks>} */
     ({
         tag: 'side-bar-links',
-        component: SideBarLinksFn,
+        component: SideBarLinksFunction,
         bindStore: docContainerStore,
         state: {
             data: {

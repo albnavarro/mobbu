@@ -12,7 +12,7 @@ import { benchMarkUseProxi } from '../strategy';
  */
 
 /** @type {MobComponent<import('../type').BenchMark>} */
-export const BenchMarkRepeatWithNoKeyFnNested = ({
+export const BenchMarkRepeatWithNoKeyFunctionNested = ({
     onMount,
     delegateEvents,
     setRef,

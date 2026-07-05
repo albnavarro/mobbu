@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { AnimatedPatternN0Fn } from './animated-pattern-n0';
+import { AnimatedPatternN0Function } from './animated-pattern-n0';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -11,7 +11,7 @@ export const AnimatedPatternN0 = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').AnimatedPatternN0>} */
     ({
         tag: 'animatedpattern-n0',
-        component: AnimatedPatternN0Fn,
+        component: AnimatedPatternN0Function,
         props: {
             background: {
                 __value: '',

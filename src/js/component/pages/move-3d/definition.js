@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { Move3DPagefn } from './move-3d-page';
+import { Move3DPageFunction } from './move-3d-page';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -11,7 +11,7 @@ export const Move3DPage = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').Move3DPage>} */
     ({
         tag: 'move-3d-page',
-        component: Move3DPagefn,
+        component: Move3DPageFunction,
         props: {
             data: {
                 __value: [],

@@ -2,7 +2,7 @@ import { htmlObject } from '@mobJs';
 import { draggerAnimation } from './animation';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').Dragger>} */
-export const DraggerFn = ({
+export const DraggerFunction = ({
     getSelfProxi,
     setRef,
     getRef,

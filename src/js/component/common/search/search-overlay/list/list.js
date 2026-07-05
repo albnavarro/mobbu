@@ -49,7 +49,7 @@ const initScroller = ({ getRef }) => {
 };
 
 /** @type {MobComponent<import('./type').SearchOverlayList>} */
-export const SearchOverlayListFn = ({
+export const SearchOverlayListFunction = ({
     getSelfProxi,
     getBoundedProxi,
     repeat,

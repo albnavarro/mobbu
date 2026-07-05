@@ -45,7 +45,7 @@ const getData = async ({ source, data }) => {
 /**
  * @type {MobComponentAsync<HtmlContent>}
  */
-export const HtmlContentFn = async ({ getState, staticProps }) => {
+export const HtmlContentFunction = async ({ getState, staticProps }) => {
     const { isSection, source, data } = getState();
     const currentData = await getData({ source, data });
 

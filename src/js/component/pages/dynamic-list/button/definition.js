@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { DynamicListButtonFn } from './dynamic-list-button';
+import { DynamicListButtonFunction } from './dynamic-list-button';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -11,7 +11,7 @@ export const DynamicListButton = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').DynamicListButtonType>} */
     ({
         tag: 'dynamic-list-button',
-        component: DynamicListButtonFn,
+        component: DynamicListButtonFunction,
         props: {
             label: {
                 __value: '',

@@ -104,7 +104,7 @@ function getItems({ data, staticProps, bindProps, proxi }) {
 }
 
 /** @type {MobComponent<Navigation>} */
-export const NavigationFn = ({
+export const NavigationFunction = ({
     staticProps,
     setState,
     bindProps,

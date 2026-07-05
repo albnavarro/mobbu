@@ -81,7 +81,7 @@ function additems({ delegateEvents }) {
 }
 
 /** @type {MobComponent} */
-export const HeaderUtilsFn = ({ delegateEvents }) => {
+export const HeaderUtilsFunction = ({ delegateEvents }) => {
     return htmlObject({
         tag: 'nav',
         className: 'l-header-utils',

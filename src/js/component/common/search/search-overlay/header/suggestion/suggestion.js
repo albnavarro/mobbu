@@ -10,7 +10,7 @@ import { SearchOverlaySuggestionItem } from './suggestion-item/definition';
  */
 
 /** @type {MobComponent<import('./type').SearchOverlaySuggestionType>} */
-export const SearchOverlaySuggestionFn = ({
+export const SearchOverlaySuggestionFunction = ({
     getSelfProxi,
     repeat,
     bindProps,

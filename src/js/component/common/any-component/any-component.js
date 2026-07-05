@@ -5,7 +5,7 @@ import { htmlString } from '@mobJs';
  */
 
 /** @type {MobComponent<import('./type').AnyComponent>} */
-export const AnyComponentFn = ({ getState }) => {
+export const AnyComponentFunction = ({ getState }) => {
     const { content } = getState();
 
     return htmlString(content);

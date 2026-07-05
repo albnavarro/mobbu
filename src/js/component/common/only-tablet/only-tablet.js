@@ -15,7 +15,7 @@ MobJs.afterRouteChange(({ currentRoute, previousRoute }) => {
 });
 
 /** @type {MobComponent} */
-export const OnlyTabletFn = ({ delegateEvents }) => {
+export const OnlyTabletFunction = ({ delegateEvents }) => {
     return htmlObject({
         className: 'c-only-tablet',
         content: [

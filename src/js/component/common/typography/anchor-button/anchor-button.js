@@ -8,7 +8,7 @@ import { MobBodyScroll } from '@mobMotionPlugin';
  */
 
 /** @type {MobComponent<AnchorBUtton>} */
-export const AnchorButtonFn = ({ getState, delegateEvents }) => {
+export const AnchorButtonFunction = ({ getState, delegateEvents }) => {
     const { content: label, anchor } = getState();
 
     return htmlObject({

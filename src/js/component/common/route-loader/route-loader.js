@@ -7,7 +7,7 @@ import { htmlObject, MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
 
 /** @type {MobComponent<RouteLoader>} */
-export const RouteLoaderFn = ({
+export const RouteLoaderFunction = ({
     onMount,
     getSelfProxi,
     bindEffect,

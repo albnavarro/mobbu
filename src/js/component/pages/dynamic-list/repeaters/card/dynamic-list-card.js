@@ -51,7 +51,7 @@ const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
 };
 
 /** @type {MobComponent<DynamicListCardType>} */
-export const DynamicListCardFn = ({
+export const DynamicListCardFunction = ({
     onMount,
     key,
     staticProps,

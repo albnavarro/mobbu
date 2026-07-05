@@ -1,7 +1,7 @@
 import { htmlObject } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent} */
-export const DynamicListEmptyFn = () => {
+export const DynamicListEmptyFunction = () => {
     return htmlObject({
         className: 'c-dynamic-list-empty',
         content: [

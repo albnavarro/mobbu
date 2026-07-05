@@ -1,7 +1,7 @@
 import { htmlObject, MobJs } from '@mobJs';
 
 /** @type {import('@mobJsType').MobComponent<import('./type').H1Standalone>} */
-export const H1StandaloneFn = ({ getSelfProxi, onMount }) => {
+export const H1StandaloneFunction = ({ getSelfProxi, onMount }) => {
     const proxi = getSelfProxi();
 
     onMount(({ element }) => {

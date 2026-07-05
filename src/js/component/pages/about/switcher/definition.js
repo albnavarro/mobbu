@@ -1,6 +1,6 @@
 import { MobJs } from '@mobJs';
 import { mqStore } from '@stores/mq';
-import { AboutSwitcherFn } from './about-switcher';
+import { AboutSwitcherFunction } from './about-switcher';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -10,7 +10,7 @@ export const AboutSwitcher = MobJs.createComponent(
     /** @type{CreateComponentParams<import ('./type').AboutSwitcher>} */
     ({
         tag: 'about-switcher',
-        component: AboutSwitcherFn,
+        component: AboutSwitcherFunction,
         bindStore: mqStore,
         props: {
             block_1: {

@@ -34,7 +34,7 @@ const activeItemChildren = ({ id, value }) => {
 };
 
 /** @type {MobComponent<import('./type').DebugTreeItemType>} */
-export const DebugTreeItemFn = ({
+export const DebugTreeItemFunction = ({
     onMount,
     staticProps,
     getRef,

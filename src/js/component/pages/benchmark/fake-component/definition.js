@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { BenchMarkFakeComponentFn } from './benchmark-fake-component';
+import { BenchMarkFakeComponentFunction } from './benchmark-fake-component';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -11,7 +11,7 @@ export const BenchMarkFakeComponent = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').BenchMarkFakeComponentType>} */
     ({
         tag: 'benchmark-fake-component',
-        component: BenchMarkFakeComponentFn,
+        component: BenchMarkFakeComponentFunction,
         props: {
             counter: 0,
             label: '',

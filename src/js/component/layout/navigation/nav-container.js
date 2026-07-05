@@ -104,7 +104,7 @@ const toTopBtnHandler = () => {
 };
 
 /** @type {import('@mobJsType').MobComponent<import('./type').NavigationContainer>} */
-export const NavigationContainerFn = ({
+export const NavigationContainerFunction = ({
     onMount,
     addMethod,
     delegateEvents,

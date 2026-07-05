@@ -8,7 +8,7 @@ import { htmlObject, MobJs } from '@mobJs';
 import { navigationStore } from '@stores/navigation';
 
 /** @type {MobComponent<NavigationButtonType>} */
-export const NavigationButtonFn = ({
+export const NavigationButtonFunction = ({
     delegateEvents,
     getSelfProxi,
     bindEffect,

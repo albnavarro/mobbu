@@ -1,7 +1,7 @@
 //@ts-check
 
 import { MobJs } from '@mobJs';
-import { BenchMarkRepeatNoKyBindStoreFn } from './benchmark-repeat-no-key-bind-store';
+import { BenchMarkRepeatNoKyBindStoreFunction } from './benchmark-repeat-no-key-bind-store';
 import { externalBenchmarkStore } from '@stores/benchmark';
 
 /**
@@ -12,7 +12,7 @@ export const BenchMarkRepeatNoKeyBindStore = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').BenchMarkExternal>} */
     ({
         tag: 'benchmark-repeat-no-key-bind-store',
-        component: BenchMarkRepeatNoKyBindStoreFn,
+        component: BenchMarkRepeatNoKyBindStoreFunction,
         bindStore: externalBenchmarkStore,
     })
 );

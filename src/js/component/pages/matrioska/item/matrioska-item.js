@@ -6,7 +6,7 @@ import { htmlObject } from '@mobJs';
  */
 
 /** @type {MobComponent<MatrioskaItemType>} */
-export const MatrioskaItemFn = ({
+export const MatrioskaItemFunction = ({
     getSelfProxi,
     bindText,
     id,

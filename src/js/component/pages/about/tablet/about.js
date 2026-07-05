@@ -319,7 +319,7 @@ const getSquare = () => {
 };
 
 /** @type {MobComponent<import('./type').About>} */
-export const AboutComponentFn = ({
+export const AboutComponentFunction = ({
     onMount,
     setRef,
     getRef,

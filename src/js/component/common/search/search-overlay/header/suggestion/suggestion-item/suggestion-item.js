@@ -20,7 +20,7 @@ const onKeyDown = ({ code, word }) => {
 };
 
 /** @type {import('@mobJsType').MobComponent<import('./type').SearchOverlaySugestionItemType>} */
-export const SearchOverlaySuggestionItemFn = ({
+export const SearchOverlaySuggestionItemFunction = ({
     getSelfProxi,
     delegateEvents,
     bindObject,

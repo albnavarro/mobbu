@@ -2,7 +2,7 @@
 
 import { MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
-import { AboutComponentFn } from './about';
+import { AboutComponentFunction } from './about';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -12,7 +12,7 @@ export const AboutComponent = MobJs.createComponent(
     /** @type{CreateComponentParams<import ('./type').About>} */
     ({
         tag: 'about-component',
-        component: AboutComponentFn,
+        component: AboutComponentFunction,
         props: {
             block_1: {
                 __value: {

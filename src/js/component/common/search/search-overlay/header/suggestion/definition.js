@@ -1,5 +1,5 @@
 import { MobJs } from '@mobJs';
-import { SearchOverlaySuggestionFn } from './suggestion';
+import { SearchOverlaySuggestionFunction } from './suggestion';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
@@ -9,7 +9,7 @@ export const SearchOverlaySuggestion = MobJs.createComponent(
     /** @type {CreateComponentParams<import('./type').SearchOverlaySuggestionType>} */
     ({
         tag: 'search-overlay-suggestion',
-        component: SearchOverlaySuggestionFn,
+        component: SearchOverlaySuggestionFunction,
         props: {
             list: {
                 __value: [],

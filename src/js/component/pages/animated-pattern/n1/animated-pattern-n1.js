@@ -11,7 +11,7 @@ import { animatedPatternN1Animation } from './animation/animation';
 import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 
 /** @type {MobComponent<AnimatedPatternN1>} */
-export const AnimatedPatternN1Fn = ({
+export const AnimatedPatternN1Function = ({
     onMount,
     getState,
     setRef,
