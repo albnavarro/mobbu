@@ -4482,6 +4482,7 @@
         color: var(--dark);
         text-transform: capitalize;
         border-block-end: 1px var(--line) solid;
+        container-type: inline-size;
       }
       :scope.pinned {
         box-shadow: 0 calc(1.875rem * -1) 0 var(--dark);
@@ -4515,7 +4516,7 @@
         inset-block-end: calc(0.5rem * -1);
         color: var(--dark);
       }
-      @media (min-width: 75em) {
+      @container (width > 750px) {
         .title-index {
           display: block;
         }
