@@ -35,18 +35,18 @@ export const destroyStoreEntryPoint = (instanceId) => {
     /**
      * Unsubscribe binded watcher
      */
-    [...unsubscribeBindInstance].toReversed().forEach((unsubscribe) => {
+    for (const unsubscribe of [...unsubscribeBindInstance].toReversed()) {
         unsubscribe?.();
-    });
+    }
 
     state.unsubscribeBindInstance.length = 0;
 
     /**
      * Remove itself from bindInstanceBy of binded store.
      */
-    bindInstance.forEach((id) => {
+    for (const id of bindInstance) {
         removeSelfIdToBindInstanceBy({ selfId: instanceId, bindId: id });
-    });
+    }
 
     /**
      * Clean global wait map.

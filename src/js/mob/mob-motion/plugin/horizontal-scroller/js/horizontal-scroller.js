@@ -603,13 +603,13 @@ export class MobHorizontalScroller {
         this.#shadowMainClassTransition = originalShadowClass.replace('.', '');
         this.#buttons = this.#row.querySelectorAll('a, button');
 
-        this.#children.forEach((element) => {
+        for (const element of this.#children) {
             if (this.#row) element.setScroller(this.#row);
             element.setDirection('horizontal');
             element.setBreakPoint(this.#breakpoint);
             element.setQueryType(this.#queryType);
             element.init();
-        });
+        }
 
         if (this.#addCss)
             horizontalScrollerCss({
@@ -728,9 +728,9 @@ export class MobHorizontalScroller {
             MobCore.useFrameIndex(() => {
                 MobCore.useNextTick(() => {
                     this.#afterInit?.();
-                    this.#children.forEach((element) => {
+                    for (const element of this.#children) {
                         element.refresh();
-                    });
+                    }
                 });
             }, 3);
         });
@@ -740,16 +740,15 @@ export class MobHorizontalScroller {
      * @type {() => void}
      */
     #setLinkAttribute() {
-        [...this.#buttons].forEach((item) =>
-            item.setAttribute('draggable', 'false')
-        );
+        for (const item of this.#buttons) item.setAttribute('draggable', 'false')
+        ;
     }
 
     /**
      * @type {() => void}
      */
     #removeLinkAttribute() {
-        [...this.#buttons].forEach((item) => item.removeAttribute('draggable'));
+        for (const item of this.#buttons) item.removeAttribute('draggable');
     }
 
     /**
@@ -976,7 +975,7 @@ export class MobHorizontalScroller {
             MobCore.useFrame(() => {
                 if (!this.#shadows) return;
 
-                [...this.#shadows].forEach((item) => {
+                for (const item of this.#shadows) {
                     const percentrange = this.#percentRange / 100;
                     const shadowData = item.dataset['shadow'];
                     const width = outerWidth(item);
@@ -1109,7 +1108,7 @@ export class MobHorizontalScroller {
 
                     if (shadowTransitionEl)
                         shadowTransitionEl.style.height = `${left}px`;
-                });
+                }
 
                 resolve(true);
             });
@@ -1174,9 +1173,9 @@ export class MobHorizontalScroller {
                     });
 
                 // Builtin children onTick;
-                this.#children.forEach((element) => {
+                for (const element of this.#children) {
                     element.move({ value: valueParsed, parentIsMoving });
-                });
+                }
             },
             onEnter: this.#onEnter,
             onEnterBack: this.#onEnterBack,
@@ -1213,9 +1212,9 @@ export class MobHorizontalScroller {
         MobCore.useFrameIndex(() => {
             MobCore.useNextTick(() => {
                 this.#afterRefresh?.();
-                this.#children.forEach((element) => {
+                for (const element of this.#children) {
                     element?.refresh?.();
-                });
+                }
             });
         }, 3);
     }
@@ -1317,11 +1316,11 @@ export class MobHorizontalScroller {
                     MobCore.useNextTick(() => {
                         this.#afterDestroy?.();
                         this.#afterDestroy = NOOP;
-                        this.#children.forEach((element) => {
+                        for (let element of this.#children) {
                             element?.destroy?.();
                             // @ts-ignore
                             element = null;
-                        });
+                        }
                         this.#children = [];
                     });
                 }

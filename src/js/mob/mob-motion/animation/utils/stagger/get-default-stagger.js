@@ -287,7 +287,7 @@ export const getDefaultStagger = ({
     const firstChunk = chunked[0];
 
     // Get First row stagger
-    firstChunk.forEach((item, i) => {
+    for (const [i, item] of firstChunk.entries()) {
         const { index, frame } = getStaggerIndex(
             i,
             chunked[0].length,
@@ -309,23 +309,23 @@ export const getDefaultStagger = ({
                 index,
                 frame,
             };
-    });
+    }
 
     // Set other chunk, copy from first [0]
-    chunked.forEach((chunkItem) => {
-        chunkItem.forEach((item, i) => {
+    for (const chunkItem of chunked) {
+        for (const [i, item] of chunkItem.entries()) {
             if (item) {
                 item.index = chunked[0][i].index;
                 item.frame = chunked[0][i].frame;
             }
-        });
-    });
+        }
+    }
 
     // Flat the chunked array
     const flatArray = chunked.flat();
 
     // set data to original (this.callback) array
-    flatArray.forEach((item, i) => {
+    for (const [i, item] of flatArray.entries()) {
         staggerArray[i].index = item.index;
         staggerArray[i].frame = item.frame;
 
@@ -334,7 +334,7 @@ export const getDefaultStagger = ({
             staggerArrayOnComplete[i].index = item.index;
             staggerArrayOnComplete[i].frame = item.frame;
         }
-    });
+    }
 
     return {
         staggerArray,

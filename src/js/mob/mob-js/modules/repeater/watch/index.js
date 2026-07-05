@@ -176,9 +176,9 @@ export const watchRepeat = ({
              * If clean destroy component inside repeater and clean refuse inside.
              */
             if (clean) {
-                childrenBeforeUdateByRepeatId.forEach((id) => {
+                for (const id of childrenBeforeUdateByRepeatId) {
                     removeAndDestroyById({ id });
-                });
+                }
 
                 if (repeaterParentElement) {
                     /**
@@ -287,9 +287,9 @@ export const watchRepeat = ({
             /**
              * Update persistent component current value.
              */
-            chunkChildrenOrdered.forEach((childArray, index) => {
+            for (const [index, childArray] of chunkChildrenOrdered.entries()) {
                 const currentValue = currentUpdated?.[index];
-                if (!currentValue) return;
+                if (!currentValue) continue;
 
                 /**
                  * Find real index in original array ( currentUpdated )
@@ -298,7 +298,7 @@ export const watchRepeat = ({
                     ? (keyToIndex.get(`${currentValue?.[key]}`) ?? -1)
                     : index;
 
-                childArray.forEach((id) => {
+                for (const id of childArray) {
                     /**
                      * Update current repeater data ( index && current ) for each component.
                      *
@@ -310,8 +310,8 @@ export const watchRepeat = ({
                         id,
                         value: { current: currentValue, index: realIndex },
                     });
-                });
-            });
+                }
+            }
 
             /**
              * Fire onComplete next tick;

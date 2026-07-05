@@ -62,9 +62,9 @@ export const invalidateTick = async ({
     previousResolve,
 } = {}) => {
     if (debug) {
-        invalidateQueque.forEach((value) => {
+        for (const value of invalidateQueque) {
             console.log(value);
-        });
+        }
     }
 
     await awaitNextLoop();

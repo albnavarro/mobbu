@@ -27,14 +27,14 @@ export const destroyNestedInvalidate = ({ id, invalidateParent }) => {
         module: MODULE_INVALIDATE,
     });
 
-    invalidatToDelete.forEach(({ unsubscribe, moduleId }) => {
+    for (const { unsubscribe, moduleId } of invalidatToDelete) {
         /**
          * Invalidate has multiple observe state so here we have multiple invalidate function.
          */
-        unsubscribe.forEach((fn) => {
+        for (const fn of unsubscribe) {
             fn();
-        });
+        }
 
         removeInvalidateByInvalidateId({ id, invalidateId: moduleId });
-    });
+    }
 };

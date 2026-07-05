@@ -31,7 +31,7 @@ export const unBind = ({ id = '' }) => {
     const item = componentMap.get(id);
     const parentPropsWatcher = item?.parentPropsWatcher ?? [];
 
-    parentPropsWatcher.forEach((unwatch) => {
+    for (const unwatch of parentPropsWatcher) {
         unwatch();
-    });
+    }
 };

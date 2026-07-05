@@ -36,12 +36,12 @@ let loaderTween = MobTween.createTimeTween({
  * Subscribe loader/background
  */
 if (jsMainLoader && jsMainLoaderBackground) {
-    [jsMainLoader, jsMainLoaderBackground].forEach((item) => {
+    for (const item of [jsMainLoader, jsMainLoaderBackground]) {
         loaderTween?.subscribe(({ opacity }) => {
             // @ts-ignore
             item.style.opacity = opacity;
         });
-    });
+    }
 }
 
 /**

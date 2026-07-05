@@ -70,13 +70,13 @@ const mergeRefsAndOrder = ({ refs, refName, element }) => {
  * @param {{ [key: string]: { element: HTMLElement; scopeId: string }[] }} refs
  */
 export const addBindRefsToComponent = (refs) => {
-    Object.entries(refs).forEach(([refName, entries]) => {
-        entries.forEach(({ element, scopeId }) => {
+    for (const [refName, entries] of Object.entries(refs)) {
+        for (const { element, scopeId } of entries) {
             const item = componentMap.get(scopeId);
-            if (!item) return;
+            if (!item) continue;
 
             const { refs: previousRef } = item;
-            if (!previousRef) return;
+            if (!previousRef) continue;
 
             const newRefs =
                 refName in previousRef
@@ -87,8 +87,8 @@ export const addBindRefsToComponent = (refs) => {
                 ...item,
                 refs: newRefs,
             });
-        });
-    });
+        }
+    }
 };
 
 /**

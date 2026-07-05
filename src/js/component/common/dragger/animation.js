@@ -112,10 +112,10 @@ export const draggerAnimation = ({
      * Toggle hide class based on current depth
      */
     const updateChildrenVisibility = () => {
-        children.forEach((childEl, index) => {
+        for (const [index, childEl] of children.entries()) {
             const shouldHide = depth > childrenDepthThreshold[index];
             childEl.classList.toggle('hide', shouldHide);
-        });
+        }
     };
 
     /**
@@ -246,10 +246,10 @@ export const draggerAnimation = ({
     });
 
     const activeElement = root.querySelectorAll('a, button');
-    [...activeElement].forEach((item) => {
+    for (const item of activeElement) {
         /** @type {HTMLElement} */ (item).setAttribute('draggable', 'false');
         /** @type {HTMLElement} */ (item).style.userSelect = 'none';
-    });
+    }
 
     /**
      * Listener function:

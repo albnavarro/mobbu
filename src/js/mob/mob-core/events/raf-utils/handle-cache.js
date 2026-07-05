@@ -161,9 +161,9 @@ const unFreeze = ({ id, update = true }) => {
     /**
      * Add item updated.
      */
-    newEntries.forEach(({ frame, value }) => {
+    for (const { frame, value } of newEntries) {
         item.data.set(frame, value);
-    });
+    }
 
     /**
      * Clear temp map

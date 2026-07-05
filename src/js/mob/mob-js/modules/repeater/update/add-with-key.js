@@ -103,10 +103,10 @@ export const addWithKey = ({
     /**
      * Remove component.
      */
-    componentsToRemoveByKey.forEach((item) => {
+    for (const item of componentsToRemoveByKey) {
         const firstOccurrence = item[0].element;
         const firstCurrentId = item[0].id;
-        if (!firstCurrentId) return;
+        if (!firstCurrentId) continue;
 
         /**
          * Then destroy component Destroy all component in repeater item wrapper child of scope component Or destroy
@@ -124,14 +124,14 @@ export const addWithKey = ({
         destroyNestedInvalidate({ id, invalidateParent: nestedParent });
         destroyNestedRepeat({ id, repeatParent: nestedParent });
 
-        item.forEach(({ id }) => {
+        for (const { id } of item) {
             removeAndDestroyById({ id });
-        });
+        }
 
         if (elementWrapper) {
             elementWrapper.remove();
         }
-    });
+    }
 
     /**
      * No Component inside repeater. Remove at the end old element to avoid viual jump
@@ -144,7 +144,7 @@ export const addWithKey = ({
                 .includes(item.value?.[key]);
         });
 
-        itemToRemove.forEach((item) => {
+        for (const item of itemToRemove) {
             const { element: currentElement } = item;
 
             /**
@@ -160,7 +160,7 @@ export const addWithKey = ({
                 id,
                 container: currentElement,
             });
-        });
+        }
     }
 
     /**
@@ -229,14 +229,13 @@ export const addWithKey = ({
      * - Persistent element is NODE_ELEMENT.
      * - New element will be NODE_ELEMENT or STRING depend by sync strategy.
      */
-    newSequenceByKey.forEach(
-        ({
+    for (const {
             isNewElement,
             keyValue,
             index,
             persistentElement,
             persistentDOMwrapper,
-        }) => {
+        } of newSequenceByKey) {
             if (!isNewElement) {
                 const { debug } = getDefaultComponent();
 
@@ -268,7 +267,7 @@ export const addWithKey = ({
                 /**
                  * If is not a new element return.
                  */
-                return;
+                continue;
             }
 
             const currentValue = currentUnique?.[index];
@@ -285,7 +284,7 @@ export const addWithKey = ({
 
             if (currentRender) fragment.append(currentRender);
         }
-    );
+    
 
     repeaterParentElement.append(fragment);
     return currentUnique;

@@ -192,7 +192,7 @@ export const mathRosaDiGrandi = (
     /**
      * Converti angoli radianti in posizioni temporali (0-10)
      */
-    zeroAngles.forEach((angleRad) => {
+    for (const angleRad of zeroAngles) {
         /**
          * Mappa l'angolo da [0, totalAngle] a [0, 10]
          */
@@ -215,9 +215,9 @@ export const mathRosaDiGrandi = (
                 { start: center, end, ease: 'easeOutQuad' }
             );
         }
-    });
+    }
 
-    targets.forEach((item, index) => {
+    for (const [index, item] of targets.entries()) {
         const innerElement = /** @type {HTMLSpanElement} */ (item.firstChild);
 
         tween.subscribeCache(({ angleInRadian, scale }) => {
@@ -239,7 +239,7 @@ export const mathRosaDiGrandi = (
             item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index] * directionMultiplier}px, ${y - halfTagetsHeight[index]}px)`;
             if (innerElement) innerElement.style.scale = `${scale}`;
         });
-    });
+    }
 
     let timeline = MobTimeline.createSyncTimeline({
         repeat: -1,

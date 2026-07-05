@@ -16,16 +16,16 @@ export const destroyComponentInsideNodeById = ({ id, container }) => {
 
     const allChild = Object.values(child ?? {}).flat();
 
-    allChild.forEach((id) => {
+    for (const id of allChild) {
         const state = componentMap.get(id);
-        if (!state) return;
+        if (!state) continue;
 
         const element = state?.element;
         const currentId = state?.id ?? '';
 
         if (element && container?.contains(element) && element !== container) {
             removeAndDestroyById({ id });
-            return;
+            continue;
         } else {
             /**
              * Case: no children component found && nested repeater with a repeater without component. Component can be
@@ -33,5 +33,5 @@ export const destroyComponentInsideNodeById = ({ id, container }) => {
              */
             destroyComponentInsideNodeById({ id: currentId, container });
         }
-    });
+    }
 };

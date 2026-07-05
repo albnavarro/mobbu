@@ -37,7 +37,6 @@ export default defineConfig([
             'no-useless-assignment': 'off',
             'unicorn/template-indent': 'off',
             'unicorn/prevent-abbreviations': 'off',
-            'unicorn/no-array-for-each': 'off',
             'unicorn/no-array-reduce': 'off',
             'unicorn/no-null': 'off',
             'import-x/no-unresolved': 'off',

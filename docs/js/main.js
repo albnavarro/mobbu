@@ -1762,9 +1762,9 @@
     setTimeOutQueque.add(fn);
     if (setTimeOutQueque.size === 1) {
       setTimeout(() => {
-        setTimeOutQueque.forEach((fn2) => {
+        for (const fn2 of setTimeOutQueque) {
           fn2();
-        });
+        }
         setTimeOutQueque.clear();
       });
     }
@@ -2438,9 +2438,9 @@
         instanceId
       });
       addToComputedWaitLsit({ instanceId, prop });
-      bindInstanceBy.forEach((id) => {
+      for (const id of bindInstanceBy) {
         addToComputedWaitLsit({ instanceId: id, prop });
-      });
+      }
     }
   };
   var setObj = ({
@@ -2525,7 +2525,7 @@
     const newValParsedByStrict = Object.fromEntries(
       strictObjectResult.map(({ item }) => item).map(([key, val2]) => [key, val2])
     );
-    Object.entries(newValParsedByStrict).forEach((item) => {
+    for (const item of Object.entries(newValParsedByStrict)) {
       const [subProp, subVal] = item;
       const subValOld = store2[prop][subProp];
       const validateResult = fnValidate[prop][subProp]?.(subVal, subValOld);
@@ -2536,7 +2536,7 @@
         storeObjectIsNotAnyWarning(logStyle2, TYPE_IS_ANY);
       }
       validationStatusObject[prop][subProp] = validateResult;
-    });
+    }
     const oldObjectValues = store2[prop];
     const newObjectValues = {
       ...store2[prop],
@@ -2579,9 +2579,9 @@
         instanceId
       });
       addToComputedWaitLsit({ instanceId, prop });
-      bindInstanceBy.forEach((id) => {
+      for (const id of bindInstanceBy) {
         addToComputedWaitLsit({ instanceId: id, prop });
-      });
+      }
     }
   };
   var storeSetEntryPoint = ({
@@ -2677,14 +2677,14 @@
       computedPropsQueque: /* @__PURE__ */ new Set(),
       computedRunning: false
     });
-    computedValues.forEach(({ prop, value }) => {
+    for (const { prop, value } of computedValues) {
       storeSetEntryPoint({
         instanceId,
         prop,
         value,
         action: STORE_SET
       });
-    });
+    }
   };
   var addToComputedWaitLsit = ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
@@ -2815,7 +2815,7 @@
   };
   var inizializeAllProps = (instanceId, initialState) => {
     const { store: store2 } = initialState;
-    Object.entries(store2).forEach((item) => {
+    for (const item of Object.entries(store2)) {
       const [prop, value] = item;
       storeSetEntryPoint({
         instanceId,
@@ -2826,7 +2826,7 @@
         action: STORE_SET,
         initalizeStep: true
       });
-    });
+    }
   };
 
   // src/js/mob/mob-core/store/store-watch.js
@@ -3034,9 +3034,9 @@
         instanceId
       });
       addToComputedWaitLsit({ instanceId, prop });
-      bindInstanceBy.forEach((id) => {
+      for (const id of bindInstanceBy) {
         addToComputedWaitLsit({ instanceId: id, prop });
-      });
+      }
     } else {
       storeEmitWarning(prop, getLogStyle());
     }
@@ -3069,9 +3069,9 @@
         validationValue: validationStatusObject[prop]
       });
       addToComputedWaitLsit({ instanceId, prop });
-      bindInstanceBy.forEach((id) => {
+      for (const id of bindInstanceBy) {
         addToComputedWaitLsit({ instanceId: id, prop });
-      });
+      }
       return { success: true };
     } else {
       storeEmitWarning(prop, getLogStyle());
@@ -3272,9 +3272,9 @@
     ];
     const stores = [...storeToArray, selfStore.store];
     let hasConflict = false;
-    stores.forEach((store2, index) => {
-      stores.forEach((storeCheck, indexCheck) => {
-        if (index <= indexCheck) return;
+    for (const [index, store2] of stores.entries()) {
+      for (const [indexCheck, storeCheck] of stores.entries()) {
+        if (index <= indexCheck) continue;
         const duplicate = Object.keys(store2).filter((key) => {
           return Object.keys(storeCheck).includes(key);
         });
@@ -3284,8 +3284,8 @@
             `bindStore: prop conflict on following prop: '${duplicate}', bind store key must be univoque'`
           );
         }
-      });
-    });
+      }
+    }
     return hasConflict;
   };
   var bindStoreEntryPoint = ({ value, instanceId }) => {
@@ -3327,9 +3327,9 @@
       ...state,
       bindInstance: bindInstanceUpdated
     });
-    ids.forEach((id) => {
+    for (const id of ids) {
       addSelfIdToBindInstanceBy({ selfId: instanceId, bindId: id });
-    });
+    }
   };
 
   // src/js/mob/mob-core/store/destroy.js
@@ -3349,13 +3349,13 @@
     state.selfProxiObject = null;
     state.boundedProxiObject = null;
     const { unsubscribeBindInstance, bindInstance } = state;
-    [...unsubscribeBindInstance].toReversed().forEach((unsubscribe3) => {
+    for (const unsubscribe3 of [...unsubscribeBindInstance].toReversed()) {
       unsubscribe3?.();
-    });
+    }
     state.unsubscribeBindInstance.length = 0;
-    bindInstance.forEach((id) => {
+    for (const id of bindInstance) {
       removeSelfIdToBindInstanceBy({ selfId: instanceId, bindId: id });
-    });
+    }
     removeIdFromWaitMap(instanceId);
     removeStateFromMainMap(instanceId);
   };
@@ -3365,9 +3365,9 @@
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
     const { proxiReadOnlyProp } = state;
-    values.forEach((value) => {
+    for (const value of values) {
       proxiReadOnlyProp.add(value);
-    });
+    }
     updateMainMap(instanceId, state);
   };
 
@@ -3828,9 +3828,9 @@
       item.data.delete(frame);
       newEntries.push({ frame: delta, value });
     }
-    newEntries.forEach(({ frame, value }) => {
+    for (const { frame, value } of newEntries) {
       item.data.set(frame, value);
-    });
+    }
     newEntries.length = 0;
     item.freeze = {
       active: false,
@@ -3940,7 +3940,7 @@
   var fire2 = ({ time: time2, fps: fps2 }) => {
     if (callbacks3.length === 0) return;
     callbacks3.sort((a, b) => a.priority - b.priority);
-    callbacks3.forEach(({ cb }) => cb({ time: time2, fps: fps2 }));
+    for (const { cb } of callbacks3) cb({ time: time2, fps: fps2 });
     callbacks3.length = 0;
   };
   var handleNextTick = /* @__PURE__ */ (() => {
@@ -3966,14 +3966,14 @@
   var updateKeys = (currentFrameLimit2) => {
     const oldMapToArray = [...indexCallbackMap.entries()];
     indexCallbackMap.clear();
-    oldMapToArray.forEach(([index, value]) => {
+    for (const [index, value] of oldMapToArray) {
       indexCallbackMap.set(index - currentFrameLimit2, value);
-    });
+    }
   };
   var fire3 = ({ currentFrame: currentFrame2, time: time2, fps: fps2 }) => {
     const callabacks = indexCallbackMap.get(currentFrame2) ?? [];
     if (!callabacks || callabacks.length === 0) return;
-    callabacks.forEach((item) => item({ time: time2, fps: fps2 }));
+    for (const item of callabacks) item({ time: time2, fps: fps2 });
     indexCallbackMap.delete(currentFrame2);
   };
   var add4 = (callback2, index) => {
@@ -4149,7 +4149,7 @@
     if (fps > maxFps) maxFps = fps;
     mustMakeSomethingStart();
     shouldMakeSomethingStart();
-    callback.forEach((item) => item({ time, fps }));
+    for (const item of callback) item({ time, fps });
     handleFrameIndex.fire({ currentFrame, time, fps });
     handleCache.fire(currentFrame);
     currentFrame++;
@@ -5642,9 +5642,9 @@
     };
   };
   var addPropsToState = ({ props, store: store2 }) => {
-    Object.entries(props).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(props)) {
       store2.set(key, value);
-    });
+    }
   };
   var propStrignWarining = ({ prop, componentName, action: action2 }) => {
     console.warn(
@@ -5739,11 +5739,11 @@
     if (invalidateIdsMap.has(id)) {
       const value = invalidateIdsMap.get(id);
       if (!value) return;
-      value.forEach(({ invalidateId }) => {
+      for (const { invalidateId } of value) {
         if (invalidateInstancesMap.has(invalidateId)) {
           invalidateInstancesMap.delete(invalidateId);
         }
-      });
+      }
       invalidateIdsMap.delete(id);
     }
   };
@@ -5759,11 +5759,11 @@
     if (repeatIdsMap.has(id)) {
       const value = repeatIdsMap.get(id);
       if (!value) return;
-      value.forEach(({ repeatId }) => {
+      for (const { repeatId } of value) {
         if (repeatInstancesMap.has(repeatId)) {
           repeatInstancesMap.delete(repeatId);
         }
-      });
+      }
       repeatIdsMap.delete(id);
     }
   };
@@ -5841,17 +5841,17 @@
       persistent,
       bindEventsHandlers
     } = instanceValue;
-    bindEventsHandlers?.forEach(({ eventName, handler: handler9 }) => {
+    if (bindEventsHandlers) for (const { eventName, handler: handler9 } of bindEventsHandlers) {
       element.removeEventListener(eventName, handler9);
-    });
-    if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
-    Object.values(child ?? {}).flat().forEach((childId) => {
+    }
+    if (parentPropsWatcher) for (const unwatch of parentPropsWatcher) unwatch();
+    for (const childId of Object.values(child ?? {}).flat()) {
       try {
         removeAndDestroyById({ id: childId });
       } catch (error) {
         console.warn(error);
       }
-    });
+    }
     removeItselfFromParent({ id, parentId, componentName });
     try {
       destroy4?.();
@@ -6156,7 +6156,7 @@
 
   // src/js/mob/mob-js/web-component/user-component.js
   var defineUserComponent = (componentList) => {
-    Object.entries(componentList).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(componentList)) {
       const {
         connectedCallback: _connectedCallBack,
         disconnectedCallback: _disconnectedCallback,
@@ -6503,7 +6503,7 @@
           }
         }
       );
-    });
+    }
   };
 
   // src/js/mob/mob-js/component/action/watch.js
@@ -6546,9 +6546,9 @@
     previousResolve
   } = {}) => {
     if (debug) {
-      invalidateQueque.forEach((value) => {
+      for (const value of invalidateQueque) {
         console.log(value);
-      });
+      }
     }
     await awaitNextLoop();
     if (queueIsResolved() && previousResolve) {
@@ -6588,9 +6588,9 @@
   };
   var repeaterTick = async ({ debug = false, previousResolve } = {}) => {
     if (debug) {
-      repeaterQueque.forEach((value) => {
+      for (const value of repeaterQueque) {
         console.log(value);
-      });
+      }
     }
     await awaitNextLoop();
     if (queueIsResolved2() && previousResolve) {
@@ -6670,20 +6670,20 @@
     );
   };
   var switchBindTextMap = () => {
-    [...bindTextPlaceHolderMap].forEach(([placeholder, { bindTextId }]) => {
+    for (const [placeholder, { bindTextId }] of bindTextPlaceHolderMap) {
       let parentElement = placeholder.parentElement;
       if (!parentElement || !placeholder.isConnected) {
         bindTextToInitializeMap.delete(bindTextId);
-        return;
+        continue;
       }
       const item = bindTextToInitializeMap.get(bindTextId);
-      if (!item) return;
+      if (!item) continue;
       bindTextToInitializeMap.delete(bindTextId);
       createBindTextWatcher({ ...item, element: parentElement });
       placeholder?.removeCustomComponent?.();
       placeholder?.remove();
       parentElement = null;
-    });
+    }
     bindTextPlaceHolderMap.clear();
   };
   var createBindTextWatcher = ({ id, render: render2, props, element }) => {
@@ -6709,9 +6709,9 @@
         modules_exports.useNextLoop(() => {
           modules_exports.useFrame(() => {
             if (ref?.deref() && !ref.deref()?.isConnected) {
-              unsubScribeFunction.forEach((fn) => {
+              for (const fn of unsubScribeFunction) {
                 if (fn) fn();
-              });
+              }
               unsubScribeFunction = [];
               ref = null;
             }
@@ -6798,20 +6798,20 @@
     }, "");
   };
   var switchBindObjectMap = () => {
-    [...bindObjectPlaceHolderMap].forEach(([placeholder, { bindObjectId }]) => {
+    for (const [placeholder, { bindObjectId }] of bindObjectPlaceHolderMap) {
       let parentElement = placeholder.parentElement;
       if (!parentElement || !placeholder.isConnected) {
         bindObjectToInitializeMap.delete(bindObjectId);
-        return;
+        continue;
       }
       const item = bindObjectToInitializeMap.get(bindObjectId);
-      if (!item) return;
+      if (!item) continue;
       bindObjectToInitializeMap.delete(bindObjectId);
       createBindObjectWatcher({ ...item, element: parentElement });
       placeholder?.removeCustomComponent?.();
       placeholder?.remove();
       parentElement = null;
-    });
+    }
     bindObjectPlaceHolderMap.clear();
   };
   var createBindObjectWatcher = ({ id, keys, render: render2, element }) => {
@@ -6831,9 +6831,9 @@
         modules_exports.useNextLoop(() => {
           modules_exports.useFrame(() => {
             if (ref?.deref() && !ref.deref()?.isConnected) {
-              unsubScribeFunction.forEach((fn) => {
+              for (const fn of unsubScribeFunction) {
                 if (fn) fn();
-              });
+              }
               unsubScribeFunction = [];
               ref = null;
             }
@@ -6897,11 +6897,11 @@
   };
   var useComponent = (components) => {
     if (!components || components?.length === 0) return;
-    components.forEach((item) => {
+    for (const item of components) {
       availableComponent.add({
         [item.component.tag]: item.component.params
       });
-    });
+    }
   };
 
   // src/js/mob/mob-js/component/action/state/check-if-state-is-exportable.js
@@ -7324,7 +7324,7 @@
     repeatId,
     key
   }) => {
-    components.forEach((component) => {
+    for (const component of components) {
       if (!component.deref()?.hasAttribute(ATTR_CURRENT_LIST_VALUE)) {
         component.deref()?.setAttribute(
           ATTR_CURRENT_LIST_VALUE,
@@ -7343,14 +7343,14 @@
       if (!component.deref()?.hasAttribute(ATTR_CHILD_REPEATID)) {
         component.deref()?.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
       }
-    });
+    }
   };
   var addMultipleDOMElement = ({ elements, parent, position: position2 }) => {
     const fragment = new DocumentFragment();
-    elements.forEach((element) => {
-      if (!element) return;
+    for (const element of elements) {
+      if (!element) continue;
       fragment.append(element);
-    });
+    }
     if (position2 === "afterend") parent.after(fragment);
     if (position2 === "beforebegin") parent.before(fragment);
     if (position2 === "afterbegin") parent.prepend(fragment);
@@ -7383,16 +7383,16 @@
   };
   var removeOrphanSlot = ({ element }) => {
     const slots = useSlotQuery ? queryGenericSlot(element) : getAllSlot();
-    slots.forEach((slot) => {
+    for (const slot of slots) {
       slot?.removeCustomComponent();
       slot?.remove();
-    });
+    }
   };
   var addToNamedSlot = ({ element }) => {
     if (!useSlotQuery && getSlotPlaceholderSize() === 0) return;
     const componentWithSlot = useComponentHasNamedSlotQuery ? queryComponentUseSlot(element) : getAllUserComponentUseNamedSlot({ element });
     if (componentWithSlot.length === 0) return;
-    [...componentWithSlot].forEach((component) => {
+    for (const component of componentWithSlot) {
       const slotName = component?.getSlotPosition();
       const slot = useSlotQuery ? querySecificSlot(element, slotName) : getSlotByName({ name: slotName, element });
       if (slot) {
@@ -7400,7 +7400,7 @@
         slot?.removeCustomComponent();
         slot?.remove();
       }
-    });
+    }
   };
   var executeConversion = ({ element, content }) => {
     const newElement = getNewElement({ element, content });
@@ -7465,9 +7465,9 @@
         continue;
       }
       if (attr.name === "class") {
-        attr.value.split(/\s+/).forEach((cls) => {
+        for (const cls of attr.value.split(/\s+/)) {
           if (cls) target.classList.add(cls);
-        });
+        }
         continue;
       }
       target.setAttribute(attr.name, attr.value);
@@ -7609,9 +7609,9 @@
   };
   var tick = async ({ debug = false, previousResolve } = {}) => {
     if (debug) {
-      queque.forEach((value) => {
+      for (const value of queque) {
         console.log(value);
-      });
+      }
     }
     await awaitNextLoop();
     if (queueIsResolved3() && previousResolve) {
@@ -7694,9 +7694,9 @@
     if (!id || id === "") return;
     const item = componentMap.get(id);
     const parentPropsWatcher = item?.parentPropsWatcher ?? [];
-    parentPropsWatcher.forEach((unwatch) => {
+    for (const unwatch of parentPropsWatcher) {
       unwatch();
-    });
+    }
   };
 
   // src/js/mob/mob-js/modules/bind-props/index.js
@@ -7869,18 +7869,18 @@
     const child = instanceValue?.child;
     if (!child) return;
     const allChild = Object.values(child ?? {}).flat();
-    allChild.forEach((id2) => {
+    for (const id2 of allChild) {
       const state = componentMap.get(id2);
-      if (!state) return;
+      if (!state) continue;
       const element = state?.element;
       const currentId = state?.id ?? "";
       if (element && container?.contains(element) && element !== container) {
         removeAndDestroyById({ id: id2 });
-        return;
+        continue;
       } else {
         destroyComponentInsideNodeById({ id: currentId, container });
       }
-    });
+    }
   };
 
   // src/js/mob/mob-js/modules/bind-effetc/index.js
@@ -7893,9 +7893,9 @@
   };
   var getAutoBind = ({ toggleClass, toggleStyle, toggleAttribute }) => {
     current_key_exports.initializeCurrentDependencies();
-    Object.values(toggleStyle).forEach((fn) => fn());
-    Object.values(toggleClass).forEach((fn) => fn());
-    Object.values(toggleAttribute).forEach((fn) => fn());
+    for (const fn of Object.values(toggleStyle)) fn();
+    for (const fn of Object.values(toggleClass)) fn();
+    for (const fn of Object.values(toggleAttribute)) fn();
     return current_key_exports.getCurrentDependencies();
   };
   var setBindEffect = ({ data, id }) => {
@@ -7932,15 +7932,15 @@
         ...element.querySelectorAll(`[${ATTR_BIND_EFFECT}]`)
       ]
     );
-    occurrences.forEach((target) => {
+    for (const target of occurrences) {
       const id = target.getAttribute(ATTR_BIND_EFFECT);
-      if (!id) return;
+      if (!id) continue;
       const data = bindEffectMap.get(id);
-      if (!data) return;
+      if (!data) continue;
       target.removeAttribute(ATTR_BIND_EFFECT);
       watchBindEffect({ data, element: target });
       bindEffectMap.delete(id);
-    });
+    }
   };
   var applyBindEffectFromComponent = ({ moduleId, target }) => {
     const data = bindEffectMap.get(moduleId);
@@ -7951,33 +7951,33 @@
   };
   var applyClass = ({ ref, data }) => {
     if (!data || !ref) return;
-    Object.entries(data).forEach(([className, fn]) => {
-      if (!ref.deref()) return;
+    for (const [className, fn] of Object.entries(data)) {
+      if (!ref.deref()) continue;
       ref.deref().classList.toggle(className, fn?.());
-    });
+    }
   };
   var applyStyle = ({ ref, data }) => {
     if (!ref) return;
-    Object.entries(data).forEach(([styleName, fn]) => {
-      if (!ref.deref()) return;
+    for (const [styleName, fn] of Object.entries(data)) {
+      if (!ref.deref()) continue;
       ref.deref().style[styleName] = fn?.() ?? "";
-    });
+    }
   };
   var applyAttribute = ({ ref, data }) => {
     if (!ref) return;
-    Object.entries(data).forEach(([attributeName, fn]) => {
-      if (!ref.deref()) return;
+    for (const [attributeName, fn] of Object.entries(data)) {
+      if (!ref.deref()) continue;
       const value = fn?.();
       if (modules_exports.checkType(Boolean, value)) {
         ref.deref()[attributeName] = value;
-        return;
+        continue;
       }
       if (!value) {
         ref.deref().removeAttribute(attributeName);
-        return;
+        continue;
       }
       ref.deref()?.setAttribute(attributeName, value);
-    });
+    }
   };
   var watchBindEffect = ({ data, element }) => {
     let ref = new WeakRef(element);
@@ -8017,9 +8017,9 @@
             await repeaterTick();
             await invalidateTick();
             if (ref?.deref() && !ref.deref()?.isConnected) {
-              unsubScribeFunction.forEach((fn) => {
+              for (const fn of unsubScribeFunction) {
                 if (fn) fn();
-              });
+              }
               unsubScribeFunction = [];
               ref = null;
               return;
@@ -8080,19 +8080,19 @@
     };
   };
   var addBindRefsToComponent = (refs) => {
-    Object.entries(refs).forEach(([refName, entries]) => {
-      entries.forEach(({ element, scopeId }) => {
+    for (const [refName, entries] of Object.entries(refs)) {
+      for (const { element, scopeId } of entries) {
         const item = componentMap.get(scopeId);
-        if (!item) return;
+        if (!item) continue;
         const { refs: previousRef } = item;
-        if (!previousRef) return;
+        if (!previousRef) continue;
         const newRefs = refName in previousRef ? mergeRefsAndOrder({ refs: previousRef, refName, element }) : { ...previousRef, [refName]: [element] };
         componentMap.set(scopeId, {
           ...item,
           refs: newRefs
         });
-      });
-    });
+      }
+    }
   };
   var getBindRefsById = ({ id }) => {
     const item = componentMap.get(id);
@@ -8206,11 +8206,11 @@
   var applyDelegationBindEvent = (root2) => {
     const parent = root2.parentNode;
     const elements = parent?.querySelectorAll(`[${ATTR_WEAK_BIND_EVENTS}]`) ?? [];
-    [...elements].forEach((element) => {
+    for (const element of elements) {
       const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS) ?? "";
       element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
       const eventArray = tempDelegateEventMap.get(id);
-      if (!eventArray) return;
+      if (!eventArray) continue;
       const eventsParsed = eventArray.map(([eventName, callback2]) => {
         const force = eventName.toUpperCase().endsWith(FORCE_EVENT);
         const eventParsed = eventName.toUpperCase().replaceAll(FORCE_EVENT, "").toLowerCase();
@@ -8224,7 +8224,7 @@
       });
       eventDelegationMap.set(element, eventsParsed);
       tempDelegateEventMap.delete(id);
-    });
+    }
     const rootElement = getRoot();
     for (const eventKey of eventToAdd) {
       if (eventRegistered.has(eventKey)) continue;
@@ -8305,12 +8305,12 @@
       componentId: id,
       module: MODULE_REPEATER
     });
-    repeatToDelete.forEach(({ unsubscribe: unsubscribe3, moduleId }) => {
-      unsubscribe3.forEach((fn) => {
+    for (const { unsubscribe: unsubscribe3, moduleId } of repeatToDelete) {
+      for (const fn of unsubscribe3) {
         fn();
-      });
+      }
       removeRepeatByRepeatId({ id, repeatId: moduleId });
-    });
+    }
   };
 
   // src/js/mob/mob-js/modules/repeater/action/initialize/inizialize-nested-repeat.js
@@ -8323,9 +8323,9 @@
       componentId: id,
       module: MODULE_REPEATER
     });
-    repeaterToInitialize.forEach(({ initializeModule }) => {
+    for (const { initializeModule } of repeaterToInitialize) {
       initializeModule();
-    });
+    }
   };
 
   // src/js/mob/mob-js/modules/invalidate/action/set/set-invalidate-unsubcribe.js
@@ -8363,12 +8363,12 @@
       componentId: id,
       module: MODULE_INVALIDATE
     });
-    invalidatToDelete.forEach(({ unsubscribe: unsubscribe3, moduleId }) => {
-      unsubscribe3.forEach((fn) => {
+    for (const { unsubscribe: unsubscribe3, moduleId } of invalidatToDelete) {
+      for (const fn of unsubscribe3) {
         fn();
-      });
+      }
       removeInvalidateByInvalidateId({ id, invalidateId: moduleId });
-    });
+    }
   };
 
   // src/js/mob/mob-js/modules/invalidate/action/get/get-invalidate-parent.js
@@ -8396,9 +8396,9 @@
       componentId: id,
       module: MODULE_INVALIDATE
     });
-    invalidateToInitialize.forEach(({ initializeModule }) => {
+    for (const { initializeModule } of invalidateToInitialize) {
       initializeModule();
-    });
+    }
   };
 
   // src/js/mob/mob-js/modules/invalidate/action/initialize/inizialize-invalidate-watch.js
@@ -8564,11 +8564,11 @@
   };
   var removeActiveRepeat = ({ id, state, container }) => {
     if (!container) return;
-    activeRepeatMap.forEach((repeat) => {
+    for (const repeat of activeRepeatMap) {
       if (id === repeat.id && state === repeat.state && container === repeat.container) {
         activeRepeatMap.delete(repeat);
       }
-    });
+    }
   };
   var getActiveRepeater = ({ id = "", state = "", container }) => {
     const repeatIsActive = [...activeRepeatMap].some((repeat) => {
@@ -8946,10 +8946,10 @@
       })
     ).filter((item) => item.length > 0);
     const shouldRemoveComponent = componentsToRemoveByKey.length > 0;
-    componentsToRemoveByKey.forEach((item) => {
+    for (const item of componentsToRemoveByKey) {
       const firstOccurrence = item[0].element;
       const firstCurrentId = item[0].id;
-      if (!firstCurrentId) return;
+      if (!firstCurrentId) continue;
       const elementWrapper = getRepeaterInnerWrap({ id: firstCurrentId });
       const nestedParent = (
         /** @type {HTMLElement} */
@@ -8957,19 +8957,19 @@
       );
       destroyNestedInvalidate({ id, invalidateParent: nestedParent });
       destroyNestedRepeat({ id, repeatParent: nestedParent });
-      item.forEach(({ id: id2 }) => {
+      for (const { id: id2 } of item) {
         removeAndDestroyById({ id: id2 });
-      });
+      }
       if (elementWrapper) {
         elementWrapper.remove();
       }
-    });
+    }
     if (!shouldRemoveComponent) {
       const childrenFromRepeater = getRepeaterNativeDOMChildren({ repeatId });
       const itemToRemove = childrenFromRepeater.filter((item) => {
         return currentItemToRemoveByKey.map((item2) => item2?.[key]).includes(item.value?.[key]);
       });
-      itemToRemove.forEach((item) => {
+      for (const item of itemToRemove) {
         const { element: currentElement } = item;
         destroyNestedInvalidate({ id, invalidateParent: currentElement });
         destroyNestedRepeat({ id, repeatParent: currentElement });
@@ -8977,7 +8977,7 @@
           id,
           container: currentElement
         });
-      });
+      }
     }
     const newSequenceByKey = mixPreviousAndCurrentData(
       currentUnique,
@@ -9008,44 +9008,42 @@
     });
     repeaterParentElement.replaceChildren();
     const fragment = new DocumentFragment();
-    newSequenceByKey.forEach(
-      ({
-        isNewElement,
-        keyValue,
-        index,
-        persistentElement,
-        persistentDOMwrapper
-      }) => {
-        if (!isNewElement) {
-          const { debug } = getDefaultComponent();
-          if (persistentDOMwrapper) {
-            fragment.append(persistentDOMwrapper);
-          }
-          const componentWithNoWrapper = persistentElement?.[0]?.element;
-          if (!persistentDOMwrapper && componentWithNoWrapper) {
-            fragment.append(componentWithNoWrapper);
-            if (debug) {
-              addDebugToComponent({
-                element: persistentElement[0]?.element,
-                container: repeaterParentElement
-              });
-            }
-          }
-          return;
+    for (const {
+      isNewElement,
+      keyValue,
+      index,
+      persistentElement,
+      persistentDOMwrapper
+    } of newSequenceByKey) {
+      if (!isNewElement) {
+        const { debug } = getDefaultComponent();
+        if (persistentDOMwrapper) {
+          fragment.append(persistentDOMwrapper);
         }
-        const currentValue = currentUnique?.[index];
-        const currentRender = updateRepeaterWithtKey({
-          currentValue,
-          index,
-          state,
-          repeatId,
-          key,
-          keyValue,
-          render: render2
-        });
-        if (currentRender) fragment.append(currentRender);
+        const componentWithNoWrapper = persistentElement?.[0]?.element;
+        if (!persistentDOMwrapper && componentWithNoWrapper) {
+          fragment.append(componentWithNoWrapper);
+          if (debug) {
+            addDebugToComponent({
+              element: persistentElement[0]?.element,
+              container: repeaterParentElement
+            });
+          }
+        }
+        continue;
       }
-    );
+      const currentValue = currentUnique?.[index];
+      const currentRender = updateRepeaterWithtKey({
+        currentValue,
+        index,
+        state,
+        repeatId,
+        key,
+        keyValue,
+        render: render2
+      });
+      if (currentRender) fragment.append(currentRender);
+    }
     repeaterParentElement.append(fragment);
     return currentUnique;
   };
@@ -9108,8 +9106,8 @@
           return i >= current.length;
         }
       );
-      componentToRemoveByKey.forEach((childArray) => {
-        childArray.forEach((childId) => {
+      for (const childArray of componentToRemoveByKey) {
+        for (const childId of childArray) {
           const element = getElementById({ id: childId });
           const elementWrapper = getRepeaterInnerWrap({
             id: childId
@@ -9122,8 +9120,8 @@
           destroyNestedRepeat({ id, repeatParent: nestedParent });
           removeAndDestroyById({ id: childId });
           if (elementWrapper) elementWrapper.remove();
-        });
-      });
+        }
+      }
       const { debug } = getDefaultComponent();
       if (debug) removeMissedDebugComment(repeaterParentElement);
       if (childrenComponentChunkedByWrapper.length > 0) return current;
@@ -9134,7 +9132,7 @@
           return index >= current.length;
         }
       );
-      childrenFromRepeaterToRemove.forEach((item) => {
+      for (const item of childrenFromRepeaterToRemove) {
         const { element: currentElement } = item;
         destroyNestedInvalidate({ id, invalidateParent: currentElement });
         destroyNestedRepeat({ id, repeatParent: currentElement });
@@ -9143,7 +9141,7 @@
           container: currentElement
         });
         currentElement.remove();
-      });
+      }
     }
     return current;
   };
@@ -9255,9 +9253,9 @@
           return;
         }
         if (clean2) {
-          childrenBeforeUdateByRepeatId.forEach((id2) => {
+          for (const id2 of childrenBeforeUdateByRepeatId) {
             removeAndDestroyById({ id: id2 });
-          });
+          }
           if (repeaterParentElement) {
             repeaterParentElement.textContent = "";
           }
@@ -9302,17 +9300,17 @@
             index
           ])
         ) : /* @__PURE__ */ new Map();
-        chunkChildrenOrdered.forEach((childArray, index) => {
+        for (const [index, childArray] of chunkChildrenOrdered.entries()) {
           const currentValue = currentUpdated?.[index];
-          if (!currentValue) return;
+          if (!currentValue) continue;
           const realIndex = hasKey ? keyToIndex.get(`${currentValue?.[key]}`) ?? -1 : index;
-          childArray.forEach((id2) => {
+          for (const id2 of childArray) {
             setRepeaterStateById({
               id: id2,
               value: { current: currentValue, index: realIndex }
             });
-          });
-        });
+          }
+        }
         modules_exports.useNextLoop(async () => {
           if (mainComponent) {
             afterUpdate();
@@ -10112,17 +10110,15 @@
           });
         },
         fireInvalidateFunction: invalidateFunctions.length > 0 ? () => {
-          invalidateFunctions.forEach(
-            ({ initializeModule }) => {
-              initializeModule?.();
-            }
-          );
+          for (const { initializeModule } of invalidateFunctions) {
+            initializeModule?.();
+          }
         } : () => {
         },
         fireRepeatFunction: repeatFunctions.length > 0 ? () => {
-          repeatFunctions.forEach(({ initializeModule }) => {
+          for (const { initializeModule } of repeatFunctions) {
             initializeModule?.();
-          });
+          }
         } : () => {
         }
       });
@@ -11033,7 +11029,7 @@
     })(target);
     const isObject = (obj) => obj && typeof obj === "object";
     if (!isObject(target) || !isObject(source)) return source;
-    Object.keys(source).forEach((key) => {
+    for (const key of Object.keys(source)) {
       const targetValue = target[key];
       const sourceValue = source[key];
       if (Array.isArray(targetValue) && Array.isArray(sourceValue))
@@ -11055,7 +11051,7 @@
           isMergingArrays
         );
       else target[key] = sourceValue;
-    });
+    }
     return target;
   };
 
@@ -12858,7 +12854,7 @@
     const chunksize = stagger.grid.direction === DIRECTION_ROW ? chunckSizeRow : chunckSizeCol;
     const chunked = sliceIntoChunks(staggerArray, chunksize);
     const firstChunk = chunked[0];
-    firstChunk.forEach((item, i) => {
+    for (const [i, item] of firstChunk.entries()) {
       const { index, frame } = getStaggerIndex(
         i,
         chunked[0].length,
@@ -12877,24 +12873,24 @@
           index,
           frame
         };
-    });
-    chunked.forEach((chunkItem) => {
-      chunkItem.forEach((item, i) => {
+    }
+    for (const chunkItem of chunked) {
+      for (const [i, item] of chunkItem.entries()) {
         if (item) {
           item.index = chunked[0][i].index;
           item.frame = chunked[0][i].frame;
         }
-      });
-    });
+      }
+    }
     const flatArray = chunked.flat();
-    flatArray.forEach((item, i) => {
+    for (const [i, item] of flatArray.entries()) {
       staggerArray[i].index = item.index;
       staggerArray[i].frame = item.frame;
       if (staggerArrayOnComplete.length > 0) {
         staggerArrayOnComplete[i].index = item.index;
         staggerArrayOnComplete[i].frame = item.frame;
       }
-    });
+    }
     return {
       staggerArray,
       staggerArrayOnComplete,
@@ -12949,9 +12945,9 @@
     const { col } = stagger.grid;
     const { x, y } = stagger.from;
     const chunk = sliceIntoChunks(arr, col);
-    [...Array.from({ length: col }).keys()].forEach(() => {
+    for (let i = 0; i < col; i++) {
       chunk.push([]);
-    });
+    }
     const radialArrY = getRadialY(chunk, x, y);
     const radialArrX = getRadialX(radialArrY, x, y, chunk);
     const radialXY = radialArrY.reduce((p, _c, i) => {
@@ -13024,8 +13020,8 @@
     }
     const { cleanArray: cleanCb } = getRadialArray(arrayDefault, stagger);
     let counter2 = 0;
-    cleanCb.forEach((chunk, i) => {
-      chunk.forEach((item) => {
+    for (const [i, chunk] of cleanCb.entries()) {
+      for (const item of chunk) {
         const eachByFps = getEachByFps(stagger.each);
         const frame = i * eachByFps;
         item.index = counter2;
@@ -13041,8 +13037,8 @@
             frame
           };
         counter2++;
-      });
-    });
+      }
+    }
     const cleanEndCb = (() => {
       if (arrayOnStop.length > 0) {
         const { cleanArray } = getRadialArray(arrayOnStop, stagger);
@@ -13053,12 +13049,12 @@
     })();
     const staggerArray = cleanCb.flat();
     const endstaggerArray = cleanEndCb.flat();
-    staggerArray.forEach((item, i) => {
+    for (const [i, item] of staggerArray.entries()) {
       if (endstaggerArray.length > 0) {
         endstaggerArray[i].index = item.index;
         endstaggerArray[i].frame = item.frame;
       }
-    });
+    }
     return {
       staggerArray,
       staggerArrayOnComplete: endstaggerArray,
@@ -13135,25 +13131,25 @@
   }) => {
     if (stagger.each === 0 || !useStagger) {
       modules_exports.useFrame(() => {
-        callback2.forEach(({ cb }) => {
+        for (const { cb } of callback2) {
           cb(callBackObject);
-        });
+        }
       });
       modules_exports.useFrame(() => {
-        callbackCache.forEach(({ cb }) => {
+        for (const { cb } of callbackCache) {
           modules_exports.useCache.fireObject({ id: cb, obj: callBackObject });
-        });
+        }
       });
       return;
     }
-    callback2.forEach(({ cb, frame }) => {
+    for (const { cb, frame } of callback2) {
       modules_exports.useFrameIndex(() => {
         cb(callBackObject);
       }, frame);
-    });
-    callbackCache.forEach(({ cb, frame }) => {
+    }
+    for (const { cb, frame } of callbackCache) {
       modules_exports.useCache.update({ id: cb, callBackObject, frame });
-    });
+    }
   };
   var defaultCallbackOnComplete = ({
     onComplete: onComplete2,
@@ -13169,19 +13165,19 @@
     if (stagger.each === 0 || !useStagger) {
       onComplete2();
       modules_exports.useNextFrame(() => {
-        callback2.forEach(({ cb }) => {
+        for (const { cb } of callback2) {
           cb(callBackObject);
-        });
-        callbackCache.forEach(({ cb }) => {
+        }
+        for (const { cb } of callbackCache) {
           modules_exports.useCache.fireObject({ id: cb, obj: callBackObject });
-        });
-        callbackOnComplete.forEach(({ cb }) => {
+        }
+        for (const { cb } of callbackOnComplete) {
           cb(callBackObject);
-        });
+        }
       });
       return;
     }
-    callback2.forEach(({ cb, frame }, index) => {
+    for (const [index, { cb, frame }] of callback2.entries()) {
       modules_exports.useFrameIndex(() => {
         if (stagger.waitComplete) {
           if (index === slowlestStagger.index) {
@@ -13195,8 +13191,8 @@
           onComplete2();
         }
       }, frame);
-    });
-    callbackCache.forEach(({ cb, frame }, index) => {
+    }
+    for (const [index, { cb, frame }] of callbackCache.entries()) {
       modules_exports.useFrameIndex(() => {
         if (stagger.waitComplete) {
           if (index === slowlestStagger.index) {
@@ -13213,12 +13209,12 @@
           onComplete2();
         }
       }, frame);
-    });
-    callbackOnComplete.forEach(({ cb, frame }) => {
+    }
+    for (const { cb, frame } of callbackOnComplete) {
       modules_exports.useFrameIndex(() => {
         cb(callBackObject);
       }, frame + 1);
-    });
+    }
   };
 
   // src/js/mob/mob-motion/animation/utils/callbacks/set-callback.js
@@ -13887,7 +13883,7 @@
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
       this.unFreezeStagger();
       if (clearCache)
-        this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.clean(cb));
+        for (const { cb } of this.#callbackCache) modules_exports.useCache.clean(cb);
       if (this.#currentReject) {
         this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
         this.#currentPromise = void 0;
@@ -13901,7 +13897,7 @@
      */
     freezeStagger() {
       if (this.#staggerIsFreezed) return;
-      this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.freeze(cb));
+      for (const { cb } of this.#callbackCache) modules_exports.useCache.freeze(cb);
       this.#staggerIsFreezed = true;
     }
     /**
@@ -13911,9 +13907,7 @@
      */
     unFreezeStagger({ updateFrame = true } = {}) {
       if (!this.#staggerIsFreezed) return;
-      this.#callbackCache.forEach(
-        ({ cb }) => modules_exports.useCache.unFreeze({ id: cb, update: updateFrame })
-      );
+      for (const { cb } of this.#callbackCache) modules_exports.useCache.unFreeze({ id: cb, update: updateFrame });
       this.#staggerIsFreezed = false;
     }
     /**
@@ -14332,7 +14326,7 @@
       this.#callbackCache = [];
       this.#values = [];
       this.#currentPromise = void 0;
-      this.#unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
+      for (const unsubscribe3 of this.#unsubscribeCache) unsubscribe3();
       this.#unsubscribeCache = [];
     }
   };
@@ -15004,7 +14998,7 @@
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
       this.unFreezeStagger();
       if (clearCache)
-        this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.clean(cb));
+        for (const { cb } of this.#callbackCache) modules_exports.useCache.clean(cb);
       if (this.#currentReject) {
         this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
         this.#currentPromise = void 0;
@@ -15018,7 +15012,7 @@
      */
     freezeStagger() {
       if (this.#staggerIsFreezed) return;
-      this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.freeze(cb));
+      for (const { cb } of this.#callbackCache) modules_exports.useCache.freeze(cb);
       this.#staggerIsFreezed = true;
     }
     /**
@@ -15028,9 +15022,7 @@
      */
     unFreezeStagger({ updateFrame = true } = {}) {
       if (!this.#staggerIsFreezed) return;
-      this.#callbackCache.forEach(
-        ({ cb }) => modules_exports.useCache.unFreeze({ id: cb, update: updateFrame })
-      );
+      for (const { cb } of this.#callbackCache) modules_exports.useCache.unFreeze({ id: cb, update: updateFrame });
       this.#staggerIsFreezed = false;
     }
     /**
@@ -15433,7 +15425,7 @@
       this.#callbackCache = [];
       this.#values = [];
       this.#currentPromise = void 0;
-      this.#unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
+      for (const unsubscribe3 of this.#unsubscribeCache) unsubscribe3();
       this.#unsubscribeCache = [];
     }
   };
@@ -15450,30 +15442,30 @@
   }) => {
     if (each === 0 || useStagger === false) {
       modules_exports.useFrame(() => {
-        callback2.forEach(({ cb }) => cb(callBackObject));
+        for (const { cb } of callback2) cb(callBackObject);
       });
       modules_exports.useFrame(() => {
-        callbackCache.forEach(({ cb }) => {
+        for (const { cb } of callbackCache) {
           modules_exports.useCache.fireObject({ id: cb, obj: callBackObject });
-        });
+        }
       });
     } else {
-      callback2.forEach(({ cb, frame }) => {
+      for (const { cb, frame } of callback2) {
         modules_exports.useFrameIndex(() => cb(callBackObject), frame);
-      });
-      callbackCache.forEach(({ cb, frame }) => {
+      }
+      for (const { cb, frame } of callbackCache) {
         modules_exports.useCache.update({ id: cb, callBackObject, frame });
-      });
+      }
     }
     if (isLastDraw) {
       if (each === 0 || useStagger === false) {
         modules_exports.useFrame(() => {
-          callbackOnStop.forEach(({ cb }) => cb(callBackObject));
+          for (const { cb } of callbackOnStop) cb(callBackObject);
         });
       } else {
-        callbackOnStop.forEach(({ cb, frame }) => {
+        for (const { cb, frame } of callbackOnStop) {
           modules_exports.useFrameIndex(() => cb(callBackObject), frame + 1);
-        });
+        }
       }
     }
   };
@@ -15759,7 +15751,7 @@
       this.#callbackOnStop = [];
       this.#callback = [];
       this.#callbackCache = [];
-      this.#unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
+      for (const unsubscribe3 of this.#unsubscribeCache) unsubscribe3();
       this.#unsubscribeCache = [];
     }
   };
@@ -15785,9 +15777,9 @@
      * @returns {void}
      */
     draw({ partial, isLastDraw, useFrame: useFrame2 }) {
-      this.#children.forEach((item) => {
+      for (const item of this.#children) {
         item.draw({ partial, isLastDraw, useFrame: useFrame2 });
-      });
+      }
     }
     /**
      * @param {import('./type').MasterSequencerItem} item
@@ -15800,18 +15792,18 @@
      * @returns {void}
      */
     inzializeStagger() {
-      this.#children.forEach((item) => {
+      for (const item of this.#children) {
         item.inzializeStagger();
-      });
+      }
     }
     /**
      * @param {number} val
      * @returns {void}
      */
     setDuration(val) {
-      this.#children.forEach((item) => {
+      for (const item of this.#children) {
         item.setDuration(val);
-      });
+      }
     }
     /**
      * @returns {number}
@@ -15824,9 +15816,9 @@
      * @returns {void}
      */
     setStretchFactor(val) {
-      this.#children.forEach((item) => {
+      for (const item of this.#children) {
         item.setStretchFactor(val);
-      });
+      }
     }
     /**
      * @returns {import('./type').LabelType[]}
@@ -15838,39 +15830,39 @@
      * @returns {void}
      */
     resetLastValue() {
-      this.#children.forEach((item) => item.resetLastValue());
+      for (const item of this.#children) item.resetLastValue();
     }
     /**
      * @returns {void}
      */
     disableStagger() {
-      this.#children.forEach((item) => {
+      for (const item of this.#children) {
         item.disableStagger();
-      });
+      }
     }
     /**
      * @returns {void}
      */
     cleanCachedId() {
-      this.#children.forEach((item) => {
+      for (const item of this.#children) {
         item.cleanCachedId();
-      });
+      }
     }
     /**
      * @returns {void}
      */
     freezeCachedId() {
-      this.#children.forEach((item) => {
+      for (const item of this.#children) {
         item.freezeCachedId();
-      });
+      }
     }
     /**
      * @returns {void}
      */
     unFreezeCachedId() {
-      this.#children.forEach((item) => {
+      for (const item of this.#children) {
         item.unFreezeCachedId();
-      });
+      }
     }
     /**
      * @returns {string}
@@ -15882,9 +15874,9 @@
      * @returns {void}
      */
     destroy() {
-      this.#children.forEach((item) => {
+      for (const item of this.#children) {
         item.destroy();
-      });
+      }
       this.#children = [];
     }
   };
@@ -16401,7 +16393,7 @@
      */
     #actionAtFirstRender(time2 = 0) {
       if (!this.#forceAddFnAtFirstRun) return;
-      this.#callbackAdd.forEach(({ fn, time: fnTime }) => {
+      for (const { fn, time: fnTime } of this.#callbackAdd) {
         const mustFireForward = {
           shouldFire: time2 >= fnTime,
           direction: directionConstant.FORWARD
@@ -16411,10 +16403,10 @@
           direction: directionConstant.BACKWARD
         };
         const mustFire = mustFireForward.shouldFire || mustFireBackward.shouldFire;
-        if (!mustFire) return;
+        if (!mustFire) continue;
         const direction2 = mustFireForward.shouldFire ? mustFireForward.direction : mustFireBackward.direction;
         fn({ direction: direction2, value: time2, isForced: true });
-      });
+      }
       this.#forceAddFnAtFirstRun = false;
     }
     /**
@@ -16423,13 +16415,13 @@
      * @property {number} [time=0] Default is `0`
      */
     #fireAddCallBack(time2 = 0) {
-      this.#callbackAdd.forEach(({ fn, time: fnTime }) => {
+      for (const { fn, time: fnTime } of this.#callbackAdd) {
         const mustFireForward = this.#direction === directionConstant.FORWARD && time2 > fnTime && this.#lastPartial <= fnTime;
         const mustFireBackward = this.#direction === directionConstant.BACKWARD && time2 < fnTime && this.#lastPartial >= fnTime;
         const mustFire = mustFireForward || mustFireBackward;
-        if (!mustFire) return;
+        if (!mustFire) continue;
         fn({ direction: this.#direction, value: time2, isForced: false });
-      });
+      }
     }
     /**
      * Set factor between timeline duration and sequencer getDuration So start and end propierties will be proportionate
@@ -16723,21 +16715,19 @@
      * when it is stopped
      */
     cleanCachedId() {
-      this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.clean(cb));
+      for (const { cb } of this.#callbackCache) modules_exports.useCache.clean(cb);
     }
     /**
      * ...
      */
     freezeCachedId() {
-      this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.freeze(cb));
+      for (const { cb } of this.#callbackCache) modules_exports.useCache.freeze(cb);
     }
     /**
      * ...
      */
     unFreezeCachedId() {
-      this.#callbackCache.forEach(
-        ({ cb }) => modules_exports.useCache.unFreeze({ id: cb, update: true })
-      );
+      for (const { cb } of this.#callbackCache) modules_exports.useCache.unFreeze({ id: cb, update: true });
     }
     /**
      * Disable stagger for one run
@@ -16757,7 +16747,7 @@
       this.#callbackCache = [];
       this.#callbackOnStop = [];
       this.#callbackAdd = [];
-      this.#unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
+      for (const unsubscribe3 of this.#unsubscribeCache) unsubscribe3();
       this.#unsubscribeCache = [];
     }
   };
@@ -17148,7 +17138,7 @@
       if (updateValues) this.#values = setFromToByCurrent(this.#values);
       this.unFreezeStagger();
       if (clearCache)
-        this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.clean(cb));
+        for (const { cb } of this.#callbackCache) modules_exports.useCache.clean(cb);
       if (this.#currentReject) {
         this.#currentReject(modules_exports.ANIMATION_STOP_REJECT);
         this.#currentPromise = void 0;
@@ -17162,7 +17152,7 @@
      */
     freezeStagger() {
       if (this.#staggerIsFreezed) return;
-      this.#callbackCache.forEach(({ cb }) => modules_exports.useCache.freeze(cb));
+      for (const { cb } of this.#callbackCache) modules_exports.useCache.freeze(cb);
       this.#staggerIsFreezed = true;
     }
     /**
@@ -17172,9 +17162,7 @@
      */
     unFreezeStagger({ updateFrame = true } = {}) {
       if (!this.#staggerIsFreezed) return;
-      this.#callbackCache.forEach(
-        ({ cb }) => modules_exports.useCache.unFreeze({ id: cb, update: updateFrame })
-      );
+      for (const { cb } of this.#callbackCache) modules_exports.useCache.unFreeze({ id: cb, update: updateFrame });
       this.#staggerIsFreezed = false;
     }
     /**
@@ -17563,7 +17551,7 @@
       this.#callbackCache = [];
       this.#values = [];
       this.#currentPromise = void 0;
-      this.#unsubscribeCache.forEach((unsubscribe3) => unsubscribe3());
+      for (const unsubscribe3 of this.#unsubscribeCache) unsubscribe3();
       this.#unsubscribeCache = [];
     }
   };
@@ -18329,7 +18317,7 @@
           this.#onRepeat();
           return;
         }
-        this.#callbackComplete.forEach(({ cb }) => cb());
+        for (const { cb } of this.#callbackComplete) cb();
         this.#isStopped = true;
         if (this.#currentResolve) {
           handleNextFrame.add(() => {
@@ -18411,12 +18399,10 @@
     #onRepeat() {
       if (this.#loopCounter > 0) {
         const direction2 = this.getDirection();
-        this.#callbackLoop.forEach(
-          ({ cb }) => cb({
-            direction: direction2,
-            loop: this.#loopCounter
-          })
-        );
+        for (const { cb } of this.#callbackLoop) cb({
+          direction: direction2,
+          loop: this.#loopCounter
+        });
       }
       this.#loopCounter++;
       this.#currentIndex = 0;
@@ -18532,7 +18518,7 @@
      * @type {() => void}
      */
     #resetAllTween() {
-      this.#tweenStore.forEach(({ tween: tween2 }) => tween2.resetData());
+      for (const { tween: tween2 } of this.#tweenStore) tween2.resetData();
     }
     /**
      * @type {import('./type.js').AsyncTimelineSet}
@@ -18782,7 +18768,7 @@
     #addSetBlocks() {
       if (this.#autoSetIsJustCreated) return;
       this.#autoSetIsJustCreated = true;
-      this.#tweenStore.forEach(({ tween: tween2 }) => {
+      for (const { tween: tween2 } of this.#tweenStore) {
         const setValueTo = tween2.getInitialData();
         this.#currentTweenCounter++;
         this.#tweenList = [
@@ -18802,8 +18788,8 @@
           ],
           ...this.#tweenList
         ];
-      });
-      this.#tweenStore.forEach(({ tween: tween2 }) => {
+      }
+      for (const { tween: tween2 } of this.#tweenStore) {
         const setValueTo = reduceTweenUntilIndex({
           timeline: this.#tweenList,
           tween: tween2,
@@ -18824,7 +18810,7 @@
             }
           }
         ]);
-      });
+      }
     }
     /**
      * Execute a set() method of specified tweens at specified label
@@ -19050,9 +19036,9 @@
       this.#isInSuspension = false;
       this.#addAsyncIsActive = false;
       this.#timeOnPause = 0;
-      this.#tweenStore.forEach(({ tween: tween2 }) => {
+      for (const { tween: tween2 } of this.#tweenStore) {
         tween2?.stop?.({ clearCache });
-      });
+      }
       if (this.#isReverse) this.#revertTween();
       this.#isReverse = false;
       if (!this.#freeMode) this.#resetAllTween();
@@ -19096,17 +19082,17 @@
      * @returns {void}
      */
     #pauseAllTween() {
-      this.#currentTween.forEach(({ tween: tween2 }) => {
+      for (const { tween: tween2 } of this.#currentTween) {
         tween2?.pause?.();
-      });
+      }
     }
     /**
      * @returns {void}
      */
     #resumeAllTween() {
-      this.#currentTween.forEach(({ tween: tween2 }) => {
+      for (const { tween: tween2 } of this.#currentTween) {
         tween2?.resume?.();
-      });
+      }
     }
     /**
      * Unfreeze stagger used with subscribeCache. Use es: play after pause need restore stagger cache
@@ -19236,9 +19222,9 @@
      * Destroy timeline and all the sequencer
      */
     destroy() {
-      this.#tweenStore.forEach(({ tween: tween2 }) => {
+      for (const { tween: tween2 } of this.#tweenStore) {
         tween2?.destroy?.();
-      });
+      }
       this.#tweenList = [];
       this.#currentTween = [];
       this.#callbackComplete = [];
@@ -19471,19 +19457,19 @@
       if (!this.#isInPause) {
         this.#currentTime = clamp3(partial, 0, this.#duration);
         if (!this.#skipFirstRender) {
-          this.#sequencers.forEach((item) => {
+          for (const item of this.#sequencers) {
             item.draw({
               partial: this.#currentTime,
               isLastDraw: false,
               useFrame: true,
               direction: direction2
             });
-          });
+          }
           this.#updateData.time = this.#currentTime;
           this.#updateData.direction = direction2;
-          this.#callbackOnUpdate.forEach(({ cb }) => {
+          for (const { cb } of this.#callbackOnUpdate) {
             cb(this.#updateData);
-          });
+          }
         }
       }
       this.#skipFirstRender = false;
@@ -19509,24 +19495,24 @@
           this.#loopIteration = 0;
           this.#loopData.direction = direction2;
           this.#loopData.loop = this.#loopCounter;
-          this.#callbackLoop.forEach(({ cb }) => cb(this.#loopData));
+          for (const { cb } of this.#callbackLoop) cb(this.#loopData);
         }
       });
       if (!this.#repeat || this.#loopCounter === this.#repeat - 1 && this.#loopIteration > this.#minLoopIteration) {
         const endTime = this.#currentTime;
-        this.#sequencers.forEach((item) => {
+        for (const item of this.#sequencers) {
           item.draw({
             partial: endTime,
             isLastDraw: true,
             useFrame: true,
             direction: direction2
           });
-        });
+        }
         this.#isStopped = true;
         this.#resetTime();
         this.#startTime = time2;
         if (this.#isReverse) this.#isReverse = false;
-        this.#callbackComplete.forEach(({ cb }) => cb());
+        for (const { cb } of this.#callbackComplete) cb();
         if (this.#currentResolve) this.#currentResolve(true);
         return;
       }
@@ -19768,7 +19754,7 @@
       const { averageFPS } = await modules_exports.useFps();
       fpsLoadedLog("sequencer", averageFPS);
       this.#isReverse = false;
-      this.#sequencers.forEach((item) => {
+      for (const item of this.#sequencers) {
         item.inzializeStagger();
         item.disableStagger();
         item.draw({
@@ -19777,7 +19763,7 @@
           useFrame: true,
           direction: this.getDirection()
         });
-      });
+      }
       modules_exports.useFrame(() => {
         modules_exports.useNextTick(({ time: time2, fps: fps2 }) => {
           this.#startTime = time2;
@@ -19797,9 +19783,9 @@
       this.#isStopped = false;
       this.#isInPause = true;
       if (freezeCache) {
-        this.#sequencers.forEach((item) => {
+        for (const item of this.#sequencers) {
           item.freezeCachedId();
-        });
+        }
         return;
       }
     }
@@ -19810,9 +19796,9 @@
       if (this.#isStopped || !this.#isInPause || this.#fpsIsInLoading) return;
       this.#isInPause = false;
       if (unFreezeCache) {
-        this.#sequencers.forEach((item) => {
+        for (const item of this.#sequencers) {
           item.unFreezeCachedId();
-        });
+        }
         return;
       }
     }
@@ -19839,19 +19825,19 @@
       this.#isStopped = true;
       this.#rejectPromise();
       if (clearCache) {
-        this.#sequencers.forEach((item) => {
+        for (const item of this.#sequencers) {
           item.cleanCachedId();
-        });
+        }
         return;
       }
-      this.#sequencers.forEach((item) => {
+      for (const item of this.#sequencers) {
         item.draw({
           partial: this.#currentTime,
           isLastDraw: true,
           useFrame: true,
           direction: this.getDirection()
         });
-      });
+      }
     }
     /**
      * Add the instance of a sequencer | masterSequencer to the timeline
@@ -19882,7 +19868,7 @@
      * @returns {void}
      */
     #resetSequencerLastValue() {
-      this.#sequencers.forEach((item) => item.resetLastValue());
+      for (const item of this.#sequencers) item.resetLastValue();
     }
     /**
      * Return active status
@@ -20028,7 +20014,7 @@
      */
     destroy() {
       this.stop();
-      this.#sequencers.forEach((item) => item.destroy());
+      for (const item of this.#sequencers) item.destroy();
       this.#sequencers = [];
       this.#callbackOnUpdate = [];
       this.#callbackLoop = [];
@@ -23649,13 +23635,13 @@
       const originalShadowClass = data?.shadowClass || "shadow";
       this.#shadowMainClassTransition = originalShadowClass.replace(".", "");
       this.#buttons = this.#row.querySelectorAll("a, button");
-      this.#children.forEach((element) => {
+      for (const element of this.#children) {
         if (this.#row) element.setScroller(this.#row);
         element.setDirection("horizontal");
         element.setBreakPoint(this.#breakpoint);
         element.setQueryType(this.#queryType);
         element.init();
-      });
+      }
       if (this.#addCss)
         horizontalScrollerCss({
           mainContainer: this.#mainContainer,
@@ -23747,9 +23733,9 @@
         modules_exports.useFrameIndex(() => {
           modules_exports.useNextTick(() => {
             this.#afterInit?.();
-            this.#children.forEach((element) => {
+            for (const element of this.#children) {
               element.refresh();
-            });
+            }
           });
         }, 3);
       });
@@ -23758,15 +23744,13 @@
      * @type {() => void}
      */
     #setLinkAttribute() {
-      [...this.#buttons].forEach(
-        (item) => item.setAttribute("draggable", "false")
-      );
+      for (const item of this.#buttons) item.setAttribute("draggable", "false");
     }
     /**
      * @type {() => void}
      */
     #removeLinkAttribute() {
-      [...this.#buttons].forEach((item) => item.removeAttribute("draggable"));
+      for (const item of this.#buttons) item.removeAttribute("draggable");
     }
     /**
      * @type {(value: number) => void}
@@ -23942,7 +23926,7 @@
         }
         modules_exports.useFrame(() => {
           if (!this.#shadows) return;
-          [...this.#shadows].forEach((item) => {
+          for (const item of this.#shadows) {
             const percentrange = this.#percentRange / 100;
             const shadowData = item.dataset["shadow"];
             const width = outerWidth(item);
@@ -24015,7 +23999,7 @@
               endMarker.style.height = `${end + plusFull}px`;
             if (shadowTransitionEl)
               shadowTransitionEl.style.height = `${left}px`;
-          });
+          }
           resolve(true);
         });
       });
@@ -24070,9 +24054,9 @@
               parentIsMoving,
               percent: this.#reverse ? 100 - percent : percent
             });
-          this.#children.forEach((element) => {
+          for (const element of this.#children) {
             element.move({ value: valueParsed, parentIsMoving });
-          });
+          }
         },
         onEnter: this.#onEnter,
         onEnterBack: this.#onEnterBack,
@@ -24106,9 +24090,9 @@
       modules_exports.useFrameIndex(() => {
         modules_exports.useNextTick(() => {
           this.#afterRefresh?.();
-          this.#children.forEach((element) => {
+          for (const element of this.#children) {
             element?.refresh?.();
-          });
+          }
         });
       }, 3);
     }
@@ -24183,10 +24167,10 @@
             modules_exports.useNextTick(() => {
               this.#afterDestroy?.();
               this.#afterDestroy = NOOP;
-              this.#children.forEach((element) => {
+              for (let element of this.#children) {
                 element?.destroy?.();
                 element = null;
-              });
+              }
               this.#children = [];
             });
           }
@@ -24748,14 +24732,14 @@
         0.4
       );
       this.#children = data?.children || [];
-      this.#children.forEach((element) => {
+      for (const element of this.#children) {
         element.setScroller(this.#scroller);
         element.setDirection(this.#direction);
         element.setScreen(this.#screen);
         element.setBreakPoint(this.#breakpoint);
         element.setQueryType(this.#queryType);
         element.init();
-      });
+      }
       this.#scopedWhell = (event) => {
         this.#addWhellingClass();
         const { spinY } = modules_exports.normalizeWheel(event);
@@ -24913,9 +24897,9 @@
           this.#afterInit?.({
             shouldScroll: this.#getScrollableStatus()
           });
-          this.#children.forEach((element) => {
+          for (const element of this.#children) {
             element.refresh();
-          });
+          }
         });
       }, 3);
     }
@@ -25015,10 +24999,10 @@
         /** @type {HTMLElement} */
         this.#scroller.querySelectorAll("a, button")
       );
-      [...activeElements].forEach((item) => {
+      for (const item of activeElements) {
         item.setAttribute("draggable", "false");
         item.style["user-select"] = "none";
-      });
+      }
     }
     /**
      * @type {() => void}
@@ -25030,10 +25014,10 @@
         /** @type {HTMLElement} */
         this.#scroller.querySelectorAll("a, button")
       );
-      [...activeElement].forEach((item) => {
+      for (const item of activeElement) {
         item.removeAttribute("draggable");
         item.style["user-select"] = "";
-      });
+      }
     }
     /**
      * @type {() => void}
@@ -25042,21 +25026,21 @@
       if (!this.#motion) return;
       this.#subscribeMotion = this.#motion.subscribe(({ val }) => {
         this.#scroller.style.transform = this.#direction == MobScrollerConstant.DIRECTION_VERTICAL ? `translate3d(0px, 0px, 0px) translateY(${-Math.trunc(val)}px)` : `translate3d(0px, 0px, 0px) translateX(${-Math.trunc(val * this.#rtl)}px)`;
-        this.#children.forEach((element) => {
+        for (const element of this.#children) {
           element.triggerScrollStart();
-        });
+        }
         modules_exports.useNextTick(() => {
           this.#onTickCallback({
             value: -val,
             percent: this.#percent,
             parentIsMoving: true
           });
-          this.#children.forEach((element) => {
+          for (const element of this.#children) {
             element.move({
               value: -val,
               parentIsMoving: true
             });
-          });
+          }
         });
       });
       this.#subscribeOnComplete = this.#motion.onComplete(({ val }) => {
@@ -25067,13 +25051,13 @@
             percent: this.#percent,
             parentIsMoving: false
           });
-          this.#children.forEach((element) => {
+          for (const element of this.#children) {
             element.triggerScrollEnd();
             element.move({
               value: -val,
               parentIsMoving: false
             });
-          });
+          }
         });
       });
     }
@@ -25435,9 +25419,9 @@
           this.#onAfterRefresh?.({
             shouldScroll: this.#getScrollableStatus()
           });
-          this.#children.forEach((element) => {
+          for (const element of this.#children) {
             element.refresh();
-          });
+          }
         });
       }, 2);
     }
@@ -25469,9 +25453,9 @@
       this.#unSubscribeHandleTab();
       this.#motion?.destroy();
       this.#motion = null;
-      this.#children.forEach((element) => {
+      for (const element of this.#children) {
         element?.destroy?.();
-      });
+      }
       this.#children = [];
       this.#onTickCallback = NOOP;
       this.#onUpdateCallback = NOOP;
@@ -26683,9 +26667,9 @@
             });
           });
           if (!("anchorItems" in proxi)) return;
-          proxi.anchorItems.forEach((item) => {
+          for (const item of proxi.anchorItems) {
             item.top = offset(item.element).top;
-          });
+          }
         }, 200)
       );
       resizeObserver.observe(modules_exports2.getRoot());
@@ -28337,12 +28321,12 @@
       stagger,
       data: { scale: 1, rotate: 0 }
     });
-    data.forEach((item) => {
+    for (const item of data) {
       gridTween.subscribeCache(({ scale, rotate }) => {
         item.rotate = rotate;
         item.scale = scale;
       });
-    });
+    }
     const draw = () => {
       if (!ctx) return;
       const canvasWidth = canvas.width;
@@ -28358,47 +28342,45 @@
       } else {
         context2.reset();
       }
-      data.forEach(
-        ({
-          x,
-          y,
-          width,
-          height,
-          rotate,
-          scale,
-          hasFill,
-          offsetXCenter,
-          offsetYCenter
-        }) => {
-          const rotation = Math.PI / 180 * rotate;
-          const cos = Math.cos(rotation) * scale;
-          const sin = Math.sin(rotation) * scale;
-          context2.setTransform(
-            cos,
-            sin,
-            -sin,
-            cos,
-            Math.floor(offsetXCenter + x),
-            Math.floor(offsetYCenter + y)
-          );
-          const rx = Math.round(-width / 2);
-          const ry = Math.round(-height / 2);
-          if (useRadius) {
-            context2.beginPath();
-            context2.roundRect(rx, ry, width, height, 150);
-          } else {
-            context2.beginPath();
-            context2.rect(rx, ry, width, height);
-          }
-          if (hasFill) {
-            context2.fillStyle = exeptionFill;
-            context2.fill();
-          } else {
-            context2.fillStyle = mainFill;
-            context2.fill();
-          }
+      for (const {
+        x,
+        y,
+        width,
+        height,
+        rotate,
+        scale,
+        hasFill,
+        offsetXCenter,
+        offsetYCenter
+      } of data) {
+        const rotation = Math.PI / 180 * rotate;
+        const cos = Math.cos(rotation) * scale;
+        const sin = Math.sin(rotation) * scale;
+        context2.setTransform(
+          cos,
+          sin,
+          -sin,
+          cos,
+          Math.floor(offsetXCenter + x),
+          Math.floor(offsetYCenter + y)
+        );
+        const rx = Math.round(-width / 2);
+        const ry = Math.round(-height / 2);
+        if (useRadius) {
+          context2.beginPath();
+          context2.roundRect(rx, ry, width, height, 150);
+        } else {
+          context2.beginPath();
+          context2.rect(rx, ry, width, height);
         }
-      );
+        if (hasFill) {
+          context2.fillStyle = exeptionFill;
+          context2.fill();
+        } else {
+          context2.fillStyle = mainFill;
+          context2.fill();
+        }
+      }
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
     let gridTimeline = timeline_exports.createAsyncTimeline({
@@ -28914,12 +28896,12 @@
     let centerTween = tween_exports.createLerp({
       data: { mouseX: 0, mouseY: 0 }
     });
-    data.forEach((item) => {
+    for (const item of data) {
       centerTween.subscribeCache(({ mouseX, mouseY }) => {
         item.mouseX = mouseX;
         item.mouseY = mouseY;
       });
-    });
+    }
     let gridTween = tween_exports.createTimeTween({
       ease: "easeInOutSine",
       stagger: {
@@ -28930,11 +28912,11 @@
       },
       data: { scale: 0 }
     });
-    data.forEach((item) => {
+    for (const item of data) {
       gridTween.subscribeCache(({ scale }) => {
         item.scale = scale;
       });
-    });
+    }
     const draw = () => {
       if (!ctx) return;
       const canvasWidth = canvas.width;
@@ -28950,94 +28932,90 @@
       } else {
         context2.reset();
       }
-      data.forEach(
-        ({
-          x,
-          y,
+      for (const {
+        x,
+        y,
+        width,
+        height,
+        mouseX,
+        mouseY,
+        scale,
+        hasFill,
+        offsetXCenter,
+        offsetYCenter
+      } of data) {
+        if (!hasFill) continue;
+        const mouseXparsed = mouseX - (canvas.width - (width + gutter) * numberOfColumn) / 2;
+        const mouseYparsed = mouseY - (canvas.height - (height + gutter) * numberOfRow) / 2;
+        const xScale = (x - mouseXparsed) / 250;
+        const yScale = (y - mouseYparsed) / 250;
+        const delta = Math.sqrt(
+          Math.pow(Math.abs(xScale), 2) + Math.pow(Math.abs(yScale), 2)
+        );
+        const scaleFactor = core_exports.clamp(Math.abs(delta), 0, 2);
+        const rotation = 0;
+        const cos = Math.cos(rotation) * (scaleFactor + scale);
+        const sin = Math.sin(rotation) * (scaleFactor + scale);
+        context2.setTransform(
+          cos,
+          sin,
+          -sin,
+          cos,
+          Math.floor(offsetXCenter + x),
+          Math.floor(offsetYCenter + y)
+        );
+        context2.beginPath();
+        context2.rect(
+          Math.floor(-width / 2),
+          Math.floor(-height / 2),
           width,
-          height,
-          mouseX,
-          mouseY,
-          scale,
-          hasFill,
-          offsetXCenter,
-          offsetYCenter
-        }) => {
-          if (!hasFill) return;
-          const mouseXparsed = mouseX - (canvas.width - (width + gutter) * numberOfColumn) / 2;
-          const mouseYparsed = mouseY - (canvas.height - (height + gutter) * numberOfRow) / 2;
-          const xScale = (x - mouseXparsed) / 250;
-          const yScale = (y - mouseYparsed) / 250;
-          const delta = Math.sqrt(
-            Math.pow(Math.abs(xScale), 2) + Math.pow(Math.abs(yScale), 2)
-          );
-          const scaleFactor = core_exports.clamp(Math.abs(delta), 0, 2);
-          const rotation = 0;
-          const cos = Math.cos(rotation) * (scaleFactor + scale);
-          const sin = Math.sin(rotation) * (scaleFactor + scale);
-          context2.setTransform(
-            cos,
-            sin,
-            -sin,
-            cos,
-            Math.floor(offsetXCenter + x),
-            Math.floor(offsetYCenter + y)
-          );
-          context2.beginPath();
-          context2.rect(
-            Math.floor(-width / 2),
-            Math.floor(-height / 2),
-            width,
-            height
-          );
-          context2.fillStyle = mainFill;
-          context2.fill();
-        }
-      );
+          height
+        );
+        context2.fillStyle = mainFill;
+        context2.fill();
+      }
       context2.globalCompositeOperation = "destination-out";
-      data.forEach(
-        ({
-          x,
-          y,
+      for (const {
+        x,
+        y,
+        width,
+        height,
+        mouseX,
+        mouseY,
+        scale,
+        hasFill,
+        offsetXCenter,
+        offsetYCenter
+      } of data) {
+        if (hasFill) continue;
+        const mouseXparsed = mouseX - (canvas.width - (width + gutter) * numberOfColumn) / 2;
+        const mouseYparsed = mouseY - (canvas.height - (height + gutter) * numberOfRow) / 2;
+        const xScale = (x - mouseXparsed) / 250;
+        const yScale = (y - mouseYparsed) / 250;
+        const delta = Math.sqrt(
+          Math.pow(Math.abs(xScale), 2) + Math.pow(Math.abs(yScale), 2)
+        );
+        const scaleFactor = core_exports.clamp(Math.abs(delta), 0, 2);
+        const rotation = 0;
+        const cos = Math.cos(rotation) * (scaleFactor + scale);
+        const sin = Math.sin(rotation) * (scaleFactor + scale);
+        context2.setTransform(
+          cos,
+          sin,
+          -sin,
+          cos,
+          Math.floor(offsetXCenter + x),
+          Math.floor(offsetYCenter + y)
+        );
+        context2.beginPath();
+        context2.rect(
+          Math.floor(-width / 2),
+          Math.floor(-height / 2),
           width,
-          height,
-          mouseX,
-          mouseY,
-          scale,
-          hasFill,
-          offsetXCenter,
-          offsetYCenter
-        }) => {
-          if (hasFill) return;
-          const mouseXparsed = mouseX - (canvas.width - (width + gutter) * numberOfColumn) / 2;
-          const mouseYparsed = mouseY - (canvas.height - (height + gutter) * numberOfRow) / 2;
-          const xScale = (x - mouseXparsed) / 250;
-          const yScale = (y - mouseYparsed) / 250;
-          const delta = Math.sqrt(
-            Math.pow(Math.abs(xScale), 2) + Math.pow(Math.abs(yScale), 2)
-          );
-          const scaleFactor = core_exports.clamp(Math.abs(delta), 0, 2);
-          const rotation = 0;
-          const cos = Math.cos(rotation) * (scaleFactor + scale);
-          const sin = Math.sin(rotation) * (scaleFactor + scale);
-          context2.setTransform(
-            cos,
-            sin,
-            -sin,
-            cos,
-            Math.floor(offsetXCenter + x),
-            Math.floor(offsetYCenter + y)
-          );
-          context2.beginPath();
-          context2.rect(
-            Math.floor(-width / 2),
-            Math.floor(-height / 2),
-            width,
-            height
-          );
-          context2.fill();
-        }
-      );
+          height
+        );
+        context2.fill();
+      }
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
     let gridTimeline = timeline_exports.createAsyncTimeline({
@@ -29282,13 +29260,13 @@
       data: { x: 0, y: 0 },
       stagger: { each: centerEach, from: "end" }
     });
-    squareData.forEach((item) => {
+    for (const item of squareData) {
       centerTween.subscribeCache(({ x, y }) => {
         item.x = x;
         item.y = y;
         item.scale = mouseSpeed;
       });
-    });
+    }
     const draw = () => {
       if (!ctx) return;
       const canvasWidth = canvas.width;
@@ -29307,52 +29285,50 @@
       } else {
         context2.reset();
       }
-      squareData.forEach(
-        ({ width: width2, height: height2, x, y, rotate, hasFill, opacity: opacity2, scale }, i) => {
-          const unitInverse = squarelenght - i;
-          const speedDelta = Math.max(1, scale / 4);
-          const camvasScale = 1;
-          const rotation = Math.PI / 180 * rotate;
-          const cos = Math.cos(rotation) * camvasScale;
-          const sin = Math.sin(rotation) * camvasScale;
-          context2.setTransform(
-            cos,
-            sin,
-            -sin,
-            cos,
-            centerX + x + unitInverse * x / 20,
-            centerY + y + unitInverse * y / 20
+      for (const [i, { width: width2, height: height2, x, y, rotate, hasFill, opacity: opacity2, scale }] of squareData.entries()) {
+        const unitInverse = squarelenght - i;
+        const speedDelta = Math.max(1, scale / 4);
+        const camvasScale = 1;
+        const rotation = Math.PI / 180 * rotate;
+        const cos = Math.cos(rotation) * camvasScale;
+        const sin = Math.sin(rotation) * camvasScale;
+        context2.setTransform(
+          cos,
+          sin,
+          -sin,
+          cos,
+          centerX + x + unitInverse * x / 20,
+          centerY + y + unitInverse * y / 20
+        );
+        const rx = Math.round(-width2 / 2) * speedDelta;
+        const ry = Math.round(-height2 / 2) * speedDelta;
+        if (useRadius) {
+          context2.beginPath();
+          context2.roundRect(
+            rx,
+            ry,
+            width2 * speedDelta,
+            height2 * speedDelta,
+            130
           );
-          const rx = Math.round(-width2 / 2) * speedDelta;
-          const ry = Math.round(-height2 / 2) * speedDelta;
-          if (useRadius) {
-            context2.beginPath();
-            context2.roundRect(
-              rx,
-              ry,
-              width2 * speedDelta,
-              height2 * speedDelta,
-              130
-            );
-          } else {
-            context2.beginPath();
-            context2.rect(
-              rx,
-              ry,
-              width2 * speedDelta,
-              height2 * speedDelta
-            );
-          }
-          if (hasFill) {
-            context2.fillStyle = "#000";
-          } else {
-            context2.fillStyle = `rgba(238, 238, 238, ${opacity2})`;
-            context2.strokeStyle = `rgba(0, 0, 0, ${opacity2})`;
-            context2.stroke();
-          }
-          context2.fill();
+        } else {
+          context2.beginPath();
+          context2.rect(
+            rx,
+            ry,
+            width2 * speedDelta,
+            height2 * speedDelta
+          );
         }
-      );
+        if (hasFill) {
+          context2.fillStyle = "#000";
+        } else {
+          context2.fillStyle = `rgba(238, 238, 238, ${opacity2})`;
+          context2.strokeStyle = `rgba(0, 0, 0, ${opacity2})`;
+          context2.stroke();
+        }
+        context2.fill();
+      }
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
     let rectTimeline = timeline_exports.createAsyncTimeline({
@@ -29437,9 +29413,9 @@
         unsubscribeTouchMove();
         unsubScribeVelocity();
         unWatchPause();
-        unsubScribeRotate.forEach((unsubScribe) => {
+        for (const unsubScribe of unsubScribeRotate) {
           unsubScribe();
-        });
+        }
         unsubScribeRotate.length = 0;
         rotationTween = null;
         centerTween = null;
@@ -29452,9 +29428,9 @@
         context = null;
       },
       stopBlackOne: () => {
-        fill.forEach((index) => {
+        for (const index of fill) {
           unsubScribeRotate[index]?.();
-        });
+        }
       }
     };
   };
@@ -29711,7 +29687,7 @@
     }, 5).add(({ isForced, direction: direction2 }) => {
       logAddMethods({ isForced, direction: direction2, value: 9 });
     }, 9);
-    squareData.forEach((item) => {
+    for (const item of squareData) {
       infiniteTween.subscribeCache(({ x, rotate }) => {
         const val = x / friction;
         const factor = 2 / (3 - Math.cos(2 * val));
@@ -29721,7 +29697,7 @@
         item.y = yr;
         item.rotate = rotate;
       });
-    });
+    }
     let syncTimeline = timeline_exports.createSyncTimeline({
       repeat: -1,
       yoyo: false,
@@ -29747,39 +29723,37 @@
       } else {
         context2.reset();
       }
-      squareData.forEach(
-        ({ width: width2, height: height2, x, y, rotate, hasFill, opacity: opacity2 }) => {
-          const scale = 1;
-          const rotation = Math.PI / 180 * rotate;
-          const cos = Math.cos(rotation) * scale;
-          const sin = Math.sin(rotation) * scale;
-          context2.setTransform(
-            cos,
-            sin,
-            -sin,
-            cos,
-            centerX + x,
-            centerY + y
-          );
-          const rx = Math.round(-width2 / 2);
-          const ry = Math.round(-height2 / 2);
-          if (useRadius) {
-            context2.beginPath();
-            context2.roundRect(rx, ry, width2, height2, [40, 40]);
-          } else {
-            context2.beginPath();
-            context2.rect(rx, ry, width2, height2);
-          }
-          if (hasFill) {
-            context2.fillStyle = fillColor;
-          } else {
-            context2.strokeStyle = `rgba(${strokeColor} ${opacity2})`;
-            context2.fillStyle = `rgba(238, 238, 238, 0)`;
-            context2.stroke();
-          }
-          context2.fill();
+      for (const { width: width2, height: height2, x, y, rotate, hasFill, opacity: opacity2 } of squareData) {
+        const scale = 1;
+        const rotation = Math.PI / 180 * rotate;
+        const cos = Math.cos(rotation) * scale;
+        const sin = Math.sin(rotation) * scale;
+        context2.setTransform(
+          cos,
+          sin,
+          -sin,
+          cos,
+          centerX + x,
+          centerY + y
+        );
+        const rx = Math.round(-width2 / 2);
+        const ry = Math.round(-height2 / 2);
+        if (useRadius) {
+          context2.beginPath();
+          context2.roundRect(rx, ry, width2, height2, [40, 40]);
+        } else {
+          context2.beginPath();
+          context2.rect(rx, ry, width2, height2);
         }
-      );
+        if (hasFill) {
+          context2.fillStyle = fillColor;
+        } else {
+          context2.strokeStyle = `rgba(${strokeColor} ${opacity2})`;
+          context2.fillStyle = `rgba(238, 238, 238, 0)`;
+          context2.stroke();
+        }
+        context2.fill();
+      }
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
     const loop = () => {
@@ -29939,11 +29913,11 @@
           ({ destroy: destroy4 } = animationMethods);
         });
       });
-      Object.entries(proxi.buttons).forEach(([className, value]) => {
+      for (const [className, value] of Object.entries(proxi.buttons)) {
         const { method } = value;
         const btn = element.querySelector(`.${className}`);
         btn?.addEventListener("click", () => animationMethods?.[method]());
-      });
+      }
       modules_exports.useFrame(() => {
         if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
@@ -30220,50 +30194,48 @@
       } else {
         context2.reset();
       }
-      data.forEach(
-        ({
-          x,
-          y,
-          width,
-          height,
-          rotate,
-          scale,
-          hasFill,
-          offsetXCenter,
-          offsetYCenter
-        }) => {
-          const rotation = Math.PI / 180 * rotate;
-          const xx = Math.cos(rotation) * scale;
-          const xy = Math.sin(rotation) * scale;
-          context2.setTransform(
-            xx,
-            xy,
-            -xy,
-            xx,
-            Math.floor(offsetXCenter + x),
-            Math.floor(offsetYCenter + y)
-          );
-          const rx = Math.round(-width / 2);
-          const ry = Math.round(-height / 2);
-          if (useRadius) {
-            context2.beginPath();
-            context2.roundRect(rx, ry, width, height, 150);
-          } else {
-            context2.beginPath();
-            context2.rect(rx, ry, width, height);
-          }
-          if (hasFill) {
-            context2.fillStyle = exeptionFill;
-            context2.fill();
-          } else {
-            context2.fillStyle = mainFill;
-            context2.fill();
-            if (!useRadius) {
-              context2.strokeStyle = mainFill;
-            }
+      for (const {
+        x,
+        y,
+        width,
+        height,
+        rotate,
+        scale,
+        hasFill,
+        offsetXCenter,
+        offsetYCenter
+      } of data) {
+        const rotation = Math.PI / 180 * rotate;
+        const xx = Math.cos(rotation) * scale;
+        const xy = Math.sin(rotation) * scale;
+        context2.setTransform(
+          xx,
+          xy,
+          -xy,
+          xx,
+          Math.floor(offsetXCenter + x),
+          Math.floor(offsetYCenter + y)
+        );
+        const rx = Math.round(-width / 2);
+        const ry = Math.round(-height / 2);
+        if (useRadius) {
+          context2.beginPath();
+          context2.roundRect(rx, ry, width, height, 150);
+        } else {
+          context2.beginPath();
+          context2.rect(rx, ry, width, height);
+        }
+        if (hasFill) {
+          context2.fillStyle = exeptionFill;
+          context2.fill();
+        } else {
+          context2.fillStyle = mainFill;
+          context2.fill();
+          if (!useRadius) {
+            context2.strokeStyle = mainFill;
           }
         }
-      );
+      }
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
     let scrollerInstance = scroller_exports.createScrollTrigger({
@@ -30305,10 +30277,10 @@
     });
     return () => {
       unWatchPause();
-      sequencersInstances.forEach(({ sequencer, unsubscribe: unsubscribe3 }) => {
+      for (const { sequencer, unsubscribe: unsubscribe3 } of sequencersInstances) {
         sequencer.destroy();
         unsubscribe3();
-      });
+      }
       sequencersInstances = [];
       masterSequencer.destroy();
       masterSequencer = null;
@@ -30624,11 +30596,11 @@
       to: { rotate: () => proxi.rotation },
       stagger: { each: 2, from: "center" }
     });
-    stemData.forEach((item) => {
+    for (const item of stemData) {
       scrollerTween.subscribeCache(({ rotate }) => {
         item.rotate = rotate;
       });
-    });
+    }
     const draw = () => {
       if (!ctx) return;
       const canvasWidth = canvas.width;
@@ -30646,49 +30618,47 @@
       } else {
         context2.reset();
       }
-      stemData.forEach(
-        ({ width: width2, height: height2, opacity: opacity2, rotate, index, hasFill }) => {
-          const unitInverse = stemData.length / 2 - index;
-          const scale = 1;
-          const rotation = Math.PI / 180 * (rotate - intialRotation);
-          const cos = Math.cos(rotation) * scale;
-          const sin = Math.sin(rotation) * scale;
-          context2.setTransform(
-            cos,
-            sin,
-            -sin,
-            cos,
-            centerX,
-            centerY + unitInverse * 19
+      for (const { width: width2, height: height2, opacity: opacity2, rotate, index, hasFill } of stemData) {
+        const unitInverse = stemData.length / 2 - index;
+        const scale = 1;
+        const rotation = Math.PI / 180 * (rotate - intialRotation);
+        const cos = Math.cos(rotation) * scale;
+        const sin = Math.sin(rotation) * scale;
+        context2.setTransform(
+          cos,
+          sin,
+          -sin,
+          cos,
+          centerX,
+          centerY + unitInverse * 19
+        );
+        if (useRadius) {
+          context2.beginPath();
+          context2.roundRect(
+            -width2 / 2,
+            -height2 / 2 + unitInverse * 19,
+            width2,
+            height2,
+            150
           );
-          if (useRadius) {
-            context2.beginPath();
-            context2.roundRect(
-              -width2 / 2,
-              -height2 / 2 + unitInverse * 19,
-              width2,
-              height2,
-              150
-            );
-          } else {
-            context2.beginPath();
-            context2.rect(
-              Math.round(-width2 / 2),
-              Math.round(-height2 / 2),
-              width2,
-              height2
-            );
-          }
-          if (hasFill) {
-            context2.fillStyle = "#000";
-          } else {
-            context2.fillStyle = `rgba(238, 238, 238, ${opacity2})`;
-            context2.strokeStyle = `rgba(0, 0, 0, ${opacity2})`;
-            context2.stroke();
-          }
-          context2.fill();
+        } else {
+          context2.beginPath();
+          context2.rect(
+            Math.round(-width2 / 2),
+            Math.round(-height2 / 2),
+            width2,
+            height2
+          );
         }
-      );
+        if (hasFill) {
+          context2.fillStyle = "#000";
+        } else {
+          context2.fillStyle = `rgba(238, 238, 238, ${opacity2})`;
+          context2.strokeStyle = `rgba(0, 0, 0, ${opacity2})`;
+          context2.stroke();
+        }
+        context2.fill();
+      }
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
     let scrollerInstance = scroller_exports.createScrollTrigger({
@@ -31997,14 +31967,14 @@
       ease: "easeInOutQuad",
       stagger: { each: 12, from: "end" }
     });
-    refs.forEach((item) => {
+    for (const item of refs) {
       introTween.subscribeCache(({ scale }) => {
         item.style.scale = `${scale}`;
       });
       loopTween.subscribeCache(({ scale }) => {
         item.style.scale = `${scale}`;
       });
-    });
+    }
     let introTl = timeline_exports.createAsyncTimeline({
       repeat: 1,
       autoSet: false
@@ -32151,14 +32121,14 @@
     const svgElement = doc.documentElement;
     const layers = svgElement.querySelectorAll('[type="layer"]');
     const layersToRemove = svgElement.querySelectorAll('[type="delete"]');
-    layers.forEach((layer) => {
+    for (const layer of layers) {
       if (layer.id !== id) {
         layer.remove();
       }
-    });
-    layersToRemove.forEach((layer) => {
+    }
+    for (const layer of layersToRemove) {
       layer.remove();
-    });
+    }
     return svgElement;
   };
 
@@ -33010,7 +32980,7 @@
     });
   };
   var refreshPins = ({ pins }) => {
-    pins.forEach((pin) => pin.refresh());
+    for (const pin of pins) pin.refresh();
   };
   var createParallax2 = ({ titles }) => {
     return [...titles].map((title) => {
@@ -33025,16 +32995,16 @@
   var showNav = ({ nav }) => {
     nav.classList.add("active");
     const indicators = document.querySelectorAll(".js-indicator");
-    [...indicators].forEach((indicator) => {
+    for (const indicator of indicators) {
       indicator.classList.add("active");
-    });
+    }
   };
   var hideNav = ({ nav }) => {
     nav.classList.remove("active");
     const indicators = document.querySelectorAll(".js-indicator");
-    [...indicators].forEach((indicator) => {
+    for (const indicator of indicators) {
       indicator.classList.remove("active");
-    });
+    }
   };
   var horizontalScrollerAnimation = ({
     indicators,
@@ -33090,13 +33060,13 @@
     horizontalCustom.init();
     return {
       destroy: () => {
-        pins.forEach((pin) => {
+        for (const pin of pins) {
           pin?.destroy();
-        });
+        }
         pins = [];
-        titlesParallax.forEach((item) => {
+        for (const item of titlesParallax) {
           item?.destroy();
-        });
+        }
         titlesParallax = [];
         horizontalCustom.destroy();
         horizontalCustom = null;
@@ -33861,9 +33831,9 @@
       const delta = Math.hypot(Math.abs(ayClamped), Math.abs(axClamped));
       spring.goTo({ delta, ax: axClamped, ay: ayClamped }).catch(() => {
       });
-      childrenMethods.forEach((moveChild) => {
+      for (const moveChild of childrenMethods) {
         moveChild({ delta, factor: proxi.factor });
-      });
+      }
     };
     const onScroll = (scrollY2) => {
       if (lastScrolledTop !== scrollY2) {
@@ -34841,21 +34811,21 @@
       data: { x: 0, y: 0 },
       stagger: { each: 3, from: "start" }
     });
-    elements.forEach((item) => {
+    for (const item of elements) {
       mouseTween.subscribe(({ x, y }) => {
         item.style.translate = `${x}px ${y}px`;
       });
-    });
+    }
     let mouseTweenRotate = tween_exports.createSpring({
       data: { rotation: 0 },
       stagger: { each: 8, from: "start" }
     });
-    elements.forEach((item) => {
-      if (!item) return;
+    for (const item of elements) {
+      if (!item) continue;
       mouseTweenRotate.subscribeCache(({ rotation }) => {
         item.style.rotate = `${rotation}deg`;
       });
-    });
+    }
     const unsubScribeResize = modules_exports.useResize(() => {
       windowWidth = window.innerWidth;
       windowHeight = window.innerHeight;
@@ -35519,12 +35489,12 @@
     let tweenGridRotate = tween_exports.createSpring({
       data: tweenRotateTarget
     });
-    data.forEach((item) => {
+    for (const item of data) {
       tweenGrid.subscribeCache(({ scale, rotate }) => {
         item.rotate = rotate;
         item.scale = scale;
       });
-    });
+    }
     tweenAround.subscribe((data2) => {
       tweenAroundTarget = data2;
     });
@@ -35600,80 +35570,78 @@
       } else {
         context2.reset();
       }
-      data.forEach(
-        ({
-          x,
-          y,
-          width,
-          height,
-          rotate,
-          scale,
-          offsetXCenter,
-          offsetYCenter
-        }, index) => {
-          if (index === 40) {
-            {
-              const rotation2 = Math.PI / 180 * tweenAroundTarget.rotate;
-              const cos2 = Math.cos(rotation2) * tweenAroundTarget.scale;
-              const sin2 = Math.sin(rotation2) * tweenAroundTarget.scale;
-              context2.setTransform(
-                cos2,
-                sin2,
-                -sin2,
-                cos2,
-                Math.floor(
-                  tweenAroundTarget.offsetXCenter + tweenAroundTarget.x
-                ),
-                Math.floor(
-                  tweenAroundTarget.offsetYCenter + tweenAroundTarget.y
-                )
+      for (const [index, {
+        x,
+        y,
+        width,
+        height,
+        rotate,
+        scale,
+        offsetXCenter,
+        offsetYCenter
+      }] of data.entries()) {
+        if (index === 40) {
+          {
+            const rotation2 = Math.PI / 180 * tweenAroundTarget.rotate;
+            const cos2 = Math.cos(rotation2) * tweenAroundTarget.scale;
+            const sin2 = Math.sin(rotation2) * tweenAroundTarget.scale;
+            context2.setTransform(
+              cos2,
+              sin2,
+              -sin2,
+              cos2,
+              Math.floor(
+                tweenAroundTarget.offsetXCenter + tweenAroundTarget.x
+              ),
+              Math.floor(
+                tweenAroundTarget.offsetYCenter + tweenAroundTarget.y
+              )
+            );
+            if (useRadius) {
+              context2.beginPath();
+              context2.roundRect(
+                Math.floor(-tweenAroundTarget.width / 2),
+                Math.floor(-tweenAroundTarget.height / 2),
+                Math.floor(tweenAroundTarget.width),
+                tweenAroundTarget.height,
+                150
               );
-              if (useRadius) {
-                context2.beginPath();
-                context2.roundRect(
-                  Math.floor(-tweenAroundTarget.width / 2),
-                  Math.floor(-tweenAroundTarget.height / 2),
-                  Math.floor(tweenAroundTarget.width),
-                  tweenAroundTarget.height,
-                  150
-                );
-              } else {
-                context2.beginPath();
-                context2.rect(
-                  Math.floor(-tweenAroundTarget.width / 2),
-                  Math.floor(-tweenAroundTarget.height / 2),
-                  Math.floor(tweenAroundTarget.width),
-                  Math.floor(tweenAroundTarget.height)
-                );
-              }
-              context2.fillStyle = pillarFill;
-              context2.fill();
+            } else {
+              context2.beginPath();
+              context2.rect(
+                Math.floor(-tweenAroundTarget.width / 2),
+                Math.floor(-tweenAroundTarget.height / 2),
+                Math.floor(tweenAroundTarget.width),
+                Math.floor(tweenAroundTarget.height)
+              );
             }
+            context2.fillStyle = pillarFill;
+            context2.fill();
           }
-          const rotation = Math.PI / 180 * rotate;
-          const cos = Math.cos(rotation) * scale;
-          const sin = Math.sin(rotation) * scale;
-          context2.setTransform(
-            cos,
-            sin,
-            -sin,
-            cos,
-            Math.floor(offsetXCenter + x),
-            Math.floor(offsetYCenter + y)
-          );
-          const rx = Math.round(-width / 2);
-          const ry = Math.round(-height / 2);
-          if (useRadius) {
-            context2.beginPath();
-            context2.roundRect(rx, ry, width, height, 150);
-          } else {
-            context2.beginPath();
-            context2.rect(rx, ry, width, height);
-          }
-          context2.fillStyle = mainFill;
-          context2.fill();
         }
-      );
+        const rotation = Math.PI / 180 * rotate;
+        const cos = Math.cos(rotation) * scale;
+        const sin = Math.sin(rotation) * scale;
+        context2.setTransform(
+          cos,
+          sin,
+          -sin,
+          cos,
+          Math.floor(offsetXCenter + x),
+          Math.floor(offsetYCenter + y)
+        );
+        const rx = Math.round(-width / 2);
+        const ry = Math.round(-height / 2);
+        if (useRadius) {
+          context2.beginPath();
+          context2.roundRect(rx, ry, width, height, 150);
+        } else {
+          context2.beginPath();
+          context2.rect(rx, ry, width, height);
+        }
+        context2.fillStyle = mainFill;
+        context2.fill();
+      }
       {
         const rotation = Math.PI / 180 * tweenRotateTarget.rotate;
         const cos = Math.cos(rotation) * tweenRotateTarget.scale;
@@ -35854,11 +35822,11 @@
         destroy4 = methods.destroy;
         methods?.play?.();
       });
-      Object.entries(proxi.buttons).forEach(([className, value]) => {
+      for (const [className, value] of Object.entries(proxi.buttons)) {
         const { method } = value;
         const btn = element.querySelector(`.${className}`);
         btn?.addEventListener("click", () => methods?.[method]());
-      });
+      }
       modules_exports.useFrame(() => {
         if (!("isMounted" in proxi)) return;
         proxi.isMounted = true;
@@ -36594,10 +36562,10 @@
       return threshold2;
     });
     const updateChildrenVisibility = () => {
-      children.forEach((childEl, index) => {
+      for (const [index, childEl] of children.entries()) {
         const shouldHide = depth > childrenDepthThreshold[index];
         childEl.classList.toggle("hide", shouldHide);
-      });
+      }
     };
     let dragY = 0;
     let dragX = 0;
@@ -36680,10 +36648,10 @@
       y: endValue.yValue
     });
     const activeElement = root2.querySelectorAll("a, button");
-    [...activeElement].forEach((item) => {
+    for (const item of activeElement) {
       item.setAttribute("draggable", "false");
       item.style.userSelect = "none";
-    });
+    }
     const startDrag = ({ page }) => {
       onDrag = true;
       firstDrag = true;
@@ -37114,7 +37082,7 @@
       { angleInRadian: totalAngle },
       { start: 0, end: 10, ease: "easeLinear" }
     ).goTo({ scale: 1 }, { start: 0, end: 4, ease: "easeOutQuad" }).goTo({ scale: 0 }, { start: 9, end: 10, ease: "easeOutQuad" });
-    targets.forEach((item, index) => {
+    for (const [index, item] of targets.entries()) {
       const innerElement = (
         /** @type {HTMLSpanElement} */
         item.firstChild
@@ -37126,7 +37094,7 @@
         item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index] * directionMultiplier}px, ${y - halfTagetsHeight[index]}px)`;
         if (innerElement) innerElement.style.scale = `${scale}`;
       });
-    });
+    }
     let timeline = timeline_exports.createSyncTimeline({
       repeat: -1,
       yoyo: false,
@@ -37212,13 +37180,13 @@
     const step = 0.06;
     const radius = outerHeight(container) / 2 - 100;
     const halfTagetsHeight = targets.map((target) => outerHeight(target) / 2);
-    targets.forEach((item, index) => {
+    for (const [index, item] of targets.entries()) {
       tween2.subscribeCache(({ x }) => {
         const xr = Math.sin(x * step) * radius;
         const yr = Math.cos(x * step) * radius;
         item.style.transform = `translate3D(0px,0px,0px) translate(${(xr - halfTagetsHeight[index]) * directionMultiplier}px, ${yr - halfTagetsHeight[index]}px)`;
       });
-    });
+    }
     tween2.set({ x: 0 });
     let counter2 = 0;
     let isRunning2 = false;
@@ -37306,7 +37274,7 @@
       { x: duration + duration / 4 },
       { start: 0, end: duration, ease: "easeLinear" }
     ).goTo({ scale: 1 }, { start: 0, end: 1.5, ease: "easeOutQuad" }).goTo({ scale: 0 }, { start: 1.5, end: 5, ease: "easeInQuad" }).goTo({ scale: 1 }, { start: 5, end: 8.5, ease: "easeOutQuad" }).goTo({ scale: 0 }, { start: 8.5, end: 10, ease: "easeInQuad" });
-    targets.forEach((item, index) => {
+    for (const [index, item] of targets.entries()) {
       const innerElement = (
         /** @type {HTMLSpanElement} */
         item.firstChild
@@ -37319,7 +37287,7 @@
         item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetsHeight[index] * directionMultiplier}px, ${yr - halfTagetsHeight[index]}px)`;
         if (innerElement) innerElement.style.scale = `${scale}`;
       });
-    });
+    }
     let timeline = timeline_exports.createSyncTimeline({
       repeat: -1,
       yoyo: false,
@@ -37443,7 +37411,7 @@
       iteration++;
     }
     let lastTimePosition = 0;
-    zeroAngles.forEach((angleRad) => {
+    for (const angleRad of zeroAngles) {
       const timePosition = angleRad / totalAngle * 10;
       const timeGap = Math.abs((timePosition - lastTimePosition) / 2);
       lastTimePosition = timePosition;
@@ -37460,8 +37428,8 @@
           { start: center, end, ease: "easeOutQuad" }
         );
       }
-    });
-    targets.forEach((item, index) => {
+    }
+    for (const [index, item] of targets.entries()) {
       const innerElement = (
         /** @type {HTMLSpanElement} */
         item.firstChild
@@ -37473,7 +37441,7 @@
         item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index] * directionMultiplier}px, ${y - halfTagetsHeight[index]}px)`;
         if (innerElement) innerElement.style.scale = `${scale}`;
       });
-    });
+    }
     let timeline = timeline_exports.createSyncTimeline({
       repeat: -1,
       yoyo: false,
@@ -37570,7 +37538,7 @@
       { scale: 0 },
       { start: 10 - 10 / cycles / 2, end: 10, ease: "easeOutQuad" }
     );
-    targets.forEach((item, index) => {
+    for (const [index, item] of targets.entries()) {
       let previousX = 0;
       const innerElement = (
         /** @type {HTMLSpanElement} */
@@ -37584,7 +37552,7 @@
         if (innerElement) innerElement.style.scale = `${scale}`;
         previousX = x;
       });
-    });
+    }
     let timeline = timeline_exports.createSyncTimeline({
       repeat: -1,
       yoyo: true,
@@ -47178,11 +47146,11 @@
     duration: 1e3
   });
   if (jsMainLoader && jsMainLoaderBackground) {
-    [jsMainLoader, jsMainLoaderBackground].forEach((item) => {
+    for (const item of [jsMainLoader, jsMainLoaderBackground]) {
       loaderTween?.subscribe(({ opacity }) => {
         item.style.opacity = opacity;
       });
-    });
+    }
   }
   var initApp = async () => {
     await loadData();

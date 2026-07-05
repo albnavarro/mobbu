@@ -39,29 +39,28 @@ export const removeAndDestroyById = ({ id = '' }) => {
      *
      * - In case element is not collected by GC ( closure and so on )
      */
-    bindEventsHandlers?.forEach(({ eventName, handler }) => {
+    if (bindEventsHandlers) for (const { eventName, handler } of bindEventsHandlers) {
         element.removeEventListener(eventName, handler);
-    });
+    }
 
     /**
      * - `Freeze` children before destroy
      * - Come prima cosa disattiviamo i watcher usati dai figli
      * - Unsubscribe component binding.
      */
-    if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
+    if (parentPropsWatcher) for (const unwatch of parentPropsWatcher) unwatch();
 
     /**
      * Destroy children.
      */
-    Object.values(child ?? {})
-        .flat()
-        .forEach((childId) => {
+    for (const childId of Object.values(child ?? {})
+        .flat()) {
             try {
                 removeAndDestroyById({ id: childId });
             } catch (error) {
                 console.warn(error);
             }
-        });
+        }
 
     /**
      * Remove itself from parent.

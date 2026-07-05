@@ -19,11 +19,11 @@ export const removeRepeaterId = ({ id }) => {
         /**
          * Remove reference to parent Id taken from repeat web component.
          */
-        value.forEach(({ repeatId }) => {
+        for (const { repeatId } of value) {
             if (repeatInstancesMap.has(repeatId)) {
                 repeatInstancesMap.delete(repeatId);
             }
-        });
+        }
 
         /**
          * Delete all

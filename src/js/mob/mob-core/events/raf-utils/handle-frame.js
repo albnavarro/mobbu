@@ -337,7 +337,7 @@ const render = (timestamp) => {
     /**
      * Fire callbnack
      */
-    callback.forEach((item) => item({ time, fps }));
+    for (const item of callback) item({ time, fps });
 
     /*
      * Fire callback related to specific index frame

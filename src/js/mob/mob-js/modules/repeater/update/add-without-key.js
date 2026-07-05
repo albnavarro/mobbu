@@ -127,8 +127,8 @@ export const addWithoutKey = ({
         /**
          * Destroy component.
          */
-        componentToRemoveByKey.forEach((childArray) => {
-            childArray.forEach((childId) => {
+        for (const childArray of componentToRemoveByKey) {
+            for (const childId of childArray) {
                 const element = getElementById({ id: childId });
 
                 /**
@@ -151,8 +151,8 @@ export const addWithoutKey = ({
                 removeAndDestroyById({ id: childId });
 
                 if (elementWrapper) elementWrapper.remove();
-            });
-        });
+            }
+        }
 
         const { debug } = getDefaultComponent();
         if (debug) removeMissedDebugComment(repeaterParentElement);
@@ -172,7 +172,7 @@ export const addWithoutKey = ({
             }
         );
 
-        childrenFromRepeaterToRemove.forEach((item) => {
+        for (const item of childrenFromRepeaterToRemove) {
             const { element: currentElement } = item;
 
             /**
@@ -192,7 +192,7 @@ export const addWithoutKey = ({
             });
 
             currentElement.remove();
-        });
+        }
     }
 
     return current;

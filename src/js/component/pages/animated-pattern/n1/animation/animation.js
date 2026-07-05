@@ -98,12 +98,12 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
     /**
      * Subscribe rect to mouse tween.
      */
-    data.forEach((item) => {
+    for (const item of data) {
         centerTween.subscribeCache(({ mouseX, mouseY }) => {
             item.mouseX = mouseX;
             item.mouseY = mouseY;
         });
-    });
+    }
 
     /**
      * Create tween
@@ -122,11 +122,11 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
     /**
      * Subscribe to tween
      */
-    data.forEach((item) => {
+    for (const item of data) {
         gridTween.subscribeCache(({ scale }) => {
             item.scale = scale;
         });
-    });
+    }
 
     /**
      * Main draw function.
@@ -157,8 +157,7 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
          *
          * - Element to be masked.
          */
-        data.forEach(
-            ({
+        for (const {
                 x,
                 y,
                 width,
@@ -169,8 +168,8 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
                 hasFill,
                 offsetXCenter,
                 offsetYCenter,
-            }) => {
-                if (!hasFill) return;
+            } of data) {
+                if (!hasFill) continue;
 
                 /**
                  * X difference in px form mouse to square.
@@ -237,7 +236,7 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
                 context.fillStyle = mainFill;
                 context.fill();
             }
-        );
+        
 
         /**
          * Start mask mode.
@@ -249,8 +248,7 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
          *
          * - Mask element.
          */
-        data.forEach(
-            ({
+        for (const {
                 x,
                 y,
                 width,
@@ -261,8 +259,8 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
                 hasFill,
                 offsetXCenter,
                 offsetYCenter,
-            }) => {
-                if (hasFill) return;
+            } of data) {
+                if (hasFill) continue;
 
                 /**
                  * X difference in px form mouse to square.
@@ -328,7 +326,7 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
                 );
                 context.fill();
             }
-        );
+        
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });

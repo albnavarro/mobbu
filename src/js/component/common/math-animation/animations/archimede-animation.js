@@ -89,7 +89,7 @@ export const mathArchimede = ({ targets, container, canvas } = {}) => {
         .goTo({ scale: 1 }, { start: 0, end: 4, ease: 'easeOutQuad' })
         .goTo({ scale: 0 }, { start: 9, end: 10, ease: 'easeOutQuad' });
 
-    targets.forEach((item, index) => {
+    for (const [index, item] of targets.entries()) {
         const innerElement = /** @type {HTMLSpanElement} */ (item.firstChild);
 
         tween.subscribeCache(({ angleInRadian, scale }) => {
@@ -111,7 +111,7 @@ export const mathArchimede = ({ targets, container, canvas } = {}) => {
             item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index] * directionMultiplier}px, ${y - halfTagetsHeight[index]}px)`;
             if (innerElement) innerElement.style.scale = `${scale}`;
         });
-    });
+    }
 
     let timeline = MobTimeline.createSyncTimeline({
         repeat: -1,

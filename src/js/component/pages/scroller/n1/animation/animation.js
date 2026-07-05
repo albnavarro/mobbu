@@ -134,11 +134,11 @@ export const scrollerN1Animation = ({
     /**
      * Subscribe rect to rotation tween.
      */
-    stemData.forEach((item) => {
+    for (const item of stemData) {
         scrollerTween.subscribeCache(({ rotate }) => {
             item.rotate = rotate;
         });
-    });
+    }
 
     /**
      * Main draw function.
@@ -166,8 +166,7 @@ export const scrollerN1Animation = ({
             context.reset();
         }
 
-        stemData.forEach(
-            ({ width, height, opacity, rotate, index, hasFill }) => {
+        for (const { width, height, opacity, rotate, index, hasFill } of stemData) {
                 const unitInverse = stemData.length / 2 - index;
 
                 /**
@@ -227,7 +226,7 @@ export const scrollerN1Animation = ({
 
                 context.fill();
             }
-        );
+        
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });

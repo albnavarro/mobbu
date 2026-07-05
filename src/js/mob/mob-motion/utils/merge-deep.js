@@ -25,7 +25,7 @@ export const mergeDeep = (target, source, isMergingArrays = true) => {
 
     if (!isObject(target) || !isObject(source)) return source;
 
-    Object.keys(source).forEach((key) => {
+    for (const key of Object.keys(source)) {
         const targetValue = target[key];
         const sourceValue = source[key];
 
@@ -50,7 +50,7 @@ export const mergeDeep = (target, source, isMergingArrays = true) => {
                 isMergingArrays
             );
         else target[key] = sourceValue;
-    });
+    }
 
     return target;
 };

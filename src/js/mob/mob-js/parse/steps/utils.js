@@ -125,7 +125,7 @@ export const insertElementOrText = ({
                 : item;
 
         // @ts-ignore
-        itemParsed.forEach(({ node, type }) => {
+        for (const { node, type } of itemParsed) {
             if (type === ELEMENT_TYPE_NODE) {
                 parent.insertAdjacentElement(
                     position,
@@ -139,7 +139,7 @@ export const insertElementOrText = ({
                     /** @type {string} */ (node)
                 );
             }
-        });
+        }
 
         return;
     }
@@ -178,7 +178,7 @@ export const setRepeatAttribute = ({
     repeatId,
     key,
 }) => {
-    components.forEach((component) => {
+    for (const component of components) {
         if (!component.deref()?.hasAttribute(ATTR_CURRENT_LIST_VALUE)) {
             component.deref()?.setAttribute(
                 ATTR_CURRENT_LIST_VALUE,
@@ -202,7 +202,7 @@ export const setRepeatAttribute = ({
         if (!component.deref()?.hasAttribute(ATTR_CHILD_REPEATID)) {
             component.deref()?.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
         }
-    });
+    }
 };
 
 /**
@@ -235,10 +235,10 @@ export const addDOMfromString = ({ stringDOM, parent, position }) => {
 export const addMultipleDOMElement = ({ elements, parent, position }) => {
     const fragment = new DocumentFragment();
 
-    elements.forEach((element) => {
-        if (!element) return;
+    for (const element of elements) {
+        if (!element) continue;
         fragment.append(element);
-    });
+    }
 
     if (position === 'afterend') parent.after(fragment);
     if (position === 'beforebegin') parent.before(fragment);

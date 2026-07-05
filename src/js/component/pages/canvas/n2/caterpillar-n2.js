@@ -141,12 +141,12 @@ export const CaterpillarN2Fn = ({
         /**
          * Inizalize controls handler.
          */
-        Object.entries(proxi.buttons).forEach(([className, value]) => {
+        for (const [className, value] of Object.entries(proxi.buttons)) {
             const { method } = value;
             const btn = element.querySelector(`.${className}`);
             // @ts-ignore
             btn?.addEventListener('click', () => animationMethods?.[method]());
-        });
+        }
 
         MobCore.useFrame(() => {
             /**

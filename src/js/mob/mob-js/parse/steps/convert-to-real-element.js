@@ -83,10 +83,10 @@ const getNewElement = ({ element, content }) => {
 const removeOrphanSlot = ({ element }) => {
     const slots = useSlotQuery ? queryGenericSlot(element) : getAllSlot();
 
-    slots.forEach((slot) => {
+    for (const slot of slots) {
         slot?.removeCustomComponent();
         slot?.remove();
-    });
+    }
 };
 
 /**
@@ -119,7 +119,7 @@ const addToNamedSlot = ({ element }) => {
     /**
      * For each node found.
      */
-    [...componentWithSlot].forEach((component) => {
+    for (const component of componentWithSlot) {
         // @ts-ignore - Get slot name
         const slotName = component?.getSlotPosition();
 
@@ -138,7 +138,7 @@ const addToNamedSlot = ({ element }) => {
             slot?.removeCustomComponent();
             slot?.remove();
         }
-    });
+    }
 };
 
 /**

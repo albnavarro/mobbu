@@ -150,9 +150,9 @@ export const Move3Dfn = ({
         /**
          * Move children
          */
-        childrenMethods.forEach((moveChild) => {
+        for (const moveChild of childrenMethods) {
             moveChild({ delta, factor: proxi.factor });
-        });
+        }
     };
 
     /** @type{(scrollY: number) => void} */

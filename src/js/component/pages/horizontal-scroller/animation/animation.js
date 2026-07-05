@@ -54,7 +54,7 @@ const createPins = ({ indicators, proxi }) => {
  * @param {import('@mobMotionType').MobScroller[]} params.pins
  */
 const refreshPins = ({ pins }) => {
-    pins.forEach((pin) => pin.refresh());
+    for (const pin of pins) pin.refresh();
 };
 
 /**
@@ -82,9 +82,9 @@ const showNav = ({ nav }) => {
     nav.classList.add('active');
 
     const indicators = document.querySelectorAll('.js-indicator');
-    [...indicators].forEach((indicator) => {
+    for (const indicator of indicators) {
         indicator.classList.add('active');
-    });
+    }
 };
 
 /**
@@ -96,9 +96,9 @@ const hideNav = ({ nav }) => {
     nav.classList.remove('active');
 
     const indicators = document.querySelectorAll('.js-indicator');
-    [...indicators].forEach((indicator) => {
+    for (const indicator of indicators) {
         indicator.classList.remove('active');
-    });
+    }
 };
 
 /**
@@ -174,17 +174,17 @@ export const horizontalScrollerAnimation = ({
             /**
              * Destroy pin.
              */
-            pins.forEach((pin) => {
+            for (const pin of pins) {
                 pin?.destroy();
-            });
+            }
             pins = [];
 
             /**
              * Destroy titles.
              */
-            titlesParallax.forEach((item) => {
+            for (const item of titlesParallax) {
                 item?.destroy();
-            });
+            }
             titlesParallax = [];
 
             /**

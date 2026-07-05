@@ -20,11 +20,11 @@ export const removeInvalidateId = ({ id }) => {
         /**
          * Remove reference to parent Id taken from invalidate web component.
          */
-        value.forEach(({ invalidateId }) => {
+        for (const { invalidateId } of value) {
             if (invalidateInstancesMap.has(invalidateId)) {
                 invalidateInstancesMap.delete(invalidateId);
             }
-        });
+        }
 
         /**
          * Delete all

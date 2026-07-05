@@ -76,7 +76,7 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
             { start: 10 - 10 / cycles / 2, end: 10, ease: 'easeOutQuad' }
         );
 
-    targets.forEach((item, index) => {
+    for (const [index, item] of targets.entries()) {
         let previousX = 0;
 
         const innerElement = /** @type {HTMLSpanElement} */ (item.firstChild);
@@ -108,7 +108,7 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
             if (innerElement) innerElement.style.scale = `${scale}`;
             previousX = x;
         });
-    });
+    }
 
     let timeline = MobTimeline.createSyncTimeline({
         repeat: -1,

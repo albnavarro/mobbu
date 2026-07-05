@@ -108,12 +108,12 @@ export const animatedPatternN0Animation = ({
     /**
      * Subscribe to tween
      */
-    data.forEach((item) => {
+    for (const item of data) {
         gridTween.subscribeCache(({ scale, rotate }) => {
             item.rotate = rotate;
             item.scale = scale;
         });
-    });
+    }
 
     /**
      * Main draw function.
@@ -139,8 +139,7 @@ export const animatedPatternN0Animation = ({
             context.reset();
         }
 
-        data.forEach(
-            ({
+        for (const {
                 x,
                 y,
                 width,
@@ -150,7 +149,7 @@ export const animatedPatternN0Animation = ({
                 hasFill,
                 offsetXCenter,
                 offsetYCenter,
-            }) => {
+            } of data) {
                 const rotation = (Math.PI / 180) * rotate;
                 const cos = Math.cos(rotation) * scale;
                 const sin = Math.sin(rotation) * scale;
@@ -189,7 +188,7 @@ export const animatedPatternN0Animation = ({
                     context.fill();
                 }
             }
-        );
+        
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });

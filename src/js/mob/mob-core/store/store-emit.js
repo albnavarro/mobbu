@@ -32,9 +32,9 @@ const storeEmit = ({ instanceId, prop }) => {
          * AddToComputedWaitLsit get and update map.
          */
         addToComputedWaitLsit({ instanceId, prop });
-        bindInstanceBy.forEach((id) => {
+        for (const id of bindInstanceBy) {
             addToComputedWaitLsit({ instanceId: id, prop });
-        });
+        }
     } else {
         storeEmitWarning(prop, getLogStyle());
     }
@@ -100,9 +100,9 @@ const storeEmitAsync = async ({ instanceId, prop }) => {
         });
 
         addToComputedWaitLsit({ instanceId, prop });
-        bindInstanceBy.forEach((id) => {
+        for (const id of bindInstanceBy) {
             addToComputedWaitLsit({ instanceId: id, prop });
-        });
+        }
 
         return { success: true };
     } else {

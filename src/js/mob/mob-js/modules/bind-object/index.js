@@ -117,18 +117,18 @@ export const renderBindObject = (strings, ...values) => {
  * @returns {void}
  */
 export const switchBindObjectMap = () => {
-    [...bindObjectPlaceHolderMap].forEach(([placeholder, { bindObjectId }]) => {
+    for (const [placeholder, { bindObjectId }] of bindObjectPlaceHolderMap) {
         /**
          * Individuiamo il div che sara da aggiornare.
          */
         let parentElement = placeholder.parentElement;
         if (!parentElement || !placeholder.isConnected) {
             bindObjectToInitializeMap.delete(bindObjectId);
-            return;
+            continue;
         }
 
         const item = bindObjectToInitializeMap.get(bindObjectId);
-        if (!item) return;
+        if (!item) continue;
 
         bindObjectToInitializeMap.delete(bindObjectId);
         createBindObjectWatcher({ ...item, element: parentElement });
@@ -137,7 +137,7 @@ export const switchBindObjectMap = () => {
         placeholder?.removeCustomComponent?.();
         placeholder?.remove();
         parentElement = null;
-    });
+    }
 
     /**
      * Clean placeHolder map && module to initialize Set.
@@ -196,9 +196,9 @@ const createBindObjectWatcher = ({ id, keys, render, element }) => {
                      * - Unsubscribe module if element is disconnected from DOM.
                      */
                     if (ref?.deref() && !ref.deref()?.isConnected) {
-                        unsubScribeFunction.forEach((fn) => {
+                        for (const fn of unsubScribeFunction) {
                             if (fn) fn();
-                        });
+                        }
 
                         unsubScribeFunction = [];
                         ref = null;

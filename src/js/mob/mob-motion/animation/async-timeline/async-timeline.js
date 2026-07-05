@@ -802,7 +802,7 @@ export default class MobAsyncTimeline {
                 /**
                  * All ended Fire and of timeline
                  */
-                this.#callbackComplete.forEach(({ cb }) => cb());
+                for (const { cb } of this.#callbackComplete) cb();
                 this.#isStopped = true;
 
                 if (this.#currentResolve) {
@@ -928,12 +928,11 @@ export default class MobAsyncTimeline {
          */
         if (this.#loopCounter > 0) {
             const direction = this.getDirection();
-            this.#callbackLoop.forEach(({ cb }) =>
-                cb({
+            for (const { cb } of this.#callbackLoop) cb({
                     direction,
                     loop: this.#loopCounter,
                 })
-            );
+            ;
         }
 
         this.#loopCounter++;
@@ -1076,7 +1075,7 @@ export default class MobAsyncTimeline {
      * @type {() => void}
      */
     #resetAllTween() {
-        this.#tweenStore.forEach(({ tween }) => tween.resetData());
+        for (const { tween } of this.#tweenStore) tween.resetData();
     }
 
     /**
@@ -1414,7 +1413,7 @@ export default class MobAsyncTimeline {
          * END Blocks
          * Add set block at the end of timeline for every tween with last toValue
          */
-        this.#tweenStore.forEach(({ tween }) => {
+        for (const { tween } of this.#tweenStore) {
             const setValueTo = tween.getInitialData();
 
             this.#currentTweenCounter++;
@@ -1436,13 +1435,13 @@ export default class MobAsyncTimeline {
                 ],
                 ...this.#tweenList,
             ];
-        });
+        }
 
         /*
          * END Blocks
          * Add set block at the end of timeline for every tween with last toValue
          */
-        this.#tweenStore.forEach(({ tween }) => {
+        for (const { tween } of this.#tweenStore) {
             const setValueTo = reduceTweenUntilIndex({
                 timeline: this.#tweenList,
                 tween,
@@ -1465,7 +1464,7 @@ export default class MobAsyncTimeline {
                     },
                 },
             ]);
-        });
+        }
     }
 
     /**
@@ -1854,9 +1853,9 @@ export default class MobAsyncTimeline {
         this.#timeOnPause = 0;
 
         // Stop all Tween
-        this.#tweenStore.forEach(({ tween }) => {
+        for (const { tween } of this.#tweenStore) {
             tween?.stop?.({ clearCache });
-        });
+        }
 
         // If reverse back to default direction
         if (this.#isReverse) this.#revertTween();
@@ -1919,18 +1918,18 @@ export default class MobAsyncTimeline {
      * @returns {void}
      */
     #pauseAllTween() {
-        this.#currentTween.forEach(({ tween }) => {
+        for (const { tween } of this.#currentTween) {
             tween?.pause?.();
-        });
+        }
     }
 
     /**
      * @returns {void}
      */
     #resumeAllTween() {
-        this.#currentTween.forEach(({ tween }) => {
+        for (const { tween } of this.#currentTween) {
             tween?.resume?.();
-        });
+        }
     }
 
     /**
@@ -2079,9 +2078,9 @@ export default class MobAsyncTimeline {
      * Destroy timeline and all the sequencer
      */
     destroy() {
-        this.#tweenStore.forEach(({ tween }) => {
+        for (const { tween } of this.#tweenStore) {
             tween?.destroy?.();
-        });
+        }
         this.#tweenList = [];
         this.#currentTween = [];
         this.#callbackComplete = [];

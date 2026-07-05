@@ -58,9 +58,9 @@ export const removeChildFromChildrenArray = ({
  * @returns {void}
  */
 export const addPropsToState = ({ props, store }) => {
-    Object.entries(props).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(props)) {
         store.set(key, value);
-    });
+    }
 };
 
 /**

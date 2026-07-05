@@ -30,7 +30,7 @@ export const addActiveRepeat = ({ id, state, container }) => {
 export const removeActiveRepeat = ({ id, state, container }) => {
     if (!container) return;
 
-    activeRepeatMap.forEach((repeat) => {
+    for (const repeat of activeRepeatMap) {
         if (
             id === repeat.id &&
             state === repeat.state &&
@@ -38,7 +38,7 @@ export const removeActiveRepeat = ({ id, state, container }) => {
         ) {
             activeRepeatMap.delete(repeat);
         }
-    });
+    }
 };
 
 /**

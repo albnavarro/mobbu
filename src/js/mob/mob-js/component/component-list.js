@@ -60,9 +60,9 @@ export const setComponentList = () => {
 export const useComponent = (components) => {
     if (!components || components?.length === 0) return;
 
-    components.forEach((item) => {
+    for (const item of components) {
         availableComponent.add({
             [item.component.tag]: item.component.params,
         });
-    });
+    }
 };

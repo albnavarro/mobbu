@@ -54,9 +54,9 @@ const queueIsResolved = () => {
  */
 export const tick = async ({ debug = false, previousResolve } = {}) => {
     if (debug) {
-        queque.forEach((value) => {
+        for (const value of queque) {
             console.log(value);
-        });
+        }
     }
 
     await awaitNextLoop();

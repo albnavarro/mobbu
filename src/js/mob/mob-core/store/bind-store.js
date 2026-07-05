@@ -76,10 +76,10 @@ const checkDuplicatedBindProp = ({ bindStores, selfStore }) => {
      * - 1 loop O(n) ( stores )
      * - 2 loop O(m) ( key in stores )
      */
-    stores.forEach((store, index) => {
-        stores.forEach((storeCheck, indexCheck) => {
+    for (const [index, store] of stores.entries()) {
+        for (const [indexCheck, storeCheck] of stores.entries()) {
             // Skip: same store (index = indexCheck) and already checked pairs (index < indexCheck)
-            if (index <= indexCheck) return;
+            if (index <= indexCheck) continue;
 
             const duplicate = Object.keys(store).filter((key) => {
                 return Object.keys(storeCheck).includes(key);
@@ -92,8 +92,8 @@ const checkDuplicatedBindProp = ({ bindStores, selfStore }) => {
                     `bindStore: prop conflict on following prop: '${duplicate}', bind store key must be univoque'`
                 );
             }
-        });
-    });
+        }
+    }
 
     return hasConflict;
 };
@@ -163,7 +163,7 @@ export const bindStoreEntryPoint = ({ value, instanceId }) => {
         bindInstance: bindInstanceUpdated,
     });
 
-    ids.forEach((id) => {
+    for (const id of ids) {
         addSelfIdToBindInstanceBy({ selfId: instanceId, bindId: id });
-    });
+    }
 };

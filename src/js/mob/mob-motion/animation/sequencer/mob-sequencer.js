@@ -380,7 +380,7 @@ export default class MobSequencer {
     #actionAtFirstRender(time = 0) {
         if (!this.#forceAddFnAtFirstRun) return;
 
-        this.#callbackAdd.forEach(({ fn, time: fnTime }) => {
+        for (const { fn, time: fnTime } of this.#callbackAdd) {
             const mustFireForward = {
                 shouldFire: time >= fnTime,
                 direction: directionConstant.FORWARD,
@@ -394,14 +394,14 @@ export default class MobSequencer {
             const mustFire =
                 mustFireForward.shouldFire || mustFireBackward.shouldFire;
 
-            if (!mustFire) return;
+            if (!mustFire) continue;
 
             const direction = mustFireForward.shouldFire
                 ? mustFireForward.direction
                 : mustFireBackward.direction;
 
             fn({ direction, value: time, isForced: true });
-        });
+        }
 
         this.#forceAddFnAtFirstRun = false;
     }
@@ -412,7 +412,7 @@ export default class MobSequencer {
      * @property {number} [time=0] Default is `0`
      */
     #fireAddCallBack(time = 0) {
-        this.#callbackAdd.forEach(({ fn, time: fnTime }) => {
+        for (const { fn, time: fnTime } of this.#callbackAdd) {
             /*
              * In forward mode current time must be greater or equal than fn time
              * and the last current time must be minor than fn time to prevent
@@ -439,10 +439,10 @@ export default class MobSequencer {
             // const mustFire =
             //     (mustFireForward || mustFireBackward) && shouldFired;
             const mustFire = mustFireForward || mustFireBackward;
-            if (!mustFire) return;
+            if (!mustFire) continue;
 
             fn({ direction: this.#direction, value: time, isForced: false });
-        });
+        }
     }
 
     /**
@@ -797,23 +797,22 @@ export default class MobSequencer {
      * when it is stopped
      */
     cleanCachedId() {
-        this.#callbackCache.forEach(({ cb }) => MobCore.useCache.clean(cb));
+        for (const { cb } of this.#callbackCache) MobCore.useCache.clean(cb);
     }
 
     /**
      * ...
      */
     freezeCachedId() {
-        this.#callbackCache.forEach(({ cb }) => MobCore.useCache.freeze(cb));
+        for (const { cb } of this.#callbackCache) MobCore.useCache.freeze(cb);
     }
 
     /**
      * ...
      */
     unFreezeCachedId() {
-        this.#callbackCache.forEach(({ cb }) =>
-            MobCore.useCache.unFreeze({ id: cb, update: true })
-        );
+        for (const { cb } of this.#callbackCache) MobCore.useCache.unFreeze({ id: cb, update: true })
+        ;
     }
 
     /**
@@ -835,7 +834,7 @@ export default class MobSequencer {
         this.#callbackCache = [];
         this.#callbackOnStop = [];
         this.#callbackAdd = [];
-        this.#unsubscribeCache.forEach((unsubscribe) => unsubscribe());
+        for (const unsubscribe of this.#unsubscribeCache) unsubscribe();
         this.#unsubscribeCache = [];
     }
 }

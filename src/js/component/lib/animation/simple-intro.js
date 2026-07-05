@@ -19,7 +19,7 @@ export const simpleIntroAnimation = ({ refs }) => {
         stagger: { each: 12, from: 'end' },
     });
 
-    refs.forEach((item) => {
+    for (const item of refs) {
         introTween.subscribeCache(({ scale }) => {
             item.style.scale = `${scale}`;
         });
@@ -27,7 +27,7 @@ export const simpleIntroAnimation = ({ refs }) => {
         loopTween.subscribeCache(({ scale }) => {
             item.style.scale = `${scale}`;
         });
-    });
+    }
 
     let introTl = MobTimeline.createAsyncTimeline({
         repeat: 1,

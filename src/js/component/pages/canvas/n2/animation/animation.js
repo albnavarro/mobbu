@@ -120,7 +120,7 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
     /**
      * Subscribe sequencer to timeline.
      */
-    squareData.forEach((item) => {
+    for (const item of squareData) {
         infiniteTween.subscribeCache(({ x, rotate }) => {
             const val = x / friction;
             const factor = 2 / (3 - Math.cos(2 * val));
@@ -130,7 +130,7 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
             item.y = yr;
             item.rotate = rotate;
         });
-    });
+    }
 
     /**
      * Create timeline.
@@ -171,8 +171,7 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
             context.reset();
         }
 
-        squareData.forEach(
-            ({ width, height, x, y, rotate, hasFill, opacity }) => {
+        for (const { width, height, x, y, rotate, hasFill, opacity } of squareData) {
                 /**
                  * Center canvas
                  */
@@ -218,7 +217,7 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
 
                 context.fill();
             }
-        );
+        
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });

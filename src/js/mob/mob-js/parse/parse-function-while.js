@@ -355,19 +355,18 @@ export const parseComponentsWhile = async ({
             fireInvalidateFunction:
                 invalidateFunctions.length > 0
                     ? () => {
-                          invalidateFunctions.forEach(
-                              ({ initializeModule }) => {
+                          for (const { initializeModule } of invalidateFunctions) {
                                   initializeModule?.();
                               }
-                          );
+                          
                       }
                     : () => {},
             fireRepeatFunction:
                 repeatFunctions.length > 0
                     ? () => {
-                          repeatFunctions.forEach(({ initializeModule }) => {
+                          for (const { initializeModule } of repeatFunctions) {
                               initializeModule?.();
-                          });
+                          }
                       }
                     : () => {},
         });

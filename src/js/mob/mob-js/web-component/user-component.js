@@ -25,7 +25,7 @@ import {
  * @param {{ [key: string]: import('../main-store/type').ComponentListMap }} componentList
  */
 export const defineUserComponent = (componentList) => {
-    Object.entries(componentList).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(componentList)) {
         const {
             connectedCallback: _connectedCallBack,
             disconnectedCallback: _disconnectedCallback,
@@ -477,5 +477,5 @@ export const defineUserComponent = (componentList) => {
                 }
             }
         );
-    });
+    }
 };

@@ -350,7 +350,7 @@ export default class MobScrollerTween {
         this.#callbackOnStop = [];
         this.#callback = [];
         this.#callbackCache = [];
-        this.#unsubscribeCache.forEach((unsubscribe) => unsubscribe());
+        for (const unsubscribe of this.#unsubscribeCache) unsubscribe();
         this.#unsubscribeCache = [];
     }
 }

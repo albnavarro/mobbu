@@ -59,9 +59,9 @@ const queueIsResolved = () => {
  */
 export const repeaterTick = async ({ debug = false, previousResolve } = {}) => {
     if (debug) {
-        repeaterQueque.forEach((value) => {
+        for (const value of repeaterQueque) {
             console.log(value);
-        });
+        }
     }
 
     await awaitNextLoop();

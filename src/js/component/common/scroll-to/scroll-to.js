@@ -277,9 +277,9 @@ export const ScrollToFn = ({
                  */
                 if (!('anchorItems' in proxi)) return;
 
-                proxi.anchorItems.forEach((item) => {
+                for (const item of proxi.anchorItems) {
                     item.top = offset(item.element).top;
-                });
+                }
             }, 200)
         );
 

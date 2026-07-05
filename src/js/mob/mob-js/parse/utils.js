@@ -44,9 +44,9 @@ export const transferAllAttributes = ({ source, target }) => {
          * Class attribute should be added to existet.
          */
         if (attr.name === 'class') {
-            attr.value.split(/\s+/).forEach((cls) => {
+            for (const cls of attr.value.split(/\s+/)) {
                 if (cls) target.classList.add(cls);
-            });
+            }
             continue;
         }
 

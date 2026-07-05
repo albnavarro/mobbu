@@ -170,9 +170,9 @@ const setProp = ({
          * AddToComputedWaitLsit get and update map.
          */
         addToComputedWaitLsit({ instanceId, prop });
-        bindInstanceBy.forEach((id) => {
+        for (const id of bindInstanceBy) {
             addToComputedWaitLsit({ instanceId: id, prop });
-        });
+        }
     }
 };
 
@@ -337,7 +337,7 @@ const setObj = ({
      * - Object ( controlled ) non e sepcifco per le performance.
      * - Per le performance conviene utilizzare una propietá normale.
      */
-    Object.entries(newValParsedByStrict).forEach((item) => {
+    for (const item of Object.entries(newValParsedByStrict)) {
         const [subProp, subVal] = item;
         const subValOld = store[prop][subProp];
 
@@ -361,7 +361,7 @@ const setObj = ({
         }
 
         validationStatusObject[prop][subProp] = validateResult;
-    });
+    }
 
     /**
      * Update value and fire callback associated
@@ -455,9 +455,9 @@ const setObj = ({
          * AddToComputedWaitLsit get and update map.
          */
         addToComputedWaitLsit({ instanceId, prop });
-        bindInstanceBy.forEach((id) => {
+        for (const id of bindInstanceBy) {
             addToComputedWaitLsit({ instanceId: id, prop });
-        });
+        }
     }
 };
 
@@ -656,14 +656,14 @@ const fireComputed = (instanceId) => {
     /**
      * Update computed value after computedRunning is ended.
      */
-    computedValues.forEach(({ prop, value }) => {
+    for (const { prop, value } of computedValues) {
         storeSetEntryPoint({
             instanceId,
             prop,
             value,
             action: STORE_SET,
         });
-    });
+    }
 };
 
 /**

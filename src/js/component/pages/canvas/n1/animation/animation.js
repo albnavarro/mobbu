@@ -105,13 +105,13 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
     /**
      * Subscribe rect to rotation tween.
      */
-    squareData.forEach((item) => {
+    for (const item of squareData) {
         centerTween.subscribeCache(({ x, y }) => {
             item.x = x;
             item.y = y;
             item.scale = mouseSpeed;
         });
-    });
+    }
 
     /**
      * Draw
@@ -143,8 +143,7 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
             context.reset();
         }
 
-        squareData.forEach(
-            ({ width, height, x, y, rotate, hasFill, opacity, scale }, i) => {
+        for (const [i, { width, height, x, y, rotate, hasFill, opacity, scale }] of squareData.entries()) {
                 const unitInverse = squarelenght - i;
 
                 const speedDelta = Math.max(1, scale / 4);
@@ -202,7 +201,7 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
 
                 context.fill();
             }
-        );
+        
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
@@ -336,9 +335,9 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
             unsubscribeTouchMove();
             unsubScribeVelocity();
             unWatchPause();
-            unsubScribeRotate.forEach((unsubScribe) => {
+            for (const unsubScribe of unsubScribeRotate) {
                 unsubScribe();
-            });
+            }
             unsubScribeRotate.length = 0;
             // @ts-ignore
             rotationTween = null;
@@ -358,9 +357,9 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
             context = null;
         },
         stopBlackOne: () => {
-            fill.forEach((index) => {
+            for (const index of fill) {
                 unsubScribeRotate[index]?.();
-            });
+            }
         },
     };
 };

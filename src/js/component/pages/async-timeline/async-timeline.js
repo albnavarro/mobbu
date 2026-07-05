@@ -91,12 +91,12 @@ export const AsyncTimelineFn = ({
         /**
          * Inizalize controls handler.
          */
-        Object.entries(proxi.buttons).forEach(([className, value]) => {
+        for (const [className, value] of Object.entries(proxi.buttons)) {
             const { method } = value;
             const btn = element.querySelector(`.${className}`);
             // @ts-ignore
             btn?.addEventListener('click', () => methods?.[method]());
-        });
+        }
 
         MobCore.useFrame(() => {
             /**

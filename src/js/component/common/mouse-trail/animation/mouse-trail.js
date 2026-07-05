@@ -26,11 +26,11 @@ export const mouseTrailAnimation = ({ elements }) => {
         stagger: { each: 3, from: 'start' },
     });
 
-    elements.forEach((item) => {
+    for (const item of elements) {
         mouseTween.subscribe(({ x, y }) => {
             item.style.translate = `${x}px ${y}px`;
         });
-    });
+    }
 
     /**
      * Create rotation tween.
@@ -40,13 +40,13 @@ export const mouseTrailAnimation = ({ elements }) => {
         stagger: { each: 8, from: 'start' },
     });
 
-    elements.forEach((item) => {
-        if (!item) return;
+    for (const item of elements) {
+        if (!item) continue;
 
         mouseTweenRotate.subscribeCache(({ rotation }) => {
             item.style.rotate = `${rotation}deg`;
         });
-    });
+    }
 
     /**
      * Resize event.

@@ -33,7 +33,7 @@ export const inizializeNestedInvalidate = ({ invalidateParent, id }) => {
         module: MODULE_INVALIDATE,
     });
 
-    invalidateToInitialize.forEach(({ initializeModule }) => {
+    for (const { initializeModule } of invalidateToInitialize) {
         initializeModule();
-    });
+    }
 };

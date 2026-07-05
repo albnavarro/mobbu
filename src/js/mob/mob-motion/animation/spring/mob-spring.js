@@ -501,7 +501,7 @@ export default class MobSpring {
          * Clear stagger cache if needed.
          */
         if (clearCache)
-            this.#callbackCache.forEach(({ cb }) => MobCore.useCache.clean(cb));
+            for (const { cb } of this.#callbackCache) MobCore.useCache.clean(cb);
 
         // Reject promise
         if (this.#currentReject) {
@@ -520,7 +520,7 @@ export default class MobSpring {
     freezeStagger() {
         if (this.#staggerIsFreezed) return;
 
-        this.#callbackCache.forEach(({ cb }) => MobCore.useCache.freeze(cb));
+        for (const { cb } of this.#callbackCache) MobCore.useCache.freeze(cb);
         this.#staggerIsFreezed = true;
     }
 
@@ -532,9 +532,8 @@ export default class MobSpring {
     unFreezeStagger({ updateFrame = true } = {}) {
         if (!this.#staggerIsFreezed) return;
 
-        this.#callbackCache.forEach(({ cb }) =>
-            MobCore.useCache.unFreeze({ id: cb, update: updateFrame })
-        );
+        for (const { cb } of this.#callbackCache) MobCore.useCache.unFreeze({ id: cb, update: updateFrame })
+        ;
 
         this.#staggerIsFreezed = false;
     }
@@ -1132,7 +1131,7 @@ export default class MobSpring {
         this.#callbackCache = [];
         this.#values = [];
         this.#currentPromise = undefined;
-        this.#unsubscribeCache.forEach((unsubscribe) => unsubscribe());
+        for (const unsubscribe of this.#unsubscribeCache) unsubscribe();
         this.#unsubscribeCache = [];
     }
 }

@@ -233,11 +233,11 @@ export const applyDelegationBindEvent = (root) => {
     /**
      * Create event object associated to DOM element.
      */
-    [...elements].forEach((element) => {
+    for (const element of elements) {
         const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS) ?? '';
         element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
         const eventArray = tempDelegateEventMap.get(id);
-        if (!eventArray) return;
+        if (!eventArray) continue;
 
         /**
          * Riorganizziamo gli array
@@ -271,7 +271,7 @@ export const applyDelegationBindEvent = (root) => {
 
         eventDelegationMap.set(element, eventsParsed);
         tempDelegateEventMap.delete(id);
-    });
+    }
 
     const rootElement = getRoot();
 

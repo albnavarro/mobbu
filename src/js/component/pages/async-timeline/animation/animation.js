@@ -135,12 +135,12 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     /**
      * Subscribe tweens
      */
-    data.forEach((item) => {
+    for (const item of data) {
         tweenGrid.subscribeCache(({ scale, rotate }) => {
             item.rotate = rotate;
             item.scale = scale;
         });
-    });
+    }
 
     tweenAround.subscribe((data) => {
         tweenAroundTarget = data;
@@ -255,9 +255,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         /**
          * Grid
          */
-        data.forEach(
-            (
-                {
+        for (const [index, {
                     x,
                     y,
                     width,
@@ -266,9 +264,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                     scale,
                     offsetXCenter,
                     offsetYCenter,
-                },
-                index
-            ) => {
+                }] of data.entries()) {
                 /**
                  * Around
                  */
@@ -364,7 +360,7 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                 context.fillStyle = mainFill;
                 context.fill();
             }
-        );
+        
 
         /**
          * CENTER TWEEN

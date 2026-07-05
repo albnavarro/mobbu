@@ -274,23 +274,23 @@ export default class MobSyncTimeline {
 
             // When come from playReverse skip first frame because is 0
             if (!this.#skipFirstRender) {
-                this.#sequencers.forEach((item) => {
+                for (const item of this.#sequencers) {
                     item.draw({
                         partial: this.#currentTime,
                         isLastDraw: false,
                         useFrame: true,
                         direction,
                     });
-                });
+                }
 
                 /*
                  * Fire callbackOnUpdate
                  */
                 this.#updateData.time = this.#currentTime;
                 this.#updateData.direction = direction;
-                this.#callbackOnUpdate.forEach(({ cb }) => {
+                for (const { cb } of this.#callbackOnUpdate) {
                     cb(this.#updateData);
-                });
+                }
             }
         }
 
@@ -352,7 +352,7 @@ export default class MobSyncTimeline {
 
                 this.#loopData.direction = direction;
                 this.#loopData.loop = this.#loopCounter;
-                this.#callbackLoop.forEach(({ cb }) => cb(this.#loopData));
+                for (const { cb } of this.#callbackLoop) cb(this.#loopData);
             }
         });
 
@@ -367,14 +367,14 @@ export default class MobSyncTimeline {
             // Fire callbackLoop onStop of each sequencr
             // Prevent async problem, endTime back to start, so store the value
             const endTime = this.#currentTime;
-            this.#sequencers.forEach((item) => {
+            for (const item of this.#sequencers) {
                 item.draw({
                     partial: endTime,
                     isLastDraw: true,
                     useFrame: true,
                     direction,
                 });
-            });
+            }
 
             this.#isStopped = true;
             this.#resetTime();
@@ -382,7 +382,7 @@ export default class MobSyncTimeline {
             if (this.#isReverse) this.#isReverse = false;
 
             // Fire last callback on Complete
-            this.#callbackComplete.forEach(({ cb }) => cb());
+            for (const { cb } of this.#callbackComplete) cb();
             if (this.#currentResolve) this.#currentResolve(true);
             return;
         }
@@ -708,7 +708,7 @@ export default class MobSyncTimeline {
         fpsLoadedLog('sequencer', averageFPS);
         this.#isReverse = false;
 
-        this.#sequencers.forEach((item) => {
+        for (const item of this.#sequencers) {
             item.inzializeStagger();
             item.disableStagger();
             item.draw({
@@ -717,7 +717,7 @@ export default class MobSyncTimeline {
                 useFrame: true,
                 direction: this.getDirection(),
             });
-        });
+        }
 
         MobCore.useFrame(() => {
             MobCore.useNextTick(({ time, fps }) => {
@@ -741,9 +741,9 @@ export default class MobSyncTimeline {
         this.#isInPause = true;
 
         if (freezeCache) {
-            this.#sequencers.forEach((item) => {
+            for (const item of this.#sequencers) {
                 item.freezeCachedId();
-            });
+            }
             return;
         }
     }
@@ -757,9 +757,9 @@ export default class MobSyncTimeline {
         this.#isInPause = false;
 
         if (unFreezeCache) {
-            this.#sequencers.forEach((item) => {
+            for (const item of this.#sequencers) {
                 item.unFreezeCachedId();
-            });
+            }
             return;
         }
     }
@@ -794,9 +794,9 @@ export default class MobSyncTimeline {
         this.#rejectPromise();
 
         if (clearCache) {
-            this.#sequencers.forEach((item) => {
+            for (const item of this.#sequencers) {
                 item.cleanCachedId();
-            });
+            }
             return;
         }
 
@@ -807,14 +807,14 @@ export default class MobSyncTimeline {
          */
 
         // Fire callbackLoop onStop of each sequencr
-        this.#sequencers.forEach((item) => {
+        for (const item of this.#sequencers) {
             item.draw({
                 partial: this.#currentTime,
                 isLastDraw: true,
                 useFrame: true,
                 direction: this.getDirection(),
             });
-        });
+        }
     }
 
     /**
@@ -850,7 +850,7 @@ export default class MobSyncTimeline {
      * @returns {void}
      */
     #resetSequencerLastValue() {
-        this.#sequencers.forEach((item) => item.resetLastValue());
+        for (const item of this.#sequencers) item.resetLastValue();
     }
 
     /**
@@ -1007,7 +1007,7 @@ export default class MobSyncTimeline {
      */
     destroy() {
         this.stop();
-        this.#sequencers.forEach((item) => item.destroy());
+        for (const item of this.#sequencers) item.destroy();
         this.#sequencers = [];
         this.#callbackOnUpdate = [];
         this.#callbackLoop = [];

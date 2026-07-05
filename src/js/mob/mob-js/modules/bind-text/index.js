@@ -133,18 +133,18 @@ export const renderBindText = (id, strings, ...values) => {
  * @returns {void}
  */
 export const switchBindTextMap = () => {
-    [...bindTextPlaceHolderMap].forEach(([placeholder, { bindTextId }]) => {
+    for (const [placeholder, { bindTextId }] of bindTextPlaceHolderMap) {
         /**
          * Individuiamo il div che sara da aggiornare.
          */
         let parentElement = placeholder.parentElement;
         if (!parentElement || !placeholder.isConnected) {
             bindTextToInitializeMap.delete(bindTextId);
-            return;
+            continue;
         }
 
         const item = bindTextToInitializeMap.get(bindTextId);
-        if (!item) return;
+        if (!item) continue;
 
         bindTextToInitializeMap.delete(bindTextId);
         createBindTextWatcher({ ...item, element: parentElement });
@@ -153,7 +153,7 @@ export const switchBindTextMap = () => {
         placeholder?.removeCustomComponent?.();
         placeholder?.remove();
         parentElement = null;
-    });
+    }
 
     /**
      * Clean placeHolder map
@@ -239,9 +239,9 @@ const createBindTextWatcher = ({ id, render, props, element }) => {
                      * - Unsubscribe module if element is disconnected from DOM.
                      */
                     if (ref?.deref() && !ref.deref()?.isConnected) {
-                        unsubScribeFunction.forEach((fn) => {
+                        for (const fn of unsubScribeFunction) {
                             if (fn) fn();
-                        });
+                        }
 
                         unsubScribeFunction = [];
                         ref = null;

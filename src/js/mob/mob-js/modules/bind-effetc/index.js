@@ -33,9 +33,9 @@ const getExplicitBind = (observe) => {
  */
 const getAutoBind = ({ toggleClass, toggleStyle, toggleAttribute }) => {
     MobDetectBindKey.initializeCurrentDependencies();
-    Object.values(toggleStyle).forEach((fn) => fn());
-    Object.values(toggleClass).forEach((fn) => fn());
-    Object.values(toggleAttribute).forEach((fn) => fn());
+    for (const fn of Object.values(toggleStyle)) fn();
+    for (const fn of Object.values(toggleClass)) fn();
+    for (const fn of Object.values(toggleAttribute)) fn();
     return MobDetectBindKey.getCurrentDependencies();
 };
 
@@ -97,17 +97,17 @@ export const applyBindEffect = (element) => {
     /**
      * TODO: Check that target don't is garbage collected.
      */
-    occurrences.forEach((target) => {
+    for (const target of occurrences) {
         const id = target.getAttribute(ATTR_BIND_EFFECT);
-        if (!id) return;
+        if (!id) continue;
 
         const data = bindEffectMap.get(id);
-        if (!data) return;
+        if (!data) continue;
 
         target.removeAttribute(ATTR_BIND_EFFECT);
         watchBindEffect({ data, element: target });
         bindEffectMap.delete(id);
-    });
+    }
 };
 
 /**
@@ -139,12 +139,12 @@ export const applyBindEffectFromComponent = ({ moduleId, target }) => {
 const applyClass = ({ ref, data }) => {
     if (!data || !ref) return;
 
-    Object.entries(data).forEach(([className, fn]) => {
-        if (!ref.deref()) return;
+    for (const [className, fn] of Object.entries(data)) {
+        if (!ref.deref()) continue;
 
         // @ts-ignore
         ref.deref().classList.toggle(className, fn?.());
-    });
+    }
 };
 
 /**
@@ -156,12 +156,12 @@ const applyClass = ({ ref, data }) => {
 const applyStyle = ({ ref, data }) => {
     if (!ref) return;
 
-    Object.entries(data).forEach(([styleName, fn]) => {
-        if (!ref.deref()) return;
+    for (const [styleName, fn] of Object.entries(data)) {
+        if (!ref.deref()) continue;
 
         // @ts-ignore
         ref.deref().style[styleName] = fn?.() ?? '';
-    });
+    }
 };
 
 /**
@@ -173,8 +173,8 @@ const applyStyle = ({ ref, data }) => {
 const applyAttribute = ({ ref, data }) => {
     if (!ref) return;
 
-    Object.entries(data).forEach(([attributeName, fn]) => {
-        if (!ref.deref()) return;
+    for (const [attributeName, fn] of Object.entries(data)) {
+        if (!ref.deref()) continue;
         const value = fn?.();
 
         /**
@@ -183,7 +183,7 @@ const applyAttribute = ({ ref, data }) => {
         if (MobCore.checkType(Boolean, value)) {
             // @ts-ignore
             ref.deref()[attributeName] = value;
-            return;
+            continue;
         }
 
         /**
@@ -192,12 +192,12 @@ const applyAttribute = ({ ref, data }) => {
         if (!value) {
             // @ts-ignore
             ref.deref().removeAttribute(attributeName);
-            return;
+            continue;
         }
 
         // @ts-ignore
         ref.deref()?.setAttribute(attributeName, value);
-    });
+    }
 };
 
 /**
@@ -287,9 +287,9 @@ const watchBindEffect = ({ data, element }) => {
                         /**
                          * Unsubscribe all watcher attached to this ref
                          */
-                        unsubScribeFunction.forEach((fn) => {
+                        for (const fn of unsubScribeFunction) {
                             if (fn) fn();
-                        });
+                        }
 
                         unsubScribeFunction = [];
                         ref = null;

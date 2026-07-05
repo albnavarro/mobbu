@@ -27,17 +27,17 @@ export const destroyNestedRepeat = ({ id, repeatParent }) => {
         module: MODULE_REPEATER,
     });
 
-    repeatToDelete.forEach(({ unsubscribe, moduleId }) => {
+    for (const { unsubscribe, moduleId } of repeatToDelete) {
         /**
          * Repeat does not use an array to store unsubscribe function.
          *
          * - But invalidate doas it.
          * - For consistency in common function unsubscribe is wrapped in a array.
          */
-        unsubscribe.forEach((fn) => {
+        for (const fn of unsubscribe) {
             fn();
-        });
+        }
 
         removeRepeatByRepeatId({ id, repeatId: moduleId });
-    });
+    }
 };

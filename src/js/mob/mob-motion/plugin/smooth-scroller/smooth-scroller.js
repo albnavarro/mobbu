@@ -575,14 +575,14 @@ export class MobSmoothScroller {
         );
 
         this.#children = data?.children || [];
-        this.#children.forEach((element) => {
+        for (const element of this.#children) {
             element.setScroller(this.#scroller);
             element.setDirection(this.#direction);
             element.setScreen(this.#screen);
             element.setBreakPoint(this.#breakpoint);
             element.setQueryType(this.#queryType);
             element.init();
-        });
+        }
 
         this.#scopedWhell = (event) => {
             this.#addWhellingClass();
@@ -830,9 +830,9 @@ export class MobSmoothScroller {
                     shouldScroll: this.#getScrollableStatus(),
                 });
 
-                this.#children.forEach((element) => {
+                for (const element of this.#children) {
                     element.refresh();
-                });
+                }
             });
         }, 3);
     }
@@ -978,11 +978,11 @@ export class MobSmoothScroller {
             this.#scroller
         ).querySelectorAll('a, button');
 
-        [...activeElements].forEach((item) => {
+        for (const item of activeElements) {
             item.setAttribute('draggable', 'false');
             // @ts-ignore
             item.style['user-select'] = 'none';
-        });
+        }
     }
 
     /**
@@ -997,11 +997,11 @@ export class MobSmoothScroller {
             this.#scroller
         ).querySelectorAll('a, button');
 
-        [...activeElement].forEach((item) => {
+        for (const item of activeElement) {
             item.removeAttribute('draggable');
             // @ts-ignore
             item.style['user-select'] = '';
-        });
+        }
     }
 
     /**
@@ -1023,9 +1023,9 @@ export class MobSmoothScroller {
              * - Not on every tick. Currently there is no dedicated "first tick" event from
              * - Internalli children set this.#force3D = true when triggerScrollStart is Called.
              */
-            this.#children.forEach((element) => {
+            for (const element of this.#children) {
                 element.triggerScrollStart();
-            });
+            }
 
             MobCore.useNextTick(() => {
                 this.#onTickCallback({
@@ -1034,12 +1034,12 @@ export class MobSmoothScroller {
                     parentIsMoving: true,
                 });
 
-                this.#children.forEach((element) => {
+                for (const element of this.#children) {
                     element.move({
                         value: -val,
                         parentIsMoving: true,
                     });
-                });
+                }
             });
         });
 
@@ -1056,13 +1056,13 @@ export class MobSmoothScroller {
                     parentIsMoving: false,
                 });
 
-                this.#children.forEach((element) => {
+                for (const element of this.#children) {
                     element.triggerScrollEnd();
                     element.move({
                         value: -val,
                         parentIsMoving: false,
                     });
-                });
+                }
             });
         });
     }
@@ -1766,9 +1766,9 @@ export class MobSmoothScroller {
                     shouldScroll: this.#getScrollableStatus(),
                 });
 
-                this.#children.forEach((element) => {
+                for (const element of this.#children) {
                     element.refresh();
-                });
+                }
             });
         }, 2);
     }
@@ -1802,9 +1802,9 @@ export class MobSmoothScroller {
         this.#motion?.destroy();
         // @ts-ignore
         this.#motion = null;
-        this.#children.forEach((element) => {
+        for (const element of this.#children) {
             element?.destroy?.();
-        });
+        }
         this.#children = [];
         this.#onTickCallback = NOOP;
         this.#onUpdateCallback = NOOP;

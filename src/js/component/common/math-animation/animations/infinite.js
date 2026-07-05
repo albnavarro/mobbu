@@ -83,7 +83,7 @@ export const mathInfinite = ({ targets, container, canvas } = {}) => {
         .goTo({ scale: 1 }, { start: 5, end: 8.5, ease: 'easeOutQuad' })
         .goTo({ scale: 0 }, { start: 8.5, end: 10, ease: 'easeInQuad' });
 
-    targets.forEach((item, index) => {
+    for (const [index, item] of targets.entries()) {
         const innerElement = /** @type {HTMLSpanElement} */ (item.firstChild);
 
         tween.subscribeCache(({ x, scale }) => {
@@ -138,7 +138,7 @@ export const mathInfinite = ({ targets, container, canvas } = {}) => {
             item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetsHeight[index] * directionMultiplier}px, ${yr - halfTagetsHeight[index]}px)`;
             if (innerElement) innerElement.style.scale = `${scale}`;
         });
-    });
+    }
 
     let timeline = MobTimeline.createSyncTimeline({
         repeat: -1,

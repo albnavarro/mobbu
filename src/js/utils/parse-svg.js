@@ -15,15 +15,15 @@ export const parseSvg = ({ svg, id }) => {
     const layers = svgElement.querySelectorAll('[type="layer"]');
     const layersToRemove = svgElement.querySelectorAll('[type="delete"]');
 
-    layers.forEach((layer) => {
+    for (const layer of layers) {
         if (layer.id !== id) {
             layer.remove();
         }
-    });
+    }
 
-    layersToRemove.forEach((layer) => {
+    for (const layer of layersToRemove) {
         layer.remove();
-    });
+    }
 
     /**
      * Return SVG element

@@ -29,20 +29,20 @@ export const updateStateByProp = ({
         return currentValue?.[prop] === value && keyIsValid;
     });
 
-    items.forEach(([key, currentValue]) => {
+    for (const [key, currentValue] of items) {
         const stateUpdated = update({ key, map, state: currentValue });
         map.set(key, stateUpdated);
         effect?.({ key, state: stateUpdated });
-    });
+    }
 };
 
 /**
  * @type {import('./type').updateAll}
  */
 export const updateAll = ({ map, update, effect }) => {
-    [...map.entries()].forEach(([key, state]) => {
+    for (const [key, state] of map.entries()) {
         const stateUpdated = update({ key, map, state });
         map.set(key, stateUpdated);
         effect?.({ key, state: stateUpdated });
-    });
+    }
 };

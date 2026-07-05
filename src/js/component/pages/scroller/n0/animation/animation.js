@@ -149,8 +149,7 @@ export const scrollerN0Animation = ({
             context.reset();
         }
 
-        data.forEach(
-            ({
+        for (const {
                 x,
                 y,
                 width,
@@ -160,7 +159,7 @@ export const scrollerN0Animation = ({
                 hasFill,
                 offsetXCenter,
                 offsetYCenter,
-            }) => {
+            } of data) {
                 const rotation = (Math.PI / 180) * rotate;
                 const xx = Math.cos(rotation) * scale;
                 const xy = Math.sin(rotation) * scale;
@@ -200,7 +199,7 @@ export const scrollerN0Animation = ({
                     }
                 }
             }
-        );
+        
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
@@ -278,10 +277,10 @@ export const scrollerN0Animation = ({
      */
     return () => {
         unWatchPause();
-        sequencersInstances.forEach(({ sequencer, unsubscribe }) => {
+        for (const { sequencer, unsubscribe } of sequencersInstances) {
             sequencer.destroy();
             unsubscribe();
-        });
+        }
         sequencersInstances = [];
         masterSequencer.destroy();
         // @ts-ignore
