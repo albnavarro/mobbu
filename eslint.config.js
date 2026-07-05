@@ -70,7 +70,6 @@ export default defineConfig([
             'unicorn/prefer-type-literal-last': 'off',
             'unicorn/prefer-continue': 'off',
             'unicorn/prefer-split-limit': 'off',
-            'unicorn/prefer-unary-minus': 'off',
             'unicorn/prefer-dom-node-replace-children': 'off',
             'unicorn/prefer-direct-iteration': 'off',
             'unicorn/prefer-set-has': 'off',

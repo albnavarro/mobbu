@@ -22362,7 +22362,7 @@
     #getOpacityValue() {
       const vhLimit = this.#scrollerHeight / 100 * this.#opacityEnd;
       const vhStart = this.#scrollerHeight - this.#scrollerHeight / 100 * this.#opacityStart;
-      const value = this.#align == MobScrollerConstant.ALIGN_START ? -this.#scrollerScroll * -1 : (this.#scrollerScroll + vhLimit - this.#offset) * -1;
+      const value = this.#align == MobScrollerConstant.ALIGN_START ? - -this.#scrollerScroll : -(this.#scrollerScroll + vhLimit - this.#offset);
       const valClamped = this.#align == MobScrollerConstant.ALIGN_START ? 1 - value / this.#offset : 1 - value / (this.#scrollerHeight - vhStart - vhLimit);
       return clamp3(valClamped, 0, 1);
     }
@@ -37618,7 +37618,7 @@
           if (index > numPoints) {
             const reverseIndex = totalPoints - index;
             const x2 = reverseIndex / numPoints * distance;
-            const y2 = Math.sin(x2 / pixelsPerRadian) * amplitude * -1;
+            const y2 = -(Math.sin(x2 / pixelsPerRadian) * amplitude);
             return {
               x: x2,
               y: y2

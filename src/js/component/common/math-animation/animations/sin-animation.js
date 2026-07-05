@@ -165,7 +165,7 @@ export const mathSin = ({ targets, container, canvas } = {}) => {
                 if (index > numPoints) {
                     const reverseIndex = totalPoints - index;
                     const x = (reverseIndex / numPoints) * distance;
-                    const y = Math.sin(x / pixelsPerRadian) * amplitude * -1;
+                    const y = -(Math.sin(x / pixelsPerRadian) * amplitude);
 
                     return {
                         x,

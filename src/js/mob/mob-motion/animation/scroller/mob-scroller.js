@@ -1654,8 +1654,8 @@ export default class MobScroller {
 
         const value =
             this.#align == MobScrollerConstant.ALIGN_START
-                ? -this.#scrollerScroll * -1
-                : (this.#scrollerScroll + vhLimit - this.#offset) * -1;
+                ? -(-this.#scrollerScroll)
+                : -(this.#scrollerScroll + vhLimit - this.#offset);
 
         const valClamped =
             this.#align == MobScrollerConstant.ALIGN_START
