@@ -39,9 +39,10 @@ export const removeAndDestroyById = ({ id = '' }) => {
      *
      * - In case element is not collected by GC ( closure and so on )
      */
-    if (bindEventsHandlers) for (const { eventName, handler } of bindEventsHandlers) {
-        element.removeEventListener(eventName, handler);
-    }
+    if (bindEventsHandlers)
+        for (const { eventName, handler } of bindEventsHandlers) {
+            element.removeEventListener(eventName, handler);
+        }
 
     /**
      * - `Freeze` children before destroy
@@ -53,14 +54,13 @@ export const removeAndDestroyById = ({ id = '' }) => {
     /**
      * Destroy children.
      */
-    for (const childId of Object.values(child ?? {})
-        .flat()) {
-            try {
-                removeAndDestroyById({ id: childId });
-            } catch (error) {
-                console.warn(error);
-            }
+    for (const childId of Object.values(child ?? {}).flat()) {
+        try {
+            removeAndDestroyById({ id: childId });
+        } catch (error) {
+            console.warn(error);
         }
+    }
 
     /**
      * Remove itself from parent.

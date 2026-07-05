@@ -87,8 +87,7 @@ export interface MobStoreReturnType<T extends StoreDefaultMap> {
 }
 
 export type BindStoreValueType =
-    | MobStoreReturnType<any>
-    | MobStoreReturnType<any>[];
+    MobStoreReturnType<any> | MobStoreReturnType<any>[];
 
 export type BindStore = (value: BindStoreValueType) => void;
 

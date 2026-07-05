@@ -33,7 +33,11 @@
                     inset-block-start: 50%;
                     inset-inline: 0;
                     block-size: 1px;
-                    background: color-mix(in oklch, var(--white) 10%, transparent);
+                    background: color-mix(
+                        in oklch,
+                        var(--white) 10%,
+                        transparent
+                    );
                 }
             }
 

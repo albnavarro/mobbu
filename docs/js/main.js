@@ -5847,9 +5847,10 @@
       persistent,
       bindEventsHandlers
     } = instanceValue;
-    if (bindEventsHandlers) for (const { eventName, handler: handler9 } of bindEventsHandlers) {
-      element.removeEventListener(eventName, handler9);
-    }
+    if (bindEventsHandlers)
+      for (const { eventName, handler: handler9 } of bindEventsHandlers) {
+        element.removeEventListener(eventName, handler9);
+      }
     if (parentPropsWatcher) for (const unwatch of parentPropsWatcher) unwatch();
     for (const childId of Object.values(child ?? {}).flat()) {
       try {
@@ -10114,7 +10115,9 @@
           });
         },
         fireInvalidateFunction: invalidateFunctions.length > 0 ? () => {
-          for (const { initializeModule } of invalidateFunctions) {
+          for (const {
+            initializeModule
+          } of invalidateFunctions) {
             initializeModule?.();
           }
         } : () => {

@@ -230,61 +230,60 @@ export const addWithKey = ({
      * - New element will be NODE_ELEMENT or STRING depend by sync strategy.
      */
     for (const {
-            isNewElement,
-            keyValue,
-            index,
-            persistentElement,
-            persistentDOMwrapper,
-        } of newSequenceByKey) {
-            if (!isNewElement) {
-                const { debug } = getDefaultComponent();
+        isNewElement,
+        keyValue,
+        index,
+        persistentElement,
+        persistentDOMwrapper,
+    } of newSequenceByKey) {
+        if (!isNewElement) {
+            const { debug } = getDefaultComponent();
 
-                /**
-                 * IMPORTANT !
-                 *
-                 * - Wrapper Append old NODE_ELEMENT
-                 */
-                if (persistentDOMwrapper) {
-                    fragment.append(persistentDOMwrapper);
-                }
-
-                const componentWithNoWrapper = persistentElement?.[0]?.element;
-
-                /**
-                 * No wrapper If there is no wrapper assuming we have only one component child
-                 */
-                if (!persistentDOMwrapper && componentWithNoWrapper) {
-                    fragment.append(componentWithNoWrapper);
-
-                    if (debug) {
-                        addDebugToComponent({
-                            element: persistentElement[0]?.element,
-                            container: repeaterParentElement,
-                        });
-                    }
-                }
-
-                /**
-                 * If is not a new element return.
-                 */
-                continue;
+            /**
+             * IMPORTANT !
+             *
+             * - Wrapper Append old NODE_ELEMENT
+             */
+            if (persistentDOMwrapper) {
+                fragment.append(persistentDOMwrapper);
             }
 
-            const currentValue = currentUnique?.[index];
+            const componentWithNoWrapper = persistentElement?.[0]?.element;
 
-            const currentRender = updateRepeaterWithtKey({
-                currentValue,
-                index,
-                state,
-                repeatId,
-                key,
-                keyValue,
-                render,
-            });
+            /**
+             * No wrapper If there is no wrapper assuming we have only one component child
+             */
+            if (!persistentDOMwrapper && componentWithNoWrapper) {
+                fragment.append(componentWithNoWrapper);
 
-            if (currentRender) fragment.append(currentRender);
+                if (debug) {
+                    addDebugToComponent({
+                        element: persistentElement[0]?.element,
+                        container: repeaterParentElement,
+                    });
+                }
+            }
+
+            /**
+             * If is not a new element return.
+             */
+            continue;
         }
-    
+
+        const currentValue = currentUnique?.[index];
+
+        const currentRender = updateRepeaterWithtKey({
+            currentValue,
+            index,
+            state,
+            repeatId,
+            key,
+            keyValue,
+            render,
+        });
+
+        if (currentRender) fragment.append(currentRender);
+    }
 
     repeaterParentElement.append(fragment);
     return currentUnique;

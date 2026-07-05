@@ -92,9 +92,19 @@ Non è una sostituzione 1:1 ovunque (va bene tenere `.is-whelling`/`.is-selected
 ```scss
 // Attuale — abstract/font-map.scss
 $font-map: (
-    'small': (size: 16px),
-    'tablet': (size: 16px, unit: px, default: true),
-    'xxlarge': (size: 16px, unit: vw, ratio: 1980),
+    'small': (
+        size: 16px,
+    ),
+    'tablet': (
+        size: 16px,
+        unit: px,
+        default: true,
+    ),
+    'xxlarge': (
+        size: 16px,
+        unit: vw,
+        ratio: 1980,
+    ),
 );
 ```
 
@@ -188,7 +198,6 @@ Nel 2026 questi fix sono morti insieme a IE. Conviene sostituirlo con un reset m
 Va comunque tenuto conto che parte del reset attuale (`* { margin: 0; padding: 0; }`, box-sizing esplicito per i web component) è già stato scritto ad hoc nel file — quella parte si può portare avanti pari pari, va solo tolto il resto (fix HTML5 display, `optgroup`, `[type="search"]`-webkit ecc. specifici per browser ormai morti).
 
 ---
-
 
 ## 6. `light-dark()` come alternativa al doppio blocco `[data-theme]`
 

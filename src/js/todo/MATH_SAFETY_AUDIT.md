@@ -28,17 +28,18 @@ Durante l'audit del sistema di animazione sono stati identificati **4 potenziali
 ```js
 const tensionForce = -tension * (currentValue - toValue);
 const dampingForce = -friction * velocity;
-const acceleration = (tensionForce + dampingForce) / mass;  // ← PROBLEMA
+const acceleration = (tensionForce + dampingForce) / mass; // ← PROBLEMA
 ```
 
 **Scenario di fallimento:**
+
 - Utente crea spring con `mass: 0` (o non specifica e il default è 0)
 - Divisione per zero → `acceleration = Infinity`
 - Nei frame successivi (righe 28-29):
-  ```js
-  const newVelocity = velocity + (acceleration * 1) / fps;  // Infinity * 1 / fps = Infinity
-  const rawCurrentValue = currentValue + (newVelocity * 1) / fps;  // Infinity
-  ```
+    ```js
+    const newVelocity = velocity + (acceleration * 1) / fps; // Infinity * 1 / fps = Infinity
+    const rawCurrentValue = currentValue + (newVelocity * 1) / fps; // Infinity
+    ```
 - L'animazione esplode con valori infiniti
 
 **Impatto:** Crash dell'animazione, possibile propagazione a `NaN` nei valori CSS/DOM
@@ -46,6 +47,7 @@ const acceleration = (tensionForce + dampingForce) / mass;  // ← PROBLEMA
 **Difesa esistente:** ❌ Nessuna validazione trovata per `mass`
 
 **Fix proposto:**
+
 ```js
 // Opzione A: Guard runtime (ogni frame)
 const safeMass = mass === 0 ? 1 : mass;
@@ -72,10 +74,11 @@ validateMass(mass) {
 **Riga:** 17
 
 ```js
-const lerpValue = lerp(currentValue, toValue, (velocity / fps) * 60);  // ← PROBLEMA
+const lerpValue = lerp(currentValue, toValue, (velocity / fps) * 60); // ← PROBLEMA
 ```
 
 **Scenario di fallimento:**
+
 - Il sistema di frame loop (`MobCore.useNextTick`) passa `fps = 0` (teoricamente possibile se il browser è in freeze o il tab è in background con throttling estremo)
 - Divisione per zero → `velocity / 0 = Infinity`
 - `lerp()` riceve `amt = Infinity * 60 = Infinity`
@@ -83,11 +86,13 @@ const lerpValue = lerp(currentValue, toValue, (velocity / fps) * 60);  // ← PR
 
 **Impatto:** Animazione ferma o salta a valori `NaN`
 
-**Difesa esistente:** 
+**Difesa esistente:**
+
 - ✅ `fps` inizializzato a `60` in `src/js/mob/mob-core/events/event-store.js:35`
 - ❌ Nessuna validazione runtime che impedisca `fps = 0`
 
 **Fix proposto:**
+
 ```js
 // Guard runtime
 const safeFps = fps === 0 ? 60 : fps;
@@ -104,7 +109,7 @@ const lerpValue = lerp(currentValue, toValue, (velocity / safeFps) * 60);
 **Righe:** 28-29
 
 ```js
-const newVelocity = velocity + (acceleration * 1) / fps;        // ← PROBLEMA
+const newVelocity = velocity + (acceleration * 1) / fps; // ← PROBLEMA
 const rawCurrentValue = currentValue + (newVelocity * 1) / fps; // ← PROBLEMA
 ```
 
@@ -115,6 +120,7 @@ const rawCurrentValue = currentValue + (newVelocity * 1) / fps; // ← PROBLEMA
 **Difesa esistente:** Come LERP
 
 **Fix proposto:**
+
 ```js
 // Guard runtime (condivisa con il calcolo precedente)
 const safeFps = fps === 0 ? 60 : fps;
@@ -136,19 +142,20 @@ const rawCurrentValue = ease(
     timeElapsed,
     item.fromValue,
     item.toValProcessed,
-    duration  // ← Parametro passato alle easing
+    duration // ← Parametro passato alle easing
 );
 ```
 
 **Scenario di fallimento:**
+
 - Utente crea tween con `duration: 0`
 - Le easing functions standard (es. Robert Penner) hanno forma:
-  ```js
-  function easeInQuad(t, b, c, d) {
-      t /= d;  // ← Divisione per duration
-      return c * t * t + b;
-  }
-  ```
+    ```js
+    function easeInQuad(t, b, c, d) {
+        t /= d; // ← Divisione per duration
+        return c * t * t + b;
+    }
+    ```
 - Se `d = 0` → `t /= 0` → `Infinity`
 
 **Impatto:** Animazione salta direttamente al valore finale o produce `NaN`
@@ -156,6 +163,7 @@ const rawCurrentValue = ease(
 **Difesa esistente:** ❓ Da verificare (easing functions probabilmente in libreria esterna)
 
 **Fix proposto:**
+
 ```js
 // Opzione A: Validazione al momento della creazione del tween
 if (duration <= 0) {
@@ -166,7 +174,7 @@ if (duration <= 0) {
 
 // Opzione B: Guard nelle easing functions
 function easeInQuad(t, b, c, d) {
-    if (d === 0) return b + c;  // Transizione istantanea
+    if (d === 0) return b + c; // Transizione istantanea
     t /= d;
     return c * t * t + b;
 }
@@ -178,18 +186,22 @@ function easeInQuad(t, b, c, d) {
 
 ## Operazioni Matematiche Verificate (Sicure)
 
-✅ **Divisione per costanti:**  
-- `Math.round(Math.abs(toValue - newCurrentValue) * 10_000) / 10_000` (lerp:24)  
+✅ **Divisione per costanti:**
+
+- `Math.round(Math.abs(toValue - newCurrentValue) * 10_000) / 10_000` (lerp:24)
 - Sempre safe, denominatore non variabile
 
-✅ **Gestione esplicita dello zero:**  
-- `tension === 0 ? true : Math.abs(...) <= precision` (spring:34-36)  
+✅ **Gestione esplicita dello zero:**
+
+- `tension === 0 ? true : Math.abs(...) <= precision` (spring:34-36)
 - Evita divisioni quando tension è zero
 
-✅ **Operatori modulo (%):**  
+✅ **Operatori modulo (%):**
+
 - Nessun uso trovato con denominatori variabili
 
-✅ **Funzioni Math critiche:**  
+✅ **Funzioni Math critiche:**
+
 - Nessun uso pericoloso di `Math.sqrt()`, `Math.log()`, `Math.pow()` con input non validati
 
 ---
@@ -222,17 +234,17 @@ constructor(data) {
 
 #validatePhysicsParams() {
     const config = this.#springConfig;
-    
+
     if (config.mass <= 0) {
         console.warn(`[MobSpring] Invalid mass (${config.mass}), using default 1`);
         config.mass = 1;
     }
-    
+
     if (config.friction < 0) {
         console.warn(`[MobSpring] Negative friction (${config.friction}), using 0`);
         config.friction = 0;
     }
-    
+
     // tension può essere 0 (spring senza forza), ok
 }
 
@@ -258,8 +270,8 @@ constructor(data) {
 ```js
 // FPS: guard runtime (in get-values-on-draw.js)
 export const lerpGetValuesOnDraw = ({ values, fps, velocity, precision }) => {
-    const safeFps = Math.max(fps, 1);  // Minimo 1 FPS
-    
+    const safeFps = Math.max(fps, 1); // Minimo 1 FPS
+
     return values.map((item) => {
         // ... usa safeFps ...
     });
@@ -289,8 +301,8 @@ const spring = MobTween.createSpring({
     config: {
         tension: 100,
         friction: 10,
-        mass: 0,  // ← dovrebbe fallback a 1 con warning
-    }
+        mass: 0, // ← dovrebbe fallback a 1 con warning
+    },
 });
 
 // Test lerp in condizioni estreme (simulate fps drop)
@@ -303,7 +315,7 @@ const lerp = MobTween.createLerp({
 // Test tween con duration = 0
 const tween = MobTween.createTimeTween({
     data: { x: 0 },
-    duration: 0,  // ← dovrebbe fallback o transizione istantanea
+    duration: 0, // ← dovrebbe fallback o transizione istantanea
 });
 ```
 
@@ -314,6 +326,7 @@ const tween = MobTween.createTimeTween({
 ### FPS: Perché può essere 0?
 
 Il sistema `MobCore.useNextTick` passa `fps` dal frame loop centrale. Scenari teorici di `fps = 0`:
+
 - Tab in background con throttling estremo del browser
 - Debugger in pausa (breakpoint attivo)
 - Sistema sotto carico estremo
