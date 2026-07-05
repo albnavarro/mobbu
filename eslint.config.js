@@ -68,7 +68,6 @@ export default defineConfig([
             'unicorn/numeric-separators-style': 'off',
             'unicorn/prefer-type-literal-last': 'off',
             'unicorn/prefer-continue': 'off',
-            'unicorn/prefer-split-limit': 'off',
             'unicorn/no-useless-continue': 'off',
             //
             'no-useless-assignment': 'off',

@@ -6655,7 +6655,7 @@
     });
   };
   var arrayValuesFromProp = (value) => value.match(/(?<=\[).+?(?=])/g);
-  var splitPropUntilSquare = (value) => value.split("[")?.[0];
+  var splitPropUntilSquare = (value) => value.split("[", 1)?.[0];
   var parsePropValue = ({ previous, current }) => {
     const arrayValues = arrayValuesFromProp(current);
     const isArray = arrayValues && arrayValues?.length > 0;
@@ -11163,13 +11163,13 @@
       return Math.round(x * 1e4) / 1e4 || 0;
     }
     if (Math.abs(x) < 1) {
-      const e = Number.parseInt(x.toString().split("e-")[1]);
+      const e = Number.parseInt(x.toString().split("e-", 2)[1]);
       if (e) {
         x *= Math.pow(10, e - 1);
         x = "0." + Array.from({ length: e }).join("0") + x.toString().slice(2);
       }
     } else {
-      let e = Number.parseInt(x.toString().split("+")[1]);
+      let e = Number.parseInt(x.toString().split("+", 2)[1]);
       if (e > 20) {
         e -= 20;
         x /= Math.pow(10, e);

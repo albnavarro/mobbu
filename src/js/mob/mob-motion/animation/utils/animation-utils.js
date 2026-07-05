@@ -12,7 +12,7 @@ export const getRoundedValue = (x) => {
     }
 
     if (Math.abs(x) < 1) {
-        const e = Number.parseInt(x.toString().split('e-')[1]);
+        const e = Number.parseInt(x.toString().split('e-', 2)[1]);
         if (e) {
             x *= Math.pow(10, e - 1);
             x =
@@ -21,7 +21,7 @@ export const getRoundedValue = (x) => {
                 x.toString().slice(2);
         }
     } else {
-        let e = Number.parseInt(x.toString().split('+')[1]);
+        let e = Number.parseInt(x.toString().split('+', 2)[1]);
         if (e > 20) {
             e -= 20;
             x /= Math.pow(10, e);

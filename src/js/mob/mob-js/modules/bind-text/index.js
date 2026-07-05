@@ -66,7 +66,7 @@ const arrayValuesFromProp = (value) => value.match(/(?<=\[).+?(?=])/g);
  * @param {string} value
  * @returns {string}
  */
-const splitPropUntilSquare = (value) => value.split('[')?.[0];
+const splitPropUntilSquare = (value) => value.split('[', 1)?.[0];
 
 /**
  * @param {object} params
