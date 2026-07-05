@@ -140,55 +140,54 @@ export const animatedPatternN0Animation = ({
         }
 
         for (const {
-                x,
-                y,
-                width,
-                height,
-                rotate,
-                scale,
-                hasFill,
-                offsetXCenter,
-                offsetYCenter,
-            } of data) {
-                const rotation = (Math.PI / 180) * rotate;
-                const cos = Math.cos(rotation) * scale;
-                const sin = Math.sin(rotation) * scale;
+            x,
+            y,
+            width,
+            height,
+            rotate,
+            scale,
+            hasFill,
+            offsetXCenter,
+            offsetYCenter,
+        } of data) {
+            const rotation = (Math.PI / 180) * rotate;
+            const cos = Math.cos(rotation) * scale;
+            const sin = Math.sin(rotation) * scale;
 
-                /**
-                 * Apply scale/rotation/scale all together.
-                 */
-                context.setTransform(
-                    cos,
-                    sin,
-                    -sin,
-                    cos,
-                    Math.floor(offsetXCenter + x),
-                    Math.floor(offsetYCenter + y)
-                );
+            /**
+             * Apply scale/rotation/scale all together.
+             */
+            context.setTransform(
+                cos,
+                sin,
+                -sin,
+                cos,
+                Math.floor(offsetXCenter + x),
+                Math.floor(offsetYCenter + y)
+            );
 
-                const rx = Math.round(-width / 2);
-                const ry = Math.round(-height / 2);
+            const rx = Math.round(-width / 2);
+            const ry = Math.round(-height / 2);
 
-                /**
-                 * Draw.
-                 */
-                if (useRadius) {
-                    context.beginPath();
-                    context.roundRect(rx, ry, width, height, 150);
-                } else {
-                    context.beginPath();
-                    context.rect(rx, ry, width, height);
-                }
-
-                if (hasFill) {
-                    context.fillStyle = exeptionFill;
-                    context.fill();
-                } else {
-                    context.fillStyle = mainFill;
-                    context.fill();
-                }
+            /**
+             * Draw.
+             */
+            if (useRadius) {
+                context.beginPath();
+                context.roundRect(rx, ry, width, height, 150);
+            } else {
+                context.beginPath();
+                context.rect(rx, ry, width, height);
             }
-        
+
+            if (hasFill) {
+                context.fillStyle = exeptionFill;
+                context.fill();
+            } else {
+                context.fillStyle = mainFill;
+                context.fill();
+            }
+        }
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });

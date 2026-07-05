@@ -143,65 +143,62 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
             context.reset();
         }
 
-        for (const [i, { width, height, x, y, rotate, hasFill, opacity, scale }] of squareData.entries()) {
-                const unitInverse = squarelenght - i;
+        for (const [
+            i,
+            { width, height, x, y, rotate, hasFill, opacity, scale },
+        ] of squareData.entries()) {
+            const unitInverse = squarelenght - i;
 
-                const speedDelta = Math.max(1, scale / 4);
+            const speedDelta = Math.max(1, scale / 4);
 
-                /**
-                 * Center canvas
-                 */
+            /**
+             * Center canvas
+             */
 
-                const camvasScale = 1;
-                const rotation = (Math.PI / 180) * rotate;
-                const cos = Math.cos(rotation) * camvasScale;
-                const sin = Math.sin(rotation) * camvasScale;
+            const camvasScale = 1;
+            const rotation = (Math.PI / 180) * rotate;
+            const cos = Math.cos(rotation) * camvasScale;
+            const sin = Math.sin(rotation) * camvasScale;
 
-                /**
-                 * Apply scale/rotation/scale all together.
-                 */
-                context.setTransform(
-                    cos,
-                    sin,
-                    -sin,
-                    cos,
-                    centerX + x + (unitInverse * x) / 20,
-                    centerY + y + (unitInverse * y) / 20
+            /**
+             * Apply scale/rotation/scale all together.
+             */
+            context.setTransform(
+                cos,
+                sin,
+                -sin,
+                cos,
+                centerX + x + (unitInverse * x) / 20,
+                centerY + y + (unitInverse * y) / 20
+            );
+
+            const rx = Math.round(-width / 2) * speedDelta;
+            const ry = Math.round(-height / 2) * speedDelta;
+
+            if (useRadius) {
+                context.beginPath();
+                context.roundRect(
+                    rx,
+                    ry,
+                    width * speedDelta,
+                    height * speedDelta,
+                    130
                 );
-
-                const rx = Math.round(-width / 2) * speedDelta;
-                const ry = Math.round(-height / 2) * speedDelta;
-
-                if (useRadius) {
-                    context.beginPath();
-                    context.roundRect(
-                        rx,
-                        ry,
-                        width * speedDelta,
-                        height * speedDelta,
-                        130
-                    );
-                } else {
-                    context.beginPath();
-                    context.rect(
-                        rx,
-                        ry,
-                        width * speedDelta,
-                        height * speedDelta
-                    );
-                }
-
-                if (hasFill) {
-                    context.fillStyle = '#000';
-                } else {
-                    context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
-                    context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
-                    context.stroke();
-                }
-
-                context.fill();
+            } else {
+                context.beginPath();
+                context.rect(rx, ry, width * speedDelta, height * speedDelta);
             }
-        
+
+            if (hasFill) {
+                context.fillStyle = '#000';
+            } else {
+                context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
+                context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
+                context.stroke();
+            }
+
+            context.fill();
+        }
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });

@@ -27,8 +27,6 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
     const numItems = 20;
     const width = window.innerHeight / 13;
     const height = window.innerHeight / 13;
-
-    // eslint-disable-next-line unicorn/prefer-set-has
     const fill = [2];
     const opacity = 0.03;
     const xAmplitude = 500;
@@ -171,53 +169,53 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
             context.reset();
         }
 
-        for (const { width, height, x, y, rotate, hasFill, opacity } of squareData) {
-                /**
-                 * Center canvas
-                 */
+        for (const {
+            width,
+            height,
+            x,
+            y,
+            rotate,
+            hasFill,
+            opacity,
+        } of squareData) {
+            /**
+             * Center canvas
+             */
 
-                const scale = 1;
-                const rotation = (Math.PI / 180) * rotate;
-                const cos = Math.cos(rotation) * scale;
-                const sin = Math.sin(rotation) * scale;
+            const scale = 1;
+            const rotation = (Math.PI / 180) * rotate;
+            const cos = Math.cos(rotation) * scale;
+            const sin = Math.sin(rotation) * scale;
 
-                /**
-                 * Apply scale/rotation/scale all together.
-                 */
-                context.setTransform(
-                    cos,
-                    sin,
-                    -sin,
-                    cos,
-                    centerX + x,
-                    centerY + y
-                );
+            /**
+             * Apply scale/rotation/scale all together.
+             */
+            context.setTransform(cos, sin, -sin, cos, centerX + x, centerY + y);
 
-                const rx = Math.round(-width / 2);
-                const ry = Math.round(-height / 2);
+            const rx = Math.round(-width / 2);
+            const ry = Math.round(-height / 2);
 
-                /**
-                 * Shape
-                 */
-                if (useRadius) {
-                    context.beginPath();
-                    context.roundRect(rx, ry, width, height, [40, 40]);
-                } else {
-                    context.beginPath();
-                    context.rect(rx, ry, width, height);
-                }
-
-                if (hasFill) {
-                    context.fillStyle = fillColor;
-                } else {
-                    context.strokeStyle = `rgba(${strokeColor} ${opacity})`;
-                    context.fillStyle = `rgba(238, 238, 238, 0)`;
-                    context.stroke();
-                }
-
-                context.fill();
+            /**
+             * Shape
+             */
+            if (useRadius) {
+                context.beginPath();
+                context.roundRect(rx, ry, width, height, [40, 40]);
+            } else {
+                context.beginPath();
+                context.rect(rx, ry, width, height);
             }
-        
+
+            if (hasFill) {
+                context.fillStyle = fillColor;
+            } else {
+                context.strokeStyle = `rgba(${strokeColor} ${opacity})`;
+                context.fillStyle = `rgba(238, 238, 238, 0)`;
+                context.stroke();
+            }
+
+            context.fill();
+        }
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });

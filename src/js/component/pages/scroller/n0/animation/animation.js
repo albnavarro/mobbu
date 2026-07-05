@@ -28,7 +28,6 @@ export const scrollerN0Animation = ({
     const numberOfColumn = 10;
     const reorder = false;
 
-    // eslint-disable-next-line unicorn/prefer-set-has
     const fill = [
         36, 37, 38, 39, 40, 47, 51, 58, 62, 69, 73, 80, 81, 82, 83, 84,
     ];
@@ -150,56 +149,55 @@ export const scrollerN0Animation = ({
         }
 
         for (const {
-                x,
-                y,
-                width,
-                height,
-                rotate,
-                scale,
-                hasFill,
-                offsetXCenter,
-                offsetYCenter,
-            } of data) {
-                const rotation = (Math.PI / 180) * rotate;
-                const xx = Math.cos(rotation) * scale;
-                const xy = Math.sin(rotation) * scale;
+            x,
+            y,
+            width,
+            height,
+            rotate,
+            scale,
+            hasFill,
+            offsetXCenter,
+            offsetYCenter,
+        } of data) {
+            const rotation = (Math.PI / 180) * rotate;
+            const xx = Math.cos(rotation) * scale;
+            const xy = Math.sin(rotation) * scale;
 
-                /**
-                 * Apply scale/rotation/scale all together.
-                 */
-                context.setTransform(
-                    xx,
-                    xy,
-                    -xy,
-                    xx,
-                    Math.floor(offsetXCenter + x),
-                    Math.floor(offsetYCenter + y)
-                );
+            /**
+             * Apply scale/rotation/scale all together.
+             */
+            context.setTransform(
+                xx,
+                xy,
+                -xy,
+                xx,
+                Math.floor(offsetXCenter + x),
+                Math.floor(offsetYCenter + y)
+            );
 
-                const rx = Math.round(-width / 2);
-                const ry = Math.round(-height / 2);
+            const rx = Math.round(-width / 2);
+            const ry = Math.round(-height / 2);
 
-                if (useRadius) {
-                    context.beginPath();
-                    context.roundRect(rx, ry, width, height, 150);
-                } else {
-                    context.beginPath();
-                    context.rect(rx, ry, width, height);
-                }
+            if (useRadius) {
+                context.beginPath();
+                context.roundRect(rx, ry, width, height, 150);
+            } else {
+                context.beginPath();
+                context.rect(rx, ry, width, height);
+            }
 
-                if (hasFill) {
-                    context.fillStyle = exeptionFill;
-                    context.fill();
-                } else {
-                    context.fillStyle = mainFill;
-                    context.fill();
+            if (hasFill) {
+                context.fillStyle = exeptionFill;
+                context.fill();
+            } else {
+                context.fillStyle = mainFill;
+                context.fill();
 
-                    if (!useRadius) {
-                        context.strokeStyle = mainFill;
-                    }
+                if (!useRadius) {
+                    context.strokeStyle = mainFill;
                 }
             }
-        
+        }
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });

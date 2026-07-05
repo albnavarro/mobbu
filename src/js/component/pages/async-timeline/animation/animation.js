@@ -255,112 +255,111 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
         /**
          * Grid
          */
-        for (const [index, {
-                    x,
-                    y,
-                    width,
-                    height,
-                    rotate,
-                    scale,
-                    offsetXCenter,
-                    offsetYCenter,
-                }] of data.entries()) {
-                /**
-                 * Around
-                 */
-                if (index === 40) {
-                    {
-                        const rotation =
-                            (Math.PI / 180) * tweenAroundTarget.rotate;
+        for (const [
+            index,
+            {
+                x,
+                y,
+                width,
+                height,
+                rotate,
+                scale,
+                offsetXCenter,
+                offsetYCenter,
+            },
+        ] of data.entries()) {
+            /**
+             * Around
+             */
+            if (index === 40) {
+                {
+                    const rotation = (Math.PI / 180) * tweenAroundTarget.rotate;
 
-                        const cos =
-                            Math.cos(rotation) * tweenAroundTarget.scale;
+                    const cos = Math.cos(rotation) * tweenAroundTarget.scale;
 
-                        const sin =
-                            Math.sin(rotation) * tweenAroundTarget.scale;
+                    const sin = Math.sin(rotation) * tweenAroundTarget.scale;
 
-                        /**
-                         * Apply scale/rotation/scale all together.
-                         */
-                        context.setTransform(
-                            cos,
-                            sin,
-                            -sin,
-                            cos,
-                            Math.floor(
-                                tweenAroundTarget.offsetXCenter +
-                                    tweenAroundTarget.x
-                            ),
-                            Math.floor(
-                                tweenAroundTarget.offsetYCenter +
-                                    tweenAroundTarget.y
-                            )
+                    /**
+                     * Apply scale/rotation/scale all together.
+                     */
+                    context.setTransform(
+                        cos,
+                        sin,
+                        -sin,
+                        cos,
+                        Math.floor(
+                            tweenAroundTarget.offsetXCenter +
+                                tweenAroundTarget.x
+                        ),
+                        Math.floor(
+                            tweenAroundTarget.offsetYCenter +
+                                tweenAroundTarget.y
+                        )
+                    );
+
+                    /**
+                     * Draw.
+                     */
+                    if (useRadius) {
+                        context.beginPath();
+                        context.roundRect(
+                            Math.floor(-tweenAroundTarget.width / 2),
+                            Math.floor(-tweenAroundTarget.height / 2),
+                            Math.floor(tweenAroundTarget.width),
+                            tweenAroundTarget.height,
+                            150
                         );
-
-                        /**
-                         * Draw.
-                         */
-                        if (useRadius) {
-                            context.beginPath();
-                            context.roundRect(
-                                Math.floor(-tweenAroundTarget.width / 2),
-                                Math.floor(-tweenAroundTarget.height / 2),
-                                Math.floor(tweenAroundTarget.width),
-                                tweenAroundTarget.height,
-                                150
-                            );
-                        } else {
-                            context.beginPath();
-                            context.rect(
-                                Math.floor(-tweenAroundTarget.width / 2),
-                                Math.floor(-tweenAroundTarget.height / 2),
-                                Math.floor(tweenAroundTarget.width),
-                                Math.floor(tweenAroundTarget.height)
-                            );
-                        }
-
-                        context.fillStyle = pillarFill;
-                        context.fill();
+                    } else {
+                        context.beginPath();
+                        context.rect(
+                            Math.floor(-tweenAroundTarget.width / 2),
+                            Math.floor(-tweenAroundTarget.height / 2),
+                            Math.floor(tweenAroundTarget.width),
+                            Math.floor(tweenAroundTarget.height)
+                        );
                     }
+
+                    context.fillStyle = pillarFill;
+                    context.fill();
                 }
-
-                /**
-                 * GRID
-                 */
-                const rotation = (Math.PI / 180) * rotate;
-                const cos = Math.cos(rotation) * scale;
-                const sin = Math.sin(rotation) * scale;
-
-                /**
-                 * Apply scale/rotation/scale all together.
-                 */
-                context.setTransform(
-                    cos,
-                    sin,
-                    -sin,
-                    cos,
-                    Math.floor(offsetXCenter + x),
-                    Math.floor(offsetYCenter + y)
-                );
-
-                const rx = Math.round(-width / 2);
-                const ry = Math.round(-height / 2);
-
-                /**
-                 * Draw.
-                 */
-                if (useRadius) {
-                    context.beginPath();
-                    context.roundRect(rx, ry, width, height, 150);
-                } else {
-                    context.beginPath();
-                    context.rect(rx, ry, width, height);
-                }
-
-                context.fillStyle = mainFill;
-                context.fill();
             }
-        
+
+            /**
+             * GRID
+             */
+            const rotation = (Math.PI / 180) * rotate;
+            const cos = Math.cos(rotation) * scale;
+            const sin = Math.sin(rotation) * scale;
+
+            /**
+             * Apply scale/rotation/scale all together.
+             */
+            context.setTransform(
+                cos,
+                sin,
+                -sin,
+                cos,
+                Math.floor(offsetXCenter + x),
+                Math.floor(offsetYCenter + y)
+            );
+
+            const rx = Math.round(-width / 2);
+            const ry = Math.round(-height / 2);
+
+            /**
+             * Draw.
+             */
+            if (useRadius) {
+                context.beginPath();
+                context.roundRect(rx, ry, width, height, 150);
+            } else {
+                context.beginPath();
+                context.rect(rx, ry, width, height);
+            }
+
+            context.fillStyle = mainFill;
+            context.fill();
+        }
 
         /**
          * CENTER TWEEN

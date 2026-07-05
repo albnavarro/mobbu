@@ -31,7 +31,6 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
 
     const mainFill = isDarkTheme() ? '#fff' : '#000';
 
-    // eslint-disable-next-line unicorn/prefer-set-has
     const fill = [
         2, 18, 10, 27, 21, 22, 23, 24, 25, 25, 26, 37, 42, 53, 58, 69, 74, 85,
         86, 87, 88, 89, 90, 44, 60, 65, 98, 108,
@@ -158,85 +157,81 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
          * - Element to be masked.
          */
         for (const {
-                x,
-                y,
+            x,
+            y,
+            width,
+            height,
+            mouseX,
+            mouseY,
+            scale,
+            hasFill,
+            offsetXCenter,
+            offsetYCenter,
+        } of data) {
+            if (!hasFill) continue;
+
+            /**
+             * X difference in px form mouse to square.
+             */
+            const mouseXparsed =
+                mouseX - (canvas.width - (width + gutter) * numberOfColumn) / 2;
+
+            /**
+             * Y difference in px form mouse to square.
+             */
+            const mouseYparsed =
+                mouseY - (canvas.height - (height + gutter) * numberOfRow) / 2;
+
+            /**
+             * Scale value
+             */
+            const xScale = (x - mouseXparsed) / 250;
+            const yScale = (y - mouseYparsed) / 250;
+
+            /**
+             * Scale factor y and x together.
+             */
+            const delta = Math.sqrt(
+                Math.pow(Math.abs(xScale), 2) + Math.pow(Math.abs(yScale), 2)
+            );
+
+            /**
+             * Clamp scale factor between .1 and 1.
+             */
+            const scaleFactor = MobMotionCore.clamp(Math.abs(delta), 0, 2);
+
+            /**
+             * Basic data for setTransform.
+             */
+            const rotation = 0;
+            const cos = Math.cos(rotation) * (scaleFactor + scale);
+            const sin = Math.sin(rotation) * (scaleFactor + scale);
+
+            /**
+             * Apply scale/rotation/scale all together.
+             */
+            context.setTransform(
+                cos,
+                sin,
+                -sin,
+                cos,
+                Math.floor(offsetXCenter + x),
+                Math.floor(offsetYCenter + y)
+            );
+
+            /**
+             * Draw.
+             */
+            context.beginPath();
+            context.rect(
+                Math.floor(-width / 2),
+                Math.floor(-height / 2),
                 width,
-                height,
-                mouseX,
-                mouseY,
-                scale,
-                hasFill,
-                offsetXCenter,
-                offsetYCenter,
-            } of data) {
-                if (!hasFill) continue;
-
-                /**
-                 * X difference in px form mouse to square.
-                 */
-                const mouseXparsed =
-                    mouseX -
-                    (canvas.width - (width + gutter) * numberOfColumn) / 2;
-
-                /**
-                 * Y difference in px form mouse to square.
-                 */
-                const mouseYparsed =
-                    mouseY -
-                    (canvas.height - (height + gutter) * numberOfRow) / 2;
-
-                /**
-                 * Scale value
-                 */
-                const xScale = (x - mouseXparsed) / 250;
-                const yScale = (y - mouseYparsed) / 250;
-
-                /**
-                 * Scale factor y and x together.
-                 */
-                const delta = Math.sqrt(
-                    Math.pow(Math.abs(xScale), 2) +
-                        Math.pow(Math.abs(yScale), 2)
-                );
-
-                /**
-                 * Clamp scale factor between .1 and 1.
-                 */
-                const scaleFactor = MobMotionCore.clamp(Math.abs(delta), 0, 2);
-
-                /**
-                 * Basic data for setTransform.
-                 */
-                const rotation = 0;
-                const cos = Math.cos(rotation) * (scaleFactor + scale);
-                const sin = Math.sin(rotation) * (scaleFactor + scale);
-
-                /**
-                 * Apply scale/rotation/scale all together.
-                 */
-                context.setTransform(
-                    cos,
-                    sin,
-                    -sin,
-                    cos,
-                    Math.floor(offsetXCenter + x),
-                    Math.floor(offsetYCenter + y)
-                );
-
-                /**
-                 * Draw.
-                 */
-                context.beginPath();
-                context.rect(
-                    Math.floor(-width / 2),
-                    Math.floor(-height / 2),
-                    width,
-                    height
-                );
-                context.fillStyle = mainFill;
-                context.fill();
-            }
-        
+                height
+            );
+            context.fillStyle = mainFill;
+            context.fill();
+        }
 
         /**
          * Start mask mode.
@@ -249,84 +244,80 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
          * - Mask element.
          */
         for (const {
-                x,
-                y,
+            x,
+            y,
+            width,
+            height,
+            mouseX,
+            mouseY,
+            scale,
+            hasFill,
+            offsetXCenter,
+            offsetYCenter,
+        } of data) {
+            if (hasFill) continue;
+
+            /**
+             * X difference in px form mouse to square.
+             */
+            const mouseXparsed =
+                mouseX - (canvas.width - (width + gutter) * numberOfColumn) / 2;
+
+            /**
+             * Y difference in px form mouse to square.
+             */
+            const mouseYparsed =
+                mouseY - (canvas.height - (height + gutter) * numberOfRow) / 2;
+
+            /**
+             * Scale value
+             */
+            const xScale = (x - mouseXparsed) / 250;
+            const yScale = (y - mouseYparsed) / 250;
+
+            /**
+             * Scale factor y and x together.
+             */
+            const delta = Math.sqrt(
+                Math.pow(Math.abs(xScale), 2) + Math.pow(Math.abs(yScale), 2)
+            );
+
+            /**
+             * Clamp scale factor between .1 and 1.
+             */
+            const scaleFactor = MobMotionCore.clamp(Math.abs(delta), 0, 2);
+
+            /**
+             * Basic data for setTransform.
+             */
+            const rotation = 0;
+            const cos = Math.cos(rotation) * (scaleFactor + scale);
+            const sin = Math.sin(rotation) * (scaleFactor + scale);
+
+            /**
+             * Apply scale/rotation/scale all together.
+             */
+            context.setTransform(
+                cos,
+                sin,
+                -sin,
+                cos,
+                Math.floor(offsetXCenter + x),
+                Math.floor(offsetYCenter + y)
+            );
+
+            /**
+             * Draw.
+             */
+            context.beginPath();
+            context.rect(
+                Math.floor(-width / 2),
+                Math.floor(-height / 2),
                 width,
-                height,
-                mouseX,
-                mouseY,
-                scale,
-                hasFill,
-                offsetXCenter,
-                offsetYCenter,
-            } of data) {
-                if (hasFill) continue;
-
-                /**
-                 * X difference in px form mouse to square.
-                 */
-                const mouseXparsed =
-                    mouseX -
-                    (canvas.width - (width + gutter) * numberOfColumn) / 2;
-
-                /**
-                 * Y difference in px form mouse to square.
-                 */
-                const mouseYparsed =
-                    mouseY -
-                    (canvas.height - (height + gutter) * numberOfRow) / 2;
-
-                /**
-                 * Scale value
-                 */
-                const xScale = (x - mouseXparsed) / 250;
-                const yScale = (y - mouseYparsed) / 250;
-
-                /**
-                 * Scale factor y and x together.
-                 */
-                const delta = Math.sqrt(
-                    Math.pow(Math.abs(xScale), 2) +
-                        Math.pow(Math.abs(yScale), 2)
-                );
-
-                /**
-                 * Clamp scale factor between .1 and 1.
-                 */
-                const scaleFactor = MobMotionCore.clamp(Math.abs(delta), 0, 2);
-
-                /**
-                 * Basic data for setTransform.
-                 */
-                const rotation = 0;
-                const cos = Math.cos(rotation) * (scaleFactor + scale);
-                const sin = Math.sin(rotation) * (scaleFactor + scale);
-
-                /**
-                 * Apply scale/rotation/scale all together.
-                 */
-                context.setTransform(
-                    cos,
-                    sin,
-                    -sin,
-                    cos,
-                    Math.floor(offsetXCenter + x),
-                    Math.floor(offsetYCenter + y)
-                );
-
-                /**
-                 * Draw.
-                 */
-                context.beginPath();
-                context.rect(
-                    Math.floor(-width / 2),
-                    Math.floor(-height / 2),
-                    width,
-                    height
-                );
-                context.fill();
-            }
-        
+                height
+            );
+            context.fill();
+        }
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });

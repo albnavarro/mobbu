@@ -1,4 +1,4 @@
-# trigger githubPages build;
+# ESLINT: Realign new rules from v70.
 
 # MobJs
 

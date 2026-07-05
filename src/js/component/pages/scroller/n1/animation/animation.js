@@ -166,67 +166,73 @@ export const scrollerN1Animation = ({
             context.reset();
         }
 
-        for (const { width, height, opacity, rotate, index, hasFill } of stemData) {
-                const unitInverse = stemData.length / 2 - index;
+        for (const {
+            width,
+            height,
+            opacity,
+            rotate,
+            index,
+            hasFill,
+        } of stemData) {
+            const unitInverse = stemData.length / 2 - index;
 
-                /**
-                 * Center canvas in the screen
-                 */
+            /**
+             * Center canvas in the screen
+             */
 
-                const scale = 1;
-                const rotation = (Math.PI / 180) * (rotate - intialRotation);
-                const cos = Math.cos(rotation) * scale;
-                const sin = Math.sin(rotation) * scale;
+            const scale = 1;
+            const rotation = (Math.PI / 180) * (rotate - intialRotation);
+            const cos = Math.cos(rotation) * scale;
+            const sin = Math.sin(rotation) * scale;
 
-                /**
-                 * Apply scale/rotation/scale all together.
-                 */
-                context.setTransform(
-                    cos,
-                    sin,
-                    -sin,
-                    cos,
-                    centerX,
-                    centerY + unitInverse * 19
+            /**
+             * Apply scale/rotation/scale all together.
+             */
+            context.setTransform(
+                cos,
+                sin,
+                -sin,
+                cos,
+                centerX,
+                centerY + unitInverse * 19
+            );
+
+            /**
+             * Shape
+             */
+            if (useRadius) {
+                context.beginPath();
+                context.roundRect(
+                    -width / 2,
+                    -height / 2 + unitInverse * 19,
+                    width,
+                    height,
+                    150
                 );
-
-                /**
-                 * Shape
-                 */
-                if (useRadius) {
-                    context.beginPath();
-                    context.roundRect(
-                        -width / 2,
-                        -height / 2 + unitInverse * 19,
-                        width,
-                        height,
-                        150
-                    );
-                } else {
-                    context.beginPath();
-                    context.rect(
-                        Math.round(-width / 2),
-                        Math.round(-height / 2),
-                        width,
-                        height
-                    );
-                }
-
-                /**
-                 * Color.
-                 */
-
-                if (hasFill) {
-                    context.fillStyle = '#000';
-                } else {
-                    context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
-                    context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
-                    context.stroke();
-                }
-
-                context.fill();
+            } else {
+                context.beginPath();
+                context.rect(
+                    Math.round(-width / 2),
+                    Math.round(-height / 2),
+                    width,
+                    height
+                );
             }
-        
+
+            /**
+             * Color.
+             */
+
+            if (hasFill) {
+                context.fillStyle = '#000';
+            } else {
+                context.fillStyle = `rgba(238, 238, 238, ${opacity})`;
+                context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
+                context.stroke();
+            }
+
+            context.fill();
+        }
 
         // @ts-ignore
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
