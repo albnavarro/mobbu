@@ -23913,7 +23913,7 @@
      * @type {() => void}
      */
     #removeShadow() {
-      if (this.#trigger) this.#trigger.innerHTML = "";
+      if (this.#trigger) this.#trigger.replaceChildren();
     }
     /**
      * @type {() => Promise<boolean>}
