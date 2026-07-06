@@ -100,7 +100,7 @@ export const getBindObjectKeys = (values) => {
  */
 export const renderBindObject = (strings, ...values) => {
     return strings.raw.reduce((accumulator, currentText, i) => {
-        return Object.hasOwn(values, i) && Object.hasOwn(values[i], 'value')
+        return values[i] != null && Object.hasOwn(values[i], 'value')
             ? accumulator + currentText + (values?.[i]?.value?.() ?? '')
             : accumulator + currentText + (values?.[i]?.() ?? '');
     }, '');

@@ -6806,7 +6806,7 @@
   };
   var renderBindObject = (strings, ...values) => {
     return strings.raw.reduce((accumulator, currentText, i) => {
-      return Object.hasOwn(values, i) && Object.hasOwn(values[i], "value") ? accumulator + currentText + (values?.[i]?.value?.() ?? "") : accumulator + currentText + (values?.[i]?.() ?? "");
+      return values[i] != null && Object.hasOwn(values[i], "value") ? accumulator + currentText + (values?.[i]?.value?.() ?? "") : accumulator + currentText + (values?.[i]?.() ?? "");
     }, "");
   };
   var switchBindObjectMap = () => {
