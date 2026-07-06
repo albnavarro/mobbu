@@ -3791,7 +3791,7 @@
         const frameToSubstract = item.data.size;
         subscriberMap.delete(id);
         if (!frameToSubstract) return;
-        cacheCoutner = cacheCoutner - frameToSubstract;
+        cacheCoutner -= frameToSubstract;
       }
     };
   };
@@ -3851,7 +3851,7 @@
     const item = subscriberMap.get(id);
     if (!item) return;
     const frameToSubstract = item.data.size;
-    cacheCoutner = cacheCoutner - frameToSubstract;
+    cacheCoutner -= frameToSubstract;
     item.data.clear();
   };
   var get = (id) => {
@@ -4142,7 +4142,7 @@
     const frameDuration = Math.round(1e3 / fps);
     timeLost = Math.abs(time - lastTime - frameDuration);
     const timeToSubsctract = timeLost > 100 ? timeLost : 0;
-    time = time - timeToSubsctract;
+    time -= timeToSubsctract;
     lastTime = time;
     if (isStopped) {
       fpsPrevTime = time;
@@ -45608,7 +45608,7 @@
               attributes: { type: "button" },
               modules: delegateEvents({
                 click: () => {
-                  proxi.counter = proxi.counter + 1;
+                  proxi.counter += 1;
                 }
               }),
               content: "Update counter"

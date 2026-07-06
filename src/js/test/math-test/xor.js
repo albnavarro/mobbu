@@ -10,8 +10,11 @@ export const swapVariables = () => {
 
     console.log('original:', a, b); // 5, 10
 
+    // eslint-disable-next-line unicorn/operator-assignment
     a = a ^ b; // a diventa 15 (5 XOR 10)
+    // eslint-disable-next-line unicorn/operator-assignment
     b = a ^ b; // b diventa 5  (15 XOR 10)
+    // eslint-disable-next-line unicorn/operator-assignment
     a = a ^ b; // a diventa 10 (15 XOR 5)
 
     console.log('Dopo XOR:', a, b); // 10, 5

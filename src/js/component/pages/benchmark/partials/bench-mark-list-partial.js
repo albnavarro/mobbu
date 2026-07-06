@@ -177,7 +177,7 @@ export const benchMarkListPartial = ({
                         attributes: { type: 'button' },
                         modules: delegateEvents({
                             click: () => {
-                                proxi.counter = proxi.counter + 1;
+                                proxi.counter += 1;
                             },
                         }),
                         content: 'Update counter',

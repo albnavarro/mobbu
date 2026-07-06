@@ -39,7 +39,6 @@ export default defineConfig([
             'unicorn/consistent-boolean-name': 'off',
             'unicorn/no-top-level-assignment-in-function': 'off',
             'unicorn/no-top-level-side-effects': 'off',
-            'unicorn/operator-assignment': 'off',
             'unicorn/prefer-await': 'off',
             'unicorn/prefer-minimal-ternary': 'off',
             'unicorn/prefer-number-coercion': 'off',
