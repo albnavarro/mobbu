@@ -20291,8 +20291,18 @@
       textTransform: "uppercase"
     };
     modules_exports.useFrame(() => {
-      Object.assign(lastStartMarker?.style, { ...style, ...startStyle });
-      Object.assign(lastEndMarkerEl?.style, { ...style, ...endStyle });
+      Object.assign(
+        /** @type {HTMLElement} */
+        lastStartMarker?.style,
+        style,
+        startStyle
+      );
+      Object.assign(
+        /** @type {HTMLElement} */
+        lastEndMarkerEl?.style,
+        style,
+        endStyle
+      );
     });
     return {
       startMarker: lastStartMarker,
@@ -20613,12 +20623,13 @@
       const display = { display: "table" };
       modules_exports.useFrame(() => {
         if (!this.#pin || !this.#wrapper) return;
-        Object.assign(this.#wrapper.style, { ...markerWrapperStyle });
-        Object.assign(this.#pin.style, {
-          ...display,
-          ...pinStyleFromItem,
-          ...requiredStyleToadd
-        });
+        Object.assign(this.#wrapper.style, markerWrapperStyle);
+        Object.assign(
+          this.#pin.style,
+          display,
+          pinStyleFromItem,
+          requiredStyleToadd
+        );
       });
       this.#checkIfShouldTranspond();
     }
@@ -20853,10 +20864,11 @@
       const styleToAdd = this.#addStyleToItem();
       modules_exports.useFrame(() => {
         if (!this.#pin) return;
-        Object.assign(this.#pin.style, {
-          ...pinStyleFromItem,
-          ...requiredStyleToAdd
-        });
+        Object.assign(
+          this.#pin.style,
+          pinStyleFromItem,
+          requiredStyleToAdd
+        );
         if (this.#item) Object.assign(this.#item.style, styleToAdd);
         document.body.append(this.#pin);
       });
