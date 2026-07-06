@@ -11,7 +11,6 @@ import {
     createGrid,
     getCanvasContext,
     getOffsetCanvas,
-    roundRectIsSupported,
 } from '@utils/canvas-utils';
 
 /** @type {import('../type').ScrollerN0Animation} */
@@ -54,11 +53,6 @@ export const scrollerN0Animation = ({
      * If offscreen is supported use.
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    let wichContext = useOffscreen ? offScreenCtx : ctx;
-    const useRadius = roundRectIsSupported(
-        /** @type {CanvasRenderingContext2D} */ (wichContext)
-    );
-    wichContext = null;
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
@@ -178,25 +172,10 @@ export const scrollerN0Animation = ({
             const rx = Math.round(-width / 2);
             const ry = Math.round(-height / 2);
 
-            if (useRadius) {
-                context.beginPath();
-                context.roundRect(rx, ry, width, height, 150);
-            } else {
-                context.beginPath();
-                context.rect(rx, ry, width, height);
-            }
-
-            if (hasFill) {
-                context.fillStyle = exeptionFill;
-                context.fill();
-            } else {
-                context.fillStyle = mainFill;
-                context.fill();
-
-                if (!useRadius) {
-                    context.strokeStyle = mainFill;
-                }
-            }
+            context.beginPath();
+            context.roundRect(rx, ry, width, height, 150);
+            context.fillStyle = hasFill ? exeptionFill : mainFill;
+            context.fill();
         }
 
         // @ts-ignore

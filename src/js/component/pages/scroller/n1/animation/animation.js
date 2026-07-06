@@ -9,7 +9,6 @@ import {
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
-    roundRectIsSupported,
 } from '@utils/canvas-utils';
 
 /**
@@ -82,13 +81,6 @@ export const scrollerN1Animation = ({
      * If offscreen is supported use.
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    let wichContext = useOffscreen ? offScreenCtx : ctx;
-    const useRadius = roundRectIsSupported(
-        /** @type {CanvasRenderingContext2D} */ (wichContext)
-    );
-    wichContext = null;
-
-    // const useRadius = false;
 
     /**
      * Initial misure.
@@ -201,24 +193,14 @@ export const scrollerN1Animation = ({
             /**
              * Shape
              */
-            if (useRadius) {
-                context.beginPath();
-                context.roundRect(
-                    -width / 2,
-                    -height / 2 + unitInverse * 19,
-                    width,
-                    height,
-                    150
-                );
-            } else {
-                context.beginPath();
-                context.rect(
-                    Math.round(-width / 2),
-                    Math.round(-height / 2),
-                    width,
-                    height
-                );
-            }
+            context.beginPath();
+            context.roundRect(
+                -width / 2,
+                -height / 2 + unitInverse * 19,
+                width,
+                height,
+                150
+            );
 
             /**
              * Color.

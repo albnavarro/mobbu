@@ -6423,54 +6423,50 @@
           connectedCallback() {
             const skip = getSkipAddUserComponent();
             if (skip) return;
+            const host = this.shadowRoot?.host;
+            if (!host) return;
             if (this.#isPlaceholder) {
-              const host = this.shadowRoot?.host;
-              if (host) {
-                [
-                  this.#instanceName,
-                  this.#staticPropsId,
-                  this.#dynamicPropsId,
-                  this.#currentKey,
-                  this.#bindEventsId,
-                  this.#currentRepeatValueId,
-                  this.#slotPosition,
-                  this.#parentId,
-                  this.#componentRepeatId,
-                  this.#delegateEventId,
-                  this.#repeatPropBind,
-                  this.#bindRefId,
-                  this.#bindRefName,
-                  this.#bindEffectInstance
-                ] = [
-                  ATTR_INSTANCENAME,
-                  ATTR_PROPS,
-                  ATTR_BIND_PROPS,
-                  ATTR_KEY,
-                  ATTR_BIND_EVENTS,
-                  ATTR_CURRENT_LIST_VALUE,
-                  ATTR_SLOT_POSITION_NAME,
-                  ATTR_PARENT_ID,
-                  ATTR_CHILD_REPEATID,
-                  ATTR_WEAK_BIND_EVENTS,
-                  ATTR_REPEATER_PROP_BIND,
-                  ATTR_BIND_REFS_ID,
-                  ATTR_BIND_REFS_NAME,
-                  ATTR_BIND_EFFECT_INSTANCE
-                ].map(
-                  (attribute) => host.getAttribute(attribute) ?? ""
-                );
-              }
+              [
+                this.#instanceName,
+                this.#staticPropsId,
+                this.#dynamicPropsId,
+                this.#currentKey,
+                this.#bindEventsId,
+                this.#currentRepeatValueId,
+                this.#slotPosition,
+                this.#parentId,
+                this.#componentRepeatId,
+                this.#delegateEventId,
+                this.#repeatPropBind,
+                this.#bindRefId,
+                this.#bindRefName,
+                this.#bindEffectInstance
+              ] = [
+                ATTR_INSTANCENAME,
+                ATTR_PROPS,
+                ATTR_BIND_PROPS,
+                ATTR_KEY,
+                ATTR_BIND_EVENTS,
+                ATTR_CURRENT_LIST_VALUE,
+                ATTR_SLOT_POSITION_NAME,
+                ATTR_PARENT_ID,
+                ATTR_CHILD_REPEATID,
+                ATTR_WEAK_BIND_EVENTS,
+                ATTR_REPEATER_PROP_BIND,
+                ATTR_BIND_REFS_ID,
+                ATTR_BIND_REFS_NAME,
+                ATTR_BIND_EFFECT_INSTANCE
+              ].map(
+                (attribute) => host.getAttribute(attribute) ?? ""
+              );
               addUserPlaceholder(host);
-              return;
-            } else {
-              const host = this.shadowRoot?.host;
-              if (host) {
-                [this.#bindEffectInstance] = [
-                  ATTR_BIND_EFFECT_INSTANCE
-                ].map(
-                  (attribute) => host.getAttribute(attribute) ?? ""
-                );
-              }
+            }
+            if (!this.#isPlaceholder) {
+              [this.#bindEffectInstance] = [
+                ATTR_BIND_EFFECT_INSTANCE
+              ].map(
+                (attribute) => host.getAttribute(attribute) ?? ""
+              );
             }
           }
           disconnectedCallback() {
@@ -28412,20 +28408,15 @@
         );
         const rx = Math.round(-width / 2);
         const ry = Math.round(-height / 2);
+        context2.beginPath();
         if (useRadius) {
-          context2.beginPath();
           context2.roundRect(rx, ry, width, height, 150);
         } else {
           context2.beginPath();
           context2.rect(rx, ry, width, height);
         }
-        if (hasFill) {
-          context2.fillStyle = exeptionFill;
-          context2.fill();
-        } else {
-          context2.fillStyle = mainFill;
-          context2.fill();
-        }
+        context2.fillStyle = hasFill ? exeptionFill : mainFill;
+        context2.fill();
       }
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
@@ -29269,7 +29260,6 @@
     let { top, left } = offset(canvas);
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    const useRadius = true;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     let squareData = Array.from({ length: numItems }).keys().map((_item, i) => {
@@ -29348,19 +29338,14 @@
         );
         const rx = Math.round(-width2 / 2) * speedDelta;
         const ry = Math.round(-height2 / 2) * speedDelta;
-        if (useRadius) {
-          context2.beginPath();
-          context2.roundRect(
-            rx,
-            ry,
-            width2 * speedDelta,
-            height2 * speedDelta,
-            130
-          );
-        } else {
-          context2.beginPath();
-          context2.rect(rx, ry, width2 * speedDelta, height2 * speedDelta);
-        }
+        context2.beginPath();
+        context2.roundRect(
+          rx,
+          ry,
+          width2 * speedDelta,
+          height2 * speedDelta,
+          130
+        );
         if (hasFill) {
           context2.fillStyle = "#000";
         } else {
@@ -29691,7 +29676,6 @@
     let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    const useRadius = true;
     let squareData = Array.from({ length: numItems }).keys().map((_item, i) => {
       const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
       const itemWidth = width + width / 3 * relativeIndex;
@@ -29778,13 +29762,8 @@
         context2.setTransform(cos, sin, -sin, cos, centerX + x, centerY + y);
         const rx = Math.round(-width2 / 2);
         const ry = Math.round(-height2 / 2);
-        if (useRadius) {
-          context2.beginPath();
-          context2.roundRect(rx, ry, width2, height2, [40, 40]);
-        } else {
-          context2.beginPath();
-          context2.rect(rx, ry, width2, height2);
-        }
+        context2.beginPath();
+        context2.roundRect(rx, ry, width2, height2, [40, 40]);
         if (hasFill) {
           context2.fillStyle = fillColor;
         } else {
@@ -30173,12 +30152,6 @@
     const mainFill = isDarkTheme() ? "#2e3440" : "#fff";
     const exeptionFill = isDarkTheme() ? "#fff" : "#000";
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    let wichContext = useOffscreen ? offScreenCtx : ctx;
-    const useRadius = roundRectIsSupported(
-      /** @type {CanvasRenderingContext2D} */
-      wichContext
-    );
-    wichContext = null;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     let gridData = createGrid({
@@ -30258,23 +30231,10 @@
         );
         const rx = Math.round(-width / 2);
         const ry = Math.round(-height / 2);
-        if (useRadius) {
-          context2.beginPath();
-          context2.roundRect(rx, ry, width, height, 150);
-        } else {
-          context2.beginPath();
-          context2.rect(rx, ry, width, height);
-        }
-        if (hasFill) {
-          context2.fillStyle = exeptionFill;
-          context2.fill();
-        } else {
-          context2.fillStyle = mainFill;
-          context2.fill();
-          if (!useRadius) {
-            context2.strokeStyle = mainFill;
-          }
-        }
+        context2.beginPath();
+        context2.roundRect(rx, ry, width, height, 150);
+        context2.fillStyle = hasFill ? exeptionFill : mainFill;
+        context2.fill();
       }
       copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
@@ -30605,12 +30565,6 @@
     let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    let wichContext = useOffscreen ? offScreenCtx : ctx;
-    const useRadius = roundRectIsSupported(
-      /** @type {CanvasRenderingContext2D} */
-      wichContext
-    );
-    wichContext = null;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     let stemData = Array.from({ length: amountOfPath }).keys().map((_item, i) => {
@@ -30677,24 +30631,14 @@
           centerX,
           centerY + unitInverse * 19
         );
-        if (useRadius) {
-          context2.beginPath();
-          context2.roundRect(
-            -width2 / 2,
-            -height2 / 2 + unitInverse * 19,
-            width2,
-            height2,
-            150
-          );
-        } else {
-          context2.beginPath();
-          context2.rect(
-            Math.round(-width2 / 2),
-            Math.round(-height2 / 2),
-            width2,
-            height2
-          );
-        }
+        context2.beginPath();
+        context2.roundRect(
+          -width2 / 2,
+          -height2 / 2 + unitInverse * 19,
+          width2,
+          height2,
+          150
+        );
         if (hasFill) {
           context2.fillStyle = "#000";
         } else {
@@ -35472,12 +35416,6 @@
     let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    let wichContext = useOffscreen ? offScreenCtx : ctx;
-    const useRadius = roundRectIsSupported(
-      /** @type {CanvasRenderingContext2D} */
-      wichContext
-    );
-    wichContext = null;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     const numberOfRow = 10;
@@ -35646,24 +35584,14 @@
                 tweenAroundTarget.offsetYCenter + tweenAroundTarget.y
               )
             );
-            if (useRadius) {
-              context2.beginPath();
-              context2.roundRect(
-                Math.floor(-tweenAroundTarget.width / 2),
-                Math.floor(-tweenAroundTarget.height / 2),
-                Math.floor(tweenAroundTarget.width),
-                tweenAroundTarget.height,
-                150
-              );
-            } else {
-              context2.beginPath();
-              context2.rect(
-                Math.floor(-tweenAroundTarget.width / 2),
-                Math.floor(-tweenAroundTarget.height / 2),
-                Math.floor(tweenAroundTarget.width),
-                Math.floor(tweenAroundTarget.height)
-              );
-            }
+            context2.beginPath();
+            context2.roundRect(
+              Math.floor(-tweenAroundTarget.width / 2),
+              Math.floor(-tweenAroundTarget.height / 2),
+              Math.floor(tweenAroundTarget.width),
+              tweenAroundTarget.height,
+              150
+            );
             context2.fillStyle = pillarFill;
             context2.fill();
           }
@@ -35681,13 +35609,8 @@
         );
         const rx = Math.round(-width / 2);
         const ry = Math.round(-height / 2);
-        if (useRadius) {
-          context2.beginPath();
-          context2.roundRect(rx, ry, width, height, 150);
-        } else {
-          context2.beginPath();
-          context2.rect(rx, ry, width, height);
-        }
+        context2.beginPath();
+        context2.roundRect(rx, ry, width, height, 150);
         context2.fillStyle = mainFill;
         context2.fill();
       }
@@ -35707,24 +35630,14 @@
             tweenRotateTarget.offsetYCenter + tweenRotateTarget.y
           )
         );
-        if (useRadius) {
-          context2.beginPath();
-          context2.roundRect(
-            Math.floor(-tweenRotateTarget.width / 2),
-            Math.floor(-tweenRotateTarget.height / 2),
-            Math.floor(tweenRotateTarget.width),
-            Math.floor(tweenRotateTarget.height),
-            150
-          );
-        } else {
-          context2.beginPath();
-          context2.rect(
-            Math.floor(-tweenRotateTarget.width / 2),
-            Math.floor(-tweenRotateTarget.height / 2),
-            Math.floor(tweenRotateTarget.width),
-            Math.floor(tweenRotateTarget.height)
-          );
-        }
+        context2.beginPath();
+        context2.roundRect(
+          Math.floor(-tweenRotateTarget.width / 2),
+          Math.floor(-tweenRotateTarget.height / 2),
+          Math.floor(tweenRotateTarget.width),
+          Math.floor(tweenRotateTarget.height),
+          150
+        );
         context2.fillStyle = exeptionFill;
         context2.fill();
       }

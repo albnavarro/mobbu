@@ -10,7 +10,6 @@ import {
     createGrid,
     getCanvasContext,
     getOffsetCanvas,
-    roundRectIsSupported,
 } from '@utils/canvas-utils';
 
 /** @type {import('../type').AsyncTimelineAnimation} */
@@ -34,14 +33,6 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
      * If offscreen is supported use.
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    let wichContext = useOffscreen ? offScreenCtx : ctx;
-
-    const useRadius = roundRectIsSupported(
-        /** @type {CanvasRenderingContext2D} */ (wichContext)
-    );
-
-    wichContext = null;
-
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
@@ -297,27 +288,14 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
                         )
                     );
 
-                    /**
-                     * Draw.
-                     */
-                    if (useRadius) {
-                        context.beginPath();
-                        context.roundRect(
-                            Math.floor(-tweenAroundTarget.width / 2),
-                            Math.floor(-tweenAroundTarget.height / 2),
-                            Math.floor(tweenAroundTarget.width),
-                            tweenAroundTarget.height,
-                            150
-                        );
-                    } else {
-                        context.beginPath();
-                        context.rect(
-                            Math.floor(-tweenAroundTarget.width / 2),
-                            Math.floor(-tweenAroundTarget.height / 2),
-                            Math.floor(tweenAroundTarget.width),
-                            Math.floor(tweenAroundTarget.height)
-                        );
-                    }
+                    context.beginPath();
+                    context.roundRect(
+                        Math.floor(-tweenAroundTarget.width / 2),
+                        Math.floor(-tweenAroundTarget.height / 2),
+                        Math.floor(tweenAroundTarget.width),
+                        tweenAroundTarget.height,
+                        150
+                    );
 
                     context.fillStyle = pillarFill;
                     context.fill();
@@ -349,14 +327,8 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             /**
              * Draw.
              */
-            if (useRadius) {
-                context.beginPath();
-                context.roundRect(rx, ry, width, height, 150);
-            } else {
-                context.beginPath();
-                context.rect(rx, ry, width, height);
-            }
-
+            context.beginPath();
+            context.roundRect(rx, ry, width, height, 150);
             context.fillStyle = mainFill;
             context.fill();
         }
@@ -388,24 +360,14 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             /**
              * Draw.
              */
-            if (useRadius) {
-                context.beginPath();
-                context.roundRect(
-                    Math.floor(-tweenRotateTarget.width / 2),
-                    Math.floor(-tweenRotateTarget.height / 2),
-                    Math.floor(tweenRotateTarget.width),
-                    Math.floor(tweenRotateTarget.height),
-                    150
-                );
-            } else {
-                context.beginPath();
-                context.rect(
-                    Math.floor(-tweenRotateTarget.width / 2),
-                    Math.floor(-tweenRotateTarget.height / 2),
-                    Math.floor(tweenRotateTarget.width),
-                    Math.floor(tweenRotateTarget.height)
-                );
-            }
+            context.beginPath();
+            context.roundRect(
+                Math.floor(-tweenRotateTarget.width / 2),
+                Math.floor(-tweenRotateTarget.height / 2),
+                Math.floor(tweenRotateTarget.width),
+                Math.floor(tweenRotateTarget.height),
+                150
+            );
 
             context.fillStyle = exeptionFill;
             context.fill();

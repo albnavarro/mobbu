@@ -45,8 +45,6 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
 
-    const useRadius = true;
-
     /**
      * Initial misure.
      */
@@ -176,19 +174,14 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
             const rx = Math.round(-width / 2) * speedDelta;
             const ry = Math.round(-height / 2) * speedDelta;
 
-            if (useRadius) {
-                context.beginPath();
-                context.roundRect(
-                    rx,
-                    ry,
-                    width * speedDelta,
-                    height * speedDelta,
-                    130
-                );
-            } else {
-                context.beginPath();
-                context.rect(rx, ry, width * speedDelta, height * speedDelta);
-            }
+            context.beginPath();
+            context.roundRect(
+                rx,
+                ry,
+                width * speedDelta,
+                height * speedDelta,
+                130
+            );
 
             if (hasFill) {
                 context.fillStyle = '#000';

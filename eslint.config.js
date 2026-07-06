@@ -56,7 +56,6 @@ export default defineConfig([
             'unicorn/prefer-boolean-return': 'off',
             'unicorn/no-late-event-control': 'off',
             'unicorn/no-this-outside-of-class': 'off',
-            'unicorn/prefer-hoisting-branch-code': 'off',
             'unicorn/filename-case': 'off',
             'unicorn/no-unsafe-string-replacement': 'off',
             'unicorn/prefer-array-from-map': 'off',

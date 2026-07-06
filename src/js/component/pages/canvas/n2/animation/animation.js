@@ -57,11 +57,6 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
      * If offscreen is supported use.
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    // let wichContext = useOffscreen ? offScreenCtx : ctx;
-    // const useRadius = roundRectIsSupported(wichContext) && !detectSafari();
-    // wichContext = null;
-
-    const useRadius = true;
 
     let squareData = Array.from({ length: numItems })
         .keys()
@@ -199,13 +194,8 @@ export const caterpillarN2Animation = ({ canvas, proxi }) => {
             /**
              * Shape
              */
-            if (useRadius) {
-                context.beginPath();
-                context.roundRect(rx, ry, width, height, [40, 40]);
-            } else {
-                context.beginPath();
-                context.rect(rx, ry, width, height);
-            }
+            context.beginPath();
+            context.roundRect(rx, ry, width, height, [40, 40]);
 
             if (hasFill) {
                 context.fillStyle = fillColor;

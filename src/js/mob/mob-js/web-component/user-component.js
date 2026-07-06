@@ -361,64 +361,64 @@ export const defineUserComponent = (componentList) => {
                     const skip = getSkipAddUserComponent();
                     if (skip) return;
 
-                    if (this.#isPlaceholder) {
-                        const host = this.shadowRoot?.host;
+                    const host = this.shadowRoot?.host;
+                    if (!host) return;
 
-                        if (host) {
-                            /** Get all attribute */
-                            [
-                                this.#instanceName,
-                                this.#staticPropsId,
-                                this.#dynamicPropsId,
-                                this.#currentKey,
-                                this.#bindEventsId,
-                                this.#currentRepeatValueId,
-                                this.#slotPosition,
-                                this.#parentId,
-                                this.#componentRepeatId,
-                                this.#delegateEventId,
-                                this.#repeatPropBind,
-                                this.#bindRefId,
-                                this.#bindRefName,
-                                this.#bindEffectInstance,
-                            ] = [
-                                ATTR_INSTANCENAME,
-                                ATTR_PROPS,
-                                ATTR_BIND_PROPS,
-                                ATTR_KEY,
-                                ATTR_BIND_EVENTS,
-                                ATTR_CURRENT_LIST_VALUE,
-                                ATTR_SLOT_POSITION_NAME,
-                                ATTR_PARENT_ID,
-                                ATTR_CHILD_REPEATID,
-                                ATTR_WEAK_BIND_EVENTS,
-                                ATTR_REPEATER_PROP_BIND,
-                                ATTR_BIND_REFS_ID,
-                                ATTR_BIND_REFS_NAME,
-                                ATTR_BIND_EFFECT_INSTANCE,
-                            ].map(
-                                (attribute) =>
-                                    host.getAttribute(attribute) ?? ''
-                            );
-                        }
+                    /**
+                     * Placeholder component
+                     */
+                    if (this.#isPlaceholder) {
+                        /** Get all attribute */
+                        [
+                            this.#instanceName,
+                            this.#staticPropsId,
+                            this.#dynamicPropsId,
+                            this.#currentKey,
+                            this.#bindEventsId,
+                            this.#currentRepeatValueId,
+                            this.#slotPosition,
+                            this.#parentId,
+                            this.#componentRepeatId,
+                            this.#delegateEventId,
+                            this.#repeatPropBind,
+                            this.#bindRefId,
+                            this.#bindRefName,
+                            this.#bindEffectInstance,
+                        ] = [
+                            ATTR_INSTANCENAME,
+                            ATTR_PROPS,
+                            ATTR_BIND_PROPS,
+                            ATTR_KEY,
+                            ATTR_BIND_EVENTS,
+                            ATTR_CURRENT_LIST_VALUE,
+                            ATTR_SLOT_POSITION_NAME,
+                            ATTR_PARENT_ID,
+                            ATTR_CHILD_REPEATID,
+                            ATTR_WEAK_BIND_EVENTS,
+                            ATTR_REPEATER_PROP_BIND,
+                            ATTR_BIND_REFS_ID,
+                            ATTR_BIND_REFS_NAME,
+                            ATTR_BIND_EFFECT_INSTANCE,
+                        ].map(
+                            (attribute) => host.getAttribute(attribute) ?? ''
+                        );
 
                         // @ts-ignore
                         addUserPlaceholder(host);
-                        return;
-                    } else {
-                        const host = this.shadowRoot?.host;
+                    }
 
+                    /**
+                     * Component to render
+                     */
+                    if (!this.#isPlaceholder) {
                         /**
                          * Get special modules like bindEffectFrom Instance.
                          */
-                        if (host) {
-                            [this.#bindEffectInstance] = [
-                                ATTR_BIND_EFFECT_INSTANCE,
-                            ].map(
-                                (attribute) =>
-                                    host.getAttribute(attribute) ?? ''
-                            );
-                        }
+                        [this.#bindEffectInstance] = [
+                            ATTR_BIND_EFFECT_INSTANCE,
+                        ].map(
+                            (attribute) => host.getAttribute(attribute) ?? ''
+                        );
                     }
                 }
 

@@ -169,24 +169,19 @@ export const animatedPatternN0Animation = ({
             const rx = Math.round(-width / 2);
             const ry = Math.round(-height / 2);
 
+            context.beginPath();
             /**
              * Draw.
              */
             if (useRadius) {
-                context.beginPath();
                 context.roundRect(rx, ry, width, height, 150);
             } else {
                 context.beginPath();
                 context.rect(rx, ry, width, height);
             }
 
-            if (hasFill) {
-                context.fillStyle = exeptionFill;
-                context.fill();
-            } else {
-                context.fillStyle = mainFill;
-                context.fill();
-            }
+            context.fillStyle = hasFill ? exeptionFill : mainFill;
+            context.fill();
         }
 
         // @ts-ignore
