@@ -1,5 +1,4 @@
-import { getUnivoqueId } from '@mobCoreUtils';
-import { MobCore } from '@mobCore';
+import { MobCore } from '../../../mob-core/index.js';
 import MobSpring from '../../animation/spring/mob-spring';
 
 let previousClientX = 0;
@@ -490,7 +489,7 @@ const addCallback = (cb) => {
         return () => {};
     }
 
-    const id = getUnivoqueId();
+    const id = MobCore.getUnivoqueId();
     callbacks.set(id, cb);
     init();
 
