@@ -48,7 +48,6 @@ export default defineConfig([
             'unicorn/no-declarations-before-early-exit': 'off',
             'unicorn/no-useless-template-literals': 'off',
             'unicorn/no-useless-spread': 'off',
-            'unicorn/no-subtraction-comparison': 'off',
             'unicorn/no-break-in-nested-loop': 'off',
             'unicorn/no-unnecessary-global-this': 'off',
             'unicorn/no-unreadable-array-destructuring': 'off',
