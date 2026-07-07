@@ -319,7 +319,7 @@ export const tweenConfig = {
         /** @type {number} */ amountOfChange,
         /** @type {number} */ duration
     ) => {
-        let s = 1.701_58;
+        let s = 1.70158;
         let p = 0;
         let a = amountOfChange;
         if (elapsed === 0) {
@@ -351,7 +351,7 @@ export const tweenConfig = {
         /** @type {number} */ amountOfChange,
         /** @type {number} */ duration
     ) => {
-        let s = 1.701_58;
+        let s = 1.70158;
         let p = 0;
         let a = amountOfChange;
         if (elapsed === 0) {
@@ -383,7 +383,7 @@ export const tweenConfig = {
         /** @type {number} */ amountOfChange,
         /** @type {number} */ duration
     ) => {
-        let s = 1.701_58;
+        let s = 1.70158;
         let p = 0;
         let a = amountOfChange;
         if (elapsed === 0) {
@@ -426,7 +426,7 @@ export const tweenConfig = {
         /** @type {number} */ initialValue,
         /** @type {number} */ amountOfChange,
         /** @type {number} */ duration,
-        s = 1.701_58
+        s = 1.70158
     ) => {
         return (
             amountOfChange *
@@ -441,7 +441,7 @@ export const tweenConfig = {
         /** @type {number} */ initialValue,
         /** @type {number} */ amountOfChange,
         /** @type {number} */ duration,
-        s = 1.701_58
+        s = 1.70158
     ) => {
         return (
             amountOfChange *
@@ -457,7 +457,7 @@ export const tweenConfig = {
         /** @type {number} */ initialValue,
         /** @type {number} */ amountOfChange,
         /** @type {number} */ duration,
-        s = 1.701_58
+        s = 1.70158
     ) => {
         if ((elapsed /= duration / 2) < 1) {
             return (
@@ -513,7 +513,7 @@ export const tweenConfig = {
         } else {
             return (
                 amountOfChange *
-                    (7.5625 * (elapsed -= 2.625 / 2.75) * elapsed + 0.984_375) +
+                    (7.5625 * (elapsed -= 2.625 / 2.75) * elapsed + 0.984375) +
                 initialValue
             );
         }

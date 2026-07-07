@@ -57,7 +57,6 @@ export default defineConfig([
             'unicorn/no-unsafe-string-replacement': 'off',
             'unicorn/prefer-array-from-map': 'off',
             'unicorn/explicit-timer-delay': 'off',
-            'unicorn/numeric-separators-style': 'off',
             'unicorn/prefer-type-literal-last': 'off',
             'unicorn/prefer-continue': 'off',
             'unicorn/no-useless-continue': 'off',
