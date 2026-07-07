@@ -45,8 +45,12 @@ const initScroller = async ({ getRef }) => {
     };
 };
 
-// number should fail system.
-const getFakeReplacement = (/** @type {number} */ index) => `~${index}`;
+/**
+ * @param {string} stringValue
+ * @returns {string}
+ */
+const escapeRegex = (stringValue) =>
+    stringValue.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
 
 /**
  * @param {object} params
@@ -54,14 +58,16 @@ const getFakeReplacement = (/** @type {number} */ index) => `~${index}`;
  * @returns {Omit<DebugFilterListItemType['props'], 'currentId'>[]} Params
  */
 const getDataFiltered = ({ testString }) => {
+    const stringParsed = testString.split(' ').filter(Boolean);
+
     /**
-     * `~` char is not allowed ( is getFakeReplacement )
+     * Prima controlliamo i termini piu lunghi per non perderli
+     *
+     * - I termini piu picolli una volta wrappati imediscono ai termini piu lunghi di essere trovati.
      */
-    const stringParsed =
-        testString
-            .replaceAll('~', '')
-            .split(' ')
-            .filter((block) => block !== '') ?? '';
+    const sortedParsed = [...stringParsed].toSorted(
+        (a, b) => b.length - a.length
+    );
 
     return (() => {
         /**
@@ -69,46 +75,45 @@ const getDataFiltered = ({ testString }) => {
          */
         const result = [];
         for (const item of MobJsInternal.componentMap.values()) {
-            const condition = stringParsed.every((piece) =>
-                item.componentName.includes(piece)
+            const condition = sortedParsed.every((piece) =>
+                item.componentName.toLowerCase().includes(piece.toLowerCase())
             );
 
             if (condition) result.push(item);
         }
 
         return result;
-
-        // [...MobJs.componentMap.values()].filter(({ componentName }) => {
-        //     return stringParsed.every((piece) =>
-        //         componentName.includes(piece)
-        //     );
-        // }) ?? []
     })().map(({ id, componentName, instanceName }) => ({
         id,
         active: false,
         tag: (() => {
+            if (sortedParsed.length === 0) return componentName;
+
             /**
-             * Exclude string after ~ from substitution ( previuos replace )
+             * - L' operatore `|` é un or ( oppure ), proverá tutte le occorrenze in ordine.
+             * - Nel nostro caso le proverá dalla piu lunga.
+             *
+             * Es: bUTT b => /bUTT|b/gi
              */
-            const stringParseWithPlaceholder = stringParsed.reduce(
-                (previous, current, index) => {
-                    return previous.replaceAll(
-                        new RegExp(`(?<!~)${current.toLowerCase()}`, 'g'),
-                        String(getFakeReplacement(index))
-                    );
-                },
-                componentName
+            const pattern = new RegExp(
+                sortedParsed
+                    .map((stringValue) => escapeRegex(stringValue))
+                    .join('|'),
+                'gi'
             );
 
             /**
-             * Replace placeholder with real occurrence in original order.
+             * Il motore regex JavaScript lavora da sinistra a destra.
+             *
+             * - Quando trova un match, avanza oltre il match trovato senza tornare indietro.
+             * - (first match, leftmost).
+             * - Avendo l'occorrenza piu lunga coem primo match una volta risolto non cerchera piu occorrenze piu piccole
+             *   dentro quelle giá risolte.
              */
-            return stringParsed.reduce((previous, current, index) => {
-                return previous.replaceAll(
-                    String(getFakeReplacement(index)),
-                    `<span class="u-match-string">${current}</span>`
-                );
-            }, stringParseWithPlaceholder);
+            return componentName.replaceAll(
+                pattern,
+                (match) => `<span class="u-match-string">${match}</span>`
+            );
         })(),
         name: instanceName,
     }));

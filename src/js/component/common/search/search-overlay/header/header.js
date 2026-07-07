@@ -47,8 +47,12 @@ const sendReset = ({ getRef, proxi }) => {
     proxi.suggestionListData = [];
 };
 
-// number should fail system.
-const getFakeReplacement = (/** @type {number} */ index) => `~${index}`;
+/**
+ * @param {string} stringValue
+ * @returns {string}
+ */
+const escapeRegex = (stringValue) =>
+    stringValue.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
 
 /**
  * @param {object} params
@@ -59,29 +63,37 @@ const filterSuggestion = ({ currentSearch, proxi }) => {
     const mainData = getCommonData();
     const searchSuggestionKey = mainData.suggestion;
 
-    if (currentSearch.length === 0) proxi.suggestionListData = [];
+    if (currentSearch.length === 0) {
+        proxi.suggestionListData = [];
+        return;
+    }
 
     /**
      * Use last word of input search for filter suggestion.
      */
     const inputSearchLastWord = currentSearch.split(' ').slice(-1).join('');
+    if (!inputSearchLastWord) {
+        proxi.suggestionListData = [];
+        return;
+    }
+
+    const stringParsed = inputSearchLastWord.split(' ').filter(Boolean);
 
     /**
-     * `~` char is not allowed ( is getFakeReplacement ). Remove `~` character. stringParsed is an array in case we want
-     * to process more than one word. Current logic use only last word so is unnecessary.
+     * Prima controlliamo i termini piu lunghi per non perderli
+     *
+     * - I termini piu picolli una volta wrappati imediscono ai termini piu lunghi di essere trovati.
      */
-    const stringParsed =
-        inputSearchLastWord
-            .replaceAll('~', '')
-            .split(' ')
-            .filter((block) => block !== '') ?? '';
+    const sortedParsed = [...stringParsed].toSorted(
+        (a, b) => b.length - a.length
+    );
 
     /**
      * Update suggestion list based on last input search word.
      */
     proxi.suggestionListData = (
         searchSuggestionKey.filter(({ word }) => {
-            return stringParsed.some((piece) =>
+            return sortedParsed.some((piece) =>
                 word.toLowerCase().includes(piece.toLowerCase())
             );
         }) ?? []
@@ -89,36 +101,33 @@ const filterSuggestion = ({ currentSearch, proxi }) => {
         return {
             word,
             wordHiglight: (() => {
+                if (sortedParsed.length === 0) return word;
+
                 /**
-                 * Avoid to replce string in <span> tag added. Repelce placeholder, and trask order
+                 * - L' operatore `|` é un or ( oppure ), proverá tutte le occorrenze in ordine.
+                 * - Nel nostro caso le proverá dalla piu lunga.
+                 *
+                 * Es: bUTT b => /bUTT|b/gi
                  */
-                const stringParseWithPlaceholder = stringParsed.reduce(
-                    (previous, current, index) => {
-                        /**
-                         * Exclude string after ~ from substitution ( previuos replace )
-                         */
-                        return previous
-                            .toLowerCase()
-                            .replaceAll(
-                                new RegExp(
-                                    `(?<!~)${current.toLowerCase()}`,
-                                    'g'
-                                ),
-                                String(getFakeReplacement(index))
-                            );
-                    },
-                    word
+                const pattern = new RegExp(
+                    sortedParsed
+                        .map((stringValue) => escapeRegex(stringValue))
+                        .join('|'),
+                    'gi'
                 );
 
                 /**
-                 * Replace placeholder with real occurrence in original order.
+                 * Il motore regex JavaScript lavora da sinistra a destra.
+                 *
+                 * - Quando trova un match, avanza oltre il match trovato senza tornare indietro.
+                 * - (first match, leftmost).
+                 * - Avendo l'occorrenza piu lunga coem primo match una volta risolto non cerchera piu occorrenze piu
+                 *   piccole dentro quelle giá risolte.
                  */
-                return stringParsed.reduce((previous, current, index) => {
-                    return previous.replaceAll(
-                        String(getFakeReplacement(index)),
-                        `<span class="u-match-string">${current}</span>`
-                    );
-                }, stringParseWithPlaceholder);
+                return word.replaceAll(
+                    pattern,
+                    (match) => `<span class="u-match-string">${match}</span>`
+                );
             })(),
         };
     });

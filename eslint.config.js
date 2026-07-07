@@ -53,7 +53,6 @@ export default defineConfig([
             'unicorn/no-late-event-control': 'off',
             'unicorn/no-this-outside-of-class': 'off',
             'unicorn/filename-case': 'off',
-            'unicorn/no-unsafe-string-replacement': 'off',
             'unicorn/prefer-array-from-map': 'off',
             'unicorn/explicit-timer-delay': 'off',
             'unicorn/prefer-type-literal-last': 'off',

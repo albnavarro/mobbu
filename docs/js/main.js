@@ -39653,14 +39653,17 @@
       updateScroller: updateScroller2
     };
   };
-  var getFakeReplacement = (index) => `~${index}`;
+  var escapeRegex = (stringValue) => stringValue.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
   var getDataFiltered = ({ testString }) => {
-    const stringParsed = testString.replaceAll("~", "").split(" ").filter((block) => block !== "") ?? "";
+    const stringParsed = testString.split(" ").filter(Boolean);
+    const sortedParsed = [...stringParsed].toSorted(
+      (a, b) => b.length - a.length
+    );
     return (() => {
       const result = [];
       for (const item of internal_exports.componentMap.values()) {
-        const condition = stringParsed.every(
-          (piece) => item.componentName.includes(piece)
+        const condition = sortedParsed.every(
+          (piece) => item.componentName.toLowerCase().includes(piece.toLowerCase())
         );
         if (condition) result.push(item);
       }
@@ -39669,21 +39672,15 @@
       id,
       active: false,
       tag: (() => {
-        const stringParseWithPlaceholder = stringParsed.reduce(
-          (previous, current, index) => {
-            return previous.replaceAll(
-              new RegExp(`(?<!~)${current.toLowerCase()}`, "g"),
-              String(getFakeReplacement(index))
-            );
-          },
-          componentName
+        if (sortedParsed.length === 0) return componentName;
+        const pattern = new RegExp(
+          sortedParsed.map((stringValue) => escapeRegex(stringValue)).join("|"),
+          "gi"
         );
-        return stringParsed.reduce((previous, current, index) => {
-          return previous.replaceAll(
-            String(getFakeReplacement(index)),
-            `<span class="u-match-string">${current}</span>`
-          );
-        }, stringParseWithPlaceholder);
+        return componentName.replaceAll(
+          pattern,
+          (match) => `<span class="u-match-string">${match}</span>`
+        );
       })(),
       name: instanceName
     }));
@@ -42141,39 +42138,40 @@
     search_input.value = "";
     proxi.suggestionListData = [];
   };
-  var getFakeReplacement2 = (index) => `~${index}`;
+  var escapeRegex2 = (stringValue) => stringValue.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
   var filterSuggestion = ({ currentSearch, proxi }) => {
     const mainData = getCommonData();
     const searchSuggestionKey = mainData.suggestion;
-    if (currentSearch.length === 0) proxi.suggestionListData = [];
+    if (currentSearch.length === 0) {
+      proxi.suggestionListData = [];
+      return;
+    }
     const inputSearchLastWord = currentSearch.split(" ").slice(-1).join("");
-    const stringParsed = inputSearchLastWord.replaceAll("~", "").split(" ").filter((block) => block !== "") ?? "";
+    if (!inputSearchLastWord) {
+      proxi.suggestionListData = [];
+      return;
+    }
+    const stringParsed = inputSearchLastWord.split(" ").filter(Boolean);
+    const sortedParsed = [...stringParsed].toSorted(
+      (a, b) => b.length - a.length
+    );
     proxi.suggestionListData = (searchSuggestionKey.filter(({ word }) => {
-      return stringParsed.some(
+      return sortedParsed.some(
         (piece) => word.toLowerCase().includes(piece.toLowerCase())
       );
     }) ?? []).map(({ word }) => {
       return {
         word,
         wordHiglight: (() => {
-          const stringParseWithPlaceholder = stringParsed.reduce(
-            (previous, current, index) => {
-              return previous.toLowerCase().replaceAll(
-                new RegExp(
-                  `(?<!~)${current.toLowerCase()}`,
-                  "g"
-                ),
-                String(getFakeReplacement2(index))
-              );
-            },
-            word
+          if (sortedParsed.length === 0) return word;
+          const pattern = new RegExp(
+            sortedParsed.map((stringValue) => escapeRegex2(stringValue)).join("|"),
+            "gi"
           );
-          return stringParsed.reduce((previous, current, index) => {
-            return previous.replaceAll(
-              String(getFakeReplacement2(index)),
-              `<span class="u-match-string">${current}</span>`
-            );
-          }, stringParseWithPlaceholder);
+          return word.replaceAll(
+            pattern,
+            (match) => `<span class="u-match-string">${match}</span>`
+          );
         })()
       };
     });
