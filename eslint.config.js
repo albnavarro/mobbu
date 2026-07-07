@@ -46,7 +46,6 @@ export default defineConfig([
             'unicorn/consistent-compound-words': 'off',
             'unicorn/no-declarations-before-early-exit': 'off',
             'unicorn/no-break-in-nested-loop': 'off',
-            'unicorn/no-unnecessary-global-this': 'off',
             'unicorn/no-unreadable-array-destructuring': 'off',
             'unicorn/prefer-else-if': 'off',
             'unicorn/no-negated-comparison': 'off',
@@ -61,6 +60,7 @@ export default defineConfig([
             'unicorn/prefer-continue': 'off',
             'unicorn/no-useless-continue': 'off',
             //
+            'unicorn/no-unnecessary-global-this': 'off',
             'no-useless-assignment': 'off',
             'unicorn/template-indent': 'off',
             'unicorn/prevent-abbreviations': 'off',
