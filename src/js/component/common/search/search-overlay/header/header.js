@@ -104,7 +104,7 @@ const filterSuggestion = ({ currentSearch, proxi }) => {
                                     `(?<!~)${current.toLowerCase()}`,
                                     'g'
                                 ),
-                                `${getFakeReplacement(index)}`
+                                String(getFakeReplacement(index))
                             );
                     },
                     word
@@ -115,7 +115,7 @@ const filterSuggestion = ({ currentSearch, proxi }) => {
                  */
                 return stringParsed.reduce((previous, current, index) => {
                     return previous.replaceAll(
-                        `${getFakeReplacement(index)}`,
+                        String(getFakeReplacement(index)),
                         `<span class="u-match-string">${current}</span>`
                     );
                 }, stringParseWithPlaceholder);

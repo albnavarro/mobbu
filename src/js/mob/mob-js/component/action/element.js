@@ -89,6 +89,6 @@ export const getElementsByKeyAndRepeatId = ({
         if (!component) return [];
 
         const { element, key } = component;
-        return `${key}` === `${keyValue}` ? [{ element, id }] : [];
+        return String(key) === String(keyValue) ? [{ element, id }] : [];
     });
 };

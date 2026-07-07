@@ -94,7 +94,7 @@ const getDataFiltered = ({ testString }) => {
                 (previous, current, index) => {
                     return previous.replaceAll(
                         new RegExp(`(?<!~)${current.toLowerCase()}`, 'g'),
-                        `${getFakeReplacement(index)}`
+                        String(getFakeReplacement(index))
                     );
                 },
                 componentName
@@ -105,7 +105,7 @@ const getDataFiltered = ({ testString }) => {
              */
             return stringParsed.reduce((previous, current, index) => {
                 return previous.replaceAll(
-                    `${getFakeReplacement(index)}`,
+                    String(getFakeReplacement(index)),
                     `<span class="u-match-string">${current}</span>`
                 );
             }, stringParseWithPlaceholder);

@@ -476,7 +476,7 @@ export const AboutComponentFunction = ({
 
     return htmlObject({
         className: 'l-about',
-        style: { '--number-of-section': `${numberOfSection}` },
+        style: { '--number-of-section': String(numberOfSection) },
         modules: bindEffect({
             toggleClass: {
                 active: () => proxi.isMounted,

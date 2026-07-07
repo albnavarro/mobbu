@@ -52,7 +52,7 @@ export const getThirdLevel = ({
                                             level: 'level 3',
                                             value: item.value,
                                             index: index,
-                                            key: `${item.key}`,
+                                            key: String(item.key),
                                         })
                                     ),
                                     bindProps(() => {
@@ -77,7 +77,7 @@ export const getThirdLevel = ({
                                             level: 'level 3',
                                             value: item.value,
                                             index: index,
-                                            key: `${item.key}`,
+                                            key: String(item.key),
                                         })
                                     ),
                                     bindProps(() => {

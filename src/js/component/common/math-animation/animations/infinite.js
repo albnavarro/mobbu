@@ -136,7 +136,7 @@ export const mathInfinite = ({ targets, container, canvas } = {}) => {
              * - I target partono già centrati (position: absolute al centro)
              */
             item.style.transform = `translate3D(0px,0px,0px) translate(${xr - halfTagetsHeight[index] * directionMultiplier}px, ${yr - halfTagetsHeight[index]}px)`;
-            if (innerElement) innerElement.style.scale = `${scale}`;
+            if (innerElement) innerElement.style.scale = String(scale);
         });
     }
 

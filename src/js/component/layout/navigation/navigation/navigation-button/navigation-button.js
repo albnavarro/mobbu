@@ -42,7 +42,8 @@ export const NavigationButtonFunction = ({
             const activeParams = MobJs.getActiveParams();
 
             const paramsMatch =
-                activeId === -1 || activeParams?.['activeId'] === `${activeId}`;
+                activeId === -1 ||
+                activeParams?.['activeId'] === String(activeId);
 
             const isActiveRoute = currentRoute === hash && paramsMatch;
 

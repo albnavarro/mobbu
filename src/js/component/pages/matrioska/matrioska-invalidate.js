@@ -36,9 +36,9 @@ export const MatrioskaInvalidateFunction = ({
                                 staticProps(
                                     /** @type {Partial<MatrioskaItemType['props']>} */ ({
                                         level: 'level 1',
-                                        key: `${item.key}`,
+                                        key: String(item.key),
                                         index: index,
-                                        value: `${item.value}`,
+                                        value: String(item.value),
                                     })
                                 ),
                                 bindProps(() => ({

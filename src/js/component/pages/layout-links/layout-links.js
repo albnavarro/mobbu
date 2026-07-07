@@ -10,7 +10,7 @@ import { MobCore } from '@mobCore';
  * @param {number} index
  * @returns {string}
  */
-const getCounter = (index) => (index < 10 ? `0${index}` : `${index}`);
+const getCounter = (index) => (index < 10 ? `0${index}` : String(index));
 
 /**
  * @param {number} index

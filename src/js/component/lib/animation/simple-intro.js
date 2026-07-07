@@ -21,11 +21,11 @@ export const simpleIntroAnimation = ({ refs }) => {
 
     for (const item of refs) {
         introTween.subscribeCache(({ scale }) => {
-            item.style.scale = `${scale}`;
+            item.style.scale = String(scale);
         });
 
         loopTween.subscribeCache(({ scale }) => {
-            item.style.scale = `${scale}`;
+            item.style.scale = String(scale);
         });
     }
 

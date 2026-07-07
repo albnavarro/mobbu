@@ -45,8 +45,8 @@ export const getSecondLevel = ({
                                     /** @type {MatrioskaItemType['props']} */ ({
                                         level: 'level 2',
                                         index: index,
-                                        key: `${item.key}`,
-                                        value: `${item.value}`,
+                                        key: String(item.key),
+                                        value: String(item.value),
                                     })
                                 ),
                                 bindProps(() => ({

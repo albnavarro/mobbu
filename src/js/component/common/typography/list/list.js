@@ -53,7 +53,7 @@ const getList = ({ items, links, delegateEvents }) => {
         : items.map((item) =>
               htmlObject({
                   tag: 'li',
-                  content: `${item}`,
+                  content: String(item),
               })
           );
 };

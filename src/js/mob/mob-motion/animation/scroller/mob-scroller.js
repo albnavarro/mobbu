@@ -1814,7 +1814,7 @@ export default class MobScroller {
             }
 
             case MobScrollerConstant.PROP_OPACITY: {
-                el.style.opacity = `${value}`;
+                el.style.opacity = String(value);
                 break;
             }
 

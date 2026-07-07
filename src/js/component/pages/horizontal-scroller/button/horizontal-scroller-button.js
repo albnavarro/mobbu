@@ -14,7 +14,7 @@ export const HorizontalScrollerButtonFunction = ({ getSelfProxi }) => {
             attributes: { type: 'button' },
             dataAttributes: { id: proxi.id },
             className: 'nav-button',
-            content: `${proxi.id}`,
+            content: String(proxi.id),
         },
     });
 };

@@ -109,7 +109,7 @@ export const mathArchimede = ({ targets, container, canvas } = {}) => {
             const y = radius * Math.sin(angleInRadian);
 
             item.style.transform = `translate3D(0px,0px,0px) translate(${x - halfTagetsHeight[index] * directionMultiplier}px, ${y - halfTagetsHeight[index]}px)`;
-            if (innerElement) innerElement.style.scale = `${scale}`;
+            if (innerElement) innerElement.style.scale = String(scale);
         });
     }
 

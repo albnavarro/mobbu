@@ -12,7 +12,7 @@ const getDebug = ({ debug, id }) => {
         ? htmlObject({
               tag: 'span',
               className: 'debug',
-              content: `${id}`,
+              content: String(id),
           })
         : htmlObject({});
 };

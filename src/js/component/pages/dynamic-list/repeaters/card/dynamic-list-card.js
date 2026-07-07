@@ -40,7 +40,7 @@ const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
             modules: [
                 staticProps(
                     /** @type {DynamicListCardInnerType['props']} */ ({
-                        key: `${item}`,
+                        key: String(item),
                     })
                 ),
                 delegateEvents({
@@ -196,7 +196,7 @@ export const DynamicListCardFunction = ({
                             modules: bindProps(
                                 /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
                                 () => ({
-                                    key: `${current.value.key}`,
+                                    key: String(current.value.key),
                                 })
                             ),
                         });
@@ -216,7 +216,7 @@ export const DynamicListCardFunction = ({
                             modules: bindProps(
                                 /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
                                 () => ({
-                                    key: `${current.value.key}`,
+                                    key: String(current.value.key),
                                 })
                             ),
                         });

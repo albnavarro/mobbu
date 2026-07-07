@@ -46,8 +46,8 @@ export const getSecondLevel = ({
                                 })
                             ),
                             bindProps(() => ({
-                                key: `${current.value.key}`,
-                                value: `${current.value.value}`,
+                                key: String(current.value.key),
+                                value: String(current.value.value),
                                 index: current.index,
                                 counter: proxi.counter,
                             })),

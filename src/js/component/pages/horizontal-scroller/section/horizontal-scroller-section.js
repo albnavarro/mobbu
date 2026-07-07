@@ -23,7 +23,7 @@ export const HorizontalScrollerSectionFunction = ({ getState }) => {
                     className: 'title js-title',
                     content: {
                         tag: 'h1',
-                        content: `${id}`,
+                        content: String(id),
                     },
                 },
             ],

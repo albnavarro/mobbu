@@ -190,17 +190,19 @@ export const setRepeatAttribute = ({
         }
 
         if (!component.deref()?.hasAttribute(ATTR_KEY)) {
-            component.deref()?.setAttribute(ATTR_KEY, `${key}`);
+            component.deref()?.setAttribute(ATTR_KEY, String(key));
         }
 
         if (!component.deref()?.hasAttribute(ATTR_REPEATER_PROP_BIND)) {
             component
                 .deref()
-                ?.setAttribute(ATTR_REPEATER_PROP_BIND, `${observe}`);
+                ?.setAttribute(ATTR_REPEATER_PROP_BIND, String(observe));
         }
 
         if (!component.deref()?.hasAttribute(ATTR_CHILD_REPEATID)) {
-            component.deref()?.setAttribute(ATTR_CHILD_REPEATID, `${repeatId}`);
+            component
+                .deref()
+                ?.setAttribute(ATTR_CHILD_REPEATID, String(repeatId));
         }
     }
 };

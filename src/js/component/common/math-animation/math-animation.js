@@ -100,7 +100,7 @@ export const MathAnimationFunction = ({
             style: {
                 width: `${size}rem`,
                 height: `${size}rem`,
-                opacity: `${opacity}`,
+                opacity: String(opacity),
             },
             modules: setRef('target'),
             content: {

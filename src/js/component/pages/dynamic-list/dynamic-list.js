@@ -225,7 +225,7 @@ export const DynamicListFunction = ({
                                 modules: bindProps(
                                     /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
                                     () => ({
-                                        key: `${proxi.counter}`,
+                                        key: String(proxi.counter),
                                     })
                                 ),
                             },

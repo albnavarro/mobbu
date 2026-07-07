@@ -28,7 +28,7 @@ export const verticalScroller = ({
                 fixedTab,
                 syncArrow: true,
                 onTick: ({ percent }) => {
-                    scrollbar.value = `${percent}`;
+                    scrollbar.value = String(percent);
                 },
                 afterRefresh: ({ shouldScroll }) => {
                     scrollbar?.classList.toggle(

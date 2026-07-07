@@ -13,7 +13,7 @@ const leftContent = () => [
                 tag: 'strong',
                 content: 'Debug activated: ',
             },
-            `${MobJs.getDebugMode()}`,
+            String(MobJs.getDebugMode()),
         ],
     },
     {
@@ -32,7 +32,7 @@ const leftContent = () => [
                 tag: 'strong',
                 content: 'Active repeater: ',
             },
-            `${MobJsInternal.getNumberOfActiveRepeater()}`,
+            String(MobJsInternal.getNumberOfActiveRepeater()),
         ],
     },
     {
@@ -42,7 +42,7 @@ const leftContent = () => [
                 tag: 'strong',
                 content: 'Active invalidate: ',
             },
-            `${MobJsInternal.getNumberOfActiveInvalidate()}`,
+            String(MobJsInternal.getNumberOfActiveInvalidate()),
         ],
     },
 ];

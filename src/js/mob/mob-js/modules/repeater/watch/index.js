@@ -278,7 +278,7 @@ export const watchRepeat = ({
             const keyToIndex = hasKey
                 ? new Map(
                       currentUpdated.map((item, index) => [
-                          `${item?.[key]}`,
+                          String(item?.[key]),
                           index,
                       ])
                   )
@@ -295,7 +295,7 @@ export const watchRepeat = ({
                  * Find real index in original array ( currentUpdated )
                  */
                 const realIndex = hasKey
-                    ? (keyToIndex.get(`${currentValue?.[key]}`) ?? -1)
+                    ? (keyToIndex.get(String(currentValue?.[key])) ?? -1)
                     : index;
 
                 for (const id of childArray) {
