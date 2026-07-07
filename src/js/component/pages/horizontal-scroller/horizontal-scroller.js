@@ -97,7 +97,7 @@ export const HorizontalScrollerFunction = ({
         const numberOfColumns = 10;
         const indicators = [...element.querySelectorAll('.js-indicator')];
         const nav = element.querySelector('.js-nav');
-        const titles = [...element.querySelectorAll('.js-title h1')];
+        const titles = [...element.querySelectorAll(':scope .js-title h1')];
         const { destroy } = horizontalScrollerAnimation({
             rootRef: getRef().js_root,
             // @ts-ignore
