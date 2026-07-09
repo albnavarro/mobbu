@@ -121,9 +121,7 @@ const setActiveLabelOnScroll = ({ proxi, direction, winHeight }) => {
                 );
 
                 proxi.activeLabel = activeItem ? activeItem.label : '';
-            }
-
-            if (direction === 'UP') {
+            } else if (direction === 'UP') {
                 const activeItem = proxi.anchorItems.findLast(
                     ({ top, isNote }) => !isNote && top < window.scrollY + 200
                 );

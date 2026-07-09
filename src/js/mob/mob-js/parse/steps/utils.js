@@ -221,10 +221,28 @@ export const addDOMfromString = ({ stringDOM, parent, position }) => {
     setSkipAddUserComponent(lastSkipValue);
 
     if (!fragment) return;
-    if (position === 'afterend') parent.after(fragment);
-    if (position === 'beforebegin') parent.before(fragment);
-    if (position === 'afterbegin') parent.prepend(fragment);
-    if (position === 'beforeend') parent.append(fragment);
+
+    switch (position) {
+        case 'afterend': {
+            parent.after(fragment);
+            break;
+        }
+        case 'beforebegin': {
+            parent.before(fragment);
+            break;
+        }
+        case 'afterbegin': {
+            parent.prepend(fragment);
+            break;
+        }
+        case 'beforeend': {
+            {
+                parent.append(fragment);
+                // No default
+            }
+            break;
+        }
+    }
 };
 
 /**
@@ -242,8 +260,25 @@ export const addMultipleDOMElement = ({ elements, parent, position }) => {
         fragment.append(element);
     }
 
-    if (position === 'afterend') parent.after(fragment);
-    if (position === 'beforebegin') parent.before(fragment);
-    if (position === 'afterbegin') parent.prepend(fragment);
-    if (position === 'beforeend') parent.append(fragment);
+    switch (position) {
+        case 'afterend': {
+            parent.after(fragment);
+            break;
+        }
+        case 'beforebegin': {
+            parent.before(fragment);
+            break;
+        }
+        case 'afterbegin': {
+            parent.prepend(fragment);
+            break;
+        }
+        case 'beforeend': {
+            {
+                parent.append(fragment);
+                // No default
+            }
+            break;
+        }
+    }
 };

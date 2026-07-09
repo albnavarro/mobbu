@@ -47,7 +47,6 @@ export default defineConfig([
             'unicorn/no-declarations-before-early-exit': 'off',
             'unicorn/no-break-in-nested-loop': 'off',
             'unicorn/no-unreadable-array-destructuring': 'off',
-            'unicorn/prefer-else-if': 'off',
             'unicorn/no-negated-comparison': 'off',
             'unicorn/prefer-boolean-return': 'off',
             'unicorn/no-late-event-control': 'off',

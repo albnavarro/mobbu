@@ -204,8 +204,7 @@ export const animatedPatternN0Animation = ({
             .goTo(gridTween, { rotate: 180, scale: 1.2 }, { duration: 500 })
             .goTo(gridTween, { scale: 0.3, rotate: 0 }, { duration: 500 })
             .goTo(gridTween, { scale: 1 }, { duration: 1200 });
-
-    if (animationType === 'edges' || animationType === 'radial')
+    else if (animationType === 'edges' || animationType === 'radial')
         gridTimeline
             .goTo(gridTween, { scale: 0.3, rotate: 0 }, { duration: 1000 })
             .goTo(gridTween, { scale: 1 }, { duration: 1000 });
