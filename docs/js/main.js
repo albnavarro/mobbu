@@ -3005,10 +3005,9 @@
     const store2 = state?.store;
     if (store2 && Object.hasOwn(store2, prop)) {
       return store2[prop];
-    } else {
-      storeGetPropWarning(prop, getLogStyle());
-      return;
     }
+    storeGetPropWarning(prop, getLogStyle());
+    return;
   };
   var storeGetPropEntryPoint = ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
@@ -3079,10 +3078,9 @@
         addToComputedWaitLsit({ instanceId: id, prop });
       }
       return { success: true };
-    } else {
-      storeEmitWarning(prop, getLogStyle());
-      return { success: false };
     }
+    storeEmitWarning(prop, getLogStyle());
+    return { success: false };
   };
   var storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
@@ -7901,9 +7899,8 @@
       if (element && container?.contains(element) && element !== container) {
         removeAndDestroyById({ id: id2 });
         continue;
-      } else {
-        destroyComponentInsideNodeById({ id: currentId, container });
       }
+      destroyComponentInsideNodeById({ id: currentId, container });
     }
   };
 
@@ -12052,13 +12049,11 @@
     [easeReference.easeOutBounce]: (elapsed, initialValue, amountOfChange, duration) => {
       if ((elapsed /= duration) < 1 / 2.75) {
         return amountOfChange * (7.5625 * elapsed * elapsed) + initialValue;
-      } else if (elapsed < 2 / 2.75) {
-        return amountOfChange * (7.5625 * (elapsed -= 1.5 / 2.75) * elapsed + 0.75) + initialValue;
-      } else if (elapsed < 2.5 / 2.75) {
-        return amountOfChange * (7.5625 * (elapsed -= 2.25 / 2.75) * elapsed + 0.9375) + initialValue;
-      } else {
-        return amountOfChange * (7.5625 * (elapsed -= 2.625 / 2.75) * elapsed + 0.984375) + initialValue;
       }
+      if (elapsed < 2 / 2.75) {
+        return amountOfChange * (7.5625 * (elapsed -= 1.5 / 2.75) * elapsed + 0.75) + initialValue;
+      }
+      return elapsed < 2.5 / 2.75 ? amountOfChange * (7.5625 * (elapsed -= 2.25 / 2.75) * elapsed + 0.9375) + initialValue : amountOfChange * (7.5625 * (elapsed -= 2.625 / 2.75) * elapsed + 0.984375) + initialValue;
     },
     [easeReference.easeInOutBounce]: (elapsed, initialValue, amountOfChange, duration) => {
       if (elapsed < duration / 2) {
@@ -12080,10 +12075,9 @@
   var getTweenFn = (prop) => {
     if (Object.hasOwn(tweenConfig, prop)) {
       return tweenConfig[prop];
-    } else {
-      tweenEaseWarning(prop);
-      return tweenConfig[handleSetUp.get("tween").ease];
     }
+    tweenEaseWarning(prop);
+    return tweenConfig[handleSetUp.get("tween").ease];
   };
 
   // src/js/mob/mob-motion/animation/utils/regex-validation.js
@@ -12533,19 +12527,18 @@
     const parsedValue = () => {
       if (type === MobScrollerConstant.TYPE_PARALLAX) {
         const isOnlyNumber = checkIfIsOnlyNumber(value);
-        const isValid = modules_exports.checkType(Number, Number(value)) && isOnlyNumber && // @ts-ignore
+        const isValid2 = modules_exports.checkType(Number, Number(value)) && isOnlyNumber && // @ts-ignore
         value >= 0 && // @ts-ignore
         value < 10;
-        if (!isValid && value) scrollerRangeNumberWarning(value);
-        return isValid ? (
+        if (!isValid2 && value) scrollerRangeNumberWarning(value);
+        return isValid2 ? (
           // @ts-ignore
           10 - value
         ) : 10 - handleSetUp.get("parallax").defaultRange;
-      } else {
-        const isValid = modules_exports.checkType(String, value);
-        if (!isValid && value) scrollerRangeStringWarning(value);
-        return isValid ? value : "0px";
       }
+      const isValid = modules_exports.checkType(String, value);
+      if (!isValid && value) scrollerRangeStringWarning(value);
+      return isValid ? value : "0px";
     };
     return parsedValue();
   };
@@ -12857,9 +12850,8 @@
         return [...previous, ...arrayColumn(chunkByCol, index)];
       }, []);
       return [...colToRowArray].flat();
-    } else {
-      return arrayDefault;
     }
+    return arrayDefault;
   };
   var getDefaultStagger = ({
     arrayDefault,
@@ -12992,32 +12984,32 @@
       (previous, _current, index) => {
         if (index < y) {
           return previous;
-        } else if (index === y) {
-          const merged = [...radialXY[index]];
-          previous.push(merged);
-          return previous;
+        }
+        if (index === y) {
+          const mergedEqual = [...radialXY[index]];
+          previous.push(mergedEqual);
         } else {
           const downRow = radialXY[y - (index - y)] ?? [];
-          const merged = [...radialXY[index], ...downRow];
-          previous.push(merged);
-          return previous;
+          const mergedLast = [...radialXY[index], ...downRow];
+          previous.push(mergedLast);
         }
+        return previous;
       },
       []
     ) : radialXY.reduce(
       (previous, _current, index) => {
         if (index > y) {
           return previous;
-        } else if (index === y) {
-          const merged = [...radialXY[index]];
-          previous.push(merged);
-          return previous;
+        }
+        if (index === y) {
+          const mergedEqual = [...radialXY[index]];
+          previous.push(mergedEqual);
         } else {
           const upRow = radialXY[y + (y - index)] ?? [];
-          const merged = [...radialXY[index], ...upRow];
-          previous.push(merged);
-          return previous;
+          const mergedLast = [...radialXY[index], ...upRow];
+          previous.push(mergedLast);
         }
+        return previous;
       },
       []
     ).toReversed();
@@ -13074,9 +13066,8 @@
       if (arrayOnStop.length > 0) {
         const { cleanArray } = getRadialArray(arrayOnStop, stagger);
         return cleanArray.flat();
-      } else {
-        return [];
       }
+      return [];
     })();
     const staggerArray = cleanCb.flat();
     const endstaggerArray = cleanEndCb.flat();
@@ -20333,9 +20324,8 @@
     const borderStyle = `3px ${borderColor} solid`;
     if (direction2 === MobScrollerConstant.DIRECTION_VERTICAL) {
       return invertSide ? { borderBottom: borderStyle } : { borderTop: borderStyle };
-    } else {
-      return invertSide ? { borderRight: borderStyle } : { borderLeft: borderStyle };
     }
+    return invertSide ? { borderRight: borderStyle } : { borderLeft: borderStyle };
   };
 
   // src/js/mob/mob-motion/animation/scroller/mob-scroller-pin.js
@@ -20727,9 +20717,8 @@
         const [value] = Object.values(style);
         if (key === "position") {
           return value === "fixed" || value === "absolute" ? true : false;
-        } else {
-          return true;
         }
+        return true;
       }).includes(true);
     }
     /**
@@ -21060,10 +21049,9 @@
       if (this.#justPinned && this.#afterPinCounter < this.#numeCycleToFreeze) {
         this.#afterPinCounter++;
         return;
-      } else {
-        this.#afterPinCounter = 0;
-        this.#justPinned = false;
       }
+      this.#afterPinCounter = 0;
+      this.#justPinned = false;
       const scrollDirection = this.#prevScroll > scrollTop ? MobScrollerConstant.SCROLL_UP : MobScrollerConstant.SCROLL_DOWN;
       const offsetTop = this.#direction === MobScrollerConstant.DIRECTION_VERTICAL ? position(this.#wrapper).top : position(this.#wrapper).left;
       const { anticipateBottom, anticipateInnerIn, anticipateInnerOut } = this.#invertSide ? this.#getAnticipateValueInverted(scrollTop, scrollDirection) : this.#getAnticipateValue(scrollTop, scrollDirection);
@@ -21142,9 +21130,8 @@
     const valueFromBottom = scrollerHeight - endValInNumber - startPoint;
     if (invert) {
       return isFromTopLeft ? valueFromTop : valueFromBottom;
-    } else {
-      return isFromTopLeft ? valueFromBottom : valueFromTop;
     }
+    return isFromTopLeft ? valueFromBottom : valueFromTop;
   };
   var getValueInVwVh = ({
     invert,
@@ -21156,9 +21143,8 @@
   }) => {
     if (invert) {
       return isFromTopLeft ? scrollerHeight - screenUnit * (100 - endValInNumber) - startPoint : screenUnit * (100 - endValInNumber) - startPoint;
-    } else {
-      return isFromTopLeft ? scrollerHeight - screenUnit * endValInNumber - startPoint : screenUnit * endValInNumber - startPoint;
     }
+    return isFromTopLeft ? scrollerHeight - screenUnit * endValInNumber - startPoint : screenUnit * endValInNumber - startPoint;
   };
   var detectViewPortInterception = ({
     offset: offset2,
@@ -22108,9 +22094,8 @@
       const multiplier = (() => {
         if (this.#invertSide) {
           return endPosition === MobScrollerConstant.POSITION_BOTTOM || endPosition === MobScrollerConstant.POSITION_RIGHT ? -1 : 1;
-        } else {
-          return endPosition === MobScrollerConstant.POSITION_BOTTOM || endPosition === MobScrollerConstant.POSITION_RIGHT ? 1 : -1;
         }
+        return endPosition === MobScrollerConstant.POSITION_BOTTOM || endPosition === MobScrollerConstant.POSITION_RIGHT ? 1 : -1;
       })();
       this.#endPoint = processFixedLimit(
         endPoint,
@@ -22345,9 +22330,8 @@
       const valePerDirections = (() => {
         if (this.#reverse) {
           return this.#invertSide ? maxVal - partialVal : partialVal;
-        } else {
-          return this.#invertSide ? partialVal : maxVal - partialVal;
         }
+        return this.#invertSide ? partialVal : maxVal - partialVal;
       })();
       const clampValue = maxVal > 0 ? -clamp3(valePerDirections, 0, maxVal) : -clamp3(valePerDirections, maxVal, 0);
       this.#fixedShouldRender = this.#prevFixedClamp !== clampValue;
@@ -24898,11 +24882,10 @@
         const distanceToTop = focusedRect.top - screenRect.top;
         const distanceToBottom = screenRect.bottom - focusedRect.bottom;
         return distanceToTop < threshold || distanceToBottom < threshold;
-      } else {
-        const distanceToLeft = focusedRect.left - screenRect.left;
-        const distanceToRight = screenRect.right - focusedRect.right;
-        return distanceToLeft < threshold || distanceToRight < threshold;
       }
+      const distanceToLeft = focusedRect.left - screenRect.left;
+      const distanceToRight = screenRect.right - focusedRect.right;
+      return distanceToLeft < threshold || distanceToRight < threshold;
     }
     /**
      * Update scroller after user Tab
@@ -33819,12 +33802,11 @@
             xgap: 0,
             ygap: 0
           };
-        } else {
-          return {
-            xgap: x - lastX,
-            ygap: y - lastY
-          };
         }
+        return {
+          xgap: x - lastX,
+          ygap: y - lastY
+        };
       })();
       if (onDrag) {
         dragX += xgap;
@@ -36664,12 +36646,11 @@
             xgap: 0,
             ygap: 0
           };
-        } else {
-          return {
-            xgap: x - lastX,
-            ygap: y - lastY
-          };
         }
+        return {
+          xgap: x - lastX,
+          ygap: y - lastY
+        };
       })();
       const xValueOnDrag = dragLimitX > 0 ? core_exports.clamp(dragX + xgap, -dragLimitX, dragLimitX) : core_exports.clamp(dragX + xgap, dragLimitX, -dragLimitX);
       const yValueOnDrag = dragLimitY > 0 ? core_exports.clamp(dragY + ygap, -dragLimitY, dragLimitY) : core_exports.clamp(dragY + ygap, dragLimitY, -dragLimitY);

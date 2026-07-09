@@ -510,9 +510,9 @@ export class MobScrollerPin {
                     return value === 'fixed' || value === 'absolute'
                         ? true
                         : false;
-                } else {
-                    return true;
                 }
+
+                return true;
             })
             .includes(true);
     }
@@ -993,10 +993,10 @@ export class MobScrollerPin {
         ) {
             this.#afterPinCounter++;
             return;
-        } else {
-            this.#afterPinCounter = 0;
-            this.#justPinned = false;
         }
+
+        this.#afterPinCounter = 0;
+        this.#justPinned = false;
 
         const scrollDirection =
             this.#prevScroll > scrollTop

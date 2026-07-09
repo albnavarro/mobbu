@@ -42,7 +42,6 @@ export default defineConfig([
             'unicorn/prefer-await': 'off',
             'unicorn/prefer-minimal-ternary': 'off',
             'unicorn/prefer-number-coercion': 'off',
-            'unicorn/no-useless-else': 'off',
             'unicorn/consistent-compound-words': 'off',
             'unicorn/no-declarations-before-early-exit': 'off',
             'unicorn/no-break-in-nested-loop': 'off',

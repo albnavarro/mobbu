@@ -90,12 +90,12 @@ export const Move3DFunction = ({
                     xgap: 0,
                     ygap: 0,
                 };
-            } else {
-                return {
-                    xgap: x - lastX,
-                    ygap: y - lastY,
-                };
             }
+
+            return {
+                xgap: x - lastX,
+                ygap: y - lastY,
+            };
         })();
 
         if (onDrag) {
