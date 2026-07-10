@@ -35,7 +35,6 @@ export default defineConfig([
         ],
         rules: {
             // TODO: Realign new rules from v70.
-            'unicorn/name-replacements': 'off',
             'unicorn/consistent-boolean-name': 'off',
             'unicorn/no-top-level-assignment-in-function': 'off',
             'unicorn/no-top-level-side-effects': 'off',
@@ -60,7 +59,7 @@ export default defineConfig([
             'unicorn/no-unnecessary-global-this': 'off',
             'no-useless-assignment': 'off',
             'unicorn/template-indent': 'off',
-            'unicorn/prevent-abbreviations': 'off',
+            'unicorn/name-replacements': 'off',
             'unicorn/no-array-reduce': 'off',
             'unicorn/no-null': 'off',
             'import-x/no-unresolved': 'off',
