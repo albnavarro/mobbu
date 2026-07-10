@@ -103,7 +103,7 @@
 }
 
 @layer override {
-    :where(.is-whelling) .c-debug-tree-item {
+    :where(.is-whelling) .c-debug-tree-item button {
         pointer-events: none;
     }
 }

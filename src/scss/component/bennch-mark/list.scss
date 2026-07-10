@@ -94,7 +94,7 @@
 
 @layer override {
     .is-whelling {
-        :where(.l-benchmark) {
+        :where(.l-benchmark) button {
             pointer-events: none;
         }
     }

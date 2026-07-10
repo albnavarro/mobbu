@@ -92,7 +92,7 @@
 }
 
 @layer override {
-    :where(.is-whelling) .c-dynamic-list {
+    :where(.is-whelling) .c-dynamic-list :is(a, button) {
         pointer-events: none;
     }
 }

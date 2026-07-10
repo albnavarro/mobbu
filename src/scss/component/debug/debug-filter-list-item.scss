@@ -64,7 +64,7 @@
 }
 
 @layer override {
-    :where(.is-whelling) .c-debug-filter-list-item {
+    :where(.is-whelling) .c-debug-filter-list-item button {
         pointer-events: none;
     }
 }

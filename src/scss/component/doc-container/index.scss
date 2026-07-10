@@ -160,7 +160,7 @@
 }
 
 @layer override {
-    :where(.is-whelling) .c-doc-container {
+    :where(.is-whelling .c-doc-container) :is(a, button) {
         pointer-events: none;
     }
 }
