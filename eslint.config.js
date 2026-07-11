@@ -43,7 +43,6 @@ export default defineConfig([
             'unicorn/consistent-compound-words': 'off',
             'unicorn/no-declarations-before-early-exit': 'off',
             'unicorn/no-break-in-nested-loop': 'off',
-            'unicorn/no-unreadable-array-destructuring': 'off',
             'unicorn/prefer-boolean-return': 'off',
             'unicorn/no-this-outside-of-class': 'off',
             'unicorn/filename-case': 'off',
@@ -51,6 +50,7 @@ export default defineConfig([
             'unicorn/prefer-continue': 'off',
             'unicorn/no-useless-continue': 'off',
             //
+            'unicorn/no-unreadable-array-destructuring': 'off',
             'unicorn/prefer-minimal-ternary': 'off',
             'unicorn/no-unnecessary-global-this': 'off',
             'no-useless-assignment': 'off',
