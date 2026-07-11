@@ -37697,7 +37697,8 @@
     const showNavigationClass = proxi.showNavigation ? "active" : "";
     const targetSize = 3;
     const gap = targetSize / proxi.numberOfStaggers;
-    const staggers = Array.from({ length: proxi.numberOfStaggers }).map(
+    const staggers = Array.from(
+      { length: proxi.numberOfStaggers },
       (_, index) => {
         return {
           size: targetSize - gap * index,
