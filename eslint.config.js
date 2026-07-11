@@ -47,7 +47,6 @@ export default defineConfig([
             'unicorn/filename-case': 'off',
             'unicorn/prefer-type-literal-last': 'off',
             'unicorn/prefer-continue': 'off',
-            'unicorn/no-useless-continue': 'off',
             //
             'unicorn/no-unreadable-array-destructuring': 'off',
             'unicorn/prefer-minimal-ternary': 'off',

@@ -10762,7 +10762,6 @@
       if (modules_exports.checkType(Object, child)) {
         const content = htmlObject(child);
         rootElement.append(content);
-        continue;
       }
     }
   };
