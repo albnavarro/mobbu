@@ -36,31 +36,31 @@ import { BenchMarkRepeatNoComponentNoKey } from '@pagesComponent/benchmark/repea
 import { BenchMarkRepeatNoComponentWithKey } from '@pagesComponent/benchmark/repeat-no-component-key/definition';
 import { AccessibilityOverlay } from '@commonComponent/accesibility/overlay/definition';
 
-/**
- * Preload component used by tag and not loaded by default with htmlObject.component props
- */
-MobJs.useComponent([
-    StarSvg,
-    DebugTreeItem,
-    Snippet,
-    SpacerAnchor,
-    AnchorButton,
-    List,
-    Paragraph,
-    Title,
-    DocSvg,
-    BenchMarkInvalidate,
-    BenchMarkRepeatNoKey,
-    BenchMarkRepeatWithKey,
-    BenchMarkRepeatWithKeyNested,
-    BenchMarkRepeatWithNoKeyNested,
-    BenchMarkRepeatNoKeyBindStore,
-    BenchMarkRepeatNoComponentNoKey,
-    BenchMarkRepeatNoComponentWithKey,
-]);
-
 export const wrapper = async () => {
     const useScssTestGrid = false;
+
+    /**
+     * Preload component used by tag and not loaded by default with htmlObject.component props
+     */
+    MobJs.useComponent([
+        StarSvg,
+        DebugTreeItem,
+        Snippet,
+        SpacerAnchor,
+        AnchorButton,
+        List,
+        Paragraph,
+        Title,
+        DocSvg,
+        BenchMarkInvalidate,
+        BenchMarkRepeatNoKey,
+        BenchMarkRepeatWithKey,
+        BenchMarkRepeatWithKeyNested,
+        BenchMarkRepeatWithNoKeyNested,
+        BenchMarkRepeatNoKeyBindStore,
+        BenchMarkRepeatNoComponentNoKey,
+        BenchMarkRepeatNoComponentWithKey,
+    ]);
 
     return htmlObject({
         content: [

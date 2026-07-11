@@ -4,18 +4,27 @@
 
 import { htmlObject, MobJs } from '@mobJs';
 
-let lastValidRoute = 'home';
-
-/** @type{Record<string, string>|null} */
-let lastValidParams = null;
-
-MobJs.afterRouteChange(({ currentRoute, previousRoute }) => {
-    lastValidParams = MobJs.getActiveParams();
-    lastValidRoute = currentRoute === previousRoute ? 'home' : previousRoute;
-});
-
 /** @type {MobComponent} */
-export const OnlyTabletFunction = ({ delegateEvents }) => {
+export const OnlyTabletFunction = ({ delegateEvents, onMount }) => {
+    let lastValidRoute = 'home';
+
+    /** @type{Record<string, string>|null} */
+    let lastValidParams = null;
+
+    onMount(() => {
+        const unsubScribeRouteChange = MobJs.afterRouteChange(
+            ({ currentRoute, previousRoute }) => {
+                lastValidParams = MobJs.getActiveParams();
+                lastValidRoute =
+                    currentRoute === previousRoute ? 'home' : previousRoute;
+            }
+        );
+
+        return () => {
+            unsubScribeRouteChange();
+        };
+    });
+
     return htmlObject({
         className: 'c-only-tablet',
         content: [

@@ -12,6 +12,7 @@ import { initMainLoader } from './main-loader';
 import { skipRouteLoader } from '@commonComponent/route-loader/utils';
 import { setFocusToH1 } from '@componentLibs/utils/set-focus-to-h1';
 import { updateHighlightTheme } from '@componentLibs/utils/theme-color';
+import { initAppStoresAction } from './stores';
 // import { testModule } from './test';
 
 const fpsLoopNumber = 30;
@@ -51,6 +52,7 @@ const initApp = async () => {
     await loadData();
     await loadIcons();
     initMainLoader(fpsLoopNumber);
+    initAppStoresAction();
 
     MobJs.inizializeApp({
         rootId: '#root',

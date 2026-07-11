@@ -39,7 +39,9 @@ export const mqStore = MobCore.createStore(
     })
 );
 
-MobCore.useResize(() => {
-    mqStore.set('mq', getCurrentMq());
-    mqStore.set('fromTablet', getFromTablet());
-});
+export const initMqStoreResize = () => {
+    MobCore.useResize(() => {
+        mqStore.set('mq', getCurrentMq());
+        mqStore.set('fromTablet', getFromTablet());
+    });
+};

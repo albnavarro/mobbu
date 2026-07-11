@@ -10,12 +10,6 @@ import {
     PAGE_TEMPLATE_TEST,
 } from '../pages';
 
-let scrollY = 0;
-
-MobJs.beforeRouteChange(() => {
-    scrollY = window.scrollY;
-});
-
 const useTopPosition = new Set([
     PAGE_TEMPLATE_COMPONENT_MOBJS,
     PAGE_TEMPLATE_DOCS_DEFAULT,
@@ -37,6 +31,8 @@ const useLetPosition = new Set([
  * @type {import('@mobJsType').BeforePageTransition}
  */
 export const beforePageTransition = async ({ oldNode, oldTemplateName }) => {
+    const scrollY = window.scrollY;
+
     oldNode.classList.remove('current-route');
     oldNode.classList.add('fake-content');
     oldNode.style.position = 'fixed';

@@ -21,15 +21,3 @@ export const updateQuickNavState = ({
     methods.update('prevRoute', prevRoute);
     methods.update('backRoute', backRoute);
 };
-
-/**
- * Reset.
- */
-MobJs.beforeRouteChange(() => {
-    /** @type {UseMethodByName<import('./type').QuickNav>} */
-    const methods = MobJs.useMethodByName(quickNavName);
-    methods.update('active', false);
-    methods.update('nextRoute', '');
-    methods.update('prevRoute', '');
-    methods.update('backRoute', '');
-});

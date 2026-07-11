@@ -12,11 +12,28 @@ export const QuickNavFunction = ({
     addMethod,
     setRef,
     delegateEvents,
+    onMount,
 }) => {
     const proxi = getSelfProxi();
 
     addMethod('update', (prop, value) => {
         proxi[prop] = value;
+    });
+
+    onMount(() => {
+        /**
+         * Reset, on route change.
+         */
+        const unsubscribeRouteChange = MobJs.beforeRouteChange(() => {
+            proxi.active = false;
+            proxi.nextRoute = '';
+            proxi.prevRoute = '';
+            proxi.backRoute = '';
+        });
+
+        return () => {
+            unsubscribeRouteChange();
+        };
     });
 
     return htmlObject({

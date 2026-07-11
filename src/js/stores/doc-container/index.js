@@ -33,13 +33,15 @@ export const docContainerStore = MobCore.createStore(
     })
 );
 
-/**
- * Hide off-canvas-control-button when right sidear has no content.
- */
-docContainerStore.computed(
-    'rightSidebarIsEmpty',
-    ({ anchorIsEmpty, linksIsEmpty }) => {
-        return anchorIsEmpty && linksIsEmpty;
-    },
-    ['anchorIsEmpty', 'linksIsEmpty']
-);
+export const initDocContainerStoreComputed = () => {
+    /**
+     * Hide off-canvas-control-button when right sidear has no content.
+     */
+    docContainerStore.computed(
+        'rightSidebarIsEmpty',
+        ({ anchorIsEmpty, linksIsEmpty }) => {
+            return anchorIsEmpty && linksIsEmpty;
+        },
+        ['anchorIsEmpty', 'linksIsEmpty']
+    );
+};

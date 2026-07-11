@@ -19,4 +19,6 @@ export const navigationStore = MobCore.createStore(
     })
 );
 
-navigationStore.set('activeNavigationSection', '');
+export const initNavigationStoreSet = () => {
+    navigationStore.set('activeNavigationSection', '');
+};

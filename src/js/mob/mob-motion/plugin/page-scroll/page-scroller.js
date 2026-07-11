@@ -57,20 +57,20 @@ const addWhellingClass = () => {
     document.body.classList.add('is-whelling');
 };
 
-/**
- * Necessary.
- *
- * Enable the possibility to use preventDefault in global wheel event.
- *
- * - ByPass native wheel scroll.
- * - Used by the wheel handler ( global window event ) to preventDefault.
- */
-MobMotionCore.setDefault({
-    usePassive: false,
-});
-
 /** @type {import('./type').MobPageScroller} */
 const MobPageScroller = ({ velocity, rootElement }) => {
+    /**
+     * Necessary.
+     *
+     * Enable the possibility to use preventDefault in global wheel event.
+     *
+     * - ByPass native wheel scroll.
+     * - Used by the wheel handler ( global window event ) to preventDefault.
+     */
+    MobMotionCore.setDefault({
+        usePassive: false,
+    });
+
     /**
      * Classic lerp tween.
      */

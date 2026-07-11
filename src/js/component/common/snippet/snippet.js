@@ -8,6 +8,7 @@ import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { loadTextContent } from '@utils/utils';
 
+// eslint-disable-next-line unicorn/no-top-level-side-effects
 hljs.registerLanguage('javascript', javascript);
 
 /**

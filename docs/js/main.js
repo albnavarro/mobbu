@@ -4066,7 +4066,6 @@
   };
 
   // src/js/mob/mob-core/events/raf-utils/handle-frame.js
-  loadFps();
   var currentFrameLimit = 1e7;
   var firstRunDuration = 2e3;
   var frameIsRuning = false;
@@ -4107,13 +4106,6 @@
     handleFrameIndex.updateKeys(currentFrameLimit);
     handleCache.updateFrameId(currentFrameLimit);
   };
-  handleVisibilityChange(({ visibilityState }) => {
-    isStopped = visibilityState !== "visible";
-  });
-  catchAnimationReject();
-  eventStore.watch("requestFrame", () => {
-    initFrame();
-  });
   var nextTickFn = () => {
     if (currentFrame >= currentFrameLimit) {
       performFrameCounterReset();
@@ -4184,7 +4176,15 @@
     }
     frameIsRuning = true;
   };
-  var handleFrame = /* @__PURE__ */ (() => {
+  var handleFrame = (() => {
+    loadFps();
+    handleVisibilityChange(({ visibilityState }) => {
+      isStopped = visibilityState !== "visible";
+    });
+    catchAnimationReject();
+    eventStore.watch("requestFrame", () => {
+      initFrame();
+    });
     const getFps2 = () => fps;
     const mustMakeSomething2 = () => mustMakeSomethingIsActive;
     const shouldMakeSomething2 = () => shouldMakeSomethingIsActive;
@@ -4452,9 +4452,9 @@
       debouceFunctionReference2 = debounceFuncion(() => handler10());
       unsubscribeScrollEnd = handleScrollImmediate(debouceFunctionReference2);
       if (type === "START") {
-        unsubscribeScrollStart = handleScrollImmediate(({ scrollY: scrollY2 }) => {
+        unsubscribeScrollStart = handleScrollImmediate(({ scrollY }) => {
           const scrollData2 = {
-            scrollY: scrollY2
+            scrollY
           };
           if (!isScrolling) {
             isScrolling = true;
@@ -10336,7 +10336,7 @@
     });
     const newScrollY = window.scrollY;
     scrolMap.set(fromRouteUID, newScrollY);
-    const scrollY2 = scrolMap.get(toRouteUID) ?? 0;
+    const scrollY = scrolMap.get(toRouteUID) ?? 0;
     mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, {
       currentRoute: fromRoute.route,
       currentTemplate: fromRoute.templateName,
@@ -10388,7 +10388,7 @@
         previousTemplate: fromRoute.templateName
       });
     if (getRestoreScroll() && isBrowserNavigation) {
-      scrollTo(0, scrollY2);
+      scrollTo(0, scrollY);
     } else {
       scrollTo(0, 0);
     }
@@ -21052,14 +21052,14 @@
           });
         }
       });
-      this.#unsubscribeScroll = modules_exports.useScroll(({ scrollY: scrollY2 }) => {
+      this.#unsubscribeScroll = modules_exports.useScroll(({ scrollY }) => {
         if (!this.#isInizialized) return;
         if (this.#screen !== globalThis && this.#screen !== document.documentElement) {
           if (this.#direction === MobScrollerConstant.DIRECTION_VERTICAL) {
             this.#refreshCollisionPoint();
           }
-          const gap = scrollY2 - this.#prevscrollY;
-          this.#prevscrollY = scrollY2;
+          const gap = scrollY - this.#prevscrollY;
+          this.#prevscrollY = scrollY;
           if (this.#isInner && this.#pin && this.#spring) {
             const { verticalGap } = this.#spring.get();
             const translateValue = verticalGap - gap;
@@ -22960,10 +22960,10 @@
     isWhelling = true;
     document.body.classList.add("is-whelling");
   };
-  core_exports.setDefault({
-    usePassive: false
-  });
   var MobPageScroller = ({ velocity, rootElement }) => {
+    core_exports.setDefault({
+      usePassive: false
+    });
     let lerp2 = tween_exports.createLerp({
       data: { scrollValue: window.scrollY },
       precision: 1,
@@ -23118,14 +23118,6 @@
   var tween = new MobTimeTween({ ease: defaultPreset, data: { val: 0 } });
   var isRunning = false;
   var overflow = false;
-  tween.subscribe(({ val }) => {
-    window.scrollTo({
-      top: val,
-      left: 0,
-      behavior: "auto"
-    });
-    UpdateMobPageScroll();
-  });
   var onComplete = () => {
     if (overflow) document.body.style.overflow = "";
     tween?.updateEase?.(defaultPreset);
@@ -23136,16 +23128,24 @@
     tween.stop();
     onComplete();
   };
-  modules_exports.useMouseWheel(() => {
-    stopTween();
-  });
-  modules_exports.useMouseDown(() => {
-    stopTween();
-  });
-  modules_exports.useTouchStart(() => {
-    stopTween();
-  });
-  var MobBodyScroll = /* @__PURE__ */ (() => {
+  var MobBodyScroll = (() => {
+    tween.subscribe(({ val }) => {
+      window.scrollTo({
+        top: val,
+        left: 0,
+        behavior: "auto"
+      });
+      UpdateMobPageScroll();
+    });
+    modules_exports.useMouseWheel(() => {
+      stopTween();
+    });
+    modules_exports.useMouseDown(() => {
+      stopTween();
+    });
+    modules_exports.useTouchStart(() => {
+      stopTween();
+    });
     const to = (target, data) => {
       if (typeof globalThis === "undefined") return;
       const targetParsed = (() => {
@@ -23188,7 +23188,7 @@
         tween.goFromTo(
           { val: window.scrollY },
           { val: targetParsed },
-          { duration }
+          { duration: Math.max(1, duration) }
         ).then(() => {
           onComplete();
           isRunning = false;
@@ -26010,13 +26010,20 @@
   );
 
   // src/js/component/common/only-tablet/only-tablet.js
-  var lastValidRoute = "home";
-  var lastValidParams = null;
-  modules_exports2.afterRouteChange(({ currentRoute, previousRoute }) => {
-    lastValidParams = modules_exports2.getActiveParams();
-    lastValidRoute = currentRoute === previousRoute ? "home" : previousRoute;
-  });
-  var OnlyTabletFunction = ({ delegateEvents }) => {
+  var OnlyTabletFunction = ({ delegateEvents, onMount }) => {
+    let lastValidRoute = "home";
+    let lastValidParams = null;
+    onMount(() => {
+      const unsubScribeRouteChange = modules_exports2.afterRouteChange(
+        ({ currentRoute, previousRoute }) => {
+          lastValidParams = modules_exports2.getActiveParams();
+          lastValidRoute = currentRoute === previousRoute ? "home" : previousRoute;
+        }
+      );
+      return () => {
+        unsubScribeRouteChange();
+      };
+    });
     return htmlObject({
       className: "c-only-tablet",
       content: [
@@ -26193,13 +26200,15 @@
       }
     }
   );
-  docContainerStore.computed(
-    "rightSidebarIsEmpty",
-    ({ anchorIsEmpty, linksIsEmpty }) => {
-      return anchorIsEmpty && linksIsEmpty;
-    },
-    ["anchorIsEmpty", "linksIsEmpty"]
-  );
+  var initDocContainerStoreComputed = () => {
+    docContainerStore.computed(
+      "rightSidebarIsEmpty",
+      ({ anchorIsEmpty, linksIsEmpty }) => {
+        return anchorIsEmpty && linksIsEmpty;
+      },
+      ["anchorIsEmpty", "linksIsEmpty"]
+    );
+  };
 
   // src/js/component/common/doc-container/doc-container.js
   var unsubscribeTabHandler = () => {
@@ -27133,10 +27142,12 @@
       }
     }
   );
-  modules_exports.useResize(() => {
-    mqStore.set("mq", getCurrentMq());
-    mqStore.set("fromTablet", getFromTablet());
-  });
+  var initMqStoreResize = () => {
+    modules_exports.useResize(() => {
+      mqStore.set("mq", getCurrentMq());
+      mqStore.set("fromTablet", getFromTablet());
+    });
+  };
 
   // src/js/component/pages/about/tablet/animation/path-animation.js
   var createPathAnimation = ({
@@ -28244,13 +28255,6 @@
     methods.update("prevRoute", prevRoute);
     methods.update("backRoute", backRoute);
   };
-  modules_exports2.beforeRouteChange(() => {
-    const methods = modules_exports2.useMethodByName(quickNavName);
-    methods.update("active", false);
-    methods.update("nextRoute", "");
-    methods.update("prevRoute", "");
-    methods.update("backRoute", "");
-  });
 
   // src/js/component/lib/utils/theme-color.js
   var isDarkTheme = () => {
@@ -28291,7 +28295,9 @@
       }
     }
   );
-  navigationStore.set("activeNavigationSection", "");
+  var initNavigationStoreSet = () => {
+    navigationStore.set("activeNavigationSection", "");
+  };
 
   // src/js/utils/canvas-utils.js
   var getCanvasContext = ({ disableOffcanvas }) => {
@@ -33895,10 +33901,10 @@
         moveChild({ delta, factor: proxi.factor });
       }
     };
-    const onScroll = (scrollY2) => {
-      if (lastScrolledTop !== scrollY2) {
+    const onScroll = (scrollY) => {
+      if (lastScrolledTop !== scrollY) {
         pageCoord.y -= lastScrolledTop;
-        lastScrolledTop = scrollY2;
+        lastScrolledTop = scrollY;
         pageCoord.y += lastScrolledTop;
       }
       onMove();
@@ -33915,8 +33921,8 @@
     };
     const addScrollListener = () => {
       unsubscribeScroll();
-      unsubscribeScroll = proxi.useScroll ? modules_exports.useScroll(({ scrollY: scrollY2 }) => {
-        onScroll(scrollY2);
+      unsubscribeScroll = proxi.useScroll ? modules_exports.useScroll(({ scrollY }) => {
+        onScroll(scrollY);
       }) : () => {
       };
     };
@@ -39177,10 +39183,6 @@
   ];
 
   // src/js/page-transition/index.js
-  var scrollY = 0;
-  modules_exports2.beforeRouteChange(() => {
-    scrollY = window.scrollY;
-  });
   var useTopPosition = /* @__PURE__ */ new Set([
     PAGE_TEMPLATE_COMPONENT_MOBJS,
     PAGE_TEMPLATE_DOCS_DEFAULT,
@@ -39197,6 +39199,7 @@
     PAGE_TEMPLATE_TEST
   ]);
   var beforePageTransition2 = async ({ oldNode, oldTemplateName }) => {
+    const scrollY = window.scrollY;
     oldNode.classList.remove("current-route");
     oldNode.classList.add("fake-content");
     oldNode.style.position = "fixed";
@@ -42607,11 +42610,23 @@
     bindEffect,
     addMethod,
     setRef,
-    delegateEvents
+    delegateEvents,
+    onMount
   }) => {
     const proxi = getSelfProxi();
     addMethod("update", (prop, value) => {
       proxi[prop] = value;
+    });
+    onMount(() => {
+      const unsubscribeRouteChange = modules_exports2.beforeRouteChange(() => {
+        proxi.active = false;
+        proxi.nextRoute = "";
+        proxi.prevRoute = "";
+        proxi.backRoute = "";
+      });
+      return () => {
+        unsubscribeRouteChange();
+      };
     });
     return htmlObject({
       tag: "nav",
@@ -45229,7 +45244,7 @@
             const target = document.querySelector(anchor);
             if (!target) return;
             const offsetTop = offset(target).top - 100;
-            await MobBodyScroll.to(offsetTop, { duration: 10 });
+            await MobBodyScroll.to(offsetTop, { duration: 0 });
             target.focus({
               preventScroll: true
             });
@@ -47013,27 +47028,27 @@
   );
 
   // src/js/wrapper/index.js
-  modules_exports2.useComponent([
-    StarSvg,
-    DebugTreeItem,
-    Snippet,
-    SpacerAnchor,
-    AnchorButton,
-    List,
-    Paragraph,
-    Title,
-    DocSvg,
-    BenchMarkInvalidate,
-    BenchMarkRepeatNoKey,
-    BenchMarkRepeatWithKey,
-    BenchMarkRepeatWithKeyNested,
-    BenchMarkRepeatWithNoKeyNested,
-    BenchMarkRepeatNoKeyBindStore,
-    BenchMarkRepeatNoComponentNoKey,
-    BenchMarkRepeatNoComponentWithKey
-  ]);
   var wrapper = async () => {
     const useScssTestGrid = false;
+    modules_exports2.useComponent([
+      StarSvg,
+      DebugTreeItem,
+      Snippet,
+      SpacerAnchor,
+      AnchorButton,
+      List,
+      Paragraph,
+      Title,
+      DocSvg,
+      BenchMarkInvalidate,
+      BenchMarkRepeatNoKey,
+      BenchMarkRepeatWithKey,
+      BenchMarkRepeatWithKeyNested,
+      BenchMarkRepeatWithNoKeyNested,
+      BenchMarkRepeatNoKeyBindStore,
+      BenchMarkRepeatNoComponentNoKey,
+      BenchMarkRepeatNoComponentWithKey
+    ]);
     return htmlObject({
       content: [
         useScssTestGrid ? "<test-scss-grid></test-scss-grid>" : "",
@@ -47164,6 +47179,13 @@
     });
   };
 
+  // src/js/stores/index.js
+  var initAppStoresAction = () => {
+    initDocContainerStoreComputed();
+    initMqStoreResize();
+    initNavigationStoreSet();
+  };
+
   // src/js/main.js
   var fpsLoopNumber = 30;
   var jsMainLoader = document.body.querySelector(".js-main-loader");
@@ -47185,6 +47207,7 @@
     await loadData();
     await loadIcons();
     initMainLoader(fpsLoopNumber);
+    initAppStoresAction();
     modules_exports2.inizializeApp({
       rootId: "#root",
       contentId: "#content",
