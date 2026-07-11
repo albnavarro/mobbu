@@ -124,11 +124,10 @@ export const benchMarkListPartial = ({
                         modules: [
                             setRef('input'),
                             delegateEvents({
-                                keydown: (/** @type {Event} */ event) => {
-                                    // @ts-ignore
-                                    if (!(event?.keyCode === 13)) {
-                                        return;
-                                    }
+                                keydown: (
+                                    /** @type {KeyboardEvent} */ event
+                                ) => {
+                                    if (event?.code !== 'Enter') return;
 
                                     event.preventDefault();
                                     const value = Number(

@@ -35,11 +35,9 @@ export const DebugSearchFunction = ({ setRef, getRef, delegateEvents }) => {
                 setRef('id_input'),
                 delegateEvents({
                     keydown: (/** @type {KeyboardEvent} */ event) => {
-                        if (!(event?.code?.toLowerCase() === 'enter')) {
-                            return;
-                        }
-
+                        if (event?.code?.toLowerCase() !== 'enter') return;
                         event.preventDefault();
+
                         const id = /** @type {HTMLInputElement} */ (
                             event.currentTarget
                         ).value;
@@ -92,10 +90,7 @@ export const DebugSearchFunction = ({ setRef, getRef, delegateEvents }) => {
                 setRef('instance_input'),
                 delegateEvents({
                     keydown: (/** @type {KeyboardEvent} */ event) => {
-                        if (!(event?.code?.toLowerCase() === 'enter')) {
-                            return;
-                        }
-
+                        if (event?.code?.toLowerCase() !== 'enter') return;
                         event.preventDefault();
 
                         const instanceName = /** @type {HTMLInputElement} */ (

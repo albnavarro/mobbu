@@ -103,14 +103,8 @@ export const benchMarkListExternalPartial = ({
                                 keydown: (
                                     /** @type {KeyboardEvent} */ event
                                 ) => {
-                                    if (
-                                        !(
-                                            event?.code?.toLowerCase() ===
-                                            'enter'
-                                        )
-                                    ) {
+                                    if (event?.code?.toLowerCase() !== 'enter')
                                         return;
-                                    }
 
                                     event.preventDefault();
                                     const value = Number(

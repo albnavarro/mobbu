@@ -8,9 +8,7 @@ import { MobCore } from '@mobCore';
 export const createAsideEscHandler = (proxi) => {
     /** @param {KeyboardEvent} event */
     return function escHandler(event) {
-        if (!(event?.code?.toLowerCase?.() === 'escape')) {
-            return;
-        }
+        if (event?.code?.toLowerCase?.() !== 'escape') return;
 
         proxi.controlsActive = false;
         event.preventDefault();

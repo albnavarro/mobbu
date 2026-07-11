@@ -1642,7 +1642,7 @@
         clearTimeout(lastFunc);
         lastFunc = setTimeout(
           function() {
-            if (!(getTime() - lastRan >= limit)) {
+            if (getTime() - lastRan < limit) {
               return;
             }
             func.apply(context, args);
@@ -40480,9 +40480,7 @@
           setRef("id_input"),
           delegateEvents({
             keydown: (event) => {
-              if (!(event?.code?.toLowerCase() === "enter")) {
-                return;
-              }
+              if (event?.code?.toLowerCase() !== "enter") return;
               event.preventDefault();
               const id = (
                 /** @type {HTMLInputElement} */
@@ -40534,9 +40532,7 @@
           setRef("instance_input"),
           delegateEvents({
             keydown: (event) => {
-              if (!(event?.code?.toLowerCase() === "enter")) {
-                return;
-              }
+              if (event?.code?.toLowerCase() !== "enter") return;
               event.preventDefault();
               const instanceName = (
                 /** @type {HTMLInputElement} */
@@ -40786,9 +40782,7 @@
             setRef("input"),
             delegateEvents({
               keydown: (event) => {
-                if (!(event?.code?.toLowerCase() === "enter")) {
-                  return;
-                }
+                if (event?.code?.toLowerCase() !== "enter") return;
                 event.preventDefault();
                 const testString = (
                   /** @type {HTMLInputElement} */
@@ -45648,9 +45642,7 @@
                 setRef("input"),
                 delegateEvents({
                   keydown: (event) => {
-                    if (!(event?.keyCode === 13)) {
-                      return;
-                    }
+                    if (event?.code !== "Enter") return;
                     event.preventDefault();
                     const value = Number(
                       /** @type {HTMLInputElement} */
@@ -46401,9 +46393,8 @@
                 setRef("input"),
                 delegateEvents({
                   keydown: (event) => {
-                    if (!(event?.code?.toLowerCase() === "enter")) {
+                    if (event?.code?.toLowerCase() !== "enter")
                       return;
-                    }
                     event.preventDefault();
                     const value = Number(
                       /** @type {HTMLInputElement} */
