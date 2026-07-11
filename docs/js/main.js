@@ -2839,14 +2839,13 @@
   // src/js/mob/mob-core/store/store-watch.js
   var subscribeWatch = ({ state, prop, callback: callback2, wait }) => {
     const { store: store2, watcherByProp, watcherMetadata } = state;
-    const logStyle2 = getLogStyle();
     if (!store2)
       return {
         state: void 0,
         unsubscribeId: ""
       };
     if (!Object.hasOwn(store2, prop)) {
-      storeWatchWarning(prop, logStyle2);
+      storeWatchWarning(prop, getLogStyle());
       return {
         state: void 0,
         unsubscribeId: ""
@@ -5731,7 +5730,6 @@
     if (!id || id === "") return;
     const item = componentMap.get(id);
     const parentId = item?.parentId;
-    const componentName = item?.componentName ?? "";
     if (!parentId) return;
     const value = componentMap.get(parentId);
     if (!value) return;
@@ -5742,7 +5740,7 @@
       child: updateChildrenArray({
         currentChild: child,
         id,
-        componentName
+        componentName: item?.componentName ?? ""
       })
     });
   };
@@ -7954,11 +7952,11 @@
       const state = componentMap.get(id2);
       if (!state) continue;
       const element = state?.element;
-      const currentId = state?.id ?? "";
       if (element && container?.contains(element) && element !== container) {
         removeAndDestroyById({ id: id2 });
         continue;
       }
+      const currentId = state?.id ?? "";
       destroyComponentInsideNodeById({ id: currentId, container });
     }
   };
@@ -10430,8 +10428,8 @@
   // src/js/mob/mob-js/route/utils.js
   var getRouteModule = ({ hash = "" }) => {
     const index = getIndex();
-    const pageNotFound3 = getPageNotFound();
     if (hash === "") return index;
+    const pageNotFound3 = getPageNotFound();
     return getRouteByHash({ hash }) ? hash : pageNotFound3;
   };
   var getTemplateName = ({ hash = "" }) => {
@@ -12791,13 +12789,13 @@
   };
   var getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
     const { from, each } = stagger;
-    const eachByFps = getEachByFps(each);
     if (from === STAGGER_RANDOM) {
       return {
         index,
         frame: (() => randomChoice[getRandomInt(randomChoice.length)])()
       };
     }
+    const eachByFps = getEachByFps(each);
     if (from === STAGGER_START) {
       return {
         index,
@@ -17708,7 +17706,6 @@
     const items = staggerItemsIsValid(data?.items);
     const stagger = getStaggerFromProps(data);
     const duration = durationIsValid(data?.duration);
-    const eachProportion = 10;
     let each = stagger?.each || 1;
     const fallBack = [...items].map((item, i) => {
       return {
@@ -17725,6 +17722,7 @@
       staggerIsOutOfRangeWarning(items.length);
       each = 1;
     }
+    const eachProportion = 10;
     if (modules_exports.checkType(Number, each) && (each > eachProportion || each < 1)) {
       createStaggerEachWarning(eachProportion);
       each = 1;
@@ -18273,10 +18271,10 @@
           },
           addAsync: () => {
             this.#addAsyncIsActive = true;
-            const sessionId = this.#sessionId;
             if (prevActionIsCurrent) {
               return new Promise((res) => res({ resolve: true }));
             }
+            const sessionId = this.#sessionId;
             return new Promise((res, reject) => {
               if (isImmediate) {
                 res({ resolve: true });
@@ -18894,17 +18892,17 @@
      * @type {import('./type.js').AsyncTimelineAdd}
      */
     add(fn = NOOP) {
+      if (this.#groupId) {
+        asyncTimelineMetodsInsideGroupWarining("add");
+        return this;
+      }
+      this.#currentTweenCounter++;
       const callback2 = functionIsValidAndReturnDefault(
         fn,
         () => {
         },
         "timeline add function"
       );
-      if (this.#groupId) {
-        asyncTimelineMetodsInsideGroupWarining("add");
-        return this;
-      }
-      this.#currentTweenCounter++;
       this.#addAction({
         ...this.#defaultObj,
         id: this.#currentTweenCounter,
@@ -18918,11 +18916,11 @@
      * @type {import('./type.js').AsyncTimelineAddAsync}
      */
     addAsync(fn) {
-      const callback2 = addAsyncFunctionIsValid(fn);
       if (this.#groupId) {
         asyncTimelineMetodsInsideGroupWarining("addAsync");
         return this;
       }
+      const callback2 = addAsyncFunctionIsValid(fn);
       this.#currentTweenCounter++;
       this.#addAction({
         ...this.#defaultObj,
@@ -22329,8 +22327,8 @@
         return;
       if (!this.#isInViewport && !this.#firstTime && this.#type === MobScrollerConstant.TYPE_PARALLAX)
         return;
-      const action2 = this.#firstTime && !this.#animateAtStart ? "set" : "goTo";
       if (!this.#motion) return;
+      const action2 = this.#firstTime && !this.#animateAtStart ? "set" : "goTo";
       this.#motion[action2]({ val: this.#endValue }, this.#motionParameters).catch(() => {
       });
     }
@@ -24449,8 +24447,8 @@
      * Track the is-whelling state to touch the DOM only once per gesture.
      *
      * - Safari invalidates style on every classList.add() call, even when the token is already present.
-     * - `#addWhellingClass()` runs on every wheel event, so without this guard the class toggle would
-     *   trigger a style recalc per frame ( freeze on big scrollers ).
+     * - `#addWhellingClass()` runs on every wheel event, so without this guard the class toggle would trigger a style
+     *   recalc per frame ( freeze on big scrollers ).
      *
      * @type {boolean}
      */
@@ -24935,8 +24933,8 @@
       const elementSize = isVertical ? focusedElement.clientHeight : focusedElement.clientWidth;
       const screenSize = isVertical ? screenRect.height : screenRect.width;
       const safetyMargin = Math.ceil(elementSize * 0.1);
-      const threshold = elementSize + safetyMargin;
       if (elementSize > screenSize) return true;
+      const threshold = elementSize + safetyMargin;
       if (isVertical) {
         const distanceToTop = focusedRect.top - screenRect.top;
         const distanceToBottom = screenRect.bottom - focusedRect.bottom;
@@ -26209,8 +26207,8 @@
       ({ direction: direction2, preventDefault }) => {
         if (core_exports.mq("min", "desktop")) return;
         const aside = getRef().asideRight;
-        const sideBarLinks = getSideBarLinksRoot();
         if (!aside) return;
+        const sideBarLinks = getSideBarLinksRoot();
         tabLoopTrap({
           elements: [aside, sideBarLinks],
           direction: direction2,
@@ -27302,7 +27300,7 @@
     pathTimeline.play();
     let shouldLoop = true;
     const loop = () => {
-      if (!shouldLoop || isRtl) return;
+      if (!weakPathElement.deref() || !shouldLoop || isRtl) return;
       const a = {
         x: sequencerData.ax + timelineData.ax,
         y: sequencerData.ay + timelineData.ay
@@ -27331,7 +27329,6 @@
         x: sequencerData.gx + timelineData.gx,
         y: sequencerData.gy + timelineData.gy
       };
-      if (!weakPathElement.deref()) return;
       weakPathElement.deref().style.clipPath = `polygon(${a.x}% ${a.y}%, ${b.x}% ${b.y}%, ${c.x}% ${c.y}%, ${d.x}% ${d.y}%,${e.x}% ${e.y}%,${f.x}% ${f.y}%,${g.x}% ${g.y}%)`;
       modules_exports.useNextFrame(() => loop());
     };
@@ -42186,8 +42183,6 @@
   };
   var escapeRegex2 = (stringValue) => stringValue.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
   var filterSuggestion = ({ currentSearch, proxi }) => {
-    const mainData = getCommonData();
-    const searchSuggestionKey = mainData.suggestion;
     if (currentSearch.length === 0) {
       proxi.suggestionListData = [];
       return;
@@ -42201,6 +42196,8 @@
     const sortedParsed = [...stringParsed].toSorted(
       (a, b) => b.length - a.length
     );
+    const mainData = getCommonData();
+    const searchSuggestionKey = mainData.suggestion;
     proxi.suggestionListData = (searchSuggestionKey.filter(({ word }) => {
       return sortedParsed.some(
         (piece) => word.toLowerCase().includes(piece.toLowerCase())

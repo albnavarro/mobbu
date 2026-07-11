@@ -27,9 +27,9 @@ const createTabHandler = ({ getRef }) => {
             if (MobMotionCore.mq('min', 'desktop')) return;
 
             const aside = getRef().asideRight;
-            const sideBarLinks = getSideBarLinksRoot();
             if (!aside) return;
 
+            const sideBarLinks = getSideBarLinksRoot();
             tabLoopTrap({
                 elements: [aside, sideBarLinks],
                 direction,

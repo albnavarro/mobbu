@@ -57,10 +57,6 @@ export const getRandomChoice = (arrayChunk, each, index) => {
  */
 const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
     const { from, each } = stagger;
-    /*
-    Get stagger each by fps
-    */
-    const eachByFps = getEachByFps(each);
 
     if (from === STAGGER_RANDOM) {
         return {
@@ -68,6 +64,11 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
             frame: (() => randomChoice[getRandomInt(randomChoice.length)])(),
         };
     }
+
+    /*
+    Get stagger each by fps
+    */
+    const eachByFps = getEachByFps(each);
 
     if (from === STAGGER_START) {
         return {

@@ -214,7 +214,7 @@ export const createPathAnimation = ({
      */
     let shouldLoop = true;
     const loop = () => {
-        if (!shouldLoop || isRtl) return;
+        if (!weakPathElement.deref() || !shouldLoop || isRtl) return;
 
         const a = {
             x: sequencerData.ax + timelineData.ax,
@@ -251,9 +251,7 @@ export const createPathAnimation = ({
             y: sequencerData.gy + timelineData.gy,
         };
 
-        if (!weakPathElement.deref()) return;
         weakPathElement.deref().style.clipPath = `polygon(${a.x}% ${a.y}%, ${b.x}% ${b.y}%, ${c.x}% ${c.y}%, ${d.x}% ${d.y}%,${e.x}% ${e.y}%,${f.x}% ${f.y}%,${g.x}% ${g.y}%)`;
-
         MobCore.useNextFrame(() => loop());
     };
 

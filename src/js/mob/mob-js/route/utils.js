@@ -9,10 +9,10 @@ import { getIndex, getPageNotFound, getRouteByHash } from './route-list';
  */
 export const getRouteModule = ({ hash = '' }) => {
     const index = getIndex();
-    const pageNotFound = getPageNotFound();
 
     if (hash === '') return index;
 
+    const pageNotFound = getPageNotFound();
     return getRouteByHash({ hash }) ? hash : pageNotFound;
 };
 

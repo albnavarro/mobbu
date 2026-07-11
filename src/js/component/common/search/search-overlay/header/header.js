@@ -60,9 +60,6 @@ const escapeRegex = (stringValue) =>
  * @param {import('./type').SearchOverlayHeader['state']} params.proxi
  */
 const filterSuggestion = ({ currentSearch, proxi }) => {
-    const mainData = getCommonData();
-    const searchSuggestionKey = mainData.suggestion;
-
     if (currentSearch.length === 0) {
         proxi.suggestionListData = [];
         return;
@@ -91,6 +88,9 @@ const filterSuggestion = ({ currentSearch, proxi }) => {
     /**
      * Update suggestion list based on last input search word.
      */
+    const mainData = getCommonData();
+    const searchSuggestionKey = mainData.suggestion;
+
     proxi.suggestionListData = (
         searchSuggestionKey.filter(({ word }) => {
             return sortedParsed.some((piece) =>

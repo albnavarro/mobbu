@@ -41,7 +41,6 @@ export default defineConfig([
             'unicorn/prefer-await': 'off',
             'unicorn/prefer-number-coercion': 'off',
             'unicorn/consistent-compound-words': 'off',
-            'unicorn/no-declarations-before-early-exit': 'off',
             'unicorn/no-break-in-nested-loop': 'off',
             'unicorn/prefer-boolean-return': 'off',
             'unicorn/no-this-outside-of-class': 'off',

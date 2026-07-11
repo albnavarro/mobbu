@@ -97,8 +97,8 @@ export class MobSmoothScroller {
      * Track the is-whelling state to touch the DOM only once per gesture.
      *
      * - Safari invalidates style on every classList.add() call, even when the token is already present.
-     * - `#addWhellingClass()` runs on every wheel event, so without this guard the class toggle would
-     *   trigger a style recalc per frame ( freeze on big scrollers ).
+     * - `#addWhellingClass()` runs on every wheel event, so without this guard the class toggle would trigger a style
+     *   recalc per frame ( freeze on big scrollers ).
      *
      * @type {boolean}
      */
@@ -706,9 +706,9 @@ export class MobSmoothScroller {
             : focusedElement.clientWidth;
         const screenSize = isVertical ? screenRect.height : screenRect.width;
         const safetyMargin = Math.ceil(elementSize * 0.1);
-        const threshold = elementSize + safetyMargin;
 
         if (elementSize > screenSize) return true;
+        const threshold = elementSize + safetyMargin;
 
         if (isVertical) {
             const distanceToTop = focusedRect.top - screenRect.top;

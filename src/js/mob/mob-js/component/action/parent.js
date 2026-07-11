@@ -34,7 +34,6 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
     const item = componentMap.get(id);
     const parentId = item?.parentId;
 
-    const componentName = item?.componentName ?? '';
     if (!parentId) return;
 
     const value = componentMap.get(parentId);
@@ -48,7 +47,7 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
         child: updateChildrenArray({
             currentChild: child,
             id,
-            componentName,
+            componentName: item?.componentName ?? '',
         }),
     });
 };
