@@ -12955,10 +12955,11 @@
     }
     for (const chunkItem of chunked) {
       for (const [i, item] of chunkItem.entries()) {
-        if (item) {
-          item.index = chunked[0][i].index;
-          item.frame = chunked[0][i].frame;
+        if (!item) {
+          continue;
         }
+        item.index = chunked[0][i].index;
+        item.frame = chunked[0][i].frame;
       }
     }
     const flatArray = chunked.flat();
@@ -13128,10 +13129,11 @@
     const staggerArray = cleanCb.flat();
     const endstaggerArray = cleanEndCb.flat();
     for (const [i, item] of staggerArray.entries()) {
-      if (endstaggerArray.length > 0) {
-        endstaggerArray[i].index = item.index;
-        endstaggerArray[i].frame = item.frame;
+      if (endstaggerArray.length === 0) {
+        continue;
       }
+      endstaggerArray[i].index = item.index;
+      endstaggerArray[i].frame = item.frame;
     }
     return {
       staggerArray,
@@ -17093,10 +17095,11 @@
       if (isSettled) {
         const onComplete2 = () => {
           for (const item of this.#values) {
-            if (item.shouldUpdate) {
-              item.toValue = item.currentValue;
-              item.fromValue = item.currentValue;
+            if (!item.shouldUpdate) {
+              continue;
             }
+            item.toValue = item.currentValue;
+            item.fromValue = item.currentValue;
           }
           this.#currentResolve?.(true);
           this.#currentPromise = void 0;

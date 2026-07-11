@@ -315,10 +315,12 @@ export const getDefaultStagger = ({
     // Set other chunk, copy from first [0]
     for (const chunkItem of chunked) {
         for (const [i, item] of chunkItem.entries()) {
-            if (item) {
-                item.index = chunked[0][i].index;
-                item.frame = chunked[0][i].frame;
+            if (!item) {
+                continue;
             }
+
+            item.index = chunked[0][i].index;
+            item.frame = chunked[0][i].frame;
         }
     }
 
