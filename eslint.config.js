@@ -39,7 +39,6 @@ export default defineConfig([
             'unicorn/no-top-level-assignment-in-function': 'off',
             'unicorn/no-top-level-side-effects': 'off',
             'unicorn/prefer-await': 'off',
-            'unicorn/prefer-minimal-ternary': 'off',
             'unicorn/prefer-number-coercion': 'off',
             'unicorn/consistent-compound-words': 'off',
             'unicorn/no-declarations-before-early-exit': 'off',
@@ -54,6 +53,7 @@ export default defineConfig([
             'unicorn/prefer-continue': 'off',
             'unicorn/no-useless-continue': 'off',
             //
+            'unicorn/prefer-minimal-ternary': 'off',
             'unicorn/no-unnecessary-global-this': 'off',
             'no-useless-assignment': 'off',
             'unicorn/template-indent': 'off',

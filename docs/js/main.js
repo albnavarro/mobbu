@@ -21291,14 +21291,8 @@
     const positionFromConstant = getScrollerPositionFromContanst(position2);
     const isFromTopLeft = positionFromConstant === MobScrollerConstant.POSITION_TOP || positionFromConstant === MobScrollerConstant.POSITION_LEFT;
     return unitMisure === MobScrollerConstant.PX ? {
-      value: invertSide ? getValueInPx({
-        invert: true,
-        endValInNumber,
-        scrollerHeight,
-        startPoint,
-        isFromTopLeft
-      }) : getValueInPx({
-        invert: false,
+      value: getValueInPx({
+        invert: invertSide,
         endValInNumber,
         scrollerHeight,
         startPoint,
@@ -21307,15 +21301,8 @@
       additionalVal,
       position: positionFromConstant
     } : {
-      value: invertSide ? getValueInVwVh({
-        invert: true,
-        scrollerHeight,
-        screenUnit,
-        endValInNumber,
-        startPoint,
-        isFromTopLeft
-      }) : getValueInVwVh({
-        invert: false,
+      value: getValueInVwVh({
+        invert: invertSide,
         scrollerHeight,
         screenUnit,
         endValInNumber,
@@ -27003,21 +26990,16 @@
     const path = modules_exports2.getPagePath({ hash: data.hash });
     return [
       modules_exports2.getPagePath({ hash: data.hash }).map((page, index) => {
-        return index === path.length - 1 ? htmlObject({
+        return htmlObject({
           tag: "li",
-          content: {
+          content: index === path.length - 1 ? {
             tag: "span",
             content: data.pageName,
             attributes: { "aria-current": "page" }
-          }
-        }) : htmlObject({
-          tag: "li",
-          content: {
+          } : {
             tag: "a",
             className: "link",
-            attributes: {
-              href: `./#${page.hash}`
-            },
+            attributes: { href: `./#${page.hash}` },
             content: page.name
           }
         });

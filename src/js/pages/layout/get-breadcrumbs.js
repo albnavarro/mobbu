@@ -9,26 +9,22 @@ export const getBreadCrumbs = (data) => {
 
     return [
         MobJs.getPagePath({ hash: data.hash }).map((page, index) => {
-            return index === path.length - 1
-                ? htmlObject({
-                      tag: 'li',
-                      content: {
-                          tag: 'span',
-                          content: data.pageName,
-                          attributes: { 'aria-current': 'page' },
-                      },
-                  })
-                : htmlObject({
-                      tag: 'li',
-                      content: {
-                          tag: 'a',
-                          className: 'link',
-                          attributes: {
-                              href: `./#${page.hash}`,
+            return htmlObject({
+                tag: 'li',
+                content:
+                    index === path.length - 1
+                        ? {
+                              tag: 'span',
+                              content: data.pageName,
+                              attributes: { 'aria-current': 'page' },
+                          }
+                        : {
+                              tag: 'a',
+                              className: 'link',
+                              attributes: { href: `./#${page.hash}` },
+                              content: page.name,
                           },
-                          content: page.name,
-                      },
-                  });
+            });
         }),
     ];
 };
