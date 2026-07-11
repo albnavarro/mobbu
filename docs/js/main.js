@@ -1772,7 +1772,7 @@
           fn2();
         }
         setTimeOutQueque.clear();
-      });
+      }, 0);
     }
   };
 

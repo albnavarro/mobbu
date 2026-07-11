@@ -48,7 +48,6 @@ export default defineConfig([
             'unicorn/no-this-outside-of-class': 'off',
             'unicorn/filename-case': 'off',
             'unicorn/prefer-array-from-map': 'off',
-            'unicorn/explicit-timer-delay': 'off',
             'unicorn/prefer-type-literal-last': 'off',
             'unicorn/prefer-continue': 'off',
             'unicorn/no-useless-continue': 'off',

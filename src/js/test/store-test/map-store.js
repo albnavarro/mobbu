@@ -125,5 +125,5 @@ export const initTestMapStore = async () => {
     setTimeout(() => {
         console.log(test.debug());
         test.set('prop1', (val) => (val += 1000), true, true);
-    });
+    }, 0);
 };
