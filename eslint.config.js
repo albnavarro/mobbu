@@ -47,7 +47,6 @@ export default defineConfig([
             'unicorn/no-unreadable-array-destructuring': 'off',
             'unicorn/no-negated-comparison': 'off',
             'unicorn/prefer-boolean-return': 'off',
-            'unicorn/no-late-event-control': 'off',
             'unicorn/no-this-outside-of-class': 'off',
             'unicorn/filename-case': 'off',
             'unicorn/prefer-array-from-map': 'off',
