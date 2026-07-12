@@ -40,11 +40,11 @@ export default defineConfig([
             'unicorn/prefer-await': 'off',
             'unicorn/prefer-number-coercion': 'off',
             'unicorn/consistent-compound-words': 'off',
-            'unicorn/no-break-in-nested-loop': 'off',
             'unicorn/no-this-outside-of-class': 'off',
             'unicorn/filename-case': 'off',
             'unicorn/prefer-type-literal-last': 'off',
             //
+            'unicorn/no-break-in-nested-loop': 'off',
             'unicorn/no-unreadable-array-destructuring': 'off',
             'unicorn/prefer-minimal-ternary': 'off',
             'unicorn/no-unnecessary-global-this': 'off',
