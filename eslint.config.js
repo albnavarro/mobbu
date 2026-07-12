@@ -41,7 +41,6 @@ export default defineConfig([
             'unicorn/consistent-compound-words': 'off',
             'unicorn/no-this-outside-of-class': 'off',
             'unicorn/filename-case': 'off',
-            'unicorn/prefer-type-literal-last': 'off',
             //
             'unicorn/no-top-level-assignment-in-function': 'off',
             'unicorn/no-break-in-nested-loop': 'off',
