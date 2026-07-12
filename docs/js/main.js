@@ -23129,7 +23129,6 @@
   var stopTween = () => {
     if (!isRunning) return;
     tween.stop();
-    onComplete();
   };
   var MobBodyScroll = (() => {
     tween.subscribe(({ val }) => {
@@ -23149,7 +23148,7 @@
     modules_exports.useTouchStart(() => {
       stopTween();
     });
-    const to = (target, data) => {
+    const to = async (target, data) => {
       if (typeof globalThis === "undefined") return;
       const targetParsed = (() => {
         if (!target) return 0;
@@ -23185,23 +23184,20 @@
         );
       }
       if (overflow) document.body.style.overflow = "hidden";
-      return new Promise((resolve) => {
-        isRunning = true;
-        FreezeMobPageScroll();
-        tween.goFromTo(
+      isRunning = true;
+      FreezeMobPageScroll();
+      try {
+        await tween.goFromTo(
           { val: window.scrollY },
           { val: targetParsed },
           { duration: Math.max(1, duration) }
-        ).then(() => {
-          onComplete();
-          isRunning = false;
-          resolve(true);
-        }).catch(() => {
-          onComplete();
-          isRunning = false;
-          resolve(true);
-        });
-      });
+        );
+      } catch (error) {
+        console.log(error);
+      } finally {
+        onComplete();
+        isRunning = false;
+      }
     };
     return {
       to
