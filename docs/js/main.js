@@ -11224,24 +11224,9 @@
 
   // src/js/mob/mob-motion/animation/utils/animation-utils.js
   var getRoundedValue = (x) => {
-    if (modules_exports.checkType(Number, x)) {
+    if (modules_exports.checkType(Number, x))
       return Math.round(x * 1e4) / 1e4 || 0;
-    }
-    if (Math.abs(x) < 1) {
-      const e = Number.parseInt(x.toString().split("e-", 2)[1]);
-      if (e) {
-        x *= Math.pow(10, e - 1);
-        x = "0." + Array.from({ length: e }).join("0") + x.toString().slice(2);
-      }
-    } else {
-      let e = Number.parseInt(x.toString().split("+", 2)[1]);
-      if (e > 20) {
-        e -= 20;
-        x /= Math.pow(10, e);
-        x += Array.from({ length: e + 1 }).join("0");
-      }
-    }
-    return Number.parseFloat(Number.parseFloat(x).toFixed(4));
+    return Math.round(Number(x) * 1e4) / 1e4 || 0;
   };
   var clamp3 = (num, min2, max2) => {
     return Math.min(Math.max(num, min2), max2);
@@ -13541,19 +13526,19 @@
         const value = item[key];
         return [
           item["prop"],
-          typeof value === "number" ? value : Number.parseFloat(value)
+          typeof value === "number" ? value : Number(value)
         ];
       })
     );
   };
   var getValueObjToNative = (arr) => {
     return arr.map((item) => {
-      return item.toIsFn ? { [item.prop]: item.toFn } : { [item.prop]: Number.parseFloat(item.toValue) };
+      return item.toIsFn ? { [item.prop]: item.toFn } : { [item.prop]: Number(item.toValue) };
     }).reduce((p, c) => ({ ...p, ...c }), {});
   };
   var getValueObjFromNative = (arr) => {
     return arr.map((item) => {
-      return item.fromIsFn ? { [item.prop]: item.fromFn } : { [item.prop]: Number.parseFloat(item.fromValue) };
+      return item.fromIsFn ? { [item.prop]: item.fromFn } : { [item.prop]: Number(item.fromValue) };
     }).reduce((p, c) => ({ ...p, ...c }), {});
   };
 
@@ -21216,7 +21201,10 @@
   };
   var getStartEndValue = (values, direction2) => {
     const numberInString = values.find((item) => {
-      return [...item].some((c) => !Number.isNaN(Number.parseFloat(c)));
+      return [...item].some(
+        // eslint-disable-next-line unicorn/prefer-number-coercion
+        (current) => !Number.isNaN(Number.parseFloat(current))
+      );
     });
     const unitMisure = getStartEndUnitMisure(numberInString);
     if (numberInString && !unitMisure) {
@@ -22084,7 +22072,7 @@
     #calcRangeAndUnitMiusure() {
       if (this.#dynamicRange) {
         const range = this.#dynamicRange();
-        this.#numericRange = Number.isNaN(range) ? 0 : Number.parseFloat(range);
+        this.#numericRange = Number.isNaN(range) ? 0 : range;
         this.#unitMisure = MobScrollerConstant.PX;
       } else {
         const str = String(this.#range);
@@ -33431,9 +33419,7 @@
 
   // src/js/component/common/move-3d/move-3d-item/utils.js
   var getRotate = ({ startRotation, range, delta, limit }) => {
-    return Number.parseFloat(
-      (range * delta / limit - startRotation).toFixed(2)
-    );
+    return Number((range * delta / limit - startRotation).toFixed(2));
   };
   var getRotateFromPosition = ({
     rotate,

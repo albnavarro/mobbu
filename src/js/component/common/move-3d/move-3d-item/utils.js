@@ -7,9 +7,7 @@
  * @returns {number}
  */
 export const getRotate = ({ startRotation, range, delta, limit }) => {
-    return Number.parseFloat(
-        ((range * delta) / limit - startRotation).toFixed(2)
-    );
+    return Number(((range * delta) / limit - startRotation).toFixed(2));
 };
 
 /**
