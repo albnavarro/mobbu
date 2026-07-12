@@ -25748,12 +25748,12 @@
     commonData = data;
   };
   var loadIcons = async () => {
-    const promisesArray = iconsToLoad.map(
-      ({ name, source }) => loadTextContent({ source: `${iconsPath}${source}` }).then((result) => ({
-        name,
-        result
-      }))
-    );
+    const promisesArray = iconsToLoad.map(async ({ name, source }) => {
+      const result = await loadTextContent({
+        source: `${iconsPath}${source}`
+      });
+      return { name, result };
+    });
     const results = await Promise.all(promisesArray);
     icons = results.map(
       ({ name, result }) => result.success ? { name, data: result.data } : { name, data: "icon load error" }
@@ -26609,7 +26609,7 @@
       },
       move: (val) => {
         if (!instance) return;
-        instance.move(val).catch(() => {
+        void instance.move(val).catch(() => {
         });
       },
       goToTop: () => {
@@ -27438,7 +27438,7 @@
     return {
       goTo: (value) => {
         if (!value && value !== 0) return;
-        aboutScroller?.move?.(value).catch(() => {
+        void aboutScroller?.move?.(value).catch(() => {
         });
       },
       destroy: () => {
@@ -29127,7 +29127,7 @@
     }).goTo(gridTween, { scale: 0.3 }, { duration: 1e3 });
     gridTimeline.play();
     const move3 = ({ x, y }) => {
-      centerTween.goTo({ mouseX: x - left, mouseY: y - top }).catch(() => {
+      void centerTween.goTo({ mouseX: x - left, mouseY: y - top }).catch(() => {
       });
     };
     const unsubscribeMouseMove = modules_exports.useMouseMove(({ client }) => {
@@ -29455,7 +29455,7 @@
       const winHeight = window.innerHeight;
       const xCenter = x - canvas.width / 2 - left;
       const yCenter = y - canvas.height / 2 - top;
-      centerTween.goTo({
+      void centerTween.goTo({
         x: core_exports.clamp(
           xCenter,
           -winWidth / 2 + 400 + left,
@@ -33569,7 +33569,7 @@
     const { rotateX, rotateY } = getRotateFromPosition(
       getRotateFromPositionData
     );
-    lerp2.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {
+    void lerp2.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {
     });
   };
   var Move3DItemFunction = ({ getState, addMethod, onMount }) => {
@@ -33881,7 +33881,7 @@
       const axClamped = core_exports.clamp(ax, -proxi.xLimit, proxi.xLimit);
       const ayClamped = core_exports.clamp(ay, -proxi.yLimit, proxi.yLimit);
       const delta = Math.hypot(Math.abs(ayClamped), Math.abs(axClamped));
-      spring.goTo({ delta, ax: axClamped, ay: ayClamped }).catch(() => {
+      void spring.goTo({ delta, ax: axClamped, ay: ayClamped }).catch(() => {
       });
       for (const moveChild of childrenMethods) {
         moveChild({ delta, factor: proxi.factor });
@@ -35764,21 +35764,29 @@
         timeline.playReverse();
         if (!gridTimeline.isActive()) gridTimeline.play();
       },
-      playFromLabel: () => {
-        timeline.setTween("my-label", [tweenAround, tweenGridRotate]).then(() => {
-          timeline.playFrom("my-label").then(() => {
-            console.log("resolve promise playFrom");
-          });
-        });
-        if (!gridTimeline.isActive()) gridTimeline.play();
+      playFromLabel: async () => {
+        try {
+          await timeline.setTween("my-label", [
+            tweenAround,
+            tweenGridRotate
+          ]);
+          await timeline.playFrom("my-label");
+          console.log("resolve promise playFrom");
+        } catch (error) {
+          console.log(error);
+        }
       },
-      playFromLabelReverse: () => {
-        timeline.setTween("my-label", [tweenAround, tweenGridRotate]).then(() => {
-          timeline.playFromReverse("my-label").then(() => {
-            console.log("resolve promise playFrom");
-          });
-        });
-        if (!gridTimeline.isActive()) gridTimeline.play();
+      playFromLabelReverse: async () => {
+        try {
+          await timeline.setTween("my-label", [
+            tweenAround,
+            tweenGridRotate
+          ]);
+          await timeline.playFromReverse("my-label");
+          console.log("resolve promise playFrom reverse");
+        } catch (error) {
+          console.log(error);
+        }
       },
       revertNext: () => {
         timeline.reverseNext();
@@ -36715,7 +36723,7 @@
       lastY = y;
       if (onDrag) {
         endValue = { xValue: xComputed, yValue: yComputed };
-        spring.goTo({ x: xComputed, y: yComputed }).catch(() => {
+        void spring.goTo({ x: xComputed, y: yComputed }).catch(() => {
         });
       }
     };
@@ -36754,7 +36762,7 @@
       dragX = dragLimitX > 0 ? core_exports.clamp(dragX, -dragLimitX, dragLimitX) : core_exports.clamp(dragX, dragLimitX, -dragLimitX);
       dragY = dragLimitY > 0 ? core_exports.clamp(dragY, -dragLimitY, dragLimitY) : core_exports.clamp(dragY, dragLimitY, -dragLimitY);
       onDepthChange({ depth });
-      spring.goTo({ x: dragX, y: dragY, z: depth }).catch(() => {
+      void spring.goTo({ x: dragX, y: dragY, z: depth }).catch(() => {
       });
     };
     if (containerEl)
@@ -37218,7 +37226,7 @@
       const increment = 60 / modules_exports.getFps();
       counter2 += increment;
       if (!tween2) return;
-      tween2.goTo({ x: counter2 }).catch(() => {
+      void tween2.goTo({ x: counter2 }).catch(() => {
       });
       if (isRunning2) modules_exports.useNextFrame(() => loop());
     };
@@ -41498,8 +41506,11 @@
         }
       );
       const unsubScribeAfterRouteChange = modules_exports2.afterRouteChange(async () => {
-        await tweenOut.goTo({ opacity: 0, scale: 0.9 }).catch(() => {
-        });
+        try {
+          await tweenOut.goTo({ opacity: 0, scale: 0.9 });
+        } catch (error) {
+          console.log(error);
+        }
         proxi.isDisable = true;
       });
       return () => {
@@ -43292,7 +43303,7 @@
     return {
       scrollNativationToTop: () => {
         setTimeout(() => {
-          navScroller.move(0).catch(() => {
+          void navScroller.move(0).catch(() => {
           });
           percentEl.style.transform = `translateZ(0) scaleX(0)`;
         }, setDelay);

@@ -68,8 +68,7 @@ export const verticalScroller = ({
         },
         move: (val) => {
             if (!instance) return;
-
-            instance.move(val).catch(() => {});
+            void instance.move(val).catch(() => {});
         },
         goToTop: () => {
             instance?.set(0);

@@ -344,7 +344,9 @@ export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
      * @returns {void}
      */
     const move = ({ x, y }) => {
-        centerTween.goTo({ mouseX: x - left, mouseY: y - top }).catch(() => {});
+        void centerTween
+            .goTo({ mouseX: x - left, mouseY: y - top })
+            .catch(() => {});
     };
 
     const unsubscribeMouseMove = MobCore.useMouseMove(({ client }) => {

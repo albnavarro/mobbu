@@ -476,25 +476,29 @@ export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
             timeline.playReverse();
             if (!gridTimeline.isActive()) gridTimeline.play();
         },
-        playFromLabel: () => {
-            timeline
-                .setTween('my-label', [tweenAround, tweenGridRotate])
-                .then(() => {
-                    timeline.playFrom('my-label').then(() => {
-                        console.log('resolve promise playFrom');
-                    });
-                });
-            if (!gridTimeline.isActive()) gridTimeline.play();
+        playFromLabel: async () => {
+            try {
+                await timeline.setTween('my-label', [
+                    tweenAround,
+                    tweenGridRotate,
+                ]);
+                await timeline.playFrom('my-label');
+                console.log('resolve promise playFrom');
+            } catch (error) {
+                console.log(error);
+            }
         },
-        playFromLabelReverse: () => {
-            timeline
-                .setTween('my-label', [tweenAround, tweenGridRotate])
-                .then(() => {
-                    timeline.playFromReverse('my-label').then(() => {
-                        console.log('resolve promise playFrom');
-                    });
-                });
-            if (!gridTimeline.isActive()) gridTimeline.play();
+        playFromLabelReverse: async () => {
+            try {
+                await timeline.setTween('my-label', [
+                    tweenAround,
+                    tweenGridRotate,
+                ]);
+                await timeline.playFromReverse('my-label');
+                console.log('resolve promise playFrom reverse');
+            } catch (error) {
+                console.log(error);
+            }
         },
         revertNext: () => {
             timeline.reverseNext();

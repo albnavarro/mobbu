@@ -96,7 +96,7 @@ export const initNavigationScoller = ({ root }) => {
     return {
         scrollNativationToTop: () => {
             setTimeout(() => {
-                navScroller.move(0).catch(() => {});
+                void navScroller.move(0).catch(() => {});
 
                 /**
                  * Reset active section to scroll.

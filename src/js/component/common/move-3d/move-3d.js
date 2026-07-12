@@ -145,7 +145,9 @@ export const Move3DFunction = ({
          * Il delta sarà l'ipotenusa del triangolo formato dai volri ax e ay
          */
         const delta = Math.hypot(Math.abs(ayClamped), Math.abs(axClamped));
-        spring.goTo({ delta, ax: axClamped, ay: ayClamped }).catch(() => {});
+        void spring
+            .goTo({ delta, ax: axClamped, ay: ayClamped })
+            .catch(() => {});
 
         /**
          * Move children

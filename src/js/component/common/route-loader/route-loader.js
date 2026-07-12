@@ -43,7 +43,11 @@ export const RouteLoaderFunction = ({
         );
 
         const unsubScribeAfterRouteChange = MobJs.afterRouteChange(async () => {
-            await tweenOut.goTo({ opacity: 0, scale: 0.9 }).catch(() => {});
+            try {
+                await tweenOut.goTo({ opacity: 0, scale: 0.9 });
+            } catch (error) {
+                console.log(error);
+            }
 
             proxi.isDisable = true;
         });

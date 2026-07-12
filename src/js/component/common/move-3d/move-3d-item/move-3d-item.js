@@ -62,7 +62,7 @@ const move = ({
         getRotateFromPositionData
     );
 
-    lerp.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {});
+    void lerp.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {});
 };
 
 /** @type {MobComponent<import('./type').Move3DItem>} */

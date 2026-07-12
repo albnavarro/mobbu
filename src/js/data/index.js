@@ -53,12 +53,13 @@ export const loadIcons = async () => {
     /**
      * Get an array of promises that return an object with status and data
      */
-    const promisesArray = iconsToLoad.map(({ name, source }) =>
-        loadTextContent({ source: `${iconsPath}${source}` }).then((result) => ({
-            name,
-            result,
-        }))
-    );
+    const promisesArray = iconsToLoad.map(async ({ name, source }) => {
+        const result = await loadTextContent({
+            source: `${iconsPath}${source}`,
+        });
+
+        return { name, result };
+    });
 
     /**
      * Fetch all icons.

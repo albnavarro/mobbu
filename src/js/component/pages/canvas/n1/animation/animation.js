@@ -259,7 +259,7 @@ export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
         const winHeight = window.innerHeight;
         const xCenter = x - canvas.width / 2 - left;
         const yCenter = y - canvas.height / 2 - top;
-        centerTween
+        void centerTween
             .goTo({
                 x: MobMotionCore.clamp(
                     xCenter,

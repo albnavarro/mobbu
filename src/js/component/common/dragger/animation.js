@@ -342,7 +342,7 @@ export const draggerAnimation = ({
 
         if (onDrag) {
             endValue = { xValue: xComputed, yValue: yComputed };
-            spring.goTo({ x: xComputed, y: yComputed }).catch(() => {});
+            void spring.goTo({ x: xComputed, y: yComputed }).catch(() => {});
         }
     };
 
@@ -421,8 +421,7 @@ export const draggerAnimation = ({
                 : MobMotionCore.clamp(dragY, dragLimitY, -dragLimitY);
 
         onDepthChange({ depth });
-
-        spring.goTo({ x: dragX, y: dragY, z: depth }).catch(() => {});
+        void spring.goTo({ x: dragX, y: dragY, z: depth }).catch(() => {});
     };
 
     /**

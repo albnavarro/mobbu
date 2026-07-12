@@ -62,8 +62,7 @@ export const mathCircle = ({ targets, container, canvas } = {}) => {
 
         if (!tween) return;
 
-        tween.goTo({ x: counter }).catch(() => {});
-
+        void tween.goTo({ x: counter }).catch(() => {});
         if (isRunning) MobCore.useNextFrame(() => loop());
     };
 
