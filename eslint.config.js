@@ -36,7 +36,6 @@ export default defineConfig([
         rules: {
             // TODO: Realign new rules from v70.
             'unicorn/consistent-boolean-name': 'off',
-            'unicorn/no-top-level-assignment-in-function': 'off',
             'unicorn/prefer-await': 'off',
             'unicorn/prefer-number-coercion': 'off',
             'unicorn/consistent-compound-words': 'off',
@@ -44,6 +43,7 @@ export default defineConfig([
             'unicorn/filename-case': 'off',
             'unicorn/prefer-type-literal-last': 'off',
             //
+            'unicorn/no-top-level-assignment-in-function': 'off',
             'unicorn/no-break-in-nested-loop': 'off',
             'unicorn/no-unreadable-array-destructuring': 'off',
             'unicorn/prefer-minimal-ternary': 'off',
