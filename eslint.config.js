@@ -41,7 +41,6 @@ export default defineConfig([
             'unicorn/prefer-number-coercion': 'off',
             'unicorn/consistent-compound-words': 'off',
             'unicorn/no-break-in-nested-loop': 'off',
-            'unicorn/prefer-boolean-return': 'off',
             'unicorn/no-this-outside-of-class': 'off',
             'unicorn/filename-case': 'off',
             'unicorn/prefer-type-literal-last': 'off',
