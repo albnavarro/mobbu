@@ -20663,7 +20663,7 @@
     }
     #resetSpring() {
       if (this.#pin && this.#spring)
-        this.#spring.set({ collision: 0, verticalGap: 0 }).catch(() => {
+        void this.#spring.set({ collision: 0, verticalGap: 0 }).catch(() => {
         });
     }
     #createPin() {
@@ -20835,7 +20835,7 @@
         style[this.#collisionStyleProp] = `${this.#startFromTop}px`;
       });
       if (this.#animatePin && !this.#firstTime && this.#pin && this.#spring) {
-        this.#spring.goFrom({ collision: gap }).then(() => {
+        void this.#spring.goFrom({ collision: gap }).then(() => {
           this.#resetPinTransform();
         }).catch(() => {
         });
@@ -22334,7 +22334,7 @@
         return;
       if (!this.#motion) return;
       const action2 = this.#firstTime && !this.#animateAtStart ? "set" : "goTo";
-      this.#motion[action2]({ val: this.#endValue }, this.#motionParameters).catch(() => {
+      void this.#motion[action2]({ val: this.#endValue }, this.#motionParameters).catch(() => {
       });
     }
     /**
