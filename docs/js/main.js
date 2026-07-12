@@ -13622,7 +13622,7 @@
      */
     #isRunning;
     /**
-     * @type{((value:any) => void)|undefined }
+     * @type{(() => void)|undefined }
      */
     #currentResolve;
     /**
@@ -13814,7 +13814,7 @@
           for (const item of this.#values) {
             item.fromValue = item.toValue;
           }
-          this.#currentResolve?.(true);
+          this.#currentResolve?.();
           this.#currentPromise = void 0;
           this.#currentReject = void 0;
           this.#currentResolve = void 0;
@@ -13870,7 +13870,7 @@
     /**
      * @type {import('../../utils/type.js').DoAction<import('./type.js').SpringActions>} obj To Values
      */
-    #doAction(newObjectParsed, newObjectRaw, spacialProps = {}) {
+    async #doAction(newObjectParsed, newObjectRaw, spacialProps = {}) {
       this.#values = mergeArray(newObjectParsed, this.#values);
       const { reverse, immediate } = this.#mergeProps(spacialProps);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
@@ -13879,7 +13879,7 @@
       if (valueIsBooleanAndTrue(immediate, "immediate ")) {
         if (this.#isRunning) this.stop({ updateValues: false });
         this.#values = setFromCurrentByTo(this.#values);
-        return Promise.resolve();
+        return;
       }
       const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
       if (shouldInitializeRAF) {
@@ -13887,8 +13887,13 @@
           this.#startRaf(resolve, reject);
         });
       }
-      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT).catch(() => {
-      });
+      if (shouldInitializeRAF && this.#currentPromise) {
+        return this.#currentPromise;
+      }
+      try {
+        await Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
+      } catch {
+      }
     }
     /**
      * @param {number} time Current global time
@@ -13951,8 +13956,8 @@
       return { ready: true };
     }
     /**
-     * @param {(value: any) => void} resolve
-     * @param {(value: any) => void} reject
+     * @param {() => void} resolve
+     * @param {() => void} reject
      * @returns {Promise<any>}
      */
     async #startRaf(resolve, reject) {
@@ -14125,7 +14130,7 @@
       this.#useStagger = true;
       if (!compareKeys(htmlObject2, toObject)) {
         compareKeysWarning("spring goFromTo:", htmlObject2, toObject);
-        return new Promise((resolve) => resolve);
+        return Promise.resolve();
       }
       const objectParsed = parseGoFromToObject(htmlObject2, toObject);
       return this.#doAction(objectParsed, htmlObject2, specialProps);
@@ -14759,7 +14764,7 @@
      */
     #isRunning;
     /**
-     * @type{((value:any) => void)|undefined }
+     * @type{(() => void)|undefined }
      */
     #currentResolve;
     /**
@@ -14941,7 +14946,7 @@
           for (const item of this.#values) {
             item.fromValue = item.toValue;
           }
-          this.#currentResolve?.(true);
+          this.#currentResolve?.();
           this.#currentPromise = void 0;
           this.#currentReject = void 0;
           this.#currentResolve = void 0;
@@ -15022,8 +15027,8 @@
       return { ready: true };
     }
     /**
-     * @param {(arg0: any) => void} resolve
-     * @param {(value: any) => void} reject
+     * @param {() => void} resolve
+     * @param {() => void} reject
      * @returns {Promise<any>}
      */
     async #startRaf(resolve, reject) {
@@ -15054,7 +15059,7 @@
     /**
      * @type {import('../../utils/type.js').DoAction<import('./type.js').LerpActions>} obj To Values
      */
-    #doAction(newObjectparsed, newObjectRaw, spacialProps = {}) {
+    async #doAction(newObjectparsed, newObjectRaw, spacialProps = {}) {
       this.#values = mergeArray(newObjectparsed, this.#values);
       const { reverse, immediate } = this.#mergeProps(spacialProps ?? {});
       if (valueIsBooleanAndTrue(reverse, "reverse"))
@@ -15063,7 +15068,7 @@
       if (valueIsBooleanAndTrue(immediate, "immediate ")) {
         if (this.#isRunning) this.stop({ updateValues: false });
         this.#values = setFromCurrentByTo(this.#values);
-        return Promise.resolve();
+        return;
       }
       const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
       if (shouldInitializeRAF) {
@@ -15071,8 +15076,13 @@
           this.#startRaf(resolve, reject);
         });
       }
-      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT).catch(() => {
-      });
+      if (shouldInitializeRAF && this.#currentPromise) {
+        return this.#currentPromise;
+      }
+      try {
+        await Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
+      } catch {
+      }
     }
     /**
      * AsyncTimeline utils.
@@ -15222,7 +15232,7 @@
       this.#useStagger = true;
       if (!compareKeys(htmlObject2, toObject)) {
         compareKeysWarning("lerp goFromTo:", htmlObject2, toObject);
-        return new Promise((resolve) => resolve);
+        return Promise.resolve();
       }
       const objectParsed = parseGoFromToObject(htmlObject2, toObject);
       return this.#doAction(objectParsed, htmlObject2, specialProps);
@@ -16881,7 +16891,7 @@
      */
     #isRunning;
     /**
-     * @type{((value:any) => void)|undefined }
+     * @type{(() => void)|undefined }
      */
     #currentResolve;
     /**
@@ -17086,7 +17096,7 @@
             item.toValue = item.currentValue;
             item.fromValue = item.currentValue;
           }
-          this.#currentResolve?.(true);
+          this.#currentResolve?.();
           this.#currentPromise = void 0;
           this.#currentReject = void 0;
           this.#currentResolve = void 0;
@@ -17168,8 +17178,8 @@
       return { ready: true };
     }
     /**
-     * @param {(value: any) => void} resolve
-     * @param {(value: any) => void} reject
+     * @param {() => void} resolve
+     * @param {() => void} reject
      * @returns {Promise<any>}
      */
     async #startRaf(resolve, reject) {
@@ -17214,7 +17224,7 @@
     /**
      * @type {import('../../utils/type.js').DoAction<import('./type.js').TimeTweenAction>} obj To Values
      */
-    #doAction(newObjectParsed, newObjectRaw, specialProps = {}) {
+    async #doAction(newObjectParsed, newObjectRaw, specialProps = {}) {
       this.#values = mergeArrayTween(newObjectParsed, this.#values);
       const { reverse, immediate } = this.#mergeProps(specialProps);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
@@ -17226,7 +17236,7 @@
           this.#updateDataWhileRunning();
         }
         this.#values = setFromCurrentByTo(this.#values);
-        return Promise.resolve();
+        return;
       }
       const shouldInitializeRAF = !this.#isRunning && !this.#currentPromise;
       if (shouldInitializeRAF) {
@@ -17234,8 +17244,13 @@
           this.#startRaf(resolve, reject);
         });
       }
-      return shouldInitializeRAF && this.#currentPromise ? this.#currentPromise : Promise.reject(modules_exports.ANIMATION_STOP_REJECT).catch(() => {
-      });
+      if (shouldInitializeRAF && this.#currentPromise) {
+        return this.#currentPromise;
+      }
+      try {
+        await Promise.reject(modules_exports.ANIMATION_STOP_REJECT);
+      } catch {
+      }
     }
     /**
      * AsyncTimeline utils.
@@ -17381,7 +17396,7 @@
       this.#useStagger = true;
       if (!compareKeys(htmlObject2, toObject)) {
         compareKeysWarning("tween goFromTo:", htmlObject2, toObject);
-        return new Promise((resolve) => resolve);
+        return Promise.resolve();
       }
       const objectParsed = parseGoFromToObject(htmlObject2, toObject);
       return this.#doAction(objectParsed, htmlObject2, specialProps);
@@ -22981,7 +22996,7 @@
         Math.max(0, windowOffsetheight - windowInnerheight)
       );
       lastScrollValue = currentValue;
-      lerp2.goTo({ scrollValue: currentValue }).catch(() => {
+      void lerp2.goTo({ scrollValue: currentValue }).catch(() => {
       });
     });
     const unsubscribeDebounceWheel = modules_exports.useMouseWheel(
@@ -25334,7 +25349,7 @@
     }
     #executeScroll() {
       if (this.#snapPoints.length > 0 && this.#freezeSnap) return;
-      this.#motion.goTo({ val: this.#endValue }).catch(() => {
+      void this.#motion.goTo({ val: this.#endValue }).catch(() => {
       });
       this.#onUpdateCallback?.({
         value: -this.#endValue,
