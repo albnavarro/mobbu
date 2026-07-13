@@ -36,7 +36,6 @@ export default defineConfig([
         rules: {
             // TODO: Realign new rules from v70.
             'unicorn/consistent-boolean-name': 'off',
-            'unicorn/prefer-await': 'off',
             'unicorn/consistent-compound-words': 'off',
             'unicorn/no-this-outside-of-class': 'off',
             'unicorn/filename-case': 'off',

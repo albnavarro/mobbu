@@ -23,8 +23,8 @@ import {
     timelineSetTweenLabelNotFoundWarining,
     timelineSuspendWarning,
 } from '../utils/warning.js';
-import { filterActiveProps } from './fitler-active-props.js';
 import { reduceTweenUntilIndex } from './reduce-tween-until-index.js';
+import { settlePrevValueTo } from './settle-prev-value-to.js';
 import { resolveTweenPromise } from './loop-callback.js';
 
 export default class MobAsyncTimeline {
@@ -145,11 +145,6 @@ export default class MobAsyncTimeline {
     /**
      * @type {boolean}
      */
-    #addAsyncIsActive;
-
-    /**
-     * @type {boolean}
-     */
     #isStopped;
 
     /**
@@ -161,11 +156,6 @@ export default class MobAsyncTimeline {
      * @type {number}
      */
     #activetweenCounter;
-
-    /**
-     * @type {number}
-     */
-    #timeOnPause;
 
     /**
      * @type {boolean}
@@ -185,7 +175,7 @@ export default class MobAsyncTimeline {
     /**
      * @type {number}
      */
-    #id;
+    #callbackId;
 
     /**
      * @type {{ cb: (arg0: import('../utils/timeline/type.js').DirectionTypeObjectLoop) => void; id: number }[]}
@@ -274,16 +264,25 @@ export default class MobAsyncTimeline {
             'asyncTimeline: autoSet',
             true
         );
-        this.#inheritProps = valueIsBooleanAndReturnDefault(
-            data?.inheritProps,
-            'asyncTimeline: inheritProps',
-            true
-        );
         this.#forceFromTo = valueIsBooleanAndReturnDefault(
             data?.forceFromTo,
             'asyncTimeline: forceFromTo',
             false
         );
+
+        /**
+         * As documented forceFromTo is an evolution of inheritProps and use the inherited value to transform an action
+         * ( goTo ) in a goFromTo. The activation was replicated inline in goTo() and goFrom() ( `#inheritProps ||
+         * #forceFromTo` ) but not in set() and goFromTo(): with `{ inheritProps: false, forceFromTo: true }` half of
+         * the methods inherited the previous values and half didn't. Enable it here, once.
+         */
+        this.#inheritProps = this.#forceFromTo
+            ? true
+            : valueIsBooleanAndReturnDefault(
+                  data?.inheritProps,
+                  'asyncTimeline: inheritProps',
+                  true
+              );
         this.#tweenList = [];
         this.#currentTween = [];
         this.#tweenStore = [];
@@ -317,15 +316,13 @@ export default class MobAsyncTimeline {
         this.#isReverse = false;
         this.#isInPause = false;
         this.#isInSuspension = false;
-        this.#addAsyncIsActive = false;
         this.#isStopped = true;
         this.#sessionId = 0;
         this.#activetweenCounter = 0;
-        this.#timeOnPause = 0;
         this.#autoSetIsJustCreated = false;
         this.#currentAction = [];
         this.#fpsIsInLoading = false;
-        this.#id = 0;
+        this.#callbackId = 0;
         this.#callbackLoop = [];
         this.#callbackComplete = [];
         this.#currentResolve = undefined;
@@ -333,9 +330,96 @@ export default class MobAsyncTimeline {
     }
 
     /**
+     * Transition to STOPPED state.
+     *
+     * Resets timeline to initial idle state:
+     *
+     * - Clears position (currentIndex, loopCounter)
+     * - Clears direction flags (isReverseNext, forceYoyo)
+     * - Clears label state
+     * - Clears pause/suspend flags
+     *
      * @type {() => void}
      */
-    #run() {
+    #transitionToStopped() {
+        this.#isStopped = true;
+        this.#isInPause = false;
+        this.#isInSuspension = false;
+        this.#currentIndex = 0;
+        this.#loopCounter = 1;
+        this.#isReverseNext = false;
+        this.#resetUseLabel();
+        this.#forceYoyo = false;
+    }
+
+    /**
+     * Transition to PLAYING state.
+     *
+     * Starts a new execution session:
+     *
+     * - Clears stopped flag
+     * - Clears pause/suspend flags
+     * - Increments sessionId (invalidates previous session's async operations)
+     *
+     * @type {() => void}
+     */
+    #transitionToPlaying() {
+        this.#isStopped = false;
+        this.#isInPause = false;
+        this.#isInSuspension = false;
+        this.#sessionId++;
+    }
+
+    /**
+     * Transition to PAUSED state.
+     *
+     * Pauses current execution but maintains position and state. Timeline can be resumed with resume().
+     *
+     * @type {() => void}
+     */
+    #transitionToPaused() {
+        this.#isInPause = true;
+    }
+
+    /**
+     * Transition to SUSPENDED state.
+     *
+     * Enters suspend state, waiting for resume(). Similar to pause but triggered by suspend() step in timeline.
+     *
+     * @type {() => void}
+     */
+    #transitionToSuspended() {
+        this.#isInSuspension = true;
+    }
+
+    /**
+     * Transition to RESUMED state (from PAUSED or SUSPENDED).
+     *
+     * Clears pause and suspend flags, allowing execution to continue. Does NOT start a new session (sessionId
+     * unchanged).
+     *
+     * @type {() => void}
+     */
+    #transitionToResumed() {
+        this.#isInPause = false;
+        this.#isInSuspension = false;
+    }
+
+    /**
+     * @type {() => Promise<void>}
+     */
+    async #run() {
+        /**
+         * Session of this step.
+         *
+         * A play() while this step is in flight stop the timeline and bump the sessionId. When the step is released (
+         * the tween settle its promise ) this chain must not walk the timeline beside the chain of the new session.
+         *
+         * `#isStopped` alone is not enough: play() set it back to false, so the check would depend on the order in
+         * which the stopped tween settle their promise. The sessionId does not.
+         */
+        const sessionId = this.#sessionId;
+
         /**
          * Store previous action to prevent two add/addAsync consegutive
          */
@@ -352,47 +436,10 @@ export default class MobAsyncTimeline {
          * Each is item is a group, so we need to loop over each tween in group. Update prevValueSettled value for
          * current loop index.
          *
-         * First immediate loop is necessary. Once every index is visited the if inside is always skipped.
+         * First immediate loop is necessary. Once every index is visited the map inside is always skipped.
          */
-        this.#tweenList[this.#currentIndex] = currentTweelist.map((item) => {
-            const { data } = item;
-            const { tween, valuesTo: currentValuesTo, prevValueSettled } = data;
-
-            /*
-             * Get current valueTo for to use in reverse methods
-             * Get the value only first immediate loop, so if prevValueSettled is settled skip
-             *
-             * Filter only real tween.
-             *
-             * prevValueSettled is settled only once during the entire life of timeline.
-             */
-            if (tween && tween?.getToNativeType && !prevValueSettled) {
-                const nativeValues = tween.getToNativeType();
-
-                /*
-                 * Get only the active prop
-                 * nativeValues -> current value before execute step.
-                 * currentValuesTo -> Step to execute
-                 *
-                 * nativeValues rappresent the previous set of value
-                 */
-                const prevValueTo = filterActiveProps({
-                    data: nativeValues,
-                    filterBy: currentValuesTo,
-                });
-
-                return {
-                    ...item,
-                    data: {
-                        ...data,
-                        prevValueTo,
-                        prevValueSettled: true,
-                    },
-                };
-            }
-
-            return item;
-        });
+        this.#tweenList[this.#currentIndex] =
+            settlePrevValueTo(currentTweelist);
 
         /**
          * Each is item is a group, so we need to loop over each tween in group.
@@ -540,14 +587,6 @@ export default class MobAsyncTimeline {
                     });
                 },
                 addAsync: () => {
-                    /**
-                     * Activate addAsyncFlag
-                     *
-                     * SessionId change each play/playReverse and so on. Make sure that this step run only in current
-                     * session.
-                     */
-                    this.#addAsyncIsActive = true;
-
                     /*
                      * Prevent fire the same last addAsync
                      * Es reverseNext inside it cause an infinite loop
@@ -557,6 +596,10 @@ export default class MobAsyncTimeline {
                         return new Promise((res) => res({ resolve: true }));
                     }
 
+                    /**
+                     * SessionId change each play/playReverse and so on. Make sure that this step run only in current
+                     * session.
+                     */
                     const sessionId = this.#sessionId;
 
                     return new Promise((res, reject) => {
@@ -565,18 +608,29 @@ export default class MobAsyncTimeline {
                             return;
                         }
 
+                        let isSettled = false;
                         const direction = this.getDirection();
 
                         callback({
                             direction,
                             loop: this.#loopCounter,
                             resolve: () => {
-                                if (sessionId === this.#sessionId) {
-                                    res({ resolve: true });
+                                /**
+                                 * User may fire resolve() more than once.
+                                 */
+                                if (isSettled) return;
+                                isSettled = true;
+
+                                /**
+                                 * A play() while this step is waiting for the user resolve() bump the sessionId: the
+                                 * resolve() of the abandoned step must not release the step of the new session.
+                                 */
+                                if (sessionId !== this.#sessionId) {
+                                    reject();
                                     return;
                                 }
 
-                                reject();
+                                res({ resolve: true });
                             },
                         });
                     });
@@ -602,13 +656,23 @@ export default class MobAsyncTimeline {
 
                     /*
                      * Check callback that return a bollean to fire supend
+                     *
+                     * The callback was fired twice ( checkType + sholudSuspend ), plus a third time inside
+                     * timelineSuspendWarning, that interpolates `${val()}`. Fire it once and pass the resolved value
+                     * to the warning.
                      */
-                    const valueIsValid = MobCore.checkType(Boolean, callback());
-                    if (!valueIsValid) timelineSuspendWarning(callback);
-                    const sholudSuspend = valueIsValid ? callback() : true;
+                    const suspendValue = callback();
+                    const valueIsValid = MobCore.checkType(
+                        Boolean,
+                        suspendValue
+                    );
+                    if (!valueIsValid)
+                        timelineSuspendWarning(() => suspendValue);
+                    const shouldSuspend = valueIsValid ? suspendValue : true;
+
                     return new Promise((res) => {
-                        if (!isImmediate && sholudSuspend) {
-                            this.#isInSuspension = true;
+                        if (!isImmediate && shouldSuspend) {
+                            this.#transitionToSuspended();
                         }
                         res({ resolve: true });
                     });
@@ -630,6 +694,7 @@ export default class MobAsyncTimeline {
                         this.#loopOnDelay({
                             start,
                             deltaTimeOnpause: 0,
+                            lastFrameTime: start,
                             delay,
                             mainReject,
                             mainResolve,
@@ -673,156 +738,180 @@ export default class MobAsyncTimeline {
 
         const promiseType = waitComplete ? 'all' : 'race';
 
-        // @ts-ignore
-        Promise[promiseType](tweenPromises)
-            .then(() => {
-                if (this.#isInSuspension || this.#isStopped) return;
+        try {
+            // @ts-ignore
+            await Promise[promiseType](tweenPromises);
+
+            if (
+                this.#isInSuspension ||
+                this.#isStopped ||
+                sessionId !== this.#sessionId
+            )
+                return;
+
+            /**
+             * Current label state
+             */
+            const {
+                active: labelIsActive,
+                index: labelIndex,
+                isReverse: labelIsReverse,
+                callback: callbackLabel,
+            } = this.#useLabel;
+
+            /*
+             * this.#play() / this.#playFromLabel() / this.#playFromReverse() use this condition.
+             *
+             * Walk immediate from 0 to end of Timeline ( this.playReverse() ),
+             * Here we have reach the end, and callback will be fired to reach the right label ( this.#play() use 0 ).
+             *
+             * Is skipped by this.playReverse(): does not set callback
+             * simply reach the and of timeline in immediate mode then go on natuarally ( use this.#forceYoYo = false ).
+             *
+             */
+            if (
+                callbackLabel &&
+                labelIsActive &&
+                // @ts-ignore
+                this.#currentIndex === labelIndex - 1
+            ) {
+                this.#resetUseLabel();
+                this.#loopCounter++;
 
                 /**
-                 * Current label state
+                 * ResetUseLabel() reset reference to function not function itSelf.
                  */
-                const {
-                    active: labelIsActive,
-                    index: labelIndex,
-                    isReverse: labelIsReverse,
-                    callback: callbackLabel,
-                } = this.#useLabel;
+                callbackLabel();
+                return;
+            }
 
+            /*
+             * this.#playFromReverse() only
+             *
+             * 1) Test loop ( previous condition ) o to end of timeline.
+             *
+             * 2) Walk until label ( index - 1 ) is reached
+             *
+             * 3) Reverse next step because is playFromReverse.
+             *
+             * The timeline is reversed next step without increment currentIndex ( the condition end with a return statement )
+             **/
+            if (
+                labelIsActive &&
+                labelIsReverse &&
+                // @ts-ignore
+                this.#currentIndex === labelIndex - 1
+            ) {
+                this.reverseNext();
+            }
+
+            /**
+             * Reverse on next step default
+             */
+            if (this.#isReverseNext) {
+                this.#isReverseNext = false;
+                this.#currentIndex =
+                    this.#tweenList.length - this.#currentIndex - 1;
+                this.#resetUseLabel();
+                this.#revertTween();
+                this.#run();
+                return;
+            }
+
+            /**
+             * Run next step default Update currentIndex
+             */
+            if (this.#currentIndex < this.#tweenList.length - 1) {
+                this.#currentIndex++;
+                this.#run();
+                return;
+            }
+
+            /**
+             * End of timeline, check repeat
+             */
+            if (this.#loopCounter < this.#repeat || this.#repeat === -1) {
                 /*
-                 * this.#play() / this.#playFromLabel() / this.#playFromReverse() use this condition.
-                 *
-                 * Walk immediate from 0 to end of Timeline ( this.playReverse() ),
-                 * Here we have reach the end, and callback will be fired to reach the right label ( this.#play() use 0 ).
-                 *
-                 * Is skipped by this.playReverse(): does not set callback
-                 * simply reach the and of timeline in immediate mode then go on natuarally ( use this.#forceYoYo = false ).
-                 *
+                 * Start timeline in reverse mode here set all tween to end position and go,
+                 * This step is used if we come form playReverse() ( we have labelIsActive = true )
                  */
                 if (
-                    callbackLabel &&
                     labelIsActive &&
-                    // @ts-ignore
-                    this.#currentIndex === labelIndex - 1
+                    labelIndex === this.#tweenList.length &&
+                    !this.#freeMode
                 ) {
-                    this.#resetUseLabel();
-                    this.#loopCounter++;
-
                     /**
-                     * ResetUseLabel() reset reference to function not function itSelf.
+                     * The promise is deliberately not awaited: the current step should be released now, the next loop
+                     * starts once every tween is settled to the end position.
                      */
-                    callbackLabel();
+                    this.#setTweenToEndAndRepeat();
                     return;
                 }
 
                 /*
-                 * this.#playFromReverse() only
-                 *
-                 * 1) Test loop ( previous condition ) o to end of timeline.
-                 *
-                 * 2) Walk until label ( index - 1 ) is reached
-                 *
-                 * 3) Reverse next step because is playFromReverse.
-                 *
-                 * The timeline is reversed next step without increment currentIndex ( the condition end with a return statement )
-                 **/
-                if (
-                    labelIsActive &&
-                    labelIsReverse &&
-                    // @ts-ignore
-                    this.#currentIndex === labelIndex - 1
-                ) {
-                    this.reverseNext();
-                }
-
-                /**
-                 * Reverse on next step default
+                 * Go default
                  */
-                if (this.#isReverseNext) {
-                    this.#isReverseNext = false;
-                    this.#currentIndex =
-                        this.#tweenList.length - this.#currentIndex - 1;
-                    this.#resetUseLabel();
-                    this.#revertTween();
-                    this.#run();
-                    return;
-                }
+                this.#onRepeat();
+                return;
+            }
 
-                /**
-                 * Run next step default Update currentIndex
-                 */
-                if (this.#currentIndex < this.#tweenList.length - 1) {
-                    this.#currentIndex++;
-                    this.#run();
-                    return;
-                }
+            /**
+             * All ended Fire and of timeline
+             */
+            this.#onTimelineEnd();
+        } catch (error) {
+            if (error) console.log(error);
+        }
+    }
 
-                /**
-                 * End of timeline, check repeat
-                 */
-                if (this.#loopCounter < this.#repeat || this.#repeat === -1) {
-                    /*
-                     * Start timeline in reverse mode here set all tween to end position and go,
-                     * This step is used if we come form playReverse() ( we have labelIsActive = true )
-                     */
-                    if (
-                        labelIsActive &&
-                        labelIndex === this.#tweenList.length &&
-                        !this.#freeMode
-                    ) {
-                        const tweenPromise = this.#tweenStore.map(
-                            ({ tween }) => {
-                                const data = reduceTweenUntilIndex({
-                                    timeline: this.#tweenList,
-                                    tween,
-                                    index: this.#tweenList.length,
-                                });
+    /**
+     * End of timeline: fire the onComplete callback, stop the timeline and resolve the promise of play().
+     *
+     * Extracted from #run() so `resume()` can reuse it ( see point 8 of the audit: a suspend on the last step restart
+     * the timeline without checking `repeat` ).
+     *
+     * @type {() => void}
+     */
+    #onTimelineEnd() {
+        for (const { cb } of this.#callbackComplete) cb();
+        this.#isStopped = true;
 
-                                return new Promise((resolve, reject) => {
-                                    tween
-                                        .set(data)
-                                        .then(() => resolve({ resolve: true }))
-                                        .catch(() => reject());
-                                });
-                            }
-                        );
-                        Promise.all(tweenPromise)
-                            .then(() => {
-                                this.#onRepeat();
-                            })
-                            .catch(() => {});
-                        return;
-                    }
+        if (!this.#currentResolve) return;
 
-                    /*
-                     * Go default
-                     */
-                    this.#onRepeat();
-                    return;
-                }
-
-                /**
-                 * All ended Fire and of timeline
-                 */
-                for (const { cb } of this.#callbackComplete) cb();
-                this.#isStopped = true;
-
-                if (this.#currentResolve) {
-                    handleNextFrame.add(() => {
-                        handleNextTick.add(() => {
-                            this.#currentResolve?.({ resolve: true });
-                        });
-                    });
-                }
-            })
-            .catch((/** @type {any} */ error) => {
-                if (error) console.log(error);
-            })
-            .finally(() => {
-                /**
-                 * Primise was completed AddAsync is resolved
-                 */
-                this.#addAsyncIsActive = false;
+        handleNextFrame.add(() => {
+            handleNextTick.add(() => {
+                this.#currentResolve?.({ resolve: true });
             });
+        });
+    }
+
+    /**
+     * Set every tween to the end position, then start a new loop.
+     *
+     * Used when timeline run in reverse mode ( playReverse ): every tween should be settled at the end of timeline
+     * before repeat.
+     *
+     * @type {() => Promise<void>}
+     */
+    async #setTweenToEndAndRepeat() {
+        const tweenPromises = this.#tweenStore.map(({ tween }) => {
+            const data = reduceTweenUntilIndex({
+                timeline: this.#tweenList,
+                tween,
+                index: this.#tweenList.length,
+            });
+
+            return tween.set(data);
+        });
+
+        try {
+            await Promise.all(tweenPromises);
+            this.#onRepeat();
+        } catch {
+            /**
+             * Tween was stopped, timeline should not repeat.
+             */
+        }
     }
 
     /**
@@ -831,6 +920,7 @@ export default class MobAsyncTimeline {
      * @param {Object} param0
      * @param {number} param0.start
      * @param {number} param0.deltaTimeOnpause
+     * @param {number} param0.lastFrameTime
      * @param {number} param0.delay
      * @param {(value: any) => void} param0.mainReject
      * @param {(value: any) => void} param0.mainResolve
@@ -842,6 +932,7 @@ export default class MobAsyncTimeline {
     #loopOnDelay({
         start,
         deltaTimeOnpause,
+        lastFrameTime,
         delay,
         mainReject,
         mainResolve,
@@ -858,9 +949,13 @@ export default class MobAsyncTimeline {
         const delta = current - start;
 
         /*
-         * Time elapsed from pause() start.
+         * Time elapsed in pause.
+         *
+         * Was `deltaTimeOnpause = current - this.#timeOnPause`, so every new pause overwrote the value and the
+         * time of the previous pauses was lost ( delay fired in advance ). Now every frame spent in pause is added to
+         * the total.
          */
-        if (this.#isInPause) deltaTimeOnpause = current - this.#timeOnPause;
+        if (this.#isInPause) deltaTimeOnpause += current - lastFrameTime;
 
         /**
          * RESOLVE DELAY:
@@ -907,6 +1002,7 @@ export default class MobAsyncTimeline {
             this.#loopOnDelay({
                 start,
                 deltaTimeOnpause,
+                lastFrameTime: current,
                 delay,
                 mainReject,
                 mainResolve,
@@ -974,6 +1070,29 @@ export default class MobAsyncTimeline {
      * @type {() => void}
      */
     #revertTween() {
+        /**
+         * A 'goFrom' can't be reverted ( without forceFromTo ).
+         *
+         * Was detected inside the map, firing this.stop() in the middle of the transformation: stop() calls
+         * #revertTween() again ( #isReverse is already toggled ) and the timeline ended with #tweenList reverted but
+         * #isReverse === false. Every normalization is guarded by `if (this.#isReverse)`, so nothing restored it and
+         * the next play() run the timeline backward.
+         *
+         * Now the check run before the map: warn, stop, and leave the state untouched.
+         *
+         * NOTE: action 'goFrom' is stored only when #forceFromTo is false ( otherwise a 'goFromTo' is stored ), so a
+         * timeline with a 'goFrom' can never reach the reverse state: no recursion from stop().
+         */
+        const hasGoFrom = this.#tweenList.some((group) => {
+            return group.some(({ data }) => data.action === 'goFrom');
+        });
+
+        if (hasGoFrom) {
+            timelineReverseGoFromWarning();
+            this.stop();
+            return;
+        }
+
         this.#isReverse = !this.#isReverse;
         this.#tweenList = this.#tweenList.toReversed().map((group) => {
             return group.toReversed().map((item) => {
@@ -995,25 +1114,6 @@ export default class MobAsyncTimeline {
                     }
 
                     case 'goFromTo': {
-                        return {
-                            ...item,
-                            data: {
-                                ...data,
-                                valuesFrom: valuesTo,
-                                valuesTo: valuesFrom,
-                            },
-                        };
-                    }
-
-                    case 'goFrom': {
-                        if (!this.#forceFromTo) {
-                            timelineReverseGoFromWarning();
-                            this.stop();
-                        }
-
-                        /**
-                         * With enable forceFromTo is the same of goFromTo
-                         */
                         return {
                             ...item,
                             data: {
@@ -1202,10 +1302,14 @@ export default class MobAsyncTimeline {
                 reject,
                 callback: () => {
                     /**
-                     * Skip of there is nothing to run
+                     * Skip of there is nothing to run.
+                     *
+                     * Reject instead of leaving the promise pending forever.
                      */
-                    if (this.#tweenList.length === 0 || this.#addAsyncIsActive)
+                    if (this.#tweenList.length === 0) {
+                        reject(MobCore.ANIMATION_STOP_REJECT);
                         return;
+                    }
 
                     /**
                      * Normalize reverse status.
@@ -1218,28 +1322,42 @@ export default class MobAsyncTimeline {
                     this.#currentIndex = 0;
 
                     /**
+                     * Get the index of the label.
+                     */
+                    const labelIndex = MobCore.checkType(String, label)
+                        ? this.#tweenList.findIndex((item) => {
+                              const [firstItem] = item;
+                              const labelCheck =
+                                  firstItem.data.labelProps?.name;
+                              return labelCheck === label;
+                          })
+                        : label;
+
+                    /**
+                     * Check if label index is valid.
+                     *
+                     * PlayLabelIsValid() only warn, then the timeline used to run from the start ( and
+                     * playFromReverse() run forward, the opposite of the request ). Now the promise is rejected.
+                     */
+                    if (MobCore.checkType(String, label)) {
+                        playLabelIsValid(labelIndex, label);
+
+                        if (labelIndex === -1) {
+                            reject(MobCore.ANIMATION_STOP_REJECT);
+                            return;
+                        }
+                    }
+
+                    /**
                      * Define condition to go to right timeline index after first test loop. When playReverse loop is
                      * ended, this.#useLabel is reassigned here, this time no callback is needed.
                      */
                     this.#useLabel = {
                         isReverse,
                         active: true,
-                        index: MobCore.checkType(String, label)
-                            ? this.#tweenList.findIndex((item) => {
-                                  const [firstItem] = item;
-                                  const labelCheck =
-                                      firstItem.data.labelProps?.name;
-                                  return labelCheck === label;
-                              })
-                            : label,
+                        index: labelIndex,
                         callback: undefined,
                     };
-
-                    /**
-                     * Check if label index is valid
-                     */
-                    if (MobCore.checkType(String, label))
-                        playLabelIsValid(this.#useLabel.index, label);
 
                     this.#run();
                 },
@@ -1339,8 +1457,7 @@ export default class MobAsyncTimeline {
         /**
          * Get previousValues until this step and merge with user data
          */
-        const previousValues =
-            this.#inheritProps || this.#forceFromTo ? inheritProps : {};
+        const previousValues = this.#inheritProps ? inheritProps : {};
 
         this.#currentTweenCounter++;
 
@@ -1388,8 +1505,7 @@ export default class MobAsyncTimeline {
         /**
          * Get previousValues until this step and merge with user data
          */
-        const previousValues =
-            this.#inheritProps || this.#forceFromTo ? inheritProps : {};
+        const previousValues = this.#inheritProps ? inheritProps : {};
 
         this.#currentTweenCounter++;
 
@@ -1613,16 +1729,14 @@ export default class MobAsyncTimeline {
      *
      * @type {import('./type.js').AsyncTimelineSetTween}
      */
-    setTween(label = '', items = []) {
+    async setTween(label = '', items = []) {
         this.stop();
 
         const itemsIsArray = timelineSetTweenArrayIsValid(items);
         const labelIsString = timelineSetTweenLabelIsValid(label);
 
         if (!itemsIsArray || !labelIsString)
-            return Promise.reject(
-                new Error('timeline setTween: props is wrong')
-            );
+            throw new Error('timeline setTween: props is wrong');
 
         /*
          * Filter user tween from frameStore
@@ -1643,37 +1757,30 @@ export default class MobAsyncTimeline {
 
         if (index === -1) {
             timelineSetTweenLabelNotFoundWarining(label);
-            return Promise.reject(
-                new Error(`asyncTimeline.setTween() label: ${label} not found`)
+            throw new Error(
+                `asyncTimeline.setTween() label: ${label} not found`
             );
         }
 
         /*
          * Fire set method of selected tween and resolve promise
          */
-        return new Promise((resolve) => {
-            const tweenPromise = tweens.map(({ tween }) => {
-                const data = reduceTweenUntilIndex({
-                    timeline: this.#tweenList,
-                    tween,
-                    index,
-                });
-
-                return new Promise((resolveTween, rejectTween) => {
-                    tween
-                        .set(data)
-                        .then(() => resolveTween({ resolve: true }))
-                        .catch(() => rejectTween());
-                });
+        const tweenPromises = tweens.map(({ tween }) => {
+            const data = reduceTweenUntilIndex({
+                timeline: this.#tweenList,
+                tween,
+                index,
             });
-            Promise.all(tweenPromise)
-                .then(() => {
-                    resolve({ resolve: true });
-                })
-                .catch(() => {
-                    timelineSetTweenFailWarining();
-                });
+
+            return tween.set(data);
         });
+
+        try {
+            await Promise.all(tweenPromises);
+            return { resolve: true };
+        } catch {
+            timelineSetTweenFailWarining();
+        }
     }
 
     /**
@@ -1699,6 +1806,19 @@ export default class MobAsyncTimeline {
      * @type {() => Promise<any>}
      */
     async play() {
+        /**
+         * Stop before the await.
+         *
+         * Stop() and `#isStopped = false` used to run in the same synchronous block, so the #run() chain of a previous
+         * play() ( suspended on the Promise.race/all of its step ) never observed `#isStopped === true`: when the
+         * stopped tween settled its promise the old chain woke up, found the timeline running again and kept walking
+         * the timeline beside the new one. The await below give the old chain the chance to see the stopped state and
+         * return.
+         *
+         * Without this a play() on a running timeline needed an explicit stop() from outside.
+         */
+        this.stop();
+
         await this.#waitFps();
 
         return new Promise((resolve, reject) => {
@@ -1714,22 +1834,23 @@ export default class MobAsyncTimeline {
             if (this.#freeMode) {
                 /*
                  * In freeMode every tween start form current value in use at the moment
+                 *
+                 * Reject instead of leaving the promise pending forever.
                  */
-                if (this.#tweenList.length === 0 || this.#addAsyncIsActive)
+                if (this.#tweenList.length === 0) {
+                    reject(MobCore.ANIMATION_STOP_REJECT);
                     return;
+                }
 
-                this.stop();
-                this.#isStopped = false;
+                /**
+                 * Timeline is already stopped at the top of the method. Start new playing session.
+                 */
+                this.#transitionToPlaying();
 
                 /**
                  * Normalize this.#isReverse status.
                  */
                 if (this.#isReverse) this.#revertTween();
-
-                /**
-                 * Update session id.
-                 */
-                this.#sessionId++;
 
                 /*
                  * Run one frame after stop to avoid overlap with promise resolve/reject
@@ -1753,7 +1874,7 @@ export default class MobAsyncTimeline {
              */
             this.playReverse({
                 forceYoYo: false,
-                callback: () => {
+                callback: async () => {
                     /**
                      * Need to reset current data after reverse() of tween so use stop() this.#currentIndex is updated
                      * in this.stop() function
@@ -1765,24 +1886,24 @@ export default class MobAsyncTimeline {
                      * When start form play in default mode ( no freeMode )
                      * an automatic set method is Executed with initial data
                      */
-                    const tweenPromise = this.#tweenStore.map(({ tween }) => {
+                    const tweenPromises = this.#tweenStore.map(({ tween }) => {
                         const data = tween.getInitialData();
 
-                        return new Promise((resolve, reject) => {
-                            tween
-                                .set(data)
-                                .then(() => resolve({ resolve: true }))
-                                .catch(() => reject());
-                        });
+                        return tween.set(data);
                     });
-                    Promise.all(tweenPromise)
-                        .then(() => {
-                            // Set current promise action after stop so is not fired in stop method
-                            this.#currentReject = reject;
-                            this.#currentResolve = resolve;
-                            this.#run();
-                        })
-                        .catch(() => {});
+
+                    try {
+                        await Promise.all(tweenPromises);
+
+                        // Set current promise action after stop so is not fired in stop method
+                        this.#currentReject = reject;
+                        this.#currentResolve = resolve;
+                        this.#run();
+                    } catch {
+                        /**
+                         * Tween was stopped, timeline should not start.
+                         */
+                    }
                 },
             });
         });
@@ -1806,6 +1927,14 @@ export default class MobAsyncTimeline {
         resolve = null,
         reject = null,
     } = {}) {
+        /**
+         * Stop before the await, same reason of play(): give the #run() chain of a previous play a chance to observe
+         * `#isStopped === true` and return, instead of walking the timeline beside the new one.
+         *
+         * PlayFrom() / playFromReverse() delegate here, so they inherit the same behavior.
+         */
+        this.stop();
+
         await this.#waitFps();
 
         return new Promise((thisResolve, thisReject) => {
@@ -1816,15 +1945,20 @@ export default class MobAsyncTimeline {
             if (this.#autoSet) this.#addSetBlocks();
 
             /**
-             * Skip of there is nothing to run
+             * Skip of there is nothing to run.
+             *
+             * Reject instead of leaving the promise pending forever. currentReject is the reject of the caller (
+             * playFrom / playFromReverse ) when they delegate to playReverse.
              */
-            if (this.#tweenList.length === 0 || this.#addAsyncIsActive) return;
+            if (this.#tweenList.length === 0) {
+                currentReject(MobCore.ANIMATION_STOP_REJECT);
+                return;
+            }
 
             /**
-             * Rest necessary props
+             * Timeline is already stopped at the top of the method. Start new playing session.
              */
-            this.stop();
-            this.#isStopped = false;
+            this.#transitionToPlaying();
 
             /*
              * Default playReverse()
@@ -1856,7 +1990,6 @@ export default class MobAsyncTimeline {
              * When play reverse first loop is virtual So decrement the loop number by 1
              */
             this.#loopCounter--;
-            this.#sessionId++;
 
             /*
              * Run one frame after stop to avoid overlap with promise resolve/reject
@@ -1881,19 +2014,8 @@ export default class MobAsyncTimeline {
      * @type {import('./type.js').AsyncTimelineStop}
      */
     stop({ clearCache = true } = {}) {
-        this.#isStopped = true;
-        this.#currentIndex = 0;
-        this.#loopCounter = 1;
+        this.#transitionToStopped();
         this.#rejectPromise();
-
-        // Reset state
-        this.#isReverseNext = false;
-        this.#resetUseLabel();
-        this.#forceYoyo = false;
-        this.#isInPause = false;
-        this.#isInSuspension = false;
-        this.#addAsyncIsActive = false;
-        this.#timeOnPause = 0;
 
         // Stop all Tween
         for (const { tween } of this.#tweenStore) {
@@ -1918,8 +2040,7 @@ export default class MobAsyncTimeline {
     pause() {
         if (this.#isInPause) return;
 
-        this.#isInPause = true;
-        this.#timeOnPause = MobCore.getTime();
+        this.#transitionToPaused();
         this.#pauseAllTween();
     }
 
@@ -1927,17 +2048,18 @@ export default class MobAsyncTimeline {
      * @type {import('./type.js').AsyncTimelineResume}
      */
     resume() {
-        if (this.#isInPause) {
-            this.#isInPause = false;
-            this.#timeOnPause = 0;
+        const wasPaused = this.#isInPause;
+        const wasSuspended = this.#isInSuspension;
 
+        if (wasPaused || wasSuspended) {
+            this.#transitionToResumed();
+        }
+
+        if (wasPaused) {
             this.#resumeAllTween();
         }
 
-        if (this.#isInSuspension) {
-            this.#isInSuspension = false;
-            this.#timeOnPause = 0;
-
+        if (wasSuspended) {
             if (this.#currentIndex <= this.#tweenList.length - 2) {
                 this.#currentIndex++;
                 this.#run();
@@ -2050,9 +2172,13 @@ export default class MobAsyncTimeline {
      * @type {import('./type.js').AsyncTimelineOnLoopEnd}
      */
     onLoopEnd(cb) {
-        this.#callbackLoop.push({ cb, id: this.#id });
-        const cbId = this.#id;
-        // this.callbackId++;
+        /**
+         * #callbackId was never incremented here, so every callback was stored with the same id and the unsubscribe of
+         * one removed all of them. Same pattern of MobSyncTimeline.
+         */
+        this.#callbackLoop.push({ cb, id: this.#callbackId });
+        const cbId = this.#callbackId;
+        this.#callbackId++;
 
         return () => {
             this.#callbackLoop = this.#callbackLoop.filter(
@@ -2065,9 +2191,9 @@ export default class MobAsyncTimeline {
      * @type {import('./type.js').AsyncTimelineOnComplete}
      */
     onComplete(cb) {
-        this.#callbackComplete.push({ cb, id: this.#id });
-        const cbId = this.#id;
-        this.#id++;
+        this.#callbackComplete.push({ cb, id: this.#callbackId });
+        const cbId = this.#callbackId;
+        this.#callbackId++;
 
         return () => {
             this.#callbackComplete = this.#callbackComplete.filter(
@@ -2080,6 +2206,16 @@ export default class MobAsyncTimeline {
      * Destroy timeline and all the sequencer
      */
     destroy() {
+        /**
+         * Stop the timeline first.
+         *
+         * Without stop() the timeline stayed 'active' ( #isStopped false ): the promise of play() was never settled, a
+         * running #loopOnDelay kept looping in rAF and, at the end of the delay, fired the tween action on a destroyed
+         * tween ( zombie rAF ). Every other class of the library ( MobSyncTimeline, MobTween, MobSpring, MobLerp ) call
+         * stop() in destroy().
+         */
+        this.stop();
+
         for (const { tween } of this.#tweenStore) {
             tween?.destroy?.();
         }
