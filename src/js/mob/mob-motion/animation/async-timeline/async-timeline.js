@@ -163,9 +163,9 @@ export default class MobAsyncTimeline {
     #autoSetIsJustCreated;
 
     /**
-     * @type {import('./type.js').AsyncTimelineCurrentAction[]}
+     * @type {boolean}
      */
-    #currentAction;
+    #noopSentinelsAdded;
 
     /**
      * @type {boolean}
@@ -320,7 +320,7 @@ export default class MobAsyncTimeline {
         this.#sessionId = 0;
         this.#activetweenCounter = 0;
         this.#autoSetIsJustCreated = false;
-        this.#currentAction = [];
+        this.#noopSentinelsAdded = false;
         this.#fpsIsInLoading = false;
         this.#callbackId = 0;
         this.#callbackLoop = [];
@@ -424,8 +424,6 @@ export default class MobAsyncTimeline {
          * Store previous action to prevent two add/addAsync consegutive
          */
         const currentTweelist = this.#tweenList[this.#currentIndex];
-        const lastAction = this.#currentAction;
-        this.#currentAction = [];
 
         /**
          * Prevent possible error when destroy instance.
@@ -454,7 +452,6 @@ export default class MobAsyncTimeline {
                 valuesFrom,
                 valuesTo,
                 tweenProps,
-                id,
             } = data;
 
             /**
@@ -496,21 +493,6 @@ export default class MobAsyncTimeline {
                 tweenProps.relative = false;
                 relativePropInsideTimelineWarning();
             }
-
-            /*
-             * Update current action.
-             * Use this to check if we execute the same cicly two time consegutive.
-             */
-            this.#currentAction.push({ id, action });
-
-            /*
-             * Check if the previous block is running again
-             */
-            const prevActionIsCurrent = lastAction.find(
-                ({ id: prevId, action: prevAction }) => {
-                    return prevId === id && prevAction === action;
-                }
-            );
 
             /**
              * Current action data. Than we match key in object.
@@ -563,14 +545,6 @@ export default class MobAsyncTimeline {
                     );
                 },
                 add: () => {
-                    /*
-                     * Prevent fire the same last add
-                     * Es reverseNext inside it cause an infinite loop
-                     */
-                    if (prevActionIsCurrent) {
-                        return new Promise((res) => res({ resolve: true }));
-                    }
-
                     return new Promise((res) => {
                         if (isImmediate) {
                             res({ resolve: true });
@@ -587,15 +561,6 @@ export default class MobAsyncTimeline {
                     });
                 },
                 addAsync: () => {
-                    /*
-                     * Prevent fire the same last addAsync
-                     * Es reverseNext inside it cause an infinite loop
-                     * prevActionIsCurrent check if the same block run twice consegutive.
-                     */
-                    if (prevActionIsCurrent) {
-                        return new Promise((res) => res({ resolve: true }));
-                    }
-
                     /**
                      * SessionId change each play/playReverse and so on. Make sure that this step run only in current
                      * session.
@@ -645,15 +610,6 @@ export default class MobAsyncTimeline {
                     return new Promise((res) => res({ resolve: true }));
                 },
                 suspend: () => {
-                    /*
-                     * Prevent fire the same last add
-                     * Es reverseNext inside it cause an infinite loop
-                     * prevActionIsCurrent check if the same block run twice consegutive.
-                     */
-                    if (prevActionIsCurrent) {
-                        return new Promise((res) => res({ resolve: true }));
-                    }
-
                     /*
                      * Check callback that return a bollean to fire supend
                      *
@@ -1248,6 +1204,39 @@ export default class MobAsyncTimeline {
     }
 
     /**
+     * Aggiunge sentinelle NOOP all'inizio e alla fine della timeline.
+     *
+     * - Chiamato dopo #addSetBlocks() e prima di #run().
+     * - Seplifica il resume della timeline quando abbiamo un suspend/add alla fine
+     * - Wrappiamo la timeline in una NOOP per non doverci preoccupare del primo/ultimo frame
+     * - Se saltiamo il primo/ultimo frame non ci saranno effeti collaterali.
+     *
+     * @type {() => void}
+     */
+    #addNoopSentinels() {
+        if (this.#noopSentinelsAdded) return;
+        this.#noopSentinelsAdded = true;
+
+        const createNoop = () => ({
+            ...this.#defaultObj,
+            id: this.#currentTweenCounter++,
+            callback: () => {},
+            action: 'add',
+            groupProps: { waitComplete: this.#waitComplete },
+        });
+
+        /**
+         * Sentinella iniziale (indice 0)
+         */
+        this.#tweenList.unshift([{ group: undefined, data: createNoop() }]);
+
+        /**
+         * Sentinella finale (indice length - 1)
+         */
+        this.#tweenList.push([{ group: undefined, data: createNoop() }]);
+    }
+
+    /**
      * Reject promise without error in console ( Firefix do not ).
      */
     #rejectPromise() {
@@ -1818,7 +1807,6 @@ export default class MobAsyncTimeline {
          * Without this a play() on a running timeline needed an explicit stop() from outside.
          */
         this.stop();
-
         await this.#waitFps();
 
         return new Promise((resolve, reject) => {
@@ -1826,6 +1814,7 @@ export default class MobAsyncTimeline {
              * Add Tween at start/end if needed
              */
             if (this.#autoSet) this.#addSetBlocks();
+            this.#addNoopSentinels();
 
             /**
              * RUN free mode and exit method. In free mode stop current loop. than play normally without set tween to
@@ -1880,7 +1869,7 @@ export default class MobAsyncTimeline {
                      * in this.stop() function
                      */
                     this.stop();
-                    this.#isStopped = false;
+                    this.#transitionToPlaying();
 
                     /*
                      * When start form play in default mode ( no freeMode )
@@ -1943,6 +1932,7 @@ export default class MobAsyncTimeline {
             const forceYoYoNow = forceYoYo;
 
             if (this.#autoSet) this.#addSetBlocks();
+            this.#addNoopSentinels();
 
             /**
              * Skip of there is nothing to run.
@@ -2022,6 +2012,11 @@ export default class MobAsyncTimeline {
             tween?.stop?.({ clearCache });
         }
 
+        /**
+         * Force reset current tween.
+         */
+        this.#currentTween = [];
+
         // If reverse back to default direction
         if (this.#isReverse) this.#revertTween();
         this.#isReverse = false;
@@ -2060,22 +2055,11 @@ export default class MobAsyncTimeline {
         }
 
         if (wasSuspended) {
-            if (this.#currentIndex <= this.#tweenList.length - 2) {
+            if (this.#currentIndex < this.#tweenList.length - 1) {
                 this.#currentIndex++;
-                this.#run();
-                return;
             }
 
-            if (this.#currentIndex === this.#tweenList.length - 1) {
-                /**
-                 * At the end suspend become item in pipe first ro skip it
-                 */
-                this.#currentIndex = this.#yoyo && !this.#isReverse ? 1 : 0;
-                this.#resetUseLabel();
-                if (this.#yoyo) this.#revertTween();
-                this.#loopCounter++;
-                this.#run();
-            }
+            this.#run();
         }
     }
 
@@ -2225,6 +2209,11 @@ export default class MobAsyncTimeline {
         this.#callbackLoop = [];
         this.#tweenStore = [];
         this.#currentIndex = 0;
+
+        /**
+         * Invalidano la sessione corrente.
+         */
+        this.#sessionId++;
         this.#useLabel = {
             active: false,
             callback: undefined,

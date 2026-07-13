@@ -18020,9 +18020,9 @@
      */
     #autoSetIsJustCreated;
     /**
-     * @type {import('./type.js').AsyncTimelineCurrentAction[]}
+     * @type {boolean}
      */
-    #currentAction;
+    #noopSentinelsAdded;
     /**
      * @type {boolean}
      */
@@ -18162,7 +18162,7 @@
       this.#sessionId = 0;
       this.#activetweenCounter = 0;
       this.#autoSetIsJustCreated = false;
-      this.#currentAction = [];
+      this.#noopSentinelsAdded = false;
       this.#fpsIsInLoading = false;
       this.#callbackId = 0;
       this.#callbackLoop = [];
@@ -18247,8 +18247,6 @@
     async #run() {
       const sessionId = this.#sessionId;
       const currentTweelist = this.#tweenList[this.#currentIndex];
-      const lastAction = this.#currentAction;
-      this.#currentAction = [];
       if (!currentTweelist) return;
       this.#tweenList[this.#currentIndex] = settlePrevValueTo(currentTweelist);
       const tweenPromises = currentTweelist.map((item) => {
@@ -18259,8 +18257,7 @@
           action: action2,
           valuesFrom,
           valuesTo,
-          tweenProps,
-          id
+          tweenProps
         } = data;
         const newTweenProps = { ...tweenProps };
         delete newTweenProps.delay;
@@ -18272,12 +18269,6 @@
           tweenProps.relative = false;
           relativePropInsideTimelineWarning();
         }
-        this.#currentAction.push({ id, action: action2 });
-        const prevActionIsCurrent = lastAction.find(
-          ({ id: prevId, action: prevAction }) => {
-            return prevId === id && prevAction === action2;
-          }
-        );
         const stepFunction = {
           set: () => {
             if (!this.#isInPause) tween2?.clearCurretPromise?.();
@@ -18321,9 +18312,6 @@
             );
           },
           add: () => {
-            if (prevActionIsCurrent) {
-              return new Promise((res) => res({ resolve: true }));
-            }
             return new Promise((res) => {
               if (isImmediate) {
                 res({ resolve: true });
@@ -18338,9 +18326,6 @@
             });
           },
           addAsync: () => {
-            if (prevActionIsCurrent) {
-              return new Promise((res) => res({ resolve: true }));
-            }
             const sessionId2 = this.#sessionId;
             return new Promise((res, reject) => {
               if (isImmediate) {
@@ -18374,9 +18359,6 @@
             return new Promise((res) => res({ resolve: true }));
           },
           suspend: () => {
-            if (prevActionIsCurrent) {
-              return new Promise((res) => res({ resolve: true }));
-            }
             const suspendValue = callback2();
             const valueIsValid = modules_exports.checkType(
               Boolean,
@@ -18759,6 +18741,30 @@
           }
         ]);
       }
+    }
+    /**
+     * Aggiunge sentinelle NOOP all'inizio e alla fine della timeline.
+     *
+     * - Chiamato dopo #addSetBlocks() e prima di #run().
+     * - Seplifica il resume della timeline quando abbiamo un suspend/add alla fine
+     * - Wrappiamo la timeline in una NOOP per non doverci preoccupare del primo/ultimo frame
+     * - Se saltiamo il primo/ultimo frame non ci saranno effeti collaterali.
+     *
+     * @type {() => void}
+     */
+    #addNoopSentinels() {
+      if (this.#noopSentinelsAdded) return;
+      this.#noopSentinelsAdded = true;
+      const createNoop = () => ({
+        ...this.#defaultObj,
+        id: this.#currentTweenCounter++,
+        callback: () => {
+        },
+        action: "add",
+        groupProps: { waitComplete: this.#waitComplete }
+      });
+      this.#tweenList.unshift([{ group: void 0, data: createNoop() }]);
+      this.#tweenList.push([{ group: void 0, data: createNoop() }]);
     }
     /**
      * Reject promise without error in console ( Firefix do not ).
@@ -19167,6 +19173,7 @@
       await this.#waitFps();
       return new Promise((resolve, reject) => {
         if (this.#autoSet) this.#addSetBlocks();
+        this.#addNoopSentinels();
         if (this.#freeMode) {
           if (this.#tweenList.length === 0) {
             reject(modules_exports.ANIMATION_STOP_REJECT);
@@ -19185,7 +19192,7 @@
           forceYoYo: false,
           callback: async () => {
             this.stop();
-            this.#isStopped = false;
+            this.#transitionToPlaying();
             const tweenPromises = this.#tweenStore.map(({ tween: tween2 }) => {
               const data = tween2.getInitialData();
               return tween2.set(data);
@@ -19226,6 +19233,7 @@
         const currentReject = reject ?? thisReject;
         const forceYoYoNow = forceYoYo;
         if (this.#autoSet) this.#addSetBlocks();
+        this.#addNoopSentinels();
         if (this.#tweenList.length === 0) {
           currentReject(modules_exports.ANIMATION_STOP_REJECT);
           return;
@@ -19261,6 +19269,7 @@
       for (const { tween: tween2 } of this.#tweenStore) {
         tween2?.stop?.({ clearCache });
       }
+      this.#currentTween = [];
       if (this.#isReverse) this.#revertTween();
       this.#isReverse = false;
       if (!this.#freeMode) this.#resetAllTween();
@@ -19286,18 +19295,10 @@
         this.#resumeAllTween();
       }
       if (wasSuspended) {
-        if (this.#currentIndex <= this.#tweenList.length - 2) {
+        if (this.#currentIndex < this.#tweenList.length - 1) {
           this.#currentIndex++;
-          this.#run();
-          return;
         }
-        if (this.#currentIndex === this.#tweenList.length - 1) {
-          this.#currentIndex = this.#yoyo && !this.#isReverse ? 1 : 0;
-          this.#resetUseLabel();
-          if (this.#yoyo) this.#revertTween();
-          this.#loopCounter++;
-          this.#run();
-        }
+        this.#run();
       }
     }
     /**
@@ -19418,6 +19419,7 @@
       this.#callbackLoop = [];
       this.#tweenStore = [];
       this.#currentIndex = 0;
+      this.#sessionId++;
       this.#useLabel = {
         active: false,
         callback: void 0,
