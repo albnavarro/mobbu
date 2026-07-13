@@ -1806,8 +1806,8 @@ export default class MobAsyncTimeline {
          *
          * Without this a play() on a running timeline needed an explicit stop() from outside.
          */
-        this.stop();
         await this.#waitFps();
+        this.stop();
 
         return new Promise((resolve, reject) => {
             /**
@@ -2043,6 +2043,8 @@ export default class MobAsyncTimeline {
      * @type {import('./type.js').AsyncTimelineResume}
      */
     resume() {
+        if (!this.#isInPause && !this.#isInSuspension) return;
+
         const wasPaused = this.#isInPause;
         const wasSuspended = this.#isInSuspension;
 

@@ -19169,8 +19169,8 @@
      * @type {() => Promise<any>}
      */
     async play() {
-      this.stop();
       await this.#waitFps();
+      this.stop();
       return new Promise((resolve, reject) => {
         if (this.#autoSet) this.#addSetBlocks();
         this.#addNoopSentinels();
@@ -19286,6 +19286,7 @@
      * @type {import('./type.js').AsyncTimelineResume}
      */
     resume() {
+      if (!this.#isInPause && !this.#isInSuspension) return;
       const wasPaused = this.#isInPause;
       const wasSuspended = this.#isInSuspension;
       if (wasPaused || wasSuspended) {
