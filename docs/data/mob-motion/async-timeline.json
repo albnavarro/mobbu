@@ -547,7 +547,7 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Pauses timeline execution. Use <span class='quote'>resume()</span> to continue. Suspension occurs only after completing the current animation."
+                        "content": "Pauses timeline execution. Use <span class='quote'>resume()</span> to continue. Suspension occurs only after completing the current animation.<br/>Suspend requires a callback that returns a <span class='quote'>boolean value</span>. This allows you to control when the suspend function should be triggered."
                     },
                     {
                         "component": "mob-snippet",
