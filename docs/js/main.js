@@ -18466,14 +18466,11 @@
     /**
      * End of timeline: fire the onComplete callback, stop the timeline and resolve the promise of play().
      *
-     * Extracted from #run() so `resume()` can reuse it ( see point 8 of the audit: a suspend on the last step restart
-     * the timeline without checking `repeat` ).
-     *
      * @type {() => void}
      */
     #onTimelineEnd() {
       for (const { cb } of this.#callbackComplete) cb();
-      this.#isStopped = true;
+      this.#transitionToStopped();
       if (!this.#currentResolve) return;
       handleNextFrame.add(() => {
         handleNextTick.add(() => {
@@ -19172,13 +19169,13 @@
       await this.#waitFps();
       this.stop();
       return new Promise((resolve, reject) => {
+        if (this.#tweenList.length === 0) {
+          reject(modules_exports.ANIMATION_STOP_REJECT);
+          return;
+        }
         if (this.#autoSet) this.#addSetBlocks();
         this.#addNoopSentinels();
         if (this.#freeMode) {
-          if (this.#tweenList.length === 0) {
-            reject(modules_exports.ANIMATION_STOP_REJECT);
-            return;
-          }
           this.#transitionToPlaying();
           if (this.#isReverse) this.#revertTween();
           modules_exports.useFrameIndex(() => {
@@ -19231,13 +19228,13 @@
       return new Promise((thisResolve, thisReject) => {
         const currentResolve = resolve ?? thisResolve;
         const currentReject = reject ?? thisReject;
-        const forceYoYoNow = forceYoYo;
-        if (this.#autoSet) this.#addSetBlocks();
-        this.#addNoopSentinels();
         if (this.#tweenList.length === 0) {
           currentReject(modules_exports.ANIMATION_STOP_REJECT);
           return;
         }
+        const forceYoYoNow = forceYoYo;
+        if (this.#autoSet) this.#addSetBlocks();
+        this.#addNoopSentinels();
         this.#transitionToPlaying();
         if (forceYoYoNow) this.#forceYoyo = true;
         this.#useLabel = {
@@ -19278,7 +19275,7 @@
      * @type {import('./type.js').AsyncTimelinePause}
      */
     pause() {
-      if (this.#isInPause) return;
+      if (this.#isInPause || this.#isStopped) return;
       this.#transitionToPaused();
       this.#pauseAllTween();
     }
@@ -19286,7 +19283,8 @@
      * @type {import('./type.js').AsyncTimelineResume}
      */
     resume() {
-      if (!this.#isInPause && !this.#isInSuspension) return;
+      if (!this.#isInPause && !this.#isInSuspension || this.#isStopped)
+        return;
       const wasPaused = this.#isInPause;
       const wasSuspended = this.#isInSuspension;
       if (wasPaused || wasSuspended) {
