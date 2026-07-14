@@ -18380,12 +18380,14 @@
           const previousSessionId = this.#sessionId;
           if (delay) {
             const start = modules_exports.getTime();
+            const groupIndex = this.#currentIndex;
             requestAnimationFrame(() => {
               this.#loopOnDelay({
                 start,
                 deltaTimeOnpause: 0,
                 lastFrameTime: start,
                 delay,
+                groupIndex,
                 mainReject,
                 mainResolve,
                 previousSessionId,
@@ -18509,6 +18511,7 @@
      * @param {number} param0.deltaTimeOnpause
      * @param {number} param0.lastFrameTime
      * @param {number} param0.delay
+     * @param {number} param0.groupIndex
      * @param {(value: any) => void} param0.mainReject
      * @param {(value: any) => void} param0.mainResolve
      * @param {number} param0.previousSessionId
@@ -18521,6 +18524,7 @@
       deltaTimeOnpause,
       lastFrameTime,
       delay,
+      groupIndex,
       mainReject,
       mainResolve,
       previousSessionId,
@@ -18532,6 +18536,12 @@
       const delta = current - start;
       if (this.#isInPause) deltaTimeOnpause += current - lastFrameTime;
       if (delta - deltaTimeOnpause >= delay || this.#isStopped || this.#isReverseNext) {
+        const currentIndex = this.#currentIndex;
+        const isLate = currentIndex !== groupIndex;
+        if (isLate) {
+          mainReject?.({ reason: "delay overrun" });
+          return;
+        }
         resolveTweenPromise({
           mainReject,
           mainResolve,
@@ -18554,6 +18564,7 @@
           deltaTimeOnpause,
           lastFrameTime: current,
           delay,
+          groupIndex,
           mainReject,
           mainResolve,
           previousSessionId,
