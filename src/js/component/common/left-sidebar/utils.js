@@ -2,7 +2,7 @@ import { leftSidebarName } from '@instanceName';
 import { MobJs } from '@mobJs';
 
 /**
- * @param {import('@commonComponent/left-sidebar/type').LeftSideBarList[]} [data]
+ * @param {import('@commonComponent/left-sidebar/type').LeftSidebarList[]} [data]
  */
 export const updateLeftSidebarList = (data) => {
     /**

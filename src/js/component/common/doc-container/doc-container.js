@@ -1,4 +1,4 @@
-import { getSideBarLinksRoot } from '@commonComponent/side-bar-links/utils';
+import { getSidebarLinksRoot } from '@commonComponent/side-bar-links/utils';
 import { tabLoopTrap } from '@componentLibs/utils/utils';
 import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
@@ -29,9 +29,9 @@ const createTabHandler = ({ getRef }) => {
             const aside = getRef().asideRight;
             if (!aside) return;
 
-            const sideBarLinks = getSideBarLinksRoot();
+            const sidebarLinks = getSidebarLinksRoot();
             tabLoopTrap({
-                elements: [aside, sideBarLinks],
+                elements: [aside, sidebarLinks],
                 direction,
                 preventDefault,
             });

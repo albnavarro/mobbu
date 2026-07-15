@@ -6,7 +6,7 @@
 import { htmlObject, MobJs } from '@mobJs';
 import { isVisibleInViewportSmart } from '@mobCoreUtils';
 import {
-    addItemToScrollSideBar,
+    addItemToScrollSidebar,
     setScrollToActiveLabel,
 } from '@commonComponent/scroll-to/utils';
 import { getIcons } from '@data/index';
@@ -38,7 +38,7 @@ const addItemToScrollComponent = async ({
 }) => {
     // Wait that all components is mounted.
     await MobJs.tick();
-    addItemToScrollSideBar({ id, label, element, isSection, isNote });
+    addItemToScrollSidebar({ id, label, element, isSection, isNote });
 
     /**
      * Set initial initial active state.

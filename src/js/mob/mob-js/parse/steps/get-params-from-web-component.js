@@ -10,7 +10,7 @@ import { getParentIdFromWeakElementMap } from '../../component/action/parent';
  * @param {import('../../web-component/type').UserComponent} obj.element
  * @returns {import('./type').ComponentData}
  */
-export const getParamsFromPlaceHolder = ({ element }) => {
+export const getParamsFromPlaceholder = ({ element }) => {
     const id = element.getId();
     const instanceName = element.getInstanceName();
 

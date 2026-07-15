@@ -2,13 +2,13 @@ import { htmlObject, MobJs } from '@mobJs';
 
 /**
  * @import {MobComponent} from '@mobJsType'
- * @import {SideBarLinksButtonType} from './type'
+ * @import {SidebarLinksButtonType} from './type'
  */
 
 /**
- * @type {MobComponent<SideBarLinksButtonType>}
+ * @type {MobComponent<SidebarLinksButtonType>}
  */
-export const SideBarLinksButtonFunction = ({
+export const SidebarLinksButtonFunction = ({
     getSelfProxi,
     bindEffect,
     delegateEvents,

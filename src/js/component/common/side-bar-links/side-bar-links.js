@@ -3,7 +3,7 @@ import { getCommonData } from '@data/index';
 import { htmlObject, MobJs } from '@mobJs';
 import { PAGE_TEMPLATE_COMPONENT_MOBJS } from '../../../pages';
 import { navigationStore } from '@stores/navigation';
-import { SideBarLinksButton } from './side-bar-links-button/definition';
+import { SidebarLinksButton } from './side-bar-links-button/definition';
 import { docContainerStore } from '@stores/doc-container';
 
 /**
@@ -13,8 +13,8 @@ import { docContainerStore } from '@stores/doc-container';
  *   ProxiSelfState,
  *   StaticProps
  * } from '@mobJsType'
- * @import {SideBarLinksButtonType} from './side-bar-links-button/type'
- * @import {SideBarLinks} from './type'
+ * @import {SidebarLinksButtonType} from './side-bar-links-button/type'
+ * @import {SidebarLinks} from './type'
  */
 
 /**
@@ -30,8 +30,8 @@ let move = () => {};
 /**
  * @param {object} param
  * @param {StaticProps} param.staticProps
- * @param {BindProps<SideBarLinks, SideBarLinksButtonType>} param.bindProps
- * @param {ProxiSelfState<SideBarLinks>} param.proxi
+ * @param {BindProps<SidebarLinks, SidebarLinksButtonType>} param.bindProps
+ * @param {ProxiSelfState<SidebarLinks>} param.proxi
  */
 const getItems = ({ staticProps, bindProps, proxi }) => {
     return proxi.data.map((item) => {
@@ -49,10 +49,10 @@ const getItems = ({ staticProps, bindProps, proxi }) => {
             : htmlObject({
                   tag: 'li',
                   content: {
-                      component: SideBarLinksButton,
+                      component: SidebarLinksButton,
                       modules: [
                           staticProps(
-                              /** @type {SideBarLinksButtonType['props']} */ ({
+                              /** @type {SidebarLinksButtonType['props']} */ ({
                                   label,
                                   url,
                               })
@@ -66,8 +66,8 @@ const getItems = ({ staticProps, bindProps, proxi }) => {
     });
 };
 
-/** @type {MobComponent<SideBarLinks>} */
-export const SideBarLinksFunction = ({
+/** @type {MobComponent<SidebarLinks>} */
+export const SidebarLinksFunction = ({
     staticProps,
     setRef,
     getRef,

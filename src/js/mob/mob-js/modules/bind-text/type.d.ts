@@ -1,4 +1,4 @@
-export interface BindTextPlaceHolder {
+export interface BindTextPlaceholder {
     componentId: string;
     bindTextId: string;
 }

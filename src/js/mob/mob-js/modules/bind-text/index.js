@@ -28,9 +28,9 @@ export const addBindTextToInitialzie = (bindTextId, params) => {
 /**
  * Mappa usata dal webComponent per tracciare il parent element.
  *
- * @type {Map<Element, import('./type').BindTextPlaceHolder>}
+ * @type {Map<Element, import('./type').BindTextPlaceholder>}
  */
-export const bindTextPlaceHolderMap = new Map();
+export const bindTextPlaceholderMap = new Map();
 
 /**
  * Funzione usata dal webComponent per passare l' host.
@@ -41,12 +41,12 @@ export const bindTextPlaceHolderMap = new Map();
  * @param {string} params.bindTextId
  * @returns {void}
  */
-export const addBindTextPlaceHolderMap = ({
+export const addBindTextPlaceholderMap = ({
     host,
     componentId,
     bindTextId,
 }) => {
-    bindTextPlaceHolderMap.set(host, {
+    bindTextPlaceholderMap.set(host, {
         componentId,
         bindTextId,
     });
@@ -133,7 +133,7 @@ export const renderBindText = (id, strings, ...values) => {
  * @returns {void}
  */
 export const switchBindTextMap = () => {
-    for (const [placeholder, { bindTextId }] of bindTextPlaceHolderMap) {
+    for (const [placeholder, { bindTextId }] of bindTextPlaceholderMap) {
         /**
          * Individuiamo il div che sara da aggiornare.
          */
@@ -160,7 +160,7 @@ export const switchBindTextMap = () => {
      *
      * - Parse function is completed
      */
-    bindTextPlaceHolderMap.clear();
+    bindTextPlaceholderMap.clear();
 };
 
 /**
@@ -168,7 +168,7 @@ export const switchBindTextMap = () => {
  *
  * @returns {number}
  */
-export const getBindTextPlaceholderSize = () => bindTextPlaceHolderMap.size;
+export const getBindTextPlaceholderSize = () => bindTextPlaceholderMap.size;
 
 /**
  * Main function.

@@ -18,7 +18,7 @@ export const addSlotPlaceholder = (slot) => {
  *
  * @returns {void}
  */
-export const clearSlotPlaceHolder = () => {
+export const clearSlotPlaceholder = () => {
     slotPlaceholder.clear();
 };
 

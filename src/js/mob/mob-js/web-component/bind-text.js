@@ -1,5 +1,5 @@
 import { ATTR_BIND_TEXT_ID, ATTR_COMPONENT_ID } from '../constant';
-import { addBindTextPlaceHolderMap } from '../modules/bind-text';
+import { addBindTextPlaceholderMap } from '../modules/bind-text';
 
 export const defineBindTextComponent = () => {
     customElements.define(
@@ -22,7 +22,7 @@ export const defineBindTextComponent = () => {
                     const bindTextId =
                         host?.getAttribute(ATTR_BIND_TEXT_ID) ?? '';
 
-                    addBindTextPlaceHolderMap({
+                    addBindTextPlaceholderMap({
                         host,
                         componentId,
                         bindTextId,

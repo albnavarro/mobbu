@@ -1,5 +1,5 @@
 import { DebugOverlay } from '@commonComponent/debug/debug-overlay/definition';
-import { SideBarLinks } from '@commonComponent/side-bar-links/definition';
+import { SidebarLinks } from '@commonComponent/side-bar-links/definition';
 import { LeftSidebar } from '@commonComponent/left-sidebar/definition';
 import { RouteLoader } from '@commonComponent/route-loader/definition';
 import { ScrollDownLabel } from '@commonComponent/scroll-down-label/definition';
@@ -12,7 +12,7 @@ import {
     routeLoader,
     scrollDownLabelName,
     searchOverlay,
-    sideBarLinksName,
+    sidebarLinksName,
 } from '@instanceName';
 import { Footer } from '@layoutComponent/footer/definition';
 import { Header } from '@layoutComponent/header/definition';
@@ -103,8 +103,8 @@ export const wrapper = async () => {
                 instanceName: scrollDownLabelName,
             },
             {
-                component: SideBarLinks,
-                instanceName: sideBarLinksName,
+                component: SidebarLinks,
+                instanceName: sidebarLinksName,
             },
             {
                 component: Footer,

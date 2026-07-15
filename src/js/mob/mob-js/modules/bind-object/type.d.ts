@@ -1,4 +1,4 @@
-export interface BindObjectPlaceHolder {
+export interface BindObjectPlaceholder {
     componentId: string;
     bindObjectId: string;
 }

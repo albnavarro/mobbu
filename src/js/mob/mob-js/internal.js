@@ -3,7 +3,7 @@ export { instanceMap } from './component/instance-map';
 export { bindEffectMap } from './modules/bind-effetc';
 export { bindEventMap } from './modules/bind-events';
 export {
-    bindObjectPlaceHolderMap,
+    bindObjectPlaceholderMap,
     bindObjectToInitializeMap,
 } from './modules/bind-object';
 export {
@@ -11,7 +11,7 @@ export {
     bindPropsMap,
 } from './modules/bind-props/bind-props-map';
 export {
-    bindTextPlaceHolderMap,
+    bindTextPlaceholderMap,
     bindTextToInitializeMap,
 } from './modules/bind-text';
 export {

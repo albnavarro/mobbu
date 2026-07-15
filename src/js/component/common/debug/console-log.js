@@ -22,7 +22,7 @@ export const consoleLogDebug = () => {
     );
     console.log(
         'bindObjectPlaceHolderMap:',
-        MobJsInternal.bindObjectPlaceHolderMap.size
+        MobJsInternal.bindObjectPlaceholderMap.size
     );
     console.log('bindPropsMap:', MobJsInternal.bindPropsMap.size);
     console.log(
@@ -35,7 +35,7 @@ export const consoleLogDebug = () => {
     );
     console.log(
         'bindTextPlaceHolderMap:',
-        MobJsInternal.bindTextPlaceHolderMap.size
+        MobJsInternal.bindTextPlaceholderMap.size
     );
     console.log(
         'tempDelegateEventMap:',

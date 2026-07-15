@@ -4,7 +4,7 @@ import { MobJs } from '@mobJs';
 /**
  * @param {import('../scroll-to/type').ScrollToItemsToAdd} arg0
  */
-export const addItemToScrollSideBar = ({
+export const addItemToScrollSidebar = ({
     id,
     label,
     element,

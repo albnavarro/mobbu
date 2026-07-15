@@ -34,7 +34,7 @@ export const removeUserPlaceholder = (element) => {
  * @param {Element} element
  * @returns {import('../../web-component/type').UserComponent | undefined}
  */
-export const getFirstUserChildPlaceHolder = (element) => {
+export const getFirstUserChildPlaceholder = (element) => {
     let userComponent;
 
     for (const item of userPlaceholder) {
@@ -97,7 +97,7 @@ export const getUserChildPlaceholderSize = () => {
  *
  * @returns {Promise<void>}
  */
-export const clearUserPlaceHolder = async () => {
+export const clearUserPlaceholder = async () => {
     userPlaceholder.clear();
 };
 

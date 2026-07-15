@@ -1,5 +1,5 @@
 import { ATTR_BIND_OBJECT_ID, ATTR_COMPONENT_ID } from '../constant';
-import { addBindObjectPlaceHolderMap } from '../modules/bind-object';
+import { addBindObjectPlaceholderMap } from '../modules/bind-object';
 
 export const defineBindObjectComponent = () => {
     customElements.define(
@@ -22,7 +22,7 @@ export const defineBindObjectComponent = () => {
                     const bindObjectId =
                         host?.getAttribute(ATTR_BIND_OBJECT_ID) ?? '';
 
-                    addBindObjectPlaceHolderMap({
+                    addBindObjectPlaceholderMap({
                         host,
                         componentId,
                         bindObjectId,

@@ -1,16 +1,16 @@
 import { MobJs } from '@mobJs';
-import { SideBarLinksFunction } from './side-bar-links';
+import { SidebarLinksFunction } from './side-bar-links';
 import { docContainerStore } from '@stores/doc-container';
 
 /**
  * @import {CreateComponentParams} from '@mobJsType'
  */
 
-export const SideBarLinks = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').SideBarLinks>} */
+export const SidebarLinks = MobJs.createComponent(
+    /** @type {CreateComponentParams<import('./type').SidebarLinks>} */
     ({
         tag: 'side-bar-links',
-        component: SideBarLinksFunction,
+        component: SidebarLinksFunction,
         bindStore: docContainerStore,
         state: {
             data: {

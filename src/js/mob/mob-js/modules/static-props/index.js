@@ -13,7 +13,7 @@ export const staticPropsMap = new Map();
  *       <MyComponent
  *           data-staticprops="${staticProps({
  *               childState1: key,
- *               callBack: () => setState('parentState', key),
+ *               callback: () => setState('parentState', key),
  *           })}"
  *       ></MyComponent>
  *     ```;

@@ -26,7 +26,7 @@ export const addOnMoutCallback = ({ id, cb = () => {} }) => {
  * @param {string} params.id - Component id
  * @param {HTMLElement | import('../../web-component/type').UserComponent} params.element - Root component HTMLElement.
  */
-export const fireOnMountCallBack = async ({ id, element }) => {
+export const fireOnMountCallback = async ({ id, element }) => {
     const callback = onMountCallbackMap.get(id);
 
     try {

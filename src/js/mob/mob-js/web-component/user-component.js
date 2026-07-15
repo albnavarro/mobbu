@@ -27,7 +27,7 @@ import {
 export const defineUserComponent = (componentList) => {
     for (const [key, value] of Object.entries(componentList)) {
         const {
-            connectedCallback: _connectedCallBack,
+            connectedCallback: _connectedCallback,
             disconnectedCallback: _disconnectedCallback,
             adoptedCallback: _adoptedCallback,
             attributeChangedCallback: _attributeChangedCallback,
@@ -348,7 +348,7 @@ export const defineUserComponent = (componentList) => {
                     this.#isPlaceholder = false;
 
                     // First connected callback when web-compoennt is initialzied
-                    _connectedCallBack?.({
+                    _connectedCallback?.({
                         context: this,
                         params: this.#params,
                     });

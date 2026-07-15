@@ -1,4 +1,4 @@
-export interface SideBarLinksButtonType {
+export interface SidebarLinksButtonType {
     props: {
         label: string;
         url: string;

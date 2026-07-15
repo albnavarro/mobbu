@@ -27,9 +27,9 @@ export const addBindObjectToInitialzie = (bindObjectId, params) => {
 /**
  * Mappa usata dal webComponent per tracciare il parent element.
  *
- * @type {Map<Element, import('./type').BindObjectPlaceHolder>}
+ * @type {Map<Element, import('./type').BindObjectPlaceholder>}
  */
-export const bindObjectPlaceHolderMap = new Map();
+export const bindObjectPlaceholderMap = new Map();
 
 /**
  * Funzione usata dal webComponent per passare l' host.
@@ -40,12 +40,12 @@ export const bindObjectPlaceHolderMap = new Map();
  * @param {string} params.bindObjectId
  * @returns {void}
  */
-export const addBindObjectPlaceHolderMap = ({
+export const addBindObjectPlaceholderMap = ({
     host,
     componentId,
     bindObjectId,
 }) => {
-    bindObjectPlaceHolderMap.set(host, {
+    bindObjectPlaceholderMap.set(host, {
         componentId,
         bindObjectId,
     });
@@ -117,7 +117,7 @@ export const renderBindObject = (strings, ...values) => {
  * @returns {void}
  */
 export const switchBindObjectMap = () => {
-    for (const [placeholder, { bindObjectId }] of bindObjectPlaceHolderMap) {
+    for (const [placeholder, { bindObjectId }] of bindObjectPlaceholderMap) {
         /**
          * Individuiamo il div che sara da aggiornare.
          */
@@ -144,7 +144,7 @@ export const switchBindObjectMap = () => {
      *
      * - Parse function is completed
      */
-    bindObjectPlaceHolderMap.clear();
+    bindObjectPlaceholderMap.clear();
 };
 
 /**

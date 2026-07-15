@@ -1,7 +1,7 @@
 import { DocContainerStore } from '@stores/doc-container/type';
 import { WithSource } from '@mobJsType';
 
-export interface SideBarLinks {
+export interface SidebarLinks {
     state: {
         data: { label: string; url: string; isLabel: boolean }[];
         activeSection: string;

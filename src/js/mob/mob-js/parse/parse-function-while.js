@@ -6,13 +6,13 @@ import {
     incrementCurrentIterationCounter,
     transferAllAttributes,
 } from './utils';
-import { fireOnMountCallBack } from '../modules/on-mount';
+import { fireOnMountCallback } from '../modules/on-mount';
 import { applyBindEvents } from '../modules/bind-events';
 import { addCurrentIdToBindProps, applyBindProps } from '../modules/bind-props';
 import { getParamsForComponentFunction } from './steps/get-params-for-component';
 import { addSelfIdToParentComponent } from '../component/action/parent';
 import { applyDelegationBindEvent } from '../modules/delegate-events';
-import { getParamsFromPlaceHolder } from './steps/get-params-from-web-component';
+import { getParamsFromPlaceholder } from './steps/get-params-from-web-component';
 import { addComponentToStore } from '../component';
 import {
     setRepeaterInnerWrap,
@@ -21,7 +21,7 @@ import {
 import { getInvalidateFunctions } from '../modules/invalidate/action/get/get-invalidate-functions';
 import { getRepeatFunctions } from '../modules/repeater/action/get/get-repeat-functions';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bind-refs';
-import { clearSlotPlaceHolder } from '../modules/slot';
+import { clearSlotPlaceholder } from '../modules/slot';
 import { useSlotQuery } from './strategy';
 import { switchBindTextMap } from '../modules/bind-text';
 import { switchBindObjectMap } from '../modules/bind-object';
@@ -31,7 +31,7 @@ import {
 } from '../modules/bind-effetc';
 import { getComponentList } from '../component/component-list';
 import { PARSER_ASYNC_DEFAULT } from '../main-store/constant';
-import { getFirstUserChildPlaceHolder } from '../modules/user-component';
+import { getFirstUserChildPlaceholder } from '../modules/user-component';
 import { tagShouldBeComponent } from '../component/component-tag';
 import { getParamsFromCustomComponent } from './steps/get-special-params-from-web-component';
 
@@ -65,7 +65,7 @@ export const parseComponentsWhile = async ({
     const functionToFireAtTheEnd = [];
 
     /** Current component to parse */
-    let componentToParse = getFirstUserChildPlaceHolder(element);
+    let componentToParse = getFirstUserChildPlaceholder(element);
 
     /**
      * Main Loop.
@@ -76,7 +76,7 @@ export const parseComponentsWhile = async ({
      * A) UserFunctionComponent: The user function is asynchronous. This can and should only occur at the root node of a
      * page. Its internal components will resolve the asynchronous function in the first available microtask.
      *
-     * B) FireOnMountCallBack: The onMount function is asynchronous. This means the component was used as scoped,
+     * B) FireOnMountCallback: The onMount function is asynchronous. This means the component was used as scoped,
      * splitting the rendering flow. It is an option but rarely used, as in the previous example, by default it is
      * resolved in the first available microtask.
      */
@@ -107,7 +107,7 @@ export const parseComponentsWhile = async ({
             componentRepeatId,
             repeatPropBind,
             bindEffectInstanceId,
-        } = getParamsFromPlaceHolder({
+        } = getParamsFromPlaceholder({
             element: componentToParse,
         });
 
@@ -225,7 +225,7 @@ export const parseComponentsWhile = async ({
         /**
          * Clean slot map after convertToRealElement
          */
-        if (!useSlotQuery) clearSlotPlaceHolder();
+        if (!useSlotQuery) clearSlotPlaceholder();
 
         /**
          * Transfer attributes from placeholder to newElement
@@ -315,7 +315,7 @@ export const parseComponentsWhile = async ({
              *
              * - By default onMount should not return an asynchronous function.
              */
-            await fireOnMountCallBack({
+            await fireOnMountCallback({
                 id,
                 element: newElement,
             });
@@ -340,7 +340,7 @@ export const parseComponentsWhile = async ({
                 /**
                  * Fire onMount callback at the end of current parse.
                  */
-                await fireOnMountCallBack({
+                await fireOnMountCallback({
                     id,
                     element: newElement,
                 });
@@ -372,7 +372,7 @@ export const parseComponentsWhile = async ({
                     : () => {},
         });
 
-        componentToParse = getFirstUserChildPlaceHolder(element);
+        componentToParse = getFirstUserChildPlaceholder(element);
 
         /**
          * Check if max parse number is reached.

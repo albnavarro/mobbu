@@ -1,18 +1,18 @@
 import { MobJsStore, WithSource } from '@mobJsType';
 
-interface LeftSideBarList {
+interface LeftSidebarList {
     name: string;
     hash: string;
-    children: LeftSideBarList[];
+    children: LeftSidebarList[];
 }
 
 export interface LeftSidebar {
     state: {
-        data: LeftSideBarList[];
+        data: LeftSidebarList[];
         isVisible: boolean;
     };
     bindStore: WithSource<MobJsStore>;
     methods: {
-        updateList: (arg0: LeftSideBarList[]) => void;
+        updateList: (arg0: LeftSidebarList[]) => void;
     };
 }
