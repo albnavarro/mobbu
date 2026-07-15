@@ -266,7 +266,7 @@
                         "component": "mob-spacer",
                         "props": {
                             "id": "Override",
-                            "label": "Override tweens params"
+                            "label": "Tweens params"
                         }
                     }
                 ]
@@ -283,7 +283,7 @@
                             "tag": "h2",
                             "isSection": true
                         },
-                        "content": "Override"
+                        "content": "Tween params"
                     },
                     {
                         "component": "mob-spacer",
@@ -296,14 +296,23 @@
                         "props": {
                             "style": "medium"
                         },
-                        "content": "<strong>tween params and override</strong>"
+                        "content": "<strong>Tween params and override</strong>"
                     },
                     {
                         "component": "mob-paragraph",
                         "props": {
                             "style": "medium"
                         },
-                        "content": "Each tween instance uses its own parameters by default. The following schema shows override options, including the delay parameter (in milliseconds), which is not a property of the tween itself but is controlled by the parent timeline instance."
+                        "content": "Each tween instance uses its own parameters by default. The following schema shows override option."
+                    },
+                    {
+                        "component": "mob-list",
+                        "props": {
+                            "style": "medium",
+                            "items": [
+                                "<span class='quote'>delay</span>: Besides the native attributes of individual tweens, the new delay attribute is available.<br/> Delay can be used both inside and outside a group. If used inside a group, when the group's promise is already resolved (waitComplete == false), the delay resolves and the corresponding tween will be cancelled."
+                            ]
+                        }
                     },
                     {
                         "component": "mob-spacer",
