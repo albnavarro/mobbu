@@ -109,11 +109,12 @@ export const loadPage = async ({
      * If another route change during loading current route ( async route with some delay or similar ) skip fire after
      * route change event
      */
-    let skip = false;
+    let shouldSkip = false;
+
     const unWatchRouteChange = mainStore.watch(
         MAIN_STORE_BEFORE_ROUTE_CHANGE,
         () => {
-            skip = true;
+            shouldSkip = true;
         }
     );
 
@@ -196,7 +197,7 @@ export const loadPage = async ({
     /**
      * SKit after route change if another route is called.
      */
-    if (!skip)
+    if (!shouldSkip)
         mainStore.set(MAIN_STORE_AFTER_ROUTE_CHANGE, {
             currentRoute: route,
             currentTemplate: templateName,

@@ -1,5 +1,5 @@
 import { ATTR_SLOT_NAME } from '../constant';
-import { useSlotQuery } from '../parse/strategy';
+import { shouldUseSlotQuery } from '../parse/strategy';
 import { addSlotPlaceholder } from '../modules/slot';
 
 export const defineSlotComponent = () => {
@@ -23,7 +23,7 @@ export const defineSlotComponent = () => {
                 if (!host) return;
 
                 // @ts-ignore
-                if (!useSlotQuery) addSlotPlaceholder(host);
+                if (!shouldUseSlotQuery) addSlotPlaceholder(host);
 
                 // @ts-ignore
                 const { dataset } = this.shadowRoot?.host ?? {};

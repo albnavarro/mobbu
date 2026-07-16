@@ -214,11 +214,10 @@ export const validateStaggerFrom = (from) => {
     ];
 
     // @ts-ignore
-    const fromIsAValidString = fromList.includes(from);
-    const fromIsANumber = MobCore.checkType(Number, from);
-    const fromIsAValidObject = MobCore.checkType(Object, from);
-    const fromIsValid =
-        fromIsAValidString || fromIsANumber || fromIsAValidObject;
+    const isFromValidString = fromList.includes(from);
+    const isFromNumber = MobCore.checkType(Number, from);
+    const isFromValidObject = MobCore.checkType(Object, from);
+    const fromIsValid = isFromValidString || isFromNumber || isFromValidObject;
     if (!fromIsValid) staggerFromGenericWarning(from);
 
     return fromIsValid;
@@ -246,10 +245,10 @@ export const validateStaggerDirection = (direction) => {
 
     const directionList = [DIRECTION_RADIAL, DIRECTION_ROW, DIRECTION_COL];
 
-    const directionisValid = directionList.includes(direction);
-    if (!directionisValid) staggerGridDirectionWarning();
+    const isDirectionValid = directionList.includes(direction);
+    if (!isDirectionValid) staggerGridDirectionWarning();
 
-    return directionisValid;
+    return isDirectionValid;
 };
 
 /**
@@ -1060,7 +1059,7 @@ export const scrollerPropiertiesIsValid = (
     /**
      * Inside Parallax sequencer is not allowed So return verticasl props
      */
-    const notParallaxTweenInsideParallax =
+    const isNotParallaxTweenInsideParallax =
         type === MobScrollerConstant.TYPE_PARALLAX &&
         value === MobScrollerConstant.PROP_TWEEN &&
         !tweenIsParallaxTween;
@@ -1084,8 +1083,8 @@ export const scrollerPropiertiesIsValid = (
     )
         scrollerUseTweenButNotProsDefinedWarning();
 
-    if (notParallaxTweenInsideParallax) scrollerUseSequencerWarining();
-    const valueParsed = notParallaxTweenInsideParallax
+    if (isNotParallaxTweenInsideParallax) scrollerUseSequencerWarining();
+    const valueParsed = isNotParallaxTweenInsideParallax
         ? MobScrollerConstant.PROP_VERTICAL
         : value;
 

@@ -35,9 +35,9 @@ export const springGetValuesOndraw = ({
                 ? true
                 : Math.abs(toValue - newCurrentValue) <= precision;
 
-        const settled = isVelocity && isDisplacement;
+        const isSettled = isVelocity && isDisplacement;
 
-        if (settled) {
+        if (isSettled) {
             return {
                 ...item,
                 currentValue: toValue,

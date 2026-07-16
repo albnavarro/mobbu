@@ -37,7 +37,7 @@ import { BenchMarkRepeatNoComponentWithKey } from '@pagesComponent/benchmark/rep
 import { AccessibilityOverlay } from '@commonComponent/accesibility/overlay/definition';
 
 export const wrapper = async () => {
-    const useScssTestGrid = false;
+    const shouldUseScssTestGrid = false;
 
     /**
      * Preload component used by tag and not loaded by default with htmlObject.component props
@@ -64,7 +64,7 @@ export const wrapper = async () => {
 
     return htmlObject({
         content: [
-            useScssTestGrid ? '<test-scss-grid></test-scss-grid>' : '',
+            shouldUseScssTestGrid ? '<test-scss-grid></test-scss-grid>' : '',
             {
                 component: Header,
                 instanceName: headerName,

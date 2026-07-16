@@ -25,7 +25,7 @@ export const scrollerN0Animation = ({
     const gutter = 1;
     const numberOfRow = 10;
     const numberOfColumn = 10;
-    const reorder = false;
+    const shouldReorder = false;
 
     const fill = new Set([
         36, 37, 38, 39, 40, 47, 51, 58, 62, 69, 73, 80, 81, 82, 83, 84,
@@ -72,7 +72,7 @@ export const scrollerN0Animation = ({
     /**
      * Add props to transform. Order by hasFill, so is like z-index: -1.
      */
-    let data = reorder
+    let data = shouldReorder
         ? gridData
               .map((item, i) => {
                   return {

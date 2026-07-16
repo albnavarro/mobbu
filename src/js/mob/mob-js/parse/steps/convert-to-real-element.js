@@ -9,7 +9,7 @@ import { queryComponentUseSlot } from '../../query/query-component-use-slot';
 import { queryGenericSlot } from '../../query/query-generic-slot';
 import { querySecificSlot } from '../../query/query-specific-slot';
 import { queryUnNamedSlot } from '../../query/query-unnamed-slot';
-import { useSlotQuery, useComponentHasNamedSlotQuery } from '../strategy';
+import { shouldUseSlotQuery, shouldUseNamedSlotQuery } from '../strategy';
 import { getAllUserComponentUseNamedSlot } from '../../modules/user-component';
 import {
     getAllSlot,
@@ -81,7 +81,7 @@ const getNewElement = ({ element, content }) => {
  * @returns {void}
  */
 const removeOrphanSlot = ({ element }) => {
-    const slots = useSlotQuery ? queryGenericSlot(element) : getAllSlot();
+    const slots = shouldUseSlotQuery ? queryGenericSlot(element) : getAllSlot();
 
     for (const slot of slots) {
         slot?.removeCustomComponent();
@@ -103,14 +103,14 @@ const addToNamedSlot = ({ element }) => {
      * - If useSlotQuery is true
      * - <mobjs-slot> add to slotPlaceholder it's host element.
      */
-    if (!useSlotQuery && getSlotPlaceholderSize() === 0) return;
+    if (!shouldUseSlotQuery && getSlotPlaceholderSize() === 0) return;
 
     /**
      * First: find all node with slot=<slot-name> defined.
      *
      * - By default use query from root node
      */
-    const componentWithSlot = useComponentHasNamedSlotQuery
+    const componentWithSlot = shouldUseNamedSlotQuery
         ? queryComponentUseSlot(element)
         : getAllUserComponentUseNamedSlot({ element });
 
@@ -126,7 +126,7 @@ const addToNamedSlot = ({ element }) => {
         /**
          * Find slot used by component.
          */
-        const slot = useSlotQuery
+        const slot = shouldUseSlotQuery
             ? querySecificSlot(element, slotName)
             : getSlotByName({ name: slotName, element });
 
@@ -172,7 +172,7 @@ const executeConversion = ({ element, content }) => {
          *
          * Return custom component <mobjs-slot><mobjs-slot>
          */
-        const unNamedSlot = useSlotQuery
+        const unNamedSlot = shouldUseSlotQuery
             ? queryUnNamedSlot(newElement)
             : getUnamedPlaceholderSlot({ element: newElement });
 

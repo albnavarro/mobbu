@@ -50,7 +50,7 @@ export const DebugTreeItemFunction = ({
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
 
-    const hasChildrenClass = proxi.children.length > 0 ? 'has-children' : '';
+    const childClass = proxi.children.length > 0 ? 'has-children' : '';
 
     /**
      * Force Close when parent is closed.
@@ -116,7 +116,7 @@ export const DebugTreeItemFunction = ({
         className: 'c-debug-tree-item',
         content: [
             {
-                className: ['tree-header', hasChildrenClass],
+                className: ['tree-header', childClass],
                 modules: [
                     bindEffect([
                         {
@@ -133,7 +133,7 @@ export const DebugTreeItemFunction = ({
                 content: [
                     {
                         tag: 'button',
-                        className: ['left', hasChildrenClass],
+                        className: ['left', childClass],
                         attributes: {
                             type: 'button',
                             'aria-controls':

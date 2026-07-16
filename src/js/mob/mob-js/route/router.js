@@ -15,7 +15,7 @@ import { getRestoreScrollVale, getRouteModule, getTemplateName } from './utils';
 let previousFullHashLoaded = '';
 
 /** @type {boolean} */
-let firstAppLoad = true;
+let isFirstAppLoad = true;
 
 /** @type {string} */
 let currentCleanHash = '';
@@ -44,7 +44,7 @@ let currentSkipTransition;
  *
  * @type {boolean}
  */
-let pendingHistoryNavigation = false;
+let hasPendingHistoryNavigation = false;
 
 /**
  * @param {string} value
@@ -204,7 +204,7 @@ export const parseUrlHash = async ({
     const isSamePreviousRoute =
         currentCleanHash === previousCleanHash &&
         currentParams.length === 0 &&
-        !firstAppLoad;
+        !isFirstAppLoad;
 
     /**
      * Load route.
@@ -250,7 +250,7 @@ export const parseUrlHash = async ({
     currentSkipTransition = undefined;
 
     MobCore.useNextLoop(() => {
-        firstAppLoad = false;
+        isFirstAppLoad = false;
     });
 };
 
@@ -273,7 +273,7 @@ export const router = () => {
      * da questo modulo: state esterni con shape diversa vengono trattati come direct-nav.
      */
     globalThis.addEventListener('popstate', (event) => {
-        pendingHistoryNavigation = !!event?.state?.nextId;
+        hasPendingHistoryNavigation = !!event?.state?.nextId;
     });
 
     /**
@@ -285,8 +285,8 @@ export const router = () => {
      * locale.
      */
     globalThis.addEventListener('hashchange', async () => {
-        const fromHistory = pendingHistoryNavigation;
-        pendingHistoryNavigation = false;
+        const fromHistory = hasPendingHistoryNavigation;
+        hasPendingHistoryNavigation = false;
         await awaitNextLoop();
         parseUrlHash({ fromHistory });
     });
@@ -339,7 +339,7 @@ export const loadUrl = ({ url, params, skipTransition }) => {
      * chiamata. Senza questo reset la hashchange risultante dalla `loadUrl` potrebbe essere erroneamente interpretata
      * come history-nav, ripristinando lo scroll invece di partire da zero.
      */
-    pendingHistoryNavigation = false;
+    hasPendingHistoryNavigation = false;
 
     /**
      * Update hash and dispatch hashcange.

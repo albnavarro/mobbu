@@ -20,11 +20,11 @@ export const TitleFunction = ({ getSelfProxi }) => {
 
     const colorClass = proxi.color === 'inherit' ? '' : `is-${proxi.color}`;
     const boldClass = proxi.isBold ? `u-weight-bold` : '';
-    const isSectionClass = proxi.isSection ? `is-section` : '';
+    const sectionClass = proxi.isSection ? `is-section` : '';
 
     return htmlObject({
         tag: proxi.tag,
-        className: [colorClass, boldClass, isSectionClass],
+        className: [colorClass, boldClass, sectionClass],
         content: [
             getIndex(proxi.index),
             {

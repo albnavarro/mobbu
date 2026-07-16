@@ -248,7 +248,7 @@ export const applyBindProps = async ({
     /**
      * Watch props on change
      */
-    let watchIsRunning = false;
+    let isWatchRunning = false;
 
     const unWatchArray = observeParsed.map((/** @type {string} */ state) => {
         return watchById(parentId, state, async () => {
@@ -261,7 +261,7 @@ export const applyBindProps = async ({
             /**
              * Wait for all all props is settled.
              */
-            if (watchIsRunning) return;
+            if (isWatchRunning) return;
 
             /**
              * Add watcher to active queuqe operation.
@@ -276,7 +276,7 @@ export const applyBindProps = async ({
             /**
              * Fire watch only once if multiple props change. Wait the end of current block.
              */
-            watchIsRunning = true;
+            isWatchRunning = true;
             MobCore.useNextLoop(() => {
                 updateBindProp({
                     componentId,
@@ -286,7 +286,7 @@ export const applyBindProps = async ({
                     fireCallback: true,
                 });
 
-                watchIsRunning = false;
+                isWatchRunning = false;
 
                 /**
                  * Remove watcher to active queuqe operation.

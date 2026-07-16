@@ -22,7 +22,7 @@ const firstRunDuration = 2000;
 /**
  * @type {boolean}
  */
-let frameIsRuning = false;
+let isFrameRuning = false;
 
 /**
  * @type {import('./type.js').HandleFrameArray}
@@ -104,7 +104,7 @@ let currentFrame = 0;
 /**
  * @type {boolean}
  */
-let mustMakeSomethingIsActive = false;
+let requiresMakeSomethingIsActive = false;
 
 /**
  * @type {boolean}
@@ -131,11 +131,11 @@ const shouldMakeSomethingCheck = () => fps < (maxFps / 5) * 4;
  * @returns {void}
  */
 const mustMakeSomethingStart = () => {
-    if (!mustMakeSomethingCheck() || mustMakeSomethingIsActive) return;
+    if (!mustMakeSomethingCheck() || requiresMakeSomethingIsActive) return;
 
-    mustMakeSomethingIsActive = true;
+    requiresMakeSomethingIsActive = true;
     setTimeout(() => {
-        mustMakeSomethingIsActive = false;
+        requiresMakeSomethingIsActive = false;
     }, 4000);
 };
 
@@ -201,7 +201,7 @@ const nextTickFn = () => {
     /**
      * RequestAnimationFrame is ended, ready for another
      */
-    frameIsRuning = false;
+    isFrameRuning = false;
 
     if (
         callback.length > 0 ||
@@ -357,7 +357,7 @@ const render = (timestamp) => {
  * @returns {void}
  */
 const initFrame = () => {
-    if (frameIsRuning) return;
+    if (isFrameRuning) return;
 
     if (typeof globalThis === 'undefined') {
         setTimeout(() => render(getTime()), defaultTimestep);
@@ -365,7 +365,7 @@ const initFrame = () => {
         requestAnimationFrame(render);
     }
 
-    frameIsRuning = true;
+    isFrameRuning = true;
 };
 
 /**
@@ -403,7 +403,7 @@ export const handleFrame = (() => {
      *
      * @returns {boolean}
      */
-    const mustMakeSomething = () => mustMakeSomethingIsActive;
+    const mustMakeSomething = () => requiresMakeSomethingIsActive;
 
     /**
      * Return the mustMakeSomethingIsActive status. If frame dropped the value is true for X seconds.

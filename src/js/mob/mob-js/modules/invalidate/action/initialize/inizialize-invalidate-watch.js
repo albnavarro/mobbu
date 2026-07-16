@@ -52,7 +52,7 @@ export const inizializeInvalidateWatch = async ({
     /**
      * Watch props on change
      */
-    let watchIsRunning = false;
+    let isWatchRunning = false;
 
     /**
      * FallBackParentId is used with autoDetectParentId strategy disabled only
@@ -74,7 +74,7 @@ export const inizializeInvalidateWatch = async ({
      */
     const unsubScribeArray = observe.map((state) => {
         const unsubscribe = watch(state, async () => {
-            if (watchIsRunning) return;
+            if (isWatchRunning) return;
 
             freezePropById({ id, prop: state });
 
@@ -102,7 +102,7 @@ export const inizializeInvalidateWatch = async ({
             /**
              * Update
              */
-            watchIsRunning = true;
+            isWatchRunning = true;
             MobCore.useNextLoop(async () => {
                 if (!invalidateParent) {
                     unFreezePropById({ id, prop: state });
@@ -169,7 +169,7 @@ export const inizializeInvalidateWatch = async ({
                 await mainStore.emitAsync(MAIN_STORE_PARSER_ASYNC);
                 resetMainStoreAsyncParser();
 
-                watchIsRunning = false;
+                isWatchRunning = false;
                 descrementQueue();
                 decrementInvalidateQueque();
 

@@ -29,7 +29,7 @@ function handleScrollUtils(type) {
     /**
      * @type {boolean}
      */
-    let initialized = false;
+    let isInitialized = false;
 
     /**
      * @type {Map<string, import('./type.js').HandleScrollCallback<import('./type.js').HandleScrollUtils>>}
@@ -60,7 +60,7 @@ function handleScrollUtils(type) {
                 unsubscribeScrollStart();
             }
 
-            initialized = false;
+            isInitialized = false;
             return;
         }
 
@@ -91,8 +91,8 @@ function handleScrollUtils(type) {
      * @returns {void}
      */
     function init() {
-        if (initialized) return;
-        initialized = true;
+        if (isInitialized) return;
+        isInitialized = true;
 
         /**
          * Add debunce function to detect scroll end
@@ -146,7 +146,7 @@ function handleScrollUtils(type) {
             /**
              * Triggera il cleanup in handler()
              */
-            if (callbacks.size === 0 && initialized) {
+            if (callbacks.size === 0 && isInitialized) {
                 handler();
             }
         };

@@ -3,7 +3,7 @@ import { getUnivoqueId } from '../../utils';
 /**
  * @type {boolean}
  */
-let initialized = false;
+let isInitialized = false;
 
 /**
  * @type {Map<string, () => void>}
@@ -20,7 +20,7 @@ function handler() {
     if (callbacks.size === 0) {
         globalThis.removeEventListener('DOMContentLoaded', handler);
 
-        initialized = false;
+        isInitialized = false;
         return;
     }
 
@@ -37,8 +37,8 @@ function handler() {
  * @returns {void}
  */
 function init() {
-    if (initialized) return;
-    initialized = true;
+    if (isInitialized) return;
+    isInitialized = true;
 
     // Add debunce function to detect scroll end
     globalThis.addEventListener('DOMContentLoaded', handler, {

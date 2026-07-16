@@ -20,7 +20,7 @@ import { focusDebugTree } from '../tree/utils';
 import { focusFilterList } from '../debug-filter/list/utils';
 
 let lastActiveId = RESET_FILTER_DEBUG;
-let justCreated = false;
+let isJustCreated = false;
 
 /**
  * @param {DOMTokenList | undefined} value
@@ -468,7 +468,7 @@ export const DebugComponentFunction = ({
      * Restore last active component on component creation.
      */
     proxi.id = lastActiveId;
-    justCreated = true;
+    isJustCreated = true;
 
     addMethod('updateId', (id) => {
         proxi.id = id;
@@ -517,12 +517,12 @@ export const DebugComponentFunction = ({
                  * - When component is recreated load last usable component.
                  */
                 lastActiveId = proxi.id;
-                justCreated = false;
+                isJustCreated = false;
             }
         );
 
         return () => {
-            justCreated = false;
+            isJustCreated = false;
             destroy?.();
         };
     });
@@ -569,7 +569,7 @@ export const DebugComponentFunction = ({
                                      * - There is no valid component.
                                      */
                                     if (
-                                        justCreated ||
+                                        isJustCreated ||
                                         proxi.id === RESET_FILTER_DEBUG
                                     )
                                         return;

@@ -445,10 +445,10 @@ export class LinkedList {
         /**
          * Controlliamo che siano head || tail
          */
-        const aWasHead = nodeA === this.#head;
-        const aWasTail = nodeA === this.#tail;
-        const bWasHead = nodeB === this.#head;
-        const bWasTail = nodeB === this.#tail;
+        const wasAHead = nodeA === this.#head;
+        const wasATail = nodeA === this.#tail;
+        const wasBHead = nodeB === this.#head;
+        const wasBTail = nodeB === this.#tail;
 
         /**
          * Disconnetiamo il nodo dai vicini limitrofi.
@@ -474,14 +474,14 @@ export class LinkedList {
         /**
          * Casi specifici per head.
          */
-        if (aWasHead) this.#head = nodeB;
-        else if (bWasHead) this.#head = nodeA;
+        if (wasAHead) this.#head = nodeB;
+        else if (wasBHead) this.#head = nodeA;
 
         /**
          * Casi specifici per tail.
          */
-        if (aWasTail) this.#tail = nodeB;
-        else if (bWasTail) this.#tail = nodeA;
+        if (wasATail) this.#tail = nodeB;
+        else if (wasBTail) this.#tail = nodeA;
 
         return this;
     }

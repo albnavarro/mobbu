@@ -131,11 +131,11 @@ export const Move3DFunction = ({
         lastX = x;
         lastY = y;
 
-        const xLimitReached = Math.abs(ax) > proxi.xLimit;
-        const yLimitReached = Math.abs(ay) > proxi.yLimit;
+        const hasReachedXLimit = Math.abs(ax) > proxi.xLimit;
+        const hasReachedYLimit = Math.abs(ay) > proxi.yLimit;
 
-        if (xLimitReached) dragX -= xgap;
-        if (yLimitReached) dragY -= ygap;
+        if (hasReachedXLimit) dragX -= xgap;
+        if (hasReachedYLimit) dragY -= ygap;
 
         const axClamped = MobMotionCore.clamp(ax, -proxi.xLimit, proxi.xLimit);
         const ayClamped = MobMotionCore.clamp(ay, -proxi.yLimit, proxi.yLimit);
@@ -169,7 +169,7 @@ export const Move3DFunction = ({
     };
 
     /** @type{(arg0: {page: { x: number, y:number }} ) => boolean} */
-    const draggable = ({ page }) => {
+    const isDraggable = ({ page }) => {
         return (
             page.y > offSetTop &&
             page.y < offSetTop + height &&
@@ -180,7 +180,7 @@ export const Move3DFunction = ({
 
     /** @type{(arg0: {page: { x: number, y:number }} ) => void } */
     const onMouseDown = ({ page }) => {
-        if (!draggable({ page })) {
+        if (!isDraggable({ page })) {
             return;
         }
 

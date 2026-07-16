@@ -2034,22 +2034,22 @@
     setCurrentDependencies: () => setCurrentDependencies
   });
   var current_computed_keys = [];
-  var active = false;
+  var isActive = false;
   var initializeCurrentDependencies = () => {
-    active = true;
+    isActive = true;
     current_computed_keys.length = 0;
   };
   var getCurrentDependencies = () => {
-    active = false;
+    isActive = false;
     return [...current_computed_keys];
   };
   var getFirstCurrentDependencies = () => {
-    active = false;
+    isActive = false;
     const copy = [...current_computed_keys];
     return copy?.[0] ?? "missing_prop";
   };
   var setCurrentDependencies = (key) => {
-    if (!active || !key) return;
+    if (!isActive || !key) return;
     if (current_computed_keys.includes(key)) return;
     current_computed_keys = [...current_computed_keys, key];
   };
@@ -2099,8 +2099,8 @@
       if (instanceId && wait) {
         const queueByInstanceId = waitMap.get(instanceId) ?? /** @type{Map<string, any>} */
         /* @__PURE__ */ new Map();
-        const firstCycle = !queueByInstanceId.has(prop);
-        const callbacksAccumulated = firstCycle ? [] : queueByInstanceId.get(prop)?.callbacks ?? [];
+        const isFirstCycle = !queueByInstanceId.has(prop);
+        const callbacksAccumulated = isFirstCycle ? [] : queueByInstanceId.get(prop)?.callbacks ?? [];
         const existing = queueByInstanceId.get(prop);
         queueByInstanceId.set(prop, {
           newValue,
@@ -2115,7 +2115,7 @@
           callbacks: [.../* @__PURE__ */ new Set([...callbacksAccumulated, fn])]
         });
         waitMap.set(instanceId, queueByInstanceId);
-        if (firstCycle) {
+        if (isFirstCycle) {
           useNextLoop(() => {
             const currentPropsPerId = waitMap.get(instanceId);
             const current = currentPropsPerId?.has(prop) ? currentPropsPerId.get(prop) : WAIT_PROP_MISSED;
@@ -2526,8 +2526,8 @@
         item
       } : { strictCheck: true, item };
     }).filter(({ strictCheck }) => strictCheck === true);
-    const allStrictFail = strictObjectResult.length === 0;
-    if (allStrictFail) return;
+    const areAllStrictFailed = strictObjectResult.length === 0;
+    if (areAllStrictFailed) return;
     const newValParsedByStrict = Object.fromEntries(
       strictObjectResult.map(({ item }) => item).map(([key, val2]) => [key, val2])
     );
@@ -2551,17 +2551,17 @@
     const shouldSkipEqual = Object.keys(newValParsedByStrict).every(
       (subProp) => skipEqual[prop][subProp] === true
     );
-    let allPropsDethIsValid = true;
+    let areAllPropsDepthValid = true;
     for (const [key, value] of Object.entries(newValParsedByStrict)) {
       const isCustomObject = type[prop][key] === TYPE_IS_ANY;
       const dataDepth = maxDepth(value);
       if (dataDepth > 1 && !isCustomObject) {
         storeSetObjDepthWarning(prop, valueTransformed, logStyle2);
         validationStatusObject[prop][key] = false;
-        allPropsDethIsValid = false;
+        areAllPropsDepthValid = false;
       }
     }
-    if (!allPropsDethIsValid) {
+    if (!areAllPropsDepthValid) {
       updateMainMap(instanceId, { ...state, validationStatusObject });
       return;
     }
@@ -3580,12 +3580,12 @@
   );
 
   // src/js/mob/mob-core/events/load-utils/handle-load.js
-  var initialized = false;
+  var isInitialized = false;
   var callbacks = /* @__PURE__ */ new Map();
   function handler() {
     if (callbacks.size === 0) {
       globalThis.removeEventListener("DOMContentLoaded", handler);
-      initialized = false;
+      isInitialized = false;
       return;
     }
     for (const value of callbacks.values()) {
@@ -3594,8 +3594,8 @@
     callbacks.clear();
   }
   function init() {
-    if (initialized) return;
-    initialized = true;
+    if (isInitialized) return;
+    isInitialized = true;
     globalThis.addEventListener("DOMContentLoaded", handler, {
       passive: false
     });
@@ -3670,18 +3670,18 @@
     return "touches" in touchEvent ? touchEvent.touches[0] : event;
   }
   function handleMouse(eventType) {
-    let initialized11 = false;
+    let isInitialized11 = false;
     const callbacks13 = /* @__PURE__ */ new Map();
     let { usePassive } = eventStore.get();
     eventStore.watch("usePassive", () => {
       globalThis.removeEventListener(eventType, handler10);
-      initialized11 = false;
+      isInitialized11 = false;
       init12();
     });
     function handler10(event) {
       if (callbacks13.size === 0) {
         globalThis.removeEventListener(eventType, handler10);
-        initialized11 = false;
+        isInitialized11 = false;
         return;
       }
       const type = (
@@ -3734,8 +3734,8 @@
       }
     }
     function init12() {
-      if (initialized11) return;
-      initialized11 = true;
+      if (isInitialized11) return;
+      isInitialized11 = true;
       usePassive = eventStore.getProp("usePassive");
       globalThis.addEventListener(eventType, handler10, {
         passive: usePassive
@@ -3751,9 +3751,9 @@
       init12();
       return () => {
         callbacks13.delete(id);
-        if (callbacks13.size === 0 && initialized11) {
+        if (callbacks13.size === 0 && isInitialized11) {
           globalThis.removeEventListener(eventType, handler10);
-          initialized11 = false;
+          isInitialized11 = false;
         }
       };
     };
@@ -3911,12 +3911,12 @@
   })();
 
   // src/js/mob/mob-core/events/visibility-change/handle-visibility-change.js
-  var initialized2 = false;
+  var isInitialized2 = false;
   var callbacks2 = /* @__PURE__ */ new Map();
   function handler2() {
     if (callbacks2.size === 0) {
       globalThis.removeEventListener("visibilitychange", handler2);
-      initialized2 = false;
+      isInitialized2 = false;
       return;
     }
     const visibilityData = {
@@ -3927,8 +3927,8 @@
     }
   }
   function init2() {
-    if (initialized2) return;
-    initialized2 = true;
+    if (isInitialized2) return;
+    isInitialized2 = true;
     globalThis.addEventListener("visibilitychange", handler2, {
       passive: false
     });
@@ -4016,10 +4016,10 @@
   };
 
   // src/js/mob/mob-core/events/raf-utils/load-fps.js
-  var loadFpsIsReady = false;
+  var isLoadFpsReady = false;
   var pendingPromise = null;
   var loadFps = ({ force = false, duration = 30 } = {}) => {
-    if (loadFpsIsReady && !force) {
+    if (isLoadFpsReady && !force) {
       const { instantFps } = eventStore.get();
       return Promise.resolve({ averageFPS: instantFps });
     }
@@ -4053,7 +4053,7 @@
         frameCounter++;
         if (frameCounter >= duration) {
           eventStore.quickSetProp("instantFps", averageFPS);
-          loadFpsIsReady = true;
+          isLoadFpsReady = true;
           pendingPromise = null;
           resolve({ averageFPS });
           return;
@@ -4068,7 +4068,7 @@
   // src/js/mob/mob-core/events/raf-utils/handle-frame.js
   var currentFrameLimit = 1e7;
   var firstRunDuration = 2e3;
-  var frameIsRuning = false;
+  var isFrameRuning = false;
   var callback = [];
   var time = getTime();
   var startTime = 0;
@@ -4082,15 +4082,15 @@
   var frames = 0;
   var fpsPrevTime = 0;
   var currentFrame = 0;
-  var mustMakeSomethingIsActive = false;
+  var requiresMakeSomethingIsActive = false;
   var shouldMakeSomethingIsActive = false;
   var mustMakeSomethingCheck = () => fps < maxFps / 5 * 3;
   var shouldMakeSomethingCheck = () => fps < maxFps / 5 * 4;
   var mustMakeSomethingStart = () => {
-    if (!mustMakeSomethingCheck() || mustMakeSomethingIsActive) return;
-    mustMakeSomethingIsActive = true;
+    if (!mustMakeSomethingCheck() || requiresMakeSomethingIsActive) return;
+    requiresMakeSomethingIsActive = true;
     setTimeout(() => {
-      mustMakeSomethingIsActive = false;
+      requiresMakeSomethingIsActive = false;
     }, 4e3);
   };
   var shouldMakeSomethingStart = () => {
@@ -4117,7 +4117,7 @@
         callback.push(nextFrame);
       }
     }
-    frameIsRuning = false;
+    isFrameRuning = false;
     if (callback.length > 0 || handleFrameIndex.getAmountOfFrameToFire() > 0 || handleCache.getCacheCounter() > 0 || time < firstRunDuration) {
       initFrame();
     } else {
@@ -4168,13 +4168,13 @@
     }
   };
   var initFrame = () => {
-    if (frameIsRuning) return;
+    if (isFrameRuning) return;
     if (typeof globalThis === "undefined") {
       setTimeout(() => render(getTime()), defaultTimestep);
     } else {
       requestAnimationFrame(render);
     }
-    frameIsRuning = true;
+    isFrameRuning = true;
   };
   var handleFrame = (() => {
     loadFps();
@@ -4186,7 +4186,7 @@
       initFrame();
     });
     const getFps2 = () => fps;
-    const mustMakeSomething2 = () => mustMakeSomethingIsActive;
+    const mustMakeSomething2 = () => requiresMakeSomethingIsActive;
     const shouldMakeSomething2 = () => shouldMakeSomethingIsActive;
     const add5 = (cb) => {
       callback.push(cb);
@@ -4206,7 +4206,7 @@
   })();
 
   // src/js/mob/mob-core/events/resize-utils/handle-resize.js
-  var initialized3 = false;
+  var isInitialized3 = false;
   var callbacks5 = /* @__PURE__ */ new Map();
   var debouceFunctionReference = () => {
   };
@@ -4215,7 +4215,7 @@
   function handler3() {
     if (callbacks5.size === 0) {
       globalThis.removeEventListener("resize", debouceFunctionReference);
-      initialized3 = false;
+      isInitialized3 = false;
       return;
     }
     const windowsHeight = globalThis.innerHeight;
@@ -4237,8 +4237,8 @@
     }
   }
   function init3() {
-    if (initialized3) return;
-    initialized3 = true;
+    if (isInitialized3) return;
+    isInitialized3 = true;
     previousWindowHeight = globalThis.window.innerHeight;
     previousWindowWidth = globalThis.window.innerWidth;
     debouceFunctionReference = debounceFuncion(() => handler3());
@@ -4256,16 +4256,16 @@
     init3();
     return () => {
       callbacks5.delete(id);
-      if (callbacks5.size === 0 && initialized3) {
+      if (callbacks5.size === 0 && isInitialized3) {
         globalThis.removeEventListener("resize", debouceFunctionReference);
-        initialized3 = false;
+        isInitialized3 = false;
       }
     };
   };
   var handleResize = addCallback2;
 
   // src/js/mob/mob-core/events/scroll-utils/handle-scroll-immediate.js
-  var initialized4 = false;
+  var isInitialized4 = false;
   var callbacks6 = /* @__PURE__ */ new Map();
   var UP = "UP";
   var DOWN = "DOWN";
@@ -4279,7 +4279,7 @@
   function handler4() {
     if (callbacks6.size === 0) {
       globalThis.removeEventListener("scroll", handler4);
-      initialized4 = false;
+      isInitialized4 = false;
       return;
     }
     previousScrollValue = currentScrollValue;
@@ -4294,8 +4294,8 @@
     }
   }
   function init4() {
-    if (initialized4) return;
-    initialized4 = true;
+    if (isInitialized4) return;
+    isInitialized4 = true;
     previousScrollValue = globalThis.scrollY;
     currentScrollValue = globalThis.scrollY;
     window.addEventListener("scroll", handler4, {
@@ -4312,9 +4312,9 @@
     init4();
     return () => {
       callbacks6.delete(id);
-      if (callbacks6.size === 0 && initialized4) {
+      if (callbacks6.size === 0 && isInitialized4) {
         globalThis.removeEventListener("scroll", handler4);
-        initialized4 = false;
+        isInitialized4 = false;
       }
     };
   };
@@ -4323,14 +4323,14 @@
   })();
 
   // src/js/mob/mob-core/events/scroll-utils/handle-scroll.js
-  var initialized5 = false;
+  var isInitialized5 = false;
   var callbacks7 = /* @__PURE__ */ new Map();
   var unsubscribe = () => {
   };
   function handler5(scrollData2) {
     if (callbacks7.size === 0) {
       unsubscribe();
-      initialized5 = false;
+      isInitialized5 = false;
       return;
     }
     handleFrame.add(() => {
@@ -4342,8 +4342,8 @@
     });
   }
   function init5() {
-    if (initialized5) return;
-    initialized5 = true;
+    if (isInitialized5) return;
+    isInitialized5 = true;
     unsubscribe = handleScrollImmediate(handler5);
   }
   var addCallback4 = (cb) => {
@@ -4356,16 +4356,16 @@
     init5();
     return () => {
       callbacks7.delete(id);
-      if (callbacks7.size === 0 && initialized5) {
+      if (callbacks7.size === 0 && isInitialized5) {
         unsubscribe();
-        initialized5 = false;
+        isInitialized5 = false;
       }
     };
   };
   var handleScroll = addCallback4;
 
   // src/js/mob/mob-core/events/scroll-utils/handle-scroll-throttle.js
-  var initialized6 = false;
+  var isInitialized6 = false;
   var callbacks8 = /* @__PURE__ */ new Map();
   var throttleFunctionReference = () => {
   };
@@ -4374,7 +4374,7 @@
   function handler6(scrollData2) {
     if (callbacks8.size === 0) {
       unsubscribe2();
-      initialized6 = false;
+      isInitialized6 = false;
       return;
     }
     handleFrame.add(() => {
@@ -4386,8 +4386,8 @@
     });
   }
   function init6() {
-    if (initialized6) return;
-    initialized6 = true;
+    if (isInitialized6) return;
+    isInitialized6 = true;
     throttleFunctionReference = throttle(
       (scrollData2) => handler6(scrollData2),
       eventStore.getProp("throttle")
@@ -4404,9 +4404,9 @@
     init6();
     return () => {
       callbacks8.delete(id);
-      if (callbacks8.size === 0 && initialized6) {
+      if (callbacks8.size === 0 && isInitialized6) {
         unsubscribe2();
-        initialized6 = false;
+        isInitialized6 = false;
       }
     };
   };
@@ -4420,7 +4420,7 @@
     };
     let debouceFunctionReference2 = () => {
     };
-    let initialized11 = false;
+    let isInitialized11 = false;
     const callbacks13 = /* @__PURE__ */ new Map();
     let isScrolling = false;
     function handler10() {
@@ -4430,7 +4430,7 @@
         if (type === "START") {
           unsubscribeScrollStart();
         }
-        initialized11 = false;
+        isInitialized11 = false;
         return;
       }
       handleFrame.add(() => {
@@ -4447,8 +4447,8 @@
       });
     }
     function init12() {
-      if (initialized11) return;
-      initialized11 = true;
+      if (isInitialized11) return;
+      isInitialized11 = true;
       debouceFunctionReference2 = debounceFuncion(() => handler10());
       unsubscribeScrollEnd = handleScrollImmediate(debouceFunctionReference2);
       if (type === "START") {
@@ -4475,7 +4475,7 @@
       init12();
       return () => {
         callbacks13.delete(id);
-        if (callbacks13.size === 0 && initialized11) {
+        if (callbacks13.size === 0 && isInitialized11) {
           handler10();
         }
       };
@@ -4487,12 +4487,12 @@
 
   // src/js/mob/mob-core/events/pointer-event/handle-pointer.js
   function handlePointer(eventType) {
-    let initialized11 = false;
+    let isInitialized11 = false;
     const callbacks13 = /* @__PURE__ */ new Map();
     function handler10(event) {
       if (callbacks13.size === 0) {
         globalThis.removeEventListener(eventType, handler10);
-        initialized11 = false;
+        isInitialized11 = false;
         return;
       }
       for (const value of callbacks13.values()) {
@@ -4500,8 +4500,8 @@
       }
     }
     function init12() {
-      if (initialized11) return;
-      initialized11 = true;
+      if (isInitialized11) return;
+      isInitialized11 = true;
       globalThis.addEventListener(eventType, handler10);
     }
     const addCallback10 = (cb) => {
@@ -4514,9 +4514,9 @@
       init12();
       return () => {
         callbacks13.delete(id);
-        if (callbacks13.size === 0 && initialized11) {
+        if (callbacks13.size === 0 && isInitialized11) {
           globalThis.removeEventListener(eventType, handler10);
-          initialized11 = false;
+          isInitialized11 = false;
         }
       };
     };
@@ -4805,10 +4805,10 @@
       const aNext = nodeA.next;
       const bPrev = nodeB.prev;
       const bNext = nodeB.next;
-      const aWasHead = nodeA === this.#head;
-      const aWasTail = nodeA === this.#tail;
-      const bWasHead = nodeB === this.#head;
-      const bWasTail = nodeB === this.#tail;
+      const wasAHead = nodeA === this.#head;
+      const wasATail = nodeA === this.#tail;
+      const wasBHead = nodeB === this.#head;
+      const wasBTail = nodeB === this.#tail;
       if (aPrev) aPrev[SET_NEXT](aNext);
       if (aNext) aNext[SET_PREV](aPrev);
       if (bPrev) bPrev[SET_NEXT](bNext);
@@ -4821,10 +4821,10 @@
       if (bNext) bNext[SET_PREV](nodeA);
       if (aPrev) aPrev[SET_NEXT](nodeB);
       if (aNext) aNext[SET_PREV](nodeB);
-      if (aWasHead) this.#head = nodeB;
-      else if (bWasHead) this.#head = nodeA;
-      if (aWasTail) this.#tail = nodeB;
-      else if (bWasTail) this.#tail = nodeA;
+      if (wasAHead) this.#head = nodeB;
+      else if (wasBHead) this.#head = nodeA;
+      if (wasATail) this.#tail = nodeB;
+      else if (wasBTail) this.#tail = nodeA;
       return this;
     }
     /**
@@ -5075,12 +5075,12 @@
   };
 
   // src/js/mob/mob-core/events/esc-handler/handle-esc.js
-  var initialized7 = false;
+  var isInitialized7 = false;
   var callbacks9 = /* @__PURE__ */ new Map();
   function handler7(event) {
     if (callbacks9.size === 0) {
       globalThis.removeEventListener("keydown", handler7);
-      initialized7 = false;
+      isInitialized7 = false;
       return;
     }
     const eventKey = event.key;
@@ -5099,8 +5099,8 @@
     }
   }
   function init7() {
-    if (initialized7) return;
-    initialized7 = true;
+    if (isInitialized7) return;
+    isInitialized7 = true;
     globalThis.addEventListener("keydown", handler7);
   }
   var addCallback6 = (cb) => {
@@ -5113,9 +5113,9 @@
     init7();
     return () => {
       callbacks9.delete(id);
-      if (callbacks9.size === 0 && initialized7) {
+      if (callbacks9.size === 0 && isInitialized7) {
         globalThis.removeEventListener("keydown", handler7);
-        initialized7 = false;
+        isInitialized7 = false;
       }
     };
   };
@@ -5124,14 +5124,14 @@
   })();
 
   // src/js/mob/mob-core/events/tab-handler/handle-tab.js
-  var initialized8 = false;
+  var isInitialized8 = false;
   var callbacks10 = /* @__PURE__ */ new Map();
   var BACKWARD = "BACKWARD";
   var FORWARD = "FORWARD";
   function handler8(event) {
     if (callbacks10.size === 0) {
       globalThis.removeEventListener("keydown", handler8);
-      initialized8 = false;
+      isInitialized8 = false;
       return;
     }
     const eventKey = event.key;
@@ -5142,8 +5142,8 @@
     }
   }
   function init8() {
-    if (initialized8) return;
-    initialized8 = true;
+    if (isInitialized8) return;
+    isInitialized8 = true;
     globalThis.addEventListener("keydown", handler8);
   }
   var addCallback7 = (cb) => {
@@ -5156,9 +5156,9 @@
     init8();
     return () => {
       callbacks10.delete(id);
-      if (callbacks10.size === 0 && initialized8) {
+      if (callbacks10.size === 0 && isInitialized8) {
         globalThis.removeEventListener("keydown", handler8);
-        initialized8 = false;
+        isInitialized8 = false;
       }
     };
   };
@@ -5167,12 +5167,12 @@
   })();
 
   // src/js/mob/mob-core/events/scroll-utils/handle-scroll-native-end.js
-  var initialized9 = false;
+  var isInitialized9 = false;
   var callbacks11 = /* @__PURE__ */ new Map();
   function handler9() {
     if (callbacks11.size === 0) {
       globalThis.removeEventListener("scrollend", handler9);
-      initialized9 = false;
+      isInitialized9 = false;
       return;
     }
     const scrollData2 = {
@@ -5183,8 +5183,8 @@
     }
   }
   function init9() {
-    if (initialized9) return;
-    initialized9 = true;
+    if (isInitialized9) return;
+    isInitialized9 = true;
     globalThis.addEventListener("scrollend", handler9, {
       passive: true
     });
@@ -5199,9 +5199,9 @@
     init9();
     return () => {
       callbacks11.delete(id);
-      if (callbacks11.size === 0 && initialized9) {
+      if (callbacks11.size === 0 && isInitialized9) {
         globalThis.removeEventListener("scrollend", handler9);
-        initialized9 = false;
+        isInitialized9 = false;
       }
     };
   };
@@ -6051,7 +6051,7 @@
 
   // src/js/mob/mob-js/modules/user-component/index.js
   var userPlaceholder = /* @__PURE__ */ new Set();
-  var skipAddUserComponent = false;
+  var shouldSkipAddUserComponent = false;
   var addUserPlaceholder = (element) => {
     userPlaceholder.add(element);
   };
@@ -6075,7 +6075,7 @@
       return element.contains(component) && element !== component && component.getIsPlaceholder?.() && component?.getSlotPosition?.();
     }) ?? [];
   };
-  var getSkipAddUserComponent = () => skipAddUserComponent;
+  var getSkipAddUserComponent = () => shouldSkipAddUserComponent;
 
   // src/js/mob/mob-js/web-component/repeat.js
   var defineRepeatComponent = () => {
@@ -6154,8 +6154,8 @@
   };
 
   // src/js/mob/mob-js/parse/strategy.js
-  var useSlotQuery = false;
-  var useComponentHasNamedSlotQuery = true;
+  var shouldUseSlotQuery = false;
+  var shouldUseNamedSlotQuery = true;
 
   // src/js/mob/mob-js/modules/slot/index.js
   var slotPlaceholder = /* @__PURE__ */ new Set();
@@ -6204,7 +6204,7 @@
         connectedCallback() {
           const host = this.shadowRoot?.host;
           if (!host) return;
-          if (!useSlotQuery) addSlotPlaceholder(host);
+          if (!shouldUseSlotQuery) addSlotPlaceholder(host);
           const { dataset } = this.shadowRoot?.host ?? {};
           if (dataset) {
             this.#slotName = this.shadowRoot?.host.getAttribute(ATTR_SLOT_NAME);
@@ -6601,7 +6601,7 @@
     invalidateQueque.set(id, props);
     return () => invalidateQueque.delete(id);
   };
-  var queueIsResolved = () => {
+  var invalidateQueueIsResolved = () => {
     return invalidateQueque.size === 0;
   };
   var invalidateTick = async ({
@@ -6614,12 +6614,12 @@
       }
     }
     await awaitNextLoop();
-    if (queueIsResolved() && previousResolve) {
+    if (invalidateQueueIsResolved() && previousResolve) {
       previousResolve();
       return;
     }
     return new Promise((resolve) => {
-      if (queueIsResolved()) {
+      if (invalidateQueueIsResolved()) {
         resolve();
         return;
       }
@@ -6646,7 +6646,7 @@
     repeaterQueque.set(id, props);
     return () => repeaterQueque.delete(id);
   };
-  var queueIsResolved2 = () => {
+  var repeaterQueueIsResolved = () => {
     return repeaterQueque.size === 0;
   };
   var repeaterTick = async ({ debug = false, previousResolve } = {}) => {
@@ -6656,12 +6656,12 @@
       }
     }
     await awaitNextLoop();
-    if (queueIsResolved2() && previousResolve) {
+    if (repeaterQueueIsResolved() && previousResolve) {
       previousResolve();
       return;
     }
     return new Promise((resolve) => {
-      if (queueIsResolved2()) {
+      if (repeaterQueueIsResolved()) {
         resolve();
         return;
       }
@@ -6750,7 +6750,7 @@
     bindTextPlaceholderMap.clear();
   };
   var createBindTextWatcher = ({ id, render: render2, props, element }) => {
-    let watchIsRunning = false;
+    let isWatchRunning = false;
     let ref = new WeakRef(element);
     const repeaterObserved = getRepeaterObservedByComponentid({ id });
     const invalidateObserved = getInvalidateObservedByComponentid({ id });
@@ -6767,8 +6767,8 @@
       return watchById(id, finalStateTowatch, async () => {
         await repeaterTick();
         await invalidateTick();
-        if (watchIsRunning) return;
-        watchIsRunning = true;
+        if (isWatchRunning) return;
+        isWatchRunning = true;
         modules_exports.useNextLoop(() => {
           modules_exports.useFrame(() => {
             if (ref?.deref() && !ref.deref()?.isConnected) {
@@ -6782,7 +6782,7 @@
               ref.deref().textContent = "";
               ref.deref().insertAdjacentHTML("afterbegin", render2());
             }
-            watchIsRunning = false;
+            isWatchRunning = false;
           });
         });
       });
@@ -6878,7 +6878,7 @@
     bindObjectPlaceholderMap.clear();
   };
   var createBindObjectWatcher = ({ id, keys, render: render2, element }) => {
-    let watchIsRunning = false;
+    let isWatchRunning = false;
     let ref = new WeakRef(element);
     const repeaterObserved = getRepeaterObservedByComponentid({ id });
     const invalidateObserved = getInvalidateObservedByComponentid({ id });
@@ -6889,8 +6889,8 @@
       return watchById(id, state, async () => {
         await repeaterTick();
         await invalidateTick();
-        if (watchIsRunning) return;
-        watchIsRunning = true;
+        if (isWatchRunning) return;
+        isWatchRunning = true;
         modules_exports.useNextLoop(() => {
           modules_exports.useFrame(() => {
             if (ref?.deref() && !ref.deref()?.isConnected) {
@@ -6904,7 +6904,7 @@
               ref.deref().textContent = "";
               ref.deref().insertAdjacentHTML("afterbegin", render2());
             }
-            watchIsRunning = false;
+            isWatchRunning = false;
           });
         });
       });
@@ -7461,19 +7461,19 @@
     return;
   };
   var removeOrphanSlot = ({ element }) => {
-    const slots = useSlotQuery ? queryGenericSlot(element) : getAllSlot();
+    const slots = shouldUseSlotQuery ? queryGenericSlot(element) : getAllSlot();
     for (const slot of slots) {
       slot?.removeCustomComponent();
       slot?.remove();
     }
   };
   var addToNamedSlot = ({ element }) => {
-    if (!useSlotQuery && getSlotPlaceholderSize() === 0) return;
-    const componentWithSlot = useComponentHasNamedSlotQuery ? queryComponentUseSlot(element) : getAllUserComponentUseNamedSlot({ element });
+    if (!shouldUseSlotQuery && getSlotPlaceholderSize() === 0) return;
+    const componentWithSlot = shouldUseNamedSlotQuery ? queryComponentUseSlot(element) : getAllUserComponentUseNamedSlot({ element });
     if (componentWithSlot.length === 0) return;
     for (const component of componentWithSlot) {
       const slotName = component?.getSlotPosition();
-      const slot = useSlotQuery ? querySecificSlot(element, slotName) : getSlotByName({ name: slotName, element });
+      const slot = shouldUseSlotQuery ? querySecificSlot(element, slotName) : getSlotByName({ name: slotName, element });
       if (slot) {
         slot.parentNode?.insertBefore(component, slot);
         slot?.removeCustomComponent();
@@ -7488,7 +7488,7 @@
       const delegateEventId = element?.getDelegateEventId();
       const bindRefId = element?.getBindRefId();
       const bindRefName = element?.getBindRefName();
-      const unNamedSlot = useSlotQuery ? queryUnNamedSlot(newElement) : getUnamedPlaceholderSlot({ element: newElement });
+      const unNamedSlot = shouldUseSlotQuery ? queryUnNamedSlot(newElement) : getUnamedPlaceholderSlot({ element: newElement });
       if (unNamedSlot) {
         addMultipleDOMElement({
           parent: unNamedSlot,
@@ -7683,7 +7683,7 @@
     queque.set(id, props);
     return () => queque.delete(id);
   };
-  var queueIsResolved3 = () => {
+  var tickQueueIsResolved = () => {
     return queque.size === 0;
   };
   var tick = async ({ debug = false, previousResolve } = {}) => {
@@ -7693,12 +7693,12 @@
       }
     }
     await awaitNextLoop();
-    if (queueIsResolved3() && previousResolve) {
+    if (tickQueueIsResolved() && previousResolve) {
       previousResolve();
       return;
     }
     return new Promise((resolve) => {
-      if (queueIsResolved3()) {
+      if (tickQueueIsResolved()) {
         resolve();
         return;
       }
@@ -7895,19 +7895,19 @@
       });
       return;
     }
-    let watchIsRunning = false;
+    let isWatchRunning = false;
     const unWatchArray = observeParsed.map((state) => {
       return watchById(parentId, state, async () => {
         await repeaterTick();
         await invalidateTick();
-        if (watchIsRunning) return;
+        if (isWatchRunning) return;
         const decrementQueue = incrementTickQueuque({
           state,
           componentId,
           moduleId: "",
           type: QUEQUE_TYPE_BINDPROPS
         });
-        watchIsRunning = true;
+        isWatchRunning = true;
         modules_exports.useNextLoop(() => {
           updateBindProp({
             componentId,
@@ -7916,7 +7916,7 @@
             currentParentId: parentId ?? "",
             fireCallback: true
           });
-          watchIsRunning = false;
+          isWatchRunning = false;
           decrementQueue();
         });
       });
@@ -8063,7 +8063,7 @@
     const { items } = data;
     let unsubScribeFunction = items.flatMap(
       ({ observe, toggleClass, toggleStyle, toggleAttribute }) => {
-        let watchIsRunning = false;
+        let isWatchRunning = false;
         const repeaterObserved = getRepeaterObservedByComponentid({ id });
         const invalidateObserved = getInvalidateObservedByComponentid({
           id
@@ -8102,8 +8102,8 @@
               ref = null;
               return;
             }
-            if (watchIsRunning) return;
-            watchIsRunning = true;
+            if (isWatchRunning) return;
+            isWatchRunning = true;
             modules_exports.useNextLoop(() => {
               modules_exports.useFrame(() => {
                 if (toggleClass && ref?.deref()) {
@@ -8115,7 +8115,7 @@
                 if (toggleAttribute && ref?.deref()) {
                   applyAttribute({ ref, data: toggleAttribute });
                 }
-                watchIsRunning = false;
+                isWatchRunning = false;
               });
             });
           });
@@ -8334,7 +8334,7 @@
         moduleId,
         {
           element: currentModuleParent,
-          initialized: initialized11,
+          initialized,
           scopeId,
           initializeModule,
           unsubscribe: unsubscribe3
@@ -8345,8 +8345,8 @@
         targetComponentId: componentId
       }))
         continue;
-      if (skipInitialized && initialized11) continue;
-      if (onlyInitialized && !initialized11) continue;
+      if (skipInitialized && initialized) continue;
+      if (onlyInitialized && !initialized) continue;
       const condition = currentModuleParent && moduleParentElement?.contains(currentModuleParent) && moduleParentElement !== currentModuleParent;
       if (condition)
         result.push({
@@ -8493,14 +8493,14 @@
     persistent = false,
     renderFunction
   }) => {
-    let watchIsRunning = false;
+    let isWatchRunning = false;
     const fallBackParentId = getParentIdFromWeakElementMap({
       element: getInvalidateParent({ id: invalidateId })
     });
     afterUpdate();
     const unsubScribeArray = observe.map((state) => {
       const unsubscribe3 = watch(state, async () => {
-        if (watchIsRunning) return;
+        if (isWatchRunning) return;
         freezePropById({ id, prop: state });
         const invalidateParent = getInvalidateParent({
           id: invalidateId
@@ -8517,7 +8517,7 @@
           invalidateId,
           type: QUEQUE_TYPE_INVALIDATE
         });
-        watchIsRunning = true;
+        isWatchRunning = true;
         modules_exports.useNextLoop(async () => {
           if (!invalidateParent) {
             unFreezePropById({ id, prop: state });
@@ -8560,7 +8560,7 @@
           );
           await mainStore.emitAsync(MAIN_STORE_PARSER_ASYNC);
           resetMainStoreAsyncParser();
-          watchIsRunning = false;
+          isWatchRunning = false;
           descrementQueue();
           decrementInvalidateQueque();
           inizializeNestedInvalidate({ invalidateParent, id });
@@ -8651,10 +8651,10 @@
     }
   };
   var getActiveRepeater = ({ id = "", state = "", container }) => {
-    const repeatIsActive = [...activeRepeatMap].some((repeat) => {
+    const isRepeatActive = [...activeRepeatMap].some((repeat) => {
       return id === repeat.id && state === repeat.state && container === repeat.container;
     });
-    return repeatIsActive;
+    return isRepeatActive;
   };
 
   // src/js/mob/mob-js/modules/repeater/utils.js
@@ -10132,7 +10132,7 @@
       if (!newElement) {
         return;
       }
-      if (!useSlotQuery) clearSlotPlaceholder();
+      if (!shouldUseSlotQuery) clearSlotPlaceholder();
       transferAllAttributes({ source: componentToParse, target: newElement });
       const shouldBeComponent = tagShouldBeComponent(newElement.tagName);
       const { bindEffectInstanceId: bindEffectInstanceIdCC } = getParamsFromCustomComponent({
@@ -10203,9 +10203,9 @@
         }
       });
       componentToParse = getFirstUserChildPlaceholder(element);
-      const parseLimitReached = getCurrentIterationCounter() === getDefaultComponent().maxParseIteration;
+      const isLimitReached = getCurrentIterationCounter() === getDefaultComponent().maxParseIteration;
       incrementCurrentIterationCounter();
-      if (parseLimitReached) {
+      if (isLimitReached) {
         console.warn(
           `dom parse reached max parse limit: ${getCurrentIterationCounter()}`
         );
@@ -10343,11 +10343,11 @@
       nextRoute: route,
       nextTemplate: templateName
     });
-    let skip = false;
+    let shouldSkip = false;
     const unWatchRouteChange = mainStore.watch(
       MAIN_STORE_BEFORE_ROUTE_CHANGE,
       () => {
-        skip = true;
+        shouldSkip = true;
       }
     );
     removeOrphanTempIds();
@@ -10380,7 +10380,7 @@
     contentElement.prepend(content);
     await parseComponents({ element: contentElement });
     if (!skipTransitionParsed) contentElement.style.visibility = "";
-    if (!skip)
+    if (!shouldSkip)
       mainStore.set(MAIN_STORE_AFTER_ROUTE_CHANGE, {
         currentRoute: route,
         currentTemplate: templateName,
@@ -10441,12 +10441,12 @@
 
   // src/js/mob/mob-js/route/router.js
   var previousFullHashLoaded = "";
-  var firstAppLoad = true;
+  var isFirstAppLoad = true;
   var currentCleanHash = "";
   var previousCleanHash = "";
   var currentParamsFromLoadUrl;
   var currentSkipTransition;
-  var pendingHistoryNavigation = false;
+  var hasPendingHistoryNavigation = false;
   var sanitizeParams = (value) => {
     return value.replace("?", "").replace("/", "");
   };
@@ -10499,7 +10499,7 @@
     const targetTemplate = getTemplateName({
       hash: currentCleanHash && currentCleanHash.length > 0 ? currentCleanHash : getIndex()
     });
-    const isSamePreviousRoute = currentCleanHash === previousCleanHash && currentParams.length === 0 && !firstAppLoad;
+    const isSamePreviousRoute = currentCleanHash === previousCleanHash && currentParams.length === 0 && !isFirstAppLoad;
     if (shouldLoadRoute && !isSamePreviousRoute) {
       previousFullHashLoaded = `#${currentCleanHash}${currentParams}`;
       await loadPage({
@@ -10519,18 +10519,18 @@
     }
     currentSkipTransition = void 0;
     modules_exports.useNextLoop(() => {
-      firstAppLoad = false;
+      isFirstAppLoad = false;
     });
   };
   var router = () => {
     parseUrlHash();
     globalThis.history.scrollRestoration = "manual";
     globalThis.addEventListener("popstate", (event) => {
-      pendingHistoryNavigation = !!event?.state?.nextId;
+      hasPendingHistoryNavigation = !!event?.state?.nextId;
     });
     globalThis.addEventListener("hashchange", async () => {
-      const fromHistory = pendingHistoryNavigation;
-      pendingHistoryNavigation = false;
+      const fromHistory = hasPendingHistoryNavigation;
+      hasPendingHistoryNavigation = false;
       await awaitNextLoop();
       parseUrlHash({ fromHistory });
     });
@@ -10544,7 +10544,7 @@
     const stringParams = sanitizeParams(parts?.[1] ?? "");
     const urlsParams = objectParams ?? stringParams;
     currentParamsFromLoadUrl = urlsParams.length > 0 ? urlsParams : "";
-    pendingHistoryNavigation = false;
+    hasPendingHistoryNavigation = false;
     globalThis.location.hash = currentParamsFromLoadUrl && currentParamsFromLoadUrl.length > 0 ? `${hash}?${currentParamsFromLoadUrl}` : hash;
   };
 
@@ -12276,10 +12276,10 @@
       STAGGER_EDGES,
       STAGGER_RANDOM
     ];
-    const fromIsAValidString = fromList.includes(from);
-    const fromIsANumber = modules_exports.checkType(Number, from);
-    const fromIsAValidObject = modules_exports.checkType(Object, from);
-    const fromIsValid = fromIsAValidString || fromIsANumber || fromIsAValidObject;
+    const isFromValidString = fromList.includes(from);
+    const isFromNumber = modules_exports.checkType(Number, from);
+    const isFromValidObject = modules_exports.checkType(Object, from);
+    const fromIsValid = isFromValidString || isFromNumber || isFromValidObject;
     if (!fromIsValid) staggerFromGenericWarning(from);
     return fromIsValid;
   };
@@ -12292,9 +12292,9 @@
   var validateStaggerDirection = (direction2) => {
     if (!direction2) return;
     const directionList = [DIRECTION_RADIAL, DIRECTION_ROW, DIRECTION_COL];
-    const directionisValid = directionList.includes(direction2);
-    if (!directionisValid) staggerGridDirectionWarning();
-    return directionisValid;
+    const isDirectionValid = directionList.includes(direction2);
+    if (!isDirectionValid) staggerGridDirectionWarning();
+    return isDirectionValid;
   };
   var validateStaggerWaitComplete = (waitComplete) => {
     if (!waitComplete) return;
@@ -12627,13 +12627,13 @@
     ];
     const isValid = modules_exports.checkType(String, value);
     if (!isValid && value) scrollerPropiertiesWarining(value, choice);
-    const notParallaxTweenInsideParallax = type === MobScrollerConstant.TYPE_PARALLAX && value === MobScrollerConstant.PROP_TWEEN && !tweenIsParallaxTween;
+    const isNotParallaxTweenInsideParallax = type === MobScrollerConstant.TYPE_PARALLAX && value === MobScrollerConstant.PROP_TWEEN && !tweenIsParallaxTween;
     if (!tweenIsParallaxTween && !tweenIsSequencer && value === MobScrollerConstant.PROP_TWEEN)
       scrollerNoTweenDefinedWarning();
     if ((tweenIsParallaxTween || tweenIsSequencer) && value !== MobScrollerConstant.PROP_TWEEN)
       scrollerUseTweenButNotProsDefinedWarning();
-    if (notParallaxTweenInsideParallax) scrollerUseSequencerWarining();
-    const valueParsed = notParallaxTweenInsideParallax ? MobScrollerConstant.PROP_VERTICAL : value;
+    if (isNotParallaxTweenInsideParallax) scrollerUseSequencerWarining();
+    const valueParsed = isNotParallaxTweenInsideParallax ? MobScrollerConstant.PROP_VERTICAL : value;
     const valueFromConstant = getPropiertiesValueFromConstant(valueParsed);
     return {
       propierties: isValid ? valueFromConstant ?? MobScrollerConstant.PROP_VERTICAL : MobScrollerConstant.PROP_VERTICAL,
@@ -13579,8 +13579,8 @@
       const newCurrentValue = getRoundedValue(rawCurrentValue);
       const isVelocity = Math.abs(newVelocity) <= 0.1;
       const isDisplacement = tension === 0 ? true : Math.abs(toValue - newCurrentValue) <= precision;
-      const settled = isVelocity && isDisplacement;
-      if (settled) {
+      const isSettled = isVelocity && isDisplacement;
+      if (isSettled) {
         return {
           ...item,
           currentValue: toValue,
@@ -14408,15 +14408,15 @@
   var previousClientX = 0;
   var previousClientY = 0;
   var previousTime = 0;
-  var firstMove = false;
+  var isFirstMove = false;
   var currentClientX = 0;
   var currentClientY = 0;
-  var pointerEnd = false;
+  var isPointerEnd = false;
   var rawSpeed = 1;
   var rawSpeedX = 1;
   var rawSpeedY = 1;
   var totalDistance = 1;
-  var completed = false;
+  var isCompleted = false;
   var currentDirectionX = 0;
   var currentDirectionY = 0;
   var directionTresholdBase = 2;
@@ -14424,7 +14424,7 @@
   var THRESHOLD_CAP = 60;
   var previousThreshold = directionTresholdBase;
   var RELEASE_LERP = 0.1;
-  var initialized10 = false;
+  var isInitialized10 = false;
   var debounceTimeoutId = null;
   var DEBOUNCE_DELAY = 200;
   var GAP_MAX = 120;
@@ -14455,7 +14455,7 @@
     const diffY = clientY - previousClientY;
     const time2 = modules_exports.getTime();
     const diffTime = time2 - previousTime;
-    if (firstMove || diffTime === 0) {
+    if (isFirstMove || diffTime === 0) {
       previousClientX = clientX;
       previousClientY = clientY;
       previousTime = time2;
@@ -14513,21 +14513,21 @@
     unsubscribeDetectStart = modules_exports.usePointerMove(() => {
       unsubscribeDetectStart();
       previousTime = modules_exports.getTime();
-      completed = false;
+      isCompleted = false;
       if (gapTimeoutId) {
         clearTimeout(gapTimeoutId);
         gapTimeoutId = null;
       } else {
         totalDistance = 1;
-        pointerEnd = false;
+        isPointerEnd = false;
       }
-      firstMove = true;
+      isFirstMove = true;
     });
   };
   var initPointerMove = () => {
     unsubscribePointerMove = modules_exports.usePointerMove((event) => {
       updateVelocity(event);
-      if (firstMove) firstMove = false;
+      if (isFirstMove) isFirstMove = false;
     });
   };
   var clearPendingDebounce = () => {
@@ -14554,11 +14554,11 @@
     previousThreshold = directionTresholdBase;
     gapTimeoutId = setTimeout(() => {
       gapTimeoutId = null;
-      completed = true;
+      isCompleted = true;
       rawSpeed = 1;
       rawSpeedX = 1;
       rawSpeedY = 1;
-      pointerEnd = true;
+      isPointerEnd = true;
     }, GAP_MAX);
     unsubscribePointerMove();
     unsubscribeDetectEnd();
@@ -14578,8 +14578,8 @@
     unsubscribeDetectEnd = modules_exports.usePointerMove(debouceFunctionReference2);
   };
   var init10 = () => {
-    if (initialized10) return;
-    initialized10 = true;
+    if (isInitialized10) return;
+    isInitialized10 = true;
     initDetectStart();
     initPointerMove();
     initPointerEnd();
@@ -14602,8 +14602,8 @@
             directionX: currentDirectionX,
             directionY: currentDirectionY,
             distance: totalDistance,
-            completed,
-            pointerEnd,
+            completed: isCompleted,
+            pointerEnd: isPointerEnd,
             rawSpeed,
             rawSpeedX,
             rawSpeedY
@@ -14623,8 +14623,8 @@
             directionX: 0,
             directionY: 0,
             distance: totalDistance,
-            completed,
-            pointerEnd,
+            completed: isCompleted,
+            pointerEnd: isPointerEnd,
             rawSpeed,
             rawSpeedX,
             rawSpeedY
@@ -14643,7 +14643,7 @@
     init10();
     return () => {
       callbacks12.delete(id);
-      if (callbacks12.size === 0 && initialized10) {
+      if (callbacks12.size === 0 && isInitialized10) {
         if (gapTimeoutId) {
           clearTimeout(gapTimeoutId);
           gapTimeoutId = null;
@@ -14653,19 +14653,19 @@
         unsubscribePointerMove();
         tweenInstance.destroy();
         tweenInstance = null;
-        initialized10 = false;
+        isInitialized10 = false;
         previousClientX = 0;
         previousClientY = 0;
         previousTime = 0;
-        firstMove = false;
+        isFirstMove = false;
         currentDirectionX = 0;
         currentDirectionY = 0;
         currentClientX = 0;
         currentClientY = 0;
         previousThreshold = directionTresholdBase;
         totalDistance = 1;
-        completed = false;
-        pointerEnd = false;
+        isCompleted = false;
+        isPointerEnd = false;
         rawSpeed = 1;
         rawSpeedX = 1;
         rawSpeedY = 1;
@@ -14721,8 +14721,8 @@
       const { currentValue, toValue } = item;
       const lerpValue = lerp(currentValue, toValue, velocity / fps2 * 60);
       const newCurrentValue = getRoundedValue(lerpValue);
-      const settled = Math.round(Math.abs(toValue - newCurrentValue) * 1e4) / 1e4 <= precision;
-      if (settled) {
+      const isSettled = Math.round(Math.abs(toValue - newCurrentValue) * 1e4) / 1e4 <= precision;
+      if (isSettled) {
         return {
           ...item,
           currentValue: toValue,
@@ -16043,8 +16043,8 @@
   var getFirstValidValueBack = (arr, index, prop, propToFind) => {
     return arr.slice(0, index).reduceRight((previous, { values: valuesForward }) => {
       const result = valuesForward.find(
-        ({ prop: propToCompare, active: active2 }) => {
-          return active2 && propToCompare === prop;
+        ({ prop: propToCompare, active }) => {
+          return active && propToCompare === prop;
         }
       );
       return result && !previous && previous !== 0 ? result[propToSet[propToFind].get] : previous;
@@ -16135,8 +16135,8 @@
     return timeline.map((item, index) => {
       const { values, propToFind } = item;
       const newValues = values.map((valueItem) => {
-        const { prop, active: active2 } = valueItem;
-        if (!active2 || !activeProp.includes(prop) || !propToFind || propToFind.length === 0)
+        const { prop, active } = valueItem;
+        if (!active || !activeProp.includes(prop) || !propToFind || propToFind.length === 0)
           return valueItem;
         const previousValidValue = getFirstValidValueBack(
           timeline,
@@ -16420,10 +16420,10 @@
      */
     #fireAddCallback(time2 = 0) {
       for (const { fn, time: fnTime } of this.#callbackAdd) {
-        const mustFireForward = this.#direction === directionConstant.FORWARD && time2 > fnTime && this.#lastPartial <= fnTime;
-        const mustFireBackward = this.#direction === directionConstant.BACKWARD && time2 < fnTime && this.#lastPartial >= fnTime;
-        const mustFire = mustFireForward || mustFireBackward;
-        if (!mustFire) continue;
+        const requiresFireForward = this.#direction === directionConstant.FORWARD && time2 > fnTime && this.#lastPartial <= fnTime;
+        const requiresFireBackward = this.#direction === directionConstant.BACKWARD && time2 < fnTime && this.#lastPartial >= fnTime;
+        const requiresFire = requiresFireForward || requiresFireBackward;
+        if (!requiresFire) continue;
         fn({ direction: this.#direction, value: time2, isForced: false });
       }
     }
@@ -17825,9 +17825,9 @@
   var filterActiveProps = ({ data, filterBy }) => {
     return Object.entries(data).map((item) => {
       const [prop, val] = item;
-      const valueIsValid = Object.hasOwn(filterBy, prop);
-      return { data: { [prop]: val }, active: valueIsValid };
-    }).filter(({ active: active2 }) => active2).map(({ data: data2 }) => data2).reduce((p, c) => {
+      const isValidValue = Object.hasOwn(filterBy, prop);
+      return { data: { [prop]: val }, active: isValidValue };
+    }).filter(({ active }) => active).map(({ data: data2 }) => data2).reduce((p, c) => {
       return { ...p, ...c };
     }, {});
   };
@@ -21213,9 +21213,9 @@
       const scrollDirection = this.#prevScroll > scrollTop ? MobScrollerConstant.SCROLL_UP : MobScrollerConstant.SCROLL_DOWN;
       const offsetTop = this.#direction === MobScrollerConstant.DIRECTION_VERTICAL ? position(this.#wrapper).top : position(this.#wrapper).left;
       const { anticipateBottom, anticipateInnerIn, anticipateInnerOut } = this.#invertSide ? this.#getAnticipateValueInverted(scrollTop, scrollDirection) : this.#getAnticipateValue(scrollTop, scrollDirection);
-      const bottomCondition = this.#invertSide ? offsetTop < this.#start - anticipateBottom : offsetTop > this.#scrollerHeight - this.#start + anticipateBottom;
-      const innerCondition = this.#invertSide ? offsetTop >= this.#start - anticipateInnerIn && offsetTop <= this.#start + anticipateInnerOut + this.#end : offsetTop <= this.#scrollerHeight - this.#start + anticipateInnerIn && this.#scrollerHeight - offsetTop <= this.#end + anticipateInnerOut + this.#start;
-      if (bottomCondition) {
+      const shouldPlacebottom = this.#invertSide ? offsetTop < this.#start - anticipateBottom : offsetTop > this.#scrollerHeight - this.#start + anticipateBottom;
+      const shouldPlaceinner = this.#invertSide ? offsetTop >= this.#start - anticipateInnerIn && offsetTop <= this.#start + anticipateInnerOut + this.#end : offsetTop <= this.#scrollerHeight - this.#start + anticipateInnerIn && this.#scrollerHeight - offsetTop <= this.#end + anticipateInnerOut + this.#start;
+      if (shouldPlacebottom) {
         if (!this.#isUnder) {
           this.#resetStyleWhenUnder();
           this.#deactivateTrasponder();
@@ -21223,7 +21223,7 @@
           this.#isInner = false;
           this.#isOver = false;
         }
-      } else if (innerCondition) {
+      } else if (shouldPlaceinner) {
         if (!this.#isInner) {
           this.#setFixedPosition();
           const fireSpring = scrollDirection === MobScrollerConstant.SCROLL_DOWN && !this.#invertSide || scrollDirection === MobScrollerConstant.SCROLL_UP && this.#invertSide;
@@ -22599,37 +22599,37 @@
       if (!el || this.#shouldTrackOnlyEvents) return;
       const force3DStyle = this.#force3D ? "translate3D(0px, 0px, 0px)" : "";
       this.#willChangeIsActive = this.#useWillChange ? modules_exports.mustMakeSomething() : false;
-      const shouldWill = this.#willChangeIsActive && this.#force3D ? "transform" : "";
+      const propiertiesToWillChenage = this.#willChangeIsActive && this.#force3D ? "transform" : "";
       const valueParsed = modules_exports.shouldMakeSomething() ? Math.round(value) : value;
       switch (this.#propierties) {
         case MobScrollerConstant.PROP_VERTICAL: {
           el.style.transform = `${force3DStyle} translateY(${valueParsed}px)`;
-          el.style.willChange = shouldWill;
+          el.style.willChange = propiertiesToWillChenage;
           break;
         }
         case MobScrollerConstant.PROP_HORIZONTAL: {
           el.style.transform = `${force3DStyle} translateX(${valueParsed}px)`;
-          el.style.willChange = shouldWill;
+          el.style.willChange = propiertiesToWillChenage;
           break;
         }
         case MobScrollerConstant.PROP_ROTATE: {
           el.style.transform = `${force3DStyle} rotate(${valueParsed}deg)`;
-          el.style.willChange = shouldWill;
+          el.style.willChange = propiertiesToWillChenage;
           break;
         }
         case MobScrollerConstant.PROP_ROTATEY: {
           el.style.transform = `${force3DStyle} rotateY(${valueParsed}deg)`;
-          el.style.willChange = shouldWill;
+          el.style.willChange = propiertiesToWillChenage;
           break;
         }
         case MobScrollerConstant.PROP_ROTATEX: {
           el.style.transform = `${force3DStyle} rotateX(${valueParsed}deg)`;
-          el.style.willChange = shouldWill;
+          el.style.willChange = propiertiesToWillChenage;
           break;
         }
         case MobScrollerConstant.PROP_ROTATEZ: {
           el.style.transform = `${force3DStyle} rotateZ(${valueParsed}deg)`;
-          el.style.willChange = shouldWill;
+          el.style.willChange = propiertiesToWillChenage;
           break;
         }
         case MobScrollerConstant.PROP_OPACITY: {
@@ -22639,19 +22639,19 @@
         case MobScrollerConstant.PROP_SCALE: {
           const scaleVal = this.#type === MobScrollerConstant.TYPE_SCROLLTRIGGER ? value : 1 + value / 1e3;
           el.style.transform = `${force3DStyle} scale(${scaleVal})`;
-          el.style.willChange = shouldWill;
+          el.style.willChange = propiertiesToWillChenage;
           break;
         }
         case MobScrollerConstant.PROP_SCALE_X: {
           const scaleVal = this.#type === MobScrollerConstant.TYPE_SCROLLTRIGGER ? value : 1 + value / 1e3;
           el.style.transform = `${force3DStyle} scaleX(${scaleVal})`;
-          el.style.willChange = shouldWill;
+          el.style.willChange = propiertiesToWillChenage;
           break;
         }
         case MobScrollerConstant.PROP_SCALE_Y: {
           const scaleVal = this.#type === MobScrollerConstant.TYPE_SCROLLTRIGGER ? value : 1 + value / 1e3;
           el.style.transform = `${force3DStyle} scaleY(${scaleVal})`;
-          el.style.willChange = shouldWill;
+          el.style.willChange = propiertiesToWillChenage;
           break;
         }
         default: {
@@ -23039,10 +23039,10 @@
   // src/js/mob/mob-motion/plugin/page-scroll/page-scroller.js
   var windowInnerheight = window.innerHeight;
   var windowOffsetheight = document.documentElement.scrollHeight;
-  var isActive = false;
-  var usePrevent = true;
+  var isActive2 = false;
+  var shouldUsePrevent = true;
   var lastScrollValue = window.scrollY;
-  var useNativeScroll = true;
+  var shouldUseNativeScroll = true;
   var isFreezed = false;
   var destroy = () => {
   };
@@ -23084,9 +23084,9 @@
       lastScrollValue = window.scrollY;
     });
     const unsubscribeMouseWheel = modules_exports.useMouseWheel((event) => {
-      if (usePrevent) event.preventDefault();
+      if (shouldUsePrevent) event.preventDefault();
       if (isFreezed) return;
-      useNativeScroll = false;
+      shouldUseNativeScroll = false;
       addWhellingClass();
       const spinY = event.spinY ?? 0;
       const currentValue = core_exports.clamp(
@@ -23110,7 +23110,7 @@
       lerp2.setImmediate({ scrollValue: value });
     });
     const unsubscribeScroll = modules_exports.useScroll(() => {
-      if (!useNativeScroll) {
+      if (!shouldUseNativeScroll) {
         return;
       }
       const value = window.scrollY;
@@ -23122,7 +23122,7 @@
       removeWhellingClass();
       lerp2.stop();
       lastScrollValue = window.scrollY;
-      useNativeScroll = true;
+      shouldUseNativeScroll = true;
     });
     const resizeObserver = new ResizeObserver(() => {
       lerp2.stop();
@@ -23134,9 +23134,9 @@
     resizeObserver.observe(rootElement);
     return {
       destroy: () => {
-        isActive = false;
+        isActive2 = false;
         lastScrollValue = 0;
-        useNativeScroll = true;
+        shouldUseNativeScroll = true;
         isFreezed = false;
         removeWhellingClass();
         if (rootElementToObserve) {
@@ -23173,55 +23173,55 @@
     velocity = 100,
     rootElement = document.createElement("div")
   } = {}) => {
-    if (isActive) return;
+    if (isActive2) return;
     lastScrollValue = window.scrollY;
-    isActive = true;
+    isActive2 = true;
     isFreezed = false;
     windowInnerheight = window.innerHeight;
     windowOffsetheight = document.documentElement.scrollHeight;
-    usePrevent = true;
-    useNativeScroll = false;
+    shouldUsePrevent = true;
+    shouldUseNativeScroll = false;
     ({ destroy, stop, update: update2 } = MobPageScroller({
       velocity,
       rootElement
     }));
   };
   var FreezeMobPageScroll = () => {
-    if (!isActive || isFreezed) return;
+    if (!isActive2 || isFreezed) return;
     stop();
     isFreezed = true;
   };
   var UnFreezeMobPageScroll = () => {
-    if (!isActive || !isFreezed) return;
+    if (!isActive2 || !isFreezed) return;
     isFreezed = false;
   };
   var UnFreezeAndUPdateMobPageScroll = () => {
-    if (!isActive || !isFreezed) return;
+    if (!isActive2 || !isFreezed) return;
     update2();
     lastScrollValue = window.scrollY;
     isFreezed = false;
   };
   var UpdateMobPageScroll = () => {
-    if (!isActive) return;
+    if (!isActive2) return;
     update2();
   };
   var DestroyMobPageScroll = () => {
     destroy();
   };
   var enebalePreventScroll = () => {
-    usePrevent = true;
+    shouldUsePrevent = true;
   };
   var getActiveStateScroll = () => {
-    return isActive;
+    return isActive2;
   };
 
   // src/js/mob/mob-motion/plugin/body-scroll/body-scroll.js
   var defaultPreset = "easeOutQuad";
   var tween = new MobTimeTween({ ease: defaultPreset, data: { val: 0 } });
   var isRunning = false;
-  var overflow = false;
+  var shouldUseOverflow = false;
   var onComplete = () => {
-    if (overflow) document.body.style.overflow = "";
+    if (shouldUseOverflow) document.body.style.overflow = "";
     tween?.updateEase?.(defaultPreset);
     UnFreezeAndUPdateMobPageScroll();
   };
@@ -23271,7 +23271,7 @@
         "bodyScroll: duration",
         500
       );
-      overflow = valueIsBooleanAndReturnDefault(
+      shouldUseOverflow = valueIsBooleanAndReturnDefault(
         data?.overflow,
         "bodyScroll: overflow",
         false
@@ -23282,7 +23282,7 @@
           data?.ease
         );
       }
-      if (overflow) document.body.style.overflow = "hidden";
+      if (shouldUseOverflow) document.body.style.overflow = "hidden";
       isRunning = true;
       FreezeMobPageScroll();
       try {
@@ -24025,12 +24025,12 @@
       }
       const shadowsTransition = [...this.#shadows].map((item) => {
         const shadowLabel = item.dataset["shadow"];
-        const useDebug = Object.hasOwn(item.dataset, "debug");
-        const debugClass = useDebug ? "debug" : "";
-        const leftLabel = useDebug ? `left left : ${shadowLabel}` : "";
-        const inCenterLabel = useDebug ? `in center : ${shadowLabel}` : "";
-        const outCenterlabel = useDebug ? `center out : ${shadowLabel}` : "";
-        const endLabel = useDebug ? `in out : ${shadowLabel}` : "";
+        const shouldUseDebug = Object.hasOwn(item.dataset, "debug");
+        const debugClass = shouldUseDebug ? "debug" : "";
+        const leftLabel = shouldUseDebug ? `left left : ${shadowLabel}` : "";
+        const inCenterLabel = shouldUseDebug ? `in center : ${shadowLabel}` : "";
+        const outCenterlabel = shouldUseDebug ? `center out : ${shadowLabel}` : "";
+        const endLabel = shouldUseDebug ? `in out : ${shadowLabel}` : "";
         return (
           /* HTML */
           ` <div
@@ -24385,8 +24385,8 @@
     const subscribe = (target) => {
       if (!isNode2(target)) return () => {
       };
-      const alreadySubscribe = slideItems.has(target);
-      if (alreadySubscribe) {
+      const isAlreadySubscribe = slideItems.has(target);
+      if (isAlreadySubscribe) {
         console.warn(`slide utils ${target} is alredysubscribed`);
         return () => {
         };
@@ -25004,13 +25004,13 @@
      * Update scroller after user Tab
      */
     #setUsability() {
-      let tabIsActive = false;
+      let isTabIsActive = false;
       if (this.#syncTab) {
         this.#unSubscribeHandleTab = modules_exports.useTabHandler(() => {
-          if (tabIsActive || !this.#screen || !this.#scroller || /** @type {any} */
+          if (isTabIsActive || !this.#screen || !this.#scroller || /** @type {any} */
           this.#screen === globalThis)
             return;
-          tabIsActive = true;
+          isTabIsActive = true;
           const screenEl = (
             /** @type {HTMLElement} */
             this.#screen
@@ -25023,14 +25023,14 @@
             modules_exports.useNextTick(() => {
               const focusedElement = document.activeElement;
               if (!focusedElement || !scrollerEl.contains(focusedElement)) {
-                tabIsActive = false;
+                isTabIsActive = false;
                 return;
               }
               if (!this.#fixedTab && !this.#checkIfElementIsInsideScreen(
                 /** @type {HTMLElement} */
                 focusedElement
               )) {
-                tabIsActive = false;
+                isTabIsActive = false;
                 return;
               }
               const scrollerRect = scrollerEl.getBoundingClientRect();
@@ -25046,7 +25046,7 @@
               screenEl.scrollLeft = 0;
               this.#updateScrollState();
               this.#executeScroll();
-              tabIsActive = false;
+              isTabIsActive = false;
             });
           }, 2);
         });
@@ -26571,8 +26571,8 @@
   // src/js/component/common/scroll-to/button/scroll-to-button.js
   var ScrollToButtonFunction = ({ bindEffect, getSelfProxi }) => {
     const proxi = getSelfProxi();
-    const isSectionClass = proxi.isSection ? "is-section" : "";
-    const isNoteClass = proxi.isNote ? "is-note" : "";
+    const sectionClass = proxi.isSection ? "is-section" : "";
+    const noteClass = proxi.isNote ? "is-note" : "";
     return htmlObject({
       tag: proxi.isNote ? "span" : "button",
       attributes: {
@@ -26580,7 +26580,7 @@
         tabindex: proxi.isSection ? "-1" : null,
         role: proxi.isNote ? null : "link"
       },
-      className: [isSectionClass, isNoteClass],
+      className: [sectionClass, noteClass],
       modules: bindEffect({
         toggleClass: { active: () => proxi.active }
       }),
@@ -26685,7 +26685,7 @@
   };
 
   // src/js/component/common/scroll-to/scroll-to.js
-  var disableObservereffect = false;
+  var shouldDisableObservereffect = false;
   var destroy2 = () => {
   };
   function getButtons({ delegateEvents, bindProps, proxi }) {
@@ -26694,7 +26694,7 @@
         click: async () => {
           const { id: scroll, label, element } = item;
           const offsetTop = scroll === "start" ? 0 : offset(element).top - 100;
-          disableObservereffect = true;
+          shouldDisableObservereffect = true;
           proxi.activeLabel = label;
           await MobBodyScroll.to(offsetTop, { duration: 10 });
           if (core_exports.mq("max", "desktop")) {
@@ -26704,7 +26704,7 @@
             preventScroll: true
           });
           setTimeout(() => {
-            disableObservereffect = false;
+            shouldDisableObservereffect = false;
           }, 1e3);
         }
       });
@@ -26819,7 +26819,7 @@
       });
     });
     addMethod("setActiveLabel", (label) => {
-      if (disableObservereffect) return;
+      if (shouldDisableObservereffect) return;
       proxi.activeLabel = label;
     });
     watch(
@@ -26859,13 +26859,13 @@
       resizeObserver.observe(modules_exports2.getRoot());
       const unsubscribeMouseWheel = proxi.updateAnchorOnWheel ? modules_exports.useMouseWheel(
         modules_exports.debounce(() => {
-          if (disableObservereffect) return;
+          if (shouldDisableObservereffect) return;
           setActiveLabelOnScroll({ proxi, direction: direction2, winHeight });
         }, 600)
       ) : () => {
       };
       const unsubScribeScrollEnd = modules_exports.useScrollEnd(() => {
-        if (disableObservereffect) return;
+        if (shouldDisableObservereffect) return;
         setActiveLabelOnScroll({ proxi, direction: direction2, winHeight });
       });
       const unsubScribeResize = modules_exports.useResize(() => {
@@ -27787,7 +27787,7 @@
   }) => {
     const proxi = getSelfProxi();
     const numberOfSection = 4;
-    let freezeOnLag = false;
+    let shouldFreezeOnLag = false;
     onMount(() => {
       const focusMap = /* @__PURE__ */ new Map([
         [1, getRef().title_1],
@@ -27810,10 +27810,10 @@
       let svgShiftAmount = 0;
       moveSvg = async (value) => {
         const shouldStop = modules_exports.shouldMakeSomething();
-        if (shouldStop || freezeOnLag) {
-          freezeOnLag = true;
+        if (shouldStop || shouldFreezeOnLag) {
+          shouldFreezeOnLag = true;
           setTimeout(() => {
-            freezeOnLag = false;
+            shouldFreezeOnLag = false;
           }, 2e3);
           return;
         }
@@ -28298,13 +28298,13 @@
 
   // src/js/component/common/quick-nav/utils.js
   var updateQuickNavState = ({
-    active: active2 = true,
+    active = true,
     nextRoute = "",
     prevRoute = "",
     backRoute = ""
   }) => {
     const methods = modules_exports2.useMethodByName(quickNavName);
-    methods.update("active", active2);
+    methods.update("active", active);
     methods.update("nextRoute", nextRoute);
     methods.update("prevRoute", prevRoute);
     methods.update("backRoute", backRoute);
@@ -28355,9 +28355,9 @@
 
   // src/js/utils/canvas-utils.js
   var getCanvasContext = ({ disableOffcanvas }) => {
-    const useOffscreen = "OffscreenCanvas" in globalThis && !disableOffcanvas;
-    const context = useOffscreen ? "bitmaprenderer" : "2d";
-    return { useOffscreen, context };
+    const shouldUseOffscreen = "OffscreenCanvas" in globalThis && !disableOffcanvas;
+    const context = shouldUseOffscreen ? "bitmaprenderer" : "2d";
+    return { useOffscreen: shouldUseOffscreen, context };
   };
   var getOffsetCanvas = ({ useOffscreen, canvas }) => {
     const offscreen = useOffscreen ? new OffscreenCanvas(canvas.width, canvas.height) : null;
@@ -28452,7 +28452,7 @@
     const cellHeight = window.innerHeight / 20;
     const gutter = 1;
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive2 = true;
+    let isActive3 = true;
     let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
@@ -28567,7 +28567,7 @@
     gridTimeline.play();
     const loop = () => {
       draw();
-      if (!isActive2) return;
+      if (!isActive3) return;
       modules_exports.useNextFrame(() => loop());
     };
     modules_exports.useFrame(() => {
@@ -28576,11 +28576,11 @@
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val) => {
       if (val) {
         gridTimeline?.pause();
-        isActive2 = false;
+        isActive3 = false;
         return;
       }
       setTimeout(async () => {
-        isActive2 = true;
+        isActive3 = true;
         const currentRoute = modules_exports2.getActiveRoute();
         if (currentRoute.route !== activeRoute.route) return;
         gridTimeline?.resume();
@@ -28597,7 +28597,7 @@
       offscreen = null;
       offScreenCtx = null;
       gridData = [];
-      isActive2 = false;
+      isActive3 = false;
       data = null;
       context = null;
     };
@@ -29037,7 +29037,7 @@
       108
     ]);
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive2 = true;
+    let isActive3 = true;
     const { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
@@ -29206,7 +29206,7 @@
     });
     const loop = () => {
       draw();
-      if (!isActive2) return;
+      if (!isActive3) return;
       modules_exports.useNextFrame(() => loop());
     };
     modules_exports.useFrame(() => {
@@ -29215,11 +29215,11 @@
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val) => {
       if (val) {
         gridTimeline?.stop();
-        isActive2 = false;
+        isActive3 = false;
         return;
       }
       setTimeout(async () => {
-        isActive2 = true;
+        isActive3 = true;
         const currentRoute = modules_exports2.getActiveRoute();
         if (currentRoute.route !== activeRoute.route) return;
         gridTimeline?.play();
@@ -29240,7 +29240,7 @@
       offscreen = null;
       offScreenCtx = null;
       gridData = [];
-      isActive2 = false;
+      isActive3 = false;
       data = null;
       context = null;
     };
@@ -29387,7 +29387,7 @@
     const rotationDuration = 5e3;
     let mouseSpeed = 1;
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive2 = true;
+    let isActive3 = true;
     let ctx = canvas.getContext(context, { alpha: true });
     let { top, left } = offset(canvas);
     const activeRoute = modules_exports2.getActiveRoute();
@@ -29502,7 +29502,7 @@
     rectTimeline.play();
     const loop = () => {
       draw();
-      if (!isActive2) return;
+      if (!isActive3) return;
       modules_exports.useNextFrame(() => loop());
     };
     modules_exports.useFrame(() => loop());
@@ -29545,14 +29545,14 @@
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val) => {
       if (val) {
-        isActive2 = false;
+        isActive3 = false;
         rectTimeline?.pause();
         rotationTween?.pause();
         centerTween?.pause();
         return;
       }
       setTimeout(() => {
-        isActive2 = true;
+        isActive3 = true;
         const currentRoute = modules_exports2.getActiveRoute();
         if (currentRoute.route !== activeRoute.route) return;
         rectTimeline?.resume();
@@ -29581,7 +29581,7 @@
         ctx = null;
         offscreen = null;
         offScreenCtx = null;
-        isActive2 = false;
+        isActive3 = false;
         squareData = null;
         context = null;
       },
@@ -29804,7 +29804,7 @@
     let { useOffscreen, context } = getCanvasContext({
       disableOffcanvas: proxi.disableOffcanvas
     });
-    let isActive2 = true;
+    let isActive3 = true;
     let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
@@ -29909,7 +29909,7 @@
     };
     const loop = () => {
       draw();
-      if (!isActive2) return;
+      if (!isActive3) return;
       modules_exports.useNextFrame(() => loop());
     };
     modules_exports.useFrame(() => loop());
@@ -29921,12 +29921,12 @@
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val) => {
       if (val) {
-        isActive2 = false;
+        isActive3 = false;
         syncTimeline?.pause();
         return;
       }
       setTimeout(() => {
-        isActive2 = true;
+        isActive3 = true;
         const currentRoute = modules_exports2.getActiveRoute();
         if (currentRoute.route !== activeRoute.route) return;
         syncTimeline?.resume();
@@ -29935,7 +29935,7 @@
     });
     return {
       destroy: () => {
-        isActive2 = false;
+        isActive3 = false;
         unsubscribeResize();
         unWatchPause();
         infiniteTween.destroy();
@@ -30257,7 +30257,7 @@
     const gutter = 1;
     const numberOfRow = 10;
     const numberOfColumn = 10;
-    const reorder = false;
+    const shouldReorder = false;
     const fill = /* @__PURE__ */ new Set([
       36,
       37,
@@ -30277,7 +30277,7 @@
       84
     ]);
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive2 = true;
+    let isActive3 = true;
     let masterSequencer = tween_exports.createMasterSequencer();
     let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
@@ -30294,7 +30294,7 @@
       cellHeight,
       gutter
     }).items;
-    let data = reorder ? gridData.map((item, i) => {
+    let data = shouldReorder ? gridData.map((item, i) => {
       return {
         ...item,
         scale: 1,
@@ -30389,7 +30389,7 @@
     scrollerInstance.init();
     const loop = () => {
       draw();
-      if (!isActive2) return;
+      if (!isActive3) return;
       modules_exports.useNextFrame(() => loop());
     };
     modules_exports.useFrame(() => {
@@ -30397,11 +30397,11 @@
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val) => {
       if (val) {
-        isActive2 = false;
+        isActive3 = false;
         return;
       }
       setTimeout(async () => {
-        isActive2 = true;
+        isActive3 = true;
         const currentRoute = modules_exports2.getActiveRoute();
         if (currentRoute.route !== activeRoute.route) return;
         modules_exports.useFrame(() => loop());
@@ -30423,7 +30423,7 @@
       offscreen = null;
       offScreenCtx = null;
       gridData = [];
-      isActive2 = false;
+      isActive3 = false;
       data = null;
       context = null;
     };
@@ -30693,7 +30693,7 @@
     const intialRotation = 33;
     const fill = /* @__PURE__ */ new Set([14, 5]);
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive2 = true;
+    let isActive3 = true;
     let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
@@ -30800,7 +30800,7 @@
     scrollerInstance.init();
     const loop = () => {
       draw();
-      if (!isActive2) return;
+      if (!isActive3) return;
       modules_exports.useNextFrame(() => loop());
     };
     modules_exports.useFrame(() => {
@@ -30815,11 +30815,11 @@
     });
     const unWatchPause = navigationStore.watch("navigationIsOpen", (val) => {
       if (val) {
-        isActive2 = false;
+        isActive3 = false;
         return;
       }
       setTimeout(() => {
-        isActive2 = true;
+        isActive3 = true;
         const currentRoute = modules_exports2.getActiveRoute();
         if (currentRoute.route !== activeRoute.route) return;
         modules_exports.useFrame(() => loop());
@@ -30837,7 +30837,7 @@
       offscreen = null;
       offScreenCtx = null;
       scrollerTween = null;
-      isActive2 = false;
+      isActive3 = false;
       stemData = null;
       context = null;
     };
@@ -33940,10 +33940,10 @@
       };
       lastX = x;
       lastY = y;
-      const xLimitReached = Math.abs(ax) > proxi.xLimit;
-      const yLimitReached = Math.abs(ay) > proxi.yLimit;
-      if (xLimitReached) dragX -= xgap;
-      if (yLimitReached) dragY -= ygap;
+      const hasReachedXLimit = Math.abs(ax) > proxi.xLimit;
+      const hasReachedYLimit = Math.abs(ay) > proxi.yLimit;
+      if (hasReachedXLimit) dragX -= xgap;
+      if (hasReachedYLimit) dragY -= ygap;
       const axClamped = core_exports.clamp(ax, -proxi.xLimit, proxi.xLimit);
       const ayClamped = core_exports.clamp(ay, -proxi.yLimit, proxi.yLimit);
       const delta = Math.hypot(Math.abs(ayClamped), Math.abs(axClamped));
@@ -33961,11 +33961,11 @@
       }
       onMove();
     };
-    const draggable = ({ page }) => {
+    const isDraggable = ({ page }) => {
       return page.y > offSetTop && page.y < offSetTop + height && page.x > offSetLeft && page.x < offSetLeft + width;
     };
     const onMouseDown = ({ page }) => {
-      if (!draggable({ page })) {
+      if (!isDraggable({ page })) {
         return;
       }
       onDrag = true;
@@ -35541,7 +35541,7 @@
   // src/js/component/pages/async-timeline/animation/animation.js
   var asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     let { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive2 = true;
+    let isActive3 = true;
     let ctx = canvas.getContext(context, { alpha: true });
     const activeRoute = modules_exports2.getActiveRoute();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
@@ -35774,7 +35774,7 @@
     };
     const loop = () => {
       draw();
-      if (!isActive2) return;
+      if (!isActive3) return;
       modules_exports.useNextFrame(() => loop());
     };
     modules_exports.useFrame(() => {
@@ -35786,7 +35786,7 @@
         if (val) {
           timeline.pause();
           gridTimeline.pause();
-          isActive2 = false;
+          isActive3 = false;
           return;
         }
         setTimeout(async () => {
@@ -35794,7 +35794,7 @@
           if (currentRoute.route !== activeRoute.route) return;
           timeline.resume();
           gridTimeline.resume();
-          isActive2 = true;
+          isActive3 = true;
           modules_exports.useFrame(() => loop());
         }, 200);
       }, 200)
@@ -35806,7 +35806,7 @@
         offscreen = null;
         offScreenCtx = null;
         gridData = [];
-        isActive2 = false;
+        isActive3 = false;
         tweenGrid?.destroy?.();
         tweenAround?.destroy?.();
         tweenGridRotate?.destroy?.();
@@ -36678,8 +36678,8 @@
     let dragLimitX = (itemWidth - rootWidth) / 2;
     let dragLimitY = (itemHeight - rootHeight) / 2;
     let firstTouchValue = { x: 0, y: 0 };
-    let onDrag = false;
-    let firstDrag = false;
+    let isDragging = false;
+    let isFirstDrag = false;
     const threshold = 30;
     const updatePerspectiveLimits = () => {
       if (usePrespective && perspective > 0) {
@@ -36752,16 +36752,16 @@
       item.style.userSelect = "none";
     }
     const startDrag = ({ page }) => {
-      onDrag = true;
-      firstDrag = true;
+      isDragging = true;
+      isFirstDrag = true;
       firstTouchValue = { x: page.x, y: page.y };
     };
     const move3 = ({ page }) => {
       const { x, y } = page;
       const { xgap, ygap } = (() => {
-        if (!onDrag) return { xgap: 0, ygap: 0 };
-        if (firstDrag) {
-          firstDrag = false;
+        if (!isDragging) return { xgap: 0, ygap: 0 };
+        if (isFirstDrag) {
+          isFirstDrag = false;
           return {
             xgap: 0,
             ygap: 0
@@ -36774,9 +36774,9 @@
       })();
       const xValueOnDrag = dragLimitX > 0 ? core_exports.clamp(dragX + xgap, -dragLimitX, dragLimitX) : core_exports.clamp(dragX + xgap, dragLimitX, -dragLimitX);
       const yValueOnDrag = dragLimitY > 0 ? core_exports.clamp(dragY + ygap, -dragLimitY, dragLimitY) : core_exports.clamp(dragY + ygap, dragLimitY, -dragLimitY);
-      const currentDragX = onDrag ? xValueOnDrag : dragX;
-      const currenteDragY = onDrag ? yValueOnDrag : dragY;
-      const { xComputed, yComputed } = onDrag ? {
+      const currentDragX = isDragging ? xValueOnDrag : dragX;
+      const currenteDragY = isDragging ? yValueOnDrag : dragY;
+      const { xComputed, yComputed } = isDragging ? {
         xComputed: currentDragX,
         yComputed: currenteDragY
       } : {
@@ -36787,7 +36787,7 @@
       dragY = currenteDragY;
       lastX = x;
       lastY = y;
-      if (onDrag) {
+      if (isDragging) {
         endValue = { xValue: xComputed, yValue: yComputed };
         void spring.goTo({ x: xComputed, y: yComputed }).catch(() => {
         });
@@ -36800,10 +36800,10 @@
       startDrag({ page, target });
     });
     const unsubscribeTouchEnd = modules_exports.useTouchEnd(() => {
-      onDrag = false;
+      isDragging = false;
     });
     const unsubscribeMouseUp = modules_exports.useMouseUp(() => {
-      onDrag = false;
+      isDragging = false;
     });
     const unsubscribeMouseMove = modules_exports.useMouseMove(({ page }) => {
       move3({ page });
@@ -36813,9 +36813,10 @@
     });
     const clickHandler = (event) => {
       const { x, y } = firstTouchValue;
-      const xChecker = Math.abs(lastX - x) > threshold;
-      const yChecker = Math.abs(lastY - y) > threshold;
-      if (xChecker || yChecker) event.preventDefault();
+      const isXThresholdExceeded = Math.abs(lastX - x) > threshold;
+      const isYThresholdExceeded = Math.abs(lastY - y) > threshold;
+      if (isXThresholdExceeded || isYThresholdExceeded)
+        event.preventDefault();
     };
     const wheelHandler = (event) => {
       const { spinY } = modules_exports.normalizeWheel(event);
@@ -37022,7 +37023,7 @@
   );
 
   // src/js/pages/plugin/dragger/index.js
-  var useLog = false;
+  var shouldUseLog = false;
   var DraggerRoute = async () => {
     const { data: bg } = await loadTextContent({
       source: "./asset/svg/lettering-mob.svg?v=1.3"
@@ -37109,10 +37110,10 @@
                 perspective: 300,
                 hideThreshold: 10,
                 afterInit: ({ root: root2 }) => {
-                  if (useLog) console.log(root2);
+                  if (shouldUseLog) console.log(root2);
                 },
                 onDepthChange: ({ depth }) => {
-                  if (useLog) console.log(depth);
+                  if (shouldUseLog) console.log(depth);
                 }
               }
             ),
@@ -39451,10 +39452,14 @@
     const methods = modules_exports2.useMethodByName(debugOverlayName);
     methods?.open();
   };
-  var overlayJustOpen = false;
-  var setSearchOverlayJustOpen = () => overlayJustOpen = true;
-  var resetSearchOverlayJustOpen = () => overlayJustOpen = false;
-  var getSearchOverlayJustOpen = () => overlayJustOpen;
+  var isOverlayJustOpen = false;
+  var setSearchOverlayJustOpen = () => {
+    isOverlayJustOpen = true;
+  };
+  var resetSearchOverlayJustOpen = () => {
+    isOverlayJustOpen = false;
+  };
+  var getSearchOverlayJustOpen = () => isOverlayJustOpen;
 
   // src/js/component/common/debug/debug-overlay/tree/debug-tree.js
   var initScroller2 = async ({ getRef }) => {
@@ -40001,7 +40006,7 @@
 
   // src/js/component/common/debug/debug-overlay/debug-component/debug-component.js
   var lastActiveId = RESET_FILTER_DEBUG;
-  var justCreated = false;
+  var isJustCreated = false;
   var getClassList2 = (value) => {
     if (!value) return "";
     return [...value].reduce(
@@ -40388,7 +40393,7 @@
   }) => {
     const proxi = getSelfProxi();
     proxi.id = lastActiveId;
-    justCreated = true;
+    isJustCreated = true;
     addMethod("updateId", (id) => {
       proxi.id = id;
       debugActiveComponentStore.set("currentId", id);
@@ -40416,11 +40421,11 @@
           move3(0);
           getRef().screen.scrollTop = 0;
           lastActiveId = proxi.id;
-          justCreated = false;
+          isJustCreated = false;
         }
       );
       return () => {
-        justCreated = false;
+        isJustCreated = false;
         destroy4?.();
       };
     });
@@ -40459,7 +40464,7 @@
                 observe: () => proxi.id,
                 afterUpdate: () => {
                   modules_exports.useFrameIndex(() => {
-                    if (justCreated || proxi.id === RESET_FILTER_DEBUG)
+                    if (isJustCreated || proxi.id === RESET_FILTER_DEBUG)
                       return;
                     getRef().screen?.focus?.({
                       preventScroll: true
@@ -41255,7 +41260,7 @@
     };
     onMount(({ element }) => {
       const { screenEl, scrollerEl, scrollbar } = getRef();
-      let isActive2 = false;
+      let isActive3 = false;
       addMethod("getRoot", () => element);
       scrollbar.addEventListener("input", () => {
         move2?.(scrollbar.value);
@@ -41275,7 +41280,7 @@
           if (currentData.length > 0) {
             proxi.hide = false;
             element.hidden = false;
-            if (isActive2) {
+            if (isActive3) {
               updateScroller();
               return;
             }
@@ -41287,7 +41292,7 @@
                 fixedTab: false
               }
             ));
-            isActive2 = true;
+            isActive3 = true;
             init11();
             updateScroller();
             move2(0);
@@ -41295,7 +41300,7 @@
           if (currentData.length === 0) {
             proxi.hide = true;
             destroy3?.();
-            isActive2 = false;
+            isActive3 = false;
             getRef().screenEl.scrollTop = 0;
             element.hidden = true;
           }
@@ -43448,8 +43453,8 @@
         const urlParsed = url.split("?");
         const hash = urlParsed?.[0] ?? "";
         const activeParams = modules_exports2.getActiveParams();
-        const paramsMatch = activeId === -1 || activeParams?.["activeId"] === String(activeId);
-        const isActiveRoute = currentRoute === hash && paramsMatch;
+        const hasParamsMatch = activeId === -1 || activeParams?.["activeId"] === String(activeId);
+        const isActiveRoute = currentRoute === hash && hasParamsMatch;
         const forceChildrenMatch = forceChildren.includes(currentRoute);
         proxi.isCurrent = isActiveRoute || forceChildrenMatch;
         if (isActiveRoute && fireRoute) {
@@ -44181,7 +44186,7 @@
   }) => {
     const proxi = getSelfProxi();
     const boundedProxi = getBoundedProxi();
-    const hasChildrenClass = proxi.children.length > 0 ? "has-children" : "";
+    const childClass = proxi.children.length > 0 ? "has-children" : "";
     watch(
       () => proxi.focusable,
       async (isOpen) => {
@@ -44221,7 +44226,7 @@
       className: "c-debug-tree-item",
       content: [
         {
-          className: ["tree-header", hasChildrenClass],
+          className: ["tree-header", childClass],
           modules: [
             bindEffect([
               {
@@ -44237,7 +44242,7 @@
           content: [
             {
               tag: "button",
-              className: ["left", hasChildrenClass],
+              className: ["left", childClass],
               attributes: {
                 type: "button",
                 "aria-controls": proxi.children.length > 0 ? proxi.id : null
@@ -45113,8 +45118,8 @@
     const proxi = getSelfProxi();
     const lineHeight = getLineHeight();
     const closedHeight = `20rem`;
-    const useExpand = Number(proxi.numLines) > 15;
-    const expandClass = useExpand ? "use-expand" : "";
+    const shouldUseExpand = Number(proxi.numLines) > 15;
+    const expandClass = shouldUseExpand ? "use-expand" : "";
     const snippetHeight = `${proxi.numLines * Number(lineHeight)}rem`;
     onMount(async () => {
       const { codeEl } = getRef();
@@ -45138,14 +45143,14 @@
           /**
            * Set initial class. Set right initial of code module
            */
-          className: [useExpand ? "close" : "open"],
+          className: [shouldUseExpand ? "close" : "open"],
           modules: bindEffect({
             /**
              * Update code class runtime ( if expanded ).
              */
             toggleClass: {
-              close: () => useExpand && !proxi.isExpanded,
-              open: () => useExpand && proxi.isExpanded
+              close: () => shouldUseExpand && !proxi.isExpanded,
+              open: () => shouldUseExpand && proxi.isExpanded
             }
           }),
           content: {
@@ -45157,7 +45162,7 @@
         {
           tag: "button",
           className: ["expand", expandClass],
-          attributes: { disabled: !useExpand },
+          attributes: { disabled: !shouldUseExpand },
           modules: delegateEvents({
             click: () => {
               proxi.isExpanded = !proxi.isExpanded;
@@ -45505,10 +45510,10 @@
     const proxi = getSelfProxi();
     const colorClass = proxi.color === "inherit" ? "" : `is-${proxi.color}`;
     const boldClass = proxi.isBold ? `u-weight-bold` : "";
-    const isSectionClass = proxi.isSection ? `is-section` : "";
+    const sectionClass = proxi.isSection ? `is-section` : "";
     return htmlObject({
       tag: proxi.tag,
-      className: [colorClass, boldClass, isSectionClass],
+      className: [colorClass, boldClass, sectionClass],
       content: [
         getIndex2(proxi.index),
         {
@@ -45946,7 +45951,7 @@
   };
 
   // src/js/component/pages/benchmark/strategy.js
-  var benchMarkUseProxi = false;
+  var shouldUsebenchMarkProxi = false;
 
   // src/js/component/pages/benchmark/repeat-no-key/benchmark-repeat-no-key.js
   var BenchMarkRepeatNoKyFunction = ({
@@ -45999,7 +46004,7 @@
           content: repeat({
             observe: () => proxi.data,
             render: ({ current }) => {
-              return benchMarkUseProxi ? htmlObject({
+              return shouldUsebenchMarkProxi ? htmlObject({
                 component: BenchMarkFakeComponent,
                 modules: [
                   bindProps(
@@ -46066,7 +46071,7 @@
         observe: () => proxi.data,
         key: "label",
         render: ({ current }) => {
-          return benchMarkUseProxi ? htmlObject({
+          return shouldUsebenchMarkProxi ? htmlObject({
             component: BenchMarkFakeComponent,
             modules: [
               bindProps(
@@ -46174,7 +46179,7 @@
                 content: repeat({
                   observe: () => proxi.data,
                   render: ({ current: current2 }) => {
-                    return benchMarkUseProxi ? htmlObject({
+                    return shouldUsebenchMarkProxi ? htmlObject({
                       component: BenchMarkFakeComponent,
                       modules: [
                         bindProps(
@@ -46292,7 +46297,7 @@
                 content: repeat({
                   observe: () => proxi.data,
                   render: ({ current: current2 }) => {
-                    return benchMarkUseProxi ? htmlObject({
+                    return shouldUsebenchMarkProxi ? htmlObject({
                       component: BenchMarkFakeComponent,
                       modules: [
                         bindProps(
@@ -46572,7 +46577,7 @@
           content: repeat({
             observe: () => boundedProxi.data,
             render: ({ current }) => {
-              return benchMarkUseProxi ? htmlObject({
+              return shouldUsebenchMarkProxi ? htmlObject({
                 component: BenchMarkFakeComponent,
                 modules: [
                   bindProps(
@@ -47092,7 +47097,7 @@
 
   // src/js/wrapper/index.js
   var wrapper = async () => {
-    const useScssTestGrid = false;
+    const shouldUseScssTestGrid = false;
     modules_exports2.useComponent([
       StarSvg,
       DebugTreeItem,
@@ -47114,7 +47119,7 @@
     ]);
     return htmlObject({
       content: [
-        useScssTestGrid ? "<test-scss-grid></test-scss-grid>" : "",
+        shouldUseScssTestGrid ? "<test-scss-grid></test-scss-grid>" : "",
         {
           component: Header,
           instanceName: headerName

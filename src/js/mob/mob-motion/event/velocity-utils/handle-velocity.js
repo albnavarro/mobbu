@@ -4,10 +4,10 @@ import MobSpring from '../../animation/spring/mob-spring';
 let previousClientX = 0;
 let previousClientY = 0;
 let previousTime = 0;
-let firstMove = false;
+let isFirstMove = false;
 let currentClientX = 0;
 let currentClientY = 0;
-let pointerEnd = false;
+let isPointerEnd = false;
 let rawSpeed = 1;
 let rawSpeedX = 1;
 let rawSpeedY = 1;
@@ -23,7 +23,7 @@ let totalDistance = 1;
  * - Detect immediato dell'evento stop del mouse.
  * - Questo valore é sincronizzato con totalDistance.
  */
-let completed = false;
+let isCompleted = false;
 
 /**
  * Direction
@@ -53,7 +53,7 @@ const RELEASE_LERP = 0.1;
 /**
  * @type {boolean}
  */
-let initialized = false;
+let isInitialized = false;
 
 /** @type {any} */
 let debounceTimeoutId = null;
@@ -133,7 +133,7 @@ const updateVelocity = ({ clientX, clientY }) => {
      *
      * - PreviousClientY & previousClientX non sarebbero coerenti.
      */
-    if (firstMove || diffTime === 0) {
+    if (isFirstMove || diffTime === 0) {
         /**
          * Aggiorna storico
          */
@@ -234,7 +234,7 @@ const initDetectStart = () => {
     unsubscribeDetectStart = MobCore.usePointerMove(() => {
         unsubscribeDetectStart();
         previousTime = MobCore.getTime();
-        completed = false;
+        isCompleted = false;
 
         /**
          * - TotalDistance é coerente con l'evento reale ( fisico ) di stop.
@@ -255,14 +255,14 @@ const initDetectStart = () => {
              *   movimento.
              */
             totalDistance = 1;
-            pointerEnd = false;
+            isPointerEnd = false;
         }
 
         /**
          * Set first iteration
          */
 
-        firstMove = true;
+        isFirstMove = true;
     });
 };
 
@@ -276,7 +276,7 @@ const initPointerMove = () => {
         /**
          * After start => move first iteration is consumed.
          */
-        if (firstMove) firstMove = false;
+        if (isFirstMove) isFirstMove = false;
     });
 };
 
@@ -328,11 +328,11 @@ const onPointerEnd = () => {
      */
     gapTimeoutId = setTimeout(() => {
         gapTimeoutId = null;
-        completed = true;
+        isCompleted = true;
         rawSpeed = 1;
         rawSpeedX = 1;
         rawSpeedY = 1;
-        pointerEnd = true;
+        isPointerEnd = true;
     }, GAP_MAX);
 
     /**
@@ -377,8 +377,8 @@ const initPointerEnd = () => {
 };
 
 const init = () => {
-    if (initialized) return;
-    initialized = true;
+    if (isInitialized) return;
+    isInitialized = true;
 
     /**
      * Init handler
@@ -422,8 +422,8 @@ const init = () => {
                     directionX: currentDirectionX,
                     directionY: currentDirectionY,
                     distance: totalDistance,
-                    completed,
-                    pointerEnd,
+                    completed: isCompleted,
+                    pointerEnd: isPointerEnd,
                     rawSpeed,
                     rawSpeedX,
                     rawSpeedY,
@@ -453,8 +453,8 @@ const init = () => {
                     directionX: 0,
                     directionY: 0,
                     distance: totalDistance,
-                    completed,
-                    pointerEnd,
+                    completed: isCompleted,
+                    pointerEnd: isPointerEnd,
                     rawSpeed,
                     rawSpeedX,
                     rawSpeedY,
@@ -496,7 +496,7 @@ const addCallback = (cb) => {
     return () => {
         callbacks.delete(id);
 
-        if (callbacks.size === 0 && initialized) {
+        if (callbacks.size === 0 && isInitialized) {
             if (gapTimeoutId) {
                 clearTimeout(gapTimeoutId);
                 gapTimeoutId = null;
@@ -508,7 +508,7 @@ const addCallback = (cb) => {
             tweenInstance.destroy();
             // @ts-ignore
             tweenInstance = null;
-            initialized = false;
+            isInitialized = false;
 
             /**
              * Reset state.
@@ -516,15 +516,15 @@ const addCallback = (cb) => {
             previousClientX = 0;
             previousClientY = 0;
             previousTime = 0;
-            firstMove = false;
+            isFirstMove = false;
             currentDirectionX = 0;
             currentDirectionY = 0;
             currentClientX = 0;
             currentClientY = 0;
             previousThreshold = directionTresholdBase;
             totalDistance = 1;
-            completed = false;
-            pointerEnd = false;
+            isCompleted = false;
+            isPointerEnd = false;
             rawSpeed = 1;
             rawSpeedX = 1;
             rawSpeedY = 1;

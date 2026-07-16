@@ -14,7 +14,7 @@ import { getUnivoqueId } from '../../utils/index.js';
  *
  * @type {boolean}
  */
-let initialized = false;
+let isInitialized = false;
 
 /**
  * @type {Map<string, import('./type.js').HandleScrollCallback<import('./type.js').HandleScrollUtils>>}
@@ -31,7 +31,7 @@ function handler() {
     if (callbacks.size === 0) {
         globalThis.removeEventListener('scrollend', handler);
 
-        initialized = false;
+        isInitialized = false;
         return;
     }
 
@@ -53,8 +53,8 @@ function handler() {
  * @returns {void}
  */
 function init() {
-    if (initialized) return;
-    initialized = true;
+    if (isInitialized) return;
+    isInitialized = true;
 
     globalThis.addEventListener('scrollend', handler, {
         passive: true,
@@ -89,9 +89,9 @@ const addCallback = (cb) => {
     return () => {
         callbacks.delete(id);
 
-        if (callbacks.size === 0 && initialized) {
+        if (callbacks.size === 0 && isInitialized) {
             globalThis.removeEventListener('scrollend', handler);
-            initialized = false;
+            isInitialized = false;
         }
     };
 };

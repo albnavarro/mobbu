@@ -725,19 +725,19 @@ export class MobSmoothScroller {
      * Update scroller after user Tab
      */
     #setUsability() {
-        let tabIsActive = false;
+        let isTabIsActive = false;
 
         if (this.#syncTab) {
             this.#unSubscribeHandleTab = MobCore.useTabHandler(() => {
                 if (
-                    tabIsActive ||
+                    isTabIsActive ||
                     !this.#screen ||
                     !this.#scroller ||
                     /** @type {any} */ (this.#screen) === globalThis
                 )
                     return;
 
-                tabIsActive = true;
+                isTabIsActive = true;
                 const screenEl = /** @type {HTMLElement} */ (this.#screen);
                 const scrollerEl = /** @type {HTMLElement} */ (this.#scroller);
 
@@ -749,7 +749,7 @@ export class MobSmoothScroller {
                             !focusedElement ||
                             !scrollerEl.contains(focusedElement)
                         ) {
-                            tabIsActive = false;
+                            isTabIsActive = false;
                             return;
                         }
 
@@ -765,7 +765,7 @@ export class MobSmoothScroller {
                                 /** @type {HTMLElement} */ (focusedElement)
                             )
                         ) {
-                            tabIsActive = false;
+                            isTabIsActive = false;
                             return;
                         }
 
@@ -803,7 +803,7 @@ export class MobSmoothScroller {
 
                         this.#updateScrollState();
                         this.#executeScroll();
-                        tabIsActive = false;
+                        isTabIsActive = false;
                     });
                 }, 2);
             });

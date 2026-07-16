@@ -6,7 +6,7 @@
 export const userPlaceholder = new Set();
 
 /** @returns {boolean} */
-let skipAddUserComponent = false;
+let shouldSkipAddUserComponent = false;
 
 /**
  * @param {import('../../web-component/type').UserComponent} element
@@ -106,7 +106,7 @@ export const clearUserPlaceholder = async () => {
  * @returns {void}
  */
 export const setSkipAddUserComponent = (value) => {
-    skipAddUserComponent = value;
+    shouldSkipAddUserComponent = value;
 };
 
-export const getSkipAddUserComponent = () => skipAddUserComponent;
+export const getSkipAddUserComponent = () => shouldSkipAddUserComponent;

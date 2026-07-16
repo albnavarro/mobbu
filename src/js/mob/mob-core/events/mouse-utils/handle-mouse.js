@@ -31,7 +31,7 @@ function handleMouse(eventType) {
     /**
      * @type {boolean}
      */
-    let initialized = false;
+    let isInitialized = false;
 
     /**
      * @type {Map<string, import('./type.js').MouseEventCallback>}
@@ -45,7 +45,7 @@ function handleMouse(eventType) {
      */
     eventStore.watch('usePassive', () => {
         globalThis.removeEventListener(eventType, handler);
-        initialized = false;
+        isInitialized = false;
 
         init();
     });
@@ -60,7 +60,7 @@ function handleMouse(eventType) {
         if (callbacks.size === 0) {
             globalThis.removeEventListener(eventType, handler);
 
-            initialized = false;
+            isInitialized = false;
             return;
         }
 
@@ -142,8 +142,8 @@ function handleMouse(eventType) {
      * @returns {void}
      */
     function init() {
-        if (initialized) return;
-        initialized = true;
+        if (isInitialized) return;
+        isInitialized = true;
         usePassive = eventStore.getProp('usePassive');
 
         globalThis.addEventListener(eventType, handler, {
@@ -169,9 +169,9 @@ function handleMouse(eventType) {
         return () => {
             callbacks.delete(id);
 
-            if (callbacks.size === 0 && initialized) {
+            if (callbacks.size === 0 && isInitialized) {
                 globalThis.removeEventListener(eventType, handler);
-                initialized = false;
+                isInitialized = false;
             }
         };
     };

@@ -154,7 +154,7 @@ const createBindObjectWatcher = ({ id, keys, render, element }) => {
     /**
      * Watch props on change
      */
-    let watchIsRunning = false;
+    let isWatchRunning = false;
 
     /** @type {WeakRef<HTMLElement> | null} */
     let ref = new WeakRef(element);
@@ -187,8 +187,8 @@ const createBindObjectWatcher = ({ id, keys, render, element }) => {
             /**
              * Wait for all all props is settled.
              */
-            if (watchIsRunning) return;
-            watchIsRunning = true;
+            if (isWatchRunning) return;
+            isWatchRunning = true;
 
             MobCore.useNextLoop(() => {
                 MobCore.useFrame(() => {
@@ -214,7 +214,7 @@ const createBindObjectWatcher = ({ id, keys, render, element }) => {
                         ref.deref().insertAdjacentHTML('afterbegin', render());
                     }
 
-                    watchIsRunning = false;
+                    isWatchRunning = false;
                 });
             });
         });

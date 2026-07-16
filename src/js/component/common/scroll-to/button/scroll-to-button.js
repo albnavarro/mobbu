@@ -3,8 +3,8 @@ import { htmlObject } from '@mobJs';
 /** @type {import('@mobJsType').MobComponent<import('./type').ScrollToButtonType>} */
 export const ScrollToButtonFunction = ({ bindEffect, getSelfProxi }) => {
     const proxi = getSelfProxi();
-    const isSectionClass = proxi.isSection ? 'is-section' : '';
-    const isNoteClass = proxi.isNote ? 'is-note' : '';
+    const sectionClass = proxi.isSection ? 'is-section' : '';
+    const noteClass = proxi.isNote ? 'is-note' : '';
 
     return htmlObject({
         tag: proxi.isNote ? 'span' : 'button',
@@ -13,7 +13,7 @@ export const ScrollToButtonFunction = ({ bindEffect, getSelfProxi }) => {
             tabindex: proxi.isSection ? '-1' : null,
             role: proxi.isNote ? null : 'link',
         },
-        className: [isSectionClass, isNoteClass],
+        className: [sectionClass, noteClass],
         modules: bindEffect({
             toggleClass: { active: () => proxi.active },
         }),

@@ -51,7 +51,7 @@ export const removeActiveRepeat = ({ id, state, container }) => {
  * @returns {boolean}
  */
 export const getActiveRepeater = ({ id = '', state = '', container }) => {
-    const repeatIsActive = [...activeRepeatMap].some((repeat) => {
+    const isRepeatActive = [...activeRepeatMap].some((repeat) => {
         return (
             id === repeat.id &&
             state === repeat.state &&
@@ -59,5 +59,5 @@ export const getActiveRepeater = ({ id = '', state = '', container }) => {
         );
     });
 
-    return repeatIsActive;
+    return isRepeatActive;
 };

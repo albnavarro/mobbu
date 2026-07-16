@@ -1021,11 +1021,11 @@ export class MobScrollerPin {
             ? this.#getAnticipateValueInverted(scrollTop, scrollDirection)
             : this.#getAnticipateValue(scrollTop, scrollDirection);
 
-        const bottomCondition = this.#invertSide
+        const shouldPlacebottom = this.#invertSide
             ? offsetTop < this.#start - anticipateBottom
             : offsetTop > this.#scrollerHeight - this.#start + anticipateBottom;
 
-        const innerCondition = this.#invertSide
+        const shouldPlaceinner = this.#invertSide
             ? offsetTop >= this.#start - anticipateInnerIn &&
               offsetTop <= this.#start + anticipateInnerOut + this.#end
             : offsetTop <=
@@ -1033,7 +1033,7 @@ export class MobScrollerPin {
               this.#scrollerHeight - offsetTop <=
                   this.#end + anticipateInnerOut + this.#start;
 
-        if (bottomCondition) {
+        if (shouldPlacebottom) {
             if (!this.#isUnder) {
                 /**
                  * Reset style
@@ -1045,7 +1045,7 @@ export class MobScrollerPin {
                 this.#isInner = false;
                 this.#isOver = false;
             }
-        } else if (innerCondition) {
+        } else if (shouldPlaceinner) {
             if (!this.#isInner) {
                 this.#setFixedPosition();
 

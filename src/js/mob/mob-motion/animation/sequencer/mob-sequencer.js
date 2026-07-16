@@ -323,7 +323,7 @@ export default class MobSequencer {
              * and the last current time must be minor than fn time to prevent
              * the the fn is fired before fn time is reached
              */
-            const mustFireForward =
+            const requiresFireForward =
                 this.#direction === directionConstant.FORWARD &&
                 time > fnTime &&
                 this.#lastPartial <= fnTime;
@@ -336,15 +336,13 @@ export default class MobSequencer {
              * is equal max duration of timeline/parallax the previous value
              * can be equal max duration, so we avoid double firing of fn
              */
-            const mustFireBackward =
+            const requiresFireBackward =
                 this.#direction === directionConstant.BACKWARD &&
                 time < fnTime &&
                 this.#lastPartial >= fnTime;
 
-            // const mustFire =
-            //     (mustFireForward || mustFireBackward) && shouldFired;
-            const mustFire = mustFireForward || mustFireBackward;
-            if (!mustFire) continue;
+            const requiresFire = requiresFireForward || requiresFireBackward;
+            if (!requiresFire) continue;
 
             fn({ direction: this.#direction, value: time, isForced: false });
         }

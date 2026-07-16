@@ -22,11 +22,11 @@ const tween = new MobTimeTween({ ease: defaultPreset, data: { val: 0 } });
 let isRunning = false;
 
 /** @type {boolean} */
-let overflow = false;
+let shouldUseOverflow = false;
 
 /** @type{() => void} */
 const onComplete = () => {
-    if (overflow) document.body.style.overflow = '';
+    if (shouldUseOverflow) document.body.style.overflow = '';
     tween?.updateEase?.(defaultPreset);
     UnFreezeAndUPdateMobPageScroll();
 };
@@ -119,7 +119,7 @@ export const MobBodyScroll = (() => {
             500
         );
 
-        overflow = valueIsBooleanAndReturnDefault(
+        shouldUseOverflow = valueIsBooleanAndReturnDefault(
             data?.overflow,
             'bodyScroll: overflow',
             false
@@ -133,7 +133,7 @@ export const MobBodyScroll = (() => {
             );
         }
 
-        if (overflow) document.body.style.overflow = 'hidden';
+        if (shouldUseOverflow) document.body.style.overflow = 'hidden';
 
         isRunning = true;
         FreezeMobPageScroll();

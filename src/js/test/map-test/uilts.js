@@ -27,8 +27,8 @@ export const updateStateByProp = ({
         .entries()
         .filter(([currentKey, currentValue]) => {
             const keyToExclude = exclude ?? [];
-            const keyIsValid = !keyToExclude.includes(currentKey);
-            return currentValue?.[prop] === value && keyIsValid;
+            const isValidKey = !keyToExclude.includes(currentKey);
+            return currentValue?.[prop] === value && isValidKey;
         })
         .toArray();
 

@@ -331,7 +331,7 @@ export const AboutComponentFunction = ({
     const proxi = getSelfProxi();
     const numberOfSection = 4;
 
-    let freezeOnLag = false;
+    let shouldFreezeOnLag = false;
 
     onMount(() => {
         /**
@@ -352,6 +352,7 @@ export const AboutComponentFunction = ({
             (value) => {
                 const currentTile = focusMap.get(value);
                 if (!currentTile) return;
+
                 const focusVisible = value === 1;
                 currentTile.focus({ preventScroll: true, focusVisible });
             }
@@ -370,10 +371,10 @@ export const AboutComponentFunction = ({
         moveSvg = async (value) => {
             const shouldStop = MobCore.shouldMakeSomething();
 
-            if (shouldStop || freezeOnLag) {
-                freezeOnLag = true;
+            if (shouldStop || shouldFreezeOnLag) {
+                shouldFreezeOnLag = true;
                 setTimeout(() => {
-                    freezeOnLag = false;
+                    shouldFreezeOnLag = false;
                 }, 2000);
 
                 return;

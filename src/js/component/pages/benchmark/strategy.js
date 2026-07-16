@@ -1,1 +1,1 @@
-export const benchMarkUseProxi = false;
+export const shouldUsebenchMarkProxi = false;

@@ -22,7 +22,7 @@ import { getInvalidateFunctions } from '../modules/invalidate/action/get/get-inv
 import { getRepeatFunctions } from '../modules/repeater/action/get/get-repeat-functions';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bind-refs';
 import { clearSlotPlaceholder } from '../modules/slot';
-import { useSlotQuery } from './strategy';
+import { shouldUseSlotQuery } from './strategy';
 import { switchBindTextMap } from '../modules/bind-text';
 import { switchBindObjectMap } from '../modules/bind-object';
 import {
@@ -225,7 +225,7 @@ export const parseComponentsWhile = async ({
         /**
          * Clean slot map after convertToRealElement
          */
-        if (!useSlotQuery) clearSlotPlaceholder();
+        if (!shouldUseSlotQuery) clearSlotPlaceholder();
 
         /**
          * Transfer attributes from placeholder to newElement
@@ -377,13 +377,13 @@ export const parseComponentsWhile = async ({
         /**
          * Check if max parse number is reached.
          */
-        const parseLimitReached =
+        const isLimitReached =
             getCurrentIterationCounter() ===
             getDefaultComponent().maxParseIteration;
 
         incrementCurrentIterationCounter();
 
-        if (parseLimitReached) {
+        if (isLimitReached) {
             console.warn(
                 `dom parse reached max parse limit: ${getCurrentIterationCounter()}`
             );

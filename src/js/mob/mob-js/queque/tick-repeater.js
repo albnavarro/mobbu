@@ -45,7 +45,7 @@ export const incrementRepeaterTickQueuque = (props) => {
 /**
  * @returns {boolean}
  */
-const queueIsResolved = () => {
+const repeaterQueueIsResolved = () => {
     return repeaterQueque.size === 0;
 };
 
@@ -69,7 +69,7 @@ export const repeaterTick = async ({ debug = false, previousResolve } = {}) => {
     /**
      * After first cycle use previousResolve.
      */
-    if (queueIsResolved() && previousResolve) {
+    if (repeaterQueueIsResolved() && previousResolve) {
         previousResolve();
         return;
     }
@@ -81,7 +81,7 @@ export const repeaterTick = async ({ debug = false, previousResolve } = {}) => {
          * - This check should be true only in first loop.
          * - The other loop is resolved inside previous conditional
          */
-        if (queueIsResolved()) {
+        if (repeaterQueueIsResolved()) {
             resolve();
             return;
         }

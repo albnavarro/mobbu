@@ -9,13 +9,13 @@ let windowOffsetheight = document.documentElement.scrollHeight;
 
 let isActive = false;
 
-let usePrevent = true;
+let shouldUsePrevent = true;
 
 /** @type {number} */
 let lastScrollValue = window.scrollY;
 
 /** @type {boolean} */
-let useNativeScroll = true;
+let shouldUseNativeScroll = true;
 
 /** @type {boolean} */
 let isFreezed = false;
@@ -114,11 +114,11 @@ const MobPageScroller = ({ velocity, rootElement }) => {
          * - Respect `usePrevent` so `disablePreventScroll()` can restore native scroll.
          * - Keep preventing even while freezed to block native wheel scroll.
          */
-        if (usePrevent) event.preventDefault();
+        if (shouldUsePrevent) event.preventDefault();
 
         if (isFreezed) return;
 
-        useNativeScroll = false;
+        shouldUseNativeScroll = false;
         addWhellingClass();
 
         const spinY = event.spinY ?? 0;
@@ -164,7 +164,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
      * - Normally this scroll is used when user use scrollbar.
      */
     const unsubscribeScroll = MobCore.useScroll(() => {
-        if (!useNativeScroll) {
+        if (!shouldUseNativeScroll) {
             return;
         }
 
@@ -194,7 +194,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
 
         lerp.stop();
         lastScrollValue = window.scrollY;
-        useNativeScroll = true;
+        shouldUseNativeScroll = true;
     });
 
     /**
@@ -216,7 +216,7 @@ const MobPageScroller = ({ velocity, rootElement }) => {
         destroy: () => {
             isActive = false;
             lastScrollValue = 0;
-            useNativeScroll = true;
+            shouldUseNativeScroll = true;
             isFreezed = false;
             removeWhellingClass();
 
@@ -268,8 +268,8 @@ export const InitMobPageScroll = ({
     isFreezed = false;
     windowInnerheight = window.innerHeight;
     windowOffsetheight = document.documentElement.scrollHeight;
-    usePrevent = true;
-    useNativeScroll = false;
+    shouldUsePrevent = true;
+    shouldUseNativeScroll = false;
 
     ({ destroy, stop, update } = MobPageScroller({
         velocity,
@@ -341,7 +341,7 @@ export const DestroyMobPageScroll = () => {
  * @type{() => void}
  */
 export const enebalePreventScroll = () => {
-    usePrevent = true;
+    shouldUsePrevent = true;
 };
 
 /**
@@ -352,7 +352,7 @@ export const enebalePreventScroll = () => {
  * @type{() => void}
  */
 export const disablePreventScroll = () => {
-    usePrevent = false;
+    shouldUsePrevent = false;
 };
 
 /**

@@ -45,7 +45,7 @@ export const incrementInvalidateTickQueuque = (props) => {
 /**
  * @returns {boolean}
  */
-const queueIsResolved = () => {
+const invalidateQueueIsResolved = () => {
     return invalidateQueque.size === 0;
 };
 
@@ -72,7 +72,7 @@ export const invalidateTick = async ({
     /**
      * After first cycle use previousResolve.
      */
-    if (queueIsResolved() && previousResolve) {
+    if (invalidateQueueIsResolved() && previousResolve) {
         previousResolve();
         return;
     }
@@ -84,7 +84,7 @@ export const invalidateTick = async ({
          * - This check should be true only in first loop.
          * - The other loop is resolved inside previous conditional
          */
-        if (queueIsResolved()) {
+        if (invalidateQueueIsResolved()) {
             resolve();
             return;
         }

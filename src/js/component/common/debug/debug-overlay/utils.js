@@ -7,7 +7,14 @@ export const openDebugOverlay = () => {
     methods?.open();
 };
 
-let overlayJustOpen = false;
-export const setSearchOverlayJustOpen = () => (overlayJustOpen = true);
-export const resetSearchOverlayJustOpen = () => (overlayJustOpen = false);
-export const getSearchOverlayJustOpen = () => overlayJustOpen;
+let isOverlayJustOpen = false;
+
+export const setSearchOverlayJustOpen = () => {
+    isOverlayJustOpen = true;
+};
+
+export const resetSearchOverlayJustOpen = () => {
+    isOverlayJustOpen = false;
+};
+
+export const getSearchOverlayJustOpen = () => isOverlayJustOpen;

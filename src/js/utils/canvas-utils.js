@@ -4,9 +4,10 @@
  * @returns {{ useOffscreen: boolean; context: 'bitmaprenderer' | '2d' }}
  */
 export const getCanvasContext = ({ disableOffcanvas }) => {
-    const useOffscreen = 'OffscreenCanvas' in globalThis && !disableOffcanvas;
-    const context = useOffscreen ? 'bitmaprenderer' : '2d';
-    return { useOffscreen, context };
+    const shouldUseOffscreen =
+        'OffscreenCanvas' in globalThis && !disableOffcanvas;
+    const context = shouldUseOffscreen ? 'bitmaprenderer' : '2d';
+    return { useOffscreen: shouldUseOffscreen, context };
 };
 
 /**

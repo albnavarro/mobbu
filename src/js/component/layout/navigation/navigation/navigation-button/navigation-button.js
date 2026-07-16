@@ -41,11 +41,11 @@ export const NavigationButtonFunction = ({
              */
             const activeParams = MobJs.getActiveParams();
 
-            const paramsMatch =
+            const hasParamsMatch =
                 activeId === -1 ||
                 activeParams?.['activeId'] === String(activeId);
 
-            const isActiveRoute = currentRoute === hash && paramsMatch;
+            const isActiveRoute = currentRoute === hash && hasParamsMatch;
 
             /**
              * Match virtual children, with no submenu. Virtual children is defined in forceChildren props

@@ -1,7 +1,7 @@
 import { htmlObject } from '@mobJs';
 import { benchMarkListExternalPartial } from './bench-mark-list-external-partial';
 import { externalBenchmarkStore } from '@stores/benchmark';
-import { benchMarkUseProxi } from '../strategy';
+import { shouldUsebenchMarkProxi } from '../strategy';
 import { BenchMarkFakeComponent } from '../fake-component/definition';
 
 /**
@@ -72,7 +72,7 @@ export const BenchMarkRepeatNoKyBindStoreFunction = ({
                 content: repeat({
                     observe: () => boundedProxi.data,
                     render: ({ current }) => {
-                        return benchMarkUseProxi
+                        return shouldUsebenchMarkProxi
                             ? htmlObject({
                                   component: BenchMarkFakeComponent,
                                   modules: [

@@ -1,7 +1,7 @@
 import { htmlObject } from '@mobJs';
 import { benchMarkGarbagePartial } from '../partials/bench-mark-garbage-partial';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
-import { benchMarkUseProxi } from '../strategy';
+import { shouldUsebenchMarkProxi } from '../strategy';
 import { BenchMarkFakeComponent } from '../fake-component/definition';
 
 /**
@@ -40,7 +40,7 @@ export const BenchMarkRepeatWithKyFunction = ({
             observe: () => proxi.data,
             key: 'label',
             render: ({ current }) => {
-                return benchMarkUseProxi
+                return shouldUsebenchMarkProxi
                     ? htmlObject({
                           component: BenchMarkFakeComponent,
                           modules: [

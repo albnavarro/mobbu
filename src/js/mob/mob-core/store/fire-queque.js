@@ -66,12 +66,12 @@ export const runCallbackQueqe = ({
             /**
              * Props is in queue ?
              */
-            const firstCycle = !queueByInstanceId.has(prop);
+            const isFirstCycle = !queueByInstanceId.has(prop);
 
             /**
              * With multiple watch with multiple wait we should stare every single callback.
              */
-            const callbacksAccumulated = firstCycle
+            const callbacksAccumulated = isFirstCycle
                 ? []
                 : (queueByInstanceId.get(prop)?.callbacks ?? []);
 
@@ -108,7 +108,7 @@ export const runCallbackQueqe = ({
              *
              * - Fire only one time nextLoop is fired on first watch with wait props setteld.
              */
-            if (firstCycle) {
+            if (isFirstCycle) {
                 useNextLoop(() => {
                     /**
                      * Get last updated value.

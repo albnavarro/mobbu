@@ -8,7 +8,7 @@ import { getUnivoqueId } from '../../utils/index.js';
 /**
  * @type {boolean}
  */
-let initialized = false;
+let isInitialized = false;
 
 /**
  * @type {Map<string, import('./type.js').HandleScrollCallback<import('./type.js').HandleScroll>>}
@@ -35,7 +35,7 @@ function handler(scrollData) {
     if (callbacks.size === 0) {
         unsubscribe();
 
-        initialized = false;
+        isInitialized = false;
         return;
     }
 
@@ -54,8 +54,8 @@ function handler(scrollData) {
  * @returns {void}
  */
 function init() {
-    if (initialized) return;
-    initialized = true;
+    if (isInitialized) return;
+    isInitialized = true;
 
     // @ts-ignore
     throttleFunctionReference = throttle(
@@ -98,9 +98,9 @@ const addCallback = (cb) => {
     return () => {
         callbacks.delete(id);
 
-        if (callbacks.size === 0 && initialized) {
+        if (callbacks.size === 0 && isInitialized) {
             unsubscribe();
-            initialized = false;
+            isInitialized = false;
         }
     };
 };

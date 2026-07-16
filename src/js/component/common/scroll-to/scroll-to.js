@@ -22,7 +22,7 @@ import { docContainerStore } from '@stores/doc-container';
  */
 
 /** @type {boolean} */
-let disableObservereffect = false;
+let shouldDisableObservereffect = false;
 
 /** @type{() => void} */
 let destroy = () => {};
@@ -54,7 +54,7 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
                           /**
                            * Disable spacerAnchor observer effect during scroll.
                            */
-                          disableObservereffect = true;
+                          shouldDisableObservereffect = true;
                           proxi.activeLabel = label;
                           await MobBodyScroll.to(offsetTop, { duration: 10 });
 
@@ -73,7 +73,7 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
                               /**
                                * Back to enable spacerAnchor observer. Wait one second to not colline with scroll end.
                                */
-                              disableObservereffect = false;
+                              shouldDisableObservereffect = false;
                           }, 1000);
                       },
                   });
@@ -218,7 +218,7 @@ export const ScrollToFunction = ({
     });
 
     addMethod('setActiveLabel', (label) => {
-        if (disableObservereffect) return;
+        if (shouldDisableObservereffect) return;
         proxi.activeLabel = label;
     });
 
@@ -291,7 +291,7 @@ export const ScrollToFunction = ({
         const unsubscribeMouseWheel = proxi.updateAnchorOnWheel
             ? MobCore.useMouseWheel(
                   MobCore.debounce(() => {
-                      if (disableObservereffect) return;
+                      if (shouldDisableObservereffect) return;
 
                       setActiveLabelOnScroll({ proxi, direction, winHeight });
                   }, 600)
@@ -302,7 +302,7 @@ export const ScrollToFunction = ({
          * Check active label in scroll end.
          */
         const unsubScribeScrollEnd = MobCore.useScrollEnd(() => {
-            if (disableObservereffect) return;
+            if (shouldDisableObservereffect) return;
 
             setActiveLabelOnScroll({ proxi, direction, winHeight });
         });

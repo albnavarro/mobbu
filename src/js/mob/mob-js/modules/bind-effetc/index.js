@@ -220,7 +220,7 @@ const watchBindEffect = ({ data, element }) => {
             /**
              * Watch props on change
              */
-            let watchIsRunning = false;
+            let isWatchRunning = false;
 
             /**
              * Merge keys with repater/invalidate key if scope component use it.
@@ -299,8 +299,8 @@ const watchBindEffect = ({ data, element }) => {
                     /**
                      * Wait for all all props is settled.
                      */
-                    if (watchIsRunning) return;
-                    watchIsRunning = true;
+                    if (isWatchRunning) return;
+                    isWatchRunning = true;
 
                     MobCore.useNextLoop(() => {
                         MobCore.useFrame(() => {
@@ -316,7 +316,7 @@ const watchBindEffect = ({ data, element }) => {
                                 applyAttribute({ ref, data: toggleAttribute });
                             }
 
-                            watchIsRunning = false;
+                            isWatchRunning = false;
                         });
                     });
                 });

@@ -137,8 +137,8 @@ export const draggerAnimation = ({
      * Detect click
      */
     let firstTouchValue = { x: 0, y: 0 };
-    let onDrag = false;
-    let firstDrag = false;
+    let isDragging = false;
+    let isFirstDrag = false;
     const threshold = 30;
 
     /**
@@ -259,8 +259,8 @@ export const draggerAnimation = ({
      * @param {EventTarget | null} params.target
      */
     const startDrag = ({ page }) => {
-        onDrag = true;
-        firstDrag = true;
+        isDragging = true;
+        isFirstDrag = true;
         firstTouchValue = { x: page.x, y: page.y };
     };
 
@@ -275,10 +275,10 @@ export const draggerAnimation = ({
          * Get difference form last value
          */
         const { xgap, ygap } = (() => {
-            if (!onDrag) return { xgap: 0, ygap: 0 };
+            if (!isDragging) return { xgap: 0, ygap: 0 };
 
-            if (firstDrag) {
-                firstDrag = false;
+            if (isFirstDrag) {
+                isFirstDrag = false;
 
                 return {
                     xgap: 0,
@@ -311,17 +311,17 @@ export const draggerAnimation = ({
         /**
          * Get x value clamped to min max if is dragging or last value
          */
-        const currentDragX = onDrag ? xValueOnDrag : dragX;
+        const currentDragX = isDragging ? xValueOnDrag : dragX;
 
         /**
          * Get y value clamped to min max if is dragging or last value
          */
-        const currenteDragY = onDrag ? yValueOnDrag : dragY;
+        const currenteDragY = isDragging ? yValueOnDrag : dragY;
 
         /**
          * Use calmped value or mouse value if is dragging
          */
-        const { xComputed, yComputed } = onDrag
+        const { xComputed, yComputed } = isDragging
             ? {
                   xComputed: currentDragX,
                   yComputed: currenteDragY,
@@ -340,7 +340,7 @@ export const draggerAnimation = ({
         lastX = x;
         lastY = y;
 
-        if (onDrag) {
+        if (isDragging) {
             endValue = { xValue: xComputed, yValue: yComputed };
             void spring.goTo({ x: xComputed, y: yComputed }).catch(() => {});
         }
@@ -361,11 +361,11 @@ export const draggerAnimation = ({
      * Add end drag listener
      */
     const unsubscribeTouchEnd = MobCore.useTouchEnd(() => {
-        onDrag = false;
+        isDragging = false;
     });
 
     const unsubscribeMouseUp = MobCore.useMouseUp(() => {
-        onDrag = false;
+        isDragging = false;
     });
 
     /**
@@ -384,9 +384,11 @@ export const draggerAnimation = ({
      */
     const clickHandler = (event) => {
         const { x, y } = firstTouchValue;
-        const xChecker = Math.abs(lastX - x) > threshold;
-        const yChecker = Math.abs(lastY - y) > threshold;
-        if (xChecker || yChecker) event.preventDefault();
+        const isXThresholdExceeded = Math.abs(lastX - x) > threshold;
+        const isYThresholdExceeded = Math.abs(lastY - y) > threshold;
+
+        if (isXThresholdExceeded || isYThresholdExceeded)
+            event.preventDefault();
     };
 
     /**

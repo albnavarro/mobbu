@@ -7,7 +7,7 @@ function handlePointer(eventType) {
     /**
      * @type {boolean}
      */
-    let initialized = false;
+    let isInitialized = false;
 
     /**
      * @type {Map<string, import('./type.js').PointerEventCallback>}
@@ -25,7 +25,7 @@ function handlePointer(eventType) {
         if (callbacks.size === 0) {
             globalThis.removeEventListener(eventType, handler);
 
-            initialized = false;
+            isInitialized = false;
             return;
         }
 
@@ -40,8 +40,8 @@ function handlePointer(eventType) {
      * @returns {void}
      */
     function init() {
-        if (initialized) return;
-        initialized = true;
+        if (isInitialized) return;
+        isInitialized = true;
 
         globalThis.addEventListener(eventType, handler);
     }
@@ -64,9 +64,9 @@ function handlePointer(eventType) {
         return () => {
             callbacks.delete(id);
 
-            if (callbacks.size === 0 && initialized) {
+            if (callbacks.size === 0 && isInitialized) {
                 globalThis.removeEventListener(eventType, handler);
-                initialized = false;
+                isInitialized = false;
             }
         };
     };

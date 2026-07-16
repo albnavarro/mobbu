@@ -179,7 +179,7 @@ const createBindTextWatcher = ({ id, render, props, element }) => {
     /**
      * Watch props on change
      */
-    let watchIsRunning = false;
+    let isWatchRunning = false;
 
     /** @type {WeakRef<HTMLElement> | null} */
     let ref = new WeakRef(element);
@@ -230,8 +230,8 @@ const createBindTextWatcher = ({ id, render, props, element }) => {
             /**
              * Wait for all all props is settled.
              */
-            if (watchIsRunning) return;
-            watchIsRunning = true;
+            if (isWatchRunning) return;
+            isWatchRunning = true;
 
             MobCore.useNextLoop(() => {
                 MobCore.useFrame(() => {
@@ -257,7 +257,7 @@ const createBindTextWatcher = ({ id, render, props, element }) => {
                         ref.deref().insertAdjacentHTML('afterbegin', render());
                     }
 
-                    watchIsRunning = false;
+                    isWatchRunning = false;
                 });
             });
         });

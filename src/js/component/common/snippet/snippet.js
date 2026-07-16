@@ -70,8 +70,8 @@ export const SnippetFunction = ({
      * Add exanpd logic if snippet has X lines.
      */
     const closedHeight = `20rem`;
-    const useExpand = Number(proxi.numLines) > 15;
-    const expandClass = useExpand ? 'use-expand' : '';
+    const shouldUseExpand = Number(proxi.numLines) > 15;
+    const expandClass = shouldUseExpand ? 'use-expand' : '';
 
     /**
      * Get final snippet height ( in rem ). After load snippet height will be removed. Use to load page with right size
@@ -107,14 +107,14 @@ export const SnippetFunction = ({
                 /**
                  * Set initial class. Set right initial of code module
                  */
-                className: [useExpand ? 'close' : 'open'],
+                className: [shouldUseExpand ? 'close' : 'open'],
                 modules: bindEffect({
                     /**
                      * Update code class runtime ( if expanded ).
                      */
                     toggleClass: {
-                        close: () => useExpand && !proxi.isExpanded,
-                        open: () => useExpand && proxi.isExpanded,
+                        close: () => shouldUseExpand && !proxi.isExpanded,
+                        open: () => shouldUseExpand && proxi.isExpanded,
                     },
                 }),
                 content: {
@@ -126,7 +126,7 @@ export const SnippetFunction = ({
             {
                 tag: 'button',
                 className: ['expand', expandClass],
-                attributes: { disabled: !useExpand },
+                attributes: { disabled: !shouldUseExpand },
                 modules: delegateEvents({
                     click: () => {
                         proxi.isExpanded = !proxi.isExpanded;

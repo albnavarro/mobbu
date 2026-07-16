@@ -3,7 +3,7 @@ import { getUnivoqueId } from '../../utils';
 /**
  * @type {boolean}
  */
-let initialized = false;
+let isInitialized = false;
 
 /**
  * @type {Map<string, import('./type').EscHandlerCallback>}
@@ -21,7 +21,7 @@ function handler(event) {
     if (callbacks.size === 0) {
         globalThis.removeEventListener('keydown', handler);
 
-        initialized = false;
+        isInitialized = false;
         return;
     }
 
@@ -62,8 +62,8 @@ function handler(event) {
  * @returns {void}
  */
 function init() {
-    if (initialized) return;
-    initialized = true;
+    if (isInitialized) return;
+    isInitialized = true;
 
     globalThis.addEventListener('keydown', handler);
 }
@@ -96,9 +96,9 @@ const addCallback = (cb) => {
     return () => {
         callbacks.delete(id);
 
-        if (callbacks.size === 0 && initialized) {
+        if (callbacks.size === 0 && isInitialized) {
             globalThis.removeEventListener('keydown', handler);
-            initialized = false;
+            isInitialized = false;
         }
     };
 };

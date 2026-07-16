@@ -7,7 +7,7 @@ import { htmlObject, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 import { loadTextContent } from '@utils/utils';
 
-const useLog = false;
+const shouldUseLog = false;
 
 /** @type {import('@mobJsType').Page} */
 export const DraggerRoute = async () => {
@@ -102,10 +102,10 @@ export const DraggerRoute = async () => {
                             perspective: 300,
                             hideThreshold: 10,
                             afterInit: ({ root }) => {
-                                if (useLog) console.log(root);
+                                if (shouldUseLog) console.log(root);
                             },
                             onDepthChange: ({ depth }) => {
-                                if (useLog) console.log(depth);
+                                if (shouldUseLog) console.log(depth);
                             },
                         })
                     ),

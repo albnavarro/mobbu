@@ -20,11 +20,11 @@ export const lerpGetValuesOnDraw = ({ values, fps, velocity, precision }) => {
         // const settled =
         //     Number(Math.abs(toValue - newCurrentValue).toFixed(4)) <= precision;
 
-        const settled =
+        const isSettled =
             Math.round(Math.abs(toValue - newCurrentValue) * 10_000) / 10_000 <=
             precision;
 
-        if (settled) {
+        if (isSettled) {
             return {
                 ...item,
                 currentValue: toValue,

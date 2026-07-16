@@ -3,7 +3,7 @@ import { getUnivoqueId } from '../../utils';
 /**
  * @type {boolean}
  */
-let initialized = false;
+let isInitialized = false;
 
 /**
  * @type {Map<string, import('./type').HandleScrollCallback<import('./type').HandleScroll>>}
@@ -45,7 +45,7 @@ function handler() {
     if (callbacks.size === 0) {
         globalThis.removeEventListener('scroll', handler);
 
-        initialized = false;
+        isInitialized = false;
         return;
     }
 
@@ -75,8 +75,8 @@ function handler() {
  * @returns {void}
  */
 function init() {
-    if (initialized) return;
-    initialized = true;
+    if (isInitialized) return;
+    isInitialized = true;
 
     previousScrollValue = globalThis.scrollY;
     currentScrollValue = globalThis.scrollY;
@@ -114,9 +114,9 @@ const addCallback = (cb) => {
     return () => {
         callbacks.delete(id);
 
-        if (callbacks.size === 0 && initialized) {
+        if (callbacks.size === 0 && isInitialized) {
             globalThis.removeEventListener('scroll', handler);
-            initialized = false;
+            isInitialized = false;
         }
     };
 };

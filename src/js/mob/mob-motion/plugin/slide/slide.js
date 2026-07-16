@@ -66,8 +66,8 @@ export const MobSlide = (() => {
         /**
          * Check if target is already subscribed to slide utils
          */
-        const alreadySubscribe = slideItems.has(target);
-        if (alreadySubscribe) {
+        const isAlreadySubscribe = slideItems.has(target);
+        if (isAlreadySubscribe) {
             console.warn(`slide utils ${target} is alredysubscribed`);
             return () => {};
         }

@@ -1,7 +1,7 @@
 import { htmlObject } from '@mobJs';
 import { benchMarkListPartial } from '../partials/bench-mark-list-partial';
 import { BenchMarkFakeComponent } from '../fake-component/definition';
-import { benchMarkUseProxi } from '../strategy';
+import { shouldUsebenchMarkProxi } from '../strategy';
 
 /**
  * @import {
@@ -50,7 +50,7 @@ export const BenchMarkRepeatWithNoKeyFunctionNested = ({
                             content: repeat({
                                 observe: () => proxi.data,
                                 render: ({ current }) => {
-                                    return benchMarkUseProxi
+                                    return shouldUsebenchMarkProxi
                                         ? htmlObject({
                                               component: BenchMarkFakeComponent,
                                               modules: [

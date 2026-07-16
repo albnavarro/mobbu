@@ -844,17 +844,21 @@ export class MobHorizontalScroller {
         const shadowsTransition = [...this.#shadows]
             .map((item) => {
                 const shadowLabel = item.dataset['shadow'];
-                const useDebug = Object.hasOwn(item.dataset, 'debug');
-                const debugClass = useDebug ? 'debug' : '';
+                const shouldUseDebug = Object.hasOwn(item.dataset, 'debug');
+                const debugClass = shouldUseDebug ? 'debug' : '';
 
-                const leftLabel = useDebug ? `left left : ${shadowLabel}` : '';
-                const inCenterLabel = useDebug
+                const leftLabel = shouldUseDebug
+                    ? `left left : ${shadowLabel}`
+                    : '';
+                const inCenterLabel = shouldUseDebug
                     ? `in center : ${shadowLabel}`
                     : '';
-                const outCenterlabel = useDebug
+                const outCenterlabel = shouldUseDebug
                     ? `center out : ${shadowLabel}`
                     : '';
-                const endLabel = useDebug ? `in out : ${shadowLabel}` : '';
+                const endLabel = shouldUseDebug
+                    ? `in out : ${shadowLabel}`
+                    : '';
 
                 return /* HTML */ ` <div
                     class="${this.#shadowMainClassTransition} ${

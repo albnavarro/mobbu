@@ -4,7 +4,7 @@ import { debounceFuncion } from '../debounce.js';
 /**
  * @type {boolean}
  */
-let initialized = false;
+let isInitialized = false;
 
 /**
  * @type {Map<String, import('./type.js').HandleResizeCallback>}
@@ -36,7 +36,7 @@ function handler() {
     if (callbacks.size === 0) {
         globalThis.removeEventListener('resize', debouceFunctionReference);
 
-        initialized = false;
+        isInitialized = false;
         return;
     }
 
@@ -94,8 +94,8 @@ function handler() {
  * @returns {void}
  */
 function init() {
-    if (initialized) return;
-    initialized = true;
+    if (isInitialized) return;
+    isInitialized = true;
 
     previousWindowHeight = globalThis.window.innerHeight;
     previousWindowWidth = globalThis.window.innerWidth;
@@ -144,9 +144,9 @@ const addCallback = (cb) => {
     return () => {
         callbacks.delete(id);
 
-        if (callbacks.size === 0 && initialized) {
+        if (callbacks.size === 0 && isInitialized) {
             globalThis.removeEventListener('resize', debouceFunctionReference);
-            initialized = false;
+            isInitialized = false;
         }
     };
 };
