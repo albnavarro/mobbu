@@ -2,7 +2,7 @@ import { htmlObject } from '@mobJs';
 import { startData, state1, state2, state3 } from './data';
 import { DynamicListButton } from './button/definition';
 import { DynamicListRepeater } from './repeaters/definition';
-import { DynamicListCardInner } from './repeaters/card/innerCard/definition';
+import { DynamicListCardInner } from './repeaters/card/inner-card/definition';
 
 /**
  * @import {
@@ -14,7 +14,7 @@ import { DynamicListCardInner } from './repeaters/card/innerCard/definition';
  *   StaticProps
  * } from '@mobJsType'
  * @import {DynamicListButtonType} from './button/type'
- * @import {DynamicListCardInnerType} from './repeaters/card/innerCard/type'
+ * @import {DynamicListCardInnerType} from './repeaters/card/inner-card/type'
  * @import {DynamicListRepeaterType} from './repeaters/type'
  * @import {DynamicList} from './type'
  */

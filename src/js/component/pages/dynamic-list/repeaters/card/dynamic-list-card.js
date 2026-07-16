@@ -1,6 +1,6 @@
 import { htmlObject, MobJs } from '@mobJs';
 import { innerData } from '@pagesComponent/dynamic-list/data';
-import { DynamicListCardInner } from './innerCard/definition';
+import { DynamicListCardInner } from './inner-card/definition';
 import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definition';
 import { DynamicListEmpty } from './empty/definition';
 import { DynamicCounter } from './counter/definition';
@@ -15,7 +15,7 @@ import { DynamicCounter } from './counter/definition';
  * } from '@mobJsType'
  * @import {DynamicListButtonType} from '../../button/type'
  * @import {DynamicCounterType} from './counter/type'
- * @import {DynamicListCardInnerType} from './innerCard/type'
+ * @import {DynamicListCardInnerType} from './inner-card/type'
  * @import {DynamicListCardType} from './type'
  */
 
