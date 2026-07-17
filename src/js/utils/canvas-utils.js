@@ -48,7 +48,7 @@ export const copyCanvasBitmap = ({ useOffscreen, offscreen, ctx }) => {
  * @param {CanvasRenderingContext2D} ctx
  * @returns {boolean}
  */
-export const roundRectIsSupported = (ctx) => 'roundRect' in ctx;
+export const isRoundRectSupported = (ctx) => 'roundRect' in ctx;
 
 /**
  * @param {CanvasRenderingContext2D} ctx

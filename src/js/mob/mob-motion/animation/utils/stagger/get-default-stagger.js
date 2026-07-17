@@ -12,9 +12,9 @@ import { getEachByFps } from './stagger-utils.js';
 
 /**
  * @param {number} num
- * @returns Boolean
+ * @returns {number}
  */
-const isOdd = (num) => num % 2;
+const oddCheck = (num) => num % 2;
 
 /**
  * @param {number} max
@@ -98,13 +98,13 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
 
             if (index < half) {
                 // From half to end half
-                return isOdd(arraylenght) === 0 && half - index === 1
+                return oddCheck(arraylenght) === 0 && half - index === 1
                     ? {
                           index: index,
                           frame: 0,
                       } // Center with even array
                     : (() => {
-                          return isOdd(arraylenght) === 0
+                          return oddCheck(arraylenght) === 0
                               ? {
                                     index: index,
                                     frame: (half - index - 1) * eachByFps,
@@ -138,13 +138,13 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
 
             if (index < half) {
                 // From half to end half
-                return isOdd(arraylenght) === 0 && half - index === 1
+                return oddCheck(arraylenght) === 0 && half - index === 1
                     ? {
                           index: index,
                           frame: (half - 1) * eachByFps,
                       }
                     : (() => {
-                          return isOdd(arraylenght) === 0
+                          return oddCheck(arraylenght) === 0
                               ? {
                                     index: index,
                                     frame:
@@ -163,7 +163,7 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
                       })();
             }
 
-            return isOdd(arraylenght)
+            return oddCheck(arraylenght)
                 ? {
                       index: index,
                       frame: half * eachByFps, // dfault,

@@ -38,7 +38,7 @@ const escapeRegExp = (text) => {
  * @param {string} pattern - The string to validate
  * @returns {boolean} True if the string is a valid number, false otherwise
  */
-export const checkIfIsOnlyNumberPositiveNegative = (pattern) => {
+export const isOnlyNumberPositiveNegativeCheck = (pattern) => {
     return /^[+-]?\d+(\.\d+)?$/.test(pattern);
 };
 
@@ -62,7 +62,7 @@ export const checkIfIsOnlyNumberPositiveNegative = (pattern) => {
  * @param {string} pattern - The string to check
  * @returns {boolean} True if the string contains only numbers (integers or decimals), false otherwise
  */
-export const checkIfIsOnlyNumber = (pattern) => {
+export const isOnlyNumberCheck = (pattern) => {
     return /^\d+\.\d+$|^\d+$/.test(pattern);
 };
 

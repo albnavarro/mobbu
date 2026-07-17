@@ -56,10 +56,10 @@ function selectAll(root, firstOccurrence) {
 
 /**
  * @param {Element | DocumentFragment} node
- * @param {boolean} firstOccurence
+ * @param {boolean} isFirstOccurence
  * @returns {UserComponent[]}
  */
-export const queryAllFutureComponent = (node, firstOccurence = true) => {
+export const queryAllFutureComponent = (node, isFirstOccurence = true) => {
     const root = node || document.body;
-    return selectAll(/** @type {Element} */ (root), firstOccurence);
+    return selectAll(/** @type {Element} */ (root), isFirstOccurence);
 };

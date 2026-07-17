@@ -32,7 +32,7 @@ import {
 import { getComponentList } from '../component/component-list';
 import { PARSER_ASYNC_DEFAULT } from '../main-store/constant';
 import { getFirstUserChildPlaceholder } from '../modules/user-component';
-import { tagShouldBeComponent } from '../component/component-tag';
+import { shouldTagBeComponent } from '../component/component-tag';
 import { getParamsFromCustomComponent } from './steps/get-special-params-from-web-component';
 
 /**
@@ -239,7 +239,7 @@ export const parseComponentsWhile = async ({
          *
          * - Servirá per applicare i moduli special ( come bindEffect ) se applicati al componente
          */
-        const shouldBeComponent = tagShouldBeComponent(newElement.tagName);
+        const shouldBeComponent = shouldTagBeComponent(newElement.tagName);
 
         /**
          * Una funzione-componente puó restituire un customComponent o un nodo nativo.

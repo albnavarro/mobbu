@@ -69,7 +69,7 @@ interface RequiredCommonTweenField {
 
 type SetRelative = <T extends Record<string, any>>(
     arr: (RequiredCommonTweenField & T)[],
-    relative: boolean
+    isRelative: boolean
 ) => (RequiredCommonTweenField & T)[];
 
 /**
@@ -86,7 +86,7 @@ export interface RequiredTwenFileds {
 
 export type SetRelativeTween = <T extends Record<string, any>>(
     arr: (RequiredTwenFileds & T)[],
-    relative: boolean
+    isRelative: boolean
 ) => (RequiredTwenFileds & T)[];
 
 /**

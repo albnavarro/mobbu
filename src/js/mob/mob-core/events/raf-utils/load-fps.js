@@ -1,7 +1,7 @@
 import { eventStore } from '../event-store';
 
 /** @type {boolean} */
-let isLoadFpsReady = false;
+let isFpsReady = false;
 
 /** @type {Promise<import('./type').LoadFps> | null} */
 let pendingPromise = null;
@@ -17,7 +17,7 @@ let pendingPromise = null;
  * @returns {Promise<import('./type').LoadFps>} The promise launched after the loop
  */
 export const loadFps = ({ force = false, duration = 30 } = {}) => {
-    if (isLoadFpsReady && !force) {
+    if (isFpsReady && !force) {
         const { instantFps } = eventStore.get();
         return Promise.resolve({ averageFPS: instantFps });
     }
@@ -110,7 +110,7 @@ export const loadFps = ({ force = false, duration = 30 } = {}) => {
 
             if (frameCounter >= duration) {
                 eventStore.quickSetProp('instantFps', averageFPS);
-                isLoadFpsReady = true;
+                isFpsReady = true;
                 pendingPromise = null;
                 resolve({ averageFPS });
                 return;

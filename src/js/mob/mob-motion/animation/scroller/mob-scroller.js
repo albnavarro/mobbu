@@ -44,7 +44,7 @@ import {
     getRetReverseValue,
     getStartPoint,
     getValueOnSwitch,
-    detectViewportInterception,
+    checkIfisInViewport,
     processFixedLimit,
     getScrollFunction,
 } from './mob-scroller-utils.js';
@@ -1254,7 +1254,7 @@ export default class MobScroller {
             this.#getScrollerOffset();
         }
 
-        this.#isInViewport = detectViewportInterception({
+        this.#isInViewport = checkIfisInViewport({
             offset: this.#offset,
             height: this.#height,
             gap: this.#gap,
@@ -1766,7 +1766,7 @@ export default class MobScroller {
         this.#willChangeIsActive = this.#useWillChange
             ? MobCore.mustMakeSomething()
             : false;
-        const propiertiesToWillChenage =
+        const propiertiesToWillChange =
             this.#willChangeIsActive && this.#force3D ? 'transform' : '';
 
         /**
@@ -1779,37 +1779,37 @@ export default class MobScroller {
         switch (this.#propierties) {
             case MobScrollerConstant.PROP_VERTICAL: {
                 el.style.transform = `${force3DStyle} translateY(${valueParsed}px)`;
-                el.style.willChange = propiertiesToWillChenage;
+                el.style.willChange = propiertiesToWillChange;
                 break;
             }
 
             case MobScrollerConstant.PROP_HORIZONTAL: {
                 el.style.transform = `${force3DStyle} translateX(${valueParsed}px)`;
-                el.style.willChange = propiertiesToWillChenage;
+                el.style.willChange = propiertiesToWillChange;
                 break;
             }
 
             case MobScrollerConstant.PROP_ROTATE: {
                 el.style.transform = `${force3DStyle} rotate(${valueParsed}deg)`;
-                el.style.willChange = propiertiesToWillChenage;
+                el.style.willChange = propiertiesToWillChange;
                 break;
             }
 
             case MobScrollerConstant.PROP_ROTATEY: {
                 el.style.transform = `${force3DStyle} rotateY(${valueParsed}deg)`;
-                el.style.willChange = propiertiesToWillChenage;
+                el.style.willChange = propiertiesToWillChange;
                 break;
             }
 
             case MobScrollerConstant.PROP_ROTATEX: {
                 el.style.transform = `${force3DStyle} rotateX(${valueParsed}deg)`;
-                el.style.willChange = propiertiesToWillChenage;
+                el.style.willChange = propiertiesToWillChange;
                 break;
             }
 
             case MobScrollerConstant.PROP_ROTATEZ: {
                 el.style.transform = `${force3DStyle} rotateZ(${valueParsed}deg)`;
-                el.style.willChange = propiertiesToWillChenage;
+                el.style.willChange = propiertiesToWillChange;
                 break;
             }
 
@@ -1824,7 +1824,7 @@ export default class MobScroller {
                         ? value
                         : 1 + value / 1000;
                 el.style.transform = `${force3DStyle} scale(${scaleVal})`;
-                el.style.willChange = propiertiesToWillChenage;
+                el.style.willChange = propiertiesToWillChange;
                 break;
             }
 
@@ -1834,7 +1834,7 @@ export default class MobScroller {
                         ? value
                         : 1 + value / 1000;
                 el.style.transform = `${force3DStyle} scaleX(${scaleVal})`;
-                el.style.willChange = propiertiesToWillChenage;
+                el.style.willChange = propiertiesToWillChange;
                 break;
             }
 
@@ -1844,7 +1844,7 @@ export default class MobScroller {
                         ? value
                         : 1 + value / 1000;
                 el.style.transform = `${force3DStyle} scaleY(${scaleVal})`;
-                el.style.willChange = propiertiesToWillChenage;
+                el.style.willChange = propiertiesToWillChange;
                 break;
             }
 

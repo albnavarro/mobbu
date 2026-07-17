@@ -78,7 +78,7 @@ type CallbackArrayStagger<Type> = {
 
 export type ShouldInizializzeStagger = (
     each: number,
-    firstRun: boolean,
+    isFirstRun: boolean,
     arrayToCompare1: CallbackObject<any>[],
     arrayToCompare2: CallbackObject<any>[]
 ) => boolean | undefined;

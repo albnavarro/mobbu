@@ -34,9 +34,12 @@ export default defineConfig([
             tseslint.configs.stylistic,
         ],
         rules: {
-            // TODO: Realign new rules from v70.
-            'unicorn/consistent-boolean-name': 'off',
-            //
+            'unicorn/consistent-boolean-name': [
+                'error',
+                {
+                    ignore: ['Default$', '^check'],
+                },
+            ],
             'unicorn/no-top-level-assignment-in-function': 'off',
             'unicorn/no-break-in-nested-loop': 'off',
             'unicorn/no-unreadable-array-destructuring': 'off',

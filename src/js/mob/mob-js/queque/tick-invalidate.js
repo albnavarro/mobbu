@@ -9,7 +9,7 @@ export const invalidateQueque = new Map();
 /**
  * @returns {boolean}
  */
-export const invalidateQuequeIsEmpty = () => invalidateQueque.size === 0;
+export const isInvalidateQuequeEmpty = () => invalidateQueque.size === 0;
 
 /**
  * Limit queque size. Prevent possible side effect
@@ -45,7 +45,7 @@ export const incrementInvalidateTickQueuque = (props) => {
 /**
  * @returns {boolean}
  */
-const invalidateQueueIsResolved = () => {
+const isInvalidateQueueResolved = () => {
     return invalidateQueque.size === 0;
 };
 
@@ -72,7 +72,7 @@ export const invalidateTick = async ({
     /**
      * After first cycle use previousResolve.
      */
-    if (invalidateQueueIsResolved() && previousResolve) {
+    if (isInvalidateQueueResolved() && previousResolve) {
         previousResolve();
         return;
     }
@@ -84,7 +84,7 @@ export const invalidateTick = async ({
          * - This check should be true only in first loop.
          * - The other loop is resolved inside previous conditional
          */
-        if (invalidateQueueIsResolved()) {
+        if (isInvalidateQueueResolved()) {
             resolve();
             return;
         }

@@ -75,8 +75,8 @@ import {
     arrayWarning,
 } from '../warning';
 import {
-    checkIfIsOnlyNumber,
-    checkIfIsOnlyNumberPositiveNegative,
+    isOnlyNumberCheck,
+    isOnlyNumberPositiveNegativeCheck,
     exactMatchInsesitiveNumberPropArray,
 } from '../regex-validation';
 import { getPropiertiesValueFromConstant } from '../../scroller/get-constant-from-regex.js';
@@ -706,19 +706,19 @@ export const timelineSetTweenLabelIsValid = (label) => {
  * Check if value is a valid Element and return element|window|element
  *
  * @param {string | HTMLElement | globalThis | undefined} element
- * @param {boolean} returnWindow
+ * @param {boolean} shouldReturnWindow
  * @returns {HTMLElement}
  */
 export const domNodeIsValidAndReturnElOrWin = (
     element,
-    returnWindow = false
+    shouldReturnWindow = false
 ) => {
     const isNode = MobCore.checkType(Element, element);
     // @ts-ignore
     const realEl = isNode ? element : document.querySelector(element);
 
     // @ts-ignore
-    return returnWindow
+    return shouldReturnWindow
         ? /** @type {HTMLElement} */ (realEl ?? globalThis)
         : /** @type {HTMLElement} */ (realEl ?? document.createElement('div'));
 };
@@ -932,7 +932,7 @@ export const scrollerRangeIsValid = (value, type) => {
     const parsedValue = () => {
         if (type === MobScrollerConstant.TYPE_PARALLAX) {
             // @ts-ignore
-            const isOnlyNumber = checkIfIsOnlyNumber(value);
+            const isOnlyNumber = isOnlyNumberCheck(value);
             const isValid =
                 MobCore.checkType(Number, Number(value)) &&
                 isOnlyNumber &&
@@ -1255,7 +1255,7 @@ export const checkStringRangeOnPropierties = (value, properties) => {
             MobScrollerConstant.PROP_SCALE_Y,
         ].includes(properties)
     ) {
-        const isValid = checkIfIsOnlyNumberPositiveNegative(value);
+        const isValid = isOnlyNumberPositiveNegativeCheck(value);
         if (!isValid) scrollTriggerRangeScaleWarning(value, properties);
         return isValid ? value : '0';
     }
@@ -1263,7 +1263,7 @@ export const checkStringRangeOnPropierties = (value, properties) => {
     /**
      * Other props without unit misure Only Number
      */
-    const isValid = checkIfIsOnlyNumberPositiveNegative(value);
+    const isValid = isOnlyNumberPositiveNegativeCheck(value);
     if (!isValid) scrollTriggerCustomRangeWarning(properties);
 
     return isValid ? value : '0';

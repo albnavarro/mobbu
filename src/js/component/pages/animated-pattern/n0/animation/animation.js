@@ -10,7 +10,7 @@ import {
     createGrid,
     getCanvasContext,
     getOffsetCanvas,
-    roundRectIsSupported,
+    isRoundRectSupported,
 } from '@utils/canvas-utils';
 
 /** @type {import('../type').AnimatedPatternN0Animation} */
@@ -48,7 +48,7 @@ export const animatedPatternN0Animation = ({
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     let wichContext = useOffscreen ? offScreenCtx : ctx;
-    const useRadius = roundRectIsSupported(
+    const useRadius = isRoundRectSupported(
         /** @type {CanvasRenderingContext2D} */ (wichContext)
     );
     wichContext = null;

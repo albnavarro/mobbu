@@ -5,6 +5,6 @@ export interface RouteLoader {
         skip: boolean;
     };
     methods: {
-        skip: (value: boolean) => void;
+        skip: (shouldSkip: boolean) => void;
     };
 }

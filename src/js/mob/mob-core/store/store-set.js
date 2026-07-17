@@ -316,8 +316,8 @@ const setObj = ({
     /**
      * If all Object prop fail strict check return
      */
-    const areAllStrictFailed = strictObjectResult.length === 0;
-    if (areAllStrictFailed) return;
+    const areStrictFailed = strictObjectResult.length === 0;
+    if (areStrictFailed) return;
 
     /**
      * Get new Object with only validate and strick passed
@@ -380,7 +380,7 @@ const setObj = ({
         (subProp) => skipEqual[prop][subProp] === true
     );
 
-    let areAllPropsDepthValid = true;
+    let arePropsDepthValid = true;
 
     /**
      * - Depth check, skip seObject if depth is not respected and objecy is not ANY
@@ -401,14 +401,14 @@ const setObj = ({
             /**
              * Skip setObject
              */
-            areAllPropsDepthValid = false;
+            arePropsDepthValid = false;
         }
     }
 
     /**
      * Persist validation status and exit if depth check failed
      */
-    if (!areAllPropsDepthValid) {
+    if (!arePropsDepthValid) {
         updateMainMap(instanceId, { ...state, validationStatusObject });
         return;
     }

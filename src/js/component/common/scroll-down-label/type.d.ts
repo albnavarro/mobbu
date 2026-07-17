@@ -3,6 +3,6 @@ export interface ScrollDownLabel {
         active: boolean;
     };
     methods: {
-        update: (active: boolean) => void;
+        update: (isActive: boolean) => void;
     };
 }

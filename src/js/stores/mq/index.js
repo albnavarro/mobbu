@@ -20,7 +20,7 @@ const getCurrentMq = () =>
 /**
  * @returns {boolean}
  */
-const getFromTablet = () =>
+const checkFromTablet = () =>
     ['tablet', 'desktop', 'large', 'xLarge', 'xxLarge'].some((key) =>
         MobMotionCore.mq('min', key)
     );
@@ -33,7 +33,7 @@ export const mqStore = MobCore.createStore(
             __type: String,
         },
         fromTablet: {
-            __value: getFromTablet(),
+            __value: checkFromTablet(),
             __type: Boolean,
         },
     })
@@ -42,6 +42,6 @@ export const mqStore = MobCore.createStore(
 export const initMqStoreResize = () => {
     MobCore.useResize(() => {
         mqStore.set('mq', getCurrentMq());
-        mqStore.set('fromTablet', getFromTablet());
+        mqStore.set('fromTablet', checkFromTablet());
     });
 };

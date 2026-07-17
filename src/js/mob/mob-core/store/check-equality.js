@@ -14,7 +14,7 @@ const mapsAreEqual = (m1, m2) =>
  * @param {Set<any>} b
  * @returns {boolean}
  */
-const setsAreEqual = (a, b) =>
+const areSetsEqual = (a, b) =>
     a.size === b.size && [...a].every((value) => b.has(value));
 
 /**
@@ -31,7 +31,7 @@ const setsAreEqual = (a, b) =>
  * @param {any[]} b
  * @returns {boolean}
  */
-const arrayAreEquals = (a, b) => {
+const areArrayEquals = (a, b) => {
     /**
      * Lunghezze diverse = non possono essere uguali
      */
@@ -183,12 +183,12 @@ export const checkEquality = (type, oldValue, newValue) => {
 
         case ARRAY:
         case Array: {
-            return arrayAreEquals(oldValue, newValue);
+            return areArrayEquals(oldValue, newValue);
         }
 
         case SET:
         case Set: {
-            return setsAreEqual(oldValue, newValue);
+            return areSetsEqual(oldValue, newValue);
         }
 
         case MAP:

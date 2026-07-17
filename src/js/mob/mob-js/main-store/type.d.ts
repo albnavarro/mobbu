@@ -51,7 +51,7 @@ export type MainStoreWatchAfter = (
 ) => () => void;
 
 export type MainStoreLoading = (
-    callback: (state: boolean) => void
+    callback: (isLoading: boolean) => void
 ) => () => void;
 
 export type MainStoreActiveRoute = () => {

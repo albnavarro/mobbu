@@ -85,4 +85,5 @@ export const getMRU = () => [...cache.keys()].pop();
 export const getAll = () => [...cache.values()];
 export const size = () => cache.size;
 export const clear = () => cache.clear();
+// eslint-disable-next-line unicorn/consistent-boolean-name
 export const has = (/** @type {string} */ key) => cache.has(key);

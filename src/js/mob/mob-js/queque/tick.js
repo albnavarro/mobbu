@@ -40,7 +40,7 @@ export const incrementTickQueuque = (props) => {
 /**
  * @returns {boolean}
  */
-const tickQueueIsResolved = () => {
+const isTickQueueResolved = () => {
     return queque.size === 0;
 };
 
@@ -64,7 +64,7 @@ export const tick = async ({ debug = false, previousResolve } = {}) => {
     /**
      * After first cycle use previousResolve.
      */
-    if (tickQueueIsResolved() && previousResolve) {
+    if (isTickQueueResolved() && previousResolve) {
         previousResolve();
         return;
     }
@@ -76,7 +76,7 @@ export const tick = async ({ debug = false, previousResolve } = {}) => {
          * - This check should be true only in first loop.
          * - The other loop is resolved inside previous conditional
          */
-        if (tickQueueIsResolved()) {
+        if (isTickQueueResolved()) {
             resolve();
             return;
         }

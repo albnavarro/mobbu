@@ -17,5 +17,5 @@ export const updateAvailableComponentTag = (tag) => {
  *
  * @param {string} tag
  */
-export const tagShouldBeComponent = (tag) =>
+export const shouldTagBeComponent = (tag) =>
     availableComponentTag.has(tag.toLowerCase());

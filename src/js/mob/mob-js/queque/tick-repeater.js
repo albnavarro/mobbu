@@ -9,7 +9,7 @@ export const repeaterQueque = new Map();
 /**
  * @returns {boolean}
  */
-export const repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
+export const isRepeaterQuequeEmpty = () => repeaterQueque.size === 0;
 
 /**
  * Limit queque size. Prevent possible side effect
@@ -45,7 +45,7 @@ export const incrementRepeaterTickQueuque = (props) => {
 /**
  * @returns {boolean}
  */
-const repeaterQueueIsResolved = () => {
+const isRepeaterQueueResolved = () => {
     return repeaterQueque.size === 0;
 };
 
@@ -69,7 +69,7 @@ export const repeaterTick = async ({ debug = false, previousResolve } = {}) => {
     /**
      * After first cycle use previousResolve.
      */
-    if (repeaterQueueIsResolved() && previousResolve) {
+    if (isRepeaterQueueResolved() && previousResolve) {
         previousResolve();
         return;
     }
@@ -81,7 +81,7 @@ export const repeaterTick = async ({ debug = false, previousResolve } = {}) => {
          * - This check should be true only in first loop.
          * - The other loop is resolved inside previous conditional
          */
-        if (repeaterQueueIsResolved()) {
+        if (isRepeaterQueueResolved()) {
             resolve();
             return;
         }

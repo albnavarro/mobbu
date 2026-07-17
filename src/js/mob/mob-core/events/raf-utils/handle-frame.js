@@ -104,38 +104,38 @@ let currentFrame = 0;
 /**
  * @type {boolean}
  */
-let requiresMakeSomethingIsActive = false;
+let requiresMakeSomethingState = false;
 
 /**
  * @type {boolean}
  */
-let shouldMakeSomethingIsActive = false;
+let shouldMakeSomethingState = false;
 
 /**
  * Check if frame dropped a lot.
  *
  * @returns {boolean}
  */
-const mustMakeSomethingCheck = () => fps < (maxFps / 5) * 3;
+const requiresMakeSomethingInstant = () => fps < (maxFps / 5) * 3;
 
 /**
  * @returns {boolean} Check
  *
  *   If frame dropped medium.
  */
-const shouldMakeSomethingCheck = () => fps < (maxFps / 5) * 4;
+const shouldMakeSomethingInstant = () => fps < (maxFps / 5) * 4;
 
 /**
  * If frame dropper for X seconds mustMakeSomethingIsActive = true
  *
  * @returns {void}
  */
-const mustMakeSomethingStart = () => {
-    if (!mustMakeSomethingCheck() || requiresMakeSomethingIsActive) return;
+const requiresMakeSomethingStart = () => {
+    if (!requiresMakeSomethingInstant() || requiresMakeSomethingState) return;
 
-    requiresMakeSomethingIsActive = true;
+    requiresMakeSomethingState = true;
     setTimeout(() => {
-        requiresMakeSomethingIsActive = false;
+        requiresMakeSomethingState = false;
     }, 4000);
 };
 
@@ -145,11 +145,11 @@ const mustMakeSomethingStart = () => {
  * @returns {void}
  */
 const shouldMakeSomethingStart = () => {
-    if (!shouldMakeSomethingCheck() || shouldMakeSomethingIsActive) return;
+    if (!shouldMakeSomethingInstant() || shouldMakeSomethingState) return;
 
-    shouldMakeSomethingIsActive = true;
+    shouldMakeSomethingState = true;
     setTimeout(() => {
-        shouldMakeSomethingIsActive = false;
+        shouldMakeSomethingState = false;
     }, 4000);
 };
 
@@ -308,7 +308,7 @@ const render = (timestamp) => {
     /**
      * Start frame check for mustMakeSomething methods.
      */
-    mustMakeSomethingStart();
+    requiresMakeSomethingStart();
 
     /**
      * Start frame check for shouldMakeSomething methods.
@@ -403,14 +403,14 @@ export const handleFrame = (() => {
      *
      * @returns {boolean}
      */
-    const mustMakeSomething = () => requiresMakeSomethingIsActive;
+    const mustMakeSomething = () => requiresMakeSomethingState;
 
     /**
      * Return the mustMakeSomethingIsActive status. If frame dropped the value is true for X seconds.
      *
      * @returns {boolean}
      */
-    const shouldMakeSomething = () => shouldMakeSomethingIsActive;
+    const shouldMakeSomething = () => shouldMakeSomethingState;
 
     /**
      * Add callback

@@ -1,17 +1,17 @@
 /**
  * @type {boolean}
  */
-let restoreScroll = true;
+let shouldRestoreScroll = true;
 
 /**
  * @param {boolean} value
  * @returns {void}
  */
 export const setRestoreScroll = (value) => {
-    restoreScroll = value;
+    shouldRestoreScroll = value;
 };
 
 /**
  * @returns {boolean}
  */
-export const getRestoreScroll = () => restoreScroll;
+export const getRestoreScroll = () => shouldRestoreScroll;

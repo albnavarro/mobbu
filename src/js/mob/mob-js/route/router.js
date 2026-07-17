@@ -110,6 +110,7 @@ const convertObjectParamsToString = (params) => {
  * @returns {Promise<void>}
  */
 export const parseUrlHash = async ({
+    // eslint-disable-next-line unicorn/consistent-boolean-name
     shouldLoadRoute = true,
     fromHistory = false,
 } = {}) => {

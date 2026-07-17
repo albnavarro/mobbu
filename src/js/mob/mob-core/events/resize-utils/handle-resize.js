@@ -55,12 +55,12 @@ function handler() {
     /**
      * @type {boolean}
      */
-    const verticalResize = windowsHeight !== previousWindowHeight;
+    const isVerticalResize = windowsHeight !== previousWindowHeight;
 
     /**
      * @type {boolean}
      */
-    const horizontalResize = windowsWidth !== previousWindowWidth;
+    const isHorizontalResize = windowsWidth !== previousWindowWidth;
 
     /**
      * @type {number}
@@ -78,8 +78,8 @@ function handler() {
         windowsHeight,
         windowsWidth,
         documentHeight: document.documentElement.scrollHeight,
-        verticalResize,
-        horizontalResize,
+        verticalResize: isVerticalResize,
+        horizontalResize: isHorizontalResize,
     };
 
     // Fire end of resize

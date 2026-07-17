@@ -147,7 +147,9 @@ export type AsyncTimelineCreateGroup = (groupProps?: {
 }) => MobAsyncTimeline;
 
 export type AsyncTimelineCloseGroup = () => MobAsyncTimeline;
-export type AsyncTimelineSuspend = (fn: () => boolean) => MobAsyncTimeline;
+export type AsyncTimelineSuspend = (
+    shouldSuspend: () => boolean
+) => MobAsyncTimeline;
 export type AsyncTimelineLabel = (labelProps?: any) => MobAsyncTimeline;
 
 export type AsyncTimelineSetTween = (

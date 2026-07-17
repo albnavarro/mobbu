@@ -353,8 +353,10 @@ export const AboutComponentFunction = ({
                 const currentTile = focusMap.get(value);
                 if (!currentTile) return;
 
-                const focusVisible = value === 1;
-                currentTile.focus({ preventScroll: true, focusVisible });
+                currentTile.focus({
+                    preventScroll: true,
+                    focusVisible: value === 1,
+                });
             }
         );
 

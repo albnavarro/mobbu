@@ -1,5 +1,5 @@
 import { MobCore } from '@mobCore';
-import { tagShouldBeComponent } from '../../component/component-tag';
+import { shouldTagBeComponent } from '../../component/component-tag';
 import {
     ATTR_BIND_EFFECT,
     ATTR_BIND_EFFECT_INSTANCE,
@@ -64,7 +64,7 @@ export const htmlObject = (data) => {
     /**
      * Check if tag is a component
      */
-    const shouldBeComponent = tagShouldBeComponent(tag);
+    const shouldBeComponent = shouldTagBeComponent(tag);
 
     /**
      * Skip click on `a` tag while route is loading

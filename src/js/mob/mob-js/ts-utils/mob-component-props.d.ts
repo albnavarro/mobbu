@@ -224,7 +224,7 @@ export interface PartialWatch<T> {
         callback: (
             current: ExtractPropsAndState<T>[K],
             previous: ExtractPropsAndState<T>[K],
-            validate: boolean
+            isValid: boolean
         ) => void,
         options?: {
             wait?: boolean;
@@ -236,7 +236,7 @@ export interface PartialWatch<T> {
         callback: (
             current: K,
             previous: K,
-            validate: MobStoreValidateState
+            isValid: MobStoreValidateState
         ) => void,
         options?: { wait?: boolean; immediate?: boolean }
     ): () => void;
