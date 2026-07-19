@@ -609,18 +609,38 @@ const fireComputed = (instanceId) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
-    const { computedPropsQueque, callbackComputed, store, bindInstance } =
-        state;
+    const {
+        computedPropsQueque,
+        computedByProp,
+        callbackComputed,
+        store,
+        bindInstance,
+    } = state;
 
     /**
      * Filter computed callback that has some prop changed as dependencies.
+     *
+     * - La chiave di computedByProp corrisponde alle propietá usate all' interno della callback dei computed.
+     * - Filtriamo i computed da aaggiornare controllando utilizzando solo quelli che hanno una `keys` tracciata in
+     *   computedPropsQueque.
      */
-    const computedFiltered = [...(callbackComputed ?? [])].filter(
-        ({ keys }) => {
-            return [...computedPropsQueque].find((current) => {
-                return keys.includes(current);
-            });
+    const computedToRun = new Set();
+
+    for (const prop of computedPropsQueque) {
+        const dependents = computedByProp.get(prop);
+
+        if (dependents) {
+            for (const computedProp of dependents) {
+                computedToRun.add(computedProp);
+            }
         }
+    }
+
+    /**
+     * Filtriamo da callbackComputed gli item che hanno un match cone computedToRun
+     */
+    const computedFiltered = [...(callbackComputed ?? [])].filter(({ prop }) =>
+        computedToRun.has(prop)
     );
 
     /**
@@ -696,9 +716,8 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
-    const { callbackComputed, computedPropsQueque, computedRunning } = state;
-
-    if (!callbackComputed || callbackComputed.size === 0) return;
+    const { computedPropsQueque, computedRunning, computedByProp } = state;
+    if (!computedByProp.has(prop)) return;
 
     /**
      * Update computedPropsQueque.
@@ -827,13 +846,28 @@ const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
-    const { callbackComputed } = state;
+    const { callbackComputed, computedByProp } = state;
 
     const hasCircular = hasCircularDependencies(prop, keys, callbackComputed);
 
     if (keys.includes(prop) || hasCircular) {
         storeComputedKeyUsedWarning(keys, getLogStyle());
         return;
+    }
+
+    /**
+     * Per ogni key usata come dopendenza tracciamo la prop che il computed andrá a modificare.
+     *
+     * - Questo ci permetterá filtrare solo i computed da aggiornare senza dover filtrare da tutta la lista dei computed.
+     * - Key -> propietá usata all' interno della callback dei computed.
+     * - Values -> propietá che il compured andrá ad aggiornare.
+     */
+    for (const key of keys) {
+        if (!computedByProp.has(key)) {
+            computedByProp.set(key, new Set());
+        }
+
+        computedByProp.get(key)?.add(prop);
     }
 
     callbackComputed.add({
@@ -845,6 +879,7 @@ const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
     updateMainMap(instanceId, {
         ...state,
         callbackComputed,
+        computedByProp,
     });
 };
 

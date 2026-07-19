@@ -38,6 +38,7 @@ export interface StoreMapValue {
         keys: string[];
     }>;
     computedPropsQueque: Set<string>;
+    computedByProp: Map<string, Set<string>>;
     validationStatusObject: Record<string, any>;
     dataDepth: number;
     computedRunning: boolean;

@@ -27,6 +27,7 @@ export const inizializeInstance = (data) => {
         watcherMetadata: new Map(),
         callbackComputed: new Set(),
         computedPropsQueque: new Set(),
+        computedByProp: new Map(),
         validationStatusObject: {},
         dataDepth,
         computedRunning: false,

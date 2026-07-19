@@ -24,6 +24,7 @@ export const destroyStoreEntryPoint = (instanceId) => {
     state.callbackComputed.clear();
     state.computedPropsQueque.clear();
     state.watcherByProp.clear();
+    state.computedByProp.clear();
     state.watcherMetadata.clear();
     state.store = {};
     state.proxiObject = null;
