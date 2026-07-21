@@ -547,12 +547,17 @@ export const storeSetEntryPoint = ({
  * @param {import('./type').MobStoreQuickSetEntryPoint} param
  * @returns {void}
  */
-export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
+export const storeQuickSetEntrypoint = ({
+    instanceId,
+    prop,
+    value,
+    fireComputed,
+    fireCallback,
+}) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
-    const { store, watcherByProp } = state;
-
+    const { store, watcherByProp, bindInstanceBy } = state;
     if (!Object.hasOwn(store, prop)) return;
 
     /**
@@ -567,14 +572,28 @@ export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
 
     updateMainMap(instanceId, { ...state, store });
 
-    runCallbackQueqe({
-        watcherByProp,
-        prop,
-        newValue: value,
-        oldValue: oldVal,
-        validationValue: true,
-        instanceId,
-    });
+    if (fireCallback)
+        runCallbackQueqe({
+            watcherByProp,
+            prop,
+            newValue: value,
+            oldValue: oldVal,
+            validationValue: true,
+            instanceId,
+        });
+
+    /**
+     * Should use computed.
+     */
+    if (!fireComputed) return;
+
+    /**
+     * AddToComputedWaitLsit get and update map.
+     */
+    addToComputedWaitLsit({ instanceId, prop });
+    for (const id of bindInstanceBy) {
+        addToComputedWaitLsit({ instanceId: id, prop });
+    }
 };
 
 /**

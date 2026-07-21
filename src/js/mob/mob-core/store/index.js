@@ -166,11 +166,21 @@ export const mobStore = (data = {}) => {
         getBoundedProxi: () => {
             return getProxiEntryPoint({ instanceId, strategy: PROXI_BOUNDED });
         },
-        quickSetProp: (prop, value) => {
+        quickSetProp: (
+            /** @type {string} */ prop,
+            /** @type {any} */ value,
+            { fireComputed = false, emit = true } = {}
+        ) => {
             const isComputed = checkIfPropIsComputed({ instanceId, prop });
             if (isComputed) return;
 
-            storeQuickSetEntrypoint({ instanceId, prop, value });
+            storeQuickSetEntrypoint({
+                instanceId,
+                prop,
+                value,
+                fireComputed,
+                fireCallback: emit,
+            });
         },
         watch: (
             /** @type{string|(() => any)} */ prop,

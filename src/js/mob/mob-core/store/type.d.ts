@@ -142,7 +142,11 @@ interface MobStoreUpdate<T> {
 
 export type MobStorequickSetProp<T> = <K extends keyof T>(
     prop: Extract<K, string>,
-    value: T[K]
+    value: T[K],
+    options?: {
+        fireComputed?: boolean;
+        emit?: boolean;
+    }
 ) => void;
 
 interface MobStoreWatch<T> {
@@ -252,6 +256,8 @@ export interface MobStoreQuickSetEntryPoint {
     instanceId: string;
     prop: string;
     value: any | ((arg0: any) => any);
+    fireComputed: boolean;
+    fireCallback: boolean;
 }
 
 export interface MobStoreWatchAction {
