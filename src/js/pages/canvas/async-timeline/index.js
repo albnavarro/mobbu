@@ -5,7 +5,7 @@ import { MobMotionCore } from '@mobMotion';
 import { AsyncTimeline } from '@pagesComponent/async-timeline/definition';
 import { loadTextContent } from '@utils/utils';
 
-/** @type {import('@mobJsType').Page} */
+/** @type {import('@mobJsType').PageAsync} */
 export const asyncTimeline = async () => {
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',

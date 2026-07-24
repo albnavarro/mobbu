@@ -29,7 +29,7 @@ export const getElementOrTextFromNode = (node) => {
     /**
      * No valid node.
      */
-    if (childNodes.length === 0 || !firstChildNode) {
+    if (!firstChildNode || childNodes.length === 0) {
         return {
             item: undefined,
             type: EMPTY_NODE,

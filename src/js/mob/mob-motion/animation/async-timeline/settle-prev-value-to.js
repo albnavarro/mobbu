@@ -22,7 +22,7 @@ export const settlePrevValueTo = (group) => {
         /**
          * Skip the item without a real tween ( add, addAsync, label ... ) and the item already settled.
          */
-        if (!tween || !tween?.getToNativeType || prevValueSettled) return item;
+        if (prevValueSettled || !tween || !tween?.getToNativeType) return item;
 
         /*
          * nativeValues -> current value of the tween, before the step is executed.

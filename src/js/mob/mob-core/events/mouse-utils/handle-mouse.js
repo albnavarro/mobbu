@@ -169,7 +169,7 @@ function handleMouse(eventType) {
         return () => {
             callbacks.delete(id);
 
-            if (callbacks.size === 0 && isInitialized) {
+            if (isInitialized && callbacks.size === 0) {
                 globalThis.removeEventListener(eventType, handler);
                 isInitialized = false;
             }

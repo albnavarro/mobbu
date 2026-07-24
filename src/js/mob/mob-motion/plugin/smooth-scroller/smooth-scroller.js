@@ -1374,7 +1374,7 @@ export class MobSmoothScroller {
          * - 1. Drag con movimento < 0.5px (arrotontato a 0 da Math.round())
          * - 2. Scroll oltre i limiti (clamp blocca il valore)
          */
-        if (diffTime <= threshold && diffEndValue !== 0) {
+        if (diffEndValue !== 0 && diffTime <= threshold) {
             /**
              * Normalizza diffTime a un baseline di 60fps
              *

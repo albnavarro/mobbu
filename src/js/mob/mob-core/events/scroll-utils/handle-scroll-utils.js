@@ -146,7 +146,7 @@ function handleScrollUtils(type) {
             /**
              * Triggera il cleanup in handler()
              */
-            if (callbacks.size === 0 && isInitialized) {
+            if (isInitialized && callbacks.size === 0) {
                 handler();
             }
         };

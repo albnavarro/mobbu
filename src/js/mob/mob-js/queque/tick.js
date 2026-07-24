@@ -64,7 +64,7 @@ export const tick = async ({ debug = false, previousResolve } = {}) => {
     /**
      * After first cycle use previousResolve.
      */
-    if (isTickQueueResolved() && previousResolve) {
+    if (previousResolve && isTickQueueResolved()) {
         previousResolve();
         return;
     }

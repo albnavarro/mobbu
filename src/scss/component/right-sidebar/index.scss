@@ -19,6 +19,7 @@
             opacity: 0;
             inset-block-start: var(--header-height);
             inset-inline-start: calc(var(--header-height) / 2);
+            background: color-mix(in oklch, var(--dark) 2%, var(--white));
 
             &.visible {
                 visibility: visible;

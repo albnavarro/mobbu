@@ -605,9 +605,9 @@ export default class MobSyncTimeline {
             /**
              * If is running and useCurrent is true move from current time value
              */
-            if (!this.#isStopped && !this.#isReverse && useCurrent) return;
+            if (useCurrent && !this.#isStopped && !this.#isReverse) return;
 
-            if (!this.#isStopped && this.#isReverse && useCurrent) {
+            if (useCurrent && !this.#isStopped && this.#isReverse) {
                 this.reverse();
                 return;
             }
@@ -730,8 +730,8 @@ export default class MobSyncTimeline {
             /**
              * If is running and useCurrent is true move from current time value
              */
-            if (!this.#isStopped && this.#isReverse && useCurrent) return;
-            if (!this.#isStopped && !this.#isReverse && useCurrent) {
+            if (useCurrent && !this.#isStopped && this.#isReverse) return;
+            if (useCurrent && !this.#isStopped && !this.#isReverse) {
                 this.reverse();
                 return;
             }

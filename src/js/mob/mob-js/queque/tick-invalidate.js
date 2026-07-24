@@ -72,7 +72,7 @@ export const invalidateTick = async ({
     /**
      * After first cycle use previousResolve.
      */
-    if (isInvalidateQueueResolved() && previousResolve) {
+    if (previousResolve && isInvalidateQueueResolved()) {
         previousResolve();
         return;
     }

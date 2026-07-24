@@ -9,7 +9,7 @@ import { loadTextContent } from '@utils/utils';
 
 const shouldUseLog = false;
 
-/** @type {import('@mobJsType').Page} */
+/** @type {import('@mobJsType').PageAsync} */
 export const DraggerRoute = async () => {
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',

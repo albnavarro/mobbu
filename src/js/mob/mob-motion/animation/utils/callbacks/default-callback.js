@@ -15,7 +15,7 @@ export const defaultCallback = ({
     /**
      * Fire callback without stagger.
      */
-    if (stagger.each === 0 || !useStagger) {
+    if (!useStagger || stagger.each === 0) {
         MobCore.useFrame(() => {
             for (const { cb } of callback) {
                 cb(callbackObject);
@@ -70,7 +70,7 @@ export const defaultCallbackOnComplete = ({
     /**
      * Fire callback without stagger.
      */
-    if (stagger.each === 0 || !useStagger) {
+    if (!useStagger || stagger.each === 0) {
         onComplete();
 
         MobCore.useNextFrame(() => {

@@ -32,6 +32,24 @@
                 }
             }
 
+            @container body style(--template: doc-default) {
+                @include mq(tablet) {
+                    filter: drop-shadow(
+                        5px 5px 10px
+                            color-mix(in oklch, var(--dark) 10%, var(--white))
+                    );
+                }
+            }
+
+            @container body style(--template: mobjs-component) {
+                @include mq(tablet) {
+                    filter: drop-shadow(
+                        5px 5px 10px
+                            color-mix(in oklch, var(--dark) 10%, var(--white))
+                    );
+                }
+            }
+
             @container body style(--template: home) {
                 background: transparent;
             }

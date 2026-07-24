@@ -136,7 +136,7 @@
             min-inline-size: rem(260);
             transform: translateX(calc(var(--gap-size) * var(--dir)));
             transition: transform 0.35s;
-            background: var(--white);
+            background: color-mix(in oklch, var(--dark) 2%, var(--white));
             inset-block-start: var(--header-height);
             border-inline-start: 1px var(--immutable-black) solid;
 

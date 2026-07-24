@@ -205,7 +205,7 @@ export const loadPage = async ({
             previousTemplate: fromRoute.templateName,
         });
 
-    if (getRestoreScroll() && isBrowserNavigation) {
+    if (isBrowserNavigation && getRestoreScroll()) {
         /**
          * With browser navigation restore stored scroll position.
          */

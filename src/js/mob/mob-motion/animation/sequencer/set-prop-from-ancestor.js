@@ -26,8 +26,8 @@ export const setPropFromAncestor = ({ timeline, activeProp }) => {
 
             if (
                 !active ||
-                !activeProp.includes(prop) ||
                 !propToFind ||
+                !activeProp.includes(prop) ||
                 propToFind.length === 0
             )
                 return valueItem;

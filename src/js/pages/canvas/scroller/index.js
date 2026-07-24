@@ -5,7 +5,7 @@ import { MobMotionCore } from '@mobMotion';
 import { ScrollerN0 } from '@pagesComponent/scroller/n0/definition';
 import { loadTextContent } from '@utils/utils';
 
-/** @type {import('@mobJsType').Page} */
+/** @type {import('@mobJsType').PageAsync} */
 export const scrollerN0 = async () => {
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',

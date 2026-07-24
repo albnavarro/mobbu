@@ -74,7 +74,7 @@ export class MobScrollerPin {
     #marker;
 
     /**
-     * @type {globalThis | HTMLElement}
+     * @type {typeof globalThis | HTMLElement}
      */
     #screen;
 

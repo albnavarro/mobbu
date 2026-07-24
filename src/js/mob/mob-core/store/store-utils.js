@@ -50,14 +50,14 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
              *
              * - This step set shouldRecursive to false.
              */
-            if (!isComplex && storeType.isObject(value) && shouldRecursive) {
+            if (shouldRecursive && !isComplex && storeType.isObject(value)) {
                 return [key, getDataRecursive(value, false)];
             }
 
             /**
              * Alert too many nested obj without 'any'
              */
-            if (!isComplex && storeType.isObject(value) && !shouldRecursive) {
+            if (!shouldRecursive && !isComplex && storeType.isObject(value)) {
                 storeDepthWarning(3, getLogStyle());
             }
 
@@ -100,7 +100,7 @@ export const getPropRecursive = (
              *
              * - This step set shouldRecursive to false.
              */
-            if (!isComplex && storeType.isObject(value) && shouldRecursive) {
+            if (shouldRecursive && !isComplex && storeType.isObject(value)) {
                 return [key, getPropRecursive(value, prop, fallback, false)];
             }
 

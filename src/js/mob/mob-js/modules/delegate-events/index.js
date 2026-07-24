@@ -132,7 +132,7 @@ async function handleAction(eventKey, event) {
      * - If route is loading skip action
      * - Force value skip tick check.
      */
-    if (!getFireEvent() && !force) return;
+    if (!force && !getFireEvent()) return;
 
     preventFireEvent();
 

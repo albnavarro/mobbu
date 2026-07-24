@@ -18,7 +18,7 @@ export const setStateById = (
     value,
     { emit = true } = {}
 ) => {
-    if ((!id || id === '') && (!prop || prop === '') && !value) return;
+    if (!value && (!id || id === '') && (!prop || prop === '')) return;
 
     const isFreezed = getFreezePropStatus({ id, prop });
     if (isFreezed) {

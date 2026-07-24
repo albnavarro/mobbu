@@ -45,7 +45,7 @@ const addItemToScrollComponent = async ({
      *
      * On wheel/scroll active state is performed by scroll-to component in more efficient way
      */
-    if (isVisibleInViewportSmart(element) && !isSection) {
+    if (!isSection && isVisibleInViewportSmart(element)) {
         setScrollToActiveLabel(label);
     }
 };

@@ -705,7 +705,7 @@ export const timelineSetTweenLabelIsValid = (label) => {
 /**
  * Check if value is a valid Element and return element|window|element
  *
- * @param {string | HTMLElement | globalThis | undefined} element
+ * @param {string | HTMLElement | typeof globalThis | undefined} element
  * @param {boolean} shouldReturnWindow
  * @returns {HTMLElement}
  */

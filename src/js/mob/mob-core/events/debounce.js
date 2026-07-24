@@ -7,7 +7,7 @@
  * @returns T
  */
 export const debounceFuncion = function debounce(fn, time = 200) {
-    /** @type {number} */
+    /** @type {ReturnType<typeof setTimeout>} */
     let timeout;
 
     return function () {

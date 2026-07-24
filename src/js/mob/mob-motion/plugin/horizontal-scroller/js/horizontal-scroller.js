@@ -344,7 +344,8 @@ export class MobHorizontalScroller {
      *                 <div class="trigger"></div>
      *             </div>
      *         </div>
-     *     ``````javascript
+     *     ```
+     *     ```javascript
      *         JS:
      *         const myHorizontalScroller = new HorizontalScroller({
      *             root: '.root',
@@ -352,7 +353,7 @@ export class MobHorizontalScroller {
      *             row: '.row',
      *             column: '.column',
      *             trigger: '.trigger',
-     *             shadowClass: '.myShadowClass,
+     *             shadowClass: '.myShadowClass',
      *             useThrottle: [ Boolean ],
      *             useSticky: [ Boolean ],
      *             animatePin: [ Boolean ],
@@ -1149,7 +1150,7 @@ export class MobHorizontalScroller {
      * @type {(arg0: { destroyAll?: boolean }) => void}
      */
     #killScroller({ destroyAll = false }) {
-        if (!(this.#moduleisActive || destroyAll)) {
+        if (!(destroyAll || this.#moduleisActive)) {
             return;
         }
 

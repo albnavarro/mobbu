@@ -69,7 +69,7 @@ export const repeaterTick = async ({ debug = false, previousResolve } = {}) => {
     /**
      * After first cycle use previousResolve.
      */
-    if (isRepeaterQueueResolved() && previousResolve) {
+    if (previousResolve && isRepeaterQueueResolved()) {
         previousResolve();
         return;
     }

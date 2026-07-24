@@ -22,7 +22,7 @@ export const destroyComponentInsideNodeById = ({ id, container }) => {
 
         const element = state?.element;
 
-        if (element && container?.contains(element) && element !== container) {
+        if (element && element !== container && container?.contains(element)) {
             removeAndDestroyById({ id });
             continue;
         }

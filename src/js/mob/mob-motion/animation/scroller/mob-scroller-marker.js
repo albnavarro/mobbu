@@ -48,7 +48,7 @@ const getMarker = ({ startMarker, endMarker, label }) => {
 
 /**
  * @param {object} obj
- * @param {HTMLElement | globalThis | null} obj.screen
+ * @param {HTMLElement | typeof globalThis | null} obj.screen
  * @returns {{ top: number; right: number; bottom: number; left: number }}
  */
 const getPosition = ({ screen }) => {
@@ -201,7 +201,7 @@ const getEndStyle = ({
  * @param {Element | undefined} obj.endMarker
  * @param {number} obj.startPoint
  * @param {number} obj.endPoint
- * @param {HTMLElement | globalThis | null} obj.screen
+ * @param {HTMLElement | typeof globalThis | null} obj.screen
  * @param {string} obj.direction
  * @param {boolean} obj.invertSide
  * @param {string} obj.label

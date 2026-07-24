@@ -214,7 +214,7 @@ export const createPathAnimation = ({
      */
     let shouldLoop = true;
     const loop = () => {
-        if (!weakPathElement.deref() || !shouldLoop || isRtl) return;
+        if (!shouldLoop || isRtl || !weakPathElement.deref()) return;
 
         const a = {
             x: sequencerData.ax + timelineData.ax,

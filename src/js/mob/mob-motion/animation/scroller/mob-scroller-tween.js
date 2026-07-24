@@ -195,7 +195,6 @@ export default class MobScrollerTween {
      * @param {object} obj
      * @param {number} obj.partial - Render at specific partial between 0 and duration
      * @param {boolean} obj.isLastDraw - Use the callback defined by the onStop method
-     * @param {boolean} obj.isLastDraw - Compatibiliey with sequencer for Parallxx
      * @param {boolean} obj.useFrame - Compatibiliey with sequencer for Parallxx
      */
     draw({ partial, isLastDraw }) {

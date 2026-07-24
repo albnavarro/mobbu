@@ -131,7 +131,7 @@ const shouldMakeSomethingInstant = () => fps < (maxFps / 5) * 4;
  * @returns {void}
  */
 const requiresMakeSomethingStart = () => {
-    if (!requiresMakeSomethingInstant() || requiresMakeSomethingState) return;
+    if (requiresMakeSomethingState || !requiresMakeSomethingInstant()) return;
 
     requiresMakeSomethingState = true;
     setTimeout(() => {
@@ -145,7 +145,7 @@ const requiresMakeSomethingStart = () => {
  * @returns {void}
  */
 const shouldMakeSomethingStart = () => {
-    if (!shouldMakeSomethingInstant() || shouldMakeSomethingState) return;
+    if (shouldMakeSomethingState || !shouldMakeSomethingInstant()) return;
 
     shouldMakeSomethingState = true;
     setTimeout(() => {
@@ -288,7 +288,7 @@ const render = (timestamp) => {
      * - Condizione time > fpsPrevTime + 1000 garantisce timeDelta > 1000,
      * - Quindi divisione sempre sicura.
      */
-    if (time > fpsPrevTime + 1000 && !isStopped) {
+    if (!isStopped && time > fpsPrevTime + 1000) {
         /**
          * Calc fps Set fps when stable after 2 seconds otherwise use instantFps
          */

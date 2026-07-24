@@ -72,7 +72,7 @@ const setProp = ({
     /**
      * Check if val is an Object
      */
-    if (storeType.isObject(val) && !isCustomObject) {
+    if (!isCustomObject && storeType.isObject(val)) {
         storeSetPropValWarning(prop, val, logStyle);
         return;
     }
@@ -80,7 +80,7 @@ const setProp = ({
     /**
      * Check if prop is an Object
      */
-    if (storeType.isObject(store[prop]) && !isCustomObject) {
+    if (!isCustomObject && storeType.isObject(store[prop])) {
         storeSetPropPropWarning(prop, logStyle);
         return;
     }
@@ -127,7 +127,7 @@ const setProp = ({
     /**
      * In strict mode return is prop is not valid
      */
-    if (strict[prop] === true && !isValidated && useStrict) return;
+    if (!isValidated && useStrict && strict[prop] === true) return;
 
     /**
      * Update validation array.
@@ -301,7 +301,7 @@ const setObj = ({
             const [subProp, subVal] = item;
             const subValOld = store[prop][subProp];
 
-            return strict[prop][subProp] === true && useStrict
+            return useStrict && strict[prop][subProp] === true
                 ? {
                       strictCheck: fnValidate[prop][subProp]?.(
                           subVal,
@@ -390,7 +390,7 @@ const setObj = ({
         const isCustomObject = type[prop][key] === TYPE_IS_ANY;
         const dataDepth = maxDepth(value);
 
-        if (dataDepth > 1 && !isCustomObject) {
+        if (!isCustomObject && dataDepth > 1) {
             storeSetObjDepthWarning(prop, valueTransformed, logStyle);
 
             /**
@@ -515,7 +515,7 @@ export const storeSetEntryPoint = ({
     /**
      * State is an Object
      */
-    if (storeType.isObject(previousValue) && !isCustomObject) {
+    if (!isCustomObject && storeType.isObject(previousValue)) {
         setObj({
             instanceId,
             prop,
@@ -869,7 +869,7 @@ const storeComputedAction = ({ instanceId, prop, keys, fn }) => {
 
     const hasCircular = hasCircularDependencies(prop, keys, callbackComputed);
 
-    if (keys.includes(prop) || hasCircular) {
+    if (hasCircular || keys.includes(prop)) {
         storeComputedKeyUsedWarning(keys, getLogStyle());
         return;
     }

@@ -283,7 +283,7 @@ async function useFps({ force = false, duration = 30 } = {}) {
  *
  *     ```;
  *
- * @param {function():void} callback - Callback function executed on page load
+ * @param {() => void} callback - Callback function executed on page load
  * @returns {() => void}
  */
 function useLoad(callback = () => {}) {

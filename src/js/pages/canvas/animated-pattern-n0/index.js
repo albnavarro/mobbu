@@ -5,7 +5,7 @@ import { MobMotionCore } from '@mobMotion';
 import { AnimatedPatternN0 } from '@pagesComponent/animated-pattern/n0/definition';
 import { loadTextContent } from '@utils/utils';
 
-/** @type {import('@mobJsType').Page} */
+/** @type {import('@mobJsType').PageAsync} */
 export const animatedPatternN0 = async () => {
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',

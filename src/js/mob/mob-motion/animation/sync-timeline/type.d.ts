@@ -33,9 +33,7 @@ export type SyncTimelinePause = (arg0?: { freezeCache?: boolean }) => void;
 export type SyncTimelineResume = (arg0?: { unFreezeCache?: boolean }) => void;
 export type SyncTimelineReverse = () => void;
 
-export type SyncTimelineStop = (arg0?: {
-    clearCache?: boolean;
-}) => MobSyncTimeline;
+export type SyncTimelineStop = (arg0?: { clearCache?: boolean }) => void;
 
 export type SyncTimelineAdd = (arg0: SyncTimelineSequencers) => MobSyncTimeline;
 

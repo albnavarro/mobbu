@@ -365,12 +365,12 @@ export default class MobScroller {
     #item;
 
     /**
-     * @type {HTMLElement | globalThis | null}
+     * @type {HTMLElement | typeof globalThis | null}
      */
     #scroller;
 
     /**
-     * @type {HTMLElement | globalThis | null}
+     * @type {HTMLElement | typeof globalThis | null}
      */
     #screen;
 
@@ -1370,8 +1370,8 @@ export default class MobScroller {
              * Skip unnecessary rendering ( no control from outside )
              */
             if (
-                (this.#endValue === this.#lastValue && !forceRender) ||
-                (!this.#isInViewport && !forceRender)
+                (!forceRender && this.#endValue === this.#lastValue) ||
+                (!forceRender && !this.#isInViewport)
             )
                 return;
 
@@ -1863,7 +1863,7 @@ export default class MobScroller {
      */
     #resetTweenStyle(item) {
         // @ts-ignore
-        if (this.#tween && item) item.style = '';
+        if (item && this.#tween) item.style = '';
     }
 
     /**
@@ -2033,14 +2033,14 @@ export default class MobScroller {
     }
 
     /**
-     * @param {HTMLElement | globalThis} scroller
+     * @param {HTMLElement | typeof globalThis} scroller
      */
     setScroller(scroller) {
         this.#scroller = domNodeIsValidAndReturnElOrWin(scroller, true);
     }
 
     /**
-     * @param {HTMLElement | globalThis} screen
+     * @param {HTMLElement | typeof globalThis} screen
      */
     setScreen(screen) {
         this.#screen = domNodeIsValidAndReturnElOrWin(screen, true);
@@ -2220,7 +2220,7 @@ export default class MobScroller {
      * @param {import('./type.js').MobScrollerMove} obj
      */
     move({ value, parentIsMoving = false }) {
-        if (!mq[this.#queryType](this.#breakpoint) || !value) return;
+        if (!value || !mq[this.#queryType](this.#breakpoint)) return;
         this.#iSControlledFromOutside = true;
         const scrollVal = this.#getScrollValueOnMove(value);
 

@@ -43,7 +43,7 @@ function selectAll(root, firstOccurrence) {
         /**
          * Skip after first result. We are looking the first occurrence.
          */
-        if (result.length > 0 && firstOccurrence) break;
+        if (firstOccurrence && result.length > 0) break;
 
         // @ts-expect-error Generator return a generic Element.
         if (node?.getIsPlaceholder?.()) {

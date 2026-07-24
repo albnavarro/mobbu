@@ -101,8 +101,9 @@ export function getSiblings(element, selector) {
     // Loop through each sibling and push to the array
     while (sibling) {
         if (
+            sibling !== element &&
             sibling.nodeType === 1 &&
-            sibling !== element && // @ts-ignore
+            // @ts-ignore
             sibling.classList.contains(selector)
         ) {
             siblings.push(sibling);

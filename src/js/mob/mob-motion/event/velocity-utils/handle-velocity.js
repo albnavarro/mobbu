@@ -496,7 +496,7 @@ const addCallback = (cb) => {
     return () => {
         callbacks.delete(id);
 
-        if (callbacks.size === 0 && isInitialized) {
+        if (isInitialized && callbacks.size === 0) {
             if (gapTimeoutId) {
                 clearTimeout(gapTimeoutId);
                 gapTimeoutId = null;
