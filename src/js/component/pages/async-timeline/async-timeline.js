@@ -34,7 +34,9 @@ function getControls({ buttons }) {
     });
 }
 
-/** @type {MobComponent<AsyncTimeline>} */
+/**
+@type {MobComponent<AsyncTimeline>}
+*/
 export const AsyncTimelineFunction = ({
     onMount,
     getState,
@@ -47,7 +49,9 @@ export const AsyncTimelineFunction = ({
 
     let methods = {};
 
-    /** @type {() => void} */
+    /**
+    @type {() => void}
+    */
     let destroy;
 
     onMount(({ element }) => {

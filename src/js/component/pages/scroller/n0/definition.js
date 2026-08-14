@@ -8,7 +8,9 @@ import { ScrollerN0Function } from './scroller-n0';
  */
 
 export const ScrollerN0 = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').ScrollerN0>} */
+    /**
+    @type {CreateComponentParams<import('./type').ScrollerN0>}
+    */
     ({
         tag: 'scroller-n0',
         component: ScrollerN0Function,

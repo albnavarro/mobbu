@@ -20,7 +20,9 @@ const playAnimation = async ({ playIntro, playSvg }) => {
     playSvg();
 };
 
-/** @type {MobComponent<HomeComponent>} */
+/**
+@type {MobComponent<HomeComponent>}
+*/
 export const HomeComponentFunction = ({
     onMount,
     getSelfProxi,

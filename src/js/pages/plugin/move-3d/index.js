@@ -5,7 +5,9 @@ import { MobMotionCore } from '@mobMotion';
 import { Move3DPage } from '@pagesComponent/move-3d/definition';
 import { loadTextContent } from '@utils/utils';
 
-/** @type {import('@mobJsType').PageAsync} */
+/**
+@type {import('@mobJsType').PageAsync}
+*/
 export const move3DRoute = async ({ props }) => {
     const { data, drag, prevRoute, nextRoute } = props;
 
@@ -27,7 +29,9 @@ export const move3DRoute = async ({ props }) => {
         });
     }
 
-    /** Quicknav */
+    /**
+    Quicknav
+    */
     updateQuickNavState({
         active: true,
         prevRoute: prevRoute,
@@ -46,7 +50,9 @@ export const move3DRoute = async ({ props }) => {
                 {
                     component: Move3DPage,
                     modules: MobJs.staticProps(
-                        /** @type {import('@pagesComponent/move-3d/type').Move3DPage['props']} */
+                        /**
+                        @type {import('@pagesComponent/move-3d/type').Move3DPage['props']}
+                        */
                         ({ data, drag })
                     ),
                 },

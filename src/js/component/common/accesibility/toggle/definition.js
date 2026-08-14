@@ -8,7 +8,9 @@ import { AccessibilityToggleFunction } from './accessibility-toggle';
  */
 
 export const AccessibilityToggle = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').AccessibilityToggleType>} */
+    /**
+     * @type {CreateComponentParams<import('./type').AccessibilityToggleType>}
+     */
     ({
         tag: 'accessibility-toggle',
         component: AccessibilityToggleFunction,

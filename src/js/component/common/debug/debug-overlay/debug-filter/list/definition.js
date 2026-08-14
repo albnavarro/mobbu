@@ -6,7 +6,9 @@ import { DebugFilterListFunction } from './debug-filter-list';
  */
 
 export const DebugFilterList = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugFilterListType>} */
+    /**
+    @type {CreateComponentParams<import('./type').DebugFilterListType>}
+    */
     ({
         tag: 'debug-filter-list',
         component: DebugFilterListFunction,

@@ -5,7 +5,9 @@
  */
 export const userPlaceholder = new Set();
 
-/** @returns {boolean} */
+/**
+@returns {boolean}
+*/
 let shouldSkipAddUserComponent = false;
 
 /**

@@ -49,7 +49,9 @@ function getHeightRounded({ height, relativeIndex, amountOfPath }) {
     );
 }
 
-/** @type {import('../type').ScrollerN1Animation} */
+/**
+@type {import('../type').ScrollerN1Animation}
+*/
 export const scrollerN1Animation = ({
     canvas,
     canvasScroller,

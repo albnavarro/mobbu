@@ -1,9 +1,13 @@
 import { eventStore } from '../event-store';
 
-/** @type {boolean} */
+/**
+@type {boolean}
+*/
 let isFpsReady = false;
 
-/** @type {Promise<import('./type').LoadFps> | null} */
+/**
+@type {Promise<import('./type').LoadFps> | null}
+*/
 let pendingPromise = null;
 
 /**

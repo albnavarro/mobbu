@@ -48,7 +48,9 @@ const initScroller = ({ getRef }) => {
     };
 };
 
-/** @type {MobComponent<import('./type').SearchOverlayList>} */
+/**
+@type {MobComponent<import('./type').SearchOverlayList>}
+*/
 export const SearchOverlayListFunction = ({
     getSelfProxi,
     getBoundedProxi,
@@ -175,7 +177,9 @@ export const SearchOverlayListFunction = ({
                 return htmlObject({
                     component: SearchOverlayListItem,
                     modules: bindProps(
-                        /** @returns {ReturnBindProps<import('./list-item/type').SearchOverlayListItemType>} */
+                        /**
+                        @returns {ReturnBindProps<import('./list-item/type').SearchOverlayListItemType>}
+                        */
                         () => ({
                             active:
                                 boundedProxi.activeRoute.route ===

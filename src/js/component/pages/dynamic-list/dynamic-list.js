@@ -83,7 +83,9 @@ function getButton({ staticProps, delegateEvents, bindProps, proxi }) {
                     },
                 }),
                 bindProps(
-                    /** @returns {ReturnBindProps<DynamicListButtonType>} */
+                    /**
+                    @returns {ReturnBindProps<DynamicListButtonType>}
+                    */
                     () => ({
                         active: index === proxi.activeSample,
                     })
@@ -115,7 +117,9 @@ function getRepeaters({ bindProps, staticProps, proxi }) {
                     })
                 ),
                 bindProps(
-                    /** @returns {ReturnBindProps<DynamicListRepeaterType>} */
+                    /**
+                    @returns {ReturnBindProps<DynamicListRepeaterType>}
+                    */
                     () => ({
                         data: proxi.data,
                         counter: proxi.counter,
@@ -126,7 +130,9 @@ function getRepeaters({ bindProps, staticProps, proxi }) {
     });
 }
 
-/** @type {MobComponent<DynamicList>} */
+/**
+@type {MobComponent<DynamicList>}
+*/
 export const DynamicListFunction = ({
     updateState,
     staticProps,
@@ -223,7 +229,9 @@ export const DynamicListFunction = ({
                             content: {
                                 component: DynamicListCardInner,
                                 modules: bindProps(
-                                    /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
+                                    /**
+                                    @returns {ReturnBindProps<DynamicListCardInnerType>}
+                                    */
                                     () => ({
                                         key: String(proxi.counter),
                                     })

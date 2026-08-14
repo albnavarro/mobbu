@@ -81,7 +81,9 @@ function getControls({ proxi, delegateEvents, bindObject }) {
     });
 }
 
-/** @type {MobComponent<ScrollerN1>} */
+/**
+@type {MobComponent<ScrollerN1>}
+*/
 export const ScrollerN1Function = ({
     onMount,
     setRef,
@@ -94,10 +96,14 @@ export const ScrollerN1Function = ({
     const proxi = getSelfProxi();
 
     onMount(() => {
-        /** @type {() => void} */
+        /**
+        @type {() => void}
+        */
         let destroy;
 
-        /** Show scroll down label. */
+        /**
+        Show scroll down label.
+        */
         activateScrollDownArrow();
 
         /**

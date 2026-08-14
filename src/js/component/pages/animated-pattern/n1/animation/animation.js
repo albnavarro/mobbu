@@ -13,7 +13,9 @@ import {
     getOffsetCanvas,
 } from '@utils/canvas-utils';
 
-/** @type {import('../type').AnimatedPatternN1Animation} */
+/**
+@type {import('../type').AnimatedPatternN1Animation}
+*/
 export const animatedPatternN1Animation = ({ canvas, disableOffcanvas }) => {
     const cellWidth =
         window.innerHeight >= 700

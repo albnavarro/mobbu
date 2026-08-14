@@ -8,7 +8,9 @@ import { mouseTrailAnimation } from './animation/mouse-trail';
 
 const numberOfStar = 5;
 
-/** @type {MobComponent<import('./type').MouseRotate>} */
+/**
+@type {MobComponent<import('./type').MouseRotate>}
+*/
 export const MouseTrailFunction = ({ onMount, getRefs, setRef }) => {
     const { starOutline } = getIcons();
     const stars = Array.from({ length: numberOfStar })

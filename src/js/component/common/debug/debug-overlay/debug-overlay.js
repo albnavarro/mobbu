@@ -61,7 +61,9 @@ const closeOverlay = ({ proxi, getRef }) => {
     resetSearchOverlayJustOpen();
 };
 
-/** @type {MobComponent<import('./type').DebugOverlayType>} */
+/**
+@type {MobComponent<import('./type').DebugOverlayType>}
+*/
 export const DebugOverlayFunction = ({
     delegateEvents,
     addMethod,
@@ -305,7 +307,9 @@ export const DebugOverlayFunction = ({
                             {
                                 component: DebugHead,
                                 modules: bindProps(
-                                    /** @returns {ReturnBindProps<DebugHeadType>} */
+                                    /**
+                                    @returns {ReturnBindProps<DebugHeadType>}
+                                    */
                                     () => ({
                                         active: proxi.active,
                                     })

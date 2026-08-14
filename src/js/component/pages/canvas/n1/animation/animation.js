@@ -11,7 +11,9 @@ import {
     getOffsetCanvas,
 } from '@utils/canvas-utils';
 
-/** @type {import('../type').CaterpillarN1Animation} */
+/**
+@type {import('../type').CaterpillarN1Animation}
+*/
 export const caterpillarN1Animation = ({ canvas, disableOffcanvas }) => {
     const numItems = 19;
     const width = window.innerHeight / 30;

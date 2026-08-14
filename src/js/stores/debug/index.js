@@ -5,7 +5,9 @@
 import { MobCore } from '@mobCore';
 
 export const debugActiveComponentStore = MobCore.createStore(
-    /** @type {MobStoreParams<import('./type').DebugActiveComponentStore>} */
+    /**
+    @type {MobStoreParams<import('./type').DebugActiveComponentStore>}
+    */
     ({
         currentId: {
             __value: '',

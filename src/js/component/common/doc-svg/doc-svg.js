@@ -14,7 +14,9 @@ const loadSvg = async ({ proxi }) => {
     proxi.source = data;
 };
 
-/** @type {import('@mobJsType').MobComponent<import('./type').DocSvg>} */
+/**
+@type {import('@mobJsType').MobComponent<import('./type').DocSvg>}
+*/
 export const DocSvgFunction = ({ getSelfProxi, invalidate, onMount }) => {
     const proxi = getSelfProxi();
 

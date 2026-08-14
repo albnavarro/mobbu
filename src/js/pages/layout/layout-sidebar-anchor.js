@@ -9,7 +9,9 @@ import { docContainerName, scrollToName } from '@instanceName';
 import { ScrollTop } from '@commonComponent/scroll-top/definition';
 import { getBreadCrumbs } from './get-breadcrumbs';
 
-/** @type {import('@mobJsType').PageAsync<{}, import('./type').LayoutSidebarAnchor['props']>} */
+/**
+@type {import('@mobJsType').PageAsync<{}, import('./type').LayoutSidebarAnchor['props']>}
+*/
 export const layoutSidebarAnchor = async ({ props, data }) => {
     const { source } = props;
     const { data: jsonData } = await loadJsonContent({ source });
@@ -26,7 +28,9 @@ export const layoutSidebarAnchor = async ({ props, data }) => {
                 component: HtmlContent,
                 slotPosition: 'docs',
                 modules: MobJs.staticProps(
-                    /** @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>} */
+                    /**
+                    @type {Partial<import('@commonComponent/html-content/type').HtmlContent['props']>}
+                    */
                     ({
                         data: jsonData.data,
                         useMaxWidth: true,

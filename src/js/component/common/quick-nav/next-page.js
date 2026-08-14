@@ -5,7 +5,9 @@
 
 import { htmlObject, MobJs } from '@mobJs';
 
-/** @type {MobComponent<QuickNav>} */
+/**
+@type {MobComponent<QuickNav>}
+*/
 export const QuickNavFunction = ({
     getSelfProxi,
     bindEffect,

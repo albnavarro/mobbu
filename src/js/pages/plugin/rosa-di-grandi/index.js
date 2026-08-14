@@ -5,7 +5,9 @@ import { MobMotionCore } from '@mobMotion';
 import { RosaDiGrandiPage } from '@pagesComponent/rosa-di-grandi/definition';
 import { loadTextContent } from '@utils/utils';
 
-/** @type {import('@mobJsType').PageAsync} */
+/**
+@type {import('@mobJsType').PageAsync}
+*/
 export const rosaDiGrandiRoute = async () => {
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',
@@ -25,7 +27,9 @@ export const rosaDiGrandiRoute = async () => {
         });
     }
 
-    /** Quicknav */
+    /**
+    Quicknav
+    */
     updateQuickNavState({
         active: true,
         prevRoute: '#math-animation-01',

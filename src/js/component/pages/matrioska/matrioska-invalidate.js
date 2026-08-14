@@ -10,7 +10,9 @@ import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definitio
  * @import {Matrioska} from './type'
  */
 
-/** @type {MobComponent<Matrioska>} */
+/**
+@type {MobComponent<Matrioska>}
+*/
 export const MatrioskaInvalidateFunction = ({
     delegateEvents,
     updateState,

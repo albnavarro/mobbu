@@ -39,11 +39,15 @@ const onClick = ({ event }) => {
  * @returns {HTMLElement[]}
  */
 function additems({ delegateEvents }) {
-    /** @type {import('./type').HeaderUtils} */
+    /**
+    @type {import('./type').HeaderUtils}
+    */
     const header = getCommonData().header;
     const { links } = header;
 
-    /** @type{Record<string, any>} */
+    /**
+    @type{Record<string, any>}
+    */
     const icons = {
         github: { icon: getIcons()['gitHubIcon'], ariaLabel: 'github' },
     };
@@ -80,7 +84,9 @@ function additems({ delegateEvents }) {
     });
 }
 
-/** @type {MobComponent} */
+/**
+@type {MobComponent}
+*/
 export const HeaderUtilsFunction = ({ delegateEvents }) => {
     return htmlObject({
         tag: 'nav',

@@ -6,7 +6,9 @@ import { TitleFunction } from './title';
  */
 
 export const Title = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').Title>} */
+    /**
+    @type {CreateComponentParams<import('./type').Title>}
+    */
     ({
         tag: 'mob-title',
         component: TitleFunction,

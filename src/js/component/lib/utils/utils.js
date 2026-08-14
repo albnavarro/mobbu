@@ -6,7 +6,9 @@ import { MobCore } from '@mobCore';
  * @param {import('@mobJsType').ProxiSelfState<{ state: { controlsActive: boolean } }>} proxi
  */
 export const createAsideEscHandler = (proxi) => {
-    /** @param {KeyboardEvent} event */
+    /**
+    @param {KeyboardEvent} event
+    */
     return function escHandler(event) {
         if (event?.code?.toLowerCase?.() !== 'escape') return;
 

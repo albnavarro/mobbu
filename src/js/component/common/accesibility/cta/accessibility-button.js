@@ -5,7 +5,9 @@ import { htmlObject } from '@mobJs';
  * @import {MobComponent} from '@mobJsType'
  */
 
-/** @type {MobComponent<import('./type').AccessibilityCtaType>} */
+/**
+ * @type {MobComponent<import('./type').AccessibilityCtaType>}
+ */
 export const AccessibilityButtonFunction = () => {
     const icon = getIcons()['accessibilityIcons'];
 

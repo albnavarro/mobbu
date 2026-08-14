@@ -4,7 +4,9 @@ import { MobJs } from '@mobJs';
 import { AboutMobileComponentFunction } from './about';
 
 export const AboutMobileComponent = MobJs.createComponent(
-    /** @type{import('@mobJsType').CreateComponentParams<import ('./type').AboutMobile>} */
+    /**
+    @type{import('@mobJsType').CreateComponentParams<import ('./type').AboutMobile>}
+    */
     ({
         tag: 'about-mobile-component',
         component: AboutMobileComponentFunction,

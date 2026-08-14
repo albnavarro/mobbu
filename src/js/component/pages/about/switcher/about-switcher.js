@@ -6,7 +6,9 @@ import { htmlObject } from '@mobJs';
 import { AboutComponent } from '../tablet/definition';
 import { AboutMobileComponent } from '../mobile/definition';
 
-/** @type {MobComponent<import('./type').AboutSwitcher>} */
+/**
+@type {MobComponent<import('./type').AboutSwitcher>}
+*/
 export const AboutSwitcherFunction = ({
     invalidate,
     staticProps,
@@ -24,7 +26,9 @@ export const AboutSwitcherFunction = ({
                     ? htmlObject({
                           component: AboutComponent,
                           modules: staticProps(
-                              /** @type {import('../tablet/type').About['props']} */
+                              /**
+                              @type {import('../tablet/type').About['props']}
+                              */
                               ({
                                   block_1: proxi.block_1,
                                   block_2: proxi.block_2,
@@ -37,7 +41,9 @@ export const AboutSwitcherFunction = ({
                     : htmlObject({
                           component: AboutMobileComponent,
                           modules: staticProps(
-                              /** @type {import('../mobile/type').AboutMobile['props']} */
+                              /**
+                              @type {import('../mobile/type').AboutMobile['props']}
+                              */
                               ({
                                   block_1: proxi.block_1,
                                   block_2: proxi.block_2,

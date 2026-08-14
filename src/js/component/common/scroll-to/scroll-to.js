@@ -21,10 +21,14 @@ import { docContainerStore } from '@stores/doc-container';
  * @import {ScrollTo} from './type'
  */
 
-/** @type {boolean} */
+/**
+@type {boolean}
+*/
 let shouldDisableObservereffect = false;
 
-/** @type{() => void} */
+/**
+@type{() => void}
+*/
 let destroy = () => {};
 
 /**
@@ -85,7 +89,9 @@ function getButtons({ delegateEvents, bindProps, proxi }) {
                 modules: [
                     delegateEventsFunction,
                     bindProps(
-                        /** @returns {ReturnBindProps<ScrollToButtonType>} */
+                        /**
+                        @returns {ReturnBindProps<ScrollToButtonType>}
+                        */
                         () => ({
                             active: proxi.activeLabel === item.label,
                             label: item.label,
@@ -186,7 +192,9 @@ const initScroller = ({ getRef }) => {
     };
 };
 
-/** @type {MobComponent<ScrollTo>} */
+/**
+@type {MobComponent<ScrollTo>}
+*/
 export const ScrollToFunction = ({
     onMount,
     delegateEvents,

@@ -6,7 +6,9 @@ import { DetailOffCanvasFunction } from './detail-offcanvas';
  */
 
 export const DetailOffcanvas = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DetailOffcanvasType>} */
+    /**
+    @type {CreateComponentParams<import('./type').DetailOffcanvasType>}
+    */
     ({
         tag: 'detail-off-canvas',
         component: DetailOffCanvasFunction,

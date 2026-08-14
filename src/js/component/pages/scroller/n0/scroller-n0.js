@@ -80,7 +80,9 @@ function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     });
 }
 
-/** @type {MobComponent<ScrollerN0>} */
+/**
+@type {MobComponent<ScrollerN0>}
+*/
 export const ScrollerN0Function = ({
     onMount,
     setRef,
@@ -92,7 +94,9 @@ export const ScrollerN0Function = ({
     const proxi = getSelfProxi();
 
     onMount(() => {
-        /** Show scroll down label. */
+        /**
+        Show scroll down label.
+        */
         activateScrollDownArrow();
 
         /**

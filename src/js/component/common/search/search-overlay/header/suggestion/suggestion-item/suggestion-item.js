@@ -19,7 +19,9 @@ const onKeyDown = ({ code, word }) => {
     }
 };
 
-/** @type {import('@mobJsType').MobComponent<import('./type').SearchOverlaySugestionItemType>} */
+/**
+@type {import('@mobJsType').MobComponent<import('./type').SearchOverlaySugestionItemType>}
+*/
 export const SearchOverlaySuggestionItemFunction = ({
     getSelfProxi,
     delegateEvents,

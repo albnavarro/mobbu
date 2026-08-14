@@ -14,7 +14,9 @@ const loadPage = ({ uri }) => {
  * @import {MobComponent} from '@mobJsType'
  */
 
-/** @type {MobComponent<import('./type').SearchOverlayListItemType>} */
+/**
+@type {MobComponent<import('./type').SearchOverlayListItemType>}
+*/
 export const SearchOverlayListItemFunction = ({
     getSelfProxi,
     bindEffect,

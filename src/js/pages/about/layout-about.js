@@ -2,7 +2,9 @@ import { htmlObject, MobJs } from '@mobJs';
 import { AboutSwitcher } from '@pagesComponent/about/switcher/definition';
 import { loadJsonContent, loadTextContent } from '@utils/utils';
 
-/** @type {import('@mobJsType').PageAsync} */
+/**
+@type {import('@mobJsType').PageAsync}
+*/
 export const layoutAbout = async () => {
     const { data } = await loadJsonContent({
         source: './data/about/index.json',
@@ -21,7 +23,9 @@ export const layoutAbout = async () => {
         content: {
             component: AboutSwitcher,
             modules: MobJs.staticProps(
-                /** @type {import('@pagesComponent/about/switcher/type').AboutSwitcher['props']} */
+                /**
+                @type {import('@pagesComponent/about/switcher/type').AboutSwitcher['props']}
+                */
                 ({
                     block_1: data.block_1,
                     block_2: data.block_2,

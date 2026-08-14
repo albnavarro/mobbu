@@ -6,7 +6,9 @@ import { SearchOverlayHeaderFunction } from './header';
  */
 
 export const SearchOverlayHeader = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').SearchOverlayHeader>} */
+    /**
+    @type {CreateComponentParams<import('./type').SearchOverlayHeader>}
+    */
     ({
         tag: 'search-overlay-header',
         component: SearchOverlayHeaderFunction,

@@ -7,7 +7,9 @@ import { docContainerStore } from '@stores/doc-container';
  */
 
 export const DocContainer = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DocContainerType>} */
+    /**
+    @type {CreateComponentParams<import('./type').DocContainerType>}
+    */
     ({
         tag: 'doc-container',
         component: DocContainerFunction,

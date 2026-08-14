@@ -24,7 +24,9 @@ let init = () => {};
 let destroy = () => {};
 let updateScroller = () => {};
 
-/** @type {(arg0: number) => void} */
+/**
+@type {(arg0: number) => void}
+*/
 let move = () => {};
 
 /**
@@ -66,7 +68,9 @@ const getItems = ({ staticProps, bindProps, proxi }) => {
     });
 };
 
-/** @type {MobComponent<SidebarLinks>} */
+/**
+@type {MobComponent<SidebarLinks>}
+*/
 export const SidebarLinksFunction = ({
     staticProps,
     setRef,
@@ -83,7 +87,9 @@ export const SidebarLinksFunction = ({
     const proxi = getSelfProxi();
     const bindProxi = getBoundedProxi();
 
-    /** @type{Record<string, any>} */
+    /**
+    @type{Record<string, any>}
+    */
     const templateData = {
         [PAGE_TEMPLATE_COMPONENT_MOBJS]:
             mainData.sideBarLinks.mobJsComponentParams,

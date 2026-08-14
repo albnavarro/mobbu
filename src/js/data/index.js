@@ -1,14 +1,20 @@
 import { loadJsonContent, loadTextContent } from '@utils/utils.js';
 
-/** @type {import('./type.d.ts').CommonData} */
+/**
+@type {import('./type.d.ts').CommonData}
+*/
 let commonData;
 
-/** @type {Record<string, string>} */
+/**
+@type {Record<string, string>}
+*/
 let icons = {};
 
 const iconsPath = './asset/svg/icons/';
 
-/** @type {{ name: string; source: string }[]} */
+/**
+@type {{ name: string; source: string }[]}
+*/
 const iconsToLoad = [
     { name: 'gitHubIcon', source: 'icon-github.svg' },
     { name: 'searchIcons', source: 'search.svg' },

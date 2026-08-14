@@ -1,7 +1,9 @@
 import { MobCore } from '@mobCore';
 import { MobTween } from '@mobMotion';
 
-/** @type {import('../type').MouseRotateAnimation} */
+/**
+@type {import('../type').MouseRotateAnimation}
+*/
 export const mouseTrailAnimation = ({ elements }) => {
     const RAD2DEG = 180 / Math.PI;
 

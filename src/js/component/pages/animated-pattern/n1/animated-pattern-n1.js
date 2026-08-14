@@ -10,7 +10,9 @@ import { htmlObject, MobJs } from '@mobJs';
 import { animatedPatternN1Animation } from './animation/animation';
 import { H1Standalone } from '@commonComponent/typography/h1-standalone/definition';
 
-/** @type {MobComponent<AnimatedPatternN1>} */
+/**
+@type {MobComponent<AnimatedPatternN1>}
+*/
 export const AnimatedPatternN1Function = ({
     onMount,
     getState,
@@ -21,7 +23,9 @@ export const AnimatedPatternN1Function = ({
 }) => {
     const proxi = getSelfProxi();
 
-    /** @type {() => void} */
+    /**
+    @type {() => void}
+    */
     let destroy;
 
     onMount(() => {

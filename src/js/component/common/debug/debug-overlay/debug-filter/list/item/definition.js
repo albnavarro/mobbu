@@ -7,7 +7,9 @@ import { debugActiveComponentStore } from '@stores/debug';
  */
 
 export const DebugFilterListItem = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugFilterListItemType>} */
+    /**
+    @type {CreateComponentParams<import('./type').DebugFilterListItemType>}
+    */
     ({
         tag: 'debug-filter-list-item',
         component: DebugFilterListItemFunction,

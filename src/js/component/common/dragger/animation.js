@@ -28,7 +28,9 @@ const getTranslateZ = (/** @type {HTMLElement} */ el) => {
     return 0;
 };
 
-/** @type {import('./type').DraggerAnimation} */
+/**
+@type {import('./type').DraggerAnimation}
+*/
 export const draggerAnimation = ({
     align,
     root,

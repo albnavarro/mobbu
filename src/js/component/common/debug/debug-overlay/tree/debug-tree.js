@@ -8,7 +8,9 @@ import { generateTreeComponents } from './recursive-tree';
 import { MobCore } from '@mobCore';
 import { getSearchOverlayJustOpen } from '../utils';
 
-/** @type {import('../debug-filter/list/type').DebugInitScroller} */
+/**
+@type {import('../debug-filter/list/type').DebugInitScroller}
+*/
 const initScroller = async ({ getRef }) => {
     await MobJs.tick();
 
@@ -42,7 +44,9 @@ const initScroller = async ({ getRef }) => {
     };
 };
 
-/** @type {MobComponent<import('./type').DebugTreeType>} */
+/**
+@type {MobComponent<import('./type').DebugTreeType>}
+*/
 export const DebugTreeFunction = ({
     onMount,
     invalidate,
@@ -55,16 +59,24 @@ export const DebugTreeFunction = ({
 }) => {
     const proxi = getSelfProxi();
 
-    /** @type {() => void} */
+    /**
+    @type {() => void}
+    */
     let destroy;
 
-    /** @type {() => void} */
+    /**
+    @type {() => void}
+    */
     let refresh;
 
-    /** @type {() => void} */
+    /**
+    @type {() => void}
+    */
     let updateScroller;
 
-    /** @type {(arg0: number) => void} */
+    /**
+    @type {(arg0: number) => void}
+    */
     let move;
 
     onMount(() => {

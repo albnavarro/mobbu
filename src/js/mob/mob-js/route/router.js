@@ -11,22 +11,34 @@ import { tryRedirect } from './redirect';
 import { getIndex } from './route-list';
 import { getRestoreScrollVale, getRouteModule, getTemplateName } from './utils';
 
-/** @type {string} */
+/**
+@type {string}
+*/
 let previousFullHashLoaded = '';
 
-/** @type {boolean} */
+/**
+@type {boolean}
+*/
 let isFirstAppLoad = true;
 
-/** @type {string} */
+/**
+@type {string}
+*/
 let currentCleanHash = '';
 
-/** @type {string} */
+/**
+@type {string}
+*/
 let previousCleanHash = '';
 
-/** @type {string | undefined} */
+/**
+@type {string | undefined}
+*/
 let currentParamsFromLoadUrl;
 
-/** @type {boolean | undefined} */
+/**
+@type {boolean | undefined}
+*/
 let currentSkipTransition;
 
 /**
@@ -110,7 +122,7 @@ const convertObjectParamsToString = (params) => {
  * @returns {Promise<void>}
  */
 export const parseUrlHash = async ({
-    // eslint-disable-next-line unicorn/consistent-boolean-name
+     
     shouldLoadRoute = true,
     fromHistory = false,
 } = {}) => {

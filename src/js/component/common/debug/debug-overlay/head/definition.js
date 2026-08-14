@@ -6,7 +6,9 @@ import { DebugHeadFunction } from './debug-head';
  */
 
 export const DebugHead = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugHeadType>} */
+    /**
+    @type {CreateComponentParams<import('./type').DebugHeadType>}
+    */
     ({
         tag: 'debug-head',
         component: DebugHeadFunction,

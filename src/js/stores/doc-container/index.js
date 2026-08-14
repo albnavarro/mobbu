@@ -6,7 +6,9 @@ import { MobMotionCore } from '@mobMotion';
  */
 
 export const docContainerStore = MobCore.createStore(
-    /** @type {MobStoreParams<import('./type').DocContainerStore>} */
+    /**
+    @type {MobStoreParams<import('./type').DocContainerStore>}
+    */
     ({
         rightSidebarIsInert: {
             __value: true,

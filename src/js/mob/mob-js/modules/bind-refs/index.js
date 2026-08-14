@@ -14,7 +14,9 @@ import { ATTR_BIND_REFS_ID, ATTR_BIND_REFS_NAME } from '../../constant';
 export const getBindRefs = ({ element }) => {
     const refs = element.querySelectorAll(`[${CSS.escape(ATTR_BIND_REFS_ID)}]`);
 
-    /** @type{Record<string, any>} */
+    /**
+    @type{Record<string, any>}
+    */
     const initialValue = {};
 
     return [...refs].reduce((previous, current) => {

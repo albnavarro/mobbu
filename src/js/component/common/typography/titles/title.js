@@ -14,7 +14,9 @@ const getIndex = (index) => {
         : htmlObject({});
 };
 
-/** @type {import('@mobJsType').MobComponent<import('./type').Title>} */
+/**
+@type {import('@mobJsType').MobComponent<import('./type').Title>}
+*/
 export const TitleFunction = ({ getSelfProxi }) => {
     const proxi = getSelfProxi();
 

@@ -7,7 +7,9 @@ import { docContainerStore } from '@stores/doc-container';
  */
 
 export const SidebarLinks = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').SidebarLinks>} */
+    /**
+    @type {CreateComponentParams<import('./type').SidebarLinks>}
+    */
     ({
         tag: 'side-bar-links',
         component: SidebarLinksFunction,

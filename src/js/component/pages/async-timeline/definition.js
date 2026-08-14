@@ -43,7 +43,9 @@ const buttons = {
  */
 
 export const AsyncTimeline = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').AsyncTimeline>} */
+    /**
+    @type {CreateComponentParams<import('./type').AsyncTimeline>}
+    */
     ({
         tag: 'async-timeline',
         component: AsyncTimelineFunction,

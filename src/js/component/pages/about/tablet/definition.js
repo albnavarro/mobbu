@@ -9,7 +9,9 @@ import { AboutComponentFunction } from './about';
  */
 
 export const AboutComponent = MobJs.createComponent(
-    /** @type{CreateComponentParams<import ('./type').About>} */
+    /**
+    @type{CreateComponentParams<import ('./type').About>}
+    */
     ({
         tag: 'about-component',
         component: AboutComponentFunction,

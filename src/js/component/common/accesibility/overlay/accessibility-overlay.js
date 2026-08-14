@@ -7,7 +7,9 @@ import { setSiteDirection } from '@componentLibs/utils/site-direction';
  * @import {MobComponent} from '@mobJsType'
  */
 
-/** @type {MobComponent<import('./type').AccessibilityOverlayType>} */
+/**
+ * @type {MobComponent<import('./type').AccessibilityOverlayType>}
+ */
 export const AccessibilityOverlayFunction = ({
     bindEffect,
     getSelfProxi,
@@ -21,7 +23,9 @@ export const AccessibilityOverlayFunction = ({
             {
                 component: AccessibilityToggle,
                 modules: staticProps(
-                    /** @type {import('../toggle/type').AccessibilityToggleType['props']} */
+                    /**
+                     * @type {import('../toggle/type').AccessibilityToggleType['props']}
+                     */
                     ({
                         className: 'is-accessibility',
                         label: 'theme color:',
@@ -51,7 +55,9 @@ export const AccessibilityOverlayFunction = ({
             {
                 component: AccessibilityToggle,
                 modules: staticProps(
-                    /** @type {import('../toggle/type').AccessibilityToggleType['props']} */
+                    /**
+                     * @type {import('../toggle/type').AccessibilityToggleType['props']}
+                     */
                     ({
                         className: 'is-accessibility',
                         label: 'text direction:',

@@ -4,7 +4,9 @@ import { MobCore } from '@mobCore';
 import { outerHeight } from '@mobCoreUtils';
 import { MobTween } from '@mobMotion';
 
-/** @type {import('./type').MathCommonAnimation} */
+/**
+@type {import('./type').MathCommonAnimation}
+*/
 export const mathCircle = ({ targets, container, canvas } = {}) => {
     if (!targets || !container || !canvas)
         return {

@@ -6,7 +6,9 @@ import { defaultAmountOfCard } from '@pagesComponent/benchmark/partials/definiti
  */
 
 export const externalBenchmarkStore = MobCore.createStore(
-    /** @type {MobStoreParams<import('./type').ExternalStore>} */
+    /**
+    @type {MobStoreParams<import('./type').ExternalStore>}
+    */
     ({
         data: {
             __value: Array.from({ length: defaultAmountOfCard })

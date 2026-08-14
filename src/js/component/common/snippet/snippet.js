@@ -49,7 +49,9 @@ const getLineHeight = () => {
     );
 };
 
-/** @type {MobComponent<Snippet>} */
+/**
+@type {MobComponent<Snippet>}
+*/
 export const SnippetFunction = ({
     onMount,
     setRef,

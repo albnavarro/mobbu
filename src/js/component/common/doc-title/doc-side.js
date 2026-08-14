@@ -1,6 +1,8 @@
 import { htmlObject } from '@mobJs';
 
-/** @type {import('@mobJsType').MobComponent} */
+/**
+@type {import('@mobJsType').MobComponent}
+*/
 export const DocTitleFunction = () => {
     return htmlObject({
         className: 'c-doc-title',

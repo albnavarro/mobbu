@@ -81,7 +81,9 @@ const getNav = ({ numOfCol, proxi, staticProps, delegateEvents }) => {
         .toArray();
 };
 
-/** @type {MobComponent<HorizontalScroller>} */
+/**
+@type {MobComponent<HorizontalScroller>}
+*/
 export const HorizontalScrollerFunction = ({
     onMount,
     watch,

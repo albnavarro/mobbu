@@ -6,7 +6,9 @@ import { SidebarLinksButtonFunction } from './side-bar-links-button';
  */
 
 export const SidebarLinksButton = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').SidebarLinksButtonType>} */
+    /**
+    @type {CreateComponentParams<import('./type').SidebarLinksButtonType>}
+    */
     ({
         tag: 'sidebar-links-button',
         component: SidebarLinksButtonFunction,

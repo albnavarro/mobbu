@@ -7,7 +7,9 @@ import { AboutSwitcherFunction } from './about-switcher';
  */
 
 export const AboutSwitcher = MobJs.createComponent(
-    /** @type{CreateComponentParams<import ('./type').AboutSwitcher>} */
+    /**
+    @type{CreateComponentParams<import ('./type').AboutSwitcher>}
+    */
     ({
         tag: 'about-switcher',
         component: AboutSwitcherFunction,

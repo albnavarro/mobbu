@@ -1,4 +1,6 @@
-/** @type {ParentList[]} */
+/**
+@type {ParentList[]}
+*/
 let parentList = [];
 
 /**
@@ -44,7 +46,9 @@ export const setParentList = (routes) => {
     });
 };
 
-/** @returns {ParentList[]} */
+/**
+@returns {ParentList[]}
+*/
 export const getPageTree = () => parentList;
 
 /**

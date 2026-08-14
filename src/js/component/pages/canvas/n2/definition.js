@@ -51,7 +51,9 @@ const buttons = {
 };
 
 export const CaterpillarN2 = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').CaterpillarN2>} */
+    /**
+    @type {CreateComponentParams<import('./type').CaterpillarN2>}
+    */
     ({
         tag: 'caterpillar-n2',
         component: CaterpillarN2Function,

@@ -1,6 +1,8 @@
 import { htmlObject } from '@mobJs';
 
-/** @type {import('@mobJsType').MobComponent<import('./type').NavigationLabelType>} */
+/**
+@type {import('@mobJsType').MobComponent<import('./type').NavigationLabelType>}
+*/
 export const NavigationLabelFunction = ({
     bindEffect,
     getSelfProxi,

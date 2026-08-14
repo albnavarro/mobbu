@@ -7,7 +7,9 @@ import { navigationStore } from '@stores/navigation';
  */
 
 export const HeaderToggle = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').HeaderToggle>} */
+    /**
+    @type {CreateComponentParams<import('./type').HeaderToggle>}
+    */
     ({
         tag: 'mob-header-toggle',
         component: HeaderToggleFunction,

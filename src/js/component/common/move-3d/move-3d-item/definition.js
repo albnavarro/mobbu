@@ -6,7 +6,9 @@ import { Move3DItemFunction } from './move-3d-item';
  */
 
 export const Move3DItem = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').Move3DItem>} */
+    /**
+    @type {CreateComponentParams<import('./type').Move3DItem>}
+    */
     ({
         tag: 'move-3d-item',
         component: Move3DItemFunction,

@@ -5,7 +5,9 @@ import { MobMotionCore } from '@mobMotion';
 import { ScrollerN0 } from '@pagesComponent/scroller/n0/definition';
 import { loadTextContent } from '@utils/utils';
 
-/** @type {import('@mobJsType').PageAsync} */
+/**
+@type {import('@mobJsType').PageAsync}
+*/
 export const scrollerN0 = async () => {
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',
@@ -25,7 +27,9 @@ export const scrollerN0 = async () => {
         });
     }
 
-    /** Quicknav */
+    /**
+    Quicknav
+    */
     updateQuickNavState({
         active: true,
         prevRoute: '#animatedPatternN1',
@@ -38,7 +42,9 @@ export const scrollerN0 = async () => {
         content: {
             component: ScrollerN0,
             modules: MobJs.staticProps(
-                /** @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']} */
+                /**
+                @type {import('@pagesComponent/animated-pattern/n0/type').AnimatedPatternN0['props']}
+                */
                 ({
                     background: bg,
                 })

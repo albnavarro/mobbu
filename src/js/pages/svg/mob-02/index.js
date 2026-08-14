@@ -36,7 +36,9 @@ export const mob_02 = async () => {
         });
     });
 
-    /** Quicknav */
+    /**
+    Quicknav
+    */
     updateQuickNavState({
         active: true,
         prevRoute: '#mob-01',
@@ -60,7 +62,9 @@ export const mob_02 = async () => {
             {
                 component: Mobbu2025,
                 modules: MobJs.staticProps(
-                    /** @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['props']} */
+                    /**
+                    @type {import('@pagesComponent/svg/mobbu2025/type').Mobbu2025['props']}
+                    */
                     ({
                         layer02,
                         layer03,

@@ -33,7 +33,9 @@ const activeItemChildren = ({ id, value }) => {
     return flatChildren.some((id) => activeItemChildren({ id, value }));
 };
 
-/** @type {MobComponent<import('./type').DebugTreeItemType>} */
+/**
+@type {MobComponent<import('./type').DebugTreeItemType>}
+*/
 export const DebugTreeItemFunction = ({
     onMount,
     staticProps,

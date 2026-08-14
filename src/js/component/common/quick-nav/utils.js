@@ -14,7 +14,9 @@ export const updateQuickNavState = ({
     prevRoute = '',
     backRoute = '',
 }) => {
-    /** @type {UseMethodByName<import('./type').QuickNav>} */
+    /**
+    @type {UseMethodByName<import('./type').QuickNav>}
+    */
     const methods = MobJs.useMethodByName(quickNavName);
     methods.update('active', active);
     methods.update('nextRoute', nextRoute);

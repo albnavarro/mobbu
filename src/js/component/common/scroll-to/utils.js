@@ -11,7 +11,9 @@ export const addItemToScrollSidebar = ({
     isSection,
     isNote,
 }) => {
-    /** @type {import('@mobJsType').UseMethodByName<import('../scroll-to/type').ScrollTo>} */
+    /**
+    @type {import('@mobJsType').UseMethodByName<import('../scroll-to/type').ScrollTo>}
+    */
     const methods = MobJs.useMethodByName(scrollToName);
     methods?.addItem?.({ id, label, element, isSection, isNote });
 };
@@ -20,7 +22,9 @@ export const addItemToScrollSidebar = ({
  * @param {String} label
  */
 export const setScrollToActiveLabel = (label) => {
-    /** @type {import('@mobJsType').UseMethodByName<import('../scroll-to/type').ScrollTo>} */
+    /**
+    @type {import('@mobJsType').UseMethodByName<import('../scroll-to/type').ScrollTo>}
+    */
     const methods = MobJs.useMethodByName(scrollToName);
     methods?.setActiveLabel?.(label);
 };

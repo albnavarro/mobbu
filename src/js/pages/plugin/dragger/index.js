@@ -9,7 +9,9 @@ import { loadTextContent } from '@utils/utils';
 
 const shouldUseLog = false;
 
-/** @type {import('@mobJsType').PageAsync} */
+/**
+@type {import('@mobJsType').PageAsync}
+*/
 export const DraggerRoute = async () => {
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',
@@ -33,7 +35,9 @@ export const DraggerRoute = async () => {
         source: './asset/svg/ms_nord_compact.svg?v=1.3',
     });
 
-    /** Quicknav */
+    /**
+    Quicknav
+    */
     updateQuickNavState({
         active: true,
         prevRoute: '#move3D-shape1',
@@ -91,7 +95,9 @@ export const DraggerRoute = async () => {
                 {
                     component: Dragger,
                     modules: MobJs.staticProps(
-                        /** @type {import('@commonComponent/dragger/type').Dragger['props']} */
+                        /**
+                        @type {import('@commonComponent/dragger/type').Dragger['props']}
+                        */
                         ({
                             rootClass: 'dragger-component',
                             containerClass: '.l-dragger',

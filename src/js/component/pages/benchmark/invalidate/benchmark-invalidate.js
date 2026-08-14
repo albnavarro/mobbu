@@ -12,7 +12,9 @@ import { BenchMarkFakeComponent } from '../fake-component/definition';
  * @import {BenchMarkFakeComponentType} from '../fake-component/type'
  */
 
-/** @type {MobComponent<import('../type').BenchMark>} */
+/**
+@type {MobComponent<import('../type').BenchMark>}
+*/
 export const BenchMarkInvalidateFunction = ({
     onMount,
     delegateEvents,
@@ -48,14 +50,18 @@ export const BenchMarkInvalidateFunction = ({
                         component: BenchMarkFakeComponent,
                         modules: [
                             staticProps(
-                                /** @type {import('../fake-component/type').BenchMarkFakeComponentType['props']} */
+                                /**
+                                @type {import('../fake-component/type').BenchMarkFakeComponentType['props']}
+                                */
                                 ({
                                     label,
                                     index,
                                 })
                             ),
                             bindProps(
-                                /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                                /**
+                                @returns {ReturnBindProps<BenchMarkFakeComponentType>}
+                                */
                                 () => ({
                                     counter: proxi.counter,
                                 })

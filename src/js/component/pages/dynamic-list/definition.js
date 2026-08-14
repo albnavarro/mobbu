@@ -9,7 +9,9 @@ import { DynamicListFunction } from './dynamic-list';
  */
 
 export const DynamicList = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicList>} */
+    /**
+    @type {CreateComponentParams<import('./type').DynamicList>}
+    */
     ({
         tag: 'dynamic-list',
         component: DynamicListFunction,

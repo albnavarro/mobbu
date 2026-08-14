@@ -1,4 +1,6 @@
-/** @type {import('./type.js').GetLetteringMob} */
+/**
+@type {import('./type.js').GetLetteringMob}
+*/
 export const rdp_01_schema = ({
     u0,
     u1,

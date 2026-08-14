@@ -7,7 +7,9 @@ import { docContainerStore } from '@stores/doc-container';
  */
 
 export const ScrollTo = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').ScrollTo>} */
+    /**
+    @type {CreateComponentParams<import('./type').ScrollTo>}
+    */
     ({
         tag: 'scroll-to',
         component: ScrollToFunction,

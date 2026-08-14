@@ -55,7 +55,9 @@ function getControls({ delegateEvents, bindEffect, bindObject, proxi }) {
     });
 }
 
-/** @type {MobComponent<CaterpillarN1>} */
+/**
+@type {MobComponent<CaterpillarN1>}
+*/
 export const CaterpillarN1Function = ({
     onMount,
     getRef,

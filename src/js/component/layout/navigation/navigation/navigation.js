@@ -59,7 +59,9 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                   component: NavigationSubmenu,
                   modules: [
                       staticProps(
-                          /** @type {NavigationSubmenuType['state']} */
+                          /**
+                          @type {NavigationSubmenuType['state']}
+                          */
                           {
                               headerButton: {
                                   label,
@@ -78,7 +80,9 @@ function getItems({ data, staticProps, bindProps, proxi }) {
                           }
                       ),
                       bindProps(
-                          /** @returns {ReturnBindProps<NavigationSubmenuType>} */
+                          /**
+                          @returns {ReturnBindProps<NavigationSubmenuType>}
+                          */
                           () => ({
                               isOpen: proxi.currentAccordionId === index,
                           })
@@ -103,7 +107,9 @@ function getItems({ data, staticProps, bindProps, proxi }) {
     });
 }
 
-/** @type {MobComponent<Navigation>} */
+/**
+@type {MobComponent<Navigation>}
+*/
 export const NavigationFunction = ({
     staticProps,
     setState,

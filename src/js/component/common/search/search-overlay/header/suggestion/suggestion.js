@@ -9,7 +9,9 @@ import { SearchOverlaySuggestionItem } from './suggestion-item/definition';
  * @import {SearchOverlaySugestionItemType} from './suggestion-item/type'
  */
 
-/** @type {MobComponent<import('./type').SearchOverlaySuggestionType>} */
+/**
+@type {MobComponent<import('./type').SearchOverlaySuggestionType>}
+*/
 export const SearchOverlaySuggestionFunction = ({
     getSelfProxi,
     repeat,

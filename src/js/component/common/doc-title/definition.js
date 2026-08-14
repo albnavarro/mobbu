@@ -6,7 +6,9 @@ import { DocTitleFunction } from './doc-side';
  */
 
 export const DocTitle = MobJs.createComponent(
-    /** @type {CreateComponentParams<any>} */
+    /**
+    @type {CreateComponentParams<any>}
+    */
     ({
         tag: 'doc-title',
         component: DocTitleFunction,

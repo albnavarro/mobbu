@@ -2,7 +2,9 @@
 
 import { htmlObject } from '@mobJs';
 
-/** @type {import('@mobJsType').MobComponent<import('./type').HorizontalScrollerButtonType>} */
+/**
+@type {import('@mobJsType').MobComponent<import('./type').HorizontalScrollerButtonType>}
+*/
 export const HorizontalScrollerButtonFunction = ({ getSelfProxi }) => {
     const proxi = getSelfProxi();
 

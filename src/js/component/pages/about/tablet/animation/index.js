@@ -2,7 +2,9 @@ import { MobSmoothScroller } from '@mobMotionPlugin';
 import { createPathAnimation } from './path-animation';
 import { isRtlDirection } from '@componentLibs/utils/site-direction';
 
-/** @type {import('../type').AboutScroller} */
+/**
+@type {import('../type').AboutScroller}
+*/
 export const aboutAnimation = ({
     screenElement,
     scrollerElement,

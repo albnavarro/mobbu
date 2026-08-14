@@ -120,7 +120,9 @@ const getControls = ({ proxi, delegateEvents, bindObject }) => {
     return [numerators, denominator];
 };
 
-/** @type {MobComponent<import('./type').RosaDiGrandiPage>} */
+/**
+@type {MobComponent<import('./type').RosaDiGrandiPage>}
+*/
 export const RosaDiGrandiPageFunction = ({
     getSelfProxi,
     delegateEvents,

@@ -9,7 +9,9 @@ import { BenchMarkInvalidateFunction } from './benchmark-invalidate';
  */
 
 export const BenchMarkInvalidate = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('../type').BenchMark>} */
+    /**
+    @type {CreateComponentParams<import('../type').BenchMark>}
+    */
     ({
         tag: 'benchmark-invalidate',
         component: BenchMarkInvalidateFunction,

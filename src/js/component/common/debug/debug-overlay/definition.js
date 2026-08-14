@@ -9,7 +9,9 @@ import { DebugOverlayFunction } from './debug-overlay';
  */
 
 export const DebugOverlay = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugOverlayType>} */
+    /**
+    @type {CreateComponentParams<import('./type').DebugOverlayType>}
+    */
     ({
         tag: 'debug-overlay',
         component: DebugOverlayFunction,

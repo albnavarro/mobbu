@@ -47,7 +47,9 @@ const leftContent = () => [
     },
 ];
 
-/** @type {MobComponent<import('./type').DebugHeadType>} */
+/**
+@type {MobComponent<import('./type').DebugHeadType>}
+*/
 export const DebugHeadFunction = ({ invalidate, getSelfProxi }) => {
     const proxi = getSelfProxi();
 

@@ -13,7 +13,9 @@ import { htmlObject } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 import { aboutAnimation } from './animation';
 
-/** @type{(value: number) => void} */
+/**
+@type{(value: number) => void}
+*/
 let _goTo = () => {};
 
 /**
@@ -23,7 +25,9 @@ let _goTo = () => {};
 let moveSvg = (value) => Promise.resolve(value);
 let moveSvgFromNav = () => {};
 
-/** @type{Record<number, number>} */
+/**
+@type{Record<number, number>}
+*/
 const goToPercentage = {
     1: 0,
     2: 100 / 3,
@@ -318,7 +322,9 @@ const getSquare = () => {
     });
 };
 
-/** @type {MobComponent<import('./type').About>} */
+/**
+@type {MobComponent<import('./type').About>}
+*/
 export const AboutComponentFunction = ({
     onMount,
     setRef,

@@ -6,7 +6,9 @@ import { getRotate, getRotateFromPosition } from './utils';
  * @import {MobComponent} from '@mobJsType'
  */
 
-/** @type{(component: {tagName: string, className: string, props: any} ) => HTMLElement} */
+/**
+@type{(component: {tagName: string, className: string, props: any} ) => HTMLElement}
+*/
 const getComponent = (component) => {
     if (component?.tagName.length === 0) {
         return htmlObject({});
@@ -29,7 +31,9 @@ const getComponent = (component) => {
     });
 };
 
-/** @type {import('./type').Move3DItemMove} */
+/**
+@type {import('./type').Move3DItemMove}
+*/
 const move = ({
     delta: currentDelta,
     factor,
@@ -65,7 +69,9 @@ const move = ({
     void lerp.goTo({ depth: currentDepth, rotateX, rotateY }).catch(() => {});
 };
 
-/** @type {MobComponent<import('./type').Move3DItem>} */
+/**
+@type {MobComponent<import('./type').Move3DItem>}
+*/
 export const Move3DItemFunction = ({ getState, addMethod, onMount }) => {
     const {
         root,

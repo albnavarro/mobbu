@@ -55,7 +55,9 @@ const RELEASE_LERP = 0.1;
  */
 let isInitialized = false;
 
-/** @type {any} */
+/**
+@type {any}
+*/
 let debounceTimeoutId = null;
 
 /**
@@ -76,7 +78,9 @@ const DEBOUNCE_DELAY = 200;
  */
 const GAP_MAX = 120;
 
-/** @type {any} */
+/**
+@type {any}
+*/
 let gapTimeoutId = null;
 
 let unsubscribeDetectStart = () => {};

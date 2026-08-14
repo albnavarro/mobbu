@@ -5,7 +5,9 @@ import { MobCore } from '@mobCore';
  */
 
 export const navigationStore = MobCore.createStore(
-    /** @type {MobStoreParams<import('./type').NavigationStore>} */
+    /**
+    @type {MobStoreParams<import('./type').NavigationStore>}
+    */
     ({
         activeNavigationSection: {
             __value: '',

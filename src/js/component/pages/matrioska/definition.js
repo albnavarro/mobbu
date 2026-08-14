@@ -21,7 +21,9 @@ const shuffle = (array) => {
     return array;
 };
 
-/** @type {Partial<CreateComponentParams<import('./type').Matrioska>>} */
+/**
+@type {Partial<CreateComponentParams<import('./type').Matrioska>>}
+*/
 const commonParams = {
     state: {
         level1: {
@@ -59,7 +61,9 @@ const commonParams = {
 };
 
 export const MatrioskaRepeat = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').Matrioska>} */
+    /**
+    @type {CreateComponentParams<import('./type').Matrioska>}
+    */
     ({
         tag: 'page-matrioska-repeat',
         component: MatrioskaRepeatFunction,
@@ -68,7 +72,9 @@ export const MatrioskaRepeat = MobJs.createComponent(
 );
 
 export const MatrioskaInvalidate = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').Matrioska>} */
+    /**
+    @type {CreateComponentParams<import('./type').Matrioska>}
+    */
     ({
         tag: 'page-matrioska-invalidate',
         component: MatrioskaInvalidateFunction,

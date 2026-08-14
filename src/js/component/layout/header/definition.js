@@ -6,7 +6,9 @@ import { HeaderFunction } from './header';
  */
 
 export const Header = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').Header>} */
+    /**
+    @type {CreateComponentParams<import('./type').Header>}
+    */
     ({
         tag: 'mob-header',
         component: HeaderFunction,

@@ -156,7 +156,9 @@ const createBindObjectWatcher = ({ id, keys, render, element }) => {
      */
     let isWatchRunning = false;
 
-    /** @type {WeakRef<HTMLElement> | null} */
+    /**
+    @type {WeakRef<HTMLElement> | null}
+    */
     let ref = new WeakRef(element);
 
     /**

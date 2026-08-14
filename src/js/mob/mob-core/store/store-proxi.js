@@ -45,7 +45,7 @@ const shouldFreeze = (value) => {
      */
     if (checkType(Map, value)) return false;
     if (checkType(Set, value)) return false;
-    // eslint-disable-next-line unicorn/prefer-boolean-return
+     
     if (checkType(Function, value)) return false;
 
     /**

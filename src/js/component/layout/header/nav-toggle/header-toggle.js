@@ -8,7 +8,9 @@ import { htmlObject } from '@mobJs';
 import { UnFreezeMobPageScroll } from '@mobMotionPlugin';
 import { navigationStore } from '@stores/navigation';
 
-/** @type {MobComponent<import('./type').HeaderToggle>} */
+/**
+@type {MobComponent<import('./type').HeaderToggle>}
+*/
 export const HeaderToggleFunction = ({
     delegateEvents,
     bindEffect,

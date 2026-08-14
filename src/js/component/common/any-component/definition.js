@@ -6,7 +6,9 @@ import { AnyComponentFunction } from './any-component';
  */
 
 export const AnyComponent = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').AnyComponent>} */
+    /**
+     * @type {CreateComponentParams<import('./type').AnyComponent>}
+     */
     ({
         tag: 'any-component',
         component: AnyComponentFunction,

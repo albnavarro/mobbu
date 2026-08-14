@@ -26,7 +26,9 @@ const checkFromTablet = () =>
     );
 
 export const mqStore = MobCore.createStore(
-    /** @type {MobStoreParams<import('./type').MqStore>} */
+    /**
+    @type {MobStoreParams<import('./type').MqStore>}
+    */
     ({
         mq: {
             __value: getCurrentMq(),

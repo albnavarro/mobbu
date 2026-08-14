@@ -12,7 +12,9 @@ import { BenchMarkFakeComponent } from '../fake-component/definition';
  * @import {BenchMarkFakeComponentType} from '../fake-component/type'
  */
 
-/** @type {MobComponent<import('./type').BenchMarkExternal>} */
+/**
+@type {MobComponent<import('./type').BenchMarkExternal>}
+*/
 export const BenchMarkRepeatNoKyBindStoreFunction = ({
     onMount,
     delegateEvents,
@@ -77,7 +79,9 @@ export const BenchMarkRepeatNoKyBindStoreFunction = ({
                                   component: BenchMarkFakeComponent,
                                   modules: [
                                       bindProps(
-                                          /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                                          /**
+                                          @returns {ReturnBindProps<BenchMarkFakeComponentType>}
+                                          */
                                           () => ({
                                               index: current.index,
                                               label: current.value.label,
@@ -91,7 +95,9 @@ export const BenchMarkRepeatNoKyBindStoreFunction = ({
                                   modules: [
                                       bindProps({
                                           observe: ['counter'],
-                                          /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                                          /**
+                                          @returns {ReturnBindProps<BenchMarkFakeComponentType>}
+                                          */
                                           props: (
                                               { counter },
                                               value,

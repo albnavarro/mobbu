@@ -6,7 +6,9 @@ import { DebugFilterHeadFunction } from './debug-filter-head';
  */
 
 export const DebugFilterHead = MobJs.createComponent(
-    /** @type {CreateComponentParams<any>} */
+    /**
+    @type {CreateComponentParams<any>}
+    */
     ({
         tag: 'debug-filter-head',
         component: DebugFilterHeadFunction,

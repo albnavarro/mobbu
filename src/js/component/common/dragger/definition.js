@@ -7,7 +7,9 @@ import { DRAGGER_CENTER } from './constant';
  */
 
 export const Dragger = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').Dragger>} */
+    /**
+    @type {CreateComponentParams<import('./type').Dragger>}
+    */
     ({
         tag: 'c-dragger',
         component: DraggerFunction,

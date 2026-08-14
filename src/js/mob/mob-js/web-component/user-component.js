@@ -161,7 +161,9 @@ export const defineUserComponent = (componentList) => {
                     this.#dynamicPropsFromSlotId = '';
                     this.#propsFromSlotId = '';
 
-                    /** Host exist */
+                    /**
+                    Host exist
+                    */
                     const host = this.shadowRoot?.host;
                     if (!host) return;
 
@@ -182,17 +184,23 @@ export const defineUserComponent = (componentList) => {
                         this.style.visibility = 'hidden';
                     }
 
-                    /** Check for shadow root */
+                    /**
+                    Check for shadow root
+                    */
                     if (!this.shadowRoot) return;
 
-                    /** Append customs style */
+                    /**
+                    Append customs style
+                    */
                     if (style) {
                         const styleTag = document.createElement('style');
                         styleTag.textContent = style;
                         this.shadowRoot.append(styleTag);
                     }
 
-                    /** Slot content is accessible by external javascript. */
+                    /**
+                    Slot content is accessible by external javascript.
+                    */
                     const slot = document.createElement('slot');
                     this.shadowRoot.append(slot);
                 }
@@ -368,7 +376,9 @@ export const defineUserComponent = (componentList) => {
                      * Placeholder component
                      */
                     if (this.#isPlaceholder) {
-                        /** Get all attribute */
+                        /**
+                        Get all attribute
+                        */
                         [
                             this.#instanceName,
                             this.#staticPropsId,

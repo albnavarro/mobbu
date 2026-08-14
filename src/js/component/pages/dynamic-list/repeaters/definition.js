@@ -6,7 +6,9 @@ import { DynamicListRepeaterFunction } from './dynamic-list-repeater';
  */
 
 export const DynamicListRepeater = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DynamicListRepeaterType>} */
+    /**
+    @type {CreateComponentParams<import('./type').DynamicListRepeaterType>}
+    */
     ({
         tag: 'dynamic-list-repeater',
         component: DynamicListRepeaterFunction,

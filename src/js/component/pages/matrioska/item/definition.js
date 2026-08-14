@@ -8,7 +8,9 @@ import { MatrioskaItemFunction } from './matrioska-item';
  */
 
 export const MatrioskaItem = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').MatrioskaItemType>} */
+    /**
+    @type {CreateComponentParams<import('./type').MatrioskaItemType>}
+    */
     ({
         tag: 'matrioska-item',
         component: MatrioskaItemFunction,

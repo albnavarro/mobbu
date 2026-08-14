@@ -2,13 +2,17 @@ import { debugTreeName } from '@instanceName';
 import { MobJs } from '@mobJs';
 
 export const refreshDebugTree = () => {
-    /** @type {import('@mobJsType').UseMethodByName<import('./type').DebugTreeType>} */
+    /**
+    @type {import('@mobJsType').UseMethodByName<import('./type').DebugTreeType>}
+    */
     const methods = MobJs.useMethodByName(debugTreeName);
     methods?.refresh();
 };
 
 export const focusDebugTree = () => {
-    /** @type {import('@mobJsType').UseMethodByName<import('./type').DebugTreeType>} */
+    /**
+    @type {import('@mobJsType').UseMethodByName<import('./type').DebugTreeType>}
+    */
     const methods = MobJs.useMethodByName(debugTreeName);
     methods?.setFocus();
 };

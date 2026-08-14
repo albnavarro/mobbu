@@ -106,12 +106,16 @@ function getMinimalPeriod(numerator, denominator) {
     return 2 * Math.PI * d;
 }
 
-/** @type {import('./type').MathCommonAnimation} */
+/**
+@type {import('./type').MathCommonAnimation}
+*/
 export const mathRosaDiGrandi = (
     { targets, container, canvas } = {},
     ...args
 ) => {
-    /** @type {number[]} */
+    /**
+    @type {number[]}
+    */
     const [numerator, denominator, duration, staggerEach] = args;
 
     if (!targets || !container || !canvas)

@@ -8,9 +8,13 @@ import { mobStore } from '../store';
  * } from '../store/type'
  */
 
-/** @type {MobStoreReturnType<import('./type').EventStore>} */
+/**
+@type {MobStoreReturnType<import('./type').EventStore>}
+*/
 export const eventStore = mobStore(
-    /** @type {MobStoreParams<import('./type').EventStore>} */
+    /**
+    @type {MobStoreParams<import('./type').EventStore>}
+    */
     ({
         /**
          * Use passive event.

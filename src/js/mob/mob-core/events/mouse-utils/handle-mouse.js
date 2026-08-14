@@ -76,7 +76,9 @@ function handleMouse(eventType) {
             event,
         });
 
-        /** @type {EventTarget | null} */
+        /**
+        @type {EventTarget | null}
+        */
         const target = event.target;
 
         /**

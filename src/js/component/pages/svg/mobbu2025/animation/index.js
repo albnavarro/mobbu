@@ -2,7 +2,9 @@ import { isRtlDirection } from '@componentLibs/utils/site-direction';
 import { MobScroll } from '@mobMotion';
 import { MobSmoothScroller } from '@mobMotionPlugin';
 
-/** @type {import('../type').Mobbu2025Scroller} */
+/**
+@type {import('../type').Mobbu2025Scroller}
+*/
 export const mobbu2025Scroller = ({
     screenElement,
     scrollerElement,

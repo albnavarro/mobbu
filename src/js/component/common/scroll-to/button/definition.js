@@ -6,7 +6,9 @@ import { ScrollToButtonFunction } from './scroll-to-button';
  */
 
 export const ScrollToButton = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').ScrollToButtonType>} */
+    /**
+    @type {CreateComponentParams<import('./type').ScrollToButtonType>}
+    */
     ({
         tag: 'scroll-to-button',
         component: ScrollToButtonFunction,

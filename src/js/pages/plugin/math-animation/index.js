@@ -6,7 +6,9 @@ import { htmlObject, MobJs } from '@mobJs';
 import { MobMotionCore } from '@mobMotion';
 import { loadTextContent } from '@utils/utils';
 
-/** @type {import('@mobJsType').PageAsync} */
+/**
+@type {import('@mobJsType').PageAsync}
+*/
 export const mathAnimationRoute = async ({ props }) => {
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',
@@ -29,7 +31,9 @@ export const mathAnimationRoute = async ({ props }) => {
     const { names } = /** @type{{names: string[]}} */ (props);
     if (names.length > 4) console.warn('math layout, max item excedded');
 
-    /** Quicknav */
+    /**
+    Quicknav
+    */
     updateQuickNavState({
         active: true,
         prevRoute: '#plugin-dragger',

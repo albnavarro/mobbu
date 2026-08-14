@@ -12,26 +12,38 @@ import {
     UpdateMobPageScroll,
 } from '../page-scroll/page-scroller.js';
 
-/** @type {import('../../animation/tween/type.js').EaseTypes} */
+/**
+@type {import('../../animation/tween/type.js').EaseTypes}
+*/
 const defaultPreset = 'easeOutQuad';
 
-/** @type {MobTimeTween} */
+/**
+@type {MobTimeTween}
+*/
 const tween = new MobTimeTween({ ease: defaultPreset, data: { val: 0 } });
 
-/** @type {boolean} */
+/**
+@type {boolean}
+*/
 let isRunning = false;
 
-/** @type {boolean} */
+/**
+@type {boolean}
+*/
 let shouldUseOverflow = false;
 
-/** @type{() => void} */
+/**
+@type{() => void}
+*/
 const onComplete = () => {
     if (shouldUseOverflow) document.body.style.overflow = '';
     tween?.updateEase?.(defaultPreset);
     UnFreezeAndUPdateMobPageScroll();
 };
 
-/** @type{() => void} */
+/**
+@type{() => void}
+*/
 const stopTween = () => {
     if (!isRunning) return;
     tween.stop();

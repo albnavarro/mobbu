@@ -2,7 +2,9 @@
 
 import { htmlObject } from '@mobJs';
 
-/** @type {import('@mobJsType').MobComponent<import('./type').DynamicCounterType>} */
+/**
+@type {import('@mobJsType').MobComponent<import('./type').DynamicCounterType>}
+*/
 export const DynamicListCounterFunction = ({ getState, bindText }) => {
     const { parentListId } = getState();
 

@@ -8,7 +8,9 @@ import { Mobbu2025Function } from './mob2025';
  */
 
 export const Mobbu2025 = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').Mobbu2025>} */
+    /**
+    @type {CreateComponentParams<import('./type').Mobbu2025>}
+    */
     ({
         tag: 'mobbu-2025',
         component: Mobbu2025Function,

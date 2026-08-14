@@ -47,7 +47,9 @@ export const deepClone = (obj, hash = new WeakMap()) => {
      * Array
      */
     if (Array.isArray(obj)) {
-        /** @type {any[]} */
+        /**
+        @type {any[]}
+        */
         const clonedArray = [];
         hash.set(obj, clonedArray);
         for (const [index, item] of obj.entries()) {

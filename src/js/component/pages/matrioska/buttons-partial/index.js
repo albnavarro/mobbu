@@ -13,7 +13,9 @@ import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definitio
  * @import {Matrioska} from '../type'
  */
 
-/** @param {number} max */
+/**
+@param {number} max
+*/
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }

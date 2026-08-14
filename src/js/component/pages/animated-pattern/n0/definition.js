@@ -8,7 +8,9 @@ import { AnimatedPatternN0Function } from './animated-pattern-n0';
  */
 
 export const AnimatedPatternN0 = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').AnimatedPatternN0>} */
+    /**
+    @type {CreateComponentParams<import('./type').AnimatedPatternN0>}
+    */
     ({
         tag: 'animatedpattern-n0',
         component: AnimatedPatternN0Function,

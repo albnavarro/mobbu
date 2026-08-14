@@ -12,7 +12,9 @@ import {
     getOffsetCanvas,
 } from '@utils/canvas-utils';
 
-/** @type {import('../type').AsyncTimelineAnimation} */
+/**
+@type {import('../type').AsyncTimelineAnimation}
+*/
 export const asyncTimelineanimation = ({ canvas, disableOffcanvas }) => {
     /**
      * Check if offscrennCanvas can be used.

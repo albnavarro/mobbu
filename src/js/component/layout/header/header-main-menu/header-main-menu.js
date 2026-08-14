@@ -36,7 +36,9 @@ const getItems = ({ staticProps }) => {
     });
 };
 
-/** @type {MobComponent} */
+/**
+@type {MobComponent}
+*/
 export const HeaderMainMenuFunction = ({
     staticProps,
     getSelfProxi,

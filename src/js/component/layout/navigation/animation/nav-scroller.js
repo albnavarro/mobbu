@@ -17,7 +17,9 @@ export const initNavigationScoller = ({ root }) => {
         root.querySelector('.js-nav-scroll')
     );
     const percentEl =
-        /** @type {HTMLElement} */
+        /**
+        @type {HTMLElement}
+        */
         (root.querySelector('.js-nav-percent'));
     const setDelay = 200;
 

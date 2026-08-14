@@ -209,7 +209,9 @@ const getControls = ({ delegateEvents, bindObject, proxi }) => {
     });
 };
 
-/** @type {MobComponent<import('./type').Move3DPage>} */
+/**
+@type {MobComponent<import('./type').Move3DPage>}
+*/
 export const Move3DPageFunction = ({
     bindProps,
     delegateEvents,
@@ -240,7 +242,9 @@ export const Move3DPageFunction = ({
             {
                 component: Move3D,
                 modules: bindProps(
-                    /** @returns {ReturnBindProps<import('../../common/move-3d/type').Move3DType>} */
+                    /**
+                    @returns {ReturnBindProps<import('../../common/move-3d/type').Move3DType>}
+                    */
                     () => ({
                         shape: proxi.data,
                         xDepth: proxi.xDepth,

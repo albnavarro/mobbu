@@ -13,7 +13,9 @@ import {
     isRoundRectSupported,
 } from '@utils/canvas-utils';
 
-/** @type {import('../type').AnimatedPatternN0Animation} */
+/**
+@type {import('../type').AnimatedPatternN0Animation}
+*/
 export const animatedPatternN0Animation = ({
     canvas,
     numberOfRow,

@@ -7,7 +7,9 @@ import { mathPairAnimation } from './pair-animation';
 import { fakeAnimation } from './animations/fake-animation';
 import { MobCore } from '@mobCore';
 
-/** @type {MobComponent<import('./type').MathAnimationType>} */
+/**
+@type {MobComponent<import('./type').MathAnimationType>}
+*/
 export const MathAnimationFunction = ({
     getSelfProxi,
     setRef,

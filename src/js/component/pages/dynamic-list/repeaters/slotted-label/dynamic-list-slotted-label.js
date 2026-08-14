@@ -5,7 +5,9 @@ import { htmlObject } from '@mobJs';
  * @import {DynamicListSlottedLabelType} from './type'
  */
 
-/** @type {MobComponent<DynamicListSlottedLabelType>} * */
+/**
+@type {MobComponent<DynamicListSlottedLabelType>} *
+*/
 export const DynamicListSlottedLabelFunction = ({ bindText }) => {
     return htmlObject({
         className: 'c-dynamic-list-slotted-label',

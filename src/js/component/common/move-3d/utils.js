@@ -22,9 +22,13 @@ export const getMove3DDimension = ({ element }) => {
     };
 };
 
-/** @type{(arg0: {childrenId: string} ) => ((arg0: {delta:number, factor:number}) => void)[]} */
+/**
+@type{(arg0: {childrenId: string} ) => ((arg0: {delta:number, factor:number}) => void)[]}
+*/
 export const getChildrenMethod = ({ childrenId }) => {
-    /** @type {UseMethodArrayByName<import('./move-3d-item/type').Move3DItem>} */
+    /**
+    @type {UseMethodArrayByName<import('./move-3d-item/type').Move3DItem>}
+    */
     const methods = MobJs.useMethodArrayByName(childrenId);
 
     return methods.map((method) => {

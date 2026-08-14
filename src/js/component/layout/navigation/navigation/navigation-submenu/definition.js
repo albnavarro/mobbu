@@ -6,7 +6,9 @@ import { NavigationSubmenuFunction } from './navigation-submenu';
  */
 
 export const NavigationSubmenu = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').NavigationSubmenuType>} */
+    /**
+    @type {CreateComponentParams<import('./type').NavigationSubmenuType>}
+    */
     ({
         tag: 'mob-navigation-submenu',
         component: NavigationSubmenuFunction,

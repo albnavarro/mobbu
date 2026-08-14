@@ -26,7 +26,9 @@ function selectAll(root) {
  * @returns {SlotComponent[]}
  */
 export const queryGenericSlot = (node) => {
-    /** @type {SlotComponent[]} */
+    /**
+    @type {SlotComponent[]}
+    */
     let result = [];
     const root = node || document.body;
 

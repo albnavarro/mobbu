@@ -78,7 +78,9 @@ const shouldCloseSuggestion = ({ target }) => {
     shouldCloseSearchSuggestion(target);
 };
 
-/** @type {MobComponent<import('./type').SearchOverlay>} */
+/**
+@type {MobComponent<import('./type').SearchOverlay>}
+*/
 export const SearchOverlayFunction = ({
     getSelfProxi,
     delegateEvents,
@@ -168,7 +170,9 @@ export const SearchOverlayFunction = ({
                 component: SearchOverlayList,
                 instanceName: searchOverlayList,
                 modules: staticProps(
-                    /** @type {import('./list/type').SearchOverlayList['props']} */
+                    /**
+                    @type {import('./list/type').SearchOverlayList['props']}
+                    */
                     ({
                         updatePrentSearchKey: (value) => {
                             proxi.currentSearch = value;

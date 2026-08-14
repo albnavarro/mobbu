@@ -11,7 +11,9 @@ import { DebugFilterListItem } from './item/definition';
  * @import {DebugFilterListItemType} from './item/type'
  */
 
-/** @type {import('./type').DebugInitScroller} */
+/**
+@type {import('./type').DebugInitScroller}
+*/
 const initScroller = async ({ getRef }) => {
     await MobJs.tick();
 
@@ -119,7 +121,9 @@ const getDataFiltered = ({ testString }) => {
     }));
 };
 
-/** @type {MobComponent<import('./type').DebugFilterListType>} */
+/**
+@type {MobComponent<import('./type').DebugFilterListType>}
+*/
 export const DebugFilterListFunction = ({
     onMount,
     setRef,
@@ -134,16 +138,24 @@ export const DebugFilterListFunction = ({
 }) => {
     const proxi = getSelfProxi();
 
-    /** @type {() => void} */
+    /**
+    @type {() => void}
+    */
     let destroy;
 
-    /** @type {() => void} */
+    /**
+    @type {() => void}
+    */
     let refresh;
 
-    /** @type {() => void} */
+    /**
+    @type {() => void}
+    */
     let updateScroller;
 
-    /** @type {(arg0: number) => void} */
+    /**
+    @type {(arg0: number) => void}
+    */
     let move;
 
     /**
@@ -246,7 +258,9 @@ export const DebugFilterListFunction = ({
                         })
                     ),
                     bindProps(
-                        /** @returns {ReturnBindProps<DebugFilterListItemType>} */
+                        /**
+                        @returns {ReturnBindProps<DebugFilterListItemType>}
+                        */
                         () => ({
                             tag: current.value.tag,
                         })

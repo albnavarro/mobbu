@@ -8,7 +8,9 @@ import { Move3DPageFunction } from './move-3d-page';
  */
 
 export const Move3DPage = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').Move3DPage>} */
+    /**
+    @type {CreateComponentParams<import('./type').Move3DPage>}
+    */
     ({
         tag: 'move-3d-page',
         component: Move3DPageFunction,

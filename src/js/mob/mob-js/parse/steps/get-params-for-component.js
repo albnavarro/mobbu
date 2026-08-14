@@ -398,7 +398,9 @@ export const getParamsForComponentFunction = ({
                 observe: observeParsed,
             });
 
-            /** @type{Record<string, any>[]} */
+            /**
+            @type{Record<string, any>[]}
+            */
             const initialState = getState()?.[observeParsed];
             const currentUnique = hasKey
                 ? getUnivoqueByKey({ data: initialState, key })

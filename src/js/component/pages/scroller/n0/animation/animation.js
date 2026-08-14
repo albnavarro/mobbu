@@ -13,7 +13,9 @@ import {
     getOffsetCanvas,
 } from '@utils/canvas-utils';
 
-/** @type {import('../type').ScrollerN0Animation} */
+/**
+@type {import('../type').ScrollerN0Animation}
+*/
 export const scrollerN0Animation = ({
     canvas,
     canvasScroller,

@@ -11,7 +11,9 @@ import { shouldUsebenchMarkProxi } from '../strategy';
  * @import {BenchMarkFakeComponentType} from '../fake-component/type'
  */
 
-/** @type {MobComponent<import('../type').BenchMark>} */
+/**
+@type {MobComponent<import('../type').BenchMark>}
+*/
 export const BenchMarkRepeatWithKyFunctionNested = ({
     onMount,
     delegateEvents,
@@ -56,7 +58,9 @@ export const BenchMarkRepeatWithKyFunctionNested = ({
                                               component: BenchMarkFakeComponent,
                                               modules: [
                                                   bindProps(
-                                                      /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                                                      /**
+                                                      @returns {ReturnBindProps<BenchMarkFakeComponentType>}
+                                                      */
                                                       () => ({
                                                           index: current.index,
                                                           label: current.value
@@ -72,7 +76,9 @@ export const BenchMarkRepeatWithKyFunctionNested = ({
                                               modules: [
                                                   bindProps({
                                                       observe: ['counter'],
-                                                      /** @returns {ReturnBindProps<BenchMarkFakeComponentType>} */
+                                                      /**
+                                                      @returns {ReturnBindProps<BenchMarkFakeComponentType>}
+                                                      */
                                                       props: (
                                                           { counter },
                                                           value,

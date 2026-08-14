@@ -33,7 +33,9 @@ const getBio = () => {
     });
 };
 
-/** @type {MobComponent<import('./type').Footer>} */
+/**
+@type {MobComponent<import('./type').Footer>}
+*/
 export const FooterFunction = ({
     delegateEvents,
     getSelfProxi,

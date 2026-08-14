@@ -6,7 +6,9 @@ import { FooterFunction } from './footer';
  */
 
 export const Footer = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').Footer>} */
+    /**
+    @type {CreateComponentParams<import('./type').Footer>}
+    */
     ({
         tag: 'mob-footer',
         component: FooterFunction,

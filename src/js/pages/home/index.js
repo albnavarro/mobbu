@@ -53,7 +53,9 @@ export const home = async () => {
             {
                 component: HomeComponent,
                 modules: MobJs.staticProps(
-                    /** @type {import('@pagesComponent/homepage/type').HomeComponent['props']} */
+                    /**
+                    @type {import('@pagesComponent/homepage/type').HomeComponent['props']}
+                    */
                     ({
                         svg: [
                             due,

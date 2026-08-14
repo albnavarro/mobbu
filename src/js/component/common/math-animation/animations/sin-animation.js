@@ -4,7 +4,9 @@ import { MobCore } from '@mobCore';
 import { outerHeight, outerWidth } from '@mobCoreUtils';
 import { MobTimeline, MobTween } from '@mobMotion';
 
-/** @type {import('./type').MathCommonAnimation} */
+/**
+@type {import('./type').MathCommonAnimation}
+*/
 export const mathSin = ({ targets, container, canvas } = {}) => {
     if (!targets || !container || !canvas)
         return {

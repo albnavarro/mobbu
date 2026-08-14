@@ -1,6 +1,8 @@
 import { htmlObject } from '@mobJs';
 
-/** @type {import('@mobJsType').MobComponent<import('./type').ScrollToButtonType>} */
+/**
+@type {import('@mobJsType').MobComponent<import('./type').ScrollToButtonType>}
+*/
 export const ScrollToButtonFunction = ({ bindEffect, getSelfProxi }) => {
     const proxi = getSelfProxi();
     const sectionClass = proxi.isSection ? 'is-section' : '';

@@ -10,9 +10,6 @@ const config = {
     bracketSpacing: true,
     arrowParens: 'always',
     printWidth: 80,
-    plugins: ['prettier-plugin-jsdoc'],
-    jsdocPrintWidth: 120,
-    jsdocCommentLineStrategy: 'keep',
 };
 
 export default config;

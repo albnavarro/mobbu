@@ -39,7 +39,9 @@ const createTabHandler = ({ getRef }) => {
     );
 };
 
-/** @type {MobComponent<import('./type').DocContainerType>} */
+/**
+@type {MobComponent<import('./type').DocContainerType>}
+*/
 export const DocContainerFunction = ({
     getSelfProxi,
     getBoundedProxi,

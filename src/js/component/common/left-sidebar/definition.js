@@ -6,7 +6,9 @@ import { LightSidebarFunction } from './left-sidebar';
  */
 
 export const LeftSidebar = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').LeftSidebar>} */
+    /**
+    @type {CreateComponentParams<import('./type').LeftSidebar>}
+    */
     ({
         tag: 'left-sidebar',
         component: LightSidebarFunction,

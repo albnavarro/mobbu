@@ -24,7 +24,9 @@ export const animatedPatternN1 = async () => {
         });
     }
 
-    /** Quicknav */
+    /**
+    Quicknav
+    */
     updateQuickNavState({
         active: true,
         prevRoute: '#animatedPatternN0',

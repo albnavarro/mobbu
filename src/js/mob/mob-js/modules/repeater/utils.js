@@ -168,7 +168,9 @@ export const chunkIdsByCurrentValue = ({
     const previousSet = new Set(previousChildren);
     const hasPrevious = previousChildren.length > 0;
 
-    /** @type{Record<string, any>} */
+    /**
+    @type{Record<string, any>}
+    */
     const groups = {};
 
     for (const child of children) {

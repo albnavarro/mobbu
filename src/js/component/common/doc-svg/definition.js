@@ -6,7 +6,9 @@ import { DocSvgFunction } from './doc-svg';
  */
 
 export const DocSvg = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DocSvg>} */
+    /**
+    @type {CreateComponentParams<import('./type').DocSvg>}
+    */
     ({
         tag: 'doc-svg',
         component: DocSvgFunction,

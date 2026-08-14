@@ -8,7 +8,9 @@ import { LayoutLinksFunction } from './layout-links';
  */
 
 export const LayoutLinks = MobJs.createComponent(
-    /** @type{CreateComponentParams<import ('./type').LayoutLinks>} */
+    /**
+    @type{CreateComponentParams<import ('./type').LayoutLinks>}
+    */
     ({
         tag: 'layout-links',
         component: LayoutLinksFunction,

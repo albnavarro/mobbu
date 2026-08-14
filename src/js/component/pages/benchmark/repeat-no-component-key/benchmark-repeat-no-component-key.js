@@ -6,7 +6,9 @@ import { benchMarkVanillaGarbagePartial } from '../partials/bench-mark-vanilla-g
  * @import {MobComponent} from '@mobJsType'
  */
 
-/** @type {MobComponent<import('../type').BenchMark>} */
+/**
+@type {MobComponent<import('../type').BenchMark>}
+*/
 export const BenchMarkRepeatNoComponentWithKeyFunction = ({
     onMount,
     delegateEvents,

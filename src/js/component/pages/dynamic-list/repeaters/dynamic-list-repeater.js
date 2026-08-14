@@ -43,7 +43,9 @@ function getRepeaterCard({
                         })
                     ),
                     bindProps(
-                        /** @returns {ReturnBindProps<DynamicListCardType>} */
+                        /**
+                        @returns {ReturnBindProps<DynamicListCardType>}
+                        */
                         () => ({
                             counter: proxi.counter,
                             label: current.value.label,
@@ -60,7 +62,9 @@ function getRepeaterCard({
                     component: DynamicListSlottedLabel,
                     slotPosition: 'card-label-slot',
                     modules: bindProps(
-                        /** @returns {ReturnBindProps<DynamicListSlottedLabelType>} */
+                        /**
+                        @returns {ReturnBindProps<DynamicListSlottedLabelType>}
+                        */
                         () => ({
                             label: `label: ${current.value.label} <br/> counter: ${proxi.counter}`,
                         })
@@ -71,7 +75,9 @@ function getRepeaterCard({
     });
 }
 
-/** @type {MobComponent<DynamicListRepeaterType>} */
+/**
+@type {MobComponent<DynamicListRepeaterType>}
+*/
 export const DynamicListRepeaterFunction = ({
     staticProps,
     bindProps,

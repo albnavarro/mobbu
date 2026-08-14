@@ -1,6 +1,8 @@
 import { MobCore } from '@mobCore';
 
-/** @type {number} */
+/**
+@type {number}
+*/
 let counter = 0;
 
 let track = /** @type {HTMLElement} */ (

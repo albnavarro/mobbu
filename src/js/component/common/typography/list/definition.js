@@ -6,7 +6,9 @@ import { ListFunction } from './list';
  */
 
 export const List = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').List>} */
+    /**
+    @type {CreateComponentParams<import('./type').List>}
+    */
     ({
         tag: 'mob-list',
         component: ListFunction,

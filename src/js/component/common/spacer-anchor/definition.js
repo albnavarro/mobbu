@@ -6,7 +6,9 @@ import { SpacerAnchorFunction } from './spacer-anchor';
  */
 
 export const SpacerAnchor = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').SpacerAnchor>} */
+    /**
+    @type {CreateComponentParams<import('./type').SpacerAnchor>}
+    */
     ({
         tag: 'mob-spacer',
         component: SpacerAnchorFunction,

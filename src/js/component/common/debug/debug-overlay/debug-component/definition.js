@@ -9,7 +9,9 @@ import { DebugComponentFunction } from './debug-component';
  */
 
 export const DebugComponent = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').DebugComponentType>} */
+    /**
+    @type {CreateComponentParams<import('./type').DebugComponentType>}
+    */
     ({
         tag: 'debug-component',
         component: DebugComponentFunction,

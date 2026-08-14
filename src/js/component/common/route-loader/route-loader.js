@@ -6,7 +6,9 @@
 import { htmlObject, MobJs } from '@mobJs';
 import { MobTween } from '@mobMotion';
 
-/** @type {MobComponent<RouteLoader>} */
+/**
+@type {MobComponent<RouteLoader>}
+*/
 export const RouteLoaderFunction = ({
     onMount,
     getSelfProxi,

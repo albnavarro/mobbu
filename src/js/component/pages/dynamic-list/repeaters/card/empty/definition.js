@@ -8,7 +8,9 @@ import { DynamicListEmptyFunction } from './dynamic-list-empty';
  */
 
 export const DynamicListEmpty = MobJs.createComponent(
-    /** @type {CreateComponentParams<any>} */
+    /**
+    @type {CreateComponentParams<any>}
+    */
     ({
         tag: 'dynamic-list-empty',
         component: DynamicListEmptyFunction,

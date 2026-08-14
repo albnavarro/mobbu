@@ -13,7 +13,9 @@ import { DynamicListButton } from '@pagesComponent/dynamic-list/button/definitio
  * @import {Matrioska} from './type'
  */
 
-/** @type {MobComponent<Matrioska>} */
+/**
+@type {MobComponent<Matrioska>}
+*/
 export const MatrioskaRepeatFunction = ({
     delegateEvents,
     updateState,
@@ -43,7 +45,9 @@ export const MatrioskaRepeatFunction = ({
                                     })
                                 ),
                                 bindProps(
-                                    /** @returns {ReturnBindProps<MatrioskaItemType>} */
+                                    /**
+                                    @returns {ReturnBindProps<MatrioskaItemType>}
+                                    */
                                     () => ({
                                         key: String(current.value.key),
                                         value: String(current.value.value),

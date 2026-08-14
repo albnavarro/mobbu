@@ -64,7 +64,9 @@ export const parseComponentsWhile = async ({
      */
     const functionToFireAtTheEnd = [];
 
-    /** Current component to parse */
+    /**
+    Current component to parse
+    */
     let componentToParse = getFirstUserChildPlaceholder(element);
 
     /**

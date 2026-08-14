@@ -20,7 +20,9 @@ const getItemClass = (index) => {
     return `link index-${index} ${index % 2 ? 'is-odd' : 'is-even'} `;
 };
 
-/** @type {MobComponent<import('./type').LayoutLinks>} */
+/**
+@type {MobComponent<import('./type').LayoutLinks>}
+*/
 export const LayoutLinksFunction = ({
     setRef,
     getRef,
@@ -31,10 +33,14 @@ export const LayoutLinksFunction = ({
 }) => {
     const proxi = getSelfProxi();
 
-    /** @type {() => void} */
+    /**
+    @type {() => void}
+    */
     let destroy;
 
-    /** @type {() => void} */
+    /**
+    @type {() => void}
+    */
     let refresh;
 
     onMount(() => {

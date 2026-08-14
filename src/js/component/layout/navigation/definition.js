@@ -6,7 +6,9 @@ import { NavigationContainerFunction } from './nav-container';
  */
 
 export const NavigationContainer = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').NavigationContainer>} */
+    /**
+    @type {CreateComponentParams<import('./type').NavigationContainer>}
+    */
     ({
         tag: 'mob-navigation-container',
         component: NavigationContainerFunction,

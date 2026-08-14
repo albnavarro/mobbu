@@ -6,7 +6,9 @@ import { H1StandaloneFunction } from './h1-standalone';
  */
 
 export const H1Standalone = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').H1Standalone>} */
+    /**
+    @type {CreateComponentParams<import('./type').H1Standalone>}
+    */
     ({
         tag: 'h1-standalone',
         component: H1StandaloneFunction,

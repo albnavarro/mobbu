@@ -24,7 +24,9 @@ export const caterpillarN2 = async () => {
         });
     }
 
-    /** Quicknav */
+    /**
+    Quicknav
+    */
     updateQuickNavState({
         active: true,
         prevRoute: '#scrollerN1',

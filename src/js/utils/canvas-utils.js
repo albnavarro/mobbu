@@ -82,7 +82,9 @@ export const createGrid = ({
     cellHeight,
     gutter,
 }) => {
-    /** @type {import('./type').GridType} */
+    /**
+    @type {import('./type').GridType}
+    */
     const initValue = { row: 0, col: -1, items: [] };
 
     return Array.from({

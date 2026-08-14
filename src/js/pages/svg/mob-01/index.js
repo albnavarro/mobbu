@@ -79,7 +79,9 @@ export const lettering01 = async () => {
         });
     });
 
-    /** Quicknav */
+    /**
+    Quicknav
+    */
     updateQuickNavState({
         active: true,
         prevRoute: '#rdp-01',

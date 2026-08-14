@@ -6,7 +6,9 @@ import { NavigationButtonFunction } from './navigation-button';
  */
 
 export const NavigationButton = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').NavigationButtonType>} */
+    /**
+    @type {CreateComponentParams<import('./type').NavigationButtonType>}
+    */
     ({
         tag: 'mob-navigation-button',
         component: NavigationButtonFunction,

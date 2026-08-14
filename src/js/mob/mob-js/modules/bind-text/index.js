@@ -181,7 +181,9 @@ const createBindTextWatcher = ({ id, render, props, element }) => {
      */
     let isWatchRunning = false;
 
-    /** @type {WeakRef<HTMLElement> | null} */
+    /**
+    @type {WeakRef<HTMLElement> | null}
+    */
     let ref = new WeakRef(element);
 
     /**

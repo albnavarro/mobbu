@@ -1,35 +1,53 @@
 import { MobMotionCore, MobTween } from '../..';
 import { MobCore } from '../../../mob-core';
 
-/** @type {number} */
+/**
+@type {number}
+*/
 let windowInnerheight = window.innerHeight;
 
-/** @type {number} */
+/**
+@type {number}
+*/
 let windowOffsetheight = document.documentElement.scrollHeight;
 
 let isActive = false;
 
 let shouldUsePrevent = true;
 
-/** @type {number} */
+/**
+@type {number}
+*/
 let lastScrollValue = window.scrollY;
 
-/** @type {boolean} */
+/**
+@type {boolean}
+*/
 let shouldUseNativeScroll = true;
 
-/** @type {boolean} */
+/**
+@type {boolean}
+*/
 let isFreezed = false;
 
-/** @type{() => void} */
+/**
+@type{() => void}
+*/
 let destroy = () => {};
 
-/** @type{() => void} */
+/**
+@type{() => void}
+*/
 let stop = () => {};
 
-/** @type{() => void} */
+/**
+@type{() => void}
+*/
 let update = () => {};
 
-/** @type {HTMLElement | undefined} */
+/**
+@type {HTMLElement | undefined}
+*/
 let rootElementToObserve;
 
 /**
@@ -57,7 +75,9 @@ const addWhellingClass = () => {
     document.body.classList.add('is-whelling');
 };
 
-/** @type {import('./type').MobPageScroller} */
+/**
+@type {import('./type').MobPageScroller}
+*/
 const MobPageScroller = ({ velocity, rootElement }) => {
     /**
      * Necessary.
@@ -256,7 +276,9 @@ const MobPageScroller = ({ velocity, rootElement }) => {
     };
 };
 
-/** @type{(arg0?: {velocity?: number, rootElement?: HTMLElement} ) => void} */
+/**
+@type{(arg0?: {velocity?: number, rootElement?: HTMLElement} ) => void}
+*/
 export const InitMobPageScroll = ({
     velocity = 100,
     rootElement = document.createElement('div'),

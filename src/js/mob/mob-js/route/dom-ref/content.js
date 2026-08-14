@@ -1,7 +1,11 @@
-/** @type {string} */
+/**
+@type {string}
+*/
 let contentAttributeId = '';
 
-/** @type {HTMLElement | null} */
+/**
+@type {HTMLElement | null}
+*/
 let DOMContentElement;
 
 /**
@@ -21,10 +25,14 @@ export const setContentId = ({ contentId = '' }) => {
  */
 export const getContentId = () => contentAttributeId;
 
-/** @returns {void} */
+/**
+@returns {void}
+*/
 export const setContentElement = () => {
     DOMContentElement = document?.querySelector(contentAttributeId);
 };
 
-/** @returns {HTMLElement | null} */
+/**
+@returns {HTMLElement | null}
+*/
 export const getContentElement = () => DOMContentElement;

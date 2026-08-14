@@ -4,7 +4,9 @@ import { htmlObject } from '@mobJs';
  * @import {MobComponent} from '@mobJsType'
  */
 
-/** @type {MobComponent<import('./type').DetailOffcanvasType>} */
+/**
+@type {MobComponent<import('./type').DetailOffcanvasType>}
+*/
 export const DetailOffCanvasFunction = ({ setRef }) => {
     return htmlObject({
         className: 'c-detail-offcanvas',

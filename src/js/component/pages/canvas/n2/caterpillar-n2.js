@@ -103,7 +103,9 @@ function getControls({ proxi, delegateEvents, bindObject }) {
     return [...buttons, range];
 }
 
-/** @type {MobComponent<CaterpillarN2>} */
+/**
+@type {MobComponent<CaterpillarN2>}
+*/
 export const CaterpillarN2Function = ({
     onMount,
     setRef,
@@ -118,7 +120,9 @@ export const CaterpillarN2Function = ({
     onMount(({ element }) => {
         const { canvas } = getRef();
 
-        /** @type {() => void} */
+        /**
+        @type {() => void}
+        */
         let destroy;
 
         /**

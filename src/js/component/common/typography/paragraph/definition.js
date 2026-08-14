@@ -6,7 +6,9 @@ import { ParagraphFunction } from './paragraph';
  */
 
 export const Paragraph = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').Paragraph>} */
+    /**
+    @type {CreateComponentParams<import('./type').Paragraph>}
+    */
     ({
         tag: 'mob-paragraph',
         component: ParagraphFunction,

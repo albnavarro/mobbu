@@ -45,7 +45,9 @@ export const generateTreeComponents = ({
                           })
                       ),
                       bindProps(
-                          /** @returns {ReturnBindProps<import('./item/type').DebugTreeItemType>} */
+                          /**
+                          @returns {ReturnBindProps<import('./item/type').DebugTreeItemType>}
+                          */
                           () => ({
                               focusable: proxi?.isOpen,
                           })

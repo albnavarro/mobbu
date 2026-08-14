@@ -7,13 +7,17 @@ import { MobJs } from '@mobJs';
  * @param {boolean} params.setFocus
  */
 export const refreshFilterList = ({ testString, setFocus = false }) => {
-    /** @type {import('@mobJsType').UseMethodByName<import('./type').DebugFilterListType>} */
+    /**
+    @type {import('@mobJsType').UseMethodByName<import('./type').DebugFilterListType>}
+    */
     const methods = MobJs.useMethodByName(debugFilterListName);
     methods?.refreshList?.({ testString, setFocus });
 };
 
 export const focusFilterList = () => {
-    /** @type {import('@mobJsType').UseMethodByName<import('./type').DebugFilterListType>} */
+    /**
+    @type {import('@mobJsType').UseMethodByName<import('./type').DebugFilterListType>}
+    */
     const methods = MobJs.useMethodByName(debugFilterListName);
     methods?.setFocus();
 };

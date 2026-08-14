@@ -96,7 +96,9 @@ const getList = ({ selfProxi, boundedProxi, bindEffect, delegateEvents }) => {
     });
 };
 
-/** @type {MobComponent<LeftSidebar>} */
+/**
+@type {MobComponent<LeftSidebar>}
+*/
 export const LightSidebarFunction = ({
     getSelfProxi,
     getBoundedProxi,

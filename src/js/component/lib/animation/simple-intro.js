@@ -3,7 +3,9 @@
 import { MobTimeline, MobTween } from '@mobMotion';
 import { navigationStore } from '@stores/navigation';
 
-/** @type {import('./type').SimpleIntroAnimation} */
+/**
+@type {import('./type').SimpleIntroAnimation}
+*/
 export const simpleIntroAnimation = ({ refs }) => {
     let introTween = MobTween.createTimeTween({
         data: { scale: 0 },

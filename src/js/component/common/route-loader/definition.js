@@ -5,7 +5,9 @@ import { RouteLoaderFunction } from './route-loader';
  */
 
 export const RouteLoader = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').RouteLoader>} */
+    /**
+    @type {CreateComponentParams<import('./type').RouteLoader>}
+    */
     ({
         tag: 'route-loader',
         component: RouteLoaderFunction,

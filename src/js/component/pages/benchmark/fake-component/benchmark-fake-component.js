@@ -6,7 +6,9 @@ import { htmlObject } from '@mobJs';
  * @import {MobComponent} from '@mobJsType'
  */
 
-/** @type {MobComponent<import('./type').BenchMarkFakeComponentType>} */
+/**
+@type {MobComponent<import('./type').BenchMarkFakeComponentType>}
+*/
 export const BenchMarkFakeComponentFunction = ({
     getSelfProxi,
     bindObject,

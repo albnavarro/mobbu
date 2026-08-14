@@ -25,7 +25,9 @@ function titleHandler() {
     scrollToTopNav();
 }
 
-/** @type {MobComponent<import('./type').Header>} */
+/**
+@type {MobComponent<import('./type').Header>}
+*/
 export const HeaderFunction = ({
     delegateEvents,
     bindEffect,

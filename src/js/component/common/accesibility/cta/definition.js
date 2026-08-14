@@ -6,7 +6,9 @@ import { AccessibilityButtonFunction } from './accessibility-button';
  */
 
 export const AccessibilityButton = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').AccessibilityCtaType>} */
+    /**
+     * @type {CreateComponentParams<import('./type').AccessibilityCtaType>}
+     */
     ({
         tag: 'accessibility-button',
         component: AccessibilityButtonFunction,

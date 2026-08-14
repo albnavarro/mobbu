@@ -2,7 +2,9 @@ import { createUnit3D } from '../utils';
 
 const { get3dItemUnit } = createUnit3D({ ratio: 1980 });
 
-/** @type {import('../type').Move3DChildren[]} */
+/**
+@type {import('../type').Move3DChildren[]}
+*/
 export const move3DShape1 = [
     {
         props: {

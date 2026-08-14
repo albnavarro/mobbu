@@ -6,7 +6,9 @@ import { repeaterTick } from '../../queque/tick-repeater';
 import { getInvalidateObservedByComponentid } from '../invalidate/action/get/get-invalidate-observed-by-component-id';
 import { getRepeaterObservedByComponentid } from '../repeater/action/get/get-repeater-observed-by-component-id';
 
-/** @type {import('./type').BindEffectMap} */
+/**
+@type {import('./type').BindEffectMap}
+*/
 export const bindEffectMap = new Map();
 
 /**
@@ -45,7 +47,9 @@ const getAutoBind = ({ toggleClass, toggleStyle, toggleAttribute }) => {
  * @type {import('./type').BindEffectSet}
  */
 export const setBindEffect = ({ data, id }) => {
-    /** @type {import('./type').BindEffectObject<any>[]} */
+    /**
+    @type {import('./type').BindEffectObject<any>[]}
+    */
     const dataToArray = MobCore.checkType(Array, data) ? data : [data];
 
     const dataBindToArray = dataToArray.map(
@@ -209,7 +213,9 @@ const applyAttribute = ({ ref, data }) => {
  * @returns {void}
  */
 const watchBindEffect = ({ data, element }) => {
-    /** @type {WeakRef<HTMLElement> | null} */
+    /**
+    @type {WeakRef<HTMLElement> | null}
+    */
     let ref = new WeakRef(element);
 
     const { parentId: id } = data;

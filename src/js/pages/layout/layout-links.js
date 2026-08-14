@@ -4,7 +4,9 @@ import { LayoutLinks } from '@pagesComponent/layout-links/definition';
 import { MobMotionCore } from '@mobMotion';
 import { OnlyTablet } from '@commonComponent/only-tablet/definition';
 
-/** @type {import('@mobJsType').PageAsync} */
+/**
+@type {import('@mobJsType').PageAsync}
+*/
 export const layoutLinksPage = async ({ props }) => {
     if (MobMotionCore.mq('max', 'tablet')) {
         return htmlObject({
@@ -24,7 +26,9 @@ export const layoutLinksPage = async ({ props }) => {
         content: {
             component: LayoutLinks,
             modules: MobJs.staticProps(
-                /** @type {import('@pagesComponent/layout-links/type').LayoutLinks['props']} */
+                /**
+                @type {import('@pagesComponent/layout-links/type').LayoutLinks['props']}
+                */
                 ({
                     title: data.title,
                     items: data.items,

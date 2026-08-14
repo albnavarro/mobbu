@@ -6,7 +6,9 @@ import { MathAnimationFunction } from './math-animation';
  */
 
 export const MathAnimation = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').MathAnimationType>} */
+    /**
+    @type {CreateComponentParams<import('./type').MathAnimationType>}
+    */
     ({
         tag: 'math-animation',
         component: MathAnimationFunction,

@@ -58,7 +58,9 @@ const getList = ({ items, links, delegateEvents }) => {
           );
 };
 
-/** @type {MobComponent<List>} */
+/**
+@type {MobComponent<List>}
+*/
 export const ListFunction = ({ getState, delegateEvents }) => {
     const { style, color, items, links } = getState();
 

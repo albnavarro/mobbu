@@ -7,7 +7,9 @@ import { MobCore } from '@mobCore';
 import { htmlObject, MobJs } from '@mobJs';
 import { navigationStore } from '@stores/navigation';
 
-/** @type {MobComponent<NavigationButtonType>} */
+/**
+@type {MobComponent<NavigationButtonType>}
+*/
 export const NavigationButtonFunction = ({
     delegateEvents,
     getSelfProxi,

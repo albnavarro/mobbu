@@ -8,7 +8,9 @@ import { RosaDiGrandiPageFunction } from './rosa-di-grandi-page';
  */
 
 export const RosaDiGrandiPage = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').RosaDiGrandiPage>} */
+    /**
+    @type {CreateComponentParams<import('./type').RosaDiGrandiPage>}
+    */
     ({
         tag: 'rosa-di-grandi-page',
         component: RosaDiGrandiPageFunction,

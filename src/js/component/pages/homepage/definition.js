@@ -9,7 +9,9 @@ import { mqStore } from '@stores/mq';
  */
 
 export const HomeComponent = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').HomeComponent>} */
+    /**
+    @type {CreateComponentParams<import('./type').HomeComponent>}
+    */
     ({
         tag: 'home-component',
         component: HomeComponentFunction,

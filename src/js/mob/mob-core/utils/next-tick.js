@@ -1,4 +1,6 @@
-/** @type{Set<() => any>} */
+/**
+@type{Set<() => any>}
+*/
 const settimeOutQueque = new Set();
 
 /**
@@ -19,7 +21,9 @@ export const useNextLoop = (fn) => {
     }
 };
 
-/** @type{(() => void)[]} */
+/**
+@type{(() => void)[]}
+*/
 // const queue = [];
 // let size = 0;
 // let scheduled = false;

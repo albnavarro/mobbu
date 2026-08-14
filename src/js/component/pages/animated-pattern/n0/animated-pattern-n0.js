@@ -71,7 +71,9 @@ function getControls({ delegateEvents, bindEffect, proxi, getRef }) {
     });
 }
 
-/** @type {MobComponent<AnimatedPatternN0>} */
+/**
+@type {MobComponent<AnimatedPatternN0>}
+*/
 export const AnimatedPatternN0Function = ({
     onMount,
     setRef,

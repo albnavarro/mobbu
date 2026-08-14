@@ -450,7 +450,9 @@ const initScroller = ({ getRef }) => {
     };
 };
 
-/** @type {MobComponent<import('./type').DebugComponentType>} */
+/**
+ * @type {MobComponent<import('./type').DebugComponentType>}
+ */
 export const DebugComponentFunction = ({
     onMount,
     addMethod,
@@ -480,7 +482,9 @@ export const DebugComponentFunction = ({
         emit(() => proxi.id);
     });
 
-    /** @type{(val:number) => void} */
+    /**
+     * @type{(val:number) => void}
+     */
     let move;
 
     onMount(() => {

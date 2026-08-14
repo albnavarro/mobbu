@@ -5,7 +5,9 @@ import { outerWidth } from '@mobCoreUtils';
 import { MobScroll, MobTimeline, MobTween } from '@mobMotion';
 import { randomIntFromInterval } from '@utils/utils';
 
-/** @type {import('../type').CreatePathAnimation} */
+/**
+@type {import('../type').CreatePathAnimation}
+*/
 export const createPathAnimation = ({
     weakPathElement,
     weakScrollerElement,

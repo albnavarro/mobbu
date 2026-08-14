@@ -1,6 +1,8 @@
 import { checkType } from './store-type';
 
-/** @type {string[]} */
+/**
+@type {string[]}
+*/
 let current_computed_keys = [];
 let isActive = false;
 

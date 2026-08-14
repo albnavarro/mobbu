@@ -1,6 +1,8 @@
 import { useNextLoop } from '../utils/next-tick';
 
-/** @type {import('./type').MobStoreWatchWaintList} */
+/**
+@type {import('./type').MobStoreWatchWaintList}
+*/
 const waitMap = new Map();
 
 /**

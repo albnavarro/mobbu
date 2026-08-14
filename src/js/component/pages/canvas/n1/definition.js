@@ -8,7 +8,9 @@ import { CaterpillarN1Function } from './caterpillar-n1';
  */
 
 export const CaterpillarN1 = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').CaterpillarN1>} */
+    /**
+    @type {CreateComponentParams<import('./type').CaterpillarN1>}
+    */
     ({
         tag: 'caterpillar-n1',
         component: CaterpillarN1Function,

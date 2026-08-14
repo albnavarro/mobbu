@@ -7,7 +7,9 @@ import { navigationStore } from '@stores/navigation';
  */
 
 export const NavigationLabel = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').NavigationLabelType>} */
+    /**
+    @type {CreateComponentParams<import('./type').NavigationLabelType>}
+    */
     ({
         tag: 'mob-navigation-label',
         component: NavigationLabelFunction,

@@ -22,7 +22,9 @@ const logAddMethods = ({ value, direction, isForced }) => {
     console.log(`current: ${value}, direction: ${direction}`);
 };
 
-/** @type {import('../type').CaterpillarN2Animation} */
+/**
+@type {import('../type').CaterpillarN2Animation}
+*/
 export const caterpillarN2Animation = ({ canvas, proxi }) => {
     const numItems = 20;
     const width = window.innerHeight / 13;

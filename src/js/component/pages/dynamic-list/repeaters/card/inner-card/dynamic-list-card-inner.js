@@ -1,6 +1,8 @@
 import { htmlObject } from '@mobJs';
 
-/** @type {import('@mobJsType').MobComponent<import('./type').DynamicListCardInnerType>} */
+/**
+@type {import('@mobJsType').MobComponent<import('./type').DynamicListCardInnerType>}
+*/
 export const DynamicListCardInnerFunction = ({ bindText }) => {
     return htmlObject({
         tag: 'span',

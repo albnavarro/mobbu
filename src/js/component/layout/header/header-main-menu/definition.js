@@ -6,7 +6,9 @@ import { HeaderMainMenuFunction } from './header-main-menu';
  */
 
 export const HeaderMainMenu = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').HeaderMainMenu>} */
+    /**
+    @type {CreateComponentParams<import('./type').HeaderMainMenu>}
+    */
     ({
         tag: 'header-main-menu',
         component: HeaderMainMenuFunction,

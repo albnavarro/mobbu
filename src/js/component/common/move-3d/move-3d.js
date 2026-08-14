@@ -10,7 +10,9 @@ const NOOP = () => {};
  * @import {MobComponent} from '@mobJsType'
  */
 
-/** @type {MobComponent<import('./type').Move3DType>} */
+/**
+@type {MobComponent<import('./type').Move3DType>}
+*/
 export const Move3DFunction = ({
     onMount,
     setRef,
@@ -52,7 +54,9 @@ export const Move3DFunction = ({
     let unsubscribeTouchUp = NOOP;
     let unsubscribeTouchMove = NOOP;
     let unsubscribeScroll = NOOP;
-    /** @type {any[]} */
+    /**
+    @type {any[]}
+    */
     let childrenMethods = [];
 
     /**
@@ -60,12 +64,16 @@ export const Move3DFunction = ({
      */
     let spring = MobTween.createSpring({ data: { delta: 0, ax: 0, ay: 0 } });
 
-    /** @type{() => void } */
+    /**
+    @type{() => void }
+    */
     const onMouseUp = () => {
         onDrag = false;
     };
 
-    /** @type{() => void } */
+    /**
+    @type{() => void }
+    */
     const onMove = () => {
         const { vw, vh } =
             proxi.centerToViewoport || proxi.drag
@@ -157,7 +165,9 @@ export const Move3DFunction = ({
         }
     };
 
-    /** @type{(scrollY: number) => void} */
+    /**
+    @type{(scrollY: number) => void}
+    */
     const onScroll = (scrollY) => {
         if (lastScrolledTop !== scrollY) {
             pageCoord.y -= lastScrolledTop;
@@ -168,7 +178,9 @@ export const Move3DFunction = ({
         onMove();
     };
 
-    /** @type{(arg0: {page: { x: number, y:number }} ) => boolean} */
+    /**
+    @type{(arg0: {page: { x: number, y:number }} ) => boolean}
+    */
     const isDraggable = ({ page }) => {
         return (
             page.y > offSetTop &&
@@ -178,7 +190,9 @@ export const Move3DFunction = ({
         );
     };
 
-    /** @type{(arg0: {page: { x: number, y:number }} ) => void } */
+    /**
+    @type{(arg0: {page: { x: number, y:number }} ) => void }
+    */
     const onMouseDown = ({ page }) => {
         if (!isDraggable({ page })) {
             return;
@@ -188,7 +202,9 @@ export const Move3DFunction = ({
         firstDrag = true;
     };
 
-    /** @type{() => void } */
+    /**
+    @type{() => void }
+    */
     const addScrollListener = () => {
         unsubscribeScroll();
 

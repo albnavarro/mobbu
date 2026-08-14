@@ -5,7 +5,9 @@ import { MobMotionCore } from '@mobMotion';
 import { HorizontalScroller } from '@pagesComponent/horizontal-scroller/definition';
 import { loadTextContent } from '@utils/utils';
 
-/** @type {import('@mobJsType').PageAsync} */
+/**
+@type {import('@mobJsType').PageAsync}
+*/
 export const horizontalScroller = async () => {
     const { data: bg } = await loadTextContent({
         source: './asset/svg/lettering-mob.svg?v=1.3',
@@ -25,7 +27,9 @@ export const horizontalScroller = async () => {
         });
     }
 
-    /** Quicknav */
+    /**
+    Quicknav
+    */
     updateQuickNavState({
         active: true,
         prevRoute: '',
@@ -37,7 +41,9 @@ export const horizontalScroller = async () => {
         content: {
             component: HorizontalScroller,
             modules: MobJs.staticProps(
-                /** @type {import('@pagesComponent/horizontal-scroller/type').HorizontalScroller['props']} */
+                /**
+                @type {import('@pagesComponent/horizontal-scroller/type').HorizontalScroller['props']}
+                */
                 ({
                     animatePin: false,
                 })

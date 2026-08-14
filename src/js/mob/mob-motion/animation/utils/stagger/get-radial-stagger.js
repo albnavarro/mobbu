@@ -35,7 +35,9 @@ const getRadialX = (arr, x, y, chunk) => {
     return arr.reduce((total, _row, i) => {
         const offset = Math.abs(i - y);
 
-        /** @type {any[][]} */
+        /**
+        @type {any[][]}
+        */
         const newRow = [];
 
         // Avoid duplicate form before and after y

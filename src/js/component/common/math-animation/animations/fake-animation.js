@@ -1,4 +1,6 @@
-/** @type {import('./type').MathCommonAnimation} */
+/**
+@type {import('./type').MathCommonAnimation}
+*/
 export const fakeAnimation = () => {
     return {
         play: () => {},

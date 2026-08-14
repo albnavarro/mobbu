@@ -14,7 +14,9 @@ import {
  */
 
 export const mainStore = MobCore.createStore(
-    /** @type {MobStoreParams<import('./type').MainStore>} */
+    /**
+    @type {MobStoreParams<import('./type').MainStore>}
+    */
     ({
         [MAIN_STORE_ACTIVE_ROUTE]: {
             __value: { route: '', templateName: '' },

@@ -6,7 +6,9 @@
 // @ts-ignore
 import { htmlObject } from '@mobJs';
 
-/** @type {MobComponent<ScrollDownLabel>} */
+/**
+@type {MobComponent<ScrollDownLabel>}
+*/
 export const ScrollDownLabelFunction = ({
     getSelfProxi,
     bindEffect,

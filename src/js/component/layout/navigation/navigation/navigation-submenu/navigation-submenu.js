@@ -32,7 +32,9 @@ function getSubmenu({ proxi, staticProps }) {
             content: {
                 component: NavigationButton,
                 modules: staticProps(
-                    /** @type {NavigationButtonType['props']} */
+                    /**
+                    @type {NavigationButtonType['props']}
+                    */
                     ({
                         label,
                         url,
@@ -113,7 +115,9 @@ export const NavigationSubmenuFunction = ({
                 component: NavigationButton,
                 modules: [
                     staticProps(
-                        /** @type {NavigationButtonType['props']} */
+                        /**
+                        @type {NavigationButtonType['props']}
+                        */
                         ({
                             label,
                             url,
@@ -130,7 +134,9 @@ export const NavigationSubmenuFunction = ({
                         })
                     ),
                     bindProps(
-                        /** @returns {ReturnBindProps<NavigationButtonType>} */
+                        /**
+                        @returns {ReturnBindProps<NavigationButtonType>}
+                        */
                         () => ({
                             isOpen: proxi.isOpen,
                         })

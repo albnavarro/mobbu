@@ -133,7 +133,9 @@ const filterSuggestion = ({ currentSearch, proxi }) => {
     });
 };
 
-/** @type {MobComponent<import('./type').SearchOverlayHeader>} */
+/**
+@type {MobComponent<import('./type').SearchOverlayHeader>}
+*/
 export const SearchOverlayHeaderFunction = ({
     delegateEvents,
     getRef,
@@ -307,7 +309,9 @@ export const SearchOverlayHeaderFunction = ({
                         content: {
                             component: SearchOverlaySuggestion,
                             modules: bindProps(
-                                /** @returns {ReturnBindProps<SearchOverlaySuggestionType>} */
+                                /**
+                                @returns {ReturnBindProps<SearchOverlaySuggestionType>}
+                                */
                                 () => ({
                                     list: proxi.suggestionListData,
                                 })

@@ -4,7 +4,9 @@
 
 import { htmlObject } from '@mobJs';
 
-/** @type {MobComponent<import('./type').AboutMobile>} */
+/**
+@type {MobComponent<import('./type').AboutMobile>}
+*/
 export const AboutMobileComponentFunction = ({ getSelfProxi }) => {
     const proxi = getSelfProxi();
 

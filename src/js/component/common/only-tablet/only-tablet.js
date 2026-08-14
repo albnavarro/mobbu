@@ -4,11 +4,15 @@
 
 import { htmlObject, MobJs } from '@mobJs';
 
-/** @type {MobComponent} */
+/**
+@type {MobComponent}
+*/
 export const OnlyTabletFunction = ({ delegateEvents, onMount }) => {
     let lastValidRoute = 'home';
 
-    /** @type{Record<string, string>|null} */
+    /**
+    @type{Record<string, string>|null}
+    */
     let lastValidParams = null;
 
     onMount(() => {

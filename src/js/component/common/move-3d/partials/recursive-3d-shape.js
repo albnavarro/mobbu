@@ -17,7 +17,9 @@ const getDebug = ({ debug, id }) => {
         : htmlObject({});
 };
 
-/** @type{(arg0: {data: import("../type").Move3DChildren[], root: boolean, childrenId: string, debug: boolean} ) => HTMLElement[]} */
+/**
+@type{(arg0: {data: import("../type").Move3DChildren[], root: boolean, childrenId: string, debug: boolean} ) => HTMLElement[]}
+*/
 export const Recursive3Dshape = ({ data, root, childrenId, debug }) => {
     return data.map(({ children, props }) => {
         return htmlObject({

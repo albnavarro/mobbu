@@ -450,7 +450,9 @@ export class MobScrollerPin {
         if (!node) return;
 
         while (node !== null && node !== document) {
-            /** @type {Record<string, any>} */
+            /**
+            @type {Record<string, any>}
+            */
             const style = getComputedStyle(/** @type {Element} */ (node));
 
             if (
@@ -594,7 +596,9 @@ export class MobScrollerPin {
         MobCore.useFrame(() => {
             if (!this.#pin || !this.#collisionStyleProp) return;
 
-            /** @type{Record<string, any>} */
+            /**
+            @type{Record<string, any>}
+            */
             const style = this.#pin?.style ?? {};
             style[this.#collisionStyleProp] = `${this.#startFromTop}px`;
         });

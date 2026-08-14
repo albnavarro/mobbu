@@ -8,7 +8,9 @@ import { AccessibilityOverlayFunction } from './accessibility-overlay';
  */
 
 export const AccessibilityOverlay = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').AccessibilityOverlayType>} */
+    /**
+     * @type {CreateComponentParams<import('./type').AccessibilityOverlayType>}
+     */
     ({
         tag: 'accessibility-overlay',
         component: AccessibilityOverlayFunction,

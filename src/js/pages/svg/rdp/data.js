@@ -1,4 +1,6 @@
-/** @type {import('./type.js').Rdp_01} */
+/**
+@type {import('./type.js').Rdp_01}
+*/
 export const rdp_01_scehema = ({
     letter_d,
     letter_p,

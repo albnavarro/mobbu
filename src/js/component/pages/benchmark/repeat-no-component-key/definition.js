@@ -9,7 +9,9 @@ import { BenchMarkRepeatNoComponentWithKeyFunction } from './benchmark-repeat-no
  */
 
 export const BenchMarkRepeatNoComponentWithKey = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('../type').BenchMark>} */
+    /**
+    @type {CreateComponentParams<import('../type').BenchMark>}
+    */
     ({
         tag: 'benchmark-repeat-no-component-with-key',
         component: BenchMarkRepeatNoComponentWithKeyFunction,

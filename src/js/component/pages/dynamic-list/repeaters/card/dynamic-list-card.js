@@ -19,7 +19,9 @@ import { DynamicCounter } from './counter/definition';
  * @import {DynamicListCardType} from './type'
  */
 
-/** @param {number} numberOfItem */
+/**
+@param {number} numberOfItem
+*/
 function createArray(numberOfItem) {
     return Array.from({ length: numberOfItem })
         .keys()
@@ -53,7 +55,9 @@ const getInvalidateRender = ({ staticProps, delegateEvents, proxi }) => {
     });
 };
 
-/** @type {MobComponent<DynamicListCardType>} */
+/**
+@type {MobComponent<DynamicListCardType>}
+*/
 export const DynamicListCardFunction = ({
     onMount,
     key,
@@ -146,7 +150,9 @@ export const DynamicListCardFunction = ({
                         })
                     ),
                     bindProps(
-                        /** @returns {ReturnBindProps<DynamicCounterType>} */
+                        /**
+                        @returns {ReturnBindProps<DynamicCounterType>}
+                        */
                         () => ({
                             counter: proxi.counter,
                         })
@@ -194,7 +200,9 @@ export const DynamicListCardFunction = ({
                         return htmlObject({
                             component: DynamicListCardInner,
                             modules: bindProps(
-                                /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
+                                /**
+                                @returns {ReturnBindProps<DynamicListCardInnerType>}
+                                */
                                 () => ({
                                     key: String(current.value.key),
                                 })
@@ -214,7 +222,9 @@ export const DynamicListCardFunction = ({
                         return htmlObject({
                             component: DynamicListCardInner,
                             modules: bindProps(
-                                /** @returns {ReturnBindProps<DynamicListCardInnerType>} */
+                                /**
+                                @returns {ReturnBindProps<DynamicListCardInnerType>}
+                                */
                                 () => ({
                                     key: String(current.value.key),
                                 })
@@ -283,7 +293,9 @@ export const DynamicListCardFunction = ({
                                 },
                             }),
                             bindProps(
-                                /** @returns {ReturnBindProps<DynamicListButtonType>} */
+                                /**
+                                @returns {ReturnBindProps<DynamicListButtonType>}
+                                */
                                 () => ({
                                     active: proxi.isSelected,
                                 })

@@ -6,7 +6,9 @@ import { HtmlContentFunction } from './html-content';
  */
 
 export const HtmlContent = MobJs.createComponent(
-    /** @type {CreateComponentParams<import('./type').HtmlContent>} */
+    /**
+    @type {CreateComponentParams<import('./type').HtmlContent>}
+    */
     ({
         tag: 'html-content',
         component: HtmlContentFunction,
