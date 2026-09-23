@@ -54,100 +54,98 @@ export const runCallbackQueqe = ({
             fn(newValue, oldValue, validationValue);
         }
 
-        /*
-         * Wait next loop
+        if (!instanceId || !wait) continue;
+
+        /**
+         * Wait next loop &&
+         * Get all props for current instanceId.
          */
-        if (instanceId && wait) {
-            /**
-             * Get all props for current instanceId.
-             */
-            const queueByInstanceId =
-                waitMap.get(instanceId) ??
-                /** @type{Map<string, any>} */ (new Map());
+        const queueByInstanceId =
+            waitMap.get(instanceId) ??
+            /** @type{Map<string, any>} */ (new Map());
 
-            /**
-             * Props is in queue ?
-             */
-            const isFirstCycle = !queueByInstanceId.has(prop);
+        /**
+         * Props is in queue ?
+         */
+        const isFirstCycle = !queueByInstanceId.has(prop);
 
-            /**
-             * With multiple watch with multiple wait we should stare every single callback.
-             */
-            const callbacksAccumulated = isFirstCycle
-                ? []
-                : (queueByInstanceId.get(prop)?.callbacks ?? []);
+        /**
+         * With multiple watch with multiple wait we should stare every single callback.
+         */
+        const callbacksAccumulated = isFirstCycle
+            ? []
+            : (queueByInstanceId.get(prop)?.callbacks ?? []);
+
+        /**
+         * Preserve old value before tick
+         */
+        const existing = queueByInstanceId.get(prop);
+
+        /**
+         * Update or initialize single prop value to last.
+         */
+        queueByInstanceId.set(prop, {
+            newValue,
 
             /**
              * Preserve old value before tick
              */
-            const existing = queueByInstanceId.get(prop);
+            oldValue: existing?.oldValue ?? oldValue,
+            validationValue,
 
             /**
-             * Update or initialize single prop value to last.
+             * NOTE: for more efficence consider to push `fn` instead use spread.
              */
-            queueByInstanceId.set(prop, {
-                newValue,
+            callbacks: [...new Set([...callbacksAccumulated, fn])],
+        });
+
+        /**
+         * Update main instanceId map
+         */
+        waitMap.set(instanceId, queueByInstanceId);
+
+        /**
+         * Fire callback one tick after.
+         *
+         * - Fire only one time nextLoop is fired on first watch with wait props setteld.
+         */
+        if (isFirstCycle) {
+            useNextLoop(() => {
+                /**
+                 * Get last updated value.
+                 *
+                 * - Undefined && null is a valid value.
+                 */
+                const currentPropsPerId = waitMap.get(instanceId);
+                const current = currentPropsPerId?.has(prop)
+                    ? currentPropsPerId.get(prop)
+                    : WAIT_PROP_MISSED;
+
+                if (current !== WAIT_PROP_MISSED) {
+                    /**
+                     * Fire every single callback related to every watch with wait props active.
+                     */
+                    for (const currentFunction of current.callbacks) {
+                        currentFunction(
+                            current.newValue,
+                            current.oldValue,
+                            current.validationValue
+                        );
+                    }
+                }
 
                 /**
-                 * Preserve old value before tick
+                 * Remove prop in instanceId map once fired.
                  */
-                oldValue: existing?.oldValue ?? oldValue,
-                validationValue,
+                currentPropsPerId?.delete(prop);
 
                 /**
-                 * NOTE: for more efficence consider to push `fn` instead use spread.
+                 * If instanceId has no more prop in queque delete.
                  */
-                callbacks: [...new Set([...callbacksAccumulated, fn])],
+                if (currentPropsPerId?.size === 0) {
+                    waitMap.delete(instanceId);
+                }
             });
-
-            /**
-             * Update main instanceId map
-             */
-            waitMap.set(instanceId, queueByInstanceId);
-
-            /**
-             * Fire callback one tick after.
-             *
-             * - Fire only one time nextLoop is fired on first watch with wait props setteld.
-             */
-            if (isFirstCycle) {
-                useNextLoop(() => {
-                    /**
-                     * Get last updated value.
-                     *
-                     * - Undefined && null is a valid value.
-                     */
-                    const currentPropsPerId = waitMap.get(instanceId);
-                    const current = currentPropsPerId?.has(prop)
-                        ? currentPropsPerId.get(prop)
-                        : WAIT_PROP_MISSED;
-
-                    if (current !== WAIT_PROP_MISSED) {
-                        /**
-                         * Fire every single callback related to every watch with wait props active.
-                         */
-                        for (const currentFunction of current.callbacks) {
-                            currentFunction(
-                                current.newValue,
-                                current.oldValue,
-                                current.validationValue
-                            );
-                        }
-                    }
-
-                    /**
-                     * Remove prop in instanceId map once fired.
-                     */
-                    currentPropsPerId?.delete(prop);
-
-                    /**
-                     * If instanceId has no more prop in queque delete.
-                     */
-                    if (currentPropsPerId?.size === 0) {
-                        waitMap.delete(instanceId);
-                    }
-                });
-            }
         }
     }
 };

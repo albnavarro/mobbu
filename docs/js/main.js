@@ -2110,44 +2110,43 @@
       if (!wait) {
         fn(newValue, oldValue, validationValue);
       }
-      if (instanceId && wait) {
-        const queueByInstanceId = waitMap.get(instanceId) ?? /** @type{Map<string, any>} */
-        /* @__PURE__ */ new Map();
-        const isFirstCycle = !queueByInstanceId.has(prop);
-        const callbacksAccumulated = isFirstCycle ? [] : queueByInstanceId.get(prop)?.callbacks ?? [];
-        const existing = queueByInstanceId.get(prop);
-        queueByInstanceId.set(prop, {
-          newValue,
-          /**
-           * Preserve old value before tick
-           */
-          oldValue: existing?.oldValue ?? oldValue,
-          validationValue,
-          /**
-           * NOTE: for more efficence consider to push `fn` instead use spread.
-           */
-          callbacks: [.../* @__PURE__ */ new Set([...callbacksAccumulated, fn])]
+      if (!instanceId || !wait) continue;
+      const queueByInstanceId = waitMap.get(instanceId) ?? /** @type{Map<string, any>} */
+      /* @__PURE__ */ new Map();
+      const isFirstCycle = !queueByInstanceId.has(prop);
+      const callbacksAccumulated = isFirstCycle ? [] : queueByInstanceId.get(prop)?.callbacks ?? [];
+      const existing = queueByInstanceId.get(prop);
+      queueByInstanceId.set(prop, {
+        newValue,
+        /**
+         * Preserve old value before tick
+         */
+        oldValue: existing?.oldValue ?? oldValue,
+        validationValue,
+        /**
+         * NOTE: for more efficence consider to push `fn` instead use spread.
+         */
+        callbacks: [.../* @__PURE__ */ new Set([...callbacksAccumulated, fn])]
+      });
+      waitMap.set(instanceId, queueByInstanceId);
+      if (isFirstCycle) {
+        useNextLoop(() => {
+          const currentPropsPerId = waitMap.get(instanceId);
+          const current = currentPropsPerId?.has(prop) ? currentPropsPerId.get(prop) : WAIT_PROP_MISSED;
+          if (current !== WAIT_PROP_MISSED) {
+            for (const currentFunction of current.callbacks) {
+              currentFunction(
+                current.newValue,
+                current.oldValue,
+                current.validationValue
+              );
+            }
+          }
+          currentPropsPerId?.delete(prop);
+          if (currentPropsPerId?.size === 0) {
+            waitMap.delete(instanceId);
+          }
         });
-        waitMap.set(instanceId, queueByInstanceId);
-        if (isFirstCycle) {
-          useNextLoop(() => {
-            const currentPropsPerId = waitMap.get(instanceId);
-            const current = currentPropsPerId?.has(prop) ? currentPropsPerId.get(prop) : WAIT_PROP_MISSED;
-            if (current !== WAIT_PROP_MISSED) {
-              for (const currentFunction of current.callbacks) {
-                currentFunction(
-                  current.newValue,
-                  current.oldValue,
-                  current.validationValue
-                );
-              }
-            }
-            currentPropsPerId?.delete(prop);
-            if (currentPropsPerId?.size === 0) {
-              waitMap.delete(instanceId);
-            }
-          });
-        }
       }
     }
   };
@@ -2740,12 +2739,11 @@
       ...state,
       computedPropsQueque
     });
-    if (!computedRunning) {
-      const state4 = getStateFromMainMap(instanceId);
-      if (!state4) return;
-      updateMainMap(instanceId, { ...state4, computedRunning: true });
-      useNextLoop(() => fireComputed(instanceId));
-    }
+    if (computedRunning) return;
+    const currentState = getStateFromMainMap(instanceId);
+    if (!currentState) return;
+    updateMainMap(instanceId, { ...currentState, computedRunning: true });
+    useNextLoop(() => fireComputed(instanceId));
   };
   var hasCircularDependencies = (targetProp, targetKeys, callbackComputed, visited = /* @__PURE__ */ new Set()) => {
     if (targetKeys.includes(targetProp)) return true;
@@ -7693,7 +7691,7 @@
     if (!id || id === "") return DEFAULT_CURRENT_REPEATER_STATE;
     const item = componentMap.get(id);
     const currentRepeaterState = item?.currentRepeaterState;
-    return currentRepeaterState ? currentRepeaterState : DEFAULT_CURRENT_REPEATER_STATE;
+    return currentRepeaterState || DEFAULT_CURRENT_REPEATER_STATE;
   };
   var setRepeaterInnerWrap = ({ id = "", repeatId = "", element }) => {
     if (!id || id === "") return;

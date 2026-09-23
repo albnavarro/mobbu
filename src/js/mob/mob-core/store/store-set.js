@@ -753,13 +753,13 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
         computedPropsQueque,
     });
 
-    if (!computedRunning) {
-        const state = getStateFromMainMap(instanceId);
-        if (!state) return;
+    if (computedRunning) return;
 
-        updateMainMap(instanceId, { ...state, computedRunning: true });
-        useNextLoop(() => fireComputed(instanceId));
-    }
+    const currentState = getStateFromMainMap(instanceId);
+    if (!currentState) return;
+
+    updateMainMap(instanceId, { ...currentState, computedRunning: true });
+    useNextLoop(() => fireComputed(instanceId));
 };
 
 /**
