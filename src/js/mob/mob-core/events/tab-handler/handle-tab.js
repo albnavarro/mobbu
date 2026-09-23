@@ -80,10 +80,12 @@ const addCallback = (cb) => {
     return () => {
         callbacks.delete(id);
 
-        if (isInitialized && callbacks.size === 0) {
-            globalThis.removeEventListener('keydown', handler);
-            isInitialized = false;
+        if (!(isInitialized && callbacks.size === 0)) {
+            return;
         }
+
+        globalThis.removeEventListener('keydown', handler);
+        isInitialized = false;
     };
 };
 

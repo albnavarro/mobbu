@@ -60,7 +60,5 @@ export const getFreezePropStatus = ({ id = '', prop }) => {
 
     const item = componentMap.get(id);
     const freezedPros = item?.freezedPros;
-    if (!freezedPros) return false;
-
-    return freezedPros.includes(prop);
+    return freezedPros ? freezedPros.includes(prop) : false;
 };

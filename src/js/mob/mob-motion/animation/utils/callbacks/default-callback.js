@@ -108,10 +108,12 @@ export const defaultCallbackOnComplete = ({
                 return;
             }
 
-            if (index === fastestStagger.index) {
-                cb(callbackObject);
-                onComplete();
+            if (index !== fastestStagger.index) {
+                return;
             }
+
+            cb(callbackObject);
+            onComplete();
         }, frame);
     }
 
@@ -135,10 +137,12 @@ export const defaultCallbackOnComplete = ({
             /**
              * Fire callback cache immediately.
              */
-            if (index === fastestStagger.index) {
-                MobCore.useCache.fireObject({ id: cb, obj: callbackObject });
-                onComplete();
+            if (index !== fastestStagger.index) {
+                return;
             }
+
+            MobCore.useCache.fireObject({ id: cb, obj: callbackObject });
+            onComplete();
         }, frame);
     }
 

@@ -17,9 +17,7 @@ export const maxDepth = (object) => {
     if (!storeType.isObject(object)) return 0;
     const values = Object.values(object);
 
-    if (values.length === 0) return 1;
-
-    return Math.max(...values.map((value) => maxDepth(value))) + 1;
+    return values.length === 0 ? 1 : Math.max(...values.map((value) => maxDepth(value))) + 1;
 };
 
 /**
@@ -161,11 +159,7 @@ export const cloneValueOrGet = ({ value }) => {
         return { ...value };
     }
 
-    if (checkType(Array, value)) {
-        return [...value];
-    }
-
-    return value;
+    return checkType(Array, value) ? [...value] : value;
 };
 
 /**

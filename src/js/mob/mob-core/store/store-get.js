@@ -24,11 +24,7 @@ export const storeGetEntryPoint = (instanceId) => {
 
     const { bindInstance } = state;
 
-    if (!bindInstance || bindInstance.length === 0) {
-        return storeGet(instanceId);
-    }
-
-    return Object.fromEntries(
+    return !bindInstance || bindInstance.length === 0 ? storeGet(instanceId) : Object.fromEntries(
         [...bindInstance, instanceId].flatMap((id) =>
             Object.entries(storeGet(id))
         )

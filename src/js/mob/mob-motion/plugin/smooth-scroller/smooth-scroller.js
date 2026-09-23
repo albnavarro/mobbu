@@ -1038,32 +1038,32 @@ export class MobSmoothScroller {
     #onMouseDown({ target, client }) {
         if (!mq[this.#queryType](this.#breakpoint)) return;
 
-        if (
-            target === this.#scroller ||
+        if (!(target === this.#scroller ||
             isDescendant(
                 /** @type {HTMLElement} */ (this.#scroller),
                 /** @type {HTMLElement} */ (target)
-            )
-        ) {
-            this.#firstTouchValue = this.#endValue;
-            this.#dragEnable = true;
-            FreezeMobPageScroll();
-
-            /**
-             * Clear pending snap timeout.
-             */
-            if (this.#snapPoints.length > 0) this.#clearSnapTimeout();
-
-            this.#prevTouchVal = this.#getMousePos({
-                x: client?.x ?? 0,
-                y: client?.y ?? 0,
-            });
-
-            this.#touchVal = this.#getMousePos({
-                x: client?.x ?? 0,
-                y: client?.y ?? 0,
-            });
+            ))) {
+            return;
         }
+
+        this.#firstTouchValue = this.#endValue;
+        this.#dragEnable = true;
+        FreezeMobPageScroll();
+
+        /**
+         * Clear pending snap timeout.
+         */
+        if (this.#snapPoints.length > 0) this.#clearSnapTimeout();
+
+        this.#prevTouchVal = this.#getMousePos({
+            x: client?.x ?? 0,
+            y: client?.y ?? 0,
+        });
+
+        this.#touchVal = this.#getMousePos({
+            x: client?.x ?? 0,
+            y: client?.y ?? 0,
+        });
     }
 
     /**
@@ -1073,24 +1073,26 @@ export class MobSmoothScroller {
         this.#dragEnable = false;
         UnFreezeMobPageScroll();
 
-        if (this.#snapPoints.length > 0) {
-            /**
-             * Check next snap on drag end;
-             */
-            this.#goToNextSnap();
-
-            /**
-             * Prepara lo stato per il prossimo input (evento) dopo uno snap da drag.
-             *
-             * - Dopo uno swipe veloce (con conseguente snap), la velocity rimane alta (es. 8.0).
-             * - Il primo wheel troverebbe velocity >= 3 e verrebbe intercettato da goToNextSnap().
-             * - Verrebbe forzato un nuovo snap (spesso verso lo stesso punto), rendendo il wheel non reattivo.
-             * - Questo metodo schedula il ripristino di velocity a 1 dopo ~25ms (1500/fps).
-             * - Così il prossimo wheel troverà velocity insufficiente per triggerare un nuovo snap e potrà scorrere
-             *   liberamente.
-             */
-            this.#scheduleSnapTimeout();
+        if (this.#snapPoints.length === 0) {
+            return;
         }
+
+        /**
+         * Check next snap on drag end;
+         */
+        this.#goToNextSnap();
+
+        /**
+         * Prepara lo stato per il prossimo input (evento) dopo uno snap da drag.
+         *
+         * - Dopo uno swipe veloce (con conseguente snap), la velocity rimane alta (es. 8.0).
+         * - Il primo wheel troverebbe velocity >= 3 e verrebbe intercettato da goToNextSnap().
+         * - Verrebbe forzato un nuovo snap (spesso verso lo stesso punto), rendendo il wheel non reattivo.
+         * - Questo metodo schedula il ripristino di velocity a 1 dopo ~25ms (1500/fps).
+         * - Così il prossimo wheel troverà velocity insufficiente per triggerare un nuovo snap e potrà scorrere
+         *   liberamente.
+         */
+        this.#scheduleSnapTimeout();
     }
 
     /**

@@ -58,14 +58,16 @@ export const NavigationButtonFunction = ({
             /**
              * Set current accordion menu open state. On load route, or if route is loaded outside menu.
              */
-            if (isActiveRoute && fireRoute) {
-                callback();
-
-                /**
-                 * Aign menu to current active main section label
-                 */
-                navigationStore.set('activeNavigationSection', scrollToSection);
+            if (!(isActiveRoute && fireRoute)) {
+                return;
             }
+
+            callback();
+
+            /**
+             * Aign menu to current active main section label
+             */
+            navigationStore.set('activeNavigationSection', scrollToSection);
         });
     });
 

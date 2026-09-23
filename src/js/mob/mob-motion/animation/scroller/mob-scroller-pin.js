@@ -972,15 +972,17 @@ export class MobScrollerPin {
         this.#isInner = false;
         this.#isOver = false;
 
-        if (this.#pin && this.#wrapper) {
-            // @ts-ignore
-            this.#wrapper.parentNode?.insertBefore(this.#item, this.#wrapper);
-            this.#pin.remove();
-            this.#wrapper.remove();
-            this.#wrapper = undefined;
-            this.#pin = undefined;
-            this.#isInizialized = false;
+        if (!(this.#pin && this.#wrapper)) {
+            return;
         }
+
+        // @ts-ignore
+        this.#wrapper.parentNode?.insertBefore(this.#item, this.#wrapper);
+        this.#pin.remove();
+        this.#wrapper.remove();
+        this.#wrapper = undefined;
+        this.#pin = undefined;
+        this.#isInizialized = false;
     }
 
     /**

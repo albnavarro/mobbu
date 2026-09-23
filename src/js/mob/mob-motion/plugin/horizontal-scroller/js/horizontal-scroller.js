@@ -808,11 +808,13 @@ export class MobHorizontalScroller {
         const width = this.#horizontalWidth;
         this.#percentRange = (100 * (width - window.innerWidth)) / width;
 
-        if (width > 0) {
-            this.#trigger.style.height = `${width}px`;
-            this.#mainContainer.style.height = `${width}px`;
-            this.#row.style.width = `${width}px`;
+        if (!(width > 0)) {
+            return;
         }
+
+        this.#trigger.style.height = `${width}px`;
+        this.#mainContainer.style.height = `${width}px`;
+        this.#row.style.width = `${width}px`;
     }
 
     /**
@@ -834,11 +836,7 @@ export class MobHorizontalScroller {
      * @returns {void}
      */
     #createShadow() {
-        if (!this.#trigger) {
-            return;
-        }
-
-        if (!mq[this.#queryType](this.#breakpoint) || !this.#shadows) {
+        if (!this.#trigger || !mq[this.#queryType](this.#breakpoint) || !this.#shadows) {
             return;
         }
 
@@ -913,11 +911,7 @@ export class MobHorizontalScroller {
      * @returns {void}
      */
     #updateShadow() {
-        if (!mq[this.#queryType](this.#breakpoint)) {
-            return;
-        }
-
-        if (!this.#shadows) return;
+        if (!mq[this.#queryType](this.#breakpoint) || !this.#shadows) return;
 
         for (const item of this.#shadows) {
             const percentrange = this.#percentRange / 100;
@@ -1278,10 +1272,12 @@ export class MobHorizontalScroller {
         this.#scrollTriggerInstance?.stopMotion?.();
         this.#triggerTopPosition = offset(this.#trigger).top;
 
-        if (this.#moduleisActive) {
-            this.#scrollTriggerInstance?.refresh?.();
-            this.#refreshChildren();
+        if (!this.#moduleisActive) {
+            return;
         }
+
+        this.#scrollTriggerInstance?.refresh?.();
+        this.#refreshChildren();
     }
 
     /**

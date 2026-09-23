@@ -44,9 +44,7 @@ const shouldFreeze = (value) => {
      * - Per maggior leggibilitá disabilitimo in questo caso la regola `unicorn/prefer-boolean-return`
      */
     if (checkType(Map, value)) return false;
-    if (checkType(Set, value)) return false;
-     
-    if (checkType(Function, value)) return false;
+    if (checkType(Set, value) || checkType(Function, value)) return false;
 
     /**
      * Congela Array e Object normali
@@ -190,8 +188,7 @@ const createDynamicProxy = (instanceId, strategy) => {
                      *
                      * Ma permettere comunque la lettura delle proprietà
                      */
-                    if (Array.isArray(value)) return Object.freeze([...value]);
-                    return Object.freeze({ ...value });
+                    return Array.isArray(value) ? Object.freeze([...value]) : Object.freeze({ ...value });
                 }
 
                 return value;

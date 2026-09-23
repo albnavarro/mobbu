@@ -81,10 +81,12 @@ const addCallback = (cb) => {
     return () => {
         callbacks.delete(id);
 
-        if (isInitialized && callbacks.size === 0) {
-            unsubscribe();
-            isInitialized = false;
+        if (!(isInitialized && callbacks.size === 0)) {
+            return;
         }
+
+        unsubscribe();
+        isInitialized = false;
     };
 };
 

@@ -107,21 +107,23 @@ function handleScrollUtils(type) {
          */
         if (type === 'START') {
             unsubscribeScrollStart = handleScrollImmediate(({ scrollY }) => {
-                const scrollData = {
-                    scrollY,
-                };
-
                 /**
                  * - At first scroll isScrolling is false
                  * - Fire event ad set isScrolling to true
                  * - At debounce end isScrolling return to false to trigger next scroll
                  */
-                if (!isScrolling) {
-                    isScrolling = true;
+                if (isScrolling) {
+                    return;
+                }
 
-                    for (const value of callbacks.values()) {
-                        value(scrollData);
-                    }
+                const scrollData = {
+                    scrollY,
+                };
+
+                isScrolling = true;
+
+                for (const value of callbacks.values()) {
+                    value(scrollData);
                 }
             });
         }

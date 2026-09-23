@@ -2074,13 +2074,15 @@ export default class MobAsyncTimeline {
             this.#resumeAllTween();
         }
 
-        if (wasSuspended) {
-            if (this.#currentIndex < this.#tweenList.length - 1) {
-                this.#currentIndex++;
-            }
-
-            this.#run();
+        if (!wasSuspended) {
+            return;
         }
+
+        if (this.#currentIndex < this.#tweenList.length - 1) {
+            this.#currentIndex++;
+        }
+
+        this.#run();
     }
 
     /**

@@ -45,10 +45,7 @@ export const getPropiertiesValueFromConstant = (value) => {
     if (exactMatchInsensitive(value, MobScrollerConstant.PROP_SCALE_Y))
         return MobScrollerConstant.PROP_SCALE_Y;
 
-    if (exactMatchInsensitive(value, MobScrollerConstant.PROP_TWEEN))
-        return MobScrollerConstant.PROP_TWEEN;
-
-    return value;
+    return exactMatchInsensitive(value, MobScrollerConstant.PROP_TWEEN) ? MobScrollerConstant.PROP_TWEEN : value;
 };
 
 /**
@@ -88,10 +85,7 @@ export const getScrollerPositionFromContanst = (position) => {
     if (exactMatchInsensitive(position, MobScrollerConstant.POSITION_LEFT))
         return MobScrollerConstant.POSITION_LEFT;
 
-    if (exactMatchInsensitive(position, MobScrollerConstant.POSITION_RIGHT))
-        return MobScrollerConstant.POSITION_RIGHT;
-
-    return '';
+    return exactMatchInsensitive(position, MobScrollerConstant.POSITION_RIGHT) ? MobScrollerConstant.POSITION_RIGHT : '';
 };
 
 /**
@@ -111,8 +105,5 @@ export const getRangeUnitMisure = (string) => {
         return MobScrollerConstant.WPERCENT;
     if (exactMatchInsesitiveNumberProp(string, MobScrollerConstant.HPERCENT))
         return MobScrollerConstant.HPERCENT;
-    if (exactMatchInsesitiveNumberProp(string, MobScrollerConstant.DEGREE))
-        return MobScrollerConstant.DEGREE;
-
-    return MobScrollerConstant.PX;
+    return exactMatchInsesitiveNumberProp(string, MobScrollerConstant.DEGREE) ? MobScrollerConstant.DEGREE : MobScrollerConstant.PX;
 };

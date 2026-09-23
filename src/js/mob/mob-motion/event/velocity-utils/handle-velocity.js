@@ -500,39 +500,41 @@ const addCallback = (cb) => {
     return () => {
         callbacks.delete(id);
 
-        if (isInitialized && callbacks.size === 0) {
-            if (gapTimeoutId) {
-                clearTimeout(gapTimeoutId);
-                gapTimeoutId = null;
-            }
-
-            unsubscribeDetectStart();
-            unsubscribeDetectEnd();
-            unsubscribePointerMove();
-            tweenInstance.destroy();
-            // @ts-ignore
-            tweenInstance = null;
-            isInitialized = false;
-
-            /**
-             * Reset state.
-             */
-            previousClientX = 0;
-            previousClientY = 0;
-            previousTime = 0;
-            isFirstMove = false;
-            currentDirectionX = 0;
-            currentDirectionY = 0;
-            currentClientX = 0;
-            currentClientY = 0;
-            previousThreshold = directionTresholdBase;
-            totalDistance = 1;
-            isCompleted = false;
-            isPointerEnd = false;
-            rawSpeed = 1;
-            rawSpeedX = 1;
-            rawSpeedY = 1;
+        if (!(isInitialized && callbacks.size === 0)) {
+            return;
         }
+
+        if (gapTimeoutId) {
+            clearTimeout(gapTimeoutId);
+            gapTimeoutId = null;
+        }
+
+        unsubscribeDetectStart();
+        unsubscribeDetectEnd();
+        unsubscribePointerMove();
+        tweenInstance.destroy();
+        // @ts-ignore
+        tweenInstance = null;
+        isInitialized = false;
+
+        /**
+         * Reset state.
+         */
+        previousClientX = 0;
+        previousClientY = 0;
+        previousTime = 0;
+        isFirstMove = false;
+        currentDirectionX = 0;
+        currentDirectionY = 0;
+        currentClientX = 0;
+        currentClientY = 0;
+        previousThreshold = directionTresholdBase;
+        totalDistance = 1;
+        isCompleted = false;
+        isPointerEnd = false;
+        rawSpeed = 1;
+        rawSpeedX = 1;
+        rawSpeedY = 1;
     };
 };
 

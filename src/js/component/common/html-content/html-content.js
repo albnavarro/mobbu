@@ -37,9 +37,7 @@ const getData = async ({ source, data }) => {
     if (data && data.length > 0) return data;
 
     const { success, data: currentData } = await loadJsonContent({ source });
-    if (!success) return [];
-
-    return currentData.data;
+    return success ? currentData.data : [];
 };
 
 /**

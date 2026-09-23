@@ -259,35 +259,37 @@ export const Move3DFunction = ({
                 unsubscribeTouchEnd();
                 unsubscribeTouchStart();
 
-                if (value) {
-                    dragX = window.innerWidth / 2;
-                    dragY = window.innerHeight / 2;
-
-                    unsubscribeTouchStart = MobCore.useTouchStart(
-                        ({ page }) => {
-                            onMouseDown({ page });
-                        }
-                    );
-
-                    unsubscribeTouchEnd = MobCore.useTouchEnd(() => {
-                        onMouseUp();
-                    });
-
-                    unsubscribeTouchDown = MobCore.useMouseDown(({ page }) => {
-                        onMouseDown({ page });
-                    });
-
-                    unsubscribeTouchUp = MobCore.useMouseUp(() => {
-                        onMouseUp();
-                    });
-
-                    unsubscribeTouchMove = MobCore.useTouchMove(({ page }) => {
-                        pageCoord = { x: page.x, y: page.y };
-                        onMove();
-                    });
-
+                if (!value) {
                     return;
                 }
+
+                dragX = window.innerWidth / 2;
+                dragY = window.innerHeight / 2;
+
+                unsubscribeTouchStart = MobCore.useTouchStart(
+                    ({ page }) => {
+                        onMouseDown({ page });
+                    }
+                );
+
+                unsubscribeTouchEnd = MobCore.useTouchEnd(() => {
+                    onMouseUp();
+                });
+
+                unsubscribeTouchDown = MobCore.useMouseDown(({ page }) => {
+                    onMouseDown({ page });
+                });
+
+                unsubscribeTouchUp = MobCore.useMouseUp(() => {
+                    onMouseUp();
+                });
+
+                unsubscribeTouchMove = MobCore.useTouchMove(({ page }) => {
+                    pageCoord = { x: page.x, y: page.y };
+                    onMove();
+                });
+
+                return;
             },
             { immediate: true }
         );

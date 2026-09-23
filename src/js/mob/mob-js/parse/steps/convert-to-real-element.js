@@ -133,11 +133,13 @@ const addToNamedSlot = ({ element }) => {
         /**
          * Add component/element before slot and remove slot
          */
-        if (slot) {
-            slot.parentNode?.insertBefore(component, slot);
-            slot?.removeCustomComponent();
-            slot?.remove();
+        if (!slot) {
+            continue;
         }
+
+        slot.parentNode?.insertBefore(component, slot);
+        slot?.removeCustomComponent();
+        slot?.remove();
     }
 };
 

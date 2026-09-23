@@ -342,10 +342,12 @@ export const draggerAnimation = ({
         lastX = x;
         lastY = y;
 
-        if (isDragging) {
-            endValue = { xValue: xComputed, yValue: yComputed };
-            void spring.goTo({ x: xComputed, y: yComputed }).catch(() => {});
+        if (!isDragging) {
+            return;
         }
+
+        endValue = { xValue: xComputed, yValue: yComputed };
+        void spring.goTo({ x: xComputed, y: yComputed }).catch(() => {});
     };
 
     /**

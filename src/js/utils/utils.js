@@ -35,10 +35,12 @@ export function setBrowserClass() {
         return;
     }
 
-    if (/edg/i.test(userAgent)) {
-        body.classList.add('is-edge');
+    if (!/edg/i.test(userAgent)) {
         return;
     }
+
+    body.classList.add('is-edge');
+    return;
 }
 
 /**

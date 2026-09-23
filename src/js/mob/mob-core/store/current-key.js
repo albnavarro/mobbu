@@ -40,8 +40,7 @@ export const getFirstCurrentDependencies = () => {
  * @returns {void}
  */
 export const setCurrentDependencies = (key) => {
-    if (!isActive || !key) return;
-    if (current_computed_keys.includes(key)) return;
+    if (!isActive || !key || current_computed_keys.includes(key)) return;
     current_computed_keys = [...current_computed_keys, key];
 };
 

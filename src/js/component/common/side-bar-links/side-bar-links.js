@@ -155,17 +155,19 @@ export const SidebarLinksFunction = ({
                     move(0);
                 }
 
-                if (currentData.length === 0) {
-                    proxi.hide = true;
-                    destroy?.();
-                    isActive = false;
-
-                    /**
-                     * Restore position of element scrolled with tab.
-                     */
-                    getRef().screenEl.scrollTop = 0;
-                    element.hidden = true;
+                if (currentData.length > 0) {
+                    return;
                 }
+
+                proxi.hide = true;
+                destroy?.();
+                isActive = false;
+
+                /**
+                 * Restore position of element scrolled with tab.
+                 */
+                getRef().screenEl.scrollTop = 0;
+                element.hidden = true;
             }
         );
 

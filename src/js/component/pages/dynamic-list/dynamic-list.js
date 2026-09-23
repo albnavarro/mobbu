@@ -195,9 +195,7 @@ export const DynamicListFunction = ({
                                     delegateEvents({
                                         click: async () => {
                                             updateState('counter', (prev) => {
-                                                if (prev > 0)
-                                                    return (prev -= 1);
-                                                return prev;
+                                                return prev > 0 ? (prev -= 1) : prev;
                                             });
                                         },
                                     }),

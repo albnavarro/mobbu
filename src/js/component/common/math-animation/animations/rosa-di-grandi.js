@@ -209,16 +209,18 @@ export const mathRosaDiGrandi = (
         const center = timePosition;
         const end = Math.min(10, timePosition + timeGap);
 
-        if (end > start) {
-            tween.goTo(
-                { scale: 0 },
-                { start, end: center, ease: 'easeInQuad' }
-            );
-            tween.goTo(
-                { scale: 1 },
-                { start: center, end, ease: 'easeOutQuad' }
-            );
+        if (!(end > start)) {
+            continue;
         }
+
+        tween.goTo(
+            { scale: 0 },
+            { start, end: center, ease: 'easeInQuad' }
+        );
+        tween.goTo(
+            { scale: 1 },
+            { start: center, end, ease: 'easeOutQuad' }
+        );
     }
 
     for (const [index, item] of targets.entries()) {

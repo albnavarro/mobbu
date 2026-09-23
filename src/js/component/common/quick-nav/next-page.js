@@ -6,6 +6,11 @@
 import { htmlObject, MobJs } from '@mobJs';
 
 /**
+@type{(route: string)=> boolean|null} *
+*/
+const disableIf = (route) => !route || route.length === 0 || null;
+
+/**
 @type {MobComponent<QuickNav>}
 */
 export const QuickNavFunction = ({
@@ -66,10 +71,7 @@ export const QuickNavFunction = ({
                     }),
                     bindEffect({
                         toggleAttribute: {
-                            disabled: () =>
-                                !proxi.prevRoute || proxi.prevRoute.length === 0
-                                    ? true
-                                    : null,
+                            disabled: () => disableIf(proxi.prevRoute),
                         },
                     }),
                 ],
@@ -91,10 +93,7 @@ export const QuickNavFunction = ({
                     }),
                     bindEffect({
                         toggleAttribute: {
-                            disabled: () =>
-                                !proxi.backRoute || proxi.backRoute.length === 0
-                                    ? true
-                                    : null,
+                            disabled: () => disableIf(proxi.backRoute),
                         },
                     }),
                 ],
@@ -116,10 +115,7 @@ export const QuickNavFunction = ({
                     }),
                     bindEffect({
                         toggleAttribute: {
-                            disabled: () =>
-                                !proxi.nextRoute || proxi.nextRoute.length === 0
-                                    ? true
-                                    : null,
+                            disabled: () => disableIf(proxi.nextRoute),
                         },
                     }),
                 ],

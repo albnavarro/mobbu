@@ -55,9 +55,7 @@ export const getElementById = ({ id = '' }) => {
  * @returns {string | undefined}
  */
 export const getIdByElement = ({ element }) => {
-    if (!element) return '';
-
-    return getIdFromWeakElementMap({ element });
+    return element ? getIdFromWeakElementMap({ element }) : '';
 };
 
 /**

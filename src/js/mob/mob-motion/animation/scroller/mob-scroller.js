@@ -1237,9 +1237,7 @@ export default class MobScroller {
      */
     #getScrollValueOnMove(value) {
         if (value === undefined) return;
-        if (this.#screen !== globalThis) return value + this.#screenPosition;
-
-        return value;
+        return this.#screen === globalThis ? value : value + this.#screenPosition;
     }
 
     /**
@@ -2019,16 +2017,18 @@ export default class MobScroller {
         /**
          * Initialize pin
          */
-        if (this.#pin) {
-            this.#pinInstance = new MobScrollerPin();
+        if (!this.#pin) {
+            return;
+        }
 
-            if (mq[this.#queryType](this.#breakpoint)) {
-                MobCore.useNextTick(() => {
-                    this.#getScrollerOffset();
-                    this.#pinInstance?.init(this.#getPinParams());
-                    this.#pinInstance?.onScroll(this.#scrollerScroll);
-                });
-            }
+        this.#pinInstance = new MobScrollerPin();
+
+        if (mq[this.#queryType](this.#breakpoint)) {
+            MobCore.useNextTick(() => {
+                this.#getScrollerOffset();
+                this.#pinInstance?.init(this.#getPinParams());
+                this.#pinInstance?.onScroll(this.#scrollerScroll);
+            });
         }
     }
 

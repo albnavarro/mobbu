@@ -32,9 +32,7 @@ export const getComponentNameByElement = (element) => {
 
     const id = getIdFromWeakElementMap({ element }) ?? '';
     const item = componentMap.get(id);
-    if (!item) return 'name-not-found';
-
-    return item.componentName;
+    return item ? item.componentName : 'name-not-found';
 };
 
 /**
@@ -57,8 +55,7 @@ export const getIdByInstanceName = (name = '') => {
  * @returns {string[]}
  */
 export const getIdArrayByInstanceName = (name = '') => {
-    if (!name) return [];
-    return getIdsFromInstanceMap({ instanceName: name }) ?? [];
+    return name ? getIdsFromInstanceMap({ instanceName: name }) ?? [] : [];
 };
 
 /**
@@ -73,11 +70,7 @@ export const componentHasKey = (id = '') => {
     const item = componentMap.get(id);
     const key = item?.key;
 
-    if (!key) {
-        return false;
-    }
-
-    return key !== '';
+    return key ? key !== '' : false;
 };
 
 /**

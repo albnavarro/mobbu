@@ -14,9 +14,5 @@ import { repeatInstancesMap } from '../../repeat-id-intances-map';
  */
 export const getRepeaterInstancesCurrentData = ({ repeatId }) => {
     const item = repeatInstancesMap.get(repeatId);
-    if (!item) {
-        return { alive: false, value: [] };
-    }
-
-    return { alive: true, value: item.currentData };
+    return item ? { alive: true, value: item.currentData } : { alive: false, value: [] };
 };

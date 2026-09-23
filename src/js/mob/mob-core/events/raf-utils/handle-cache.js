@@ -107,9 +107,7 @@ const remove = (id) => {
  */
 const freeze = (id) => {
     const item = subscriberMap.get(id);
-    if (!item) return;
-
-    if (item.freeze.active) return;
+    if (!item || item.freeze.active) return;
 
     const { currentFrame } = eventStore.get();
 
@@ -130,9 +128,7 @@ const freeze = (id) => {
  */
 const unFreeze = ({ id, update = true }) => {
     const item = subscriberMap.get(id);
-    if (!item) return;
-
-    if (!item.freeze.active) return;
+    if (!item || !item.freeze.active) return;
 
     if (!update) {
         item.freeze = {
@@ -220,12 +216,14 @@ const fire = (frameCounter) => {
 
         const callbackObject = data.get(frameCounter);
 
-        if (callbackObject && !freeze.active) {
-            fn(callbackObject);
-
-            data.delete(frameCounter);
-            cacheCoutner--;
+        if (!callbackObject || freeze.active) {
+            continue;
         }
+
+        fn(callbackObject);
+
+        data.delete(frameCounter);
+        cacheCoutner--;
     }
 };
 

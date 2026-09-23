@@ -64,10 +64,12 @@ function handlePointer(eventType) {
         return () => {
             callbacks.delete(id);
 
-            if (isInitialized && callbacks.size === 0) {
-                globalThis.removeEventListener(eventType, handler);
-                isInitialized = false;
+            if (!(isInitialized && callbacks.size === 0)) {
+                return;
             }
+
+            globalThis.removeEventListener(eventType, handler);
+            isInitialized = false;
         };
     };
 

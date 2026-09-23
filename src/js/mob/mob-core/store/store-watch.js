@@ -68,23 +68,25 @@ const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
      */
     const prop = watcherMetadata.get(unsubscribeId);
 
-    if (prop) {
-        /**
-         * - Delete record from watcherByProp.
-         * - Remove record from watcherMetadata.
-         */
-        watcherByProp.get(prop)?.delete(unsubscribeId);
-        watcherMetadata.delete(unsubscribeId);
-
-        /**
-         * - In case there is no more prop active remove main record from watcherByProp.
-         */
-        if (watcherByProp.get(prop)?.size === 0) {
-            watcherByProp.delete(prop);
-        }
-
-        updateMainMap(instanceId, { ...state, watcherByProp, watcherMetadata });
+    if (!prop) {
+        return;
     }
+
+    /**
+     * - Delete record from watcherByProp.
+     * - Remove record from watcherMetadata.
+     */
+    watcherByProp.get(prop)?.delete(unsubscribeId);
+    watcherMetadata.delete(unsubscribeId);
+
+    /**
+     * - In case there is no more prop active remove main record from watcherByProp.
+     */
+    if (watcherByProp.get(prop)?.size === 0) {
+        watcherByProp.delete(prop);
+    }
+
+    updateMainMap(instanceId, { ...state, watcherByProp, watcherMetadata });
 };
 
 /**

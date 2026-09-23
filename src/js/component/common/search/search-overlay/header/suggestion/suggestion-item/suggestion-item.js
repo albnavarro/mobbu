@@ -13,10 +13,12 @@ const onKeyDown = ({ code, word }) => {
         return;
     }
 
-    if (code.toLowerCase() === 'escape') {
-        closeSearchSuggestion();
+    if (code.toLowerCase() !== 'escape') {
         return;
     }
+
+    closeSearchSuggestion();
+    return;
 };
 
 /**

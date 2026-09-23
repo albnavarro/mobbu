@@ -28,11 +28,13 @@ export const initRaf = ({ validationFunction, defaultRafInit }) => {
             /**
              * After default initialization launch custom function if there is one. Fire callback
              */
-            if (result) {
-                result?.callback();
-                console.log('custom tween run function extrecuted');
+            if (!result) {
                 return;
             }
+
+            result?.callback();
+            console.log('custom tween run function extrecuted');
+            return;
         });
     });
 };

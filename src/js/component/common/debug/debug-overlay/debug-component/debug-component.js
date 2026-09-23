@@ -27,12 +27,10 @@ let isJustCreated = false;
  * @returns {string}
  */
 const getClassList = (value) => {
-    if (!value) return '';
-
-    return [...value].reduce(
+    return value ? [...value].reduce(
         (previous, current) => `${previous}.${current}`,
         ''
-    );
+    ) : '';
 };
 
 /**
@@ -88,8 +86,7 @@ const getChild = ({ child, delegateEvents }) => {
  * @returns {string}
  */
 const getFreezeProp = (props) => {
-    if (!props) return '';
-    return props.map((prop) => `${prop}, `).join('');
+    return props ? props.map((prop) => `${prop}, `).join('') : '';
 };
 
 /**

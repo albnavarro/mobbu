@@ -23,8 +23,7 @@ import { HorizontalScrollerButton } from './button/definition';
  */
 const getScrollAdjustment = (id, total) => {
     if (id === 0) return 1;
-    if (id === total - 1) return -1;
-    return 0;
+    return id === total - 1 ? -1 : 0;
 };
 
 /**

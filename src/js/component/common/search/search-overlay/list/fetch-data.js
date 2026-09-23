@@ -170,10 +170,7 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
             /**
              * Switch in first position item with title equal currentSearch
              */
-            if (first.title.toLowerCase().includes(currentSearch.toLowerCase()))
-                return -1;
-
-            return 1;
+            return first.title.toLowerCase().includes(currentSearch.toLowerCase()) ? -1 : 1;
         })
         .map(({ title, uri, section, breadCrumbs, data }) => {
             /**

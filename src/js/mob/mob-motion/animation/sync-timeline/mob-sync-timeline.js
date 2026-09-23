@@ -750,12 +750,14 @@ export default class MobSyncTimeline {
         this.#isStopped = false;
         this.#isInPause = true;
 
-        if (freezeCache) {
-            for (const item of this.#sequencers) {
-                item.freezeCachedId();
-            }
+        if (!freezeCache) {
             return;
         }
+
+        for (const item of this.#sequencers) {
+            item.freezeCachedId();
+        }
+        return;
     }
 
     /**
@@ -766,12 +768,14 @@ export default class MobSyncTimeline {
 
         this.#isInPause = false;
 
-        if (unFreezeCache) {
-            for (const item of this.#sequencers) {
-                item.unFreezeCachedId();
-            }
+        if (!unFreezeCache) {
             return;
         }
+
+        for (const item of this.#sequencers) {
+            item.unFreezeCachedId();
+        }
+        return;
     }
 
     /**

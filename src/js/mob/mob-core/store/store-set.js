@@ -137,10 +137,10 @@ const setProp = ({
     /**
      * Check if last value is equal new value. if true and skipEqual is true for this prop return.
      */
-    const isEqual =
-        skipEqual[prop] === true
-            ? checkEquality(type[prop], oldVal, valueTransformed)
-            : false;
+    const isEqual = Boolean(
+        skipEqual[prop] === true &&
+        checkEquality(type[prop], oldVal, valueTransformed)
+    );
 
     if (isEqual && !initalizeStep) return;
 
@@ -157,23 +157,25 @@ const setProp = ({
     /**
      * Fire callback
      */
-    if (fireCallback && !initalizeStep) {
-        runCallbackQueqe({
-            watcherByProp,
-            prop,
-            newValue: valueTransformed,
-            oldValue: oldVal,
-            validationValue: validationStatusObject[prop],
-            instanceId,
-        });
+    if (!fireCallback || initalizeStep) {
+        return;
+    }
 
-        /**
-         * AddToComputedWaitLsit get and update map.
-         */
-        addToComputedWaitLsit({ instanceId, prop });
-        for (const id of bindInstanceBy) {
-            addToComputedWaitLsit({ instanceId: id, prop });
-        }
+    runCallbackQueqe({
+        watcherByProp,
+        prop,
+        newValue: valueTransformed,
+        oldValue: oldVal,
+        validationValue: validationStatusObject[prop],
+        instanceId,
+    });
+
+    /**
+     * AddToComputedWaitLsit get and update map.
+     */
+    addToComputedWaitLsit({ instanceId, prop });
+    for (const id of bindInstanceBy) {
+        addToComputedWaitLsit({ instanceId: id, prop });
     }
 };
 
@@ -390,19 +392,21 @@ const setObj = ({
         const isCustomObject = type[prop][key] === TYPE_IS_ANY;
         const dataDepth = maxDepth(value);
 
-        if (!isCustomObject && dataDepth > 1) {
-            storeSetObjDepthWarning(prop, valueTransformed, logStyle);
-
-            /**
-             * First time value is checked ( initialize ) set validation to false if datadeph is wrong
-             */
-            validationStatusObject[prop][key] = false;
-
-            /**
-             * Skip setObject
-             */
-            arePropsDepthValid = false;
+        if (isCustomObject || !(dataDepth > 1)) {
+            continue;
         }
+
+        storeSetObjDepthWarning(prop, valueTransformed, logStyle);
+
+        /**
+         * First time value is checked ( initialize ) set validation to false if datadeph is wrong
+         */
+        validationStatusObject[prop][key] = false;
+
+        /**
+         * Skip setObject
+         */
+        arePropsDepthValid = false;
     }
 
     /**
@@ -442,23 +446,25 @@ const setObj = ({
      */
     updateMainMap(instanceId, { ...state, store, validationStatusObject });
 
-    if (fireCallback && !initalizeStep) {
-        runCallbackQueqe({
-            watcherByProp,
-            prop,
-            newValue: store[prop],
-            oldValue: oldObjectValues,
-            validationValue: validationStatusObject[prop],
-            instanceId,
-        });
+    if (!fireCallback || initalizeStep) {
+        return;
+    }
 
-        /**
-         * AddToComputedWaitLsit get and update map.
-         */
-        addToComputedWaitLsit({ instanceId, prop });
-        for (const id of bindInstanceBy) {
-            addToComputedWaitLsit({ instanceId: id, prop });
-        }
+    runCallbackQueqe({
+        watcherByProp,
+        prop,
+        newValue: store[prop],
+        oldValue: oldObjectValues,
+        validationValue: validationStatusObject[prop],
+        instanceId,
+    });
+
+    /**
+     * AddToComputedWaitLsit get and update map.
+     */
+    addToComputedWaitLsit({ instanceId, prop });
+    for (const id of bindInstanceBy) {
+        addToComputedWaitLsit({ instanceId: id, prop });
     }
 };
 

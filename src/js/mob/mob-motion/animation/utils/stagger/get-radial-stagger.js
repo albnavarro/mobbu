@@ -59,14 +59,16 @@ const getRadialX = (arr, x, y, chunk) => {
             }
 
             // Avoid duplicate
-            if (i > 0) {
-                if (isAvailableIntoChunk(chunk, y - i, xStart)) {
-                    newRow.push(chunk[y - i][xStart]);
-                }
+            if (!(i > 0)) {
+                continue;
+            }
 
-                if (isAvailableIntoChunk(chunk, y - i, xEnd)) {
-                    newRow.push(chunk[y - i][xEnd]);
-                }
+            if (isAvailableIntoChunk(chunk, y - i, xStart)) {
+                newRow.push(chunk[y - i][xStart]);
+            }
+
+            if (isAvailableIntoChunk(chunk, y - i, xEnd)) {
+                newRow.push(chunk[y - i][xEnd]);
             }
         }
 

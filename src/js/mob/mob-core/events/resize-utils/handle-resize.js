@@ -144,10 +144,12 @@ const addCallback = (cb) => {
     return () => {
         callbacks.delete(id);
 
-        if (isInitialized && callbacks.size === 0) {
-            globalThis.removeEventListener('resize', debouceFunctionReference);
-            isInitialized = false;
+        if (!(isInitialized && callbacks.size === 0)) {
+            return;
         }
+
+        globalThis.removeEventListener('resize', debouceFunctionReference);
+        isInitialized = false;
     };
 };
 

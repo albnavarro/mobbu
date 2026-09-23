@@ -74,8 +74,7 @@ export const getRepeaterStateById = ({ id = '' }) => {
     const item = componentMap.get(id);
     const currentRepeaterState = item?.currentRepeaterState;
 
-    if (!currentRepeaterState) return DEFAULT_CURRENT_REPEATER_STATE;
-    return currentRepeaterState;
+    return currentRepeaterState ? currentRepeaterState : DEFAULT_CURRENT_REPEATER_STATE;
 };
 
 /**
@@ -91,9 +90,7 @@ export const getRepeaterPropBind = ({ id = '' }) => {
     const item = componentMap.get(id);
     const repeatPropBind = item?.repeatPropBind;
 
-    if (!repeatPropBind) return '';
-
-    return repeatPropBind;
+    return repeatPropBind ? repeatPropBind : '';
 };
 
 /**

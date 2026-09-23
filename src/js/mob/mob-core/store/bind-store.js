@@ -85,13 +85,15 @@ const checkDuplicatedBindProp = ({ bindStores, selfStore }) => {
                 return Object.keys(storeCheck).includes(key);
             });
 
-            if (duplicate.length > 0) {
-                hasConflict = true;
-
-                console.warn(
-                    `bindStore: prop conflict on following prop: '${duplicate}', bind store key must be univoque'`
-                );
+            if (duplicate.length === 0) {
+                continue;
             }
+
+            hasConflict = true;
+
+            console.warn(
+                `bindStore: prop conflict on following prop: '${duplicate}', bind store key must be univoque'`
+            );
         }
     }
 

@@ -333,10 +333,12 @@ export const getDefaultStagger = ({
         staggerArray[i].frame = item.frame;
 
         // If there an OnCompelte callback
-        if (staggerArrayOnComplete.length > 0) {
-            staggerArrayOnComplete[i].index = item.index;
-            staggerArrayOnComplete[i].frame = item.frame;
+        if (staggerArrayOnComplete.length === 0) {
+            continue;
         }
+
+        staggerArrayOnComplete[i].index = item.index;
+        staggerArrayOnComplete[i].frame = item.frame;
     }
 
     return {
