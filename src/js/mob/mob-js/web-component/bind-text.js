@@ -11,23 +11,20 @@ export const defineBindTextComponent = () => {
             }
 
             connectedCallback() {
-                // @ts-ignore
-                const { dataset } = this.shadowRoot?.host ?? {};
+                const host = /** @type {HTMLElement | undefined} */ (
+                    this.shadowRoot?.host
+                );
 
-                if (dataset) {
-                    const host =
-                        this.shadowRoot?.host ?? document.createElement('div');
-                    const componentId =
-                        host?.getAttribute(ATTR_COMPONENT_ID) ?? '';
-                    const bindTextId =
-                        host?.getAttribute(ATTR_BIND_TEXT_ID) ?? '';
+                if (!host?.dataset) return;
 
-                    addBindTextPlaceholderMap({
-                        host,
-                        componentId,
-                        bindTextId,
-                    });
-                }
+                const componentId = host.getAttribute(ATTR_COMPONENT_ID) ?? '';
+                const bindTextId = host.getAttribute(ATTR_BIND_TEXT_ID) ?? '';
+
+                addBindTextPlaceholderMap({
+                    host,
+                    componentId,
+                    bindTextId,
+                });
             }
 
             removeCustomComponent() {

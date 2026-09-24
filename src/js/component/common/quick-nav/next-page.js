@@ -6,7 +6,7 @@
 import { htmlObject, MobJs } from '@mobJs';
 
 /**
-@type{(route: string)=> boolean|null} *
+@type{(route: string)=> boolean|null} 
 */
 const disableIf = (route) => !route || route.length === 0 || null;
 

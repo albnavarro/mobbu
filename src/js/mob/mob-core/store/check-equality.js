@@ -162,7 +162,11 @@ const objectAreEqual = (a, b, seen = new WeakMap()) => {
     if (keysA.length !== keysB.length) return false;
 
     for (const key of keysA) {
-        if (!Object.prototype.hasOwnProperty.call(b, key) || !objectAreEqual(a[key], b[key], seen)) return false;
+        if (
+            !Object.prototype.hasOwnProperty.call(b, key) ||
+            !objectAreEqual(a[key], b[key], seen)
+        )
+            return false;
     }
 
     return true;

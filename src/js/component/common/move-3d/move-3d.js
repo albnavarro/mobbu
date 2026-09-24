@@ -266,11 +266,9 @@ export const Move3DFunction = ({
                 dragX = window.innerWidth / 2;
                 dragY = window.innerHeight / 2;
 
-                unsubscribeTouchStart = MobCore.useTouchStart(
-                    ({ page }) => {
-                        onMouseDown({ page });
-                    }
-                );
+                unsubscribeTouchStart = MobCore.useTouchStart(({ page }) => {
+                    onMouseDown({ page });
+                });
 
                 unsubscribeTouchEnd = MobCore.useTouchEnd(() => {
                     onMouseUp();

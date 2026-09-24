@@ -1237,7 +1237,9 @@ export default class MobScroller {
      */
     #getScrollValueOnMove(value) {
         if (value === undefined) return;
-        return this.#screen === globalThis ? value : value + this.#screenPosition;
+        return this.#screen === globalThis
+            ? value
+            : value + this.#screenPosition;
     }
 
     /**

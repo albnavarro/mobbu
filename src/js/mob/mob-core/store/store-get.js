@@ -24,11 +24,13 @@ export const storeGetEntryPoint = (instanceId) => {
 
     const { bindInstance } = state;
 
-    return !bindInstance || bindInstance.length === 0 ? storeGet(instanceId) : Object.fromEntries(
-        [...bindInstance, instanceId].flatMap((id) =>
-            Object.entries(storeGet(id))
-        )
-    );
+    return !bindInstance || bindInstance.length === 0
+        ? storeGet(instanceId)
+        : Object.fromEntries(
+              [...bindInstance, instanceId].flatMap((id) =>
+                  Object.entries(storeGet(id))
+              )
+          );
 };
 
 /**

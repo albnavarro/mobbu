@@ -473,12 +473,11 @@ export default class MobAsyncTimeline {
              * labelIsActive is true;
              * labelIndex is minus currentIndex
              */
-            const isImmediate = Number.isNaN(labelIndex)
-                ? false
-                : labelIsActive &&
-                  labelIndex &&
-                  // @ts-ignore
-                  this.#currentIndex < labelIndex;
+            const isImmediate = Boolean(
+                labelIsActive &&
+                labelIndex &&
+                this.#currentIndex < /** @type{number} */ (labelIndex)
+            );
 
             /*
              * set new immediate prop to true.
@@ -624,6 +623,8 @@ export default class MobAsyncTimeline {
                     );
                     if (!valueIsValid)
                         timelineSuspendWarning(() => suspendValue);
+
+                    // eslint-disable-next-line unicorn/prefer-logical-operator-over-ternary
                     const shouldSuspend = valueIsValid ? suspendValue : true;
 
                     return new Promise((res) => {
@@ -636,7 +637,7 @@ export default class MobAsyncTimeline {
             };
 
             return new Promise((mainResolve, mainReject) => {
-                // Get delay
+                // eslint-disable-next-line unicorn/prefer-logical-operator-over-ternary
                 const delay = isImmediate ? false : tweenProps?.delay;
                 const previousSessionId = this.#sessionId;
 

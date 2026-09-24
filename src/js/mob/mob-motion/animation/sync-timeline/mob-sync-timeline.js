@@ -757,7 +757,6 @@ export default class MobSyncTimeline {
         for (const item of this.#sequencers) {
             item.freezeCachedId();
         }
-        return;
     }
 
     /**
@@ -775,7 +774,6 @@ export default class MobSyncTimeline {
         for (const item of this.#sequencers) {
             item.unFreezeCachedId();
         }
-        return;
     }
 
     /**

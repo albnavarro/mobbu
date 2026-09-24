@@ -41,7 +41,6 @@ const shouldFreeze = (value) => {
      * NON congelare Map e Set e funzionr
      *
      * - L'utente deve poterli usare con .set/.get e poi chiamare emit manualmente
-     * - Per maggior leggibilitá disabilitimo in questo caso la regola `unicorn/prefer-boolean-return`
      */
     if (checkType(Map, value)) return false;
     if (checkType(Set, value) || checkType(Function, value)) return false;
@@ -188,7 +187,9 @@ const createDynamicProxy = (instanceId, strategy) => {
                      *
                      * Ma permettere comunque la lettura delle proprietà
                      */
-                    return Array.isArray(value) ? Object.freeze([...value]) : Object.freeze({ ...value });
+                    return Array.isArray(value)
+                        ? Object.freeze([...value])
+                        : Object.freeze({ ...value });
                 }
 
                 return value;

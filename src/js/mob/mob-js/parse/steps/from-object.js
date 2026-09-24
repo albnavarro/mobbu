@@ -211,7 +211,11 @@ const addContentChild = (rootElement, children) => {
 
         /**
          * Library component
+         * NOTE: intentionally using if-blocks instead of early continue
+         * to keep each type case visually symmetric and self-contained.
          */
+
+        /* eslint-disable-next-line unicorn/prefer-continue */
         if (MobCore.checkType(Object, child)) {
             const content = htmlObject(child);
             rootElement.append(content);

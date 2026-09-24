@@ -17,7 +17,9 @@ export const maxDepth = (object) => {
     if (!storeType.isObject(object)) return 0;
     const values = Object.values(object);
 
-    return values.length === 0 ? 1 : Math.max(...values.map((value) => maxDepth(value))) + 1;
+    return values.length === 0
+        ? 1
+        : Math.max(...values.map((value) => maxDepth(value))) + 1;
 };
 
 /**

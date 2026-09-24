@@ -55,7 +55,7 @@ export const getIdByInstanceName = (name = '') => {
  * @returns {string[]}
  */
 export const getIdArrayByInstanceName = (name = '') => {
-    return name ? getIdsFromInstanceMap({ instanceName: name }) ?? [] : [];
+    return name ? (getIdsFromInstanceMap({ instanceName: name }) ?? []) : [];
 };
 
 /**
@@ -70,7 +70,7 @@ export const componentHasKey = (id = '') => {
     const item = componentMap.get(id);
     const key = item?.key;
 
-    return key ? key !== '' : false;
+    return Boolean(key);
 };
 
 /**

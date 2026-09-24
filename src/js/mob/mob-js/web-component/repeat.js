@@ -15,17 +15,14 @@ export const defineRepeatComponent = () => {
                 const skip = getSkipAddUserComponent();
                 if (skip) return;
 
-                // @ts-ignore
-                const { dataset } = this.shadowRoot?.host ?? {};
+                const host = /** @type {HTMLElement | undefined} */ (
+                    this.shadowRoot?.host
+                );
 
-                if (dataset) {
-                    const host = /** @type {HTMLElement} */ (
-                        this.shadowRoot?.host
-                    );
-                    const repeatId =
-                        host?.getAttribute(ATTR_MOBJS_REPEAT) ?? '';
-                    setParentRepeater({ repeatId, host });
-                }
+                if (!host?.dataset) return;
+
+                const repeatId = host.getAttribute(ATTR_MOBJS_REPEAT) ?? '';
+                setParentRepeater({ repeatId, host });
             }
 
             removeCustomComponent() {

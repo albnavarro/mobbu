@@ -213,14 +213,8 @@ export const mathRosaDiGrandi = (
             continue;
         }
 
-        tween.goTo(
-            { scale: 0 },
-            { start, end: center, ease: 'easeInQuad' }
-        );
-        tween.goTo(
-            { scale: 1 },
-            { start: center, end, ease: 'easeOutQuad' }
-        );
+        tween.goTo({ scale: 0 }, { start, end: center, ease: 'easeInQuad' });
+        tween.goTo({ scale: 1 }, { start: center, end, ease: 'easeOutQuad' });
     }
 
     for (const [index, item] of targets.entries()) {

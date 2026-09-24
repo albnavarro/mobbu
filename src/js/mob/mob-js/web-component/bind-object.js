@@ -11,23 +11,21 @@ export const defineBindObjectComponent = () => {
             }
 
             connectedCallback() {
-                // @ts-ignore
-                const { dataset } = this.shadowRoot?.host ?? {};
+                const host = /** @type {HTMLElement | undefined} */ (
+                    this.shadowRoot?.host
+                );
 
-                if (dataset) {
-                    const host =
-                        this.shadowRoot?.host ?? document.createElement('div');
-                    const componentId =
-                        host?.getAttribute(ATTR_COMPONENT_ID) ?? '';
-                    const bindObjectId =
-                        host?.getAttribute(ATTR_BIND_OBJECT_ID) ?? '';
+                if (!host?.dataset) return;
 
-                    addBindObjectPlaceholderMap({
-                        host,
-                        componentId,
-                        bindObjectId,
-                    });
-                }
+                const componentId = host.getAttribute(ATTR_COMPONENT_ID) ?? '';
+                const bindObjectId =
+                    host.getAttribute(ATTR_BIND_OBJECT_ID) ?? '';
+
+                addBindObjectPlaceholderMap({
+                    host,
+                    componentId,
+                    bindObjectId,
+                });
             }
 
             removeCustomComponent() {

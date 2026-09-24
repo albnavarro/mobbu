@@ -1993,7 +1993,8 @@
     const keysB = Object.keys(b);
     if (keysA.length !== keysB.length) return false;
     for (const key of keysA) {
-      if (!Object.prototype.hasOwnProperty.call(b, key) || !objectAreEqual(a[key], b[key], seen)) return false;
+      if (!Object.prototype.hasOwnProperty.call(b, key) || !objectAreEqual(a[key], b[key], seen))
+        return false;
     }
     return true;
   };
@@ -6145,15 +6146,13 @@
         connectedCallback() {
           const skip = getSkipAddUserComponent();
           if (skip) return;
-          const { dataset } = this.shadowRoot?.host ?? {};
-          if (dataset) {
-            const host = (
-              /** @type {HTMLElement} */
-              this.shadowRoot?.host
-            );
-            const repeatId = host?.getAttribute(ATTR_MOBJS_REPEAT) ?? "";
-            setParentRepeater({ repeatId, host });
-          }
+          const host = (
+            /** @type {HTMLElement | undefined} */
+            this.shadowRoot?.host
+          );
+          if (!host?.dataset) return;
+          const repeatId = host.getAttribute(ATTR_MOBJS_REPEAT) ?? "";
+          setParentRepeater({ repeatId, host });
         }
         removeCustomComponent() {
           if (!this.shadowRoot) return;
@@ -6191,15 +6190,13 @@
           this.attachShadow({ mode: "open" });
         }
         connectedCallback() {
-          const { dataset } = this.shadowRoot?.host ?? {};
-          if (dataset) {
-            const host = (
-              /** @type {HTMLElement} */
-              this.shadowRoot?.host
-            );
-            const invalidateId = host.getAttribute(ATTR_INVALIDATE) ?? "";
-            setParentInvalidate({ invalidateId, host });
-          }
+          const host = (
+            /** @type {HTMLElement | undefined} */
+            this.shadowRoot?.host
+          );
+          if (!host?.dataset) return;
+          const invalidateId = host.getAttribute(ATTR_INVALIDATE) ?? "";
+          setParentInvalidate({ invalidateId, host });
         }
         removeCustomComponent() {
           if (!this.shadowRoot) return;
@@ -6855,17 +6852,18 @@
           this.attachShadow({ mode: "open" });
         }
         connectedCallback() {
-          const { dataset } = this.shadowRoot?.host ?? {};
-          if (dataset) {
-            const host = this.shadowRoot?.host ?? document.createElement("div");
-            const componentId = host?.getAttribute(ATTR_COMPONENT_ID) ?? "";
-            const bindTextId = host?.getAttribute(ATTR_BIND_TEXT_ID) ?? "";
-            addBindTextPlaceholderMap({
-              host,
-              componentId,
-              bindTextId
-            });
-          }
+          const host = (
+            /** @type {HTMLElement | undefined} */
+            this.shadowRoot?.host
+          );
+          if (!host?.dataset) return;
+          const componentId = host.getAttribute(ATTR_COMPONENT_ID) ?? "";
+          const bindTextId = host.getAttribute(ATTR_BIND_TEXT_ID) ?? "";
+          addBindTextPlaceholderMap({
+            host,
+            componentId,
+            bindTextId
+          });
         }
         removeCustomComponent() {
           if (!this.shadowRoot) return;
@@ -6977,17 +6975,18 @@
           this.attachShadow({ mode: "open" });
         }
         connectedCallback() {
-          const { dataset } = this.shadowRoot?.host ?? {};
-          if (dataset) {
-            const host = this.shadowRoot?.host ?? document.createElement("div");
-            const componentId = host?.getAttribute(ATTR_COMPONENT_ID) ?? "";
-            const bindObjectId = host?.getAttribute(ATTR_BIND_OBJECT_ID) ?? "";
-            addBindObjectPlaceholderMap({
-              host,
-              componentId,
-              bindObjectId
-            });
-          }
+          const host = (
+            /** @type {HTMLElement | undefined} */
+            this.shadowRoot?.host
+          );
+          if (!host?.dataset) return;
+          const componentId = host.getAttribute(ATTR_COMPONENT_ID) ?? "";
+          const bindObjectId = host.getAttribute(ATTR_BIND_OBJECT_ID) ?? "";
+          addBindObjectPlaceholderMap({
+            host,
+            componentId,
+            bindObjectId
+          });
         }
         removeCustomComponent() {
           if (!this.shadowRoot) return;
@@ -7217,13 +7216,12 @@
   var getPageTreeFromPath = ({ hash, children = parentList }) => {
     for (const node of children) {
       if (node.hash === hash) return node.children;
-      if (node.children.length > 0) {
-        const result = getPageTreeFromPath({
-          hash,
-          children: node.children
-        });
-        if (result) return result;
-      }
+      if (node.children.length === 0) continue;
+      const result = getPageTreeFromPath({
+        hash,
+        children: node.children
+      });
+      if (result) return result;
     }
   };
 
@@ -7533,8 +7531,8 @@
         continue;
       }
       slot.parentNode?.insertBefore(component, slot);
-      slot?.removeCustomComponent();
-      slot?.remove();
+      slot.removeCustomComponent();
+      slot.remove();
     }
   };
   var executeConversion = ({ element, content }) => {
@@ -13513,9 +13511,8 @@
         if (!result) {
           return;
         }
-        result?.callback();
+        result.callback();
         console.log("custom tween run function extrecuted");
-        return;
       });
     });
   };
@@ -13601,7 +13598,7 @@
       const rawCurrentValue = currentValue + newVelocity * 1 / fps2;
       const newCurrentValue = getRoundedValue(rawCurrentValue);
       const isVelocity = Math.abs(newVelocity) <= 0.1;
-      const isDisplacement = tension === 0 ? true : Math.abs(toValue - newCurrentValue) <= precision;
+      const isDisplacement = tension === 0 || Math.abs(toValue - newCurrentValue) <= precision;
       const isSettled = isVelocity && isDisplacement;
       if (isSettled) {
         return {
@@ -18285,8 +18282,10 @@
         const newTweenProps = { ...tweenProps };
         delete newTweenProps.delay;
         const { active: labelIsActive, index: labelIndex } = this.#useLabel;
-        const isImmediate = Number.isNaN(labelIndex) ? false : labelIsActive && labelIndex && // @ts-ignore
-        this.#currentIndex < labelIndex;
+        const isImmediate = Boolean(
+          labelIsActive && labelIndex && this.#currentIndex < /** @type{number} */
+          labelIndex
+        );
         if (isImmediate) newTweenProps.immediate = true;
         if (tweenProps && "relative" in tweenProps && tweenProps.relative) {
           tweenProps.relative = false;
@@ -20019,7 +20018,6 @@
       for (const item of this.#sequencers) {
         item.freezeCachedId();
       }
-      return;
     }
     /**
      * @type {import('./type.js').SyncTimelineResume}
@@ -20033,7 +20031,6 @@
       for (const item of this.#sequencers) {
         item.unFreezeCachedId();
       }
-      return;
     }
     /**
      * @type {import('./type.js').SyncTimelineReverse}
@@ -21176,26 +21173,27 @@
         }
       });
       this.#unsubscribeScroll = modules_exports.useScroll(({ scrollY }) => {
-        if (!this.#isInizialized) return;
-        if (this.#screen !== globalThis && this.#screen !== document.documentElement) {
-          if (this.#direction === MobScrollerConstant.DIRECTION_VERTICAL) {
-            this.#refreshCollisionPoint();
-          }
-          const gap = scrollY - this.#prevscrollY;
-          this.#prevscrollY = scrollY;
-          if (this.#isInner && this.#pin && this.#spring) {
-            const { verticalGap } = this.#spring.get();
-            const translateValue = verticalGap - gap;
-            this.#spring.setData({
-              collision: 0,
-              verticalGap: translateValue
-            });
-            modules_exports.useFrame(() => {
-              if (this.#pin)
-                this.#pin.style.transform = `translate(0px,${translateValue}px)`;
-            });
-          }
+        if (!this.#isInizialized || this.#screen === globalThis || this.#screen === document.documentElement) {
+          return;
         }
+        if (this.#direction === MobScrollerConstant.DIRECTION_VERTICAL) {
+          this.#refreshCollisionPoint();
+        }
+        const gap = scrollY - this.#prevscrollY;
+        this.#prevscrollY = scrollY;
+        if (!this.#isInner || !this.#pin || !this.#spring) {
+          return;
+        }
+        const { verticalGap } = this.#spring.get();
+        const translateValue = verticalGap - gap;
+        this.#spring.setData({
+          collision: 0,
+          verticalGap: translateValue
+        });
+        modules_exports.useFrame(() => {
+          if (this.#pin)
+            this.#pin.style.transform = `translate(0px,${translateValue}px)`;
+        });
       });
     }
     /**
@@ -24273,39 +24271,37 @@
           this.#row.style.width = "";
           this.#row.style.transform = "";
         }
-        if (destroyAll && this.#mainContainer) {
-          if (this.#useDrag) this.#removeDragListener();
-          const styleDiv = this.#mainContainer.querySelector(".scroller-style");
-          if (styleDiv) styleDiv.remove();
-          this.#mainContainer = null;
-          this.#trigger = null;
-          this.#row = null;
-          this.#columns = [];
-          this.#shadows = [];
-          this.#afterInit = NOOP;
-          this.#afterRefresh = NOOP;
-          this.#onTick = NOOP;
-          this.#onEnter = NOOP;
-          this.#onEnterBack = NOOP;
-          this.#onLeave = NOOP;
-          this.#onLeaveBack = NOOP;
-          this.#scrollTriggerInstance = null;
-          this.#moduleisActive = false;
-          this.#buttons = [];
-          this.#mainContainer = null;
-          this.#container = null;
-          this.#trigger = null;
-          this.#row = null;
-          modules_exports.useNextTick(() => {
-            this.#afterDestroy?.();
-            this.#afterDestroy = NOOP;
-            for (let element of this.#children) {
-              element?.destroy?.();
-              element = null;
-            }
-            this.#children = [];
-          });
+        if (!destroyAll || !this.#mainContainer) {
+          return;
         }
+        if (this.#useDrag) this.#removeDragListener();
+        const styleDiv = this.#mainContainer.querySelector(".scroller-style");
+        if (styleDiv) styleDiv.remove();
+        this.#container = null;
+        this.#mainContainer = null;
+        this.#trigger = null;
+        this.#row = null;
+        this.#columns = [];
+        this.#shadows = [];
+        this.#afterInit = NOOP;
+        this.#afterRefresh = NOOP;
+        this.#onTick = NOOP;
+        this.#onEnter = NOOP;
+        this.#onEnterBack = NOOP;
+        this.#onLeave = NOOP;
+        this.#onLeaveBack = NOOP;
+        this.#scrollTriggerInstance = null;
+        this.#moduleisActive = false;
+        this.#buttons = [];
+        modules_exports.useNextTick(() => {
+          this.#afterDestroy?.();
+          this.#afterDestroy = NOOP;
+          for (let element of this.#children) {
+            element?.destroy?.();
+            element = null;
+          }
+          this.#children = [];
+        });
       }, 3);
     }
     /**
@@ -25070,14 +25066,15 @@
           }, 2);
         });
       }
-      if (this.#syncArrow) {
-        const screen = (
-          /** @type {any} */
-          this.#screen
-        );
-        if (screen === globalThis) return;
-        screen.addEventListener("keydown", this.#eventKeyArrow);
+      if (!this.#syncArrow) {
+        return;
       }
+      const screen = (
+        /** @type {any} */
+        this.#screen
+      );
+      if (screen === globalThis) return;
+      screen.addEventListener("keydown", this.#eventKeyArrow);
     }
     /**
      * @type {() => void}
@@ -25205,7 +25202,7 @@
       this.#endValue += spinYParsed * this.#speed;
       this.#endValue = clamp3(this.#endValue, 0, this.#maxValue);
       this.#updateScrollState();
-      const useSnap = this.#snapPoints.length > 0 ? this.#checkSnapOpportunity() : false;
+      const useSnap = this.#snapPoints.length > 0 && this.#checkSnapOpportunity();
       if (useSnap) {
         this.#scheduleSnapTimeout();
         return;
@@ -25286,36 +25283,37 @@
     #onWhell({ target, spinY = 0, spinX = 0, preventDefault }) {
       if (!mq[this.#queryType](this.#breakpoint)) return;
       this.#addWhellingClass();
-      if (target === this.#scroller || isDescendant(
+      if (target !== this.#scroller && !isDescendant(
         /** @type {HTMLElement} */
         this.#scroller,
         /** @type {HTMLElement} */
         target
       )) {
-        this.#dragEnable = false;
-        preventDefault?.();
-        FreezeMobPageScroll();
-        this.#clearSnapTimeout();
-        const spinXdiff = Math.abs(this.#lastSpinX - spinX);
-        const spinYdiff = Math.abs(this.#lastSpinY - spinY);
-        const spinValue = this.#useHorizontalScroll ? (() => {
-          return spinXdiff > spinYdiff ? spinX : spinY;
-        })() : spinY;
-        if (Math.abs(spinValue) === 0) return;
-        this.#endValue += clamp3(spinValue, -1, 1) * this.#speed;
-        this.#endValue = clamp3(this.#endValue, 0, this.#maxValue);
-        this.#updateScrollState();
-        const useSnap = this.#snapPoints.length > 0 ? this.#checkSnapOpportunity() : false;
-        if (useSnap) {
-          this.#scheduleSnapTimeout();
-          return;
-        }
-        this.#executeScroll();
-        this.#lastSpinY = spinY;
-        this.#lastSpinX = spinX;
-        if (this.#snapPoints.length > 0) {
-          this.#scheduleSnapTimeout();
-        }
+        return;
+      }
+      this.#dragEnable = false;
+      preventDefault?.();
+      FreezeMobPageScroll();
+      this.#clearSnapTimeout();
+      const spinXdiff = Math.abs(this.#lastSpinX - spinX);
+      const spinYdiff = Math.abs(this.#lastSpinY - spinY);
+      const spinValue = this.#useHorizontalScroll ? (() => {
+        return spinXdiff > spinYdiff ? spinX : spinY;
+      })() : spinY;
+      if (Math.abs(spinValue) === 0) return;
+      this.#endValue += clamp3(spinValue, -1, 1) * this.#speed;
+      this.#endValue = clamp3(this.#endValue, 0, this.#maxValue);
+      this.#updateScrollState();
+      const useSnap = this.#snapPoints.length > 0 && this.#checkSnapOpportunity();
+      if (useSnap) {
+        this.#scheduleSnapTimeout();
+        return;
+      }
+      this.#executeScroll();
+      this.#lastSpinY = spinY;
+      this.#lastSpinX = spinX;
+      if (this.#snapPoints.length > 0) {
+        this.#scheduleSnapTimeout();
       }
     }
     /**
@@ -25750,7 +25748,6 @@
       return;
     }
     body.classList.add("is-edge");
-    return;
   }
   var loadTextContent = async ({ source }) => {
     const response = await fetch(source);
@@ -32064,7 +32061,7 @@
                     delegateEvents({
                       click: async () => {
                         updateState("counter", (prev) => {
-                          return prev > 0 ? prev -= 1 : prev;
+                          return prev > 0 ? prev - 1 : prev;
                         });
                       }
                     })
@@ -34145,11 +34142,9 @@
           }
           dragX = window.innerWidth / 2;
           dragY = window.innerHeight / 2;
-          unsubscribeTouchStart = modules_exports.useTouchStart(
-            ({ page }) => {
-              onMouseDown({ page });
-            }
-          );
+          unsubscribeTouchStart = modules_exports.useTouchStart(({ page }) => {
+            onMouseDown({ page });
+          });
           unsubscribeTouchEnd = modules_exports.useTouchEnd(() => {
             onMouseUp();
           });
@@ -37676,14 +37671,8 @@
       if (!(end > start)) {
         continue;
       }
-      tween2.goTo(
-        { scale: 0 },
-        { start, end: center, ease: "easeInQuad" }
-      );
-      tween2.goTo(
-        { scale: 1 },
-        { start: center, end, ease: "easeOutQuad" }
-      );
+      tween2.goTo({ scale: 0 }, { start, end: center, ease: "easeInQuad" });
+      tween2.goTo({ scale: 1 }, { start: center, end, ease: "easeOutQuad" });
     }
     for (const [index, item] of targets.entries()) {
       const innerElement = (
@@ -40181,10 +40170,7 @@
   var lastActiveId = RESET_FILTER_DEBUG;
   var isJustCreated = false;
   var getClassList2 = (value) => {
-    return value ? [...value].reduce(
-      (previous, current) => `${previous}.${current}`,
-      ""
-    ) : "";
+    return value ? [...value].reduce((previous, current) => `${previous}.${current}`, "") : "";
   };
   var getObjectKeys = (methods) => {
     return Object.keys(methods).reduce((previous, current) => {
@@ -42332,7 +42318,6 @@
       return;
     }
     closeSearchSuggestion();
-    return;
   };
   var SearchOverlaySuggestionItemFunction = ({
     getSelfProxi,
@@ -44421,7 +44406,7 @@
     if (!children) return false;
     const flatChildren = Object.values(children).flat();
     const hasOccurrence = flatChildren.includes(value);
-    return hasOccurrence ? true : flatChildren.some((id2) => activeItemChildren({ id: id2, value }));
+    return hasOccurrence || flatChildren.some((id2) => activeItemChildren({ id: id2, value }));
   };
   var DebugTreeItemFunction = ({
     onMount,

@@ -40,7 +40,6 @@ export function setBrowserClass() {
     }
 
     body.classList.add('is-edge');
-    return;
 }
 
 /**

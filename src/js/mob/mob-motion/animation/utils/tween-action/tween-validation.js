@@ -879,6 +879,7 @@ export const scrollerOnSwitchIsValid = (value) => {
 
     if (!isValid && value) scrollerOnSwitchWarining(value, choice);
 
+    // eslint-disable-next-line unicorn/prefer-logical-operator-over-ternary
     return isValid ? value : false;
 };
 

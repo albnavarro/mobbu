@@ -382,7 +382,9 @@ export const processFixedLimit = (value, stringValue, height, width) => {
         return value - width / 2;
     }
 
-    return exactMatchInsensitive(str, MobScrollerConstant.MINUS_WIDTH) ? value - width : value;
+    return exactMatchInsensitive(str, MobScrollerConstant.MINUS_WIDTH)
+        ? value - width
+        : value;
 };
 
 /**

@@ -809,11 +809,13 @@ export class MobSmoothScroller {
             });
         }
 
-        if (this.#syncArrow) {
-            const screen = /** @type {any} */ (this.#screen);
-            if (screen === globalThis) return;
-            screen.addEventListener('keydown', this.#eventKeyArrow);
+        if (!this.#syncArrow) {
+            return;
         }
+
+        const screen = /** @type {any} */ (this.#screen);
+        if (screen === globalThis) return;
+        screen.addEventListener('keydown', this.#eventKeyArrow);
     }
 
     /**
@@ -1006,7 +1008,7 @@ export class MobSmoothScroller {
          * - Lo motion gestirà l'animazione verso il punto di snap.
          */
         const useSnap =
-            this.#snapPoints.length > 0 ? this.#checkSnapOpportunity() : false;
+            this.#snapPoints.length > 0 && this.#checkSnapOpportunity();
 
         if (useSnap) {
             /**
@@ -1038,11 +1040,13 @@ export class MobSmoothScroller {
     #onMouseDown({ target, client }) {
         if (!mq[this.#queryType](this.#breakpoint)) return;
 
-        if (!(target === this.#scroller ||
+        if (!(
+            target === this.#scroller ||
             isDescendant(
                 /** @type {HTMLElement} */ (this.#scroller),
                 /** @type {HTMLElement} */ (target)
-            ))) {
+            )
+        )) {
             return;
         }
 
@@ -1135,96 +1139,96 @@ export class MobSmoothScroller {
         this.#addWhellingClass();
 
         if (
-            target === this.#scroller ||
-            isDescendant(
+            target !== this.#scroller &&
+            !isDescendant(
                 /** @type {HTMLElement} */ (this.#scroller),
                 /** @type {HTMLElement} */ (target)
             )
         ) {
-            this.#dragEnable = false;
+            return;
+        }
 
-            preventDefault?.();
-            FreezeMobPageScroll();
+        this.#dragEnable = false;
 
-            /**
-             * Eseguiamo un reset del debounce per la detext del fine wheel.
-             *
-             * - Evitiamo che i valori di velocity etc.. vengano resettati troppo presto dal timeout attivo.
-             * - In questo modo goToNextSnap userá un valore di velocity reale e non forzato a 1.
-             * - CheckSnapOpportunity si occuperá di creare un nuovo timeout se necessario ( snap individuato ).
-             * - Questa é la logica della gestione del debounce attivando quando uno snap é intercettato.
-             */
-            this.#clearSnapTimeout();
+        preventDefault?.();
+        FreezeMobPageScroll();
 
-            /**
-             * Default mode.
-             */
-            const spinXdiff = Math.abs(this.#lastSpinX - spinX);
-            const spinYdiff = Math.abs(this.#lastSpinY - spinY);
+        /**
+         * Eseguiamo un reset del debounce per la detext del fine wheel.
+         *
+         * - Evitiamo che i valori di velocity etc.. vengano resettati troppo presto dal timeout attivo.
+         * - In questo modo goToNextSnap userá un valore di velocity reale e non forzato a 1.
+         * - CheckSnapOpportunity si occuperá di creare un nuovo timeout se necessario ( snap individuato ).
+         * - Questa é la logica della gestione del debounce attivando quando uno snap é intercettato.
+         */
+        this.#clearSnapTimeout();
 
-            /**
-             * In horizontal mode, allow scroll in X and Y direction.
-             */
-            const spinValue = this.#useHorizontalScroll
-                ? (() => {
-                      return spinXdiff > spinYdiff ? spinX : spinY;
-                  })()
-                : spinY;
+        /**
+         * Default mode.
+         */
+        const spinXdiff = Math.abs(this.#lastSpinX - spinX);
+        const spinYdiff = Math.abs(this.#lastSpinY - spinY);
 
-            /**
-             * When there is no advanced return;
-             */
-            if (Math.abs(spinValue) === 0) return;
+        /**
+         * In horizontal mode, allow scroll in X and Y direction.
+         */
+        const spinValue = this.#useHorizontalScroll
+            ? (() => {
+                  return spinXdiff > spinYdiff ? spinX : spinY;
+              })()
+            : spinY;
 
-            /**
-             * Normalize spinValue between -1 && 1.
-             */
-            this.#endValue += clamp(spinValue, -1, 1) * this.#speed;
-            this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
-            this.#updateScrollState();
+        /**
+         * When there is no advanced return;
+         */
+        if (Math.abs(spinValue) === 0) return;
 
-            /**
-             * Gestisce il lifecycle dello snap:
-             *
-             * 1. Interrompe eventuali snap in corso (freezeSnap = false)
-             * 2. Aggiorna/Cancella il timer di debounce
-             * 3. Valuta se attivare un nuovo snap (velocity > X, direzione, etc.)
-             *
-             * Se uno snap viene attivato, il flusso corrente termina qui
-             *
-             * - Lo motion gestirà l'animazione verso il punto di snap.
-             */
-            const useSnap =
-                this.#snapPoints.length > 0
-                    ? this.#checkSnapOpportunity()
-                    : false;
+        /**
+         * Normalize spinValue between -1 && 1.
+         */
+        this.#endValue += clamp(spinValue, -1, 1) * this.#speed;
+        this.#endValue = clamp(this.#endValue, 0, this.#maxValue);
+        this.#updateScrollState();
 
-            if (useSnap) {
-                /**
-                 * Schedula il timeout per tracciare la fine degli eventi di wheel.
-                 *
-                 * - Con lo snap attivo non viene eseguita executeScroll
-                 */
-                this.#scheduleSnapTimeout();
-                return;
-            }
+        /**
+         * Gestisce il lifecycle dello snap:
+         *
+         * 1. Interrompe eventuali snap in corso (freezeSnap = false)
+         * 2. Aggiorna/Cancella il timer di debounce
+         * 3. Valuta se attivare un nuovo snap (velocity > X, direzione, etc.)
+         *
+         * Se uno snap viene attivato, il flusso corrente termina qui
+         *
+         * - Lo motion gestirà l'animazione verso il punto di snap.
+         */
+        const useSnap =
+            this.#snapPoints.length > 0 && this.#checkSnapOpportunity();
 
-            /**
-             * - Aggiorna:
-             * - PercentValue
-             *
-             * Lancia il tween
-             */
-            this.#executeScroll();
-            this.#lastSpinY = spinY;
-            this.#lastSpinX = spinX;
-
+        if (useSnap) {
             /**
              * Schedula il timeout per tracciare la fine degli eventi di wheel.
+             *
+             * - Con lo snap attivo non viene eseguita executeScroll
              */
-            if (this.#snapPoints.length > 0) {
-                this.#scheduleSnapTimeout();
-            }
+            this.#scheduleSnapTimeout();
+            return;
+        }
+
+        /**
+         * - Aggiorna:
+         * - PercentValue
+         *
+         * Lancia il tween
+         */
+        this.#executeScroll();
+        this.#lastSpinY = spinY;
+        this.#lastSpinX = spinX;
+
+        /**
+         * Schedula il timeout per tracciare la fine degli eventi di wheel.
+         */
+        if (this.#snapPoints.length > 0) {
+            this.#scheduleSnapTimeout();
         }
     }
 

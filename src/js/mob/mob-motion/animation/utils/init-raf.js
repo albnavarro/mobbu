@@ -32,9 +32,8 @@ export const initRaf = ({ validationFunction, defaultRafInit }) => {
                 return;
             }
 
-            result?.callback();
+            result.callback();
             console.log('custom tween run function extrecuted');
-            return;
         });
     });
 };

@@ -122,7 +122,6 @@ const convertObjectParamsToString = (params) => {
  * @returns {Promise<void>}
  */
 export const parseUrlHash = async ({
-     
     shouldLoadRoute = true,
     fromHistory = false,
 } = {}) => {

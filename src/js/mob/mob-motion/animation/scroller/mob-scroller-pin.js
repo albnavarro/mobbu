@@ -918,39 +918,40 @@ export class MobScrollerPin {
         });
 
         this.#unsubscribeScroll = MobCore.useScroll(({ scrollY }) => {
-            if (!this.#isInizialized) return;
-
             if (
-                this.#screen !== globalThis &&
-                this.#screen !== document.documentElement
+                !this.#isInizialized ||
+                this.#screen === globalThis ||
+                this.#screen === document.documentElement
             ) {
-                if (
-                    this.#direction === MobScrollerConstant.DIRECTION_VERTICAL
-                ) {
-                    this.#refreshCollisionPoint();
-                }
-
-                const gap = scrollY - this.#prevscrollY;
-                this.#prevscrollY = scrollY;
-
-                if (this.#isInner && this.#pin && this.#spring) {
-                    const { verticalGap } = this.#spring.get();
-                    const translateValue = verticalGap - gap;
-
-                    /**
-                     * No need animation update data and apply style directly
-                     */
-                    this.#spring.setData({
-                        collision: 0,
-                        verticalGap: translateValue,
-                    });
-
-                    MobCore.useFrame(() => {
-                        if (this.#pin)
-                            this.#pin.style.transform = `translate(0px,${translateValue}px)`;
-                    });
-                }
+                return;
             }
+
+            if (this.#direction === MobScrollerConstant.DIRECTION_VERTICAL) {
+                this.#refreshCollisionPoint();
+            }
+
+            const gap = scrollY - this.#prevscrollY;
+            this.#prevscrollY = scrollY;
+
+            if (!this.#isInner || !this.#pin || !this.#spring) {
+                return;
+            }
+
+            const { verticalGap } = this.#spring.get();
+            const translateValue = verticalGap - gap;
+
+            /**
+             * No need animation update data and apply style directly
+             */
+            this.#spring.setData({
+                collision: 0,
+                verticalGap: translateValue,
+            });
+
+            MobCore.useFrame(() => {
+                if (this.#pin)
+                    this.#pin.style.transform = `translate(0px,${translateValue}px)`;
+            });
         });
     }
 

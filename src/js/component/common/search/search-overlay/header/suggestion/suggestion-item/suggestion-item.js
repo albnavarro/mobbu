@@ -18,7 +18,6 @@ const onKeyDown = ({ code, word }) => {
     }
 
     closeSearchSuggestion();
-    return;
 };
 
 /**

@@ -41,7 +41,9 @@ const action = ({ prevValue, value, maxVal }) => {
      * ON_ENTER
      */
     return (value > 0 && value < maxVal && prevValue <= 0 && maxVal >= 0) ||
-        (value < 0 && prevValue >= 0 && maxVal <= 0) ? MobScrollerConstant.ON_ENTER : MobScrollerConstant.ON_NOOP;
+        (value < 0 && prevValue >= 0 && maxVal <= 0)
+        ? MobScrollerConstant.ON_ENTER
+        : MobScrollerConstant.ON_NOOP;
 };
 
 /**

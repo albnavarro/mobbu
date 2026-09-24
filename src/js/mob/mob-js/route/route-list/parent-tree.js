@@ -62,15 +62,15 @@ export const getPageTreeFromPath = ({ hash, children = parentList }) => {
         if (node.hash === hash) return node.children;
 
         /**
-         * Return first valid result from nested pages
+         * No children -> nothing to search below.
          */
-        if (node.children.length > 0) {
-            const result = getPageTreeFromPath({
-                hash,
-                children: node.children,
-            });
+        if (node.children.length === 0) continue;
 
-            if (result) return result;
-        }
+        const result = getPageTreeFromPath({
+            hash,
+            children: node.children,
+        });
+
+        if (result) return result;
     }
 };

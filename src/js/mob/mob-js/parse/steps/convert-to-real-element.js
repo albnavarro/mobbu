@@ -138,8 +138,8 @@ const addToNamedSlot = ({ element }) => {
         }
 
         slot.parentNode?.insertBefore(component, slot);
-        slot?.removeCustomComponent();
-        slot?.remove();
+        slot.removeCustomComponent();
+        slot.remove();
     }
 };
 

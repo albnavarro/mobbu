@@ -28,7 +28,10 @@ const activeItemChildren = ({ id, value }) => {
 
     const flatChildren = Object.values(children).flat();
     const hasOccurrence = flatChildren.includes(value);
-    return hasOccurrence ? true : flatChildren.some((id) => activeItemChildren({ id, value }));
+    return (
+        hasOccurrence ||
+        flatChildren.some((id) => activeItemChildren({ id, value }))
+    );
 };
 
 /**

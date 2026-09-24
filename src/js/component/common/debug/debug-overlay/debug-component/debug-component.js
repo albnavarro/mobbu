@@ -27,10 +27,9 @@ let isJustCreated = false;
  * @returns {string}
  */
 const getClassList = (value) => {
-    return value ? [...value].reduce(
-        (previous, current) => `${previous}.${current}`,
-        ''
-    ) : '';
+    return value
+        ? [...value].reduce((previous, current) => `${previous}.${current}`, '')
+        : '';
 };
 
 /**

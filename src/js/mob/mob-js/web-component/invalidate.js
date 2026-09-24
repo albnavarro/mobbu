@@ -11,17 +11,14 @@ export const defineInvalidateComponent = () => {
             }
 
             connectedCallback() {
-                // @ts-ignore
-                const { dataset } = this.shadowRoot?.host ?? {};
+                const host = /** @type {HTMLElement | undefined} */ (
+                    this.shadowRoot?.host
+                );
 
-                if (dataset) {
-                    const host = /** @type {HTMLElement} */ (
-                        this.shadowRoot?.host
-                    );
-                    const invalidateId =
-                        host.getAttribute(ATTR_INVALIDATE) ?? '';
-                    setParentInvalidate({ invalidateId, host });
-                }
+                if (!host?.dataset) return;
+
+                const invalidateId = host.getAttribute(ATTR_INVALIDATE) ?? '';
+                setParentInvalidate({ invalidateId, host });
             }
 
             removeCustomComponent() {

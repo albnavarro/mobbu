@@ -85,7 +85,9 @@ export const updateSubscribersCache = (
              * Disable single stagger without modify staggers order ( remove cb id from handleCache )
              */
             return callbackNow.map(({ id: idNow, cb, index, frame }) => {
-                return idNow === id ? { id: idNow, cb: '', index, frame } : { id: idNow, cb, index, frame };
+                return idNow === id
+                    ? { id: idNow, cb: '', index, frame }
+                    : { id: idNow, cb, index, frame };
             });
         },
     };
