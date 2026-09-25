@@ -1391,9 +1391,16 @@ export class MobSmoothScroller {
         /**
          * Arriviamo da uno scorrimento continuo.
          *
-         * - Il check su diffEndValue ( valore attuale e precedente uguale ) é necessario perché:
+         * Check su diffEndValue:
          * - 1. Drag con movimento < 0.5px (arrotontato a 0 da Math.round())
          * - 2. Scroll oltre i limiti (clamp blocca il valore)
+         *
+         * Check su difftime
+         * - Il debounce ( timer ) é attivo solo sull' evento di wheel, non durante il drag.
+         * - Durante un drag non abbiamo la finestra di 4 frame attiva ( debounce ), la stassa si attiva solo al rilascio del touch.
+         * - Nel caso del drag l'opportunitá dello snap si ha dunque dopo il rilascio.
+         * - Individuiamo pause con il touch ancora premuto.
+         * - Poi se la pausa e piu lunga di 4 frame resettiamo la velocitá ( pausa intenzionale ).
          */
         if (diffEndValue !== 0 && diffTime <= threshold) {
             /**
@@ -1440,7 +1447,9 @@ export class MobSmoothScroller {
         }
 
         /**
-         * Dopo una pausa gestiamo la ripresa dal valore neutro di velocitá pari a 1.
+         * Dopo una pausa intenzionale gestiamo la ripresa dal valore neutro di velocitá pari a 1.
+         * - Controllo specifico per il drag, whell é giá coperto del debounce.
+         * - Nel caso del wheel avremmo perció un doppio check
          */
         if (diffTime > threshold) {
             this.#velocity = 1;
