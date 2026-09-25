@@ -1,51 +1,91 @@
-## TODO:
+### TEST semplificazione di setVelocity
 
-#### LastSpinY/X ( da testare )
-
-- Aggiornare lastSpinY/X subito dopo il loro uso
+Eliminiamo `threshold`
+`diffTime <= threshold` nella condizione sembra ridondante, dovrebbe essere giá gestito dal debounce.
 
 ```javascript
-const spinValue = this.#useHorizontalScroll
-    ? (() => {
-          return spinXdiff > spinYdiff ? spinX : spinY;
-      })()
-    : spinY;
 
-this.#lastSpinY = spinY;
-this.#lastSpinX = spinX;
+// dovrebbe essere giá gestito dal debounce, quando `scade` resetta la velocitá.
+if (diffTime > threshold) {
+    this.#velocity = 1;
+}
 ```
 
-#### Inertial limit: ( da testare )
 
-- All'interno di `onWheel`:
-    - `checkSnapOpportunity` && `scheduleSnapTimeout`
-    - Dovrebbero essere eseguite solo se `Math.abs(spinValue) > 1` `( 0.5 )` ?
-- Questo permetterebbe di non `bloccare` un nuovo scroll quando l'intertia `hardware` e troppo bassa.
-- Di fatto saltiamo il controllo degli `snap` su spin molto bassi, questo dovrebbe favorire la fase finale senza far scattare un nuovo `snap` in quanto l'inerzia é troppo bassa.
+```javascript
 
-## Upgrade:
+#setVelocity() {
+    const time = MobCore.getTime();
+    const diffTime = time - this.#previousTime;
 
-### Velocity;
+    /**
+     * DiffEndValue al cambio di direzione genera un valore molto piccolo ( cambio segno ) per cui la velocitá sará
+     * 1.
+     */
+    const diffEndValue = this.#endValue - this.#previousEndValue;
 
-- Calcolare la velocitá a prescindere dallo snap attivo e passarla nella callback.
+    /**
+     * - Calcola la direzione dello scroll.
+     * - Il risultato è sempre 1 (avanti) o -1 (indietro)
+     * - #setVelocity() viene invocata esclusivamente da #updateScrollState(), che a sua volta è triggerata solo da
+     *   input utente reale (wheel, drag, touch).
+     * - In tutti questi casi #endValue è già stato modificato, quindi diffEndValue non può mai essere 0 in condizioni
+     *   normali.
+     */
+    this.#scrollDirection = Math.sign(diffEndValue);
 
-### triggerScrollStart.
+    /**
+     * Arriviamo da uno scorrimento continuo.
+     *
+     * - Il check su diffEndValue ( valore attuale e precedente uguale ) é necessario perché:
+     * - 1. Drag con movimento < 0.5px (arrotontato a 0 da Math.round())
+     * - 2. Scroll oltre i limiti (clamp blocca il valore)
+     */
+    if (diffEndValue !== 0) {
+        /**
+         * Normalizza diffTime a un baseline di 60fps
+         *
+         * - Su display ad alto refresh rate (120Hz, 144Hz) gli eventi arrivano con diffTime più basso.
+         * - Gonfiando artificialmente la velocity.
+         * - Math.max porta diffTime ad almeno 16.67ms, equiparando la velocity a quella che si avrebbe a 60fps.
+         * - Per eventi meno frequenti (mouse wheel, ~80-100ms) diffTime è già maggiore del baseline, quindi non viene
+         *   alterato.
+         */
+        const baselineInterval = 1000 / 60;
+        const normalizedDiffTime = Math.max(diffTime, baselineInterval);
+        const vv = diffEndValue / normalizedDiffTime;
 
-- `triggerScrollStart()` andrebbe chiamato una sola volta quando il movimento parte/riparte.
-- Al momento non abbiamo un evento dedicato per il primo movimento.
-- Di conseguenza chiamiamo la funzione ad ogni movimento
-- `triggerScrollStart` non fá altro che settare `this.#force3D = true` all' interno dei `children`.
+        /**
+         * Velocitá instantanea
+         */
+        const newVelocity =
+            Math.round((Math.abs(vv) + 1) * 10_000) / 10_000;
 
-```js
-#isMoving = false;
+        /**
+         * Media pesata della velocitá precedente e istantanea.
+         *
+         * - Questo evitá che lo snap scatti direttamente sui picchi.
+         * - Smorziamo il picco in modo che:
+         * - Lo snap non scatti su un singolo picco
+         * - Lo snap scatterá quando abbiamo una sequenza temporale di eventi veloci.
+         *
+         * Esempio pratico:
+         *
+         * - NewVelocity: 4.6, 4.6
+         * - This.#velocity: 2.44, 3.304
+         *
+         * EMA ( Exponential Moving Average ):
+         *
+         * - Media mobile che dá piu peso ai valori recenti tramite un fattore di smoothing.
+         */
+        this.#velocity = Math.max(
+            1,
+            this.#velocityEasing * newVelocity +
+                (1 - this.#velocityEasing) * this.#velocity
+        );
+    }
 
-// dentro subscribe:
-if (!this.#isMoving) {
-    this.#isMoving = true;
-    this.#children.forEach((element) => element.triggerScrollStart());
+    this.#previousTime = time;
+    this.#previousEndValue = this.#endValue;
 }
-
-// dentro onComplete:
-this.#isMoving = false;
-this.#children.forEach((element) => element.triggerScrollEnd());
 ```

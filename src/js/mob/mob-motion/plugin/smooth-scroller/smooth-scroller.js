@@ -1023,7 +1023,7 @@ export class MobSmoothScroller {
         this.#executeScroll();
 
         /**
-         * Schedula il timeout per tracciare la fine degli eventi di wheel.
+         * Schedula il timeout per schedulare il reset del valore delal velocitá.
          */
         if (this.#snapPoints.length > 0) {
             this.#scheduleSnapTimeout();
@@ -1234,14 +1234,22 @@ export class MobSmoothScroller {
 
     /**
      * Schedula il reset di velocity ( per coerenza anche di freezeSnap ).
+     * Questo vuol dire che abbiamo una finestra di 4 frame per contrallare l'incremento della velocitá.
+     * In questa finestra temporale `#checkSnapOpportunity()` potra se necessario lanciare uno snap.
      *
      * - Viene chiamato dopo ogni wheel, dopo uno snap o al rilascio del drag.
-     * - Il reset avviene dopo 3 frame ( 3000ms / currentFps ),
-     * - 3000 = 3 secondi.
+     * - Il reset avviene dopo 4 frame ( 4000ms / currentFps ),
+     * - 4000 = 4 secondi.
      * - CurrentFps = frame per secondo
      * - Questo serve a gestire eventi molto ravvicinati del trackpad.
-     * - Se arrivano nuovi eventi durante questa finestra, il timer viene cancellato e rischedulato, permettendo alla
-     *   velocity di accumularsi senza reset.
+     *
+     * Se arrivano azioni volontarie dell'utente durante questa finestra:
+     *
+     * - Il timer viene cancellato e rischedulato, permettendo alla velocity di accumularsi.
+     *   Questo vuol dire che dunrante piu scroll volontari e ravvicinati dell'utente possiamo accumulare i valori della velocitá.
+     *
+     * - Il layer di sicurezza 2 si occuperá di scartare gli eventi non voltari ( residui dati da device con momentum-scroll ).
+     *   Verrá infatti calcalato il lasso di tempo passato tra uno snap e un'azione di wheel, se troppo breve é un residuo del momentum-scroll
      *
      * @type {() => void}
      */
@@ -1260,6 +1268,9 @@ export class MobSmoothScroller {
         );
     }
 
+    /**
+     * Gestiamo il reset del timeout pending.
+     */
     #clearSnapTimeout() {
         if (!this.#snapResetDebounce) {
             return;
@@ -1279,6 +1290,8 @@ export class MobSmoothScroller {
     }
 
     /**
+     * Valutiamo se attivare un nuovo snap.
+     *
      * @returns {boolean | undefined}
      */
     #checkSnapOpportunity() {
@@ -1307,7 +1320,9 @@ export class MobSmoothScroller {
     }
 
     /**
-     * Go to next snap by velocity;
+     * Andiamo al prossimo snap se:
+     * - Non ci sono snap attivi.
+     * - la velocitá é >= di #velocityThreshold.
      *
      * @returns {boolean | undefined}
      */
@@ -1366,8 +1381,8 @@ export class MobSmoothScroller {
         /**
          * Identifichiamo la pausa esplicita dell'utente (ha smesso di scrollare)
          *
-         * - Usiamo lo stesso threshold del debounce (3 frame).
-         * - Se passano più di 3 frame senza nuovi eventi, consideriamo la pausa intenzionale.
+         * - Usiamo lo stesso threshold del debounce (4 frame).
+         * - Se passano più di 4 frame senza nuovi eventi, consideriamo la pausa intenzionale.
          */
         const threshold = Math.ceil(
             MobSmoothScroller.#DEBOUNCE_FRAMES / MobCore.getFps()
@@ -1441,24 +1456,31 @@ export class MobSmoothScroller {
     #updateScrollState() {
         /**
          * Layer di sicurezza n1.
+         * Se abbiamo uno snap attivo non dobbiamo interferire con lo stesso.
          */
         if (this.#snapPoints.length > 0 && this.#freezeSnap) return;
 
-        /**
-         * Layer di sicurezza n2.
-         *
-         * - Se appena dopo uno snap ci troviamo inquesto punto del codice vuol dire che:
-         * - Sappiamo che stiamo esenguendo uno snap,e questo evento é da considerarsi involontario
-         * - Usiamo 100ms come threshold, nei primi 100ms da uno snap siamo sicuri che l'azione corrente é uno snap.
-         * - Ci blocchiamo subito.
-         * - Questo evento puó eseere causato da vari motivi, es: rotella del mouse con inerzia su monitor ad alta
-         *   frequenza.
-         * - 100ms sono un tempo ragionevole, dopo uno snap qualsiasi evento che arriva nei primi 100ms é per forza un
-         *   residuo indesiderato.
-         * - Senza questo controllo il target dello span corrente rischia di essere alterato.
-         */
         if (this.#snapPoints.length > 0) {
             const currentTime = MobCore.getTime();
+
+            /**
+             * Layer di sicurezza n2.
+             * Livello di protezione per i residui inviati da device con momentum-scroll ( es trakpad ).
+             * A differenza del layer 1 qui evitiamo di triggere snap involontari dati da device come il trackpad.
+             *
+             * Nei primi 100ms dopo l'inizio di uno snap, qualsiasi evento è per definizione un residuo.
+             * L'utente non può fisicamente generare un input volontario così vicino all'inizio di uno snap,
+             * e se anche lo facesse, non vuole certo dirottare lo snap appena partito.
+             *
+             * - Qui impediamo che #percent e #velocity vengano alterati.
+             *
+             * #checkSnapOpportunity() a ogni evento `whell` esegue `freezeSnap = false`
+             * Questo per interropere lo snap corrente a ogni movimento `volontario` dell'utente.
+             * Dopo di che viene valutato se avviare un nuovo snap.
+             * Nel caso di un device come un trakpad gli eventi inviati posso essere residui del momentum e non azini voltarie.
+             *
+             * 100ms sono il tempo che si usa per bypassare eventi non voltari ma residui del `momentum-scroll`.
+             */
             const timeFromLastSnap = Math.abs(this.#lastSnapTime - currentTime);
             if (timeFromLastSnap < 100) return;
         }
@@ -1482,12 +1504,12 @@ export class MobSmoothScroller {
 
     #executeScroll() {
         /**
-         * Layer di sicurezza n1.
+         * Layer di sicurezza 3 ( ad ora non raggiungibile ).
          *
-         * - Tutti i `chiamanti` di #executeScroll devono prima eseguire `#checkSnapOpportunity()`.
-         * - `#scheduleCurrentSnap()` modificano il valore di freezeSnap a false.
-         * - Manteniamo il controllo in caso di future modifiche.
-         * - SnapPoints.length serve a proteggere per fuiture modifiche, attualamente non sarebbe necessario.
+         * Ultimo livello di sicurezza, di fatte una `ridondanza` del Layer 1.
+         * Se uno snap é attivo `#goToNextSnap` ha chiamto `#move()`.
+         * `#move()` si é gia occupato del `goTo`.
+         * Non alteriamo lo snap attivo e skippiamo.
          */
         if (this.#snapPoints.length > 0 && this.#freezeSnap) return;
 
