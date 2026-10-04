@@ -902,6 +902,7 @@ export {
 export { normalizeWheel } from './events/mouse-utils/normalize-whell';
 export { ANIMATION_STOP_REJECT } from './events/error-handler/catch-animation-reject.js';
 export { useNextLoop } from './utils/next-tick.js';
+export { useMicrotask } from './utils/next-microtask.js';
 export { getTime } from './events/raf-utils/time.js';
 export { checkType, getTypeName } from './store/store-type.js';
 export { getUnivoqueId } from './utils/index.js';
