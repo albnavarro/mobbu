@@ -420,21 +420,17 @@ const setObj = ({
     /**
      * Check if all old props value is equal new props value.
      */
-    const prevValueIsEqualNew = shouldSkipEqual
-        ? Object.entries(newObjectValues).every(([key, value]) => {
-              return checkEquality(
-                  type[prop][key],
-                  oldObjectValues[key],
-                  value
-              );
-          })
-        : false;
+    const isPrevValueEqualNew =
+        shouldSkipEqual &&
+        Object.entries(newObjectValues).every(([key, value]) => {
+            return checkEquality(type[prop][key], oldObjectValues[key], value);
+        });
 
     /**
      * If shouldSkipEqual = true and previous object is equal new object return. If at least one modified property of
      * the object has skipEqual set to false then the entire object is considered mutated even if all values are equal
      */
-    if (prevValueIsEqualNew && !initalizeStep) return;
+    if (isPrevValueEqualNew && !initalizeStep) return;
 
     /**
      * Finally update Object.

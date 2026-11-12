@@ -133,12 +133,10 @@ export const fetchSearchResult = async ({ currentSearch = '' }) => {
                      */
                     if (listComponent.has(item?.component)) {
                         // liks
-                        if (item?.props?.links) {
-                            // @ts-ignore
-                            return item.props.items.map(({ label }) => label);
-                        }
-
-                        return item.props.items;
+                        return item?.props?.links
+                            ? // @ts-ignore
+                              item.props.items.map(({ label }) => label)
+                            : item.props.items;
                     }
 
                     return item;

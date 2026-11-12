@@ -38,8 +38,6 @@ export const getFirstValidValueBack = (arr, index, prop, propToFind) => {
             return result && !previous && previous !== 0
                 ? result[propToSet[propToFind].get]
                 : previous;
-
-            // eslint-disable-next-line unicorn/no-useless-undefined
         }, undefined);
 };
 

@@ -58,6 +58,7 @@ export const getIdArrayByInstanceName = (name = '') => {
     return name ? (getIdsFromInstanceMap({ instanceName: name }) ?? []) : [];
 };
 
+/* eslint-disable unicorn/consistent-boolean-name -- exported API name */
 /**
  * Get component name By id
  *
@@ -72,6 +73,7 @@ export const componentHasKey = (id = '') => {
 
     return Boolean(key);
 };
+/* eslint-enable unicorn/consistent-boolean-name */
 
 /**
  * Check if component is persistent ( is outside content node element ).

@@ -21,7 +21,7 @@ const getCounter = (value) => {
  * @param {string} params.value
  * @returns {boolean}
  */
-const activeItemChildren = ({ id, value }) => {
+const hasActiveItemChildren = ({ id, value }) => {
     const component = MobJsInternal.componentMap.get(id);
     const children = component?.child;
     if (!children) return false;
@@ -30,7 +30,7 @@ const activeItemChildren = ({ id, value }) => {
     const hasOccurrence = flatChildren.includes(value);
     return (
         hasOccurrence ||
-        flatChildren.some((id) => activeItemChildren({ id, value }))
+        flatChildren.some((id) => hasActiveItemChildren({ id, value }))
     );
 };
 
@@ -83,7 +83,7 @@ export const DebugTreeItemFunction = ({
     computed(
         () => proxi.hasActiveChildren,
         () =>
-            activeItemChildren({
+            hasActiveItemChildren({
                 id: proxi.id,
                 value: boundedProxi.currentId,
             })

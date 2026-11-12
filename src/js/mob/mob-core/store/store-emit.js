@@ -119,7 +119,7 @@ const storeEmitAsync = async ({ instanceId, prop }) => {
  */
 export const storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
-    if (!state) return new Promise((resolve) => resolve(''));
+    if (!state) return '';
 
     const { bindInstance } = state;
 

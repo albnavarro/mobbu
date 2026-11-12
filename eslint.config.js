@@ -37,9 +37,27 @@ export default defineConfig([
             'unicorn/consistent-boolean-name': [
                 'error',
                 {
-                    ignore: ['Default$', '^check'],
+                    ignore: [
+                        'Default$',
+                        '^check',
+                        // Boolean-returning helpers that follow the project naming convention.
+                        '^get',
+                        '^compare',
+                        '^validate',
+                        '^exactMatch',
+                        'IsValid$',
+                        'Validate$',
+                        // Predicate functions typed as `(...) => boolean`.
+                        '^callback$',
+                    ],
                 },
             ],
+            // `x ?? fallback` -> destructuring default is not equivalent (null is no longer handled).
+            'unicorn/prefer-default-parameters': [
+                'error',
+                { checkFallbackExpressions: false },
+            ],
+            'unicorn/no-asterisk-prefix-in-documentation-comments': 'off',
             'unicorn/no-top-level-assignment-in-function': 'off',
             'unicorn/no-break-in-nested-loop': 'off',
             'unicorn/no-unreadable-array-destructuring': 'off',

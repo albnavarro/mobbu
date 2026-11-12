@@ -28,27 +28,19 @@ import {
  */
 const shouldFreeze = (value) => {
     /**
-     * Non congelare null/undefined
-     */
-    if (value == null) return false;
-
-    /**
-     * Non congelare primitivi
-     */
-    if (!checkType(Object, value)) return false;
-
-    /**
-     * NON congelare Map e Set e funzionr
+     * Congela solo Array e Object normali:
      *
-     * - L'utente deve poterli usare con .set/.get e poi chiamare emit manualmente
+     * - Non congelare null/undefined
+     * - Non congelare primitivi
+     * - NON congelare Map e Set e funzionr. L'utente deve poterli usare con .set/.get e poi chiamare emit manualmente
      */
-    if (checkType(Map, value)) return false;
-    if (checkType(Set, value) || checkType(Function, value)) return false;
-
-    /**
-     * Congela Array e Object normali
-     */
-    return true;
+    return (
+        value != null &&
+        checkType(Object, value) &&
+        !checkType(Map, value) &&
+        !checkType(Set, value) &&
+        !checkType(Function, value)
+    );
 };
 
 /**

@@ -54,7 +54,6 @@ export const mathCircle = ({ targets, container, canvas } = {}) => {
 
     let counter = 0;
 
-    // eslint-disable-next-line unicorn/consistent-boolean-name
     let isRunning = false;
 
     const loop = () => {

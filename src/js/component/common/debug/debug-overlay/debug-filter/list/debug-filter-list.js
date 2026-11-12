@@ -77,11 +77,11 @@ const getDataFiltered = ({ testString }) => {
          */
         const result = [];
         for (const item of MobJsInternal.componentMap.values()) {
-            const condition = sortedParsed.every((piece) =>
+            const isMatch = sortedParsed.every((piece) =>
                 item.componentName.toLowerCase().includes(piece.toLowerCase())
             );
 
-            if (condition) result.push(item);
+            if (isMatch) result.push(item);
         }
 
         return result;

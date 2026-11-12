@@ -5,7 +5,7 @@ import { ARRAY, MAP, SET, TYPE_IS_ANY } from './store-type';
  * @param {Map<any, any>} m2
  * @returns {boolean}
  */
-const mapsAreEqual = (m1, m2) =>
+const areMapsEqual = (m1, m2) =>
     m1.size === m2.size &&
     m1.keys().every((key) => m1.get(key) === m2.get(key));
 
@@ -23,7 +23,7 @@ const areSetsEqual = (a, b) =>
  * L'ordine degli elementi è significativo: due array sono uguali solo se hanno la stessa lunghezza e ogni elemento
  * nella stessa posizione è uguale.
  *
- * - Utilizza esclusivamente `objectAreEqual` per il confronto degli elementi.
+ * - Utilizza esclusivamente `areObjectsEqual` per il confronto degli elementi.
  * - Questa funzione è sufficiente per tutti i tipi: per primitive esegue un veloce strict equality (===), per oggetti
  *   esegue deep comparison ricorsiva.
  *
@@ -43,7 +43,7 @@ const areArrayEquals = (a, b) => {
      * - Ogni elemento deve corrispondere alla stessa index
      */
     for (const [i, element] of a.entries()) {
-        if (!objectAreEqual(element, b[i])) {
+        if (!areObjectsEqual(element, b[i])) {
             return false;
         }
     }
@@ -59,7 +59,7 @@ const areArrayEquals = (a, b) => {
  * @param {WeakMap<object, WeakSet<object>>} [seen] - Circular reference tracker
  * @returns {boolean}
  */
-const objectAreEqual = (a, b, seen = new WeakMap()) => {
+const areObjectsEqual = (a, b, seen = new WeakMap()) => {
     /**
      * Same reference (includes both null, both undefined, same object)
      */
@@ -75,12 +75,10 @@ const objectAreEqual = (a, b, seen = new WeakMap()) => {
      */
     const typeA = typeof a;
     const typeB = typeof b;
-    if (typeA !== typeB) return false;
-
     /**
      * Primitives (already checked === above, so they're different)
      */
-    if (typeA !== 'object') return false;
+    if (typeA !== typeB || typeA !== 'object') return false;
 
     /**
      * Circular reference protection
@@ -106,7 +104,7 @@ const objectAreEqual = (a, b, seen = new WeakMap()) => {
     if (isArrayA) {
         if (a.length !== b.length) return false;
         for (const [i, element] of a.entries()) {
-            if (!objectAreEqual(element, b[i], seen)) return false;
+            if (!areObjectsEqual(element, b[i], seen)) return false;
         }
         return true;
     }
@@ -134,7 +132,7 @@ const objectAreEqual = (a, b, seen = new WeakMap()) => {
     if (a instanceof Map && b instanceof Map) {
         if (a.size !== b.size) return false;
         for (const [key, val] of a) {
-            if (!b.has(key) || !objectAreEqual(val, b.get(key), seen)) {
+            if (!b.has(key) || !areObjectsEqual(val, b.get(key), seen)) {
                 return false;
             }
         }
@@ -164,7 +162,7 @@ const objectAreEqual = (a, b, seen = new WeakMap()) => {
     for (const key of keysA) {
         if (
             !Object.prototype.hasOwnProperty.call(b, key) ||
-            !objectAreEqual(a[key], b[key], seen)
+            !areObjectsEqual(a[key], b[key], seen)
         )
             return false;
     }
@@ -181,7 +179,7 @@ const objectAreEqual = (a, b, seen = new WeakMap()) => {
 export const checkEquality = (type, oldValue, newValue) => {
     switch (type) {
         case TYPE_IS_ANY: {
-            return objectAreEqual(oldValue, newValue);
+            return areObjectsEqual(oldValue, newValue);
         }
 
         case ARRAY:
@@ -196,7 +194,7 @@ export const checkEquality = (type, oldValue, newValue) => {
 
         case MAP:
         case Map: {
-            return mapsAreEqual(oldValue, newValue);
+            return areMapsEqual(oldValue, newValue);
         }
 
         default: {

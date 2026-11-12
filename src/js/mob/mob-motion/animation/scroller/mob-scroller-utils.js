@@ -215,7 +215,7 @@ export const getStartPoint = (screenUnit, data, direction) => {
     /**
      * Split into chunk data
      */
-    const str = String(data);
+    const str = data;
     const values = str.split(' ');
 
     /**
@@ -260,7 +260,7 @@ export const getStartPoint = (screenUnit, data, direction) => {
  * @param {string} data
  * @param {number} startPoint
  * @param {number} scrollerHeight
- * @param {boolean} invertSide
+ * @param {boolean} shouldInvertSide
  * @param {string} direction
  * @returns {import('./utils-type.js').scrollTriggerStartEndPartials}
  */
@@ -269,13 +269,13 @@ export const getEndPoint = (
     data,
     startPoint,
     scrollerHeight,
-    invertSide,
+    shouldInvertSide,
     direction
 ) => {
     /**
      * Split into chunk data
      */
-    const str = String(data);
+    const str = data;
     const values = str.split(' ');
 
     /**
@@ -315,7 +315,7 @@ export const getEndPoint = (
     return unitMisure === MobScrollerConstant.PX
         ? {
               value: getValueInPx({
-                  invert: invertSide,
+                  invert: shouldInvertSide,
                   endValInNumber,
                   scrollerHeight,
                   startPoint,
@@ -326,7 +326,7 @@ export const getEndPoint = (
           }
         : {
               value: getValueInVwVh({
-                  invert: invertSide,
+                  invert: shouldInvertSide,
                   scrollerHeight,
                   screenUnit,
                   endValInNumber,
@@ -346,7 +346,7 @@ export const getEndPoint = (
  * @returns {number}
  */
 export const processFixedLimit = (value, stringValue, height, width) => {
-    const str = String(stringValue);
+    const str = stringValue;
 
     /**
      * Plus ( + )

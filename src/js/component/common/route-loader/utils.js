@@ -6,12 +6,12 @@ import { MobJs } from '@mobJs';
  *
  * - First load skip and use main-loader.
  *
- * @param {boolean} value
+ * @param {boolean} shouldSkip
  */
-export const skipRouteLoader = (value) => {
+export const skipRouteLoader = (shouldSkip) => {
     /**
      * @type {import('@mobJsType').UseMethodByName<import('@commonComponent/route-loader/type').RouteLoader>}
      */
     const loaderMethods = MobJs.useMethodByName(routeLoader);
-    loaderMethods.skip(value);
+    loaderMethods.skip(shouldSkip);
 };

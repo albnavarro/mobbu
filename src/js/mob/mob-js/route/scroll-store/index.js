@@ -4,11 +4,11 @@
 let shouldRestoreScroll = true;
 
 /**
- * @param {boolean} value
+ * @param {boolean} shouldRestore
  * @returns {void}
  */
-export const setRestoreScroll = (value) => {
-    shouldRestoreScroll = value;
+export const setRestoreScroll = (shouldRestore) => {
+    shouldRestoreScroll = shouldRestore;
 };
 
 /**

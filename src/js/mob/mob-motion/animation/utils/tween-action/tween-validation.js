@@ -467,6 +467,7 @@ export const durationIsNumberOrFunctionIsValid = (duration) => {
     return isValid ? durationResult : handleSetUp.get('tween').duration;
 };
 
+/* eslint-disable unicorn/consistent-boolean-name -- raw input to validate, not guaranteed boolean */
 /**
  * Check if value is Boolan and true
  *
@@ -477,9 +478,11 @@ export const valueIsBooleanAndTrue = (value, label) => {
     const isValid = MobCore.checkType(Boolean, value);
     if (!isValid && value) booleanWarning(value, label);
 
-    return isValid && value === true;
+    return isValid && value;
 };
+/* eslint-enable unicorn/consistent-boolean-name */
 
+/* eslint-disable unicorn/consistent-boolean-name -- keep same signature as sibling valueIs*AndReturnDefault helpers */
 /**
  * Check if value is Boolan and reteurn Default
  *
@@ -495,6 +498,7 @@ export const valueIsBooleanAndReturnDefault = (value, label, defaultValue) => {
     // @ts-ignore
     return isValid ? value : defaultValue;
 };
+/* eslint-enable unicorn/consistent-boolean-name */
 
 /**
  * Check if value is String and return default
@@ -879,7 +883,6 @@ export const scrollerOnSwitchIsValid = (value) => {
 
     if (!isValid && value) scrollerOnSwitchWarining(value, choice);
 
-    // eslint-disable-next-line unicorn/prefer-logical-operator-over-ternary
     return isValid ? value : false;
 };
 

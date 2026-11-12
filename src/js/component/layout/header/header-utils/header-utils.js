@@ -42,8 +42,7 @@ function additems({ delegateEvents }) {
     /**
     @type {import('./type').HeaderUtils}
     */
-    const header = getCommonData().header;
-    const { links } = header;
+    const { links } = getCommonData().header;
 
     /**
     @type{Record<string, any>}

@@ -33,17 +33,17 @@ export function* walkPreOrder(node) {
 
 /**
  * @param {Element} root
- * @param {boolean} firstOccurrence
+ * @param {boolean} isFirstOccurrenceOnly
  * @returns {UserComponent[]}
  */
-function selectAll(root, firstOccurrence) {
+function selectAll(root, isFirstOccurrenceOnly) {
     const result = [];
 
     for (const node of walkPreOrder(root)) {
         /**
          * Skip after first result. We are looking the first occurrence.
          */
-        if (firstOccurrence && result.length > 0) break;
+        if (isFirstOccurrenceOnly && result.length > 0) break;
 
         // @ts-expect-error Generator return a generic Element.
         if (node?.getIsPlaceholder?.()) {

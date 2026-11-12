@@ -130,7 +130,7 @@ const shouldMakeSomethingInstant = () => fps < (maxFps / 5) * 4;
  *
  * @returns {void}
  */
-const requiresMakeSomethingStart = () => {
+const startRequiresMakeSomething = () => {
     if (requiresMakeSomethingState || !requiresMakeSomethingInstant()) return;
 
     requiresMakeSomethingState = true;
@@ -144,7 +144,7 @@ const requiresMakeSomethingStart = () => {
  *
  * @returns {void}
  */
-const shouldMakeSomethingStart = () => {
+const startShouldMakeSomething = () => {
     if (shouldMakeSomethingState || !shouldMakeSomethingInstant()) return;
 
     shouldMakeSomethingState = true;
@@ -306,12 +306,12 @@ const render = (timestamp) => {
     /**
      * Start frame check for mustMakeSomething methods.
      */
-    requiresMakeSomethingStart();
+    startRequiresMakeSomething();
 
     /**
      * Start frame check for shouldMakeSomething methods.
      */
-    shouldMakeSomethingStart();
+    startShouldMakeSomething();
 
     /**
      * Fire callbnack
@@ -401,7 +401,7 @@ export const handleFrame = (() => {
      *
      * @returns {boolean}
      */
-    const mustMakeSomething = () => requiresMakeSomethingState;
+    const mustMakeSomething = () => requiresMakeSomethingState; // eslint-disable-line unicorn/consistent-boolean-name -- public MobCore API name
 
     /**
      * Return the mustMakeSomethingIsActive status. If frame dropped the value is true for X seconds.

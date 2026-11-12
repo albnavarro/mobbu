@@ -75,12 +75,10 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
 
         element.addEventListener(eventName, handler);
 
-        return [
-            {
-                eventName,
-                handler,
-            },
-        ];
+        return {
+            eventName,
+            handler,
+        };
     });
 
     /**

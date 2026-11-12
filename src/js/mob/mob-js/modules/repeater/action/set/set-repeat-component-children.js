@@ -49,6 +49,7 @@ export const getRepeaterComponentChildren = ({ repeatId }) => {
     return componentChildren;
 };
 
+/* eslint-disable unicorn/consistent-boolean-name -- exported API name */
 /**
  * @param {object} params
  * @param {string} params.repeatId
@@ -61,3 +62,4 @@ export const repeaterhasComponentChildren = ({ repeatId }) => {
     const { componentChildren } = item;
     return componentChildren.length > 0;
 };
+/* eslint-enable unicorn/consistent-boolean-name */

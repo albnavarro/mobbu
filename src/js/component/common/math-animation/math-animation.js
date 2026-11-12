@@ -36,8 +36,7 @@ export const MathAnimationFunction = ({
     /**
      * Create fake methods before onMount to prevent nav buttons error.
      */
-    const fake = fakeAnimation();
-    let { destroy, play, stop, resume } = fake;
+    let { destroy, play, stop, resume } = fakeAnimation();
 
     onMount(({ element }) => {
         const { target: targets } = getRefs();

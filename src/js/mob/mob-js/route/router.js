@@ -297,10 +297,10 @@ export const router = () => {
      * locale.
      */
     globalThis.addEventListener('hashchange', async () => {
-        const fromHistory = hasPendingHistoryNavigation;
+        const isFromHistory = hasPendingHistoryNavigation;
         hasPendingHistoryNavigation = false;
         await awaitNextLoop();
-        parseUrlHash({ fromHistory });
+        parseUrlHash({ fromHistory: isFromHistory });
     });
 };
 

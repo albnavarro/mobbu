@@ -205,17 +205,11 @@ export const loadPage = async ({
             previousTemplate: fromRoute.templateName,
         });
 
-    if (isBrowserNavigation && getRestoreScroll()) {
-        /**
-         * With browser navigation restore stored scroll position.
-         */
-        scrollTo(0, scrollY);
-    } else {
-        /**
-         * In direct navigaione scroll is always 0 ( news page )
-         */
-        scrollTo(0, 0);
-    }
+    /**
+     * - With browser navigation restore stored scroll position.
+     * - In direct navigaione scroll is always 0 ( news page )
+     */
+    scrollTo(0, isBrowserNavigation && getRestoreScroll() ? scrollY : 0);
 
     /**
      * Set active route to body data-route

@@ -68,12 +68,13 @@ export const mixPreviousAndCurrentData = (
  * @param {string} obj.key
  * @returns {boolean}
  */
-const arrayhaskey = ({ arr = [], key = '' }) => {
+const isKeyInEveryItem = ({ arr = [], key = '' }) => {
     return arr.every((/** @type {object} */ item) => {
         return MobCore.checkType(Object, item) && Object.hasOwn(item, key);
     });
 };
 
+/* eslint-disable unicorn/consistent-boolean-name -- exported API name */
 /**
  * Check if current and previous array has key.
  *
@@ -85,10 +86,11 @@ const arrayhaskey = ({ arr = [], key = '' }) => {
  */
 export const listKeyExist = ({ current, previous, key }) => {
     return (
-        arrayhaskey({ arr: current, key }) &&
-        arrayhaskey({ arr: previous, key })
+        isKeyInEveryItem({ arr: current, key }) &&
+        isKeyInEveryItem({ arr: previous, key })
     );
 };
+/* eslint-enable unicorn/consistent-boolean-name */
 
 /**
  * Returns unique elements from an array based on a specific key value.

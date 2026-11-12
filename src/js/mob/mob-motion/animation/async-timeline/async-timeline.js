@@ -624,7 +624,6 @@ export default class MobAsyncTimeline {
                     if (!valueIsValid)
                         timelineSuspendWarning(() => suspendValue);
 
-                    // eslint-disable-next-line unicorn/prefer-logical-operator-over-ternary
                     const shouldSuspend = valueIsValid ? suspendValue : true;
 
                     return new Promise((res) => {
@@ -637,7 +636,6 @@ export default class MobAsyncTimeline {
             };
 
             return new Promise((mainResolve, mainReject) => {
-                // eslint-disable-next-line unicorn/prefer-logical-operator-over-ternary
                 const delay = isImmediate ? false : tweenProps?.delay;
                 const previousSessionId = this.#sessionId;
 

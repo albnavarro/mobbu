@@ -1,5 +1,3 @@
-import { MobCore } from '../../../mob-core';
-
 /**
  * Sanitize Number in case is in calculator enutation.
  *
@@ -8,13 +6,7 @@ import { MobCore } from '../../../mob-core';
  */
 export const getRoundedValue = (x) => {
     /**
-     * Se è già un numero, arrotonda direttamente
-     */
-    if (MobCore.checkType(Number, x))
-        return Math.round(x * 10_000) / 10_000 || 0;
-
-    /**
-     * Fallback: Number gestisce nativamente stringhe numeriche e e-notation
+     * Number gestisce nativamente numeri, stringhe numeriche e e-notation
      */
     return Math.round(Number(x) * 10_000) / 10_000 || 0;
 };

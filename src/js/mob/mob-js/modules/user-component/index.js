@@ -104,11 +104,11 @@ export const clearUserPlaceholder = async () => {
 };
 
 /**
- * @param {boolean} value
+ * @param {boolean} shouldSkip
  * @returns {void}
  */
-export const setSkipAddUserComponent = (value) => {
-    shouldSkipAddUserComponent = value;
+export const setSkipAddUserComponent = (shouldSkip) => {
+    shouldSkipAddUserComponent = shouldSkip;
 };
 
 export const getSkipAddUserComponent = () => shouldSkipAddUserComponent;

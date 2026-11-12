@@ -44,8 +44,8 @@ export const Move3DFunction = ({
     let dragX = 0;
     let lastY = 0;
     let dragY = 0;
-    let onDrag = false;
-    let firstDrag = false;
+    let isOnDrag = false;
+    let isFirstDrag = false;
     let pageCoord = { x: 0, y: 0 };
     let lastScrolledTop = 0;
     let unsubscribeTouchStart = NOOP;
@@ -68,7 +68,7 @@ export const Move3DFunction = ({
     @type{() => void }
     */
     const onMouseUp = () => {
-        onDrag = false;
+        isOnDrag = false;
     };
 
     /**
@@ -90,10 +90,10 @@ export const Move3DFunction = ({
         const y = pageCoord.y;
 
         const { xgap, ygap } = (() => {
-            if (!onDrag) return { xgap: 0, ygap: 0 };
+            if (!isOnDrag) return { xgap: 0, ygap: 0 };
 
-            if (firstDrag) {
-                firstDrag = false;
+            if (isFirstDrag) {
+                isFirstDrag = false;
                 return {
                     xgap: 0,
                     ygap: 0,
@@ -106,12 +106,12 @@ export const Move3DFunction = ({
             };
         })();
 
-        if (onDrag) {
+        if (isOnDrag) {
             dragX += xgap;
             dragY += ygap;
         }
 
-        const { xInMotion, yInMotion } = onDrag
+        const { xInMotion, yInMotion } = isOnDrag
             ? {
                   xInMotion: dragX,
                   yInMotion: dragY,
@@ -198,8 +198,8 @@ export const Move3DFunction = ({
             return;
         }
 
-        onDrag = true;
-        firstDrag = true;
+        isOnDrag = true;
+        isFirstDrag = true;
     };
 
     /**
@@ -356,9 +356,9 @@ export const Move3DFunction = ({
             // @ts-ignore
             dragY = null;
             // @ts-ignore
-            onDrag = null;
+            isOnDrag = null;
             // @ts-ignore
-            firstDrag = null;
+            isFirstDrag = null;
             // @ts-ignore
             pageCoord = null;
             // @ts-ignore

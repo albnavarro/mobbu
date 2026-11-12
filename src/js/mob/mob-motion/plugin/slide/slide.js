@@ -119,14 +119,14 @@ export const MobSlide = (() => {
     const up = async (target) => {
         // @ts-ignore
         if (!isNode(target)) {
-            return new Promise((resolve) => resolve(true));
+            return true;
         }
 
         // Reject of target not exist in store
         const currentItem = slideItems.get(target);
         if (!currentItem) {
             console.warn('slide element not exist in slide store');
-            return new Promise((resolve) => resolve(true));
+            return true;
         }
 
         // height of item may be change once opened outside tween control
@@ -157,14 +157,14 @@ export const MobSlide = (() => {
      */
     const down = async (target) => {
         if (!isNode(target)) {
-            return new Promise((resolve) => resolve(true));
+            return true;
         }
 
         // Reject of target not exist in store
         const currentItem = slideItems.get(target);
         if (!currentItem) {
             console.warn('slide element not exist in slide store');
-            return new Promise((resolve) => resolve(true));
+            return true;
         }
 
         // @ts-ignore

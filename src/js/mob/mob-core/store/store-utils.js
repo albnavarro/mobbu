@@ -62,16 +62,10 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
             }
 
             /**
-             * - Return value for specific KEY in complex state.
+             * - Complex state: return value for specific KEY.
+             * - Simple value: return value.
              */
-            if (isComplex) {
-                return [key, value[STORE_VALUE_KEY]];
-            }
-
-            /**
-             * Simple value
-             */
-            return [key, value];
+            return [key, isComplex ? value[STORE_VALUE_KEY] : value];
         })
     );
 };

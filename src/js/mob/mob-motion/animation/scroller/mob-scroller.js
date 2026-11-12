@@ -1370,8 +1370,8 @@ export default class MobScroller {
              * Skip unnecessary rendering ( no control from outside )
              */
             if (
-                (!forceRender && this.#endValue === this.#lastValue) ||
-                (!forceRender && !this.#isInViewport)
+                !forceRender &&
+                (this.#endValue === this.#lastValue || !this.#isInViewport)
             )
                 return;
 

@@ -94,12 +94,11 @@ const findParentElementInMap = (target) => {
  */
 const getItemFromTarget = (target) => {
     const data = eventDelegationMap.get(target);
-    if (data) return { target, data };
-
     /**
-     * Wall up DOM tree searcing first element in map. If event.target is inside element where eventi is applied.
+     * If not found walk up DOM tree searcing first element in map. If event.target is inside element where eventi is
+     * applied.
      */
-    return findParentElementInMap(target);
+    return data ? { target, data } : findParentElementInMap(target);
 };
 
 /**
