@@ -869,6 +869,14 @@ export class MobSmoothScroller {
                     ? `translate3d(0px, 0px, 0px) translateY(${-Math.trunc(val)}px)`
                     : `translate3d(0px, 0px, 0px) translateX(${-Math.trunc(val * this.#rtl)}px)`;
 
+            // eslint-disable-next-line unicorn/consistent-boolean-name
+            const willChangePropierties = MobCore.shouldMakeSomething()
+                ? 'transform'
+                : '';
+
+            /** @type {HTMLElement} */ (this.#scroller).style.willChange =
+                willChangePropierties;
+
             /**
              * TODO:
              *
@@ -901,6 +909,8 @@ export class MobSmoothScroller {
                 this.#direction == MobScrollerConstant.DIRECTION_VERTICAL
                     ? `translateY(${-Math.trunc(val)}px)`
                     : `translateX(${-Math.trunc(val * this.#rtl)}px)`;
+
+            /** @type {HTMLElement} */ (this.#scroller).style.willChange = '';
 
             MobCore.useNextTick(() => {
                 this.#onTickCallback({
