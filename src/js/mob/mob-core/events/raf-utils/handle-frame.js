@@ -112,18 +112,130 @@ let requiresMakeSomethingState = false;
 let shouldMakeSomethingState = false;
 
 /**
+ * Real fps (rilevazione cali di performance).
+ *
+ * - `fps` é una media su 1s calcolata sul tempo compensato: stabile, ma lenta e cieca ai freeze.
+ * - `realFps` é la media mobile delle durate reali (timestamp rAF grezzo) degli ultimi N frame.
+ * - Media delle durate e non degli fps: la media degli fps sovrastima i frame veloci e nasconde i cali.
+ * - Ogni durata é limitata a 100ms (stessa soglia percettiva della compensazione lag) cosí un singolo freeze non domina
+ *   la finestra.
+ * - Usato solo per should/mustMakeSomething, `fps` e `maxFps` restano invariati.
+ */
+
+/**
+ * Numero di frame nella finestra di misura.
+ *
+ * @type {number}
+ */
+const realFpsSamples = 10;
+
+/**
+ * @type {number}
+ */
+const realFpsMaxFrameDuration = 100;
+
+/**
+ * @type {number[]}
+ */
+const frameDurations = Array.from({ length: realFpsSamples }, () => 0);
+
+/**
+ * @type {number}
+ */
+let frameDurationsCursor = 0;
+
+/**
+ * @type {number}
+ */
+let frameDurationsCount = 0;
+
+/**
+ * @type {number}
+ */
+let realFps = fps;
+
+/**
+ * Svuota la finestra.
+ *
+ * - Ripresa dopo loop fermo / tab in background: la durata del frame contiene il tempo di inattivitá.
+ * - Finché la finestra non é piena non viene rilevato nessun calo.
+ *
+ * @returns {void}
+ */
+const resetRealFps = () => {
+    frameDurationsCursor = 0;
+    frameDurationsCount = 0;
+};
+
+/**
+ * Calcola il valore reale degli fps correnti basandosi su un sample degli ultimi `realFpsSamples` frame. Aggiorna
+ * `realFps` solo a finestra piena.
+ *
+ * @param {number} duration - Durata reale del frame in ms.
+ * @returns {void}
+ */
+const updateRealFps = (duration) => {
+    /**
+     * Limita la durata del frame a un massimo di 100ms anche se il freeze dura di piu, questo per avere una media coerente.
+     * Qui salviamo la durata del singolo frame, il valore in fps verrá calcolato in seguito.
+     */
+    frameDurations[frameDurationsCursor] = Math.min(
+        Math.max(duration, 0),
+        realFpsMaxFrameDuration
+    );
+
+    /**
+     * Buffer circolare: il cursore ( indice usato da frameDurations ) passa alla posizione successiva.
+     * Il modulo lo riporta a 0 dopo l'ultima posizione ( realFpsSamples - 1 ), quindi il prossimo frame sovrascrive il
+     * piú vecchio.
+     */
+    frameDurationsCursor = (frameDurationsCursor + 1) % realFpsSamples;
+
+    /**
+     * Campioni validi nella finestra, massimo realFpsSamples.
+     * L'array non viene mai svuotato: i vecchi valori restano e vengono sovrascritti uno alla volta ( buffer circolare
+     * per performance ). `resetRealFps()` azzera cursore e count, quindi finché count < realFpsSamples i vecchi valori
+     * non vengono letti.
+     *
+     * Il valore sale da 0 a realFpsSamples e poi resta fisso.
+     * Torna a 0 solo con `resetRealFps()` ( primi 2s, tab in background, loop fermo ), poi risale una volta fino a
+     * realFpsSamples.
+     */
+    frameDurationsCount = Math.min(frameDurationsCount + 1, realFpsSamples);
+
+    /**
+     * Se non raggiungiamo la finestra di 10 frame non facciamo nulla.
+     */
+    if (frameDurationsCount < realFpsSamples) return;
+
+    /**
+     * Somma ricalcolata ad ogni frame (10 elementi): nessun drift da somma incrementale in float.
+     */
+    let sum = 0;
+    for (const value of frameDurations) sum += value;
+    if (sum > 0) realFps = (1000 * realFpsSamples) / sum;
+};
+
+/**
+ * @returns {boolean}
+ */
+const isRealFpsReady = () => frameDurationsCount >= realFpsSamples;
+
+/**
  * Check if frame dropped a lot.
  *
  * @returns {boolean}
  */
-const requiresMakeSomethingInstant = () => fps < (maxFps / 5) * 3;
+const requiresMakeSomethingInstant = () =>
+    isRealFpsReady() && realFps < (maxFps / 5) * 3;
 
 /**
  * @returns {boolean} Check
  *
  *   If frame dropped medium.
  */
-const shouldMakeSomethingInstant = () => fps < (maxFps / 5) * 4;
+const shouldMakeSomethingInstant = () =>
+    isRealFpsReady() && realFps < (maxFps / 5) * 4;
 
 /**
  * If frame dropper for X seconds mustMakeSomethingIsActive = true
@@ -279,6 +391,18 @@ const render = (timestamp) => {
         fps = eventStore.getProp('instantFps');
     } else {
         frames++;
+    }
+
+    /**
+     * Real fps:
+     *
+     * - TimeElapsed é la durata reale del frame (non arrotondata, non compensata).
+     * - Primi 2s esclusi (caricamento pagina), come per `fps`.
+     */
+    if (isStopped || time <= firstRunDuration) {
+        resetRealFps();
+    } else {
+        updateRealFps(timeElapsed);
     }
 
     /**

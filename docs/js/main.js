@@ -4125,8 +4125,31 @@
   var currentFrame = 0;
   var requiresMakeSomethingState = false;
   var shouldMakeSomethingState = false;
-  var requiresMakeSomethingInstant = () => fps < maxFps / 5 * 3;
-  var shouldMakeSomethingInstant = () => fps < maxFps / 5 * 4;
+  var realFpsSamples = 10;
+  var realFpsMaxFrameDuration = 100;
+  var frameDurations = Array.from({ length: realFpsSamples }, () => 0);
+  var frameDurationsCursor = 0;
+  var frameDurationsCount = 0;
+  var realFps = fps;
+  var resetRealFps = () => {
+    frameDurationsCursor = 0;
+    frameDurationsCount = 0;
+  };
+  var updateRealFps = (duration) => {
+    frameDurations[frameDurationsCursor] = Math.min(
+      Math.max(duration, 0),
+      realFpsMaxFrameDuration
+    );
+    frameDurationsCursor = (frameDurationsCursor + 1) % realFpsSamples;
+    frameDurationsCount = Math.min(frameDurationsCount + 1, realFpsSamples);
+    if (frameDurationsCount < realFpsSamples) return;
+    let sum = 0;
+    for (const value of frameDurations) sum += value;
+    if (sum > 0) realFps = 1e3 * realFpsSamples / sum;
+  };
+  var isRealFpsReady = () => frameDurationsCount >= realFpsSamples;
+  var requiresMakeSomethingInstant = () => isRealFpsReady() && realFps < maxFps / 5 * 3;
+  var shouldMakeSomethingInstant = () => isRealFpsReady() && realFps < maxFps / 5 * 4;
   var startRequiresMakeSomething = () => {
     if (requiresMakeSomethingState || !requiresMakeSomethingInstant()) return;
     requiresMakeSomethingState = true;
@@ -4183,6 +4206,11 @@
       fps = eventStore.getProp("instantFps");
     } else {
       frames++;
+    }
+    if (isStopped || time <= firstRunDuration) {
+      resetRealFps();
+    } else {
+      updateRealFps(timeElapsed);
     }
     if (!isStopped && time > fpsPrevTime + 1e3) {
       fps = time > firstRunDuration ? Math.round(frames * 1e3 / (time - fpsPrevTime)) : eventStore.getProp("instantFps");
